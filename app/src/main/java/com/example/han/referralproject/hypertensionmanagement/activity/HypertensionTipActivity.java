@@ -11,7 +11,13 @@ import android.widget.FrameLayout;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.util.LocalShared;
+import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +30,7 @@ public class HypertensionTipActivity extends BaseActivity implements WarmNoticeF
 
     @BindView(R.id.fl_container)
     FrameLayout flContainer;
-    public static final String CONTENT = " 您好,根据系统中显示的三次数据判定,您疑似患有高血压,以下问题需要您认真作答";
+    public static final String CONTENT = "小E在您测量的日期中发现您在三天有血压异常偏高现象，可能患有高血压，为更好提供方案，以下问题需您认真作答";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +62,12 @@ public class HypertensionTipActivity extends BaseActivity implements WarmNoticeF
 
     @Override
     public void onFragmentBtnClick() {
-        startActivity(new Intent(this, HasDiseaseOrNotActivity.class));
+        startActivity(new Intent(HypertensionTipActivity.this, HasDiseaseOrNotActivity.class));
     }
 
     @Override
     public void onFragmentBtnTimeOut() {
-        startActivity(new Intent(this, HasDiseaseOrNotActivity.class));
+        startActivity(new Intent(HypertensionTipActivity.this, HasDiseaseOrNotActivity.class));
     }
 
 }

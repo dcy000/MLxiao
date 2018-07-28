@@ -44,10 +44,10 @@ public class DiagnoseInfoBean implements Serializable {
          */
 
         public Object userId;
-        public int detectionDayCount;
+        public Integer detectionDayCount;
         public Object dagerCount;
-        public Object highPressure;
-        public Object lowPressure;
+        public Integer highPressure;
+        public Integer lowPressure;
         public PrimaryBean primary;
         public PrimaryBean risk;
         public PrimaryBean heart;
@@ -60,7 +60,7 @@ public class DiagnoseInfoBean implements Serializable {
         public String hypertensionPrimaryState;
         public Object hypertensionTarget;
         public String hypertensionLevel;
-        public Object result;
+        public String result;
 
         public static class PrimaryBean {
             /**

@@ -21,6 +21,9 @@ import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,8 +149,15 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
         NetworkApi.postPrimaryHypertensionQuestion(new Gson().toJson(postBean), LocalShared.getInstance(this).getUserId() + "", new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                // TODO: 2018/7/27 --->拿出血压进行血压检准备
-
+                String body = response.body();
+                try {
+                    JSONObject object =new JSONObject(body);
+                    if (object.getBoolean("tag")) {
+                        // TODO: 2018/7/27 提示 拿出
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

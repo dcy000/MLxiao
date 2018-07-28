@@ -14,6 +14,14 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceFragment;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceStringFragment;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.util.LocalShared;
+import com.gcml.lib_utils.display.ToastUtils;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -58,12 +66,41 @@ public class HasDiseaseOrNotActivity extends BaseActivity implements MultipleCho
     @Override
     public void onNextStep(int[] checked) {
         if ("是".equals(itmes[checked[0]])) {
-            //给方案
-            // TODO: 2018/7/26  
+            postTargetState("1");
+            toSolution();
         } else {
             //跳转问卷
+            postTargetState("0");
             startActivity(new Intent(this, HypertensionActivity.class));
         }
+    }
+
+    private void toSolution() {
+        // TODO: 2018/7/28
+    }
+
+    /**
+     * 更新靶细胞
+     *
+     * @param state
+     */
+    private void postTargetState(String state) {
+        NetworkApi.postOriginHypertension(state, LocalShared.getInstance(this).getUserId(), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject object = new JSONObject(body);
+                    if (object.getBoolean("tag")) {
+                    } else {
+                        ToastUtils.showShort(object.getString("message"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
 
     }
 }

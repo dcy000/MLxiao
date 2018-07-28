@@ -59,8 +59,25 @@ public class BasicInformationActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_next_step:
-                // TODO: 2018/7/26 去测体重    暂跳 原发高血压问卷
-                startActivity(new Intent(this, OriginHypertensionTipActivity.class));
+                String fromWhere = getIntent().getStringExtra("fromWhere");
+                switch (fromWhere) {
+                    case "pressureNormal":
+                        startActivity(new Intent(this, PressureNornalTipActivity.class));
+                        break;
+                    case "pressureFlat":
+                        startActivity(new Intent(this, PressureFlatTipActivity.class));
+                        break;
+                    case "pressureNormalHigh":
+                        startActivity(new Intent(this, NormalHighTipActivity.class));
+                        break;
+                    case "pressureHigh":
+                        startActivity(new Intent(this, HypertensionTipActivity.class));
+                        break;
+                    case "tipHealthManage":
+                        startActivity(new Intent(this, OriginHypertensionTipActivity.class));
+                        break;
+
+                }
                 break;
             case R.id.tv_birth_info:
                 break;
