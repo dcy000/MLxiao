@@ -17,9 +17,13 @@ import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleC
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,8 +150,17 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
         NetworkApi.postNormalHightQuestion(new Gson().toJson(postBean), LocalShared.getInstance(this).getUserId() + "", new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                // TODO: 2018/7/26 提交成功 问空腹与否
-                startActivity(new Intent(NormalHightActivity.this, IsEmptyStomachOrNotActivity.class));
+                String body = response.body();
+                try {
+                    JSONObject object = new JSONObject(body);
+                    if (object.getBoolean("tag")) {
+                        startActivity(new Intent(NormalHightActivity.this, IsEmptyStomachOrNotActivity.class));
+                    } else {
+                        ToastUtils.showShort(object.getString("message"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

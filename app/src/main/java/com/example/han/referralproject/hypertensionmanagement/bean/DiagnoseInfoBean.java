@@ -45,7 +45,7 @@ public class DiagnoseInfoBean implements Serializable {
 
         public Object userId;
         public Integer detectionDayCount;
-        public Object dagerCount;
+        public Integer dagerCount;
         public Integer highPressure;
         public Integer lowPressure;
         public PrimaryBean primary;
@@ -53,12 +53,12 @@ public class DiagnoseInfoBean implements Serializable {
         public PrimaryBean heart;
         public int age;
         public String sex;
-        public Object weight;
+        public Double weight;
         public int height;
-        public Object waistline;
-        public Object bloodSugar;
+        public Double waistline;
+        public String bloodSugar;
         public String hypertensionPrimaryState;
-        public Object hypertensionTarget;
+        public String hypertensionTarget;
         public String hypertensionLevel;
         public String result;
 

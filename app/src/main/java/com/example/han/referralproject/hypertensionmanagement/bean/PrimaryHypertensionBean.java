@@ -24,7 +24,7 @@ public class PrimaryHypertensionBean implements Serializable {
     public String hmQuestionnaireAssessId;
     public String hmQuestionnaireId;
     public String hmQuestionnaireName;
-    public int score=0;
+    public Integer score=0;
     public String userId;
     public List<AnswerListBean> answerList;
 
