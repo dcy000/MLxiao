@@ -1216,7 +1216,7 @@ public class NetworkApi {
     /**
      * 原发性高血压 修改
      */
-    public static final String POST_ORIGIN_HYPERTENTION = BasicUrl + "ZZB/api/healthMonitor/hypertension/diagnose/primary/";
+    public static final String POST_ORIGIN_HYPERTENTION = BasicUrl + "/ZZB/api/healthMonitor/hypertension/diagnose/primary/";
 
     public static void postOriginHypertension(String hypertensionPrimaryState, String userId, StringCallback callback) {
         OkGo.<String>post(POST_ORIGIN_HYPERTENTION + userId + "/")
@@ -1228,7 +1228,7 @@ public class NetworkApi {
     /**
      * 靶器官判定
      */
-    public static final String POST_TARGET_HYPERTENTION = BasicUrl + "ZZB/api/healthMonitor/hypertension/diagnose/target/";
+    public static final String POST_TARGET_HYPERTENTION = BasicUrl + "/ZZB/api/healthMonitor/hypertension/diagnose/target/";
 
     public static void postTargetHypertension(String hypertensionTarget, String userId, StringCallback callback) {
         OkGo.<String>post(POST_TARGET_HYPERTENTION + userId + "/")
@@ -1240,7 +1240,7 @@ public class NetworkApi {
     /**
      * 获取诊断信息
      */
-    public static final String GET_DIAGNOSE_INFO = BasicUrl + "ZZB/api/healthMonitor/hypertension/diagnose/";
+    public static final String GET_DIAGNOSE_INFO = BasicUrl + "/ZZB/api/healthMonitor/hypertension/diagnose/";
 
     public static void getDiagnoseInfo(String userId, StringCallback callback) {
         OkGo.<String>get(GET_DIAGNOSE_INFO + userId + "/")

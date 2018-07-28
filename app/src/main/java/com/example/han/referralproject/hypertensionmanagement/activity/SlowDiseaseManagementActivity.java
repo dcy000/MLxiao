@@ -2,7 +2,6 @@ package com.example.han.referralproject.hypertensionmanagement.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -63,7 +62,13 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
                     @Override
                     public void onFinish() {
+                        hideLoadingDialog();
                         super.onFinish();
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
                         hideLoadingDialog();
                     }
                 }
@@ -96,7 +101,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      */
     private void onclickHypertensionManage() {
 
-        if (diagnoseInfo.result == null) {
+        if (diagnoseInfo != null && diagnoseInfo.result == null) {
             if (diagnoseInfo.hypertensionPrimaryState == null) {
                 //用户更新原发性信息
                 showOriginHypertensionDialog();
@@ -118,14 +123,14 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     private void onOriginClickNo() {
 
         if (diagnoseInfo.hypertensionLevel == null) {
-            toSulotion();
-        } else {
             if (diagnoseInfo != null && diagnoseInfo.detectionDayCount >= 3) {
                 judgeClass();
             } else {
                 showLessThan3Dialog();
                 end();
             }
+        } else {
+            toSulotion();
         }
 
 
@@ -286,7 +291,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                     if (object.getBoolean("tag")) {
                         if ("0".equals(state)) {
                             onOriginClickNo();
-                        }else if ("1".equals(state)) {
+                        } else if ("1".equals(state)) {
                             onOriginClickNo();
                         }
                     } else {

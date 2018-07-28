@@ -85,7 +85,7 @@ public class HasDiseaseOrNotActivity extends BaseActivity implements MultipleCho
      * @param state
      */
     private void postTargetState(String state) {
-        NetworkApi.postOriginHypertension(state, LocalShared.getInstance(this).getUserId(), new StringCallback() {
+        NetworkApi.postTargetHypertension(state, LocalShared.getInstance(this).getUserId(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 String body = response.body();
