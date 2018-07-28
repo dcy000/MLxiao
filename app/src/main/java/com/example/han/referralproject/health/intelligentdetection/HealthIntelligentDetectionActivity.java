@@ -10,32 +10,40 @@ import com.example.han.referralproject.activity.BaseActivity;
 
 public class HealthIntelligentDetectionActivity extends BaseActivity {
 
-    private boolean isFirstIn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_activity_intelligent_detection);
-        isFirstIn = true;
-        if (isFirstIn) {
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction transaction = fm.beginTransaction();
-            Fragment fragment = fm.findFragmentByTag(HealthFirstTipsFragment.class.getName());
-            if (fragment != null) {
-                transaction.show(fragment);
-            } else {
-                fragment = new HealthFirstTipsFragment();
-                transaction.add(R.id.fl_container, fragment);
-            }
-            transaction.commitAllowingStateLoss();
-            speak(R.string.health_first_detect_tips);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        Fragment fragment = fm.findFragmentByTag(HealthFirstTipsFragment.class.getName());
+        if (fragment != null && fragment.isHidden()) {
+            transaction.show(fragment);
         } else {
-
+            fragment = new HealthFirstTipsFragment();
+            transaction.add(R.id.fl_container, fragment);
         }
+        transaction.commitAllowingStateLoss();
     }
 
     @Override
     protected void onActivitySpeakFinish() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        Fragment fragment = fm.findFragmentByTag(HealthBloodDetectionIntelligentFragment.class.getName());
+        if (fragment != null) {
+            transaction.show(fragment);
+        } else {
+            fragment = new HealthBloodDetectionIntelligentFragment();
+            transaction.add(R.id.fl_container, fragment);
+        }
+        transaction.addToBackStack(null);
+        transaction.commitAllowingStateLoss();
+    }
 
+    @Override
+    protected void onResume() {
+        setEnableListeningLoop(false);
+        super.onResume();
     }
 }

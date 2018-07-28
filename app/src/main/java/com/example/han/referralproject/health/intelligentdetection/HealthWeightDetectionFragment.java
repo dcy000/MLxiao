@@ -5,21 +5,18 @@ import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.util.LocalShared;
 import com.polidea.rxandroidble2.RxBleClient;
-import com.polidea.rxandroidble2.RxBleDevice;
-import com.polidea.rxandroidble2.scan.ScanResult;
 import com.polidea.rxandroidble2.scan.ScanSettings;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -27,8 +24,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -36,9 +31,6 @@ import timber.log.Timber;
  * A simple {@link Fragment} subclass.
  */
 public class HealthWeightDetectionFragment extends Fragment {
-
-    private TextView tvWeight;
-    private TextView tvBodyFat;
 
     public HealthWeightDetectionFragment() {
         // Required empty public constructor
@@ -48,6 +40,9 @@ public class HealthWeightDetectionFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FragmentActivity activity = getActivity();
+        rxPermissions = new RxPermissions(activity);
+        rxBleClient = RxBleClient.create(activity);
     }
 
     @Override
@@ -60,24 +55,23 @@ public class HealthWeightDetectionFragment extends Fragment {
         return view;
     }
 
-    private int layoutId() {
+    protected int layoutId() {
         return R.layout.health_fragment_weight_detection;
     }
 
-    private void initView(View view, Bundle savedInstanceState) {
-        tvWeight = (TextView) view.findViewById(R.id.tv_tizhong);
-        tvBodyFat = (TextView) view.findViewById(R.id.tv_tizhi);
+    protected void initView(View view, Bundle savedInstanceState) {
+
     }
 
     private static final String DEVICE_NAME = "000FatScale01";
     private static final UUID UUID_WEIGHT = UUID.fromString("0000fff1-0000-1000-8000-00805f9b34fb");
     private static final UUID UUID_WEIGHT_SERVICE = UUID.fromString("0000fff0-0000-1000-8000-00805f9b34fb");
 
-    private RxBleClient rxBleClient;
+    private RxBleClient rxBleClient; 
     private RxPermissions rxPermissions;
     private Disposable disposable = Disposables.empty();
 
-    private void startDetection() {
+    protected void startDetection() {
         disposable.dispose();
         AtomicBoolean hasFind = new AtomicBoolean(false);
         AtomicBoolean hasComplete = new AtomicBoolean(false);
@@ -101,7 +95,7 @@ public class HealthWeightDetectionFragment extends Fragment {
                         scanResult.getBleDevice().getName(),
                         scanResult.getBleDevice().getMacAddress()))
                 .filter(scanResult -> DEVICE_NAME.equals(scanResult.getBleDevice().getName()))
-                .doOnNext(scanResult ->  Timber.i("<- scan [Found]: %s %s",
+                .doOnNext(scanResult -> Timber.i("<- scan [Found]: %s %s",
                         scanResult.getBleDevice().getName(),
                         scanResult.getBleDevice().getMacAddress()))
                 .flatMap(scanResult -> {
@@ -120,25 +114,28 @@ public class HealthWeightDetectionFragment extends Fragment {
                 }, Timber::i);
     }
 
+    protected float height() {
+        String userHeight = LocalShared.getInstance(getActivity()).getUserHeight();
+        return TextUtils.isEmpty(userHeight) ? 0 : Float.parseFloat(userHeight) / 100;
+    }
+
     private void parseData(AtomicBoolean hasComplete, byte[] bytes) {
         Timber.i("data");
         if (bytes.length == 14 && (bytes[1] & 0xff) == 221
                 && hasComplete.compareAndSet(false, true)) {
             float weight = ((float) (bytes[2] << 8) + (float) (bytes[3] & 0xff)) / 10;
-            String userHeight = LocalShared.getInstance(getActivity()).getUserHeight();
-            float height = TextUtils.isEmpty(userHeight) ? 0 : Float.parseFloat(userHeight) / 100;
+            float height = height();
             // 18.5 < bodyFat < 23.9
             float bodyFat = weight / (height * height);
-            tvWeight.setText(String.format(Locale.getDefault(), "%.2f", weight));
-            tvBodyFat.setText(String.format(Locale.getDefault(), "%1$.2f", bodyFat));
+//            tvWeight.setText(String.format(Locale.getDefault(), "%.2f", weight));
+//            tvBodyFat.setText(String.format(Locale.getDefault(), "%1$.2f", bodyFat));
+            onWeightResult(weight);
             Timber.i("weight = %s, height = %s, bodyFat = %s", weight, height, bodyFat);
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        startDetection();
+    protected void onWeightResult(float weight) {
+
     }
 
     @Override

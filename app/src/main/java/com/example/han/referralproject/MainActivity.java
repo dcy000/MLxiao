@@ -55,8 +55,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
 
     private ImageView mImageView6;
-    private ImageView mBatteryIv;
-    private BatteryBroadCastReceiver mBatteryReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +85,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mImageView4.setOnClickListener(this);
         mImageView5.setOnClickListener(this);
         mImageView6.setOnClickListener(this);
-        mBatteryIv = (ImageView) findViewById(R.id.iv_battery);
+
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
         mHandler.postDelayed(new Runnable() {
@@ -148,19 +146,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onBackPressed() {
         //main activity no back
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mBatteryReceiver = new BatteryBroadCastReceiver();
-        registerReceiver(mBatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unregisterReceiver(mBatteryReceiver);
     }
 
     @Override
@@ -228,28 +213,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             mImageView2.performClick();
         }
     }
-
-
-    public class BatteryBroadCastReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)) {
-                int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-                int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, 1);
-                int powerValue = (level * 100) / scale;
-                if (powerValue < 10) {
-                    mBatteryIv.setImageResource(R.drawable.battery_0);
-                } else if (powerValue < 20) {
-                    mBatteryIv.setImageResource(R.drawable.battery_1);
-                } else if (powerValue < 80) {
-                    mBatteryIv.setImageResource(R.drawable.battery_2);
-                } else {
-                    mBatteryIv.setImageResource(R.drawable.battery_3);
-                }
-            }
-        }
-    }
-
 
     @Override
     protected void onDestroy() {

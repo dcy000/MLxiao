@@ -1,16 +1,19 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
 import android.Manifest;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.polidea.rxandroidble2.RxBleClient;
 import com.polidea.rxandroidble2.scan.ScanSettings;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -25,17 +28,20 @@ import io.reactivex.disposables.Disposables;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class HealthBloodDetetionFragment extends Fragment {
+public class HealthBloodDetectionFragment extends Fragment {
 
     private TextView tvHighPressure;
     private TextView tvLowPressure;
     private TextView tvPulsePressure;
+    protected TextView tvDetectionAgain;
+    protected TextView tvNext;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rxPermissions = new RxPermissions(getActivity());
-        rxBleClient = RxBleClient.create(getActivity());
+        FragmentActivity activity = getActivity();
+        rxPermissions = new RxPermissions(activity);
+        rxBleClient = RxBleClient.create(activity);
     }
 
     @Nullable
@@ -49,24 +55,27 @@ public class HealthBloodDetetionFragment extends Fragment {
         return view;
     }
 
-    private int layoutId() {
+    protected int layoutId() {
         return R.layout.health_fragment_blood_detection;
     }
 
-    private void initView(View view, Bundle savedInstanceState) {
+    protected void initView(View view, Bundle savedInstanceState) {
+        ((TextView) view.findViewById(R.id.tv_top_title)).setText(R.string.test_xueya);
         tvHighPressure = (TextView) view.findViewById(R.id.high_pressure);
         tvLowPressure = (TextView) view.findViewById(R.id.low_pressure);
         tvPulsePressure = (TextView) view.findViewById(R.id.pulse);
+        tvDetectionAgain = (TextView) view.findViewById(R.id.tv_detection_again);
+        tvNext = (TextView) view.findViewById(R.id.tv_next);
     }
 
     private static final String DEVICE_NAME = "eBlood-Pressure";
-    private static final UUID UUID_BLOOD = UUID.fromString("0000fff4-0000-1000-8000-00805f9b34fb"); // xueya
+    private static final UUID UUID_BLOOD = UUID.fromString("0000fff4-0000-1000-8000-00805f9b34fb");
 
     private RxBleClient rxBleClient;
     private RxPermissions rxPermissions;
     private Disposable disposable = Disposables.empty();
 
-    private void startDetection() {
+    protected void startDetection() {
         disposable.dispose();
         AtomicBoolean hasFind = new AtomicBoolean(false);
         AtomicBoolean hasComplete = new AtomicBoolean(false);
@@ -89,7 +98,7 @@ public class HealthBloodDetetionFragment extends Fragment {
                         scanResult.getBleDevice().getName(),
                         scanResult.getBleDevice().getMacAddress()))
                 .filter(scanResult -> DEVICE_NAME.equals(scanResult.getBleDevice().getName()))
-                .doOnNext(scanResult ->  Timber.i("<- scan [Found]: %s %s",
+                .doOnNext(scanResult -> Timber.i("<- scan [Found]: %s %s",
                         scanResult.getBleDevice().getName(),
                         scanResult.getBleDevice().getMacAddress()))
                 .flatMap(scanResult -> {
@@ -123,14 +132,13 @@ public class HealthBloodDetetionFragment extends Fragment {
             tvHighPressure.setText(String.valueOf(highPressure));
             tvLowPressure.setText(String.valueOf(lowPressure));
             tvPulsePressure.setText(String.valueOf(pulse));
+            onBloodResult(highPressure, lowPressure, pulse);
             Timber.i("data [ complete ]: highPressure = %s, lowPressure = %s, pulse = %s", highPressure, lowPressure, pulse);
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        startDetection();
+    protected void onBloodResult(int highPressure, int lowPressure, int pulse) {
+
     }
 
     @Override

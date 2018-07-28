@@ -88,7 +88,7 @@ public class ReceiverGroupManager {
         ReceiverGroup receiverGroup = new ReceiverGroup(groupValue);
         receiverGroup.addReceiver(KEY_LOADING_COVER, new LoadingCover(context));
         receiverGroup.addReceiver(KEY_CONTROLLER_COVER, new ControllerCover(context));
-//        receiverGroup.addReceiver(KEY_GESTURE_COVER, new GestureCover(context));
+        receiverGroup.addReceiver(KEY_GESTURE_COVER, new GestureCover(context));
 //        receiverGroup.addReceiver(KEY_COMPLETE_COVER, new CompleteCover(context));
         receiverGroup.addReceiver(KEY_ERROR_COVER, new ErrorCover(context));
         return receiverGroup;

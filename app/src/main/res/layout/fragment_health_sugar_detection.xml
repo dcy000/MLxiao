@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_xuetang"
+    android:id="@+id/rl_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -37,40 +37,19 @@
         android:layout_marginTop="10dp"
         android:src="@drawable/video_xueyass" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="320pt"
+        android:layout_height="120pt"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        android:layout_marginLeft="70dp"
-        android:orientation="horizontal"
-        android:visibility="visible">
-
-
-        <Button
-            android:id="@+id/history2"
-            android:layout_width="200dp"
-            android:layout_height="70dp"
-            android:background="@drawable/shape_phone"
-            android:gravity="center"
-            android:text="历史记录"
-            android:textColor="#FFFFFF"
-            android:textSize="35sp" />
-
-
-        <Button
-            android:id="@+id/xuetang_video"
-            android:layout_width="200dp"
-            android:layout_height="70dp"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/shape_show"
-            android:gravity="center"
-            android:text="使用演示"
-            android:textColor="#FFFFFF"
-            android:textSize="35sp" />
-
-
-    </LinearLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="100pt"
+        android:layout_marginLeft="456pt"
+        android:background="@drawable/health_btn_3f86fc"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="#FFFFFF"
+        android:textSize="56pt" />
 
 
     <RelativeLayout

@@ -40,12 +40,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources false
-            buildConfigField  ("String","SERVER_ADDRESS",rootProject.ext.produceUrl)
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
         }
 
         debug {
             debuggable true
-            buildConfigField  ("String","SERVER_ADDRESS",rootProject.ext.developUrl)
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
         }
     }
 
@@ -117,8 +117,8 @@ dependencies {
     implementation name: 'vmtools', ext: 'aar'
     implementation name: 'voicelibrary', ext: 'aar'
 
-
     //system
+    implementation 'com.android.support:support-v4:27.1.1'
     testImplementation rootProject.ext.dependencies["junit"]
     api rootProject.ext.dependencies["constraint-layout"]
     api rootProject.ext.dependencies["support-v4"]

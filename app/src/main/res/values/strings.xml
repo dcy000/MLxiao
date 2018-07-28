@@ -431,6 +431,7 @@
     <string name="test_xueyang">血&#160;&#160;氧&#160;&#160;检&#160;&#160;测</string>
     <string name="test_xindian">心&#160;&#160;电&#160;&#160;检&#160;&#160;测</string>
     <string name="healthy_test">健&#160;&#160;康&#160;&#160;检&#160;&#160;测</string>
+    <string name="healthy_report">健&#160;&#160;康&#160;&#160;报&#160;&#160;告</string>
 
     <string name="temperature">体温</string>
     <string name="temperature1">(℃)</string>
@@ -573,6 +574,12 @@
 
     <string name="health_first_detect_tips">初次见面，我是小E！\n为了更好的了解您的身体，先来做一个全套体检吧!</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="health_tips_left_1">为了保证测量数据准确性，请根据小E提示对左右手血压各进行2–3次测量。请先左手测量！</string>
+    <string name="health_tips_left_2">请将臂带放气，\n再测一次左手血压！</string>
+    <string name="health_tips_left_3">您两次血压数值相差较大,\n请再测一次!</string>
+    <string name="health_tips_right_1">请测量右手血压!</string>
+    <string name="health_tips_right_2">请将臂带放气，\n再测一次右手血压!</string>
+    <string name="health_tips_right_3">您两次血压数值相差较大,\n请再测一次!</string>
+    <string name="health_detection_weight_title">选择您的体重，如果您有体重秤也可以连接蓝牙直接测量</string>
 </resources>

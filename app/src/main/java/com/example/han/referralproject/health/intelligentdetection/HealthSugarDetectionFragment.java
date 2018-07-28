@@ -54,11 +54,11 @@ public class HealthSugarDetectionFragment extends Fragment {
         return view;
     }
 
-    private int layoutId() {
+    protected int layoutId() {
         return R.layout.fragment_health_sugar_detection;
     }
 
-    private void initView(View view, Bundle savedInstanceState) {
+    protected void initView(View view, Bundle savedInstanceState) {
         tvSugar = (TextView) view.findViewById(R.id.tv_xuetang);
     }
 
@@ -74,7 +74,7 @@ public class HealthSugarDetectionFragment extends Fragment {
     private RxPermissions rxPermissions;
     private Disposable disposable = Disposables.empty();
 
-    private void startDetection() {
+    protected void startDetection() {
         disposable.dispose();
 
         String deviceName = DEVICE_NAME_SUGAR;
@@ -137,19 +137,18 @@ public class HealthSugarDetectionFragment extends Fragment {
                 );
     }
 
-    private void parseData(AtomicBoolean hasComplete, byte[] bytes) {
+    protected void parseData(AtomicBoolean hasComplete, byte[] bytes) {
         if (bytes.length >= 12
                 && hasComplete.compareAndSet(false, true)) {
             float sugar = ((float) (bytes[10] << 8) + (float) (bytes[9] & 0xff)) / 18;
             Timber.i("<- sugar = %s", sugar);
+            onSugarResult(sugar);
             tvSugar.setText(String.format(Locale.getDefault(), "%.1f", sugar));
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        startDetection();
+    protected void onSugarResult(float sugar) {
+
     }
 
     @Override
