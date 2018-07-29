@@ -86,5 +86,4 @@ public class BasicInformationActivity extends BaseActivity {
         }
     }
 
-
 }

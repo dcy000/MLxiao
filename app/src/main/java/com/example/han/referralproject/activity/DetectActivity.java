@@ -31,7 +31,6 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -57,7 +56,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.XueyaUtils;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.gcml.module_health_record.HealthRecordActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;

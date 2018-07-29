@@ -33,4 +33,5 @@ android {
 dependencies {
     implementation project(':lib-utils')
     implementation project(':lib-common')
+    implementation project(':lib-voice')
 }

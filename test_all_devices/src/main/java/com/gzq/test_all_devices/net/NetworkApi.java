@@ -22,8 +22,8 @@ public class NetworkApi {
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
 //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
     //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
-//    public static final String BasicUrl = "http://192.168.200.117:8080";//林天聪
-    public static final String BasicUrl = "http://47.96.98.60:8080";//测试服务器
+    public static final String BasicUrl = "http://192.168.200.117:8080";//林天聪
+//    public static final String BasicUrl = "http://47.96.98.60:8080";//测试服务器
 
 
     //生活疗法
@@ -48,6 +48,8 @@ public class NetworkApi {
     public static final String Hypertension_Detection = BasicUrl + "/ZZB/api/healthMonitor/hypertension/analysis/";
     //糖尿病风险评估
     public static final String Bloodsugar_Detection = BasicUrl + "/ZZB/api/healthMonitor/diabetes/questionnaire/";
+    //健康方案中的药物方案
+    public static final String Medicine_Program=BasicUrl+"/ZZB/api/healthMonitor/medicine/hypertension/{userId}/";
 
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";

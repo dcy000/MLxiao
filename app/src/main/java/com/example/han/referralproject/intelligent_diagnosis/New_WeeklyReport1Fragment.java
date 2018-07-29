@@ -2,12 +2,10 @@ package com.example.han.referralproject.intelligent_diagnosis;
 
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -16,9 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.formatter.TimeFormatter;
 import com.example.han.referralproject.formatter.WeeklyReportTimeFormatter;
-import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.view.progress.RxRoundProgressBar;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
@@ -27,10 +23,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.Utils;
 import com.littlejie.circleprogress.WaveProgress;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
-import com.medlink.danbogh.healthdetection.MyMarkerView;
 
 import java.util.ArrayList;
 import java.util.List;

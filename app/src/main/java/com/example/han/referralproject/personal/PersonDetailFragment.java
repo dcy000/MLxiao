@@ -42,9 +42,9 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.gcml.module_health_record.HealthRecordActivity;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.ml.edu.OldRouter;
 import com.squareup.picasso.Picasso;
 

@@ -10,9 +10,23 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
+import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.module_health_record.fragments.HealthRecordBloodpressureFragment;
+import com.gcml.module_health_record.network.HealthRecordNetworkApi;
+import com.google.gson.Gson;
 import com.gzq.administrator.lib_common.base.BaseFragment;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import timber.log.Timber;
 
 public class LastWeekTrendFragment extends BaseFragment {
     private FrameLayout mLastweekTrendFl;
@@ -23,6 +37,7 @@ public class LastWeekTrendFragment extends BaseFragment {
     public void setOnChangToolbar(IChangToolbar iChangToolbar) {
         this.iChangToolbar = iChangToolbar;
     }
+
     @Override
     protected int initLayout() {
         return R.layout.fragment_lastweek_trend;
@@ -38,7 +53,50 @@ public class LastWeekTrendFragment extends BaseFragment {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.lastweek_trend_fl, bloodpressureFragment).commit();
 
+        Calendar calendar = Calendar.getInstance();
+        int selectEndYear = calendar.get(Calendar.YEAR);
+        int selectEndMonth = calendar.get(Calendar.MONTH) + 1;
+        int selectEndDay = calendar.get(Calendar.DATE);
+        String startMillisecond = TimeUtils.string2Milliseconds(selectEndYear + "-" + selectEndMonth + "-" +
+                selectEndDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
+
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - 7);
+        Date weekAgoDate = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String result = format.format(weekAgoDate);
+        String[] date = result.split("-");
+        int selectStartYear = Integer.parseInt(date[0]);
+        int selectStartMonth = Integer.parseInt(date[1]);
+        int selectStartDay = Integer.parseInt(date[2]);
+        String endMillisecond = TimeUtils.string2Milliseconds(selectStartYear + "-" + selectStartMonth + "-" +
+                selectStartDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
+        getBloodpressureData(startMillisecond, endMillisecond);
+       getResult();
     }
+
+    private void getResult() {
+        NetworkApi.getDiagnoseInfo(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
+                if (bean != null && bean.tag && bean.data != null) {
+                    mConclusion.setText(bean.data.result);
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                Timber.e(response.body());
+            }
+        });
+    }
+
+    private void getBloodpressureData(String start, String end) {
+        HealthRecordNetworkApi.getBloodpressureHistory(start, end, "2",
+                response -> bloodpressureFragment.refreshData(response, "2"),
+                message -> bloodpressureFragment.refreshErrorData(message));
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser) {

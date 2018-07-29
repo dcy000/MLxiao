@@ -23,7 +23,7 @@ import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerpint_Fragment;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.gcml.module_health_record.HealthRecordActivity;
 
 public class AllMeasureActivity extends BaseActivity {
     private BaseFragment baseFragment;

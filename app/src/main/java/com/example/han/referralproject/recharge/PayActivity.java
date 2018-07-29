@@ -40,8 +40,8 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
         mButton5 = (Button) findViewById(R.id.pay_5);
         mButton6 = (Button) findViewById(R.id.pay_6);
 
-       /* mImageView1 = (ImageView) findViewById(R.id.icon_back);
-        mImageView2 = (ImageView) findViewById(R.id.icon_home);
+       /* mImageView1 = (ImageView) findViewById(R.id.health_record_icon_back);
+        mImageView2 = (ImageView) findViewById(R.id.health_record_icon_home);
 */
         mButton1.setOnClickListener(this);
         mButton2.setOnClickListener(this);
@@ -108,10 +108,10 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(inten);
 
                 break;
-           /* case R.id.icon_back:
+           /* case R.id.health_record_icon_back:
                 finish();
                 break;
-            case R.id.icon_home:
+            case R.id.health_record_icon_home:
                 Intent intents = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intents);
                 finish();

@@ -14,6 +14,7 @@ import com.iflytek.cloud.SpeechUtility;
 public class BaseApplication extends Application{
     private static BaseApplication mInstance;
     public String userId;
+    public String userName;
     @Override
     public void onCreate() {
         super.onCreate();

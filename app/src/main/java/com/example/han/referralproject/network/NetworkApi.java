@@ -83,6 +83,8 @@ public class NetworkApi {
     public static final String Hypertension_Detection = BasicUrl + "/ZZB/api/healthMonitor/hypertension/analysis/";
     //糖尿病风险评估
     public static final String Bloodsugar_Detection = BasicUrl + "/ZZB/api/healthMonitor/diabetes/questionnaire/";
+    //健康方案中的药物方案
+    public static final String Medicine_Program=BasicUrl+"/ZZB/api/healthMonitor/medicine/hypertension/";
 
     //血压测量惯用手
     public static final String DETECTION_BLOOD_HAND = BasicUrl + "/ZZB/api/healthMonitor/detection/hypertension/hand/";

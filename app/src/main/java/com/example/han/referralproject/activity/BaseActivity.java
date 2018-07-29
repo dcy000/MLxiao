@@ -190,6 +190,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private void initSuperApplicationVariable() {
         BaseApplication.getInstance().userId=MyApplication.getInstance().userId;
+        BaseApplication.getInstance().userName=MyApplication.getInstance().userName;
     }
 
     private boolean checkIgnoreActivity() {

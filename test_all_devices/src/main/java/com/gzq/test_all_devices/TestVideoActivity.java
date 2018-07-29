@@ -18,6 +18,7 @@ import com.gcml.lib_video_ksyplayer.DataInter;
 import com.gcml.lib_video_ksyplayer.default_cover.ControllerCover;
 import com.gcml.lib_video_ksyplayer.default_cover.IJump2NextListener;
 import com.gcml.lib_video_ksyplayer.util.PUtil;
+import com.gzq.test_all_devices.net.NetworkApi;
 import com.kk.taurus.playerbase.assist.OnVideoViewEventHandler;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.entity.DataSource;
@@ -27,6 +28,11 @@ import com.kk.taurus.playerbase.receiver.ReceiverGroup;
 import com.kk.taurus.playerbase.render.AspectRatio;
 import com.kk.taurus.playerbase.render.IRender;
 import com.kk.taurus.playerbase.widget.BaseVideoView;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import timber.log.Timber;
 
 import static com.gcml.lib_video_ksyplayer.DataInter.ReceiverKey.KEY_CONTROLLER_COVER;
 
@@ -45,8 +51,20 @@ public class TestVideoActivity extends AppCompatActivity implements OnPlayerEven
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
                 , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mVideoView = findViewById(R.id.videoView);
-        initPlay();
-
+//        initPlay();
+//        OkGo.<String>get(NetworkApi.Medicine_Program)
+//                .params("userId","100034")
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        Timber.e(response.body());
+//                    }
+//
+//                    @Override
+//                    public void onError(Response<String> response) {
+//                        Timber.e(response.body());
+//                    }
+//                });
 
     }
 

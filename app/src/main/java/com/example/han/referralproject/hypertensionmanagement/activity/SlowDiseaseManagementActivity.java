@@ -122,12 +122,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      */
     private void onOriginClickNo() {
 
-        if (diagnoseInfo.hypertensionLevel == null) {
+        if (diagnoseInfo!=null&&diagnoseInfo.hypertensionLevel == null) {
             if (diagnoseInfo != null && diagnoseInfo.detectionDayCount >= 3) {
                 judgeClass();
             } else {
                 showLessThan3Dialog();
-                end();
             }
         } else {
             toSulotion();
