@@ -1,11 +1,8 @@
 package com.example.han.referralproject;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -17,6 +14,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
+import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -60,8 +58,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
 
      /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
@@ -131,8 +127,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.health_class:
-                intent.setClass(getApplicationContext(), MarketActivity.class);
+                intent = new Intent(this, HealthIntelligentDetectionActivity.class);
                 startActivity(intent);
+//                intent.setClass(getApplicationContext(), MarketActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
                 startActivity(new Intent(this, SlowDiseaseManagementActivity.class));

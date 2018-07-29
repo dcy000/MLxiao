@@ -9,6 +9,7 @@ public class DetectionResult {
     private String result;
 
     public DetectionResult() {
+
     }
 
     public DetectionData getData() {

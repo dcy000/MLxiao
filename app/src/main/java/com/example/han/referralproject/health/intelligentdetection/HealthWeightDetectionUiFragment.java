@@ -13,8 +13,20 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.HealthDiaryDetailsFragment;
+import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
+import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.health.model.DetailsModel;
+import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
+import com.gcml.lib_utils.display.ToastUtils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HealthWeightDetectionUiFragment extends HealthWeightDetectionFragment
         implements HealthDiaryDetailsFragment.OnActionListener {
@@ -96,8 +108,65 @@ public class HealthWeightDetectionUiFragment extends HealthWeightDetectionFragme
     @Override
     public void onAction(int what, float selectedValue, int unitPosition, String item) {
         if (WHAT_WEIGHT_DETECTION == what) {
-
+            uploadData(selectedValue);
         }
+    }
+
+    private void uploadData(float weight) {
+        if (getFragmentManager() != null) {
+            Object obj = DataFragment.get(getFragmentManager()).getData();
+            if (obj == null) {
+                obj = new HashMap<String, Object>();
+            }
+            HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
+            dataMap.put("weight", weight);
+        }
+        ArrayList<DetectionData> datas = new ArrayList<>();
+        DetectionData data = new DetectionData();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        data.setDetectionType("3");
+        data.setWeight(weight);
+        datas.add(data);
+        OkGo.<String>post(NetworkApi.DETECTION_DATA)
+                .upJson(new Gson().toJson(datas))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        if (!response.isSuccessful()) {
+                            ToastUtils.showLong("数据上传失败");
+                            return;
+                        }
+                        String body = response.body();
+                        try {
+                            ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
+                            }.getType());
+                            if (apiResponse.isSuccessful()) {
+                                navToNext();
+                                return;
+                            }
+                        } catch (Throwable e) {
+                            e.printStackTrace();
+                        }
+                        ToastUtils.showLong("数据上传失败");
+                    }
+                });
+    }
+
+    private void navToNext() {
+        FragmentManager fm = getFragmentManager();
+        if (fm == null) {
+            return;
+        }
+        FragmentTransaction transaction = fm.beginTransaction();
+        Fragment fragment = fm.findFragmentByTag(HealthSugarDetectionUiFragment.class.getName());
+        if (fragment != null) {
+            transaction.show(fragment);
+        } else {
+            fragment = new HealthSugarDetectionUiFragment();
+            transaction.add(R.id.fl_container, fragment);
+        }
+        transaction.addToBackStack(null);
+        transaction.commitAllowingStateLoss();
     }
 
     @Override

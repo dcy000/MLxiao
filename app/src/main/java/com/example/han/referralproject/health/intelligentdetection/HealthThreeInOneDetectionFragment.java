@@ -84,13 +84,6 @@ public class HealthThreeInOneDetectionFragment extends Fragment {
                 startDetection();
             }
         });
-        tvNext = ((ImageView) view.findViewById(R.id.tv_next));
-        tvNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         tvOne = ((TextView) view.findViewById(R.id.tv_san_one));
         tvTwo = ((TextView) view.findViewById(R.id.tv_san_two));
         tvThree = ((TextView) view.findViewById(R.id.tv_san_three));
@@ -157,18 +150,18 @@ public class HealthThreeInOneDetectionFragment extends Fragment {
         int basic = (int) Math.pow(16, 3);
         int flag = temp / basic;
         int number = temp % basic;
-        double result = number / Math.pow(10, 13 - flag);
+        float result = (float) (number / Math.pow(10, 13 - flag));
         if (hasComplete.compareAndSet(false, true)) {
             int catogery = 0;
             if (bytes[1] == 65) {//血糖
                 catogery = 1;
                 tvOne.setText(String.valueOf(result));
             } else if (bytes[1] == 81) {//尿酸
-                catogery = 2;
+                catogery = 8;
                 tvTwo.setText(String.valueOf(result));
             } else if (bytes[1] == 97) {//胆固醇
                 tvThree.setText(String.valueOf(result));
-                catogery = 3;
+                catogery = 7;
             }
             onThreeInOneResult(catogery, result);
             Timber.i("%s %s", catogery, result);
@@ -179,10 +172,10 @@ public class HealthThreeInOneDetectionFragment extends Fragment {
     /**
      * 测量结果回调
      *
-     * @param category 1. 血糖 , 2. 尿酸, 3. 胆固醇
+     * @param category 1. 血糖 , 8. 尿酸, 7. 胆固醇
      * @param result   测量值
      */
-    protected void onThreeInOneResult(int category, double result) {
+    protected void onThreeInOneResult(int category, float result) {
 
     }
 

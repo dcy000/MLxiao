@@ -67,6 +67,9 @@ public class HealthFirstTipsFragment extends Fragment {
         FragmentActivity activity = getActivity();
         if (activity != null) {
             ((BaseActivity) activity).speak(getResources().getString(R.string.health_first_detect_tips));
+            speakTips = true;
         }
     }
+
+    public static boolean speakTips = false;
 }

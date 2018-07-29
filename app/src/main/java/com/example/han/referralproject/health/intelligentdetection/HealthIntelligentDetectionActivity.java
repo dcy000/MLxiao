@@ -28,17 +28,20 @@ public class HealthIntelligentDetectionActivity extends BaseActivity {
 
     @Override
     protected void onActivitySpeakFinish() {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        Fragment fragment = fm.findFragmentByTag(HealthBloodDetectionIntelligentFragment.class.getName());
-        if (fragment != null) {
-            transaction.show(fragment);
-        } else {
-            fragment = new HealthBloodDetectionIntelligentFragment();
-            transaction.add(R.id.fl_container, fragment);
+        if (HealthFirstTipsFragment.speakTips) {
+            HealthFirstTipsFragment.speakTips = false;
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction transaction = fm.beginTransaction();
+            Fragment fragment = fm.findFragmentByTag(HealthBloodDetectionUiFragment.class.getName());
+            if (fragment != null) {
+                transaction.show(fragment);
+            } else {
+                fragment = new HealthBloodDetectionUiFragment();
+                transaction.add(R.id.fl_container, fragment);
+            }
+            transaction.addToBackStack(null);
+            transaction.commitAllowingStateLoss();
         }
-        transaction.addToBackStack(null);
-        transaction.commitAllowingStateLoss();
     }
 
     @Override
