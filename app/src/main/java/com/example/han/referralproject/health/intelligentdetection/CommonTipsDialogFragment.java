@@ -47,6 +47,7 @@ public class CommonTipsDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.XDialog);
         if (getArguments() != null) {
             tips = getArguments().getString(ARG_TIPS);
             colorText = getArguments().getString(ARG_COLOR_TEXT);
@@ -88,6 +89,12 @@ public class CommonTipsDialogFragment extends DialogFragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getDialog().setCancelable(false);
     }
 
     private View.OnClickListener actionOnClickListener;

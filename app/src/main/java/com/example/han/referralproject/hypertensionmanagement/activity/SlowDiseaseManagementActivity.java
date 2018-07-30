@@ -8,9 +8,11 @@ import android.widget.ImageView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -44,6 +46,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         initTitle();
         getDiagnoseInfo();
 //        OriginHypertensionTipActivity
+        AppManager.getAppManager().addActivity(this);
     }
 
     /**
@@ -113,7 +116,20 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         } else {
             //有结果-->所有都做完
             ToastUtils.showShort(diagnoseInfo.result);
-            toSulotion();
+            TwoChoiceDialog dialog = new TwoChoiceDialog("您在7天内已生成过健康方案，点击健康方案可直接查看。", "继续测量", "健康方案");
+            dialog.reverseButtonTextColor(true);
+            dialog.setListener(new TwoChoiceDialog.OnDialogClickListener() {
+                @Override
+                public void onClickConfirm(String content) {
+
+                }
+
+                @Override
+                public void onClickCancel() {
+                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
+                }
+            });
+            dialog.show(getFragmentManager(), "detecAgain");
         }
     }
 
@@ -122,7 +138,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      */
     private void onOriginClickNo() {
 
-        if (diagnoseInfo!=null&&diagnoseInfo.hypertensionLevel == null) {
+        if (diagnoseInfo != null && diagnoseInfo.hypertensionLevel == null) {
             if (diagnoseInfo != null && diagnoseInfo.detectionDayCount >= 3) {
                 judgeClass();
             } else {
@@ -175,7 +191,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
                     .putExtra("fromWhere", "pressureNormalHigh"));
         } else {
-            toDetete();
+//            toDetete();
+            startActivity(new Intent(this, WeightMeasureActivity.class));
         }
 
     }
@@ -185,7 +202,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
                     .putExtra("fromWhere", "pressureHigh"));
         } else if ("1".equals(diagnoseInfo.hypertensionTarget)) {
-            toDetete();
+            startActivity(new Intent(this, TreatmentPlanActivity.class));
         } else if ("0".equals(diagnoseInfo.hypertensionTarget)) {
             if (diagnoseInfo.heart == null) {
                 startActivity(new Intent(this, HypertensionTipActivity.class));
@@ -208,9 +225,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             startActivity(new Intent(SlowDiseaseManagementActivity.this, SlowDiseaseManagementTipActivity.class));
         } else {
             if (diagnoseInfo.lowPressure == null) {
-                toDetete();
+//                toDetete();
+                startActivity(new Intent(this, BloodPressureMeasureActivity.class));
             } else {
-                toSulotion();
+//                toSulotion();
+                startActivity(new Intent(this, TreatmentPlanActivity.class));
             }
         }
     }
@@ -228,6 +247,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     private void toSulotion() {
         // TODO: 2018/7/28
+        startActivity(new Intent(this, TreatmentPlanActivity.class));
+
     }
 
     private void getDatimeInfo() {

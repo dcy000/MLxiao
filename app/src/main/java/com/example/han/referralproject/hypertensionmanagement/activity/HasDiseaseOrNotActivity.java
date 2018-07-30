@@ -14,6 +14,7 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceFragment;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceStringFragment;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -42,6 +43,7 @@ public class HasDiseaseOrNotActivity extends BaseActivity implements MultipleCho
         ButterKnife.bind(this);
         initTitle();
         initView();
+        AppManager.getAppManager().addActivity(this);
     }
 
     private void initView() {

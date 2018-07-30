@@ -16,6 +16,7 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionBean;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceFragment;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
@@ -50,7 +51,7 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
         ButterKnife.bind(this);
         initTitle();
         initVP();
-
+        AppManager.getAppManager().addActivity(this);
     }
 
     private void initVP() {
@@ -156,7 +157,7 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
                 try {
                     JSONObject object = new JSONObject(body);
                     if (object.getBoolean("tag")) {
-                        startActivity(new Intent(NormalHightActivity.this, IsEmptyStomachOrNotActivity.class));
+                        startActivity(new Intent(NormalHightActivity.this, WeightMeasureActivity.class));
                     } else {
                         ToastUtils.showShort(object.getString("message"));
                     }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_container"
+    android:layout_width="match_parent"
+    android:layout_height="540pt"
+    android:layout_marginBottom="30pt"
+    android:layout_marginTop="30pt"
+    android:background="@drawable/bg_shadow">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/decorate_left"
+        android:drawablePadding="12pt"
+        android:drawableRight="@drawable/decorate_right"
+        android:textColor="#3F86FC"
+        android:textSize="64pt"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_line_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="心电" />
+
+    <ImageView
+        android:id="@+id/iv_line_title"
+        android:layout_width="0dp"
+        android:layout_height="4pt"
+        android:layout_marginLeft="40pt"
+        android:layout_marginRight="40pt"
+        android:layout_marginTop="170pt"
+        android:src="@drawable/health_ic_report_line"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40pt"
+        android:layout_marginTop="80pt"
+        android:textColor="#333333"
+        android:textSize="56pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_line_title"
+        tools:text="测量结果：波形未见异常" />
+
+
+    <ImageView
+        android:id="@+id/iv_line"
+        android:layout_width="0dp"
+        android:layout_height="4pt"
+        android:layout_marginLeft="40pt"
+        android:layout_marginRight="40pt"
+        android:layout_marginTop="536pt"
+        android:src="@drawable/health_ic_report_line"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
