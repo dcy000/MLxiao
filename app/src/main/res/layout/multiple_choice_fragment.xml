@@ -67,7 +67,7 @@
         android:stretchMode="none"
         android:verticalSpacing="30pt"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tip_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
         tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>
