@@ -55,6 +55,8 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
      * ECG measure result
      */
     private String[] measureResult;
+    private int mEcg;
+    private int mHeartRate;
 
     /**
      * 电量等级
@@ -71,6 +73,10 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
         setContentView(R.layout.main_context_pc80b);
         startService(new Intent(this, ReceiveService.class));
         findViewById(R.id.icon_back).setOnClickListener(this);
+        findViewById(R.id.tv_next).setOnClickListener(this);
+        if (getIntent().getBooleanExtra("forResult", false)) {
+            findViewById(R.id.tv_next).setVisibility(View.VISIBLE);
+        }
         init();
         if (getIntent().getBooleanExtra("playVideoTips", false)) {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
@@ -211,20 +217,10 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                             setHR(data.getInt("nHR"));
                             setSmooth(false);
 
-                            int ecg = data.getInt("nResult");
-                            int heartRate = data.getInt("nHR");
-                            speak(String.format(getString(R.string.tips_result_xindian), heartRate, measureResult[ecg]));
+                            mEcg = data.getInt("nResult");
+                            mHeartRate = data.getInt("nHR");
+                            speak(String.format(getString(R.string.tips_result_xindian), mHeartRate, measureResult[mEcg]));
                             if (getIntent().getBooleanExtra("forResult", false)) {
-                                getWindow().getDecorView().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Intent intent = new Intent();
-                                        intent.putExtra("ecg", ecg)
-                                                .putExtra("heartRate", heartRate);
-                                        setResult(Activity.RESULT_OK, intent);
-                                        finish();
-                                    }
-                                },2000);
                                 return;
                             }
                             DataInfoBean ecgInfo = new DataInfoBean();
@@ -374,6 +370,22 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.icon_back:
+                finish();
+                break;
+            case R.id.tv_next:
+                if (getIntent().getBooleanExtra("forResult", false)) {
+                    getWindow().getDecorView().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent();
+                            intent.putExtra("ecg", mEcg)
+                                    .putExtra("heartRate", mHeartRate);
+                            setResult(Activity.RESULT_OK, intent);
+                            finish();
+                        }
+                    }, 0);
+                    return;
+                }
                 finish();
                 break;
         }

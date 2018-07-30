@@ -100,6 +100,22 @@
             android:id="@+id/main_pc80B_view_draw"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="320pt"
+            android:layout_height="120pt"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100pt"
+            android:layout_marginRight="100pt"
+            android:background="@drawable/health_btn_3f86fc"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="下一步"
+            android:textColor="#FFFFFF"
+            android:textSize="56pt" />
     </RelativeLayout>
 
 </LinearLayout>
