@@ -22,6 +22,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFragment {
     private ImageView ivRight;
@@ -31,6 +32,9 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        tips = "1".equals(MyApplication.getInstance().hypertensionHand)
+                ? getString(R.string.tips_detection_right)
+                : getString(R.string.tips_detection_left);
 //        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.tips_xueya);
 //        MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
     }
@@ -75,6 +79,7 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
                 startDetection();
             }
         });
+        tvNext.setBackgroundResource(R.drawable.health_btn_ffa200);
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,9 +88,7 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
         });
     }
 
-    private String tips = "1".equals(MyApplication.getInstance().hypertensionHand)
-            ? getString(R.string.tips_detection_right)
-            : getString(R.string.tips_detection_left);
+    private String tips;
 
     private boolean second;
 
@@ -130,12 +133,12 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
                         }
                         String body = response.body();
                         try {
-                            ApiResponse<DetectionResult> apiResponse = new Gson().fromJson(body,
-                                    new TypeToken<ApiResponse<DetectionResult>>() {
+                            ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<List<DetectionResult>>>() {
                             }.getType());
                             if (apiResponse.isSuccessful()) {
                                 ToastUtils.showLong("数据上传成功");
-                                result = apiResponse.getData();
+                                result = apiResponse.getData().get(0);
+                                navToNext();
                                 return;
                             }
                         } catch (Throwable e) {

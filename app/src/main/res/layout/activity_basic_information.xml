@@ -82,8 +82,8 @@
         android:id="@+id/tv_next_step"
         android:layout_width="320pt"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="288pt"
         android:layout_marginLeft="59pt"
+        android:layout_marginTop="109pt"
         android:background="@drawable/bg_notice_btn"
         android:gravity="center"
         android:paddingBottom="22pt"
@@ -93,8 +93,8 @@
         android:text="下一步"
         android:textColor="#FFFFFF"
         android:textSize="48pt"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_height"
         tools:ignore="MissingConstraints" />
 
     <TextView

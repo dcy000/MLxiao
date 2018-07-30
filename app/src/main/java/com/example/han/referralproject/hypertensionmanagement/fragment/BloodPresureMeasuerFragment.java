@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.intelligentdetection.HealthBloodDetectionFragment;
@@ -30,6 +32,7 @@ public class BloodPresureMeasuerFragment extends HealthBloodDetectionFragment {
     private int highPressure;
     private int lowPressure;
     private int pulse;
+    private ImageView ivRight;
 
     @Override
     public void onResume() {
@@ -48,6 +51,17 @@ public class BloodPresureMeasuerFragment extends HealthBloodDetectionFragment {
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
+        view.findViewById(R.id.ll_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getFragmentManager() != null) {
+                    getFragmentManager().popBackStack();
+                }
+                getActivity().finish();
+            }
+        });
+        ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
+        ivRight.setOnClickListener(v -> startDetection());
         tvNext.setOnClickListener(v ->
                 uploadData(highPressure, lowPressure, pulse));
     }

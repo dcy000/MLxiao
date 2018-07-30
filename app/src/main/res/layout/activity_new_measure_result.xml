@@ -154,7 +154,7 @@
             android:textSize="56pt"
             android:textColor="#333"
             android:textStyle="bold"
-            android:layout_marginTop="171pt"/>
+            android:layout_marginTop="60pt"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

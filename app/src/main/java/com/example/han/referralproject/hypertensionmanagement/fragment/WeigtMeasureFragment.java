@@ -66,6 +66,7 @@ public class WeigtMeasureFragment extends HealthWeightDetectionFragment implemen
             if (getFragmentManager() != null) {
                 getFragmentManager().popBackStack();
             }
+            getActivity().finish();
         });
         ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
         ivRight.setImageResource(R.drawable.health_ic_blutooth);
