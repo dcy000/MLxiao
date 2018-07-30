@@ -111,8 +111,8 @@ public class TwoChoiceDialog extends DialogFragment {
 
     public void reverseButtonTextColor(boolean isRight) {
         if (isRight) {
-            confirm.setTextColor(Color.parseColor("#BBBBBB"));
-            cancel.setTextColor(Color.parseColor("#3F86FC"));
+//            confirm.setTextColor(Color.parseColor("#BBBBBB"));
+//            cancel.setTextColor(Color.parseColor("#3F86FC"));
         }
     }
 }
