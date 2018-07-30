@@ -1,7 +1,6 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -72,47 +71,39 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
         tvDetectionAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String message = second ? secondTips : firstTips;
-                ToastUtils.showShortOnTop(message);
+                ToastUtils.showShortOnTop(tips);
                 startDetection();
             }
         });
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navToNext();
+                uploadData();
             }
         });
     }
 
-    private String firstTips = "1".equals(MyApplication.getInstance().hypertensionHand)
+    private String tips = "1".equals(MyApplication.getInstance().hypertensionHand)
             ? getString(R.string.tips_detection_right)
             : getString(R.string.tips_detection_left);
-    private String secondTips = "1".equals(MyApplication.getInstance().hypertensionHand)
-            ? getString(R.string.tips_detection_right_again)
-            : getString(R.string.tips_detection_left_again);
 
     private boolean second;
 
-    private int firstHighPressure;
-    private int firstLowPressure;
+    private int highPressure;
+    private int lowPressure;
     private int firstPulse;
-
-    private int secondHighPressure;
-    private int secondLowPressure;
-    private int secondPulse;
 
     @Override
     protected void onBloodResult(int highPressure, int lowPressure, int pulse) {
         if (!second) {
-            firstHighPressure = highPressure;
-            firstLowPressure = lowPressure;
+            second = true;
+            this.highPressure = highPressure;
+            this.lowPressure = lowPressure;
             firstPulse = pulse;
         } else {
-            secondHighPressure = highPressure;
-            secondLowPressure = lowPressure;
-            secondPulse = pulse;
-            uploadData();
+            this.highPressure = (this.highPressure + highPressure) / 2;
+            this.lowPressure = (this.lowPressure + highPressure) / 2;
+            firstPulse = (firstPulse + highPressure) / 2;
         }
     }
 
@@ -122,10 +113,10 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
         DetectionData dataPulse = new DetectionData();
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
         pressureData.setDetectionType("0");
-        pressureData.setHighPressure(firstHighPressure + secondHighPressure / 2);
-        pressureData.setLowPressure(firstLowPressure + secondLowPressure / 2);
+        pressureData.setHighPressure(highPressure);
+        pressureData.setLowPressure(lowPressure);
         dataPulse.setDetectionType("9");
-        dataPulse.setPulse(firstPulse + secondPulse / 2);
+        dataPulse.setPulse(firstPulse);
         datas.add(pressureData);
         datas.add(dataPulse);
         OkGo.<String>post(NetworkApi.DETECTION_DATA + MyApplication.getInstance().userId + "/")
@@ -163,7 +154,7 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
     private DetectionResult result;
 
     private void navToNext() {
-        NewMeasureBloodpressureResultActivity.startActivity(getContext(),result.getDiagnose(),
-                result.getScore(),0,0,result.getResult());
+        NewMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
+                result.getScore(), highPressure, lowPressure, result.getResult());
     }
 }

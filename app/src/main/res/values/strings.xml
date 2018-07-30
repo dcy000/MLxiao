@@ -582,8 +582,8 @@
     <string name="health_tips_right_2">请将臂带放气，\n再测一次右手血压!</string>
     <string name="health_tips_right_3">您两次血压数值相差较大,\n请再测一次!</string>
     <string name="health_detection_weight_title">选择您的体重，如果您有体重秤也可以连接蓝牙直接测量</string>
-    <string name="tips_detection_left">请先测量左手血压</string>
-    <string name="tips_detection_left_again">请先测量左手血压</string>
-    <string name="tips_detection_right">请先测量右手血压</string>
+    <string name="tips_detection_left">请测量左手血压</string>
+    <string name="tips_detection_left_again">请测量左手血压</string>
+    <string name="tips_detection_right">请测量右手血压</string>
     <string name="tips_detection_right_again">请再测量右手血压</string>
 </resources>
