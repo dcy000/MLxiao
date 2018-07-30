@@ -13,6 +13,9 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceStringFragment;
 import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
+import com.medlink.danbogh.alarm.AlarmActivity;
+import com.medlink.danbogh.alarm.AlarmDetail2Activity;
+import com.medlink.danbogh.alarm.AlarmList2Activity;
 
 import java.util.Arrays;
 
@@ -61,7 +64,8 @@ public class IsEmptyStomachOrNotActivity extends BaseActivity implements Multipl
         if ("是".equals(itmes[checked[0]])) {
             startActivity(new Intent(this, BloodClucoseMeasureActivity.class));
         } else {
-
+            AlarmDetail2Activity.newLaunchIntent(this, -1);
+            AppManager.getAppManager().finishAllActivity();
         }
 
     }
