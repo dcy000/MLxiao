@@ -151,9 +151,9 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
             public void onSuccess(Response<String> response) {
                 String body = response.body();
                 try {
-                    JSONObject object =new JSONObject(body);
+                    JSONObject object = new JSONObject(body);
                     if (object.getBoolean("tag")) {
-                        // TODO: 2018/7/27 提示 拿出
+                        startActivity(new Intent(PrimaryHypertensionActivity.this, BloodPressureMeasureActivity.class));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

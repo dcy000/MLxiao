@@ -222,9 +222,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             startActivity(new Intent(SlowDiseaseManagementActivity.this, SlowDiseaseManagementTipActivity.class));
         } else {
             if (diagnoseInfo.lowPressure == null) {
-                toDetete();
+//                toDetete();
+                startActivity(new Intent(this, BloodPressureMeasureActivity.class));
             } else {
-                toSulotion();
+//                toSulotion();
+                startActivity(new Intent(this, TreatmentPlanActivity.class));
             }
         }
     }
