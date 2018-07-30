@@ -13,6 +13,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.google.gson.Gson;
@@ -40,6 +41,7 @@ public class HypertensionTipActivity extends BaseActivity implements WarmNoticeF
         initTitle();
         mlSpeak(CONTENT);
         initView();
+        AppManager.getAppManager().addActivity(this);
 
     }
 

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.lib_utils.display.ToastUtils;
 
@@ -35,6 +36,7 @@ public class BasicInformationActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTitle();
         initView();
+        AppManager.getAppManager().addActivity(this);
     }
 
     private void initView() {

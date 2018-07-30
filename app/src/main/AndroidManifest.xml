@@ -718,14 +718,11 @@
             android:name=".facerecognition.FaceRecognitionActivity"
             android:label="人脸识别界面"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity"
             android:screenOrientation="landscape">
-
-
         </activity>
-
-        <activity android:name=".health.firstdetect.HealthFirstDetectActivity" />
 
         <activity
             android:name=".facerecognition.RegisterHead2XunfeiActivity"
@@ -750,8 +747,11 @@
         <activity android:name=".hypertensionmanagement.activity.HypertensionTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.HypertensionActivity" />
         <activity android:name=".hypertensionmanagement.activity.HasDiseaseOrNotActivity" />
-        <activity android:name=".hypertensionmanagement.activity.IsEmptyStomachOrNotActivity"></activity>
-        <activity android:name=".hypertensionmanagement.activity.NormalHightActivity"></activity>
+        <activity android:name=".hypertensionmanagement.activity.IsEmptyStomachOrNotActivity" />
+        <activity android:name=".hypertensionmanagement.activity.NormalHightActivity" />
+        <activity android:name=".hypertensionmanagement.activity.BloodPressureMeasureActivity" />
+        <activity android:name=".hypertensionmanagement.activity.BloodClucoseMeasureActivity" />
+        <activity android:name=".hypertensionmanagement.activity.WeightMeasureActivity"></activity>
     </application>
 
 </manifest>

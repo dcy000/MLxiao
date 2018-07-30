@@ -14,6 +14,7 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionBean;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceFragment;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
@@ -47,7 +48,7 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
         ButterKnife.bind(this);
         initTitle();
         initVP();
-
+        AppManager.getAppManager().addActivity(this);
     }
 
     private void initVP() {
@@ -151,9 +152,9 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
             public void onSuccess(Response<String> response) {
                 String body = response.body();
                 try {
-                    JSONObject object =new JSONObject(body);
+                    JSONObject object = new JSONObject(body);
                     if (object.getBoolean("tag")) {
-                        // TODO: 2018/7/27 提示 拿出
+                        startActivity(new Intent(PrimaryHypertensionActivity.this, BloodPressureMeasureActivity.class));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -93,6 +93,7 @@ public class NetworkApi {
     //首诊结果获取
     public static final String DETECTION_RESULT = BasicUrl + "/ZZB/api/healthMonitor/detection/result/";
 
+
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";

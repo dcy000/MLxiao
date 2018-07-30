@@ -11,6 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +32,7 @@ public class NormalHighTipActivity extends BaseActivity implements WarmNoticeFra
         initTitle();
         mlSpeak(CONTENT);
         initView();
+        AppManager.getAppManager().addActivity(this);
     }
 
     private void initView() {
@@ -51,11 +53,11 @@ public class NormalHighTipActivity extends BaseActivity implements WarmNoticeFra
 
     @Override
     public void onFragmentBtnClick() {
-
+        startActivity(new Intent(this, NormalHightActivity.class));
     }
 
     @Override
     public void onFragmentBtnTimeOut() {
-
+        startActivity(new Intent(this, NormalHightActivity.class));
     }
 }

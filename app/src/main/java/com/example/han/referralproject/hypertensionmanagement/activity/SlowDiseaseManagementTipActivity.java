@@ -7,9 +7,11 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.google.gson.Gson;
@@ -39,6 +41,7 @@ public class SlowDiseaseManagementTipActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTitle();
         mlSpeak(CONTENT);
+        AppManager.getAppManager().addActivity(this);
     }
 
     private void initTitle() {
@@ -55,10 +58,10 @@ public class SlowDiseaseManagementTipActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.tv_next_step:
                 startActivity(new Intent(this, BasicInformationActivity.class)
-                .putExtra("fromWhere","tipHealthManage"));
+                        .putExtra("fromWhere", "tipHealthManage"));
                 break;
             case R.id.tv_to_mall:
-                // TODO: 2018/7/27 前往商城
+                startActivity(new Intent(this, MarketActivity.class));
                 break;
         }
     }
