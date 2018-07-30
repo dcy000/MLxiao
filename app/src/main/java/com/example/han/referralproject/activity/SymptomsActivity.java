@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.SymptomAdapter;
+import com.example.han.referralproject.homepage.MainActivity;
 
 import java.util.ArrayList;
 

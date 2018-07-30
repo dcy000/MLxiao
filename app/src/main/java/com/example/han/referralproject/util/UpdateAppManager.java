@@ -18,11 +18,10 @@ import android.webkit.URLUtil;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.medlink.danbogh.signin.SignInActivity;
+import com.example.han.referralproject.homepage.MainActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;

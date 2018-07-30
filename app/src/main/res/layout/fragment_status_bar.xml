@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="上午12:32 1月26日 周五" />
+        tools:text="上午12:32 1月26日 周五"
+        android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/iv_charging_indicator"

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.gcml.lib_utils.display.ToastUtils;

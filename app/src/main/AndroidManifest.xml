@@ -128,10 +128,6 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
         <!-- <activity -->
         <!-- android:name="com.mob.tools.MobUIShell" -->
         <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
@@ -223,13 +219,13 @@
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            <!--<category android:name="android.intent.category.HOME" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".Test_mainActivity"
@@ -727,13 +723,15 @@
         <activity
             android:name=".facerecognition.RegisterHead2XunfeiActivity"
             android:label="新的头像注册界面"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".video.MeasureVideoPlayActivity"
-            android:screenOrientation="landscape"
-            android:label="测量演示视频播放界面"/>
-        <activity android:name="com.gcml.module_health_record.HealthRecordActivity"
-            android:screenOrientation="landscape"
-            android:label="历史测量数据界面"/>
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".video.MeasureVideoPlayActivity"
+            android:label="测量演示视频播放界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_health_record.HealthRecordActivity"
+            android:label="历史测量数据界面"
+            android:screenOrientation="landscape" />
         <activity android:name=".hypertensionmanagement.activity.OriginHypertensionTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.NormalHighTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.PressureFlatTipActivity" />
@@ -747,6 +745,22 @@
         <activity android:name=".hypertensionmanagement.activity.HasDiseaseOrNotActivity" />
         <activity android:name=".hypertensionmanagement.activity.IsEmptyStomachOrNotActivity"></activity>
         <activity android:name=".hypertensionmanagement.activity.NormalHightActivity"></activity>
+        <activity
+            android:name=".homepage.MainActivity"
+            android:screenOrientation="landscape"
+            android:label="20180730主页面">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".measure.NewMeasureBloodpressureResultActivity"
+            android:label="单次血压测量结果展示页面"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

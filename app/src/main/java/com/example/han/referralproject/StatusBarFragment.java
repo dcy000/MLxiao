@@ -2,7 +2,6 @@ package com.example.han.referralproject;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.han.referralproject.homepage.MainActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -31,7 +32,7 @@ public class StatusBarFragment extends Fragment implements
         BatteryHelper.OnBatteryChangeListener,
         BatteryHelper.OnPowerConnectionChangeListener,
         ValueAnimator.AnimatorUpdateListener,
-        Runnable {
+        Runnable, MainActivity.ShowStateBar {
 
     private static final String TAG = "StatusBarFragment";
 
@@ -106,6 +107,7 @@ public class StatusBarFragment extends Fragment implements
         ivChargingIndicator.setVisibility(mPowerConnectedCache ? View.VISIBLE : View.GONE);
         mDrawableTint = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_battery).mutate());
         mDrawable = ivBatteryIndicator.getDrawable();
+        ((MainActivity) getActivity()).setShowStateBarListener(this);
     }
 
     @Override
@@ -247,4 +249,13 @@ public class StatusBarFragment extends Fragment implements
             animateOrNot();
         }
     };
+
+    @Override
+    public void showStateBar(boolean isshow) {
+        if (isshow){
+            tvTime.setVisibility(View.VISIBLE);
+        }else{
+            tvTime.setVisibility(View.INVISIBLE);
+        }
+    }
 }
