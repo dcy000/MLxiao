@@ -26,5 +26,7 @@ public class UserInfoBean implements Serializable{
     public String exercise_habits;
     public String user_photo;
     public String xfid;
+//    @ApiModelProperty("高血压测量手 0:左手 1:右手")
+    public String hypertensionHand;
 
 }

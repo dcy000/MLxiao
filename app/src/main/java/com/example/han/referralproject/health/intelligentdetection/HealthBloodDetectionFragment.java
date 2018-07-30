@@ -1,7 +1,6 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
 import android.Manifest;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,12 +12,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.polidea.rxandroidble2.RxBleClient;
 import com.polidea.rxandroidble2.scan.ScanSettings;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.reactivex.Observable;
@@ -80,6 +79,7 @@ public class HealthBloodDetectionFragment extends Fragment {
         AtomicBoolean hasFind = new AtomicBoolean(false);
         AtomicBoolean hasComplete = new AtomicBoolean(false);
         disposable = Observable.just(1)
+                .delay(1, TimeUnit.SECONDS)
                 .compose(rxPermissions.ensure(
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.BLUETOOTH,
@@ -123,6 +123,8 @@ public class HealthBloodDetectionFragment extends Fragment {
             highPressure = bytes[1] & 0xff;
             Timber.i("data: highPressure = %s, lowPressure = %s, pulse = %s", highPressure, 0, 0);
             tvHighPressure.setText(String.valueOf(highPressure));
+            tvLowPressure.setText(String.valueOf(0));
+            tvPulsePressure.setText(String.valueOf(0));
             return;
         }
         if (bytes.length == 12 && hasComplete.compareAndSet(false, true)) {

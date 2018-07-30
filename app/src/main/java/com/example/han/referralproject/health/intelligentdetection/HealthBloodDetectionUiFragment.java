@@ -44,7 +44,14 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
-            startDetection();
+            if (getView() != null) {
+                getView().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyDetectionStepChanged(detectionStep);
+                    }
+                }, 0);
+            }
         }
     }
 
@@ -225,8 +232,7 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
             HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
             dataMap.put("pressure", data);
         }
-        OkGo.<String>post(NetworkApi.DETECTION_BLOOD_HAND)
-                .params("userId", MyApplication.getInstance().userId)
+        OkGo.<String>post(NetworkApi.DETECTION_BLOOD_HAND + MyApplication.getInstance().userId + "/")
                 .params("handState", data.right)
                 .execute(new StringCallback() {
                     @Override
@@ -248,6 +254,12 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
                         }
                         ToastUtils.showLong("数据上传失败");
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        ToastUtils.showLong("数据上传失败");
+                    }
                 });
 
 
@@ -265,7 +277,7 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
         dataPulse.setPulse(data.right == 1 ? data.rightPulse : data.leftPulse);
         datas.add(pressureData);
         datas.add(dataPulse);
-        OkGo.<String>post(NetworkApi.DETECTION_DATA)
+        OkGo.<String>post(NetworkApi.DETECTION_DATA + MyApplication.getInstance().userId + "/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
                     @Override
@@ -287,6 +299,12 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
                         }
                         ToastUtils.showLong("数据上传失败");
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        ToastUtils.showLong("数据上传失败");
+                    }
                 });
 
     }
@@ -297,13 +315,8 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
             return;
         }
         FragmentTransaction transaction = fm.beginTransaction();
-        Fragment fragment = fm.findFragmentByTag(HealthWeightDetectionUiFragment.class.getName());
-        if (fragment != null) {
-            transaction.show(fragment);
-        } else {
-            fragment = new HealthWeightDetectionUiFragment();
-            transaction.add(R.id.fl_container, fragment);
-        }
+        Fragment fragment = new HealthWeightDetectionUiFragment();
+        transaction.replace(R.id.fl_container, fragment);
         transaction.addToBackStack(null);
         transaction.commitAllowingStateLoss();
     }
@@ -390,12 +403,12 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
             View.OnClickListener actionOnClickListener) {
         CommonTipsDialogFragment df = CommonTipsDialogFragment.newInstance(tips, colorText, color);
         df.setActionOnClickListener(actionOnClickListener);
-        FragmentManager fm = getChildFragmentManager();
+        FragmentManager fm = getFragmentManager();
         String tag = CommonTipsDialogFragment.class.getName();
-        Fragment fragment = fm.findFragmentByTag(tag);
-        if (fragment != null) {
-            fm.beginTransaction().remove(fragment).commitAllowingStateLoss();
-        }
+//        Fragment fragment = fm.findFragmentByTag(tag);
+//        if (fragment != null) {
+//            fm.beginTransaction().remove(fragment).commitAllowingStateLoss();
+//        }
         df.show(fm, tag);
     }
 

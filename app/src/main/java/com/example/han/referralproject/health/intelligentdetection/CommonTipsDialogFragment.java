@@ -1,5 +1,6 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -92,9 +93,19 @@ public class CommonTipsDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        getDialog().setCancelable(false);
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (actionOnClickListener != null) {
+            actionOnClickListener.onClick(null);
+        }
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+        if (actionOnClickListener != null) {
+            actionOnClickListener.onClick(null);
+        }
     }
 
     private View.OnClickListener actionOnClickListener;

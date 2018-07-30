@@ -718,7 +718,10 @@
             android:name=".facerecognition.FaceRecognitionActivity"
             android:label="人脸识别界面"
             android:screenOrientation="landscape" />
-        <activity android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity">
+        <activity
+            android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity"
+            android:screenOrientation="landscape">
+
 
         </activity>
 
@@ -727,13 +730,15 @@
         <activity
             android:name=".facerecognition.RegisterHead2XunfeiActivity"
             android:label="新的头像注册界面"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".video.MeasureVideoPlayActivity"
-            android:screenOrientation="landscape"
-            android:label="测量演示视频播放界面"/>
-        <activity android:name="com.gcml.module_health_record.HealthRecordActivity"
-            android:screenOrientation="landscape"
-            android:label="历史测量数据界面"/>
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".video.MeasureVideoPlayActivity"
+            android:label="测量演示视频播放界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.module_health_record.HealthRecordActivity"
+            android:label="历史测量数据界面"
+            android:screenOrientation="landscape" />
         <activity android:name=".hypertensionmanagement.activity.OriginHypertensionTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.NormalHighTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.PressureFlatTipActivity" />

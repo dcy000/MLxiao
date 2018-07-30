@@ -113,6 +113,12 @@ public class HealthThreeInOneDetectionUiFragment extends HealthThreeInOneDetecti
                         }
                         ToastUtils.showLong("数据上传失败");
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        ToastUtils.showLong("数据上传失败");
+                    }
                 });
     }
 
@@ -121,14 +127,9 @@ public class HealthThreeInOneDetectionUiFragment extends HealthThreeInOneDetecti
         if (fm == null) {
             return;
         }
+        Fragment fragment = new HealthDetectionIntelligentReportFragment();
         FragmentTransaction transaction = fm.beginTransaction();
-        Fragment fragment = fm.findFragmentByTag(HealthDetectionIntelligentReportFragment.class.getName());
-        if (fragment != null) {
-            transaction.show(fragment);
-        } else {
-            fragment = new HealthDetectionIntelligentReportFragment();
-            transaction.add(R.id.fl_container, fragment);
-        }
+        transaction.replace(R.id.fl_container, fragment);
         transaction.addToBackStack(null);
         transaction.commitAllowingStateLoss();
     }

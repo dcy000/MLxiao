@@ -3,6 +3,8 @@ package com.example.han.referralproject.health.intelligentdetection;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,8 +69,24 @@ public class HealthFirstTipsFragment extends Fragment {
         FragmentActivity activity = getActivity();
         if (activity != null) {
             ((BaseActivity) activity).speak(getResources().getString(R.string.health_first_detect_tips));
-            speakTips = true;
+            activity.getWindow().getDecorView().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    navToNext();
+                }
+            }, 3000);
         }
+    }
+
+    public void navToNext() {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        Fragment fragment;
+//        fragment = new HealthBloodDetectionUiFragment();
+        fragment = new HealthWeightDetectionUiFragment();
+        transaction.replace(R.id.fl_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commitAllowingStateLoss();
     }
 
     public static boolean speakTips = false;
