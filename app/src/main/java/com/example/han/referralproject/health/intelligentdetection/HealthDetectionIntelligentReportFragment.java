@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
@@ -30,6 +31,7 @@ import com.lzy.okgo.model.Response;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -40,6 +42,7 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
     private ImageView ivRight;
     private RecyclerView rvReport;
     private Adapter mAdapter;
+    private HashMap<String, Object> mData;
 
     public HealthDetectionIntelligentReportFragment() {
         // Required empty public constructor
@@ -48,6 +51,8 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FragmentManager fm = getFragmentManager();
+        mData = ((HashMap<String, Object>) DataFragment.get(fm).getData());
         OkGo.<String>post(NetworkApi.DETECTION_RESULT)
                 .execute(new StringCallback() {
                     @Override
@@ -179,6 +184,11 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
         private final View indicatorDiagnose;
         private ConstraintSet constraintSet = new ConstraintSet();
 
+        private String leftPressureFormat = "左手测量平均值：%s mmHg";
+        private String rightPressureFormat = "右手测量平均值：%s mmHg";
+        private String leftPulseFormat = "左手测量平均值：%s mmHg";
+        private String rightPulseFormat = "右手测量平均值：%s mmHg";
+
         public BloodPressureVH(View itemView) {
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
@@ -195,6 +205,19 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
 
         @Override
         public void onBind(int position) {
+            HealthBloodDetectionUiFragment.Data pressure = ((HealthBloodDetectionUiFragment.Data) mData.get("pressure"));
+            String leftPressure = pressure.leftHighPressure + "/" + pressure.leftLowPressure;
+            String rightPressure = pressure.rightHighPressure + "/" + pressure.rightLowPressure;
+            String leftPulse = String.valueOf(pressure.leftPulse);
+            String rightPulse = String.valueOf(pressure.rightPulse);
+            String leftPressureText = String.format(leftPressureFormat, leftPressure);
+            String rightPressureText = String.format(rightPressureFormat, rightPressure);
+            String leftPulseText = String.format(leftPulseFormat, leftPulse);
+            String rightPulseText = String.format(rightPulseFormat, rightPulse);
+            tvLeftPressure.setText(leftPressureText);
+            tvRightPressure.setText(rightPressureText);
+            tvLeftPulse.setText(leftPulseText);
+            tvRightPulse.setText(rightPulseText);
             DetectionResult detectionResult = mResults.get(position);
             tvTitle.setText("血压");
             tvResult.setText(detectionResult.getResult());

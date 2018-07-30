@@ -211,6 +211,7 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
     private void navToNext() {
         Intent intent = new Intent(getActivity(), XinDianDetectActivity.class);
         intent.putExtra("playVideoTips", true);
+        intent.putExtra("forResult", true);
         startActivityForResult(intent, 18);
     }
 

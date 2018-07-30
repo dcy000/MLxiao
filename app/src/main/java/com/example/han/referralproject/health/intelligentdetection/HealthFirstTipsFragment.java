@@ -80,14 +80,14 @@ public class HealthFirstTipsFragment extends Fragment {
 
     public void navToNext() {
         FragmentManager fm = getFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        Fragment fragment;
-//        fragment = new HealthBloodDetectionUiFragment();
-        fragment = new HealthWeightDetectionUiFragment();
-        transaction.replace(R.id.fl_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commitAllowingStateLoss();
+        if (fm != null) {
+            FragmentTransaction transaction = fm.beginTransaction();
+            Fragment fragment;
+            fragment = new HealthBloodDetectionUiFragment();
+//            fragment = new HealthWeightDetectionUiFragment();
+            transaction.replace(R.id.fl_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commitAllowingStateLoss();
+        }
     }
-
-    public static boolean speakTips = false;
 }
