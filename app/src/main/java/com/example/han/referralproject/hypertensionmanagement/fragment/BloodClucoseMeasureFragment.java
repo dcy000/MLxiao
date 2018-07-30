@@ -1,17 +1,13 @@
 package com.example.han.referralproject.hypertensionmanagement.fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.health.intelligentdetection.HealthBloodDetectionFragment;
-import com.example.han.referralproject.health.intelligentdetection.HealthBloodDetectionUiFragment;
+import com.example.han.referralproject.health.intelligentdetection.DataFragment;
+import com.example.han.referralproject.health.intelligentdetection.HealthSugarDetectionFragment;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.hypertensionmanagement.activity.WeightMeasureActivity;
@@ -24,11 +20,24 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class BloodPresureMeasuerFragment extends HealthBloodDetectionFragment {
-    private int highPressure;
-    private int lowPressure;
-    private int pulse;
+/**
+ * Created by lenovo on 2018/7/30.
+ */
+
+public class BloodClucoseMeasureFragment extends HealthSugarDetectionFragment {
+    private TextView tvNext;
+    private float sugar;
+
+    @Override
+    protected void initView(View view, Bundle savedInstanceState) {
+        super.initView(view, savedInstanceState);
+        tvNext = (TextView) view.findViewById(R.id.tv_xuetang);
+        tvNext.setOnClickListener(v -> {
+            postBloodClucoseData(sugar);
+        });
+    }
 
     @Override
     public void onResume() {
@@ -36,35 +45,18 @@ public class BloodPresureMeasuerFragment extends HealthBloodDetectionFragment {
         startDetection();
     }
 
-    @Override
-    protected void onBloodResult(int highPressure, int lowPressure, int pulse) {
-        super.onBloodResult(highPressure, lowPressure, pulse);
-        this.highPressure = highPressure;
-        this.lowPressure = lowPressure;
-        this.pulse = pulse;
+    protected void onSugarResult(float sugar) {
+        this.sugar = sugar;
+
     }
 
-    @Override
-    protected void initView(View view, Bundle savedInstanceState) {
-        super.initView(view, savedInstanceState);
-        tvNext.setOnClickListener(v ->
-                uploadData(highPressure, lowPressure, pulse));
-    }
-
-    private void uploadData(int highPressure, int lowPressure, int pulse) {
+    private void postBloodClucoseData(float sugar) {
         ArrayList<DetectionData> datas = new ArrayList<>();
-        DetectionData pressureData = new DetectionData();
-        DetectionData dataPulse = new DetectionData();
+        DetectionData data = new DetectionData();
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-        pressureData.setDetectionType("0");
-        pressureData.setHighPressure(highPressure);
-        pressureData.setLowPressure(lowPressure);
-
-        dataPulse.setDetectionType("9");
-        dataPulse.setPulse(pulse);
-        datas.add(pressureData);
-        datas.add(dataPulse);
-
+        data.setDetectionType("1");
+        data.setBloodSugar(sugar);
+        datas.add(data);
         OkGo.<String>post(NetworkApi.DETECTION_DATA)
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
@@ -88,8 +80,7 @@ public class BloodPresureMeasuerFragment extends HealthBloodDetectionFragment {
                         ToastUtils.showLong("数据上传失败");
                     }
                 });
-
     }
 
-}
 
+}

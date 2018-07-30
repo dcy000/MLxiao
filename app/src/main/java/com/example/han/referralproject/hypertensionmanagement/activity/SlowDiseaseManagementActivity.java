@@ -12,6 +12,7 @@ import com.example.han.referralproject.health_manager_program.TreatmentPlanActiv
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -45,6 +46,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         initTitle();
         getDiagnoseInfo();
 //        OriginHypertensionTipActivity
+        AppManager.getAppManager().addActivity(this);
     }
 
     /**
@@ -189,7 +191,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
                     .putExtra("fromWhere", "pressureNormalHigh"));
         } else {
-            toDetete();
+//            toDetete();
+            startActivity(new Intent(this, WeightMeasureActivity.class));
         }
 
     }
@@ -199,7 +202,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
                     .putExtra("fromWhere", "pressureHigh"));
         } else if ("1".equals(diagnoseInfo.hypertensionTarget)) {
-            toDetete();
+            startActivity(new Intent(this, TreatmentPlanActivity.class));
         } else if ("0".equals(diagnoseInfo.hypertensionTarget)) {
             if (diagnoseInfo.heart == null) {
                 startActivity(new Intent(this, HypertensionTipActivity.class));
@@ -244,6 +247,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     private void toSulotion() {
         // TODO: 2018/7/28
+        startActivity(new Intent(this, TreatmentPlanActivity.class));
+
     }
 
     private void getDatimeInfo() {

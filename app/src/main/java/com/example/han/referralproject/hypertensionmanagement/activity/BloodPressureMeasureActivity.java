@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.intelligentdetection.HealthBloodDetectionFragment;
 import com.example.han.referralproject.hypertensionmanagement.fragment.BloodPresureMeasuerFragment;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +25,7 @@ public class BloodPressureMeasureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blood_pressure_measure);
         ButterKnife.bind(this);
         initView();
+        AppManager.getAppManager().addActivity(this);
     }
 
     private void initView() {

@@ -10,7 +10,9 @@ import android.widget.FrameLayout;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceStringFragment;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 
 import java.util.Arrays;
 
@@ -30,6 +32,7 @@ public class IsEmptyStomachOrNotActivity extends BaseActivity implements Multipl
         ButterKnife.bind(this);
         initTitle();
         initView();
+        AppManager.getAppManager().addActivity(this);
     }
 
     private void initView() {
@@ -56,9 +59,9 @@ public class IsEmptyStomachOrNotActivity extends BaseActivity implements Multipl
     @Override
     public void onNextStep(int[] checked) {
         if ("是".equals(itmes[checked[0]])) {
-            // TODO: 2018/7/26 去测量
+            startActivity(new Intent(this, BloodClucoseMeasureActivity.class));
         } else {
-            // TODO: 2018/7/26 定闹钟
+
         }
 
     }

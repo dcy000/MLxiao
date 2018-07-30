@@ -11,6 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +32,7 @@ public class PressureNornalTipActivity extends BaseActivity implements WarmNotic
         initTitle();
         mlSpeak(CONTENT);
         initView();
+        AppManager.getAppManager().addActivity(this);
     }
 
     private void initView() {
@@ -51,12 +53,12 @@ public class PressureNornalTipActivity extends BaseActivity implements WarmNotic
 
     @Override
     public void onFragmentBtnClick() {
-        //跳转到
+        startActivity(new Intent(this, WeightMeasureActivity.class));
 
     }
 
     @Override
     public void onFragmentBtnTimeOut() {
-
+        startActivity(new Intent(this, WeightMeasureActivity.class));
     }
 }

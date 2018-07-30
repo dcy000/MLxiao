@@ -14,6 +14,7 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionBean;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceFragment;
+import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
@@ -47,7 +48,7 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
         ButterKnife.bind(this);
         initTitle();
         initVP();
-
+        AppManager.getAppManager().addActivity(this);
     }
 
     private void initVP() {
