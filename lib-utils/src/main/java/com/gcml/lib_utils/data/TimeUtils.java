@@ -1,14 +1,18 @@
 package com.gcml.lib_utils.data;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.logging.SimpleFormatter;
+
 import static com.gcml.lib_utils.data.ConstantsUtils.DAY;
 import static com.gcml.lib_utils.data.ConstantsUtils.HOUR;
 import static com.gcml.lib_utils.data.ConstantsUtils.MIN;
@@ -539,5 +543,47 @@ public class TimeUtils {
         } else {
             return c.get(Calendar.DAY_OF_WEEK) - 1;
         }
+    }
+
+    /**
+     * Return the day of week in Chinese.
+     * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.</p>
+     *
+     * @param time The formatted time string.
+     * @return the day of week in Chinese
+     */
+    public static String getChineseWeek(final String time) {
+        return getChineseWeek(string2Date(time, DEFAULT_SDF));
+    }
+
+    /**
+     * Return the day of week in Chinese.
+     *
+     * @param time   The formatted time string.
+     * @param format The format.
+     * @return the day of week in Chinese
+     */
+    public static String getChineseWeek(final String time, @NonNull final SimpleDateFormat format) {
+        return getChineseWeek(string2Date(time, format));
+    }
+
+    /**
+     * Return the day of week in Chinese.
+     *
+     * @param date The date.
+     * @return the day of week in Chinese
+     */
+    public static String getChineseWeek(final Date date) {
+        return new SimpleDateFormat("E", Locale.CHINA).format(date);
+    }
+
+    /**
+     * Return the day of week in Chinese.
+     *
+     * @param millis The milliseconds.
+     * @return the day of week in Chinese
+     */
+    public static String getChineseWeek(final long millis) {
+        return getChineseWeek(new Date(millis));
     }
 }

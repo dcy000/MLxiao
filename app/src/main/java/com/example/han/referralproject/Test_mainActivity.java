@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.health.intelligentdetection.HealthBloodDetectionSingleFragment;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -192,9 +195,14 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                 Intent intent = new Intent();
                 switch (measureType) {
                     case IPresenter.MEASURE_BLOOD_PRESSURE:
-                        intent.setClass(mContext, DetectActivity.class);
-                        intent.putExtra("type", "xueya");
-                        break;
+                        HealthBloodDetectionSingleFragment fragment = new HealthBloodDetectionSingleFragment();
+                        String tag = HealthBloodDetectionSingleFragment.class.getName();
+                        FragmentManager fm = getSupportFragmentManager();
+                        fm.beginTransaction()
+                                .replace(android.R.id.content, fragment, tag)
+                                .addToBackStack(null)
+                                .commitAllowingStateLoss();
+                        return;
                     case IPresenter.MEASURE_BLOOD_OXYGEN:
                         intent.setClass(getApplicationContext(), DetectActivity.class);
                         intent.putExtra("type", "xueyang");

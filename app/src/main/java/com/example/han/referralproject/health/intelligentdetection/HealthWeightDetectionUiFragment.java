@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.HealthDiaryDetailsFragment;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
@@ -37,8 +38,8 @@ public class HealthWeightDetectionUiFragment extends HealthWeightDetectionFragme
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.tips_xueya);
-        MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
+//        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.tips);
+//        MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
         mUiModel = new DetailsModel();
         mUiModel.setWhat(WHAT_WEIGHT_DETECTION);
         mUiModel.setTitle(getResources().getString(R.string.health_detection_weight_title));
@@ -50,6 +51,7 @@ public class HealthWeightDetectionUiFragment extends HealthWeightDetectionFragme
         mUiModel.setMaxValues(new float[]{200f});
         mUiModel.setPerValues(new float[]{0.2f});
         mUiModel.setAction("下一步");
+        startDetection();
     }
 
     @Override
@@ -127,7 +129,7 @@ public class HealthWeightDetectionUiFragment extends HealthWeightDetectionFragme
         data.setDetectionType("3");
         data.setWeight(weight);
         datas.add(data);
-        OkGo.<String>post(NetworkApi.DETECTION_DATA)
+        OkGo.<String>post(NetworkApi.DETECTION_DATA + MyApplication.getInstance().userId + "/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
                     @Override
@@ -147,6 +149,12 @@ public class HealthWeightDetectionUiFragment extends HealthWeightDetectionFragme
                         } catch (Throwable e) {
                             e.printStackTrace();
                         }
+                        ToastUtils.showLong("数据上传失败");
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
                         ToastUtils.showLong("数据上传失败");
                     }
                 });

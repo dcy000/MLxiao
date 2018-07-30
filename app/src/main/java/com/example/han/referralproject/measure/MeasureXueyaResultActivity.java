@@ -81,7 +81,7 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_measure_result);
+        setContentView(R.layout.activity_new_measure_result);
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("血压结果分析");

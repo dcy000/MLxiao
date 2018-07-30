@@ -17,12 +17,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionResult;
+import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.ui.UiUtils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +39,7 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
 
     private ImageView ivRight;
     private RecyclerView rvReport;
+    private Adapter mAdapter;
 
     public HealthDetectionIntelligentReportFragment() {
         // Required empty public constructor
@@ -39,6 +48,38 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        OkGo.<String>post(NetworkApi.DETECTION_RESULT)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        if (!response.isSuccessful()) {
+                            ToastUtils.showLong("服务器繁忙");
+                            return;
+                        }
+                        String body = response.body();
+                        try {
+                            ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<List<DetectionResult>>>() {
+                            }.getType());
+                            if (apiResponse.isSuccessful()) {
+                                onApiResult(apiResponse.getData());
+                            } else {
+                                ToastUtils.showLong(apiResponse.getMessage());
+                            }
+                            return;
+                        } catch (Throwable e) {
+                            e.printStackTrace();
+                        }
+                        ToastUtils.showLong("服务器繁忙");
+                    }
+                });
+    }
+
+    private void onApiResult(List<DetectionResult> data) {
+        mResults.clear();
+        mResults.addAll(data);
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -77,11 +118,11 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
         rvReport = ((RecyclerView) view.findViewById(R.id.rv_report));
         rvReport.setLayoutManager(new LinearLayoutManager(
                 getActivity(), LinearLayoutManager.VERTICAL, false));
-
+        mAdapter = new Adapter();
+        rvReport.setAdapter(mAdapter);
     }
 
     private final ArrayList<DetectionResult> mResults = new ArrayList<>();
-
 
     private final SparseIntArray layoutIds = new SparseIntArray();
 

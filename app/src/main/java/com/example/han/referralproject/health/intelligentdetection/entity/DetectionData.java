@@ -1,7 +1,6 @@
 package com.example.han.referralproject.health.intelligentdetection.entity;
 
-import com.gcml.lib_utils.device.DeviceUtils;
-import com.gzq.administrator.lib_common.utils.Utils;
+import com.example.han.referralproject.util.Utils;
 
 //    TDate {
 //        bloodOxygen (number, optional): 血氧（%） ,

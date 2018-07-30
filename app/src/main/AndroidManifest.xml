@@ -128,10 +128,6 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
         <!-- <activity -->
         <!-- android:name="com.mob.tools.MobUIShell" -->
         <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
@@ -223,13 +219,13 @@
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            <!--<category android:name="android.intent.category.HOME" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".Test_mainActivity"
@@ -718,8 +714,12 @@
             android:name=".facerecognition.FaceRecognitionActivity"
             android:label="人脸识别界面"
             android:screenOrientation="landscape" />
-        <activity android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity" />
-        <activity android:name=".health.firstdetect.HealthFirstDetectActivity" />
+
+        <activity
+            android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity"
+            android:screenOrientation="landscape">
+        </activity>
+
         <activity
             android:name=".facerecognition.RegisterHead2XunfeiActivity"
             android:label="新的头像注册界面"
@@ -743,6 +743,22 @@
         <activity android:name=".hypertensionmanagement.activity.HypertensionTipActivity" />
         <activity android:name=".hypertensionmanagement.activity.HypertensionActivity" />
         <activity android:name=".hypertensionmanagement.activity.HasDiseaseOrNotActivity" />
+        <activity
+            android:name=".homepage.MainActivity"
+            android:screenOrientation="landscape"
+            android:label="20180730主页面">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".measure.NewMeasureBloodpressureResultActivity"
+            android:label="单次血压测量结果展示页面"
+            android:screenOrientation="landscape" />
         <activity android:name=".hypertensionmanagement.activity.IsEmptyStomachOrNotActivity" />
         <activity android:name=".hypertensionmanagement.activity.NormalHightActivity" />
         <activity android:name=".hypertensionmanagement.activity.BloodPressureMeasureActivity" />

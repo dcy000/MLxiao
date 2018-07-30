@@ -386,8 +386,8 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.tv_time_unit) {
-            if (!baseDialog.isShowing())
-                baseDialog.show();
+//            if (!baseDialog.isShowing())
+//                baseDialog.show();
 
         } else if (i == R.id.tv_time_start) {
             initDatePicker(false);

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/homepage_bg"
+    >
+    <FrameLayout
+        android:id="@+id/fl_status_bar"
+        android:layout_width="0dp"
+        android:layout_height="80pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fl_status_bar"
+        app:layout_constraintBottom_toTopOf="@+id/newmain_bottom_indicator"></android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:id="@+id/newmain_bottom_indicator"
+        android:layout_width="360pt"
+        android:layout_height="24pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/shape_newmain_indicator"
+        android:orientation="horizontal"
+        android:layout_marginBottom="22pt">
+        <View
+            android:id="@+id/indicator_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/shape_newmain_gradient"/>
+        <View
+            android:id="@+id/indicator_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/shape_newmain_gradient"
+            android:visibility="invisible"/>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
