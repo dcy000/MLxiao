@@ -65,7 +65,7 @@ public class MultipleChoiceFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = View.inflate(getActivity(), R.layout.multiple_choice_fragment, null);
+        View view = View.inflate(getActivity(), R.layout.multiple_choice_fragment_2, null);
         unbinder = ButterKnife.bind(this, view);
         Bundle arguments = getArguments();
         tvTitle.setText(arguments.getString(TIP_CONTENT));
