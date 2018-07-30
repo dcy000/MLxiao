@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.medlink.danbogh.alarm.AlarmDetail2Activity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +31,7 @@ import org.json.JSONObject;
  * Created by Administrator on 2018/5/15.
  */
 
-public class ThisWeekHealthPlanFragment extends Fragment {
+public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClickListener {
     private View view;
     private TextView mTvDetectionFrequency;
     private TextView mTvXueyaDetectionFrequency;
@@ -45,7 +46,7 @@ public class ThisWeekHealthPlanFragment extends Fragment {
     private TextView mTvXuetangTwo;
     private IChangToolbar iChangToolbar;
     private String TAG = "ThisWeekHealthPlanFragment";
-
+    private TextView mTvSetAlarm;
     public void setOnChangToolbar(IChangToolbar iChangToolbar) {
         this.iChangToolbar = iChangToolbar;
     }
@@ -142,6 +143,8 @@ public class ThisWeekHealthPlanFragment extends Fragment {
         mTvXuetangEmpty = (TextView) view.findViewById(R.id.tv_xuetang_empty);
         mTvXuetangOne = (TextView) view.findViewById(R.id.tv_xuetang_one);
         mTvXuetangTwo = (TextView) view.findViewById(R.id.tv_xuetang_two);
+        mTvSetAlarm=(TextView)view.findViewById(R.id.tv_set_alarm);
+        mTvSetAlarm.setOnClickListener(this);
 
         mWeight.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         mTvGaoya.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
@@ -156,6 +159,14 @@ public class ThisWeekHealthPlanFragment extends Fragment {
         super.onDestroyView();
         if (view != null) {
             ((ViewGroup) view.getParent()).removeView(view);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id==R.id.tv_set_alarm){
+            AlarmDetail2Activity.newLaunchIntent(getContext(),-1);
         }
     }
 }
