@@ -12,6 +12,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionResult;
+import com.example.han.referralproject.measure.NewMeasureBloodpressureResultActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -162,6 +163,7 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
     private DetectionResult result;
 
     private void navToNext() {
-
+        NewMeasureBloodpressureResultActivity.startActivity(getContext(),result.getDiagnose(),
+                result.getScore(),0,0,result.getResult());
     }
 }
