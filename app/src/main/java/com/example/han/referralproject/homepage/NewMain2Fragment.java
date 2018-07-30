@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
+import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
 import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
@@ -67,7 +68,8 @@ public class NewMain2Fragment extends BaseFragment implements View.OnClickListen
                 startActivity(new Intent(getContext(), PersonDetailActivity.class));
                 break;
             case R.id.iv_health_course:
-                startActivity(new Intent(getActivity(), VideoListActivity.class));
+                startActivity(new Intent(getActivity(), HealthIntelligentDetectionActivity.class));
+//                startActivity(new Intent(getActivity(), VideoListActivity.class));
                 break;
             case R.id.entertainment_center:
                 OldRouter.routeToOldHomeActivity(getActivity());

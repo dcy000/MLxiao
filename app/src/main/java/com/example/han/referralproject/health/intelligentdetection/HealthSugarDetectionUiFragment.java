@@ -154,7 +154,7 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                navToNext();
             }
         });
     }
