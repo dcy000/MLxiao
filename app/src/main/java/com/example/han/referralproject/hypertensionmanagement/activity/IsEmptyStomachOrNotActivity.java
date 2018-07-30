@@ -64,7 +64,8 @@ public class IsEmptyStomachOrNotActivity extends BaseActivity implements Multipl
         if ("是".equals(itmes[checked[0]])) {
             startActivity(new Intent(this, BloodClucoseMeasureActivity.class));
         } else {
-            AlarmDetail2Activity.newLaunchIntent(this,-1);
+            AlarmDetail2Activity.newLaunchIntent(this, -1);
+            AppManager.getAppManager().finishAllActivity();
         }
 
     }
