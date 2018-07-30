@@ -92,8 +92,8 @@ public class HealthSelectSugarDetectionTimeFragment extends Fragment {
     }
 
     public static final int ACTION_EMPTY_STOMACH = 0;
-    public static final int ACTION_TWO_HOURS = 1;
-    public static final int ACTION_OTHER_TIME = 2;
+    public static final int ACTION_TWO_HOURS = 2;
+    public static final int ACTION_OTHER_TIME = 3;
 
     public interface OnActionListener {
         void onAction(int action);

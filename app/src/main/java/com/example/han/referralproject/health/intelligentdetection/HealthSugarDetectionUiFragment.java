@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.network.NetworkApi;
@@ -72,7 +73,7 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
         ecgData.setEcg(String.valueOf(ecg));
         ecgData.setHeartRate(heartRate);
         datas.add(ecgData);
-        OkGo.<String>post(NetworkApi.DETECTION_DATA)
+        OkGo.<String>post(NetworkApi.DETECTION_DATA + MyApplication.getInstance().userId + "/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
                     @Override
@@ -94,6 +95,12 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
                         }
                         ToastUtils.showLong("数据上传失败");
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        ToastUtils.showLong("数据上传失败");
+                    }
                 });
     }
 
@@ -102,14 +109,9 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
         if (fm == null) {
             return;
         }
+        Fragment fragment = new HealthThreeInOneDetectionUiFragment();
         FragmentTransaction transaction = fm.beginTransaction();
-        Fragment fragment = fm.findFragmentByTag(HealthThreeInOneDetectionUiFragment.class.getName());
-        if (fragment != null) {
-            transaction.show(fragment);
-        } else {
-            fragment = new HealthThreeInOneDetectionUiFragment();
-            transaction.add(R.id.fl_container, fragment);
-        }
+        transaction.replace(R.id.fl_container, fragment);
         transaction.addToBackStack(null);
         transaction.commitAllowingStateLoss();
     }
@@ -175,7 +177,7 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
         data.setSugarTime(sugarTime);
         data.setBloodSugar(sugar);
         datas.add(data);
-        OkGo.<String>post(NetworkApi.DETECTION_DATA)
+        OkGo.<String>post(NetworkApi.DETECTION_DATA + MyApplication.getInstance().userId + "/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
                     @Override
@@ -195,6 +197,12 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
                         } catch (Throwable e) {
                             e.printStackTrace();
                         }
+                        ToastUtils.showLong("数据上传失败");
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
                         ToastUtils.showLong("数据上传失败");
                     }
                 });

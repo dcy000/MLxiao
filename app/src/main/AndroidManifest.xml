@@ -714,8 +714,12 @@
             android:name=".facerecognition.FaceRecognitionActivity"
             android:label="人脸识别界面"
             android:screenOrientation="landscape" />
-        <activity android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity" />
-        <activity android:name=".health.firstdetect.HealthFirstDetectActivity" />
+
+        <activity
+            android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity"
+            android:screenOrientation="landscape">
+        </activity>
+
         <activity
             android:name=".facerecognition.RegisterHead2XunfeiActivity"
             android:label="新的头像注册界面"

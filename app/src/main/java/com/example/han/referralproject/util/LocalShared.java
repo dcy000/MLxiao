@@ -180,6 +180,7 @@ public class LocalShared {
         MyApplication.getInstance().userName = infoBean.bname;
         MyApplication.getInstance().eqid = infoBean.eqid;
         MyApplication.getInstance().xfid = infoBean.xfid;
+        MyApplication.getInstance().hypertensionHand = infoBean.hypertensionHand;
         mShared.edit()
                 .putString(UserId, infoBean.bid)
                 .putString(EQID, infoBean.eqid)

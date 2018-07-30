@@ -44,6 +44,8 @@ public class MyApplication extends BaseApplication {
     public String xfid;
     public String telphoneNum;
     public String userName;
+    public String hypertensionHand;
+
     public String nimUserId() {
         return "user_" + userId;
     }

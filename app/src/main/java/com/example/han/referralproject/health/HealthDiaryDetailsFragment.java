@@ -150,6 +150,10 @@ public class HealthDiaryDetailsFragment extends Fragment {
                 @Override
                 public void run() {
                     mSelectedValue = value;
+                    tvCount.setText(getCount(
+                            mSelectedValue,
+                            mModel.getUnitSum()[mModel.getUnitPosition()]
+                    ));
                     rvRuler.setValue(mSelectedValue,
                             mModel.getMinValues()[mModel.getUnitPosition()],
                             mModel.getMaxValues()[mModel.getUnitPosition()],
