@@ -3,6 +3,7 @@ package com.example.han.referralproject.hypertensionmanagement.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -30,10 +31,21 @@ import java.util.HashMap;
 public class BloodClucoseMeasureFragment extends HealthSugarDetectionFragment {
     private TextView tvNext;
     private float sugar;
+    private ImageView ivRight;
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
+        ((TextView) view.findViewById(R.id.tv_top_title)).setText(R.string.test_xuetang);
+        view.findViewById(R.id.ll_back).setOnClickListener(v -> {
+            if (getFragmentManager() != null) {
+                getFragmentManager().popBackStack();
+            }
+            getActivity().finish();
+        });
+        ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
+        ivRight.setImageResource(R.drawable.health_ic_blutooth);
+        ivRight.setOnClickListener(v -> startDetection());
         tvNext = (TextView) view.findViewById(R.id.tv_xuetang);
         tvNext.setOnClickListener(v -> {
             postBloodClucoseData(sugar);
@@ -58,7 +70,7 @@ public class BloodClucoseMeasureFragment extends HealthSugarDetectionFragment {
         data.setDetectionType("1");
         data.setBloodSugar(sugar);
         datas.add(data);
-        OkGo.<String>post(NetworkApi.DETECTION_DATA+ LocalShared.getInstance(getContext()).getUserId()+"/")
+        OkGo.<String>post(NetworkApi.DETECTION_DATA + LocalShared.getInstance(getContext()).getUserId() + "/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
                     @Override
