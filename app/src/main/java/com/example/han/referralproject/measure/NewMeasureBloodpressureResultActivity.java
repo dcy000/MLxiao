@@ -282,8 +282,8 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
         mWaveProgressBar.setHealthValue(healthScore + "分");
         currentHighBloodpressure = getIntent().getIntExtra("high_bloodpressure", 120);
         currentLowBloodpressure = getIntent().getIntExtra("low_bloodpressure", 80);
-        mCurrentGaoya.setText(currentHighBloodpressure);
-        mCurrentDiya.setText(currentLowBloodpressure);
+        mCurrentGaoya.setText(String.valueOf(currentHighBloodpressure));
+        mCurrentDiya.setText(String.valueOf(currentLowBloodpressure));
         currentSuggest = getIntent().getStringExtra("suggest");
         mTvSuggest.setText(currentSuggest);
 
