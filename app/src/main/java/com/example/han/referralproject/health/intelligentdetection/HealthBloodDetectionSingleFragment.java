@@ -139,7 +139,8 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
                         }
                         String body = response.body();
                         try {
-                            ApiResponse<DetectionResult> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<DetectionResult>>() {
+                            ApiResponse<DetectionResult> apiResponse = new Gson().fromJson(body,
+                                    new TypeToken<ApiResponse<DetectionResult>>() {
                             }.getType());
                             if (apiResponse.isSuccessful()) {
                                 ToastUtils.showLong("数据上传成功");

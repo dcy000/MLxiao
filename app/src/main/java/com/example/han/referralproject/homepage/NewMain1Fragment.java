@@ -275,7 +275,7 @@ public class NewMain1Fragment extends BaseFragment implements View.OnClickListen
                     mWeekToday.setText(result[3]);
                 }
             }
-        }, 5000, TimeUnit.MILLISECONDS);
+        }, 10000, TimeUnit.MILLISECONDS);
     }
 
     @Override
