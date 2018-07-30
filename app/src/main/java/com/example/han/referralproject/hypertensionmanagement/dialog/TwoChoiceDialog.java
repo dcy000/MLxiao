@@ -2,6 +2,7 @@ package com.example.han.referralproject.hypertensionmanagement.dialog;
 
 import android.annotation.SuppressLint;
 import android.app.DialogFragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -100,11 +101,18 @@ public class TwoChoiceDialog extends DialogFragment {
     }
 
     private void clickCancel() {
-        if (listener==null){
+        if (listener == null) {
             return;
         }
         listener.onClickCancel();
 
         dismiss();
+    }
+
+    public void reverseButtonTextColor(boolean isRight) {
+        if (isRight) {
+            confirm.setTextColor(Color.parseColor("#BBBBBB"));
+            cancel.setTextColor(Color.parseColor("#3F86FC"));
+        }
     }
 }

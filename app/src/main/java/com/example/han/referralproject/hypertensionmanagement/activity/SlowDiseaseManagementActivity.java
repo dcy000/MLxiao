@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
@@ -113,7 +114,20 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         } else {
             //有结果-->所有都做完
             ToastUtils.showShort(diagnoseInfo.result);
-            toSulotion();
+            TwoChoiceDialog dialog = new TwoChoiceDialog("您在7天内已生成过健康方案，点击健康方案可直接查看。", "继续测量", "健康方案");
+            dialog.reverseButtonTextColor(true);
+            dialog.setListener(new TwoChoiceDialog.OnDialogClickListener() {
+                @Override
+                public void onClickConfirm(String content) {
+
+                }
+
+                @Override
+                public void onClickCancel() {
+                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
+                }
+            });
+            dialog.show(getFragmentManager(), "detecAgain");
         }
     }
 
@@ -122,7 +136,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      */
     private void onOriginClickNo() {
 
-        if (diagnoseInfo!=null&&diagnoseInfo.hypertensionLevel == null) {
+        if (diagnoseInfo != null && diagnoseInfo.hypertensionLevel == null) {
             if (diagnoseInfo != null && diagnoseInfo.detectionDayCount >= 3) {
                 judgeClass();
             } else {
