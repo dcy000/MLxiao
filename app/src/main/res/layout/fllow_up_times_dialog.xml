@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="去测量"
+            android:text="确定"
             android:textColor="#3F86FC"
             android:textSize="34sp" />
 

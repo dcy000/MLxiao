@@ -16,6 +16,7 @@ import com.example.han.referralproject.health.intelligentdetection.entity.ApiRes
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.hypertensionmanagement.activity.WeightMeasureActivity;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -65,7 +66,7 @@ public class BloodPresureMeasuerFragment extends HealthBloodDetectionFragment {
         datas.add(pressureData);
         datas.add(dataPulse);
 
-        OkGo.<String>post(NetworkApi.DETECTION_DATA)
+        OkGo.<String>post(NetworkApi.DETECTION_DATA+ LocalShared.getInstance(getContext()).getUserId()+"/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
                     @Override

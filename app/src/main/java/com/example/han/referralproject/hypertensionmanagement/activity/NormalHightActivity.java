@@ -21,6 +21,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.ui.dialog.DialogSure;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -157,7 +158,7 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
                 try {
                     JSONObject object = new JSONObject(body);
                     if (object.getBoolean("tag")) {
-                        startActivity(new Intent(NormalHightActivity.this, WeightMeasureActivity.class));
+                        showResultDialog(object.getString("data"));
                     } else {
                         ToastUtils.showShort(object.getString("message"));
                     }
@@ -195,6 +196,23 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
         public int getCount() {
             return list.size();
         }
+    }
+
+    private void showResultDialog(String content) {
+        DialogSure sure = new DialogSure(this);
+        sure.setContent(content);
+        sure.setOnClickSureListener(dialog -> {
+            String fromWhere = getIntent().getStringExtra("fromWhere");
+            if (!TextUtils.isEmpty(fromWhere)) {
+                if (fromWhere.equals("NewMeasureBloodpressureResultActivity")) {
+                    finish();
+                    return;
+                }
+            }
+            startActivity(new Intent(NormalHightActivity.this, WeightMeasureActivity.class));
+            sure.dismiss();
+        });
+        sure.show();
     }
 
 

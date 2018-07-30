@@ -136,7 +136,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 //                startActivity(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
-                startActivity(new Intent(this, TreatmentPlanActivity.class));
+                startActivity(new Intent(this, SlowDiseaseManagementActivity.class));
                 //呼叫
 //                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
                 break;

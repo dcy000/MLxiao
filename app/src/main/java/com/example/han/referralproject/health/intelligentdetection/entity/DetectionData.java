@@ -1,5 +1,8 @@
 package com.example.han.referralproject.health.intelligentdetection.entity;
 
+import com.gcml.lib_utils.device.DeviceUtils;
+import com.gzq.administrator.lib_common.utils.Utils;
+
 //    TDate {
 //        bloodOxygen (number, optional): 血氧（%） ,
 //        bloodSugar (number, optional): 血糖 ,
@@ -28,7 +31,7 @@ public class DetectionData {
     private Float cholesterol;
     private String detectionType;
     private String ecg;
-    private String eqid;
+    private String eqid = Utils.getDeviceId();
     private Integer heartRate;
     private Integer highPressure;
     private Integer lowPressure;
@@ -37,7 +40,7 @@ public class DetectionData {
     private Integer state;
     private Integer sugarTime;
     private Float temperAture;
-    private String time;
+    private String time = String.valueOf(System.currentTimeMillis());
     private Float uricAcid;
     private Integer userid;
     private Float weight;

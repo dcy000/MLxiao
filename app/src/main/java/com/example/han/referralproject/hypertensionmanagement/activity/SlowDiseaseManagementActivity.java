@@ -139,11 +139,19 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     private void onOriginClickNo() {
 
         if (diagnoseInfo != null && diagnoseInfo.hypertensionLevel == null) {
-            if (diagnoseInfo != null && diagnoseInfo.detectionDayCount >= 3) {
-                judgeClass();
+            if (diagnoseInfo != null) {
+                if (diagnoseInfo.detectionDayCount != null) {
+                    if (diagnoseInfo.detectionDayCount >= 3) {
+                        judgeClass();
+                    } else {
+                        showLessThan3Dialog((3 - diagnoseInfo.detectionDayCount) + "");
+                    }
+
+                }
             } else {
-                showLessThan3Dialog();
+                showLessThan3Dialog("0");
             }
+
         } else {
             toSulotion();
         }
@@ -157,20 +165,21 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     private void judgeClass() {
         Integer high = diagnoseInfo.highPressure;
         Integer low = diagnoseInfo.lowPressure;
+        if(high==null||low==null){
+            return;
+        }
 //        高血压 high>=140 或 low>=90
 //        正常高值 140>high>=120 或 90>low>=80
 //        正常 90<=高压<120且60<=低压<80
 //        偏低 高压<90 或 低压<60
-        if (high >= 140 && low >= 90) {
+        if (high >= 140 || low >= 90) {
             onHigh();
         } else if ((high < 140 && high >= 120) || (low < 90 && low >= 80)) {
             onNormalHigh();
         } else if ((high < 120 && high >= 90) && (low < 80 && low >= 60)) {
             onNormal();
-
         } else if (high < 90 || low < 60) {
             onLow();
-
         }
 
     }
@@ -264,7 +273,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                                 jumpPages(hypertensionLevel);
                             } else {
                                 // TODO: 2018/7/27 提示流程结束
-                                showLessThan3Dialog();
+                                showLessThan3Dialog("0");
                             }
                         }
                     }
@@ -278,8 +287,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         );
     }
 
-    private void showLessThan3Dialog() {
-        FllowUpTimesDialog dialog = new FllowUpTimesDialog();
+    private void showLessThan3Dialog(String notice) {
+        FllowUpTimesDialog dialog = new FllowUpTimesDialog(notice);
         dialog.setListener(this);
         dialog.show(getSupportFragmentManager(), "less3");
     }
