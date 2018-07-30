@@ -61,6 +61,7 @@ public class BloodPresureMeasuerFragment extends HealthBloodDetectionFragment {
             }
         });
         ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
+        ivRight.setImageResource(R.drawable.health_ic_blutooth);
         ivRight.setOnClickListener(v -> startDetection());
         tvNext.setOnClickListener(v ->
                 uploadData(highPressure, lowPressure, pulse));
