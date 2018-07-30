@@ -165,20 +165,21 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     private void judgeClass() {
         Integer high = diagnoseInfo.highPressure;
         Integer low = diagnoseInfo.lowPressure;
+        if(high==null||low==null){
+            return;
+        }
 //        高血压 high>=140 或 low>=90
 //        正常高值 140>high>=120 或 90>low>=80
 //        正常 90<=高压<120且60<=低压<80
 //        偏低 高压<90 或 低压<60
-        if (high >= 140 && low >= 90) {
+        if (high >= 140 || low >= 90) {
             onHigh();
         } else if ((high < 140 && high >= 120) || (low < 90 && low >= 80)) {
             onNormalHigh();
         } else if ((high < 120 && high >= 90) && (low < 80 && low >= 60)) {
             onNormal();
-
         } else if (high < 90 || low < 60) {
             onLow();
-
         }
 
     }

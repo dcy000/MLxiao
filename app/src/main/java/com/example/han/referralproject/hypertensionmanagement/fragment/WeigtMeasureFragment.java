@@ -1,5 +1,6 @@
 package com.example.han.referralproject.hypertensionmanagement.fragment;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,7 @@ import com.example.han.referralproject.health.model.DetailsModel;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -60,22 +62,14 @@ public class WeigtMeasureFragment extends HealthWeightDetectionFragment implemen
 
     protected void initView(View view, Bundle savedInstanceState) {
         ((TextView) view.findViewById(R.id.tv_top_title)).setText(R.string.test_tizhong);
-        view.findViewById(R.id.ll_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getFragmentManager() != null) {
-                    getFragmentManager().popBackStack();
-                }
+        view.findViewById(R.id.ll_back).setOnClickListener(v -> {
+            if (getFragmentManager() != null) {
+                getFragmentManager().popBackStack();
             }
         });
         ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
         ivRight.setImageResource(R.drawable.health_ic_blutooth);
-        ivRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        ivRight.setOnClickListener(v -> startDetection());
         showUi();
     }
 
@@ -129,7 +123,7 @@ public class WeigtMeasureFragment extends HealthWeightDetectionFragment implemen
         data.setDetectionType("3");
         data.setWeight(weight);
         datas.add(data);
-        OkGo.<String>post(NetworkApi.DETECTION_DATA)
+        OkGo.<String>post(NetworkApi.DETECTION_DATA + LocalShared.getInstance(getContext()).getUserId() + "/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
                     @Override

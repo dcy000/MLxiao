@@ -57,7 +57,7 @@ public class FllowUpTimesDialog extends DialogFragment {
         String source = "您当前测量次数未满足非同日3次测量,血压诊断条件不足,再测"+notice+"日即可为您开启方案";
         SpannableString colorText = new SpannableString(source);
         ForegroundColorSpan what = new ForegroundColorSpan(Color.parseColor("#F56C6C"));
-        colorText.setSpan(what, source.indexOf("再测2日"), source.indexOf("即可为您"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        colorText.setSpan(what, source.indexOf("再测"), source.indexOf("即可为您"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvTitle.setText(colorText);
         return view;
 
