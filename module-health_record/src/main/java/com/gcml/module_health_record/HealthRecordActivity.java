@@ -415,7 +415,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
             finish();
         }else if (i==R.id.iv_top_right){
             try {
-                Class clz = Class.forName("com.example.han.referralproject.MainActivity");
+                Class clz = Class.forName("com.example.han.referralproject.homepage.MainActivity");
                 startActivity(new Intent(this, clz));
                 finish();
             } catch (ClassNotFoundException e) {
