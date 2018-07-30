@@ -218,15 +218,19 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
         if (targetList != null && targetList.size() > 0) {
             for (NewWeeklyOrMonthlyBean.TargetListBean targetListBean : targetList) {
                 int target = targetListBean.getTarget();
+                int num = targetListBean.getNum();
                 switch (target) {
                     case -1:
-                        mTvDi.setText(targetListBean.getNum() + "次");
+                        mTvDi.setText(num + "次");
+                        mRpbDi.setProgress(num);
                         break;
                     case 0:
-                        mTvZhengchang.setText(targetListBean.getNum() + "次");
+                        mTvZhengchang.setText(num + "次");
+                        mRpbZhengchang.setProgress(num);
                         break;
                     case 1:
-                        mTvGao.setText(targetListBean.getNum() + "次");
+                        mTvGao.setText(num + "次");
+                        mRpbGao.setProgress(num);
                         break;
                 }
             }
@@ -247,6 +251,8 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
     }
 
     private void initView() {
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("血压结果分析");
         mTvMeasureTitle = (TextView) findViewById(R.id.tv_measure_title);
         mTvGao = (TextView) findViewById(R.id.tv_gao);
         mRpbGao = (RxRoundProgressBar) findViewById(R.id.rpb_gao);

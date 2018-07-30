@@ -245,7 +245,7 @@ public class NewMain1Fragment extends BaseFragment implements View.OnClickListen
             public void onSuccess(@Nullable Void result) {
 
             }
-        }, 2, TimeUnit.HOURS);
+        }, 1, TimeUnit.HOURS);
     }
 
     private void synchroSystemTime() {
