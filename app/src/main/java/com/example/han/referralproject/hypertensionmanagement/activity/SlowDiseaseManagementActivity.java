@@ -115,7 +115,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             }
         } else {
             //有结果-->所有都做完
-            ToastUtils.showShort(diagnoseInfo.result);
             TwoChoiceDialog dialog = new TwoChoiceDialog("您在7天内已生成过健康方案，点击健康方案可直接查看。", "继续测量", "健康方案");
             dialog.reverseButtonTextColor(true);
             dialog.setListener(new TwoChoiceDialog.OnDialogClickListener() {
