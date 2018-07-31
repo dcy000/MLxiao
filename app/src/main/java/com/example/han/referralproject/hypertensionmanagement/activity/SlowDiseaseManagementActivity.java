@@ -107,26 +107,33 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      */
     private void onclickHypertensionManage() {
 
-        if (diagnoseInfo != null && diagnoseInfo.result == null) {
-            if (diagnoseInfo.hypertensionPrimaryState == null) {
-                //用户更新原发性信息
-                showOriginHypertensionDialog();
-            } else if ("1".equals(diagnoseInfo.hypertensionPrimaryState)) {
-                onOriginClickYes();
-            } else if ("0".equals(diagnoseInfo.hypertensionPrimaryState)) {
+        if (diagnoseInfo != null) {
+            if (diagnoseInfo.result == null) {
+                if (diagnoseInfo.hypertensionPrimaryState == null) {
+                    //用户更新原发性信息
+                    showOriginHypertensionDialog();
+                } else if ("1".equals(diagnoseInfo.hypertensionPrimaryState)) {
+                    onOriginClickYes();
+                } else if ("0".equals(diagnoseInfo.hypertensionPrimaryState)) {
 //                onOriginClickNo();
-                showOriginHypertensionDialog();
+                    showOriginHypertensionDialog();
+                }
+            } else {
+                DialogSure sure = new DialogSure(this);
+                sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
+                sure.setSure("健康方案");
+                sure.show();
+                sure.setOnClickSureListener(dialog1 -> {
+                    dialog1.dismiss();
+                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
+                });
             }
-        } else {
-            DialogSure sure=new DialogSure(this);
-            sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
-            sure.setSure("健康方案");
-            sure.show();
-            sure.setOnClickSureListener(dialog1 -> {
-                dialog1.dismiss();
-                startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
-            });
+
+        }else{
+            ToastUtils.showShort("网络繁忙");
         }
+
+
     }
 
     /**
@@ -161,7 +168,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     private void judgeClass() {
         Integer high = diagnoseInfo.highPressure;
         Integer low = diagnoseInfo.lowPressure;
-        if(high==null||low==null){
+        if (high == null || low == null) {
             return;
         }
 //        高血压 high>=140 或 low>=90
