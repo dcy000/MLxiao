@@ -9,6 +9,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.hypertensionmanagement.fragment.BloodClucoseMeasureFragment;
 import com.example.han.referralproject.hypertensionmanagement.fragment.BloodPresureMeasuerFragment;
 import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +26,7 @@ public class BloodClucoseMeasureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blood_clucose_measure);
         ButterKnife.bind(this);
         initView();
+        MLVoiceSynthetize.startSynthesize(this,"主人，拿出测量设备，我们做个测量",false);
         AppManager.getAppManager().addActivity(this);
     }
 
