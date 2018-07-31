@@ -156,7 +156,6 @@ public class RegisterHead2XunfeiActivity extends BaseActivity implements View.On
         mLottAnimation.playAnimation();
 
         userId = MyApplication.getInstance().userId;
-        //TODO:恢复从SP中读取xfid
         xfid = LocalShared.getInstance(mContext).getXunfeiId();
         groupId = LocalShared.getInstance(mContext).getGroupId();
         firstXfidOfGroup = LocalShared.getInstance(mContext).getGroupFirstXfid();
