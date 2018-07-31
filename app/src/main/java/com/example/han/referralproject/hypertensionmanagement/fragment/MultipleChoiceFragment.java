@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +78,7 @@ public class MultipleChoiceFragment extends Fragment {
     }
 
     private void initGV(Bundle arguments) {
+        MLVoiceSynthetize.startSynthesize(getContext(),TIP_CONTENT,false);
         gridView.setAdapter(new MyAdapter());
         if (arguments.getBoolean(IS_MULTIPLE_CHOOIC))
             gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE);

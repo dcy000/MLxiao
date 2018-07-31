@@ -8,6 +8,7 @@
     android:button="@null"
     android:checkMark="?android:listChoiceIndicatorSingle"
     android:gravity="center"
+    android:lines="1"
     android:padding="10pt"
     android:textColor="@color/multiple_choice_item_bg"
     android:textSize="60pt"
