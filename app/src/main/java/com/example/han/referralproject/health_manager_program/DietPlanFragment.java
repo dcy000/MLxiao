@@ -115,7 +115,7 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getData() {
-        Log.e(TAG, "getData: ");
+        Log.e(TAG, "getDataCache: ");
         OkGo.<String>get(NetworkApi.Daily_Recommended_Intake)
                 .params("userId", MyApplication.getInstance().userId)
                 .execute(new StringCallback() {

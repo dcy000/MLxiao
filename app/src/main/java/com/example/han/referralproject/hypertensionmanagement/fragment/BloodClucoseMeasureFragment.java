@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.health.intelligentdetection.DataFragment;
 import com.example.han.referralproject.health.intelligentdetection.HealthSugarDetectionFragment;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
@@ -22,7 +21,6 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by lenovo on 2018/7/30.

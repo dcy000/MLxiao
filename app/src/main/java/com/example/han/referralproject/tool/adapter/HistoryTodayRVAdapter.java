@@ -47,7 +47,7 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
 //        close.setClickListner(new ExpandableTextView.ClickListner() {
 //            @Override
 //            public void onclick(boolean isOpen) {
-//                getData().get(holder.getPosition()).flag = isOpen;
+//                getDataCache().get(holder.getPosition()).flag = isOpen;
 //                if (isOpen) {
 //                    close.setVisibility(View.GONE);
 //                    open.setVisibility(View.VISIBLE);

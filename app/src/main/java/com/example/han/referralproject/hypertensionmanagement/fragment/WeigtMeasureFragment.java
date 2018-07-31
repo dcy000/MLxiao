@@ -1,6 +1,5 @@
 package com.example.han.referralproject.hypertensionmanagement.fragment;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,8 +12,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.HealthDiaryDetailsFragment;
-import com.example.han.referralproject.health.intelligentdetection.DataFragment;
-import com.example.han.referralproject.health.intelligentdetection.HealthSugarDetectionUiFragment;
+import com.example.han.referralproject.health.intelligentdetection.DataCacheFragment;
 import com.example.han.referralproject.health.intelligentdetection.HealthWeightDetectionFragment;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
@@ -29,7 +27,6 @@ import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.ml.edu.App;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,12 +108,7 @@ public class WeigtMeasureFragment extends HealthWeightDetectionFragment implemen
 
     private void uploadData(float weight) {
         if (getFragmentManager() != null) {
-            Object obj = DataFragment.get(getFragmentManager()).getData();
-            if (obj == null) {
-                obj = new HashMap<String, Object>();
-            }
-            HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
-            dataMap.put("weight", weight);
+            DataCacheFragment.get(getFragmentManager()).getDataCache().put("weight", weight);
         }
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData data = new DetectionData();

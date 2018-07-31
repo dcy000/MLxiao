@@ -50,27 +50,27 @@ public class DetectionData {
 
     }
 
-    public float getBloodOxygen() {
+    public Float getBloodOxygen() {
         return bloodOxygen;
     }
 
-    public void setBloodOxygen(float bloodOxygen) {
+    public void setBloodOxygen(Float bloodOxygen) {
         this.bloodOxygen = bloodOxygen;
     }
 
-    public float getBloodSugar() {
+    public Float getBloodSugar() {
         return bloodSugar;
     }
 
-    public void setBloodSugar(float bloodSugar) {
+    public void setBloodSugar(Float bloodSugar) {
         this.bloodSugar = bloodSugar;
     }
 
-    public float getCholesterol() {
+    public Float getCholesterol() {
         return cholesterol;
     }
 
-    public void setCholesterol(float cholesterol) {
+    public void setCholesterol(Float cholesterol) {
         this.cholesterol = cholesterol;
     }
 
@@ -98,59 +98,59 @@ public class DetectionData {
         this.eqid = eqid;
     }
 
-    public int getHeartRate() {
+    public Integer getHeartRate() {
         return heartRate;
     }
 
-    public void setHeartRate(int heartRate) {
+    public void setHeartRate(Integer heartRate) {
         this.heartRate = heartRate;
     }
 
-    public int getHighPressure() {
+    public Integer getHighPressure() {
         return highPressure;
     }
 
-    public void setHighPressure(int highPressure) {
+    public void setHighPressure(Integer highPressure) {
         this.highPressure = highPressure;
     }
 
-    public int getLowPressure() {
+    public Integer getLowPressure() {
         return lowPressure;
     }
 
-    public void setLowPressure(int lowPressure) {
+    public void setLowPressure(Integer lowPressure) {
         this.lowPressure = lowPressure;
     }
 
-    public int getOffset() {
+    public Integer getOffset() {
         return offset;
     }
 
-    public void setOffset(int offset) {
+    public void setOffset(Integer offset) {
         this.offset = offset;
     }
 
-    public int getPulse() {
+    public Integer getPulse() {
         return pulse;
     }
 
-    public void setPulse(int pulse) {
+    public void setPulse(Integer pulse) {
         this.pulse = pulse;
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
-    public int getSugarTime() {
+    public Integer getSugarTime() {
         return sugarTime;
     }
 
-    public void setSugarTime(int sugarTime) {
+    public void setSugarTime(Integer sugarTime) {
         this.sugarTime = sugarTime;
     }
 
@@ -158,7 +158,7 @@ public class DetectionData {
         return temperAture;
     }
 
-    public void setTemperAture(float temperAture) {
+    public void setTemperAture(Float temperAture) {
         this.temperAture = temperAture;
     }
 
@@ -174,23 +174,23 @@ public class DetectionData {
         return uricAcid;
     }
 
-    public void setUricAcid(float uricAcid) {
+    public void setUricAcid(Float uricAcid) {
         this.uricAcid = uricAcid;
     }
 
-    public int getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 
-    public float getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 
@@ -202,11 +202,11 @@ public class DetectionData {
         this.yz = yz;
     }
 
-    public int getZid() {
+    public Integer getZid() {
         return zid;
     }
 
-    public void setZid(int zid) {
+    public void setZid(Integer zid) {
         this.zid = zid;
     }
 }

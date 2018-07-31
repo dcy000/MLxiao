@@ -1,5 +1,7 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 
 /**
  *
@@ -79,15 +82,28 @@ public class HealthFirstTipsFragment extends Fragment {
     }
 
     public void navToNext() {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null) {
-            FragmentTransaction transaction = fm.beginTransaction();
-            Fragment fragment;
-            fragment = new HealthBloodDetectionUiFragment();
+        FragmentActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        Uri uri = Uri.parse("android.resource://" + activity.getPackageName() + "/" + R.raw.tips_xueya);
+        MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
+            FragmentManager fm = getFragmentManager();
+            if (fm != null) {
+                FragmentTransaction transaction = fm.beginTransaction();
+                Fragment fragment;
+                fragment = new HealthBloodDetectionUiFragment();
 //            fragment = new HealthWeightDetectionUiFragment();
-            transaction.replace(R.id.fl_container, fragment);
-            transaction.addToBackStack(null);
-            transaction.commitAllowingStateLoss();
+                transaction.replace(R.id.fl_container, fragment);
+                transaction.addToBackStack(null);
+                transaction.commitAllowingStateLoss();
+            }
+
         }
     }
 }

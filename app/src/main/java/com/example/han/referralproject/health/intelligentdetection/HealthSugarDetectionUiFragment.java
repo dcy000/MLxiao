@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -28,6 +27,7 @@ import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
         implements HealthSelectSugarDetectionTimeFragment.OnActionListener {
@@ -36,35 +36,12 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
     private Uri uri;
     private TextView tvNext;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.tips_xuetang);
-        MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血糖测量演示视频");
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
-            selectSugarTime();
-        } else if (requestCode == 18) {
-            if (resultCode == Activity.RESULT_OK) {
-                uploadEcg(data);
-            }
-        }
-    }
-
     private void uploadEcg(Intent data) {
         int ecg = data.getIntExtra("ecg", 0);
         int heartRate = data.getIntExtra("heartRate", 0);
         if (getFragmentManager() != null) {
-            Object obj = DataFragment.get(getFragmentManager()).getData();
-            if (obj == null) {
-                obj = new HashMap<String, Object>();
-            }
-            HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
-            dataMap.put("ecg", ecg);
-            dataMap.put("heartRate", heartRate);
+            DataCacheFragment.get(getFragmentManager()).getDataCache().put("ecg", ecg);
+            DataCacheFragment.get(getFragmentManager()).getDataCache().put("heartRate", heartRate);
         }
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData ecgData = new DetectionData();
@@ -73,6 +50,14 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
         ecgData.setEcg(String.valueOf(ecg));
         ecgData.setHeartRate(heartRate);
         datas.add(ecgData);
+        DataCacheFragment dataCacheFragment = DataCacheFragment.get(getFragmentManager());
+        HashMap<String, Object> dataCache = dataCacheFragment.getDataCache();
+        List<DetectionData> dataList = (List<DetectionData>) dataCache.get("dataList");
+        if (dataList == null) {
+            dataList = new ArrayList<>();
+            dataCache.put("dataList", dataList);
+        }
+        dataList.add(ecgData);
         OkGo.<String>post(NetworkApi.DETECTION_DATA + MyApplication.getInstance().userId + "/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
@@ -105,15 +90,8 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
     }
 
     private void navToThreeInOne() {
-        FragmentManager fm = getFragmentManager();
-        if (fm == null) {
-            return;
-        }
-        Fragment fragment = new HealthThreeInOneDetectionUiFragment();
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.fl_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commitAllowingStateLoss();
+        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.tips_sanheyi);
+        MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
     }
 
     private void selectSugarTime() {
@@ -157,26 +135,30 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
                 navToNext();
             }
         });
+        selectSugarTime();
     }
 
     @Override
     protected void onSugarResult(float sugar) {
-        if (getFragmentManager() != null) {
-            Object obj = DataFragment.get(getFragmentManager()).getData();
-            if (obj == null) {
-                obj = new HashMap<String, Object>();
-            }
-            HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
-            dataMap.put("sugar", sugar);
+        if (getFragmentManager() == null) {
+            return;
         }
-
+        HashMap<String, Object> dataCache = DataCacheFragment
+                .get(getFragmentManager()).getDataCache();
+        dataCache.put("sugar", sugar);
         ArrayList<DetectionData> datas = new ArrayList<>();
-        DetectionData data = new DetectionData();
+        DetectionData sugarData = new DetectionData();
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-        data.setDetectionType("1");
-        data.setSugarTime(sugarTime);
-        data.setBloodSugar(sugar);
-        datas.add(data);
+        sugarData.setDetectionType("1");
+        sugarData.setSugarTime(sugarTime);
+        sugarData.setBloodSugar(sugar);
+        datas.add(sugarData);
+        List<DetectionData> dataList = (List<DetectionData>) dataCache.get("dataList");
+        if (dataList == null) {
+            dataList = new ArrayList<>();
+            dataCache.put("dataList", dataList);
+        }
+        dataList.add(sugarData);
         OkGo.<String>post(NetworkApi.DETECTION_DATA + MyApplication.getInstance().userId + "/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
@@ -191,7 +173,6 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
                             ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
                             }.getType());
                             if (apiResponse.isSuccessful()) {
-                                navToNext();
                                 return;
                             }
                         } catch (Throwable e) {
@@ -208,11 +189,43 @@ public class HealthSugarDetectionUiFragment extends HealthSugarDetectionFragment
                 });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        startDetection();
+    }
+
     private void navToNext() {
         Intent intent = new Intent(getActivity(), XinDianDetectActivity.class);
         intent.putExtra("playVideoTips", true);
         intent.putExtra("forResult", true);
         startActivityForResult(intent, 18);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 18) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data.getIntExtra("ecg", 0) <= 0) {
+                    navToThreeInOne();
+                    return;
+                }
+                uploadEcg(data);
+            }
+            return;
+        }
+
+        if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
+            FragmentManager fm = getFragmentManager();
+            if (fm == null) {
+                return;
+            }
+            Fragment fragment = new HealthThreeInOneDetectionUiFragment();
+            FragmentTransaction transaction = fm.beginTransaction();
+            transaction.replace(R.id.fl_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commitAllowingStateLoss();
+        }
     }
 
     private int sugarTime = 0;

@@ -1,11 +1,8 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,7 +15,6 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,32 +24,11 @@ import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment {
 
     private ImageView ivRight;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.tips_xueya);
-        MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
-            if (getView() != null) {
-                getView().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        notifyDetectionStepChanged(detectionStep);
-                    }
-                }, 0);
-            }
-        }
-    }
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
@@ -95,11 +70,20 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
     };
 
     @Override
+    public void onResume() {
+        super.onResume();
+        notifyDetectionStepChanged(detectionStep);
+    }
+
+    @Override
     protected void onBloodResult(int highPressure, int lowPressure, int pulse) {
         highPressures.put(detectionStep, highPressure);
         lowPressures.put(detectionStep, lowPressure);
         pulses.put(detectionStep, pulse);
-//        dispatchNextDetectionStep();
+    }
+
+    private void uploadDataIfDone() {
+
     }
 
     @IntDef({
@@ -217,7 +201,17 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
                         actionOnClickListener);
                 break;
             case DetectionStep.DONE:
-
+                int detectionCount = 4;
+                if (hasLeft3) {
+                    detectionCount++;
+                }
+                if (hasRight3) {
+                    detectionCount++;
+                }
+                if (highPressures.size() != detectionCount) {
+                    navToNext();
+                    return;
+                }
                 uploadHandData(prepareData());
                 break;
         }
@@ -225,12 +219,7 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
 
     private void uploadHandData(Data data) {
         if (getFragmentManager() != null) {
-            Object obj = DataFragment.get(getFragmentManager()).getData();
-            if (obj == null) {
-                obj = new HashMap<String, Object>();
-            }
-            HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
-            dataMap.put("pressure", data);
+            DataCacheFragment.get(getFragmentManager()).getDataCache().put("pressure", data);
         }
         OkGo.<String>post(NetworkApi.DETECTION_BLOOD_HAND + MyApplication.getInstance().userId + "/")
                 .params("handState", data.right)
@@ -268,15 +257,28 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
     private void uploadData(Data data) {
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData pressureData = new DetectionData();
-        DetectionData dataPulse = new DetectionData();
+        DetectionData pulseData = new DetectionData();
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
         pressureData.setDetectionType(data.type);
-        pressureData.setHighPressure(data.right == 1 ? data.rightHighPressure : data.leftHighPressure);
-        pressureData.setLowPressure(data.right == 1 ? data.rightLowPressure : data.leftLowPressure);
-        dataPulse.setDetectionType("9");
-        dataPulse.setPulse(data.right == 1 ? data.rightPulse : data.leftPulse);
+        int highPressure = data.right == 1 ? data.rightHighPressure : data.leftHighPressure;
+        pressureData.setHighPressure(highPressure);
+        int lowPressure = data.right == 1 ? data.rightLowPressure : data.leftLowPressure;
+        pressureData.setLowPressure(lowPressure);
+        pulseData.setDetectionType("9");
+        int pulse = data.right == 1 ? data.rightPulse : data.leftPulse;
+        pulseData.setPulse(pulse);
         datas.add(pressureData);
-        datas.add(dataPulse);
+        datas.add(pulseData);
+        DataCacheFragment dataCacheFragment = DataCacheFragment.get(getFragmentManager());
+        HashMap<String, Object> dataCache = dataCacheFragment.getDataCache();
+        List<DetectionData> dataList = (List<DetectionData>) dataCache.get("dataList");
+        if (dataList == null) {
+            dataList = new ArrayList<>();
+            dataCache.put("dataList", dataList);
+        }
+        dataList.add(pressureData);
+        dataList.add(pulseData);
+
         OkGo.<String>post(NetworkApi.DETECTION_DATA + MyApplication.getInstance().userId + "/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {

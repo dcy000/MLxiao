@@ -1,7 +1,5 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,10 +10,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,6 +23,7 @@ import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HealthThreeInOneDetectionUiFragment extends HealthThreeInOneDetectionFragment {
 
@@ -33,8 +32,7 @@ public class HealthThreeInOneDetectionUiFragment extends HealthThreeInOneDetecti
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.tips_sanheyi);
-        MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
+
     }
 
     @Override
@@ -50,10 +48,9 @@ public class HealthThreeInOneDetectionUiFragment extends HealthThreeInOneDetecti
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
-            startDetection();
-        }
+    public void onResume() {
+        super.onResume();
+        startDetection();
     }
 
     private SparseArray<Float> results = new SparseArray<>();
@@ -65,12 +62,7 @@ public class HealthThreeInOneDetectionUiFragment extends HealthThreeInOneDetecti
 
     private void navToNext() {
         if (getFragmentManager() != null) {
-            Object obj = DataFragment.get(getFragmentManager()).getData();
-            if (obj == null) {
-                obj = new HashMap<String, Object>();
-            }
-            HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
-            dataMap.put("threeInOne", results);
+            DataCacheFragment.get(getFragmentManager()).getDataCache().put("threeInOne", results);
         }
         if (results.size() == 0) {
             navToReport();
@@ -91,7 +83,15 @@ public class HealthThreeInOneDetectionUiFragment extends HealthThreeInOneDetecti
         datas.add(sugarData);
         datas.add(cholesterolData);
         datas.add(lithicAcidData);
-        OkGo.<String>post(NetworkApi.DETECTION_DATA)
+        DataCacheFragment dataCacheFragment = DataCacheFragment.get(getFragmentManager());
+        HashMap<String, Object> dataCache = dataCacheFragment.getDataCache();
+        List<DetectionData> dataList = (List<DetectionData>) dataCache.get("dataList");
+        if (dataList == null) {
+            dataList = new ArrayList<>();
+            dataCache.put("dataList", dataList);
+        }
+        dataList.addAll(datas);
+        OkGo.<String>post(NetworkApi.DETECTION_DATA + MyApplication.getInstance().userId + "/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
                     @Override

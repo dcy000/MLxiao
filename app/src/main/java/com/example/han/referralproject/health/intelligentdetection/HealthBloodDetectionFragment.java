@@ -13,12 +13,14 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.polidea.rxandroidble2.RxBleClient;
+import com.polidea.rxandroidble2.RxBleDevice;
 import com.polidea.rxandroidble2.scan.ScanSettings;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -72,14 +74,15 @@ public class HealthBloodDetectionFragment extends Fragment {
 
     private RxBleClient rxBleClient;
     private RxPermissions rxPermissions;
-    private Disposable disposable = Disposables.empty();
+    private Disposable scanDisposable = Disposables.empty();
+    private Disposable connectDisposable = Disposables.empty();
 
     protected void startDetection() {
-        disposable.dispose();
+        scanDisposable.dispose();
         AtomicBoolean hasFind = new AtomicBoolean(false);
-        AtomicBoolean hasComplete = new AtomicBoolean(false);
-        disposable = Observable.just(1)
-                .delay(1, TimeUnit.SECONDS)
+        AtomicReference<RxBleDevice> bleDevice = new AtomicReference<>();
+
+        scanDisposable = Observable.just(1)
                 .compose(rxPermissions.ensure(
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.BLUETOOTH,
@@ -98,15 +101,27 @@ public class HealthBloodDetectionFragment extends Fragment {
                         scanResult.getBleDevice().getName(),
                         scanResult.getBleDevice().getMacAddress()))
                 .filter(scanResult -> DEVICE_NAME.equals(scanResult.getBleDevice().getName()))
-                .doOnNext(scanResult -> Timber.i("<- scan [Found]: %s %s",
-                        scanResult.getBleDevice().getName(),
-                        scanResult.getBleDevice().getMacAddress()))
-                .flatMap(scanResult -> {
+                .doOnNext(scanResult -> {
+                    scanDisposable.dispose();
+                    bleDevice.set(scanResult.getBleDevice());
+                    Timber.i("<- scan [Found]: %s %s",
+                            bleDevice.get().getName(),
+                            bleDevice.get().getMacAddress());
                     if (hasFind.compareAndSet(false, true)) {
-                        return scanResult.getBleDevice().establishConnection(false);
+                        connect(bleDevice);
                     }
-                    return Observable.empty();
                 })
+                .subscribe();
+
+
+    }
+
+    private void connect(AtomicReference<RxBleDevice> bleDevice) {
+        AtomicBoolean hasComplete = new AtomicBoolean(false);
+        connectDisposable.dispose();
+        connectDisposable = Observable.just(1)
+                .delay(2, TimeUnit.SECONDS)
+                .flatMap(a -> bleDevice.get().establishConnection(false))
                 .flatMap(rxBleConnection -> rxBleConnection.setupNotification(UUID_BLOOD)
                         .doOnSubscribe(disposable1 -> Timber.i("setupNotification: %s", UUID_BLOOD)))
                 .flatMap(notification -> notification)
@@ -146,6 +161,7 @@ public class HealthBloodDetectionFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        disposable.dispose();
+        scanDisposable.dispose();
+        connectDisposable.dispose();
     }
 }

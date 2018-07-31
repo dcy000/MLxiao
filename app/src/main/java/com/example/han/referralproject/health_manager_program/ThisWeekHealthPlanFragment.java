@@ -65,7 +65,7 @@ public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClick
     }
 
     private void getData() {
-        Log.e(TAG, "getData: ");
+        Log.e(TAG, "getDataCache: ");
         OkGo.<String>get(NetworkApi.ThisWeekPlan)
                 .params("userId", MyApplication.getInstance().userId)
                 .execute(new StringCallback() {
