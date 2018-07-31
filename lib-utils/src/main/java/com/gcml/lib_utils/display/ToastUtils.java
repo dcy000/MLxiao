@@ -32,11 +32,11 @@ public class ToastUtils {
         if (mToast == null) {
             mToast = Toast.makeText(getApplication(), message, Toast.LENGTH_SHORT);
             TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
-            mToast.setGravity(Gravity.BOTTOM,0,30);
             v.setTextSize(28);
         } else {
             mToast.setText(message);
         }
+        mToast.setGravity(Gravity.BOTTOM,0,50);
         mToast.show();
     }
 
@@ -49,11 +49,11 @@ public class ToastUtils {
         if (mToast == null) {
             mToast = Toast.makeText(getApplication(), resId, Toast.LENGTH_SHORT);
             TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
-            mToast.setGravity(Gravity.BOTTOM,0,30);
             v.setTextSize(28);
         } else {
             mToast.setText(resId);
         }
+        mToast.setGravity(Gravity.BOTTOM,0,50);
         mToast.show();
     }
 
@@ -66,11 +66,12 @@ public class ToastUtils {
         if (mToast == null) {
             mToast = Toast.makeText(getApplication(), message, Toast.LENGTH_LONG);
             TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
-            mToast.setGravity(Gravity.BOTTOM,0,30);
+
             v.setTextSize(28);
         } else {
             mToast.setText(message);
         }
+        mToast.setGravity(Gravity.BOTTOM,0,50);
         mToast.show();
     }
 
@@ -83,11 +84,11 @@ public class ToastUtils {
         if (mToast == null) {
             mToast = Toast.makeText(getApplication(), resId, Toast.LENGTH_LONG);
             TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
-            mToast.setGravity(Gravity.BOTTOM,0,30);
             v.setTextSize(28);
         } else {
             mToast.setText(resId);
         }
+        mToast.setGravity(Gravity.BOTTOM,0,50);
         mToast.show();
     }
 
@@ -101,10 +102,10 @@ public class ToastUtils {
             mToast = Toast.makeText(getApplication(), message, Toast.LENGTH_SHORT);
             TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
             v.setTextSize(28);
-            mToast.setGravity(Gravity.TOP,0,0);
         } else {
             mToast.setText(message);
         }
+        mToast.setGravity(Gravity.TOP,0,0);
         mToast.show();
     }
 
@@ -118,10 +119,10 @@ public class ToastUtils {
             mToast = Toast.makeText(getApplication(), resId, Toast.LENGTH_SHORT);
             TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
             v.setTextSize(28);
-            mToast.setGravity(Gravity.TOP,0,0);
         } else {
             mToast.setText(resId);
         }
+        mToast.setGravity(Gravity.TOP,0,0);
         mToast.show();
     }
 }
