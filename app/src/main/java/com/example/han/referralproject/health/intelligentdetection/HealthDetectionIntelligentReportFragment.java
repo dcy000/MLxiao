@@ -240,9 +240,11 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
             tvResult.setText(detectionResult.getResult());
             String diagnose = detectionResult.getDiagnose();
             View decs = blockMiddle;
-            if (!TextUtils.isEmpty(diagnose) && ("偏低").contains(diagnose)) {
+            if (("偏低").equals(diagnose)) {
                 decs = blockLow;
-            } else if (!TextUtils.isEmpty(diagnose) && ("偏高").contains(diagnose)) {
+            } else if (("增高").equals(diagnose)
+                    || ("正常高值").equals(diagnose)
+                    || ("异常增高").equals(diagnose)) {
                 decs = blockHigh;
             }
             applyAnimation(
@@ -282,9 +284,10 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
             String diagnose = detectionResult.getDiagnose();
             tvValue.setText(String.format(sugarFormt, detectionResult.getData().getBloodSugar()));
             View decs = blockMiddle;
-            if (!TextUtils.isEmpty(diagnose) && ("偏低").contains(diagnose)) {
+            if (("低血糖").equals(diagnose)) {
                 decs = blockLow;
-            } else if (!TextUtils.isEmpty(diagnose) && ("偏高").contains(diagnose)) {
+            } else if (("糖调节受损").equals(diagnose)
+                    || "血糖增高".equals(diagnose)) {
                 decs = blockHigh;
             }
             applyAnimation(
@@ -324,9 +327,9 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
             String diagnose = detectionResult.getDiagnose();
             tvValue.setText(String.format(sugarFormt, diagnose));
             View decs = blockMiddle;
-            if (("偏低").contains(diagnose)) {
+            if (("异常").contains(diagnose)) {
                 decs = blockLow;
-            } else if (("偏高").contains(diagnose)) {
+            } else if (("异常").contains(diagnose)) {
                 decs = blockHigh;
             }
             applyAnimation(
@@ -365,9 +368,9 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
             DetectionResult detectionResult = mResults.get(position);
             String diagnose = detectionResult.getDiagnose();
             View decs = blockMiddle;
-            if (("偏低").contains(diagnose)) {
+            if (("偏瘦").contains(diagnose)) {
                 decs = blockLow;
-            } else if (("偏高").contains(diagnose)) {
+            } else if (("偏胖").contains(diagnose)) {
                 decs = blockHigh;
             }
             tvValue.setText(String.format(sugarFormt, mResults.get(position).getData().getWeight()));
@@ -495,9 +498,9 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
             String diagnose = detectionResult.getDiagnose();
             tvValue.setText(String.format(sugarFormt, detectionResult.getData().getCholesterol()));
             View decs = blockMiddle;
-            if (!TextUtils.isEmpty(diagnose) && ("偏低").contains(diagnose)) {
+            if (("偏低").equals(diagnose)) {
                 decs = blockLow;
-            } else if (!TextUtils.isEmpty(diagnose) && ("偏高").contains(diagnose)) {
+            } else if (("偏高").equals(diagnose)) {
                 decs = blockHigh;
             }
             applyAnimation(
@@ -540,10 +543,10 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
             String diagnose = detectionResult.getDiagnose();
             tvValue.setText(String.format(sugarFormt, detectionResult.getData().getUricAcid()));
             View decs = blockMiddle;
-            if (!TextUtils.isEmpty(diagnose) && ("偏低").contains(diagnose)) {
-                decs = blockLow;
-            } else if (!TextUtils.isEmpty(diagnose) && ("偏高").contains(diagnose)) {
+            if (("增高").equals(diagnose)) {
                 decs = blockHigh;
+            } else if (("增高").contains(diagnose)) {
+                decs = blockLow;
             }
             applyAnimation(
                     (ConstraintLayout) itemView,
@@ -563,6 +566,8 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
         private final View indicatorDiagnose;
         private ConstraintSet constraintSet = new ConstraintSet();
 
+        private String pulseFormat = "脉搏：%s 次/分";
+
         public PulseVH(View itemView) {
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
@@ -578,6 +583,7 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
             tvTitle.setText("脉搏");
             DetectionResult detectionResult = mResults.get(position);
             String diagnose = detectionResult.getDiagnose();
+            tvValue.setText(String.format(pulseFormat, detectionResult.getData().getPulse()));
             View decs = blockMiddle;
             if (!TextUtils.isEmpty(diagnose) && ("偏低").contains(diagnose)) {
                 decs = blockLow;
