@@ -79,6 +79,9 @@ public class WarmNoticeFragment extends Fragment implements View.OnClickListener
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (tvButton != null) {
+            tvButton.removeCallbacks(action);
+        }
         unbinder.unbind();
     }
 
@@ -95,6 +98,15 @@ public class WarmNoticeFragment extends Fragment implements View.OnClickListener
         void onFragmentBtnClick();
 
         void onFragmentBtnTimeOut();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (tvButton != null) {
+            tvButton.removeCallbacks(action);
+
+        }
     }
 
     public void setListener(OnButtonClickListener listener) {
