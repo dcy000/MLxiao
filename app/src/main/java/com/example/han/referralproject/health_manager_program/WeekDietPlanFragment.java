@@ -123,10 +123,10 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser) {
             Log.e(TAG, "setUserVisibleHint: ");
-            if (cacheWeekDietPlan != null) {
-                ((TreatmentPlanActivity) getActivity()).speak(
-                        "主人，为了您的健康，我们精心为您准备了每天的健康食谱，请点击上方的按钮查看详情");
-            }
+//            if (cacheWeekDietPlan != null) {
+//                ((TreatmentPlanActivity) getActivity()).speak(
+//                        "主人，为了您的健康，我们精心为您准备了每天的健康食谱，请点击上方的按钮查看详情");
+//            }
             if (iChangToolbar != null) {
                 iChangToolbar.onChange(this);
             }

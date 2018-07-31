@@ -113,6 +113,10 @@ public class MedicinePlanFragment extends Fragment {
             if (iChangToolbar != null) {
                 iChangToolbar.onChange(this);
             }
+
+//            ((TreatmentPlanActivity) getActivity()).speak("主人，根据您的情况，" +
+//                    "我们给你推荐了以下相关药物。具体用药请以专业医生为准。我们建议您健康饮食，" +
+//                    "合理运动，根据康复疗程进行生活干预。");
         }
     }
 

@@ -61,6 +61,7 @@ public class LastWeekTrendFragment extends BaseFragment {
                 selectEndDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
 
         calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - 7);
+
         Date weekAgoDate = calendar.getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String result = format.format(weekAgoDate);
@@ -70,8 +71,8 @@ public class LastWeekTrendFragment extends BaseFragment {
         int selectStartDay = Integer.parseInt(date[2]);
         String endMillisecond = TimeUtils.string2Milliseconds(selectStartYear + "-" + selectStartMonth + "-" +
                 selectStartDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
-        getBloodpressureData(startMillisecond, endMillisecond);
-       getResult();
+        getBloodpressureData(endMillisecond, startMillisecond);
+        getResult();
     }
 
     private void getResult() {
@@ -103,6 +104,12 @@ public class LastWeekTrendFragment extends BaseFragment {
             if (iChangToolbar != null) {
                 iChangToolbar.onChange(this);
             }
+//            if (isAdded()) {
+//                ((TreatmentPlanActivity) getActivity()).speak("主人，请查看您一周的血压趋势");
+//            }
+
         }
+
+
     }
 }

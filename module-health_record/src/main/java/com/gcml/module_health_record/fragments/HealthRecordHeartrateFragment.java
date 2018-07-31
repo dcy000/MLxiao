@@ -67,7 +67,6 @@ public class HealthRecordHeartrateFragment extends BaseFragment {
         mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
         mIndicator1.setText("心率(次/分钟)");
         mLlSecond.setVisibility(View.GONE);
-        initChart();
     }
 
     private void initChart() {
@@ -141,6 +140,7 @@ public class HealthRecordHeartrateFragment extends BaseFragment {
     }
 
     public void refreshData(ArrayList<HeartRateHistory> response, String temp) {
+        initChart();
         ArrayList<Entry> values = new ArrayList<Entry>();
         ArrayList<Long> times = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();

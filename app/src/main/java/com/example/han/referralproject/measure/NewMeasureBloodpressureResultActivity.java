@@ -31,6 +31,8 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
  * version:V1.2.5
@@ -245,6 +247,8 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
                 mRpbGaoya.setProgress(highPressureAvg);
                 mRpbDiya.setMax(100);
                 mRpbDiya.setProgress(lowPressureAvg);
+                mTvGaoya.setText(highPressureAvg);
+                mTvDiya.setText(lowPressureAvg);
             }
         }
 
@@ -285,6 +289,8 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
         healthState = getIntent().getStringExtra("health_state");
         mTvState.setText(healthState);
         healthScore = getIntent().getIntExtra("health_score", 0);
+        Timber.e("健康分数：" + healthScore);
+        mWaveProgressBar.setValue(healthScore);
         mWaveProgressBar.setHealthValue(healthScore + "分");
         currentHighBloodpressure = getIntent().getIntExtra("high_bloodpressure", 120);
         currentLowBloodpressure = getIntent().getIntExtra("low_bloodpressure", 80);

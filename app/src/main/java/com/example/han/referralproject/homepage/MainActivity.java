@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -13,17 +14,26 @@ import com.example.han.referralproject.StatusBarFragment;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
+import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.lib_utils.thread.ThreadUtils;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -108,15 +118,19 @@ public class MainActivity extends BaseActivity {
         mNewmainBottomIndicator = (LinearLayout) findViewById(R.id.newmain_bottom_indicator);
         mIndicatorLeft = (View) findViewById(R.id.indicator_left);
         mIndicatorRight = (View) findViewById(R.id.indicator_right);
-//        speak(R.string.tips_splash);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        speak(R.string.tips_splash);
+    }
+
 
     @Override
     protected void onResume() {
         setEnableListeningLoop(false);
         super.onResume();
-//        NimAccountHelper.getInstance().login("user_" +
-//                MyApplication.getInstance().userId, "123456", null);
 //        NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {
 //            @Override
 //            public void onSuccess(ArrayList<ClueInfoBean> response) {
@@ -144,10 +158,46 @@ public class MainActivity extends BaseActivity {
 //                }
 //            }
 //        });
+
+        getPersonInfo();
+    }
+    //获取个人信息，得到网易账号登录所需的账号和密码
+    private void getPersonInfo() {
+        OkGo.<String>get(NetworkApi.Get_PersonInfo)
+                .params("bid", MyApplication.getInstance().userId)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Timber.e(response.body());
+                        try {
+                            JSONObject object = new JSONObject(response.body());
+                            if (object.optBoolean("tag")) {
+                                JSONObject data = object.optJSONObject("data");
+                                UserInfoBean userInfoBean = new Gson().fromJson(data.toString(), UserInfoBean.class);
+                                if (userInfoBean != null) {
+
+                                    String wyyxId = userInfoBean.wyyxId;
+                                    String wyyxPwd = userInfoBean.wyyxPwd;
+                                    if (TextUtils.isEmpty(wyyxId) || TextUtils.isEmpty(wyyxPwd)) {
+                                        Timber.e("获取网易账号信息出错");
+                                        return;
+                                    }
+                                    NimAccountHelper.getInstance().login(wyyxId, wyyxPwd, null);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private ShowStateBar showStateBar;
 
+    /**
+     * 控制状态bar中日期信息的显示或者隐藏
+     * @param showStateBar
+     */
     public void setShowStateBarListener(ShowStateBar showStateBar) {
         this.showStateBar = showStateBar;
     }

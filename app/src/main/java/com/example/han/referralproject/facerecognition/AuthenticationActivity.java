@@ -160,7 +160,7 @@ public class AuthenticationActivity extends BaseActivity {
                     new JpushAliasUtils(AuthenticationActivity.this).setAlias("user_" + user.bid);
                     LocalShared.getInstance(mContext).setUserInfo(user);
                     LocalShared.getInstance(mContext).setSex(user.sex);
-                    LocalShared.getInstance(mContext).setUserPhoto(user.user_photo);
+                    LocalShared.getInstance(mContext).setUserPhoto(user.userPhoto);
                     LocalShared.getInstance(mContext).setUserAge(user.age);
                     LocalShared.getInstance(mContext).setUserHeight(user.height);
                     isInclude_PassPerson = true;

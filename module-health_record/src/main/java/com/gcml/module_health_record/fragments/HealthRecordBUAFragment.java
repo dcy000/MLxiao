@@ -68,7 +68,7 @@ public class HealthRecordBUAFragment extends BaseFragment {
         mColor1.setBackgroundColor(Color.parseColor("#6D80E2"));
         mIndicator1.setText("男性");
         mLlSecond.setVisibility(View.VISIBLE);
-        initChart();
+
     }
 
     private void initChart() {
@@ -151,6 +151,7 @@ public class HealthRecordBUAFragment extends BaseFragment {
     }
 
     public void refreshData(ArrayList<BUA> response, String temp) {
+        initChart();
         ArrayList<Entry> value = new ArrayList<Entry>();
         ArrayList<Long> times = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();

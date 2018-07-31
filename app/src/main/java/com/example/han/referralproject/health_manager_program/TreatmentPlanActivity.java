@@ -86,6 +86,12 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        speak("主人，小E已为你生成具体计划方案，滑动屏幕可进行查看。");
+    }
+
+    @Override
     public void onChange(Fragment fragment) {
         if (fragment instanceof LastWeekTrendFragment) {
             mTitleText.setText("一周血压趋势表");
