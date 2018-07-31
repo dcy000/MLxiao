@@ -54,6 +54,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_main);
         StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
+        speak(R.string.tips_splash);
         initView();
         initFragments();
         initViewpage();
@@ -122,12 +123,6 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         mNewmainBottomIndicator = (LinearLayout) findViewById(R.id.newmain_bottom_indicator);
         mIndicatorLeft = (View) findViewById(R.id.indicator_left);
         mIndicatorRight = (View) findViewById(R.id.indicator_right);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        speak(R.string.tips_splash);
     }
 
 
