@@ -166,7 +166,7 @@ public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClick
     public void onClick(View v) {
         int id = v.getId();
         if (id==R.id.tv_set_alarm){
-            AlarmDetail2Activity.newLaunchIntent(getContext(),-1);
+            startActivity(AlarmDetail2Activity.newLaunchIntent(getContext(),-1));
         }
     }
 }
