@@ -745,6 +745,7 @@
         <activity android:name=".hypertensionmanagement.activity.HasDiseaseOrNotActivity" />
         <activity
             android:name=".homepage.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape"
             android:label="20180730主页面"/>
         <activity

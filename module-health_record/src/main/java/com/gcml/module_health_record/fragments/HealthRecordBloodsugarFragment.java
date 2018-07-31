@@ -70,7 +70,7 @@ public class HealthRecordBloodsugarFragment extends BaseFragment implements View
         mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
         mIndicator1.setText("血糖(mmol/L)");
         mLlSecond.setVisibility(View.GONE);
-        initChart();
+
 
     }
 
@@ -174,6 +174,7 @@ public class HealthRecordBloodsugarFragment extends BaseFragment implements View
     }
 
     public void refreshData(ArrayList<BloodSugarHistory> response, String temp) {
+        initChart();
         ArrayList<Entry> value = new ArrayList<Entry>();
         ArrayList<Long> times = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();

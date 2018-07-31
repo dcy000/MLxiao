@@ -106,7 +106,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 Log.e(TAG, response.toString());
                 MyBaseDataActivity.this.response = response;
                 Picasso.with(MyBaseDataActivity.this)
-                        .load(response.user_photo)
+                        .load(response.userPhoto)
                         .placeholder(R.drawable.avatar_placeholder)
                         .error(R.drawable.avatar_placeholder)
                         .tag(this)
@@ -118,12 +118,12 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mSex.setText(response.sex);
                 mHeight.setText(response.height + "cm");
                 mWeight.setText(response.weight + "Kg");
-                mBlood.setText(response.blood_type + "型");
+                mBlood.setText(response.bloodType + "型");
                 mPhone.setText(response.tel);
                 mNumber.setText(response.eqid);
-                mMotion.setText(response.exercise_habits);
+                mMotion.setText(response.exerciseHabits);
                 mSmoke.setText(response.smoke);
-                mEating.setText(response.eating_habits);
+                mEating.setText(response.eatingHabits);
                 mDrinking.setText(response.drink);
                 mAddress.setText(response.dz);
                 mHistory.setText(response.mh.trim());

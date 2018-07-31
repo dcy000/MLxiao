@@ -65,7 +65,7 @@ public class HealthRecordBloodpressureFragment extends BaseFragment {
         mColor2.setBackgroundColor(getResources().getColor(R.color.health_record_node2_color));
         mIndicator2.setText("低压(mmHg)");
         mLlSecond.setVisibility(View.VISIBLE);
-        initChart();
+
     }
 
     private void initChart() {
@@ -144,7 +144,7 @@ public class HealthRecordBloodpressureFragment extends BaseFragment {
     }
 
     public void refreshData(ArrayList<BloodPressureHistory> response, String temp) {
-
+        initChart();
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
         ArrayList<Entry> yVals2 = new ArrayList<Entry>();
         ArrayList<Long> times = new ArrayList<>();

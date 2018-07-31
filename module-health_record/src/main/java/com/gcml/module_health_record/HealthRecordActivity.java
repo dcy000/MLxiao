@@ -33,6 +33,8 @@ import com.gcml.module_health_record.fragments.HealthRecordTemperatureFragment;
 import com.gcml.module_health_record.fragments.HealthRecordWeightFragment;
 import com.gcml.module_health_record.network.HealthRecordNetworkApi;
 import com.gzq.administrator.lib_common.base.BaseApplication;
+import com.iflytek.recognition.MLVoiceRecognize;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -90,6 +92,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_recoed_activity_health_record);
+        MLVoiceSynthetize.startSynthesize(this, "主人，请查看您的历史测量数据", false);
         initView();
         initDialog();
     }
@@ -411,21 +414,21 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
             baseDialog.dismiss();
             mTvTimeUnit.setText("半年");
 
-        } else if(i==R.id.ll_back){
+        } else if (i == R.id.ll_back) {
             finish();
-        }else if (i==R.id.iv_top_right){
+        } else if (i == R.id.iv_top_right) {
             try {
-                Class clz = Class.forName("com.example.han.referralproject.MainActivity");
+                Class clz = Class.forName("com.example.han.referralproject.homepage.MainActivity");
                 startActivity(new Intent(this, clz));
                 finish();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
                 Log.d("error", e.toString());
             }
-        }else if(i==R.id.tv_record_qrcode){
+        } else if (i == R.id.tv_record_qrcode) {
             String text = HealthRecordNetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + BaseApplication.getInstance().userId + "&bname=" + BaseApplication.getInstance().userName;
-            DialogImage dialogImage=new DialogImage(this);
-            dialogImage.setImage(QRCodeUtils.creatQRCode(text,600,600));
+            DialogImage dialogImage = new DialogImage(this);
+            dialogImage.setImage(QRCodeUtils.creatQRCode(text, 600, 600));
             dialogImage.setDescription("扫一扫，下载详细报告");
             dialogImage.show();
         }

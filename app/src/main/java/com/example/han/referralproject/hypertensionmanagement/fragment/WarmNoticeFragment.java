@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,6 +80,9 @@ public class WarmNoticeFragment extends Fragment implements View.OnClickListener
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (tvButton != null) {
+            tvButton.removeCallbacks(action);
+        }
         unbinder.unbind();
     }
 
@@ -95,6 +99,15 @@ public class WarmNoticeFragment extends Fragment implements View.OnClickListener
         void onFragmentBtnClick();
 
         void onFragmentBtnTimeOut();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (tvButton != null) {
+            tvButton.removeCallbacks(action);
+            MLVoiceSynthetize.stop();
+        }
     }
 
     public void setListener(OnButtonClickListener listener) {

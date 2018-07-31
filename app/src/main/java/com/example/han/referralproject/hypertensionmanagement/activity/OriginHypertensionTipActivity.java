@@ -31,7 +31,7 @@ public class OriginHypertensionTipActivity extends BaseActivity implements WarmN
         setContentView(R.layout.activity_hypertension_tip);
         ButterKnife.bind(this);
         initTitle();
-        mlSpeak(CONTENT);
+        mlSpeak("主人，为更您更好的方案，以下答题请认真完成");
         initView();
         AppManager.getAppManager().addActivity(this);
     }

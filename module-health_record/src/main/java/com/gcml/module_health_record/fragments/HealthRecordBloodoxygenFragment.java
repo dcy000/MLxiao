@@ -66,7 +66,7 @@ public class HealthRecordBloodoxygenFragment extends BaseFragment {
         mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
         mIndicator1.setText("血氧");
         mLlSecond.setVisibility(View.GONE);
-        initChart();
+
 
     }
 
@@ -132,6 +132,7 @@ public class HealthRecordBloodoxygenFragment extends BaseFragment {
     }
 
     public void refreshData(ArrayList<BloodOxygenHistory> response, String temp) {
+        initChart();
         ArrayList<Entry> value = new ArrayList<Entry>();
         ArrayList<Long> times = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();

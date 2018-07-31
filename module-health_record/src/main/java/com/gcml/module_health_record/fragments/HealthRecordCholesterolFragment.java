@@ -70,7 +70,7 @@ public class HealthRecordCholesterolFragment extends BaseFragment {
         mColor2.setBackgroundColor(Color.parseColor("#6D80E2"));
         mIndicator2.setText("儿童(mmol/L)");
         mLlSecond.setVisibility(View.VISIBLE);
-        initChart();
+
     }
 
     private void initChart() {
@@ -157,6 +157,7 @@ public class HealthRecordCholesterolFragment extends BaseFragment {
     }
 
     public void refreshData(ArrayList<CholesterolHistory> response, String temp) {
+        initChart();
         ArrayList<Entry> value = new ArrayList<Entry>();
         ArrayList<Long> times = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();

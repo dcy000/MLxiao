@@ -16,6 +16,9 @@ import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.ui.dialog.BaseDialog;
+import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
+import com.gcml.lib_utils.ui.dialog.DialogSure;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -85,6 +88,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         mRightText.setVisibility(View.GONE);
         mRightView.setImageResource(R.drawable.white_wifi_3);
         mRightView.setOnClickListener(v -> startActivity(new Intent(SlowDiseaseManagementActivity.this, WifiConnectActivity.class)));
+        mlSpeak("主人，欢迎来到健康管理。");
     }
 
     @OnClick({R.id.iv_Hypertension_manage, R.id.iv_blood_sugar_manage})
@@ -104,32 +108,33 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      */
     private void onclickHypertensionManage() {
 
-        if (diagnoseInfo != null && diagnoseInfo.result == null) {
-            if (diagnoseInfo.hypertensionPrimaryState == null) {
-                //用户更新原发性信息
-                showOriginHypertensionDialog();
-            } else if ("1".equals(diagnoseInfo.hypertensionPrimaryState)) {
-                onOriginClickYes();
-            } else if ("0".equals(diagnoseInfo.hypertensionPrimaryState)) {
-                onOriginClickNo();
-            }
-        } else {
-            //有结果-->所有都做完
-            TwoChoiceDialog dialog = new TwoChoiceDialog("您在7天内已生成过健康方案，点击健康方案可直接查看。", "继续测量", "健康方案");
-            dialog.reverseButtonTextColor(true);
-            dialog.setListener(new TwoChoiceDialog.OnDialogClickListener() {
-                @Override
-                public void onClickConfirm(String content) {
-
+        if (diagnoseInfo != null) {
+            if (diagnoseInfo.result == null) {
+                if (diagnoseInfo.hypertensionPrimaryState == null) {
+                    //用户更新原发性信息
+                    showOriginHypertensionDialog();
+                } else if ("1".equals(diagnoseInfo.hypertensionPrimaryState)) {
+                    onOriginClickYes();
+                } else if ("0".equals(diagnoseInfo.hypertensionPrimaryState)) {
+//                onOriginClickNo();
+                    showOriginHypertensionDialog();
                 }
-
-                @Override
-                public void onClickCancel() {
+            } else {
+                DialogSure sure = new DialogSure(this);
+                sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
+                sure.setSure("健康方案");
+                sure.show();
+                sure.setOnClickSureListener(dialog1 -> {
+                    dialog1.dismiss();
                     startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
-                }
-            });
-            dialog.show(getFragmentManager(), "detecAgain");
+                });
+            }
+
+        }else{
+            ToastUtils.showShort("网络繁忙");
         }
+
+
     }
 
     /**
@@ -164,7 +169,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     private void judgeClass() {
         Integer high = diagnoseInfo.highPressure;
         Integer low = diagnoseInfo.lowPressure;
-        if(high==null||low==null){
+        if (high == null || low == null) {
             return;
         }
 //        高血压 high>=140 或 low>=90
@@ -233,20 +238,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             startActivity(new Intent(SlowDiseaseManagementActivity.this, SlowDiseaseManagementTipActivity.class));
         } else {
             if (diagnoseInfo.lowPressure == null) {
-//                toDetete();
                 startActivity(new Intent(this, BloodPressureMeasureActivity.class));
             } else {
-//                toSulotion();
                 startActivity(new Intent(this, TreatmentPlanActivity.class));
             }
         }
-    }
-
-    /**
-     * 去测量
-     */
-    private void toDetete() {
-        // TODO: 2018/7/28  
     }
 
     /**
@@ -254,9 +250,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      */
 
     private void toSulotion() {
-        // TODO: 2018/7/28
         startActivity(new Intent(this, TreatmentPlanActivity.class));
-
     }
 
     private void getDatimeInfo() {
@@ -271,7 +265,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                                 String hypertensionLevel = bean.data.hypertensionLevel;
                                 jumpPages(hypertensionLevel);
                             } else {
-                                // TODO: 2018/7/27 提示流程结束
                                 showLessThan3Dialog("0");
                             }
                         }
@@ -290,16 +283,19 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         FllowUpTimesDialog dialog = new FllowUpTimesDialog(notice);
         dialog.setListener(this);
         dialog.show(getSupportFragmentManager(), "less3");
+        mlSpeak("主人，您尚未满足3天测量标准，请在健康监测中测量三日");
     }
 
     private void showOriginHypertensionDialog() {
         TwoChoiceDialog dialog = new TwoChoiceDialog("您是否诊断过原发性高血压且正在进行高血压规范治疗？", "是", "否");
         dialog.setListener(this);
         dialog.show(getFragmentManager(), "yuanfa");
+        mlSpeak("主人，您是否已确诊高血压且在治疗？");
     }
 
     @Override
     public void onClickConfirm(String content) {
+        stopSpeaking();
         postOriginPertensionState("1");
         startActivity(new Intent(this, SlowDiseaseManagementTipActivity.class));
     }
