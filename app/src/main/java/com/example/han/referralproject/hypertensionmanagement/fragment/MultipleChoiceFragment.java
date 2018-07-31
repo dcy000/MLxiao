@@ -78,7 +78,7 @@ public class MultipleChoiceFragment extends Fragment {
     }
 
     private void initGV(Bundle arguments) {
-        MLVoiceSynthetize.startSynthesize(getContext(),TIP_CONTENT,false);
+        MLVoiceSynthetize.startSynthesize(getContext(),"主人,您"+arguments.getString(TIP_CONTENT),false);
         gridView.setAdapter(new MyAdapter());
         if (arguments.getBoolean(IS_MULTIPLE_CHOOIC))
             gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE);
@@ -111,6 +111,12 @@ public class MultipleChoiceFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MLVoiceSynthetize.stop();
     }
 
     @OnClick(R.id.tv_button)

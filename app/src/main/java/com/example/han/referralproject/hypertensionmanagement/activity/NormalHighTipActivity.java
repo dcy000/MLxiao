@@ -30,7 +30,7 @@ public class NormalHighTipActivity extends BaseActivity implements WarmNoticeFra
         setContentView(R.layout.activity_normal_high_tip);
         ButterKnife.bind(this);
         initTitle();
-        mlSpeak(CONTENT);
+        mlSpeak("：主人，您在三日测量有血压异常偏高现象，为避免血压再度偏高,小E为您进一步判断且给您方案。");
         initView();
         AppManager.getAppManager().addActivity(this);
     }
