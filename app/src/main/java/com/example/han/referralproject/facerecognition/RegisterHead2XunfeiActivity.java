@@ -59,7 +59,7 @@ public class RegisterHead2XunfeiActivity extends BaseActivity implements View.On
     private String qiniuToken;
     private String headPostfix;
     private String userId;
-    private String xfid = "1bca3d1263b30934_901221_test_ltl";
+    private String xfid;
     private String groupId;
     private String firstXfidOfGroup;
 
@@ -126,23 +126,19 @@ public class RegisterHead2XunfeiActivity extends BaseActivity implements View.On
         dialogSureCancel.setContentView(inflate);
         dialogSureCancel.getWindow().setDimAmount(0);
         dialogSureCancel.setCanceledOnTouchOutside(false);
-        sureTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (compressImage != null) {
-                    registerHead();
+        sureTv.setOnClickListener(
+                v -> {
+                    if (compressImage != null) {
+                        registerHead();
+                        dialogSureCancel.dismiss();
+                        LoadingProgressUtils.showViewWithLabel(mContext, "正在保存头像");
+                    }
+                });
+        cancelTv.setOnClickListener(
+                v -> {
                     dialogSureCancel.dismiss();
-                    LoadingProgressUtils.showViewWithLabel(mContext, "正在保存头像");
-                }
-            }
-        });
-        cancelTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogSureCancel.dismiss();
-                CameraUtils.getInstance().restartPreview(3000);
-            }
-        });
+                    CameraUtils.getInstance().restartPreview(3000);
+                });
     }
 
     private void initView() {
@@ -161,7 +157,7 @@ public class RegisterHead2XunfeiActivity extends BaseActivity implements View.On
 
         userId = MyApplication.getInstance().userId;
         //TODO:恢复从SP中读取xfid
-//        xfid = LocalShared.getInstance(mContext).getXunfeiId();
+        xfid = LocalShared.getInstance(mContext).getXunfeiId();
         groupId = LocalShared.getInstance(mContext).getGroupId();
         firstXfidOfGroup = LocalShared.getInstance(mContext).getGroupFirstXfid();
     }
@@ -315,17 +311,11 @@ public class RegisterHead2XunfeiActivity extends BaseActivity implements View.On
             @Override
             public Void doInBackground() throws Throwable {
 
-                NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
-                    @Override
-                    public void onSuccess(String response) {
-                        qiniuToken = response;
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-
-                    }
-                });
+                NetworkApi.get_token(
+                        response -> qiniuToken = response,
+                        message -> {
+                        }
+                );
                 //保存到七牛云上头像的名称
                 headPostfix = TimeUtils.getCurTimeString(new SimpleDateFormat("yyyyMMddHHmmss")) + "_" + userId + ".jpg";
                 return null;
@@ -351,24 +341,16 @@ public class RegisterHead2XunfeiActivity extends BaseActivity implements View.On
                         return;
                     }
                     NetworkApi.return_imageUrl(imageUrl, userid, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
-                            new NetworkManager.SuccessCallback<Object>() {
-                                @Override
-                                public void onSuccess(Object response) {
-                                    //隐藏提示loadding
-                                    LoadingProgressUtils.dismissView();
-                                    //将账号在本地缓存
-                                    LocalShared.getInstance(mContext).addAccount(userid, xfid);
-                                    Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-                                    ToastUtils.showShort("save to our server fail");
-                                }
-                            });
+                            response -> {
+                                //隐藏提示loadding
+                                LoadingProgressUtils.dismissView();
+                                //将账号在本地缓存
+                                LocalShared.getInstance(mContext).addAccount(userid, xfid);
+                                Intent intent = new Intent(getApplicationContext(), RecoDocActivity.class);
+                                startActivity(intent);
+                                finish();
+                            },
+                            message -> ToastUtils.showShort("save to our server fail"));
                 } else {
                     ToastUtils.showShort("upload head image fail");
                 }
