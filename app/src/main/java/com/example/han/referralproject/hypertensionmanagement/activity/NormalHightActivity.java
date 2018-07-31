@@ -44,6 +44,7 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
     ViewPager vp;
     List<Fragment> fragments = new ArrayList<>();
     PrimaryHypertensionBean postBean = new PrimaryHypertensionBean();
+    private List<PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean> questionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +64,9 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
                 String body = response.body();
                 PrimaryHypertensionQuestionnaireBean bean = new Gson().fromJson(body, PrimaryHypertensionQuestionnaireBean.class);
                 if (bean != null && bean.tag && bean.data != null) {
-                    List<PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean> questionList = bean.data.questionList;
+                    questionList = bean.data.questionList;
                     if (questionList != null && questionList.size() != 0) {
+                        mlSpeak(questionList.get(0).questionName);
                         //给提交的数据赋值===开始
                         postBean.equipmentId = Utils.getDeviceId();
                         postBean.hmQuestionnaireId = bean.data.hmQuestionnaireId;
@@ -154,6 +156,7 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
             return;
         }
         vp.setCurrentItem(vp.getCurrentItem() + 1);
+        mlSpeak(questionList.get(vp.getCurrentItem()).questionName);
     }
 
 
