@@ -247,8 +247,8 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
                 mRpbGaoya.setProgress(highPressureAvg);
                 mRpbDiya.setMax(100);
                 mRpbDiya.setProgress(lowPressureAvg);
-                mTvGaoya.setText(highPressureAvg);
-                mTvDiya.setText(lowPressureAvg);
+                mTvGaoya.setText(highPressureAvg+"");
+                mTvDiya.setText(lowPressureAvg+"");
             }
         }
 

@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
-
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.StatusBarFragment;
 import com.example.han.referralproject.activity.BaseActivity;
