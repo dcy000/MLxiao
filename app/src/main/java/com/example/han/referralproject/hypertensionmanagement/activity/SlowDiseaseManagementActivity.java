@@ -16,6 +16,9 @@ import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.ui.dialog.BaseDialog;
+import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
+import com.gcml.lib_utils.ui.dialog.DialogSure;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -111,24 +114,18 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             } else if ("1".equals(diagnoseInfo.hypertensionPrimaryState)) {
                 onOriginClickYes();
             } else if ("0".equals(diagnoseInfo.hypertensionPrimaryState)) {
-                onOriginClickNo();
+//                onOriginClickNo();
+                showOriginHypertensionDialog();
             }
         } else {
-            //有结果-->所有都做完
-            TwoChoiceDialog dialog = new TwoChoiceDialog("您在7天内已生成过健康方案，点击健康方案可直接查看。", "继续测量", "健康方案");
-            dialog.reverseButtonTextColor(true);
-            dialog.setListener(new TwoChoiceDialog.OnDialogClickListener() {
-                @Override
-                public void onClickConfirm(String content) {
-
-                }
-
-                @Override
-                public void onClickCancel() {
-                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
-                }
+            DialogSure sure=new DialogSure(this);
+            sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
+            sure.setSure("健康方案");
+            sure.show();
+            sure.setOnClickSureListener(dialog1 -> {
+                dialog1.dismiss();
+                startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
             });
-            dialog.show(getFragmentManager(), "detecAgain");
         }
     }
 
@@ -233,20 +230,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             startActivity(new Intent(SlowDiseaseManagementActivity.this, SlowDiseaseManagementTipActivity.class));
         } else {
             if (diagnoseInfo.lowPressure == null) {
-//                toDetete();
                 startActivity(new Intent(this, BloodPressureMeasureActivity.class));
             } else {
-//                toSulotion();
                 startActivity(new Intent(this, TreatmentPlanActivity.class));
             }
         }
-    }
-
-    /**
-     * 去测量
-     */
-    private void toDetete() {
-        // TODO: 2018/7/28  
     }
 
     /**
@@ -254,9 +242,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      */
 
     private void toSulotion() {
-        // TODO: 2018/7/28
         startActivity(new Intent(this, TreatmentPlanActivity.class));
-
     }
 
     private void getDatimeInfo() {
@@ -271,7 +257,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                                 String hypertensionLevel = bean.data.hypertensionLevel;
                                 jumpPages(hypertensionLevel);
                             } else {
-                                // TODO: 2018/7/27 提示流程结束
                                 showLessThan3Dialog("0");
                             }
                         }

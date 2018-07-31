@@ -13,27 +13,24 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.StatusBarFragment;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.gcml.lib_utils.thread.ThreadUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.medlink.danbogh.alarm.AlarmHelper;
-import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.litepal.crud.DataSupport;
-
+import com.example.lenovo.rto.accesstoken.AccessToken;
+import com.example.lenovo.rto.accesstoken.AccessTokenModel;
+import com.example.lenovo.rto.http.HttpListener;
+import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
+import com.gcml.lib_utils.display.ToastUtils;
 import java.util.ArrayList;
 import java.util.List;
-
 import timber.log.Timber;
+import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -42,7 +39,7 @@ import timber.log.Timber;
  * created by:gzq
  * description:新的主界面
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements HttpListener<AccessToken> {
 
     private ViewPager mViewpage;
     private LinearLayout mNewmainBottomIndicator;
@@ -60,8 +57,15 @@ public class MainActivity extends BaseActivity {
         initView();
         initFragments();
         initViewpage();
+        initAToken();
 
     }
+
+    private void initAToken() {
+        AccessTokenModel tokenModel = new AccessTokenModel();
+        tokenModel.getAccessToken(this);
+    }
+
 
     private void initViewpage() {
         mViewpage.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -205,4 +209,20 @@ public class MainActivity extends BaseActivity {
     public interface ShowStateBar {
         void showStateBar(boolean isshow);
     }
+    @Override
+    public void onSuccess(AccessToken data) {
+        EHSharedPreferences.WriteInfo(ACCESSTOKEN_KEY, data);
+    }
+
+    @Override
+    public void onError() {
+        ToastUtils.showShort("初始化AK失败");
+    }
+
+    @Override
+    public void onComplete() {
+
+    }
+
+
 }

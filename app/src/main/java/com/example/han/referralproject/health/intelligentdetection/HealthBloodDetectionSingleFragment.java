@@ -53,6 +53,12 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        startDetection();
+    }
+
+    @Override
     protected void initView(View view, Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
         ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
