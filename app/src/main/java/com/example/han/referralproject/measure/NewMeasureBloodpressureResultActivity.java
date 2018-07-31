@@ -31,6 +31,8 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
  * version:V1.2.5
@@ -100,7 +102,8 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
      */
     private TextView mTvSuggestTitle;
     /**
-     * 主人，您血糖偏低，并有下降趋势，低血糖出现饥饿、头昏眼花、面色苍白、心慌手颤、出冷汗、虚弱无力等症状，低血糖还容易诱发心律失常，心绞痛、心肌梗死以及脑血管意外并发症，请持续测量，必要时及时联系医生。
+     * 主人，您血糖偏低，并有下降趋势，低血糖出现饥饿、头昏眼花、面色苍白、心慌手颤、出冷汗、虚弱无力等症状，
+     * 低血糖还容易诱发心律失常，心绞痛、心肌梗死以及脑血管意外并发症，请持续测量，必要时及时联系医生。
      */
     private TextView mTvSuggest;
     /**
@@ -126,7 +129,8 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
      * @param currentLow  当前低压
      * @param suggest     健康建议
      */
-    public static void startActivity(Context context, String state, int score, int currentHigh, int currentLow, String suggest) {
+    public static void startActivity(Context context, String state, int score, int currentHigh,
+                                     int currentLow, String suggest) {
         context.startActivity(new Intent(context, NewMeasureBloodpressureResultActivity.class)
                 .putExtra("health_state", state)
                 .putExtra("health_score", score)
@@ -245,6 +249,8 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
                 mRpbGaoya.setProgress(highPressureAvg);
                 mRpbDiya.setMax(100);
                 mRpbDiya.setProgress(lowPressureAvg);
+                mTvGaoya.setText(highPressureAvg + "");
+                mTvDiya.setText(lowPressureAvg + "");
             }
         }
 
@@ -285,6 +291,8 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
         healthState = getIntent().getStringExtra("health_state");
         mTvState.setText(healthState);
         healthScore = getIntent().getIntExtra("health_score", 0);
+        Timber.e("健康分数：" + healthScore);
+        mWaveProgressBar.setValue(healthScore);
         mWaveProgressBar.setHealthValue(healthScore + "分");
         currentHighBloodpressure = getIntent().getIntExtra("high_bloodpressure", 120);
         currentLowBloodpressure = getIntent().getIntExtra("low_bloodpressure", 80);

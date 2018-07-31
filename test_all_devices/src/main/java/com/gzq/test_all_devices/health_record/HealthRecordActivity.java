@@ -150,33 +150,33 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                         selectEndDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
                 switch (temp) {
                     case "1"://体温
-                        getTemperatureData(startMillisecond, endMillisecond);
+                        getTemperatureData(endMillisecond, startMillisecond);
                         break;
                     case "2"://血压
-                        getBloodpressureData(startMillisecond, endMillisecond);
+                        getBloodpressureData(endMillisecond, startMillisecond);
                         break;
                     case "3"://心跳
-                        getHeartRateData(startMillisecond, endMillisecond);
+                        getHeartRateData(endMillisecond, startMillisecond);
                         break;
                     case "4"://血糖
-                        getBloodsugarData(startMillisecond, endMillisecond);
+                        getBloodsugarData(endMillisecond, startMillisecond);
                         break;
                     case "5"://血氧
-                        getBloodoxygenData(startMillisecond, endMillisecond);
+                        getBloodoxygenData(endMillisecond, startMillisecond);
                         break;
                     case "6"://脉搏
                         break;
                     case "7"://胆固醇
-                        getCholesterolData(startMillisecond, endMillisecond);
+                        getCholesterolData(endMillisecond, startMillisecond);
                         break;
                     case "8"://血尿酸
-                        getBUAData(startMillisecond, endMillisecond);
+                        getBUAData(endMillisecond, startMillisecond);
                         break;
                     case "9"://心电图
-                        getEcgData(startMillisecond, endMillisecond);
+                        getEcgData(endMillisecond, startMillisecond);
                         break;
                     case "10"://体重
-                        getWeightData(startMillisecond, endMillisecond);
+                        getWeightData(endMillisecond, startMillisecond);
                         break;
                 }
             }
@@ -259,25 +259,25 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 temp = "1";
                 mRgHealthRecord.check(R.id.rb_record_temperature);
                 fragmentTransaction.replace(R.id.health_record_fl, temperatureFragment).commit();
-                getTemperatureData(startMillisecond, endMillisecond);
+                getTemperatureData(endMillisecond, startMillisecond);
                 break;
             case 1://血压
                 temp = "2";
                 mRgHealthRecord.check(R.id.rb_record_blood_pressure);
                 fragmentTransaction.replace(R.id.health_record_fl, bloodpressureFragment).commit();
-                getBloodpressureData(startMillisecond, endMillisecond);
+                getBloodpressureData(endMillisecond, startMillisecond);
                 break;
             case 2://血糖
                 temp = "4";
                 mRgHealthRecord.check(R.id.rb_record_blood_glucose);
                 fragmentTransaction.replace(R.id.health_record_fl, bloodsugarFragment).commit();
-                getBloodsugarData(startMillisecond, endMillisecond);
+                getBloodsugarData(endMillisecond, startMillisecond);
                 break;
             case 3://血氧
                 temp = "5";
                 mRgHealthRecord.check(R.id.rb_record_blood_oxygen);
                 fragmentTransaction.replace(R.id.health_record_fl, bloodoxygenFragment).commit();
-                getBloodoxygenData(startMillisecond, endMillisecond);
+                getBloodoxygenData(endMillisecond, startMillisecond);
                 break;
             case 4://心跳
                 temp = "3";
@@ -288,25 +288,25 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 temp = "7";
                 mRgHealthRecord.check(R.id.rb_record_cholesterol);
                 fragmentTransaction.replace(R.id.health_record_fl, cholesterolFragment).commit();
-                getHeartRateData(startMillisecond, endMillisecond);
+                getHeartRateData(endMillisecond, startMillisecond);
                 break;
             case 6://血尿酸
                 temp = "8";
                 mRgHealthRecord.check(R.id.rb_record_bua);
                 fragmentTransaction.replace(R.id.health_record_fl, buaFragment).commit();
-                getBUAData(startMillisecond, endMillisecond);
+                getBUAData(endMillisecond, startMillisecond);
                 break;
             case 7://心电图
                 temp = "9";
                 mRgHealthRecord.check(R.id.rb_record_ecg);
                 fragmentTransaction.replace(R.id.health_record_fl, ecgFragment).commit();
-                getEcgData(startMillisecond, endMillisecond);
+                getEcgData(endMillisecond, startMillisecond);
                 break;
             case 8://体重
                 temp = "10";
                 mRgHealthRecord.check(R.id.rb_record_weight);
                 fragmentTransaction.replace(R.id.health_record_fl, weightFragment).commit();
-                getWeightData(startMillisecond, endMillisecond);
+                getWeightData(endMillisecond, startMillisecond);
                 break;
         }
 
@@ -422,35 +422,35 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 temp = "1";
                 if (temperatureFragment != null)
                     fragmentTransaction.replace(R.id.health_record_fl, temperatureFragment).commit();
-                getTemperatureData(startMillisecond, endMillisecond);
+                getTemperatureData(endMillisecond, startMillisecond);
                 break;
             case R.id.rb_record_blood_pressure://血压
                 temp = "2";
                 if (bloodpressureFragment != null) {
                     fragmentTransaction.replace(R.id.health_record_fl, bloodpressureFragment).commit();
                 }
-                getBloodpressureData(startMillisecond, endMillisecond);
+                getBloodpressureData(endMillisecond, startMillisecond);
                 break;
             case R.id.rb_record_blood_glucose://血糖
                 temp = "4";
                 if (bloodsugarFragment != null) {
                     fragmentTransaction.replace(R.id.health_record_fl, bloodsugarFragment).commit();
                 }
-                getBloodsugarData(startMillisecond, endMillisecond);
+                getBloodsugarData(endMillisecond, startMillisecond);
                 break;
             case R.id.rb_record_blood_oxygen://血氧
                 temp = "5";
                 if (bloodoxygenFragment != null) {
                     fragmentTransaction.replace(R.id.health_record_fl, bloodoxygenFragment).commit();
                 }
-                getBloodoxygenData(startMillisecond, endMillisecond);
+                getBloodoxygenData(endMillisecond, startMillisecond);
                 break;
             case R.id.rb_record_heart_rate://心跳
                 temp = "3";
                 if (heartrateFragment != null) {
                     fragmentTransaction.replace(R.id.health_record_fl, heartrateFragment).commit();
                 }
-                getHeartRateData(startMillisecond, endMillisecond);
+                getHeartRateData(endMillisecond, startMillisecond);
                 break;
             case R.id.rb_record_pulse://脉搏
 
@@ -460,28 +460,28 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 if (cholesterolFragment != null) {
                     fragmentTransaction.replace(R.id.health_record_fl, cholesterolFragment).commit();
                 }
-                getCholesterolData(startMillisecond, endMillisecond);
+                getCholesterolData(endMillisecond, startMillisecond);
                 break;
             case R.id.rb_record_bua://血尿酸
                 temp = "8";
                 if (buaFragment != null) {
                     fragmentTransaction.replace(R.id.health_record_fl, buaFragment).commit();
                 }
-                getBUAData(startMillisecond, endMillisecond);
+                getBUAData(endMillisecond, startMillisecond);
                 break;
             case R.id.rb_record_ecg://心电
                 temp = "9";
                 if (ecgFragment != null) {
                     fragmentTransaction.replace(R.id.health_record_fl, ecgFragment).commit();
                 }
-                getEcgData(startMillisecond, endMillisecond);
+                getEcgData(endMillisecond, startMillisecond);
                 break;
             case R.id.rb_record_weight://体重
                 temp = "10";
                 if (weightFragment != null) {
                     fragmentTransaction.replace(R.id.health_record_fl, weightFragment).commit();
                 }
-                getWeightData(startMillisecond, endMillisecond);
+                getWeightData(endMillisecond, startMillisecond);
                 break;
         }
     }

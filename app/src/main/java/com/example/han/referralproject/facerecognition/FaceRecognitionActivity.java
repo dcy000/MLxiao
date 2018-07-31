@@ -306,7 +306,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
                     userId = user.bid;
                     LocalShared.getInstance(context).setUserInfo(user);
                     LocalShared.getInstance(context).setSex(user.sex);
-                    LocalShared.getInstance(context).setUserPhoto(user.user_photo);
+                    LocalShared.getInstance(context).setUserPhoto(user.userPhoto);
                     LocalShared.getInstance(context).setUserAge(user.age);
                     LocalShared.getInstance(context).setUserHeight(user.height);
                     isInclude_PassPerson = true;

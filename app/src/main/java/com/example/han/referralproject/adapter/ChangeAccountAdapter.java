@@ -41,7 +41,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
         final UserInfoBean itemBean = mUserData.get(position);
         holder.mNameView.setText(itemBean.bname);
         Picasso.with(mContext)
-                .load(itemBean.user_photo)
+                .load(itemBean.userPhoto)
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
                 .tag(this)
@@ -57,7 +57,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
                 MyApplication.getInstance().eqid=itemBean.eqid;
                 LocalShared.getInstance(mContext).setUserInfo(itemBean);
                 LocalShared.getInstance(mContext).setSex(itemBean.sex);
-                LocalShared.getInstance(mContext).setUserPhoto(itemBean.user_photo);
+                LocalShared.getInstance(mContext).setUserPhoto(itemBean.userPhoto);
                 LocalShared.getInstance(mContext).setUserAge(itemBean.age);
                 LocalShared.getInstance(mContext).setUserHeight(itemBean.height);
                 mContext.getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE)

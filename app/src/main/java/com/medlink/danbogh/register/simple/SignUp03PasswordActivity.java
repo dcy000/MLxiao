@@ -144,7 +144,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
                         hideLoadingDialog();
                         shared.setUserInfo(response);
                         LocalShared.getInstance(mContext).setSex(response.sex);
-                        LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
+                        LocalShared.getInstance(mContext).setUserPhoto(response.userPhoto);
                         LocalShared.getInstance(mContext).setUserAge(response.age);
                         LocalShared.getInstance(mContext).setUserHeight(response.height);
                         new JpushAliasUtils(SignUp03PasswordActivity.this).setAlias("user_" + response.bid);

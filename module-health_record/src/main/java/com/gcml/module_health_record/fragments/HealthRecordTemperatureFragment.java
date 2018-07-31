@@ -66,7 +66,7 @@ public class HealthRecordTemperatureFragment extends BaseFragment {
         mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
         mIndicator1.setText("体温(℃)");
         mLlSecond.setVisibility(View.GONE);
-        initChart();
+
     }
 
     private void initChart() {
@@ -139,6 +139,7 @@ public class HealthRecordTemperatureFragment extends BaseFragment {
     }
 
     public void refreshData(ArrayList<TemperatureHistory> response, String temp){
+        initChart();
         ArrayList<Entry> values = new ArrayList<Entry>();
         ArrayList<Long> times = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();

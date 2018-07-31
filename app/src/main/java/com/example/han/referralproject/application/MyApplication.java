@@ -49,6 +49,7 @@ public class MyApplication extends BaseApplication {
     public String nimUserId() {
         return "user_" + userId;
     }
+
     public String eqid;
     public static final int PLAN_ID_KSY = 1;
 
@@ -94,25 +95,17 @@ public class MyApplication extends BaseApplication {
 
         WakeupHelper.init(this);
 
-//        StringBuilder builder = new StringBuilder();
-//        builder.append("appid=")
-//                .append("59196d96")
-//                .append(",")
-//                .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
-//
-//        SpeechUtility.createUtility(this, builder.toString());
-
         BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");
 
         //初始化极光
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
         JPushInterface.init(this);
         NimInitHelper.getInstance().init(this, true);
-        //启动音量控制悬浮按钮
         NimInitHelper.getInstance().init(this, true);
-        if (curProcessName.equals("com.example.han.referralproject:core")) {
-            VolumeControlFloatwindow.init(this.getApplicationContext());
-        }
+//        //启动音量控制悬浮按钮
+//        if (curProcessName.equals("com.example.han.referralproject:core")) {
+//            VolumeControlFloatwindow.init(this.getApplicationContext());
+//        }
         initVideoPlay();
     }
 
@@ -128,17 +121,13 @@ public class MyApplication extends BaseApplication {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         UiUtils.compatWithOrientation(newConfig);
-//        if (newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
-//            //启动音量控制悬浮按钮
-//            VolumeControlFloatwindow.init(this.getApplicationContext());
-//        }
-//        String curProcessName = ProcessUtils.getCurProcessName(this);
-//        if (!TextUtils.isEmpty(curProcessName)) {
-//            if (curProcessName.equals("com.example.han.referralproject:pushcore")) {
-//                //启动音量控制悬浮按钮
-//                VolumeControlFloatwindow.init(this.getApplicationContext());
-//            }
-//        }
+        String curProcessName = ProcessUtils.getCurProcessName(this);
+        if (!TextUtils.isEmpty(curProcessName)) {
+            if (curProcessName.equals("com.example.han.referralproject:pushcore")) {
+                //启动音量控制悬浮按钮
+                VolumeControlFloatwindow.init(this.getApplicationContext());
+            }
+        }
     }
 
 

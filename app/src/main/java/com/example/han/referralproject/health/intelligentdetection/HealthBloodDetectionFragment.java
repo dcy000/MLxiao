@@ -51,6 +51,7 @@ public class HealthBloodDetectionFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(layoutId(), container, false);
         initView(view, savedInstanceState);
+        view.setClickable(true);
         return view;
     }
 
@@ -73,7 +74,6 @@ public class HealthBloodDetectionFragment extends Fragment {
     private RxBleClient rxBleClient;
     private RxPermissions rxPermissions;
     private Disposable disposable = Disposables.empty();
-
     protected void startDetection() {
         disposable.dispose();
         AtomicBoolean hasFind = new AtomicBoolean(false);

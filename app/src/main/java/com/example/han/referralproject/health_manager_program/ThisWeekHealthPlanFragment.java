@@ -120,11 +120,11 @@ public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClick
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser) {
             Log.e(TAG, "setUserVisibleHint: ");
-            if (data != null) {
-                ((TreatmentPlanActivity) getActivity()).speak("主人，小易为您制定了本周的健康计划。血压" + data.getHypertensionFrequency() + ",血糖" +
-                        data.getDiabetesFrequency() + ",本周体重目标" + String.format("%.2f", data.getWeightTarget()) + "千克，高压目标"
-                        + data.getHighPressureTarget() + ",低压" + data.getLowPressureTarget() + ",血糖目标" + String.format("%.2f", data.getBloodSugarTarget()));
-            }
+//            if (data != null) {
+//                ((TreatmentPlanActivity) getActivity()).speak("主人，小易为您制定了本周的健康计划。血压" + data.getHypertensionFrequency() + ",血糖" +
+//                        data.getDiabetesFrequency() + ",本周体重目标" + String.format("%.2f", data.getWeightTarget()) + "千克，高压目标"
+//                        + data.getHighPressureTarget() + ",低压" + data.getLowPressureTarget() + ",血糖目标" + String.format("%.2f", data.getBloodSugarTarget()));
+//            }
             if (iChangToolbar != null) {
                 iChangToolbar.onChange(this);
             }
@@ -166,7 +166,7 @@ public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClick
     public void onClick(View v) {
         int id = v.getId();
         if (id==R.id.tv_set_alarm){
-            AlarmDetail2Activity.newLaunchIntent(getContext(),-1);
+            startActivity(AlarmDetail2Activity.newLaunchIntent(getContext(),-1));
         }
     }
 }

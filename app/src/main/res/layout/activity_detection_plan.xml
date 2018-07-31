@@ -66,6 +66,7 @@
             android:textColor="@color/white"
             android:textSize="56pt"
             android:visibility="visible"
+            android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -26,7 +26,8 @@ import java.util.List;
 
 public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFragment {
     private ImageView ivRight;
-
+    //有没有测量过
+    private boolean isMeasured=false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,6 +90,10 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isMeasured){
+                    ToastUtils.showShort("请先测量");
+                    return;
+                }
                 uploadData();
             }
         });
@@ -104,6 +109,7 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
 
     @Override
     protected void onBloodResult(int highPressure, int lowPressure, int pulse) {
+        isMeasured=true;
         if (!second) {
             second = true;
             this.highPressure = highPressure;

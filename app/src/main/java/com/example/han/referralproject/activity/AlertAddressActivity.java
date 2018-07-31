@@ -71,8 +71,8 @@ public class AlertAddressActivity extends BaseActivity {
     }
 
     private void initLocation() {
-        if (!TextUtils.isEmpty(data.eating_habits)) {
-            switch (data.eating_habits) {
+        if (!TextUtils.isEmpty(data.eatingHabits)) {
+            switch (data.eatingHabits) {
                 case "荤素搭配":
                     eat = "1";
                     break;
@@ -116,8 +116,8 @@ public class AlertAddressActivity extends BaseActivity {
                     break;
             }
         }
-        if (!TextUtils.isEmpty(data.exercise_habits)) {
-            switch (data.exercise_habits) {
+        if (!TextUtils.isEmpty(data.exerciseHabits)) {
+            switch (data.exerciseHabits) {
                 case "每天一次":
                     exercise = "1";
                     break;
