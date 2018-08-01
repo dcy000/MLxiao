@@ -61,6 +61,11 @@ import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.lenovo.rto.accesstoken.AccessToken;
+import com.example.lenovo.rto.http.HttpListener;
+import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
+import com.example.lenovo.rto.unit.Unit;
+import com.example.lenovo.rto.unit.UnitModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.ErrorCode;
@@ -88,6 +93,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -100,6 +106,9 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
+import static com.example.lenovo.rto.Constans.SCENE_Id;
 
 public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener {
 
@@ -1548,38 +1557,67 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
 
         str1 = empty ? "我真的不知道了" : text;
-        if (("我真的不知道了").equals(str1)) {
-            URL url = new URL("http://api.aicyber.com/passive_chat");
-            URLConnection conn = url.openConnection();
-            conn.setRequestProperty("accept", "*/*");
-            conn.setRequestProperty("connection", "Keep-Alive");
+        if (!str1.equals(getString(R.string.speak_null))) {
+            speak(str1, isDefaultParam);
+            return;
+        }
+        try {
+            sendMessage(str);
+        } catch (Exception e) {
+            defaultToke();
+        }
+    }
 
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
+    private String sendMessage(final String request) {
+        if (TextUtils.isEmpty(request)) {
+            defaultToke();
+            return str1;
+        }
+        data = EHSharedPreferences.ReadAccessToken(ACCESSTOKEN_KEY);
+        if (data == null) {
+            return str1;
+        }
+        UnitModel model = new UnitModel();
+        model.getUnit(data.getAccessToken(), SCENE_Id, request, sessionId, new HttpListener<Unit>() {
 
-            PrintWriter pw = new PrintWriter(conn.getOutputStream());
+            @Override
+            public void onSuccess(Unit data) {
+                if (data != null)
+                    sessionId = data.getSession_id();
+                for (Unit.ActionListBean action : data.getAction_list()) {
 
-            Gson gson = new Gson();
+                    if (!TextUtils.isEmpty(action.getSay())) {
+                        sb = new StringBuilder();
+                        sb.append(action.getSay());
+                    }
 
-            RobotContent robot = new RobotContent("gh_1822e89468ba", str, "ml05120568675", "3e809a3d90398631ad4b291aadf0f230");
-
-            pw.print(gson.toJson(robot));
-
-            pw.flush();
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String lineContent = null;
-            String content = null;
-
-            while ((lineContent = br.readLine()) != null) {
-                content = lineContent;
+                }
+                str1 = sb.toString().replace("<USER-NAME>", "");
+                defaultToke();
             }
 
+            @Override
+            public void onError() {
+                defaultToke();
+            }
 
-            Receive1 string = gson.fromJson(content, Receive1.class);
+            @Override
+            public void onComplete() {
 
-            str1 = string.getReceive().getOutput();
-        }
+            }
+        });
+        return str1;
+    }
 
+
+
+
+
+    private AccessToken data;
+    private String sessionId = "";
+    private StringBuilder sb;
+
+    private void defaultToke() {
         if (str1 != null) {
 
             if (getString(R.string.speak_null).equals(str1)) {
@@ -1663,6 +1701,40 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             }
         } else {
+        }
+    }
+
+    private void DealTokeByBJ(String str) throws IOException {
+        if (("我真的不知道了").equals(str1)) {
+            URL url = new URL("http://api.aicyber.com/passive_chat");
+            URLConnection conn = url.openConnection();
+            conn.setRequestProperty("accept", "*/*");
+            conn.setRequestProperty("connection", "Keep-Alive");
+
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+
+            PrintWriter pw = new PrintWriter(conn.getOutputStream());
+
+            Gson gson = new Gson();
+
+            RobotContent robot = new RobotContent("gh_1822e89468ba", str, "ml05120568675", "3e809a3d90398631ad4b291aadf0f230");
+
+            pw.print(gson.toJson(robot));
+
+            pw.flush();
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String lineContent = null;
+            String content = null;
+
+            while ((lineContent = br.readLine()) != null) {
+                content = lineContent;
+            }
+
+
+            Receive1 string = gson.fromJson(content, Receive1.class);
+
+            str1 = string.getReceive().getOutput();
         }
     }
 

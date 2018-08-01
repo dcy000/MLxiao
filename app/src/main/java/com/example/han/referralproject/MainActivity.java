@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -28,20 +29,27 @@ import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.yisuotang.HealthMallActivity;
 import com.example.han.referralproject.yisuotang.MedicalConsultationActivity;
 import com.example.han.referralproject.yisuotang.RecreationCenterActivity;
+import com.example.lenovo.rto.accesstoken.AccessToken;
+import com.example.lenovo.rto.accesstoken.AccessTokenModel;
+import com.example.lenovo.rto.http.HttpListener;
+import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.call2.QianZui;
+import com.medlink.danbogh.utils.T;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+
+public class MainActivity extends BaseActivity implements View.OnClickListener, HttpListener<AccessToken> {
 
     ImageView mImageView1;
     ImageView mImageView2;
@@ -115,8 +123,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             startService(new Intent(this, AssistiveTouchService.class));
         }
 
+        initBDAK();
+
     }
 
+    /**
+     * 初始化百度AK
+     */
+    private void initBDAK() {
+        AccessTokenModel model=new AccessTokenModel();
+        model.getAccessToken(this);
+    }
+
+    @Override
+    public void onSuccess(AccessToken data) {
+        EHSharedPreferences.WriteInfo(ACCESSTOKEN_KEY, data);
+    }
+
+    @Override
+    public void onError() {
+        Log.d("MainActivity", "onError:*********************************获取百度AK失败************************ ");
+        T.show("初始化AK失败");
+    }
+
+    @Override
+    public void onComplete() {
+
+    }
 
     public boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -267,6 +300,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (inSpell.matches(REGEX_GO_PERSONAL_CENTER)) {
             mImageView2.performClick();
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 
     public class BatteryBroadCastReceiver extends BroadcastReceiver {
