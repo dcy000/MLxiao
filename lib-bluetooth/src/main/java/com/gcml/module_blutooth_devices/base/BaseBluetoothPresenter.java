@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import com.gcml.lib_utils.handler.WeakHandler;
 import com.gcml.lib_utils.permission.PermissionsManager;
 import com.gcml.lib_utils.permission.PermissionsResultAction;
+import com.gcml.module_blutooth_devices.R;
 import com.inuker.bluetooth.library.Constants;
 import com.inuker.bluetooth.library.connect.listener.BleConnectStatusListener;
 import com.inuker.bluetooth.library.connect.options.BleConnectOptions;
@@ -512,6 +513,16 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
      * 断开连接
      */
     protected void disConnected() {
+        //更新当前状态
+        if (baseView instanceof Activity) {
+            baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
+        } else if (baseView instanceof Fragment) {
+            if (((Fragment) baseView).isAdded()) {
+                baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
+            }
+        }
+
+        //尝试重连
         if (!isDestroy) {
             retryConnect();
         }

@@ -21,8 +21,8 @@ import com.gcml.module_blutooth_devices.utils.SharePreferenceHelper;
 import java.lang.reflect.InvocationTargetException;
 
 public class Weight_Fragment extends BaseFragment implements IView, View.OnClickListener {
-    private TextView mBtnHealthHistory;
-    private TextView mBtnVideoDemo;
+    protected TextView mBtnHealthHistory;
+    protected TextView mBtnVideoDemo;
     private TextView mTvTizhong;
     private TextView mTvTizhi;
     private BaseBluetoothPresenter bluetoothPresenter;
@@ -49,12 +49,12 @@ public class Weight_Fragment extends BaseFragment implements IView, View.OnClick
     private void dealLogic(Bundle bundle) {
         String address;
         String brand;
-        if (bundle != null) {
-            address = bundle.getString("address");
+        if (bundle != null) {//该处是为测试使用的
+            address = bundle.getString(IPresenter.DEVICE_BLUETOOTH_ADDRESS);
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
         } else {
-            String sp_bloodoxygen = (String) SPUtil.get( Bluetooth_Constants.SP.SP_SAVE_WEIGHT, null);
+            String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, null);
             if (TextUtils.isEmpty(sp_bloodoxygen)) {
                 helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_WEIGHT);
                 helper.start();
@@ -91,6 +91,10 @@ public class Weight_Fragment extends BaseFragment implements IView, View.OnClick
                 case "SENSSUN CLOUD":
                     bluetoothPresenter = new Weight_Xiangshan_EF895i_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "SENSSUN CLOUD"));
+                    break;
+                case "000FatScale01":
+                    bluetoothPresenter = new Weight_Self_PresenterImp(this,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "000FatScale01"));
                     break;
             }
         }

@@ -203,40 +203,10 @@
         android:layout_width="880pt"
         android:layout_height="match_parent"
         android:background="@color/bluetooth_white"/>
-    <TextView
-        android:id="@+id/btn_health_history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100pt"
-        android:layout_marginLeft="104pt"
-        android:background="@drawable/bluetooth_btn_health_history_set"
-        android:paddingBottom="32pt"
-        android:paddingLeft="48pt"
-        android:paddingRight="48pt"
-        android:paddingTop="32pt"
-        android:text="历史记录"
-        android:textColor="@color/bluetooth_white"
-        android:textSize="56pt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:clickable="true"/>
-
-    <TextView
-        android:id="@+id/btn_video_demo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32pt"
-        android:background="@drawable/bluetooth_btn_video_demo_set"
-        android:paddingBottom="32pt"
-        android:paddingLeft="48pt"
-        android:paddingRight="48pt"
-        android:paddingTop="32pt"
-        android:text="使用演示"
-        android:textColor="@color/bluetooth_white"
-        android:textSize="56pt"
-        app:layout_constraintBottom_toBottomOf="@id/btn_health_history"
-        app:layout_constraintLeft_toRightOf="@id/btn_health_history"
-        android:clickable="true"/>
+    <include
+        android:id="@+id/bottom_btn"
+        layout="@layout/bluetooth_layout_two_button"
+        />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl4"
@@ -244,8 +214,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/cl5"
-        app:layout_constraintLeft_toLeftOf="@id/btn_health_history"
-        app:layout_constraintRight_toRightOf="@id/btn_video_demo">
+        app:layout_constraintLeft_toLeftOf="@id/bottom_btn"
+        app:layout_constraintRight_toRightOf="@id/bottom_btn">
         <TextView
             android:id="@+id/tv_gaoya"
             android:layout_width="402pt"
@@ -285,8 +255,8 @@
         android:layout_height="wrap_content"
        app:layout_constraintTop_toBottomOf="@id/cl4"
         app:layout_constraintBottom_toTopOf="@+id/cl6"
-        app:layout_constraintLeft_toLeftOf="@id/btn_health_history"
-        app:layout_constraintRight_toRightOf="@id/btn_video_demo">
+        app:layout_constraintLeft_toLeftOf="@id/bottom_btn"
+        app:layout_constraintRight_toRightOf="@id/bottom_btn">
         <TextView
             android:id="@+id/tv_diya"
             android:layout_width="402pt"
@@ -325,9 +295,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/cl5"
-        app:layout_constraintBottom_toTopOf="@id/btn_health_history"
-        app:layout_constraintLeft_toLeftOf="@id/btn_health_history"
-        app:layout_constraintRight_toRightOf="@id/btn_video_demo">
+        app:layout_constraintBottom_toTopOf="@id/bottom_btn"
+        app:layout_constraintLeft_toLeftOf="@id/bottom_btn"
+        app:layout_constraintRight_toRightOf="@id/bottom_btn">
         <TextView
             android:id="@+id/tv_maibo"
             android:layout_width="402pt"

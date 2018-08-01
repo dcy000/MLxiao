@@ -61,7 +61,7 @@ public class ECG_Fragment extends BaseFragment implements IView {
         String address;
         String brand;
         if (bundle != null) {
-            address = bundle.getString("address");
+            address = bundle.getString(IPresenter.DEVICE_BLUETOOTH_ADDRESS);
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
         } else {

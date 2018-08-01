@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#f5f5f5">
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl1"
         android:layout_width="976pt"
@@ -20,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32pt"
-            android:text="空腹"
+            android:text="血糖(空腹)"
             android:textColor="#333"
             android:textSize="56pt"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -113,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32pt"
-            android:text="空腹"
+            android:text="尿酸(毫摩/升)"
             android:textColor="#333"
             android:textSize="56pt"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -125,66 +124,49 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28pt"
-            android:text="&lt;3.61"
+            android:text="0.21~0.44"
             android:textColor="#FF3030"
             android:textSize="64pt"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/title2_2"
-            app:layout_constraintTop_toBottomOf="@id/title2" />
-
-        <TextView
-            android:id="@+id/title2_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28pt"
-            android:text="6.7~9.4"
-            android:textColor="#28DA6B"
-            android:textSize="64pt"
-            app:layout_constraintLeft_toRightOf="@id/title2_1"
             app:layout_constraintRight_toLeftOf="@+id/title2_3"
-            app:layout_constraintTop_toBottomOf="@id/title2" />
+            app:layout_constraintTop_toBottomOf="@id/title2"
+            android:layout_marginLeft="56pt"
+            />
+
+
 
         <TextView
             android:id="@+id/title2_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28pt"
-            android:text="&gt;11.1"
+            android:text="0.15~0.39"
             android:textColor="#FF3030"
             android:textSize="64pt"
-            app:layout_constraintLeft_toRightOf="@id/title2_2"
+            app:layout_constraintLeft_toRightOf="@id/title2_1"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title2" />
+            app:layout_constraintTop_toBottomOf="@id/title2"
+            android:layout_marginRight="56pt"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32pt"
             android:layout_marginLeft="70pt"
-            android:text="低血糖"
+            android:text="男性"
             android:textColor="#333"
             android:textSize="48pt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32pt"
-            android:text="正常"
-            android:textColor="#333"
-            android:textSize="48pt"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/title2_2"
-            app:layout_constraintRight_toRightOf="@id/title2_2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32pt"
             android:layout_marginRight="70pt"
-            android:text="高血糖"
+            android:text="女性"
             android:textColor="#333"
             android:textSize="48pt"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -206,7 +188,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32pt"
-            android:text="空腹"
+            android:text="胆固醇(毫摩/升)"
             android:textColor="#333"
             android:textSize="56pt"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -218,89 +200,73 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28pt"
-            android:text="&lt;3.61"
+            android:text="2.9~6.0"
             android:textColor="#FF3030"
             android:textSize="64pt"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/title3_2"
-            app:layout_constraintTop_toBottomOf="@id/title3" />
-
-        <TextView
-            android:id="@+id/title3_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28pt"
-            android:text="3.61~7.80"
-            android:textColor="#28DA6B"
-            android:textSize="64pt"
-            app:layout_constraintLeft_toRightOf="@id/title3_1"
             app:layout_constraintRight_toLeftOf="@+id/title3_3"
-            app:layout_constraintTop_toBottomOf="@id/title3" />
+            app:layout_constraintTop_toBottomOf="@id/title3"
+            android:layout_marginLeft="56pt"/>
+
 
         <TextView
             android:id="@+id/title3_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28pt"
-            android:text="&gt;7.8"
+            android:text="3.1~5.2"
             android:textColor="#FF3030"
             android:textSize="64pt"
-            app:layout_constraintLeft_toRightOf="@id/title3_2"
+            app:layout_constraintLeft_toRightOf="@id/title3_1"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title3" />
+            app:layout_constraintTop_toBottomOf="@id/title3"
+            android:layout_marginRight="56pt"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32pt"
             android:layout_marginLeft="70pt"
-            android:text="低血糖"
+            android:text="成人"
             android:textColor="#333"
             android:textSize="48pt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32pt"
-            android:text="正常"
-            android:textColor="#333"
-            android:textSize="48pt"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/title3_2"
-            app:layout_constraintRight_toRightOf="@id/title3_2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32pt"
             android:layout_marginRight="70pt"
-            android:text="高血糖"
+            android:text="儿童"
             android:textColor="#333"
             android:textSize="48pt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
     </android.support.constraint.ConstraintLayout>
+
+
     <View
         android:layout_width="880pt"
         android:layout_height="match_parent"
-        android:background="@color/bluetooth_white" />
+        android:background="@color/bluetooth_white"/>
     <include
         android:id="@+id/bottom_btn"
         layout="@layout/bluetooth_layout_two_button"
         />
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_btn"
+        app:layout_constraintBottom_toTopOf="@+id/cl5"
         app:layout_constraintLeft_toLeftOf="@id/bottom_btn"
         app:layout_constraintRight_toRightOf="@id/bottom_btn">
         <TextView
-            android:id="@+id/tv_result"
+            android:id="@+id/tv_gaoya"
             android:layout_width="402pt"
             android:layout_height="174pt"
             android:background="@drawable/bluetooth_celiang_shape"
@@ -311,25 +277,107 @@
             android:textStyle="bold"
             app:layout_constraintRight_toRightOf="parent"/>
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="血糖"
             android:textStyle="bold"
             android:textColor="#333"
             android:textSize="88pt"
-            app:layout_constraintRight_toLeftOf="@id/tv_result"
-            app:layout_constraintTop_toTopOf="@id/tv_result"
-            app:layout_constraintBottom_toBottomOf="@id/tv_result"
+            app:layout_constraintRight_toLeftOf="@id/tv_gaoya"
+            app:layout_constraintTop_toTopOf="@id/tv_gaoya"
+            app:layout_constraintBottom_toBottomOf="@id/tv_gaoya"
             android:layout_marginRight="48pt"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="40pt"
             android:textColor="#999"
-            android:text="(mmol/L)"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintLeft_toLeftOf="@id/tv_title"
-            app:layout_constraintRight_toRightOf="@id/tv_title"/>
+            android:text="(mmHg)"
+            app:layout_constraintTop_toBottomOf="@id/tv_title1"
+            app:layout_constraintLeft_toLeftOf="@id/tv_title1"
+            app:layout_constraintRight_toRightOf="@id/tv_title1"/>
+    </android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cl4"
+        app:layout_constraintBottom_toTopOf="@+id/cl6"
+        app:layout_constraintLeft_toLeftOf="@id/bottom_btn"
+        app:layout_constraintRight_toRightOf="@id/bottom_btn">
+        <TextView
+            android:id="@+id/tv_diya"
+            android:layout_width="402pt"
+            android:layout_height="174pt"
+            android:background="@drawable/bluetooth_celiang_shape"
+            android:gravity="center"
+            android:text="0.00"
+            android:textColor="#333"
+            android:textSize="120pt"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"/>
+        <TextView
+            android:id="@+id/tv_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="尿酸"
+            android:textStyle="bold"
+            android:textColor="#333"
+            android:textSize="88pt"
+            app:layout_constraintRight_toLeftOf="@id/tv_diya"
+            app:layout_constraintTop_toTopOf="@id/tv_diya"
+            app:layout_constraintBottom_toBottomOf="@id/tv_diya"
+            android:layout_marginRight="48pt"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40pt"
+            android:textColor="#999"
+            android:text="(mmHg)"
+            app:layout_constraintTop_toBottomOf="@id/tv_title2"
+            app:layout_constraintLeft_toLeftOf="@id/tv_title2"
+            app:layout_constraintRight_toRightOf="@id/tv_title2"/>
+    </android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cl5"
+        app:layout_constraintBottom_toTopOf="@id/bottom_btn"
+        app:layout_constraintLeft_toLeftOf="@id/bottom_btn"
+        app:layout_constraintRight_toRightOf="@id/bottom_btn">
+        <TextView
+            android:id="@+id/tv_maibo"
+            android:layout_width="402pt"
+            android:layout_height="174pt"
+            android:background="@drawable/bluetooth_celiang_shape"
+            android:gravity="center"
+            android:text="0.00"
+            android:textColor="#333"
+            android:textSize="120pt"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"/>
+        <TextView
+            android:id="@+id/tv_title3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="胆固醇"
+            android:textStyle="bold"
+            android:textColor="#333"
+            android:textSize="88pt"
+            app:layout_constraintRight_toLeftOf="@id/tv_maibo"
+            app:layout_constraintTop_toTopOf="@id/tv_maibo"
+            app:layout_constraintBottom_toBottomOf="@id/tv_maibo"
+            android:layout_marginRight="48pt"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40pt"
+            android:textColor="#999"
+            android:text="(mmHg)"
+            app:layout_constraintTop_toBottomOf="@id/tv_title3"
+            app:layout_constraintLeft_toLeftOf="@id/tv_title3"
+            app:layout_constraintRight_toRightOf="@id/tv_title3"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

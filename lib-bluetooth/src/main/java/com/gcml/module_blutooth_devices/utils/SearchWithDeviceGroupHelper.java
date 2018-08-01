@@ -10,6 +10,7 @@ import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Chaosi_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Kangtai_PresenterImp;
+import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Self_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Chaosi_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_KN550_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Self_PresenterImp;
@@ -18,12 +19,14 @@ import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Sannuo_Pre
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_BoSheng_PresenterImp;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Chaosi_PresenterImp;
 import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerprint_WeiEr_PresenterImp;
+import com.gcml.module_blutooth_devices.others.ThreeInOne_Self_PresenterImp;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Ailikang_PresenterImp;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fudakang_PresenterImp;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Meidilian_PresenterImp;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Zhiziyun_PresenterImp;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Bodivis_PresenterImp;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Chaosi_PresenterImp;
+import com.gcml.module_blutooth_devices.weight_devices.Weight_Self_PresenterImp;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Xiangshan_EF895i_PresenterImp;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Yike_PresenterImp;
 import com.inuker.bluetooth.library.search.SearchRequest;
@@ -36,13 +39,14 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
-    private static final String[] BLOODOXYGEN_BRANDS = {"iChoice", "SpO2080971"};
+    private static final String[] BLOODOXYGEN_BRANDS = {"POD","iChoice", "SpO2080971"};
     private static final String[] BLOODPRESSURE_BRANDS = {"eBlood-Pressure", "iChoice", "KN-550BT 110"};
-    private static final String[] BLOODSUGAR_BRANDS = {"BLE-Glucowell", "BDE_WEIXIN_TTM"};
+    private static final String[] BLOODSUGAR_BRANDS = {"Bioland-BGM", "BLE-Glucowell", "BDE_WEIXIN_TTM"};
     private static final String[] TEMPERATURE_BRANDS = {"AET-WD", "ClinkBlood", "MEDXING-IRT", "FSRKB-EWQ01"};
-    private static final String[] WEIGHT_BRANDS = {"VScale", "SHHC-60F1", "iChoice", "SENSSUN_CLOUD"};
+    private static final String[] WEIGHT_BRANDS = {"VScale", "SHHC-60F1", "iChoice", "SENSSUN_CLOUD", "000FatScale01"};
     private static final String[] ECG_BRANDS = {"WeCardio STD", "A12-B"};
     private static final String[] FINGERPRINT_BRANDS = {"zjwellcom"};
+    private static final String[] OTHERS_BRANDS = {"BeneCheck GL-0F8B0C"};
     private List<SearchResult> devices;
     private int measureType;
     private BaseBluetoothPresenter baseBluetoothPresenter;
@@ -78,9 +82,17 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
             case IPresenter.CONTROL_FINGERPRINT:
                 search(FINGERPRINT_BRANDS);
                 break;
+            case IPresenter.MEASURE_OTHERS:
+                search(OTHERS_BRANDS);
+                break;
         }
     }
 
+    /**
+     * 默认搜索经典蓝牙3秒，搜索ble蓝牙10秒
+     *
+     * @param brands
+     */
     private void search(final String[] brands) {
         final SearchRequest searchRequest = new SearchRequest.Builder()
                 .searchBluetoothClassicDevice(3000, 1)
@@ -163,6 +175,10 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
                 switch (brand) {
+                    case "Bioland-BGM":
+                        baseBluetoothPresenter = new ThreeInOne_Self_PresenterImp(view,
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Bioland-BGM"));
+                        break;
                     case "BLE-Glucowell":
                         baseBluetoothPresenter = new Bloodsugar_GlucWell_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BLE-Glucowell"));
@@ -175,6 +191,10 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 break;
             case IPresenter.MEASURE_BLOOD_OXYGEN:
                 switch (brand) {
+                    case "POD":
+                        baseBluetoothPresenter=new Bloodoxygen_Self_PresenterImp(view,
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC,address,"POD"));
+                        break;
                     case "iChoice":
                         baseBluetoothPresenter = new Bloodoxygen_Chaosi_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "iChoice"));
@@ -203,6 +223,10 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                         baseBluetoothPresenter = new Weight_Xiangshan_EF895i_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "SENSSUN CLOUD"));
                         break;
+                    case "000FatScale01":
+                        baseBluetoothPresenter = new Weight_Self_PresenterImp(view,
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "000FatScale01"));
+                        break;
                 }
                 break;
             case IPresenter.MEASURE_ECG:
@@ -222,6 +246,14 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                     case "zjwellcom":
                         baseBluetoothPresenter = new Fingerprint_WeiEr_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MIX, address, "zjwellcom"));
+                        break;
+                }
+                break;
+            case IPresenter.MEASURE_OTHERS:
+                switch (brand) {
+                    case "BeneCheck GL-0F8B0C":
+                        baseBluetoothPresenter = new ThreeInOne_Self_PresenterImp(view,
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BeneCheck GL-0F8B0C"));
                         break;
                 }
                 break;

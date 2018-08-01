@@ -6,6 +6,10 @@ public interface IPresenter {
      */
     String BRAND = "brand";
     /**
+     * 设备物理地址
+     */
+    String DEVICE_BLUETOOTH_ADDRESS="device_bluetooth_address";
+    /**
      * 表示当前所处的状态 该状态和BluetoothKit的Constants中的变量是相对应的
      */
     int CURRENT_STATE = -1;

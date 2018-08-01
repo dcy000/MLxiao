@@ -25,7 +25,6 @@ public class XueyaUtils {
     public static boolean isEnd;
 
     /**
-     * TODO 连接设备
      *
      * @param device
      * @throws IOException

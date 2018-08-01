@@ -1,5 +1,6 @@
 package com.gzq.test_all_devices;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +8,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.gcml.lib_utils.display.LoadingProgressUtils;
+import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.IView;
+import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Self_PresenterImp;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,IView {
 
     private LinearLayout mLlXueya;
     private LinearLayout mLlXueyang;
@@ -26,7 +30,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
+//        initView();
+
+        Bloodoxygen_Self_PresenterImp b=new Bloodoxygen_Self_PresenterImp(this,
+                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC,"50:65:83:9A:56:DF","POD"));
+
     }
 
     private void initView() {
@@ -91,5 +99,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.ll_back) {
             finish();
         }
+    }
+
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
+    }
+
+    @Override
+    public Context getThisContext() {
+        return this;
     }
 }

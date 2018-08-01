@@ -324,30 +324,6 @@ public class ECG_Chaosi_PresenterImp extends BaseBluetoothPresenter {
             Log.e(TAG, "resolveDatas: 蓝牙数据是空的");
         }
     }
-//    private void writeCMD(byte[] cmd) {
-//
-//        BluetoothClientManager.getClient().write(targetAddress, Service_UUID, Characteristic_UUID_Write, cmd, new BleWriteResponse() {
-//            @Override
-//            public void onResponse(int i) {
-//                Log.e(TAG, "onResponse:写入命令是否成功 " + (i == 0 ? "成功" : "失败"));
-//            }
-//        });
-//    }
-
-
-    @Override
-    protected void disConnected() {
-        isMeasureEnd = true;
-        timeCount.cancel();
-        if (baseView instanceof Activity) {
-            baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
-        } else if (baseView instanceof Fragment) {
-            if (((Fragment) baseView).isAdded()) {
-                baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
-            }
-        }
-        super.disConnected();
-    }
 
     static class TimeCount extends CountDownTimer {
         private IView fragment;

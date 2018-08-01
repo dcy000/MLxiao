@@ -18,8 +18,8 @@ import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 
 
 public class Bloodsugar_Fragment extends BaseFragment implements IView, View.OnClickListener {
-    private TextView mBtnHealthHistory;
-    private TextView mBtnVideoDemo;
+    protected TextView mBtnHealthHistory;
+    protected TextView mBtnVideoDemo;
     private TextView mTvResult;
     private IPresenter bluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
@@ -43,7 +43,7 @@ public class Bloodsugar_Fragment extends BaseFragment implements IView, View.OnC
         String address;
         String brand;
         if (bundle != null) {
-            address = bundle.getString("address");
+            address = bundle.getString(IPresenter.DEVICE_BLUETOOTH_ADDRESS);
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
         } else {
@@ -76,6 +76,10 @@ public class Bloodsugar_Fragment extends BaseFragment implements IView, View.OnC
                 case "BDE_WEIXIN_TTM":
                     bluetoothPresenter = new Bloodsugar_Sannuo_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BDE_WEIXIN_TTM"));
+                    break;
+                case "Bioland-BGM":
+                    bluetoothPresenter=new Bloodsugar_Self_PresenterImp(this,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC,address,"Bioland-BGM"));
                     break;
             }
         }
