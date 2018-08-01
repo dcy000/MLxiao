@@ -12,12 +12,12 @@ public class MonitorRequestionBean implements Serializable {
     /**
      * 体质类型
      */
-    public String requestionType="";
+    public String requestionType = "";
 
     /**
      * 测试题
      */
-    public String requesionTitle="";
+    public String requesionTitle = "";
 
     /**
      * 答案选项
@@ -40,6 +40,8 @@ public class MonitorRequestionBean implements Serializable {
      */
 
     public int score;
+    public boolean woman;
+    public boolean man;
 
 
     public static class AnwserBean implements Serializable {

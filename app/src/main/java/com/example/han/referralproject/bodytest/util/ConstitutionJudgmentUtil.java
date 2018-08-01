@@ -51,7 +51,7 @@ public class ConstitutionJudgmentUtil {
         int score = 0;
         int size = data.size();
         for (int i = 0; i < size; i++) {
-            if (data.get(i).requestionType.equals(info.getDescription())) {
+            if (data.get(i).requestionType.contains(info.getDescription())) {
                 score += data.get(i).score;
             }
         }
