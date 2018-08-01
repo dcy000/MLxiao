@@ -236,7 +236,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
         NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
             @Override
-            public void onSuccess(Doctor response) {
+            public void onSuccess(final Doctor response) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("doctor_id", response.getDocterid() + "");
                 editor.putString("name", response.getDoctername());
@@ -246,12 +246,13 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 editor.putString("service_amount", response.getService_amount());
                 editor.putString("docter_photo", response.getDocter_photo());
                 editor.commit();
-
-
                 if (!"".equals(response.getDoctername())) {
-
-                    signDoctorName.setText(response.getDoctername());
-
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            signDoctorName.setText(response.getDoctername());
+                        }
+                    });
                 }
 
 
