@@ -6,50 +6,49 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.os.BatteryManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
-import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
-import com.example.han.referralproject.floatball.MyService;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.personal.PersonActivity;
+import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.lenovo.rto.accesstoken.AccessToken;
+import com.example.lenovo.rto.accesstoken.AccessTokenModel;
+import com.example.lenovo.rto.http.HttpListener;
+import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
-
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.orhanobut.logger.Logger;
+import com.medlink.danbogh.utils.T;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+
+public class MainActivity extends BaseActivity implements View.OnClickListener, HttpListener<AccessToken> {
 
     ImageView mImageView1;
     ImageView mImageView2;
@@ -123,6 +122,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (!isMyServiceRunning(AssistiveTouchService.class)) {
             startService(new Intent(this, AssistiveTouchService.class));
         }
+      initBDAK();
+    }
+
+    private void initBDAK() {
+        AccessTokenModel model=new AccessTokenModel();
+        model.getAccessToken(this);
+    }
+
+    @Override
+    public void onSuccess(AccessToken data) {
+        EHSharedPreferences.WriteInfo(ACCESSTOKEN_KEY, data);
+    }
+
+    @Override
+    public void onError() {
+        Log.d("MainActivity", "onError:*********************************获取百度AK失败************************ ");
+        T.show("初始化AK失败");
+    }
+
+    @Override
+    public void onComplete() {
 
     }
 
@@ -291,6 +311,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             mImageView2.performClick();
         }
     }
+
 
     public class BatteryBroadCastReceiver extends BroadcastReceiver {
         @Override
