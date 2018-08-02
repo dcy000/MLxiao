@@ -83,10 +83,14 @@ public class DetectResultActivity extends BaseActivity {
     TextView detectTvResultHealthDrinkInfo;
     @BindView(R.id.ll_health_drink)
     LinearLayout llHealthDrink;
+    @BindView(R.id.ll_pressure_pulse)
+    LinearLayout llPressureulse;
     @BindView(R.id.detect_tv_result_health_smoke_info)
     TextView detectTvResultHealthSmokeInfo;
     @BindView(R.id.ll_health_smoke)
     LinearLayout llHealthSmoke;
+    @BindView(R.id.tv_pressure_pulse)
+    TextView tvPulse;
     @BindView(R.id.detect_tv_result_sugar_zz_info)
     TextView detectTvResultSugarZzInfo;
     @BindView(R.id.ll_sugar_zz)
@@ -132,12 +136,12 @@ public class DetectResultActivity extends BaseActivity {
         String tem = intent.getStringExtra("tem");
         tem = TextUtils.isEmpty(tem) ? "0.0" : tem;
         detectResult.setTemperAture(tem);
-        detectResult.currentPhoto=getIntent().getStringExtra("detectHeadIcon");
+        detectResult.currentPhoto = getIntent().getStringExtra("detectHeadIcon");
 
         //血压随访新加的
-        detectResult.psychologicalRecovery=getIntent().getStringExtra("xinli");
-        detectResult.drugCompliance=getIntent().getStringExtra("yaowufucong");
-        detectResult.drugAdverseReaction=getIntent().getStringExtra("yaowubuliang");
+        detectResult.psychologicalRecovery = getIntent().getStringExtra("xinli");
+        detectResult.drugCompliance = getIntent().getStringExtra("yaowufucong");
+        detectResult.drugAdverseReaction = getIntent().getStringExtra("yaowubuliang");
 
 
         //左手血压测量值
@@ -155,6 +159,8 @@ public class DetectResultActivity extends BaseActivity {
         lowPressureRight = TextUtils.isEmpty(lowPressureRight) ? "0.0" : lowPressureRight;
         detectResult.rightHypertension = new DetectResult.RightHypertensionBean(Float.parseFloat(highPressureRight), Float.parseFloat(lowPressureRight));
 
+        //血压随访脉搏
+        detectResult.pulse=getIntent().getIntExtra("pulse",0);
         String ecg = intent.getStringExtra("ecg");
         ecg = TextUtils.isEmpty(ecg) ? "0.0" : ecg;
         detectResult.setEcg(ecg);
@@ -252,22 +258,30 @@ public class DetectResultActivity extends BaseActivity {
             llHealthZz.setVisibility(View.GONE);
         } else {
             llHealthZz.setVisibility(View.VISIBLE);
-            detectTvResultHealthZzInfo.setText(data.healthSymptom.replaceAll("null",""));
+            detectTvResultHealthZzInfo.setText(data.healthSymptom.replaceAll("null", ""));
         }
         //高血压体检症状
         if (data.hypertensionSymptom == null) {
             llPressureSmoke.setVisibility(View.GONE);
         } else {
             llPressureSmoke.setVisibility(View.VISIBLE);
-            detectTvResultPressureZzInfo.setText(data.hypertensionSymptom.replaceAll("null",""));
+            detectTvResultPressureZzInfo.setText(data.hypertensionSymptom.replaceAll("null", ""));
+        }
+
+        //高血压体检  脉搏
+        if (data.pulse==0){
+            llPressureulse.setVisibility(View.GONE);
+        }else {
+            llPressureulse.setVisibility(View.VISIBLE);
+            tvPulse.setText(data.pulse+"");
         }
 
         //糖尿病体检症状
-        if (data.diabetesSymptom  == null) {
+        if (data.diabetesSymptom == null) {
             llSugarZz.setVisibility(View.GONE);
         } else {
             llSugarZz.setVisibility(View.VISIBLE);
-            detectTvResultSugarZzInfo.setText(data.diabetesSymptom .replaceAll("null",""));
+            detectTvResultSugarZzInfo.setText(data.diabetesSymptom.replaceAll("null", ""));
         }
 
         //糖尿病症状
@@ -287,7 +301,7 @@ public class DetectResultActivity extends BaseActivity {
             llHealthDrink.setVisibility(View.GONE);
         } else {
             llHealthDrink.setVisibility(View.VISIBLE);
-            detectTvResultHealthDrinkInfo.setText(data.wineDrink);
+            detectTvResultHealthDrinkInfo.setText(data.wineDrink + "两/日");
         }
 
         //吸烟情况  三种体检都有

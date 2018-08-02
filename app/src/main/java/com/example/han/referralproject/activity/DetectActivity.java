@@ -263,6 +263,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     };
     private View mNavView;
     private BloodPressureNoticeDialog dialog1;
+    private int pulse;
 
 
     /**
@@ -273,6 +274,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         info.high_pressure = getNew;
         info.low_pressure = down;
         info.pulse = maibo;
+        pulse = maibo;
         if (status) {
             info.upload_state = true;
         }
@@ -1373,21 +1375,21 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     if ("detectPressure".equals(detectCategory)) {
                         switch (type) {
                             case "xueya":
-//                                if (intent.getBooleanExtra("is_right", false)) {
-//                                    Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
-//                                    intent4.putExtras(getIntent());
-//                                    intent4.putExtra("highPressure_right", mHighPressTv.getText().toString());
-//                                    intent4.putExtra("lowPressure_right", mLowPressTv.getText().toString());
-//                                    intent4.putExtra("type", "xindian");
-//                                    startActivity(intent4);
-//                                    break;
-//                                }
-
+                                /*血压随访不测心电了
                                 Intent intent4 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
                                 intent4.putExtras(getIntent());
                                 intent4.putExtra("highPressure", mHighPressTv.getText().toString());
                                 intent4.putExtra("lowPressure", mLowPressTv.getText().toString());
                                 intent4.putExtra("type", "xindian");
+                                startActivity(intent4);*/
+
+
+                                Intent intent4 = new Intent(DetectActivity.this, DetectActivity.class);
+                                intent4.putExtras(getIntent());
+                                intent4.putExtra("highPressure", mHighPressTv.getText().toString());
+                                intent4.putExtra("lowPressure", mLowPressTv.getText().toString());
+                                intent4.putExtra("pulse", pulse);
+                                intent4.putExtra("type", "tizhong");
                                 startActivity(intent4);
                                 break;
                             case "tizhong":
@@ -1553,9 +1555,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                        }
                         break;
                     case "tizhong":
-                        Intent intent1 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+                       /*血糖随访不测心电了
+                       Intent intent1 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
                         intent1.putExtras(getIntent());
                         intent1.putExtra("weight", "0");
+                        startActivity(intent1);*/
+                        Intent intent1 = new Intent(DetectActivity.this, DetectActivity.class);
+                        intent1.putExtras(getIntent());
+                        intent1.putExtra("weight", "0");
+                        intent1.putExtra("type", "xueya");
                         startActivity(intent1);
                         break;
                 }
