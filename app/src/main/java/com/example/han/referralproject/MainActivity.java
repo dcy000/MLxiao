@@ -10,6 +10,7 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -37,6 +38,11 @@ import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.lenovo.rto.Constans;
+import com.example.lenovo.rto.accesstoken.AccessToken;
+import com.example.lenovo.rto.accesstoken.AccessTokenModel;
+import com.example.lenovo.rto.http.HttpListener;
+import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
@@ -53,7 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, HttpListener<AccessToken> {
 
     ImageView mImageView1;
     ImageView mImageView2;
@@ -67,7 +73,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mImageView6;
     private ImageView mBatteryIv;
     private BatteryBroadCastReceiver mBatteryReceiver;
-
 
 
     @Override
@@ -135,9 +140,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             Intent intent = new Intent(getApplicationContext(), AssistiveTouchService.class);
             startService(intent);
         }
+        initBDAK();
 
     }
 
+    private void initBDAK() {
+        AccessTokenModel model = new AccessTokenModel();
+        model.getAccessToken(this);
+    }
+
+    @Override
+    public void onSuccess(AccessToken data) {
+        Log.d("MainActivity", "onError:******获取百度AK成功******* ");
+        EHSharedPreferences.WriteInfo(Constans.ACCESSTOKEN_KEY, data);
+    }
+
+    @Override
+    public void onError() {
+        Log.d("MainActivity", "onError:******获取百度AK失败******* ");
+        T.show("初始化AK失败");
+    }
+
+    @Override
+    public void onComplete() {
+
+    }
 
     public boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);

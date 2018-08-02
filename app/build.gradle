@@ -94,20 +94,16 @@ dependencies {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
     compile 'com.android.support:multidex:1.0.1'
-
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.9'
-
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
-
-    compile "com.github.VictorAlbertos.Jolyglot:gson:0.0.4"
-    compile "com.github.VictorAlbertos.RxCache:runtime:1.8.3-2.x"
-
+    compile 'com.github.VictorAlbertos.Jolyglot:gson:0.0.4'
+    compile 'com.github.VictorAlbertos.RxCache:runtime:1.8.3-2.x'
     //    compile 'com.hyphenate:hyphenate-sdk:3.3.2'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -173,7 +169,7 @@ dependencies {
     compile project(':expand-textview-library')
     compile project(':lib-rulerview')
     //日志库
-    compile "com.jakewharton.timber:timber:4.5.1"
+    compile 'com.jakewharton.timber:timber:4.5.1'
     compile 'com.orhanobut:logger:2.1.1'
     //    compile 'me.relex:circleindicator:1.2.2@aar'
     compile project(':circleindicator')
@@ -181,4 +177,5 @@ dependencies {
     compile project(':voice')
     compile project(':lib-idcard-reader')
     compile project(':lib-brightness')
+    compile project(':unit')
 }
