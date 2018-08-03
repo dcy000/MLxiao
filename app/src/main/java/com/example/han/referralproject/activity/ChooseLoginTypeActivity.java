@@ -80,7 +80,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
             tvPhoneSignIn.setVisibility(View.GONE);
             etSignInPassword.setVisibility(View.GONE);
             tvFaceSignIn.setVisibility(View.GONE);
-            clContainer.setPadding(0, UiUtils.pt(350), 0, 0);
+            clContainer.setPadding(0, UiUtils.pt(100), 0, 0);
         } else {
             clContainer.setPadding(0, 0, 0, 0);
             tvPhoneSignIn.setVisibility(View.VISIBLE);
