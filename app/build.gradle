@@ -101,7 +101,7 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/Sunflower.jar')
-//    compile files('libs/pinyin4j-2.5.0.jar')
+    //    compile files('libs/pinyin4j-2.5.0.jar')
     compile files('libs/commons-lang-2.3.jar')
     compile('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
@@ -186,11 +186,9 @@ dependencies {
     compile('cn.qqtheme.framework:WheelPicker:1.5.5') {
         exclude group: 'com.android.support'
     }
-
     compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
-
     compile('liji.library.dev:citypickerview:3.1.5') {
         exclude group: 'pinyin4j-2.5.0'
     }
-
+    compile project(':unit')
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
@@ -23,9 +24,14 @@ import com.example.han.referralproject.yiyuan.adpater.MainFragmentAdapter;
 import com.example.han.referralproject.yiyuan.fragment.CountdownDialog;
 import com.example.han.referralproject.yiyuan.fragment.Main1Fragment;
 import com.example.han.referralproject.yiyuan.fragment.Main2Fragment;
+import com.example.lenovo.rto.accesstoken.AccessToken;
+import com.example.lenovo.rto.accesstoken.AccessTokenModel;
+import com.example.lenovo.rto.http.HttpListener;
+import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
+import com.medlink.danbogh.utils.T;
 import com.umeng.analytics.MobclickAgent;
 
 import org.litepal.crud.DataSupport;
@@ -37,7 +43,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.relex.circleindicator.CircleIndicator;
 
-public class MainActivity extends BaseActivity implements CountdownDialog.Ontouch {
+import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
+
+public class MainActivity extends BaseActivity implements CountdownDialog.Ontouch, HttpListener<AccessToken> {
     @BindView(R.id.fl_status_bar)
     FrameLayout flStatusBar;
     @BindView(R.id.circleIndicator)
@@ -55,6 +63,29 @@ public class MainActivity extends BaseActivity implements CountdownDialog.Ontouc
         ButterKnife.bind(this);
         initEvent();
         initView();
+        initBDAK();
+    }
+
+    private void initBDAK() {
+        AccessTokenModel model=new AccessTokenModel();
+        model.getAccessToken(this);
+    }
+
+    @Override
+    public void onSuccess(AccessToken data) {
+        Log.d("MainActivity", "onError:******获取百度AK成功******* ");
+        EHSharedPreferences.WriteInfo(ACCESSTOKEN_KEY, data);
+    }
+
+    @Override
+    public void onError() {
+        Log.d("MainActivity", "onError:******获取百度AK失败******* ");
+        T.show("初始化AK失败");
+    }
+
+    @Override
+    public void onComplete() {
+
     }
 
     private void initEvent() {
