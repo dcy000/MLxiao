@@ -40,6 +40,7 @@ public class HypertensionActivity extends BaseActivity implements MultipleChoice
     ViewPager vp;
     List<Fragment> fragments = new ArrayList<>();
     PrimaryHypertensionBean postBean = new PrimaryHypertensionBean();
+    private List<PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean> questionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +60,9 @@ public class HypertensionActivity extends BaseActivity implements MultipleChoice
                 String body = response.body();
                 PrimaryHypertensionQuestionnaireBean bean = new Gson().fromJson(body, PrimaryHypertensionQuestionnaireBean.class);
                 if (bean != null && bean.tag && bean.data != null) {
-                    List<PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean> questionList = bean.data.questionList;
+                    questionList = bean.data.questionList;
                     if (questionList != null && questionList.size() != 0) {
+                        mlSpeak("主人,您"+questionList.get(0).questionName);
                         //给提交的数据赋值===开始
                         postBean.equipmentId = Utils.getDeviceId();
                         postBean.hmQuestionnaireId = bean.data.hmQuestionnaireId;
@@ -147,6 +149,7 @@ public class HypertensionActivity extends BaseActivity implements MultipleChoice
             return;
         }
         vp.setCurrentItem(vp.getCurrentItem() + 1);
+        mlSpeak(questionList.get(vp.getCurrentItem()).questionName);
     }
     private int getScore(PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean answerBean, int[] checked) {
         int score = 0;

@@ -78,13 +78,18 @@ public class MultipleChoiceFragment extends Fragment {
     }
 
     private void initGV(Bundle arguments) {
-        MLVoiceSynthetize.startSynthesize(getContext(),"主人,您"+arguments.getString(TIP_CONTENT),false);
         gridView.setAdapter(new MyAdapter());
         if (arguments.getBoolean(IS_MULTIPLE_CHOOIC))
             gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE);
         else
             gridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        MLVoiceSynthetize.startSynthesize(getContext(),"主人,您"+getArguments().getString(TIP_CONTENT),false);
     }
 
     public static MultipleChoiceFragment getInstance(String tipContent, String warmTip, PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean, boolean isMultiple) {

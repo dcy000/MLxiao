@@ -40,6 +40,7 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
     ViewPager vp;
     List<Fragment> fragments = new ArrayList<>();
     PrimaryHypertensionBean postBean = new PrimaryHypertensionBean();
+    private List<PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean> questionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +55,15 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
     private void initVP() {
         showLoadingDialog("正在加载...");
         NetworkApi.getPrimaryHypertensionQuestion(new StringCallback() {
+
             @Override
             public void onSuccess(Response<String> response) {
                 String body = response.body();
                 PrimaryHypertensionQuestionnaireBean bean = new Gson().fromJson(body, PrimaryHypertensionQuestionnaireBean.class);
                 if (bean != null && bean.tag && bean.data != null) {
-                    List<PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean> questionList = bean.data.questionList;
+                    questionList = bean.data.questionList;
                     if (questionList != null && questionList.size() != 0) {
+                        mlSpeak(questionList.get(0).questionName);
                         //给提交的数据赋值===开始
                         postBean.equipmentId = Utils.getDeviceId();
                         postBean.hmQuestionnaireId = bean.data.hmQuestionnaireId;
@@ -148,6 +151,7 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
             return;
         }
         vp.setCurrentItem(vp.getCurrentItem() + 1);
+        mlSpeak(questionList.get(vp.getCurrentItem()).questionName);
     }
 
     private int getScore(PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean answerBean, int[] checked) {
