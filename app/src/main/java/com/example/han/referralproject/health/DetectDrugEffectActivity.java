@@ -72,8 +72,8 @@ public class DetectDrugEffectActivity extends BaseActivity {
     }
 
     private void prepareData() {
-        items.add("有");
         items.add("无");
+        items.add("有");
     }
 
     private ArrayList<String> items = new ArrayList<>();

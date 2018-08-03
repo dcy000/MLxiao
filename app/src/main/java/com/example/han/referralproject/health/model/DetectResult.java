@@ -56,6 +56,8 @@ public class DetectResult implements Serializable {
     public String smoke;
     public String sportCost;
     public String sportFrequency;
+    public String  sportWeekTimes;
+    public String sportTime;
     public String sportIntension;
     public int sugarTime;
     public String temperAture;

@@ -140,8 +140,10 @@ public class DetectResultActivity extends BaseActivity {
 
         //血压随访新加的
         detectResult.psychologicalRecovery = getIntent().getStringExtra("xinli");
-        detectResult.drugCompliance = getIntent().getStringExtra("yaowufucong");
+        detectResult.drugCompliance = getIntent().getStringExtra("yaowuyicong");
         detectResult.drugAdverseReaction = getIntent().getStringExtra("yaowubuliang");
+        detectResult.sportWeekTimes = intent.getStringExtra("times");
+        detectResult.sportTime = intent.getStringExtra("minutes");
 
 
         //左手血压测量值
@@ -160,7 +162,8 @@ public class DetectResultActivity extends BaseActivity {
         detectResult.rightHypertension = new DetectResult.RightHypertensionBean(Float.parseFloat(highPressureRight), Float.parseFloat(lowPressureRight));
 
         //血压随访脉搏
-        detectResult.pulse=getIntent().getIntExtra("pulse",0);
+        detectResult.pulse = getIntent().getIntExtra("pulse", 0);
+
         String ecg = intent.getStringExtra("ecg");
         ecg = TextUtils.isEmpty(ecg) ? "0.0" : ecg;
         detectResult.setEcg(ecg);
@@ -186,8 +189,8 @@ public class DetectResultActivity extends BaseActivity {
                 detectResult.setDiabetesSymptom(builder.toString());
                 break;
         }
-        detectResult.setSportCost(intent.getStringExtra("minutes"));
-        detectResult.setSportFrequency(intent.getStringExtra("times"));
+//        detectResult.setSportCost(intent.getStringExtra("minutes"));
+//        detectResult.setSportFrequency(intent.getStringExtra("times"));
         detectResult.setSaltIntake(intent.getStringExtra("salt"));
         detectResult.setWineDrink(intent.getStringExtra("drink"));
         detectResult.setSmoke(intent.getStringExtra("smoke"));
@@ -269,11 +272,11 @@ public class DetectResultActivity extends BaseActivity {
         }
 
         //高血压体检  脉搏
-        if (data.pulse==0){
+        if (data.pulse == 0) {
             llPressureulse.setVisibility(View.GONE);
-        }else {
+        } else {
             llPressureulse.setVisibility(View.VISIBLE);
-            tvPulse.setText(data.pulse+"");
+            tvPulse.setText(data.pulse + "");
         }
 
         //糖尿病体检症状
