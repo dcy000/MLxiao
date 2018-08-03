@@ -30,7 +30,9 @@ import com.medlink.danbogh.utils.T;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 
 public class ChineseMedicineMonitorActivity extends BaseActivity implements View.OnClickListener {
@@ -204,12 +206,11 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
 
     private void submit() {
         String monitorResultTemp = getFilterString(ConstitutionJudgmentUtil.getMonitorResult(data));
-        String monitorResult = monitorResultTemp.replace("基本是", "").replace("偏", "");
-        ConstitutionJudgmentEnum element = ConstitutionJudgmentEnum.getElement(monitorResult.substring(0, 3));
+        String monitorResult = monitorResultTemp.replace("基本是", "").replace("偏", ",");
+//        ConstitutionJudgmentEnum element = ConstitutionJudgmentEnum.getElement(monitorResult.substring(0, 3));
+        String[] tags = monitorResult.split(",");
 
-        MonitorResultActivity.starMe(this,
-                ConstitutionJudgmentUtil.getResultScores(data) + "\n" + element.getFeatrue() + "\n" + element.getMaintenance(),
-                monitorResultTemp);
+        MonitorResultActivity.starMe(this, tags);
     }
 
     @NonNull

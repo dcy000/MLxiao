@@ -3,12 +3,15 @@ package com.example.han.referralproject.bodytest.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.medlink.danbogh.utils.T;
+
+import java.util.ArrayList;
 
 public class MonitorResultActivity extends BaseActivity {
 
@@ -23,10 +26,10 @@ public class MonitorResultActivity extends BaseActivity {
                     , "特禀体(过敏派)-然后，还有发作起来让人生不如死的过敏，同在一间屋子，窗外偷偷飘进一片柳絮，悄悄地来又悄悄地走，别人只是揉揉鼻子就过去了，你可惨了，不停的打喷嚏，鼻涕、眼泪一起流，最后还流进了医院里，医生说：过敏了。你可曾想过，为什么一屋子的人唯有你过敏呢？还有海鲜过敏、鸡蛋过敏、牛奶过敏……无所不在的过敏原你怎么才能躲得开？远离过敏原只是一种不得已的办法，想要治本，还得调整你的特禀体质。"
                     , "平和体( 健康派)-最重要一种--人人渴望的平和体质。平和体质的人发黑如墨，脸色红润，身材匀称而充满活力，他们的性情开朗、阳光，绝对不会为小事斤斤计较，也不会轻易郁闷或动怒。\n" +
                     "平和质，不只是一种体质，而是一种生活状态，一份对健康的美好愿望，一个和谐生命的范本。"};
-    private static final String SCORES = "scores";
-    private static final String RESULT_TYPE = "result_type";
-    private String resultScores;
-    private String resultType;
+    private static final String TAGS = "tags";
+    private String[] tags;
+    private ViewPager vpResult;
+    private ArrayList<PagerFragment> mFragments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +40,13 @@ public class MonitorResultActivity extends BaseActivity {
     }
 
     private void initData() {
-        resultScores = getIntent().getStringExtra(SCORES);
-        resultType = getIntent().getStringExtra(RESULT_TYPE);
+        tags = getIntent().getStringArrayExtra(TAGS);
+
     }
 
-    @Override
-    protected void onResume() {
-        T.show("上拉加载更多");
-        super.onResume();
-    }
-
-    public static void starMe(Context context, String scores, String resultType) {
+    public static void starMe(Context context, String[] tags) {
         Intent intent = new Intent(context, MonitorResultActivity.class);
-        intent.putExtra(SCORES, scores);
-        intent.putExtra(RESULT_TYPE, resultType);
+        intent.putExtra(TAGS, tags);
         context.startActivity(intent);
     }
 
@@ -59,18 +55,27 @@ public class MonitorResultActivity extends BaseActivity {
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.GONE);
         mTitleText.setText("中医体质检测报告");
+        vpResult = ((ViewPager) findViewById(R.id.vp_results));
+        if (tags != null && tags.length != 0) {
+            for (int i = 0; i < tags.length && i < 1; i++) {
+                mFragments.add(PagerFragment.newInstance(i, tags));
+            }
+        }
+        vpResult.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                return mFragments.get(i);
+            }
 
-        TextView result = findViewById(R.id.tv_result);
-        TextView description = findViewById(R.id.tv_description);
-
-//        Random random = new Random();
-//        int index = random.nextInt(9);
-//
-//        String resultInfo = results[index];
-//        result.setText(resultInfo.split("-")[0]);
-
-        result.setText(resultType);
-        description.setText(resultScores);
+            @Override
+            public int getCount() {
+                return mFragments.size();
+            }
+        });
+        for (PagerFragment fragment : mFragments) {
+            vpResult.addOnPageChangeListener(fragment);
+            fragment.setViewPager(vpResult);
+        }
     }
 
 }

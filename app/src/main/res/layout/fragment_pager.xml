@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".bodytest.activity.PagerFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="60pt">
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="根据您的评估结果，您可能是"
+            android:textColor="#333333"
+            android:textSize="56pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_tags"
+            android:layout_width="0dp"
+            android:layout_height="120pt"
+            android:layout_marginTop="40pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cl_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40pt"
+            android:background="@drawable/bg_shadow"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_tags">
+
+            <TextView
+                android:id="@+id/tv_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/decorate_left"
+                android:drawablePadding="12pt"
+                android:drawableRight="@drawable/decorate_right"
+                android:textColor="#3F86FC"
+                android:textSize="64pt"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_line_tag"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="平和质" />
+
+            <ImageView
+                android:id="@+id/iv_line_tag"
+                android:layout_width="0dp"
+                android:layout_height="4pt"
+                android:layout_marginLeft="40pt"
+                android:layout_marginRight="40pt"
+                android:layout_marginTop="170pt"
+                android:scaleType="fitXY"
+                android:src="@drawable/health_ic_report_line"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="5dp"
+                android:padding="40pt"
+                android:textSize="64pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_line_tag" />
+
+            <TextView
+                android:id="@+id/tv_solution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/decorate_left"
+                android:drawablePadding="12pt"
+                android:drawableRight="@drawable/decorate_right"
+                android:text="调养方法"
+                android:textColor="#3F86FC"
+                android:textSize="64pt"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_line_solution"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+
+            <ImageView
+                android:id="@+id/iv_line_solution"
+                android:layout_width="0dp"
+                android:layout_height="4pt"
+                android:layout_marginLeft="40pt"
+                android:layout_marginRight="40pt"
+                android:layout_marginTop="170pt"
+                android:scaleType="fitXY"
+                android:src="@drawable/health_ic_report_line"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+
+            <TextView
+                android:id="@+id/tv_content_solution"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="5dp"
+                android:padding="40pt"
+                android:textSize="64pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_line_solution" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

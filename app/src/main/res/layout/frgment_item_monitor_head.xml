@@ -5,20 +5,20 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
         android:id="@+id/tv_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
         android:padding="10dp"
         android:textColor="#000"
         android:textSize="40sp" />
 
     <RadioGroup
-        android:layout_marginLeft="50dp"
         android:id="@+id/rg_anwser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
         android:orientation="vertical"
         android:paddingLeft="10dp">
 
@@ -26,42 +26,47 @@
             android:id="@+id/a"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="没有（基本不）"
             android:textColor="#666"
-            android:textSize="35sp"
-            android:text="没有（基本不）" />
+            android:textSize="35sp" />
 
         <RadioButton
             android:id="@+id/b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="很少（有一点）"
             android:textColor="#666"
-            android:textSize="35sp"
-            android:text="很少（有一点）" />
+            android:textSize="35sp" />
 
         <RadioButton
             android:id="@+id/c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="有时（有些）"
             android:textColor="#666"
-            android:textSize="35sp"
-            android:text="有时（有些）" />
+            android:textSize="35sp" />
 
 
         <RadioButton
             android:id="@+id/d"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="常常（相当）"
             android:textColor="#666"
-            android:textSize="35sp"
-            android:text="常常（相当）" />
+            android:textSize="35sp" />
 
         <RadioButton
             android:id="@+id/e"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="总是（十分)"
             android:textColor="#666"
-            android:textSize="35sp"
-            android:text="总是（十分)" />
+            android:textSize="35sp" />
     </RadioGroup>
 
 

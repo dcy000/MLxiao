@@ -22,6 +22,7 @@ import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.Utils;
+import com.medlink.danbogh.utils.T;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -95,7 +96,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                     NetworkApi.PayInfo(Utils.getDeviceId(), numbers + "", date.getTime() + "", MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<String>() {
                         @Override
                         public void onSuccess(String response) {
-                            Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                            T.show("支付成功");
                             speak(getString(R.string.pay_success));
 
                         }

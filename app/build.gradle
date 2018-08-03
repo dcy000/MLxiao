@@ -119,6 +119,7 @@ dependencies {
     compile 'com.qiniu:qiniu-android-sdk:7.3.+'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
+    compile 'com.android.support:support-v4:26.1.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'

@@ -273,6 +273,11 @@ public class ConstitutionJudgmentUtil {
         return info.substring(0, info.length() - 1);
     }
 
+    public static Map<String, Integer> getResultTypes(List<MonitorRequestionBean> data) {
+        return ConstitutionJudgmentUtil.getAll(data);
+    }
+
+
     public static Integer getMaxValue(Map<String, Integer> map) {
         if (map == null) return null;
         Collection<Integer> c = map.values();
