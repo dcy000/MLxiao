@@ -9,10 +9,17 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.require2.healthservice.BindHealthManageSystemActivity;
 import com.example.han.referralproject.require2.register.activtiy.ChoiceIDCardRegisterTypeActivity;
 import com.example.han.referralproject.require2.register.activtiy.RegisterByIdCardActivity;
+import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.T;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +44,28 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
         setContentView(R.layout.activity_choice_idcard_login_type);
         ButterKnife.bind(this);
         initTitle();
+        get3BindInfo();
         ActivityHelper.addActivity(this);
+    }
+
+    /**
+     *
+     */
+    private void get3BindInfo() {
+        NetworkApi.getBindAccountInfo(Utils.getDeviceId(), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject object = new JSONObject(body);
+                    if (!object.getBoolean("tag")) {
+                        startActivity(new Intent(ChoiceLoginTypeActivity.this, BindHealthManageSystemActivity.class));
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+        });
     }
 
     private void initTitle() {

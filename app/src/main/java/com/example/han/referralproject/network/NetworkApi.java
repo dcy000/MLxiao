@@ -67,11 +67,11 @@ public class NetworkApi {
     /**
      * 林本地
      */
-    public static final String BasicUrl = "http://192.168.200.117:8080";
+//    public static final String BasicUrl = "http://192.168.200.117:8080";
     /**
      * 测试
      */
-//    public static final String BasicUrl = "http://47.96.98.60:8070";
+    public static final String BasicUrl = "http://47.96.98.60:8070";
 
     public static final String PASSWORD = "123456";
     //上传建档信息
@@ -1381,6 +1381,33 @@ public class NetworkApi {
     public static void getEquipmentXunFeiInfo(String equipmentId, StringCallback callback) {
         OkGo.<String>get(EQIPMENT_ID_XUN_FEI_URL + equipmentId + "/")
                 .params("equipmentId", equipmentId)
+                .execute(callback);
+    }
+
+    /**
+     * 查询3.0用户
+     */
+    public static final String QUERY_3_ACCOUNT = BasicUrl + "ZZB/api/health/inquiry/sanitation/";
+
+    public static void Query3Account(String account, String passWord, StringCallback callback) {
+        OkGo.<String>post(QUERY_3_ACCOUNT)
+                .params("userName", account)
+                .params("password", passWord)
+                .execute(callback);
+    }
+
+    public static void Post3Account(String eqid, String jsonData, StringCallback callback) {
+        OkGo.<String>post(QUERY_3_ACCOUNT + eqid + "/")
+                .upJson(jsonData)
+                .execute(callback);
+    }
+
+    /**
+     * 查询机器绑定信息
+     */
+    public static void getBindAccountInfo(String eqid, StringCallback callback) {
+        OkGo.<String>get(QUERY_3_ACCOUNT + eqid + "/")
+                .params("equipmentId", eqid)
                 .execute(callback);
     }
 

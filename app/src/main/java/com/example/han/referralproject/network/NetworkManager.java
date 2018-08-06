@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -30,9 +31,11 @@ public class NetworkManager {
 
     private enum Method {
         GET, POST
-    };
+    }
 
-    private NetworkManager(){
+    ;
+
+    private NetworkManager() {
         client = new OkHttpClient();
         mGson = new Gson();
         mContext = MyApplication.getInstance();
@@ -46,14 +49,14 @@ public class NetworkManager {
         public void onFailed(String message);
     }
 
-    public static NetworkManager getInstance(){
-        if (mInstance == null){
+    public static NetworkManager getInstance() {
+        if (mInstance == null) {
             mInstance = new NetworkManager();
         }
         return mInstance;
     }
 
-    public void getResultString(String url, SuccessCallback<String> successCallback){
+    public void getResultString(String url, SuccessCallback<String> successCallback) {
 //        try {
 //            Response response = client.newCall(request).execute();
 //            return response.body().string();
@@ -64,60 +67,62 @@ public class NetworkManager {
     }
 
 
-    public void getResultString(String url, Map<String, String> params, SuccessCallback<String> successCallback){
+    public void getResultString(String url, Map<String, String> params, SuccessCallback<String> successCallback) {
         getResultString(url, params, successCallback, null);
     }
 
-    public void getResultString(String url, Map<String, String> params, SuccessCallback<String> successCallback, FailedCallback failedCallback){
+    public void getResultString(String url, Map<String, String> params, SuccessCallback<String> successCallback, FailedCallback failedCallback) {
         doRequest(Method.GET, url, params, null, successCallback, failedCallback);
     }
 
-    public void getResultClass(String url, Class mClass, SuccessCallback successCallback){
+    public void getResultClass(String url, Class mClass, SuccessCallback successCallback) {
         getResultClass(url, null, mClass, successCallback);
     }
 
-    public void getResultClass(String url, Map<String, String> params, Class mClass, SuccessCallback successCallback){
+    public void getResultClass(String url, Map<String, String> params, Class mClass, SuccessCallback successCallback) {
         getResultClass(url, params, mClass, successCallback, null);
     }
 
-    public void getResultClass(String url, Map<String, String> params, Class mClass, SuccessCallback successCallback, FailedCallback failedCallback){
+    public void getResultClass(String url, Map<String, String> params, Class mClass, SuccessCallback successCallback, FailedCallback failedCallback) {
         doRequest(Method.GET, url, params, mClass, successCallback, failedCallback);
     }
-    public void getResultClass(String url, Map<String, String> params, Type mType, SuccessCallback successCallback,FailedCallback failedCallback){
+
+    public void getResultClass(String url, Map<String, String> params, Type mType, SuccessCallback successCallback, FailedCallback failedCallback) {
         doRequest(Method.GET, url, params, mType, successCallback, failedCallback);
     }
-    public void getResultClass(String url, Map<String, String> params, Type mType, SuccessCallback successCallback){
+
+    public void getResultClass(String url, Map<String, String> params, Type mType, SuccessCallback successCallback) {
         doRequest(Method.GET, url, params, mType, successCallback, null);
     }
 
-    public void postResultString(String url, Map<String, String> params, SuccessCallback successCallback){
+    public void postResultString(String url, Map<String, String> params, SuccessCallback successCallback) {
         postResultString(url, params, successCallback, null);
     }
 
-    public void postResultString(String url, Map<String, String> params, SuccessCallback successCallback, FailedCallback failedCallback){
+    public void postResultString(String url, Map<String, String> params, SuccessCallback successCallback, FailedCallback failedCallback) {
         doRequest(Method.POST, url, params, null, successCallback, failedCallback);
     }
 
-    public void postResultClass(String url, Map<String, String> params, Class mClass, SuccessCallback successCallback, FailedCallback failedCallback){
+    public void postResultClass(String url, Map<String, String> params, Class mClass, SuccessCallback successCallback, FailedCallback failedCallback) {
         doRequest(Method.POST, url, params, mClass, successCallback, failedCallback);
     }
 
-    public void postResultClass(String url, Map<String, String> params, Type mType, SuccessCallback successCallback, FailedCallback failedCallback){
+    public void postResultClass(String url, Map<String, String> params, Type mType, SuccessCallback successCallback, FailedCallback failedCallback) {
         doRequest(Method.POST, url, params, mType, successCallback, failedCallback);
     }
 
     public void doRequest(Method method, String url, Map<String, String> paramMap, final Object type,
-                          final SuccessCallback successCallback, final FailedCallback failedCallback){
+                          final SuccessCallback successCallback, final FailedCallback failedCallback) {
         Callback responseCallback = initCallback(type, successCallback, failedCallback);
         Request.Builder builder = new Request.Builder();
-        switch (method){
+        switch (method) {
             case GET:
                 builder.url(paramMap == null ? url : url + "?" + addParams(paramMap));
                 break;
             case POST:
                 FormBody.Builder paramBuilder = new FormBody.Builder();
-                if (paramMap != null){
-                    for (Map.Entry<String, String> item : paramMap.entrySet()){
+                if (paramMap != null) {
+                    for (Map.Entry<String, String> item : paramMap.entrySet()) {
                         paramBuilder.add(item.getKey(), item.getValue());
                     }
                 }
@@ -128,8 +133,8 @@ public class NetworkManager {
 //        if (!TextUtils.isEmpty(CustomApplication.getInstance().userToken)){
 //            builder.addHeader("token", CustomApplication.getInstance().userToken);
 //        }
-        Request request = builder.build();
-        if (request != null){
+        Request request = builder.header("eqid", Utils.getDeviceId()).build();
+        if (request != null) {
             client.newCall(request).enqueue(responseCallback);
         }
     }
@@ -138,7 +143,7 @@ public class NetworkManager {
         Callback responseCallback = new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
-                if (e instanceof ConnectException){
+                if (e instanceof ConnectException) {
                     handleFailedRequest("请检查网络连接");
                 } else {
                     handleFailedRequest(e.getMessage());
@@ -146,9 +151,9 @@ public class NetworkManager {
             }
 
             @Override
-            public void onResponse(Call call, final Response response){
+            public void onResponse(Call call, final Response response) {
                 try {
-                    if (response == null){
+                    if (response == null) {
                         return;
                     }
                     String responseString = response.body().string();
@@ -160,7 +165,7 @@ public class NetworkManager {
             }
 
             private void handleResponseRequest(final String response) {
-                if (successCallback == null){
+                if (successCallback == null) {
                     return;
                 }
                 handler.post(new Runnable() {
@@ -168,18 +173,18 @@ public class NetworkManager {
                     public void run() {
                         try {
                             JSONObject responseObject = new JSONObject(response);
-                            if (responseObject.getBoolean("tag")){
+                            if (responseObject.getBoolean("tag")) {
                                 if (type == null) {
                                     successCallback.onSuccess(responseObject.getString("data"));
                                 } else if (type instanceof Class || type instanceof Type) {
                                     successCallback.onSuccess(mGson.fromJson(responseObject.getString("data"),
-                                            type instanceof Class ? (Class)type : (Type)type));
+                                            type instanceof Class ? (Class) type : (Type) type));
                                 }
                             } else {
                                 setDefaultFailed(responseObject.getString("message"));
                             }
                         } catch (Exception e) {
-                            if (e == null){
+                            if (e == null) {
                                 return;
                             }
                             setDefaultFailed(e.getMessage());
@@ -198,7 +203,7 @@ public class NetworkManager {
                 });
             }
 
-            private void setDefaultFailed(String message){
+            private void setDefaultFailed(String message) {
                 if (failedCallback != null) {
                     failedCallback.onFailed(message);
                 } else {
@@ -211,8 +216,8 @@ public class NetworkManager {
 
     private String addParams(Map<String, String> params) {
         StringBuilder builder = new StringBuilder();
-        if(params != null){
-            for(Map.Entry<String, String> item : params.entrySet()){
+        if (params != null) {
+            for (Map.Entry<String, String> item : params.entrySet()) {
                 builder.append(item.getKey()).append("=").append(item.getValue()).append("&");
             }
         }

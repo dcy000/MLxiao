@@ -1,0 +1,91 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="1200pt"
+    android:layout_height="800pt"
+    android:background="@drawable/shape_bg_account_info">
+
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="1200pt"
+        android:layout_height="266pt"
+        android:background="@drawable/bg_accout_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/operatot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        android:layout_marginTop="14pt"
+        android:text="操作员："
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_bg" />
+
+    <TextView
+        android:id="@+id/tv_operator_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20pt"
+        android:text="张辉："
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintLeft_toRightOf="@+id/operatot"
+        app:layout_constraintTop_toTopOf="@+id/operatot" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        android:layout_marginTop="60pt"
+        android:text="机构名称："
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/operatot" />
+
+    <TextView
+        android:id="@+id/tv_orgnization_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20pt"
+        android:layout_marginRight="60pt"
+        android:text="张辉："
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintLeft_toRightOf="@+id/tv_name"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_cancle"
+        android:layout_width="320pt"
+        android:layout_height="100pt"
+        android:layout_marginBottom="60pt"
+        android:layout_marginLeft="219pt"
+        android:background="@drawable/shape_bg_stroke"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="#ff3f86fc"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="320pt"
+        android:layout_height="100pt"
+        android:layout_marginBottom="60pt"
+        android:layout_marginLeft="121pt"
+        android:background="@drawable/shape_blue_ranctancle"
+        android:gravity="center"
+        android:text="确认"
+        android:textColor="@color/white"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/tv_cancle" />
+
+</android.support.constraint.ConstraintLayout>
