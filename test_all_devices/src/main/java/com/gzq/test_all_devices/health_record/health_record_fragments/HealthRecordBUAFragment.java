@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.module_blutooth_devices.base.BaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -25,12 +25,11 @@ import com.github.mikephil.charting.utils.Utils;
 import com.gzq.test_all_devices.R;
 import com.gzq.test_all_devices.formatte.MyMarkerView;
 import com.gzq.test_all_devices.formatte.TimeFormatter;
-import com.gzq.test_all_devices.health_record.HealthRecordActivity;
 import com.gzq.test_all_devices.health_record_bean.BUA;
 
 import java.util.ArrayList;
 
-public class HealthRecordBUAFragment extends BaseFragment {
+public class HealthRecordBUAFragment extends BluetoothBaseFragment {
     private View view;
     private TextView mColor1;
     private TextView mIndicator1;

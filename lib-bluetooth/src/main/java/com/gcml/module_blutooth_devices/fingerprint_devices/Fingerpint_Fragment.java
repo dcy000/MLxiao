@@ -13,14 +13,14 @@ import com.gcml.lib_utils.display.ImageUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
-import com.gcml.module_blutooth_devices.base.BaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 
-public class Fingerpint_Fragment extends BaseFragment implements IView, View.OnClickListener {
+public class Fingerpint_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
 
     private View view;
     /**
@@ -38,7 +38,7 @@ public class Fingerpint_Fragment extends BaseFragment implements IView, View.OnC
     /**  */
     private TextView mResult;
     private ImageView mFingerprintImage;
-
+    private Bundle bundle;
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_fingerpint;
@@ -53,12 +53,19 @@ public class Fingerpint_Fragment extends BaseFragment implements IView, View.OnC
         mValidateFingerprint = (Button) view.findViewById(R.id.validate_fingerprint);
         mValidateFingerprint.setOnClickListener(this);
         mValidateFeature = (TextView) view.findViewById(R.id.validate_feature);
-        dealLogic(bundle);
         mResult = (TextView) view.findViewById(R.id.result);
         mFingerprintImage = (ImageView) view.findViewById(R.id.fingerprint_image);
+        this.bundle=bundle;
+
     }
 
-    private void dealLogic(Bundle bundle) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        dealLogic();
+    }
+
+    public void dealLogic() {
         String address;
         String brand;
         if (bundle != null) {

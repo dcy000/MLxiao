@@ -18,6 +18,7 @@ import com.example.han.referralproject.health.intelligentdetection.entity.ApiRes
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.hypertensionmanagement.activity.WeightMeasureActivity;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkCallback;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
@@ -81,29 +82,40 @@ public class BloodPresureMeasuerFragment extends HealthBloodDetectionFragment {
         datas.add(pressureData);
         datas.add(dataPulse);
 
-        OkGo.<String>post(NetworkApi.DETECTION_DATA+ LocalShared.getInstance(getContext()).getUserId()+"/")
-                .upJson(new Gson().toJson(datas))
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        if (!response.isSuccessful()) {
-                            ToastUtils.showLong("数据上传失败");
-                            return;
-                        }
-                        String body = response.body();
-                        try {
-                            ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
-                            }.getType());
-                            if (apiResponse.isSuccessful()) {
-                                startActivity(new Intent(getActivity(), WeightMeasureActivity.class));
-                                return;
-                            }
-                        } catch (Throwable e) {
-                            e.printStackTrace();
-                        }
-                        ToastUtils.showLong("数据上传失败");
-                    }
-                });
+        NetworkApi.postMeasureData(datas, new NetworkCallback() {
+            @Override
+            public void onSuccess(String callback) {
+                startActivity(new Intent(getActivity(), WeightMeasureActivity.class));
+            }
+
+            @Override
+            public void onError() {
+                ToastUtils.showLong("数据上传失败");
+            }
+        });
+//        OkGo.<String>post(NetworkApi.DETECTION_DATA + LocalShared.getInstance(getContext()).getUserId() + "/")
+//                .upJson(new Gson().toJson(datas))
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        if (!response.isSuccessful()) {
+//                            ToastUtils.showLong("数据上传失败");
+//                            return;
+//                        }
+//                        String body = response.body();
+//                        try {
+//                            ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
+//                            }.getType());
+//                            if (apiResponse.isSuccessful()) {
+//                                startActivity(new Intent(getActivity(), WeightMeasureActivity.class));
+//                                return;
+//                            }
+//                        } catch (Throwable e) {
+//                            e.printStackTrace();
+//                        }
+//                        ToastUtils.showLong("数据上传失败");
+//                    }
+//                });
 
     }
 

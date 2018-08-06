@@ -26,7 +26,6 @@ import timber.log.Timber;
  * description: 自家配备的体重秤
  * name:000FatScale01
  * mac:12:30:00:5A:FF:16
- *
  */
 public class Weight_Self_PresenterImp extends BaseBluetoothPresenter {
     private static final String targetServiceUUid = "0000fff0-0000-1000-8000-00805f9b34fb";//主服务
@@ -42,7 +41,7 @@ public class Weight_Self_PresenterImp extends BaseBluetoothPresenter {
         super.connectSuccessed(address, serviceDetails, isReturnServiceAndCharacteristic);
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
         baseView.updateData("0.00");
-        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT,targetName+","+address);
+        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, targetName + "," + address);
         BluetoothClientManager.getClient().notify(address, UUID.fromString(targetServiceUUid),
                 UUID.fromString(targetCharacteristicUUid), new BleNotifyResponse() {
                     @Override

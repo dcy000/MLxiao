@@ -23,6 +23,7 @@ import com.example.han.referralproject.health.intelligentdetection.entity.Detect
 import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.ui.UiUtils;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
@@ -37,9 +38,8 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HealthDetectionIntelligentReportFragment extends Fragment {
+public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragment {
 
-    private ImageView ivRight;
     private RecyclerView rvReport;
     private Adapter mAdapter;
     private HashMap<String, Object> mData;
@@ -63,8 +63,9 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
                         }
                         String body = response.body();
                         try {
-                            ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<List<DetectionResult>>>() {
-                            }.getType());
+                            ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(body,
+                                    new TypeToken<ApiResponse<List<DetectionResult>>>() {
+                                    }.getType());
                             if (apiResponse.isSuccessful()) {
                                 onApiResult(apiResponse.getData());
                             } else {
@@ -86,40 +87,12 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
         }
     }
-
     @Override
-    public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = inflater.inflate(layoutId(), container, false);
-        initView(view, savedInstanceState);
-        return view;
-    }
-
-    private int layoutId() {
+    protected int initLayout() {
         return R.layout.health_fragment_detection_intelligent_report;
     }
-
-    private void initView(View view, Bundle savedInstanceState) {
-        ((TextView) view.findViewById(R.id.tv_top_title)).setText(R.string.healthy_report);
-        view.findViewById(R.id.ll_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getFragmentManager() != null) {
-                    getFragmentManager().popBackStack();
-                }
-            }
-        });
-        ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
-        ivRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getActivity() != null) {
-                    getActivity().finish();
-                }
-            }
-        });
+    @Override
+    protected void initView(View view, Bundle savedInstanceState) {
         rvReport = ((RecyclerView) view.findViewById(R.id.rv_report));
         rvReport.setLayoutManager(new LinearLayoutManager(
                 getActivity(), LinearLayoutManager.VERTICAL, false));

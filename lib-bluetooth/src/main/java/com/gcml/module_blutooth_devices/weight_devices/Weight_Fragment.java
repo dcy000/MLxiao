@@ -10,7 +10,7 @@ import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
-import com.gcml.module_blutooth_devices.base.BaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
@@ -20,14 +20,14 @@ import com.gcml.module_blutooth_devices.utils.SharePreferenceHelper;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class Weight_Fragment extends BaseFragment implements IView, View.OnClickListener {
+public class Weight_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
     private TextView mTvTizhong;
     private TextView mTvTizhi;
     private BaseBluetoothPresenter bluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
-
+    private Bundle bundle;
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_weight;
@@ -42,11 +42,17 @@ public class Weight_Fragment extends BaseFragment implements IView, View.OnClick
         mBtnVideoDemo.setOnClickListener(this);
         mTvTizhong = (TextView) view.findViewById(R.id.tv_tizhong);
         mTvTizhi = (TextView) view.findViewById(R.id.tv_tizhi);
+        this.bundle=bundle;
 
-        dealLogic(bundle);
     }
 
-    private void dealLogic(Bundle bundle) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        dealLogic();
+    }
+
+    public void dealLogic() {
         String address;
         String brand;
         if (bundle != null) {//该处是为测试使用的
@@ -107,18 +113,22 @@ public class Weight_Fragment extends BaseFragment implements IView, View.OnClick
             if (dealVoiceAndJump != null) {
                 dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_WEIGHT);
             }
+            clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
                 dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_WEIGHT);
             }
+            clickVideoDemo(v);
         }
     }
 
     @Override
     public void updateData(String... datas) {
         if (datas.length == 1) {
-            mTvTizhong.setText(datas[0]);
-
+            onMeasureFinished(datas[0]);
+            if (mTvTizhong != null) {
+                mTvTizhong.setText(datas[0]);
+            }
             String userHeight = null;
             try {
                 userHeight = SharePreferenceHelper.getInstance().getLocalShared(getContext()).getUserHeight();
@@ -136,7 +146,9 @@ public class Weight_Fragment extends BaseFragment implements IView, View.OnClick
             if (!TextUtils.isEmpty(userHeight)) {
                 float parseFloat = Float.parseFloat(userHeight);
                 float weight = Float.parseFloat(datas[0]);
-                mTvTizhi.setText(String.format("%.2f", weight / (parseFloat * parseFloat / 10000)));
+                if (mTvTizhi != null) {
+                    mTvTizhi.setText(String.format("%.2f", weight / (parseFloat * parseFloat / 10000)));
+                }
             }
         }
     }

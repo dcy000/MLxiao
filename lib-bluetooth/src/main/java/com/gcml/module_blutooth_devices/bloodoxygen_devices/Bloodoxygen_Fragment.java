@@ -10,7 +10,7 @@ import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
-import com.gcml.module_blutooth_devices.base.BaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
@@ -18,12 +18,13 @@ import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 
 
-public class Bloodoxygen_Fragment extends BaseFragment implements IView, View.OnClickListener {
+public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
     private TextView mTvResult;
     private BaseBluetoothPresenter bluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
+    private Bundle bundle;
 
     @Override
     protected int initLayout() {
@@ -37,10 +38,16 @@ public class Bloodoxygen_Fragment extends BaseFragment implements IView, View.On
         mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
         mTvResult = (TextView) view.findViewById(R.id.tv_result);
-        dealLogic(bundle);
+        this.bundle = bundle;
     }
 
-    private void dealLogic(Bundle bundle) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        dealLogic();
+    }
+
+    public void dealLogic() {
         String address;
         String brand;
         if (bundle != null) {
@@ -57,7 +64,7 @@ public class Bloodoxygen_Fragment extends BaseFragment implements IView, View.On
                 if (split.length == 2) {
                     brand = split[0];
                     address = split[1];
-                    chooseConnectType(address,brand);
+                    chooseConnectType(address, brand);
                 }
 
             }
@@ -79,8 +86,8 @@ public class Bloodoxygen_Fragment extends BaseFragment implements IView, View.On
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "SpO2080971"));
                     break;
                 case "POD":
-                    bluetoothPresenter=new Bloodoxygen_Self_PresenterImp(this,
-                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC,address,"POD"));
+                    bluetoothPresenter = new Bloodoxygen_Self_PresenterImp(this,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "POD"));
                     break;
             }
         }
@@ -90,6 +97,7 @@ public class Bloodoxygen_Fragment extends BaseFragment implements IView, View.On
     public void updateData(String... datas) {
         if (datas.length == 2) {
             mTvResult.setText(datas[0]);
+            onMeasureFinished(datas[0], datas[1]);
         }
     }
 
@@ -124,10 +132,12 @@ public class Bloodoxygen_Fragment extends BaseFragment implements IView, View.On
             if (dealVoiceAndJump != null) {
                 dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_BLOOD_OXYGEN);
             }
+            clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
                 dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_BLOOD_OXYGEN);
             }
+            clickHealthHistory(v);
         }
     }
 }

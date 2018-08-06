@@ -30,6 +30,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import timber.log.Timber;
+
 
 public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<SearchResult> {
     /**
@@ -375,6 +377,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 address = lockedDevice.getAddress();
             }
         }
+        Timber.e("尝试重连："+address);
         if (!TextUtils.isEmpty(address)) {
             connectDevice(address);
         }

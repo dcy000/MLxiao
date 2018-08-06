@@ -1,15 +1,11 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
@@ -18,8 +14,9 @@ import com.example.han.referralproject.health.intelligentdetection.entity.ApiRes
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.health.model.DetailsModel;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.video.MeasureVideoPlayActivity;
+import com.example.han.referralproject.network.NetworkCallback;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
@@ -29,17 +26,16 @@ import com.lzy.okgo.model.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class HealthWeightDetectionUiFragment extends HealthWeightDetectionFragment
+public class HealthWeightDetectionUiFragment extends Weight_Fragment
         implements HealthDiaryDetailsFragment.OnActionListener {
 
     private DetailsModel mUiModel;
     private static final int WHAT_WEIGHT_DETECTION = 0;
+    private boolean isJump2Next = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.tips);
-//        MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
         mUiModel = new DetailsModel();
         mUiModel.setWhat(WHAT_WEIGHT_DETECTION);
         mUiModel.setTitle(getResources().getString(R.string.health_detection_weight_title));
@@ -51,43 +47,12 @@ public class HealthWeightDetectionUiFragment extends HealthWeightDetectionFragme
         mUiModel.setMaxValues(new float[]{200f});
         mUiModel.setPerValues(new float[]{0.2f});
         mUiModel.setAction("下一步");
-        startDetection();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
-            startDetection();
-        }
-    }
-
-    private ImageView ivRight;
-
-    @Override
-    protected int layoutId() {
-        return super.layoutId();
     }
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        ((TextView) view.findViewById(R.id.tv_top_title)).setText(R.string.test_tizhong);
-        view.findViewById(R.id.ll_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getFragmentManager() != null) {
-                    getFragmentManager().popBackStack();
-                }
-            }
-        });
-        ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
-        ivRight.setImageResource(R.drawable.health_ic_blutooth);
-        ivRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startDetection();
-            }
-        });
         showUi();
+        dealLogic();
     }
 
     HealthDiaryDetailsFragment mUiFragment;
@@ -109,6 +74,12 @@ public class HealthWeightDetectionUiFragment extends HealthWeightDetectionFragme
 
     @Override
     public void onAction(int what, float selectedValue, int unitPosition, String item) {
+        //TODO：测试代码，解释结束需要删除
+        if (fragmentChanged != null && !isJump2Next) {
+            isJump2Next = true;
+            fragmentChanged.onFragmentChanged(this, null);
+        }
+
         if (WHAT_WEIGHT_DETECTION == what) {
             uploadData(selectedValue);
         }
@@ -129,58 +100,28 @@ public class HealthWeightDetectionUiFragment extends HealthWeightDetectionFragme
         data.setDetectionType("3");
         data.setWeight(weight);
         datas.add(data);
-        OkGo.<String>post(NetworkApi.DETECTION_DATA + MyApplication.getInstance().userId + "/")
-                .upJson(new Gson().toJson(datas))
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        if (!response.isSuccessful()) {
-                            ToastUtils.showLong("数据上传失败");
-                            return;
-                        }
-                        String body = response.body();
-                        try {
-                            ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
-                            }.getType());
-                            if (apiResponse.isSuccessful()) {
-                                navToNext();
-                                return;
-                            }
-                        } catch (Throwable e) {
-                            e.printStackTrace();
-                        }
-                        ToastUtils.showLong("数据上传失败");
-                    }
+        NetworkApi.postMeasureData(datas, new NetworkCallback() {
+            @Override
+            public void onSuccess(String callbackString) {
+                if (fragmentChanged != null && !isJump2Next) {
+                    isJump2Next = true;
+                    fragmentChanged.onFragmentChanged(
+                            HealthWeightDetectionUiFragment.this, null);
+                }
+            }
 
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        ToastUtils.showLong("数据上传失败");
-                    }
-                });
-    }
-
-    private void navToNext() {
-        FragmentManager fm = getFragmentManager();
-        if (fm == null) {
-            return;
-        }
-        FragmentTransaction transaction = fm.beginTransaction();
-        Fragment fragment = fm.findFragmentByTag(HealthSugarDetectionUiFragment.class.getName());
-        if (fragment != null) {
-            transaction.show(fragment);
-        } else {
-            fragment = new HealthSugarDetectionUiFragment();
-            transaction.add(R.id.fl_container, fragment);
-        }
-        transaction.addToBackStack(null);
-        transaction.commitAllowingStateLoss();
+            @Override
+            public void onError() {
+                ToastUtils.showLong("数据上传失败");
+            }
+        });
     }
 
     @Override
-    protected void onWeightResult(float weight) {
-        if (mUiFragment != null) {
-            mUiFragment.setValue(weight);
+    protected void onMeasureFinished(String... results) {
+        if (results.length == 1) {
+            mUiFragment.setValue(Float.parseFloat(results[0]));
         }
     }
+
 }

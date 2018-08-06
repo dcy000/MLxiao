@@ -40,6 +40,9 @@ public class VolumeControlFloatwindow {
         imageView.setClickable(true);
         imageView.setFocusableInTouchMode(false);
         imageView.setImageResource(R.drawable.volume_control_float_button);
+        if (FloatWindow.get("volume_control")!=null){
+            return;
+        }
         FloatWindow
                 .with(application)
                 .setView(imageView)
@@ -51,52 +54,8 @@ public class VolumeControlFloatwindow {
                 .setMoveStyle(500, new BounceInterpolator())
                 //此处可以指定具体Activity中不现实悬浮按钮
 //                .setFilter(true, A_Activity.class, C_Activity.class)
-                .setViewStateListener(new ViewStateListener() {
-                    @Override
-                    public void onPositionUpdate(int i, int i1) {
-                    }
-
-                    @Override
-                    public void onShow() {
-
-                    }
-
-                    @Override
-                    public void onHide() {
-
-                    }
-
-                    @Override
-                    public void onDismiss() {
-
-                    }
-
-                    @Override
-                    public void onMoveAnimStart() {
-
-                    }
-
-                    @Override
-                    public void onMoveAnimEnd() {
-
-                    }
-
-                    @Override
-                    public void onBackToDesktop() {
-
-                    }
-                })
-                .setPermissionListener(new PermissionListener() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onFail() {
-
-                    }
-                })
+                .setViewStateListener(viewStateListener)
+                .setPermissionListener(permissionListener)
                 .setTag("volume_control")
                 .setDesktopShow(true)
                 .build();
@@ -180,6 +139,52 @@ public class VolumeControlFloatwindow {
         });
     }
 
+    private static final PermissionListener permissionListener = new PermissionListener() {
+        @Override
+        public void onSuccess() {
+
+        }
+
+        @Override
+        public void onFail() {
+
+        }
+    };
+    private static final ViewStateListener viewStateListener = new ViewStateListener() {
+        @Override
+        public void onPositionUpdate(int i, int i1) {
+        }
+
+        @Override
+        public void onShow() {
+
+        }
+
+        @Override
+        public void onHide() {
+
+        }
+
+        @Override
+        public void onDismiss() {
+
+        }
+
+        @Override
+        public void onMoveAnimStart() {
+
+        }
+
+        @Override
+        public void onMoveAnimEnd() {
+
+        }
+
+        @Override
+        public void onBackToDesktop() {
+
+        }
+    };
     private static String userId(Context application) {
         String userId = "";
         try {

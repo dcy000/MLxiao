@@ -11,7 +11,7 @@ import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
-import com.gcml.module_blutooth_devices.base.BaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
@@ -20,13 +20,13 @@ import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
-public class ECG_Fragment extends BaseFragment implements IView {
+public class ECG_Fragment extends BluetoothBaseFragment implements IView {
     private ECGSingleGuideView mEcgView;
     private BaseBluetoothPresenter baseBluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
     private TextView mMeasureTip;
     private String brand;
-
+    private Bundle bundle;
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_ecg;
@@ -54,10 +54,17 @@ public class ECG_Fragment extends BaseFragment implements IView {
             }
         }
         mMeasureTip = (TextView) view.findViewById(R.id.measure_tip);
-        dealLogic(bundle);
+        this.bundle=bundle;
+
     }
 
-    private void dealLogic(Bundle bundle) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        dealLogic();
+    }
+
+    public void dealLogic() {
         String address;
         String brand;
         if (bundle != null) {

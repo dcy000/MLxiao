@@ -18,15 +18,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.creative.ecg.StatusMsg;
+import com.example.han.referralproject.AllMeasureActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.MeasureResult;
+import com.example.han.referralproject.health.intelligentdetection.DataFragment;
+import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
+import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkCallback;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
+import com.gcml.lib_utils.display.ToastUtils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -57,13 +66,19 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
     private String[] measureResult;
     private int mEcg;
     private int mHeartRate;
+    private TextView tvNext;
+    private ImageView ivBack;
 
-    /**
-     * 电量等级
-     * battery level
-     */
-//	private int batteryRes[] = { R.drawable.battery_0, R.drawable.battery_1,
-//			R.drawable.battery_2, R.drawable.battery_3 };
+    public static void startActivity(Context context, String fromWhere) {
+        context.startActivity(new Intent(context, XinDianDetectActivity.class)
+                .putExtra("fromWhere", fromWhere));
+    }
+
+    public static void startActivityForResult(Activity context, String fromWhere, int requestCode) {
+        context.startActivityForResult(new Intent(context, XinDianDetectActivity.class)
+                .putExtra("fromWhere", fromWhere), requestCode);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,16 +87,13 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.main_context_pc80b);
         startService(new Intent(this, ReceiveService.class));
-        findViewById(R.id.icon_back).setOnClickListener(this);
-        findViewById(R.id.tv_next).setOnClickListener(this);
-        if (getIntent().getBooleanExtra("forResult", false)) {
-            findViewById(R.id.tv_next).setVisibility(View.VISIBLE);
-        }
+
         init();
-        if (getIntent().getBooleanExtra("playVideoTips", false)) {
-            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-            MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "心电测量演示视频");
-            return;
+        String fromWhere = getIntent().getStringExtra("fromWhere");
+        if (HealthIntelligentDetectionActivity.class.getSimpleName().equals(fromWhere)) {
+            tvNext.setText("下一步");
+        } else if (Test_mainActivity.class.getSimpleName().equals(fromWhere)) {
+            tvNext.setText("完成");
         }
         showConnectAnimation();
     }
@@ -96,6 +108,8 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 
     private void init() {
         measureResult = getResources().getStringArray(R.array.ecg_measureres);
+        ivBack = findViewById(R.id.icon_back);
+        ivBack.setOnClickListener(this);
         tv_MSG = (TextView) findViewById(R.id.main_pc80B_MSG);
         tv_Gain = (TextView) findViewById(R.id.main_pc80B_title_gain);
         tv_HR = (TextView) findViewById(R.id.main_pc80B_title_hr);
@@ -103,12 +117,8 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
         img_Battery = (ImageView) findViewById(R.id.main_pc80B_title_battery);
         img_Smooth = (ImageView) findViewById(R.id.main_pc80B_title_smooth);
         img_Pulse = (ImageView) findViewById(R.id.main_pc80B_title_pulse);
-
-//		btn_Conn = (Button) findViewById(R.id.btn_connect);
-//		btn_Replay = (Button) findViewById(R.id.btn_replay);
-//		btn_Conn.setOnClickListener(this);
-//		btn_Replay.setOnClickListener(this);
-
+        tvNext = findViewById(R.id.tv_next);
+        tvNext.setOnClickListener(this);
         drawRunable = (DrawThreadPC80B) findViewById(R.id.main_pc80B_view_draw);
         drawBG = (BackGround) findViewById(R.id.main_pc80B_view_bg);
         drawRunable.setmHandler(mHandler);
@@ -373,64 +383,43 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.tv_next:
-                if (getIntent().getBooleanExtra("forResult", false)) {
-                    getWindow().getDecorView().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = new Intent();
-                            intent.putExtra("ecg", mEcg)
-                                    .putExtra("heartRate", mHeartRate);
-                            setResult(Activity.RESULT_OK, intent);
-                            finish();
-                        }
-                    }, 0);
-                    return;
-                }
-                finish();
+                uploadEcg(mEcg, mHeartRate);
                 break;
         }
-//		if(v.getId() == R.id.btn_connect){
-//			isConn = !isConn;
-//			if (isConn) {// connect
-//				btn_Conn.setText(getString(R.string.main_bt_disconnect));
-//				Intent i = new Intent(this, ConnectActivity.class);
-//				i.putExtra("device", 3);
-//				startActivityForResult(i, 0x100);
-//			} else {// disConnect
-//				btn_Conn.setText(getString(R.string.connect_connect));
-//				sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
-//			}
-//		}else if(v.getId() == R.id.btn_replay){
-//			replay();
-//		}
 
     }
 
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.main, menu);
-//		return true;
-//	}
-//
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		int id = item.getItemId();
-//		if (id == R.id.action_connect) {
-//			if (MyBluetooth.isConnected) {//断开
-//				item.setTitle(getString(R.string.connect_connect));
-//				sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
-//			} else {//连接
-//				item.setTitle(getString(R.string.main_bt_disconnect));
-//				Intent i = new Intent(this, ConnectActivity.class);
-//				i.putExtra("device", 3);
-//				startActivityForResult(i, 0x100);
-//			}
-//		}else if(id == R.id.action_replay){
-//			replay();
-//		}
-//		return super.onOptionsItemSelected(item);
-//	}
+    private void uploadEcg(int ecg, int heartRate) {
+        if (getFragmentManager() != null) {
+            Object obj = DataFragment.get(getSupportFragmentManager()).getData();
+            if (obj == null) {
+                obj = new HashMap<String, Object>();
+            }
+            HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
+            dataMap.put("ecg", ecg);
+            dataMap.put("heartRate", heartRate);
+        }
+        ArrayList<DetectionData> datas = new ArrayList<>();
+        DetectionData ecgData = new DetectionData();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        ecgData.setDetectionType("2");
+        ecgData.setEcg(String.valueOf(ecg));
+        ecgData.setHeartRate(heartRate);
+        datas.add(ecgData);
+        NetworkApi.postMeasureData(datas, new NetworkCallback() {
+            @Override
+            public void onSuccess(String callbackString) {
+                ToastUtils.showShort("数据上传成功");
+                setResult(RESULT_OK);
+                finish();
+            }
+
+            @Override
+            public void onError() {
+                ToastUtils.showLong("数据上传失败");
+            }
+        });
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

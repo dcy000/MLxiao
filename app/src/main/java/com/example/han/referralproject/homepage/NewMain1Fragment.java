@@ -97,6 +97,7 @@ public class NewMain1Fragment extends BaseFragment implements View.OnClickListen
     }
 
     private void getLocation() {
+        //TODO:打正式包的时候打开该注释
 //        WeatherUtils.getInstance().initLocation(getContext());
 //        WeatherUtils.getInstance().setOnLocationResultListener(new WeatherUtils.LocationResult() {
 //            @Override

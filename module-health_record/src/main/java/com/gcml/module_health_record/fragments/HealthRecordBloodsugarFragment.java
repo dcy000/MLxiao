@@ -288,7 +288,7 @@ public class HealthRecordBloodsugarFragment extends BaseFragment implements View
 
     public void refreshErrorData(String message) {
         ToastUtils.showShort(message);
-        if (mChart != null) {
+        if (mChart != null&&isAdded()) {
             mChart.setNoDataText(getResources().getString(R.string.noData));
             mChart.setData(null);
             mChart.invalidate();

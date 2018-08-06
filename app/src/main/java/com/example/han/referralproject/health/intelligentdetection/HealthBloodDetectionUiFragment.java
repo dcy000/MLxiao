@@ -1,27 +1,28 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Html;
 import android.util.SparseIntArray;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.video.MeasureVideoPlayActivity;
+import com.example.han.referralproject.network.NetworkCallback;
+import com.gcml.lib_utils.data.TimeCountDownUtils;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.ui.dialog.BaseDialog;
+import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
+import com.gcml.lib_utils.ui.dialog.DialogSure;
+import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -29,78 +30,50 @@ import com.lzy.okgo.model.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment {
+import timber.log.Timber;
 
-    private ImageView ivRight;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.tips_xueya);
-        MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
-    }
+public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
+    private DialogSure dialogSure;
+    private String tips_first = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行<font color='#F56C6C'>2–3次</font>测量。请先左手测量！";
+    private String tips_first_speak = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行2–3次测量。请先左手测量！";
+    private boolean isJump2Next = false;
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
-            if (getView() != null) {
-                getView().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        notifyDetectionStepChanged(detectionStep);
-                    }
-                }, 0);
-            }
-        }
-    }
-
-    @Override
-    protected void initView(View view, Bundle savedInstanceState) {
-        super.initView(view, savedInstanceState);
-        ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
-        tvDetectionAgain.setVisibility(View.GONE);
-        view.findViewById(R.id.ll_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getFragmentManager() != null) {
-                    getFragmentManager().popBackStack();
-                }
-            }
-        });
-        ivRight.setImageResource(R.drawable.health_ic_blutooth);
-        ivRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startDetection();
-            }
-        });
-        tvNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dispatchNextDetectionStep();
-            }
-        });
+    public void onStart() {
+        super.onStart();
+        mBtnVideoDemo.setVisibility(View.GONE);
+        mBtnHealthHistory.setText("下一步");
+        mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+        notifyDetectionStepChanged(detectionStep);
     }
 
     private SparseIntArray highPressures = new SparseIntArray();
     private SparseIntArray lowPressures = new SparseIntArray();
     private SparseIntArray pulses = new SparseIntArray();
 
-    private View.OnClickListener actionOnClickListener = new View.OnClickListener() {
+    @Override
+    protected void onMeasureFinished(String... results) {
+        Timber.e(results.toString());
+        if (results.length == 3) {
+            highPressures.put(detectionStep, Integer.parseInt(results[0]));
+            lowPressures.put(detectionStep, Integer.parseInt(results[1]));
+            pulses.put(detectionStep, Integer.parseInt(results[2]));
+            TimeCountDownUtils.getInstance().create(3000, 1000, timeCountListener);
+            TimeCountDownUtils.getInstance().start();
+        }
+    }
+
+    private final TimeCountDownUtils.TimeCountListener timeCountListener = new TimeCountDownUtils.TimeCountListener() {
         @Override
-        public void onClick(View v) {
-            startDetection();
+        public void onTick(long millisUntilFinished, String tag) {
+
+        }
+
+        @Override
+        public void onFinish(String tag) {
+            dispatchNextDetectionStep();
         }
     };
-
-    @Override
-    protected void onBloodResult(int highPressure, int lowPressure, int pulse) {
-        highPressures.put(detectionStep, highPressure);
-        lowPressures.put(detectionStep, lowPressure);
-        pulses.put(detectionStep, pulse);
-//        dispatchNextDetectionStep();
-    }
 
     @IntDef({
             DetectionStep.LEFT_1,
@@ -173,54 +146,66 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
         this.detectionStep = detectionStep;
         switch (detectionStep) {
             case DetectionStep.LEFT_1:
-                showTips(
-                        getString(R.string.health_tips_left_1),
-                        "2–3次",
-                        R.color.f56c6c,
-                        actionOnClickListener);
+                showFirstDialog(tips_first, tips_first_speak);
                 break;
             case DetectionStep.LEFT_2:
-                showTips(
-                        getString(R.string.health_tips_left_2),
-                        "",
-                        0,
-                        actionOnClickListener);
+                showDialog(getString(R.string.health_tips_left_2));
                 break;
             case DetectionStep.LEFT_3:
                 hasLeft3 = true;
-                showTips(
-                        getString(R.string.health_tips_left_3),
-                        "",
-                        0,
-                        actionOnClickListener);
+                showDialog(getString(R.string.health_tips_left_3));
                 break;
             case DetectionStep.RIGHT_1:
-                showTips(
-                        getString(R.string.health_tips_right_1),
-                        "",
-                        0,
-                        actionOnClickListener);
+                showDialog(getString(R.string.health_tips_right_1));
                 break;
             case DetectionStep.RIGHT_2:
-                showTips(
-                        getString(R.string.health_tips_right_2),
-                        "",
-                        0,
-                        actionOnClickListener);
+                showDialog(getString(R.string.health_tips_right_2));
                 break;
             case DetectionStep.RIGHT_3:
                 hasRight3 = true;
-                showTips(
-                        getString(R.string.health_tips_right_3),
-                        "",
-                        0,
-                        actionOnClickListener);
+                showDialog(getString(R.string.health_tips_right_3));
                 break;
             case DetectionStep.DONE:
-
+                mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
                 uploadHandData(prepareData());
                 break;
         }
+    }
+
+    private void showDialog(String message) {
+        //同时语音播报
+        MLVoiceSynthetize.startSynthesize(getContext(), message, false);
+        if (dialogSure == null) {
+            dialogSure = new DialogSure(getContext());
+            dialogSure.getTitleView().setVisibility(View.GONE);
+        }
+        dialogSure.setContent(message);
+        dialogSure.show();
+        dialogSure.setOnClickSureListener(new DialogClickSureListener() {
+            @Override
+            public void clickSure(BaseDialog dialog) {
+                dialog.dismiss();
+                MLVoiceSynthetize.stop();
+            }
+        });
+    }
+
+    private void showFirstDialog(String message, String speak) {
+        //同时语音播报
+        MLVoiceSynthetize.startSynthesize(getContext(), speak, false);
+        if (dialogSure == null) {
+            dialogSure = new DialogSure(getContext());
+            dialogSure.getTitleView().setVisibility(View.GONE);
+        }
+        dialogSure.getContentView().setText(Html.fromHtml(message));
+        dialogSure.show();
+        dialogSure.setOnClickSureListener(new DialogClickSureListener() {
+            @Override
+            public void clickSure(BaseDialog dialog) {
+                dialog.dismiss();
+                MLVoiceSynthetize.stop();
+            }
+        });
     }
 
     private void uploadHandData(Data data) {
@@ -277,48 +262,20 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
         dataPulse.setPulse(data.right == 1 ? data.rightPulse : data.leftPulse);
         datas.add(pressureData);
         datas.add(dataPulse);
-        OkGo.<String>post(NetworkApi.DETECTION_DATA + MyApplication.getInstance().userId + "/")
-                .upJson(new Gson().toJson(datas))
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        if (!response.isSuccessful()) {
-                            ToastUtils.showLong("数据上传失败");
-                            return;
-                        }
-                        String body = response.body();
-                        try {
-                            ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
-                            }.getType());
-                            if (apiResponse.isSuccessful()) {
-                                navToNext();
-                                return;
-                            }
-                        } catch (Throwable e) {
-                            e.printStackTrace();
-                        }
-                        ToastUtils.showLong("数据上传失败");
-                    }
+        NetworkApi.postMeasureData(datas, new NetworkCallback() {
+            @Override
+            public void onSuccess(String callbackString) {
+                if (fragmentChanged != null && !isJump2Next) {
+                    isJump2Next=true;
+                    fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
+                }
+            }
 
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        ToastUtils.showLong("数据上传失败");
-                    }
-                });
-
-    }
-
-    private void navToNext() {
-        FragmentManager fm = getFragmentManager();
-        if (fm == null) {
-            return;
-        }
-        FragmentTransaction transaction = fm.beginTransaction();
-        Fragment fragment = new HealthWeightDetectionUiFragment();
-        transaction.replace(R.id.fl_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commitAllowingStateLoss();
+            @Override
+            public void onError() {
+                ToastUtils.showLong("数据上传失败");
+            }
+        });
     }
 
     /**
@@ -396,20 +353,20 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
         return data;
     }
 
-    private void showTips(
-            String tips,
-            String colorText,
-            @ColorRes int color,
-            View.OnClickListener actionOnClickListener) {
-        CommonTipsDialogFragment df = CommonTipsDialogFragment.newInstance(tips, colorText, color);
-        df.setActionOnClickListener(actionOnClickListener);
-        FragmentManager fm = getFragmentManager();
-        String tag = CommonTipsDialogFragment.class.getName();
-//        Fragment fragment = fm.findFragmentByTag(tag);
-//        if (fragment != null) {
-//            fm.beginTransaction().remove(fragment).commitAllowingStateLoss();
+    @Override
+    protected void clickHealthHistory(View view) {
+        //TODO:为了测试方便注释掉 后面需要回复
+//        if (isMeasureOver) {
+//             if (fragmentChanged!=null){
+//                                    fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this);
+//                                }
+//        } else {
+//            ToastUtils.showShort("测量次数不够");
 //        }
-        df.show(fm, tag);
+        if (fragmentChanged != null && !isJump2Next) {
+            isJump2Next=true;
+            fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
+        }
     }
 
     public static class Data {
@@ -421,5 +378,11 @@ public class HealthBloodDetectionUiFragment extends HealthBloodDetectionFragment
         public int rightLowPressure;
         public int leftPulse;
         public int rightPulse;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        TimeCountDownUtils.getInstance().cancelAll();
     }
 }

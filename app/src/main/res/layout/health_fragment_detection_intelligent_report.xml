@@ -5,10 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".health.intelligentdetection.HealthDetectionIntelligentReportFragment">
 
-    <include
-        layout="@layout/custom_title_layout"
-        android:visibility="visible" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_report"
         android:layout_width="match_parent"

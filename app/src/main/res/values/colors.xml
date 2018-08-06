@@ -70,4 +70,5 @@
 
     <color name="colorMultipleChoiceItem">#3F86FC</color>
     <!--<color name="white">#fff</color>-->
+    <color name="color_bbb">#BBBBBB</color>
 </resources>

@@ -15,8 +15,10 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkCallback;
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
@@ -26,44 +28,31 @@ import com.lzy.okgo.model.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class HealthThreeInOneDetectionUiFragment extends HealthThreeInOneDetectionFragment {
-
-    private TextView tvNext;
+public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
+    private boolean isJump2Next = false;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.tips_sanheyi);
-        MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
+    public void onStart() {
+        super.onStart();
+        mBtnVideoDemo.setVisibility(View.GONE);
+        mBtnHealthHistory.setText("下一步");
     }
 
-    @Override
-    protected void initView(View view, Bundle savedInstanceState) {
-        super.initView(view, savedInstanceState);
-        tvNext = ((TextView) view.findViewById(R.id.tv_next));
-        tvNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navToNext();
-            }
-        });
-    }
+    private HashMap<String, Float> results = new HashMap<>();
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
-            startDetection();
+    protected void onMeasureFinished(String... result) {
+        if (result.length == 2) {
+            results.put(result[0], Float.parseFloat(result[1]));
         }
     }
 
-    private SparseArray<Float> results = new SparseArray<>();
-
     @Override
-    protected void onThreeInOneResult(int category, float result) {
-        results.put(category, result);
+    protected void clickHealthHistory(View view) {
+        uploadData();
     }
 
-    private void navToNext() {
+    private void uploadData() {
         if (getFragmentManager() != null) {
             Object obj = DataFragment.get(getFragmentManager()).getData();
             if (obj == null) {
@@ -73,7 +62,10 @@ public class HealthThreeInOneDetectionUiFragment extends HealthThreeInOneDetecti
             dataMap.put("threeInOne", results);
         }
         if (results.size() == 0) {
-            navToReport();
+            if (fragmentChanged != null && !isJump2Next) {
+                isJump2Next = true;
+                fragmentChanged.onFragmentChanged(this, null);
+            }
             return;
         }
         ArrayList<DetectionData> datas = new ArrayList<>();
@@ -83,55 +75,28 @@ public class HealthThreeInOneDetectionUiFragment extends HealthThreeInOneDetecti
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
         sugarData.setDetectionType("1");
         sugarData.setSugarTime(0);
-        sugarData.setBloodSugar(results.get(1));
+        sugarData.setBloodSugar(results.get("bloodsugar"));
         cholesterolData.setDetectionType("7");
-        cholesterolData.setCholesterol(results.get(7));
+        cholesterolData.setCholesterol(results.get("cholesterol"));
         lithicAcidData.setDetectionType("8");
-        lithicAcidData.setUricAcid(results.get(8));
+        lithicAcidData.setUricAcid(results.get("bua"));
         datas.add(sugarData);
         datas.add(cholesterolData);
         datas.add(lithicAcidData);
-        OkGo.<String>post(NetworkApi.DETECTION_DATA)
-                .upJson(new Gson().toJson(datas))
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        if (!response.isSuccessful()) {
-                            ToastUtils.showLong("数据上传失败");
-                            return;
-                        }
-                        String body = response.body();
-                        try {
-                            ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
-                            }.getType());
-                            if (apiResponse.isSuccessful()) {
-                                navToReport();
-                                return;
-                            }
-                        } catch (Throwable e) {
-                            e.printStackTrace();
-                        }
-                        ToastUtils.showLong("数据上传失败");
-                    }
+        NetworkApi.postMeasureData(datas, new NetworkCallback() {
+            @Override
+            public void onSuccess(String callbackString) {
+                if (fragmentChanged != null && !isJump2Next) {
+                    isJump2Next = true;
+                    fragmentChanged.onFragmentChanged(
+                            HealthThreeInOneDetectionUiFragment.this, null);
+                }
+            }
 
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        ToastUtils.showLong("数据上传失败");
-                    }
-                });
+            @Override
+            public void onError() {
+                ToastUtils.showLong("数据上传失败");
+            }
+        });
     }
-
-    private void navToReport() {
-        FragmentManager fm = getFragmentManager();
-        if (fm == null) {
-            return;
-        }
-        Fragment fragment = new HealthDetectionIntelligentReportFragment();
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.fl_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commitAllowingStateLoss();
-    }
-
 }

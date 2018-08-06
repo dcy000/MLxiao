@@ -44,19 +44,19 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements OnPla
     private boolean userPause;
 
     //播放本地资源的时候传resId,url传null;比方网络资源的时候resId传null
-    public static void startActivity(Object host, Class clazz, Uri uri, String url, String title) {
+    public static void startActivity(Object host, Uri uri, String url, String title,int requestCode) {
         if (host instanceof Fragment) {
             Fragment fragment = (Fragment) host;
-            fragment.startActivityForResult(new Intent(fragment.getContext(), clazz)
+            fragment.startActivityForResult(new Intent(fragment.getContext(), MeasureVideoPlayActivity.class)
                     .putExtra("uri", uri)
                     .putExtra("url", url)
-                    .putExtra("title", title), REQUEST_PALY_VIDEO);
+                    .putExtra("title", title), requestCode);
         } else if (host instanceof Activity) {
             Activity activity = (Activity) host;
-            activity.startActivityForResult(new Intent(activity, clazz)
+            activity.startActivityForResult(new Intent(activity, MeasureVideoPlayActivity.class)
                     .putExtra("uri", uri)
                     .putExtra("url", url)
-                    .putExtra("title", title), REQUEST_PALY_VIDEO);
+                    .putExtra("title", title), requestCode);
         }
     }
 

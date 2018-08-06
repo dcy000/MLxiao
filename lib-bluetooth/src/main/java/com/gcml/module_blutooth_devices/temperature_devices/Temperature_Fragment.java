@@ -11,7 +11,7 @@ import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
-import com.gcml.module_blutooth_devices.base.BaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
@@ -22,12 +22,13 @@ import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 import timber.log.Timber;
 
 
-public class Temperature_Fragment extends BaseFragment implements IView, View.OnClickListener {
+public class Temperature_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
     private TextView mTvResult;
     private BaseBluetoothPresenter bluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
+    private Bundle bundle;
 
     @Override
     protected int initLayout() {
@@ -42,10 +43,17 @@ public class Temperature_Fragment extends BaseFragment implements IView, View.On
         mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
         mTvResult = (TextView) view.findViewById(R.id.tv_result);
-        dealLogic(bundle);
+        this.bundle = bundle;
+
     }
 
-    private void dealLogic(Bundle bundle) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        dealLogic();
+    }
+
+    public void dealLogic() {
         String address;
         String brand;
         if (bundle != null) {
@@ -53,7 +61,7 @@ public class Temperature_Fragment extends BaseFragment implements IView, View.On
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
         } else {
-            String sp_bloodoxygen = (String) SPUtil.get( Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE, "");
+            String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE, "");
             if (TextUtils.isEmpty(sp_bloodoxygen)) {
                 helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_TEMPERATURE);
                 helper.start();
@@ -103,18 +111,23 @@ public class Temperature_Fragment extends BaseFragment implements IView, View.On
             if (dealVoiceAndJump != null) {
                 dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_TEMPERATURE);
             }
+            clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
                 dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_TEMPERATURE);
             }
+            clickVideoDemo(v);
         }
     }
 
     @Override
     public void updateData(String... datas) {
-        Timber.e(datas[0]);
         if (datas.length == 1) {
             mTvResult.setText(datas[0]);
+            float aFloat = Float.parseFloat(datas[0]);
+            if (aFloat > 30) {
+                onMeasureFinished(datas[0]);
+            }
         }
     }
 

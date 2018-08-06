@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
-import com.gcml.module_blutooth_devices.base.BaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
@@ -17,13 +17,13 @@ import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 
 
-public class Bloodsugar_Fragment extends BaseFragment implements IView, View.OnClickListener {
+public class Bloodsugar_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
     private TextView mTvResult;
     private IPresenter bluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
-
+    private Bundle bundle;
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_bloodsugar;
@@ -36,10 +36,17 @@ public class Bloodsugar_Fragment extends BaseFragment implements IView, View.OnC
         mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
         mTvResult = (TextView) view.findViewById(R.id.tv_result);
-        dealLogic(bundle);
+        this.bundle=bundle;
+
     }
 
-    private void dealLogic(Bundle bundle) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        dealLogic();
+    }
+
+    public void dealLogic() {
         String address;
         String brand;
         if (bundle != null) {
@@ -89,13 +96,13 @@ public class Bloodsugar_Fragment extends BaseFragment implements IView, View.OnC
     public void updateData(String... datas) {
         if (datas.length == 1) {
             mTvResult.setText(datas[0]);
+            onMeasureFinished(datas[0]);
         }
     }
 
     @Override
     public void updateState(String state) {
         ToastUtils.showShort(state);
-//        ((AllMeasureActivity) getActivity()).speak(state);
         if (dealVoiceAndJump != null) {
             dealVoiceAndJump.updateVoice(state);
         }
@@ -113,10 +120,12 @@ public class Bloodsugar_Fragment extends BaseFragment implements IView, View.OnC
             if (dealVoiceAndJump != null) {
                 dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_BLOOD_SUGAR);
             }
+            clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
                 dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_BLOOD_SUGAR);
             }
+            clickVideoDemo(v);
         }
     }
 
