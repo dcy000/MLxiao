@@ -57,13 +57,15 @@ public class BindHealthManageSystemActivity extends BaseActivity implements Acou
             @Override
             public void onTextChange(Editable s) {
                 String passWord = etPassWord.getText().toString().trim();
-                if (TextUtils.isEmpty(passWord) && TextUtils.isEmpty(s.toString())) {
+                if (!TextUtils.isEmpty(passWord) && !TextUtils.isEmpty(s.toString())) {
                     tvNext.setEnabled(true);
                 } else {
                     tvNext.setEnabled(false);
                 }
             }
         });
+
+        ccetPhone.setTextSize(56);
 
         etPassWord.addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,7 +81,7 @@ public class BindHealthManageSystemActivity extends BaseActivity implements Acou
             @Override
             public void afterTextChanged(Editable s) {
                 String accout = ccetPhone.getPhone();
-                if (TextUtils.isEmpty(accout) && TextUtils.isEmpty(s.toString())) {
+                if (!TextUtils.isEmpty(accout) && !TextUtils.isEmpty(s.toString())) {
                     tvNext.setEnabled(true);
                 } else {
                     tvNext.setEnabled(false);
@@ -119,17 +121,21 @@ public class BindHealthManageSystemActivity extends BaseActivity implements Acou
                     @Override
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
-                        AccoutInfoBean accoutInfoBean = new Gson().fromJson(body, AccoutInfoBean.class);
-                        if (accoutInfoBean != null) {
-                            if (accoutInfoBean.tag) {
-                                AccoutInfoBean.DataBean data = accoutInfoBean.data;
-                                if (data != null) {
-                                    if (!TextUtils.isEmpty(data.orgName) && !TextUtils.isEmpty(data.userName)) {
-                                        showAccountInfoDialog(data.userName, data.orgName);
-                                    }
+                        try {
+                            AccoutInfoBean accoutInfoBean = new Gson().fromJson(body, AccoutInfoBean.class);
+                            if (accoutInfoBean != null) {
+                                if (accoutInfoBean.tag) {
+                                    AccoutInfoBean.DataBean data = accoutInfoBean.data;
+                                    if (data != null) {
+                                        if (!TextUtils.isEmpty(data.orgName) && !TextUtils.isEmpty(data.userName)) {
+                                            showAccountInfoDialog(data.userName, data.orgName);
+                                        }
 
+                                    }
                                 }
                             }
+                        } catch (Exception e) {
+
                         }
                     }
                 });
@@ -138,6 +144,7 @@ public class BindHealthManageSystemActivity extends BaseActivity implements Acou
 
     private void showAccountInfoDialog(String operator, String orgnizationName) {
         AcountInfoDialog dialog = AcountInfoDialog.newInstance(operator, orgnizationName);
+        dialog.setListener(this);
         dialog.show(getSupportFragmentManager(), "accountInfo");
     }
 

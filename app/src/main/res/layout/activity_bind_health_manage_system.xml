@@ -36,6 +36,7 @@
         android:layout_height="132pt"
         android:layout_marginStart="59pt"
         android:layout_marginTop="37pt"
+        android:textSize="56pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18"></com.example.han.referralproject.require2.wrap.CanClearEditText>
 
@@ -43,16 +44,17 @@
     <TextView
         android:id="@+id/tv_next"
         android:layout_width="320pt"
-        android:layout_height="25dp"
-        android:layout_marginTop="267pt"
+        android:layout_height="100pt"
         android:background="@drawable/shape_rectangle_next_btn"
         android:enabled="false"
         android:gravity="center"
         android:text="下一步"
+        android:layout_marginLeft="59pt"
         android:textColor="#fff"
         android:textSize="56pt"
-        app:layout_constraintStart_toStartOf="@+id/textView18"
-        app:layout_constraintTop_toBottomOf="@+id/ccet_phone" />
+        android:layout_marginBottom="348pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -63,6 +65,7 @@
         app:srcCompat="@drawable/ic_pages_right_bg" />
 
     <EditText
+        android:inputType="textPassword"
         android:id="@+id/et_pass_word"
         android:layout_width="880pt"
         android:layout_height="132pt"

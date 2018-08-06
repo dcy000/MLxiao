@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.util.Utils;
+import com.medlink.danbogh.utils.UiUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -114,4 +116,9 @@ public class CanClearEditText extends LinearLayout {
     public void setListener(OnTextChangeListener listener) {
         this.listener = listener;
     }
+
+    public void setTextSize(int value) {
+        tvPhone.setTextSize(UiUtils.pt(value));
+    }
+
 }

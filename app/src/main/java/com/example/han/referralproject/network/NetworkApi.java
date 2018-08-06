@@ -1395,7 +1395,7 @@ public class NetworkApi {
     /**
      * 查询3.0用户
      */
-    public static final String QUERY_3_ACCOUNT = BasicUrl + "ZZB/api/health/inquiry/sanitation/";
+    public static final String QUERY_3_ACCOUNT = BasicUrl + "/ZZB/api/health/inquiry/sanitation/";
 
     public static void Query3Account(String account, String passWord, StringCallback callback) {
         OkGo.<String>post(QUERY_3_ACCOUNT)

@@ -32,6 +32,10 @@ public class AcountInfoDialog extends DialogFragment {
     private String operator;
     private String organizationName;
 
+    public void setListener(OnFragmentInteractionListener mListener) {
+        this.mListener = mListener;
+    }
+
     private OnFragmentInteractionListener mListener;
 
     public AcountInfoDialog() {
@@ -60,8 +64,8 @@ public class AcountInfoDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.fragment_acount_info_dialog, container, false);
-        intView();
         unbinder = ButterKnife.bind(this, inflate);
+        intView();
         return inflate;
     }
 
@@ -70,17 +74,6 @@ public class AcountInfoDialog extends DialogFragment {
         tvOrgnizationInfo.setText(organizationName);
     }
 
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
 
     @Override
     public void onDetach() {
@@ -117,4 +110,6 @@ public class AcountInfoDialog extends DialogFragment {
 
         void onConfirm();
     }
+
+
 }

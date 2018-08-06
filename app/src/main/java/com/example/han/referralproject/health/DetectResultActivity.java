@@ -15,6 +15,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.model.DetectResult;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.bean.ExaminationReportBean;
 import com.example.han.referralproject.yiyuan.bean.PersonInfoResultBean;
 import com.google.gson.Gson;
@@ -200,7 +201,7 @@ public class DetectResultActivity extends BaseActivity {
         detectResult.setBloodSugar(Float.parseFloat(sugar));
         detectResult.setUserId(Integer.parseInt(LocalShared.getInstance(this).getUserId()));
         String url = NetworkApi.BasicUrl + "/ZZB/api/health/inquiry/examination/";
-        OkGo.<String>post(url).upJson(new Gson().toJson(detectResult)).execute(new StringCallback() {
+        OkGo.<String>post(url).headers("equipmentId", Utils.getDeviceId()).upJson(new Gson().toJson(detectResult)).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
 //                try {

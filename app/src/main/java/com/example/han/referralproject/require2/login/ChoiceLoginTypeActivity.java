@@ -44,7 +44,6 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
         setContentView(R.layout.activity_choice_idcard_login_type);
         ButterKnife.bind(this);
         initTitle();
-        get3BindInfo();
         ActivityHelper.addActivity(this);
     }
 
@@ -67,6 +66,7 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
             }
         });
     }
+
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
@@ -117,5 +117,6 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
         super.onResume();
         setEnableListeningLoop(false);
         setDisableGlobalListen(true);
+        get3BindInfo();
     }
 }

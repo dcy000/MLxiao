@@ -8,45 +8,40 @@ import java.io.Serializable;
 
 public class AccoutInfoBean implements Serializable {
 
+
     /**
-     * code : 0
-     * data : {"fregioncode":"string","gxfwCodes":"string","level":"string","orgId":"string","orgName":"string","taskCount":"string","userId":"string","userName":"string"}
-     * error : {}
-     * message : {}
-     * tag : false
+     * tag : true
+     * code : 200
+     * data : {"orgId":"38740","userName":"APP测试","userId":"9041010649","taskCount":"0","orgName":"瓦寺前中心卫生室","level":"5","gxfwCodes":" ","fregioncode":"421124101201"}
+     * message : 成功
+     * error : null
      */
 
+    public boolean tag;
     public int code;
     public DataBean data;
-    public ErrorBean error;
-    public MessageBean message;
-    public boolean tag;
+    public String message;
+    public Object error;
 
-    public static class DataBean implements Serializable {
+    public static class DataBean implements Serializable{
         /**
-         * fregioncode : string
-         * gxfwCodes : string
-         * level : string
-         * orgId : string
-         * orgName : string
-         * taskCount : string
-         * userId : string
-         * userName : string
+         * orgId : 38740
+         * userName : APP测试
+         * userId : 9041010649
+         * taskCount : 0
+         * orgName : 瓦寺前中心卫生室
+         * level : 5
+         * gxfwCodes :
+         * fregioncode : 421124101201
          */
 
-        public String fregioncode;
-        public String gxfwCodes;
-        public String level;
         public String orgId;
-        public String orgName;
-        public String taskCount;
-        public String userId;
         public String userName;
-    }
-
-    public static class ErrorBean {
-    }
-
-    public static class MessageBean {
+        public String userId;
+        public String taskCount;
+        public String orgName;
+        public String level;
+        public String gxfwCodes;
+        public String fregioncode;
     }
 }
