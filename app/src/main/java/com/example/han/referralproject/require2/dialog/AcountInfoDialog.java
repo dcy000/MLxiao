@@ -53,6 +53,7 @@ public class AcountInfoDialog extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(android.support.v4.app.DialogFragment.STYLE_NO_TITLE, R.style.XDialog);
         if (getArguments() != null) {
             operator = getArguments().getString(ARG_PARAM1);
             organizationName = getArguments().getString(ARG_PARAM2);
