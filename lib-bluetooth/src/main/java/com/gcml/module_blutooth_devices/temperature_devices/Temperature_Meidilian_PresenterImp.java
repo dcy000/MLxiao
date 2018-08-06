@@ -68,17 +68,4 @@ public class Temperature_Meidilian_PresenterImp extends BaseBluetoothPresenter {
             });
         }
     }
-
-    @Override
-    protected void disConnected() {
-        super.disConnected();
-        Logg.e(Temperature_Meidilian_PresenterImp.class, "disConnected: ");
-        if (baseView instanceof Activity) {
-            baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
-        } else if (baseView instanceof Fragment) {
-            if (((Fragment) baseView).isAdded()) {
-                baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
-            }
-        }
-    }
 }

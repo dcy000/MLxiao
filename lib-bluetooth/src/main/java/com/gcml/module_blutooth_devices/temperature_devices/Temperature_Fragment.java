@@ -23,8 +23,8 @@ import timber.log.Timber;
 
 
 public class Temperature_Fragment extends BaseFragment implements IView, View.OnClickListener {
-    private TextView mBtnHealthHistory;
-    private TextView mBtnVideoDemo;
+    protected TextView mBtnHealthHistory;
+    protected TextView mBtnVideoDemo;
     private TextView mTvResult;
     private BaseBluetoothPresenter bluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
@@ -49,7 +49,7 @@ public class Temperature_Fragment extends BaseFragment implements IView, View.On
         String address;
         String brand;
         if (bundle != null) {
-            address = bundle.getString("address");
+            address = bundle.getString(IPresenter.DEVICE_BLUETOOTH_ADDRESS);
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
         } else {

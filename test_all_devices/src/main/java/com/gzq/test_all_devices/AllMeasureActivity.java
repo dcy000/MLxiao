@@ -20,6 +20,7 @@ import com.gcml.module_blutooth_devices.base.BaseFragment;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
+import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_PDF_Fragment;
@@ -32,7 +33,8 @@ public class AllMeasureActivity extends AppCompatActivity {
     private BluetoothBean bluetoothBean;
     private LinearLayout mLlBack;
     private ImageView mIvTopRight;
-    private String pdfUrl="";
+    private String pdfUrl = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,79 +50,44 @@ public class AllMeasureActivity extends AppCompatActivity {
             case IPresenter.MEASURE_TEMPERATURE://体温测量
                 if (baseFragment == null) {
                     baseFragment = new Temperature_Fragment();
-//                    bundle.putString(IPresenter.BRAND, bluetoothBean.getBluetoothName());
-//                    bundle.putInt(IPresenter.MEASURE_TYPE, IPresenter.SEARCH_ALL);
-//                    bundle.putString("address", bluetoothBean.getAddress());
-//                    baseFragment.setArguments(bundle);
                 }
-//                fragmentTransaction.replace(R.id.frame, baseFragment);
                 break;
             case IPresenter.MEASURE_BLOOD_PRESSURE://血压
                 if (baseFragment == null) {
-//                    baseFragment = new Bloodpressure_Fragment();
-//                    bundle.putString(IPresenter.BRAND, bluetoothBean.getBluetoothName());
-//                    bundle.putInt(IPresenter.MEASURE_TYPE, IPresenter.SEARCH_ALL);
-//                    bundle.putString("address", bluetoothBean.getAddress());
-//                    baseFragment.setArguments(bundle);
+                    baseFragment = new Bloodpressure_Fragment();
                 }
-//                fragmentTransaction.replace(R.id.frame, baseFragment);
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR://血糖
                 if (baseFragment == null) {
                     baseFragment = new Bloodsugar_Fragment();
-//                    bundle.putString(IPresenter.BRAND, bluetoothBean.getBluetoothName());
-//                    bundle.putInt(IPresenter.MEASURE_TYPE, IPresenter.SEARCH_ALL);
-//                    bundle.putString("address", bluetoothBean.getAddress());
-//                    baseFragment.setArguments(bundle);
                 }
-//                fragmentTransaction.replace(R.id.frame, baseFragment);
                 break;
             case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
                 if (baseFragment == null) {
                     baseFragment = new Bloodoxygen_Fragment();
-//                    bundle.putString(IPresenter.BRAND, bluetoothBean.getBluetoothName());
-//                    bundle.putInt(IPresenter.MEASURE_TYPE, IPresenter.SEARCH_ALL);
-//                    bundle.putString("address", bluetoothBean.getAddress());
-//                    baseFragment.setArguments(bundle);
                 }
-//                fragmentTransaction.replace(R.id.frame, baseFragment);
                 break;
             case IPresenter.MEASURE_WEIGHT://体重
                 if (baseFragment == null) {
                     baseFragment = new Weight_Fragment();
-//                    bundle.putString(IPresenter.BRAND, bluetoothBean.getBluetoothName());
-//                    bundle.putInt(IPresenter.MEASURE_TYPE, IPresenter.SEARCH_ALL);
-//                    bundle.putString("address", bluetoothBean.getAddress());
-//                    baseFragment.setArguments(bundle);
                 }
-//                fragmentTransaction.replace(R.id.frame, baseFragment);
                 break;
             case IPresenter.MEASURE_ECG:
                 if (baseFragment == null) {
                     baseFragment = new ECG_Fragment();
-//                    bundle.putString(IPresenter.BRAND, bluetoothBean.getBluetoothName());
-//                    bundle.putInt(IPresenter.MEASURE_TYPE, IPresenter.SEARCH_ALL);
-//                    bundle.putString("address", bluetoothBean.getAddress());
-//                    baseFragment.setArguments(bundle);
                 }
-//                fragmentTransaction.replace(R.id.frame, baseFragment);
                 break;
             case IPresenter.MEASURE_OTHERS://三合一
                 break;
             case IPresenter.CONTROL_FINGERPRINT:
                 if (baseFragment == null) {
                     baseFragment = new Fingerpint_Fragment();
-//                    bundle.putString(IPresenter.BRAND, bluetoothBean.getBluetoothName());
-//                    bundle.putInt(IPresenter.MEASURE_TYPE, IPresenter.SEARCH_ALL);
-//                    bundle.putString("address", bluetoothBean.getAddress());
-//                    baseFragment.setArguments(bundle);
                 }
-//                fragmentTransaction.replace(R.id.frame, baseFragment);
                 break;
         }
         bundle.putString(IPresenter.BRAND, bluetoothBean.getBluetoothName());
         bundle.putInt(IPresenter.MEASURE_TYPE, IPresenter.SEARCH_ALL);
-        bundle.putString("address", bluetoothBean.getAddress());
+        bundle.putString(IPresenter.DEVICE_BLUETOOTH_ADDRESS, bluetoothBean.getAddress());
         baseFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.frame, baseFragment).commit();
 
@@ -146,7 +113,7 @@ public class AllMeasureActivity extends AppCompatActivity {
             ((ECG_Fragment) baseFragment).setOnAnalysisDataListener(new ECG_Fragment.AnalysisData() {
                 @Override
                 public void onSuccess(String fileNum, String fileAddress, String filePDF) {
-                    pdfUrl=filePDF;
+                    pdfUrl = filePDF;
                     ECG_PDF_Fragment pdf_fragment = new ECG_PDF_Fragment();
                     Bundle pdfBundle = new Bundle();
                     pdfBundle.putString(ECG_PDF_Fragment.KEY_BUNDLE_PDF_URL, filePDF);
@@ -179,11 +146,11 @@ public class AllMeasureActivity extends AppCompatActivity {
         mIvTopRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (DataUtils.isNullString(pdfUrl)){
+                if (DataUtils.isNullString(pdfUrl)) {
                     return;
                 }
                 Bitmap bitmap = QRCodeUtils.creatQRCode(pdfUrl, 600, 600);
-                DialogImage dialogImage=new DialogImage(AllMeasureActivity.this);
+                DialogImage dialogImage = new DialogImage(AllMeasureActivity.this);
                 dialogImage.setImage(bitmap);
                 dialogImage.setDescription("扫一扫，下载该报告");
                 dialogImage.setCanceledOnTouchOutside(true);

@@ -16,6 +16,8 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.NormalHightActivity;
+import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
+import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.view.progress.RxRoundProgressBar;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -120,6 +122,8 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
     private int currentHighBloodpressure;
     private int currentLowBloodpressure;
     private String currentSuggest;
+    //非同日测量次数
+    private Integer detectionDayCount;
 
     /**
      * @param context
@@ -180,6 +184,19 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
     }
 
     private void getData() {
+        NetworkApi.getDiagnoseInfo(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
+                if (bean != null && bean.tag && bean.data != null) {
+                    detectionDayCount = bean.data.detectionDayCount;
+                    if (detectionDayCount < 3) {
+                        mHealthKnowledge.setBackgroundColor(Color.parseColor("#BBBBBB"));
+                    }
+                }
+            }
+        });
+
         Calendar curr = Calendar.getInstance();
         long weekAgoTime = curr.getTimeInMillis();
         OkGo.<String>get(NetworkApi.WeeklyOrMonthlyReport)
@@ -314,8 +331,24 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
                                 .class.getSimpleName()));
                 break;
             case R.id.health_knowledge:
+                if (detectionDayCount<3){
+                    showLessThan3Dialog((3 - detectionDayCount) + "");
+                    return;
+                }
                 startActivity(new Intent(this, TreatmentPlanActivity.class));
                 break;
         }
+    }
+
+    private void showLessThan3Dialog(String notice) {
+        FllowUpTimesDialog dialog = new FllowUpTimesDialog(notice);
+        dialog.setListener(new FllowUpTimesDialog.OnDialogClickListener() {
+            @Override
+            public void onClickConfirm() {
+                dialog.dismiss();
+            }
+        });
+        dialog.show(getSupportFragmentManager(), "less3");
+        mlSpeak("主人，您尚未满足3天测量标准，请在健康监测中测量三日");
     }
 }

@@ -42,7 +42,6 @@ public class EclipseImageView extends ImageView {
 
     /**
      * 根据是否按下去来刷新bg和src
-     * created by minghao.zl at 2014-09-18
      *
      * @param pressed
      */

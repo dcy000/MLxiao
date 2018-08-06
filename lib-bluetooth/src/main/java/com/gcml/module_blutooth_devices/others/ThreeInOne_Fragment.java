@@ -1,9 +1,12 @@
-package com.gcml.module_blutooth_devices.bloodpressure_devices;
+package com.gcml.module_blutooth_devices.others;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gcml.lib_utils.data.SPUtil;
@@ -14,29 +17,53 @@ import com.gcml.module_blutooth_devices.base.BaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
-import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
+import com.gcml.module_blutooth_devices.weight_devices.Weight_Bodivis_PresenterImp;
+import com.gcml.module_blutooth_devices.weight_devices.Weight_Chaosi_PresenterImp;
+import com.gcml.module_blutooth_devices.weight_devices.Weight_Self_PresenterImp;
+import com.gcml.module_blutooth_devices.weight_devices.Weight_Xiangshan_EF895i_PresenterImp;
+import com.gcml.module_blutooth_devices.weight_devices.Weight_Yike_PresenterImp;
 
-
-public class Bloodpressure_Fragment extends BaseFragment implements IView, View.OnClickListener {
-    private TextView mTitle3;
+/**
+ * copyright：杭州国辰迈联机器人科技有限公司
+ * version:V1.2.5
+ * created on 2018/8/1 14:15
+ * created by:gzq
+ * description:TODO
+ */
+public class ThreeInOne_Fragment extends BaseFragment implements View.OnClickListener, IView {
+    /**
+     * 历史记录
+     */
     protected TextView mBtnHealthHistory;
+    /**
+     * 使用演示
+     */
     protected TextView mBtnVideoDemo;
+    /**
+     * 0
+     */
     private TextView mTvGaoya;
+    /**
+     * 0
+     */
     private TextView mTvDiya;
+    /**
+     * 0
+     */
     private TextView mTvMaibo;
-    private BaseBluetoothPresenter baseBluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
+    private BaseBluetoothPresenter bluetoothPresenter;
 
     @Override
     protected int initLayout() {
-        return R.layout.bluetooth_fragment_bloodpressure;
+        return R.layout.bluetooth_fragment_three_in_one;
     }
 
     @Override
-    protected void initView(View view, final Bundle bundle) {
-        mTitle3 = (TextView) view.findViewById(R.id.title3);
+    protected void initView(View view, Bundle bundle) {
+
         mBtnHealthHistory = (TextView) view.findViewById(R.id.btn_health_history);
         mBtnHealthHistory.setOnClickListener(this);
         mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
@@ -50,14 +77,14 @@ public class Bloodpressure_Fragment extends BaseFragment implements IView, View.
     private void dealLogic(Bundle bundle) {
         String address;
         String brand;
-        if (bundle != null) {
+        if (bundle != null) {//该处是为测试使用的
             address = bundle.getString(IPresenter.DEVICE_BLUETOOTH_ADDRESS);
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
         } else {
-            String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
+            String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, null);
             if (TextUtils.isEmpty(sp_bloodoxygen)) {
-                helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_PRESSURE);
+                helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_OTHERS);
                 helper.start();
             } else {
                 String[] split = sp_bloodoxygen.split(",");
@@ -73,44 +100,54 @@ public class Bloodpressure_Fragment extends BaseFragment implements IView, View.
 
     private void chooseConnectType(String address, String brand) {
         if (TextUtils.isEmpty(address)) {
-            helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_PRESSURE);
+            helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_OTHERS);
             helper.start();
         } else {
             switch (brand) {
-                case "eBlood-Pressure":
-                    baseBluetoothPresenter = new Bloodpressure_Self_PresenterImp(this,
-                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "eBlood-Pressure"));
-                    break;
-                case "iChoice":
-                    baseBluetoothPresenter = new Bloodpressure_Chaosi_PresenterImp(this,
-                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "iChoice"));
-                    break;
-                case "KN-550BT 110":
-                    baseBluetoothPresenter = new Bloodpressure_KN550_PresenterImp(this,
-                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "KN-550BT 110"));
+                case "BeneCheck GL-0F8B0C":
+                    bluetoothPresenter = new ThreeInOne_Self_PresenterImp(this,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BeneCheck GL-0F8B0C"));
                     break;
             }
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.btn_health_history) {
+            if (dealVoiceAndJump != null) {
+                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_TEMPERATURE);
+            }
+        } else if (i == R.id.btn_video_demo) {
+            if (dealVoiceAndJump != null) {
+                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_TEMPERATURE);
+            }
+        }
+    }
 
     @Override
     public void updateData(String... datas) {
         if (datas.length == 1) {
-            mTvGaoya.setText(datas[0]);
-        } else if (datas.length == 3) {
-            mTvGaoya.setText(datas[0]);
-            mTvDiya.setText(datas[1]);
-            mTvMaibo.setText(datas[2]);
-        } else {
-            Logg.e(Bloodpressure_Self_PresenterImp.class, "updateData: ");
+            mTvGaoya.setText("0.00");
+            mTvDiya.setText("0.00");
+            mTvMaibo.setText("0.00");
+            return;
+        }
+        if (datas.length == 2) {
+            if (datas[0].equals("bloodsugar")) {
+                mTvGaoya.setText(datas[1]);
+            } else if (datas[0].equals("bua")) {
+                mTvDiya.setText(datas[1]);
+            } else if (datas[0].equals("cholesterol")) {
+                mTvMaibo.setText(datas[1]);
+            }
         }
     }
 
     @Override
     public void updateState(String state) {
         ToastUtils.showShort(state);
-//        ((AllMeasureActivity) getActivity()).speak(state);
         if (dealVoiceAndJump != null) {
             dealVoiceAndJump.updateVoice(state);
         }
@@ -119,31 +156,5 @@ public class Bloodpressure_Fragment extends BaseFragment implements IView, View.
     @Override
     public Context getThisContext() {
         return this.getContext();
-    }
-
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.btn_health_history) {
-            if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_BLOOD_PRESSURE);
-            }
-        } else if (i == R.id.btn_video_demo) {
-            if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_BLOOD_PRESSURE);
-            }
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (baseBluetoothPresenter != null) {
-
-            baseBluetoothPresenter.onDestroy();
-        }
-        if (helper != null) {
-            helper.destroy();
-        }
     }
 }

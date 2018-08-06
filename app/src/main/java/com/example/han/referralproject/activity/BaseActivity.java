@@ -172,9 +172,9 @@ public class BaseActivity extends AppCompatActivity {
 
         rootView.addView(mTitleView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (70 * mResources.getDisplayMetrics().density)));
         initToolbar();
-        if (!checkIgnoreActivity()) {
-            checkIsLogin();
-        }
+//        if (!checkIgnoreActivity()) {
+//            checkIsLogin();
+//        }
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer == null) {
             mIat = SpeechRecognizer.createRecognizer(this, new ImpInitListener());

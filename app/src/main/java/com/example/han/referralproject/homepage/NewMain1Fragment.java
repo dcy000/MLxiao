@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
  * version:V1.2.5
  * created on 2018/7/29 16:50
  * created by:gzq
- * description:TODO
+ * description:主页第1页
  */
 public class NewMain1Fragment extends BaseFragment implements View.OnClickListener {
 

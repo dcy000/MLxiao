@@ -30,8 +30,7 @@ import java.util.Set;
 /**
  * Created by zhy on 15/8/20.
  */
-public class MixtureTextView extends RelativeLayout
-{
+public class MixtureTextView extends RelativeLayout {
 
     private Layout layout = null;
 
@@ -46,7 +45,8 @@ public class MixtureTextView extends RelativeLayout
 
     private int mLineSpace;
 
-    private TextPaint mTextPaint  = new TextPaint();;
+    private TextPaint mTextPaint = new TextPaint();
+    ;
 
     private List<List<Rect>> mDestRects = new ArrayList<List<Rect>>();
     private List<Integer> mCorYs = null;
@@ -75,26 +75,22 @@ public class MixtureTextView extends RelativeLayout
     private Map<Integer, Point> mViewBounds = new HashMap<>();
 
 
-    public MixtureTextView(Context context, AttributeSet attrs)
-    {
+    public MixtureTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         readAttrs(context, attrs);
 
         //just for text
-        if (mText == null)
-        {
+        if (mText == null) {
             mText = "";
         }
 
         //get text
-        if (!TextUtils.isEmpty(mText))
-        {
+        if (!TextUtils.isEmpty(mText)) {
             mNeedRenderText = true;
         }
 
         if (!mNeedRenderText) return;
-
 
 
         mTextPaint.setDither(true);
@@ -102,8 +98,7 @@ public class MixtureTextView extends RelativeLayout
         mTextPaint.setColor(mTextColor);
     }
 
-    private void readAttrs(Context context, AttributeSet attrs)
-    {
+    private void readAttrs(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, ATTRS);
         mTextSize = ta.getDimensionPixelSize(INDEX_ATTR_TEXT_SIZE, mTextSize);
         mTextColor = ta.getColor(INDEX_ATTR_TEXT_COLOR, mTextColor);
@@ -113,11 +108,9 @@ public class MixtureTextView extends RelativeLayout
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        if (!mNeedRenderText)
-        {
+        if (!mNeedRenderText) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             return;
         }
@@ -127,18 +120,15 @@ public class MixtureTextView extends RelativeLayout
 
         cacuLineHeight();
 
-        if (mNeedReMeasure)
-        {
+        if (mNeedReMeasure) {
             super.onMeasure(widthMeasureSpec, mHeightReMeasureSpec);
-        } else
-        {
+        } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
 
     }
 
-    private void cacuLineHeight()
-    {
+    private void cacuLineHeight() {
         layout = new StaticLayout("爱我中华", mTextPaint, 0, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0f, false);
         mLineHeight = layout.getLineBottom(0) - layout.getLineTop(0);
     }
@@ -147,10 +137,8 @@ public class MixtureTextView extends RelativeLayout
     private boolean mFirstInLayout = true;
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b)
-    {
-        if (mFirstInLayout)
-        {
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        if (mFirstInLayout) {
             mOriginHeightMeasureMode = MeasureSpec.getMode(mHeightMeasureSpec);
             mFirstInLayout = false;
             mMinHeight = getMeasuredHeight();
@@ -158,8 +146,7 @@ public class MixtureTextView extends RelativeLayout
 
         super.onLayout(changed, l, t, r, b);
 
-        if (!mNeedRenderText)
-        {
+        if (!mNeedRenderText) {
             return;
         }
 
@@ -167,8 +154,7 @@ public class MixtureTextView extends RelativeLayout
     }
 
 
-    private boolean tryDraw(Canvas canvas)
-    {
+    private boolean tryDraw(Canvas canvas) {
         boolean kidding = canvas == null;
         int lineHeight = mLineHeight;
         List<List<Rect>> destRects = mDestRects;
@@ -177,8 +163,7 @@ public class MixtureTextView extends RelativeLayout
         int start = 0;
         int lineSum = 0;
         int fullSize = mText.length();
-        for (int i = 0; i < destRects.size(); i++)
-        {
+        for (int i = 0; i < destRects.size(); i++) {
             List<Rect> rs = destRects.get(i);
             Rect r = rs.get(0);
             int rectWidth = r.width();
@@ -186,8 +171,7 @@ public class MixtureTextView extends RelativeLayout
             layout = generateLayout(mText.substring(start), rectWidth);
             int lineCount = rectHeight / lineHeight;
             lineCount = layout.getLineCount() < lineCount ? layout.getLineCount() : lineCount;
-            if (!kidding)
-            {
+            if (!kidding) {
                 canvas.save();
                 canvas.translate(r.left, r.top);
                 canvas.clipRect(0, 0, r.width(), layout.getLineBottom(lineCount - 1) - layout.getLineTop(0));
@@ -196,19 +180,16 @@ public class MixtureTextView extends RelativeLayout
             }
             start += layout.getLineEnd(lineCount - 1);
             lineSum += lineCount;
-            if (start >= fullSize)
-            {
+            if (start >= fullSize) {
                 break;
             }
         }
 
 
-        if (kidding)
-        {
+        if (kidding) {
             mMaxHeight += lineSum * lineHeight;
 
-            if ((mMaxHeight > mMinHeight && getHeight() != mMaxHeight) && mOriginHeightMeasureMode != MeasureSpec.EXACTLY)
-            {
+            if ((mMaxHeight > mMinHeight && getHeight() != mMaxHeight) && mOriginHeightMeasureMode != MeasureSpec.EXACTLY) {
                 mHeightReMeasureSpec = MeasureSpec.makeMeasureSpec(mMaxHeight, MeasureSpec.EXACTLY);
                 mNeedReMeasure = true;
                 requestLayout();
@@ -224,8 +205,7 @@ public class MixtureTextView extends RelativeLayout
     /**
      * 获取所有的y坐标
      */
-    private void getAllYCors()
-    {
+    private void getAllYCors() {
         int lineHeight = mLineHeight;
 
         Set<Integer> corYSet = mCorYHashes;
@@ -234,8 +214,7 @@ public class MixtureTextView extends RelativeLayout
 
         //获得所有的y轴坐标
         int cCount = getChildCount();
-        for (int i = 0; i < cCount; i++)
-        {
+        for (int i = 0; i < cCount; i++) {
             View c = getChildAt(i);
             if (c.getVisibility() == View.GONE) continue;
 
@@ -257,11 +236,9 @@ public class MixtureTextView extends RelativeLayout
         }
         corYSet.add(getPaddingTop());
 
-        if (mOriginHeightMeasureMode == MeasureSpec.EXACTLY)
-        {
+        if (mOriginHeightMeasureMode == MeasureSpec.EXACTLY) {
             corYSet.add(getHeight());
-        } else
-        {
+        } else {
             corYSet.add(Integer.MAX_VALUE);
         }
         //排序
@@ -274,8 +251,7 @@ public class MixtureTextView extends RelativeLayout
 
 
     @Override
-    protected void dispatchDraw(Canvas canvas)
-    {
+    protected void dispatchDraw(Canvas canvas) {
         mMaxHeight = getPaddingBottom() + getPaddingTop();
         initAllNeedRenderRect();
         boolean skipDraw = tryDraw(null);
@@ -285,10 +261,7 @@ public class MixtureTextView extends RelativeLayout
     }
 
 
-
-
-    private void initAllNeedRenderRect()
-    {
+    private void initAllNeedRenderRect() {
         int lineHeight = mLineHeight;
         List<List<Rect>> destRects = this.mDestRects;
         List<Integer> corYs = mCorYs;
@@ -299,8 +272,7 @@ public class MixtureTextView extends RelativeLayout
 
         //find rect between y1 and y2
         List<Rect> viewRectBetween2Y = null;
-        for (int i = 0; i < corYs.size() - 1; i++)
-        {
+        for (int i = 0; i < corYs.size() - 1; i++) {
             int y1 = corYs.get(i);
             int y2 = corYs.get(i + 1);
 
@@ -310,8 +282,7 @@ public class MixtureTextView extends RelativeLayout
 
 
             Rect leftFirst = null;
-            switch (rs.size())
-            {
+            switch (rs.size()) {
                 case 0:
                     viewRectBetween2Y.add(new Rect(minLeft, y1, maxRight, y2));
                     break;
@@ -326,8 +297,7 @@ public class MixtureTextView extends RelativeLayout
                     leftFirst = rs.get(0);
                     tryAddFirst(leftFirst, viewRectBetween2Y, y1, y2, minLeft);
                     //add mid
-                    for (int j = 0; j < rs.size() - 1; j++)
-                    {
+                    for (int j = 0; j < rs.size() - 1; j++) {
                         Rect ra = rs.get(j);
                         Rect rb = rs.get(j + 1);
 
@@ -346,21 +316,17 @@ public class MixtureTextView extends RelativeLayout
         List<List<Rect>> bak = new ArrayList<List<Rect>>(destRects);
         int destRectSize = destRects.size();
         int inc = 0;//索引增量
-        for (int i = 0; i < destRectSize; i++)
-        {
+        for (int i = 0; i < destRectSize; i++) {
             List<Rect> rs = destRects.get(i);
-            if (rs.size() > 1)
-            {
+            if (rs.size() > 1) {
                 int index = inc + i;
                 bak.remove(rs);
                 inc--;
                 Rect rect1 = rs.get(0);
                 int lh = rect1.height() / lineHeight;
                 mMaxHeight -= lh * (rs.size() - 1) * lineHeight;
-                for (int k = 0; k < lh; k++)
-                {
-                    for (int j = 0; j < rs.size(); j++)
-                    {
+                for (int k = 0; k < lh; k++) {
+                    for (int j = 0; j < rs.size(); j++) {
                         inc++;
                         bak.add(index++, Arrays.asList(new Rect(
                                 rs.get(j).left,
@@ -375,31 +341,24 @@ public class MixtureTextView extends RelativeLayout
         mDestRects = bak;
     }
 
-    private void tryAddLast(Rect leftFirst, List<Rect> viewRectBetween2Y, int y1, int y2, int maxRight)
-    {
-        if (leftFirst.right < maxRight)
-        {
+    private void tryAddLast(Rect leftFirst, List<Rect> viewRectBetween2Y, int y1, int y2, int maxRight) {
+        if (leftFirst.right < maxRight) {
             viewRectBetween2Y.add(new Rect(leftFirst.right, y1, maxRight, y2));
         }
     }
 
-    private void tryAddFirst(Rect leftFirst, List<Rect> viewRectBetween2Y, int y1, int y2, int minLeft)
-    {
-        if (leftFirst.left > minLeft)
-        {
+    private void tryAddFirst(Rect leftFirst, List<Rect> viewRectBetween2Y, int y1, int y2, int minLeft) {
+        if (leftFirst.left > minLeft) {
             viewRectBetween2Y.add(new Rect(minLeft, y1, leftFirst.left, y2));
         }
     }
 
-    private StaticLayout generateLayout(String text, int width)
-    {
+    private StaticLayout generateLayout(String text, int width) {
         return new StaticLayout(text, mTextPaint, width, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0f, false);
     }
 
-    public void setText(String text)
-    {
-        if (TextUtils.isEmpty(text))
-        {
+    public void setText(String text) {
+        if (TextUtils.isEmpty(text)) {
             mNeedRenderText = false;
             requestLayout();
             return;
@@ -410,17 +369,14 @@ public class MixtureTextView extends RelativeLayout
         invalidate();
     }
 
-    public void setTextColor(int color)
-    {
+    public void setTextColor(int color) {
         mTextPaint.setColor(color);
         mTextColor = color;
         invalidate();
     }
 
-    public void setTextSize(int unit, int size)
-    {
-        switch (unit)
-        {
+    public void setTextSize(int unit, int size) {
+        switch (unit) {
             case TypedValue.COMPLEX_UNIT_PX:
                 mTextSize = size;
                 break;
@@ -436,8 +392,7 @@ public class MixtureTextView extends RelativeLayout
         invalidate();
     }
 
-    public void setTextSize(int pxSize)
-    {
+    public void setTextSize(int pxSize) {
         setTextSize(TypedValue.COMPLEX_UNIT_PX, pxSize);
     }
 
@@ -448,21 +403,18 @@ public class MixtureTextView extends RelativeLayout
      * @param y2
      * @return
      */
-    private List<Rect> caculateViewYBetween(int y1, int y2)
-    {
+    private List<Rect> caculateViewYBetween(int y1, int y2) {
         List<Rect> rs = new ArrayList<>();
         Rect tmp = null;
         int childCount = getChildCount();
-        for (int i = 0; i < childCount; i++)
-        {
+        for (int i = 0; i < childCount; i++) {
             View v = getChildAt(i);
 
             Point p = mViewBounds.get(i);
             int top = p.x;
             int bottom = p.y;
 
-            if (top <= y1 && bottom >= y2)
-            {
+            if (top <= y1 && bottom >= y2) {
                 tmp = new Rect(v.getLeft(), y1, v.getRight(), y2);
                 rs.add(tmp);
             }
@@ -470,27 +422,22 @@ public class MixtureTextView extends RelativeLayout
 
 
         //TODO ADD
-        Collections.sort(rs, new Comparator<Rect>()
-        {
+        Collections.sort(rs, new Comparator<Rect>() {
             @Override
-            public int compare(Rect lhs, Rect rhs)
-            {
+            public int compare(Rect lhs, Rect rhs) {
                 if (lhs.left > rhs.left) return 1;
                 return -1;
             }
         });
 
 
-        if (rs.size() >= 2)
-        {
+        if (rs.size() >= 2) {
             List<Rect> res = new ArrayList<Rect>(rs);
             Rect pre = rs.get(0), next = rs.get(1);
             //合并
-            for (int i = 1; i < rs.size(); i++)
-            {
+            for (int i = 1; i < rs.size(); i++) {
                 //if相交
-                if (Rect.intersects(pre, next))
-                {
+                if (Rect.intersects(pre, next)) {
                     int left = Math.min(pre.left, next.left);
                     int right = Math.max(pre.right, next.right);
 
@@ -498,26 +445,18 @@ public class MixtureTextView extends RelativeLayout
                     res.remove(next);
                     res.add(new Rect(left, y1, right, y2));
 
-                    if(res.size() >= 2)
-                    {
+                    if (res.size() >= 2) {
                         pre = rs.get(0);
                         next = rs.get(1);
-                    }
-                    else
-                    {
+                    } else {
                         break;
                     }
 
-                }
-                else
-                {
-                    if((res.size() - i) >= 2)
-                    {
+                } else {
+                    if ((res.size() - i) >= 2) {
                         pre = next;
                         next = rs.get(i + 1);
-                    }
-                    else
-                    {
+                    } else {
                         break;
                     }
                 }
@@ -529,30 +468,25 @@ public class MixtureTextView extends RelativeLayout
     }
 
 
-    public int sp2px(int spVal)
-    {
+    public int sp2px(int spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spVal, getResources().getDisplayMetrics());
     }
 
-    public int dp2px(int dpVal)
-    {
+    public int dp2px(int dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, getResources().getDisplayMetrics());
 
     }
 
 
-    public int getTextSize()
-    {
+    public int getTextSize() {
         return mTextSize;
     }
 
-    public int getTextColor()
-    {
+    public int getTextColor() {
         return mTextColor;
     }
 
-    public String getText()
-    {
+    public String getText() {
         return mText;
     }
 

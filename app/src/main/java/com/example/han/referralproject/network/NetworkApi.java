@@ -61,7 +61,7 @@ import java.util.Map;
 public class NetworkApi {
     //TODO:IP地址统一到根目录的config.gradle中进行配置
     public static final String BasicUrl = BuildConfig.SERVER_ADDRESS;
-    //获取个人相关信息
+    //获取个人详细信息
     public static final String Get_PersonInfo=BasicUrl+"/ZZB/br/selOneUserEverything";
     //生活疗法
     public static final String Life_Therapy = BasicUrl + "/ZZB/api/healthMonitor/report/lifeTherapy/";

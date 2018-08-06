@@ -77,19 +77,6 @@ public class Weight_Bodivis_PresenterImp extends BaseBluetoothPresenter {
     }
 
 
-    @Override
-    protected void disConnected() {
-        super.disConnected();
-        Logg.e(Weight_Bodivis_PresenterImp.class, "disConnected: ");
-        if (baseView instanceof Activity) {
-            baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
-        } else if (baseView instanceof Fragment) {
-            if (((Fragment) baseView).isAdded()) {
-                baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
-            }
-        }
-    }
-
     private float parseWeight(byte[] srcData) {
         if (srcData == null || srcData.length < 5) {
             return 0;

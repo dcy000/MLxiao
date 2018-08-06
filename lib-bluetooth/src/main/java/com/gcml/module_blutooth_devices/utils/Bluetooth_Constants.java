@@ -3,7 +3,7 @@ package com.gcml.module_blutooth_devices.utils;
 public class Bluetooth_Constants {
     public interface SP {
         /**
-         * 保存sp中血氧蓝牙、血压蓝牙、血糖蓝牙、心电蓝牙、指纹蓝牙、耳温蓝牙和体重蓝牙key
+         * 保存sp中血氧蓝牙、血压蓝牙、血糖蓝牙、心电蓝牙、指纹蓝牙、耳温蓝牙、体重、三合一蓝牙key
          */
         String SP_SAVE_BLOODOXYGEN = "sp_save_bloodoxygen";
         String SP_SAVE_BLOODPRESSURE = "sp_save_bloodpressure";
@@ -12,6 +12,7 @@ public class Bluetooth_Constants {
         String SP_SAVE_FINGERPRINT = "sp_save_fingerprint";
         String SP_SAVE_TEMPERATURE = "sp_save_temperature";
         String SP_SAVE_WEIGHT = "sp_save_weight";
+        String SP_SAVE_THREE_IN_ONE="sp_save_three_in_one";
     }
     public interface BoSheng{
         //app id

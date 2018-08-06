@@ -40,7 +40,6 @@ public class MyUtil {
 		try {
 			file.createNewFile();//���ļ����д����ļ�
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
  		
@@ -63,7 +62,6 @@ public class MyUtil {
 			fos.write(buffer, 0, index);
 			fos.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			try {
@@ -72,7 +70,6 @@ public class MyUtil {
 				}
 				fos = null;
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -106,10 +103,8 @@ public class MyUtil {
 			
 			return datas;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

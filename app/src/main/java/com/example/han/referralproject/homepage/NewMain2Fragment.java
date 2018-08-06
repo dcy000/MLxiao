@@ -25,7 +25,7 @@ import com.ml.edu.OldRouter;
  * version:V1.2.5
  * created on 2018/7/29 17:24
  * created by:gzq
- * description:TODO
+ * description:主页第2页
  */
 public class NewMain2Fragment extends BaseFragment implements View.OnClickListener {
     private EclipseImageView mIvPersonCenter;

@@ -134,18 +134,4 @@ public class Bloodpressure_Chaosi_PresenterImp extends BaseBluetoothPresenter {
         }
 
     }
-
-    @SuppressLint("LongLogTag")
-    @Override
-    protected void disConnected() {
-        if (baseView instanceof Activity) {
-            baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
-        } else if (baseView instanceof Fragment) {
-            if (((Fragment) baseView).isAdded()) {
-                baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
-            }
-        }
-        super.disConnected();
-        Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "disConnected: ");
-    }
 }

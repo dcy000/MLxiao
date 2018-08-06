@@ -74,16 +74,4 @@ public class Bloodpressure_Self_PresenterImp extends BaseBluetoothPresenter {
                     });
         }
     }
-
-    @Override
-    protected void disConnected() {
-        if (baseView instanceof Activity) {
-            baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
-        } else if (baseView instanceof Fragment) {
-            if (((Fragment) baseView).isAdded()) {
-                baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
-            }
-        }
-        super.disConnected();
-    }
 }
