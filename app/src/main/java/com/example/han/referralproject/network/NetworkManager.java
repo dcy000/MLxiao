@@ -133,7 +133,7 @@ public class NetworkManager {
 //        if (!TextUtils.isEmpty(CustomApplication.getInstance().userToken)){
 //            builder.addHeader("token", CustomApplication.getInstance().userToken);
 //        }
-        Request request = builder.header("eqid", Utils.getDeviceId()).build();
+        Request request = builder.header("equipmentId", Utils.getDeviceId()).build();
         if (request != null) {
             client.newCall(request).enqueue(responseCallback);
         }

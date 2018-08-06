@@ -824,6 +824,7 @@ public class NetworkApi {
         String userId = LocalShared.getInstance(context).getUserId();
         OkGo.<String>get(GET_MY_BASE_DATA)
                 .tag(context)
+                .headers("equipmentId",Utils.getDeviceId())
                 .params("bid", userId)
                 .execute(callback);
 
@@ -1298,6 +1299,7 @@ public class NetworkApi {
     public static void getFiledIsOrNot(Context context, String url, String userId, StringCallback stringCallback) {
         OkGo.<String>get(url)
                 .tag(context)
+                .headers("equipmentId",Utils.getDeviceId())
                 .params("userId", userId)
                 .execute(stringCallback);
     }
@@ -1309,7 +1311,7 @@ public class NetworkApi {
     public static String TCM_HEALTH_MANAGER_FOR_OLDER = BasicUrl + "/ZZB/api/health/inquiry/constitution/questionnaire/";
 
     public static void getHealthManagementForOlder(StringCallback stringCallback) {
-        OkGo.<String>get(TCM_HEALTH_MANAGER_FOR_OLDER).execute(stringCallback);
+        OkGo.<String>get(TCM_HEALTH_MANAGER_FOR_OLDER).headers("equipmentId", Utils.getDeviceId()).execute(stringCallback);
     }
 
     /**
@@ -1318,9 +1320,10 @@ public class NetworkApi {
     public static String POST_HEALTH_MANAGEMENT_ANWSER_URL = BasicUrl + "/ZZB/api/health/inquiry/constitution/questionnaire/";
 
     public static void postHealthManagementAnwser(String anwserJson, StringCallback callback) {
-        OkGo.<String>post(POST_HEALTH_MANAGEMENT_ANWSER_URL).
-                upJson(anwserJson).
-                execute(callback);
+        OkGo.<String>post(POST_HEALTH_MANAGEMENT_ANWSER_URL)
+                .headers("equipmentId", Utils.getDeviceId())
+                .upJson(anwserJson)
+                .execute(callback);
     }
 
     public static void register(String registeRrealName,
@@ -1350,6 +1353,7 @@ public class NetworkApi {
 
     public static void getUseredQualification(String userId, String examinationType, StringCallback callback) {
         OkGo.<String>get(USER_QUALIFICATION_URL + userId + "/")
+                .headers("equipmentId", Utils.getDeviceId())
                 .params("examinationType", examinationType)
                 .execute(callback);
     }
@@ -1359,6 +1363,7 @@ public class NetworkApi {
 
     public static void getUserXunFeiInfo(String userId, StringCallback callback) {
         OkGo.<String>get(USER_XUN_FEI_URL + userId + "/")
+                .headers("equipmentId", Utils.getDeviceId())
                 .params("userId", userId)
                 .params("equipmentId", Utils.getDeviceId())
                 .execute(callback);
@@ -1366,12 +1371,14 @@ public class NetworkApi {
 
     public static void putUserXunFeiInfo(String userId, String jsonString, StringCallback callback) {
         OkGo.<String>put(USER_XUN_FEI_URL + userId + "/")
+                .headers("equipmentId", Utils.getDeviceId())
                 .upJson(jsonString)
                 .execute(callback);
     }
 
     public static void deleteUserXunFeiInfo(String userId, StringCallback callback) {
         OkGo.<String>delete(USER_XUN_FEI_URL + userId + "/")
+                .headers("equipmentId", Utils.getDeviceId())
                 .params("userId", userId)
                 .execute(callback);
     }
@@ -1380,6 +1387,7 @@ public class NetworkApi {
 
     public static void getEquipmentXunFeiInfo(String equipmentId, StringCallback callback) {
         OkGo.<String>get(EQIPMENT_ID_XUN_FEI_URL + equipmentId + "/")
+                .headers("equipmentId", Utils.getDeviceId())
                 .params("equipmentId", equipmentId)
                 .execute(callback);
     }
@@ -1391,6 +1399,7 @@ public class NetworkApi {
 
     public static void Query3Account(String account, String passWord, StringCallback callback) {
         OkGo.<String>post(QUERY_3_ACCOUNT)
+                .headers("equipmentId", Utils.getDeviceId())
                 .params("userName", account)
                 .params("password", passWord)
                 .execute(callback);
@@ -1398,6 +1407,7 @@ public class NetworkApi {
 
     public static void Post3Account(String eqid, String jsonData, StringCallback callback) {
         OkGo.<String>post(QUERY_3_ACCOUNT + eqid + "/")
+                .headers("equipmentId", Utils.getDeviceId())
                 .upJson(jsonData)
                 .execute(callback);
     }
@@ -1407,6 +1417,7 @@ public class NetworkApi {
      */
     public static void getBindAccountInfo(String eqid, StringCallback callback) {
         OkGo.<String>get(QUERY_3_ACCOUNT + eqid + "/")
+                .headers("equipmentId", Utils.getDeviceId())
                 .params("equipmentId", eqid)
                 .execute(callback);
     }
