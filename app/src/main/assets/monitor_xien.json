@@ -78,7 +78,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您吃(喝)凉的东西会感到不舒适或许怕吃(喝)凉东西吗?",
+    "requesionTitle": "您吃(喝)凉的东西会感到不舒适或怕吃(喝)凉的东西吗?",
     "requestionType": "阳虚质",
     "itemCount": 7,
     "score": 0
@@ -92,7 +92,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您有因时节变化,温度变化或异味等缘由而咳喘的景象吗?",
+    "requesionTitle": "您有因季节变化,温度变化或异味等原因而咳嗽的现象吗?",
     "requestionType": "特禀质",
     "itemCount": 7,
     "score": 0
@@ -135,7 +135,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您大便黏滞不爽,有解不尽的觉得吗?",
+    "requesionTitle": "您大便黏滞不爽,有解不尽的感觉吗?",
     "requestionType": "湿热质",
     "itemCount": 7,
     "score": 0
@@ -221,7 +221,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您精神充分吗?",
+    "requesionTitle": "您精力充沛吗?",
     "requestionType": "平和质",
     "itemCount": 8,
     "score": 0
@@ -518,7 +518,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您面部两潮红或偏红吗?",
+    "requesionTitle": "您面部两颧潮红或偏红吗?",
     "requestionType": "阴虚质",
     "itemCount": 8,
     "score": 0
@@ -546,7 +546,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您容易肉体紧张、焦虑不安吗？",
+    "requesionTitle": "您容易精神紧张、焦虑不安吗？",
     "requestionType": "气郁质",
     "itemCount": 8,
     "score": 0
@@ -588,7 +588,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您感身体不轻松或不直爽?",
+    "requesionTitle": "您感到身体不轻松或不直爽吗?",
     "requestionType": "痰湿质",
     "itemCount": 8,
     "score": 0
@@ -602,7 +602,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您有额部油脂分泌多景象吗?",
+    "requesionTitle": "您有额部油脂分泌多的现象吗?",
     "requestionType": "痰湿质",
     "itemCount": 8,
     "score": 0
@@ -616,7 +616,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您上眼睑比他人肿(仍细微隆起的景象)吗?",
+    "requesionTitle": "您上眼睑比他人肿吗?",
     "requestionType": "痰湿质",
     "itemCount": 8,
     "score": 0
@@ -630,7 +630,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您嘴里有黏黏的觉得吗?",
+    "requesionTitle": "您嘴里有黏黏的感觉吗?",
     "requestionType": "痰湿质",
     "itemCount": 8,
     "score": 0
@@ -658,7 +658,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您舌苔厚腻或有舌苔厚厚的觉得吗?",
+    "requesionTitle": "您舌苔厚腻或有舌苔厚厚的感觉吗?",
     "requestionType": "痰湿质",
     "itemCount": 8,
     "score": 0
@@ -672,7 +672,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您面部或鼻部有清淡感或许油亮发光吗?",
+    "requesionTitle": "您面部或鼻部有清淡感或油亮发光吗?",
     "requestionType": "湿热质",
     "itemCount": 7,
     "score": 0
@@ -757,7 +757,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您胁肋部或乳房腹痛吗?",
+    "requesionTitle": "您胁肋部或乳房胀痛吗?",
     "requestionType": "气郁质",
     "itemCount": 7,
     "score": 0
@@ -828,7 +828,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您事出有因叹息吗?",
+    "requesionTitle": "您无缘无故叹息吗?",
     "requestionType": "气郁质",
     "itemCount": 7,
     "score": 0
@@ -842,7 +842,7 @@
       "E": "总是"
     },
     "isSelected": false,
-    "requesionTitle": "您口唇颜色偏黯吗?",
+    "requesionTitle": "您口唇颜色偏暗吗?",
     "requestionType": "血瘀质",
     "itemCount": 7,
     "score": 0

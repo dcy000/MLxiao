@@ -70,7 +70,7 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         sex = SexEnum.woman;
-                        data.remove(7);
+                        data.remove(12);
                         if (data != null)
                             count = data.size();
                         initView();
@@ -82,7 +82,7 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         sex = SexEnum.man;
-                        data.remove(12);
+                        data.remove(7);
                         if (data != null)
                             count = data.size();
                         initView();
