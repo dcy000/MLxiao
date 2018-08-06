@@ -1,6 +1,5 @@
 package com.example.han.referralproject.application;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -23,8 +22,6 @@ import com.gcml.lib_utils.ui.UiUtils;
 import com.gcml.lib_video_ksyplayer.KSYPlayer;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gzq.administrator.lib_common.base.BaseApplication;
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechUtility;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;
@@ -123,7 +120,7 @@ public class MyApplication extends BaseApplication {
         UiUtils.compatWithOrientation(newConfig);
         String curProcessName = ProcessUtils.getCurProcessName(this);
         if (!TextUtils.isEmpty(curProcessName)) {
-            if (curProcessName.equals("com.example.han.referralproject:pushcore")) {
+            if (curProcessName.equals(getPackageName())) {
                 //启动音量控制悬浮按钮
                 VolumeControlFloatwindow.init(this.getApplicationContext());
             }

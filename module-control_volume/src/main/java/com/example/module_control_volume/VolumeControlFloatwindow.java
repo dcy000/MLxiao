@@ -120,7 +120,7 @@ public class VolumeControlFloatwindow {
                         public void onClick(View v) {
                             Intent intent = new Intent();
                             intent.setClassName("com.ludashi.benchmarkhd", "com.ludashi.benchmarkhd.MainActivity");
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             v.getContext().startActivity(intent);
                         }
                     });
@@ -132,6 +132,7 @@ public class VolumeControlFloatwindow {
                         public void onClick(View v) {
                             Intent intent = new Intent();
                             intent.setClassName("com.example.han.referralproject", "com.example.han.referralproject.WelcomeActivity");
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             v.getContext().startActivity(intent);
                         }
                     });

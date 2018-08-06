@@ -251,8 +251,8 @@ public class StatusBarFragment extends Fragment implements
     };
 
     @Override
-    public void showStateBar(boolean isshow) {
-        if (isshow){
+    public void showStateBar(boolean show) {
+        if (show){
             tvTime.setVisibility(View.VISIBLE);
         }else{
             tvTime.setVisibility(View.INVISIBLE);
