@@ -824,7 +824,7 @@ public class NetworkApi {
         String userId = LocalShared.getInstance(context).getUserId();
         OkGo.<String>get(GET_MY_BASE_DATA)
                 .tag(context)
-                .headers("equipmentId",Utils.getDeviceId())
+                .headers("equipmentId", Utils.getDeviceId())
                 .params("bid", userId)
                 .execute(callback);
 
@@ -1299,7 +1299,7 @@ public class NetworkApi {
     public static void getFiledIsOrNot(Context context, String url, String userId, StringCallback stringCallback) {
         OkGo.<String>get(url)
                 .tag(context)
-                .headers("equipmentId",Utils.getDeviceId())
+                .headers("equipmentId", Utils.getDeviceId())
                 .params("userId", userId)
                 .execute(stringCallback);
     }
@@ -1422,5 +1422,16 @@ public class NetworkApi {
                 .execute(callback);
     }
 
+
+    public static final String LOGIN_BY_XUNFEI_URL = BasicUrl + "/ZZB/login/xunfei";
+
+    public static void loginByXunFei(String xfId, String groupId, StringCallback callback) {
+        OkGo.<String>post(LOGIN_BY_XUNFEI_URL)
+                .headers("equipmentId", Utils.getDeviceId())
+                .params("equipmentId", Utils.getDeviceId())
+                .params("xunfeiId", xfId)
+                .params("groupId", groupId)
+                .execute(callback);
+    }
 
 }

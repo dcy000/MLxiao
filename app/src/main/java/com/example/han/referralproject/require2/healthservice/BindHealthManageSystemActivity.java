@@ -65,7 +65,7 @@ public class BindHealthManageSystemActivity extends BaseActivity implements Acou
             }
         });
 
-        ccetPhone.setTextSize(34);
+        ccetPhone.setTextSize(30);
 
         etPassWord.addTextChangedListener(new TextWatcher() {
             @Override

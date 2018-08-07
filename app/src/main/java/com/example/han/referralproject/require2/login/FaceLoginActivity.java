@@ -45,6 +45,7 @@ import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
+import com.example.han.referralproject.yiyuan.bean.PersonInfoResultBean;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
@@ -177,7 +178,7 @@ public class FaceLoginActivity extends BaseActivity {
         }
 
         //"4125405030"
-        private void FaceRecognition(String groupId) {
+        private void FaceRecognition(final String groupId) {
             FaceAuthenticationUtils.getInstance(weakReference.get()).verificationFace(mImageData, groupId);
             FaceAuthenticationUtils.getInstance(weakReference.get()).setOnVertifyFaceListener(new VertifyFaceListener() {
                 @Override
@@ -197,7 +198,7 @@ public class FaceLoginActivity extends BaseActivity {
                             final double firstScore = scoreList.getJSONObject(0).optDouble("score");
                             if (firstScore > 80) {
                                 if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
-                                    authenticationSuccessForTest$Welcome(scoreFirstXfid);
+                                    authenticationSuccessForTest$Welcome(scoreFirstXfid, groupId);
                                 } else if ("Pay".equals(fromString)) {
                                     if (mAuthid.equals(scoreFirstXfid) && !isOnPause) {
                                         paySuccess();
@@ -269,13 +270,37 @@ public class FaceLoginActivity extends BaseActivity {
      *
      * @param scoreFirstXfid
      */
-    private void authenticationSuccessForTest$Welcome(String scoreFirstXfid) {
+    private void authenticationSuccessForTest$Welcome(String scoreFirstXfid, String groupId) {
         String[] split = scoreFirstXfid.split("_");
         LocalShared.getInstance(this).setUserId(split[1]);
         MyApplication.getInstance().userId = split[1];
         new JpushAliasUtils(this).setAlias("user_" + split[1]);
-        startActivity(new Intent(this, InquiryAndFileActivity.class));
-        finish();
+
+        NetworkApi.loginByXunFei(scoreFirstXfid, groupId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    if (response != null) {
+                        Gson gson = new Gson();
+                        PersonInfoResultBean bean = gson.fromJson(response.body(), PersonInfoResultBean.class);
+                        if (bean != null) {
+                            if (bean.tag) {
+                                startActivity(new Intent(FaceLoginActivity.this, InquiryAndFileActivity.class));
+                                finish();
+                            } else {
+                                T.show("网络繁忙请稍后重试");
+                            }
+
+                        }
+                    }
+
+                } catch (Exception e) {
+
+                }
+
+            }
+        });
+
     }
 
     /**
