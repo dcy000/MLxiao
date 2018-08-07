@@ -5,7 +5,7 @@ import com.gcml.common.repository.entity.SongEntity;
 import com.gcml.common.repository.local.SheetDao;
 import com.gcml.common.repository.local.SheetDb;
 import com.gcml.common.repository.remote.MusicService;
-import com.gcml.common.repository.utils.RxResultUtils;
+import com.gcml.common.utils.RxUtils;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -25,7 +25,7 @@ public class MusicRepository {
             int page,
             int limit) {
         return mMusicService.sheets(name, page, limit)
-                .compose(RxResultUtils.<List<SheetEntity>>apiResultTransformer());
+                .compose(RxUtils.<List<SheetEntity>>apiResultTransformer());
     }
 
     public Observable<List<SongEntity>> songListFromApi(
@@ -33,7 +33,7 @@ public class MusicRepository {
             int page,
             int limit) {
         return mRepositoryHelper.retrofitService(MusicService.class).songs(3, "", sheetId, page, limit)
-                .compose(RxResultUtils.<List<SongEntity>>apiResultTransformer());
+                .compose(RxUtils.<List<SongEntity>>apiResultTransformer());
     }
 
     public Observable<List<SheetEntity>> sheetListFromApiAndSaveDb(
@@ -41,7 +41,7 @@ public class MusicRepository {
             int page,
             int limit) {
         return mMusicService.sheets(name, page, limit)
-                .compose(RxResultUtils.<List<SheetEntity>>apiResultTransformer())
+                .compose(RxUtils.<List<SheetEntity>>apiResultTransformer())
                 .doOnNext(new Consumer<List<SheetEntity>>() {
                     @Override
                     public void accept(List<SheetEntity> sheetEntities) throws Exception {

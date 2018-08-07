@@ -73,6 +73,9 @@ dependencies {
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["constraint-layout"]
 
+//    implementation rootProject.ext.dependencies["autodispose"]
+//    implementation rootProject.ext.dependencies["autodispose-arch"]
+
     implementation rootProject.ext.dependencies["rxjava2"]
     implementation rootProject.ext.dependencies["rxandroid2"]
 
