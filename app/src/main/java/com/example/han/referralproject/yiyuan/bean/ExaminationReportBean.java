@@ -81,6 +81,10 @@ public class ExaminationReportBean implements Serializable {
         public String watchState;
         public String doctorAdvice;
 
+        public String sportTime;
+        public String sportWeekTimes;
+
+
         public static class LeftHypertensionBean {
             /**
              * highPressure : 0

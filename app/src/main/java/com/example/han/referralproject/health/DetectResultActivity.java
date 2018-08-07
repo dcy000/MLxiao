@@ -291,7 +291,7 @@ public class DetectResultActivity extends BaseActivity {
         //糖尿病症状
 
         //运动情况 三种都有
-        detectTvResultHealthRunTimeInfo.setText(data.sportFrequency + "次/周," + data.sportCost + "分钟/次");
+        detectTvResultHealthRunTimeInfo.setText(data.sportWeekTimes + "次/周," + data.sportTime + "分钟/次");
         //食盐摄入量
         if (data.saltIntake == null) {
             llHealthSalt.setVisibility(View.GONE);
