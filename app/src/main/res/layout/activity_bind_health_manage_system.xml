@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="59pt"
         android:layout_marginTop="100pt"
-        android:text="身份证号码注册"
+        android:text="绑定公共卫生服务管理 V3.0账号"
         android:textColor="#ff333333"
         android:textSize="64pt"
         app:layout_constraintStart_toStartOf="parent"

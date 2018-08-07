@@ -47,6 +47,7 @@ public class BindHealthManageSystemActivity extends BaseActivity implements Acou
         ButterKnife.bind(this);
         initTitle();
         initView();
+        mlSpeak("请绑定公共卫生服务管理V3.0账号");
     }
 
     private void initView() {
@@ -65,7 +66,7 @@ public class BindHealthManageSystemActivity extends BaseActivity implements Acou
             }
         });
 
-        ccetPhone.setTextSize(30);
+        ccetPhone.setTextSize(28);
 
         etPassWord.addTextChangedListener(new TextWatcher() {
             @Override
