@@ -50,6 +50,7 @@ public class CodeActivity extends BaseActivity {
         ButterKnife.bind(this);
         intTitle();
         initView();
+        sendCode();
         ActivityHelper.addActivity(this);
     }
 
@@ -104,7 +105,6 @@ public class CodeActivity extends BaseActivity {
         }
         if (phoneCode.equals(code)) {
             login();
-
         }
     }
 
@@ -133,22 +133,6 @@ public class CodeActivity extends BaseActivity {
     }
 
     private void sendCode() {
-        tvSendCode.setSelected(false);
-        Handlers.ui().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                count--;
-                if (count <= 0) {
-                    tvSendCode.setSelected(true);
-                    tvSendCode.setText("发送验证码");
-                    count = 60;
-                    return;
-                }
-                tvSendCode.setText(count + "秒重发");
-                Handlers.ui().postDelayed(this, 1000);
-            }
-        }, 1000);
-
         //请求验证码
         showLoadingDialog("");
         NetworkApi.getCode(phoneNumber, new NetworkManager.SuccessCallback<String>() {
@@ -161,6 +145,7 @@ public class CodeActivity extends BaseActivity {
                     String code = codeObj.getString("code");
                     CodeActivity.this.code = code;
                     if (code != null) {
+                        updateCountDownUi();
                         T.show("获取验证码成功");
                         mlSpeak("获取验证码成功");
                     }
@@ -180,6 +165,24 @@ public class CodeActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void updateCountDownUi() {
+        tvSendCode.setSelected(false);
+        Handlers.ui().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                count--;
+                if (count <= 0) {
+                    tvSendCode.setSelected(true);
+                    tvSendCode.setText("发送验证码");
+                    count = 60;
+                    return;
+                }
+                tvSendCode.setText(count + "秒重发");
+                Handlers.ui().postDelayed(this, 1000);
+            }
+        }, 1000);
     }
 
     private int count = 60;

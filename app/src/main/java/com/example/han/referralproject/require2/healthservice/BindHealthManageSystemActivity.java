@@ -66,7 +66,7 @@ public class BindHealthManageSystemActivity extends BaseActivity implements Acou
             }
         });
 
-        ccetPhone.setTextSize(28);
+        ccetPhone.setTextSize(29);
 
         etPassWord.addTextChangedListener(new TextWatcher() {
             @Override
@@ -133,6 +133,8 @@ public class BindHealthManageSystemActivity extends BaseActivity implements Acou
                                         }
 
                                     }
+                                }else {
+                                    T.show("账号密码有误");
                                 }
                             }
                         } catch (Exception e) {

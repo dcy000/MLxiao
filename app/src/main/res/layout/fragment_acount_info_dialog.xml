@@ -31,7 +31,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20pt"
-            android:text="张辉："
             android:textColor="#ff333333"
             android:textSize="64pt"
             app:layout_constraintLeft_toRightOf="@+id/operatot"
@@ -51,11 +50,10 @@
 
         <TextView
             android:id="@+id/tv_orgnization_info"
-            android:layout_width="wrap_content"
+            android:layout_width="760pt"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20pt"
             android:layout_marginRight="60pt"
-            android:text="张辉："
             android:textColor="#ff333333"
             android:textSize="64pt"
             app:layout_constraintLeft_toRightOf="@+id/tv_name"
