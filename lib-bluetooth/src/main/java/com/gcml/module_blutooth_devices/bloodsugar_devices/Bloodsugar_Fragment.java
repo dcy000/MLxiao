@@ -24,6 +24,7 @@ public class Bloodsugar_Fragment extends BluetoothBaseFragment implements IView,
     private IPresenter bluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
     private Bundle bundle;
+
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_bloodsugar;
@@ -36,7 +37,7 @@ public class Bloodsugar_Fragment extends BluetoothBaseFragment implements IView,
         mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
         mTvResult = (TextView) view.findViewById(R.id.tv_result);
-        this.bundle=bundle;
+        this.bundle = bundle;
 
     }
 
@@ -47,27 +48,25 @@ public class Bloodsugar_Fragment extends BluetoothBaseFragment implements IView,
     }
 
     public void dealLogic() {
-        String address;
-        String brand;
+        String address = null;
+        String brand = null;
+        String sp_bloodsugar = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
+        if (!TextUtils.isEmpty(sp_bloodsugar)) {
+            String[] split = sp_bloodsugar.split(",");
+            if (split.length == 2) {
+                brand = split[0];
+                address = split[1];
+                chooseConnectType(address, brand);
+                return;
+            }
+        }
         if (bundle != null) {
             address = bundle.getString(IPresenter.DEVICE_BLUETOOTH_ADDRESS);
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
-        } else {
-            String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
-            if (TextUtils.isEmpty(sp_bloodoxygen)) {
-                helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_SUGAR);
-                helper.start();
-            } else {
-                String[] split = sp_bloodoxygen.split(",");
-                if (split.length == 2) {
-                    brand = split[0];
-                    address = split[1];
-                    chooseConnectType(address, brand);
-                }
-
-            }
+            return;
         }
+        chooseConnectType(address, brand);
     }
 
     private void chooseConnectType(String address, String brand) {
@@ -85,8 +84,8 @@ public class Bloodsugar_Fragment extends BluetoothBaseFragment implements IView,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BDE_WEIXIN_TTM"));
                     break;
                 case "Bioland-BGM":
-                    bluetoothPresenter=new Bloodsugar_Self_PresenterImp(this,
-                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC,address,"Bioland-BGM"));
+                    bluetoothPresenter = new Bloodsugar_Self_PresenterImp(this,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Bioland-BGM"));
                     break;
             }
         }

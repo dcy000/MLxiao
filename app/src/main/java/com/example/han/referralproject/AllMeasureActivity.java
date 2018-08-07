@@ -21,10 +21,12 @@ import com.example.han.referralproject.measure.single.SingleMeasureWeightFragmen
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.data.DataUtils;
 import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.lib_utils.data.TimeCountDownUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.ui.dialog.DialogImage;
 import com.gcml.lib_utils.qrcode.QRCodeUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
@@ -218,9 +220,26 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
             });
         }
     }
+    private boolean canClickRefresh=true;
+    private final TimeCountDownUtils.TimeCountListener timeCountListener=new TimeCountDownUtils.TimeCountListener() {
+        @Override
+        public void onTick(long millisUntilFinished, String tag) {
 
+        }
+
+        @Override
+        public void onFinish(String tag) {
+            canClickRefresh=false;
+        }
+    };
     @Override
     protected void backMainActivity() {
+        if (!canClickRefresh){
+            ToastUtils.showShort("您点击的太快了");
+            return;
+        }
+        TimeCountDownUtils.getInstance().create(5000,1000,timeCountListener);
+        TimeCountDownUtils.getInstance().start();
         if (isMeasure) {
             switch (measure_type) {
                 case IPresenter.MEASURE_TEMPERATURE://体温测量
@@ -275,6 +294,7 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
     protected void onDestroy() {
         super.onDestroy();
         baseFragment = null;
+        TimeCountDownUtils.getInstance().cancelAll();
     }
 
     @Override

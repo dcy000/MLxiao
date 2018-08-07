@@ -21,6 +21,7 @@ import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_KN55
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Self_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_GlucWell_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Sannuo_PresenterImp;
+import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Self_PresenterImp;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_BoSheng_PresenterImp;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Chaosi_PresenterImp;
 import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerprint_WeiEr_PresenterImp;
@@ -128,7 +129,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         }
         final SearchRequest searchRequest = new SearchRequest.Builder()
                 .searchBluetoothClassicDevice(3000, 1)
-                .searchBluetoothLeDevice(10000, 1)
+                .searchBluetoothLeDevice(20000, 1)
                 .build();
         BluetoothClientManager.getClient().search(searchRequest, new SearchResponse() {
             @Override
@@ -207,7 +208,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
             case IPresenter.MEASURE_BLOOD_SUGAR:
                 switch (brand) {
                     case "Bioland-BGM":
-                        baseBluetoothPresenter = new ThreeInOne_Self_PresenterImp(view,
+                        baseBluetoothPresenter = new Bloodsugar_Self_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Bioland-BGM"));
                         break;
                     case "BLE-Glucowell":

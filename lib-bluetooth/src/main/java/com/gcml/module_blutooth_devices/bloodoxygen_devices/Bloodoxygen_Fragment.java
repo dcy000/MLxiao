@@ -48,27 +48,26 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
     }
 
     public void dealLogic() {
-        String address;
-        String brand;
+        String address = null;
+        String brand = null;
+        String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, "");
+        if (!TextUtils.isEmpty(sp_bloodoxygen)) {
+            String[] split = sp_bloodoxygen.split(",");
+            if (split.length == 2) {
+                brand = split[0];
+                address = split[1];
+                chooseConnectType(address, brand);
+                return;
+            }
+        }
         if (bundle != null) {
             address = bundle.getString(IPresenter.DEVICE_BLUETOOTH_ADDRESS);
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
-        } else {
-            String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, "");
-            if (TextUtils.isEmpty(sp_bloodoxygen)) {
-                helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_OXYGEN);
-                helper.start();
-            } else {
-                String[] split = sp_bloodoxygen.split(",");
-                if (split.length == 2) {
-                    brand = split[0];
-                    address = split[1];
-                    chooseConnectType(address, brand);
-                }
-
-            }
+            return;
         }
+        chooseConnectType(address, brand);
+
     }
 
     private void chooseConnectType(String address, String brand) {

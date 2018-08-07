@@ -28,6 +28,7 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
     private BaseBluetoothPresenter bluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
     private Bundle bundle;
+
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_weight;
@@ -42,7 +43,7 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
         mBtnVideoDemo.setOnClickListener(this);
         mTvTizhong = (TextView) view.findViewById(R.id.tv_tizhong);
         mTvTizhi = (TextView) view.findViewById(R.id.tv_tizhi);
-        this.bundle=bundle;
+        this.bundle = bundle;
 
     }
 
@@ -53,27 +54,25 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
     }
 
     public void dealLogic() {
-        String address;
-        String brand;
-        if (bundle != null) {//该处是为测试使用的
+        String address = null;
+        String brand = null;
+        String sp_weight = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
+        if (!TextUtils.isEmpty(sp_weight)) {
+            String[] split = sp_weight.split(",");
+            if (split.length == 2) {
+                brand = split[0];
+                address = split[1];
+                chooseConnectType(address, brand);
+                return;
+            }
+        }
+        if (bundle != null) {
             address = bundle.getString(IPresenter.DEVICE_BLUETOOTH_ADDRESS);
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
-        } else {
-            String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, null);
-            if (TextUtils.isEmpty(sp_bloodoxygen)) {
-                helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_WEIGHT);
-                helper.start();
-            } else {
-                String[] split = sp_bloodoxygen.split(",");
-                if (split.length == 2) {
-                    brand = split[0];
-                    address = split[1];
-                    chooseConnectType(address, brand);
-                }
-
-            }
+            return;
         }
+        chooseConnectType(address, brand);
     }
 
     private void chooseConnectType(String address, String brand) {
