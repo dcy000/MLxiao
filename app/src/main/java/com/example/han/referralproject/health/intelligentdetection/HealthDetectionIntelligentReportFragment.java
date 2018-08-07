@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
@@ -18,7 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
+import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionResult;
 import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -42,7 +45,7 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
     private RecyclerView rvReport;
     private Adapter mAdapter;
-    private HashMap<String, Object> mData;
+    private List<DetectionData> cacheDatas;
 
     public HealthDetectionIntelligentReportFragment() {
         // Required empty public constructor
@@ -51,9 +54,15 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FragmentManager fm = getFragmentManager();
-        mData = ((HashMap<String, Object>) DataFragment.get(fm).getData());
-        OkGo.<String>post(NetworkApi.DETECTION_RESULT)
+        cacheDatas = ((HealthIntelligentDetectionActivity) getActivity()).getCacheDatas();
+        if (cacheDatas.isEmpty()) {
+            ToastUtils.showShortOnTop("您还没有测量哦，快去测量哦！");
+            return;
+        }
+        String json = new Gson().toJson(cacheDatas);
+        cacheDatas.clear();
+        OkGo.<String>post(NetworkApi.DETECTION_RESULT + MyApplication.getInstance().userId + "/")
+                .upJson(json)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -77,6 +86,12 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
                         }
                         ToastUtils.showLong("服务器繁忙");
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        ToastUtils.showLong("服务器繁忙");
+                    }
                 });
     }
 
@@ -87,10 +102,12 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
             mAdapter.notifyDataSetChanged();
         }
     }
+
     @Override
     protected int initLayout() {
         return R.layout.health_fragment_detection_intelligent_report;
     }
+
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
         rvReport = ((RecyclerView) view.findViewById(R.id.rv_report));
@@ -107,7 +124,7 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
     {
         layoutIds.put(0, R.layout.health_report_item_blood_presssure);
         layoutIds.put(1, R.layout.health_report_item_blood_oxygen);
-        layoutIds.put(2, R.layout.health_report_item_ecg);
+        layoutIds.put(2, R.layout.health_report_item_blood_oxygen);
         layoutIds.put(3, R.layout.health_report_item_blood_oxygen); //R.layout.health_report_item_weight
         layoutIds.put(4, R.layout.health_report_item_blood_oxygen); //R.layout.health_report_item_tem);
         layoutIds.put(6, R.layout.health_report_item_blood_oxygen); //R.layout.health_report_item_blood_oxygen
@@ -159,8 +176,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         private String leftPressureFormat = "左手测量平均值：%s mmHg";
         private String rightPressureFormat = "右手测量平均值：%s mmHg";
-        private String leftPulseFormat = "左手测量平均值：%s mmHg";
-        private String rightPulseFormat = "右手测量平均值：%s mmHg";
+        private String leftPulseFormat = "脉搏：%s 次/分";
+        private String rightPulseFormat = "脉搏：%s 次/分";
 
         public BloodPressureVH(View itemView) {
             super(itemView);
@@ -178,7 +195,7 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         @Override
         public void onBind(int position) {
-            HealthBloodDetectionUiFragment.Data pressure = ((HealthBloodDetectionUiFragment.Data) mData.get("pressure"));
+            HealthBloodDetectionUiFragment.Data pressure = ((HealthIntelligentDetectionActivity) getActivity()).getBloodpressureCacheData();
             String leftPressure = pressure.leftHighPressure + "/" + pressure.leftLowPressure;
             String rightPressure = pressure.rightHighPressure + "/" + pressure.rightLowPressure;
             String leftPulse = String.valueOf(pressure.leftPulse);
@@ -196,9 +213,11 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
             tvResult.setText(detectionResult.getResult());
             String diagnose = detectionResult.getDiagnose();
             View decs = blockMiddle;
-            if (("偏低").contains(diagnose)) {
+            if (("偏低").equals(diagnose)) {
                 decs = blockLow;
-            } else if (("偏高").contains(diagnose)) {
+            } else if (("增高").equals(diagnose)
+                    || ("正常高值").equals(diagnose)
+                    || ("异常增高").equals(diagnose)) {
                 decs = blockHigh;
             }
             applyAnimation(
@@ -219,6 +238,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         private final View indicatorDiagnose;
         private ConstraintSet constraintSet = new ConstraintSet();
 
+        private String sugarFormt = "测量结果：%s mmol/L";
+
         public BloodSugarVH(View itemView) {
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
@@ -234,10 +255,12 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
             DetectionResult detectionResult = mResults.get(position);
             tvTitle.setText("血糖");
             String diagnose = detectionResult.getDiagnose();
+            tvValue.setText(String.format(sugarFormt, detectionResult.getData().getBloodSugar()));
             View decs = blockMiddle;
-            if (("偏低").contains(diagnose)) {
+            if (("低血糖").equals(diagnose)) {
                 decs = blockLow;
-            } else if (("偏高").contains(diagnose)) {
+            } else if (("糖调节受损").equals(diagnose)
+                    || "血糖增高".equals(diagnose)) {
                 decs = blockHigh;
             }
             applyAnimation(
@@ -258,6 +281,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         private final View indicatorDiagnose;
         private ConstraintSet constraintSet = new ConstraintSet();
 
+        private String sugarFormt = "测量结果：%s";
+
         public EegVH(View itemView) {
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
@@ -273,10 +298,11 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
             tvTitle.setText("心电");
             DetectionResult detectionResult = mResults.get(position);
             String diagnose = detectionResult.getDiagnose();
+            tvValue.setText(String.format(sugarFormt, diagnose));
             View decs = blockMiddle;
-            if (("偏低").contains(diagnose)) {
+            if (("异常").contains(diagnose)) {
                 decs = blockLow;
-            } else if (("偏高").contains(diagnose)) {
+            } else if (("异常").contains(diagnose)) {
                 decs = blockHigh;
             }
             applyAnimation(
@@ -297,6 +323,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         private final View indicatorDiagnose;
         private ConstraintSet constraintSet = new ConstraintSet();
 
+        private String sugarFormt = "测量结果：%s Kg";
+
         public WeightVH(View itemView) {
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
@@ -313,11 +341,12 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
             DetectionResult detectionResult = mResults.get(position);
             String diagnose = detectionResult.getDiagnose();
             View decs = blockMiddle;
-            if (("偏低").contains(diagnose)) {
+            if (("偏瘦").contains(diagnose)) {
                 decs = blockLow;
-            } else if (("偏高").contains(diagnose)) {
+            } else if (("偏胖").contains(diagnose)) {
                 decs = blockHigh;
             }
+            tvValue.setText(String.format(sugarFormt, mResults.get(position).getData().getWeight()));
             applyAnimation(
                     (ConstraintLayout) itemView,
                     constraintSet,
@@ -338,6 +367,7 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         private final View blockMiddle;
         private final View indicatordiagnose;
         private ConstraintSet constraintSet = new ConstraintSet();
+
 
         public TemVH(View itemView) {
             super(itemView);
@@ -378,6 +408,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         private final View indicatorDiagnose;
         private ConstraintSet constraintSet = new ConstraintSet();
 
+        private String sugarFormt = "测量结果：%s mmol/L";
+
         public BloodOxygenVH(View itemView) {
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
@@ -394,9 +426,9 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
             DetectionResult detectionResult = mResults.get(position);
             String diagnose = detectionResult.getDiagnose();
             View decs = blockMiddle;
-            if (("偏低").contains(diagnose)) {
+            if (!TextUtils.isEmpty(diagnose) && ("偏低").contains(diagnose)) {
                 decs = blockLow;
-            } else if (("偏高").contains(diagnose)) {
+            } else if (!TextUtils.isEmpty(diagnose) && ("偏高").contains(diagnose)) {
                 decs = blockHigh;
             }
             applyAnimation(
@@ -420,6 +452,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         private final View indicatorDiagnose;
         private ConstraintSet constraintSet = new ConstraintSet();
 
+        private String sugarFormt = "测量结果：%s mmol/L";
+
         public CholesterinVH(View itemView) {
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
@@ -435,10 +469,11 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
             tvTitle.setText("胆固醇");
             DetectionResult detectionResult = mResults.get(position);
             String diagnose = detectionResult.getDiagnose();
+            tvValue.setText(String.format(sugarFormt, detectionResult.getData().getCholesterol()));
             View decs = blockMiddle;
-            if (("偏低").contains(diagnose)) {
+            if (("偏低").equals(diagnose)) {
                 decs = blockLow;
-            } else if (("偏高").contains(diagnose)) {
+            } else if (("偏高").equals(diagnose)) {
                 decs = blockHigh;
             }
             applyAnimation(
@@ -462,6 +497,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         private final View indicatordiagnose;
         private ConstraintSet constraintSet = new ConstraintSet();
 
+        private String sugarFormt = "测量结果：%s mmol/L";
+
         public LithicAcidVH(View itemView) {
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
@@ -477,11 +514,12 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
             tvTitle.setText("血尿酸");
             DetectionResult detectionResult = mResults.get(position);
             String diagnose = detectionResult.getDiagnose();
+            tvValue.setText(String.format(sugarFormt, detectionResult.getData().getUricAcid()));
             View decs = blockMiddle;
-            if (("偏低").contains(diagnose)) {
-                decs = blockLow;
-            } else if (("偏高").contains(diagnose)) {
+            if (("增高").equals(diagnose)) {
                 decs = blockHigh;
+            } else if (("增高").contains(diagnose)) {
+                decs = blockLow;
             }
             applyAnimation(
                     (ConstraintLayout) itemView,
@@ -501,6 +539,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         private final View indicatorDiagnose;
         private ConstraintSet constraintSet = new ConstraintSet();
 
+        private String pulseFormat = "脉搏：%s 次/分";
+
         public PulseVH(View itemView) {
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
@@ -516,10 +556,11 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
             tvTitle.setText("脉搏");
             DetectionResult detectionResult = mResults.get(position);
             String diagnose = detectionResult.getDiagnose();
+            tvValue.setText(String.format(pulseFormat, detectionResult.getData().getPulse()));
             View decs = blockMiddle;
-            if (("偏低").contains(diagnose)) {
+            if (!TextUtils.isEmpty(diagnose) && ("偏低").contains(diagnose)) {
                 decs = blockLow;
-            } else if (("偏高").contains(diagnose)) {
+            } else if (!TextUtils.isEmpty(diagnose) && ("偏高").contains(diagnose)) {
                 decs = blockHigh;
             }
             applyAnimation(
@@ -554,8 +595,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
             View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
             Class<?> vhClass = vhs.get(viewType);
             try {
-                Constructor<?> constructor = vhClass.getConstructor(View.class);
-                return (VH) constructor.newInstance(view);
+                Constructor<?> constructor = vhClass.getConstructor(HealthDetectionIntelligentReportFragment.class, View.class);
+                return (VH) constructor.newInstance(HealthDetectionIntelligentReportFragment.this, view);
             } catch (Throwable e) {
                 e.printStackTrace();
                 throw new RuntimeException(e.getCause());

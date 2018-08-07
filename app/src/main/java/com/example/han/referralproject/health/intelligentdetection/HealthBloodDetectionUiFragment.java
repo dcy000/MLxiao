@@ -1,9 +1,6 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
 import android.support.annotation.IntDef;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.util.SparseIntArray;
 import android.view.View;
@@ -29,6 +26,7 @@ import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -37,6 +35,7 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     private String tips_first = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行<font color='#F56C6C'>2–3次</font>测量。请先左手测量！";
     private String tips_first_speak = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行2–3次测量。请先左手测量！";
     private boolean isJump2Next = false;
+    private boolean isMeasureOver = false;
 
     @Override
     public void onStart() {
@@ -66,7 +65,6 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     private final TimeCountDownUtils.TimeCountListener timeCountListener = new TimeCountDownUtils.TimeCountListener() {
         @Override
         public void onTick(long millisUntilFinished, String tag) {
-
         }
 
         @Override
@@ -74,6 +72,12 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
             dispatchNextDetectionStep();
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        notifyDetectionStepChanged(detectionStep);
+    }
 
     @IntDef({
             DetectionStep.LEFT_1,
@@ -166,6 +170,7 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                 showDialog(getString(R.string.health_tips_right_3));
                 break;
             case DetectionStep.DONE:
+                isMeasureOver = true;
                 mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
                 uploadHandData(prepareData());
                 break;
@@ -209,14 +214,6 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     }
 
     private void uploadHandData(Data data) {
-        if (getFragmentManager() != null) {
-            Object obj = DataFragment.get(getFragmentManager()).getData();
-            if (obj == null) {
-                obj = new HashMap<String, Object>();
-            }
-            HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
-            dataMap.put("pressure", data);
-        }
         OkGo.<String>post(NetworkApi.DETECTION_BLOOD_HAND + MyApplication.getInstance().userId + "/")
                 .params("handState", data.right)
                 .execute(new StringCallback() {
@@ -253,27 +250,33 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     private void uploadData(Data data) {
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData pressureData = new DetectionData();
-        DetectionData dataPulse = new DetectionData();
+        DetectionData pulseData = new DetectionData();
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
         pressureData.setDetectionType(data.type);
-        pressureData.setHighPressure(data.right == 1 ? data.rightHighPressure : data.leftHighPressure);
-        pressureData.setLowPressure(data.right == 1 ? data.rightLowPressure : data.leftLowPressure);
-        dataPulse.setDetectionType("9");
-        dataPulse.setPulse(data.right == 1 ? data.rightPulse : data.leftPulse);
+        int highPressure = data.right == 1 ? data.rightHighPressure : data.leftHighPressure;
+        pressureData.setHighPressure(highPressure);
+        int lowPressure = data.right == 1 ? data.rightLowPressure : data.leftLowPressure;
+        pressureData.setLowPressure(lowPressure);
+        pulseData.setDetectionType("9");
+        int pulse = data.right == 1 ? data.rightPulse : data.leftPulse;
+        pulseData.setPulse(pulse);
         datas.add(pressureData);
-        datas.add(dataPulse);
+        datas.add(pulseData);
+
         NetworkApi.postMeasureData(datas, new NetworkCallback() {
             @Override
             public void onSuccess(String callbackString) {
                 if (fragmentChanged != null && !isJump2Next) {
-                    isJump2Next=true;
+                    isJump2Next = true;
                     fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
                 }
+                ((HealthIntelligentDetectionActivity) getActivity()).putCacheData(pressureData);
+                ((HealthIntelligentDetectionActivity) getActivity()).putCacheData(pulseData);
             }
 
             @Override
             public void onError() {
-                ToastUtils.showLong("数据上传失败");
+                ToastUtils.showShort("上传数据失败");
             }
         });
     }
@@ -350,23 +353,25 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
         data.rightLowPressure = rightLowPressure;
         data.leftPulse = leftPulse;
         data.rightPulse = rightPulse;
+        //将该数据在Activity中缓存
+        ((HealthIntelligentDetectionActivity) getActivity()).putBloodpressureCacheData(data);
         return data;
     }
 
     @Override
     protected void clickHealthHistory(View view) {
         //TODO:为了测试方便注释掉 后面需要回复
-//        if (isMeasureOver) {
-//             if (fragmentChanged!=null){
-//                                    fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this);
-//                                }
-//        } else {
-//            ToastUtils.showShort("测量次数不够");
-//        }
-        if (fragmentChanged != null && !isJump2Next) {
-            isJump2Next=true;
-            fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
+        if (isMeasureOver) {
+            if (fragmentChanged != null&&!isJump2Next) {
+                fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this,null);
+            }
+        } else {
+            ToastUtils.showShort("测量次数不够");
         }
+//        if (fragmentChanged != null && !isJump2Next) {
+//            isJump2Next = true;
+//            fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
+//        }
     }
 
     public static class Data {

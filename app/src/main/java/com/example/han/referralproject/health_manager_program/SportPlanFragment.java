@@ -112,7 +112,7 @@ public  class SportPlanFragment extends Fragment implements View.OnClickListener
     }
 
     private void getData() {
-        Log.e(TAG, "getData: ");
+        Log.e(TAG, "getDataCache: ");
         OkGo.<String>get(NetworkApi.SportHealthPlan)
                 .params("userId", MyApplication.getInstance().userId)
                 .execute(new StringCallback() {

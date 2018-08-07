@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -31,6 +30,7 @@ import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
 
@@ -47,12 +47,13 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
         if (arguments != null) {
             selectMeasureSugarTime = arguments.getInt("selectMeasureSugarTime", 0);
         }
+
     }
 
     @Override
     protected void clickHealthHistory(View view) {
         if (fragmentChanged != null && !isJump2Next) {
-            isJump2Next=true;
+            isJump2Next = true;
             fragmentChanged.onFragmentChanged(this, null);
         }
     }
@@ -60,15 +61,6 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
-            if (getFragmentManager() != null) {
-                Object obj = DataFragment.get(getFragmentManager()).getData();
-                if (obj == null) {
-                    obj = new HashMap<String, Object>();
-                }
-                HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
-                dataMap.put("sugar", Float.parseFloat(results[0]));
-            }
-
             ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData data = new DetectionData();
             //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
@@ -79,15 +71,16 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
             NetworkApi.postMeasureData(datas, new NetworkCallback() {
                 @Override
                 public void onSuccess(String callbackString) {
-                    if (fragmentChanged != null&&!isJump2Next) {
-                        isJump2Next=true;
+                    if (fragmentChanged != null && !isJump2Next) {
+                        isJump2Next = true;
                         fragmentChanged.onFragmentChanged(HealthSugarDetectionUiFragment.this, null);
                     }
+                    ((HealthIntelligentDetectionActivity) getActivity()).putCacheData(data);
                 }
 
                 @Override
                 public void onError() {
-                    ToastUtils.showLong("数据上传失败");
+                    ToastUtils.showShort("上传数据失败");
                 }
             });
         }

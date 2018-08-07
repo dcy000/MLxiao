@@ -32,6 +32,7 @@ import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HealthIntelligentDetectionActivity extends BaseActivity implements FragmentChanged {
     private BluetoothBaseFragment baseFragment;
@@ -46,6 +47,46 @@ public class HealthIntelligentDetectionActivity extends BaseActivity implements 
     //心电演示视频
     private static final int ECG_VIDEO = 1005;
     private int measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
+    private static List<DetectionData> cacheDatas = new ArrayList<>();
+    private static HealthBloodDetectionUiFragment.Data bloodpressureCacheData;
+
+    public void putBloodpressureCacheData(HealthBloodDetectionUiFragment.Data data) {
+//        bloodpressureCacheData.right = data.right;
+//        bloodpressureCacheData.leftHighPressure = data.leftHighPressure;
+//        bloodpressureCacheData.rightHighPressure = data.rightHighPressure;
+//        bloodpressureCacheData.leftLowPressure = data.leftLowPressure;
+//        bloodpressureCacheData.rightLowPressure = data.rightLowPressure;
+//        bloodpressureCacheData.leftPulse = data.leftPulse;
+//        bloodpressureCacheData.rightPulse = data.rightPulse;
+        bloodpressureCacheData=data;
+    }
+
+    public HealthBloodDetectionUiFragment.Data getBloodpressureCacheData() {
+        return bloodpressureCacheData;
+    }
+
+    /**
+     * 在activity中管理其容器中使用到的数据
+     *
+     * @param detectionData
+     */
+    public void putCacheData(DetectionData detectionData) {
+        if (detectionData == null) {
+            return;
+        }
+        cacheDatas.add(detectionData);
+    }
+
+    public void removeCacheData(DetectionData detectionData) {
+        if (detectionData == null) {
+            return;
+        }
+        cacheDatas.remove(detectionData);
+    }
+
+    public List<DetectionData> getCacheDatas() {
+        return cacheDatas;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +184,13 @@ public class HealthIntelligentDetectionActivity extends BaseActivity implements 
             } else if (requestCode == BLOODSUGAR_VIDEO) {
                 move2BloodsugarTimeSelection();
             } else if (requestCode == JUMP_TO_ECG) {
+                if (data != null) {
+                    DetectionData ecgData = new DetectionData();
+                    ecgData.setDetectionType("2");
+                    ecgData.setEcg(String.valueOf(data.getIntExtra("ecg", 0)));
+                    ecgData.setHeartRate(data.getIntExtra("heartRate", 0));
+                    putCacheData(ecgData);
+                }
                 Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
                 MeasureVideoPlayActivity.startActivity(this, uri, null,
                         "三合一测量演示视频", THREE_IN_ONE_VIDEO);
@@ -250,5 +298,12 @@ public class HealthIntelligentDetectionActivity extends BaseActivity implements 
             transaction.addToBackStack(null);
             transaction.commitAllowingStateLoss();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bloodpressureCacheData = null;
+        cacheDatas = null;
     }
 }

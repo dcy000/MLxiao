@@ -25,6 +25,7 @@ import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HealthWeightDetectionUiFragment extends Weight_Fragment
         implements HealthDiaryDetailsFragment.OnActionListener {
@@ -42,7 +43,7 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
         mUiModel.setUnitPosition(0);
         mUiModel.setUnits(new String[]{"kg"});
         mUiModel.setUnitSum(new String[]{"kg"});
-        mUiModel.setSelectedValues(new float[]{0f});
+        mUiModel.setSelectedValues(new float[]{60f});
         mUiModel.setMinValues(new float[]{0f});
         mUiModel.setMaxValues(new float[]{200f});
         mUiModel.setPerValues(new float[]{0.2f});
@@ -55,7 +56,7 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
         dealLogic();
     }
 
-    HealthDiaryDetailsFragment mUiFragment;
+    private HealthDiaryDetailsFragment mUiFragment;
 
     private void showUi() {
         String tag = HealthDiaryDetailsFragment.class.getName();
@@ -74,7 +75,6 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
 
     @Override
     public void onAction(int what, float selectedValue, int unitPosition, String item) {
-        //TODO：测试代码，解释结束需要删除
         if (fragmentChanged != null && !isJump2Next) {
             isJump2Next = true;
             fragmentChanged.onFragmentChanged(this, null);
@@ -86,20 +86,12 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
     }
 
     private void uploadData(float weight) {
-        if (getFragmentManager() != null) {
-            Object obj = DataFragment.get(getFragmentManager()).getData();
-            if (obj == null) {
-                obj = new HashMap<String, Object>();
-            }
-            HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
-            dataMap.put("weight", weight);
-        }
         ArrayList<DetectionData> datas = new ArrayList<>();
-        DetectionData data = new DetectionData();
+        DetectionData weightData = new DetectionData();
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-        data.setDetectionType("3");
-        data.setWeight(weight);
-        datas.add(data);
+        weightData.setDetectionType("3");
+        weightData.setWeight(weight);
+        datas.add(weightData);
         NetworkApi.postMeasureData(datas, new NetworkCallback() {
             @Override
             public void onSuccess(String callbackString) {
@@ -108,6 +100,7 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
                     fragmentChanged.onFragmentChanged(
                             HealthWeightDetectionUiFragment.this, null);
                 }
+                ((HealthIntelligentDetectionActivity) getActivity()).putCacheData(weightData);
             }
 
             @Override

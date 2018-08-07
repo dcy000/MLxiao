@@ -17,10 +17,12 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.polidea.rxandroidble2.RxBleClient;
+import com.polidea.rxandroidble2.RxBleDevice;
 import com.polidea.rxandroidble2.scan.ScanSettings;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.reactivex.Observable;
@@ -94,15 +96,15 @@ public class HealthThreeInOneDetectionFragment extends Fragment {
 
     private RxBleClient rxBleClient;
     private RxPermissions rxPermissions;
-    private Disposable disposable = Disposables.empty();
+    private Disposable scanDisposable = Disposables.empty();
+    private Disposable connectDisposable = Disposables.empty();
+    private RxBleDevice bleDevice;
 
     protected void startDetection() {
-        disposable.dispose();
+        scanDisposable.dispose();
         AtomicBoolean hasFind = new AtomicBoolean(false);
-        AtomicBoolean hasComplete = new AtomicBoolean(false);
         String deviceName = DEVICE_NAME_THREE_IN_ONE;
-        UUID uuidNotify = UUID_THREE_IN_ONE_NOTIFY;
-        disposable = Observable.just(1)
+        scanDisposable = Observable.just(1)
                 .compose(rxPermissions.ensure(
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.BLUETOOTH,
@@ -123,23 +125,34 @@ public class HealthThreeInOneDetectionFragment extends Fragment {
                 .filter(scanResult -> deviceName.equals(scanResult.getBleDevice().getName())
                         || (!TextUtils.isEmpty(scanResult.getBleDevice().getName())
                         && scanResult.getBleDevice().getName().contains(deviceName)))
-                .doOnNext(scanResult -> Timber.i("<- scan [Found]: %s %s",
-                        scanResult.getBleDevice().getName(),
-                        scanResult.getBleDevice().getMacAddress()))
-                .flatMap(scanResult -> {
+                .doOnNext(scanResult -> {
+                    scanDisposable.dispose();
+                    bleDevice = scanResult.getBleDevice();
+                    Timber.i("<- scan [Found]: %s %s",
+                            bleDevice.getName(),
+                            bleDevice.getMacAddress());
                     if (hasFind.compareAndSet(false, true)) {
-                        return scanResult.getBleDevice().establishConnection(false);
+                        connect(bleDevice);
                     }
-                    return Observable.empty();
                 })
-                .flatMap(rxBleConnection -> rxBleConnection.setupNotification(uuidNotify)
-                        .doOnSubscribe(disposable1 -> Timber.i("setupNotification: %s", uuidNotify)))
+                .subscribe();
+    }
+
+    private void connect(RxBleDevice bleDevice) {
+        AtomicBoolean hasComplete = new AtomicBoolean(false);
+        connectDisposable.dispose();
+        connectDisposable = Observable.just(1)
+                .delay(2, TimeUnit.SECONDS)
+                .flatMap(a -> bleDevice.establishConnection(false))
+                .flatMap(rxBleConnection -> rxBleConnection.setupNotification(UUID_THREE_IN_ONE_NOTIFY)
+                        .doOnSubscribe(disposable1 -> Timber.i("setupNotification: %s", UUID_THREE_IN_ONE_NOTIFY)))
                 .flatMap(notification -> notification)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bytes -> {
                     parseData(hasComplete, bytes);
                 }, Timber::i);
+
     }
 
     protected void parseData(AtomicBoolean hasComplete, byte[] bytes) {
@@ -179,4 +192,11 @@ public class HealthThreeInOneDetectionFragment extends Fragment {
 
     }
 
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        scanDisposable.dispose();
+        connectDisposable.dispose();
+    }
 }

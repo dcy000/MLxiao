@@ -122,6 +122,7 @@ public class HealthDiaryDetailsFragment extends Fragment {
                 mModel.getSelectedValues()[mModel.getUnitPosition()],
                 mModel.getUnitSum()[mModel.getUnitPosition()]
         ));
+        mSelectedValue = mModel.getSelectedValues()[mModel.getUnitPosition()];
         rvRuler.setValue(
                 mModel.getSelectedValues()[mModel.getUnitPosition()],
                 mModel.getMinValues()[mModel.getUnitPosition()],
@@ -133,7 +134,11 @@ public class HealthDiaryDetailsFragment extends Fragment {
         rvUnits.setAdapter(mUnitsAdapter);
         rvUnits.addOnScrollListener(new CenterScrollListener());
         mLayoutManager = new OverFlyingLayoutManager(getContext());
-        mLayoutManager.setMaxVisibleItemCount(3);
+        if (mModel.getUnits().length > 3) {
+            mLayoutManager.setMaxVisibleItemCount(3);
+        } else {
+            mLayoutManager.setMaxVisibleItemCount(1);
+        }
         mLayoutManager.setOrientation(OverFlyingLayoutManager.HORIZONTAL);
         mLayoutManager.setMinScale(1.0f);
         mLayoutManager.setItemSpace(0);

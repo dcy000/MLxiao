@@ -12,11 +12,13 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.polidea.rxandroidble2.RxBleClient;
+import com.polidea.rxandroidble2.RxBleDevice;
 import com.polidea.rxandroidble2.scan.ScanSettings;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.reactivex.Observable;
@@ -72,17 +74,16 @@ public class HealthSugarDetectionFragment extends Fragment {
 
     private RxBleClient rxBleClient;
     private RxPermissions rxPermissions;
-    private Disposable disposable = Disposables.empty();
+    private Disposable scanDisposable = Disposables.empty();
+    private Disposable connectDisposable = Disposables.empty();
+    private RxBleDevice bleDevice;
 
     protected void startDetection() {
-        disposable.dispose();
-
+        scanDisposable.dispose();
         String deviceName = DEVICE_NAME_SUGAR;
-        UUID nitofy = UUID_SUGAR_NOTIFY;
         AtomicBoolean hasFind = new AtomicBoolean(false);
-        AtomicBoolean hasComplete = new AtomicBoolean(false);
-        AtomicBoolean hasWrite = new AtomicBoolean(false);
-        disposable = Observable.just(1)
+        scanDisposable = Observable.just(1)
+                .delay(2, TimeUnit.SECONDS)
                 .compose(rxPermissions.ensure(
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.BLUETOOTH,
@@ -105,18 +106,30 @@ public class HealthSugarDetectionFragment extends Fragment {
                         scanResult.getBleDevice().getName(),
                         scanResult.getBleDevice().getMacAddress()))
                 .filter(scanResult -> deviceName.equals(scanResult.getBleDevice().getName()))
-                .doOnNext(scanResult ->  Timber.i("<- scan [Found]: %s %s",
-                        scanResult.getBleDevice().getName(),
-                        scanResult.getBleDevice().getMacAddress()))
-                .flatMap(scanResult -> {
+                .doOnNext(scanResult -> {
+                    bleDevice = scanResult.getBleDevice();
+                    Timber.i("<- scan [Found]: %s %s",
+                            bleDevice.getName(),
+                            bleDevice.getMacAddress());
                     if (hasFind.compareAndSet(false, true)) {
-                        return scanResult.getBleDevice().establishConnection(false);
+                        connect(bleDevice);
                     }
-                    return Observable.empty();
                 })
+                .subscribe();
+
+
+    }
+
+    private void connect(RxBleDevice bleDevice) {
+        AtomicBoolean hasComplete = new AtomicBoolean(false);
+        AtomicBoolean hasWrite = new AtomicBoolean(false);
+        connectDisposable.dispose();
+        connectDisposable = Observable.just(1)
+                .delay(2, TimeUnit.SECONDS)
+                .flatMap(a -> bleDevice.establishConnection(false))
                 .flatMap(rxBleConnection ->
-                        rxBleConnection.setupNotification(nitofy)
-                                .doOnSubscribe(disposable -> Timber.i("setupNotification %s", nitofy.toString()))
+                        rxBleConnection.setupNotification(UUID_SUGAR_NOTIFY)
+                                .doOnSubscribe(disposable -> Timber.i("setupNotification %s", UUID_SUGAR_NOTIFY.toString()))
                                 .doOnNext(observable -> {
                                     if (hasWrite.compareAndSet(false, true)) {
                                         rxBleConnection.writeCharacteristic(UUID_SUGAR_WRITEABLE, DATA_SUGAR_TO_WRITE)
@@ -128,6 +141,7 @@ public class HealthSugarDetectionFragment extends Fragment {
                                                 .subscribe();
                                     }
                                 }))
+
                 .flatMap(notification -> notification)
                 .doOnNext(bytes -> Timber.i("<- Notification: length = %s", bytes.length))
                 .subscribeOn(Schedulers.io())
@@ -154,7 +168,8 @@ public class HealthSugarDetectionFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        disposable.dispose();
+        scanDisposable.dispose();
+        connectDisposable.dispose();
     }
 
 }

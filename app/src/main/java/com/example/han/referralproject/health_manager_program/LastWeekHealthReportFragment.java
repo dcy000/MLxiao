@@ -81,7 +81,7 @@ public class LastWeekHealthReportFragment extends Fragment {
     }
 
     private void getData() {
-        Log.e(TAG, "getData: ");
+        Log.e(TAG, "getDataCache: ");
         Calendar curr = Calendar.getInstance();
         curr.set(Calendar.WEEK_OF_YEAR, curr.get(Calendar.WEEK_OF_YEAR) - 1);
         long weekAgoTime = curr.getTimeInMillis();

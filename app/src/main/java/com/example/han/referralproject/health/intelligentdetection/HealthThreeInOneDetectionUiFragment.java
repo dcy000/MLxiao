@@ -1,29 +1,12 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.SparseArray;
 import android.view.View;
-import android.widget.TextView;
 
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkCallback;
-import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,14 +36,6 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
     }
 
     private void uploadData() {
-        if (getFragmentManager() != null) {
-            Object obj = DataFragment.get(getFragmentManager()).getData();
-            if (obj == null) {
-                obj = new HashMap<String, Object>();
-            }
-            HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
-            dataMap.put("threeInOne", results);
-        }
         if (results.size() == 0) {
             if (fragmentChanged != null && !isJump2Next) {
                 isJump2Next = true;
@@ -91,6 +66,9 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
                     fragmentChanged.onFragmentChanged(
                             HealthThreeInOneDetectionUiFragment.this, null);
                 }
+                ((HealthIntelligentDetectionActivity) getActivity()).putCacheData(sugarData);
+                ((HealthIntelligentDetectionActivity) getActivity()).putCacheData(cholesterolData);
+                ((HealthIntelligentDetectionActivity) getActivity()).putCacheData(lithicAcidData);
             }
 
             @Override

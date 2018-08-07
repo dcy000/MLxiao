@@ -1,6 +1,5 @@
 package com.example.han.referralproject.application;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -23,8 +22,6 @@ import com.gcml.lib_utils.ui.UiUtils;
 import com.gcml.lib_video_ksyplayer.KSYPlayer;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gzq.administrator.lib_common.base.BaseApplication;
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechUtility;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;

@@ -72,7 +72,7 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
     }
 
     private void getData() {
-        Log.e(TAG, "getData: ");
+        Log.e(TAG, "getDataCache: ");
         OkGo.<String>get(NetworkApi.WeekHealthDietPlan)
                 .params("userId", MyApplication.getInstance().userId)
                 .execute(new StringCallback() {

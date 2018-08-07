@@ -18,13 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.creative.ecg.StatusMsg;
-import com.example.han.referralproject.AllMeasureActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.MeasureResult;
-import com.example.han.referralproject.health.intelligentdetection.DataFragment;
+import com.example.han.referralproject.health.intelligentdetection.DataCacheFragment;
 import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.network.NetworkApi;
@@ -390,15 +389,6 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
     }
 
     private void uploadEcg(int ecg, int heartRate) {
-        if (getFragmentManager() != null) {
-            Object obj = DataFragment.get(getSupportFragmentManager()).getData();
-            if (obj == null) {
-                obj = new HashMap<String, Object>();
-            }
-            HashMap<String, Object> dataMap = (HashMap<String, Object>) obj;
-            dataMap.put("ecg", ecg);
-            dataMap.put("heartRate", heartRate);
-        }
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData ecgData = new DetectionData();
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
@@ -406,11 +396,15 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
         ecgData.setEcg(String.valueOf(ecg));
         ecgData.setHeartRate(heartRate);
         datas.add(ecgData);
+
         NetworkApi.postMeasureData(datas, new NetworkCallback() {
             @Override
             public void onSuccess(String callbackString) {
                 ToastUtils.showShort("数据上传成功");
-                setResult(RESULT_OK);
+                Intent intent = new Intent();
+                intent.putExtra("ecg", ecg);
+                intent.putExtra("heartRate", heartRate);
+                setResult(RESULT_OK, intent);
                 finish();
             }
 

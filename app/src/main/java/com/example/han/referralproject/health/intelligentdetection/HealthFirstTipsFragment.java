@@ -1,15 +1,8 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -45,12 +38,11 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment {
             activity.getWindow().getDecorView().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (fragmentChanged!=null){
-                        fragmentChanged.onFragmentChanged(HealthFirstTipsFragment.this,null);
+                    if (fragmentChanged != null) {
+                        fragmentChanged.onFragmentChanged(HealthFirstTipsFragment.this, null);
                     }
                 }
             }, 3000);
         }
     }
-
 }
