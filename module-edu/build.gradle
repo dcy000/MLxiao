@@ -1,4 +1,5 @@
 apply from: "config.gradle"
+def canRunAlone = false
 
 if (canRunAlone) {
     apply plugin: 'com.android.application'
@@ -71,7 +72,6 @@ dependencies {
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["recyclerview-v7"]
     androidTestImplementation rootProject.ext.dependencies["espresso-core"]
-
 
     //dagger2
     implementation rootProject.ext.dependencies["dagger2"]

@@ -32,7 +32,7 @@ dependencies {
     //file
     api files('libs/pinyin4j-2.5.0.jar')
     //system
-    androidTestApi rootProject.ext.dependencies["espresso-core"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
     api rootProject.ext.dependencies["constraint-layout"]
     api rootProject.ext.dependencies["support-v4"]
     api rootProject.ext.dependencies["appcompat-v7"]
