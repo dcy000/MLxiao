@@ -1,7 +1,12 @@
 package com.gcml.module_blutooth_devices.utils;
 
+import android.Manifest;
+import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
+import com.gcml.lib_utils.permission.PermissionsManager;
+import com.gcml.lib_utils.permission.PermissionsResultAction;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
@@ -16,6 +21,7 @@ import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_KN55
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Self_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_GlucWell_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Sannuo_PresenterImp;
+import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Self_PresenterImp;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_BoSheng_PresenterImp;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Chaosi_PresenterImp;
 import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerprint_WeiEr_PresenterImp;
@@ -38,8 +44,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
-    private static final String[] BLOODOXYGEN_BRANDS = {"POD","iChoice", "SpO2080971"};
+    private static final String[] BLOODOXYGEN_BRANDS = {"POD", "iChoice", "SpO2080971"};
     private static final String[] BLOODPRESSURE_BRANDS = {"eBlood-Pressure", "iChoice", "KN-550BT 110"};
     private static final String[] BLOODSUGAR_BRANDS = {"Bioland-BGM", "BLE-Glucowell", "BDE_WEIXIN_TTM"};
     private static final String[] TEMPERATURE_BRANDS = {"AET-WD", "ClinkBlood", "MEDXING-IRT", "FSRKB-EWQ01"};
@@ -52,6 +60,10 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private BaseBluetoothPresenter baseBluetoothPresenter;
     private IView view;
     private boolean isSearching = false;
+    /**
+     * 蓝牙连接的敏感权限
+     */
+    private static final String DANGET_PERMISSION = Manifest.permission.ACCESS_COARSE_LOCATION;
 
     public SearchWithDeviceGroupHelper(IView view, int measureType) {
         this.view = view;
@@ -87,18 +99,38 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 break;
         }
     }
+    private final PermissionsResultAction permissionsResultAction = new PermissionsResultAction() {
+        @Override
+        public void onGranted() {
+            Logg.e(BaseBluetoothPresenter.class, "用户同意权限请求");
+        }
 
+        @Override
+        public void onDenied(String permission) {
+            Logg.e(BaseBluetoothPresenter.class, "拒绝了用户请求");
+        }
+    };
     /**
      * 默认搜索经典蓝牙3秒，搜索ble蓝牙10秒
      *
      * @param brands
      */
     private void search(final String[] brands) {
+        if (!PermissionsManager.getInstance().hasPermission(view.getThisContext(), DANGET_PERMISSION)) {
+            if (view instanceof Activity) {
+                PermissionsManager.getInstance()
+                        .requestPermissionsIfNecessaryForResult(((Activity) view),
+                                new String[]{DANGET_PERMISSION}, permissionsResultAction);
+            } else if (view instanceof Fragment) {
+                PermissionsManager.getInstance()
+                        .requestPermissionsIfNecessaryForResult(((Fragment) view),
+                                new String[]{DANGET_PERMISSION}, permissionsResultAction);
+            }
+        }
         final SearchRequest searchRequest = new SearchRequest.Builder()
                 .searchBluetoothClassicDevice(3000, 1)
-                .searchBluetoothLeDevice(10000, 1)
+                .searchBluetoothLeDevice(20000, 1)
                 .build();
-
         BluetoothClientManager.getClient().search(searchRequest, new SearchResponse() {
             @Override
             public void onSearchStarted() {
@@ -109,7 +141,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
             public void onDeviceFounded(SearchResult searchResult) {
                 String name = searchResult.getName();
                 String address = searchResult.getAddress();
-                Logg.e(SearchWithDeviceGroupHelper.class, name + "-----" + address);
+                Timber.e(name + "-----" + address);
                 if (!TextUtils.isEmpty(name)) {
                     for (String s : brands) {
                         if (name.equals(s) && !devices.contains(searchResult)) {
@@ -176,7 +208,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
             case IPresenter.MEASURE_BLOOD_SUGAR:
                 switch (brand) {
                     case "Bioland-BGM":
-                        baseBluetoothPresenter = new ThreeInOne_Self_PresenterImp(view,
+                        baseBluetoothPresenter = new Bloodsugar_Self_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Bioland-BGM"));
                         break;
                     case "BLE-Glucowell":
@@ -192,8 +224,8 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
             case IPresenter.MEASURE_BLOOD_OXYGEN:
                 switch (brand) {
                     case "POD":
-                        baseBluetoothPresenter=new Bloodoxygen_Self_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC,address,"POD"));
+                        baseBluetoothPresenter = new Bloodoxygen_Self_PresenterImp(view,
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "POD"));
                         break;
                     case "iChoice":
                         baseBluetoothPresenter = new Bloodoxygen_Chaosi_PresenterImp(view,

@@ -12,114 +12,56 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 
-public class HealthSelectSugarDetectionTimeFragment extends Fragment {
+public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragment implements View.OnClickListener {
 
     private ImageView mIvEmptyStomach;
     private ImageView mIvTwoHours;
     private ImageView mIvOtherTime;
 
-    @Nullable
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(layoutId(), container, false);
-        initView(view, savedInstanceState);
-        return view;
-    }
-
-    private int layoutId() {
+    protected int initLayout() {
         return R.layout.health_fragment_select_sugar_time;
     }
-
-    private void initView(View view, Bundle savedInstanceState) {
-        view.findViewById(R.id.iv_top_right).setVisibility(View.GONE);
+    @Override
+    protected void initView(View view, Bundle savedInstanceState) {
         mIvEmptyStomach = (ImageView) view.findViewById(R.id.iv_empty_stomach);
         mIvTwoHours = (ImageView) view.findViewById(R.id.iv_two_hours);
         mIvOtherTime = (ImageView) view.findViewById(R.id.iv_other_time);
-        ((TextView) view.findViewById(R.id.tv_top_title)).setText(R.string.test_xuetang);
-        view.findViewById(R.id.ll_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getFragmentManager() != null) {
-                    getFragmentManager().beginTransaction()
-                            .remove(HealthSelectSugarDetectionTimeFragment.this)
-                            .commitAllowingStateLoss();
-                }
-            }
-        });
-        mIvEmptyStomach.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onActionListener != null) {
-                    onActionListener.onAction(ACTION_EMPTY_STOMACH);
-                }
-                if (getFragmentManager() != null) {
-                    getFragmentManager().beginTransaction()
-                            .remove(HealthSelectSugarDetectionTimeFragment.this)
-                            .commitAllowingStateLoss();
-                }
-            }
-        });
-        mIvTwoHours.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onActionListener != null) {
-                    onActionListener.onAction(ACTION_TWO_HOURS);
-                }
-                if (getFragmentManager() != null) {
-                    getFragmentManager().beginTransaction()
-                            .remove(HealthSelectSugarDetectionTimeFragment.this)
-                            .commitAllowingStateLoss();
-                }
-            }
-        });
-        mIvOtherTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onActionListener != null) {
-                    onActionListener.onAction(ACTION_OTHER_TIME);
-                }
-                if (getFragmentManager() != null) {
-                    getFragmentManager().beginTransaction()
-                            .remove(HealthSelectSugarDetectionTimeFragment.this)
-                            .commitAllowingStateLoss();
-                }
-            }
-        });
+        mIvEmptyStomach.setOnClickListener(this);
+        mIvTwoHours.setOnClickListener(this);
+        mIvOtherTime.setOnClickListener(this);
     }
 
     public static final int ACTION_EMPTY_STOMACH = 0;
     public static final int ACTION_TWO_HOURS = 2;
     public static final int ACTION_OTHER_TIME = 3;
 
-    public interface OnActionListener {
-        void onAction(int action);
-    }
-
-    private OnActionListener onActionListener;
-
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            Fragment parentFragment = getParentFragment();
-            if (parentFragment != null && parentFragment instanceof OnActionListener) {
-                onActionListener = (OnActionListener) parentFragment;
-                return;
-            }
-            onActionListener = (OnActionListener) context;
-        } catch (Throwable e) {
-            e.printStackTrace();
-            onActionListener = null;
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_empty_stomach:
+                if (fragmentChanged!=null){
+                    Bundle bundle=new Bundle();
+                    bundle.putInt("selectMeasureSugarTime",ACTION_EMPTY_STOMACH);
+                    fragmentChanged.onFragmentChanged(this,bundle);
+                }
+                break;
+            case R.id.iv_two_hours:
+                if (fragmentChanged!=null){
+                    Bundle bundle=new Bundle();
+                    bundle.putInt("selectMeasureSugarTime",ACTION_TWO_HOURS);
+                    fragmentChanged.onFragmentChanged(this,bundle);
+                }
+                break;
+            case R.id.iv_other_time:
+                if (fragmentChanged!=null){
+                    Bundle bundle=new Bundle();
+                    bundle.putInt("selectMeasureSugarTime",ACTION_OTHER_TIME);
+                    fragmentChanged.onFragmentChanged(this,bundle);
+                }
+                break;
         }
-    }
-
-    @Override
-    public void onDetach() {
-        onActionListener = null;
-        super.onDetach();
     }
 }

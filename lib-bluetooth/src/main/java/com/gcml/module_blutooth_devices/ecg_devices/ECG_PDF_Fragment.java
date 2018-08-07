@@ -3,10 +3,8 @@ package com.gcml.module_blutooth_devices.ecg_devices;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.gcml.lib_utils.data.DataUtils;
 import com.gcml.lib_utils.data.FileUtils;
@@ -14,7 +12,7 @@ import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.thread.ThreadUtils;
 import com.gcml.module_blutooth_devices.R;
-import com.gcml.module_blutooth_devices.base.BaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.link.LinkHandler;
 import com.github.barteksc.pdfviewer.listener.OnDrawListener;
@@ -40,7 +38,7 @@ import java.text.SimpleDateFormat;
 
 import timber.log.Timber;
 
-public class ECG_PDF_Fragment extends BaseFragment {
+public class ECG_PDF_Fragment extends BluetoothBaseFragment {
     public static final String KEY_BUNDLE_PDF_URL = "key_pdf_url";
     private View view;
     private PDFView mPdfView;

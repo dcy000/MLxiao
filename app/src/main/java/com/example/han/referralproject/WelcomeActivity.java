@@ -21,6 +21,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.lib_utils.network.WiFiUtil;
 
 import java.util.ArrayList;
@@ -141,6 +142,13 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //启动音量控制悬浮按钮
+        VolumeControlFloatwindow.init(this.getApplicationContext());
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.bean.BluetoothBean;
 import com.example.han.referralproject.health.intelligentdetection.HealthBloodDetectionSingleFragment;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
@@ -104,86 +105,47 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                 case R.id.ll_xueya:
                     measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-                    MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
-//                    intent.setClass(mContext, DetectActivity.class);
-//                    intent.putExtra("type", "xueya");
-//                    startActivity(intent);
+                    MeasureVideoPlayActivity.startActivity(this, uri, null, "血压测量演示视频",
+                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case R.id.ll_xueyang:
                     measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
-                    MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血氧测量演示视频");
-//                    intent.setClass(getApplicationContext(), DetectActivity.class);
-//                    intent.putExtra("type", "xueyang");
-//                    startActivity(intent);
+                    MeasureVideoPlayActivity.startActivity(this, uri, null, "血氧测量演示视频",
+                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case R.id.ll_tiwen:
                     measureType = IPresenter.MEASURE_TEMPERATURE;
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
-                    MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "耳温测量演示视频");
-//                    intent.setClass(mContext, DetectActivity.class);
-//                    intent.putExtra("type", "wendu");
-//                    startActivity(intent);
+                    MeasureVideoPlayActivity.startActivity(this, uri, null, "耳温测量演示视频",
+                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case R.id.ll_xuetang:
                     measureType = IPresenter.MEASURE_BLOOD_SUGAR;
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-                    MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血糖测量演示视频");
-//                    intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
-//                    intent.putExtra("type", "xuetang");
-//                    startActivity(intent);
+                    MeasureVideoPlayActivity.startActivity(this, uri, null, "血糖测量演示视频",
+                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case R.id.ll_xindian:
                     measureType = IPresenter.MEASURE_ECG;
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-                    MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "心电测量演示视频");
-//                    intent.setClass(mContext, XinDianDetectActivity.class);
-//                    startActivity(intent);
+                    MeasureVideoPlayActivity.startActivity(this, uri, null, "心电测量演示视频",
+                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case R.id.ll_san:
                     measureType = IPresenter.MEASURE_OTHERS;
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-                    MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "三合一测量演示视频");
-//                    intent.setClass(mContext, SelectXuetangTimeActivity.class);
-//                    intent.putExtra("type", "sanheyi");
-//                    startActivity(intent);
+                    MeasureVideoPlayActivity.startActivity(this, uri, null, "三合一测量演示视频",
+                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case R.id.ll_tizhong://体重
                     measureType = IPresenter.MEASURE_WEIGHT;
-                    intent.setClass(mContext, DetectActivity.class);
-                    intent.putExtra("type", "tizhong");
-                    startActivity(intent);
+                    AllMeasureActivity.startActivity(this, measureType);
                     break;
                 case R.id.ll_more://敬请期待
                     ToastUtils.showShort("敬请期待");
                     break;
             }
-//            intent.setClass(this, AllMeasureActivity.class);
-//            switch (v.getId()) {
-//                case R.id.ll_xueya:
-//                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_PRESSURE);
-//                    break;
-//                case R.id.ll_xueyang:
-//                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_OXYGEN);
-//                    break;
-//                case R.id.ll_tiwen:
-//                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_TEMPERATURE);
-//                    break;
-//                case R.id.ll_xuetang:
-//                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_SUGAR);
-//                    break;
-//                case R.id.ll_tizhong:
-//                    intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_WEIGHT);
-//                    break;
-//                case R.id.ll_xindian:
-//                    intent.putExtra(IPresenter.MEASURE_TYPE,IPresenter.MEASURE_ECG);
-//                    break;
-//                case R.id.ll_more://指纹
-//                    intent.putExtra(IPresenter.MEASURE_TYPE,IPresenter.CONTROL_FINGERPRINT);
-//                    break;
-//            }
-
-//            startActivity(intent);
         }
     }
 
@@ -192,35 +154,35 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
             if (resultCode == RESULT_OK) {
+                if (measureType == IPresenter.MEASURE_ECG) {
+                    XinDianDetectActivity.startActivity(Test_mainActivity.this,
+                            Test_mainActivity.class.getSimpleName());
+                    return;
+                }
                 Intent intent = new Intent();
+                intent.setClass(this, AllMeasureActivity.class);
                 switch (measureType) {
+
                     case IPresenter.MEASURE_BLOOD_PRESSURE:
-                        HealthBloodDetectionSingleFragment fragment = new HealthBloodDetectionSingleFragment();
-                        String tag = HealthBloodDetectionSingleFragment.class.getName();
-                        FragmentManager fm = getSupportFragmentManager();
-                        fm.beginTransaction()
-                                .replace(android.R.id.content, fragment, tag)
-                                .addToBackStack(null)
-                                .commitAllowingStateLoss();
-                        return;
-                    case IPresenter.MEASURE_BLOOD_OXYGEN:
-                        intent.setClass(getApplicationContext(), DetectActivity.class);
-                        intent.putExtra("type", "xueyang");
+                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_PRESSURE);
                         break;
-                    case IPresenter.MEASURE_BLOOD_SUGAR:
-                        intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
-                        intent.putExtra("type", "xuetang");
+                    case IPresenter.MEASURE_BLOOD_OXYGEN:
+                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_OXYGEN);
                         break;
                     case IPresenter.MEASURE_TEMPERATURE:
-                        intent.setClass(mContext, DetectActivity.class);
-                        intent.putExtra("type", "wendu");
+                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_TEMPERATURE);
                         break;
-                    case IPresenter.MEASURE_ECG:
-                        intent.setClass(mContext, XinDianDetectActivity.class);
+                    case IPresenter.MEASURE_BLOOD_SUGAR:
+                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_SUGAR);
+                        break;
+                    case IPresenter.MEASURE_WEIGHT:
+                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_WEIGHT);
                         break;
                     case IPresenter.MEASURE_OTHERS:
-                        intent.setClass(mContext, SelectXuetangTimeActivity.class);
-                        intent.putExtra("type", "sanheyi");
+                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_OTHERS);
+                        break;
+                    case IPresenter.CONTROL_FINGERPRINT://指纹
+                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.CONTROL_FINGERPRINT);
                         break;
                 }
                 startActivity(intent);

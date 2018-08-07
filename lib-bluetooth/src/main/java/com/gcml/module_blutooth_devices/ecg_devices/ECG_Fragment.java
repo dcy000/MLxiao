@@ -11,7 +11,7 @@ import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
-import com.gcml.module_blutooth_devices.base.BaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
@@ -20,13 +20,13 @@ import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
-public class ECG_Fragment extends BaseFragment implements IView {
+public class ECG_Fragment extends BluetoothBaseFragment implements IView {
     private ECGSingleGuideView mEcgView;
     private BaseBluetoothPresenter baseBluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
     private TextView mMeasureTip;
     private String brand;
-
+    private Bundle bundle;
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_ecg;
@@ -54,32 +54,37 @@ public class ECG_Fragment extends BaseFragment implements IView {
             }
         }
         mMeasureTip = (TextView) view.findViewById(R.id.measure_tip);
-        dealLogic(bundle);
+        this.bundle=bundle;
+
     }
 
-    private void dealLogic(Bundle bundle) {
-        String address;
-        String brand;
+    @Override
+    public void onResume() {
+        super.onResume();
+        dealLogic();
+    }
+
+    public void dealLogic() {
+        String address = null;
+        String brand = null;
+        String sp_ecg = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
+        if (!TextUtils.isEmpty(sp_ecg)) {
+            String[] split = sp_ecg.split(",");
+            if (split.length == 2) {
+                brand = split[0];
+                address = split[1];
+                chooseConnectType(address, brand);
+                return;
+            }
+        }
         if (bundle != null) {
             address = bundle.getString(IPresenter.DEVICE_BLUETOOTH_ADDRESS);
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
-        } else {
-            String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
-            Logg.e(ECG_Fragment.class,"获取的SP中的数据"+sp_bloodoxygen);
-            if (TextUtils.isEmpty(sp_bloodoxygen)) {
-                helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_ECG);
-                helper.start();
-            } else {
-                String[] split = sp_bloodoxygen.split(",");
-                if (split.length == 2) {
-                    brand = split[0];
-                    address = split[1];
-                    chooseConnectType(address, brand);
-                }
-
-            }
+            return;
         }
+        chooseConnectType(address, brand);
+
     }
 
     private void chooseConnectType(String address, String brand) {

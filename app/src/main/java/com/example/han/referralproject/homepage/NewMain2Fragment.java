@@ -14,7 +14,6 @@ import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
 import com.gzq.administrator.lib_common.base.BaseFragment;
 import com.gzq.administrator.lib_common.custom_view.EclipseImageView;
@@ -68,6 +67,7 @@ public class NewMain2Fragment extends BaseFragment implements View.OnClickListen
                 startActivity(new Intent(getContext(), PersonDetailActivity.class));
                 break;
             case R.id.iv_health_course:
+//                startActivity(new Intent(getActivity(), FirstDiagnosisActivity.class));
                 startActivity(new Intent(getActivity(), HealthIntelligentDetectionActivity.class));
 //                startActivity(new Intent(getActivity(), VideoListActivity.class));
                 break;

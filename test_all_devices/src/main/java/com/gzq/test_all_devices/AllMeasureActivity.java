@@ -1,5 +1,6 @@
 package com.gzq.test_all_devices;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -11,12 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.gcml.lib_utils.data.DataUtils;
-import com.gcml.lib_utils.ui.dialog.BaseDialog;
 import com.gcml.lib_utils.ui.dialog.DialogImage;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.qrcode.QRCodeUtils;
-import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
-import com.gcml.module_blutooth_devices.base.BaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
@@ -29,11 +28,16 @@ import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 
 public class AllMeasureActivity extends AppCompatActivity {
-    private BaseFragment baseFragment;
+    private BluetoothBaseFragment baseFragment;
     private BluetoothBean bluetoothBean;
     private LinearLayout mLlBack;
     private ImageView mIvTopRight;
     private String pdfUrl = "";
+
+    public static void startActivity(Context context, BluetoothBean bluetoothBean) {
+        context.startActivity(new Intent(context, AllMeasureActivity.class)
+                .putExtra("bluetoothbean", bluetoothBean));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

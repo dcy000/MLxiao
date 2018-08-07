@@ -112,7 +112,7 @@
             android:layout_marginRight="100pt"
             android:background="@drawable/health_btn_3f86fc"
             android:gravity="center"
-            android:visibility="gone"
+            android:visibility="visible"
             android:text="下一步"
             android:textColor="#FFFFFF"
             android:textSize="56pt" />

@@ -2,28 +2,20 @@ package com.gcml.module_blutooth_devices.others;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
-import com.gcml.module_blutooth_devices.base.BaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
-import com.gcml.module_blutooth_devices.weight_devices.Weight_Bodivis_PresenterImp;
-import com.gcml.module_blutooth_devices.weight_devices.Weight_Chaosi_PresenterImp;
-import com.gcml.module_blutooth_devices.weight_devices.Weight_Self_PresenterImp;
-import com.gcml.module_blutooth_devices.weight_devices.Weight_Xiangshan_EF895i_PresenterImp;
-import com.gcml.module_blutooth_devices.weight_devices.Weight_Yike_PresenterImp;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -32,7 +24,7 @@ import com.gcml.module_blutooth_devices.weight_devices.Weight_Yike_PresenterImp;
  * created by:gzq
  * description:TODO
  */
-public class ThreeInOne_Fragment extends BaseFragment implements View.OnClickListener, IView {
+public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.OnClickListener, IView {
     /**
      * 历史记录
      */
@@ -55,7 +47,7 @@ public class ThreeInOne_Fragment extends BaseFragment implements View.OnClickLis
     private TextView mTvMaibo;
     private SearchWithDeviceGroupHelper helper;
     private BaseBluetoothPresenter bluetoothPresenter;
-
+    private Bundle bundle;
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_three_in_one;
@@ -71,31 +63,35 @@ public class ThreeInOne_Fragment extends BaseFragment implements View.OnClickLis
         mTvGaoya = (TextView) view.findViewById(R.id.tv_gaoya);
         mTvDiya = (TextView) view.findViewById(R.id.tv_diya);
         mTvMaibo = (TextView) view.findViewById(R.id.tv_maibo);
-        dealLogic(bundle);
+        this.bundle=bundle;
     }
 
-    private void dealLogic(Bundle bundle) {
-        String address;
-        String brand;
-        if (bundle != null) {//该处是为测试使用的
+    @Override
+    public void onResume() {
+        super.onResume();
+        dealLogic();
+    }
+
+    public void dealLogic() {
+        String address = null;
+        String brand = null;
+        String sp_others = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, "");
+        if (!TextUtils.isEmpty(sp_others)) {
+            String[] split = sp_others.split(",");
+            if (split.length == 2) {
+                brand = split[0];
+                address = split[1];
+                chooseConnectType(address, brand);
+                return;
+            }
+        }
+        if (bundle != null) {
             address = bundle.getString(IPresenter.DEVICE_BLUETOOTH_ADDRESS);
             brand = bundle.getString(IPresenter.BRAND);
             chooseConnectType(address, brand);
-        } else {
-            String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, null);
-            if (TextUtils.isEmpty(sp_bloodoxygen)) {
-                helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_OTHERS);
-                helper.start();
-            } else {
-                String[] split = sp_bloodoxygen.split(",");
-                if (split.length == 2) {
-                    brand = split[0];
-                    address = split[1];
-                    chooseConnectType(address, brand);
-                }
-
-            }
+            return;
         }
+        chooseConnectType(address, brand);
     }
 
     private void chooseConnectType(String address, String brand) {
@@ -119,10 +115,12 @@ public class ThreeInOne_Fragment extends BaseFragment implements View.OnClickLis
             if (dealVoiceAndJump != null) {
                 dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_TEMPERATURE);
             }
+            clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
                 dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_TEMPERATURE);
             }
+            clickVideoDemo(v);
         }
     }
 
@@ -142,6 +140,7 @@ public class ThreeInOne_Fragment extends BaseFragment implements View.OnClickLis
             } else if (datas[0].equals("cholesterol")) {
                 mTvMaibo.setText(datas[1]);
             }
+            onMeasureFinished(datas[0],datas[1]);
         }
     }
 

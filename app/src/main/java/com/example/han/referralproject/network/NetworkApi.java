@@ -1,5 +1,6 @@
 package com.example.han.referralproject.network;
 
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
@@ -38,7 +39,10 @@ import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.children.model.SheetModel;
 import com.example.han.referralproject.children.model.SongModel;
+import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
+import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.health.model.WeekReportModel;
+import com.example.han.referralproject.hypertensionmanagement.activity.WeightMeasureActivity;
 import com.example.han.referralproject.physicalexamination.bean.QuestionnaireBean;
 import com.example.han.referralproject.radio.RadioEntity;
 import com.example.han.referralproject.recyclerview.Docter;
@@ -46,11 +50,15 @@ import com.example.han.referralproject.recyclerview.OnlineTime;
 import com.example.han.referralproject.shopping.Goods;
 import com.example.han.referralproject.shopping.Order;
 import com.example.han.referralproject.shopping.Orders;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
+import com.gcml.lib_utils.display.ToastUtils;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,7 +70,7 @@ public class NetworkApi {
     //TODO:IP地址统一到根目录的config.gradle中进行配置
     public static final String BasicUrl = BuildConfig.SERVER_ADDRESS;
     //获取个人详细信息
-    public static final String Get_PersonInfo=BasicUrl+"/ZZB/br/selOneUserEverything";
+    public static final String Get_PersonInfo = BasicUrl + "/ZZB/br/selOneUserEverything";
     //生活疗法
     public static final String Life_Therapy = BasicUrl + "/ZZB/api/healthMonitor/report/lifeTherapy/";
     //运动计划推荐
@@ -191,6 +199,41 @@ public class NetworkApi {
 
     public static final String POST_HEAlTH_DIARY = BasicUrl + "/ZZB/ai/insert_influence";
     public static final String POST_TEL_MESSAGE = "ZZB/br/br_teltixing";
+
+    /**
+     * 新的上传测量数据的接口
+     */
+    public static void postMeasureData(ArrayList<DetectionData> datas, NetworkCallback callback) {
+        OkGo.<String>post(DETECTION_DATA + MyApplication.getInstance().userId + "/")
+                .upJson(new Gson().toJson(datas))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        if (!response.isSuccessful()) {
+                            callback.onError();
+                            return;
+                        }
+                        String body = response.body();
+                        try {
+                            ApiResponse<Object> apiResponse = new Gson().fromJson(body,
+                                    new TypeToken<ApiResponse<Object>>() {
+                                    }.getType());
+                            if (apiResponse.isSuccessful()) {
+                                callback.onSuccess(body);
+                                return;
+                            }
+                        } catch (Throwable e) {
+                            e.printStackTrace();
+                        }
+                        callback.onError();
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        callback.onError();
+                    }
+                });
+    }
 
     public static void getEatAndSport(String userId, NetworkManager.SuccessCallback<WeeklyReport> successCallback,
                                       NetworkManager.FailedCallback failedCallback) {

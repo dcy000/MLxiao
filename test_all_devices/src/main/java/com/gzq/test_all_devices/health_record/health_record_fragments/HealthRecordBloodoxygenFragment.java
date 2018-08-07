@@ -5,16 +5,14 @@ import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.module_blutooth_devices.base.BaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -31,7 +29,7 @@ import com.gzq.test_all_devices.health_record_bean.BloodOxygenHistory;
 
 import java.util.ArrayList;
 
-public class HealthRecordBloodoxygenFragment extends BaseFragment {
+public class HealthRecordBloodoxygenFragment extends BluetoothBaseFragment {
     private View view;
     private TextView mColor1;
     private TextView mIndicator1;

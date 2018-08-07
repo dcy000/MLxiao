@@ -63,6 +63,9 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     private int selectEndYear;
     private int selectEndMonth;
     private int selectEndDay;
+    private int selectEndHour;
+    private int selectEndMinnute;
+    private int selectEndSecond;
     private int radioGroupPosition;
     private HealthRecordTemperatureFragment temperatureFragment;
     private HealthRecordBloodpressureFragment bloodpressureFragment;
@@ -79,7 +82,6 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     private LinearLayout mLlBack;
     private TextView mTvTopTitle;
     private ImageView mIvTopRight;
-
     public static void startActivity(Context context, Class<?> clazz, int position) {
         Intent intent = new Intent();
         intent.setClass(context, clazz);
@@ -238,8 +240,12 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         selectEndYear = calendar.get(Calendar.YEAR);
         selectEndMonth = calendar.get(Calendar.MONTH) + 1;
         selectEndDay = calendar.get(Calendar.DATE);
-        startMillisecond = TimeUtils.string2Milliseconds(selectEndYear + "-" + selectEndMonth + "-" +
-                selectEndDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
+        selectEndHour = calendar.get(Calendar.HOUR_OF_DAY);
+        selectEndMinnute = calendar.get(Calendar.MINUTE);
+        selectEndSecond = calendar.get(Calendar.SECOND);
+        endMillisecond = TimeUtils.string2Milliseconds(selectEndYear + "-" + selectEndMonth + "-" +
+                        selectEndDay + "-" + selectEndHour + "-" + selectEndMinnute + "-" + selectEndSecond,
+                new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")) + "";
 
         calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - 7);
         Date weekAgoDate = calendar.getTime();
@@ -249,7 +255,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         selectStartYear = Integer.parseInt(date[0]);
         selectStartMonth = Integer.parseInt(date[1]);
         selectStartDay = Integer.parseInt(date[2]);
-        endMillisecond = TimeUtils.string2Milliseconds(selectStartYear + "-" + selectStartMonth + "-" +
+        startMillisecond = TimeUtils.string2Milliseconds(selectStartYear + "-" + selectStartMonth + "-" +
                 selectStartDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
 
         mTvTimeStart.setText(selectStartYear + "年" + selectStartMonth + "月" + selectStartDay + "日");
@@ -264,25 +270,25 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 temp = "1";
                 mRgHealthRecord.check(R.id.rb_record_temperature);
                 fragmentTransaction.replace(R.id.health_record_fl, temperatureFragment).commit();
-                getTemperatureData(startMillisecond, endMillisecond);
+//                getTemperatureData(endMillisecond, startMillisecond);
                 break;
             case 1://血压
                 temp = "2";
                 mRgHealthRecord.check(R.id.rb_record_blood_pressure);
                 fragmentTransaction.replace(R.id.health_record_fl, bloodpressureFragment).commit();
-                getBloodpressureData(startMillisecond, endMillisecond);
+//                getBloodpressureData(endMillisecond, startMillisecond);
                 break;
             case 2://血糖
                 temp = "4";
                 mRgHealthRecord.check(R.id.rb_record_blood_glucose);
                 fragmentTransaction.replace(R.id.health_record_fl, bloodsugarFragment).commit();
-                getBloodsugarData(startMillisecond, endMillisecond);
+//                getBloodsugarData(endMillisecond, startMillisecond);
                 break;
             case 3://血氧
                 temp = "5";
                 mRgHealthRecord.check(R.id.rb_record_blood_oxygen);
                 fragmentTransaction.replace(R.id.health_record_fl, bloodoxygenFragment).commit();
-                getBloodoxygenData(startMillisecond, endMillisecond);
+//                getBloodoxygenData(endMillisecond, startMillisecond);
                 break;
             case 4://心跳
                 temp = "3";
@@ -293,25 +299,25 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 temp = "7";
                 mRgHealthRecord.check(R.id.rb_record_cholesterol);
                 fragmentTransaction.replace(R.id.health_record_fl, cholesterolFragment).commit();
-                getHeartRateData(startMillisecond, endMillisecond);
+//                getHeartRateData(endMillisecond, startMillisecond);
                 break;
             case 6://血尿酸
                 temp = "8";
                 mRgHealthRecord.check(R.id.rb_record_bua);
                 fragmentTransaction.replace(R.id.health_record_fl, buaFragment).commit();
-                getBUAData(startMillisecond, endMillisecond);
+//                getBUAData(endMillisecond, startMillisecond);
                 break;
             case 7://心电图
                 temp = "9";
                 mRgHealthRecord.check(R.id.rb_record_ecg);
                 fragmentTransaction.replace(R.id.health_record_fl, ecgFragment).commit();
-                getEcgData(startMillisecond, endMillisecond);
+//                getEcgData(endMillisecond, startMillisecond);
                 break;
             case 8://体重
                 temp = "10";
                 mRgHealthRecord.check(R.id.rb_record_weight);
                 fragmentTransaction.replace(R.id.health_record_fl, weightFragment).commit();
-                getWeightData(startMillisecond, endMillisecond);
+//                getWeightData(endMillisecond, startMillisecond);
                 break;
         }
 

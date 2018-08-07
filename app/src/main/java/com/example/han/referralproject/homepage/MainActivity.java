@@ -15,6 +15,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.module_control_volume.VolumeControlFloatwindow;
+import com.gcml.lib_utils.data.DataUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -175,16 +176,18 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                             JSONObject object = new JSONObject(response.body());
                             if (object.optBoolean("tag")) {
                                 JSONObject data = object.optJSONObject("data");
-                                UserInfoBean userInfoBean = new Gson().fromJson(data.toString(), UserInfoBean.class);
-                                if (userInfoBean != null) {
+                                if (!DataUtils.isEmpty(data)){
+                                    UserInfoBean userInfoBean = new Gson().fromJson(data.toString(), UserInfoBean.class);
+                                    if (userInfoBean != null) {
 
-                                    String wyyxId = userInfoBean.wyyxId;
-                                    String wyyxPwd = userInfoBean.wyyxPwd;
-                                    if (TextUtils.isEmpty(wyyxId) || TextUtils.isEmpty(wyyxPwd)) {
-                                        Timber.e("获取网易账号信息出错");
-                                        return;
+                                        String wyyxId = userInfoBean.wyyxId;
+                                        String wyyxPwd = userInfoBean.wyyxPwd;
+                                        if (TextUtils.isEmpty(wyyxId) || TextUtils.isEmpty(wyyxPwd)) {
+                                            Timber.e("获取网易账号信息出错");
+                                            return;
+                                        }
+                                        NimAccountHelper.getInstance().login(wyyxId, wyyxPwd, null);
                                     }
-                                    NimAccountHelper.getInstance().login(wyyxId, wyyxPwd, null);
                                 }
                             }
                         } catch (JSONException e) {

@@ -99,10 +99,6 @@ public class MyApplication extends BaseApplication {
         JPushInterface.init(this);
         NimInitHelper.getInstance().init(this, true);
         NimInitHelper.getInstance().init(this, true);
-//        //启动音量控制悬浮按钮
-//        if (curProcessName.equals("com.example.han.referralproject:core")) {
-//            VolumeControlFloatwindow.init(this.getApplicationContext());
-//        }
         initVideoPlay();
     }
 
@@ -119,12 +115,12 @@ public class MyApplication extends BaseApplication {
         super.onConfigurationChanged(newConfig);
         UiUtils.compatWithOrientation(newConfig);
         String curProcessName = ProcessUtils.getCurProcessName(this);
-        if (!TextUtils.isEmpty(curProcessName)) {
-            if (curProcessName.equals(getPackageName())) {
-                //启动音量控制悬浮按钮
-                VolumeControlFloatwindow.init(this.getApplicationContext());
-            }
-        }
+//        if (!TextUtils.isEmpty(curProcessName)) {
+//            if (curProcessName.equals("com.example.han.referralproject:pushcore")) {
+//                //启动音量控制悬浮按钮
+//                VolumeControlFloatwindow.init(this.getApplicationContext());
+//            }
+//        }
     }
 
 

@@ -13,6 +13,7 @@ import com.example.han.referralproject.health.intelligentdetection.entity.Detect
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionResult;
 import com.example.han.referralproject.measure.NewMeasureBloodpressureResultActivity;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkCallback;
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
@@ -27,7 +28,7 @@ import java.util.List;
 public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFragment {
     private ImageView ivRight;
     //有没有测量过
-    private boolean isMeasured=false;
+    private boolean isMeasured = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,7 +91,7 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isMeasured){
+                if (!isMeasured) {
                     ToastUtils.showShort("请先测量");
                     return;
                 }
@@ -109,7 +110,7 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
 
     @Override
     protected void onBloodResult(int highPressure, int lowPressure, int pulse) {
-        isMeasured=true;
+        isMeasured = true;
         if (!second) {
             second = true;
             this.highPressure = highPressure;
@@ -134,37 +135,29 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
         dataPulse.setPulse(firstPulse);
         datas.add(pressureData);
         datas.add(dataPulse);
-        OkGo.<String>post(NetworkApi.DETECTION_DATA + MyApplication.getInstance().userId + "/")
-                .upJson(new Gson().toJson(datas))
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        if (!response.isSuccessful()) {
-                            ToastUtils.showLong("数据上传失败");
-                            return;
-                        }
-                        String body = response.body();
-                        try {
-                            ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<List<DetectionResult>>>() {
+        NetworkApi.postMeasureData(datas, new NetworkCallback() {
+            @Override
+            public void onSuccess(String callback) {
+                try {
+                    ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(callback,
+                            new TypeToken<ApiResponse<List<DetectionResult>>>() {
                             }.getType());
-                            if (apiResponse.isSuccessful()) {
-                                ToastUtils.showLong("数据上传成功");
-                                result = apiResponse.getData().get(0);
-                                navToNext();
-                                return;
-                            }
-                        } catch (Throwable e) {
-                            e.printStackTrace();
-                        }
-                        ToastUtils.showLong("数据上传失败");
+                    if (apiResponse.isSuccessful()) {
+                        ToastUtils.showLong("数据上传成功");
+                        result = apiResponse.getData().get(0);
+                        navToNext();
+                        return;
                     }
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+            }
 
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        ToastUtils.showLong("数据上传失败");
-                    }
-                });
+            @Override
+            public void onError() {
+                ToastUtils.showLong("数据上传失败");
+            }
+        });
     }
 
     private DetectionResult result;

@@ -26,6 +26,7 @@ import com.example.han.referralproject.health.intelligentdetection.entity.Detect
 import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.ui.UiUtils;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
@@ -40,12 +41,11 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HealthDetectionIntelligentReportFragment extends Fragment {
+public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragment {
 
-    private ImageView ivRight;
     private RecyclerView rvReport;
     private Adapter mAdapter;
-    private HashMap<String, Object> mDataCache;
+    private List<DetectionData> cacheDatas;
 
     public HealthDetectionIntelligentReportFragment() {
         // Required empty public constructor
@@ -54,15 +54,13 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FragmentManager fm = getFragmentManager();
-        mDataCache = DataCacheFragment.get(fm).getDataCache();
-        List<DetectionData> dataList = (List<DetectionData>) mDataCache.get("dataList");
-        if (dataList.isEmpty()) {
+        cacheDatas = ((HealthIntelligentDetectionActivity) getActivity()).getCacheDatas();
+        if (cacheDatas.isEmpty()) {
             ToastUtils.showShortOnTop("您还没有测量哦，快去测量哦！");
             return;
         }
-        String json = new Gson().toJson(dataList);
-        dataList.clear();
+        String json = new Gson().toJson(cacheDatas);
+        cacheDatas.clear();
         OkGo.<String>post(NetworkApi.DETECTION_RESULT + MyApplication.getInstance().userId + "/")
                 .upJson(json)
                 .execute(new StringCallback() {
@@ -74,8 +72,9 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
                         }
                         String body = response.body();
                         try {
-                            ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<List<DetectionResult>>>() {
-                            }.getType());
+                            ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(body,
+                                    new TypeToken<ApiResponse<List<DetectionResult>>>() {
+                                    }.getType());
                             if (apiResponse.isSuccessful()) {
                                 onApiResult(apiResponse.getData());
                             } else {
@@ -105,38 +104,12 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = inflater.inflate(layoutId(), container, false);
-        initView(view, savedInstanceState);
-        return view;
-    }
-
-    private int layoutId() {
+    protected int initLayout() {
         return R.layout.health_fragment_detection_intelligent_report;
     }
 
-    private void initView(View view, Bundle savedInstanceState) {
-        ((TextView) view.findViewById(R.id.tv_top_title)).setText(R.string.healthy_report);
-        view.findViewById(R.id.ll_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getFragmentManager() != null) {
-                    getFragmentManager().popBackStack();
-                }
-            }
-        });
-        ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
-        ivRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getActivity() != null) {
-                    getActivity().finish();
-                }
-            }
-        });
+    @Override
+    protected void initView(View view, Bundle savedInstanceState) {
         rvReport = ((RecyclerView) view.findViewById(R.id.rv_report));
         rvReport.setLayoutManager(new LinearLayoutManager(
                 getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -151,7 +124,7 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
     {
         layoutIds.put(0, R.layout.health_report_item_blood_presssure);
         layoutIds.put(1, R.layout.health_report_item_blood_oxygen);
-        layoutIds.put(2, R.layout.health_report_item_ecg);
+        layoutIds.put(2, R.layout.health_report_item_blood_oxygen);
         layoutIds.put(3, R.layout.health_report_item_blood_oxygen); //R.layout.health_report_item_weight
         layoutIds.put(4, R.layout.health_report_item_blood_oxygen); //R.layout.health_report_item_tem);
         layoutIds.put(6, R.layout.health_report_item_blood_oxygen); //R.layout.health_report_item_blood_oxygen
@@ -222,7 +195,7 @@ public class HealthDetectionIntelligentReportFragment extends Fragment {
 
         @Override
         public void onBind(int position) {
-            HealthBloodDetectionUiFragment.Data pressure = ((HealthBloodDetectionUiFragment.Data) mDataCache.get("pressure"));
+            HealthBloodDetectionUiFragment.Data pressure = ((HealthIntelligentDetectionActivity) getActivity()).getBloodpressureCacheData();
             String leftPressure = pressure.leftHighPressure + "/" + pressure.leftLowPressure;
             String rightPressure = pressure.rightHighPressure + "/" + pressure.rightLowPressure;
             String leftPulse = String.valueOf(pressure.leftPulse);

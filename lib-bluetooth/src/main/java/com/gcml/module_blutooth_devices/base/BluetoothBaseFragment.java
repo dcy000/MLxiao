@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BluetoothBaseFragment extends Fragment {
     protected View view;
-
+    protected boolean isMeasureFinishedOfThisTime =false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,4 +38,11 @@ public abstract class BaseFragment extends Fragment {
     public void setOnDealVoiceAndJumpListener(DealVoiceAndJump dealVoiceAndJump) {
         this.dealVoiceAndJump = dealVoiceAndJump;
     }
+    protected FragmentChanged fragmentChanged;
+    public void setOnFragmentChangedListener(FragmentChanged fragmentChanged){
+        this.fragmentChanged=fragmentChanged;
+    }
+    protected void clickHealthHistory(View view){}
+    protected void clickVideoDemo(View view){}
+    protected void onMeasureFinished(String...results){}
 }
