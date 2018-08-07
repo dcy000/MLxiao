@@ -2,7 +2,7 @@
 
 ## TODO
 
-- [ ] 数据层搭建（见 lib-common-repository 模块。用到的开源项目：Dagger2， RxJava， Retrofit， RxCache， Room， Gson ，timber，Stetho）
+- [ ] 数据层搭建（见 lib-common-core repository 模块。用到的开源项目：Dagger2， RxJava， Retrofit， RxCache， Room， Gson ，timber，Stetho）
 - [ ] 图片加载二次封装
 - [x] 生命周期分发( 见 AppDelegate ）
 - [x] 生命周期与内存泄漏(AutoDispose, RxLife）
