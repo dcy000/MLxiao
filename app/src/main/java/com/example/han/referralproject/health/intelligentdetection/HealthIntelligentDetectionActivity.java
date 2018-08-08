@@ -51,13 +51,6 @@ public class HealthIntelligentDetectionActivity extends BaseActivity implements 
     private static HealthBloodDetectionUiFragment.Data bloodpressureCacheData;
 
     public void putBloodpressureCacheData(HealthBloodDetectionUiFragment.Data data) {
-//        bloodpressureCacheData.right = data.right;
-//        bloodpressureCacheData.leftHighPressure = data.leftHighPressure;
-//        bloodpressureCacheData.rightHighPressure = data.rightHighPressure;
-//        bloodpressureCacheData.leftLowPressure = data.leftLowPressure;
-//        bloodpressureCacheData.rightLowPressure = data.rightLowPressure;
-//        bloodpressureCacheData.leftPulse = data.leftPulse;
-//        bloodpressureCacheData.rightPulse = data.rightPulse;
         bloodpressureCacheData=data;
     }
 

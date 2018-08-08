@@ -34,6 +34,7 @@ import com.gcml.lib_utils.display.ImageUtils;
 import com.gcml.lib_utils.display.LoadingProgressUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.thread.ThreadUtils;
+import com.gzq.administrator.lib_common.base.BaseApplication;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
@@ -99,6 +100,11 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
         setContentView(R.layout.activity_face_recognition);
         initView();
         initParameter();
+        leakCanary();
+    }
+
+    private void leakCanary() {
+        BaseApplication.getRefWatcher(this).watch(this);
     }
 
     private void initParameter() {
@@ -163,7 +169,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(this, "主人，请对准摄像头",
+        MLVoiceSynthetize.startSynthesize(MyApplication.getInstance(), "主人，请对准摄像头",
                 this, false);
 
     }
@@ -171,6 +177,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onStop() {
         super.onStop();
+        destroyAnimation();
         CameraUtils.getInstance().closeCamera();
         MLVoiceSynthetize.stop();
         LoadingProgressUtils.dismissView();
@@ -307,7 +314,10 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
         mIvCircle.clearAnimation();
         mLottAnimation.reverseAnimation();
     }
-
+    private void destroyAnimation(){
+        mIvCircle.clearAnimation();
+        mLottAnimation.cancelAnimation();
+    }
     //==========================头像识别监听======================================================
     @Override
     public void onResult(IdentityResult result, boolean islast) {
