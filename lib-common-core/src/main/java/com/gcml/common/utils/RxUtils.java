@@ -1,8 +1,14 @@
-package com.gcml.common.repository.utils;
+package com.gcml.common.utils;
 
+
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleOwner;
 
 import com.gcml.common.repository.http.ApiException;
 import com.gcml.common.repository.http.ApiResult;
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.AutoDisposeConverter;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -13,7 +19,7 @@ import io.reactivex.functions.Function;
  * Created by afirez on 18-2-6.
  */
 
-public class RxResultUtils {
+public class RxUtils {
 
     public static <T> ObservableTransformer<ApiResult<T>, T> apiResultTransformer() {
         return new ObservableTransformer<ApiResult<T>, T>() {
@@ -33,5 +39,13 @@ public class RxResultUtils {
                 );
             }
         };
+    }
+
+    public static <T> AutoDisposeConverter<T> autoDisposeConverter(LifecycleOwner owner) {
+        return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(owner));
+    }
+
+    public static <T> AutoDisposeConverter<T> autoDisposeConverter(LifecycleOwner owner, Lifecycle.Event event) {
+        return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(owner, event));
     }
 }
