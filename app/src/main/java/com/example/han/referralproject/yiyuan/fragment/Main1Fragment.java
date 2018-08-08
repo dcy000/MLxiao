@@ -138,7 +138,8 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             case R.id.iv_qianyue:
                 break;
             case R.id.celianglishi:
-                showDialog(data = getZiChaData());
+//                showDialog(data = getZiChaData());
+                gotoTizhiJianCe();
                 break;
             case R.id.tijian:
 //                showJianCheDialog(getTiJianData());
