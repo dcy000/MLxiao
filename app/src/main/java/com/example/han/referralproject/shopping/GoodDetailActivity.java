@@ -196,7 +196,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                             bundle.putString("orderid",orderid);
                             bundle.putString("from","Pay");
                             bundle.putInt("requestCode",1);
-                            FaceRecognitionActivity.startActivity(getApplicationContext(),FaceRecognitionActivity.class,bundle,true);
+                            FaceRecognitionActivity.startActivity(getApplicationContext(),bundle,true);
 
 
                         } else if (which == 0) {

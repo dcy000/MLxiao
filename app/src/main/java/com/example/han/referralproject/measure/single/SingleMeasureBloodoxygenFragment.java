@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * version:V1.2.5
  * created on 2018/8/6 10:41
  * created by:gzq
- * description:TODO
+ * description:单次血氧测量
  */
 public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
     @Override

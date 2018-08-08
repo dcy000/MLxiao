@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * version:V1.2.5
  * created on 2018/8/6 9:54
  * created by:gzq
- * description:TODO
+ * description:单次血压测量
  */
 public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     @Override

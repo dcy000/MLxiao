@@ -6,6 +6,7 @@ import android.view.View;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkCallback;
+import com.gcml.lib_utils.data.DataUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  * version:V1.2.5
  * created on 2018/8/6 10:54
  * created by:gzq
- * description:TODO
+ * description:单次血糖测量
  */
 public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
     private Bundle bundle;
@@ -32,7 +33,8 @@ public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
-            MLVoiceSynthetize.startSynthesize(getContext(), "主人，您本次测量血糖" + results[0], false);
+            String roundUp = DataUtils.getRoundUp(results[0], 1);
+            MLVoiceSynthetize.startSynthesize(getContext(), "主人，您本次测量血糖" + roundUp, false);
 
             ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData data = new DetectionData();
@@ -43,7 +45,7 @@ public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
             } else {
                 data.setSugarTime(0);
             }
-            data.setBloodSugar(Float.parseFloat(results[0]));
+            data.setBloodSugar(Float.parseFloat(roundUp));
             datas.add(data);
             NetworkApi.postMeasureData(datas, new NetworkCallback() {
                 @Override

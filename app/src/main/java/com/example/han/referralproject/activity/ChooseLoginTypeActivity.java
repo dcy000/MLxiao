@@ -17,8 +17,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
-import com.example.han.referralproject.facerecognition.RegisterHead2XunfeiActivity;
-import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -104,7 +102,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                     Bundle bundle = new Bundle();
                     bundle.putString("from", "Welcome");
                     bundle.putSerializable("WillGoBackActivity", goBackActivity);
-                    FaceRecognitionActivity.startActivity(this, FaceRecognitionActivity.class, bundle, false);
+                    FaceRecognitionActivity.startActivity(this, bundle, false);
                 }
                 break;
             case R.id.account_tip://注册

@@ -304,7 +304,8 @@ public class NewMain1Fragment extends BaseFragment implements View.OnClickListen
                 Bundle bundle = new Bundle();
                 bundle.putString("orderid", "0");
                 bundle.putString("from", "Test");
-                FaceRecognitionActivity.startActivity(getContext(), FaceRecognitionActivity.class, bundle, false);
+//                FaceRecognitionActivity.startActivity(getContext(), FaceRecognitionActivity.class, bundle, false);
+                FaceRecognitionActivity.startActivity(getContext(),bundle,false);
                 break;
             case R.id.iv_health_manager:
                 startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));

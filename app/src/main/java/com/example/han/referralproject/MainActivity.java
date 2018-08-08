@@ -9,14 +9,12 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 
+import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
-import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
@@ -123,7 +121,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 Bundle bundle = new Bundle();
                 bundle.putString("orderid", "0");
                 bundle.putString("from", "Test");
-                FaceRecognitionActivity.startActivity(this, FaceRecognitionActivity.class, bundle, false);
+                FaceRecognitionActivity.startActivity(this, bundle, false);
                 break;
             case R.id.doctor_ask://医生咨询
                 intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);

@@ -709,10 +709,6 @@
             android:name=".AllMeasureActivity"
             android:label="所有测量界面的载体Activity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".facerecognition.FaceRecognitionActivity"
-            android:label="人脸识别界面"
-            android:screenOrientation="landscape" />
 
         <activity
             android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity"
@@ -755,6 +751,9 @@
         <activity android:name=".hypertensionmanagement.activity.BloodPressureMeasureActivity" />
         <activity android:name=".hypertensionmanagement.activity.BloodClucoseMeasureActivity" />
         <activity android:name=".hypertensionmanagement.activity.WeightMeasureActivity"></activity>
+        <activity
+            android:name=".facerecognition.FaceRecognitionActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
