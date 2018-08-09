@@ -50,6 +50,7 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment {
                         }
                     }
                 });
+        TimeCountDownUtils.getInstance().start();
     }
 
     @Override

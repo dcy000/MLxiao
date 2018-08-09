@@ -1,6 +1,8 @@
 package com.gzq.test_all_devices;
 
+import android.content.Context;
 import android.content.res.Configuration;
+import android.support.multidex.MultiDex;
 
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.ui.UiUtils;
@@ -17,6 +19,12 @@ public class MyApplication extends BaseApplication {
     public String userId = "100067";
     {
         super.userId = "100067";
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     @Override
