@@ -1,5 +1,6 @@
 package com.example.han.referralproject.personal;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -43,14 +44,17 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.han.referralproject.yisuotang.YiSuoTangLoginActivity;
 import com.example.han.referralproject.yisuotang.bean.WalletResultBean;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
+import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by lenovo on 2018/3/12.
@@ -129,7 +133,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         view.findViewById(R.id.view_wifi).setOnClickListener(this);
         view.findViewById(R.id.iv_record).setOnClickListener(this);
         view.findViewById(R.id.iv_jiankang_riji).setOnClickListener(this);
-        view.findViewById(R.id.tv_change_account).setOnClickListener(this);
         tvUserName = (TextView) view.findViewById(R.id.per_name);
         view.findViewById(R.id.iv_change_account).setOnClickListener(this);
         headImg.setOnClickListener(this);
@@ -320,7 +323,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), HealthRecordActivity.class));
                 break;
             case R.id.iv_jiankang_riji:
-                startActivity(new Intent(getActivity(), HealthDiaryActivity.class));
+                exit();
                 break;
             case R.id.tv_update:
                 ((BaseActivity) getActivity()).showLoadingDialog("检查更新中");
@@ -379,15 +382,17 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 Intent intentAlarm = AlarmList2Activity.newLaunchIntent(getActivity());
                 startActivity(intentAlarm);
                 break;
-
-            case R.id.tv_change_account:
-                //切换账户
-                mChangeAccountDialog = new ChangeAccountDialog(getActivity());
-                mChangeAccountDialog.show();
-                break;
-
-
         }
     }
+
+    private void exit() {
+        MobclickAgent.onProfileSignOff();
+        NimAccountHelper.getInstance().logout();//退出网易IM
+        LocalShared.getInstance(getContext()).loginOut();
+        startActivity(new Intent(getContext(), YiSuoTangLoginActivity.class));
+        getActivity().finish();
+    }
+
+
 }
 

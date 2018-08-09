@@ -71,41 +71,27 @@
             <TextView
                 android:id="@+id/tv_balance"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:text="0"
                 android:textColor="#ff333333"
                 android:textSize="36dp"
-                android:text="0"
                 tools:text="198.00" />
 
             <TextView
                 android:id="@+id/tv_jifen"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_alignParentRight="true"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0"
                 android:textColor="#ff333333"
                 android:textSize="36dp"
-                android:text="0"
                 tools:text="10000" />
 
         </LinearLayout>
-
-        <TextView
-            android:drawablePadding="24pt"
-            android:gravity="center"
-            android:drawableLeft="@drawable/ic_change_account_set"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="68pt"
-            android:id="@+id/tv_change_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="切换账号"
-            android:textColor="#ff666666"
-            android:textSize="28dp" />
-
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -383,14 +369,13 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:visibility="gone">
-
+                android:orientation="vertical">
+                <!--退出-->
                 <ImageView
                     android:id="@+id/iv_jiankang_riji"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:background="@drawable/jianyi_set"
+                    android:background="@drawable/exit_set"
                     android:clickable="true" />
 
 
@@ -399,7 +384,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="健康日记"
+                    android:text="退出"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 
@@ -494,11 +479,11 @@
 
 
         <LinearLayout
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginTop="5dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <View
                 android:layout_width="20dp"
