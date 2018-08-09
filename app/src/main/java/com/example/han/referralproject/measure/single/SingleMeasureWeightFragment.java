@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * version:V1.2.5
  * created on 2018/8/6 11:09
  * created by:gzq
- * description:TODO
+ * description:单次体重测量
  */
 public class SingleMeasureWeightFragment extends Weight_Fragment {
     @Override

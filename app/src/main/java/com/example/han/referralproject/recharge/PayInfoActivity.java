@@ -4,9 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -174,8 +174,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
         loadingDialog.setIndeterminate(true);
         loadingDialog.setCancelable(true);
 
-        qrcodeImg = (ImageView) this.findViewById(R.id.qrcodeImg);
-        qrcodeImg1 = (ImageView) this.findViewById(R.id.qrcodeImg1);
+        qrcodeImg = this.findViewById(R.id.qrcodeImg);
+        qrcodeImg1 = this.findViewById(R.id.qrcodeImg1);
 
 
         reqQrCode();

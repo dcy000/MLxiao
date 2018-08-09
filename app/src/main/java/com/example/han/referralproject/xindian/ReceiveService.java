@@ -1,5 +1,5 @@
 package com.example.han.referralproject.xindian;
-import java.io.IOException;
+
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
@@ -12,6 +12,8 @@ import android.os.Message;
 
 import com.creative.base.InputStreamReader;
 import com.creative.base.OutputStreamSender;
+
+import java.io.IOException;
 
 
 public class ReceiveService extends Service {

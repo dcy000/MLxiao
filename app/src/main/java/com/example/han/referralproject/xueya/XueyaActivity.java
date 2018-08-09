@@ -16,12 +16,12 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -253,7 +253,7 @@ public class XueyaActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xueya);
-        ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack = findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -413,13 +413,13 @@ public class XueyaActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
 
-        mTextView = (TextView) findViewById(R.id.high_pressure);
-        mTextView1 = (TextView) findViewById(R.id.low_pressure);
-        mTextView2 = (TextView) findViewById(R.id.pulse);
+        mTextView = findViewById(R.id.high_pressure);
+        mTextView1 = findViewById(R.id.low_pressure);
+        mTextView2 = findViewById(R.id.pulse);
 
         //mPb = (ProgressBar) findViewById(R.id.pb);
 
-        mImageView1 = (ImageView) findViewById(R.id.test_1);
+        mImageView1 = findViewById(R.id.test_1);
         mImageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

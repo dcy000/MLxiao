@@ -73,7 +73,7 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.Holder> {
             this(view);
             mOnItemClickListener = onItemClickListener;
             view.setOnClickListener(this);
-            tvSelect = (TextView) view.findViewById(R.id.tv_select);
+            tvSelect = view.findViewById(R.id.tv_select);
         }
 
         @Override

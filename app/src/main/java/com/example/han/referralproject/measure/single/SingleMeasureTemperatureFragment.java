@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * version:V1.2.5
  * created on 2018/8/6 10:47
  * created by:gzq
- * description:TODO
+ * description:单次耳温测量
  */
 public class SingleMeasureTemperatureFragment extends Temperature_Fragment {
     @Override

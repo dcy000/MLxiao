@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,7 +14,6 @@ import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -35,7 +33,6 @@ import com.lzy.okgo.model.Response;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -110,7 +107,7 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        rvReport = ((RecyclerView) view.findViewById(R.id.rv_report));
+        rvReport = view.findViewById(R.id.rv_report);
         rvReport.setLayoutManager(new LinearLayoutManager(
                 getActivity(), LinearLayoutManager.VERTICAL, false));
         mAdapter = new Adapter();
@@ -181,12 +178,12 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         public BloodPressureVH(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvLeftPressure = (TextView) itemView.findViewById(R.id.tv_left_pressure);
-            tvRightPressure = (TextView) itemView.findViewById(R.id.tv_right_pressure);
-            tvLeftPulse = (TextView) itemView.findViewById(R.id.tv_left_pulse);
-            tvRightPulse = (TextView) itemView.findViewById(R.id.tv_right_pulse);
-            tvResult = (TextView) itemView.findViewById(R.id.tv_result);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvLeftPressure = itemView.findViewById(R.id.tv_left_pressure);
+            tvRightPressure = itemView.findViewById(R.id.tv_right_pressure);
+            tvLeftPulse = itemView.findViewById(R.id.tv_left_pulse);
+            tvRightPulse = itemView.findViewById(R.id.tv_right_pulse);
+            tvResult = itemView.findViewById(R.id.tv_result);
             blockLow = itemView.findViewById(R.id.block_low);
             blockHigh = itemView.findViewById(R.id.block_high);
             blockMiddle = itemView.findViewById(R.id.block_middle);
@@ -242,8 +239,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         public BloodSugarVH(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvValue = (TextView) itemView.findViewById(R.id.tv_value);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvValue = itemView.findViewById(R.id.tv_value);
             blockLow = itemView.findViewById(R.id.block_low);
             blockHigh = itemView.findViewById(R.id.block_high);
             blockMiddle = itemView.findViewById(R.id.block_middle);
@@ -285,8 +282,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         public EegVH(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvValue = (TextView) itemView.findViewById(R.id.tv_value);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvValue = itemView.findViewById(R.id.tv_value);
             blockLow = itemView.findViewById(R.id.block_low);
             blockHigh = itemView.findViewById(R.id.block_high);
             blockMiddle = itemView.findViewById(R.id.block_middle);
@@ -327,8 +324,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         public WeightVH(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvValue = (TextView) itemView.findViewById(R.id.tv_value);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvValue = itemView.findViewById(R.id.tv_value);
             blockLow = itemView.findViewById(R.id.block_low);
             blockHigh = itemView.findViewById(R.id.block_high);
             blockMiddle = itemView.findViewById(R.id.block_middle);
@@ -371,8 +368,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         public TemVH(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvValue = (TextView) itemView.findViewById(R.id.tv_value);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvValue = itemView.findViewById(R.id.tv_value);
             blockLow = itemView.findViewById(R.id.block_low);
             blockHigh = itemView.findViewById(R.id.block_high);
             blockMiddle = itemView.findViewById(R.id.block_middle);
@@ -412,8 +409,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         public BloodOxygenVH(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvValue = (TextView) itemView.findViewById(R.id.tv_value);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvValue = itemView.findViewById(R.id.tv_value);
             blockLow = itemView.findViewById(R.id.block_low);
             blockHigh = itemView.findViewById(R.id.block_high);
             blockMiddle = itemView.findViewById(R.id.block_middle);
@@ -456,8 +453,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         public CholesterinVH(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvValue = (TextView) itemView.findViewById(R.id.tv_value);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvValue = itemView.findViewById(R.id.tv_value);
             blockLow = itemView.findViewById(R.id.block_low);
             blockHigh = itemView.findViewById(R.id.block_high);
             blockMiddle = itemView.findViewById(R.id.block_middle);
@@ -501,8 +498,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         public LithicAcidVH(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvValue = (TextView) itemView.findViewById(R.id.tv_value);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvValue = itemView.findViewById(R.id.tv_value);
             blockLow = itemView.findViewById(R.id.block_low);
             blockHigh = itemView.findViewById(R.id.block_high);
             blockMiddle = itemView.findViewById(R.id.block_middle);
@@ -543,8 +540,8 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         public PulseVH(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvValue = (TextView) itemView.findViewById(R.id.tv_value);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvValue = itemView.findViewById(R.id.tv_value);
             blockLow = itemView.findViewById(R.id.block_low);
             blockHigh = itemView.findViewById(R.id.block_high);
             blockMiddle = itemView.findViewById(R.id.block_middle);

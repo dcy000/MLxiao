@@ -1,6 +1,5 @@
 package com.example.han.referralproject.formatter;
 
-import com.example.han.referralproject.util.Utils;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;

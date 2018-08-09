@@ -8,13 +8,11 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 
@@ -58,7 +56,7 @@ public class RxTextRoundProgressBar extends RxBaseRoundProgressBar implements Vi
 
     @Override
     protected void initView() {
-        tvProgress = (ImageView) findViewById(R.id.tv_progress);
+        tvProgress = findViewById(R.id.tv_progress);
         tvProgress.getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 

@@ -98,18 +98,18 @@ public class ChooseBluetoothActivity extends AppCompatActivity implements View.O
     }
 
     private void initView() {
-        mList = (RecyclerView) findViewById(R.id.list);
-        mSearch = (Button) findViewById(R.id.search);
+        mList = findViewById(R.id.list);
+        mSearch = findViewById(R.id.search);
         mSearch.setOnClickListener(this);
-        mStopSearch = (Button) findViewById(R.id.stop_search);
+        mStopSearch = findViewById(R.id.stop_search);
         mStopSearch.setOnClickListener(this);
         mList.setOnClickListener(this);
         measureType = getIntent().getIntExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_TEMPERATURE);
         mData = new ArrayList<>();
         setAdapter();
-        mLlBack = (LinearLayout) findViewById(R.id.ll_back);
+        mLlBack = findViewById(R.id.ll_back);
         mLlBack.setOnClickListener(this);
-        mTime = (TextView) findViewById(R.id.time);
+        mTime = findViewById(R.id.time);
     }
 
     private void setAdapter() {

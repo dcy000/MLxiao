@@ -42,7 +42,7 @@ public class SecondaryBloodPressureRiskResultsActivity extends BaseActivity {
 
     private void dealData() {
         if (data != null) {
-            String string_speak="";
+            String stringSpeak="";
             String target="";
             if (data.getTargets()!=null){
                 for (String s : data.getTargets()) {
@@ -50,19 +50,19 @@ public class SecondaryBloodPressureRiskResultsActivity extends BaseActivity {
                 }
             }
             if (!TextUtils.isEmpty(target)&&target.length()>1){
-                string_speak="主人，根据您的评估结果，您有可能是继发性高血压。并且存在对"+target.substring(0,target.length()-1)+"等靶器官的损害。";
+                stringSpeak="主人，根据您的评估结果，您有可能是继发性高血压。并且存在对"+target.substring(0,target.length()-1)+"等靶器官的损害。";
             }else{
-                string_speak="主人，根据您的评估结果，您有可能是继发性高血压。";
+                stringSpeak="主人，根据您的评估结果，您有可能是继发性高血压。";
             }
             List<SecondaryHypertension.SecondaryBean.IllnessFactorBean> illnessFactor = data.getSecondary().getIllnessFactor();
             if (illnessFactor!=null&&illnessFactor.size()>0){
-                string_speak+="引起疾病的因素可能有：";
+                stringSpeak+="引起疾病的因素可能有：";
                 for (int i=0;i<illnessFactor.size();i++){
-                    string_speak+=(i+1)+illnessFactor.get(i).getName()+";";
+                    stringSpeak+=(i+1)+illnessFactor.get(i).getName()+";";
                 }
             }
-            string_speak+="为了您的健康，建议您去医院做相关检查";
-            speak(string_speak);
+            stringSpeak+="为了您的健康，建议您去医院做相关检查";
+            speak(stringSpeak);
 
             stringBuffer.append("根据您的评估结果，您有可能是<strong><font color='#333333'>继发性高血压</color></strong>。");
             if (target != null) {
@@ -110,9 +110,9 @@ public class SecondaryBloodPressureRiskResultsActivity extends BaseActivity {
         data = getIntent().getParcelableExtra("data");
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("血压风险结果");
-        mTvTitle = (TextView) findViewById(R.id.tv_title);
-        mTvHeadlineInfluencingFactors = (TextView) findViewById(R.id.tv_headline_influencing_factors);
-        mFactorsList = (RecyclerView) findViewById(R.id.factors_list);
-        mFactorsListDetails = (RecyclerView) findViewById(R.id.factors_list_details);
+        mTvTitle = findViewById(R.id.tv_title);
+        mTvHeadlineInfluencingFactors = findViewById(R.id.tv_headline_influencing_factors);
+        mFactorsList = findViewById(R.id.factors_list);
+        mFactorsListDetails = findViewById(R.id.factors_list_details);
     }
 }

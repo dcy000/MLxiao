@@ -29,7 +29,7 @@ public class BusObserver<T> extends AtomicReference<Disposable>
         this(onNext,
                 Functions.ON_ERROR_MISSING,
                 Functions.EMPTY_ACTION,
-                Functions.<Disposable>emptyConsumer());
+                Functions.emptyConsumer());
     }
 
     public BusObserver(

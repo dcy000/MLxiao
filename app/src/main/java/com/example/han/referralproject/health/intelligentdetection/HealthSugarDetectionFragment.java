@@ -61,7 +61,7 @@ public class HealthSugarDetectionFragment extends Fragment {
     }
 
     protected void initView(View view, Bundle savedInstanceState) {
-        tvSugar = (TextView) view.findViewById(R.id.tv_xuetang);
+        tvSugar = view.findViewById(R.id.tv_xuetang);
     }
 
     private static final String DEVICE_NAME_SUGAR = "Bioland-BGM";

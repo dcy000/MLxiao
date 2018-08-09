@@ -8,29 +8,33 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.StatusBarFragment;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.module_control_volume.VolumeControlFloatwindow;
+import com.example.lenovo.rto.accesstoken.AccessToken;
+import com.example.lenovo.rto.accesstoken.AccessTokenModel;
+import com.example.lenovo.rto.http.HttpListener;
+import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.gcml.lib_utils.data.DataUtils;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.example.lenovo.rto.accesstoken.AccessToken;
-import com.example.lenovo.rto.accesstoken.AccessTokenModel;
-import com.example.lenovo.rto.http.HttpListener;
-import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
-import com.gcml.lib_utils.display.ToastUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import timber.log.Timber;
+
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 
 /**
@@ -120,10 +124,10 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
     }
 
     private void initView() {
-        mViewpage = (ViewPager) findViewById(R.id.viewpage);
-        mNewmainBottomIndicator = (LinearLayout) findViewById(R.id.newmain_bottom_indicator);
-        mIndicatorLeft = (View) findViewById(R.id.indicator_left);
-        mIndicatorRight = (View) findViewById(R.id.indicator_right);
+        mViewpage = findViewById(R.id.viewpage);
+        mNewmainBottomIndicator = findViewById(R.id.newmain_bottom_indicator);
+        mIndicatorLeft = findViewById(R.id.indicator_left);
+        mIndicatorRight = findViewById(R.id.indicator_right);
     }
 
 

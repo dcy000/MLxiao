@@ -119,7 +119,7 @@ public class BloodsugarRiskAssessmentActivity extends BaseActivity implements Vi
         mData = new ArrayList<>();
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("血糖风险评估");
-        mBloodsugarRiskList = (RecyclerView) findViewById(R.id.bloodsugar_risk_list);
+        mBloodsugarRiskList = findViewById(R.id.bloodsugar_risk_list);
     }
 
     @Override

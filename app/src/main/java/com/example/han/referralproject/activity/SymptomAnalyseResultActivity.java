@@ -24,7 +24,7 @@ public class SymptomAnalyseResultActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("自查报告");
         final ArrayList<SymptomResultBean.bqs> mDataList = new ArrayList<>();
-        RecyclerView symptomResultRv = (RecyclerView) findViewById(R.id.rv_symptom_result);
+        RecyclerView symptomResultRv = findViewById(R.id.rv_symptom_result);
         symptomResultRv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         symptomResultRv.addItemDecoration(new LinearLayoutDividerItemDecoration(20, 0));
         symptomResultRv.setAdapter(adapter = new SymptomResultAdapter(mContext, mDataList));

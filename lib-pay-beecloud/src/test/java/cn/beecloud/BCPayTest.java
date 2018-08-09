@@ -35,7 +35,7 @@ public class BCPayTest {
     CountDownLatch latch;
 
     @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
+    public static void setUpBeforeClass() {
         BeeCloud.setAppIdAndSecret("c5d1cba1-5e3f-4ba0-941d-9b0a371fe719",
                 "39a7a518-9ac8-4a9e-87bc-7885f33cf18c");
 
@@ -46,7 +46,7 @@ public class BCPayTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         activity = Mockito.mock(Activity.class);
         pay = BCPay.getInstance(activity);
         latch = new CountDownLatch(1);
@@ -57,7 +57,7 @@ public class BCPayTest {
      * @throws Exception
      */
     @Test
-    public void testInitWechatPay() throws Exception {
+    public void testInitWechatPay() {
         Object[][] test = new Object[][] {
                 new Object[]{null, null},
                 new Object[]{activity, null}
@@ -80,7 +80,7 @@ public class BCPayTest {
      * @throws Exception
      */
     @Test
-    public void testClear() throws Exception {
+    public void testClear() {
         BCPay.clear();
 
         Assert.assertEquals(null, BCPay.mContextActivity);
@@ -318,7 +318,7 @@ public class BCPayTest {
      * @throws Exception
      */
     @Test
-    public void testReqPayPalPaymentAsync() throws Exception {
+    public void testReqPayPalPaymentAsync() {
         pay.reqPayPalPaymentAsync("billnum",
                 111,
                 "USD",
@@ -334,7 +334,7 @@ public class BCPayTest {
      * @throws Exception
      */
     @Test
-    public void testReqPayPalPaymentAsyncTestMode() throws Exception {
+    public void testReqPayPalPaymentAsyncTestMode() {
         BeeCloud.setSandbox(true);
 
         pay.reqPayPalPaymentAsync("billnum",
@@ -363,7 +363,7 @@ public class BCPayTest {
      * @throws Exception
      */
     @Test
-    public void testSyncPayPalPaymentWithParams() throws Exception {
+    public void testSyncPayPalPaymentWithParams() {
         final BCHttpClientUtil.Response tokenResp = new BCHttpClientUtil.Response();
         tokenResp.code = 200;
         tokenResp.content = "{\"access_token\":\"mocked-token\"}";
@@ -396,7 +396,7 @@ public class BCPayTest {
      * @throws Exception
      */
     @Test
-    public void testSyncPayPalPaymentWithJsonStr() throws Exception {
+    public void testSyncPayPalPaymentWithJsonStr() {
         final BCHttpClientUtil.Response tokenResp = new BCHttpClientUtil.Response();
         tokenResp.code = 200;
         tokenResp.content = "{\"access_token\":\"mocked-token\"}";

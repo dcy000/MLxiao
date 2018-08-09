@@ -35,15 +35,15 @@ public class OrderVH extends RecyclerView.ViewHolder {
 
     public OrderVH(View itemView, final OrderAdapter.OnItemClickListener onItemClistListener) {
         super(itemView);
-        mImageView = (ImageView) itemView.findViewById(R.id.order_image);
-        mTextView1 = (TextView) itemView.findViewById(R.id.order_time);
-        mTextView2 = (TextView) itemView.findViewById(R.id.order_id);
-        mTextView3 = (TextView) itemView.findViewById(R.id.order_status);
-        mTextView4 = (TextView) itemView.findViewById(R.id.order_name);
-        mTextView5 = (TextView) itemView.findViewById(R.id.order_price);
-        mTextView6 = (TextView) itemView.findViewById(R.id.order_mount);
-        mTextView7 = (TextView) itemView.findViewById(R.id.order_mounts);
-        mTextView8 = (TextView) itemView.findViewById(R.id.order_sum);
+        mImageView = itemView.findViewById(R.id.order_image);
+        mTextView1 = itemView.findViewById(R.id.order_time);
+        mTextView2 = itemView.findViewById(R.id.order_id);
+        mTextView3 = itemView.findViewById(R.id.order_status);
+        mTextView4 = itemView.findViewById(R.id.order_name);
+        mTextView5 = itemView.findViewById(R.id.order_price);
+        mTextView6 = itemView.findViewById(R.id.order_mount);
+        mTextView7 = itemView.findViewById(R.id.order_mounts);
+        mTextView8 = itemView.findViewById(R.id.order_sum);
 
 
         itemView.setOnClickListener(new View.OnClickListener() {

@@ -81,9 +81,9 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
     }
 
     private void initView() {
-        mDoctorYuyue = (ImageView) findViewById(R.id.doctor_yuyue);
+        mDoctorYuyue = findViewById(R.id.doctor_yuyue);
         mDoctorYuyue.setOnClickListener(this);
-        mDoctorZaixian = (ImageView) findViewById(R.id.doctor_zaixian);
+        mDoctorZaixian = findViewById(R.id.doctor_zaixian);
         mDoctorZaixian.setOnClickListener(this);
     }
 }

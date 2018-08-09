@@ -24,8 +24,8 @@ public class PatientVH extends RecyclerView.ViewHolder {
 
     public PatientVH(View itemView, final DoctorAdapter.OnItemClickListener onItemClistListener) {
         super(itemView);
-        mImagine = (ImageView) itemView.findViewById(R.id.item_img);
-        mNameview = (TextView) itemView.findViewById(R.id.item_title);
-        mRoomId = (TextView) itemView.findViewById(R.id.item_desc);
+        mImagine = itemView.findViewById(R.id.item_img);
+        mNameview = itemView.findViewById(R.id.item_title);
+        mRoomId = itemView.findViewById(R.id.item_desc);
     }
 }

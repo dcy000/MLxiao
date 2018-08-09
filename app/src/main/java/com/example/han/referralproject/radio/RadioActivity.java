@@ -87,12 +87,12 @@ public class RadioActivity extends BaseActivity implements
 
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
-        ivPauseOrPlay = (ImageView) findViewById(R.id.old_iv_pause_or_play);
-        ivPrev = (ImageView) findViewById(R.id.old_iv_prev);
-        ivNext = (ImageView) findViewById(R.id.old_iv_next);
-        tvSelectedFm = (TextView) findViewById(R.id.old_tv_selected_fm);
-        tvSelectedName = (TextView) findViewById(R.id.old_tv_selected_name);
-        rvRadios = (RecyclerView) findViewById(R.id.old_rv_radios);
+        ivPauseOrPlay = findViewById(R.id.old_iv_pause_or_play);
+        ivPrev = findViewById(R.id.old_iv_prev);
+        ivNext = findViewById(R.id.old_iv_next);
+        tvSelectedFm = findViewById(R.id.old_tv_selected_fm);
+        tvSelectedName = findViewById(R.id.old_tv_selected_name);
+        rvRadios = findViewById(R.id.old_rv_radios);
 
         findViewById(R.id.old_iv_radio_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -301,8 +301,8 @@ public class RadioActivity extends BaseActivity implements
             super(itemView);
             this.onItemClickListener = onItemClickListener;
             indicator = itemView.findViewById(R.id.old_radio_indicator);
-            tvName = (TextView) itemView.findViewById(R.id.old_radio_name);
-            tvFm = (TextView) itemView.findViewById(R.id.old_tv_fm);
+            tvName = itemView.findViewById(R.id.old_radio_name);
+            tvFm = itemView.findViewById(R.id.old_tv_fm);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

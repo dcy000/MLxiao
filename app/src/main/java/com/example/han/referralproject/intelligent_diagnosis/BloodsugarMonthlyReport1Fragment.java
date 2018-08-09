@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.formatter.MonthlyReportTimeFormatter;
-import com.example.han.referralproject.formatter.WeeklyReportTimeFormatter;
 import com.example.han.referralproject.view.progress.RxRoundProgressBar;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
@@ -283,25 +282,25 @@ public class BloodsugarMonthlyReport1Fragment extends Fragment implements View.O
     }
 
     private void initView(View view) {
-        tvXueyaTitle = (TextView) view.findViewById(R.id.tv_xueya_title);
+        tvXueyaTitle = view.findViewById(R.id.tv_xueya_title);
         tvXueyaTitle.setText("上月平均血糖");
-        bloodsugarEmpty = (TextView) view.findViewById(R.id.bloodsugar_empty);
-        rpbBloodsugarEmpty = (RxRoundProgressBar) view.findViewById(R.id.rpb_bloodsugar_empty);
-        bloodsugarOne = (TextView) view.findViewById(R.id.bloodsugar_one);
-        rpbBloodsugarOne = (RxRoundProgressBar) view.findViewById(R.id.rpb_bloodsugar_one);
-        bloodsugarTwo = (TextView) view.findViewById(R.id.bloodsugar_two);
-        rpbBloodsugarTwo = (RxRoundProgressBar) view.findViewById(R.id.rpb_bloodsugar_two);
-        waveProgressBar = (WaveProgress) view.findViewById(R.id.wave_progress_bar);
-        ll1 = (LinearLayout) view.findViewById(R.id.ll_1);
-        rbEmpty = (RadioButton) view.findViewById(R.id.rb_empty);
+        bloodsugarEmpty = view.findViewById(R.id.bloodsugar_empty);
+        rpbBloodsugarEmpty = view.findViewById(R.id.rpb_bloodsugar_empty);
+        bloodsugarOne = view.findViewById(R.id.bloodsugar_one);
+        rpbBloodsugarOne = view.findViewById(R.id.rpb_bloodsugar_one);
+        bloodsugarTwo = view.findViewById(R.id.bloodsugar_two);
+        rpbBloodsugarTwo = view.findViewById(R.id.rpb_bloodsugar_two);
+        waveProgressBar = view.findViewById(R.id.wave_progress_bar);
+        ll1 = view.findViewById(R.id.ll_1);
+        rbEmpty = view.findViewById(R.id.rb_empty);
         rbEmpty.setOnClickListener(this);
-        rbOne = (RadioButton) view.findViewById(R.id.rb_one);
+        rbOne = view.findViewById(R.id.rb_one);
         rbOne.setOnClickListener(this);
-        rbTwo = (RadioButton) view.findViewById(R.id.rb_two);
+        rbTwo = view.findViewById(R.id.rb_two);
         rbTwo.setOnClickListener(this);
-        weekXueyaChart = (LineChart) view.findViewById(R.id.week_xueya_chart);
-        tvAdvice = (TextView) view.findViewById(R.id.tv_advice);
-        ll2 = (LinearLayout) view.findViewById(R.id.ll_2);
+        weekXueyaChart = view.findViewById(R.id.week_xueya_chart);
+        tvAdvice = view.findViewById(R.id.tv_advice);
+        ll2 = view.findViewById(R.id.ll_2);
     }
 
     @Override

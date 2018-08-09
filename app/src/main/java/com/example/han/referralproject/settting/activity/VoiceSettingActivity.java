@@ -2,7 +2,6 @@ package com.example.han.referralproject.settting.activity;
 
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;

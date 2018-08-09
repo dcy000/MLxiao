@@ -25,8 +25,6 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import timber.log.Timber;
 

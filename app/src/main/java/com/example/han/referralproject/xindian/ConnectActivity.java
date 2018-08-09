@@ -37,8 +37,8 @@ public class ConnectActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.progdialog);
-		tvStatus = (TextView) findViewById(R.id.dialog_text);
-		imgProgress = (ImageView) findViewById(R.id.dialog_pro);
+		tvStatus = findViewById(R.id.dialog_text);
+		imgProgress = findViewById(R.id.dialog_pro);
 		imgProgress.setOnClickListener(reConListener);
 		conDeviceName = getIntent().getExtras().getInt("device");
 		findViewById(R.id.icon_back).setOnClickListener(this);
@@ -150,8 +150,8 @@ public class ConnectActivity extends Activity implements OnClickListener{
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			};
-		}.start();
+			}
+        }.start();
 	}
 
 	@Override

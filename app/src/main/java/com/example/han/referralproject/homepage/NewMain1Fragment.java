@@ -69,15 +69,15 @@ public class NewMain1Fragment extends BaseFragment implements View.OnClickListen
     @Override
     protected void initView(View view, Bundle bundle) {
 
-        mClock = (TextView) view.findViewById(R.id.clock);
+        mClock = view.findViewById(R.id.clock);
         mClock.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
-        mImageWeather = (ImageView) view.findViewById(R.id.image_weather);
-        mTemperature = (TextView) view.findViewById(R.id.temperature);
-        mWeather = (TextView) view.findViewById(R.id.weather);
-        mGregorianCalendar = (TextView) view.findViewById(R.id.gregorian_calendar);
-        mLunarCalendar = (TextView) view.findViewById(R.id.lunar_calendar);
-        mWeekToday = (TextView) view.findViewById(R.id.weekToday);
-        mLlDateAndWeek = (LinearLayout) view.findViewById(R.id.ll_date_and_week);
+        mImageWeather = view.findViewById(R.id.image_weather);
+        mTemperature = view.findViewById(R.id.temperature);
+        mWeather = view.findViewById(R.id.weather);
+        mGregorianCalendar = view.findViewById(R.id.gregorian_calendar);
+        mLunarCalendar = view.findViewById(R.id.lunar_calendar);
+        mWeekToday = view.findViewById(R.id.weekToday);
+        mLlDateAndWeek = view.findViewById(R.id.ll_date_and_week);
         mClock.setOnClickListener(this);
         mImageWeather.setOnClickListener(this);
         mTemperature.setOnClickListener(this);
@@ -86,11 +86,11 @@ public class NewMain1Fragment extends BaseFragment implements View.OnClickListen
         mLunarCalendar.setOnClickListener(this);
         mWeekToday.setOnClickListener(this);
         mLlDateAndWeek.setOnClickListener(this);
-        mIvHealthMeasure = (EclipseImageView) view.findViewById(R.id.iv_health_measure);
+        mIvHealthMeasure = view.findViewById(R.id.iv_health_measure);
         mIvHealthMeasure.setOnClickListener(this);
-        mIvHealthManager = (EclipseImageView) view.findViewById(R.id.iv_health_manager);
+        mIvHealthManager = view.findViewById(R.id.iv_health_manager);
         mIvHealthManager.setOnClickListener(this);
-        mIvHealthCallFamily = (EclipseImageView) view.findViewById(R.id.iv_health_call_family);
+        mIvHealthCallFamily = view.findViewById(R.id.iv_health_call_family);
         mIvHealthCallFamily.setOnClickListener(this);
         synchroSystemTime();
         getLocation();
@@ -237,7 +237,7 @@ public class NewMain1Fragment extends BaseFragment implements View.OnClickListen
         ThreadUtils.executeByCachedAtFixRate(new ThreadUtils.SimpleTask<Void>() {
             @Nullable
             @Override
-            public Void doInBackground() throws Throwable {
+            public Void doInBackground() {
                 WeatherUtils.getInstance().requestWeatherData(address);
                 return null;
             }
@@ -254,7 +254,7 @@ public class NewMain1Fragment extends BaseFragment implements View.OnClickListen
         ThreadUtils.executeByCachedAtFixRate(new ThreadUtils.SimpleTask<String[]>() {
             @Nullable
             @Override
-            public String[] doInBackground() throws Throwable {
+            public String[] doInBackground() {
 
                 Calendar instance = Calendar.getInstance();
                 results[0] = TimeUtils.date2String(instance.getTime(), new SimpleDateFormat("HH:mm"));
@@ -304,7 +304,8 @@ public class NewMain1Fragment extends BaseFragment implements View.OnClickListen
                 Bundle bundle = new Bundle();
                 bundle.putString("orderid", "0");
                 bundle.putString("from", "Test");
-                FaceRecognitionActivity.startActivity(getContext(), FaceRecognitionActivity.class, bundle, false);
+//                FaceRecognitionActivity.startActivity(getContext(), FaceRecognitionActivity.class, bundle, false);
+                FaceRecognitionActivity.startActivity(getContext(),bundle,false);
                 break;
             case R.id.iv_health_manager:
                 startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));

@@ -97,19 +97,19 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
         sharedPreference = getSharedPreferences(ConstantData.ONLINE_ID, Context.MODE_PRIVATE);
 
-        mImageView1 = (ImageView) findViewById(R.id.circleImageView);
-        mTextView = (TextView) findViewById(R.id.names);
-        mTextView1 = (TextView) findViewById(R.id.duty);
-        mTextView2 = (TextView) findViewById(R.id.hospital);
-        mTextView3 = (TextView) findViewById(R.id.department);
-        mTextView4 = (TextView) findViewById(R.id.introduce);
+        mImageView1 = findViewById(R.id.circleImageView);
+        mTextView = findViewById(R.id.names);
+        mTextView1 = findViewById(R.id.duty);
+        mTextView2 = findViewById(R.id.hospital);
+        mTextView3 = findViewById(R.id.department);
+        mTextView4 = findViewById(R.id.introduce);
 
-        mButton = (Button) findViewById(R.id.qianyue);
-        mStar1 = (ImageView) findViewById(R.id.star1);
-        mStar2 = (ImageView) findViewById(R.id.star2);
-        mStar3 = (ImageView) findViewById(R.id.star3);
-        mStar4 = (ImageView) findViewById(R.id.star4);
-        mStar5 = (ImageView) findViewById(R.id.star5);
+        mButton = findViewById(R.id.qianyue);
+        mStar1 = findViewById(R.id.star1);
+        mStar2 = findViewById(R.id.star2);
+        mStar3 = findViewById(R.id.star3);
+        mStar4 = findViewById(R.id.star4);
+        mStar5 = findViewById(R.id.star5);
         goodat1 = findViewById(R.id.goodat1);
         goodat2 = findViewById(R.id.goodat2);
         goodat3 = findViewById(R.id.goodat3);

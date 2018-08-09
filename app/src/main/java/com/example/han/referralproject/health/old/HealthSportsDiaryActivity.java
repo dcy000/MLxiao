@@ -38,13 +38,13 @@ public class HealthSportsDiaryActivity extends BaseActivity {
         units = getUnits();
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("健  康  日  记");
-        tvTopic = (TextView) findViewById(R.id.health_diary_tv_topic);
-        rvItems = (RecyclerView) findViewById(R.id.health_diary_rv_items);
-        tvRulerTopic = (TextView) findViewById(R.id.health_diary_tv_ruler_topic);
-        rvRuler = (RulerView) findViewById(R.id.health_diary_rv_ruler);
-        tvRulerIndicator = (TextView) findViewById(R.id.health_diary_tv_ruler_indicator);
-        tvConfirm = (TextView) findViewById(R.id.health_diary_tv_confirm);
-        tvCancel = (TextView) findViewById(R.id.health_diary_tv_cancel);
+        tvTopic = findViewById(R.id.health_diary_tv_topic);
+        rvItems = findViewById(R.id.health_diary_rv_items);
+        tvRulerTopic = findViewById(R.id.health_diary_tv_ruler_topic);
+        rvRuler = findViewById(R.id.health_diary_rv_ruler);
+        tvRulerIndicator = findViewById(R.id.health_diary_tv_ruler_indicator);
+        tvConfirm = findViewById(R.id.health_diary_tv_confirm);
+        tvCancel = findViewById(R.id.health_diary_tv_cancel);
         tvTopic.setText("选择今天的运动");
         OverFlyingLayoutManager lm = new OverFlyingLayoutManager(this);
         lm.setMinScale(1.0f);
@@ -84,7 +84,7 @@ public class HealthSportsDiaryActivity extends BaseActivity {
             }
         });
 
-        rvUnits = (RecyclerView) findViewById(R.id.health_diary_rv_units);
+        rvUnits = findViewById(R.id.health_diary_rv_units);
         rvUnits.addOnScrollListener(new CenterScrollListener());
         mUnitAdapter = new HealthSaltDiaryActivity.UnitAdapter(units);
         OverFlyingLayoutManager lm2 = new OverFlyingLayoutManager(this);
@@ -191,7 +191,7 @@ public class HealthSportsDiaryActivity extends BaseActivity {
         public VH(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             this.onItemClickListener = onItemClickListener;
-            tvItem = (TextView) itemView.findViewById(R.id.health_diary_tv_item);
+            tvItem = itemView.findViewById(R.id.health_diary_tv_item);
             itemView.setOnClickListener(this);
         }
 

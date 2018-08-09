@@ -91,12 +91,12 @@ public class SymptomsActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initView() {
-        mIconBack = (ImageView) findViewById(R.id.icon_back);
+        mIconBack = findViewById(R.id.icon_back);
         mIconBack.setOnClickListener(this);
-        mLinearlayou = (LinearLayout) findViewById(R.id.linearlayou);
-        mIconHome = (ImageView) findViewById(R.id.icon_home);
+        mLinearlayou = findViewById(R.id.linearlayou);
+        mIconHome = findViewById(R.id.icon_home);
         mIconHome.setOnClickListener(this);
-        mList = (RecyclerView) findViewById(R.id.list);
+        mList = findViewById(R.id.list);
         mData=new ArrayList<>();
 
     }

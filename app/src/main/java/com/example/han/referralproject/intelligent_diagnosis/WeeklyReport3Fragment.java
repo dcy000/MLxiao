@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.bean.WeeklyReport;
 import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
@@ -128,7 +127,7 @@ public class WeeklyReport3Fragment extends Fragment {
 
         if (pc_yan > 0) {
             imgYan.setImageResource(R.drawable.red_up);
-            pcYan.setText((int) pc_yan + "");
+            pcYan.setText(pc_yan + "");
         } else {
             imgYan.setVisibility(View.GONE);
             pcYan.setText("√");
@@ -137,7 +136,7 @@ public class WeeklyReport3Fragment extends Fragment {
 
         if (pc_yundong < 0) {
             imgYundong.setImageResource(R.drawable.red_down);
-            pcYundong.setText((int) pc_yundong + "");
+            pcYundong.setText(pc_yundong + "");
         } else {
             imgYundong.setVisibility(View.GONE);
             pcYundong.setText("√");
@@ -146,7 +145,7 @@ public class WeeklyReport3Fragment extends Fragment {
 
         if (pc_tizhong > 0) {
             imgTizhong.setImageResource(R.drawable.red_up);
-            pcTizhong.setText((int) pc_tizhong + "");
+            pcTizhong.setText(pc_tizhong + "");
         } else {
             imgTizhong.setVisibility(View.GONE);
             pcTizhong.setText("√");
@@ -155,7 +154,7 @@ public class WeeklyReport3Fragment extends Fragment {
 
         if (pc_yinjiu > 0) {
             imgYinjiu.setImageResource(R.drawable.red_up);
-            pcYinjiu.setText((int) pc_yinjiu + "");
+            pcYinjiu.setText(pc_yinjiu + "");
         } else {
             imgYinjiu.setVisibility(View.GONE);
             pcYinjiu.setText("√");

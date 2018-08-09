@@ -51,7 +51,7 @@ public class ChildEduSheetListActivity extends BaseActivity {
         } else {
             sheetCategory = SHEET_CATEGORY_CHILD;
         }
-        ivTitle = (ImageView) findViewById(R.id.ce_common_iv_title);
+        ivTitle = findViewById(R.id.ce_common_iv_title);
         switch (sheetCategory) {
             case SHEET_CATEGORY_CHILD:
                 ivTitle.setImageResource(R.drawable.ce_entertianment_ic_title_child_sheets);
@@ -73,7 +73,7 @@ public class ChildEduSheetListActivity extends BaseActivity {
                 finish();
             }
         });
-        rvSheets = (RecyclerView) findViewById(R.id.ce_entertainment_rv_sheets);
+        rvSheets = findViewById(R.id.ce_entertainment_rv_sheets);
         rvSheets.addOnScrollListener(new CenterScrollListener());
         OverFlyingLayoutManager lm = new OverFlyingLayoutManager(this);
         lm.setMinScale(0.6f);
@@ -199,8 +199,8 @@ public class ChildEduSheetListActivity extends BaseActivity {
             super(itemView);
             this.onItemClickListener = onItemClickListener;
             itemView.setOnClickListener(this);
-            ivIndicator = (ImageView) itemView.findViewById(R.id.ce_home_iv_item_indicator);
-            tvIndicator = (TextView) itemView.findViewById(R.id.ce_home_tv_item_indicator);
+            ivIndicator = itemView.findViewById(R.id.ce_home_iv_item_indicator);
+            tvIndicator = itemView.findViewById(R.id.ce_home_tv_item_indicator);
         }
 
         @Override

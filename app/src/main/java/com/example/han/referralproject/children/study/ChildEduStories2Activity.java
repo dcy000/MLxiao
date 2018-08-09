@@ -39,7 +39,7 @@ public class ChildEduStories2Activity extends BaseActivity {
                 finish();
             }
         });
-        rvStories = (RecyclerView) findViewById(R.id.ce_stories_rv_stories);
+        rvStories = findViewById(R.id.ce_stories_rv_stories);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         lm.setOrientation(LinearLayoutManager.VERTICAL);
         mModels = new ArrayList<>();
@@ -106,8 +106,8 @@ public class ChildEduStories2Activity extends BaseActivity {
 
         public StoryHolder(View itemView) {
             super(itemView);
-            tvNumber = (TextView) itemView.findViewById(R.id.ce_story_tv_item_number);
-            tvTitle = (TextView) itemView.findViewById(R.id.ce_story_tv_item_poem_title);
+            tvNumber = itemView.findViewById(R.id.ce_story_tv_item_number);
+            tvTitle = itemView.findViewById(R.id.ce_story_tv_item_poem_title);
             itemView.setOnClickListener(storyOnClickListener);
         }
 

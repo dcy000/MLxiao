@@ -83,7 +83,7 @@ public class SymptomRecyclerAdapter extends RecyclerView.Adapter<SymptomRecycler
 
         public SymptomHolder(View itemView){
             super(itemView);
-            symptomTv = (TextView) itemView.findViewById(R.id.tv_item_symptom);
+            symptomTv = itemView.findViewById(R.id.tv_item_symptom);
         }
     }
 

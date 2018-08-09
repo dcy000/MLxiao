@@ -114,7 +114,7 @@ public class HypertensionRiskActivity extends BaseActivity implements IFragmentC
     private void initView() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("血压风险评估");
-        mRiskFrame = (FrameLayout) findViewById(R.id.risk_frame);
+        mRiskFrame = findViewById(R.id.risk_frame);
         postQuestions = new PostQuestions();
     }
 
@@ -125,27 +125,27 @@ public class HypertensionRiskActivity extends BaseActivity implements IFragmentC
                     .setCustomAnimations(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_right_exit)
                     .replace(R.id.risk_frame, riskFragment2).commit();
             fragmentPosition = 2;
-            if (lists.get(0).isChoosed()==1) {
+            if (lists.get(0).isChoosed() == 1) {
                 postQuestions.setGenetic("1");
             } else {
                 postQuestions.setGenetic("0");
             }
-            if (lists.get(1).isChoosed()==1) {
+            if (lists.get(1).isChoosed() == 1) {
                 postQuestions.setDrinkWine("1");
             } else {
                 postQuestions.setDrinkWine("0");
             }
-            if (lists.get(2).isChoosed()==1) {
+            if (lists.get(2).isChoosed() == 1) {
                 postQuestions.setMentalStress("1");
             } else {
                 postQuestions.setMentalStress("0");
             }
-            if (lists.get(3).isChoosed()==1) {
+            if (lists.get(3).isChoosed() == 1) {
                 postQuestions.setNaSalt("1");
             } else {
                 postQuestions.setNaSalt("0");
             }
-            if (lists.get(4).isChoosed()==1) {
+            if (lists.get(4).isChoosed() == 1) {
                 postQuestions.setSport("1");
             } else {
                 postQuestions.setSport("0");
@@ -155,43 +155,44 @@ public class HypertensionRiskActivity extends BaseActivity implements IFragmentC
                     .setCustomAnimations(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_right_exit)
                     .replace(R.id.risk_frame, riskFragment3).commit();
             fragmentPosition = 3;
-            if (lists.get(0).isChoosed()==1) {
+            if (lists.get(0).isChoosed() == 1) {
                 postQuestions.setRenalIllness("1");
             } else {
                 postQuestions.setRenalIllness("0");
             }
-            if (lists.get(1).isChoosed()==1) {
+            if (lists.get(1).isChoosed() == 1) {
                 postQuestions.setEndocrineIllness("1");
             } else {
                 postQuestions.setEndocrineIllness("0");
             }
-            if (lists.get(2).isChoosed()==1) {
+            if (lists.get(2).isChoosed() == 1) {
                 postQuestions.setPrrs("1");
             } else {
                 postQuestions.setPrrs("0");
             }
-            if (lists.get(3).isChoosed()==1) {
+            if (lists.get(3).isChoosed() == 1) {
                 postQuestions.setDrugInduced("1");
             } else {
                 postQuestions.setDrugInduced("0");
             }
-        } else if (fragment instanceof HypertensionRiskFragment3) {//点击完成按钮
-            if (lists.get(0).isChoosed()==1) {
+        } else if (fragment instanceof HypertensionRiskFragment3) {
+            //点击完成按钮
+            if (lists.get(0).isChoosed() == 1) {
                 postQuestions.setKidney("1");
             } else {
                 postQuestions.setKidney("0");
             }
-            if (lists.get(1).isChoosed()==1) {
+            if (lists.get(1).isChoosed() == 1) {
                 postQuestions.setHeart("1");
             } else {
                 postQuestions.setHeart("0");
             }
-            if (lists.get(2).isChoosed()==1) {
+            if (lists.get(2).isChoosed() == 1) {
                 postQuestions.setEncephalon("1");
             } else {
                 postQuestions.setEncephalon("0");
             }
-            if (lists.get(3).isChoosed()==1) {
+            if (lists.get(3).isChoosed() == 1) {
                 postQuestions.setEye("1");
             } else {
                 postQuestions.setEye("0");
@@ -215,11 +216,13 @@ public class HypertensionRiskActivity extends BaseActivity implements IFragmentC
                             JSONObject object = new JSONObject(response.body());
                             if (object.optInt("code") == 200) {
                                 JSONObject data = object.optJSONObject("data");
-                                if (data.optString("illnessType").equals("0")) {//原发性高血压
+                                if ("0".equals(data.optString("illnessType"))) {
+                                    //原发性高血压
                                     EssentialHypertension essentialHypertension = new Gson().fromJson(data.toString(), EssentialHypertension.class);
                                     startActivity(new Intent(HypertensionRiskActivity.this, PrimaryBloodPressureRiskResultsActivity.class)
                                             .putExtra("data", essentialHypertension));
-                                } else if (data.optString("illnessType").equals("1")) {//继发性高血压
+                                } else if ("1".equals(data.optString("illnessType"))) {
+                                    //继发性高血压
                                     SecondaryHypertension secondaryHypertension = new Gson().fromJson(data.toString(), SecondaryHypertension.class);
                                     startActivity(new Intent(HypertensionRiskActivity.this, SecondaryBloodPressureRiskResultsActivity.class)
                                             .putExtra("data", secondaryHypertension));
@@ -256,6 +259,8 @@ public class HypertensionRiskActivity extends BaseActivity implements IFragmentC
                         .setCustomAnimations(R.anim.fragment_slide_right_enter, R.anim.fragment_slide_right_exit)
                         .replace(R.id.risk_frame, riskFragment2).commit();
                 fragmentPosition = 2;
+                break;
+            default:
                 break;
         }
     }

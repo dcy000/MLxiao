@@ -44,9 +44,9 @@ public class Commands {
 		time = new Time();
 		time.setToNow();
 		cmdData = new byte[cmdLength];
-		cmdData[0] = (byte) cmdStart;
-		cmdData[1] = (byte) cmdLength;
-		cmdData[2] = (byte) cmdSort;
+		cmdData[0] = cmdStart;
+		cmdData[1] = cmdLength;
+		cmdData[2] = cmdSort;
 		cmdData[3] = (byte) (time.year - 2000);
 		cmdData[4] = (byte) ((byte) time.month + 1);
 		cmdData[5] = (byte) time.monthDay;

@@ -22,7 +22,7 @@ public class ChildEduCartoonActivity extends BaseActivity {
                 finish();
             }
         });
-        rgTabs = (RadioGroup) findViewById(R.id.ce_cartoon_rg_tabs);
+        rgTabs = findViewById(R.id.ce_cartoon_rg_tabs);
         rgTabs.setOnCheckedChangeListener(onCheckedChangeListener);
         rgTabs.check(R.id.ce_cartoon_rb_tab_cartoon);
     }

@@ -68,4 +68,4 @@ public class SettingTextWatcher implements TextWatcher {
 	    return pattern.matcher(str).matches();    
 	 } 
 
-};
+}

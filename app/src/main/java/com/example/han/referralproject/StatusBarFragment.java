@@ -91,11 +91,11 @@ public class StatusBarFragment extends Fragment implements
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_status_bar, container, false);
-        tvTime = (TextView) view.findViewById(R.id.tv_status_bar_time);
-        ivChargingIndicator = (ImageView) view.findViewById(R.id.iv_charging_indicator);
-        tvBatteryPercent = (TextView) view.findViewById(R.id.tv_battery_percent);
-        ivBatteryIndicator = (ImageView) view.findViewById(R.id.iv_battery_indicator);
-        ivBatteryFullIndicator = (ImageView) view.findViewById(R.id.iv_battery_full_indicator);
+        tvTime = view.findViewById(R.id.tv_status_bar_time);
+        ivChargingIndicator = view.findViewById(R.id.iv_charging_indicator);
+        tvBatteryPercent = view.findViewById(R.id.tv_battery_percent);
+        ivBatteryIndicator = view.findViewById(R.id.iv_battery_indicator);
+        ivBatteryFullIndicator = view.findViewById(R.id.iv_battery_full_indicator);
         initView();
         return view;
     }

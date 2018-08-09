@@ -78,7 +78,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         mRightView.setImageResource(R.drawable.icon_wifi);
         mRightView.setOnClickListener(this);
 
-        vpContent = (ViewPager) findViewById(R.id.vp_content);
+        vpContent = findViewById(R.id.vp_content);
         PersonDetailFragment detail = new PersonDetailFragment();
         PersonDetail2Fragment detail2 = new PersonDetail2Fragment();
         fragments.add(detail);

@@ -37,14 +37,14 @@ public class MyMarkerView extends MarkerView {
         super(context, layoutResource);
         this.flag = flag;
         this.times = times;
-        text_1 = (TextView) findViewById(R.id.text_1);
-        text_2 = (TextView) findViewById(R.id.text_2);
-        ll2 = (LinearLayout) findViewById(R.id.ll2);
-        color_1 = (TextView) findViewById(R.id.color_1);
-        color_2 = (TextView) findViewById(R.id.color_2);
-        title_1 = (TextView) findViewById(R.id.title_1);
-        title_2 = (TextView) findViewById(R.id.title_2);
-        time = (TextView) findViewById(R.id.time);
+        text_1 = findViewById(R.id.text_1);
+        text_2 = findViewById(R.id.text_2);
+        ll2 = findViewById(R.id.ll2);
+        color_1 = findViewById(R.id.color_1);
+        color_2 = findViewById(R.id.color_2);
+        title_1 = findViewById(R.id.title_1);
+        title_2 = findViewById(R.id.title_2);
+        time = findViewById(R.id.time);
         mFormat = new DecimalFormat("##0");
     }
 
@@ -52,14 +52,14 @@ public class MyMarkerView extends MarkerView {
         super(context, layoutResource);
         this.flag = flag;
         this.times = times;
-        text_1 = (TextView) findViewById(R.id.text_1);
-        text_2 = (TextView) findViewById(R.id.text_2);
-        ll2 = (LinearLayout) findViewById(R.id.ll2);
-        color_1 = (TextView) findViewById(R.id.color_1);
-        color_2 = (TextView) findViewById(R.id.color_2);
-        title_1 = (TextView) findViewById(R.id.title_1);
-        title_2 = (TextView) findViewById(R.id.title_2);
-        time = (TextView) findViewById(R.id.time);
+        text_1 = findViewById(R.id.text_1);
+        text_2 = findViewById(R.id.text_2);
+        ll2 = findViewById(R.id.ll2);
+        color_1 = findViewById(R.id.color_1);
+        color_2 = findViewById(R.id.color_2);
+        title_1 = findViewById(R.id.title_1);
+        title_2 = findViewById(R.id.title_2);
+        time = findViewById(R.id.time);
         mFormat = new DecimalFormat("##0");
         this.xueya = xueya;
     }

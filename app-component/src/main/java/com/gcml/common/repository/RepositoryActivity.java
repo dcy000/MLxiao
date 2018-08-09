@@ -44,13 +44,13 @@ public class RepositoryActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void accept(Disposable disposable) throws Exception {
+                    public void accept(Disposable disposable) {
                         Toast.makeText(RepositoryActivity.this, String.valueOf(Looper.myLooper() == Looper.getMainLooper()) + "开始...", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .doOnTerminate(new Action() {
                     @Override
-                    public void run() throws Exception {
+                    public void run() {
                         Toast.makeText(RepositoryActivity.this, String.valueOf(Looper.myLooper() == Looper.getMainLooper()) + "结束！！！", Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -79,13 +79,13 @@ public class RepositoryActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void accept(Disposable disposable) throws Exception {
+                    public void accept(Disposable disposable) {
                         Toast.makeText(RepositoryActivity.this, String.valueOf(Looper.myLooper() == Looper.getMainLooper()) + "开始...", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .doOnTerminate(new Action() {
                     @Override
-                    public void run() throws Exception {
+                    public void run() {
                         Toast.makeText(RepositoryActivity.this, String.valueOf(Looper.myLooper() == Looper.getMainLooper()) + "结束！！！", Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -114,13 +114,13 @@ public class RepositoryActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void accept(Disposable disposable) throws Exception {
+                    public void accept(Disposable disposable) {
                         Toast.makeText(RepositoryActivity.this, String.valueOf(Looper.myLooper() == Looper.getMainLooper()) + "开始...", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .doOnTerminate(new Action() {
                     @Override
-                    public void run() throws Exception {
+                    public void run() {
                         Toast.makeText(RepositoryActivity.this, String.valueOf(Looper.myLooper() == Looper.getMainLooper()) + "结束！！！", Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -149,13 +149,13 @@ public class RepositoryActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void accept(Disposable disposable) throws Exception {
+                    public void accept(Disposable disposable) {
                         Toast.makeText(RepositoryActivity.this, String.valueOf(Looper.myLooper() == Looper.getMainLooper()) + "开始...", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .doOnTerminate(new Action() {
                     @Override
-                    public void run() throws Exception {
+                    public void run() {
                         Toast.makeText(RepositoryActivity.this, String.valueOf(Looper.myLooper() == Looper.getMainLooper()) + "结束！！！", Toast.LENGTH_SHORT).show();
                     }
                 })

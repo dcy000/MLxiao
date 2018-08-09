@@ -38,29 +38,29 @@ public class BodychartActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initView() {
-        mHead = (ImageView) findViewById(R.id.head);
+        mHead = findViewById(R.id.head);
         mHead.setOnClickListener(this);
-        mChest = (ImageView) findViewById(R.id.chest);
+        mChest = findViewById(R.id.chest);
         mChest.setOnClickListener(this);
-        mLeftHand = (ImageView) findViewById(R.id.left_hand);
+        mLeftHand = findViewById(R.id.left_hand);
         mLeftHand.setOnClickListener(this);
-        mRightHand = (ImageView) findViewById(R.id.right_hand);
+        mRightHand = findViewById(R.id.right_hand);
         mRightHand.setOnClickListener(this);
-        mAbdomen = (ImageView) findViewById(R.id.abdomen);
+        mAbdomen = findViewById(R.id.abdomen);
         mAbdomen.setOnClickListener(this);
-        mLegs = (ImageView) findViewById(R.id.legs);
+        mLegs = findViewById(R.id.legs);
         mLegs.setOnClickListener(this);
-        mImgHead = (ImageView) findViewById(R.id.imgHead);
-        mViewHead = (View) findViewById(R.id.viewHead);
+        mImgHead = findViewById(R.id.imgHead);
+        mViewHead = findViewById(R.id.viewHead);
         mViewHead.setOnClickListener(this);
-        mImgAbdomen = (ImageView) findViewById(R.id.imgAbdomen);
-        mViewAbdomen = (View) findViewById(R.id.viewAbdomen);
+        mImgAbdomen = findViewById(R.id.imgAbdomen);
+        mViewAbdomen = findViewById(R.id.viewAbdomen);
         mViewAbdomen.setOnClickListener(this);
-        mImgChest = (ImageView) findViewById(R.id.imgChest);
-        mViewChest = (View) findViewById(R.id.viewChest);
+        mImgChest = findViewById(R.id.imgChest);
+        mViewChest = findViewById(R.id.viewChest);
         mViewChest.setOnClickListener(this);
-        mImgLegs = (ImageView) findViewById(R.id.imgLegs);
-        mViewLegs = (View) findViewById(R.id.viewLegs);
+        mImgLegs = findViewById(R.id.imgLegs);
+        mViewLegs = findViewById(R.id.viewLegs);
         mViewLegs.setOnClickListener(this);
     }
 

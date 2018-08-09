@@ -186,12 +186,7 @@ public class FlowLayout extends ViewGroup {
             }
 
             // 最后一个孩子的宽度大于剩余宽度就不添加
-            if (view.getMeasuredWidth() > (maxWidth - usedWidth - space)) {
-                return false;
-            }
-
-            // 默认可以添加
-            return true;
+            return !(view.getMeasuredWidth() > (maxWidth - usedWidth - space));
         }
 
         /**

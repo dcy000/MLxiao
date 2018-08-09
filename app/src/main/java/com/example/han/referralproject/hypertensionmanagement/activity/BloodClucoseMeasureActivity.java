@@ -7,7 +7,6 @@ import android.widget.FrameLayout;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.hypertensionmanagement.fragment.BloodClucoseMeasureFragment;
-import com.example.han.referralproject.hypertensionmanagement.fragment.BloodPresureMeasuerFragment;
 import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 

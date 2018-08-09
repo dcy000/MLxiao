@@ -33,11 +33,11 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
 
     @Override
     protected void initView(View view, final Bundle bundle) {
-        mBtnHealthHistory = (TextView) view.findViewById(R.id.btn_health_history);
+        mBtnHealthHistory = view.findViewById(R.id.btn_health_history);
         mBtnHealthHistory.setOnClickListener(this);
-        mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
+        mBtnVideoDemo = view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
-        mTvResult = (TextView) view.findViewById(R.id.tv_result);
+        mTvResult = view.findViewById(R.id.tv_result);
         this.bundle = bundle;
     }
 

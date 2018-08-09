@@ -21,12 +21,12 @@ public class ChildEduStudyActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ce_activity_study);
-        ivBack = (ImageView) findViewById(R.id.ce_common_iv_back);
-        ivBrainTeaser = (ImageView) findViewById(R.id.ce_study_iv_tab_brain_teaser);
-        ivPoems = (ImageView) findViewById(R.id.ce_study_iv_tab_poems);
-        ivStories = (ImageView) findViewById(R.id.ce_study_tv_tab_stories);
-        ivWhy = (ImageView) findViewById(R.id.ce_study_iv_tab_why);
-        ivWords = (ImageView) findViewById(R.id.ce_study_iv_tab_words);
+        ivBack = findViewById(R.id.ce_common_iv_back);
+        ivBrainTeaser = findViewById(R.id.ce_study_iv_tab_brain_teaser);
+        ivPoems = findViewById(R.id.ce_study_iv_tab_poems);
+        ivStories = findViewById(R.id.ce_study_tv_tab_stories);
+        ivWhy = findViewById(R.id.ce_study_iv_tab_why);
+        ivWords = findViewById(R.id.ce_study_iv_tab_words);
 
         ivWhy.setEnabled(false);
         ivWords.setEnabled(false);

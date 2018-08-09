@@ -19,7 +19,7 @@ public class SystemsUtils {
 
     public static DisplayMetrics getScreenSize(Context context){
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager mWindowManager =  (WindowManager)context.getSystemService(context.WINDOW_SERVICE);
+        WindowManager mWindowManager =  (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         mWindowManager.getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics;
     }
@@ -48,7 +48,7 @@ public class SystemsUtils {
     }
 
     public static void shutDown(Context context){
-        DevicePolicyManager devicePolicyManager = (DevicePolicyManager)context.getSystemService(context.DEVICE_POLICY_SERVICE);
+        DevicePolicyManager devicePolicyManager = (DevicePolicyManager)context.getSystemService(Context.DEVICE_POLICY_SERVICE);
         devicePolicyManager.lockNow();
     }
 
@@ -82,8 +82,7 @@ public class SystemsUtils {
         try {
             process = Runtime.getRuntime().exec(new String[] { "/system/xbin/which", "su" });
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            if (in.readLine() != null) return true;
-            return false;
+            return in.readLine() != null;
         } catch (Throwable t) {
             return false;
         } finally {

@@ -19,7 +19,6 @@ import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,16 +49,16 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
 
         speak(getString(R.string.shop_good));
 
-        mLinearLayout1 = (LinearLayout) findViewById(R.id.linearlayout1);
-        mLinearLayout2 = (LinearLayout) findViewById(R.id.linearlayout2);
-        mTextView1 = (TextView) findViewById(R.id.healthy_equ);
-        mTextView2 = (TextView) findViewById(R.id.healthy_con);
+        mLinearLayout1 = findViewById(R.id.linearlayout1);
+        mLinearLayout2 = findViewById(R.id.linearlayout2);
+        mTextView1 = findViewById(R.id.healthy_equ);
+        mTextView2 = findViewById(R.id.healthy_con);
 
-        mImageView1 = (ImageView) findViewById(R.id.line_1);
-        mImageView2 = (ImageView) findViewById(R.id.line_2);
+        mImageView1 = findViewById(R.id.line_1);
+        mImageView2 = findViewById(R.id.line_2);
 
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.shop_list);
+        mRecyclerView = findViewById(R.id.shop_list);
 
 
         mLinearLayout1.setOnClickListener(this);
@@ -188,7 +187,7 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
                 public void onItemClick(int postion) {
 
                     Intent intent = new Intent(ShopListActivity.this, GoodDetailActivity.class);
-                    intent.putExtra("goods", (Serializable) mlist.get(postion));
+                    intent.putExtra("goods", mlist.get(postion));
                     startActivity(intent);
 
                 }

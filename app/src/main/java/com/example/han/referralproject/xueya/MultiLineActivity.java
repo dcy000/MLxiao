@@ -7,7 +7,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
-
 import com.example.han.referralproject.R;
 import com.linheimx.app.library.adapter.IValueAdapter;
 import com.linheimx.app.library.charts.LineChart;
@@ -41,12 +40,12 @@ public class MultiLineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_line);
 
-        _lineChart = (LineChart) findViewById(R.id.chart);
+        _lineChart = findViewById(R.id.chart);
 
 
         setChartData(_lineChart, LINE_NUM);
 
-        CheckBox cb = (CheckBox) findViewById(R.id.cb_cb);
+        CheckBox cb = findViewById(R.id.cb_cb);
 
         // 2. 点击折线上的点 ，回调
         cb.setChecked(true);

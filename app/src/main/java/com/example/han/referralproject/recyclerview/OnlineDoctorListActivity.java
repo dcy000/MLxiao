@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -112,7 +112,7 @@ public class OnlineDoctorListActivity extends BaseActivity {
             public void onItemClick(int postion) {
                 if ("contract".equals(mFlag)) {
                     Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
-                    intent.putExtra("docMsg", (Serializable) mlist.get(postion));
+                    intent.putExtra("docMsg", mlist.get(postion));
                     startActivity(intent);
                     return;
                 }
@@ -148,11 +148,7 @@ public class OnlineDoctorListActivity extends BaseActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 // 表示在向上滑动
-                if (dy > 0) {
-                    isSlidingUp = true;
-                } else {
-                    isSlidingUp = false;
-                }
+                isSlidingUp = dy > 0;
             }
 
             @Override
@@ -229,7 +225,7 @@ public class OnlineDoctorListActivity extends BaseActivity {
     public void jump(int postion) {
 
         Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
-        intent.putExtra("docMsg", (Serializable) mlist.get(postion));
+        intent.putExtra("docMsg", mlist.get(postion));
         intent.putExtra("sign", "1");
         startActivity(intent);
 
@@ -252,7 +248,7 @@ public class OnlineDoctorListActivity extends BaseActivity {
 
     private void initView() {
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.list);
+        mRecyclerView = findViewById(R.id.list);
 
     }
 

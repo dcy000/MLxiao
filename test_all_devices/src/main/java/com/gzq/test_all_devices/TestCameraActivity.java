@@ -167,10 +167,10 @@ public class TestCameraActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mSurfaceView = (SurfaceView) findViewById(R.id.surfaceView);
-        mScanBorder = (RelativeLayout) findViewById(R.id.scan_border);
-        mPreImage = (ImageView) findViewById(R.id.preImage);
-        mRootBorder = (RelativeLayout) findViewById(R.id.root_border);
+        mSurfaceView = findViewById(R.id.surfaceView);
+        mScanBorder = findViewById(R.id.scan_border);
+        mPreImage = findViewById(R.id.preImage);
+        mRootBorder = findViewById(R.id.root_border);
     }
 
     @Override

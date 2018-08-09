@@ -1127,11 +1127,11 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_doctorappo);
 
 
-        mButton2 = (Button) findViewById(R.id.cancel_yuyue);
-        mButton3 = (Button) findViewById(R.id.cancel_yuyue1);
-        mButton4 = (Button) findViewById(R.id.cancel_yuyue2);
+        mButton2 = findViewById(R.id.cancel_yuyue);
+        mButton3 = findViewById(R.id.cancel_yuyue1);
+        mButton4 = findViewById(R.id.cancel_yuyue2);
 
-        mHistroy = (TextView) findViewById(R.id.yuyue_lishi);
+        mHistroy = findViewById(R.id.yuyue_lishi);
 
         mHistroy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1154,7 +1154,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         dialog1 = new NDialog2(DoctorappoActivity.this);
 
-        mButtons = (Button) findViewById(R.id.video_doctor);
+        mButtons = findViewById(R.id.video_doctor);
         mButtons.setEnabled(false);
         mButtons.setSelected(false);
         mButtons.setOnClickListener(new View.OnClickListener() {
@@ -1193,26 +1193,26 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         doctorId = sharedPreferences1.getString("doctor_id", "");
 
-        mTextView = (TextView) findViewById(R.id.yuyue_time);
-        mTextView1 = (TextView) findViewById(R.id.yuyue_time1);
-        mTextView2 = (TextView) findViewById(R.id.yuyue_time2);
+        mTextView = findViewById(R.id.yuyue_time);
+        mTextView1 = findViewById(R.id.yuyue_time1);
+        mTextView2 = findViewById(R.id.yuyue_time2);
 
 
-        mTextView3 = (TextView) findViewById(R.id.docotor_name);
-        mTextView4 = (TextView) findViewById(R.id.docotor_position);
-        mTextView5 = (TextView) findViewById(R.id.docotor_feature);
+        mTextView3 = findViewById(R.id.docotor_name);
+        mTextView4 = findViewById(R.id.docotor_position);
+        mTextView5 = findViewById(R.id.docotor_feature);
 
-        mTextView6 = (TextView) findViewById(R.id.yuyue_time3);
-        mTextView7 = (TextView) findViewById(R.id.yuyue_time4);
-        mTextView8 = (TextView) findViewById(R.id.yuyue_time5);
+        mTextView6 = findViewById(R.id.yuyue_time3);
+        mTextView7 = findViewById(R.id.yuyue_time4);
+        mTextView8 = findViewById(R.id.yuyue_time5);
 
 
-        mTextView12 = (TextView) findViewById(R.id.service_amount);
+        mTextView12 = findViewById(R.id.service_amount);
 
         //   mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
 
 
-        circleImageView = (ImageView) findViewById(R.id.circleImageView1);
+        circleImageView = findViewById(R.id.circleImageView1);
 
 //        if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
 //            Picasso.with(this)
@@ -1264,7 +1264,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             }
         });
 
-        mButton1 = (Button) findViewById(R.id.add_yuyue);
+        mButton1 = findViewById(R.id.add_yuyue);
 
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1286,14 +1286,14 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             }
         });
 
-        mLinearLayout1 = (LinearLayout) findViewById(R.id.linearlayou7);
-        mLinearLayout2 = (LinearLayout) findViewById(R.id.linearlayou8);
-        mLinearLayout3 = (LinearLayout) findViewById(R.id.linearlayou9);
+        mLinearLayout1 = findViewById(R.id.linearlayou7);
+        mLinearLayout2 = findViewById(R.id.linearlayou8);
+        mLinearLayout3 = findViewById(R.id.linearlayou9);
 
 
-        mButton = (Button) findViewById(R.id.cancel_yuyue);
-        mButton_1 = (Button) findViewById(R.id.cancel_yuyue1);
-        mButton_2 = (Button) findViewById(R.id.cancel_yuyue2);
+        mButton = findViewById(R.id.cancel_yuyue);
+        mButton_1 = findViewById(R.id.cancel_yuyue1);
+        mButton_2 = findViewById(R.id.cancel_yuyue2);
 
         mButton.setOnClickListener(this);
         mButton_1.setOnClickListener(this);

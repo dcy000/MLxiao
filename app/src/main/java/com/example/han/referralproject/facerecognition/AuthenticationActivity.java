@@ -366,7 +366,7 @@ public class AuthenticationActivity extends BaseActivity {
         fromString = intent.getStringExtra("from");
         fromType = intent.getStringExtra("fromType");
         mAuthid = LocalShared.getInstance(this).getXunfeiId();
-        mTiaoguo = (Button) findViewById(R.id.tiao_guos);
+        mTiaoguo = findViewById(R.id.tiao_guos);
         if ("Pay".equals(fromString) || "Welcome".equals(fromString)) {//支付过来
             mTiaoguo.setVisibility(View.GONE);
         }

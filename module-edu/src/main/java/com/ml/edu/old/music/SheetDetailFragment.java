@@ -95,7 +95,7 @@ public class SheetDetailFragment extends Fragment {
                 }
             }
         });
-        rvSongs = (RecyclerView) view.findViewById(R.id.old_rv_songs);
+        rvSongs = view.findViewById(R.id.old_rv_songs);
         rvSongs.setLayoutManager(new LinearLayoutManager(getContext()));
         rvSongs.setHasFixedSize(true);
         adapter = new Adapter(entities);
@@ -233,9 +233,9 @@ public class SheetDetailFragment extends Fragment {
 
         public Holder(View itemView, final OnItemClickListener onItemClickListener) {
             super(itemView);
-            tvSongNumber = (TextView) itemView.findViewById(R.id.entertainment_old_music_tv_song_number);
-            tvSongName = (TextView) itemView.findViewById(R.id.entertainment_old_music_tv_song_name);
-            tvSinger = (TextView) itemView.findViewById(R.id.entertainment_old_music_tv_singer);
+            tvSongNumber = itemView.findViewById(R.id.entertainment_old_music_tv_song_number);
+            tvSongName = itemView.findViewById(R.id.entertainment_old_music_tv_song_name);
+            tvSinger = itemView.findViewById(R.id.entertainment_old_music_tv_singer);
             this.onItemClickListener = onItemClickListener;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

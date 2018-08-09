@@ -74,7 +74,7 @@ public class GsonHelper {
             JsonElement paramJsonElement, Class<T> paramClass)
             throws JsonException {
         try {
-            IJsonable localIJsonable = (IJsonable) getDeserializer().fromJson(
+            IJsonable localIJsonable = getDeserializer().fromJson(
                     paramJsonElement, paramClass);
             return (T) localIJsonable;
         } catch (Throwable localThrowable) {
@@ -85,7 +85,7 @@ public class GsonHelper {
     public static <T extends IJsonable> T parseJsonObject(String paramString,
                                                           Class<T> paramClass) throws JsonException {
         try {
-            IJsonable localIJsonable = (IJsonable) getDeserializer().fromJson(
+            IJsonable localIJsonable = getDeserializer().fromJson(
                     paramString, paramClass);
             return (T) localIJsonable;
         } catch (Throwable localThrowable) {

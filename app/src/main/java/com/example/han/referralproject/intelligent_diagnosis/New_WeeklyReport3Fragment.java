@@ -283,28 +283,28 @@ public class New_WeeklyReport3Fragment extends Fragment implements View.OnClickL
     }
 
     private void initView(View view) {
-        tabMbYan = (TextView) view.findViewById(R.id.tab_mb_yan);
-        tabMbYundong = (TextView) view.findViewById(R.id.tab_mb_yundong);
-        tabMbTizhong = (TextView) view.findViewById(R.id.tab_mb_tizhong);
-        tabMbYinjiu = (TextView) view.findViewById(R.id.tab_mb_yinjiu);
-        tabSjYan = (TextView) view.findViewById(R.id.tab_sj_yan);
-        tabSjYundong = (TextView) view.findViewById(R.id.tab_sj_yundong);
-        tabSjTizhong = (TextView) view.findViewById(R.id.tab_sj_tizhong);
-        tabSjYinjiu = (TextView) view.findViewById(R.id.tab_sj_yinjiu);
-        imgYan = (ImageView) view.findViewById(R.id.img_yan);
-        pcYan = (TextView) view.findViewById(R.id.pc_yan);
-        imgYundong = (ImageView) view.findViewById(R.id.img_yundong);
-        pcYundong = (TextView) view.findViewById(R.id.pc_yundong);
-        imgTizhong = (ImageView) view.findViewById(R.id.img_tizhong);
-        pcTizhong = (TextView) view.findViewById(R.id.pc_tizhong);
-        imgYinjiu = (ImageView) view.findViewById(R.id.img_yinjiu);
-        pcYinjiu = (TextView) view.findViewById(R.id.pc_yinjiu);
-        rpbSum = (RxTextRoundProgressBar) view.findViewById(R.id.rpb_sum);
-        tvProgress3 = (TextView) view.findViewById(R.id.tv_progress3);
-        chart = (RadarChart) view.findViewById(R.id.chart);
-        mTreatmentPlan = (TextView) view.findViewById(R.id.treatment_plan);
+        tabMbYan = view.findViewById(R.id.tab_mb_yan);
+        tabMbYundong = view.findViewById(R.id.tab_mb_yundong);
+        tabMbTizhong = view.findViewById(R.id.tab_mb_tizhong);
+        tabMbYinjiu = view.findViewById(R.id.tab_mb_yinjiu);
+        tabSjYan = view.findViewById(R.id.tab_sj_yan);
+        tabSjYundong = view.findViewById(R.id.tab_sj_yundong);
+        tabSjTizhong = view.findViewById(R.id.tab_sj_tizhong);
+        tabSjYinjiu = view.findViewById(R.id.tab_sj_yinjiu);
+        imgYan = view.findViewById(R.id.img_yan);
+        pcYan = view.findViewById(R.id.pc_yan);
+        imgYundong = view.findViewById(R.id.img_yundong);
+        pcYundong = view.findViewById(R.id.pc_yundong);
+        imgTizhong = view.findViewById(R.id.img_tizhong);
+        pcTizhong = view.findViewById(R.id.pc_tizhong);
+        imgYinjiu = view.findViewById(R.id.img_yinjiu);
+        pcYinjiu = view.findViewById(R.id.pc_yinjiu);
+        rpbSum = view.findViewById(R.id.rpb_sum);
+        tvProgress3 = view.findViewById(R.id.tv_progress3);
+        chart = view.findViewById(R.id.chart);
+        mTreatmentPlan = view.findViewById(R.id.treatment_plan);
         mTreatmentPlan.setOnClickListener(this);
-        mViewCompetion = (TextView) view.findViewById(R.id.view_competion);
+        mViewCompetion = view.findViewById(R.id.view_competion);
         mViewCompetion.setOnClickListener(this);
     }
 

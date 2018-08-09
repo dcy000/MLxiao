@@ -183,11 +183,11 @@ public class DateInquireActivity extends ToolBaseActivity {
                     @Override
                     public void run() {
                         if (count == 0) {
-                            tvNotice.setText(((String) briefly).substring(3));
+                            tvNotice.setText(briefly.substring(3));
                         }
                         //跳转页面显示结果
                         if (count > 0) {
-                            DateInquireResultActivity.startMe(DateInquireActivity.this, result, (String) briefly);
+                            DateInquireResultActivity.startMe(DateInquireActivity.this, result, briefly);
                         }
                         count++;
                     }

@@ -28,6 +28,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -61,8 +62,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
 import java.util.UUID;
-
-import android.support.v4.content.ContextCompat;
 
 public class DetectActivity extends BaseActivity implements View.OnClickListener {
 
@@ -1024,10 +1023,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mShared = LocalShared.getInstance(mContext);
         xuetangTimeFlag = getIntent().getIntExtra("time", 0);
         mToolbar.setVisibility(View.GONE);
-        mButton = (Button) findViewById(R.id.history);//体温
-        mButton1 = (Button) findViewById(R.id.history1);//血压
-        mButton2 = (Button) findViewById(R.id.history2);//血糖
-        mButton3 = (Button) findViewById(R.id.history3);//血氧
+        mButton = findViewById(R.id.history);//体温
+        mButton1 = findViewById(R.id.history1);//血压
+        mButton2 = findViewById(R.id.history2);//血糖
+        mButton3 = findViewById(R.id.history3);//血氧
         container = findViewById(R.id.container);
         setEnableListeningLoop(false);
 
@@ -1109,14 +1108,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 8));
             }
         });
-        ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack = findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        mImageView2 = (ImageView) findViewById(R.id.icon_home);
+        mImageView2 = findViewById(R.id.icon_home);
         mImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1181,7 +1180,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         boolean isFirst = false;
         switch (detectType) {
             case Type_Wendu:
-                mResultTv = (TextView) findViewById(R.id.tv_result);
+                mResultTv = findViewById(R.id.tv_result);
                 findViewById(R.id.rl_temp).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_wendu;
                 isFirst = LocalShared.getInstance(this).getMeasureTiwenFirst();
@@ -1192,7 +1191,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 isFirst = LocalShared.getInstance(this).getMeasureXueyaFirst();
                 break;
             case Type_XueTang:
-                mResultTv = (TextView) findViewById(R.id.tv_xuetang);
+                mResultTv = findViewById(R.id.tv_xuetang);
                 findViewById(R.id.rl_xuetang).setVisibility(View.VISIBLE);
                 resourceId = R.raw.tips_xuetang;
                 isFirst = LocalShared.getInstance(this).getMeasureXuetangFirst();
@@ -1208,7 +1207,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 isFirst = LocalShared.getInstance(this).getMeasureXindianFirst();
                 break;
             case Type_TiZhong:
-                mResultTv = (TextView) findViewById(R.id.tv_tizhong);
+                mResultTv = findViewById(R.id.tv_tizhong);
                 findViewById(R.id.rl_tizhong).setVisibility(View.VISIBLE);
                 dialog = new NDialog(this);
                 //showNormal("设备连接中，请稍后...");
@@ -1219,7 +1218,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 isFirst = LocalShared.getInstance(this).getMeasureSanheyiFirst();
                 break;
         }
-        mVideoView = (VideoView) findViewById(R.id.vv_tips);
+        mVideoView = findViewById(R.id.vv_tips);
         mOverView = findViewById(R.id.view_over);
         mOverView.setOnClickListener(this);
         if (isFirst) {
@@ -1242,15 +1241,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             mVideoView.setVisibility(View.GONE);
             mOverView.setVisibility(View.GONE);
         }
-        mHighPressTv = (TextView) findViewById(R.id.high_pressure);
-        mLowPressTv = (TextView) findViewById(R.id.low_pressure);
-        mSanHeYiOneTv = (TextView) findViewById(R.id.tv_san_one);
-        mSanHeYiTwoTv = (TextView) findViewById(R.id.tv_san_two);
-        mSanHeYiThreeTv = (TextView) findViewById(R.id.tv_san_three);
-        mPulseTv = (TextView) findViewById(R.id.pulse);
-        mXueYangTv = (TextView) findViewById(R.id.tv_xue_yang);
-        mXueYangPulseTv = (TextView) findViewById(R.id.tv_xueyang_pulse);
-        onDetect = (AVLoadingIndicatorView) findViewById(R.id.onDetect);
+        mHighPressTv = findViewById(R.id.high_pressure);
+        mLowPressTv = findViewById(R.id.low_pressure);
+        mSanHeYiOneTv = findViewById(R.id.tv_san_one);
+        mSanHeYiTwoTv = findViewById(R.id.tv_san_two);
+        mSanHeYiThreeTv = findViewById(R.id.tv_san_three);
+        mPulseTv = findViewById(R.id.pulse);
+        mXueYangTv = findViewById(R.id.tv_xue_yang);
+        mXueYangPulseTv = findViewById(R.id.tv_xueyang_pulse);
+        onDetect = findViewById(R.id.onDetect);
         if (detectType == Type_XinDian) {
             onDetect.show();
 //            showAnimation();

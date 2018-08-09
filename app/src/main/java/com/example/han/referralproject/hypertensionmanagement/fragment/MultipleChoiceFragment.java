@@ -186,7 +186,7 @@ public class MultipleChoiceFragment extends Fragment {
 
         public VH(View itemView) {
             this.itemView = itemView;
-            cbSymptom = (CheckBox) itemView.findViewById(R.id.multiple_choice_tv_item);
+            cbSymptom = itemView.findViewById(R.id.multiple_choice_tv_item);
             itemView.setOnClickListener(symptomOnClickListener);
         }
 

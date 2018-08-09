@@ -1,7 +1,6 @@
 package com.example.han.referralproject.blood_sugar_risk_assessment;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
 

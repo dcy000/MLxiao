@@ -70,8 +70,8 @@ public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnect
 
         public WifiHolder(View view){
             super(view);
-            mNameTv = (TextView) view.findViewById(R.id.item_tv_wifi_name);
-            mIpTv = (TextView) view.findViewById(R.id.item_tv_wifi_ip);
+            mNameTv = view.findViewById(R.id.item_tv_wifi_name);
+            mIpTv = view.findViewById(R.id.item_tv_wifi_ip);
         }
     }
 }

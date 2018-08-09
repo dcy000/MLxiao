@@ -122,22 +122,22 @@ public class New_WeeklyReport2Fragment extends Fragment {
     }
 
     private void initView(View view) {
-        viewLeft = (View) view.findViewById(R.id.view_left);
-        viewRight = (View) view.findViewById(R.id.view_right);
-        tvLeft = (TextView) view.findViewById(R.id.tv_left);
-        tvRight = (TextView) view.findViewById(R.id.tv_right);
-        llLeft = (LinearLayout) view.findViewById(R.id.ll_left);
-        tvTitle = (TextView) view.findViewById(R.id.tv_title);
-        tabMbGaoya = (TextView) view.findViewById(R.id.tab_mb_gaoya);
-        tabMbDiya = (TextView) view.findViewById(R.id.tab_mb_diya);
-        tabSjGaoya = (TextView) view.findViewById(R.id.tab_sj_gaoya);
-        tabSjDiya = (TextView) view.findViewById(R.id.tab_sj_diya);
-        imgGaoya = (ImageView) view.findViewById(R.id.img_gaoya);
-        pcGaoya = (TextView) view.findViewById(R.id.pc_gaoya);
-        imgDiya = (ImageView) view.findViewById(R.id.img_diya);
-        pcDiya = (TextView) view.findViewById(R.id.pc_diya);
-        tvProgress2 = (TextView) view.findViewById(R.id.tv_progress2);
-        rpbSum = (RxTextRoundProgressBar) view.findViewById(R.id.rpb_sum);
-        llRight = (LinearLayout) view.findViewById(R.id.ll_right);
+        viewLeft = view.findViewById(R.id.view_left);
+        viewRight = view.findViewById(R.id.view_right);
+        tvLeft = view.findViewById(R.id.tv_left);
+        tvRight = view.findViewById(R.id.tv_right);
+        llLeft = view.findViewById(R.id.ll_left);
+        tvTitle = view.findViewById(R.id.tv_title);
+        tabMbGaoya = view.findViewById(R.id.tab_mb_gaoya);
+        tabMbDiya = view.findViewById(R.id.tab_mb_diya);
+        tabSjGaoya = view.findViewById(R.id.tab_sj_gaoya);
+        tabSjDiya = view.findViewById(R.id.tab_sj_diya);
+        imgGaoya = view.findViewById(R.id.img_gaoya);
+        pcGaoya = view.findViewById(R.id.pc_gaoya);
+        imgDiya = view.findViewById(R.id.img_diya);
+        pcDiya = view.findViewById(R.id.pc_diya);
+        tvProgress2 = view.findViewById(R.id.tv_progress2);
+        rpbSum = view.findViewById(R.id.rpb_sum);
+        llRight = view.findViewById(R.id.ll_right);
     }
 }

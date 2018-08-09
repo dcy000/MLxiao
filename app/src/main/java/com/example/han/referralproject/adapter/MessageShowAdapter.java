@@ -44,8 +44,8 @@ public class MessageShowAdapter extends RecyclerView.Adapter<MessageShowAdapter.
 
         public MessageHolder(View itemView){
             super(itemView);
-            messageTv = (TextView) itemView.findViewById(R.id.item_tv_message);
-            timeTv = (TextView) itemView.findViewById(R.id.item_tv_time);
+            messageTv = itemView.findViewById(R.id.item_tv_message);
+            timeTv = itemView.findViewById(R.id.item_tv_time);
         }
     }
 }

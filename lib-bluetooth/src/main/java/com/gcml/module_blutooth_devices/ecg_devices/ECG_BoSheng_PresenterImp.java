@@ -82,7 +82,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                     ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<byte[]>() {
                         @Nullable
                         @Override
-                        public byte[] doInBackground() throws Throwable {
+                        public byte[] doInBackground() {
                             int length_byte = 0;
                             for (int i = 0; i < bytesResult.size(); i++) {
                                 length_byte += bytesResult.get(i).length;

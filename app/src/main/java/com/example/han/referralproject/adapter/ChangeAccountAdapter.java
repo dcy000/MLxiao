@@ -80,8 +80,8 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
 
         public MyHolder(View view){
             super(view);
-            mNameView = (TextView) view.findViewById(R.id.tv_name);
-            mHeaderIv = (CircleImageView) view.findViewById(R.id.iv_header);
+            mNameView = view.findViewById(R.id.tv_name);
+            mHeaderIv = view.findViewById(R.id.iv_header);
         }
     }
 

@@ -8,14 +8,12 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.os.StrictMode;
 import android.support.multidex.MultiDex;
-import android.text.TextUtils;
 
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
-import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.service.ProcessUtils;
 import com.gcml.lib_utils.ui.UiUtils;

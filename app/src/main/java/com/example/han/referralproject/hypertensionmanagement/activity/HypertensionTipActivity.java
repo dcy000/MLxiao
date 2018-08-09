@@ -1,24 +1,17 @@
 package com.example.han.referralproject.hypertensionmanagement.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
 import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.util.LocalShared;
-import com.google.gson.Gson;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

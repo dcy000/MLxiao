@@ -65,16 +65,16 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
         Intent intent = getIntent();
         goods = (Goods) intent.getSerializableExtra("goods");
 
-        mImageView1 = (ImageView) findViewById(R.id.goods_image);
-        mImageView2 = (ImageView) findViewById(R.id.add_mount);
-        mImageView3 = (ImageView) findViewById(R.id.reduce_mount);
+        mImageView1 = findViewById(R.id.goods_image);
+        mImageView2 = findViewById(R.id.add_mount);
+        mImageView3 = findViewById(R.id.reduce_mount);
 
-        mButton = (Button) findViewById(R.id.shopping);
+        mButton = findViewById(R.id.shopping);
 
-        mTextView = (TextView) findViewById(R.id.goods_name);
-        mTextView1 = (TextView) findViewById(R.id.goods_price);
-        mTextView2 = (TextView) findViewById(R.id.goods_mount);
-        mTextView3 = (TextView) findViewById(R.id.goods_sum_price);
+        mTextView = findViewById(R.id.goods_name);
+        mTextView1 = findViewById(R.id.goods_price);
+        mTextView2 = findViewById(R.id.goods_mount);
+        mTextView3 = findViewById(R.id.goods_sum_price);
 
 
         mImageView2.setOnClickListener(this);
@@ -196,7 +196,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                             bundle.putString("orderid",orderid);
                             bundle.putString("from","Pay");
                             bundle.putInt("requestCode",1);
-                            FaceRecognitionActivity.startActivity(getApplicationContext(),FaceRecognitionActivity.class,bundle,true);
+                            FaceRecognitionActivity.startActivity(getApplicationContext(),bundle,true);
 
 
                         } else if (which == 0) {

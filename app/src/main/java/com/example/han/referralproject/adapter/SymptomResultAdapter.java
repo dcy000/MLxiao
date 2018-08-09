@@ -78,10 +78,10 @@ public class SymptomResultAdapter extends RecyclerView.Adapter<SymptomResultAdap
         public ResultHolder(View itemView) {
             super(itemView);
             lineTitle = itemView.findViewById(R.id.line_title);
-            titleTv = (TextView) itemView.findViewById(R.id.tv_item_title);
-            probabilityTv = (TextView) itemView.findViewById(R.id.tv_item_probability);
-            dealTv = (TextView) itemView.findViewById(R.id.tv_item_deal);
-            btnDetails= (TextView) itemView.findViewById(R.id.btn_details);
+            titleTv = itemView.findViewById(R.id.tv_item_title);
+            probabilityTv = itemView.findViewById(R.id.tv_item_probability);
+            dealTv = itemView.findViewById(R.id.tv_item_deal);
+            btnDetails= itemView.findViewById(R.id.btn_details);
         }
     }
 }

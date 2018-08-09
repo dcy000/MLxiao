@@ -48,7 +48,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
         speak(getString(R.string.order));
 
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.order_list);
+        mRecyclerView = findViewById(R.id.order_list);
         mSharedPreferences = getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
 
         NetworkApi.order_list("2", "0", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
@@ -134,11 +134,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 // 表示在向上滑动
-                if (dy > 0) {
-                    isSlidingUp = true;
-                } else {
-                    isSlidingUp = false;
-                }
+                isSlidingUp = dy > 0;
             }
 
             @Override

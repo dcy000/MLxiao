@@ -56,13 +56,13 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
     @Override
     protected void initView(View view, Bundle bundle) {
 
-        mBtnHealthHistory = (TextView) view.findViewById(R.id.btn_health_history);
+        mBtnHealthHistory = view.findViewById(R.id.btn_health_history);
         mBtnHealthHistory.setOnClickListener(this);
-        mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
+        mBtnVideoDemo = view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
-        mTvGaoya = (TextView) view.findViewById(R.id.tv_gaoya);
-        mTvDiya = (TextView) view.findViewById(R.id.tv_diya);
-        mTvMaibo = (TextView) view.findViewById(R.id.tv_maibo);
+        mTvGaoya = view.findViewById(R.id.tv_gaoya);
+        mTvDiya = view.findViewById(R.id.tv_diya);
+        mTvMaibo = view.findViewById(R.id.tv_maibo);
         this.bundle=bundle;
     }
 

@@ -115,11 +115,11 @@ public class ExpandTextView extends LinearLayout implements View.OnClickListener
      */
     private void init() {
         View.inflate(mContext, R.layout.expand_text_view, this);
-        mTitleView = (TextView) findViewById(R.id.tv_title);
-        mContentView = (TextView) findViewById(R.id.tv_content);
-        mHintView = (TextView) findViewById(R.id.tv_more_hint);
-        mIndicateImage = (ImageView) findViewById(R.id.iv_arrow_more);
-        mShowMore = (RelativeLayout) findViewById(R.id.rl_show_more);
+        mTitleView = findViewById(R.id.tv_title);
+        mContentView = findViewById(R.id.tv_content);
+        mHintView = findViewById(R.id.tv_more_hint);
+        mIndicateImage = findViewById(R.id.iv_arrow_more);
+        mShowMore = findViewById(R.id.rl_show_more);
 
         mTitleView.setText(title);
         mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleTextSize);

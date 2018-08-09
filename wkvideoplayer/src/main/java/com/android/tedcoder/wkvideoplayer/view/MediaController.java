@@ -123,11 +123,11 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
 
     private void initView(Context context) {
         View.inflate(context, R.layout.biz_video_media_controller, this);
-        mPlayImg = (ImageView) findViewById(R.id.pause);
-        mProgressSeekBar = (SeekBar) findViewById(R.id.media_controller_progress);
-        mTimeTxt = (TextView) findViewById(R.id.time);
-        mExpandImg = (ImageView) findViewById(R.id.expand);
-        mShrinkImg = (ImageView) findViewById(R.id.shrink);
+        mPlayImg = findViewById(R.id.pause);
+        mProgressSeekBar = findViewById(R.id.media_controller_progress);
+        mTimeTxt = findViewById(R.id.time);
+        mExpandImg = findViewById(R.id.expand);
+        mShrinkImg = findViewById(R.id.shrink);
         mMenuViewPlaceHolder = findViewById(R.id.view_menu_placeholder);
         initData();
     }

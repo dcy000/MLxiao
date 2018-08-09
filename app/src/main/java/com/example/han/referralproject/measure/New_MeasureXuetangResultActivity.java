@@ -33,15 +33,15 @@ public class New_MeasureXuetangResultActivity extends BaseActivity implements Vi
     }
 
     private void initView() {
-        mWaveProgressBar = (WaveProgress) findViewById(R.id.wave_progress_bar);
-        mTvAdvice = (TextView) findViewById(R.id.tv_advice);
-        mRiskAssessment = (TextView) findViewById(R.id.risk_assessment);
+        mWaveProgressBar = findViewById(R.id.wave_progress_bar);
+        mTvAdvice = findViewById(R.id.tv_advice);
+        mRiskAssessment = findViewById(R.id.risk_assessment);
         mRiskAssessment.setOnClickListener(this);
-        mHealthReport = (TextView) findViewById(R.id.health_report);
+        mHealthReport = findViewById(R.id.health_report);
         mHealthReport.setOnClickListener(this);
-        mTvCurrentXuetang = (TextView) findViewById(R.id.tv_current_xuetang);
+        mTvCurrentXuetang = findViewById(R.id.tv_current_xuetang);
         mTvCurrentXuetang.setTypeface(Typeface.createFromAsset(getAssets(), "font/DINEngschrift-Alternate.otf"));
-        mTvCurrentXuetangUnit = (TextView) findViewById(R.id.tv_current_xuetang_unit);
+        mTvCurrentXuetangUnit = findViewById(R.id.tv_current_xuetang_unit);
         mTvCurrentXuetangUnit.setTypeface(Typeface.createFromAsset(getAssets(), "font/DINEngschrift-Alternate.otf"));
 
         Intent intent = getIntent();

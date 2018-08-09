@@ -15,12 +15,12 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -247,7 +247,7 @@ public class TemperatureActivity extends BaseActivity {
         setContentView(R.layout.activity_temperature);
         dialog = new NDialog(this);
 
-        ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack = findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -255,8 +255,8 @@ public class TemperatureActivity extends BaseActivity {
             }
         });
 
-        mTextView = (TextView) findViewById(R.id.text_temperature);
-        mImageView1 = (ImageView) findViewById(R.id.test_2);
+        mTextView = findViewById(R.id.text_temperature);
+        mImageView1 = findViewById(R.id.test_2);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {

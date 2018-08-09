@@ -133,22 +133,22 @@ public class BloodsugarWeeklyReport1Fragment extends Fragment implements View.On
     }
 
     private void initView(View view) {
-        tvXueyaTitle = (TextView) view.findViewById(R.id.tv_xueya_title);
-        bloodsugarEmpty = (TextView) view.findViewById(R.id.bloodsugar_empty);
-        rpbBloodsugarEmpty = (RxRoundProgressBar) view.findViewById(R.id.rpb_bloodsugar_empty);
-        bloodsugarOne = (TextView) view.findViewById(R.id.bloodsugar_one);
-        rpbBloodsugarOne = (RxRoundProgressBar) view.findViewById(R.id.rpb_bloodsugar_one);
-        bloodsugarTwo = (TextView) view.findViewById(R.id.bloodsugar_two);
-        rpbBloodsugarTwo = (RxRoundProgressBar) view.findViewById(R.id.rpb_bloodsugar_two);
-        waveProgressBar = (WaveProgress) view.findViewById(R.id.wave_progress_bar);
-        rbEmpty = (RadioButton) view.findViewById(R.id.rb_empty);
+        tvXueyaTitle = view.findViewById(R.id.tv_xueya_title);
+        bloodsugarEmpty = view.findViewById(R.id.bloodsugar_empty);
+        rpbBloodsugarEmpty = view.findViewById(R.id.rpb_bloodsugar_empty);
+        bloodsugarOne = view.findViewById(R.id.bloodsugar_one);
+        rpbBloodsugarOne = view.findViewById(R.id.rpb_bloodsugar_one);
+        bloodsugarTwo = view.findViewById(R.id.bloodsugar_two);
+        rpbBloodsugarTwo = view.findViewById(R.id.rpb_bloodsugar_two);
+        waveProgressBar = view.findViewById(R.id.wave_progress_bar);
+        rbEmpty = view.findViewById(R.id.rb_empty);
         rbEmpty.setOnClickListener(this);
-        rbOne = (RadioButton) view.findViewById(R.id.rb_one);
+        rbOne = view.findViewById(R.id.rb_one);
         rbOne.setOnClickListener(this);
-        rbTwo = (RadioButton) view.findViewById(R.id.rb_two);
+        rbTwo = view.findViewById(R.id.rb_two);
         rbTwo.setOnClickListener(this);
-        weekXueyaChart = (LineChart) view.findViewById(R.id.week_xueya_chart);
-        tvAdvice = (TextView) view.findViewById(R.id.tv_advice);
+        weekXueyaChart = view.findViewById(R.id.week_xueya_chart);
+        tvAdvice = view.findViewById(R.id.tv_advice);
     }
 
     /**

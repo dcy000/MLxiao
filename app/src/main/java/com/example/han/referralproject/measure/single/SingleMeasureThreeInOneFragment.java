@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * version:V1.2.5
  * created on 2018/8/6 11:13
  * created by:gzq
- * description:TODO
+ * description:单次单合一测量
  */
 public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
     ArrayList<DetectionData> datas = new ArrayList<>();

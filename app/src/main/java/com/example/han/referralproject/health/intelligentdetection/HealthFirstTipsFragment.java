@@ -1,12 +1,13 @@
 package com.example.han.referralproject.health.intelligentdetection;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
+import com.gcml.lib_utils.data.TimeCountDownUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 /**
  *
@@ -32,17 +33,29 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        FragmentActivity activity = getActivity();
-        if (activity != null) {
-            ((BaseActivity) activity).speak(getResources().getString(R.string.health_first_detect_tips));
-            activity.getWindow().getDecorView().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (fragmentChanged != null) {
-                        fragmentChanged.onFragmentChanged(HealthFirstTipsFragment.this, null);
+        MLVoiceSynthetize.startSynthesize(MyApplication.getInstance(),
+                getString(R.string.health_first_detect_tips), false);
+        TimeCountDownUtils.getInstance().create(3000, 1000,
+                new TimeCountDownUtils.TimeCountListener() {
+                    @Override
+                    public void onTick(long millisUntilFinished, String tag) {
+
                     }
-                }
-            }, 3000);
-        }
+
+                    @Override
+                    public void onFinish(String tag) {
+                        if (fragmentChanged != null) {
+                            fragmentChanged.onFragmentChanged(
+                                    HealthFirstTipsFragment.this, null);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        MLVoiceSynthetize.stop();
+        TimeCountDownUtils.getInstance().cancelAll();
     }
 }

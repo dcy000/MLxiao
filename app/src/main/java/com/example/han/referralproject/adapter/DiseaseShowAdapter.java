@@ -52,7 +52,7 @@ public class DiseaseShowAdapter extends BaseAdapter {
         TextView mItemTv;
         if (convertView == null){
             convertView = mInflater.inflate(R.layout.item_disease_layout, null);
-            mItemTv = (TextView) convertView.findViewById(R.id.tv_item);
+            mItemTv = convertView.findViewById(R.id.tv_item);
             convertView.setTag(mItemTv);
         } else {
             mItemTv = (TextView) convertView.getTag();

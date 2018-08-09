@@ -38,11 +38,7 @@ public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter imp
 
     @Override
     protected boolean isSelfDefined() {
-        if (discoverType == IPresenter.DISCOVER_WITH_MAC) {
-            return true;
-        } else {
-            return false;
-        }
+        return discoverType == IPresenter.DISCOVER_WITH_MAC;
     }
 
     @Override

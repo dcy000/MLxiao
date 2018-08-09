@@ -8,18 +8,11 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.intelligentdetection.HealthSugarDetectionFragment;
-import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.hypertensionmanagement.activity.WeightMeasureActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkCallback;
-import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 
@@ -42,10 +35,10 @@ public class BloodClucoseMeasureFragment extends HealthSugarDetectionFragment {
             }
             getActivity().finish();
         });
-        ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
+        ivRight = view.findViewById(R.id.iv_top_right);
         ivRight.setImageResource(R.drawable.health_ic_blutooth);
         ivRight.setOnClickListener(v -> startDetection());
-        tvNext = (TextView) view.findViewById(R.id.tv_xuetang);
+        tvNext = view.findViewById(R.id.tv_xuetang);
         tvNext.setOnClickListener(v -> {
             postBloodClucoseData(sugar);
         });

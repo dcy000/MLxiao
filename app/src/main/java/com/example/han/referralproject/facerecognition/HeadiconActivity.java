@@ -59,11 +59,11 @@ public class HeadiconActivity extends BaseActivity {
         uploadManager = new UploadManager();
         mCircleImageView = (CircleImageView) findViewById(R.id.per_image);
 
-        mButton = (Button) findViewById(R.id.cancel);
-        mButton1 = (Button) findViewById(R.id.trues);
+        mButton = findViewById(R.id.cancel);
+        mButton1 = findViewById(R.id.trues);
 
-        mImageView1 = (ImageView) findViewById(R.id.icon_back);
-        mImageView2 = (ImageView) findViewById(R.id.icon_home);
+        mImageView1 = findViewById(R.id.icon_back);
+        mImageView2 = findViewById(R.id.icon_home);
 
         mImageView1.setOnClickListener(new View.OnClickListener() {
             @Override

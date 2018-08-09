@@ -3,8 +3,8 @@ package com.example.han.referralproject.recyclerview;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.PowerManager;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -58,8 +58,8 @@ public class DoctorAlarmActivity extends BaseActivity {
 
         }
 
-        mButton1 = (Button) findViewById(R.id.video_true);
-        mButton2 = (Button) findViewById(R.id.video_cancel);
+        mButton1 = findViewById(R.id.video_true);
+        mButton2 = findViewById(R.id.video_cancel);
 
         mTitleText.setText(getString(R.string.yuyue_video));
 

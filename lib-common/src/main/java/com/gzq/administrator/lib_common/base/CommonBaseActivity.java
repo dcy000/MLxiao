@@ -37,7 +37,7 @@ public abstract class CommonBaseActivity extends AppCompatActivity implements Vi
 
     @Override
     public void setContentView(int layoutResID) {
-        ViewGroup viewGroup = (ViewGroup) findViewById(android.R.id.content);
+        ViewGroup viewGroup = findViewById(android.R.id.content);
         viewGroup.removeAllViews();
         LinearLayout parent = new LinearLayout(this);
         parent.setOrientation(LinearLayout.VERTICAL);
@@ -50,13 +50,13 @@ public abstract class CommonBaseActivity extends AppCompatActivity implements Vi
     }
 
     private void initToolbar() {
-        mllBack = (LinearLayout) mToolbar.findViewById(R.id.ll_back);
-        mToolbar = (RelativeLayout) mToolbar.findViewById(R.id.toolbar);
-        mTitleText = (TextView) mToolbar.findViewById(R.id.tv_top_title);
-        mLeftText = (TextView) mToolbar.findViewById(R.id.tv_top_left);
-        mRightText = (TextView) mToolbar.findViewById(R.id.tv_top_right);
-        mLeftView = (ImageView) mToolbar.findViewById(R.id.iv_top_left);
-        mRightView = (ImageView) mToolbar.findViewById(R.id.iv_top_right);
+        mllBack = mToolbar.findViewById(R.id.ll_back);
+        mToolbar = mToolbar.findViewById(R.id.toolbar);
+        mTitleText = mToolbar.findViewById(R.id.tv_top_title);
+        mLeftText = mToolbar.findViewById(R.id.tv_top_left);
+        mRightText = mToolbar.findViewById(R.id.tv_top_right);
+        mLeftView = mToolbar.findViewById(R.id.iv_top_left);
+        mRightView = mToolbar.findViewById(R.id.iv_top_right);
         mllBack.setOnClickListener(this);
         mRightView.setOnClickListener(this);
     }

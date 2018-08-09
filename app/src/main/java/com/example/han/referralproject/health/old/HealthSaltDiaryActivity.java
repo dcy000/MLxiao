@@ -37,11 +37,11 @@ public class HealthSaltDiaryActivity extends BaseActivity {
         mUnits = getUnits();
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("健  康  日  记");
-        tvSaltG = (TextView) findViewById(R.id.health_diary_tv_salt_g);
-        rvRuler = (RulerView) findViewById(R.id.health_diary_rv_ruler);
-        tvRulerIndicator = (TextView) findViewById(R.id.health_diary_tv_ruler_indicator);
-        tvConfirm = (TextView) findViewById(R.id.health_diary_tv_confirm);
-        tvCancel = (TextView) findViewById(R.id.health_diary_tv_cancel);
+        tvSaltG = findViewById(R.id.health_diary_tv_salt_g);
+        rvRuler = findViewById(R.id.health_diary_rv_ruler);
+        tvRulerIndicator = findViewById(R.id.health_diary_tv_ruler_indicator);
+        tvConfirm = findViewById(R.id.health_diary_tv_confirm);
+        tvCancel = findViewById(R.id.health_diary_tv_cancel);
         rvRuler.setValue(0, 0, 10, 0.1f);
         rvRuler.setOnValueChangeListener(new RulerView.OnValueChangeListener() {
             @Override
@@ -70,7 +70,7 @@ public class HealthSaltDiaryActivity extends BaseActivity {
             }
         });
 
-        rvUnits = (RecyclerView) findViewById(R.id.health_diary_rv_units);
+        rvUnits = findViewById(R.id.health_diary_rv_units);
         rvUnits.addOnScrollListener(new CenterScrollListener());
         mUnitAdapter = new UnitAdapter(mUnits);
         OverFlyingLayoutManager lm = new OverFlyingLayoutManager(this);
@@ -160,7 +160,7 @@ public class HealthSaltDiaryActivity extends BaseActivity {
         public UnitVH(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             this.onItemClickListener = onItemClickListener;
-            tvItem = (TextView) itemView.findViewById(R.id.health_diary_tv_item_unit);
+            tvItem = itemView.findViewById(R.id.health_diary_tv_item_unit);
             itemView.setOnClickListener(this);
         }
 

@@ -44,11 +44,11 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
                 finish();
             }
         });
-        tvPoemTitle = (TextView) findViewById(R.id.ce_poem_details_tv_poem_title);
-        tvAuthorAndDynasty = (TextView) findViewById(R.id.ce_poem_details_tv_poem_author_and_dynasty);
-        rvPoemSentences = (RecyclerView) findViewById(R.id.ce_poem_details_rv_poem_sentences);
-        ivReplay = (ImageView) findViewById(R.id.ce_poem_details_iv_replay);
-        ivNext = (ImageView) findViewById(R.id.ce_poem_details_iv_next_normal);
+        tvPoemTitle = findViewById(R.id.ce_poem_details_tv_poem_title);
+        tvAuthorAndDynasty = findViewById(R.id.ce_poem_details_tv_poem_author_and_dynasty);
+        rvPoemSentences = findViewById(R.id.ce_poem_details_rv_poem_sentences);
+        ivReplay = findViewById(R.id.ce_poem_details_iv_replay);
+        ivNext = findViewById(R.id.ce_poem_details_iv_next_normal);
 
         ivReplay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,7 +223,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         public VH(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             this.onItemClickListener = onItemClickListener;
-            tvSentence = (TextView) itemView.findViewById(R.id.ce_poem_details_tv_item_sentence);
+            tvSentence = itemView.findViewById(R.id.ce_poem_details_tv_item_sentence);
             itemView.setOnClickListener(this);
         }
 

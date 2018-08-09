@@ -3,7 +3,6 @@ package com.example.han.referralproject.settting.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,7 +12,6 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.adapter.KeyWordDifineRVAdapter;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
-import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
 import com.google.gson.Gson;
 
 import java.io.Serializable;

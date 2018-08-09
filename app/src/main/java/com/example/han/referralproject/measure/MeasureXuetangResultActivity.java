@@ -7,7 +7,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -323,29 +321,29 @@ public class MeasureXuetangResultActivity extends BaseActivity implements View.O
     }
 
     private void initView() {
-        tvMeasureTitle = (TextView) findViewById(R.id.tv_measure_title);
-        tvGao = (TextView) findViewById(R.id.tv_gao);
-        rpbGao = (RxRoundProgressBar) findViewById(R.id.rpb_gao);
-        tvZhengchang = (TextView) findViewById(R.id.tv_zhengchang);
-        rpbZhengchang = (RxRoundProgressBar) findViewById(R.id.rpb_zhengchang);
-        tvDi = (TextView) findViewById(R.id.tv_di);
-        rpbDi = (RxRoundProgressBar) findViewById(R.id.rpb_di);
-        tvEmpty = (TextView) findViewById(R.id.tv_empty);
-        rpbEmpty = (RxRoundProgressBar) findViewById(R.id.rpb_empty);
-        tvOne = (TextView) findViewById(R.id.tv_one);
-        rpbOne = (RxRoundProgressBar) findViewById(R.id.rpb_one);
-        tvTwo = (TextView) findViewById(R.id.tv_two);
-        rpbTwo = (RxRoundProgressBar) findViewById(R.id.rpb_two);
-        measureType = (TextView) findViewById(R.id.measure_type);
-        currentXuetang = (TextView) findViewById(R.id.currentXuetang);
+        tvMeasureTitle = findViewById(R.id.tv_measure_title);
+        tvGao = findViewById(R.id.tv_gao);
+        rpbGao = findViewById(R.id.rpb_gao);
+        tvZhengchang = findViewById(R.id.tv_zhengchang);
+        rpbZhengchang = findViewById(R.id.rpb_zhengchang);
+        tvDi = findViewById(R.id.tv_di);
+        rpbDi = findViewById(R.id.rpb_di);
+        tvEmpty = findViewById(R.id.tv_empty);
+        rpbEmpty = findViewById(R.id.rpb_empty);
+        tvOne = findViewById(R.id.tv_one);
+        rpbOne = findViewById(R.id.rpb_one);
+        tvTwo = findViewById(R.id.tv_two);
+        rpbTwo = findViewById(R.id.rpb_two);
+        measureType = findViewById(R.id.measure_type);
+        currentXuetang = findViewById(R.id.currentXuetang);
         currentXuetang.setTypeface(Typeface.createFromAsset(getAssets(), "font/DINEngschrift-Alternate.otf"));
-        waveProgressBar = (WaveProgress) findViewById(R.id.wave_progress_bar);
-        tvSuggest = (TextView) findViewById(R.id.tv_suggest);
-        tvSomethingAdvice = (TextView) findViewById(R.id.tv_something_advice);
+        waveProgressBar = findViewById(R.id.wave_progress_bar);
+        tvSuggest = findViewById(R.id.tv_suggest);
+        tvSomethingAdvice = findViewById(R.id.tv_something_advice);
         tvSomethingAdvice.setOnClickListener(this);
-        healthKnowledge = (TextView) findViewById(R.id.health_knowledge);
+        healthKnowledge = findViewById(R.id.health_knowledge);
         healthKnowledge.setOnClickListener(this);
-        currentXuetangUnit = (TextView) findViewById(R.id.currentXuetang_unit);
+        currentXuetangUnit = findViewById(R.id.currentXuetang_unit);
         currentXuetangUnit.setTypeface(Typeface.createFromAsset(getAssets(), "font/DINEngschrift-Alternate.otf"));
     }
 }

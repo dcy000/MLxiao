@@ -1,15 +1,12 @@
 package com.example.han.referralproject.voice;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.SystemClock;
 import android.text.TextUtils;
 
-import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;

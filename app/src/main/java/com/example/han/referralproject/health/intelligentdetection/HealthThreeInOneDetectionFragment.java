@@ -2,7 +2,6 @@ package com.example.han.referralproject.health.intelligentdetection;
 
 
 import android.Manifest;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.polidea.rxandroidble2.RxBleClient;
 import com.polidea.rxandroidble2.RxBleDevice;
 import com.polidea.rxandroidble2.scan.ScanSettings;
@@ -70,7 +68,7 @@ public class HealthThreeInOneDetectionFragment extends Fragment {
 
     protected void initView(View view, Bundle savedInstanceState) {
         ((TextView) view.findViewById(R.id.tv_top_title)).setText(R.string.test_sanheyi);
-        ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
+        ivRight = view.findViewById(R.id.iv_top_right);
         view.findViewById(R.id.ll_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,9 +84,9 @@ public class HealthThreeInOneDetectionFragment extends Fragment {
                 startDetection();
             }
         });
-        tvOne = ((TextView) view.findViewById(R.id.tv_san_one));
-        tvTwo = ((TextView) view.findViewById(R.id.tv_san_two));
-        tvThree = ((TextView) view.findViewById(R.id.tv_san_three));
+        tvOne = view.findViewById(R.id.tv_san_one);
+        tvTwo = view.findViewById(R.id.tv_san_two);
+        tvThree = view.findViewById(R.id.tv_san_three);
     }
 
     private static final String DEVICE_NAME_THREE_IN_ONE = "BeneCheck";

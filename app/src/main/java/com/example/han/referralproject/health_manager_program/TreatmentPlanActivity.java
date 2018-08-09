@@ -14,7 +14,6 @@ import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import me.relex.circleindicator.CircleIndicator;
 
 /**
@@ -109,7 +108,7 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
     }
 
     private void initView() {
-        viewpage = (ViewPager) findViewById(R.id.viewpage);
-        circleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
+        viewpage = findViewById(R.id.viewpage);
+        circleIndicator = findViewById(R.id.circleIndicator);
     }
 }

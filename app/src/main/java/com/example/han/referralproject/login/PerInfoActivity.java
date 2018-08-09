@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,7 +17,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.imageview.CircleImageView;
-import com.megvii.faceppidcardui.*;
+import com.megvii.faceppidcardui.NDialog;
 import com.megvii.faceppidcardui.util.ConstantData;
 
 import java.util.Calendar;
@@ -44,12 +44,12 @@ public class PerInfoActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_per_info);
-        mCircleImageView = (CircleImageView) findViewById(R.id.person_info1);
-        mCircleImageView1 = (CircleImageView) findViewById(R.id.person_info2);
-        mCircleImageView2 = (CircleImageView) findViewById(R.id.person_info3);
-        mImageView = (ImageView) findViewById(R.id.register_new);
-        mImageView1 = (ImageView) findViewById(R.id.returns);
-        mImageView2 = (ImageView) findViewById(R.id.homes);
+        mCircleImageView = findViewById(R.id.person_info1);
+        mCircleImageView1 = findViewById(R.id.person_info2);
+        mCircleImageView2 = findViewById(R.id.person_info3);
+        mImageView = findViewById(R.id.register_new);
+        mImageView1 = findViewById(R.id.returns);
+        mImageView2 = findViewById(R.id.homes);
 
         sharedPreference = getSharedPreferences(ConstantData.SHARED_FILE_NAME4, Context.MODE_PRIVATE);
         sharedPreferences1 = getSharedPreferences(ConstantData.SHARED_FILE_NAME1, Context.MODE_PRIVATE);

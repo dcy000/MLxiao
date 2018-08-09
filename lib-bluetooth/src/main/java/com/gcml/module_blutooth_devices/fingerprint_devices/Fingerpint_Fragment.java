@@ -47,14 +47,14 @@ public class Fingerpint_Fragment extends BluetoothBaseFragment implements IView,
     @Override
     protected void initView(View view, Bundle bundle) {
 
-        mInputFingerprint = (Button) view.findViewById(R.id.input_fingerprint);
+        mInputFingerprint = view.findViewById(R.id.input_fingerprint);
         mInputFingerprint.setOnClickListener(this);
-        mInputFeature = (TextView) view.findViewById(R.id.input_feature);
-        mValidateFingerprint = (Button) view.findViewById(R.id.validate_fingerprint);
+        mInputFeature = view.findViewById(R.id.input_feature);
+        mValidateFingerprint = view.findViewById(R.id.validate_fingerprint);
         mValidateFingerprint.setOnClickListener(this);
-        mValidateFeature = (TextView) view.findViewById(R.id.validate_feature);
-        mResult = (TextView) view.findViewById(R.id.result);
-        mFingerprintImage = (ImageView) view.findViewById(R.id.fingerprint_image);
+        mValidateFeature = view.findViewById(R.id.validate_feature);
+        mResult = view.findViewById(R.id.result);
+        mFingerprintImage = view.findViewById(R.id.fingerprint_image);
         this.bundle=bundle;
 
     }

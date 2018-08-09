@@ -7,7 +7,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.ECGHistory;
-import com.example.han.referralproject.util.Utils;
 import com.gcml.lib_utils.data.TimeUtils;
 
 import java.text.SimpleDateFormat;

@@ -63,11 +63,11 @@ public class HealthBloodDetectionFragment extends Fragment {
 
     protected void initView(View view, Bundle savedInstanceState) {
         ((TextView) view.findViewById(R.id.tv_top_title)).setText(R.string.test_xueya);
-        tvHighPressure = (TextView) view.findViewById(R.id.high_pressure);
-        tvLowPressure = (TextView) view.findViewById(R.id.low_pressure);
-        tvPulsePressure = (TextView) view.findViewById(R.id.pulse);
-        tvDetectionAgain = (TextView) view.findViewById(R.id.tv_detection_again);
-        tvNext = (TextView) view.findViewById(R.id.tv_next);
+        tvHighPressure = view.findViewById(R.id.high_pressure);
+        tvLowPressure = view.findViewById(R.id.low_pressure);
+        tvPulsePressure = view.findViewById(R.id.pulse);
+        tvDetectionAgain = view.findViewById(R.id.tv_detection_again);
+        tvNext = view.findViewById(R.id.tv_next);
     }
 
     private static final String DEVICE_NAME = "eBlood-Pressure";

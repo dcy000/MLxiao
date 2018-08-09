@@ -1,7 +1,5 @@
 package com.example.han.referralproject.recyclerview;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -9,15 +7,9 @@ import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.YuYueInfo;
-import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class HistoryActivity extends BaseActivity {
@@ -33,7 +25,7 @@ public class HistoryActivity extends BaseActivity {
         mTitleText.setText(getString(R.string.yuyue_history));
 
         speak(getString(R.string.yuye_history));
-        mRecyclerView = (RecyclerView) findViewById(R.id.history_list);
+        mRecyclerView = findViewById(R.id.history_list);
         initData();
         initRV();
     }

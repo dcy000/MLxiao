@@ -15,7 +15,7 @@ import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Self_Pre
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,IView {
-
+    //增加一行注释
     private LinearLayout mLlXueya;
     private LinearLayout mLlXueyang;
     private LinearLayout mLlTiwen;
@@ -38,23 +38,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        mLlXueya = (LinearLayout) findViewById(R.id.ll_xueya);
+        mLlXueya = findViewById(R.id.ll_xueya);
         mLlXueya.setOnClickListener(this);
-        mLlXueyang = (LinearLayout) findViewById(R.id.ll_xueyang);
+        mLlXueyang = findViewById(R.id.ll_xueyang);
         mLlXueyang.setOnClickListener(this);
-        mLlTiwen = (LinearLayout) findViewById(R.id.ll_tiwen);
+        mLlTiwen = findViewById(R.id.ll_tiwen);
         mLlTiwen.setOnClickListener(this);
-        mLlXuetang = (LinearLayout) findViewById(R.id.ll_xuetang);
+        mLlXuetang = findViewById(R.id.ll_xuetang);
         mLlXuetang.setOnClickListener(this);
-        mLlXindian = (LinearLayout) findViewById(R.id.ll_xindian);
+        mLlXindian = findViewById(R.id.ll_xindian);
         mLlXindian.setOnClickListener(this);
-        mLlTizhong = (LinearLayout) findViewById(R.id.ll_tizhong);
+        mLlTizhong = findViewById(R.id.ll_tizhong);
         mLlTizhong.setOnClickListener(this);
-        mLlSan = (LinearLayout) findViewById(R.id.ll_san);
+        mLlSan = findViewById(R.id.ll_san);
         mLlSan.setOnClickListener(this);
-        mLlMore = (LinearLayout) findViewById(R.id.ll_more);
+        mLlMore = findViewById(R.id.ll_more);
         mLlMore.setOnClickListener(this);
-        mLlBack = (LinearLayout) findViewById(R.id.ll_back);
+        mLlBack = findViewById(R.id.ll_back);
         mLlBack.setOnClickListener(this);
 
     }

@@ -60,7 +60,7 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
             sheetCategory = SHEET_CATEGORY_CHILD;
         }
 
-        ImageView ivTitle = (ImageView) findViewById(R.id.ce_common_iv_title);
+        ImageView ivTitle = findViewById(R.id.ce_common_iv_title);
         ivTitle.setImageResource(R.drawable.ce_entertianment_ic_title_baby_sheets);
         findViewById(R.id.ce_common_iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,9 +68,9 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
                 finish();
             }
         });
-        ivSheetCover = (ImageView) findViewById(R.id.ce_sheet_details_iv_sheet_cover);
-        tvSheetName = (TextView) findViewById(R.id.ce_sheet_details_tv_sheet_name);
-        rvSongs = (RecyclerView) findViewById(R.id.ce_sheet_details_rv_songs);
+        ivSheetCover = findViewById(R.id.ce_sheet_details_iv_sheet_cover);
+        tvSheetName = findViewById(R.id.ce_sheet_details_tv_sheet_name);
+        rvSongs = findViewById(R.id.ce_sheet_details_rv_songs);
 
         if (sheetModel != null) {
             Glide.with(this)
@@ -249,9 +249,9 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
         public VH(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             this.onItemClickListener = onItemClickListener;
-            tvNumber = (TextView) itemView.findViewById(R.id.ce_sheet_details_tv_item_number);
-            tvSongName = (TextView) itemView.findViewById(R.id.ce_sheet_details_iv_item_song_name);
-            tvSinger = (TextView) itemView.findViewById(R.id.ce_sheet_details_tv_item_singer);
+            tvNumber = itemView.findViewById(R.id.ce_sheet_details_tv_item_number);
+            tvSongName = itemView.findViewById(R.id.ce_sheet_details_iv_item_song_name);
+            tvSinger = itemView.findViewById(R.id.ce_sheet_details_tv_item_singer);
             itemView.setOnClickListener(this);
         }
 

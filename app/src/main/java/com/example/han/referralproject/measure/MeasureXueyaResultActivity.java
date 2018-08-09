@@ -49,11 +49,11 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
     LinearLayout llLeft;
     @BindView(R.id.tv_result_title)
     TextView tvResultTitle;
-    @BindView(R.id.current_gao)
+    @BindView(R.id.current_gaoya)
     TextView currentGao;
     @BindView(R.id.ll_gaoya)
     LinearLayout llGaoya;
-    @BindView(R.id.current_di)
+    @BindView(R.id.current_diya)
     TextView currentDi;
     @BindView(R.id.ll_gaodi)
     ConstraintLayout llGaodi;
@@ -150,16 +150,18 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
         rpbGao.setProgress(mb_gaoya_f);
         rpbDi.setProgress(mb_diya_f);
         if (!TextUtils.isEmpty(mb_gaoya)) {
-            if ("-1".equals(mb_gaoya))
+            if ("-1".equals(mb_gaoya)) {
                 tvGao.setText("未测量");
-            else
+            } else {
                 tvGao.setText(String.format("%.0f", mb_gaoya_f));
+            }
         }
         if (!TextUtils.isEmpty(mb_diya)) {
-            if ("-1".equals(mb_diya))
+            if ("-1".equals(mb_diya)) {
                 tvDi.setText("未测量");
-            else
+            } else {
                 tvDi.setText(String.format("%.0f", mb_diya_f));
+            }
         }
 
 
@@ -170,16 +172,18 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
         rpbGaoya.setProgress(avg_gaoya_f);
         rpbDiya.setProgress(avg_diya_f);
         if (!TextUtils.isEmpty(weekGaoyaAvg)) {
-            if ("-1".equals(weekGaoyaAvg))
+            if ("-1".equals(weekGaoyaAvg)) {
                 tvGaoya.setText("未测量");
-            else
+            } else {
                 tvGaoya.setText(String.format("%.0f", Float.parseFloat(weekGaoyaAvg)));
+            }
         }
         if (!TextUtils.isEmpty(weekDiyaAvg)) {
-            if ("-1".equals(weekDiyaAvg))
+            if ("-1".equals(weekDiyaAvg)) {
                 tvDiya.setText("未测量");
-            else
+            } else {
                 tvDiya.setText(String.format("%.0f", Float.parseFloat(weekDiyaAvg)));
+            }
         }
 
 

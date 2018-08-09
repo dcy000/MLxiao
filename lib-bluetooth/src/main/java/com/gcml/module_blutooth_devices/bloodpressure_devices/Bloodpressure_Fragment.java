@@ -38,14 +38,14 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
 
     @Override
     protected void initView(View view, final Bundle bundle) {
-        mTitle3 = (TextView) view.findViewById(R.id.title3);
-        mBtnHealthHistory = (TextView) view.findViewById(R.id.btn_health_history);
+        mTitle3 = view.findViewById(R.id.title3);
+        mBtnHealthHistory = view.findViewById(R.id.btn_health_history);
         mBtnHealthHistory.setOnClickListener(this);
-        mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
+        mBtnVideoDemo = view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
-        mTvGaoya = (TextView) view.findViewById(R.id.tv_gaoya);
-        mTvDiya = (TextView) view.findViewById(R.id.tv_diya);
-        mTvMaibo = (TextView) view.findViewById(R.id.tv_maibo);
+        mTvGaoya = view.findViewById(R.id.tv_gaoya);
+        mTvDiya = view.findViewById(R.id.tv_diya);
+        mTvMaibo = view.findViewById(R.id.tv_maibo);
         this.bundle=bundle;
 
     }

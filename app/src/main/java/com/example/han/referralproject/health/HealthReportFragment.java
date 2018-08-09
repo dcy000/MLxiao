@@ -54,7 +54,7 @@ public class HealthReportFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.health_fragment_report, container, false);
-        rvTargets = (RecyclerView) view.findViewById(R.id.health_diary_rv_targets);
+        rvTargets = view.findViewById(R.id.health_diary_rv_targets);
         view.findViewById(R.id.health_diary_tv_action).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -248,9 +248,9 @@ public class HealthReportFragment extends Fragment {
 
         public TargetHolder(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.health_diary_tv_analysis_title);
-            tvTarget = (TextView) itemView.findViewById(R.id.health_diary_tv_target);
-            tvSource = (TextView) itemView.findViewById(R.id.health_diary_tv_source);
+            tvTitle = itemView.findViewById(R.id.health_diary_tv_analysis_title);
+            tvTarget = itemView.findViewById(R.id.health_diary_tv_target);
+            tvSource = itemView.findViewById(R.id.health_diary_tv_source);
         }
 
         public void onBind(int position) {

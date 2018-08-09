@@ -133,7 +133,7 @@ public class HttpLogInterceptor implements Interceptor {
      * @throws IOException IOException
      */
     @Nullable
-    private String printResult(Request request, Response response, boolean logResponse) throws IOException {
+    private String printResult(Request request, Response response, boolean logResponse) {
         //读取服务器返回的结果
         ResponseBody responseBody = response.body();
         String bodyString = null;
@@ -216,7 +216,7 @@ public class HttpLogInterceptor implements Interceptor {
      * @return String
      * @throws UnsupportedEncodingException UnsupportedEncodingException
      */
-    public static String parseParams(RequestBody body) throws UnsupportedEncodingException {
+    public static String parseParams(RequestBody body) {
         if (isParseable(body.contentType())) {
             try {
                 Buffer requestBuffer = new Buffer();

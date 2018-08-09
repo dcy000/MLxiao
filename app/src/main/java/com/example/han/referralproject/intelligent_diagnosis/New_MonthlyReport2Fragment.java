@@ -83,27 +83,27 @@ public class New_MonthlyReport2Fragment extends Fragment {
     }
 
     private void initView(View view) {
-        viewLeft = (View) view.findViewById(R.id.view_left);
-        viewRight = (View) view.findViewById(R.id.view_right);
-        tvLeft = (TextView) view.findViewById(R.id.tv_left);
-        tvRight = (TextView) view.findViewById(R.id.tv_right);
-        llLeft = (LinearLayout) view.findViewById(R.id.ll_left);
-        rbFirst = (RadioButton) view.findViewById(R.id.rb_first);
-        rbSecond = (RadioButton) view.findViewById(R.id.rb_second);
-        rbThree = (RadioButton) view.findViewById(R.id.rb_three);
-        rbFour = (RadioButton) view.findViewById(R.id.rb_four);
-        rg = (RadioGroup) view.findViewById(R.id.rg);
-        tabMbGaoya = (TextView) view.findViewById(R.id.tab_mb_gaoya);
-        tabMbDiya = (TextView) view.findViewById(R.id.tab_mb_diya);
-        tabSjGaoya = (TextView) view.findViewById(R.id.tab_sj_gaoya);
-        tabSjDiya = (TextView) view.findViewById(R.id.tab_sj_diya);
-        imgGaoya = (ImageView) view.findViewById(R.id.img_gaoya);
-        pcGaoya = (TextView) view.findViewById(R.id.pc_gaoya);
-        imgDiya = (ImageView) view.findViewById(R.id.img_diya);
-        pcDiya = (TextView) view.findViewById(R.id.pc_diya);
-        tvProgress2 = (TextView) view.findViewById(R.id.tv_progress2);
-        rpbSum = (RxTextRoundProgressBar) view.findViewById(R.id.rpb_sum);
-        llRight = (LinearLayout) view.findViewById(R.id.ll_right);
+        viewLeft = view.findViewById(R.id.view_left);
+        viewRight = view.findViewById(R.id.view_right);
+        tvLeft = view.findViewById(R.id.tv_left);
+        tvRight = view.findViewById(R.id.tv_right);
+        llLeft = view.findViewById(R.id.ll_left);
+        rbFirst = view.findViewById(R.id.rb_first);
+        rbSecond = view.findViewById(R.id.rb_second);
+        rbThree = view.findViewById(R.id.rb_three);
+        rbFour = view.findViewById(R.id.rb_four);
+        rg = view.findViewById(R.id.rg);
+        tabMbGaoya = view.findViewById(R.id.tab_mb_gaoya);
+        tabMbDiya = view.findViewById(R.id.tab_mb_diya);
+        tabSjGaoya = view.findViewById(R.id.tab_sj_gaoya);
+        tabSjDiya = view.findViewById(R.id.tab_sj_diya);
+        imgGaoya = view.findViewById(R.id.img_gaoya);
+        pcGaoya = view.findViewById(R.id.pc_gaoya);
+        imgDiya = view.findViewById(R.id.img_diya);
+        pcDiya = view.findViewById(R.id.pc_diya);
+        tvProgress2 = view.findViewById(R.id.tv_progress2);
+        rpbSum = view.findViewById(R.id.rpb_sum);
+        llRight = view.findViewById(R.id.ll_right);
     }
 
     public void notifyData(WeeklyOrMonthlyReport report) {
