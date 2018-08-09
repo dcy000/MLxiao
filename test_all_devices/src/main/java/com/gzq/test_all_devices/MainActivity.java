@@ -15,7 +15,7 @@ import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Self_Pre
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,IView {
-
+    //增加一行注释
     private LinearLayout mLlXueya;
     private LinearLayout mLlXueyang;
     private LinearLayout mLlTiwen;
