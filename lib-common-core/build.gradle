@@ -71,6 +71,8 @@ dependencies {
     api rootProject.ext.dependencies["autodispose"]
     api rootProject.ext.dependencies["autodispose-arch"]
 
+    implementation "android.arch.lifecycle:extensions:1.1.0"
+
     implementation rootProject.ext.dependencies["rxjava2"]
     implementation rootProject.ext.dependencies["rxandroid2"]
 
