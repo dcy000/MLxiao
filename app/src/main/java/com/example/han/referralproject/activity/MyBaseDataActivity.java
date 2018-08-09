@@ -22,11 +22,27 @@ import com.example.han.referralproject.util.ToastTool;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by gzq on 2017/11/24.
  */
 
 public class MyBaseDataActivity extends BaseActivity implements View.OnClickListener {
+    @BindView(R.id.ll_age_info)
+    LinearLayout llAgeInfo;
+    @BindView(R.id.ll_sex_info)
+    LinearLayout llSexInfo;
+    @BindView(R.id.ll_blood_info)
+    LinearLayout llBloodInfo;
+    @BindView(R.id.ll_name_info)
+    LinearLayout llNameInfo;
+    @BindView(R.id.ll_phone_info)
+    LinearLayout llPhoneInfo;
+    @BindView(R.id.ll_idcard_info)
+    LinearLayout llIdcardInfo;
     private CircleImageView mHead;
     /**
      * 曹建平
@@ -93,6 +109,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mybasedata);
+        ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("健康档案");
         initView();
@@ -266,6 +283,30 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(this, RegisterVideoActivity.class).putExtra(FROM_KEY, FROM_VALUE));
                 break;
             default:
+                break;
+        }
+    }
+
+    @OnClick({R.id.ll_age_info, R.id.ll_sex_info, R.id.ll_blood_info, R.id.ll_name_info, R.id.ll_phone_info, R.id.ll_idcard_info})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_age_info:
+                //修改年龄
+                break;
+            case R.id.ll_sex_info:
+                //修改性别
+                break;
+            case R.id.ll_blood_info:
+                //修改血型
+                break;
+            case R.id.ll_name_info:
+                //修改姓名
+                break;
+            case R.id.ll_phone_info:
+                //修改电话号码
+                break;
+            case R.id.ll_idcard_info:
+                //修改身份证号码
                 break;
         }
     }
