@@ -690,7 +690,8 @@
         <activity android:name=".yisuotang.SheQuYiShengActivity" />
         <activity android:name=".activity.AlertNameActivity" />
         <activity android:name=".activity.AlertAgeActivity" />
-        <activity android:name=".activity.AlertBloodTypeActivity"></activity>
+        <activity android:name=".activity.AlertBloodTypeActivity" />
+        <activity android:name=".activity.AlertSexActivity"></activity>
     </application>
 
 </manifest>

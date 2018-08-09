@@ -295,6 +295,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(this, AlertAgeActivity.class));
                 break;
             case R.id.ll_sex_info:
+                startActivity(new Intent(this, AlertSexActivity.class));
                 //修改性别
                 break;
             case R.id.ll_blood_info:
@@ -304,9 +305,6 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
             case R.id.ll_name_info:
                 //修改姓名
                 startActivity(new Intent(this, AlertNameActivity.class));
-                break;
-            case R.id.ll_phone_info:
-                //修改电话号码
                 break;
             case R.id.ll_idcard_info:
                 //修改身份证号码

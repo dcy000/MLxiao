@@ -24,6 +24,7 @@
             android:src="@color/default_bg" />
 
         <LinearLayout
+            android:background="@drawable/toolbar_set"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -63,6 +64,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:background="@drawable/toolbar_set"
             android:id="@+id/ll_age_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,6 +105,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:background="@drawable/toolbar_set"
             android:id="@+id/ll_sex_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -143,6 +146,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:background="@drawable/toolbar_set"
             android:id="@+id/ll_blood_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -344,18 +348,10 @@
                         android:textColor="#333333"
                         android:textSize="28sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="22dp"
-                        android:drawablePadding="5dp"
-                        android:drawableRight="@drawable/ic_jt"
-                        android:text=""
-                        android:textColor="#333333"
-                        android:textSize="28sp" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:background="@drawable/toolbar_set"
                     android:id="@+id/ll_idcard_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
