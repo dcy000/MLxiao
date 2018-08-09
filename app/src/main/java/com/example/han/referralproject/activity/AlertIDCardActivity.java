@@ -1,7 +1,6 @@
 package com.example.han.referralproject.activity;
 
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -9,11 +8,14 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.PUTUserBean;
+import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
 import org.json.JSONException;
@@ -64,8 +66,7 @@ public class AlertIDCardActivity extends BaseActivity {
                     speak(R.string.sign_up_id_card_tip);
                     return;
                 }
-
-                putUserInfo(idCard);
+                neworkCheckIdCard(idCard);
                 break;
         }
     }
@@ -102,6 +103,21 @@ public class AlertIDCardActivity extends BaseActivity {
                     e.printStackTrace();
                 }
 
+            }
+        });
+    }
+
+
+    private void neworkCheckIdCard(final String idCardNumber) {
+        NetworkApi.isRegisteredByIdCard(idCardNumber, new NetworkManager.SuccessCallback<UserInfoBean>() {
+            @Override
+            public void onSuccess(UserInfoBean response) {
+                T.show("您输入的身份证号码已注册");
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                putUserInfo(idCardNumber);
             }
         });
     }
