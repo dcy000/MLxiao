@@ -11,5 +11,10 @@ import java.util.List;
  */
 
 public interface IFragmentControl {
+    /**
+     * 在Activity中监听Fragment的添加和移除操作
+     * @param fragment
+     * @param lists
+     */
     void stepNext(Fragment fragment, List<QuestionChoosed> lists);
 }

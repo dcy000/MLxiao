@@ -1,10 +1,8 @@
 package com.example.han.referralproject.intelligent_diagnosis;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,11 +14,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.intelligent_diagnosis.FoodMateratilDetail;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Created by Administrator on 2018/5/14.
@@ -99,14 +95,14 @@ public class FoodMaterialDetailActivity extends BaseActivity {
         data = getIntent().getParcelableExtra("data");
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("膳食计划");
-        foodMaterialImg = (ImageView) findViewById(R.id.food_material_img);
-        foodMaterialName = (TextView) findViewById(R.id.food_material_name);
-        mealAmount = (TextView) findViewById(R.id.meal_amount);
-        fitPopulation = (TextView) findViewById(R.id.fit_population);
-        tabooPopulation = (TextView) findViewById(R.id.taboo_population);
-        tvTip1 = (TextView) findViewById(R.id.tv_tip1);
-        label = (RecyclerView) findViewById(R.id.label);
-        tvTip2 = (TextView) findViewById(R.id.tv_tip2);
-        nutritiveValue = (TextView) findViewById(R.id.nutritive_value);
+        foodMaterialImg = findViewById(R.id.food_material_img);
+        foodMaterialName = findViewById(R.id.food_material_name);
+        mealAmount = findViewById(R.id.meal_amount);
+        fitPopulation = findViewById(R.id.fit_population);
+        tabooPopulation = findViewById(R.id.taboo_population);
+        tvTip1 = findViewById(R.id.tv_tip1);
+        label = findViewById(R.id.label);
+        tvTip2 = findViewById(R.id.tv_tip2);
+        nutritiveValue = findViewById(R.id.nutritive_value);
     }
 }

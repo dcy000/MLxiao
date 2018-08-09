@@ -37,12 +37,12 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
     @Override
     protected void initView(View view, final Bundle bundle) {
 
-        mBtnHealthHistory = (TextView) view.findViewById(R.id.btn_health_history);
+        mBtnHealthHistory = view.findViewById(R.id.btn_health_history);
         mBtnHealthHistory.setOnClickListener(this);
-        mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
+        mBtnVideoDemo = view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
-        mTvTizhong = (TextView) view.findViewById(R.id.tv_tizhong);
-        mTvTizhi = (TextView) view.findViewById(R.id.tv_tizhi);
+        mTvTizhong = view.findViewById(R.id.tv_tizhong);
+        mTvTizhi = view.findViewById(R.id.tv_tizhi);
         this.bundle = bundle;
 
     }

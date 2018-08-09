@@ -30,7 +30,7 @@ public class ChildEduHomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ce_activity_home);
-        rvItems = (RecyclerView) findViewById(R.id.ce_home_rv_items);
+        rvItems = findViewById(R.id.ce_home_rv_items);
         rvItems.addOnScrollListener(new CenterScrollListener());
         OverFlyingLayoutManager lm = new OverFlyingLayoutManager(this);
         lm.setMinScale(0.6f);
@@ -136,8 +136,8 @@ public class ChildEduHomeActivity extends BaseActivity {
 
         public VH(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
-            ivIndicator = (ImageView) itemView.findViewById(R.id.ce_home_iv_item_indicator);
-            tvIndicator = (TextView) itemView.findViewById(R.id.ce_home_tv_item_indicator);
+            ivIndicator = itemView.findViewById(R.id.ce_home_iv_item_indicator);
+            tvIndicator = itemView.findViewById(R.id.ce_home_tv_item_indicator);
             itemView.setOnClickListener(this);
             this.onItemClickListener = onItemClickListener;
         }

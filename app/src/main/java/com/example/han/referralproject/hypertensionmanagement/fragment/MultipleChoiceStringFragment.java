@@ -14,11 +14,9 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -162,7 +160,7 @@ public class MultipleChoiceStringFragment extends Fragment {
 
         public VH(View itemView) {
             this.itemView = itemView;
-            cbSymptom = (CheckBox) itemView.findViewById(R.id.multiple_choice_tv_item);
+            cbSymptom = itemView.findViewById(R.id.multiple_choice_tv_item);
             itemView.setOnClickListener(symptomOnClickListener);
         }
 

@@ -94,7 +94,7 @@ public class RxLife<T> implements ObservableTransformer<T, T>, LifecycleObserver
             });
             return mRxData.doOnDispose(new Action() {
                 @Override
-                public void run() throws Exception {
+                public void run() {
                     mDisposable.dispose();
                 }
             });

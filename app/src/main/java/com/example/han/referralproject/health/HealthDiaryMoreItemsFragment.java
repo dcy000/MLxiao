@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
@@ -83,8 +82,8 @@ public class HealthDiaryMoreItemsFragment extends Fragment {
         theLm.setOrientation(LinearLayoutManager.VERTICAL);
         GridLayoutManager moreLm = new GridLayoutManager(getActivity(), 5);
         moreLm.setOrientation(LinearLayoutManager.VERTICAL);
-        mRvTheItems = (RecyclerView) findViewById(R.id.health_diary_rv_more_items_the_items);
-        mRvMoreItems = (RecyclerView) findViewById(R.id.health_diary_rv_more_items_more_items);
+        mRvTheItems = findViewById(R.id.health_diary_rv_more_items_the_items);
+        mRvMoreItems = findViewById(R.id.health_diary_rv_more_items_more_items);
         mTheAdapter = new TheAdapter();
         mRvTheItems.setLayoutManager(theLm);
         mRvTheItems.setAdapter(mTheAdapter);
@@ -162,7 +161,7 @@ public class HealthDiaryMoreItemsFragment extends Fragment {
 
         public TheHolder(View itemView) {
             super(itemView);
-            tvContent = (TextView) itemView.findViewById(R.id.health_diary_tv_the_item_content);
+            tvContent = itemView.findViewById(R.id.health_diary_tv_the_item_content);
             itemView.setOnClickListener(theItemOnClickListener);
         }
 
@@ -198,7 +197,7 @@ public class HealthDiaryMoreItemsFragment extends Fragment {
 
         public MoreHolder(View itemView) {
             super(itemView);
-            tvContent = (TextView) itemView.findViewById(R.id.health_diary_tv_more_item_content);
+            tvContent = itemView.findViewById(R.id.health_diary_tv_more_item_content);
             itemView.setOnClickListener(moreItemOnClickListener);
         }
 

@@ -15,12 +15,12 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -261,8 +261,8 @@ public class XuetangActivity extends BaseActivity {
         //      mPb = (ProgressBar) findViewById(R.id.pb);
 
 
-        mTextView = (TextView) findViewById(R.id.xue_tang);
-        mImageView1 = (ImageView) findViewById(R.id.test_2);
+        mTextView = findViewById(R.id.xue_tang);
+        mImageView1 = findViewById(R.id.test_2);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {

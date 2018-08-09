@@ -12,10 +12,8 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
-
 import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
-
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -65,16 +63,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         mediaPlayer.start();//播放音乐*/
         mToolbar.setVisibility(View.GONE);
-        mImageView1 = (ImageView) findViewById(R.id.robot_con);
+        mImageView1 = findViewById(R.id.robot_con);
 
-        mImageView2 = (ImageView) findViewById(R.id.person_info);
+        mImageView2 = findViewById(R.id.person_info);
 
-        mImageView3 = (ImageView) findViewById(R.id.health_test);
+        mImageView3 = findViewById(R.id.health_test);
 
-        mImageView4 = (ImageView) findViewById(R.id.doctor_ask);
+        mImageView4 = findViewById(R.id.doctor_ask);
 
-        mImageView5 = (ImageView) findViewById(R.id.health_class);
-        mImageView6 = (ImageView) findViewById(R.id.call_family);
+        mImageView5 = findViewById(R.id.health_class);
+        mImageView6 = findViewById(R.id.call_family);
 
         mImageView1.setOnClickListener(this);
         mImageView2.setOnClickListener(this);

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.hypertensionmanagement.fragment.BloodPresureMeasuerFragment;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WeigtMeasureFragment;
 import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 

@@ -31,7 +31,7 @@ public class ToastUtils {
     public static void showShort(CharSequence message) {
         if (mToast == null) {
             mToast = Toast.makeText(getApplication(), message, Toast.LENGTH_SHORT);
-            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
+            TextView v = mToast.getView().findViewById(android.R.id.message);
             v.setTextSize(28);
         } else {
             mToast.setText(message);
@@ -48,7 +48,7 @@ public class ToastUtils {
     public static void showShort( int resId) {
         if (mToast == null) {
             mToast = Toast.makeText(getApplication(), resId, Toast.LENGTH_SHORT);
-            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
+            TextView v = mToast.getView().findViewById(android.R.id.message);
             v.setTextSize(28);
         } else {
             mToast.setText(resId);
@@ -65,7 +65,7 @@ public class ToastUtils {
     public static void showLong( CharSequence message) {
         if (mToast == null) {
             mToast = Toast.makeText(getApplication(), message, Toast.LENGTH_LONG);
-            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
+            TextView v = mToast.getView().findViewById(android.R.id.message);
 
             v.setTextSize(28);
         } else {
@@ -83,7 +83,7 @@ public class ToastUtils {
     public static void showLong(int resId) {
         if (mToast == null) {
             mToast = Toast.makeText(getApplication(), resId, Toast.LENGTH_LONG);
-            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
+            TextView v = mToast.getView().findViewById(android.R.id.message);
             v.setTextSize(28);
         } else {
             mToast.setText(resId);
@@ -100,7 +100,7 @@ public class ToastUtils {
     public static void showShortOnTop(CharSequence message) {
         if (mToast == null) {
             mToast = Toast.makeText(getApplication(), message, Toast.LENGTH_SHORT);
-            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
+            TextView v = mToast.getView().findViewById(android.R.id.message);
             v.setTextSize(28);
         } else {
             mToast.setText(message);
@@ -117,7 +117,7 @@ public class ToastUtils {
     public static void showShortOnTop( int resId) {
         if (mToast == null) {
             mToast = Toast.makeText(getApplication(), resId, Toast.LENGTH_SHORT);
-            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
+            TextView v = mToast.getView().findViewById(android.R.id.message);
             v.setTextSize(28);
         } else {
             mToast.setText(resId);

@@ -1,21 +1,12 @@
 package com.medlink.danbogh.utils;
 
-import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.media.MediaMetadataRetriever;
-import android.os.Build;
-import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-
-import com.example.han.referralproject.util.LocalShared;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,14 +16,8 @@ import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * Created by lenovo on 2017/10/16.
@@ -55,13 +40,9 @@ public class Utils {
     }
 
     public static boolean checkIdCard1(String idCard) {
-        if (idCard != null
+        return idCard != null
                 && idCard.length() == 18
-                && isDate(idCard.substring(6, 14))) {
-            return true;
-        } else {
-            return false;
-        }
+                && isDate(idCard.substring(6, 14));
     }
 
     public static boolean checkIdCard(String idCard) {
@@ -98,11 +79,7 @@ public class Utils {
         Pattern pattern = Pattern.compile(
                 "^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))?$");
         Matcher m = pattern.matcher(strDate);
-        if (m.matches()) {
-            return true;
-        } else {
-            return false;
-        }
+        return m.matches();
     }
 
     public static void showKeyBroad(View view) {

@@ -72,25 +72,25 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
 
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
-        mCircleImageView = (CircleImageView) findViewById(R.id.circleImageView1);
-        mImageView1 = (ImageView) findViewById(R.id.star1);
-        mImageView2 = (ImageView) findViewById(R.id.star2);
-        mImageView3 = (ImageView) findViewById(R.id.star3);
-        mImageView4 = (ImageView) findViewById(R.id.star4);
-        mImageView5 = (ImageView) findViewById(R.id.star5);
+        mCircleImageView = findViewById(R.id.circleImageView1);
+        mImageView1 = findViewById(R.id.star1);
+        mImageView2 = findViewById(R.id.star2);
+        mImageView3 = findViewById(R.id.star3);
+        mImageView4 = findViewById(R.id.star4);
+        mImageView5 = findViewById(R.id.star5);
 
-        mButton = (Button) findViewById(R.id.niming_appraise);
-        mButton1 = (Button) findViewById(R.id.button1);
-        mButton2 = (Button) findViewById(R.id.button2);
-        mButton3 = (Button) findViewById(R.id.button3);
-        mButton4 = (Button) findViewById(R.id.button4);
-        mButton5 = (Button) findViewById(R.id.button5);
-        mButton6 = (Button) findViewById(R.id.button6);
+        mButton = findViewById(R.id.niming_appraise);
+        mButton1 = findViewById(R.id.button1);
+        mButton2 = findViewById(R.id.button2);
+        mButton3 = findViewById(R.id.button3);
+        mButton4 = findViewById(R.id.button4);
+        mButton5 = findViewById(R.id.button5);
+        mButton6 = findViewById(R.id.button6);
 
-        mTextView1 = (TextView) findViewById(R.id.doctor_name);
-        mTextView2 = (TextView) findViewById(R.id.doctor_position);
-        mTextView3 = (TextView) findViewById(R.id.doctor_feature);
-        mTextView4 = (TextView) findViewById(R.id.pay_standard);
+        mTextView1 = findViewById(R.id.doctor_name);
+        mTextView2 = findViewById(R.id.doctor_position);
+        mTextView3 = findViewById(R.id.doctor_feature);
+        mTextView4 = findViewById(R.id.pay_standard);
 
 
         mImageView1.setOnClickListener(this);
@@ -107,7 +107,7 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
         mButton5.setOnClickListener(this);
         mButton6.setOnClickListener(this);
 
-        mButton = (Button) findViewById(R.id.niming_appraise);
+        mButton = findViewById(R.id.niming_appraise);
         dialog = new NDialog1(AppraiseActivity.this);
 
 

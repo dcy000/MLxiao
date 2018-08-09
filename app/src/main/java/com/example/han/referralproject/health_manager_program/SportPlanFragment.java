@@ -190,18 +190,18 @@ public  class SportPlanFragment extends Fragment implements View.OnClickListener
 
     private void initView(View view) {
         mData = new ArrayList<>();
-        intakeSalt = (TextView) view.findViewById(R.id.intake_salt);
-        intakeOil = (TextView) view.findViewById(R.id.intake_oil);
-        intakeDrink = (TextView) view.findViewById(R.id.intake_drink);
-        intakeSmoke = (TextView) view.findViewById(R.id.intake_smoke);
-        exerciseIntensity = (TextView) view.findViewById(R.id.exercise_intensity);
-        maximumHeartRate = (TextView) view.findViewById(R.id.maximum_heart_rate);
-        exerciseFrequency = (TextView) view.findViewById(R.id.exercise_frequency);
-        runDuration = (TextView) view.findViewById(R.id.run_duration);
-        tvTuijian = (TextView) view.findViewById(R.id.tv_tuijian);
-        moreExercise = (TextView) view.findViewById(R.id.more_exercise);
+        intakeSalt = view.findViewById(R.id.intake_salt);
+        intakeOil = view.findViewById(R.id.intake_oil);
+        intakeDrink = view.findViewById(R.id.intake_drink);
+        intakeSmoke = view.findViewById(R.id.intake_smoke);
+        exerciseIntensity = view.findViewById(R.id.exercise_intensity);
+        maximumHeartRate = view.findViewById(R.id.maximum_heart_rate);
+        exerciseFrequency = view.findViewById(R.id.exercise_frequency);
+        runDuration = view.findViewById(R.id.run_duration);
+        tvTuijian = view.findViewById(R.id.tv_tuijian);
+        moreExercise = view.findViewById(R.id.more_exercise);
         moreExercise.setOnClickListener(this);
-        exerciseList = (RecyclerView) view.findViewById(R.id.exercise_list);
+        exerciseList = view.findViewById(R.id.exercise_list);
         maximumHeartRate.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         exerciseFrequency.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         runDuration.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));

@@ -53,13 +53,13 @@ public class New_WeeklyReport1Fragment extends Fragment {
 
 
     private void initView(View view) {
-        mTvGao = (TextView) view.findViewById(R.id.tv_gao);
-        mRpbGao = (RxRoundProgressBar) view.findViewById(R.id.rpb_gao);
-        mTvDi = (TextView) view.findViewById(R.id.tv_di);
-        mRpbDi = (RxRoundProgressBar) view.findViewById(R.id.rpb_di);
-        mWaveProgressBar = (WaveProgress) view.findViewById(R.id.wave_progress_bar);
-        mWeekXueyaChart = (LineChart) view.findViewById(R.id.week_xueya_chart);
-        mTvAdvice = (TextView) view.findViewById(R.id.tv_advice);
+        mTvGao = view.findViewById(R.id.tv_gao);
+        mRpbGao = view.findViewById(R.id.rpb_gao);
+        mTvDi = view.findViewById(R.id.tv_di);
+        mRpbDi = view.findViewById(R.id.rpb_di);
+        mWaveProgressBar = view.findViewById(R.id.wave_progress_bar);
+        mWeekXueyaChart = view.findViewById(R.id.week_xueya_chart);
+        mTvAdvice = view.findViewById(R.id.tv_advice);
     }
 
     public void notifyData(WeeklyOrMonthlyReport report) {

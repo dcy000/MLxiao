@@ -5,8 +5,6 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.han.referralproject.util.LocalShared;
-
 import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;

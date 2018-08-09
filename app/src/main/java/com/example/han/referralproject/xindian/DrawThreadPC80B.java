@@ -110,7 +110,7 @@ public class DrawThreadPC80B extends BaseDraw {
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
 		heightMm = BackGround.fPXgetMMforY(h);
-		zoomECGforMm = (float) (BackGround.gridHeigh / 416f);
+		zoomECGforMm = BackGround.gridHeigh / 416f;
 	}
 
 	/**

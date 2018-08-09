@@ -62,12 +62,12 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
             }
         });
 
-        tvContent = (TextView) findViewById(R.id.ce_brain_teaser_tv_content);
-        ivShowAnswer = (ImageView) findViewById(R.id.ce_brain_teaser_iv_show_answer);
-        ivNext = (ImageView) findViewById(R.id.ce_brain_teaser_iv_next);
-        vlvWave = (VoiceLineView) findViewById(R.id.ce_brain_teaser_vlv_voice_wave);
-        tvVoice = (TextView) findViewById(R.id.ce_brain_teaser_tv_voice);
-        ivVoice = (ImageView) findViewById(R.id.ce_brain_teaser_iv_voice);
+        tvContent = findViewById(R.id.ce_brain_teaser_tv_content);
+        ivShowAnswer = findViewById(R.id.ce_brain_teaser_iv_show_answer);
+        ivNext = findViewById(R.id.ce_brain_teaser_iv_next);
+        vlvWave = findViewById(R.id.ce_brain_teaser_vlv_voice_wave);
+        tvVoice = findViewById(R.id.ce_brain_teaser_tv_voice);
+        ivVoice = findViewById(R.id.ce_brain_teaser_iv_voice);
         ivVoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -364,9 +364,9 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
                 @Nullable ViewGroup container,
                 @Nullable Bundle savedInstanceState) {
             mView = inflater.inflate(R.layout.ce_dialog_brain_teaser, container, false);
-            tvTitle = (TextView) findViewById(R.id.ce_brain_teaser_tv_title);
-            tvAnswer = (TextView) findViewById(R.id.ce_brain_teaser_tv_answer);
-            tvConfirm = (TextView) findViewById(R.id.ce_brain_teaser_tv_confirm);
+            tvTitle = findViewById(R.id.ce_brain_teaser_tv_title);
+            tvAnswer = findViewById(R.id.ce_brain_teaser_tv_answer);
+            tvConfirm = findViewById(R.id.ce_brain_teaser_tv_confirm);
             tvAnswer.setText(answer);
             tvConfirm.setOnClickListener(new View.OnClickListener() {
                 @Override

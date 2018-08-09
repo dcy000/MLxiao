@@ -2,9 +2,7 @@ package com.example.han.referralproject.blood_sugar_risk_assessment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -66,9 +64,9 @@ public class BloodsugarRiskAssessmentResultActivity extends BaseActivity {
     private void initView() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("血糖风险结果");
-        tvResult = (TextView) findViewById(R.id.tv_reslut);
-        riskDisease = (CircleProgress) findViewById(R.id.cp_1);
-        healthScore = (CircleProgress) findViewById(R.id.cp_2);
+        tvResult = findViewById(R.id.tv_reslut);
+        riskDisease = findViewById(R.id.cp_1);
+        healthScore = findViewById(R.id.cp_2);
         data = getIntent().getParcelableExtra("data");
     }
 }

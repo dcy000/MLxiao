@@ -35,7 +35,7 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
             convertView = inflater.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
         }
 
-        TextView tv = (TextView) convertView.findViewById(android.R.id.text1);
+        TextView tv = convertView.findViewById(android.R.id.text1);
         tv.setText(items.get(position));
         tv.setGravity(Gravity.CENTER);
         tv.setTextColor(Color.BLACK);
@@ -51,7 +51,7 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
         }
 
 
-        TextView tv = (TextView) convertView.findViewById(android.R.id.text1);
+        TextView tv = convertView.findViewById(android.R.id.text1);
         tv.setText(items.get(position));
         tv.setGravity(Gravity.CENTER);
         tv.setTextColor(Color.BLACK);

@@ -2,7 +2,6 @@
 package com.example.han.referralproject.intelligent_diagnosis;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -26,7 +25,7 @@ public class RadarMarkerView extends MarkerView {
     public RadarMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
 
-        tvContent = (TextView) findViewById(R.id.tvContent);
+        tvContent = findViewById(R.id.tvContent);
     }
 
     // callbacks everytime the MarkerView is redrawn, can be used to update the

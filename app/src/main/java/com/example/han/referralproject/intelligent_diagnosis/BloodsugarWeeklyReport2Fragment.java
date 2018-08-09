@@ -154,27 +154,27 @@ public class BloodsugarWeeklyReport2Fragment extends Fragment {
     }
 
     private void initView(View view) {
-        tvBloodsugarEmpty = (TextView) view.findViewById(R.id.tv_bloodsugar_empty);
-        tvBloodsugarOne = (TextView) view.findViewById(R.id.tv_bloodsugar_one);
-        tvBloodsugarTwo = (TextView) view.findViewById(R.id.tv_bloodsugar_two);
-        tvTitle = (TextView) view.findViewById(R.id.tv_title);
-        tabMbEmpty = (TextView) view.findViewById(R.id.tab_mb_empty);
-        tabMbOne = (TextView) view.findViewById(R.id.tab_mb_one);
-        tabMbTwo = (TextView) view.findViewById(R.id.tab_mb_two);
-        tabSjEmpty = (TextView) view.findViewById(R.id.tab_sj_empty);
-        tabSjOne = (TextView) view.findViewById(R.id.tab_sj_one);
-        tabSjTwo = (TextView) view.findViewById(R.id.tab_sj_two);
-        imgEmpty = (ImageView) view.findViewById(R.id.img_empty);
-        pcEmpty = (TextView) view.findViewById(R.id.pc_empty);
-        imgOne = (ImageView) view.findViewById(R.id.img_one);
-        pcOne = (TextView) view.findViewById(R.id.pc_one);
-        imgTwo = (ImageView) view.findViewById(R.id.img_two);
-        pcTwo = (TextView) view.findViewById(R.id.pc_two);
-        progressDisplay = (TextView) view.findViewById(R.id.progress_display);
-        rpbSum = (RxTextRoundProgressBar) view.findViewById(R.id.rpb_sum);
-        mBloodsugarEmpty = (View) view.findViewById(R.id.bloodsugar_empty);
-        mBloodsugarOne = (View) view.findViewById(R.id.bloodsugar_one);
-        mBloodsugarTwo = (View) view.findViewById(R.id.bloodsugar_two);
+        tvBloodsugarEmpty = view.findViewById(R.id.tv_bloodsugar_empty);
+        tvBloodsugarOne = view.findViewById(R.id.tv_bloodsugar_one);
+        tvBloodsugarTwo = view.findViewById(R.id.tv_bloodsugar_two);
+        tvTitle = view.findViewById(R.id.tv_title);
+        tabMbEmpty = view.findViewById(R.id.tab_mb_empty);
+        tabMbOne = view.findViewById(R.id.tab_mb_one);
+        tabMbTwo = view.findViewById(R.id.tab_mb_two);
+        tabSjEmpty = view.findViewById(R.id.tab_sj_empty);
+        tabSjOne = view.findViewById(R.id.tab_sj_one);
+        tabSjTwo = view.findViewById(R.id.tab_sj_two);
+        imgEmpty = view.findViewById(R.id.img_empty);
+        pcEmpty = view.findViewById(R.id.pc_empty);
+        imgOne = view.findViewById(R.id.img_one);
+        pcOne = view.findViewById(R.id.pc_one);
+        imgTwo = view.findViewById(R.id.img_two);
+        pcTwo = view.findViewById(R.id.pc_two);
+        progressDisplay = view.findViewById(R.id.progress_display);
+        rpbSum = view.findViewById(R.id.rpb_sum);
+        mBloodsugarEmpty = view.findViewById(R.id.bloodsugar_empty);
+        mBloodsugarOne = view.findViewById(R.id.bloodsugar_one);
+        mBloodsugarTwo = view.findViewById(R.id.bloodsugar_two);
     }
 
     @Override

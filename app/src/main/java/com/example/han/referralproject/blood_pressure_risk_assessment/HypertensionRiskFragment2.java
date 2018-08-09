@@ -68,8 +68,8 @@ public class HypertensionRiskFragment2 extends Fragment implements View.OnClickL
             mData.add(new QuestionChoosed(list.getPrrs(),-1,8));
             mData.add(new QuestionChoosed(list.getDrugInduced(),-1,9));
         }
-        mQuestionsList = (RecyclerView) view.findViewById(R.id.questions_list);
-        mTvNext = (TextView) view.findViewById(R.id.tv_next);
+        mQuestionsList = view.findViewById(R.id.questions_list);
+        mTvNext = view.findViewById(R.id.tv_next);
         mTvNext.setOnClickListener(this);
 
     }

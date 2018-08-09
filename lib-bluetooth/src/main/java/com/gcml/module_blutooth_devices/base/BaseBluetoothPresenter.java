@@ -91,7 +91,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
         super();
         this.baseView = fragment;
         this.baseContext = fragment.getThisContext();
-        this.discoverSetting = discoverSetting;
+        BaseBluetoothPresenter.discoverSetting = discoverSetting;
         weakHandler = new WeakHandler(weakRunnable);
         //如果物理地址连接8秒之后还没有连接成功 则改为以蓝牙名称匹配
         timeCount = new TimeCount(8000, 1000, weakHandler);
@@ -353,7 +353,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
             BluetoothClientManager.getClient().disconnect(targetAddress);
             BluetoothClientManager.getClient().refreshCache(targetAddress);
         }
-        this.discoverSetting = setting;
+        discoverSetting = setting;
         setSearchRequest();
         searchDevices();
     }

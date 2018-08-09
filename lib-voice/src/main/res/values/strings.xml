@@ -27,7 +27,7 @@
 
     <string name="title_face_idf">人脸1:N检索示例</string>
     <string name="title_vocal_idf">声纹1:N检索示例</string>
-    
+
 
     <!-- 合成 -->
     <string-array name="engine_entries">

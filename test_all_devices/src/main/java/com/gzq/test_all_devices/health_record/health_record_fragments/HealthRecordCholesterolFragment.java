@@ -52,17 +52,17 @@ public class HealthRecordCholesterolFragment extends BluetoothBaseFragment {
 
     @Override
     protected void initView(View view, Bundle bundle) {
-        mRbKongfu = (RadioButton) view.findViewById(R.id.rb_kongfu);
-        mRbOneHour = (RadioButton) view.findViewById(R.id.rb_one_hour);
-        mRbTwoHour = (RadioButton) view.findViewById(R.id.rb_two_hour);
-        mRgXuetangTime = (RadioGroup) view.findViewById(R.id.rg_xuetang_time);
-        mColor1 = (TextView) view.findViewById(R.id.color_1);
-        mIndicator1 = (TextView) view.findViewById(R.id.indicator_1);
-        mColor2 = (TextView) view.findViewById(R.id.color_2);
-        mIndicator2 = (TextView) view.findViewById(R.id.indicator_2);
-        mLlSecond = (LinearLayout) view.findViewById(R.id.ll_second);
-        mLlIndicator = (LinearLayout) view.findViewById(R.id.ll_indicator);
-        mChart = (LineChart) view.findViewById(R.id.chart);
+        mRbKongfu = view.findViewById(R.id.rb_kongfu);
+        mRbOneHour = view.findViewById(R.id.rb_one_hour);
+        mRbTwoHour = view.findViewById(R.id.rb_two_hour);
+        mRgXuetangTime = view.findViewById(R.id.rg_xuetang_time);
+        mColor1 = view.findViewById(R.id.color_1);
+        mIndicator1 = view.findViewById(R.id.indicator_1);
+        mColor2 = view.findViewById(R.id.color_2);
+        mIndicator2 = view.findViewById(R.id.indicator_2);
+        mLlSecond = view.findViewById(R.id.ll_second);
+        mLlIndicator = view.findViewById(R.id.ll_indicator);
+        mChart = view.findViewById(R.id.chart);
 
         mRgXuetangTime.setVisibility(View.GONE);
         //指示器的颜色

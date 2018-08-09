@@ -35,8 +35,8 @@ public class TheOldHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_the_old_home);
-        rvItems = (RecyclerView) findViewById(R.id.old_rv_items);
-        tvIndicator = (TextView) findViewById(R.id.old_tv_home_indicator);
+        rvItems = findViewById(R.id.old_rv_items);
+        tvIndicator = findViewById(R.id.old_tv_home_indicator);
         rvItems.addOnScrollListener(new CenterScrollListener());
         OverFlyingLayoutManager lm = new OverFlyingLayoutManager(0.6f, 0, OverFlyingLayoutManager.HORIZONTAL);
         lm.setAngle(0);
@@ -144,7 +144,7 @@ public class TheOldHomeActivity extends AppCompatActivity {
         public Holder(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             this.onItemClickListener = onItemClickListener;
-            ivMedia = (ImageView) itemView.findViewById(R.id.old_iv_media);
+            ivMedia = itemView.findViewById(R.id.old_iv_media);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

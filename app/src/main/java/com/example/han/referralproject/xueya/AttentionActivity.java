@@ -1,8 +1,8 @@
 package com.example.han.referralproject.xueya;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -23,7 +23,7 @@ public class AttentionActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        mImageView1 = (ImageView) findViewById(R.id.start_test);
+        mImageView1 = findViewById(R.id.start_test);
         mImageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

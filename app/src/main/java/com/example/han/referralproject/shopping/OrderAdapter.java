@@ -6,15 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.constant.ConstantData;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by han on 2017/11/30.

@@ -82,7 +82,7 @@ public class VideoListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvVideos = (RecyclerView) view.findViewById(R.id.rv_videos);
+        rvVideos = view.findViewById(R.id.rv_videos);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         rvVideos.setHasFixedSize(true);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -325,8 +325,8 @@ public class VideoListFragment extends Fragment {
 
         public Holder(final View itemView) {
             super(itemView);
-            ivThumbnail = (ImageView) itemView.findViewById(R.id.iv_video_thumbnail);
-            tvTitle = (TextView) itemView.findViewById(R.id.tv_video_title);
+            ivThumbnail = itemView.findViewById(R.id.iv_video_thumbnail);
+            tvTitle = itemView.findViewById(R.id.tv_video_title);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

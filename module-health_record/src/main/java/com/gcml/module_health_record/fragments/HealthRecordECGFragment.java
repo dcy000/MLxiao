@@ -25,7 +25,7 @@ public class HealthRecordECGFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, Bundle bundle) {
-        mXindiantu = (RecyclerView) view.findViewById(R.id.xindiantu);
+        mXindiantu = view.findViewById(R.id.xindiantu);
     }
 
 

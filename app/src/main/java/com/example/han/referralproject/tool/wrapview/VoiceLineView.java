@@ -14,7 +14,6 @@ import com.example.han.referralproject.tool.other.ThreadPool;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by lenovo on 2018/3/8.

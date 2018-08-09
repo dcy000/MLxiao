@@ -70,11 +70,11 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mWiFiUtil.openWifi();
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         mConnectedLayout = findViewById(R.id.rl_connected);
-        mConnectedWifiName = (TextView) findViewById(R.id.tv_connect_name);
-        mSwitch = (Switch) findViewById(R.id.switch_wifi);
+        mConnectedWifiName = findViewById(R.id.tv_connect_name);
+        mSwitch = findViewById(R.id.switch_wifi);
         mSwitch.setChecked(mWiFiUtil.isWifiOpened());
         mSwitch.setOnCheckedChangeListener(mCheckedChangeListener);
-        RecyclerView mWifiRv = (RecyclerView) findViewById(R.id.rv_wifi);
+        RecyclerView mWifiRv = findViewById(R.id.rv_wifi);
         mWifiRv.setLayoutManager(new LinearLayoutManager(mContext));
         mConnectAdapter = new WifiConnectRecyclerAdapter(mContext, mDataList);
         mWifiRv.setAdapter(mConnectAdapter);

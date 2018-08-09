@@ -37,8 +37,8 @@ public class ChildEduStoriesActivity extends BaseActivity {
         setContentView(R.layout.ce_activity_stories);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("故  事  会");
-        rgTabs = (RadioGroup) findViewById(R.id.ce_stories_rg_tabs);
-        rvStories = (RecyclerView) findViewById(R.id.ce_stories_rv_stories);
+        rgTabs = findViewById(R.id.ce_stories_rg_tabs);
+        rvStories = findViewById(R.id.ce_stories_rv_stories);
         rgTabs.setOnCheckedChangeListener(onCheckedChangeListener);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         lm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -165,8 +165,8 @@ public class ChildEduStoriesActivity extends BaseActivity {
         public VH(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             this.onItemClickListener = onItemClickListener;
-            tvNumber = (TextView) itemView.findViewById(R.id.ce_stories_tv_item_number);
-            tvStoryName = (TextView) itemView.findViewById(R.id.ce_stories_tv_item_story_name);
+            tvNumber = itemView.findViewById(R.id.ce_stories_tv_item_number);
+            tvStoryName = itemView.findViewById(R.id.ce_stories_tv_item_story_name);
             itemView.setOnClickListener(this);
         }
 

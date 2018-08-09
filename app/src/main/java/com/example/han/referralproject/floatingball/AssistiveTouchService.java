@@ -27,14 +27,10 @@ import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
-import com.example.han.referralproject.application.MyApplication;
 
 import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class AssistiveTouchService extends Service {
 
@@ -116,14 +112,14 @@ public class AssistiveTouchService extends Service {
         mInflater = LayoutInflater.from(this);
         mAssistiveTouchView = mInflater.inflate(R.layout.assistive_touch_layout, null);
 
-        mImageView = (ImageView) mAssistiveTouchView.findViewById(R.id.icons);
+        mImageView = mAssistiveTouchView.findViewById(R.id.icons);
 
         //   headImg.setOnClickListener(checkDoubleClickListener);
 
         mInflateAssistiveTouchView = mInflater.inflate(R.layout.assistive_touch_inflate_layout, null);
-        mImageView1 = (ImageView) mInflateAssistiveTouchView.findViewById(R.id.image_volume);
-        mTvLudashi = (TextView) mInflateAssistiveTouchView.findViewById(R.id.ludashi);
-        mTvRobot = (TextView) mInflateAssistiveTouchView.findViewById(R.id.robot);
+        mImageView1 = mInflateAssistiveTouchView.findViewById(R.id.image_volume);
+        mTvLudashi = mInflateAssistiveTouchView.findViewById(R.id.ludashi);
+        mTvRobot = mInflateAssistiveTouchView.findViewById(R.id.robot);
         mTvLudashi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,7 +141,7 @@ public class AssistiveTouchService extends Service {
         maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-        mSeekBar = (SeekBar) mInflateAssistiveTouchView.findViewById(R.id.seek);
+        mSeekBar = mInflateAssistiveTouchView.findViewById(R.id.seek);
         mSeekBar.setMax(maxVolume);
         mSeekBar.setProgress(currentVolume);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -350,7 +346,7 @@ public class AssistiveTouchService extends Service {
         Bitmap bitmap = BitmapFactory.decodeFile(path);
 
         mScreenShotView = mInflater.inflate(R.layout.screen_shot_show, null);
-        ImageView imageView = (ImageView) mScreenShotView.findViewById(R.id.screenshot);
+        ImageView imageView = mScreenShotView.findViewById(R.id.screenshot);
         imageView.setImageBitmap(bitmap);
 
         mAlertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);

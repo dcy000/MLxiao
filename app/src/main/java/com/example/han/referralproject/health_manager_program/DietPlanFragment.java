@@ -21,7 +21,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.intelligent_diagnosis.DailyRecommendIntake;
 import com.example.han.referralproject.intelligent_diagnosis.FoodMateratilDetail;
 import com.example.han.referralproject.intelligent_diagnosis.FoodMaterialDetailActivity;
@@ -217,18 +216,18 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
 
     private void initView(View view) {
         mData = new ArrayList<>();
-        intakeSalt = (TextView) view.findViewById(R.id.intake_salt);
-        intakeOil = (TextView) view.findViewById(R.id.intake_oil);
-        intakeDrink = (TextView) view.findViewById(R.id.intake_drink);
-        intakeSmoke = (TextView) view.findViewById(R.id.intake_smoke);
-        tvSalt = (TextView) view.findViewById(R.id.tv_salt);
-        tvOil = (TextView) view.findViewById(R.id.tv_oil);
-        tvDrink = (TextView) view.findViewById(R.id.tv_drink);
-        tvSmoke = (TextView) view.findViewById(R.id.tv_smoke);
-        tvTuijian = (TextView) view.findViewById(R.id.tv_tuijian);
-        tvMore = (TextView) view.findViewById(R.id.tv_more);
+        intakeSalt = view.findViewById(R.id.intake_salt);
+        intakeOil = view.findViewById(R.id.intake_oil);
+        intakeDrink = view.findViewById(R.id.intake_drink);
+        intakeSmoke = view.findViewById(R.id.intake_smoke);
+        tvSalt = view.findViewById(R.id.tv_salt);
+        tvOil = view.findViewById(R.id.tv_oil);
+        tvDrink = view.findViewById(R.id.tv_drink);
+        tvSmoke = view.findViewById(R.id.tv_smoke);
+        tvTuijian = view.findViewById(R.id.tv_tuijian);
+        tvMore = view.findViewById(R.id.tv_more);
         tvMore.setOnClickListener(this);
-        foodMaterialList = (RecyclerView) view.findViewById(R.id.food_material_list);
+        foodMaterialList = view.findViewById(R.id.food_material_list);
         tvSalt.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         tvOil.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         tvDrink.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));

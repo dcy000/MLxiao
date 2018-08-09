@@ -24,7 +24,6 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,18 +45,18 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
          mlist= new ArrayList<>();
-        tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
+        tvGoBack = findViewById(R.id.tv_sign_up_go_back);
         tvGoBack.setOnClickListener(this);
 
         mTvContractOffline = findViewById(R.id.tv_sign_up_contract_offline);
         mTvContractOffline.setOnClickListener(this);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.forum_list);
+        mRecyclerView = findViewById(R.id.forum_list);
 
 
-        Spinner sp = (Spinner) findViewById(R.id.spinner);
-        Spinner sp1 = (Spinner) findViewById(R.id.spinner1);
-        Spinner sp2 = (Spinner) findViewById(R.id.spinner2);
+        Spinner sp = findViewById(R.id.spinner);
+        Spinner sp1 = findViewById(R.id.spinner1);
+        Spinner sp2 = findViewById(R.id.spinner2);
 
         setSpinner(sp,sp1,sp2);
 
@@ -200,7 +199,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onItemClick(int postion) {
                 Intent intent = new Intent(RecoDocActivity.this, DoctorMesActivity.class);
-                intent.putExtra("docMsg", (Serializable) mlist.get(postion));
+                intent.putExtra("docMsg", mlist.get(postion));
                 intent.putExtra("sign", "0");
                 startActivity(intent);
 

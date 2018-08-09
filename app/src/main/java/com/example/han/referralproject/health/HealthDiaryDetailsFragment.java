@@ -108,11 +108,11 @@ public class HealthDiaryDetailsFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.health_fragment_diary_details, container, false);
-        tvTitle = (TextView) findViewById(R.id.health_diary_tv_title);
-        tvCount = (TextView) findViewById(R.id.health_diary_tv_count);
-        rvRuler = (RulerView) findViewById(R.id.health_diary_rv_ruler);
-        rvUnits = (RecyclerView) findViewById(R.id.health_diary_rv_units);
-        tvAction = (TextView) findViewById(R.id.health_diary_tv_action);
+        tvTitle = findViewById(R.id.health_diary_tv_title);
+        tvCount = findViewById(R.id.health_diary_tv_count);
+        rvRuler = findViewById(R.id.health_diary_rv_ruler);
+        rvUnits = findViewById(R.id.health_diary_rv_units);
+        tvAction = findViewById(R.id.health_diary_tv_action);
         FragmentActivity activity = getActivity();
         if (activity != null && activity instanceof BaseActivity) {
             ((BaseActivity) activity).speak("主人，请" + mModel.getTitle());
@@ -242,7 +242,7 @@ public class HealthDiaryDetailsFragment extends Fragment {
 
         public UnitHolder(View itemView) {
             super(itemView);
-            tvUnit = (TextView) itemView.findViewById(R.id.health_diary_tv_item_unit);
+            tvUnit = itemView.findViewById(R.id.health_diary_tv_item_unit);
         }
 
         public void onBind(int position) {

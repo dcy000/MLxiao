@@ -31,7 +31,7 @@ public class WifiInputDialog extends Dialog implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_wifi_info);
-        mPwdEt = (EditText) findViewById(R.id.et_pwd);
+        mPwdEt = findViewById(R.id.et_pwd);
         findViewById(R.id.tv_ok).setOnClickListener(this);
         findViewById(R.id.tv_cancel).setOnClickListener(this);
         if (mDataResult == null){

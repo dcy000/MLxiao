@@ -25,7 +25,7 @@ import java.util.List;
  */
 
 public class HypertensionRiskFragment1 extends Fragment implements View.OnClickListener {
-    private static final String title = "本次风险评估需要您先回答<font color='#FF2D2D'>13</font>道题目，大约<font color='#FF2D2D'>3</font>分钟";
+    private static final String TITLE_TIPS = "本次风险评估需要您先回答<font color='#FF2D2D'>13</font>道题目，大约<font color='#FF2D2D'>3</font>分钟";
     private View view;
     private TextView mTitle;
     private RecyclerView mQuestionsList;
@@ -49,7 +49,7 @@ public class HypertensionRiskFragment1 extends Fragment implements View.OnClickL
     }
 
     private void dealLogic() {
-        mTitle.setText(Html.fromHtml(title));
+        mTitle.setText(Html.fromHtml(TITLE_TIPS));
         LinearLayoutManager layout = new LinearLayoutManager(getContext());
         layout.setSmoothScrollbarEnabled(true);
         mQuestionsList.setLayoutManager(layout);
@@ -71,9 +71,9 @@ public class HypertensionRiskFragment1 extends Fragment implements View.OnClickL
             mData.add(new QuestionChoosed(list.getNaSalt(), -1,4));
             mData.add(new QuestionChoosed(list.getSport(), -1,5));
         }
-        mTitle = (TextView) view.findViewById(R.id.title);
-        mQuestionsList = (RecyclerView) view.findViewById(R.id.questions_list);
-        mTvNext = (TextView) view.findViewById(R.id.tv_next);
+        mTitle = view.findViewById(R.id.title);
+        mQuestionsList = view.findViewById(R.id.questions_list);
+        mTvNext = view.findViewById(R.id.tv_next);
         mTvNext.setOnClickListener(this);
     }
 
@@ -90,8 +90,9 @@ public class HypertensionRiskFragment1 extends Fragment implements View.OnClickL
                         return;
                     }
                 }
-                if (iFragmentControl != null)
-                    iFragmentControl.stepNext(this,mData);
+                if (iFragmentControl != null) {
+                    iFragmentControl.stepNext(this, mData);
+                }
                 break;
         }
     }

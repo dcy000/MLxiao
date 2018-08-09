@@ -2,9 +2,7 @@ package com.example.han.referralproject.homepage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
@@ -42,19 +40,19 @@ public class NewMain2Fragment extends BaseFragment implements View.OnClickListen
 
     @Override
     protected void initView(View view, Bundle bundle) {
-        mIvPersonCenter = (EclipseImageView) view.findViewById(R.id.iv_person_center);
+        mIvPersonCenter = view.findViewById(R.id.iv_person_center);
         mIvPersonCenter.setOnClickListener(this);
-        mIvHealthCourse = (EclipseImageView) view.findViewById(R.id.iv_health_course);
+        mIvHealthCourse = view.findViewById(R.id.iv_health_course);
         mIvHealthCourse.setOnClickListener(this);
-        mEntertainmentCenter = (EclipseImageView) view.findViewById(R.id.entertainment_center);
+        mEntertainmentCenter = view.findViewById(R.id.entertainment_center);
         mEntertainmentCenter.setOnClickListener(this);
-        mIvCommunicate = (EclipseImageView) view.findViewById(R.id.iv_communicate);
+        mIvCommunicate = view.findViewById(R.id.iv_communicate);
         mIvCommunicate.setOnClickListener(this);
-        mIvCheckSelf = (EclipseImageView) view.findViewById(R.id.iv_check_self);
+        mIvCheckSelf = view.findViewById(R.id.iv_check_self);
         mIvCheckSelf.setOnClickListener(this);
-        mIvShoppingMall = (EclipseImageView) view.findViewById(R.id.iv_shopping_mall);
+        mIvShoppingMall = view.findViewById(R.id.iv_shopping_mall);
         mIvShoppingMall.setOnClickListener(this);
-        mIvAskDoctor = (EclipseImageView) view.findViewById(R.id.iv_ask_doctor);
+        mIvAskDoctor = view.findViewById(R.id.iv_ask_doctor);
         mIvAskDoctor.setOnClickListener(this);
     }
 

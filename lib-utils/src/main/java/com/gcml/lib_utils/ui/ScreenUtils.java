@@ -109,9 +109,6 @@ public class ScreenUtils {
     }
     public static boolean isScreenLandscape(){
         Configuration configuration = getApplication().getResources().getConfiguration();
-        if (configuration.orientation==Configuration.ORIENTATION_LANDSCAPE){
-            return true;
-        }
-        return false;
+        return configuration.orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 }

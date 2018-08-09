@@ -87,7 +87,7 @@ public class SignUp7HeightActivity extends BaseActivity {
             @Override
             public void onItemSelected(RecyclerView recyclerView, View item, int position) {
                 selectedPosition = position;
-                select((String) (mStrings == null ? String.valueOf(position) : mStrings.get(position)));
+                select(mStrings == null ? String.valueOf(position) : mStrings.get(position));
             }
         });
         adapter = new SelectAdapter();

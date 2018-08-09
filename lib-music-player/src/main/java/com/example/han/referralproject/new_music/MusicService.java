@@ -191,7 +191,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             Class<?> iSubtitleControllerAnchor = Class.forName("android.media.SubtitleController$Anchor");
             Class<?> iSubtitleControllerListener = Class.forName("android.media.SubtitleController$Listener");
             Constructor constructor = cSubtitleController.getConstructor(
-                    new Class[]{Context.class, cMediaTimeProvider, iSubtitleControllerListener});
+                    Context.class, cMediaTimeProvider, iSubtitleControllerListener);
             Object subtitleInstance = constructor.newInstance(context, null, null);
             Field f = cSubtitleController.getDeclaredField("mHandler");
             f.setAccessible(true);

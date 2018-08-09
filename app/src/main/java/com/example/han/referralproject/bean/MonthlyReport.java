@@ -1,7 +1,5 @@
 package com.example.han.referralproject.bean;
 
-import retrofit2.http.PUT;
-
 /**
  * Created by gzq on 2018/3/19.
  */

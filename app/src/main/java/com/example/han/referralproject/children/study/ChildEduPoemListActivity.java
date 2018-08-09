@@ -36,7 +36,7 @@ public class ChildEduPoemListActivity extends BaseActivity {
                 finish();
             }
         });
-        rvPoems = (RecyclerView) findViewById(R.id.ce_poems_rv_poems);
+        rvPoems = findViewById(R.id.ce_poems_rv_poems);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         lm.setOrientation(LinearLayoutManager.VERTICAL);
         mModels = new ArrayList<>();
@@ -143,9 +143,9 @@ public class ChildEduPoemListActivity extends BaseActivity {
         public VH(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             this.onItemClickListener = onItemClickListener;
-            tvNumber = (TextView) itemView.findViewById(R.id.ce_poems_tv_item_number);
-            tvPoemTitle = (TextView) itemView.findViewById(R.id.ce_poems_tv_item_poem_title);
-            tvPoemAuthor = (TextView) itemView.findViewById(R.id.ce_poems_tv_item_author);
+            tvNumber = itemView.findViewById(R.id.ce_poems_tv_item_number);
+            tvPoemTitle = itemView.findViewById(R.id.ce_poems_tv_item_poem_title);
+            tvPoemAuthor = itemView.findViewById(R.id.ce_poems_tv_item_author);
             itemView.setOnClickListener(this);
         }
 

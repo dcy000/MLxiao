@@ -8,24 +8,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.HealthDiaryDetailsFragment;
-import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.health.model.DetailsModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkCallback;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class HealthWeightDetectionUiFragment extends Weight_Fragment
         implements HealthDiaryDetailsFragment.OnActionListener {

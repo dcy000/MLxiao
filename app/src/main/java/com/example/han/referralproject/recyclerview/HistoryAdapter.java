@@ -89,8 +89,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         public HistoryVH(View itemView, final HistoryAdapter.OnItemClickListener onItemClistListener) {
             super(itemView);
 
-            mTextView = (TextView) itemView.findViewById(R.id.history_time);
-            mTextView1 = (TextView) itemView.findViewById(R.id.history_time1);
+            mTextView = itemView.findViewById(R.id.history_time);
+            mTextView1 = itemView.findViewById(R.id.history_time1);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

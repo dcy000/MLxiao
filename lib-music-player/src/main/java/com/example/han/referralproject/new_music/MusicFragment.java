@@ -62,17 +62,17 @@ public class MusicFragment extends Fragment implements View.OnClickListener, Mus
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.mp_fragment_music, container, false);
-        ivPlayPageBg = (ImageView) view.findViewById(R.id.mp_iv_play_page_bg);
+        ivPlayPageBg = view.findViewById(R.id.mp_iv_play_page_bg);
         tvTitle = view.findViewById(R.id.mp_tv_title);
-        tvArtist = (TextView) view.findViewById(R.id.mp_tv_artist);
-        vpPlayPage = (ViewPager) view.findViewById(R.id.mp_vp_play_page);
-        ilIndicator = (IndicatorLayout) view.findViewById(R.id.mp_il_indicator);//指示器
-        ivMode = (ImageView) view.findViewById(R.id.mp_iv_mode);
-        ivPrev = (ImageView) view.findViewById(R.id.mp_iv_prev);
-        ivPlay = (ImageView) view.findViewById(R.id.mp_iv_play);
-        ivNext = (ImageView) view.findViewById(R.id.mp_iv_next);
+        tvArtist = view.findViewById(R.id.mp_tv_artist);
+        vpPlayPage = view.findViewById(R.id.mp_vp_play_page);
+        ilIndicator = view.findViewById(R.id.mp_il_indicator);//指示器
+        ivMode = view.findViewById(R.id.mp_iv_mode);
+        ivPrev = view.findViewById(R.id.mp_iv_prev);
+        ivPlay = view.findViewById(R.id.mp_iv_play);
+        ivNext = view.findViewById(R.id.mp_iv_next);
         llContent = view.findViewById(R.id.mp_ll_content);
-        ivGoBack = (ImageView) view.findViewById(R.id.mp_iv_go_back);
+        ivGoBack = view.findViewById(R.id.mp_iv_go_back);
         ivGoBack.setOnClickListener(this);
         ivPlay.setOnClickListener(this);
         initViewPager();
@@ -85,13 +85,13 @@ public class MusicFragment extends Fragment implements View.OnClickListener, Mus
         //歌词
         View lrcView = LayoutInflater.from(getContext()).inflate(R.layout.mp_fragment_play_page_lrc, null);
         //碟片
-        mAlbumCoverView = (AlbumCoverView) coverView.findViewById(R.id.mp_album_cover_view);
+        mAlbumCoverView = coverView.findViewById(R.id.mp_album_cover_view);
         //碟片下的歌词
-        mLrcViewSingle = (LrcView) coverView.findViewById(R.id.mp_lrc_view_single);
+        mLrcViewSingle = coverView.findViewById(R.id.mp_lrc_view_single);
         //歌词
-        mLrcViewFull = (LrcView) lrcView.findViewById(R.id.mp_lrc_view_full);
+        mLrcViewFull = lrcView.findViewById(R.id.mp_lrc_view_full);
         //音量调节键
-        sbVolume = (SeekBar) lrcView.findViewById(R.id.mp_sb_volume);
+        sbVolume = lrcView.findViewById(R.id.mp_sb_volume);
 
         mViewPagerContent = new ArrayList<>(2);
         mViewPagerContent.add(coverView);

@@ -53,7 +53,7 @@ public class ECG_PDF_Fragment extends BluetoothBaseFragment {
     private final ThreadUtils.SimpleTask<File> pdfDownload = new ThreadUtils.SimpleTask<File>() {
         @Nullable
         @Override
-        public File doInBackground() throws Throwable {
+        public File doInBackground() {
             InputStream input = null;
             FileOutputStream fos = null;
             File pdfFile = null;
@@ -201,7 +201,7 @@ public class ECG_PDF_Fragment extends BluetoothBaseFragment {
 
     @Override
     protected void initView(View view, Bundle bundle) {
-        mPdfView = (PDFView) view.findViewById(R.id.pdfView);
+        mPdfView = view.findViewById(R.id.pdfView);
         if (bundle != null) {
             url_pdf = bundle.getString(KEY_BUNDLE_PDF_URL);
             if (DataUtils.isNullString(url_pdf)) {

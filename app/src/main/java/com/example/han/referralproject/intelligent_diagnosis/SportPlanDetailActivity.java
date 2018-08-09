@@ -1,7 +1,6 @@
 package com.example.han.referralproject.intelligent_diagnosis;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,12 +16,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.intelligent_diagnosis.SportPlan;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.http.PUT;
 
 /**
  * Created by Administrator on 2018/5/14.
@@ -133,12 +129,12 @@ public class SportPlanDetailActivity extends BaseActivity {
         data = getIntent().getParcelableExtra("data");
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("");
-        detailImg = (ImageView) findViewById(R.id.detail_img);
-        detailTitle = (TextView) findViewById(R.id.detail_title);
-        strength = (TextView) findViewById(R.id.strength);
-        consume = (TextView) findViewById(R.id.consume);
-        healthPrice = (TextView) findViewById(R.id.health_price);
-        encyclopediasList = (RecyclerView) findViewById(R.id.encyclopedias_list);
+        detailImg = findViewById(R.id.detail_img);
+        detailTitle = findViewById(R.id.detail_title);
+        strength = findViewById(R.id.strength);
+        consume = findViewById(R.id.consume);
+        healthPrice = findViewById(R.id.health_price);
+        encyclopediasList = findViewById(R.id.encyclopedias_list);
 
     }
     public static class EffertBean{

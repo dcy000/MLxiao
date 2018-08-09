@@ -7,9 +7,9 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -29,7 +29,7 @@ public class PlayVideoActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_video);
         verifyStoragePermissions(this);
-        mSuperVideoPlayer = (SuperVideoPlayer) findViewById(R.id.video_player_item_1);
+        mSuperVideoPlayer = findViewById(R.id.video_player_item_1);
         mPlayBtnView = findViewById(R.id.play_btn);
         mPlayBtnView.setOnClickListener(this);
         mSuperVideoPlayer.setVideoPlayCallback(mVideoPlayCallback);

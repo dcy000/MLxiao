@@ -1,20 +1,22 @@
 package com.example.han.referralproject.xindian;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
 import com.creative.base.BaseDate.ECGData;
 import com.creative.base.BaseDate.Wave;
 import com.creative.base.InputStreamReader;
 import com.creative.base.OutputStreamSender;
 import com.creative.ecg.ECG;
 import com.creative.ecg.IECGCallBack;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 
 public class StaticReceive {
@@ -283,8 +285,8 @@ public class StaticReceive {
 				}
 				//Logg.e("TAG", "write size:"+datas.size());
 				MyUtil.writeFile(filePath, fileName, datas);
-			};	
-		}.start();
+			}
+        }.start();
 	}
 		
 }

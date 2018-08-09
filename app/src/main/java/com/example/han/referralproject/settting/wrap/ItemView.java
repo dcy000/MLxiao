@@ -1,7 +1,6 @@
 package com.example.han.referralproject.settting.wrap;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -59,9 +58,9 @@ public class ItemView extends LinearLayout implements View.OnClickListener {
 
     private void initView(Context context) {
         View view = View.inflate(context, R.layout.key_item, null);
-        iv = (ImageView) view.findViewById(R.id.iv);
+        iv = view.findViewById(R.id.iv);
         iv.setOnClickListener(this);
-        text = (TextView) view.findViewById(R.id.text);
+        text = view.findViewById(R.id.text);
         addView(view);
     }
 

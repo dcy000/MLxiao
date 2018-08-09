@@ -28,7 +28,7 @@ public class WaveDialog extends Dialog implements Runnable{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.voiceinput_popwindow);
         getWindow().setGravity(Gravity.BOTTOM);
-        mVoiceLineView = (VoiceLineView) findViewById(R.id.voicLine);
+        mVoiceLineView = findViewById(R.id.voicLine);
         Thread thread = new Thread(this);
         thread.start();
     }

@@ -193,39 +193,39 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
 
     private void initView() {
-        mTvRecordQrcode = (TextView) findViewById(R.id.tv_record_qrcode);
-        mRbRecordTemperature = (RadioButton) findViewById(R.id.rb_record_temperature);
-        mRbRecordBloodPressure = (RadioButton) findViewById(R.id.rb_record_blood_pressure);
-        mRbRecordBloodGlucose = (RadioButton) findViewById(R.id.rb_record_blood_glucose);
-        mRbRecordBloodOxygen = (RadioButton) findViewById(R.id.rb_record_blood_oxygen);
-        mRbRecordHeartRate = (RadioButton) findViewById(R.id.rb_record_heart_rate);
-        mRbRecordPulse = (RadioButton) findViewById(R.id.rb_record_pulse);
-        mRbRecordCholesterol = (RadioButton) findViewById(R.id.rb_record_cholesterol);
-        mRbRecordBua = (RadioButton) findViewById(R.id.rb_record_bua);
-        mRbRecordEcg = (RadioButton) findViewById(R.id.rb_record_ecg);
-        mRbRecordWeight = (RadioButton) findViewById(R.id.rb_record_weight);
-        mRgHealthRecord = (RadioGroup) findViewById(R.id.rg_health_record);
+        mTvRecordQrcode = findViewById(R.id.tv_record_qrcode);
+        mRbRecordTemperature = findViewById(R.id.rb_record_temperature);
+        mRbRecordBloodPressure = findViewById(R.id.rb_record_blood_pressure);
+        mRbRecordBloodGlucose = findViewById(R.id.rb_record_blood_glucose);
+        mRbRecordBloodOxygen = findViewById(R.id.rb_record_blood_oxygen);
+        mRbRecordHeartRate = findViewById(R.id.rb_record_heart_rate);
+        mRbRecordPulse = findViewById(R.id.rb_record_pulse);
+        mRbRecordCholesterol = findViewById(R.id.rb_record_cholesterol);
+        mRbRecordBua = findViewById(R.id.rb_record_bua);
+        mRbRecordEcg = findViewById(R.id.rb_record_ecg);
+        mRbRecordWeight = findViewById(R.id.rb_record_weight);
+        mRgHealthRecord = findViewById(R.id.rg_health_record);
         mRgHealthRecord.setOnCheckedChangeListener(this);
-        mTvTimeUnit = (TextView) findViewById(R.id.tv_time_unit);
+        mTvTimeUnit = findViewById(R.id.tv_time_unit);
         mTvTimeUnit.setOnClickListener(this);
-        mTvTimeStart = (TextView) findViewById(R.id.tv_time_start);
+        mTvTimeStart = findViewById(R.id.tv_time_start);
         mTvTimeStart.setOnClickListener(this);
-        mTvTimeEnd = (TextView) findViewById(R.id.tv_time_end);
+        mTvTimeEnd = findViewById(R.id.tv_time_end);
         mTvTimeEnd.setOnClickListener(this);
-        mLlSelectTime = (LinearLayout) findViewById(R.id.ll_select_time);
-        mHealthRecordFl = (FrameLayout) findViewById(R.id.health_record_fl);
+        mLlSelectTime = findViewById(R.id.ll_select_time);
+        mHealthRecordFl = findViewById(R.id.health_record_fl);
         mDialoHealthRecordUnitView = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.dialo_health_record_unit, null);
-        mUnitDayDialoHealthRecordUnitView = (TextView) mDialoHealthRecordUnitView
+        mUnitDayDialoHealthRecordUnitView = mDialoHealthRecordUnitView
                 .findViewById(R.id.unit_day);
         mUnitDayDialoHealthRecordUnitView.setOnClickListener(this);
-        mUnitWeekDialoHealthRecordUnitView = (TextView) mDialoHealthRecordUnitView
+        mUnitWeekDialoHealthRecordUnitView = mDialoHealthRecordUnitView
                 .findViewById(R.id.unit_week);
         mUnitWeekDialoHealthRecordUnitView.setOnClickListener(this);
-        mUnitMonthDialoHealthRecordUnitView = (TextView) mDialoHealthRecordUnitView
+        mUnitMonthDialoHealthRecordUnitView = mDialoHealthRecordUnitView
                 .findViewById(R.id.unit_month);
         mUnitMonthDialoHealthRecordUnitView.setOnClickListener(this);
-        mUnitHalfYearDialoHealthRecordUnitView = (TextView) mDialoHealthRecordUnitView
+        mUnitHalfYearDialoHealthRecordUnitView = mDialoHealthRecordUnitView
                 .findViewById(R.id.unit_half_year);
         mUnitHalfYearDialoHealthRecordUnitView.setOnClickListener(this);
 

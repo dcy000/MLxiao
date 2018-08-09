@@ -253,8 +253,8 @@ public class SuperVideoPlayer extends RelativeLayout {
     private void initView(Context context) {
         mContext = context;
         View.inflate(context, R.layout.super_vodeo_player_layout, this);//TODO 假如只是将java和Layout结合起来，可以直接这么写。
-        mVideoView = (VideoView) findViewById(R.id.video_view);
-        mMediaController = (MediaController) findViewById(R.id.controller);
+        mVideoView = findViewById(R.id.video_view);
+        mMediaController = findViewById(R.id.controller);
         mProgressBarView = findViewById(R.id.progressbar);//加载中的那个圆圈
         mCloseBtnView = findViewById(R.id.video_close_view);
 

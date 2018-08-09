@@ -213,7 +213,7 @@ public class BackGround extends View {
 		mWidth = w;
 
 		gridCnt = 6;
-		gridHeigh = (float) (height / gridCnt);
+		gridHeigh = height / gridCnt;
 		postInvalidate();
 	}
 

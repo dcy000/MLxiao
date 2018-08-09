@@ -14,7 +14,6 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.physicalexamination.activity.ChineseMedicineMonitorActivity;
 import com.example.han.referralproject.physicalexamination.bean.QuestionnaireBean;
 
-import java.io.Serializable;
 import java.util.List;
 
 
@@ -36,7 +35,7 @@ public class MonitorItemFragment extends Fragment {
         MonitorItemFragment fragment = new MonitorItemFragment();
         Bundle args = new Bundle();
         args.putString(KEY_INDEX, index);
-        args.putSerializable(KEY_DATA, (Serializable) data);
+        args.putSerializable(KEY_DATA, data);
         fragment.setArguments(args);
         return fragment;
     }

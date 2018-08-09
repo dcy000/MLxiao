@@ -1,18 +1,14 @@
 package com.example.han.referralproject.util;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
-import android.view.WindowManager;
 
 import com.example.han.referralproject.application.MyApplication;
-
-import java.text.SimpleDateFormat;
 
 public class Utils {
     @SuppressLint("MissingPermission")
@@ -68,7 +64,7 @@ public class Utils {
 
         if (widthOrg > edgeLength && heightOrg > edgeLength) {
             //压缩到一个最小长度是edgeLength的bitmap
-            int longerEdge = (int) (edgeLength * Math.max(widthOrg, heightOrg) / Math.min(widthOrg, heightOrg));
+            int longerEdge = edgeLength * Math.max(widthOrg, heightOrg) / Math.min(widthOrg, heightOrg);
             int scaledWidth = widthOrg > heightOrg ? longerEdge : edgeLength;
             int scaledHeight = widthOrg > heightOrg ? edgeLength : longerEdge;
             Bitmap scaledBitmap;

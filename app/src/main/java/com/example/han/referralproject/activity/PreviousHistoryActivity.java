@@ -27,7 +27,7 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
         mToolbar.setVisibility(View.VISIBLE);
         mLeftText.setText("既往病史");
         diseaseArray = getResources().getStringArray(R.array.disease_type);
-        mGridView = (GridView) findViewById(R.id.gv_content);
+        mGridView = findViewById(R.id.gv_content);
         mAdapter = new DiseaseShowAdapter(mContext);
         mGridView.setAdapter(mAdapter);
         findViewById(R.id.tv_next).setOnClickListener(this);

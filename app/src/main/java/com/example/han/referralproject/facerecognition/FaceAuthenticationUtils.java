@@ -7,7 +7,6 @@ import android.util.Log;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.Utils;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityListener;

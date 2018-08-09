@@ -1,13 +1,10 @@
 package com.example.han.referralproject.health_manager_program;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,16 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.intelligent_diagnosis.LastWeekAllReport;
-import com.example.han.referralproject.intelligent_diagnosis.SportPlan;
-import com.example.han.referralproject.intelligent_diagnosis.SportPlanDetailActivity;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -37,9 +29,7 @@ import com.megvii.faceppidcardui.imageview.CircleImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * Created by Administrator on 2018/5/15.
@@ -176,19 +166,19 @@ public class LastWeekHealthReportFragment extends Fragment {
 
     private void initView(View view) {
 
-        head = (CircleImageView) view.findViewById(R.id.head);
-        name = (TextView) view.findViewById(R.id.name);
-        age = (TextView) view.findViewById(R.id.age);
-        sex = (TextView) view.findViewById(R.id.sex);
-        qrCode = (ImageView) view.findViewById(R.id.qr_code);
-        weight = (TextView) view.findViewById(R.id.weight);
-        tvXueyaTitle = (TextView) view.findViewById(R.id.tv_xueya_title);
-        tvGaoya = (TextView) view.findViewById(R.id.tv_gaoya);
-        tvDiya = (TextView) view.findViewById(R.id.tv_diya);
-        tvXuetangTitle = (TextView) view.findViewById(R.id.tv_xuetang_title);
-        tvXuetangEmpty = (TextView) view.findViewById(R.id.tv_xuetang_empty);
-        tvXuetangOne = (TextView) view.findViewById(R.id.tv_xuetang_one);
-        tvXuetangTwo = (TextView) view.findViewById(R.id.tv_xuetang_two);
+        head = view.findViewById(R.id.head);
+        name = view.findViewById(R.id.name);
+        age = view.findViewById(R.id.age);
+        sex = view.findViewById(R.id.sex);
+        qrCode = view.findViewById(R.id.qr_code);
+        weight = view.findViewById(R.id.weight);
+        tvXueyaTitle = view.findViewById(R.id.tv_xueya_title);
+        tvGaoya = view.findViewById(R.id.tv_gaoya);
+        tvDiya = view.findViewById(R.id.tv_diya);
+        tvXuetangTitle = view.findViewById(R.id.tv_xuetang_title);
+        tvXuetangEmpty = view.findViewById(R.id.tv_xuetang_empty);
+        tvXuetangOne = view.findViewById(R.id.tv_xuetang_one);
+        tvXuetangTwo = view.findViewById(R.id.tv_xuetang_two);
 
         weight.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         tvGaoya.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));

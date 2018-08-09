@@ -105,12 +105,12 @@ public class DialogSureCancel extends BaseDialog implements View.OnClickListener
 
     private void initView() {
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.utils_dialog_sure_false, null);
-        mIvLogo = (ImageView) dialogView.findViewById(R.id.iv_logo);
-        mTvSure = (TextView) dialogView.findViewById(R.id.tv_sure);
-        mTvCancel = (TextView) dialogView.findViewById(R.id.tv_cancel);
-        mTvContent = (TextView) dialogView.findViewById(R.id.tv_content);
+        mIvLogo = dialogView.findViewById(R.id.iv_logo);
+        mTvSure = dialogView.findViewById(R.id.tv_sure);
+        mTvCancel = dialogView.findViewById(R.id.tv_cancel);
+        mTvContent = dialogView.findViewById(R.id.tv_content);
         mTvContent.setTextIsSelectable(true);
-        mTvTitle = (TextView) dialogView.findViewById(R.id.tv_title);
+        mTvTitle = dialogView.findViewById(R.id.tv_title);
         setContentView(dialogView);
         mTvSure.setOnClickListener(this);
         mTvCancel.setOnClickListener(this);

@@ -1,6 +1,5 @@
 package com.example.han.referralproject.network;
 
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
@@ -42,7 +41,6 @@ import com.example.han.referralproject.children.model.SongModel;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.health.model.WeekReportModel;
-import com.example.han.referralproject.hypertensionmanagement.activity.WeightMeasureActivity;
 import com.example.han.referralproject.physicalexamination.bean.QuestionnaireBean;
 import com.example.han.referralproject.radio.RadioEntity;
 import com.example.han.referralproject.recyclerview.Docter;
@@ -50,10 +48,8 @@ import com.example.han.referralproject.recyclerview.OnlineTime;
 import com.example.han.referralproject.shopping.Goods;
 import com.example.han.referralproject.shopping.Order;
 import com.example.han.referralproject.shopping.Orders;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
-import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;

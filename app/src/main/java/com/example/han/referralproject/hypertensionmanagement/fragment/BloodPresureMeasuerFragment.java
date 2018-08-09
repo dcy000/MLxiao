@@ -1,31 +1,17 @@
 package com.example.han.referralproject.hypertensionmanagement.fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.intelligentdetection.HealthBloodDetectionFragment;
-import com.example.han.referralproject.health.intelligentdetection.HealthBloodDetectionUiFragment;
-import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.hypertensionmanagement.activity.WeightMeasureActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkCallback;
-import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 
@@ -61,7 +47,7 @@ public class BloodPresureMeasuerFragment extends HealthBloodDetectionFragment {
                 getActivity().finish();
             }
         });
-        ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
+        ivRight = view.findViewById(R.id.iv_top_right);
         ivRight.setImageResource(R.drawable.health_ic_blutooth);
         ivRight.setOnClickListener(v -> startDetection());
         tvNext.setOnClickListener(v ->

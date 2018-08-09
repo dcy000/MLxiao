@@ -26,7 +26,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
         mToolbar.setVisibility(View.VISIBLE);
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.rv_message);
+        RecyclerView mRecyclerView = findViewById(R.id.rv_message);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         messageShowAdapter = new MessageShowAdapter(mContext, mDataList);
         mRecyclerView.setAdapter(messageShowAdapter);

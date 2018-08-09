@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.intelligent_diagnosis.WeekDietPlan;
 import com.example.han.referralproject.network.NetworkApi;
@@ -135,31 +134,31 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
 
     private void initView(View view) {
 
-        mMonday = (RadioButton) view.findViewById(R.id.monday);
+        mMonday = view.findViewById(R.id.monday);
         mMonday.setChecked(true);
         mMonday.setOnClickListener(this);
-        mTuesday = (RadioButton) view.findViewById(R.id.tuesday);
+        mTuesday = view.findViewById(R.id.tuesday);
         mTuesday.setOnClickListener(this);
-        mWednesday = (RadioButton) view.findViewById(R.id.wednesday);
+        mWednesday = view.findViewById(R.id.wednesday);
         mWednesday.setOnClickListener(this);
-        mThursday = (RadioButton) view.findViewById(R.id.thursday);
+        mThursday = view.findViewById(R.id.thursday);
         mThursday.setOnClickListener(this);
-        mFriday = (RadioButton) view.findViewById(R.id.friday);
+        mFriday = view.findViewById(R.id.friday);
         mFriday.setOnClickListener(this);
-        mSaturday = (RadioButton) view.findViewById(R.id.saturday);
+        mSaturday = view.findViewById(R.id.saturday);
         mSaturday.setOnClickListener(this);
-        mSunday = (RadioButton) view.findViewById(R.id.sunday);
+        mSunday = view.findViewById(R.id.sunday);
         mSunday.setOnClickListener(this);
-        mRg = (RadioGroup) view.findViewById(R.id.rg);
-        mTvZaocan = (TextView) view.findViewById(R.id.tv_zaocan);
-        mIv1 = (ImageView) view.findViewById(R.id.iv_1);
-        mTvBreakfast = (TextView) view.findViewById(R.id.tv_breakfast);
-        mTvWucan = (TextView) view.findViewById(R.id.tv_wucan);
-        mIv2 = (ImageView) view.findViewById(R.id.iv_2);
-        mTvLunch = (TextView) view.findViewById(R.id.tv_lunch);
-        mTvWancan = (TextView) view.findViewById(R.id.tv_wancan);
-        mIv3 = (ImageView) view.findViewById(R.id.iv_3);
-        mTvDinner = (TextView) view.findViewById(R.id.tv_dinner);
+        mRg = view.findViewById(R.id.rg);
+        mTvZaocan = view.findViewById(R.id.tv_zaocan);
+        mIv1 = view.findViewById(R.id.iv_1);
+        mTvBreakfast = view.findViewById(R.id.tv_breakfast);
+        mTvWucan = view.findViewById(R.id.tv_wucan);
+        mIv2 = view.findViewById(R.id.iv_2);
+        mTvLunch = view.findViewById(R.id.tv_lunch);
+        mTvWancan = view.findViewById(R.id.tv_wancan);
+        mIv3 = view.findViewById(R.id.iv_3);
+        mTvDinner = view.findViewById(R.id.tv_dinner);
     }
 
     @Override

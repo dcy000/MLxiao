@@ -78,8 +78,8 @@ public class HealthDiaryItemsFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.health_fragment_diary_items, container, false);
-        tvItemsTitle = (TextView) findViewById(R.id.health_diary_tv_items_title);
-        flItemsContainer = (FrameLayout) findViewById(R.id.health_diary_fl_items_container);
+        tvItemsTitle = findViewById(R.id.health_diary_tv_items_title);
+        flItemsContainer = findViewById(R.id.health_diary_fl_items_container);
         Context context = getContext();
         if (context == null) {
             return mView;
@@ -95,7 +95,7 @@ public class HealthDiaryItemsFragment extends Fragment {
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
         flItemsContainer.addView(mWheelPicker, params);
-        tvItemsMore = (TextView) findViewById(R.id.health_diary_tv_more);
+        tvItemsMore = findViewById(R.id.health_diary_tv_more);
         tvItemsMore.setOnClickListener(moreItemsOnClickListener);
         return mView;
     }

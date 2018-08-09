@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.view.Window;
 import android.widget.Toast;
 
-
 import com.example.han.referralproject.R;
 import com.iflytek.cloud.SpeechConstant;
 

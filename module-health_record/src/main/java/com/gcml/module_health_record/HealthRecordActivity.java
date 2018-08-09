@@ -203,37 +203,37 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
 
     private void initView() {
-        mTvRecordQrcode = (TextView) findViewById(R.id.tv_record_qrcode);
+        mTvRecordQrcode = findViewById(R.id.tv_record_qrcode);
         mTvRecordQrcode.setOnClickListener(this);
-        mRgHealthRecord = (RadioGroup) findViewById(R.id.rg_health_record);
+        mRgHealthRecord = findViewById(R.id.rg_health_record);
         mRgHealthRecord.setOnCheckedChangeListener(this);
-        mTvTimeUnit = (TextView) findViewById(R.id.tv_time_unit);
+        mTvTimeUnit = findViewById(R.id.tv_time_unit);
         mTvTimeUnit.setOnClickListener(this);
-        mTvTimeStart = (TextView) findViewById(R.id.tv_time_start);
+        mTvTimeStart = findViewById(R.id.tv_time_start);
         mTvTimeStart.setOnClickListener(this);
-        mTvTimeEnd = (TextView) findViewById(R.id.tv_time_end);
+        mTvTimeEnd = findViewById(R.id.tv_time_end);
         mTvTimeEnd.setOnClickListener(this);
-        mLlSelectTime = (LinearLayout) findViewById(R.id.ll_select_time);
-        mHealthRecordFl = (FrameLayout) findViewById(R.id.health_record_fl);
+        mLlSelectTime = findViewById(R.id.ll_select_time);
+        mHealthRecordFl = findViewById(R.id.health_record_fl);
         mDialoHealthRecordUnitView = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.dialog_health_record_unit, null);
-        mUnitDayDialoHealthRecordUnitView = (TextView) mDialoHealthRecordUnitView
+        mUnitDayDialoHealthRecordUnitView = mDialoHealthRecordUnitView
                 .findViewById(R.id.unit_day);
         mUnitDayDialoHealthRecordUnitView.setOnClickListener(this);
-        mUnitWeekDialoHealthRecordUnitView = (TextView) mDialoHealthRecordUnitView
+        mUnitWeekDialoHealthRecordUnitView = mDialoHealthRecordUnitView
                 .findViewById(R.id.unit_week);
         mUnitWeekDialoHealthRecordUnitView.setOnClickListener(this);
-        mUnitMonthDialoHealthRecordUnitView = (TextView) mDialoHealthRecordUnitView
+        mUnitMonthDialoHealthRecordUnitView = mDialoHealthRecordUnitView
                 .findViewById(R.id.unit_month);
         mUnitMonthDialoHealthRecordUnitView.setOnClickListener(this);
-        mUnitHalfYearDialoHealthRecordUnitView = (TextView) mDialoHealthRecordUnitView
+        mUnitHalfYearDialoHealthRecordUnitView = mDialoHealthRecordUnitView
                 .findViewById(R.id.unit_half_year);
         mUnitHalfYearDialoHealthRecordUnitView.setOnClickListener(this);
-        mLlBack = (LinearLayout) findViewById(R.id.ll_back);
+        mLlBack = findViewById(R.id.ll_back);
         mLlBack.setOnClickListener(this);
-        mTvTopTitle = (TextView) findViewById(R.id.tv_top_title);
+        mTvTopTitle = findViewById(R.id.tv_top_title);
         mTvTopTitle.setText("历史测量");
-        mIvTopRight = (ImageView) findViewById(R.id.iv_top_right);
+        mIvTopRight = findViewById(R.id.iv_top_right);
         mIvTopRight.setOnClickListener(this);
 
         Calendar calendar = Calendar.getInstance();

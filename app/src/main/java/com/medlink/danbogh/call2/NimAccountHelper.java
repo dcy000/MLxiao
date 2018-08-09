@@ -39,10 +39,7 @@ public class NimAccountHelper {
     public boolean isLogined() {
         String account = getAccount();
         String token = getToken();
-        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
-            return true;
-        }
-        return false;
+        return !TextUtils.isEmpty(account) && !TextUtils.isEmpty(token);
     }
 
     public void loginWithPassword(String account, String password, RequestCallback<LoginInfo> callback) {

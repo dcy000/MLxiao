@@ -25,7 +25,7 @@ public class MusicRepository {
             int page,
             int limit) {
         return mMusicService.sheets(name, page, limit)
-                .compose(RxUtils.<List<SheetEntity>>apiResultTransformer());
+                .compose(RxUtils.apiResultTransformer());
     }
 
     public Observable<List<SongEntity>> songListFromApi(
@@ -33,7 +33,7 @@ public class MusicRepository {
             int page,
             int limit) {
         return mRepositoryHelper.retrofitService(MusicService.class).songs(3, "", sheetId, page, limit)
-                .compose(RxUtils.<List<SongEntity>>apiResultTransformer());
+                .compose(RxUtils.apiResultTransformer());
     }
 
     public Observable<List<SheetEntity>> sheetListFromApiAndSaveDb(
@@ -41,10 +41,10 @@ public class MusicRepository {
             int page,
             int limit) {
         return mMusicService.sheets(name, page, limit)
-                .compose(RxUtils.<List<SheetEntity>>apiResultTransformer())
+                .compose(RxUtils.apiResultTransformer())
                 .doOnNext(new Consumer<List<SheetEntity>>() {
                     @Override
-                    public void accept(List<SheetEntity> sheetEntities) throws Exception {
+                    public void accept(List<SheetEntity> sheetEntities) {
                         mSheetDao.insertAll(sheetEntities);
                     }
                 });
@@ -53,7 +53,7 @@ public class MusicRepository {
     public Observable<List<SheetEntity>> sheetListFromDb(){
         return Observable.fromCallable(new Callable<List<SheetEntity>>() {
             @Override
-            public List<SheetEntity> call() throws Exception {
+            public List<SheetEntity> call() {
                 return mSheetDao.getAll();
             }
         });
@@ -62,7 +62,7 @@ public class MusicRepository {
     public Observable<Object> deleteAllSheetsFromDb(){
         return Observable.fromCallable(new Callable<Object>() {
             @Override
-            public Object call() throws Exception {
+            public Object call() {
                  mSheetDao.deleteAll();
                  return new Object();
             }

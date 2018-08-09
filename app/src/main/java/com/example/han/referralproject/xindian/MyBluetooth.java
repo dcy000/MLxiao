@@ -1,11 +1,5 @@
 package com.example.han.referralproject.xindian;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
@@ -13,6 +7,12 @@ import android.os.Handler;
 
 import com.creative.bluetooth.BluetoothOpertion;
 import com.creative.bluetooth.IBluetoothCallBack;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MyBluetooth {
 

@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.iflytek.cloud.RecognizerResult;
-import com.lzy.okgo.OkGo;
 
 import org.json.JSONException;
 import org.json.JSONObject;

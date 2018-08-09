@@ -69,8 +69,8 @@ public class HypertensionRiskFragment3 extends Fragment implements View.OnClickL
             mData.add(new QuestionChoosed(list.getEncephalon(),-1,12));
             mData.add(new QuestionChoosed(list.getEye(),-1,13));
         }
-        mQuestionsList = (RecyclerView) view.findViewById(R.id.questions_list);
-        mTvNext = (TextView) view.findViewById(R.id.tv_next);
+        mQuestionsList = view.findViewById(R.id.questions_list);
+        mTvNext = view.findViewById(R.id.tv_next);
         mTvNext.setText("提交");
         mTvNext.setOnClickListener(this);
     }

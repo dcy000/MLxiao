@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.intelligent_diagnosis.ThisWeekHealthPlan;
 import com.example.han.referralproject.network.NetworkApi;
@@ -132,18 +131,18 @@ public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClick
     }
 
     private void initView(View view) {
-        mTvDetectionFrequency = (TextView) view.findViewById(R.id.tv_detection_frequency);
-        mTvXueyaDetectionFrequency = (TextView) view.findViewById(R.id.tv_xueya_detection_frequency);
-        mTvXuetangDetectionFrequency = (TextView) view.findViewById(R.id.tv_xuetang_detection_frequency);
-        mWeight = (TextView) view.findViewById(R.id.weight);
-        mTvXueyaTitle = (TextView) view.findViewById(R.id.tv_xueya_title);
-        mTvGaoya = (TextView) view.findViewById(R.id.tv_gaoya);
-        mTvDiya = (TextView) view.findViewById(R.id.tv_diya);
-        mTvXuetangTitle = (TextView) view.findViewById(R.id.tv_xuetang_title);
-        mTvXuetangEmpty = (TextView) view.findViewById(R.id.tv_xuetang_empty);
-        mTvXuetangOne = (TextView) view.findViewById(R.id.tv_xuetang_one);
-        mTvXuetangTwo = (TextView) view.findViewById(R.id.tv_xuetang_two);
-        mTvSetAlarm=(TextView)view.findViewById(R.id.tv_set_alarm);
+        mTvDetectionFrequency = view.findViewById(R.id.tv_detection_frequency);
+        mTvXueyaDetectionFrequency = view.findViewById(R.id.tv_xueya_detection_frequency);
+        mTvXuetangDetectionFrequency = view.findViewById(R.id.tv_xuetang_detection_frequency);
+        mWeight = view.findViewById(R.id.weight);
+        mTvXueyaTitle = view.findViewById(R.id.tv_xueya_title);
+        mTvGaoya = view.findViewById(R.id.tv_gaoya);
+        mTvDiya = view.findViewById(R.id.tv_diya);
+        mTvXuetangTitle = view.findViewById(R.id.tv_xuetang_title);
+        mTvXuetangEmpty = view.findViewById(R.id.tv_xuetang_empty);
+        mTvXuetangOne = view.findViewById(R.id.tv_xuetang_one);
+        mTvXuetangTwo = view.findViewById(R.id.tv_xuetang_two);
+        mTvSetAlarm= view.findViewById(R.id.tv_set_alarm);
         mTvSetAlarm.setOnClickListener(this);
 
         mWeight.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));

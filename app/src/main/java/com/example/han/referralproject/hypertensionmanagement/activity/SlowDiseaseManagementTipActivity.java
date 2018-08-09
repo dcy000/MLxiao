@@ -9,14 +9,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
-import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
 import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.util.LocalShared;
-import com.google.gson.Gson;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

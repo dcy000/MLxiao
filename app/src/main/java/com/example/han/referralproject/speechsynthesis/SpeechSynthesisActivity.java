@@ -207,10 +207,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         setContentView(R.layout.activity_speech_synthesis);
         rand = new Random();
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-        mImageView = (ImageView) findViewById(R.id.iat_recognizes);
+        mImageView = findViewById(R.id.iat_recognizes);
 
 
-        ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivBack = findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1542,7 +1542,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private volatile String mAudioPath;
 
 
-    private void post(String str) throws Exception {
+    private void post(String str) {
         if (str.matches("(.*)是谁")) {
             str = "百科" + str.substring(0, str.length() - 2);
         }

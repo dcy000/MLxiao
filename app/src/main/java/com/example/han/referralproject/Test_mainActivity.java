@@ -4,21 +4,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
-import com.example.han.referralproject.activity.DetectActivity;
-import com.example.han.referralproject.bean.BluetoothBean;
-import com.example.han.referralproject.health.intelligentdetection.HealthBloodDetectionSingleFragment;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-
 
 import java.util.Calendar;
 

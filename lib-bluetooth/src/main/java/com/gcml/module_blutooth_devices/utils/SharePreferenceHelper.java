@@ -49,7 +49,7 @@ public class SharePreferenceHelper {
     }
 
     public String getXueyangMac() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method getXueyangMac = localShared.getClass().getMethod("getXueyangMac", new Class[0]);
+        Method getXueyangMac = localShared.getClass().getMethod("getXueyangMac");
         Object invoke = getXueyangMac.invoke(localShared);
         return (String) invoke;
     }
@@ -61,7 +61,7 @@ public class SharePreferenceHelper {
     }
 
     public String getXueyaMac() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method getXueyaMac = localShared.getClass().getMethod("getXueyaMac", new Class[0]);
+        Method getXueyaMac = localShared.getClass().getMethod("getXueyaMac");
         Object invoke = getXueyaMac.invoke(localShared);
         return (String) invoke;
 
@@ -74,7 +74,7 @@ public class SharePreferenceHelper {
     }
 
     public String getXuetangMac() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method getXuetangMac = localShared.getClass().getMethod("getXuetangMac", new Class[0]);
+        Method getXuetangMac = localShared.getClass().getMethod("getXuetangMac");
         Object invoke = getXuetangMac.invoke(localShared);
         return (String) invoke;
     }
@@ -86,7 +86,7 @@ public class SharePreferenceHelper {
     }
 
     public String getWenduMac() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method getWenduMac = localShared.getClass().getMethod("getWenduMac", new Class[0]);
+        Method getWenduMac = localShared.getClass().getMethod("getWenduMac");
         Object invoke = getWenduMac.invoke(localShared);
         return (String) invoke;
     }
@@ -97,12 +97,12 @@ public class SharePreferenceHelper {
     }
 
     public String getTizhongMac() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method getTizhongMac = localShared.getClass().getMethod("getTizhongMac", new Class[0]);
+        Method getTizhongMac = localShared.getClass().getMethod("getTizhongMac");
         Object invoke = getTizhongMac.invoke(localShared);
         return (String) invoke;
     }
     public String getXindianMac() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method getXinDianMac = localShared.getClass().getMethod("getXinDianMac", new Class[0]);
+        Method getXinDianMac = localShared.getClass().getMethod("getXinDianMac");
         Object invoke = getXinDianMac.invoke(localShared);
         return ((String) invoke);
     }
@@ -111,7 +111,7 @@ public class SharePreferenceHelper {
         setXinDianMac.invoke(localShared,string);
     }
     public String getUserHeight() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method getUserHeight = localShared.getClass().getMethod("getUserHeight", new Class[0]);
+        Method getUserHeight = localShared.getClass().getMethod("getUserHeight");
         Object invoke = getUserHeight.invoke(localShared);
         return (String) invoke;
     }

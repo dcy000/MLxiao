@@ -49,16 +49,16 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
     }
 
     private void initView() {
-        mContent = (TextView) findViewById(R.id.content);
-        mRbReason = (RadioButton) findViewById(R.id.rb_reason);
+        mContent = findViewById(R.id.content);
+        mRbReason = findViewById(R.id.rb_reason);
         mRbReason.setOnClickListener(this);
-        mRbSuggest = (RadioButton) findViewById(R.id.rb_suggest);
+        mRbSuggest = findViewById(R.id.rb_suggest);
         mRbSuggest.setOnClickListener(this);
-        mRbEating = (RadioButton) findViewById(R.id.rb_eating);
+        mRbEating = findViewById(R.id.rb_eating);
         mRbEating.setOnClickListener(this);
-        mRbSport = (RadioButton) findViewById(R.id.rb_sport);
+        mRbSport = findViewById(R.id.rb_sport);
         mRbSport.setOnClickListener(this);
-        mRgDisease = (RadioGroup) findViewById(R.id.rg_disease);
+        mRgDisease = findViewById(R.id.rg_disease);
         mRgDisease.setOnCheckedChangeListener(this);
         //默认第一个选中
         mRbReason.setChecked(true);

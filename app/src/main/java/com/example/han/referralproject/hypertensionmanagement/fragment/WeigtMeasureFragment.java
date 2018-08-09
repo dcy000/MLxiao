@@ -14,23 +14,15 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.HealthDiaryDetailsFragment;
 import com.example.han.referralproject.health.intelligentdetection.DataCacheFragment;
 import com.example.han.referralproject.health.intelligentdetection.HealthWeightDetectionFragment;
-import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.health.model.DetailsModel;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkCallback;
-import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by lenovo on 2018/7/30.
@@ -66,7 +58,7 @@ public class WeigtMeasureFragment extends HealthWeightDetectionFragment implemen
             }
             getActivity().finish();
         });
-        ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
+        ivRight = view.findViewById(R.id.iv_top_right);
         ivRight.setImageResource(R.drawable.health_ic_blutooth);
         ivRight.setOnClickListener(v -> startDetection());
         showUi();

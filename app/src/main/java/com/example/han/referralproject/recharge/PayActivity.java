@@ -33,12 +33,12 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
 
         mTitleText.setText(getString(R.string.pay));
 
-        mButton1 = (Button) findViewById(R.id.pay_1);
-        mButton2 = (Button) findViewById(R.id.pay_2);
-        mButton3 = (Button) findViewById(R.id.pay_3);
-        mButton4 = (Button) findViewById(R.id.pay_4);
-        mButton5 = (Button) findViewById(R.id.pay_5);
-        mButton6 = (Button) findViewById(R.id.pay_6);
+        mButton1 = findViewById(R.id.pay_1);
+        mButton2 = findViewById(R.id.pay_2);
+        mButton3 = findViewById(R.id.pay_3);
+        mButton4 = findViewById(R.id.pay_4);
+        mButton5 = findViewById(R.id.pay_5);
+        mButton6 = findViewById(R.id.pay_6);
 
        /* mImageView1 = (ImageView) findViewById(R.id.health_record_icon_back);
         mImageView2 = (ImageView) findViewById(R.id.health_record_icon_home);

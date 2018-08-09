@@ -67,8 +67,8 @@ public class CommonTipsDialogFragment extends DialogFragment {
     }
 
     private void initView(View view, Bundle savedInstanceState) {
-        mTvTips = (TextView) view.findViewById(R.id.tv_tips);
-        mTvAction = (TextView) view.findViewById(R.id.tv_action);
+        mTvTips = view.findViewById(R.id.tv_tips);
+        mTvAction = view.findViewById(R.id.tv_action);
         if (!TextUtils.isEmpty(tips)
                 && !TextUtils.isEmpty(colorText)
                 && color > 0

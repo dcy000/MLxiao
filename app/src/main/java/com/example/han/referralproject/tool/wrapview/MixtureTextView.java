@@ -15,8 +15,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.example.han.referralproject.R;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -46,7 +44,6 @@ public class MixtureTextView extends RelativeLayout {
     private int mLineSpace;
 
     private TextPaint mTextPaint = new TextPaint();
-    ;
 
     private List<List<Rect>> mDestRects = new ArrayList<List<Rect>>();
     private List<Integer> mCorYs = null;

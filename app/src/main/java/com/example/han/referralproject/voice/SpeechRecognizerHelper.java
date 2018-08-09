@@ -78,7 +78,7 @@ public class SpeechRecognizerHelper {
      * 设置参数
      */
     public static void setParam(Context context, SpeechRecognizer speechRecognizer) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(TtsSettings.PREFER_NAME, context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(TtsSettings.PREFER_NAME, Context.MODE_PRIVATE);
         initDefaulParam(speechRecognizer, sharedPreferences);
     }
 

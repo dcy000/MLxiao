@@ -31,7 +31,7 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ce_activity_entertainment);
-        rvItems = (RecyclerView) findViewById(R.id.ce_entertainment_rv_items);
+        rvItems = findViewById(R.id.ce_entertainment_rv_items);
         mAdapter = new Adapter();
         mAdapter.setOnItemClickListener(onItemClickListener);
         GridLayoutManager lm = new GridLayoutManager(this, 2);
@@ -174,7 +174,7 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
 
         public VH(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
-            ivIndicator = (ImageView) itemView.findViewById(R.id.ce_entertainment_iv_item);
+            ivIndicator = itemView.findViewById(R.id.ce_entertainment_iv_item);
             this.onItemClickListener = onItemClickListener;
             itemView.setOnClickListener(this);
         }

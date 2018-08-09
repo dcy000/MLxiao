@@ -306,13 +306,13 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        mllBack = (LinearLayout) mTitleView.findViewById(R.id.ll_back);
-        mToolbar = (RelativeLayout) mTitleView.findViewById(R.id.toolbar);
-        mTitleText = (TextView) mTitleView.findViewById(R.id.tv_top_title);
-        mLeftText = (TextView) mTitleView.findViewById(R.id.tv_top_left);
-        mRightText = (TextView) mTitleView.findViewById(R.id.tv_top_right);
-        mLeftView = (ImageView) mTitleView.findViewById(R.id.iv_top_left);
-        mRightView = (ImageView) mTitleView.findViewById(R.id.iv_top_right);
+        mllBack = mTitleView.findViewById(R.id.ll_back);
+        mToolbar = mTitleView.findViewById(R.id.toolbar);
+        mTitleText = mTitleView.findViewById(R.id.tv_top_title);
+        mLeftText = mTitleView.findViewById(R.id.tv_top_left);
+        mRightText = mTitleView.findViewById(R.id.tv_top_right);
+        mLeftView = mTitleView.findViewById(R.id.iv_top_left);
+        mRightView = mTitleView.findViewById(R.id.iv_top_right);
         mllBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -355,7 +355,7 @@ public class BaseActivity extends AppCompatActivity {
         mInflater.inflate(layoutResID, rootView);
         super.setContentView(rootView);
         if (isShowVoiceView) {
-            mContentParent = (FrameLayout) findViewById(android.R.id.content);
+            mContentParent = findViewById(android.R.id.content);
             voiceLineView = new VoiceLineView(this);
             voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
             voiceLineView.setAnimation(AnimationUtils.loadAnimation(BaseActivity.this, R.anim.popshow_anim));
@@ -375,7 +375,7 @@ public class BaseActivity extends AppCompatActivity {
         rootView.addView(view);
         super.setContentView(rootView);
         if (isShowVoiceView) {
-            mContentParent = (FrameLayout) findViewById(android.R.id.content);
+            mContentParent = findViewById(android.R.id.content);
             voiceLineView = new VoiceLineView(this);
             voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
             int width = ScreenUtils.dip2px(450);

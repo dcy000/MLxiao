@@ -72,11 +72,7 @@ public class MainLooperMonitor {
                 sb.append(ste).append("\n");
             }
             Log.e(TAG, sb.toString());
-            try {
-                dumpCrashToSdcard(sb.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            dumpCrashToSdcard(sb.toString());
         }
     }
 
@@ -84,7 +80,7 @@ public class MainLooperMonitor {
     private static final String PREFIX = "crash-";
     private static final String SUFFIX = ".trace";
 
-    private void dumpCrashToSdcard(String info) throws IOException {
+    private void dumpCrashToSdcard(String info) {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             Log.w(TAG, "Sdcard unmounted, skip dump crash");
             return;
@@ -113,7 +109,7 @@ public class MainLooperMonitor {
         }
     }
 
-    private void dumpCrashToSdcard(Throwable throwable) throws IOException {
+    private void dumpCrashToSdcard(Throwable throwable) {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             Log.w(TAG, "Sdcard unmounted, skip dump crash");
             return;

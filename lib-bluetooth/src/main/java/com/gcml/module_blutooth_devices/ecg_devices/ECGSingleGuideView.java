@@ -44,7 +44,7 @@ public class ECGSingleGuideView extends View {
     private String brand;
 
     public ECGSingleGuideView(Context context) {
-        this(context, (AttributeSet) null);
+        this(context, null);
     }
 
     public ECGSingleGuideView(Context context, @Nullable AttributeSet attrs) {
@@ -126,8 +126,8 @@ public class ECGSingleGuideView extends View {
                 m = this.data.size() - this.data.size() * 10 % this.xMaxPointCount / 10;
             }
             for (int i = m; i < this.data.size(); ++i) {
-                for (int j = 0; j < ((byte[]) this.data.get(i)).length; j += 2) {
-                    int point = this.getBoShengValue(((byte[]) this.data.get(i))[j], ((byte[]) this.data.get(i))[j + 1]);
+                for (int j = 0; j < this.data.get(i).length; j += 2) {
+                    int point = this.getBoShengValue(this.data.get(i)[j], this.data.get(i)[j + 1]);
                     if (k == 0) {
                         this.dataPath.moveTo(this.getX(k), this.getY(point));
                     } else {
@@ -320,8 +320,8 @@ public class ECGSingleGuideView extends View {
         byte[] bytes = new byte[this.data.size() * 20];
 
         for (int i = 0; i < this.data.size(); ++i) {
-            for (int j = 0; j < ((byte[]) this.data.get(i)).length; ++j) {
-                bytes[i * 20 + j] = ((byte[]) this.data.get(i))[j];
+            for (int j = 0; j < this.data.get(i).length; ++j) {
+                bytes[i * 20 + j] = this.data.get(i)[j];
             }
         }
 

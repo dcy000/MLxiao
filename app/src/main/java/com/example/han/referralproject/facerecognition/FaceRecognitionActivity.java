@@ -131,7 +131,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
         ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<Void>() {
             @Nullable
             @Override
-            public Void doInBackground() throws Throwable {
+            public Void doInBackground() {
 
                 if (accounts == null) {
                     return null;
@@ -218,15 +218,15 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     }
 
     private void initView() {
-        mSurfaceview = (SurfaceView) findViewById(R.id.surfaceview);
-        mLottAnimation = (LottieAnimationView) findViewById(R.id.lott_animation);
-        mIvCircle = (ImageView) findViewById(R.id.iv_circle);
-        mIvBack = (ImageView) findViewById(R.id.iv_back);
+        mSurfaceview = findViewById(R.id.surfaceview);
+        mLottAnimation = findViewById(R.id.lott_animation);
+        mIvCircle = findViewById(R.id.iv_circle);
+        mIvBack = findViewById(R.id.iv_back);
         mIvBack.setOnClickListener(this);
-        mTiaoGuo = (Button) findViewById(R.id.tiao_guo);
+        mTiaoGuo = findViewById(R.id.tiao_guo);
         mTiaoGuo.setOnClickListener(this);
-        mTvTip = (TextView) findViewById(R.id.tv_tip);
-        mPreImg = (ImageView) findViewById(R.id.pre_img);
+        mTvTip = findViewById(R.id.tv_tip);
+        mPreImg = findViewById(R.id.pre_img);
     }
 
     //==================================摄像头操作监听=============================================

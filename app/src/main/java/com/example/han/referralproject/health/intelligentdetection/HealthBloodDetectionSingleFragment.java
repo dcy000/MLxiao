@@ -18,9 +18,6 @@ import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +60,7 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
-        ivRight = ((ImageView) view.findViewById(R.id.iv_top_right));
+        ivRight = view.findViewById(R.id.iv_top_right);
         tvDetectionAgain.setVisibility(View.VISIBLE);
         view.findViewById(R.id.ll_back).setOnClickListener(new View.OnClickListener() {
             @Override

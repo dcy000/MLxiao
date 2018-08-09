@@ -53,7 +53,7 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView {
                 }
             }
         }
-        mMeasureTip = (TextView) view.findViewById(R.id.measure_tip);
+        mMeasureTip = view.findViewById(R.id.measure_tip);
         this.bundle=bundle;
 
     }

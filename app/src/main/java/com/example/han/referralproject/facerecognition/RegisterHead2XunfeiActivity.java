@@ -20,7 +20,6 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.camera.CameraUtils;
@@ -142,15 +141,15 @@ public class RegisterHead2XunfeiActivity extends BaseActivity implements View.On
     }
 
     private void initView() {
-        mSfvPreview = (SurfaceView) findViewById(R.id.sfv_preview);
-        mLottAnimation = (LottieAnimationView) findViewById(R.id.lott_animation);
-        mTvTip = (TextView) findViewById(R.id.tv_tip);
-        mIvCircle = (ImageView) findViewById(R.id.iv_circle);
-        mIvBack = (ImageView) findViewById(R.id.iv_back);
+        mSfvPreview = findViewById(R.id.sfv_preview);
+        mLottAnimation = findViewById(R.id.lott_animation);
+        mTvTip = findViewById(R.id.tv_tip);
+        mIvCircle = findViewById(R.id.iv_circle);
+        mIvBack = findViewById(R.id.iv_back);
         mIvBack.setOnClickListener(this);
-        mTiaoGuos = (Button) findViewById(R.id.tiao_guos);
+        mTiaoGuos = findViewById(R.id.tiao_guos);
         mTiaoGuos.setOnClickListener(this);
-        mPreImg = (ImageView) findViewById(R.id.pre_img);
+        mPreImg = findViewById(R.id.pre_img);
         mLottAnimation.setImageAssetsFolder("lav_imgs/");
         mLottAnimation.setAnimation("camera_pre.json");
         mLottAnimation.playAnimation();
@@ -308,7 +307,7 @@ public class RegisterHead2XunfeiActivity extends BaseActivity implements View.On
         ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<Void>() {
             @Nullable
             @Override
-            public Void doInBackground() throws Throwable {
+            public Void doInBackground() {
 
                 NetworkApi.get_token(
                         response -> qiniuToken = response,

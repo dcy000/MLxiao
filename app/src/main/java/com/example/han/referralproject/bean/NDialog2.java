@@ -158,7 +158,7 @@ public class NDialog2 {
 
     private void setListViewStyle(final AlertDialog alertDialog) {
 
-        ListView listView = (ListView) customView.findViewById(com.megvii.faceppidcardui.R.id.listview);
+        ListView listView = customView.findViewById(com.megvii.faceppidcardui.R.id.listview);
         listView.setAdapter(adapter == null ? new AAdapter() : adapter);
         if (hasDivider) {
             listView.setDivider(new ColorDrawable(dividerColor));
@@ -179,7 +179,7 @@ public class NDialog2 {
 
     private void setInputStyle() {
 
-        mEditText = (EditText) customView.findViewById(com.megvii.faceppidcardui.R.id.input);
+        mEditText = customView.findViewById(com.megvii.faceppidcardui.R.id.input);
         inputLine = customView.findViewById(com.megvii.faceppidcardui.R.id.input_line);
 
         mEditText.setText(inputText);
@@ -206,8 +206,8 @@ public class NDialog2 {
 
         if (isButtonCenter) {
             Window window = alertDialog.getWindow();
-            Button button3 = (Button) window.findViewById(android.R.id.button3);
-            Space space = (Space) window.findViewById(com.megvii.faceppidcardui.R.id.spacer);
+            Button button3 = window.findViewById(android.R.id.button3);
+            Space space = window.findViewById(com.megvii.faceppidcardui.R.id.spacer);
 
             button3.setVisibility(View.GONE);
             space.setVisibility(View.GONE);
@@ -220,13 +220,13 @@ public class NDialog2 {
 
     private void setTitleStyle(AlertDialog alertDialog) {
         Window window = alertDialog.getWindow();
-        TextView titleView = (TextView) window.findViewById(com.megvii.faceppidcardui.R.id.alertTitle);
+        TextView titleView = window.findViewById(com.megvii.faceppidcardui.R.id.alertTitle);
 
         titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleSize);
         titleView.setTextColor(titleColor);
 
         if (isTitleCenter) {
-            ImageView imageView = (ImageView) window.findViewById(android.R.id.icon);
+            ImageView imageView = window.findViewById(android.R.id.icon);
             imageView.setVisibility(View.GONE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 titleView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -236,7 +236,7 @@ public class NDialog2 {
 
     private void setMessageStyle(AlertDialog alertDialog) {
         Window window = alertDialog.getWindow();
-        TextView messageView = (TextView) window.findViewById(android.R.id.message);
+        TextView messageView = window.findViewById(android.R.id.message);
 
         messageView.setTextSize(TypedValue.COMPLEX_UNIT_SP, messageSize);
         messageView.setTextColor(messageColor);
@@ -295,10 +295,10 @@ public class NDialog2 {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = LayoutInflater.from(mContext).inflate(com.megvii.faceppidcardui.R.layout.item_layout, null);
-            LinearLayout linearLayout = (LinearLayout) convertView.findViewById(com.megvii.faceppidcardui.R.id.ll);
+            LinearLayout linearLayout = convertView.findViewById(com.megvii.faceppidcardui.R.id.ll);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dip2px(mContext, itemHeigh));
             linearLayout.setLayoutParams(layoutParams);
-            TextView itemView = (TextView) convertView.findViewById(com.megvii.faceppidcardui.R.id.text1);
+            TextView itemView = convertView.findViewById(com.megvii.faceppidcardui.R.id.text1);
             itemView.setText(items[position]);
             itemView.setTextColor(itemColor);
             itemView.setGravity(itemGravity | Gravity.CENTER_VERTICAL);

@@ -27,9 +27,9 @@ public class ShopVH extends RecyclerView.ViewHolder {
 
     public ShopVH(View itemView, final ShopAdapter.OnItemClickListener onItemClistListener) {
         super(itemView);
-        mImageView = (ImageView) itemView.findViewById(R.id.shop_image);
-        mTextView = (TextView) itemView.findViewById(R.id.goods_name);
-        mTextView1 = (TextView) itemView.findViewById(R.id.goods_amount);
+        mImageView = itemView.findViewById(R.id.shop_image);
+        mTextView = itemView.findViewById(R.id.goods_name);
+        mTextView1 = itemView.findViewById(R.id.goods_amount);
 
 
         itemView.setOnClickListener(new View.OnClickListener() {

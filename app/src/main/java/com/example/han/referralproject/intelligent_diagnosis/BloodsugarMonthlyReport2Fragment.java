@@ -190,37 +190,37 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
     }
 
     private void initView(View view) {
-        bloodsugarEmpty = (View) view.findViewById(R.id.bloodsugar_empty);
-        bloodsugarOne = (View) view.findViewById(R.id.bloodsugar_one);
-        bloodsugarTwo = (View) view.findViewById(R.id.bloodsugar_two);
-        tvBloodsugarEmpty = (TextView) view.findViewById(R.id.tv_bloodsugar_empty);
-        tvBloodsugarOne = (TextView) view.findViewById(R.id.tv_bloodsugar_one);
-        tvBloodsugarTwo = (TextView) view.findViewById(R.id.tv_bloodsugar_two);
-        llLeft = (LinearLayout) view.findViewById(R.id.ll_left);
-        tvTitle = (TextView) view.findViewById(R.id.tv_title);
-        tabMbEmpty = (TextView) view.findViewById(R.id.tab_mb_empty);
-        tabMbOne = (TextView) view.findViewById(R.id.tab_mb_one);
-        tabMbTwo = (TextView) view.findViewById(R.id.tab_mb_two);
-        tabSjEmpty = (TextView) view.findViewById(R.id.tab_sj_empty);
-        tabSjOne = (TextView) view.findViewById(R.id.tab_sj_one);
-        tabSjTwo = (TextView) view.findViewById(R.id.tab_sj_two);
-        imgEmpty = (ImageView) view.findViewById(R.id.img_empty);
-        pcEmpty = (TextView) view.findViewById(R.id.pc_empty);
-        imgOne = (ImageView) view.findViewById(R.id.img_one);
-        pcOne = (TextView) view.findViewById(R.id.pc_one);
-        imgTwo = (ImageView) view.findViewById(R.id.img_two);
-        pcTwo = (TextView) view.findViewById(R.id.pc_two);
-        progressDisplay = (TextView) view.findViewById(R.id.progress_display);
-        rpbSum = (RxTextRoundProgressBar) view.findViewById(R.id.rpb_sum);
-        llRight = (LinearLayout) view.findViewById(R.id.ll_right);
-        mRbFirst = (RadioButton) view.findViewById(R.id.rb_first);
+        bloodsugarEmpty = view.findViewById(R.id.bloodsugar_empty);
+        bloodsugarOne = view.findViewById(R.id.bloodsugar_one);
+        bloodsugarTwo = view.findViewById(R.id.bloodsugar_two);
+        tvBloodsugarEmpty = view.findViewById(R.id.tv_bloodsugar_empty);
+        tvBloodsugarOne = view.findViewById(R.id.tv_bloodsugar_one);
+        tvBloodsugarTwo = view.findViewById(R.id.tv_bloodsugar_two);
+        llLeft = view.findViewById(R.id.ll_left);
+        tvTitle = view.findViewById(R.id.tv_title);
+        tabMbEmpty = view.findViewById(R.id.tab_mb_empty);
+        tabMbOne = view.findViewById(R.id.tab_mb_one);
+        tabMbTwo = view.findViewById(R.id.tab_mb_two);
+        tabSjEmpty = view.findViewById(R.id.tab_sj_empty);
+        tabSjOne = view.findViewById(R.id.tab_sj_one);
+        tabSjTwo = view.findViewById(R.id.tab_sj_two);
+        imgEmpty = view.findViewById(R.id.img_empty);
+        pcEmpty = view.findViewById(R.id.pc_empty);
+        imgOne = view.findViewById(R.id.img_one);
+        pcOne = view.findViewById(R.id.pc_one);
+        imgTwo = view.findViewById(R.id.img_two);
+        pcTwo = view.findViewById(R.id.pc_two);
+        progressDisplay = view.findViewById(R.id.progress_display);
+        rpbSum = view.findViewById(R.id.rpb_sum);
+        llRight = view.findViewById(R.id.ll_right);
+        mRbFirst = view.findViewById(R.id.rb_first);
         mRbFirst.setChecked(true);
         mRbFirst.setOnClickListener(this);
-        mRbSecond = (RadioButton) view.findViewById(R.id.rb_second);
+        mRbSecond = view.findViewById(R.id.rb_second);
         mRbSecond.setOnClickListener(this);
-        mRbThree = (RadioButton) view.findViewById(R.id.rb_three);
+        mRbThree = view.findViewById(R.id.rb_three);
         mRbThree.setOnClickListener(this);
-        mRbFour = (RadioButton) view.findViewById(R.id.rb_four);
+        mRbFour = view.findViewById(R.id.rb_four);
         mRbFour.setOnClickListener(this);
     }
 

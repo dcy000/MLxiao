@@ -24,8 +24,13 @@ import java.lang.reflect.Field;
 
 import static android.content.Context.AUDIO_SERVICE;
 
+/**
+ * @author gcml_gzq
+ */
 public class VolumeControlFloatwindow {
-    // 获取设备当前音量
+    /**
+     * 获取设备当前音量
+     */
     private static int currentVolume;
 
     public static void init(final Context application) {

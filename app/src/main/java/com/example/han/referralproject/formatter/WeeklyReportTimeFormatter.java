@@ -1,13 +1,11 @@
 package com.example.han.referralproject.formatter;
 
-import com.example.han.referralproject.util.Utils;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.SimpleFormatter;
 
 /**
  * Created by gzq on 2017/11/29.

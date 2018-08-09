@@ -139,14 +139,14 @@ public class AllMeasureActivity extends AppCompatActivity {
         if (intent != null) {
             bluetoothBean = intent.getParcelableExtra("bluetoothbean");
         }
-        mLlBack = (LinearLayout) findViewById(R.id.ll_back);
+        mLlBack = findViewById(R.id.ll_back);
         mLlBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        mIvTopRight = (ImageView) findViewById(R.id.iv_top_right);
+        mIvTopRight = findViewById(R.id.iv_top_right);
         mIvTopRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

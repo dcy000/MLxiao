@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -129,10 +128,10 @@ public class MedicinePlanFragment extends Fragment {
     }
 
     private void initView(View view) {
-        mTvTitle = (TextView) view.findViewById(R.id.tv_title);
-        mTvHeadlineInfluencingFactors = (TextView) view.findViewById(R.id.tv_headline_influencing_factors);
-        mView1 = (TextView) view.findViewById(R.id.view_1);
-        mFactorsList = (RecyclerView) view.findViewById(R.id.factors_list);
-        mTvAdvice = (TextView) view.findViewById(R.id.tv_advice);
+        mTvTitle = view.findViewById(R.id.tv_title);
+        mTvHeadlineInfluencingFactors = view.findViewById(R.id.tv_headline_influencing_factors);
+        mView1 = view.findViewById(R.id.view_1);
+        mFactorsList = view.findViewById(R.id.factors_list);
+        mTvAdvice = view.findViewById(R.id.tv_advice);
     }
 }

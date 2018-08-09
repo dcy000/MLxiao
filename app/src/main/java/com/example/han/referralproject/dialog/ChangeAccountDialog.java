@@ -17,8 +17,8 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimAccountHelper;
-import com.umeng.analytics.MobclickAgent;
 import com.medlink.danbogh.utils.JpushAliasUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_change_account);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rl_account);
+        mRecyclerView = findViewById(R.id.rl_account);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         mChangeAccountAdapter = new ChangeAccountAdapter(mContext, mDataList);
         mRecyclerView.setAdapter(mChangeAccountAdapter);

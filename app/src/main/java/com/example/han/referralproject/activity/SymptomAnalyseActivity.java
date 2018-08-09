@@ -62,15 +62,15 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
 
     private void initView() {
         title = getIntent().getStringExtra("title");
-        llLeft = (LinearLayout) findViewById(R.id.ll_left);
-        tv1 = (TextView) findViewById(R.id.tv_1);
-        tv2 = (TextView) findViewById(R.id.tv_2);
-        tv3 = (TextView) findViewById(R.id.tv_3);
-        nextNotice = (TextView) findViewById(R.id.next_notice);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_symptom);
-        rlTv1 = (RelativeLayout) findViewById(R.id.rl_tv1);
-        rlTv2 = (RelativeLayout) findViewById(R.id.rl_tv2);
-        rlTv3 = (RelativeLayout) findViewById(R.id.rl_tv3);
+        llLeft = findViewById(R.id.ll_left);
+        tv1 = findViewById(R.id.tv_1);
+        tv2 = findViewById(R.id.tv_2);
+        tv3 = findViewById(R.id.tv_3);
+        nextNotice = findViewById(R.id.next_notice);
+        mRecyclerView = findViewById(R.id.rv_symptom);
+        rlTv1 = findViewById(R.id.rl_tv1);
+        rlTv2 = findViewById(R.id.rl_tv2);
+        rlTv3 = findViewById(R.id.rl_tv3);
         findViewById(R.id.btn_analyse).setOnClickListener(this);
 
         tv1.setOnClickListener(this);

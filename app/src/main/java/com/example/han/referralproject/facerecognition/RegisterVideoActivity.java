@@ -1,12 +1,5 @@
 package com.example.han.referralproject.facerecognition;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
-
 import android.Manifest.permission;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,7 +23,6 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
-
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -52,6 +44,13 @@ import com.iflytek.cloud.SpeechError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 
 public class RegisterVideoActivity extends BaseActivity implements PreviewCallback {
@@ -193,10 +192,10 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     }
 
     private void initUI() {
-        mPreviewSurface = (SurfaceView) findViewById(R.id.sfv_preview);
+        mPreviewSurface = findViewById(R.id.sfv_preview);
         Animation rotateAnim = AnimationUtils.loadAnimation(mContext, R.anim.rotate_face_check);
         findViewById(R.id.iv_circle).startAnimation(rotateAnim);
-        rlBack = (ImageView) findViewById(R.id.iv_back);
+        rlBack = findViewById(R.id.iv_back);
         findViewById(R.id.tiao_guos).setVisibility(View.GONE);
         rlBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -354,11 +353,8 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
     private boolean checkCameraPermission() {
         int status = checkPermission(permission.CAMERA, Process.myPid(), Process.myUid());
-        if (PackageManager.PERMISSION_GRANTED == status) {
-            return true;
-        }
+        return PackageManager.PERMISSION_GRANTED == status;
 
-        return false;
     }
 
     @Override

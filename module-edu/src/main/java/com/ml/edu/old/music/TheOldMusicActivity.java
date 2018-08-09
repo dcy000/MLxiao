@@ -22,7 +22,7 @@ public class TheOldMusicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_the_old_music);
-        rgOldMusic = (RadioGroup) findViewById(R.id.old_rg_tabs_music);
+        rgOldMusic = findViewById(R.id.old_rg_tabs_music);
         rgOldMusic.setOnCheckedChangeListener(onCheckedChangeListener);
         rgOldMusic.check(R.id.old_rb_music);
         findViewById(R.id.old_tv_exit).setOnClickListener(new View.OnClickListener() {

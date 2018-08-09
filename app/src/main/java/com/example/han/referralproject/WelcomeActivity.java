@@ -71,7 +71,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     if (response != null && response.vid > getPackageManager().getPackageInfo(WelcomeActivity.this.getPackageName(), 0).versionCode) {
                         new UpdateAppManager(WelcomeActivity.this).showNoticeDialog(response.url);
                     } else {
-                        ch = (Chronometer) findViewById(R.id.chronometer);
+                        ch = findViewById(R.id.chronometer);
                         //设置开始计时时间
                         ch.setBase(SystemClock.elapsedRealtime());
                         //启动计时器
@@ -102,7 +102,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ch = (Chronometer) findViewById(R.id.chronometer);
+                ch = findViewById(R.id.chronometer);
                 //设置开始计时时间
                 ch.setBase(SystemClock.elapsedRealtime());
                 //启动计时器

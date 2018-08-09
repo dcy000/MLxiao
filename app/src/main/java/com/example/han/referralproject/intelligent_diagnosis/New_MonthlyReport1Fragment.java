@@ -55,15 +55,15 @@ public class New_MonthlyReport1Fragment extends Fragment {
     }
 
     private void initView(View view) {
-        tvGao = (TextView) view.findViewById(R.id.tv_gao);
-        rpbGao = (RxRoundProgressBar) view.findViewById(R.id.rpb_gao);
-        tvDi = (TextView) view.findViewById(R.id.tv_di);
-        rpbDi = (RxRoundProgressBar) view.findViewById(R.id.rpb_di);
-        waveProgressBar = (WaveProgress) view.findViewById(R.id.wave_progress_bar);
-        ll1 = (LinearLayout) view.findViewById(R.id.ll_1);
-        weekXueyaChart = (LineChart) view.findViewById(R.id.week_xueya_chart);
-        tvAdvice = (TextView) view.findViewById(R.id.tv_advice);
-        ll2 = (LinearLayout) view.findViewById(R.id.ll_2);
+        tvGao = view.findViewById(R.id.tv_gao);
+        rpbGao = view.findViewById(R.id.rpb_gao);
+        tvDi = view.findViewById(R.id.tv_di);
+        rpbDi = view.findViewById(R.id.rpb_di);
+        waveProgressBar = view.findViewById(R.id.wave_progress_bar);
+        ll1 = view.findViewById(R.id.ll_1);
+        weekXueyaChart = view.findViewById(R.id.week_xueya_chart);
+        tvAdvice = view.findViewById(R.id.tv_advice);
+        ll2 = view.findViewById(R.id.ll_2);
         tvXueyaTitle = view.findViewById(R.id.tv_xueya_title);
         tvXueyaTitle.setText("上月平均血压");
     }

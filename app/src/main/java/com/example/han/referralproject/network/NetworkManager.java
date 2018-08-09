@@ -30,7 +30,7 @@ public class NetworkManager {
 
     private enum Method {
         GET, POST
-    };
+    }
 
     private NetworkManager(){
         client = new OkHttpClient();
@@ -39,11 +39,11 @@ public class NetworkManager {
     }
 
     public interface SuccessCallback<T> {
-        public void onSuccess(T response);
+        void onSuccess(T response);
     }
 
     public interface FailedCallback {
-        public void onFailed(String message);
+        void onFailed(String message);
     }
 
     public static NetworkManager getInstance() {

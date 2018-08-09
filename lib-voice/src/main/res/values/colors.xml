@@ -3,7 +3,7 @@
 <resources>
     <!-- 画面背景色 -->
     <drawable name="layout_backgroud">#000000</drawable>
-    
+
     <!-- 分割线背景色 -->
     <drawable name="line_background">#161823</drawable>
 

@@ -33,7 +33,7 @@ public class MtBuf {
                 ThreadUtils.executeByIoWithDelay(new ThreadUtils.SimpleTask<Void>() {
                     @Nullable
                     @Override
-                    public Void doInBackground() throws Throwable {
+                    public Void doInBackground() {
                         try {
                             pOutputStream.write(DeviceCommand.correctionDateTime());
                         } catch (IOException e) {
@@ -52,7 +52,7 @@ public class MtBuf {
                 ThreadUtils.executeByIoWithDelay(new ThreadUtils.SimpleTask<Void>() {
                     @Nullable
                     @Override
-                    public Void doInBackground() throws Throwable {
+                    public Void doInBackground() {
                         try {
                             pOutputStream.write(DeviceCommand.setPedometerInfo("175", "75",
                                     0, 24, 10000, 1, 0));
@@ -139,7 +139,7 @@ public class MtBuf {
                 ThreadUtils.executeByIoWithDelay(new ThreadUtils.SimpleTask<Void>() {
                     @Nullable
                     @Override
-                    public Void doInBackground() throws Throwable {
+                    public Void doInBackground() {
                         try {
                             pOutputStream.write(DeviceCommand.getDataFromDevice());
                         } catch (IOException e) {
@@ -158,7 +158,7 @@ public class MtBuf {
                 ThreadUtils.executeByIoWithDelay(new ThreadUtils.SimpleTask<Void>() {
                     @Nullable
                     @Override
-                    public Void doInBackground() throws Throwable {
+                    public Void doInBackground() {
                         try {
                             Thread.sleep(500);
                             pOutputStream.write(DeviceCommand.getDataFromDevice());

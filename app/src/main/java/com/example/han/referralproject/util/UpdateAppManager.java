@@ -116,8 +116,8 @@ public class UpdateAppManager {
      */
     public void showDownloadDialog(String downloadUrl) {
         View view = LayoutInflater.from(context).inflate(R.layout.download_progressbar, null);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        progressPercentage = (TextView) view.findViewById(R.id.progress_percentage);
+        progressBar = view.findViewById(R.id.progressBar);
+        progressPercentage = view.findViewById(R.id.progress_percentage);
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.version_update_action_download_title);
         builder.setView(view);
@@ -158,7 +158,7 @@ public class UpdateAppManager {
                     out = new FileOutputStream(new File(FILE_NAME));
                     byte[] buffer = new byte[1024];
                     int len = 0;
-                    long readedLength = 0l;
+                    long readedLength = 0L;
                     while((len = in.read(buffer)) != -1) {
                         // 用户点击“取消”按钮，下载中断
                         if(isCancel) {

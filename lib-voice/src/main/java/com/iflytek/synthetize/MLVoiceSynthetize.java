@@ -91,7 +91,7 @@ public class MLVoiceSynthetize {
      */
     public static void setParam(Context context, SpeechSynthesizer synthesizer) {
         //语音选项设置
-        SharedPreferences sharedPreferences = context.getSharedPreferences(TtsSettings.PREFER_NAME, context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(TtsSettings.PREFER_NAME, Context.MODE_PRIVATE);
         initDefaultParam(synthesizer, sharedPreferences);
     }
 

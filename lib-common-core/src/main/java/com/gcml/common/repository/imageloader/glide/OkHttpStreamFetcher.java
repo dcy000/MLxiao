@@ -89,7 +89,7 @@ public class OkHttpStreamFetcher implements DataFetcher<InputStream>, Callback {
     }
 
     @Override
-    public void onResponse(Call call, Response response) throws IOException {
+    public void onResponse(Call call, Response response) {
         responseBody = response.body();
         if (response.isSuccessful()) {
             long contentLength = Preconditions.checkNotNull(responseBody).contentLength();

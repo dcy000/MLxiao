@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,7 +22,6 @@ import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.MeasureResult;
-import com.example.han.referralproject.health.intelligentdetection.DataCacheFragment;
 import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.network.NetworkApi;
@@ -34,7 +32,6 @@ import com.gcml.lib_utils.display.ToastUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -109,17 +106,17 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
         measureResult = getResources().getStringArray(R.array.ecg_measureres);
         ivBack = findViewById(R.id.icon_back);
         ivBack.setOnClickListener(this);
-        tv_MSG = (TextView) findViewById(R.id.main_pc80B_MSG);
-        tv_Gain = (TextView) findViewById(R.id.main_pc80B_title_gain);
-        tv_HR = (TextView) findViewById(R.id.main_pc80B_title_hr);
+        tv_MSG = findViewById(R.id.main_pc80B_MSG);
+        tv_Gain = findViewById(R.id.main_pc80B_title_gain);
+        tv_HR = findViewById(R.id.main_pc80B_title_hr);
 
-        img_Battery = (ImageView) findViewById(R.id.main_pc80B_title_battery);
-        img_Smooth = (ImageView) findViewById(R.id.main_pc80B_title_smooth);
-        img_Pulse = (ImageView) findViewById(R.id.main_pc80B_title_pulse);
+        img_Battery = findViewById(R.id.main_pc80B_title_battery);
+        img_Smooth = findViewById(R.id.main_pc80B_title_smooth);
+        img_Pulse = findViewById(R.id.main_pc80B_title_pulse);
         tvNext = findViewById(R.id.tv_next);
         tvNext.setOnClickListener(this);
-        drawRunable = (DrawThreadPC80B) findViewById(R.id.main_pc80B_view_draw);
-        drawBG = (BackGround) findViewById(R.id.main_pc80B_view_bg);
+        drawRunable = findViewById(R.id.main_pc80B_view_draw);
+        drawBG = findViewById(R.id.main_pc80B_view_bg);
         drawRunable.setmHandler(mHandler);
 
         IntentFilter filter = new IntentFilter();
@@ -537,7 +534,6 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 
             }
 
-            ;
         }.start();
     }
 

@@ -10,28 +10,16 @@ import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.blood_pressure_risk_assessment.IFragmentControl;
-import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkCallback;
 import com.example.han.referralproject.video.MeasureVideoPlayActivity;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class HealthIntelligentDetectionActivity extends BaseActivity implements FragmentChanged {

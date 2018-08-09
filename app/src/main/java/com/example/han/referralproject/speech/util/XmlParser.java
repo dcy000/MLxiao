@@ -31,7 +31,7 @@ public class XmlParser {
 			domDoc = domBuilder.parse(is);
 
 			// 获取根节点
-			Element root = (Element) domDoc.getDocumentElement();
+			Element root = domDoc.getDocumentElement();
 			
 			Element raw = (Element)root.getElementsByTagName("rawtext").item(0);
 			buffer.append("【识别结果】" + raw.getFirstChild().getNodeValue());
@@ -51,8 +51,8 @@ public class XmlParser {
 
 		}catch(Exception e){
 			e.printStackTrace();
-		};
-		buffer.append("【ALL】" + xml);
+		}
+        buffer.append("【ALL】" + xml);
 		return buffer.toString();
 	}
 }

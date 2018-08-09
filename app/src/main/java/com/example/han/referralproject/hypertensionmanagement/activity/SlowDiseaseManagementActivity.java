@@ -16,8 +16,6 @@ import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.ui.dialog.BaseDialog;
-import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
 import com.gcml.lib_utils.ui.dialog.DialogSure;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;

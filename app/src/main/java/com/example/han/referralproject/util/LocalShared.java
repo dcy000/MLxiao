@@ -3,17 +3,14 @@ package com.example.han.referralproject.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.speech.setting.IatSettings;
-import com.littlejie.circleprogress.utils.Constant;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class LocalShared {
@@ -93,10 +90,7 @@ public class LocalShared {
         if (accountsArray == null) {
             return false;
         }
-        if (accountsArray.length > 5)
-            return true;
-        else
-            return false;
+        return accountsArray.length > 5;
     }
 
     public void deleteAccount(String bid, String xfid) {

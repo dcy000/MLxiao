@@ -64,7 +64,7 @@ public class SheetListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sheet_list, container, false);
-        rvSheets = (RecyclerView) view.findViewById(R.id.old_music_rv_sheets);
+        rvSheets = view.findViewById(R.id.old_music_rv_sheets);
         GridLayoutManager lm = new GridLayoutManager(
                 getContext(),
                 4,
@@ -252,7 +252,7 @@ public class SheetListFragment extends Fragment {
 
         public SheetsHeaderHolder(View itemView) {
             super(itemView);
-            tvSheetsCategory = (TextView) itemView.findViewById(R.id.old_music_sheets_header_catetogy);
+            tvSheetsCategory = itemView.findViewById(R.id.old_music_sheets_header_catetogy);
         }
 
     }
@@ -268,9 +268,9 @@ public class SheetListFragment extends Fragment {
         public SheetHolder(View itemView, final OnItemClickListener onItemClickListener) {
             super(itemView);
             this.onItemClickListener = onItemClickListener;
-            ivSheetCover = (ImageView) itemView.findViewById(R.id.old_music_iv_sheet_cover);
-            tvSheetName = (TextView) itemView.findViewById(R.id.old_music_tv_sheet_name);
-            tvSheetListenerCount = (TextView) itemView.findViewById(R.id.old_music_tv_sheet_listener_count);
+            ivSheetCover = itemView.findViewById(R.id.old_music_iv_sheet_cover);
+            tvSheetName = itemView.findViewById(R.id.old_music_tv_sheet_name);
+            tvSheetListenerCount = itemView.findViewById(R.id.old_music_tv_sheet_listener_count);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

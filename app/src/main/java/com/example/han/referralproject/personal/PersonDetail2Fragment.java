@@ -16,7 +16,6 @@ import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.tool.ToolsActivity;
 import com.example.han.referralproject.video.VideoListActivity;
-import com.ml.edu.OldRouter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
