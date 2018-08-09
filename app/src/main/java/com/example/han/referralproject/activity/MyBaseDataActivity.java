@@ -120,31 +120,6 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     protected void onResume() {
         super.onResume();
         getData();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                NetworkApi.getMyBaseData(new NetworkManager.SuccessCallback<UserInfoBean>() {
-                    @Override
-                    public void onSuccess(UserInfoBean response) {
-                        Log.e(TAG, response.toString());
-                        MyBaseDataActivity.this.response = response;
-                        Picasso.with(MyBaseDataActivity.this)
-                                .load(response.user_photo)
-                                .placeholder(R.drawable.avatar_placeholder)
-                                .error(R.drawable.avatar_placeholder)
-                                .tag(this)
-                                .fit()
-                                .into(mHead);
-
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        ToastTool.showShort(message);
-                    }
-                });
-            }
-        }, 1000);
     }
 
     private void getData() {

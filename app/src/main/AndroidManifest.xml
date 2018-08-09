@@ -691,7 +691,8 @@
         <activity android:name=".activity.AlertNameActivity" />
         <activity android:name=".activity.AlertAgeActivity" />
         <activity android:name=".activity.AlertBloodTypeActivity" />
-        <activity android:name=".activity.AlertSexActivity"></activity>
+        <activity android:name=".activity.AlertSexActivity" />
+        <activity android:name=".activity.AlertIDCardActivity"></activity>
     </application>
 
 </manifest>

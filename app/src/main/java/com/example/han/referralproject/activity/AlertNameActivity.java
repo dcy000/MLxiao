@@ -8,6 +8,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.bean.PUTUserBean;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.util.LocalShared;
+import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +60,39 @@ public class AlertNameActivity extends BaseActivity {
                 if (TextUtils.isEmpty(name)) {
                     speak("请输入姓名");
                 }
-                // TODO: 2018/8/9 调用接口
+                PUTUserBean bean = new PUTUserBean();
+                bean.bid = Integer.parseInt(LocalShared.getInstance(this).getUserId());
+                bean.bname = name;
+
+                NetworkApi.putUserInfo(bean.bid, new Gson().toJson(bean), new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject json = new JSONObject(body);
+                            boolean tag = json.getBoolean("tag");
+                            if (tag) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        speak("修改成功");
+                                    }
+                                });
+                                finish();
+                            } else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        speak("修改失败");
+                                    }
+                                });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
                 break;
         }
     }

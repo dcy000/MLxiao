@@ -6,8 +6,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.bean.PUTUserBean;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.util.LocalShared;
+import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.register.SelectAdapter;
 import com.medlink.danbogh.utils.T;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,8 +96,41 @@ public class AlertAgeActivity extends BaseActivity {
                 break;
             case R.id.tv_sign_up_go_forward:
                 String seletedAge = strings.get(currentPositon);
-                // TODO: 2018/8/9
 
+
+                PUTUserBean bean = new PUTUserBean();
+                bean.bid = Integer.parseInt(LocalShared.getInstance(this).getUserId());
+                bean.age = Integer.parseInt(seletedAge);
+
+                NetworkApi.putUserInfo(bean.bid, new Gson().toJson(bean), new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject json = new JSONObject(body);
+                            boolean tag = json.getBoolean("tag");
+                            if (tag) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        speak("修改成功");
+                                    }
+                                });
+                                finish();
+                            } else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        speak("修改失败");
+                                    }
+                                });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
                 break;
         }
     }
