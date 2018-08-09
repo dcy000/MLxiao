@@ -292,15 +292,18 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         switch (view.getId()) {
             case R.id.ll_age_info:
                 //修改年龄
+                startActivity(new Intent(this, AlertAgeActivity.class));
                 break;
             case R.id.ll_sex_info:
                 //修改性别
                 break;
             case R.id.ll_blood_info:
                 //修改血型
+                startActivity(new Intent(this, AlertBloodTypeActivity.class));
                 break;
             case R.id.ll_name_info:
                 //修改姓名
+                startActivity(new Intent(this, AlertNameActivity.class));
                 break;
             case R.id.ll_phone_info:
                 //修改电话号码

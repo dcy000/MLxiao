@@ -688,6 +688,9 @@
         <activity android:name=".yisuotang.YiSuoTangLoginActivity" />
         <activity android:name=".yisuotang.YiSuoMallActivity" />
         <activity android:name=".yisuotang.SheQuYiShengActivity" />
+        <activity android:name=".activity.AlertNameActivity" />
+        <activity android:name=".activity.AlertAgeActivity" />
+        <activity android:name=".activity.AlertBloodTypeActivity"></activity>
     </application>
 
 </manifest>
