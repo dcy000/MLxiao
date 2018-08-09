@@ -47,7 +47,6 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="22dp"
                 android:text=""
                 android:textColor="#333333"
                 android:textSize="28sp" />
@@ -88,7 +87,6 @@
                 android:id="@+id/age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="22dp"
                 android:text=""
                 android:textColor="#333333"
                 android:textSize="28sp" />
@@ -129,7 +127,6 @@
                 android:id="@+id/sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="22dp"
                 android:text=""
                 android:textColor="#333333"
                 android:textSize="28sp" />
@@ -169,7 +166,6 @@
                 android:id="@+id/blood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="22dp"
                 android:text=""
                 android:textColor="#333333"
                 android:textSize="28sp" />
@@ -374,7 +370,6 @@
                         android:id="@+id/idcard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="22dp"
                         android:text=""
                         android:textColor="#333333"
                         android:textSize="28sp" />
@@ -391,6 +386,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_address_onfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="25dp"

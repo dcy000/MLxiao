@@ -2,7 +2,6 @@ package com.example.han.referralproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -43,6 +42,8 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     LinearLayout llPhoneInfo;
     @BindView(R.id.ll_idcard_info)
     LinearLayout llIdcardInfo;
+    @BindView(R.id.ll_address_onfo)
+    LinearLayout llAddressOnfo;
     private CircleImageView mHead;
     /**
      * 曹建平
@@ -137,7 +138,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                         .into(mHead);
                 mName.setText(response.bname);
 
-                mAge.setText(Utils.age(response.sfz) + "岁");
+                mAge.setText(Utils.age(response.age) + "岁");
                 mSex.setText(response.sex);
                 mHeight.setText(response.height + "cm");
                 mWeight.setText(response.weight + "Kg");
@@ -262,7 +263,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    @OnClick({R.id.ll_age_info, R.id.ll_sex_info, R.id.ll_blood_info, R.id.ll_name_info, R.id.ll_phone_info, R.id.ll_idcard_info})
+    @OnClick({R.id.ll_age_info, R.id.ll_sex_info, R.id.ll_blood_info, R.id.ll_name_info, R.id.ll_phone_info, R.id.ll_idcard_info, R.id.ll_address_onfo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_age_info:
@@ -283,7 +284,13 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.ll_idcard_info:
                 //修改身份证号码
+                startActivity(new Intent(this, AlertIDCardActivity.class));
+                break;
+            case R.id.ll_address_onfo:
+                //
+                startActivity(new Intent(this, AlertAddressActivity.class).putExtra("data", response));
                 break;
         }
     }
+
 }
