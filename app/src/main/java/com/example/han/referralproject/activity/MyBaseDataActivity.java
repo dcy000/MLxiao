@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
+import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -137,7 +139,9 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                         .fit()
                         .into(mHead);
                 mName.setText(response.bname);
-
+                if (TextUtils.isEmpty(response.age)) {
+                    mAge.setText(response.age + "岁");
+                }
                 mAge.setText(Utils.age(response.age) + "岁");
                 mSex.setText(response.sex);
                 mHeight.setText(response.height + "cm");

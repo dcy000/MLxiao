@@ -59,6 +59,7 @@ public class AlertNameActivity extends BaseActivity {
                 String name = etSignUpName.getText().toString();
                 if (TextUtils.isEmpty(name)) {
                     speak("请输入姓名");
+                    return;
                 }
                 PUTUserBean bean = new PUTUserBean();
                 bean.bid = Integer.parseInt(LocalShared.getInstance(this).getUserId());

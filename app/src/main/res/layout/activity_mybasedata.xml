@@ -7,7 +7,6 @@
 
 
     <LinearLayout
-        android:id="@+id/ll_name_info"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_margin="16dp"
@@ -24,10 +23,11 @@
             android:src="@color/default_bg" />
 
         <LinearLayout
-            android:background="@drawable/toolbar_set"
+            android:id="@+id/ll_name_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
+            android:background="@drawable/toolbar_set"
             android:orientation="horizontal">
 
             <TextView
@@ -63,11 +63,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="@drawable/toolbar_set"
             android:id="@+id/ll_age_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
+            android:background="@drawable/toolbar_set"
             android:orientation="horizontal">
 
             <TextView
@@ -103,11 +103,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="@drawable/toolbar_set"
             android:id="@+id/ll_sex_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
+            android:background="@drawable/toolbar_set"
             android:orientation="horizontal">
 
             <TextView
@@ -143,11 +143,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="@drawable/toolbar_set"
             android:id="@+id/ll_blood_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp">
+            android:layout_marginTop="22dp"
+            android:background="@drawable/toolbar_set">
 
             <TextView
                 android:layout_width="wrap_content"

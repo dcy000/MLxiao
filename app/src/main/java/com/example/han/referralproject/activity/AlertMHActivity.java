@@ -179,8 +179,7 @@ public class AlertMHActivity extends BaseActivity {
     public void onTvGoForwardClicked() {
         String mh = getMh();
         if (TextUtils.isEmpty(mh)) {
-            onTvGoBackClicked();
-            return;
+           mh="11";
         }
 
         NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, exercise,
