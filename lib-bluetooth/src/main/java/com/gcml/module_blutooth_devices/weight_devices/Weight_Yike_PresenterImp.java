@@ -91,7 +91,7 @@ public class Weight_Yike_PresenterImp extends BaseBluetoothPresenter {
         public void BleConnectSuccess(BluetoothDevice bluetoothDevice) {
             Logg.e(Weight_Yike_PresenterImp.class, "BleConnectSuccess: ");
             baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-            baseView.updateData("0.00");
+            baseView.updateData("initialization","0.00");
             SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT,bluetoothDevice.getName()+","+bluetoothDevice.getAddress());
         }
 

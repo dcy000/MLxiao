@@ -148,7 +148,7 @@ public class Bloodsugar_Sannuo_PresenterImp extends BaseBluetoothPresenter {
                         snMainHandler.stopSearch();
                     }
                     baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-                    baseView.updateData("0.00");
+                    baseView.updateData("initialization","0.00");
                     SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, targetName + "," + lockedDevice.getAddress());
                 } else {
                     Logg.e(Bloodsugar_Sannuo_PresenterImp.class, "onConnectFeedBack: 设备连接失败");

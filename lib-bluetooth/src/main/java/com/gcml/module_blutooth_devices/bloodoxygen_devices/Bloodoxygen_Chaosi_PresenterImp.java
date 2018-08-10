@@ -31,13 +31,12 @@ public class Bloodoxygen_Chaosi_PresenterImp extends BaseBluetoothPresenter {
     private static final String passwordVerifiersNotify1UUid = "0000cd01-0000-1000-8000-00805f9b34fb";
     private static final String passwordVerifiersNotify2UUid = "0000cd02-0000-1000-8000-00805f9b34fb";
     private static final String passwordVerifiersNotify3UUid = "0000cd03-0000-1000-8000-00805f9b34fb";
-    private static final byte[] password = {(byte) 0xAA, 0x55, 0x04, (byte) 0xB1, 0x00, 0x00, (byte) 0xB5};//密码校验指令
-//    private IView fragment;
-//    private Context context;
+    /**密码校验指令*/
+    private static final byte[] password = {(byte) 0xAA, 0x55, 0x04, (byte) 0xB1, 0x00, 0x00, (byte) 0xB5};
+
 
     public Bloodoxygen_Chaosi_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting) {
         super(fragment, discoverSetting);
-//        context = fragment.getThisContext();
     }
 
     @Override
@@ -45,7 +44,7 @@ public class Bloodoxygen_Chaosi_PresenterImp extends BaseBluetoothPresenter {
         super.connectSuccessed(address, serviceDetails, isReturn);
         targetServiceUUid = "ba11f08c-5f14-0b0d-1080-00" + address.toLowerCase().replace(":", "").substring(2);
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-        baseView.updateData("0", "0");
+        baseView.updateData("initialization","0", "0");
         SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, targetName +","+ address);
 
         if (!isReturn) {

@@ -88,15 +88,23 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
                     bluetoothPresenter = new Bloodoxygen_Self_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "POD"));
                     break;
+                default:
+                    break;
             }
         }
     }
 
     @Override
     public void updateData(String... datas) {
-        if (datas.length == 2) {
+        if (datas.length == 3) {
+            mTvResult.setText("0");
+            isMeasureFinishedOfThisTime=false;
+        } else if (datas.length == 2) {
             mTvResult.setText(datas[0]);
-            onMeasureFinished(datas[0], datas[1]);
+            if (!isMeasureFinishedOfThisTime&&Float.parseFloat(datas[0])!=0){
+                isMeasureFinishedOfThisTime=true;
+                onMeasureFinished(datas[0], datas[1]);
+            }
         }
     }
 
