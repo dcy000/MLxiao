@@ -153,7 +153,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mAddress.setText(response.dz);
                 mHistory.setText(response.mh.trim());
                 if (!TextUtils.isEmpty(response.sfz) && response.sfz.length() >= 15) {
-                    String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 6, response.sfz.length());
+                    String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 4, response.sfz.length());
                     mIdcard.setText(shenfen);
                 }
             }
