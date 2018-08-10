@@ -56,7 +56,7 @@ public class AlertNameActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_sign_up_go_forward:
-                String name = etSignUpName.getText().toString();
+                String name = etSignUpName.getText().toString().trim();
                 if (TextUtils.isEmpty(name)) {
                     speak("请输入姓名");
                     return;

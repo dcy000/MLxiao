@@ -347,11 +347,11 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:background="@drawable/toolbar_set"
                     android:id="@+id/ll_idcard_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
+                    android:background="@drawable/toolbar_set"
                     android:orientation="horizontal">
 
                     <TextView
@@ -391,6 +391,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="25dp"
                     android:layout_marginTop="18dp"
+                    android:background="@drawable/toolbar_set"
                     android:orientation="horizontal">
 
                     <TextView

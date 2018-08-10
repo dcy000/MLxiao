@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,8 +18,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
-import com.medlink.danbogh.utils.UiUtils;
-import com.medlink.danbogh.utils.Utils;
+import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -106,6 +104,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     private LinearLayout mLlHistory;
     public static final String FROM_VALUE = "changeHead";
     public static final String FROM_KEY = "yst_from";
+    private String idCardCode;
     ;
 
     @Override
@@ -138,11 +137,9 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                         .tag(this)
                         .fit()
                         .into(mHead);
+                idCardCode = response.sfz;
                 mName.setText(response.bname);
-                if (TextUtils.isEmpty(response.age)) {
-                    mAge.setText(response.age + "岁");
-                }
-                mAge.setText(Utils.age(response.age) + "岁");
+                mAge.setText(response.age + "岁");
                 mSex.setText(response.sex);
                 mHeight.setText(response.height + "cm");
                 mWeight.setText(response.weight + "Kg");
@@ -156,7 +153,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mAddress.setText(response.dz);
                 mHistory.setText(response.mh.trim());
                 if (!TextUtils.isEmpty(response.sfz) && response.sfz.length() >= 15) {
-                    String shenfen = response.sfz.substring(0, 5) + "********" + response.sfz.substring(response.sfz.length() - 5, response.sfz.length());
+                    String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 6, response.sfz.length());
                     mIdcard.setText(shenfen);
                 }
             }
@@ -197,28 +194,13 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         llEating.setOnClickListener(this);
         llDrinking.setOnClickListener(this);
 
-        mHead.setOnClickListener(this);
-        mName.setOnClickListener(this);
-        mAge.setOnClickListener(this);
-        mSex.setOnClickListener(this);
-        mBlood.setOnClickListener(this);
-        mHeight.setOnClickListener(this);
         mLlHeight = (LinearLayout) findViewById(R.id.ll_height);
-        mWeight.setOnClickListener(this);
         mLlWeight = (LinearLayout) findViewById(R.id.ll_weight);
-        mPhone.setOnClickListener(this);
-        mIdcard.setOnClickListener(this);
-        mNumber.setOnClickListener(this);
         mAddress = (TextView) findViewById(R.id.address);
-        mMotion.setOnClickListener(this);
-        mSmoke.setOnClickListener(this);
-        mEating.setOnClickListener(this);
         mDrinking = (TextView) findViewById(R.id.drinking);
-        mDrinking.setOnClickListener(this);
         mHistory = (TextView) findViewById(R.id.history);
         mLlHistory = (LinearLayout) findViewById(R.id.ll_history);
         mLlHistory.setOnClickListener(this);
-        mAddress.setOnClickListener(this);
         findViewById(R.id.tv_reset).setOnClickListener(this);
     }
 
@@ -272,7 +254,11 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         switch (view.getId()) {
             case R.id.ll_age_info:
                 //修改年龄
-                startActivity(new Intent(this, AlertAgeActivity.class));
+                if (TextUtils.isEmpty(idCardCode)) {
+                    startActivity(new Intent(this, AlertAgeActivity.class));
+                } else {
+                    T.show("年龄与身份证号关联,不可更改~");
+                }
                 break;
             case R.id.ll_sex_info:
                 startActivity(new Intent(this, AlertSexActivity.class));
