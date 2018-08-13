@@ -121,79 +121,7 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
                 .addToBackStack(null)
                 .commit();
         if (baseFragment != null) {
-            baseFragment.setOnDealVoiceAndJumpListener(new DealVoiceAndJump() {
-                @Override
-                public void updateVoice(String voice) {
-                    speak(voice);
-                }
-
-                @Override
-                public void jump2HealthHistory(int measureType) {
-                    switch (measureType) {
-                        case IPresenter.MEASURE_TEMPERATURE://体温测量
-                            HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 0);
-                            break;
-                        case IPresenter.MEASURE_BLOOD_PRESSURE://血压
-                            HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 1);
-                            break;
-                        case IPresenter.MEASURE_BLOOD_SUGAR://血糖
-                            HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 2);
-                            break;
-                        case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
-                            HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 3);
-                            break;
-                        case IPresenter.MEASURE_WEIGHT://体重
-                            HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 8);
-                            break;
-                        case IPresenter.MEASURE_ECG:
-                            HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 7);
-                            break;
-                        case IPresenter.MEASURE_OTHERS://三合一
-                            HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 5);
-                            break;
-                    }
-
-                }
-
-                @Override
-                public void jump2DemoVideo(int measureType) {
-                    switch (measureType) {
-                        case IPresenter.MEASURE_TEMPERATURE://体温测量
-                            uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
-                            MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "耳温枪测量演示视频",
-                                    MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-                            break;
-                        case IPresenter.MEASURE_BLOOD_PRESSURE://血压
-                            uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-                            MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "血压测量演示视频",
-                                    MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-                            break;
-                        case IPresenter.MEASURE_BLOOD_SUGAR://血糖
-                            uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-                            MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "血糖测量演示视频",
-                                    MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-                            break;
-                        case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
-                            uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
-                            MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "血氧测量演示视频",
-                                    MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-                            break;
-                        case IPresenter.MEASURE_ECG:
-                            uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-                            MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "心电测量演示视频",
-                                    MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-                            break;
-                        case IPresenter.MEASURE_OTHERS://三合一
-                            uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-                            MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "三合一测量演示视频",
-                                    MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-                            break;
-                        case IPresenter.MEASURE_WEIGHT:
-                            ToastUtils.showShort("主人，该设备暂无演示视频");
-                            break;
-                    }
-                }
-            });
+            baseFragment.setOnDealVoiceAndJumpListener(dealVoiceAndJump);
 
         }
 
@@ -219,8 +147,83 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
             });
         }
     }
-    private boolean canClickRefresh=true;
-    private final TimeCountDownUtils.TimeCountListener timeCountListener=new TimeCountDownUtils.TimeCountListener() {
+
+    private DealVoiceAndJump dealVoiceAndJump = new DealVoiceAndJump() {
+        @Override
+        public void updateVoice(String voice) {
+            speak(voice);
+        }
+
+        @Override
+        public void jump2HealthHistory(int measureType) {
+            switch (measureType) {
+                case IPresenter.MEASURE_TEMPERATURE://体温测量
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 0);
+                    break;
+                case IPresenter.MEASURE_BLOOD_PRESSURE://血压
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 1);
+                    break;
+                case IPresenter.MEASURE_BLOOD_SUGAR://血糖
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 2);
+                    break;
+                case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 3);
+                    break;
+                case IPresenter.MEASURE_WEIGHT://体重
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 8);
+                    break;
+                case IPresenter.MEASURE_ECG:
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 7);
+                    break;
+                case IPresenter.MEASURE_OTHERS://三合一
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 5);
+                    break;
+            }
+
+        }
+
+        @Override
+        public void jump2DemoVideo(int measureType) {
+            switch (measureType) {
+                case IPresenter.MEASURE_TEMPERATURE://体温测量
+                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
+                    MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "耳温枪测量演示视频",
+                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+                    break;
+                case IPresenter.MEASURE_BLOOD_PRESSURE://血压
+                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
+                    MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "血压测量演示视频",
+                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+                    break;
+                case IPresenter.MEASURE_BLOOD_SUGAR://血糖
+                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
+                    MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "血糖测量演示视频",
+                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+                    break;
+                case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
+                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
+                    MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "血氧测量演示视频",
+                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+                    break;
+                case IPresenter.MEASURE_ECG:
+                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
+                    MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "心电测量演示视频",
+                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+                    break;
+                case IPresenter.MEASURE_OTHERS://三合一
+                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
+                    MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "三合一测量演示视频",
+                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+                    break;
+                case IPresenter.MEASURE_WEIGHT:
+                    ToastUtils.showShort("主人，该设备暂无演示视频");
+                    break;
+            }
+        }
+    };
+
+    private boolean canClickRefresh = true;
+    private final TimeCountDownUtils.TimeCountListener timeCountListener = new TimeCountDownUtils.TimeCountListener() {
         @Override
         public void onTick(long millisUntilFinished, String tag) {
 
@@ -228,16 +231,17 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
 
         @Override
         public void onFinish(String tag) {
-            canClickRefresh=false;
+            canClickRefresh = false;
         }
     };
+
     @Override
     protected void backMainActivity() {
-        if (!canClickRefresh){
+        if (!canClickRefresh) {
             ToastUtils.showShort("您点击的太快了");
             return;
         }
-        TimeCountDownUtils.getInstance().create(5000,1000,timeCountListener);
+        TimeCountDownUtils.getInstance().create(5000, 1000, timeCountListener);
         TimeCountDownUtils.getInstance().start();
         if (isMeasure) {
             switch (measure_type) {
@@ -301,6 +305,7 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             if (bundle != null) {
                 baseFragment = new SingleMeasureBloodsugarFragment();
+                baseFragment.setOnDealVoiceAndJumpListener(dealVoiceAndJump);
                 baseFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame, baseFragment).commit();

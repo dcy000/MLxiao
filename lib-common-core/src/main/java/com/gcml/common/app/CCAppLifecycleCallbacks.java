@@ -1,4 +1,4 @@
-package com.gcml.common;
+package com.gcml.common.app;
 
 import android.app.Application;
 import android.content.Context;

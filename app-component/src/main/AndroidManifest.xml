@@ -25,24 +25,6 @@
         <activity android:name="com.gcml.common.repository.RepositoryActivity" />
         <activity android:name="com.gcml.common.app.AppActivity" />
 
-        <meta-data
-            android:name="com.gcml.common.repository.imageloader.glide.GlideImageLoader"
-            android:value="ImageLoader" />
-        <meta-data
-            android:name="com.gcml.common.app.quality.QualityAppLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks" />
-        <meta-data
-            android:name="com.gcml.common.CCAppLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks" />
-        <meta-data
-            android:name="com.gcml.common.repository.RepositoryAppLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks" />
-        <meta-data
-            android:name="com.gcml.common.app.quality.AppActivityLifecycleCallbacks"
-            android:value="ActivityLifecycleCallbacks" />
-        <meta-data
-            android:name="com.gcml.common.app.quality.AppFragmentLifecycleCallbacks"
-            android:value="FragmentLifecycleCallbacks" />
     </application>
 
 </manifest>

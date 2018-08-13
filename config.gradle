@@ -35,7 +35,7 @@ ext {
 
     version = [
             androidSupportSdkVersion: "27.1.1",
-            androidArchSdkVersion   : "1.1.0",
+            androidArchSdkVersion   : "1.1.1",
             constraintLayoutVersion : "1.1.2",
             retrofitSdkVersion      : "2.4.0",
             dagger2SdkVersion       : "2.15",
@@ -59,6 +59,8 @@ ext {
             "support-core-ui"              : "com.android.support:support-core-ui:${version["androidSupportSdkVersion"]}",
             "support-core-utils"           : "com.android.support:support-core-utils:${version["androidSupportSdkVersion"]}",
             "constraint-layout"            : "com.android.support.constraint:constraint-layout:${version["constraintLayoutVersion"]}",
+
+            "lifecycle-extensions"         : "android.arch.lifecycle:extensions:${version["androidArchSdkVersion"]}",
 
             //network
             "retrofit"                     : "com.squareup.retrofit2:retrofit:${version["retrofitSdkVersion"]}",
