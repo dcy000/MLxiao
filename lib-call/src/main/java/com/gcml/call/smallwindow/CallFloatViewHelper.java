@@ -46,7 +46,7 @@ public class CallFloatViewHelper extends FloatViewHelper
         mBtnFullScreen = (Button) findViewById(R.id.call_btn_full_screen);
 //        mBtnClose = (Button) findViewById(R.id.call_btn_close);
         mBtnFullScreen.setOnClickListener(this);
-        mBtnClose.setOnClickListener(this);
+//        mBtnClose.setOnClickListener(this);
         mFlLargeContainer = (FrameLayout) findViewById(R.id.call_fl_call_large_container);
         mFlSmallContainer = (FrameLayout) findViewById(R.id.call_fl_call_small_container);
         mIvSmallCover = (ImageView) findViewById(R.id.call_iv_call_small_cover);
@@ -76,17 +76,14 @@ public class CallFloatViewHelper extends FloatViewHelper
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        switch (id) {
-            case R.id.call_btn_full_screen:
-                if (mFullScreenOnClickListener != null) {
-                    mFullScreenOnClickListener.onClick(v);
-                }
-                break;
-            case R.id.call_btn_close:
-                if (mCloseOnClickListener != null) {
-                    mCloseOnClickListener.onClick(v);
-                }
-                break;
+        if (id == R.id.call_btn_full_screen) {
+            if (mFullScreenOnClickListener != null) {
+                mFullScreenOnClickListener.onClick(v);
+            }
+        } else if (id == R.id.call_btn_close) {
+            if (mCloseOnClickListener != null) {
+                mCloseOnClickListener.onClick(v);
+            }
         }
     }
 
