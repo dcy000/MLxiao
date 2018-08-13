@@ -56,7 +56,7 @@ public class Weight_Xiangshan_EF895i_PresenterImp extends BaseBluetoothPresenter
                     isConnected = true;
                     Logg.e(Weight_Xiangshan_EF895i_PresenterImp.class, "OnState: 连接成功");
                     baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-                    baseView.updateData("0.00");
+                    baseView.updateData("initialization","0.00");
                     SPUtil.put( Bluetooth_Constants.SP.SP_SAVE_WEIGHT, targetName + "," + targetAddress);
                 } else {
                     if (!isDestroy) {

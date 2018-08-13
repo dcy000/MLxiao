@@ -81,7 +81,7 @@ public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter imp
         switch (connectState) {
             case BleConnectState.CONNECT_SUCCESS:// 蓝牙连接设备成功
                 baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-                baseView.updateData("0.00");
+                baseView.updateData("initialization","0.00");
                 SPUtil.put( Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, targetName + "," + targetAddress);
                 BleManager.getInstance().sendGetSnCommond();
                 break;

@@ -139,6 +139,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                     if (TextUtils.isEmpty(targetAddress)) {
                         throw new NullPointerException("连接的设备为NULL");
                     }
+                    Timber.e("正在尝试连接");
                     connectDevice(targetAddress);
                     break;
                 case IPresenter.DISCOVER_WITH_NAME:

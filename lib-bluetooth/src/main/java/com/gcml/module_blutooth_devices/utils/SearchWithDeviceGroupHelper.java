@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.gcml.lib_utils.permission.PermissionsManager;
 import com.gcml.lib_utils.permission.PermissionsResultAction;
@@ -60,6 +61,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private BaseBluetoothPresenter baseBluetoothPresenter;
     private IView view;
     private boolean isSearching = false;
+    private MySearchResponse mySearchResponse;
     /**
      * 蓝牙连接的敏感权限
      */
@@ -83,6 +85,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 search(BLOODSUGAR_BRANDS);
                 break;
             case IPresenter.MEASURE_BLOOD_OXYGEN:
+                Timber.e("搜索血氧设备");
                 search(BLOODOXYGEN_BRANDS);
                 break;
             case IPresenter.MEASURE_WEIGHT:
@@ -97,8 +100,11 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
             case IPresenter.MEASURE_OTHERS:
                 search(OTHERS_BRANDS);
                 break;
+            default:
+                break;
         }
     }
+
     private final PermissionsResultAction permissionsResultAction = new PermissionsResultAction() {
         @Override
         public void onGranted() {
@@ -110,12 +116,15 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
             Logg.e(BaseBluetoothPresenter.class, "拒绝了用户请求");
         }
     };
+
     /**
-     * 默认搜索经典蓝牙3秒，搜索ble蓝牙10秒
+     * 默认搜索经典蓝牙3秒，搜索ble蓝牙8秒,8秒之后进行信号强度排序，如果有多个可连设备，这连信号最强的设备,
+     * 如果没有任何可连设备，则启动第二8秒进行搜索，以此类推。
      *
      * @param brands
      */
     private void search(final String[] brands) {
+        mySearchResponse = new MySearchResponse(brands);
         if (!PermissionsManager.getInstance().hasPermission(view.getThisContext(), DANGET_PERMISSION)) {
             if (view instanceof Activity) {
                 PermissionsManager.getInstance()
@@ -129,42 +138,76 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         }
         final SearchRequest searchRequest = new SearchRequest.Builder()
                 .searchBluetoothClassicDevice(3000, 1)
-                .searchBluetoothLeDevice(20000, 1)
+                .searchBluetoothLeDevice(8000, 1)
                 .build();
-        BluetoothClientManager.getClient().search(searchRequest, new SearchResponse() {
-            @Override
-            public void onSearchStarted() {
-                isSearching = true;
-            }
+        if (mySearchResponse != null) {
+            BluetoothClientManager.getClient().search(searchRequest, mySearchResponse);
+        }
+    }
 
-            @Override
-            public void onDeviceFounded(SearchResult searchResult) {
-                String name = searchResult.getName();
-                String address = searchResult.getAddress();
-                Timber.e(name + "-----" + address);
-                if (!TextUtils.isEmpty(name)) {
-                    for (String s : brands) {
-                        if (name.equals(s) && !devices.contains(searchResult)) {
-                            devices.add(searchResult);
-                        }
+    class MySearchResponse implements SearchResponse {
+        private final String[] brands;
+
+        public MySearchResponse(String[] brands) {
+            this.brands = brands;
+        }
+
+        @Override
+        public void onSearchStarted() {
+            isSearching = true;
+        }
+
+        @Override
+        public void onDeviceFounded(SearchResult searchResult) {
+            String name = searchResult.getName();
+            String address = searchResult.getAddress();
+            Timber.e(name + "-----" + address);
+            if (!TextUtils.isEmpty(name)) {
+                Timber.e(brands[0]);
+                for (String s : brands) {
+                    if (name.equals(s) && !devices.contains(searchResult)) {
+                        devices.add(searchResult);
                     }
                 }
             }
+        }
 
-            @Override
-            public void onSearchStopped() {
-                isSearching = false;
-                if (devices.size() > 0) {
-                    Collections.sort(devices, SearchWithDeviceGroupHelper.this);
-                    initPresenter(devices.get(0).getName(), devices.get(0).getAddress());
+        @Override
+        public void onSearchStopped() {
+            isSearching = false;
+            Timber.e("搜索到的设备数量：" + devices.size());
+            if (devices.size() > 0) {
+                Collections.sort(devices, SearchWithDeviceGroupHelper.this);
+                if (devices.size() >= 2) {
+                    Timber.e("搜索到的第一个是："
+                            + devices.get(0).getName()
+                            + "--" + devices.get(0).getAddress()
+                            + "--" + devices.get(0).rssi
+                            + "++第二个设备"
+                            + devices.get(1).getName()
+                            + "--"+devices.get(1).getAddress()
+                            + "--" + devices.get(1).rssi);
+                } else {
+                    Timber.e("搜索到的第一个是：" + devices.get(0).getName()
+                            + "--" + devices.get(0).getAddress());
+                }
+                initPresenter(devices.get(0).getName(), devices.get(0).getAddress());
+            } else {
+                Timber.e("启动下一次搜索");
+                final SearchRequest searchRequest = new SearchRequest.Builder()
+                        .searchBluetoothClassicDevice(3000, 1)
+                        .searchBluetoothLeDevice(8000, 1)
+                        .build();
+                if (mySearchResponse != null) {
+                    BluetoothClientManager.getClient().search(searchRequest, mySearchResponse);
                 }
             }
+        }
 
-            @Override
-            public void onSearchCanceled() {
-                isSearching = false;
-            }
-        });
+        @Override
+        public void onSearchCanceled() {
+            isSearching = false;
+        }
     }
 
     private void initPresenter(String brand, String address) {
@@ -187,6 +230,8 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                         baseBluetoothPresenter = new Temperature_Zhiziyun_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "FSRKB-EWQ01"));
                         break;
+                    default:
+                        break;
                 }
                 break;
             case IPresenter.MEASURE_BLOOD_PRESSURE:
@@ -202,6 +247,8 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                     case "KN-550BT 110":
                         baseBluetoothPresenter = new Bloodpressure_KN550_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "KN-550BT 110"));
+                        break;
+                    default:
                         break;
                 }
                 break;
@@ -219,6 +266,8 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                         baseBluetoothPresenter = new Bloodsugar_Sannuo_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BDE_WEIXIN_TTM"));
                         break;
+                    default:
+                        break;
                 }
                 break;
             case IPresenter.MEASURE_BLOOD_OXYGEN:
@@ -228,12 +277,15 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "POD"));
                         break;
                     case "iChoice":
+                        Timber.e("尝试连接超思血氧仪");
                         baseBluetoothPresenter = new Bloodoxygen_Chaosi_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "iChoice"));
                         break;
                     case "SpO2080971":
                         baseBluetoothPresenter = new Bloodoxygen_Kangtai_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "SpO2080971"));
+                        break;
+                    default:
                         break;
                 }
                 break;
@@ -259,6 +311,8 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                         baseBluetoothPresenter = new Weight_Self_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "000FatScale01"));
                         break;
+                    default:
+                        break;
                 }
                 break;
             case IPresenter.MEASURE_ECG:
@@ -271,6 +325,8 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                         baseBluetoothPresenter = new ECG_Chaosi_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "A12-B"));
                         break;
+                    default:
+                        break;
                 }
                 break;
             case IPresenter.CONTROL_FINGERPRINT:
@@ -278,6 +334,8 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                     case "zjwellcom":
                         baseBluetoothPresenter = new Fingerprint_WeiEr_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MIX, address, "zjwellcom"));
+                        break;
+                    default:
                         break;
                 }
                 break;
@@ -287,11 +345,21 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                         baseBluetoothPresenter = new ThreeInOne_Self_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BeneCheck GL-0F8B0C"));
                         break;
+                    default:
+                        break;
                 }
+                break;
+            default:
                 break;
         }
     }
 
+    /**
+     * 按降序排列
+     * @param o1
+     * @param o2
+     * @return
+     */
     @Override
     public int compare(SearchResult o1, SearchResult o2) {
         return o2.rssi - o1.rssi;
@@ -304,5 +372,6 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         if (baseBluetoothPresenter != null) {
             baseBluetoothPresenter.onDestroy();
         }
+        mySearchResponse = null;
     }
 }

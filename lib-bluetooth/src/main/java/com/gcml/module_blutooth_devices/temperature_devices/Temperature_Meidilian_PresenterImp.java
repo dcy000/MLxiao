@@ -45,7 +45,7 @@ public class Temperature_Meidilian_PresenterImp extends BaseBluetoothPresenter {
     @Override
     protected void connectSuccessed(String address, final List<BluetoothServiceDetail> serviceDetails, boolean isReturn) {
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-        baseView.updateData("0.00");
+        baseView.updateData("initialization","0.00");
         SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE,targetName+","+address);
         if (!isReturn) {
             BluetoothClientManager.getClient().notify(address, UUID.fromString(targetServiceUUid), UUID.fromString(targetCharacteristicUUid), new BleNotifyResponse() {

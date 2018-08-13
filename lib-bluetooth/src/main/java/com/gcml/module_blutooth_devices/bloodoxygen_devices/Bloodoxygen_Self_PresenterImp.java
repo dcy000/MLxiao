@@ -40,7 +40,7 @@ public class Bloodoxygen_Self_PresenterImp extends BaseBluetoothPresenter {
                                     boolean isReturnServiceAndCharacteristic) {
         super.connectSuccessed(address, serviceDetails, isReturnServiceAndCharacteristic);
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-        baseView.updateData("0", "0");
+        baseView.updateData("initialization","0", "0");
         SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, targetName + "," + address);
 
         BluetoothClientManager.getClient().notify(address, UUID.fromString(targetServiceUUid),
