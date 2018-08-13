@@ -55,6 +55,4 @@ dependencies {
 
     implementation project(":lib-common-core")
     api files('libs/Msc.jar')
-
-
 }

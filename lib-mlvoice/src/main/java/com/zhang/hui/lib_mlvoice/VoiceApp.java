@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.gcml.common.app.lifecycle.AppLifecycleCallbacks;
+import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 
 /**
@@ -18,7 +19,13 @@ public class VoiceApp implements AppLifecycleCallbacks {
 
     @Override
     public void onCreate(Application app) {
-        SpeechUtility.createUtility(app, "appid=" + "59196d96");
+//        SpeechUtility.createUtility(app, "appid=" + "59196d96");
+        StringBuilder builder = new StringBuilder();
+        builder.append("appid=")
+                .append("59196d96")
+                .append(",")
+                .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
+        SpeechUtility.createUtility(app, builder.toString());
     }
 
     @Override
