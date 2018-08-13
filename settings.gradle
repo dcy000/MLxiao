@@ -1,4 +1,4 @@
-include ':app', ':lib-mlvoice',
+include ':app',
         ':lib-pay-beecloud',
         ':module-edu',
         ':lib-music-player',
@@ -22,5 +22,6 @@ include ':lib-video'
 
 include ':lib-common-core',
         ':app-component',
-        ':component-cc'
+        ':component-cc',
+        ':lib-call'
 
