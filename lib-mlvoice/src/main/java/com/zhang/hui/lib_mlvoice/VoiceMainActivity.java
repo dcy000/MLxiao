@@ -23,33 +23,33 @@ public class VoiceMainActivity extends AppCompatActivity {
         read.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                MLVoiceSynthetize.startSynthesize(VoiceMainActivity.this, "哈哈", false);
-                MLVoiceRecognize.startRecognize(VoiceMainActivity.this, new MLRecognizerListener() {
-                    @Override
-                    public void onMLVolumeChanged(int i, byte[] bytes) {
-
-                    }
-
-                    @Override
-                    public void onMLBeginOfSpeech() {
-
-                    }
-
-                    @Override
-                    public void onMLEndOfSpeech() {
-
-                    }
-
-                    @Override
-                    public void onMLResult(String result) {
-
-                    }
-
-                    @Override
-                    public void onMLError(SpeechError error) {
-
-                    }
-                });
+                MLVoiceSynthetize.startSynthesize(VoiceMainActivity.this, "哈哈", false);
+//                MLVoiceRecognize.startRecognize(VoiceMainActivity.this, new MLRecognizerListener() {
+//                    @Override
+//                    public void onMLVolumeChanged(int i, byte[] bytes) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onMLBeginOfSpeech() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onMLEndOfSpeech() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onMLResult(String result) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onMLError(SpeechError error) {
+//
+//                    }
+//                });
             }
         });
     }

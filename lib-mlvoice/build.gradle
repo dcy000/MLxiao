@@ -11,7 +11,9 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.zhang.hui.lib_voice"
+        if (project.ext.runAsApp) {
+            applicationId "com.zhang.hui.lib_voice"
+        }
         minSdkVersion rootProject.ext.android['minSdkVersion']
         targetSdkVersion rootProject.ext.android['targetSdkVersion']
         versionCode 1
