@@ -58,6 +58,8 @@ dependencies {
     implementation project(":lib-common-core")
     //voice
     api files('libs/Msc.jar')
+    implementation project(":unit")
     //lottie
     implementation rootProject.ext.dependencies['lottie']
+    implementation rootProject.ext.dependencies['gson']
 }
