@@ -43,7 +43,7 @@ public class Weight_Chaosi_PresenterImp extends BaseBluetoothPresenter {
         super.connectSuccessed(address, serviceDetails, isReturn);
         targetServiceUUid = "ba11f08c-5f14-0b0d-1070-00" + address.toLowerCase().replace(":", "").substring(2);
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-        baseView.updateData("0.00");
+        baseView.updateData("initialization","0.00");
         SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT,targetName+","+address);
         if (!isReturn) {
             //第一通道监听

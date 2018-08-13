@@ -37,7 +37,7 @@ public class Weight_Bodivis_PresenterImp extends BaseBluetoothPresenter {
     protected void connectSuccessed(String address,List<BluetoothServiceDetail> serviceDetails,boolean isReturn) {
         super.connectSuccessed(address,serviceDetails,isReturn);
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-        baseView.updateData("0.00");
+        baseView.updateData("initialization","0.00");
         SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT,targetName+","+address);
         if (!isReturn) {
             BluetoothClientManager.getClient().notify(address, UUID.fromString(targetServiceUUid), UUID.fromString(targetCharacteristicUUid), new BleNotifyResponse() {

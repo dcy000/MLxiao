@@ -100,8 +100,9 @@ public class Bloodoxygen_Kangtai_PresenterImp extends BaseBluetoothPresenter {
                 boolean nameEquals = !TextUtils.isEmpty(name) && name.equals(discoverSetting.getTargetName());
                 if (addressEquals || nameEquals) {
                     targetDevice = device;
-                    if (classicBluetoothService != null)
+                    if (classicBluetoothService != null) {
                         classicBluetoothService.stop();
+                    }
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {
