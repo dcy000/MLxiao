@@ -4,6 +4,8 @@ import android.content.Context;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zhang.hui.lib_mlvoice.VoiceApp;
+
 /**
  * Created by gzq on 2018/3/9.
  */
@@ -27,7 +29,7 @@ public class ToastTool {
      */
     public static void showShort(CharSequence message) {
         if (mToast == null) {
-            mToast = Toast.makeText(contextApplication, message, Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(VoiceApp.app.getApplicationContext(), message, Toast.LENGTH_SHORT);
             TextView v = mToast.getView().findViewById(android.R.id.message);
             v.setTextSize(28);
         } else {

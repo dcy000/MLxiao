@@ -55,7 +55,7 @@ dependencies {
     api rootProject.ext.dependencies["MPAndroidChart"]
     //语音模块
     api project(':lib-voice')
-    //高斯模糊
+//    高斯模糊
     api 'com.github.mmin18:realtimeblurview:1.1.0'
     //图片加载库
     implementation 'com.github.bumptech.glide:glide:4.6.1'

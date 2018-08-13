@@ -3,8 +3,8 @@ package com.zhang.hui.lib_mlvoice.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.han.referralproject.settting.bean.KeyWordBean;
 import com.google.gson.Gson;
+import com.zhang.hui.lib_mlvoice.bean.KeyWordBean;
 
 /**
  * Created by lenovo on 2018/3/21.

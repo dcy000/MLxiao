@@ -29,6 +29,11 @@ android {
                 optimizeCode
                 proguardFile 'proguard-rules.pro'
             }
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
+        }
+
+        debug {
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
         }
     }
 
@@ -58,8 +63,13 @@ dependencies {
     implementation project(":lib-common-core")
     //voice
     api files('libs/Msc.jar')
+    implementation files('libs/Msc.jar')
     implementation project(":unit")
     //lottie
     implementation rootProject.ext.dependencies['lottie']
     implementation rootProject.ext.dependencies['gson']
+    implementation rootProject.ext.dependencies['okhttp3']
+
+    //
+    compile project(":lib-music-player")
 }
