@@ -65,8 +65,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 import static com.example.lenovo.rto.Constans.SCENE_Id;
@@ -428,19 +426,12 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
         if (i == R.id.iat_recognizes) {
             mIatResults.clear();
             // 设置参数
+            stopSpeaking();
             setParam();
-            boolean isShowDialog = false;
-            if (isShowDialog) {
-                stopSpeaking();
-                mHandler.sendEmptyMessageDelayed(2, 500);
-
-            } else {
-                // 不显示听写对话框
-                stopSpeaking();
-                ret = mIat.startListening(mRecognizerListener);
-                if (ret != ErrorCode.SUCCESS) {
-                    showTip("听写失败,错误码：" + ret);
-                }
+            // 不显示听写对话框
+            ret = mIat.startListening(mRecognizerListener);
+            if (ret != ErrorCode.SUCCESS) {
+                showTip("听写失败,错误码：" + ret);
             }
 
         } else if (i == R.id.tv_normal) {
@@ -455,7 +446,6 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
             notice.setVisibility(View.GONE);
             mImageView.performClick();
 
-        } else {
         }
 
     }
@@ -475,28 +465,6 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
         mHandler.removeCallbacksAndMessages(null);
     }
 
-//
-//    @Override
-//    protected void onActivitySpeakFinish() {
-//        super.onActivitySpeakFinish();
-//        if (!TextUtils.isEmpty(mAudioPath)) {
-//
-//            int tag = TO_STORY;
-//            String service = results.get("service");
-//            if ("storyTelling".equals(service)) {
-//                tag = TO_PING_SHU;
-//            }
-//            onPlayAudio(mAudioPath, tag);
-//            mAudioPath = null;
-//            return;
-//        }
-////        if (faceAnim != null && faceAnim.isRunning()) {
-////            faceAnim.stop();
-////        }
-//        if (yuyinFlag) {
-//            findViewById(R.id.iat_recognizes).performClick();
-//        }
-//    }
 
     private void onPlayAudio(String audioPath, int tag) {
         Music music = new Music(audioPath);
@@ -549,8 +517,6 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onError(SpeechError error) {
-            // 错误码：10118(您没有说话)，可能是录音机权限被禁，需要提示用户打开应用的录音权限。
-            // 如果使用本地功能（语记）需要提示用户开启语记的录音权限。
             if (yuyinFlag) {
                 findViewById(R.id.iat_recognizes).performClick();
             } else {
@@ -560,8 +526,6 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onEndOfSpeech() {
-            // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
-            //  showTip("结束说话");
             if (yuyinFlag) {
                 showWaveView(false);
             } else {
@@ -571,14 +535,11 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onResult(RecognizerResult results, boolean isLast) {
-            //  Logg.d(TAG, results.getResultString());
             dealData(results, isLast);
         }
 
         @Override
         public void onVolumeChanged(int volume, byte[] data) {
-            //    showTip("当前正在说话，音量大小：" + volume);
-            //   Logg.d(TAG, "返回音频数据：" + data.length);
             if (yuyinFlag) {
 //                updateVolume(voiceLineView);
 
@@ -601,10 +562,6 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
         if (isLast) {
             String result = resultBuffer.toString();
             ToastTool.showShort(result);
-            String inSpell = PinYinUtils.converterToSpell(result);
-
-            Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
-            Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
             new SpeechTask().execute();
         }
     }
@@ -690,19 +647,20 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 return;
             }
-
-            if (!TextUtils.isEmpty(text)) {
-                speak(text, isDefaultParam);
-                return;
-            }
-            str1 = empty ? "我真的不知道了" : text;
-
-            try {
-                str1 = sendMessage(str);
-            } catch (Exception e) {
-                defaultToke();
-            }
         }
+
+        if (!TextUtils.isEmpty(text)) {
+            speak(text, isDefaultParam);
+            return;
+        }
+        str1 = empty ? "我真的不知道了" : text;
+
+        try {
+            str1 = sendMessage(str);
+        } catch (Exception e) {
+            defaultToke();
+        }
+
     }
 
 
