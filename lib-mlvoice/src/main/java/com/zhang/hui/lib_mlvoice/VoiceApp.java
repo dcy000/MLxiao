@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.ContentResolver;
 import android.content.Context;
 
+import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.gcml.common.app.lifecycle.App;
 import com.gcml.common.app.lifecycle.AppLifecycleCallbacks;
 import com.iflytek.cloud.SpeechConstant;
@@ -32,6 +33,8 @@ public class VoiceApp implements AppLifecycleCallbacks {
                 .append(",")
                 .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
         SpeechUtility.createUtility(app, builder.toString());
+
+        EHSharedPreferences.initUNITContext(app);
     }
 
     @Override

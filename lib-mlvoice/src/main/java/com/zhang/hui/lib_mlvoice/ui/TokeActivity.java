@@ -31,6 +31,7 @@ import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
 import com.example.lenovo.rto.accesstoken.AccessToken;
+import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
@@ -69,7 +70,7 @@ import java.util.Random;
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 import static com.example.lenovo.rto.Constans.SCENE_Id;
 
-public class TokeActivity extends AppCompatActivity implements View.OnClickListener {
+public class TokeActivity extends AppCompatActivity implements View.OnClickListener, HttpListener<AccessToken> {
 
 
     private static String TAG = TokeActivity.class.getSimpleName();
@@ -128,7 +129,7 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
     private static final int TO_PING_SHU = 3;
     private TextView voiceNormal;
     private TextView voiceWhine;
-    private boolean isDefaultParam = true;
+    private boolean isDefaultParam =false;
     private HashMap<String, String> results;
     private ImageView yuyin;
     private VoiceLineView lineWave;
@@ -222,6 +223,27 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
                 onChoiceLanguages();
             }
         });
+
+        initBDToken();
+    }
+
+    private void initBDToken() {
+        AccessTokenModel tokenModel = new AccessTokenModel();
+        tokenModel.getAccessToken(this);
+    }
+    @Override
+    public void onSuccess(AccessToken data) {
+        EHSharedPreferences.WriteInfo(ACCESSTOKEN_KEY, data);
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onComplete() {
+
     }
 
 
