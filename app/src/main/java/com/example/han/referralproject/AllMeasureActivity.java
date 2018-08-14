@@ -15,6 +15,7 @@ import com.example.han.referralproject.health.HealthSelectSugarDetectionTimeFrag
 import com.example.han.referralproject.measure.single.SingleMeasureBloodoxygenFragment;
 import com.example.han.referralproject.measure.single.SingleMeasureBloodpressureFragment;
 import com.example.han.referralproject.measure.single.SingleMeasureBloodsugarFragment;
+import com.example.han.referralproject.measure.single.SingleMeasureECGFragment;
 import com.example.han.referralproject.measure.single.SingleMeasureTemperatureFragment;
 import com.example.han.referralproject.measure.single.SingleMeasureThreeInOneFragment;
 import com.example.han.referralproject.measure.single.SingleMeasureWeightFragment;
@@ -66,32 +67,37 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         measure_type = getIntent().getIntExtra(IPresenter.MEASURE_TYPE, -1);
         switch (measure_type) {
-            case IPresenter.MEASURE_TEMPERATURE://体温测量
+            case IPresenter.MEASURE_TEMPERATURE:
+                //体温测量
                 if (baseFragment == null) {
                     mTitleText.setText("体 温 测 量");
                     baseFragment = new SingleMeasureTemperatureFragment();
                 }
                 break;
-            case IPresenter.MEASURE_BLOOD_PRESSURE://血压
+            case IPresenter.MEASURE_BLOOD_PRESSURE:
+                //血压
                 if (baseFragment == null) {
                     mTitleText.setText("血 压 测 量");
                     baseFragment = new SingleMeasureBloodpressureFragment();
                 }
                 break;
-            case IPresenter.MEASURE_BLOOD_SUGAR://血糖
+            case IPresenter.MEASURE_BLOOD_SUGAR:
+                //血糖
                 if (baseFragment == null) {
                     mTitleText.setText("血 糖 测 量");
                     baseFragment = new HealthSelectSugarDetectionTimeFragment();
                     baseFragment.setOnFragmentChangedListener(this);
                 }
                 break;
-            case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
+            case IPresenter.MEASURE_BLOOD_OXYGEN:
+                //血氧
                 if (baseFragment == null) {
                     mTitleText.setText("血 氧 测 量");
                     baseFragment = new SingleMeasureBloodoxygenFragment();
                 }
                 break;
-            case IPresenter.MEASURE_WEIGHT://体重
+            case IPresenter.MEASURE_WEIGHT:
+                //体重
                 if (baseFragment == null) {
                     mTitleText.setText("体 重 测 量");
                     baseFragment = new SingleMeasureWeightFragment();
@@ -100,10 +106,11 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
             case IPresenter.MEASURE_ECG:
                 if (baseFragment == null) {
                     mTitleText.setText("心 电 测 量");
-                    baseFragment = new ECG_Fragment();
+                    baseFragment = new SingleMeasureECGFragment();
                 }
                 break;
-            case IPresenter.MEASURE_OTHERS://三合一
+            case IPresenter.MEASURE_OTHERS:
+                //三合一
                 if (baseFragment == null) {
                     mTitleText.setText("三 合 一 测 量");
                     baseFragment = new SingleMeasureThreeInOneFragment();
@@ -113,6 +120,8 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
                 if (baseFragment == null) {
                     baseFragment = new Fingerpint_Fragment();
                 }
+                break;
+            default:
                 break;
         }
 
@@ -131,6 +140,7 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
             ((ECG_Fragment) baseFragment).setOnAnalysisDataListener(new ECG_Fragment.AnalysisData() {
                 @Override
                 public void onSuccess(String fileNum, String fileAddress, String filePDF) {
+                    speak("主人，请查看心电测量报告。点击右上角的按钮可扫描下载");
                     pdfUrl = filePDF;
                     ECG_PDF_Fragment pdf_fragment = new ECG_PDF_Fragment();
                     Bundle pdfBundle = new Bundle();
@@ -158,26 +168,34 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
         @Override
         public void jump2HealthHistory(int measureType) {
             switch (measureType) {
-                case IPresenter.MEASURE_TEMPERATURE://体温测量
+                case IPresenter.MEASURE_TEMPERATURE:
+                    //体温测量
                     HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 0);
                     break;
-                case IPresenter.MEASURE_BLOOD_PRESSURE://血压
+                case IPresenter.MEASURE_BLOOD_PRESSURE:
+                    //血压
                     HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 1);
                     break;
-                case IPresenter.MEASURE_BLOOD_SUGAR://血糖
+                case IPresenter.MEASURE_BLOOD_SUGAR:
+                    //血糖
                     HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 2);
                     break;
-                case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
+                case IPresenter.MEASURE_BLOOD_OXYGEN:
+                    //血氧
                     HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 3);
                     break;
-                case IPresenter.MEASURE_WEIGHT://体重
+                case IPresenter.MEASURE_WEIGHT:
+                    //体重
                     HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 8);
                     break;
                 case IPresenter.MEASURE_ECG:
                     HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 7);
                     break;
-                case IPresenter.MEASURE_OTHERS://三合一
+                case IPresenter.MEASURE_OTHERS:
+                    //三合一
                     HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 5);
+                    break;
+                default:
                     break;
             }
 
@@ -186,22 +204,26 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
         @Override
         public void jump2DemoVideo(int measureType) {
             switch (measureType) {
-                case IPresenter.MEASURE_TEMPERATURE://体温测量
+                case IPresenter.MEASURE_TEMPERATURE:
+                    //体温测量
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
                     MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "耳温枪测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case IPresenter.MEASURE_BLOOD_PRESSURE://血压
+                case IPresenter.MEASURE_BLOOD_PRESSURE:
+                    //血压
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
                     MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "血压测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case IPresenter.MEASURE_BLOOD_SUGAR://血糖
+                case IPresenter.MEASURE_BLOOD_SUGAR:
+                    //血糖
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
                     MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "血糖测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
+                case IPresenter.MEASURE_BLOOD_OXYGEN:
+                    //血氧
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
                     MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "血氧测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
@@ -211,13 +233,16 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
                     MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "心电测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case IPresenter.MEASURE_OTHERS://三合一
+                case IPresenter.MEASURE_OTHERS:
+                    //三合一
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
                     MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "三合一测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case IPresenter.MEASURE_WEIGHT:
                     ToastUtils.showShort("主人，该设备暂无演示视频");
+                    break;
+                default:
                     break;
             }
         }
@@ -246,23 +271,28 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
         TimeCountDownUtils.getInstance().start();
         if (isMeasure) {
             switch (measure_type) {
-                case IPresenter.MEASURE_TEMPERATURE://体温测量
+                case IPresenter.MEASURE_TEMPERATURE:
+                    //体温测量
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE);
                     ((Temperature_Fragment) baseFragment).dealLogic();
                     break;
-                case IPresenter.MEASURE_BLOOD_PRESSURE://血压
+                case IPresenter.MEASURE_BLOOD_PRESSURE:
+                    //血压
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
                     ((Bloodpressure_Fragment) baseFragment).dealLogic();
                     break;
-                case IPresenter.MEASURE_BLOOD_SUGAR://血糖
+                case IPresenter.MEASURE_BLOOD_SUGAR:
+                    //血糖
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR);
                     ((Bloodsugar_Fragment) baseFragment).dealLogic();
                     break;
-                case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
+                case IPresenter.MEASURE_BLOOD_OXYGEN:
+                    //血氧
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN);
                     ((Bloodoxygen_Fragment) baseFragment).dealLogic();
                     break;
-                case IPresenter.MEASURE_WEIGHT://体重
+                case IPresenter.MEASURE_WEIGHT:
+                    //体重
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_WEIGHT);
                     ((Weight_Fragment) baseFragment).dealLogic();
                     break;
@@ -270,13 +300,16 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
                     ((ECG_Fragment) baseFragment).dealLogic();
                     break;
-                case IPresenter.MEASURE_OTHERS://三合一
+                case IPresenter.MEASURE_OTHERS:
+                    //三合一
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE);
                     ((ThreeInOne_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.CONTROL_FINGERPRINT:
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT);
                     ((Fingerpint_Fragment) baseFragment).dealLogic();
+                    break;
+                default:
                     break;
             }
         } else {

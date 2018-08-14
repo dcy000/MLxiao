@@ -53,7 +53,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
      * 返回上一页
      */
     protected void backLastActivity() {
-        if (isTest){
+        if (isTest) {
             backMainActivity();
         }
         finish();
@@ -74,8 +74,8 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_test_main2);
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
-        isTest=getIntent().getBooleanExtra("isTest",false);
-        isFast=getIntent().getBooleanExtra("isFast",false);
+        isTest = getIntent().getBooleanExtra("isTest", false);
+        isFast = getIntent().getBooleanExtra("isFast", false);
 
         llXueya.setOnClickListener(this);
         llXueyang.setOnClickListener(this);
@@ -99,15 +99,15 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
             lastClickTime = currentTime;
 
 
-            Intent intent = new Intent();
-            switch (v.getId()) {
-                case R.id.ll_xueya:
-                    intent.setClass(mContext, DetectActivity.class);
-//                    intent.setClass(mContext, InstructionsActivity.class);
-                    intent.putExtra("type", "xueya");
-                    startActivity(intent);
-                    return;
-            }
+//            Intent intent = new Intent();
+//            switch (v.getId()) {
+//                case R.id.ll_xueya:
+//                    intent.setClass(mContext, DetectActivity.class);
+////                    intent.setClass(mContext, InstructionsActivity.class);
+//                    intent.putExtra("type", "xueya");
+//                    startActivity(intent);
+//                    return;
+//            }
             Uri uri;
             switch (v.getId()) {
                 case R.id.ll_xueya:
@@ -163,18 +163,20 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
             if (resultCode == RESULT_OK) {
-                if (measureType == IPresenter.MEASURE_ECG) {
-                    XinDianDetectActivity.startActivity(Test_mainActivity.this,
-                            Test_mainActivity.class.getSimpleName());
-                    return;
-                }
+//                if (measureType == IPresenter.MEASURE_ECG) {
+//                    XinDianDetectActivity.startActivity(Test_mainActivity.this,
+//                            Test_mainActivity.class.getSimpleName());
+//                    return;
+//                }
                 Intent intent = new Intent();
                 intent.setClass(this, AllMeasureActivity.class);
+//                intent.putExtra(IPresenter.MEASURE_TYPE,measureType);
                 switch (measureType) {
-
                     case IPresenter.MEASURE_BLOOD_PRESSURE:
-                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_PRESSURE);
-                        break;
+//                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_PRESSURE);
+                        startActivity(new Intent(this,DetectActivity.class)
+                                .putExtra("type", "xueya"));
+                        return;
                     case IPresenter.MEASURE_BLOOD_OXYGEN:
                         intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_OXYGEN);
                         break;
@@ -190,8 +192,14 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     case IPresenter.MEASURE_OTHERS:
                         intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_OTHERS);
                         break;
-                    case IPresenter.CONTROL_FINGERPRINT://指纹
+                    case IPresenter.CONTROL_FINGERPRINT:
+                        //指纹
                         intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.CONTROL_FINGERPRINT);
+                        break;
+                    case IPresenter.MEASURE_ECG:
+                        intent.putExtra(IPresenter.MEASURE_TYPE,IPresenter.MEASURE_ECG);
+                        break;
+                    default:
                         break;
                 }
                 startActivity(intent);

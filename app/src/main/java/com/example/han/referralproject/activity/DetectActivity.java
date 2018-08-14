@@ -1331,7 +1331,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 } else {
                     findViewById(R.id.detect_tv_result_next).setVisibility(View.GONE);
                 }
-                resourceId = R.raw.tips_xueya;
+//                resourceId = R.raw.tips_xueya;
                 isFirst = LocalShared.getInstance(this).getMeasureXueyaFirst();
                 break;
             case Type_XueTang:
