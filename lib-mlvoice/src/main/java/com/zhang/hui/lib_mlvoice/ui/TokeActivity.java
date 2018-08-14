@@ -42,7 +42,6 @@ import com.zhang.hui.lib_mlvoice.utils.SharedPreferencesUtils;
 import com.zhang.hui.lib_mlvoice.utils.ToastTool;
 import com.zhang.hui.lib_mlvoice.wrap.LineView;
 
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Random;
 
