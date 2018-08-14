@@ -1,4 +1,6 @@
-apply plugin: 'com.android.application'
+ext.mainApp = true
+apply from: rootProject.file('cc-settings.gradle')
+//apply plugin: 'com.android.application'
 android {
     buildToolsVersion rootProject.ext.android.buildToolsVersion
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -91,6 +93,8 @@ repositories {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
+    //cc
+//    addComponent 'module-face_recognition'
     //lib
     implementation project(':wkvideoplayer')
     implementation project(':module-edu')
@@ -158,8 +162,6 @@ dependencies {
     api 'cn.jiguang.sdk:jcore:1.1.9'
     api 'com.umeng.analytics:analytics:6.1.2'
     api 'me.songning.CircleView:library:1.0.0'
-    //悬浮窗
-    api 'com.github.yhaolpz:FloatWindow:1.0.9'
 
     implementation rootProject.ext.dependencies["rxandroid2"]
     implementation rootProject.ext.dependencies["rxjava2"]

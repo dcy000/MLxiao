@@ -1,4 +1,4 @@
-include ':app', ':lib-common-business', ':lib-auth',
+include ':app',
         ':lib-pay-beecloud',
         ':module-edu',
         ':lib-music-player',
@@ -8,12 +8,14 @@ include ':app', ':lib-common-business', ':lib-auth',
         ':lib-video-player',
         ':lib-voice',
         ':lib-common',
+        ':lib-widget',
         ':unit',
         ':test_all_devices',
         ':lib-bluetooth',
         ':lib-utils',
         ':module-control_volume',
-        ':module-health_record'
+        ':module-health_record',
+        ':module-face_recognition'
 
 include ':expand-textview-library'
 include ':circleindicator'
@@ -23,5 +25,7 @@ include ':lib-video'
 include ':lib-common-core',
         ':app-component',
         ':component-cc',
-        ':lib-call'
+        ':lib-call',
+        'lib-common-business',
+        'lib-mlvoice'
 

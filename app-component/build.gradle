@@ -1,4 +1,3 @@
-ext.mainApp = true
 apply from: rootProject.file('cc-settings.gradle')
 //apply from: 'https://raw.githubusercontent.com/luckybilly/CC/master/cc-settings.gradle'
 
@@ -66,7 +65,7 @@ dependencies {
 //    addComponent 'lib-call' //会默认添加依赖：project(':component-cc')
 //    addComponent 'demo_component_kt', project(':demo_component_kt') //module方式
 //    addComponent 'demo_component_b', 'com.billy.demo:demo_b:1.1.0'  //maven方式
-
+    addComponent 'lib-mlvoice'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     if (project.ext.runAsApp) {
