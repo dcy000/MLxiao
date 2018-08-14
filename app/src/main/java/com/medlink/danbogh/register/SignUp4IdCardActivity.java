@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -20,24 +21,19 @@ import com.medlink.danbogh.utils.Utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-
 /**
  * Created by lenovo on 2017/10/12.
  */
 
 public class SignUp4IdCardActivity extends BaseActivity {
 
-    @BindView(R.id.tv_sign_up_go_back)
+
     TextView tvGoBack;
-    @BindView(R.id.tv_sign_up_go_forward)
+
     TextView tvGoForward;
-    @BindView(R.id.et_id_card)
+
     EditText etIdCard;
-    public Unbinder mUnbinder;
+    private ConstraintLayout clRoot;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, SignUp4IdCardActivity.class);
@@ -52,16 +48,29 @@ public class SignUp4IdCardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up4_id_card);
+        tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
+        tvGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
+        etIdCard = (EditText) findViewById(R.id.et_id_card);
         mToolbar.setVisibility(View.GONE);
-        mUnbinder = ButterKnife.bind(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
-        super.onDestroy();
+        clRoot = (ConstraintLayout) findViewById(R.id.cl_sign_up_root_id_card);
+        clRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClRootClicked();
+            }
+        });
+        tvGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoBackClicked();
+            }
+        });
+        tvGoForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoForwardClicked();
+            }
+        });
     }
 
     @Override
@@ -71,7 +80,6 @@ public class SignUp4IdCardActivity extends BaseActivity {
         speak(R.string.sign_up_id_card_tip);
     }
 
-    @OnClick(R.id.cl_sign_up_root_id_card)
     public void onClRootClicked() {
         View view = getCurrentFocus();
         if (view != null) {
@@ -79,12 +87,10 @@ public class SignUp4IdCardActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
         finish();
     }
 
-    @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         String idCard = etIdCard.getText().toString().trim();
         if (!Utils.checkIdCard1(idCard)) {

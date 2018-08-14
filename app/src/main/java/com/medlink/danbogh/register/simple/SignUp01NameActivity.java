@@ -19,23 +19,16 @@ import com.medlink.danbogh.utils.Utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-
 public class SignUp01NameActivity extends BaseActivity {
 
-    @BindView(R.id.et_sign_up_name)
-    EditText mEtName;
-    @BindView(R.id.tv_sign_up_go_back)
-    TextView mTvGoBack;
-    @BindView(R.id.tv_sign_up_go_forward)
-    TextView mTvGoForward;
-    @BindView(R.id.cl_sign_up_root_name)
-    ConstraintLayout mClSignUpRootName;
 
-    private Unbinder mUnbinder;
+    EditText mEtName;
+
+    TextView mTvGoBack;
+
+    TextView mTvGoForward;
+
+    ConstraintLayout mClSignUpRootName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +36,31 @@ public class SignUp01NameActivity extends BaseActivity {
         setShowVoiceView(true);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_sign_up1_name);
-        mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.GONE);
-        //mTvGoBack.setEnabled(false);
-    }
+        mEtName = (EditText) findViewById(R.id.et_sign_up_name);
+        mTvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
+        mTvGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
+        mClSignUpRootName = (ConstraintLayout) findViewById(R.id.cl_sign_up_root_name);
+        mClSignUpRootName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClRootClicked();
+            }
+        });
+        mTvGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoBackClicked();
+            }
+        });
+        mTvGoForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoForwardClicked();
+            }
+        });
 
-    @Override
-    protected void onDestroy() {
-        mUnbinder.unbind();
-        super.onDestroy();
+        //mTvGoBack.setEnabled(false);
     }
 
     @Override
@@ -61,7 +70,6 @@ public class SignUp01NameActivity extends BaseActivity {
         speak(R.string.sign_up1_name_tip);
     }
 
-    @OnClick(R.id.cl_sign_up_root_name)
     public void onClRootClicked() {
         View view = getCurrentFocus();
         if (view != null) {
@@ -69,13 +77,11 @@ public class SignUp01NameActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
         ToastUtils.showShort("上一步");
         finish();
     }
 
-    @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         String name = mEtName.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {

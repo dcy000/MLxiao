@@ -11,9 +11,6 @@ import com.example.han.referralproject.R;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * Created by lenovo on 2017/10/13.
  */
@@ -50,16 +47,15 @@ public class EatAdapter extends RecyclerView.Adapter<EatAdapter.EatHolder> {
     }
 
     public class EatHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_sign_up_eat)
         ImageView ivEat;
-        @BindView(R.id.tv_sign_up_eat)
         TextView tvEat;
 
         public EatModel mEatModel;
 
         public EatHolder(View itemView, View.OnClickListener listener) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            ivEat = (ImageView) itemView.findViewById(R.id.iv_sign_up_eat);
+            tvEat = (TextView) itemView.findViewById(R.id.tv_sign_up_eat);
             itemView.setOnClickListener(listener);
         }
 
