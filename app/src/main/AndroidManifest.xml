@@ -690,6 +690,8 @@
         <activity android:name="com.medlink.danbogh.register.AuthChangeBloodTypeActivity"/>
         <activity android:name="com.medlink.danbogh.register.simple.SignUp02IdCardActivity" />
         <activity android:name="com.medlink.danbogh.register.AuthChangeMobileActivity" />
+        <activity android:name=".video.MeasureVideoPlayActivity" />
+        <activity android:name=".AllMeasureActivity" />
     </application>
 
 </manifest>

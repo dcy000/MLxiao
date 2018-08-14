@@ -23,8 +23,13 @@ import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
+import com.gcml.lib_video_ksyplayer.KSYPlayer;
+import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.kk.taurus.playerbase.config.PlayerConfig;
+import com.kk.taurus.playerbase.config.PlayerLibrary;
+import com.kk.taurus.playerbase.entity.DecoderPlan;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
@@ -73,6 +78,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initVideoPlay();
+        BluetoothClientManager.init(this);
         LeakCanary.install(this);
         LibMusicPlayer.init(this);
         Preferences.init(this);
@@ -139,6 +146,15 @@ public class MyApplication extends Application {
         } else {
             Timber.plant(new CrashReportingTree());
         }
+    }
+
+    public static final int PLAN_ID_KSY = 1;
+
+    private void initVideoPlay() {
+        PlayerConfig.addDecoderPlan(new DecoderPlan(PLAN_ID_KSY, KSYPlayer.class.getName(), "Ksyplayer"));
+        PlayerConfig.setDefaultPlanId(PLAN_ID_KSY);
+        PlayerConfig.setUseDefaultNetworkEventProducer(true);
+        PlayerLibrary.init(this);
     }
 
     /** A tree which logs important information for crash reporting. */

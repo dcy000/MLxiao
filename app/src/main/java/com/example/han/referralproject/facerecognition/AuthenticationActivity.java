@@ -75,7 +75,7 @@ import org.json.JSONObject;
 
 public class AuthenticationActivity extends BaseActivity {
     private SurfaceView mPreviewSurface;
-    private Camera mCamera;
+    private volatile Camera mCamera;
     private int PREVIEW_WIDTH = 1280;
     private int PREVIEW_HEIGHT = 720;
     // 缩放矩阵
@@ -635,7 +635,9 @@ public class AuthenticationActivity extends BaseActivity {
         Handlers.bg().post(new Runnable() {
             @Override
             public void run() {
-                if (null != mCamera) {
+                Camera camera = mCamera;
+                mCamera = null;
+                if (null != camera) {
                     if (callback != null) {
                         if (mPreviewSurface != null) {
                             SurfaceHolder holder = mPreviewSurface.getHolder();
@@ -644,10 +646,9 @@ public class AuthenticationActivity extends BaseActivity {
                             }
                         }
                     }
-                    mCamera.setPreviewCallback(null);
-                    mCamera.stopPreview();
-                    mCamera.release();
-                    mCamera = null;
+                    camera.setPreviewCallback(null);
+                    camera.stopPreview();
+                    camera.release();
                 }
                 if (baos != null) {
                     try {

@@ -22,10 +22,10 @@
         android:layout_alignParentRight="true">
 
         <TextView
-            android:layout_width="160dp"
-            android:layout_height="100dp"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
-            android:background="@drawable/selector_bg_btn"
+            android:background="@drawable/shape_phone"
             android:gravity="center"
             android:padding="10dp"
             android:text="@string/tiao_zhuan"

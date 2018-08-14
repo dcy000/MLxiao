@@ -350,18 +350,19 @@ class BCHttpClientUtil {
         if (socketFactory == null)
             return response;
 
-        X509TrustManager trustManager = Platform.get().trustManager(socketFactory);
+//        X509TrustManager trustManager = Platform.get().trustManager(socketFactory);
 
-        if (trustManager == null) {
-            response.code = -1;
-            return response;
-        }
+
+//        if (trustManager == null) {
+//            response.code = -1;
+//            return response;
+//        }
 
         //PayPal needs TLS v1.2
         OkHttpClient client =
                 new OkHttpClient.Builder()
                         .connectTimeout(BCCache.getInstance().connectTimeout, TimeUnit.MILLISECONDS)
-                        .sslSocketFactory(socketFactory, trustManager).build();
+                        .sslSocketFactory(socketFactory).build();
 
         FormBody.Builder form = new FormBody.Builder();
         form.add("grant_type", "client_credentials");

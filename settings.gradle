@@ -44,5 +44,8 @@ include ':app', ':sdk', ':module-edu', ':lib-music-player', ':circleprogress', '
 include ':expand-textview-library'
 include ':circleindicator'
 include ':unit'
+include ':lib-bluetooth'
+include ':lib-utils'
+include ':lib-video'
 
 

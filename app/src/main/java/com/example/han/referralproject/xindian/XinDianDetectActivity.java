@@ -1,6 +1,7 @@
 package com.example.han.referralproject.xindian;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -63,6 +64,16 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 //			R.drawable.battery_2, R.drawable.battery_3 };
     private boolean isDetect;
     private View mNavView;
+
+    public static void startActivity(Context context, String fromWhere) {
+        context.startActivity(new Intent(context, XinDianDetectActivity.class)
+                .putExtra("fromWhere", fromWhere));
+    }
+
+    public static void startActivityForResult(Activity context, String fromWhere, int requestCode) {
+        context.startActivityForResult(new Intent(context, XinDianDetectActivity.class)
+                .putExtra("fromWhere", fromWhere), requestCode);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
