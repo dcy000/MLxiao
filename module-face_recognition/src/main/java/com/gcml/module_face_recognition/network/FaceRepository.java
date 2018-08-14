@@ -1,0 +1,55 @@
+package com.gcml.module_face_recognition.network;
+
+import com.gcml.common.repository.IRepositoryHelper;
+import com.gcml.common.repository.RepositoryApp;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.module_face_recognition.bean.XfGroupInfo;
+import com.gcml.module_face_recognition.manifests.SPManifest;
+
+import java.util.List;
+
+import io.reactivex.Observable;
+
+/**
+ * copyright：杭州国辰迈联机器人科技有限公司
+ * version:V1.2.5
+ * created on 2018/8/13 11:53
+ * created by:gzq
+ * description:TODO
+ */
+public class FaceRepository {
+    private static IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
+    private static FaceRecognitionService faceRecognitionService = mRepositoryHelper.retrofitService(FaceRecognitionService.class);
+
+    /**
+     * 记录创建的人脸识别组id到服务器
+     *
+     * @param groupId
+     * @param xfid
+     * @return
+     */
+    public static Observable<List<XfGroupInfo>> recordXfGroupInfo(String groupId, String xfid) {
+        return faceRecognitionService.recordXfGroupInformation(SPManifest.getUserId(), groupId, xfid)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    /**
+     * 获取七牛云token
+     *
+     * @return
+     */
+    public static Observable<String> getQiniuToken() {
+        return faceRecognitionService.getQiniuToken()
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    /**
+     * 同步七牛云返回的头像地址到我们自己的服务器
+     * @param userPhoto
+     * @return
+     */
+    public static Observable<Object> syncRegistHeadUrl(String userPhoto) {
+        return faceRecognitionService.syncRegistHeadUrl(userPhoto, SPManifest.getUserId(), SPManifest.getXunfeiId())
+                .compose(RxUtils.apiResultTransformer());
+    }
+}
