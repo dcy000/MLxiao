@@ -24,5 +24,8 @@ include ':lib-video'
 
 include ':lib-common-core',
         ':app-component',
-        ':component-cc'
+        ':component-cc',
+        ':lib-call',
+        'lib-common-business',
+        'lib-mlvoice'
 

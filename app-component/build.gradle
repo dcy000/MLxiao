@@ -62,18 +62,21 @@ android {
 
 dependencies {
     addComponent 'component-cc' //会默认添加依赖：project(':component-cc')
+//    addComponent 'lib-call' //会默认添加依赖：project(':component-cc')
 //    addComponent 'demo_component_kt', project(':demo_component_kt') //module方式
 //    addComponent 'demo_component_b', 'com.billy.demo:demo_b:1.1.0'  //maven方式
-
+    addComponent 'lib-mlvoice'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    if (project.ext.runAsApp) {
+        implementation project(":lib-common-business")
+    }
+
     implementation project(":lib-common-core")
 
     implementation rootProject.ext.dependencies["design"]
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["constraint-layout"]
-
-//    implementation rootProject.ext.dependencies["autodispose"]
-//    implementation rootProject.ext.dependencies["autodispose-arch"]
 
     implementation rootProject.ext.dependencies["rxjava2"]
     implementation rootProject.ext.dependencies["rxandroid2"]

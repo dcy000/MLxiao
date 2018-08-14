@@ -73,7 +73,7 @@ public class ImageLoader implements IImageLoader {
     public void pause(Context context) {
         IImageLoader iImageLoader = loaders.get(loaderId);
         if (iImageLoader != null) {
-            pause(context);
+            iImageLoader.pause(context);
         }
     }
 
