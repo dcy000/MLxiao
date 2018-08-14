@@ -8,12 +8,14 @@ include ':app',
         ':lib-video-player',
         ':lib-voice',
         ':lib-common',
+        ':lib-widget',
         ':unit',
         ':test_all_devices',
         ':lib-bluetooth',
         ':lib-utils',
         ':module-control_volume',
-        ':module-health_record'
+        ':module-health_record',
+        ':module-face_recognition'
 
 include ':expand-textview-library'
 include ':circleindicator'
