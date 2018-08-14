@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,13 +18,19 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.new_music.HttpCallback;
 import com.example.han.referralproject.new_music.HttpClient;
 import com.example.han.referralproject.new_music.Music;
@@ -36,6 +43,7 @@ import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
+import com.gcml.lib_utils.ui.ScreenUtils;
 import com.google.gson.Gson;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -52,10 +60,9 @@ import com.zhang.hui.lib_mlvoice.other.QaApi;
 import com.zhang.hui.lib_mlvoice.other.StringUtil;
 import com.zhang.hui.lib_mlvoice.recognition.JsonParser;
 import com.zhang.hui.lib_mlvoice.synthetize.MLVoiceSynthetize;
-import com.zhang.hui.lib_mlvoice.utils.PinYinUtils;
 import com.zhang.hui.lib_mlvoice.utils.SharedPreferencesUtils;
 import com.zhang.hui.lib_mlvoice.utils.ToastTool;
-import com.zhang.hui.lib_mlvoice.wrap.VoiceLineView;
+import com.zhang.hui.lib_mlvoice.wrap.LineView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -129,10 +136,10 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
     private static final int TO_PING_SHU = 3;
     private TextView voiceNormal;
     private TextView voiceWhine;
-    private boolean isDefaultParam =false;
+    private boolean isDefaultParam = false;
     private HashMap<String, String> results;
     private ImageView yuyin;
-    private VoiceLineView lineWave;
+    private LineView lineWave;
     private Boolean yuyinFlag;
     private boolean isStart;
     private TextView notice;
@@ -147,6 +154,8 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_toke);
         rand = new Random();
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
@@ -231,6 +240,7 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
         AccessTokenModel tokenModel = new AccessTokenModel();
         tokenModel.getAccessToken(this);
     }
+
     @Override
     public void onSuccess(AccessToken data) {
         EHSharedPreferences.WriteInfo(ACCESSTOKEN_KEY, data);
@@ -308,10 +318,9 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onResume() {
-//        setDisableGlobalListen(true);
         super.onResume();
         speak("主人,来和我聊天吧", isDefaultParam);
-//        setEnableListeningLoop(false);
+        addWaveView();
         mLottieView.resumeAnimation();
     }
 
@@ -419,9 +428,6 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化Layout。
      */
     private void initLayout() {
-        findViewById(R.id.iat_recognizes).setOnClickListener(this);
-        findViewById(R.id.iat_stop).setOnClickListener(this);
-        findViewById(R.id.iat_cancel).setOnClickListener(this);
         voiceNormal = findViewById(R.id.tv_normal);
         voiceWhine = findViewById(R.id.tv_whine);
         yuyin = findViewById(R.id.iv_yuyin);
@@ -487,12 +493,6 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
         mHandler.removeCallbacksAndMessages(null);
     }
 
-
-    private void onPlayAudio(String audioPath, int tag) {
-        Music music = new Music(audioPath);
-        startActivityForResult(new Intent(TokeActivity.this, MusicPlayActivity.class)
-                .putExtra("music", music), tag);
-    }
 
     private void showWave() {
         if (isStart) {
@@ -933,4 +933,35 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
         }
         mDialog.dismiss();
     }
+
+    private boolean showWaveView = true;
+
+    private void addWaveView() {
+        if (!showWaveView) {
+            return;
+        }
+        FrameLayout contentView = findViewById(android.R.id.content);
+        VoiceLineView voiceLineView = new com.carlos.voiceline.mylibrary.VoiceLineView(this);
+        voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
+        voiceLineView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.popshow_anim));
+
+        int width = provideWaveViewWidth();
+        int height = provideWaveViewHeight();
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
+        params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+        contentView.addView(voiceLineView, params);
+        contentView.bringToFront();
+//        voiceLineView.setVisibility(View.GONE);
+
+    }
+
+    private int provideWaveViewHeight() {
+        return ScreenUtils.dip2px(450);
+    }
+
+    private int provideWaveViewWidth() {
+        return ScreenUtils.dip2px(120);
+    }
+
+
 }
