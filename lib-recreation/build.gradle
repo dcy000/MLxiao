@@ -73,4 +73,5 @@ dependencies {
     //core lib
     implementation project(":lib-common-core")
     implementation project(":lib-utils")
+    api project(':lib-widget')
 }

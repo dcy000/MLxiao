@@ -105,6 +105,7 @@ dependencies {
 
     //lib
     implementation project(':wkvideoplayer')
+    implementation project(':lib-widget')
     implementation project(':module-edu')
     implementation project(':lib-video-player')
     implementation project(':unit')

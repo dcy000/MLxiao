@@ -9,10 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.repository.imageloader.ImageLoader;
+import com.gcml.lib_widget.MixtureTextView;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.zhang.hui.lib_recreation.R;
-import com.zhang.hui.lib_recreation.tool.wrapview.MixtureTextView;
 import com.zhang.hui.lib_recreation.tool.xfparsebean.BaiKeBean;
 
 import java.io.Serializable;
@@ -68,7 +68,7 @@ public class BaikeResultActivity extends AppCompatActivity implements View.OnCli
         mTvBack = (TextView) findViewById(R.id.tv_back);
         mTvBack.setOnClickListener(this);
         mImgPic = (ImageView) findViewById(R.id.img_pic);
-        mMtResult = findViewById(R.id.mt_result_model);
+        mMtResult = findViewById(R.id.mt_result);
         mTvQuestion = (TextView) findViewById(R.id.tv_question);
     }
 
