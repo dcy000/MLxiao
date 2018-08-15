@@ -13,6 +13,24 @@ public class Bluetooth_Constants {
         String SP_SAVE_TEMPERATURE = "sp_save_temperature";
         String SP_SAVE_WEIGHT = "sp_save_weight";
         String SP_SAVE_THREE_IN_ONE="sp_save_three_in_one";
+
+
+        /**
+         * 存在sp中用户名的key
+         */
+        String KEY_USER_NAME="user_name";
+        /**
+         * 存在sp中用户的sex
+         */
+        String KEY_USER_SEX="user_sex";
+        /**
+         * 存在SP中用户的年龄
+         */
+        String KEY_USER_AGE="user_age";
+        /**
+         * 存在SP中用户的电话号码
+         */
+        String KEY_USER_PHONE="user_phone_num";
     }
     public interface BoSheng{
         //app id

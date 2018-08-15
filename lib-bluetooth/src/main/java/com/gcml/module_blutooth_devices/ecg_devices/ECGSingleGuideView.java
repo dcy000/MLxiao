@@ -12,6 +12,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 public class ECGSingleGuideView extends View {
     private int largerGridColor;
     private int mediumGridColor;
@@ -70,7 +72,8 @@ public class ECGSingleGuideView extends View {
         this.gain = 10;
         this.sampling = 200;
         this.adUnit = 840;
-        this.brand = "BoSheng";//默认是博声的心电
+        //默认是博声的心电
+        this.brand = "BoSheng";
         this.initialization();
     }
 
@@ -80,6 +83,7 @@ public class ECGSingleGuideView extends View {
         this.xDistance = 1.0F / (float) this.sampling * (float) this.chartSpeed * this.smallGridLength;
         this.xMaxPointCount = (int) (((float) this.getWidth() - this.margin * 2.0F) / this.xDistance) / 10 * 10;
         this.yBaseLineValue = (float) (this.getHeight() / 2) - this.getYDistance(this.baseLineValue, this.defaultBaseLinewValue);
+        Timber.e("baseLineValue："+baseLineValue+"defaultBaseLinewValue:"+defaultBaseLinewValue+"--"+yBaseLineValue);
     }
 
     private void initialization() {
@@ -132,7 +136,6 @@ public class ECGSingleGuideView extends View {
                         this.dataPath.moveTo(this.getX(k), this.getY(point));
                     } else {
                         this.dataPath.lineTo(this.getX(k), this.getY(point));
-//                    Logg.e(ECGSingleGuideView.class,"点:("+getX(k)+","+getY(point)+")");
                     }
 
                     ++k;
@@ -154,37 +157,6 @@ public class ECGSingleGuideView extends View {
                     }
                     ++k;
                 }
-//                //第二组4个点
-//                for (int j=23;j<=26;j++){
-//                    int point = ((byte_single[j] & 0xff) << 2) + (((byte_single[27] & 0xff) >> (-2 * j + 52)) & 0x3);
-//                    if (k == 0) {
-//                        this.dataPath.moveTo(this.getX(k), this.getY(point));
-//                    } else {
-//                        this.dataPath.lineTo(this.getX(k), this.getY(point));
-//                    }
-//                    ++k;
-//                }
-//                //第三组4个点
-//                for (int j=40;j<=43;j++){
-//                    int point = ((byte_single[j] & 0xff) << 2) + (((byte_single[44] & 0xff) >> (-2 * j + 86)) & 0x3);
-//                    if (k == 0) {
-//                        this.dataPath.moveTo(this.getX(k), this.getY(point));
-//                    } else {
-//                        this.dataPath.lineTo(this.getX(k), this.getY(point));
-//                    }
-//                    ++k;
-//                }
-//                //第四组4个点
-//                for (int j=57;j<=60;j++){
-//                    int point = ((byte_single[j] & 0xff) << 2) + (((byte_single[61] & 0xff) >> (-2 * j + 120)) & 0x3);
-//                    if (k == 0) {
-//                        this.dataPath.moveTo(this.getX(k), this.getY(point));
-//                    } else {
-//                        this.dataPath.lineTo(this.getX(k), this.getY(point));
-//                    }
-//                    ++k;
-//                }
-
             }
         }
         canvas.drawPath(this.dataPath, this.dataPaint);
@@ -294,14 +266,14 @@ public class ECGSingleGuideView extends View {
     }
 
     public void addData(byte[] data) {
-        if ("ChaoSi".equals(brand)){
-            if (data != null && data.length >=11) {
+        if ("ChaoSi".equals(brand)) {
+            if (data != null && data.length >= 11) {
                 if (this.data != null) {
                     this.data.add(data);
                 }
                 this.postInvalidate();
             }
-        }else if ("BoSheng".equals(brand)){
+        } else if ("BoSheng".equals(brand)) {
             if (data != null && data.length >= 20) {
                 if (this.data != null) {
                     this.data.add(data);

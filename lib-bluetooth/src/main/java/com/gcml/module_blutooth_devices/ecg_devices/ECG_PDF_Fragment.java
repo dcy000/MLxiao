@@ -121,7 +121,6 @@ public class ECG_PDF_Fragment extends BluetoothBaseFragment {
                         .onDraw(new OnDrawListener() {
                             @Override
                             public void onLayerDrawn(Canvas canvas, float pageWidth, float pageHeight, int displayedPage) {
-                                Timber.e("pageWidth=" + pageWidth + "--pageHeight=" + pageHeight + "---displayedPage=" + displayedPage);
                             }
                         })
                         .onDrawAll(new OnDrawListener() {
