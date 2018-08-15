@@ -56,7 +56,7 @@
         android:textColor="#b6b2b2"
         android:textSize="25dp" />
 
-    <com.zhang.hui.lib_mlvoice.wrap.VoiceLineView
+    <com.zhang.hui.lib_mlvoice.wrap.LineView
         android:id="@+id/vl_wave"
         android:layout_width="300dp"
         android:layout_height="27dp"

@@ -61,6 +61,13 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs', '../lib-mlvoice/libs'
+    }
+
+}
+
 dependencies {
     addComponent 'component-cc' //会默认添加依赖：project(':component-cc')
 //    addComponent 'lib-call' //会默认添加依赖：project(':component-cc')

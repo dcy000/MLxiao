@@ -27,6 +27,6 @@ include ':lib-common-core',
         ':component-cc',
         ':lib-call',
         ':lib-common-business',
-        ':lib-auth',
-        ':lib-mlvoice'
+        ':lib-mlvoice',
+        ':lib-auth'
 
