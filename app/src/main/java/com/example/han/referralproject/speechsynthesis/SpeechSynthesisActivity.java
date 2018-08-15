@@ -1584,15 +1584,19 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             public void onSuccess(Unit data) {
                 if (data != null)
                     sessionId = data.getSession_id();
-                for (Unit.ActionListBean action : data.getAction_list()) {
+//                for (Unit.ActionListBean action : data.getAction_list()) {
+//
+//                    if (!TextUtils.isEmpty(action.getSay())) {
+//                        sb = new StringBuilder();
+//                        sb.append(action.getSay());
+//                    }
+//
+//                }
 
-                    if (!TextUtils.isEmpty(action.getSay())) {
-                        sb = new StringBuilder();
-                        sb.append(action.getSay());
-                    }
-
+                List<Unit.ActionListBean> list = data.getAction_list();
+                if (list != null && list.size() >= 10) {
+                    str1 = list.get(new Random().nextInt(10)).getSay();
                 }
-                str1 = sb.toString().replace("<USER-NAME>", "");
                 defaultToke();
             }
 
@@ -1608,9 +1612,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         });
         return str1;
     }
-
-
-
 
 
     private AccessToken data;
