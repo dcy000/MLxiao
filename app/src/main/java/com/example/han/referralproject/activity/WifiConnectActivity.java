@@ -27,7 +27,7 @@ import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.gcml.lib_utils.network.WiFiUtil;
-import com.medlink.danbogh.signin.SignInActivity;
+import com.gcml.auth.signin.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.List;

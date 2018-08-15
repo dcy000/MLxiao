@@ -34,13 +34,12 @@ import com.gcml.lib_utils.display.ImageUtils;
 import com.gcml.lib_utils.display.LoadingProgressUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.thread.ThreadUtils;
-import com.gzq.administrator.lib_common.base.BaseApplication;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.signin.SignInActivity;
+import com.gcml.auth.signin.SignInActivity;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import org.json.JSONArray;

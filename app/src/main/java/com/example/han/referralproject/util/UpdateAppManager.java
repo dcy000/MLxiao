@@ -19,7 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
+import com.gcml.auth.signin.ChooseLoginTypeActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
 

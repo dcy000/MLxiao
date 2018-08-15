@@ -52,7 +52,7 @@ import com.gcml.lib_utils.permission.PermissionsResultAction;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
-import com.medlink.danbogh.signin.SignInActivity;
+import com.gcml.auth.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 

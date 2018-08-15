@@ -22,8 +22,8 @@ import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.medlink.danbogh.register.entity.City;
-import com.medlink.danbogh.register.entity.Province;
+import com.gcml.auth.register.entity.City;
+import com.gcml.auth.register.entity.Province;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.Utils;
 

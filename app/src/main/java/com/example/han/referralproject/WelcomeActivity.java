@@ -11,7 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Chronometer;
 
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
+import com.gcml.auth.signin.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;

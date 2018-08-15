@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_tab1_personal_info"
+    tools:context="com.gcml.auth.register.SignUp2GenderActivity">
+
+    <TextView
+        android:id="@+id/tv_sign_up_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:gravity="center"
+        android:text="您的性别"
+        android:textColor="#8C8C8C"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_sign_up_man"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_avatar_old_man"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/iv_sign_up_woman"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_gender"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="男"
+        android:textColor="#8C8C8C"
+        android:textSize="35sp"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_sign_up_man"
+        app:layout_constraintRight_toRightOf="@+id/iv_sign_up_man"
+        app:layout_constraintTop_toBottomOf="@+id/iv_sign_up_man"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="女"
+        android:textColor="#8C8C8C"
+        android:textSize="35sp"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_sign_up_woman"
+        app:layout_constraintRight_toRightOf="@+id/iv_sign_up_woman"
+        app:layout_constraintTop_toBottomOf="@+id/iv_sign_up_woman"/>
+
+    <ImageView
+        android:id="@+id/iv_sign_up_woman"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_avatar_old_woman"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toRightOf="@+id/iv_sign_up_man"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_gender"/>
+
+    <ImageView
+        android:id="@+id/iv_rb_sign_up_man"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="40dp"
+        android:src="@drawable/bg_selector_rb_sign_up_gender"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_sign_up_man"
+        app:layout_constraintRight_toRightOf="@+id/iv_sign_up_man"/>
+
+    <ImageView
+        android:id="@+id/iv_rb_sign_up_woman"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="40dp"
+        android:src="@drawable/bg_selector_rb_sign_up_gender"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_sign_up_woman"
+        app:layout_constraintRight_toRightOf="@+id/iv_sign_up_woman"/>
+
+    <include layout="@layout/include_sign_up_tab"/>
+
+    <include layout="@layout/include_sign_up_nav"/>
+</android.support.constraint.ConstraintLayout>

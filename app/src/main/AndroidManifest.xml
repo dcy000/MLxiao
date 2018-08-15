@@ -294,52 +294,78 @@
             android:name=".recyclerview.AddAppoActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp1NameActivity"
+            android:name="com.gcml.auth.signin.ChooseLoginTypeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.auth.signin.SignInActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name="com.gcml.auth.signin.FindPasswordActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.gcml.auth.signin.SetPasswordActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.gcml.auth.register.SignUp1NameActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp2GenderActivity"
+            android:name="com.gcml.auth.register.SignUp2GenderActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp3AddressActivity"
+            android:name="com.gcml.auth.register.SignUp3AddressActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp4IdCardActivity"
+            android:name="com.gcml.auth.register.SignUp4IdCardActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp5MobileVerificationActivity"
+            android:name="com.gcml.auth.register.SignUp5MobileVerificationActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp6PasswordActivity"
+            android:name="com.gcml.auth.register.SignUp6PasswordActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp7HeightActivity"
+            android:name="com.gcml.auth.register.SignUp7HeightActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp8WeightActivity"
+            android:name="com.gcml.auth.register.SignUp8WeightActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp9BloodTypeActivity"
+            android:name="com.gcml.auth.register.SignUp9BloodTypeActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp10EatActivity"
+            android:name="com.gcml.auth.register.SignUp10EatActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp11SmokeActivity"
+            android:name="com.gcml.auth.register.SignUp11SmokeActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp12DrinkActivity"
+            android:name="com.gcml.auth.register.SignUp12DrinkActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp13SportsActivity"
+            android:name="com.gcml.auth.register.SignUp13SportsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity"
+            android:name="com.gcml.auth.register.SignUp14DiseaseHistoryActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.auth.register.simple.SignUp01NameActivity"
+            android:taskAffinity="com.medlink.fastsignup"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name="com.gcml.auth.register.simple.SignUp03PasswordActivity"
+            android:taskAffinity="com.medlink.fastsignup" />
+        <activity
+            android:name="com.gcml.auth.register.simple.SignUp02MobileVerificationActivity"
+            android:taskAffinity="com.medlink.fastsignup" />
+
         <activity
             android:name=".recharge.PayActivity"
             android:screenOrientation="landscape" />
@@ -412,7 +438,7 @@
             android:name=".activity.DiseaseDetailsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.ConfirmContractActivity"
+            android:name="com.gcml.auth.register.ConfirmContractActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".video.VideoListActivity"
@@ -442,18 +468,7 @@
         <activity
             android:name=".recyclerview.DoctorAskGuideActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.signin.SignInActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name="com.medlink.danbogh.signin.FindPasswordActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="com.medlink.danbogh.signin.SetPasswordActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".recharge.DefineActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -506,9 +521,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".new_music.MusicPlayActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.ChooseLoginTypeActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".measure.InstructionsActivity"
@@ -586,16 +598,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".children.study.ChildEduStories2Activity" />
-        <activity
-            android:name="com.medlink.danbogh.register.simple.SignUp01NameActivity"
-            android:taskAffinity="com.medlink.fastsignup"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity
-            android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity"
-            android:taskAffinity="com.medlink.fastsignup" />
-        <activity
-            android:name="com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity"
-            android:taskAffinity="com.medlink.fastsignup" />
+
         <activity
             android:name=".tool.DateInquireActivity"
             android:screenOrientation="landscape" />

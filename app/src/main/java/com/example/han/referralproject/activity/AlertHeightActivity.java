@@ -13,7 +13,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.medlink.danbogh.register.SelectAdapter;
+import com.gcml.auth.register.SelectAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,8 +13,8 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.medlink.danbogh.register.EatAdapter;
-import com.medlink.danbogh.register.EatModel;
+import com.gcml.auth.register.EatAdapter;
+import com.gcml.auth.register.EatModel;
 
 import java.util.ArrayList;
 import java.util.List;

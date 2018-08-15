@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
+import com.gcml.auth.signin.ChooseLoginTypeActivity;
 import com.example.han.referralproject.adapter.ChangeAccountAdapter;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
