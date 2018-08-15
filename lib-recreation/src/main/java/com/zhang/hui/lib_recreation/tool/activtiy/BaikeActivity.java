@@ -1,14 +1,19 @@
 package com.zhang.hui.lib_recreation.tool.activtiy;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.recognition.MLRecognizerListener;
+import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.zhang.hui.lib_recreation.R;
+import com.zhang.hui.lib_recreation.tool.other.StringUtil;
 import com.zhang.hui.lib_recreation.tool.other.XFSkillApi;
 import com.zhang.hui.lib_recreation.tool.wrapview.VoiceLineView;
 import com.zhang.hui.lib_recreation.tool.xfparsebean.BaiKeBean;
@@ -93,33 +98,99 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
         ivYuyin = (ImageView) findViewById(R.id.iv_yuyin);
         ivYuyin.setOnClickListener(this);
         textView4 = (TextView) findViewById(R.id.textView4);
-        textView4.setOnClickListener(this);
         vlWave = (VoiceLineView) findViewById(R.id.vl_wave);
-        vlWave.setOnClickListener(this);
         clStart = (ConstraintLayout) findViewById(R.id.cl_start);
-        clStart.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.tv_title) {
-        } else if (i == R.id.tv_back) {
-        } else if (i == R.id.tv_notice) {
-        } else if (i == R.id.tv_notice_demo) {
-        } else if (i == R.id.tv_demo1) {
+        if (i == R.id.tv_demo1) {
             String demo1 = tvDemo1.getText().toString();
             getDreamData(demo1);
-
         } else if (i == R.id.tv_demo2) {
+            String demo2 = tvDemo2.getText().toString();
+            getDreamData(demo2);
         } else if (i == R.id.tv_demo3) {
+            String demo3 = tvDemo3.getText().toString();
+            getDreamData(demo3);
         } else if (i == R.id.iv_yuyin) {
-        } else if (i == R.id.textView4) {
-        } else if (i == R.id.vl_wave) {
-        } else if (i == R.id.cl_start) {
-        } else {
+            MLVoiceSynthetize.stop();
+            onEndOfSpeech();
+            startListener();
         }
     }
+
+    private boolean isStart;
+    int recordTotalTime = 0;
+    private Handler mainHandler = new Handler();
+
+    private void onEndOfSpeech() {
+        vlWave.setVisibility(View.GONE);
+        vlWave.stopRecord();
+        isStart = false;
+        recordTotalTime = 0;
+        mainHandler.removeCallbacksAndMessages(null);
+    }
+
+    private void startListener() {
+        MLVoiceRecognize.startRecognize(getApplicationContext(), new MLRecognizerListener() {
+            @Override
+            public void onMLVolumeChanged(int i, byte[] bytes) {
+                vlWave.waveH = i / 6 + 2;
+            }
+
+            @Override
+            public void onMLBeginOfSpeech() {
+                showWave();
+            }
+
+            @Override
+            public void onMLEndOfSpeech() {
+                BaikeActivity.this.onEndOfSpeech();
+                textView4.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onMLResult(String result) {
+                getDreamData(result);
+            }
+
+            @Override
+            public void onMLError(SpeechError error) {
+                speak("主人,我没有听清,你能再说一遍吗?");
+            }
+        });
+
+    }
+
+    private void showWave() {
+        if (isStart) {
+            return;
+        }
+        isStart = true;
+        textView4.setVisibility(View.GONE);
+        vlWave.setVisibility(View.VISIBLE);
+        vlWave.setText("00:00");
+        vlWave.startRecord();
+        mainHandler.removeCallbacksAndMessages(null);
+
+        mainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                recordTotalTime += 1000;
+                updateTimerUI(recordTotalTime);
+                mainHandler.postDelayed(this, 1000);
+            }
+        }, 1000);
+    }
+
+
+    private void updateTimerUI(int recordTotalTime) {
+        String string = String.format("%s", StringUtil.formatTime(recordTotalTime));
+        vlWave.setText(string);
+    }
+
 
     private void getDreamData(final String result) {
         XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
@@ -132,13 +203,23 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
                 }
                 try {
                     List<BaiKeBean> data = (List<BaiKeBean>) anwser;
-//                    BaikeResultActivity.startMe(BaiKeActivtiy.this, data, result);
+                    BaikeResultActivity.startMe(BaikeActivity.this, data, result);
                 } catch (Exception e) {
                     speak("主人,没有找到" + result);
                 }
             }
         });
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MLVoiceRecognize.stop();
+        MLVoiceSynthetize.stop();
+        mainHandler.removeCallbacksAndMessages(null);
+    }
 }
+
 
 
