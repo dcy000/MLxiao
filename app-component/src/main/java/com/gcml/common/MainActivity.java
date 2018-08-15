@@ -30,6 +30,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onComponentCall(View view) {
-        CC.obtainBuilder("app.component.voice").build().callAsync();
+        CC.obtainBuilder("app.component.recreation").build().callAsync();
     }
 }

@@ -93,7 +93,7 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]
 
     api rootProject.ext.dependencies["timber"]
-    api project(':lib-mlvoice')
+    api project(':lib-voice')
     implementation rootProject.ext.dependencies["stetho"]
     implementation rootProject.ext.dependencies["stetho-okhttp3"]
     implementation rootProject.ext.dependencies["bugly-crashreport"]
