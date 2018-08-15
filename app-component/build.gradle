@@ -1,3 +1,4 @@
+ext.mainApp = true
 apply from: rootProject.file('cc-settings.gradle')
 //apply from: 'https://raw.githubusercontent.com/luckybilly/CC/master/cc-settings.gradle'
 
@@ -80,6 +81,9 @@ dependencies {
     }
 
     implementation project(":lib-common-core")
+    implementation rootProject.ext.dependencies["livedata-core"]
+    implementation rootProject.ext.dependencies["lifecycle-runtime"]
+    implementation rootProject.ext.dependencies["viewmodel"]
 
     implementation rootProject.ext.dependencies["design"]
     implementation rootProject.ext.dependencies["appcompat-v7"]

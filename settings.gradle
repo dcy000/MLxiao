@@ -1,4 +1,4 @@
-include ':app',
+include ':app', ':recreation',
         ':lib-pay-beecloud',
         ':module-edu',
         ':lib-music-player',
