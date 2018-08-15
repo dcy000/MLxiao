@@ -14,6 +14,7 @@ import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
+import com.gcml.common.app.lifecycle.AppDelegate;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.service.ProcessUtils;
 import com.gcml.lib_utils.ui.UiUtils;
@@ -52,12 +53,19 @@ public class MyApplication extends BaseApplication {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+        AppDelegate.INSTANCE.attachBaseContext(this, base);
     }
 
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        AppDelegate.INSTANCE.onTerminate(this);
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        AppDelegate.INSTANCE.onCreate(this);
         String curProcessName = ProcessUtils.getCurProcessName(this);
         UtilsManager.init(this);
         UiUtils.init(this, 1920, 1200);
@@ -79,7 +87,7 @@ public class MyApplication extends BaseApplication {
         );
         MobclickAgent.startWithConfigure(umConfig);
         //友盟崩溃信息收集开关
-        MobclickAgent.setCatchUncaughtExceptions(!BuildConfig.DEBUG);
+        MobclickAgent.setCatchUncaughtExceptions(false);
         LitePal.initialize(this);
         mInstance = this;
         LocalShared mShared = LocalShared.getInstance(this);

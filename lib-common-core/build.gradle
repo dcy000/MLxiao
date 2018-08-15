@@ -68,6 +68,7 @@ dependencies {
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["constraint-layout"]
     api rootProject.ext.dependencies["lifecycle-extensions"]
+    api rootProject.ext.dependencies["lifecycle-runtime"]
 
     api rootProject.ext.dependencies["autodispose"]
     api rootProject.ext.dependencies["autodispose-arch"]

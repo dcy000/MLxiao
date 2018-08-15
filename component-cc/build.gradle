@@ -57,6 +57,12 @@ android {
         disable "ResourceType"
         abortOnError false
     }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 
 dependencies {
@@ -69,6 +75,7 @@ dependencies {
     implementation project(":lib-common-core")
 
     implementation rootProject.ext.dependencies["appcompat-v7"]
+    api name: 'voicelibrary', ext: 'aar'
 
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["runner"]

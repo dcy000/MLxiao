@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,26 +34,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-
 public class SignUp3AddressActivity extends BaseActivity {
 
-    @BindView(R.id.tv_sign_up_go_back)
+
     TextView tvGoBack;
-    @BindView(R.id.tv_sign_up_go_forward)
+
     TextView tvGoForward;
-    @BindView(R.id.sp_province)
+
     Spinner spProvince;
-    @BindView(R.id.sp_city)
+
     Spinner spCity;
-    @BindView(R.id.sp_county)
+
     Spinner spCounty;
-    @BindView(R.id.et_sign_up_address)
+
     EditText etAddress;
-    private Unbinder mUnbinder;
+    private ConstraintLayout clRoot;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, SignUp3AddressActivity.class);
@@ -67,8 +63,32 @@ public class SignUp3AddressActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up3_address);
+        clRoot = (ConstraintLayout) findViewById(R.id.cl_sign_up_root_address);
+        tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
+        tvGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
+        spProvince = (Spinner) findViewById(R.id.sp_province);
+        spCity = (Spinner) findViewById(R.id.sp_city);
+        spCounty = (Spinner) findViewById(R.id.sp_county);
+        etAddress = (EditText) findViewById(R.id.et_sign_up_address);
+        clRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClRootClicked();
+            }
+        });
+        tvGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoBackClicked();
+            }
+        });
+        tvGoForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoForwardClicked();
+            }
+        });
         mToolbar.setVisibility(View.GONE);
-        mUnbinder = ButterKnife.bind(this);
         initData();
         initLocation();
     }
@@ -158,14 +178,6 @@ public class SignUp3AddressActivity extends BaseActivity {
     };
 
     @Override
-    protected void onDestroy() {
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
-        super.onDestroy();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
@@ -197,7 +209,6 @@ public class SignUp3AddressActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.cl_sign_up_root_address)
     public void onClRootClicked() {
         View view = getCurrentFocus();
         if (view != null) {
@@ -205,12 +216,10 @@ public class SignUp3AddressActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
         finish();
     }
 
-    @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         String address = etAddress.getText().toString().trim();
         if (TextUtils.isEmpty(address)) {

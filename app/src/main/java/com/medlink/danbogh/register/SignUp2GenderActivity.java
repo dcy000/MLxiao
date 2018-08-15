@@ -14,26 +14,20 @@ import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-
 public class SignUp2GenderActivity extends BaseActivity {
 
-    @BindView(R.id.iv_sign_up_man)
+
     ImageView mIvMan;
-    @BindView(R.id.iv_sign_up_woman)
+
     ImageView mIvWoman;
-    @BindView(R.id.iv_rb_sign_up_man)
+
     ImageView mIvRbMan;
-    @BindView(R.id.iv_rb_sign_up_woman)
+
     ImageView mIvRbWoman;
-    @BindView(R.id.tv_sign_up_go_back)
+
     TextView mTvBack;
-    @BindView(R.id.tv_sign_up_go_forward)
+
     TextView mTvGoForward;
-    public Unbinder mUnbinder;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, SignUp2GenderActivity.class);
@@ -48,29 +42,49 @@ public class SignUp2GenderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up2_gender);
-        mToolbar.setVisibility(View.GONE);
-        mUnbinder = ButterKnife.bind(this);
-        initView();
-    }
+        mIvMan = (ImageView) findViewById(R.id.iv_sign_up_man);
+        mIvWoman = (ImageView) findViewById(R.id.iv_sign_up_woman);
+        mIvRbMan = (ImageView) findViewById(R.id.iv_rb_sign_up_man);
+        mIvRbWoman = (ImageView) findViewById(R.id.iv_rb_sign_up_woman);
+        mTvBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
+        mTvGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
+        mIvMan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onIvRbManClicked();
+            }
+        });
+        mIvRbWoman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onIvRbManClicked();
+            }
+        });
+        mTvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvBackClicked();
+            }
+        });
+        mTvGoForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoForwardClicked();
+            }
+        });
 
-    @Override
-    protected void onDestroy() {
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
-        super.onDestroy();
+        mToolbar.setVisibility(View.GONE);
+        initView();
     }
 
     private void initView() {
         selectMan(true);
     }
 
-    @OnClick(R.id.iv_sign_up_man)
     public void onIvRbManClicked() {
         selectMan(true);
     }
 
-    @OnClick(R.id.iv_sign_up_woman)
     public void onIvRbWomanClicked() {
         selectMan(false);
     }
@@ -87,12 +101,11 @@ public class SignUp2GenderActivity extends BaseActivity {
         speak(R.string.sign_up2_gender_tip);
     }
 
-    @OnClick(R.id.tv_sign_up_go_back)
+
     public void onTvBackClicked() {
         finish();
     }
 
-    @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         if (!mIvRbMan.isSelected() && !mIvRbWoman.isSelected()) {
             ToastUtils.showShort(R.string.sign_up2_gender_tip);
