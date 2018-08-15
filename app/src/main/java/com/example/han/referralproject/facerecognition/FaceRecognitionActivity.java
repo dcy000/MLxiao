@@ -104,7 +104,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     }
 
     private void leakCanary() {
-        BaseApplication.getRefWatcher(this).watch(this);
+//        BaseApplication.getRefWatcher(this).watch(this);
     }
 
     private void initParameter() {

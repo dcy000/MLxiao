@@ -17,18 +17,18 @@ public class BaseApplication extends Application{
     private static BaseApplication mInstance;
     public String userId;
     public String userName;
-    private RefWatcher refWatcher;
-    public static RefWatcher getRefWatcher(Context context) {
-        BaseApplication application = (BaseApplication) context.getApplicationContext();
-        return application.refWatcher;
-    }
+//    private RefWatcher refWatcher;
+//    public static RefWatcher getRefWatcher(Context context) {
+//        BaseApplication application = (BaseApplication) context.getApplicationContext();
+//        return application.refWatcher;
+//    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance=this;
 //        //初始化内存泄漏检测工具
-        refWatcher = LeakCanary.install(this);
+//        refWatcher = LeakCanary.install(this);
         //吐司工具类初始化
         ToastTool.init(this);
         //常用屏幕单位转换工具类
