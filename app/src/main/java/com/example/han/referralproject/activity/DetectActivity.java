@@ -1703,6 +1703,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
+            if (Type_Xueya.equals(detectType)) {
+                findViewById(R.id.device_cl_pressure).setVisibility(View.VISIBLE);
+            }
             mVideoView.setVisibility(View.GONE);
             mOverView.setVisibility(View.GONE);
         }
