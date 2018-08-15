@@ -23,7 +23,6 @@ public class BaseApplication extends Application{
         return application.refWatcher;
     }
 
-
     @Override
     public void onCreate() {
         super.onCreate();

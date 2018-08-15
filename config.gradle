@@ -50,17 +50,20 @@ ext {
 
     dependencies = [
             //support
+            "support-v4"                   : "com.android.support:support-v4:${version["androidSupportSdkVersion"]}",
             "appcompat-v7"                 : "com.android.support:appcompat-v7:${version["androidSupportSdkVersion"]}",
             "design"                       : "com.android.support:design:${version["androidSupportSdkVersion"]}",
-            "support-v4"                   : "com.android.support:support-v4:${version["androidSupportSdkVersion"]}",
+            "constraint-layout"            : "com.android.support.constraint:constraint-layout:${version["constraintLayoutVersion"]}",
             "cardview-v7"                  : "com.android.support:cardview-v7:${version["androidSupportSdkVersion"]}",
             "annotations"                  : "com.android.support:support-annotations:${version["androidSupportSdkVersion"]}",
             "recyclerview-v7"              : "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
             "support-core-ui"              : "com.android.support:support-core-ui:${version["androidSupportSdkVersion"]}",
             "support-core-utils"           : "com.android.support:support-core-utils:${version["androidSupportSdkVersion"]}",
-            "constraint-layout"            : "com.android.support.constraint:constraint-layout:${version["constraintLayoutVersion"]}",
 
             "lifecycle-extensions"         : "android.arch.lifecycle:extensions:${version["androidArchSdkVersion"]}",
+            "lifecycle-runtime"            : "android.arch.lifecycle:runtime:${version["androidArchSdkVersion"]}",
+            "viewmodel"                    : "android.arch.lifecycle:viewmodel:${version["androidArchSdkVersion"]}",
+            "livedata-core"                : "android.arch.lifecycle:livedata-core:${version["androidArchSdkVersion"]}",
 
             //network
             "retrofit"                     : "com.squareup.retrofit2:retrofit:${version["retrofitSdkVersion"]}",
@@ -152,6 +155,7 @@ ext {
             "blockCanary-release"          : "com.github.markzhai:blockcanary-no-op:${version["blockCanarySdkVersion"]}",
             "bugly-crashreport"            : "com.tencent.bugly:crashreport:latest.release",
             "bugly-nativecrashreport"      : "com.tencent.bugly:nativecrashreport:latest.release",
+            "bugly-crashreport_upgrade"    : "com.tencent.bugly:crashreport_upgrade:latest.release",
             "umeng-analytics"              : "com.umeng.analytics:analytics:6.0.1",
             "stetho"                       : "com.facebook.stetho:stetho:1.5.0",
             "stetho-okhttp3"               : "com.facebook.stetho:stetho-okhttp3:1.5.0",
