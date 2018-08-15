@@ -1,6 +1,6 @@
-ext.mainApp = true
-apply from: rootProject.file('cc-settings.gradle')
-//apply plugin: 'com.android.application'
+//ext.mainApp = true
+//apply from: rootProject.file('cc-settings.gradle')
+apply plugin: 'com.android.application'
 android {
     buildToolsVersion rootProject.ext.android.buildToolsVersion
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -121,15 +121,6 @@ dependencies {
     implementation name: 'vmtools', ext: 'aar'
     implementation name: 'voicelibrary', ext: 'aar'
 
-    //system
-    implementation 'com.android.support:support-v4:27.1.1'
-    testImplementation rootProject.ext.dependencies["junit"]
-    api rootProject.ext.dependencies["constraint-layout"]
-    api rootProject.ext.dependencies["support-v4"]
-    api rootProject.ext.dependencies["appcompat-v7"]
-    api rootProject.ext.dependencies["recyclerview-v7"]
-    api rootProject.ext.dependencies["design"]
-    api rootProject.ext.dependencies["cardview-v7"]
     //others
     api('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'

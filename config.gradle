@@ -61,6 +61,9 @@ ext {
             "constraint-layout"            : "com.android.support.constraint:constraint-layout:${version["constraintLayoutVersion"]}",
 
             "lifecycle-extensions"         : "android.arch.lifecycle:extensions:${version["androidArchSdkVersion"]}",
+            "livedata-core"                : "android.arch.lifecycle:livedata-core:${version["androidArchSdkVersion"]}",
+            "lifecycle-runtime"            : "android.arch.lifecycle:runtime:${version["androidArchSdkVersion"]}",
+            "viewmodel"                    : "android.arch.lifecycle:viewmodel:${version["androidArchSdkVersion"]}",
 
             //network
             "retrofit"                     : "com.squareup.retrofit2:retrofit:${version["retrofitSdkVersion"]}",

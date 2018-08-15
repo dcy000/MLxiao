@@ -41,7 +41,7 @@ public class PermissionsManager {
 
     private final Set<String> mPendingRequests = new HashSet<String>(1);
     private final Set<String> mPermissions = new HashSet<String>(1);
-    private final List<WeakReference<PermissionsResultAction>> mPendingActions = new ArrayList<WeakReference<PermissionsResultAction>>(1);
+    private final List<WeakReference<PermissionsResultAction>> mPendingActions;
 
     private static PermissionsManager mInstance = null;
 
@@ -53,6 +53,7 @@ public class PermissionsManager {
     }
 
     private PermissionsManager() {
+        mPendingActions= new ArrayList<>(1);
         initializePermissionsMap();
     }
 

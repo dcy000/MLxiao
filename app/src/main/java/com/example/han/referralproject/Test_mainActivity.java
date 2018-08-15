@@ -132,12 +132,16 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     MeasureVideoPlayActivity.startActivity(this, uri, null, "三合一测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case R.id.ll_tizhong://体重
+                case R.id.ll_tizhong:
+                    //体重
                     measureType = IPresenter.MEASURE_WEIGHT;
                     AllMeasureActivity.startActivity(this, measureType);
                     break;
-                case R.id.ll_more://敬请期待
+                case R.id.ll_more:
+                    //敬请期待
                     ToastUtils.showShort("敬请期待");
+                    break;
+                default:
                     break;
             }
         }
@@ -175,8 +179,11 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     case IPresenter.MEASURE_OTHERS:
                         intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_OTHERS);
                         break;
-                    case IPresenter.CONTROL_FINGERPRINT://指纹
+                    case IPresenter.CONTROL_FINGERPRINT:
+                        //指纹
                         intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.CONTROL_FINGERPRINT);
+                        break;
+                    default:
                         break;
                 }
                 startActivity(intent);

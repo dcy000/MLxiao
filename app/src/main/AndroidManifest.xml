@@ -149,7 +149,8 @@
 
         <activity
             android:name=".temperature.TemperatureActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            />
         <activity
             android:name=".activity.WifiConnectActivity"
             android:screenOrientation="landscape" />

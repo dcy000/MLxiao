@@ -28,5 +28,10 @@
             android:layout_height="wrap_content"
             android:onClick="onComponentCall"
             android:text="CC 启动 Activity" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onRegisterHead2XunfeiActivity"
+            android:text="CC 启动 RegisterHead2XunfeiActivity" />
     </LinearLayout>
 </ScrollView>

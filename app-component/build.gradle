@@ -1,3 +1,4 @@
+ext.mainApp = true
 apply from: rootProject.file('cc-settings.gradle')
 //apply from: 'https://raw.githubusercontent.com/luckybilly/CC/master/cc-settings.gradle'
 
@@ -65,7 +66,8 @@ dependencies {
 //    addComponent 'lib-call' //会默认添加依赖：project(':component-cc')
 //    addComponent 'demo_component_kt', project(':demo_component_kt') //module方式
 //    addComponent 'demo_component_b', 'com.billy.demo:demo_b:1.1.0'  //maven方式
-    addComponent 'lib-mlvoice'
+//    addComponent 'lib-mlvoice'
+    addComponent 'module-face_recognition'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     if (project.ext.runAsApp) {
@@ -77,6 +79,10 @@ dependencies {
     implementation rootProject.ext.dependencies["design"]
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["constraint-layout"]
+
+    implementation rootProject.ext.dependencies["livedata-core"]
+    implementation rootProject.ext.dependencies["lifecycle-runtime"]
+    implementation rootProject.ext.dependencies["viewmodel"]
 
     implementation rootProject.ext.dependencies["rxjava2"]
     implementation rootProject.ext.dependencies["rxandroid2"]

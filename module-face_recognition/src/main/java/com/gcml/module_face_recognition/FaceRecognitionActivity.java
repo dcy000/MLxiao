@@ -1,5 +1,6 @@
-package com.example.han.referralproject.facerecognition;
+package com.gcml.module_face_recognition;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,6 +8,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.SurfaceView;
 import android.view.View;
@@ -17,38 +19,38 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.Test_mainActivity;
-import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.homepage.MainActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.Utils;
-import com.example.han.referralproject.xindian.XinDianDetectActivity;
+import com.airbnb.lottie.utils.Utils;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.camera.CameraUtils;
+import com.gcml.lib_utils.data.DataUtils;
+import com.gcml.lib_utils.device.DeviceUtils;
 import com.gcml.lib_utils.display.ImageUtils;
 import com.gcml.lib_utils.display.LoadingProgressUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.thread.ThreadUtils;
-import com.gzq.administrator.lib_common.base.BaseApplication;
+import com.gcml.module_face_recognition.bean.UserInfoBean;
+import com.gcml.module_face_recognition.cc.CCResultActions;
+import com.gcml.module_face_recognition.faceutils.FaceAuthenticationUtils;
+import com.gcml.module_face_recognition.faceutils.IVertifyFaceListener;
+import com.gcml.module_face_recognition.manifests.SPManifest;
+import com.gcml.module_face_recognition.network.FaceRepository;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.signin.SignInActivity;
-import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
@@ -61,7 +63,7 @@ import timber.log.Timber;
  * 2.优化识别业务流程；
  * 3.解决点击跳过或者返回按钮会卡顿的问题
  */
-public class FaceRecognitionActivity extends BaseActivity implements View.OnClickListener,
+public class FaceRecognitionActivity extends AppCompatActivity implements View.OnClickListener,
         CameraUtils.CameraPreviewCallBack, SynthesizerListener, IVertifyFaceListener {
 
     private SurfaceView mSurfaceview;
@@ -81,8 +83,32 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     private String currentXfid;
     private int authenticationNum;
     private String[] accounts;
-    private ArrayList<UserInfoBean> mUsersInfo;
+    private List<UserInfoBean> mUsersInfo;
     private boolean isPhoto;
+
+    private interface CCResultConstants {
+        /**
+         * 点击了返回按钮
+         */
+        String PRESSED_BACK_BUTTON = "pressedBackButton";
+        /**
+         * 点击了跳过按钮
+         */
+        String PRESSED_JUMP_BUTTON = "pressedJumpButton";
+        /**
+         * 出错了
+         */
+        String ON_ERROR = "onError";
+        /**
+         * 用户拒绝了摄像头的权限
+         */
+        String USER_REFUSED_CAMERA_PERMISSION = "userRefusedCameraPermission";
+        /**
+         * 验证成功
+         */
+        String FACE_RECOGNITION_SUCCESS="faceRecognitionSuccess";
+
+    }
 
     public static void startActivity(Context context, Bundle bundle, boolean isForResult) {
         if (isForResult && bundle != null) {
@@ -98,14 +124,12 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_face_recognition);
+        setContentView(R.layout.face_recognition_activity_scan_face);
         initView();
         initParameter();
-        leakCanary();
-    }
-
-    private void leakCanary() {
-        BaseApplication.getRefWatcher(this).watch(this);
+        CameraUtils.getInstance().init(this, mSurfaceview,
+                1920, 1200, 856, 856);
+        CameraUtils.getInstance().setOnCameraPreviewCallback(this);
     }
 
     private void initParameter() {
@@ -116,49 +140,42 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
             orderid = params.getString("orderid");
             fromType = params.getString("fromType");
         }
-
-        CameraUtils.getInstance().init(this, mSurfaceview,
-                1920, 1200, 856, 856);
-        CameraUtils.getInstance().setOnCameraPreviewCallback(this);
-        circleAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_face_check);
-        mAuthid = LocalShared.getInstance(this).getXunfeiId();
-        groupid = LocalShared.getInstance(this).getGroupId();
-        currentXfid = LocalShared.getInstance(this).getXunfeiId();
-        accounts = LocalShared.getInstance(this).getAccounts();
+        circleAnimation = AnimationUtils.loadAnimation(this, R.anim.face_recognition_anim_rotate_face_check);
+        mAuthid = SPManifest.getXunfeiId();
+        groupid = SPManifest.getGroupId();
+        currentXfid = SPManifest.getXunfeiId();
+        accounts = SPManifest.getAccounts();
         getUsers();
     }
 
+    @SuppressLint("CheckResult")
     private void getUsers() {
-        ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<Void>() {
-            @Nullable
-            @Override
-            public Void doInBackground() {
+        if (accounts == null) {
+            return;
+        }
+        StringBuilder mAccountIdBuilder = new StringBuilder();
+        for (String item : accounts) {
+            mAccountIdBuilder.append(item.split(",")[0]).append(",");
+        }
+        String param = mAccountIdBuilder.substring(0, mAccountIdBuilder.length() - 1);
+        FaceRepository.getAllUsersInformation(param)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<List<UserInfoBean>>() {
+                    @Override
+                    public void onNext(List<UserInfoBean> userInfoBeans) {
+                        mUsersInfo = userInfoBeans;
+                    }
 
-                if (accounts == null) {
-                    return null;
-                }
-                StringBuilder mAccountIdBuilder = new StringBuilder();
-                for (String item : accounts) {
-                    mAccountIdBuilder.append(item.split(",")[0]).append(",");
-                }
-                NetworkApi.getAllUsers(mAccountIdBuilder.substring(0, mAccountIdBuilder.length() - 1),
-                        new NetworkManager.SuccessCallback<ArrayList<UserInfoBean>>() {
-                            @Override
-                            public void onSuccess(ArrayList<UserInfoBean> response) {
-                                if (response == null) {
-                                    return;
-                                }
-                                mUsersInfo = response;
-                            }
-                        });
-                return null;
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                    }
 
-            @Override
-            public void onSuccess(@Nullable Void result) {
-
-            }
-        });
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
     @Override
@@ -170,7 +187,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(MyApplication.getInstance(), "主人，请对准摄像头",
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请对准摄像头",
                 this, false);
 
     }
@@ -186,45 +203,44 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.iv_back:
-                finish();
-                break;
-            case R.id.tiao_guo:
-                if (isTest) {
-                    startActivity(new Intent(this, Test_mainActivity.class)
-                            .putExtra("isTest", isTest));
-                    return;
-                }
+        int i = v.getId();
+        if (i == R.id.iv_back) {
+            finish();
 
-                if ("Test".equals(fromWhere)) {
-                    Intent intent = new Intent();
-                    if (TextUtils.isEmpty(fromType)) {
-                        intent.setClass(this, Test_mainActivity.class);
-                    } else if ("xindian".equals(fromType)) {
-                        intent.setClass(this, XinDianDetectActivity.class);
-                    } else {
-                        intent.setClass(this, DetectActivity.class);
-                        intent.putExtra("type", fromType);
-                    }
-                    startActivity(intent);
-                } else if ("Welcome".equals(fromWhere)) {
-                    startActivity(new Intent(this, SignInActivity.class));
-                }
-                finish();
-                break;
+        } else if (i == R.id.tiao_guos) {
+            CCResultActions.onCCResultAction(RegisterHead2XunfeiActivity.CCResultConstant.PRESSED_JUMP_BUTTON);
+            finish();
+//                if (isTest) {
+//                    startActivity(new Intent(this, Test_mainActivity.class)
+//                            .putExtra("isTest", isTest));
+//                    return;
+//                }
+//                if ("Test".equals(fromWhere)) {
+//                    Intent intent = new Intent();
+//                    if (TextUtils.isEmpty(fromType)) {
+//                        intent.setClass(this, Test_mainActivity.class);
+//                    } else if ("xindian".equals(fromType)) {
+//                        intent.setClass(this, XinDianDetectActivity.class);
+//                    } else {
+//                        intent.setClass(this, DetectActivity.class);
+//                        intent.putExtra("type", fromType);
+//                    }
+//                    startActivity(intent);
+//                } else if ("Welcome".equals(fromWhere)) {
+//                    startActivity(new Intent(this, SignInActivity.class));
+//                }
+
+        } else {
         }
     }
 
     private void initView() {
-        mSurfaceview = findViewById(R.id.surfaceview);
+        mSurfaceview = findViewById(R.id.sfv_preview);
         mLottAnimation = findViewById(R.id.lott_animation);
         mIvCircle = findViewById(R.id.iv_circle);
         mIvBack = findViewById(R.id.iv_back);
         mIvBack.setOnClickListener(this);
-        mTiaoGuo = findViewById(R.id.tiao_guo);
+        mTiaoGuo = findViewById(R.id.tiao_guos);
         mTiaoGuo.setOnClickListener(this);
         mTvTip = findViewById(R.id.tv_tip);
         mPreImg = findViewById(R.id.pre_img);
@@ -316,10 +332,12 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
         mIvCircle.clearAnimation();
         mLottAnimation.reverseAnimation();
     }
-    private void destroyAnimation(){
+
+    private void destroyAnimation() {
         mIvCircle.clearAnimation();
         mLottAnimation.cancelAnimation();
     }
+
     //==========================头像识别监听======================================================
     @Override
     public void onResult(IdentityResult result, boolean islast) {
@@ -376,7 +394,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
         LoadingProgressUtils.dismissView();
         if (authenticationNum < 5) {
             authenticationNum++;
-            ToastUtils.showShort("第" + Utils.getChineseNumber(authenticationNum) + "次验证失败");
+            ToastUtils.showShort("第" + DataUtils.getChineseNumber(authenticationNum) + "次验证失败");
             retryPreviewHead(3000);
         } else {
             Timber.e("验证次数超过5次");
@@ -384,34 +402,51 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
         }
     }
 
+    @SuppressLint("CheckResult")
     private void dealPayResult(String scoreFirstXfid) {
         if (mAuthid.equals(scoreFirstXfid)) {
-            NetworkApi.pay_status(MyApplication.getInstance().userId, Utils.getDeviceId(), orderid,
-                    new NetworkManager.SuccessCallback<String>() {
+            //验证成功
+            FaceRepository.syncPayOrderId(SPManifest.getUserId(), DeviceUtils.getIMEI(), orderid)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribeWith(new DefaultObserver<String>() {
                         @Override
-                        public void onSuccess(String response) {
-                            recognitionSuccess(MyApplication.getInstance().userId);
+                        public void onNext(String s) {
+                            recognitionSuccess(SPManifest.getUserId());
                         }
 
-                    }, new NetworkManager.FailedCallback() {
                         @Override
-                        public void onFailed(String message) {
+                        public void onError(Throwable e) {
                             Timber.e("支付同步订单失败");
                             recognitionFail();
                         }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
                     });
         } else {
-            NetworkApi.pay_cancel("3", "0", "1", orderid,
-                    new NetworkManager.SuccessCallback<String>() {
+            //验证失败
+            FaceRepository.cancelPayOrderId("3", "0", "1", orderid)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribeWith(new DefaultObserver<String>() {
                         @Override
-                        public void onSuccess(String response) {
+                        public void onNext(String s) {
                             Timber.e("非本人支付");
                             recognitionFail();
                         }
 
-                    }, new NetworkManager.FailedCallback() {
                         @Override
-                        public void onFailed(String message) {
+                        public void onError(Throwable e) {
+                            Timber.e("取消订单失败");
+                        }
+
+                        @Override
+                        public void onComplete() {
 
                         }
                     });
@@ -419,34 +454,34 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     }
 
     private void authenticationSuccessForTest(String scoreFirstXfid) {
-        if (mUsersInfo != null) {
-            boolean isInclude_PassPerson = false;
-            String userId = null;
-//            Timber.e("人数："+mUsersInfo.size());
-            for (int i = 0; i < mUsersInfo.size(); i++) {
-                UserInfoBean user = mUsersInfo.get(i);
-//                Timber.e("讯飞id："+user.xfid);
-                if (user.xfid.equals(scoreFirstXfid)) {
-//                    Timber.e("识别到的讯飞id" + user.xfid + "++++识别到的人" + user.bname);
-                    userId = user.bid;
-                    LocalShared.getInstance(this).setUserInfo(user);
-                    LocalShared.getInstance(this).setSex(user.sex);
-                    LocalShared.getInstance(this).setUserPhoto(user.userPhoto);
-                    LocalShared.getInstance(this).setUserAge(user.age);
-                    LocalShared.getInstance(this).setUserHeight(user.height);
-                    isInclude_PassPerson = true;
-                    break;
-                } else {
-                    isInclude_PassPerson = false;
-                }
-            }
-            if (isInclude_PassPerson) {
-                recognitionSuccess(userId);
-            } else {
-                Timber.e("不包含这个人");
-                recognitionFail();
-            }
-        }
+//        if (mUsersInfo != null) {
+//            boolean isInclude_PassPerson = false;
+//            String userId = null;
+////            Timber.e("人数："+mUsersInfo.size());
+//            for (int i = 0; i < mUsersInfo.size(); i++) {
+//                UserInfoBean user = mUsersInfo.get(i);
+////                Timber.e("讯飞id："+user.xfid);
+//                if (user.xfid.equals(scoreFirstXfid)) {
+////                    Timber.e("识别到的讯飞id" + user.xfid + "++++识别到的人" + user.bname);
+//                    userId = user.bid;
+//                    LocalShared.getInstance(this).setUserInfo(user);
+//                    LocalShared.getInstance(this).setSex(user.sex);
+//                    LocalShared.getInstance(this).setUserPhoto(user.userPhoto);
+//                    LocalShared.getInstance(this).setUserAge(user.age);
+//                    LocalShared.getInstance(this).setUserHeight(user.height);
+//                    isInclude_PassPerson = true;
+//                    break;
+//                } else {
+//                    isInclude_PassPerson = false;
+//                }
+//            }
+//            if (isInclude_PassPerson) {
+//                recognitionSuccess(userId);
+//            } else {
+//                Timber.e("不包含这个人");
+//                recognitionFail();
+//            }
+//        }
     }
 
     /**
@@ -464,7 +499,7 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     private void recognitionFail() {
         if ("Welcome".equals(fromWhere)) {
             ToastUtils.showLong("该机器人没有此账号的人脸认证信息，请手动登录");
-            startActivity(new Intent(this, SignInActivity.class));
+//            startActivity(new Intent(this, SignInActivity.class));
         } else if ("Test".equals(fromWhere) || "Pay".equals(fromType)) {
             ToastUtils.showShort("验证未通过");
 //            MLVoiceSynthetize.startSynthesize(this, getString(R.string.shop_yanzheng), false);
@@ -479,24 +514,24 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
      */
     private void recognitionSuccess(String userId) {
 
-        ToastUtils.showShort("通过验证");
-        if ("Welcome".equals(fromWhere)) {
-            startActivity(new Intent(this, MainActivity.class));
-        } else if ("Test".equals(fromWhere)) {
-            new JpushAliasUtils(this).setAlias("user_" + userId);
-            Intent intent = new Intent();
-            if (TextUtils.isEmpty(fromType)) {
-                intent.setClass(this, Test_mainActivity.class);
-            } else if ("xindian".equals(fromType)) {
-                intent.setClass(this, XinDianDetectActivity.class);
-            } else {
-                intent.setClass(this, DetectActivity.class);
-                intent.putExtra("type", fromType);
-            }
-            startActivity(intent);
-        } else if ("Pay".equals(fromType)) {
-            setResult(RESULT_OK);
-        }
-        finish();
+//        ToastUtils.showShort("通过验证");
+//        if ("Welcome".equals(fromWhere)) {
+//            startActivity(new Intent(this, MainActivity.class));
+//        } else if ("Test".equals(fromWhere)) {
+//            new JpushAliasUtils(this).setAlias("user_" + userId);
+//            Intent intent = new Intent();
+//            if (TextUtils.isEmpty(fromType)) {
+//                intent.setClass(this, Test_mainActivity.class);
+//            } else if ("xindian".equals(fromType)) {
+//                intent.setClass(this, XinDianDetectActivity.class);
+//            } else {
+//                intent.setClass(this, DetectActivity.class);
+//                intent.putExtra("type", fromType);
+//            }
+//            startActivity(intent);
+//        } else if ("Pay".equals(fromType)) {
+//            setResult(RESULT_OK);
+//        }
+//        finish();
     }
 }
