@@ -74,7 +74,7 @@ dependencies {
 //    addComponent 'demo_component_kt', project(':demo_component_kt') //module方式
 //    addComponent 'demo_component_b', 'com.billy.demo:demo_b:1.1.0'  //maven方式
 //    addComponent 'lib-mlvoice'
-    addComponent 'lib-recreation'
+//    addComponent 'lib-recreation'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     if (project.ext.runAsApp) {

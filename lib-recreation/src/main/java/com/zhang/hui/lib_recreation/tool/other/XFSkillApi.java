@@ -1,8 +1,11 @@
 package com.zhang.hui.lib_recreation.tool.other;
 
 
+import android.content.Context;
+
 import com.gcml.common.BuildConfig;
 import com.gcml.common.utils.Utils;
+import com.gcml.lib_utils.device.DeviceUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhang.hui.lib_recreation.app.RecreationApp;
@@ -350,10 +353,12 @@ public class XFSkillApi {
 
     }
 
+    Context context;
+
     private static Call initPostCall(String contentText) {
         getClient();
         RequestBody body = new FormBody.Builder()
-                .add("eqid", Utils.getDeviceId(RecreationApp.application.getContentResolver()))
+                .add("eqid", DeviceUtils.getAndroidId())
                 .add("text", contentText)
                 .build();
         Request request = new Request.Builder()
