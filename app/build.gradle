@@ -99,6 +99,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //cc
     addComponent 'module-face_recognition'
+    addComponent 'lib-recreation'
 
     if (project.ext.runAsApp) {
         implementation project(":lib-common-business")
@@ -108,6 +109,7 @@ dependencies {
 
     //lib
     implementation project(':wkvideoplayer')
+    implementation project(':lib-widget')
     implementation project(':module-edu')
     implementation project(':lib-video-player')
     implementation project(':unit')
