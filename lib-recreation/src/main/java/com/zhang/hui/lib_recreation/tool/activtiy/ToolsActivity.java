@@ -1,5 +1,6 @@
 package com.zhang.hui.lib_recreation.tool.activtiy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -56,7 +57,9 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
         } else if (i == R.id.iv_riqi_chaxun) {
         } else if (i == R.id.iv_caipu) {
         } else if (i == R.id.iv_baike) {
+            startActivity(new Intent(this, BaikeActivity.class));
         } else if (i == R.id.iv_jisuan) {
+            startActivity(new Intent(this, CalculationActivity.class));
         } else if (i == R.id.iv_caimi) {
         } else if (i == R.id.iv_shengxiao) {
         } else if (i == R.id.iv_tongfan_ci) {

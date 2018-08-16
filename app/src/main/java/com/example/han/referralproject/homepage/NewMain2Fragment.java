@@ -74,8 +74,8 @@ public class NewMain2Fragment extends BaseFragment implements View.OnClickListen
                 OldRouter.routeToOldHomeActivity(getActivity());
                 break;
             case R.id.iv_communicate:
-                startActivity(new Intent(getContext(), SpeechSynthesisActivity.class));
-//                CC.obtainBuilder("app.component.recreation").build().callAsync();
+//                startActivity(new Intent(getContext(), SpeechSynthesisActivity.class));
+                CC.obtainBuilder("app.component.recreation").build().callAsync();
                 break;
             case R.id.iv_check_self:
                 DiseaseUser diseaseUser = new DiseaseUser(

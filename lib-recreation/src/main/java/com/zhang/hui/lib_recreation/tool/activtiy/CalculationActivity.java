@@ -9,21 +9,65 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.lib_widget.VoiceLineView;
+import com.iflytek.cloud.RecognizerListener;
+import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.zhang.hui.lib_recreation.R;
+import com.zhang.hui.lib_recreation.tool.dialog.CalculationDialog;
 import com.zhang.hui.lib_recreation.tool.other.StringUtil;
 import com.zhang.hui.lib_recreation.tool.other.XFSkillApi;
-import com.zhang.hui.lib_recreation.tool.xfparsebean.BaiKeBean;
 
-import java.util.List;
-
-public class BaikeActivity extends AppCompatActivity implements View.OnClickListener {
+public class CalculationActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**
-     * 百科
+     * 计算
+     */
+    private TextView mTvTitle;
+    /**
+     * 返回
+     */
+    private TextView mTvBack;
+    /**
+     * 5÷2等于多少？
+     */
+    private TextView mTvDemo5;
+    /**
+     * 2+2+2+2+2-3/4=？
+     */
+    private TextView mTvDemo4;
+    /**
+     * 数值计算
+     */
+    private TextView mTvNotice;
+    /**
+     * 您可以这样提问：
+     */
+    private TextView mTvNoticeDemo;
+    /**
+     * 45的三次方等于多少？
+     */
+    private TextView mTvDemo1;
+    /**
+     * 根号76等于多少？
+     */
+    private TextView mTvDemo2;
+    /**
+     * 45与53的差是多少？
+     */
+    private TextView mTvDemo3;
+    private ImageView mIvYuyin;
+    /**
+     * 按下请说话
+     */
+    private TextView mTextView4;
+    private VoiceLineView mVlWave;
+    private ConstraintLayout mClStart;
+    /**
+     * 计算
      */
     private TextView tvTitle;
     /**
@@ -31,7 +75,15 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
      */
     private TextView tvBack;
     /**
-     * 互动百科，解决您的问题
+     * 5÷2等于多少？
+     */
+    private TextView tvDemo5;
+    /**
+     * 2+2+2+2+2-3/4=？
+     */
+    private TextView tvDemo4;
+    /**
+     * 数值计算
      */
     private TextView tvNotice;
     /**
@@ -39,15 +91,15 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
      */
     private TextView tvNoticeDemo;
     /**
-     * 周星驰的百科。
+     * 45的三次方等于多少？
      */
     private TextView tvDemo1;
     /**
-     * 百科催眠大师。
+     * 根号76等于多少？
      */
     private TextView tvDemo2;
     /**
-     * 看看成都的百科。
+     * 45与53的差是多少？
      */
     private TextView tvDemo3;
     private ImageView ivYuyin;
@@ -61,34 +113,30 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_baike);
+        setContentView(R.layout.activity_calculation);
         initView();
-        speak("主人,欢迎来到百科");
         initEvent();
     }
 
-    private void speak(String text) {
-        MLVoiceSynthetize.startSynthesize(this, text, false);
+    private void initEvent() {
+        tvBack.setOnClickListener(v -> finish());
     }
 
-    private void initEvent() {
-        tvBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,欢迎来到计算", false);
     }
 
     private void initView() {
         tvTitle = (TextView) findViewById(R.id.tv_title);
-        tvTitle.setOnClickListener(this);
         tvBack = (TextView) findViewById(R.id.tv_back);
-        tvBack.setOnClickListener(this);
+        tvDemo5 = (TextView) findViewById(R.id.tv_demo5);
+        tvDemo5.setOnClickListener(this);
+        tvDemo4 = (TextView) findViewById(R.id.tv_demo4);
+        tvDemo4.setOnClickListener(this);
         tvNotice = (TextView) findViewById(R.id.tv_notice);
-        tvNotice.setOnClickListener(this);
         tvNoticeDemo = (TextView) findViewById(R.id.tv_notice_demo);
-        tvNoticeDemo.setOnClickListener(this);
         tvDemo1 = (TextView) findViewById(R.id.tv_demo1);
         tvDemo1.setOnClickListener(this);
         tvDemo2 = (TextView) findViewById(R.id.tv_demo2);
@@ -105,7 +153,13 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.tv_demo1) {
+        if (i == R.id.tv_demo5) {
+            String demo5 = tvDemo5.getText().toString();
+            getDreamData(demo5);
+        } else if (i == R.id.tv_demo4) {
+            String demo4 = tvDemo4.getText().toString();
+            getDreamData(demo4);
+        } else if (i == R.id.tv_demo1) {
             String demo1 = tvDemo1.getText().toString();
             getDreamData(demo1);
         } else if (i == R.id.tv_demo2) {
@@ -118,19 +172,8 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
             MLVoiceSynthetize.stop();
             onEndOfSpeech();
             startListener();
+
         }
-    }
-
-    private boolean isStart;
-    int recordTotalTime = 0;
-    private Handler mainHandler = new Handler();
-
-    private void onEndOfSpeech() {
-        vlWave.setVisibility(View.GONE);
-        vlWave.stopRecord();
-        isStart = false;
-        recordTotalTime = 0;
-        mainHandler.removeCallbacksAndMessages(null);
     }
 
     private void startListener() {
@@ -147,7 +190,7 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onMLEndOfSpeech() {
-                BaikeActivity.this.onEndOfSpeech();
+                CalculationActivity.this.onEndOfSpeech();
                 textView4.setVisibility(View.VISIBLE);
             }
 
@@ -158,10 +201,50 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onMLError(SpeechError error) {
-                speak("主人,我没有听清,你能再说一遍吗?");
+                MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,我不会算了", false);
+            }
+        });
+    }
+
+
+    private void getDreamData(final String result) {
+        XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
+
+            @Override
+            public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
+                if (!"calc".equals(service)) {
+//                    ToastUtil.showShort(CalculationActivity.this, "主人,我不会算" + question);
+                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,我不会算了", false);
+                    return;
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        CalculationDialog calculationDialog = new CalculationDialog();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("question", result);
+                        bundle.putString("answer", anwserText);
+                        calculationDialog.setArguments(bundle);
+                        calculationDialog.show(getSupportFragmentManager(), "calculation");
+                    }
+                });
+
             }
         });
 
+
+    }
+
+    private boolean isStart;
+    int recordTotalTime = 0;
+    private Handler mainHandler = new Handler();
+
+    private void onEndOfSpeech() {
+        vlWave.setVisibility(View.GONE);
+        vlWave.stopRecord();
+        isStart = false;
+        recordTotalTime = 0;
+        mainHandler.removeCallbacksAndMessages(null);
     }
 
     private void showWave() {
@@ -185,41 +268,10 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
         }, 1000);
     }
 
-
     private void updateTimerUI(int recordTotalTime) {
         String string = String.format("%s", StringUtil.formatTime(recordTotalTime));
         vlWave.setText(string);
     }
-
-
-    private void getDreamData(final String result) {
-        XFSkillApi.getSkillData(result, new XFSkillApi.getDataListener() {
-
-            @Override
-            public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
-                if (!"baike".equals(service)) {
-                    speak("主人,没有找到" + result);
-                    return;
-                }
-                try {
-                    List<BaiKeBean> data = (List<BaiKeBean>) anwser;
-                    BaikeResultActivity.startMe(BaikeActivity.this, data, result);
-                } catch (Exception e) {
-                    speak("主人,没有找到" + result);
-                }
-            }
-        });
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        MLVoiceRecognize.stop();
-        MLVoiceSynthetize.stop();
-        mainHandler.removeCallbacksAndMessages(null);
-    }
 }
-
 
 

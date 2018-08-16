@@ -10,9 +10,10 @@
         android:layout_height="64dp"
         android:background="@drawable/bar_bk"
         android:gravity="center"
-        android:text="百科"
+        android:text="计算"
         android:textColor="#FFF"
         android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +40,7 @@
         android:id="@+id/cl_start"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/bg_bk"
+        android:background="@drawable/bg_js"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -47,12 +48,34 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_title">
 
         <TextView
+            android:id="@+id/tv_demo5"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:layout_marginTop="25dp"
+            android:text="5÷2等于多少？"
+            android:textColor="@color/baike_color_set"
+            android:textSize="28dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_demo4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_demo4" />
+
+        <TextView
+            android:id="@+id/tv_demo4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="2+2+2+2+2-3/4=？"
+            android:textColor="@color/baike_color_set"
+            android:textSize="32dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_demo3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_demo3" />
+
+        <TextView
             android:id="@+id/tv_notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="40dp"
-            android:text="互动百科，解决您的问题"
+            android:text="数值计算"
             android:textAlignment="viewStart"
             android:textColor="#FF333333"
             android:textSize="32dp"
@@ -73,13 +96,13 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_notice" />
-        <!--android:textColor="#FF678CFF"-->
+
         <TextView
             android:id="@+id/tv_demo1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="周星驰的百科。"
+            android:text="45的三次方等于多少？"
             android:textColor="@color/baike_color_set"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_notice_demo"
@@ -90,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginTop="25dp"
-            android:text="百科催眠大师。"
+            android:text="根号76等于多少？"
             android:textColor="@color/baike_color_set"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo1"
@@ -101,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="看看成都的百科。"
+            android:text="45与53的差是多少？"
             android:textColor="@color/baike_color_set"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="@+id/tv_demo2"
