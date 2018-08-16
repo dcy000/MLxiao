@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".tool.activtiy.CalculationActivity" />
-        <activity android:name=".tool.activtiy.CookBookActivity"></activity>
+        <activity android:name=".tool.activtiy.CookBookActivity" />
+        <activity android:name=".tool.activtiy.CookBookResultActivity"></activity>
     </application>
 
 </manifest>

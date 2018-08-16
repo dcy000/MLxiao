@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.lib_widget.VoiceLineView;
-import com.iflytek.cloud.RecognizerListener;
-import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
@@ -18,6 +16,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.zhang.hui.lib_recreation.R;
 import com.zhang.hui.lib_recreation.tool.other.StringUtil;
 import com.zhang.hui.lib_recreation.tool.other.XFSkillApi;
+import com.zhang.hui.lib_recreation.tool.xfparsebean.CookbookBean;
 
 import java.util.List;
 
@@ -187,7 +186,7 @@ public class CookBookActivity extends AppCompatActivity implements View.OnClickL
                     return;
                 }
                 try {
-//                    CookBookResultActivity.StartMe(CookBookActivity.this, (List<CookbookBean>) anwser, result);
+                    CookBookResultActivity.StartMe(CookBookActivity.this, (List<CookbookBean>) anwser, result);
                 } catch (Exception e) {
                     MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,没有找到该菜谱", false);
                 }
