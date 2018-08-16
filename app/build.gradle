@@ -47,7 +47,8 @@ android {
 
         debug {
             debuggable true
-            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
+//            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.api.spareUrl)
         }
     }
 

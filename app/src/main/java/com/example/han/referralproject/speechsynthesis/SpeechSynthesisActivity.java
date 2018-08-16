@@ -1586,6 +1586,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             speak(text, isDefaultParam);
             return;
         }
+
+        if (!empty){
+            speak(text);
+            return;
+        }
         str1 = empty ? "我真的不知道了" : text;
 
 //        try {

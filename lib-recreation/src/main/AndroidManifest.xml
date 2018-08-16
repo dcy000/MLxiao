@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".tool.activtiy.BaikeActivity" />
-        <activity android:name=".tool.activtiy.BaikeResultActivity"></activity>
+        <activity android:name=".tool.activtiy.BaikeResultActivity" />
+        <activity android:name=".tool.activtiy.ToolsActivity"></activity>
     </application>
 
 </manifest>
