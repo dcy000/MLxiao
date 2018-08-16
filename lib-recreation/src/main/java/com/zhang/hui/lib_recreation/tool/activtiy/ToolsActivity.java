@@ -56,6 +56,7 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
         } else if (i == R.id.iv_jinjintian) {
         } else if (i == R.id.iv_riqi_chaxun) {
         } else if (i == R.id.iv_caipu) {
+            startActivity(new Intent(this, CookBookActivity.class));
         } else if (i == R.id.iv_baike) {
             startActivity(new Intent(this, BaikeActivity.class));
         } else if (i == R.id.iv_jisuan) {

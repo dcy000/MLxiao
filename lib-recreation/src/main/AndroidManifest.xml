@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".tool.activtiy.CalculationActivity"></activity>
+        <activity android:name=".tool.activtiy.CalculationActivity" />
+        <activity android:name=".tool.activtiy.CookBookActivity"></activity>
     </application>
 
 </manifest>
