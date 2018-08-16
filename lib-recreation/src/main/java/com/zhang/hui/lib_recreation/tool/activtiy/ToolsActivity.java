@@ -54,6 +54,7 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
         if (i == R.id.iv_jiemeng) {
 
         } else if (i == R.id.iv_jinjintian) {
+            startActivity(new Intent(this, HistoryTodayActivity.class));
         } else if (i == R.id.iv_riqi_chaxun) {
             startActivity(new Intent(this, DateInquireActivity.class));
         } else if (i == R.id.iv_caipu) {
@@ -65,7 +66,6 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
         } else if (i == R.id.iv_caimi) {
         } else if (i == R.id.iv_shengxiao) {
         } else if (i == R.id.iv_tongfan_ci) {
-        } else {
         }
     }
 }

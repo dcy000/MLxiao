@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -41,18 +40,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
 
-        <com.gcml.lib_widget.ExpandTextView
+        <com.hymane.expandtextview.ExpandTextView
             android:id="@+id/expandableTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:contentTextSize="28sp"
-
             app:expandHint="点击展开"
-            app:foldHint="点击收回" />
+            app:foldHint="点击收回"
+
+            app:contentTextSize="28sp"
+            android:orientation="vertical"/>
 
 
-        <com.gcml.lib_widget.MixtureTextView
+
+        <com.example.han.referralproject.tool.wrapview.MixtureTextView
             android:id="@+id/mt_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:scaleType="fitXY" />
-        </com.gcml.lib_widget.MixtureTextView>
+        </com.example.han.referralproject.tool.wrapview.MixtureTextView>
     </FrameLayout>
 
     <View

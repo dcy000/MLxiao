@@ -10,6 +10,9 @@ import android.graphics.Bitmap;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class Utils {
     @SuppressLint("MissingPermission")
@@ -89,5 +92,12 @@ public class Utils {
         }
 
         return result;
+    }
+
+
+    public static String getDateToString(long milSecond, String pattern) {
+        Date date = new Date(milSecond);
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        return format.format(date);
     }
 }
