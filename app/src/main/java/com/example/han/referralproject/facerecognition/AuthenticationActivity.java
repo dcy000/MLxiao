@@ -34,12 +34,13 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.UserInfoBean;
+import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -52,7 +53,7 @@ import com.gcml.lib_utils.permission.PermissionsResultAction;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
-import com.gcml.auth.signin.SignInActivity;
+import com.gcml.old.auth.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 
@@ -187,7 +188,8 @@ public class AuthenticationActivity extends BaseActivity {
             } else {
                 if ("Welcome".equals(fromString)) {
                     ToastUtils.showLong("该机器人没有此账号的人脸认证信息，请手动登录");
-                    startActivity(new Intent(weakReference.get(), SignInActivity.class));
+                    CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+//                    startActivity(new Intent(weakReference.get(), SignInActivity.class));
                 } else if ("Test".equals(fromString)) {
                     ToastUtils.showLong("验证不通过!");
                 }
@@ -438,7 +440,8 @@ public class AuthenticationActivity extends BaseActivity {
                     }
                     startActivity(intent);
                 } else if ("Welcome".equals(fromString)) {
-                    startActivity(new Intent(AuthenticationActivity.this, SignInActivity.class));
+                    CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+//                    startActivity(new Intent(AuthenticationActivity.this, SignInActivity.class));
                 }
                 finishActivity();
             }

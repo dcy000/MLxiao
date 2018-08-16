@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_tab1_personal_info"
-    tools:context="com.gcml.auth.register.SignUp7HeightActivity">
+    tools:context="com.gcml.old.auth.register.SignUp7HeightActivity">
 
     <TextView
         android:id="@+id/tv_sign_up_height"

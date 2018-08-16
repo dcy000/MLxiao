@@ -71,6 +71,7 @@ dependencies {
     implementation rootProject.ext.dependencies['gson']
     implementation rootProject.ext.dependencies['okhttp3']
     //core lib
+    implementation project(":lib-common-business")
     implementation project(":lib-common-core")
     implementation project(":lib-utils")
     api project(':lib-widget')

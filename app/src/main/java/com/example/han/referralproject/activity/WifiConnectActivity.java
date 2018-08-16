@@ -22,12 +22,13 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.gcml.lib_utils.network.WiFiUtil;
-import com.gcml.auth.signin.SignInActivity;
+import com.gcml.old.auth.signin.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,7 +181,8 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                         if (isFirstWifi){
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                startActivity(new Intent(mContext, SignInActivity.class));
+                                CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+//                                startActivity(new Intent(mContext, SignInActivity.class));
                             } else {
                                 startActivity(new Intent(mContext, MainActivity.class));
                             }

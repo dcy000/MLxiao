@@ -102,11 +102,11 @@ dependencies {
     addComponent 'lib-recreation'
 
     if (project.ext.runAsApp) {
-        implementation project(":lib-common-business")
+        implementation project(":lib-common-app")
     }
 
+    implementation project(":lib-common-business")
     implementation project(":lib-common-core")
-
     //lib
     implementation project(':wkvideoplayer')
     implementation project(':lib-widget')

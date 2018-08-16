@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F7FDFF"
-    tools:context="com.gcml.auth.signin.SignInActivity">
+    tools:context="com.gcml.old.auth.signin.SignInActivity">
 
     <RelativeLayout
         android:id="@+id/rl_back"

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_tab1_personal_info"
-    tools:context="com.gcml.auth.register.SignUp3AddressActivity">
+    tools:context="com.gcml.old.auth.register.SignUp3AddressActivity">
 
     <TextView
         android:id="@+id/tv_sign_up_address"

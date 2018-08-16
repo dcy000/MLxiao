@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/bg_tab2_health_info"
     android:layout_height="match_parent"
-    tools:context="com.gcml.auth.register.SignUp14DiseaseHistoryActivity">
+    tools:context="com.gcml.old.auth.register.SignUp14DiseaseHistoryActivity">
 
     <TextView
         android:id="@+id/tv_sign_up_title"

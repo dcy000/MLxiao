@@ -29,7 +29,7 @@ import com.example.han.referralproject.bean.SymptomBean;
 import com.example.han.referralproject.bean.SymptomResultBean;
 import com.example.han.referralproject.bean.TemperatureHistory;
 import com.example.han.referralproject.bean.UserInfo;
-import com.example.han.referralproject.bean.UserInfoBean;
+import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.bean.WeeklyReport;
 import com.example.han.referralproject.bean.WeightHistory;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_tab3_contract_doctor"
-    tools:context="com.gcml.auth.register.ConfirmContractActivity">
+    tools:context="com.gcml.old.auth.register.ConfirmContractActivity">
 
     <View
         android:id="@+id/line_center_vertical"

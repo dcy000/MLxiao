@@ -30,6 +30,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
@@ -59,22 +60,22 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.gcml.auth.register.SignUp10EatActivity;
-import com.gcml.auth.register.SignUp11SmokeActivity;
-import com.gcml.auth.register.SignUp12DrinkActivity;
-import com.gcml.auth.register.SignUp13SportsActivity;
-import com.gcml.auth.register.SignUp14DiseaseHistoryActivity;
-import com.gcml.auth.register.SignUp1NameActivity;
-import com.gcml.auth.register.SignUp2GenderActivity;
-import com.gcml.auth.register.SignUp3AddressActivity;
-import com.gcml.auth.register.SignUp4IdCardActivity;
-import com.gcml.auth.register.SignUp5MobileVerificationActivity;
-import com.gcml.auth.register.SignUp6PasswordActivity;
-import com.gcml.auth.register.SignUp7HeightActivity;
-import com.gcml.auth.register.SignUp8WeightActivity;
-import com.gcml.auth.register.SignUp9BloodTypeActivity;
-import com.gcml.auth.signin.ChooseLoginTypeActivity;
-import com.gcml.auth.signin.SignInActivity;
+import com.gcml.old.auth.register.SignUp10EatActivity;
+import com.gcml.old.auth.register.SignUp11SmokeActivity;
+import com.gcml.old.auth.register.SignUp12DrinkActivity;
+import com.gcml.old.auth.register.SignUp13SportsActivity;
+import com.gcml.old.auth.register.SignUp14DiseaseHistoryActivity;
+import com.gcml.old.auth.register.SignUp1NameActivity;
+import com.gcml.old.auth.register.SignUp2GenderActivity;
+import com.gcml.old.auth.register.SignUp3AddressActivity;
+import com.gcml.old.auth.register.SignUp4IdCardActivity;
+import com.gcml.old.auth.register.SignUp5MobileVerificationActivity;
+import com.gcml.old.auth.register.SignUp6PasswordActivity;
+import com.gcml.old.auth.register.SignUp7HeightActivity;
+import com.gcml.old.auth.register.SignUp8WeightActivity;
+import com.gcml.old.auth.register.SignUp9BloodTypeActivity;
+import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
+import com.gcml.old.auth.signin.SignInActivity;
 import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
 
@@ -207,8 +208,9 @@ public class BaseActivity extends AppCompatActivity {
     private void checkIsLogin() {
         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
             ToastUtils.showShort("请登录");
-            ChooseLoginTypeActivity.startActivity(this, ChooseLoginTypeActivity.class, this.getClass());
-            finish();
+            CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+//            ChooseLoginTypeActivity.startActivity(this, ChooseLoginTypeActivity.class, this.getClass());
+//            finish();
         }
     }
 

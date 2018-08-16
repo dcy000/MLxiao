@@ -4,7 +4,7 @@
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
-                                             tools:context="com.gcml.auth.signin.ChooseLoginTypeActivity">
+                                             tools:context="com.gcml.old.auth.signin.ChooseLoginTypeActivity">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_sign_in"

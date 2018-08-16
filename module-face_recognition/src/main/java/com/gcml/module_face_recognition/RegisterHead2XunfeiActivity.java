@@ -84,7 +84,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
         Intent intent = new Intent(context, RegisterHead2XunfeiActivity.class)
                 .putExtra(KEY_EXTRA_XFID, xfid)
                 .putExtra(KEY_EXTRA_CC_ID, ccId);
-        if (context instanceof Application) {
+        if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
