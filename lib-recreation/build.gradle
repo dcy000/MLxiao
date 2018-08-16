@@ -6,6 +6,12 @@ android {
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     useLibrary 'org.apache.http.legacy'
 
+    dexOptions {
+        //incremental = true;
+        preDexLibraries = false
+        javaMaxHeapSize "4g"
+    }
+
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -19,7 +25,7 @@ android {
         targetSdkVersion rootProject.ext.android['targetSdkVersion']
         versionCode 1
         versionName "1.0.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -44,24 +50,12 @@ android {
         abortOnError false
     }
 
-//    sourceSets {
-//        main {
-//            jniLibs.srcDirs = ['libs']
-//        }
-//    }
-
 
 }
-//repositories {
-//    flatDir {
-//        dirs 'libs'
-//    }
-//
-//}
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["constraint-layout"]
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
@@ -72,8 +66,7 @@ dependencies {
     implementation rootProject.ext.dependencies['okhttp3']
     implementation rootProject.ext.dependencies['recyclerview-v7']
     implementation rootProject.ext.dependencies['BaseRecyclerViewAdapterHelper']
-    //core lib
     implementation project(":lib-common-core")
     implementation project(":lib-utils")
-    api project(':lib-widget')
+    implementation project(':lib-widget')
 }

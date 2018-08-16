@@ -52,7 +52,6 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.iv_jiemeng) {
-
             startActivity(new Intent(this, JieMengActivity.class));
         } else if (i == R.id.iv_jinjintian) {
             startActivity(new Intent(this, HistoryTodayActivity.class));
@@ -65,6 +64,7 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
         } else if (i == R.id.iv_jisuan) {
             startActivity(new Intent(this, CalculationActivity.class));
         } else if (i == R.id.iv_caimi) {
+            startActivity(new Intent(this, RiddleActivit.class));
         } else if (i == R.id.iv_shengxiao) {
         } else if (i == R.id.iv_tongfan_ci) {
         }

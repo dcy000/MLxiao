@@ -26,7 +26,8 @@
         <activity android:name=".tool.activtiy.DateInquireResultActivity" />
         <activity android:name=".tool.activtiy.HistoryTodayActivity" />
         <activity android:name=".tool.activtiy.JieMengActivity" />
-        <activity android:name=".tool.activtiy.JieMengRetultActivity"></activity>
+        <activity android:name=".tool.activtiy.JieMengRetultActivity" />
+        <activity android:name=".tool.activtiy.RiddleActivit"></activity>
     </application>
 
 </manifest>

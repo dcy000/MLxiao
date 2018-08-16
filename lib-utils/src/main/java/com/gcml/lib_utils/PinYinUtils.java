@@ -1,4 +1,4 @@
-package com.gzq.administrator.lib_common.utils;
+package com.gcml.lib_utils;
 
 
 import net.sourceforge.pinyin4j.PinyinHelper;
