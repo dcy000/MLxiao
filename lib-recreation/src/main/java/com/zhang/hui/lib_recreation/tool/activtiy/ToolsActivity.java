@@ -53,6 +53,7 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
         int i = v.getId();
         if (i == R.id.iv_jiemeng) {
 
+            startActivity(new Intent(this, JieMengActivity.class));
         } else if (i == R.id.iv_jinjintian) {
             startActivity(new Intent(this, HistoryTodayActivity.class));
         } else if (i == R.id.iv_riqi_chaxun) {

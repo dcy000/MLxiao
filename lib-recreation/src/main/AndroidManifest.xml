@@ -24,7 +24,9 @@
         <activity android:name=".tool.activtiy.CookBookResultActivity" />
         <activity android:name=".tool.activtiy.DateInquireActivity" />
         <activity android:name=".tool.activtiy.DateInquireResultActivity" />
-        <activity android:name=".tool.activtiy.HistoryTodayActivity"></activity>
+        <activity android:name=".tool.activtiy.HistoryTodayActivity" />
+        <activity android:name=".tool.activtiy.JieMengActivity" />
+        <activity android:name=".tool.activtiy.JieMengRetultActivity"></activity>
     </application>
 
 </manifest>
