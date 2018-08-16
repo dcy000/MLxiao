@@ -21,7 +21,9 @@
         </activity>
         <activity android:name=".tool.activtiy.CalculationActivity" />
         <activity android:name=".tool.activtiy.CookBookActivity" />
-        <activity android:name=".tool.activtiy.CookBookResultActivity"></activity>
+        <activity android:name=".tool.activtiy.CookBookResultActivity" />
+        <activity android:name=".tool.activtiy.DateInquireActivity" />
+        <activity android:name=".tool.activtiy.DateInquireResultActivity"></activity>
     </application>
 
 </manifest>
