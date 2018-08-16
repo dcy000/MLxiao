@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/alert_bg"
-    tools:context="com.example.han.referralproject.activity.AlertDrinkingActivity">
+    tools:context="com.example.han.referralproject.com.gcml.old.auth.profile.AlertDrinkingActivity">
     <TextView
         android:id="@+id/tv_sign_up_title"
         android:layout_width="wrap_content"

@@ -18,8 +18,9 @@ import android.webkit.URLUtil;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
+import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
 
@@ -100,7 +101,8 @@ public class UpdateAppManager {
                     @Override
                     public void run() {
                         if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                            context.startActivity(new Intent(context, ChooseLoginTypeActivity.class));
+                            CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+//                            context.startActivity(new Intent(context, ChooseLoginTypeActivity.class));
                         } else {
                             Intent intent = new Intent(context, MainActivity.class);
                             context.startActivity(intent);

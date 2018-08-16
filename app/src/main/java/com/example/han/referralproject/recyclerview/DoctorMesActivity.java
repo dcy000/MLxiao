@@ -28,7 +28,7 @@ import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.register.ConfirmContractActivity;
+import com.gcml.old.auth.register.ConfirmContractActivity;
 import com.squareup.picasso.Picasso;
 
 public class DoctorMesActivity extends BaseActivity implements View.OnClickListener {

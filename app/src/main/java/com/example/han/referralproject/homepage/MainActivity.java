@@ -13,7 +13,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.StatusBarFragment;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.UserInfoBean;
+import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.lenovo.rto.accesstoken.AccessToken;
 import com.example.lenovo.rto.accesstoken.AccessTokenModel;

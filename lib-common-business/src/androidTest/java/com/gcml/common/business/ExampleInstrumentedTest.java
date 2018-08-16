@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.gcml.common.business.test", appContext.getPackageName());
+        assertEquals("com.gcml.common.busness.test", appContext.getPackageName());
     }
 }

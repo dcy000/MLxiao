@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.UserInfoBean;
+import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.umeng.analytics.MobclickAgent;

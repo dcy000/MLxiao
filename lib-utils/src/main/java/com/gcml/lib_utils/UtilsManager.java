@@ -20,7 +20,8 @@ public class UtilsManager {
             mApplication = application;
         }
         //初始化日志库
-        initTimber();
+        // lib-common-business 統一初始化 Timber
+//        initTimber();
     }
 
     /**

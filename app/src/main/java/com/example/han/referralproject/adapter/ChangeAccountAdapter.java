@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.UserInfoBean;
+import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.util.LocalShared;

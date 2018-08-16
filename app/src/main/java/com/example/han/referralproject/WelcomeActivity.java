@@ -11,7 +11,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Chronometer;
 
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
+import com.billy.cc.core.component.CC;
+import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
@@ -84,8 +85,9 @@ public class WelcomeActivity extends AppCompatActivity {
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
                                     if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                        Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
-                                        startActivity(intent);
+                                        CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+//                                        Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
+//                                        startActivity(intent);
                                     } else {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
@@ -115,8 +117,9 @@ public class WelcomeActivity extends AppCompatActivity {
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
-                                startActivity(intent);
+                                CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+//                                Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
+//                                startActivity(intent);
                             } else {
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);

@@ -17,11 +17,11 @@ ext {
     developUrl = api.testUrl
 
     //线上正式运行的IP地址
-    produceUrl = api.produceUrl
+    produceUrl = api.testUrl
 
     baseUrls = [
-            "debug"  : "\"http://118.31.238.207:8080/\"",
-            "release": "\"http://118.31.238.207:8080/\"",
+            "debug"  : "\"http://47.96.98.60:8080/\"",
+            "release": "\"http://47.96.98.60:8080/\"",
     ]
 
     android = [

@@ -27,14 +27,14 @@ public class MLVoiceRecognize {
      * 初始化语音识别对象
      */
     public static SpeechRecognizer initSpeechRecognizer(Context context) {
-        return initSpeechRecognizer(context, null);
+        return initSpeechRecognizer(context.getApplicationContext(), null);
     }
 
     /**
      * 初始化语音识别对象
      */
     public static SpeechRecognizer initSpeechRecognizer(Context context, InitListener initListener) {
-        return initSpeechRecognizer(context, initListener, false);
+        return initSpeechRecognizer(context.getApplicationContext(), initListener, false);
     }
 
 
@@ -52,10 +52,10 @@ public class MLVoiceRecognize {
                     }
                 };
             }
-            speechRecognizer = SpeechRecognizer.createRecognizer(context, initListener);
+            speechRecognizer = SpeechRecognizer.createRecognizer(context.getApplicationContext(), initListener);
         }
         if (!defaultParam) {
-            setParam(context, speechRecognizer);
+            setParam(context.getApplicationContext(), speechRecognizer);
         }
         return speechRecognizer;
     }
@@ -66,7 +66,7 @@ public class MLVoiceRecognize {
      */
     public static void setParam(Context context) {
         SpeechRecognizer speechRecognizer = SpeechRecognizer.getRecognizer();
-        setParam(context, speechRecognizer);
+        setParam(context.getApplicationContext(), speechRecognizer);
     }
 
 
@@ -74,7 +74,7 @@ public class MLVoiceRecognize {
      * 设置参数
      */
     public static void setParam(Context context, SpeechRecognizer speechRecognizer) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(TtsSettings.PREFER_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(TtsSettings.PREFER_NAME, Context.MODE_PRIVATE);
         initDefaulParam(speechRecognizer, sharedPreferences);
     }
 

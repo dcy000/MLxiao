@@ -1,4 +1,5 @@
-include ':app', ':lib-recreation',
+include ':app',
+        ':lib-recreation',
         ':lib-pay-beecloud',
         ':module-edu',
         ':lib-music-player',
@@ -23,10 +24,11 @@ include ':lib-bluetooth'
 include ':lib-video'
 
 include ':lib-common-core',
+        ':lib-common-business',
+        ':lib-common-app',
         ':app-component',
         ':component-cc',
         ':lib-call',
-        ':lib-common-business',
         ':lib-mlvoice',
         ':lib-auth'
 
