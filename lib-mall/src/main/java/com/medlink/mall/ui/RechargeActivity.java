@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.medlink.mall.R;
 
+
 public class RechargeActivity extends AppCompatActivity implements View.OnClickListener {
 
     public Button mButton50;
@@ -48,44 +49,42 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(getApplicationContext(), RechargeActivity.class);
-        switch (view.getId()) {
-            case R.id.btn_recharge_50:
-//                intent.putExtra("number", "5000");
+        int i = view.getId();
+        if (i == R.id.btn_recharge_50) {//                intent.putExtra("number", "5000");
 //                startActivity(intent);
-                new AlertDialog(RechargeActivity.this).builder()
-                        .setMsg("请登录账号，体验更多精彩操作,体验更多精彩操作,体验更多精彩操作。")
-                        .setPositiveButton("确认", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+            new AlertDialog(RechargeActivity.this).builder()
+                    .setMsg("请登录账号，体验更多精彩操作,体验更多精彩操作,体验更多精彩操作。")
+                    .setPositiveButton("确认", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                            }
-                        }).setNegativeButton("取消", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+                        }
+                    }).setNegativeButton("取消", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                            }
-                }).show();
-                break;
-            case R.id.btn_recharge_100:
-                intent.putExtra("number", "10000");
-                startActivity(intent);
-                break;
-            case R.id.btn_recharge_200:
-                intent.putExtra("number", "20000");
-                startActivity(intent);
-                break;
-            case R.id.btn_recharge_500:
-                intent.putExtra("number", "50000");
-                startActivity(intent);
-                break;
-            case R.id.btn_recharge_1000:
-                intent.putExtra("number", "100000");
-                startActivity(intent);
-                break;
-            case R.id.btn_recharge_other:
-//                Intent inten = new Intent(getApplicationContext(), RechargeDefineActivity.class);
+                }
+            }).show();
+
+        } else if (i == R.id.btn_recharge_100) {
+            intent.putExtra("number", "10000");
+            startActivity(intent);
+
+        } else if (i == R.id.btn_recharge_200) {
+            intent.putExtra("number", "20000");
+            startActivity(intent);
+
+        } else if (i == R.id.btn_recharge_500) {
+            intent.putExtra("number", "50000");
+            startActivity(intent);
+
+        } else if (i == R.id.btn_recharge_1000) {
+            intent.putExtra("number", "100000");
+            startActivity(intent);
+
+        } else if (i == R.id.btn_recharge_other) {//                Intent inten = new Intent(getApplicationContext(), RechargeDefineActivity.class);
 //                startActivity(inten);
-                break;
+
         }
     }
 

@@ -40,25 +40,26 @@ public class RechargeDefineActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.deifine_pay:
-                if (!TextUtils.isEmpty(mEditText.getText().toString())) {
-                    float value = Float.parseFloat(mEditText.getText().toString());
-                    if (value > 5000) {
-                        Toast.makeText(getApplicationContext(), "充值金额最大为5000元", Toast.LENGTH_SHORT).show();
-                    } else if (value <= 0.0f) {
-                        Toast.makeText(getApplicationContext(), "充值金额必须大于为0元", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Intent intent = new Intent(getApplicationContext(), RechargePayActivity.class);
-                        intent.putExtra("number", (int) (value * 100) + "");
-                        startActivity(intent);
-                        finish();
-                    }
+        int i = v.getId();
+        if (i == R.id.deifine_pay) {
+            if (!TextUtils.isEmpty(mEditText.getText().toString())) {
+                float value = Float.parseFloat(mEditText.getText().toString());
+                if (value > 5000) {
+                    Toast.makeText(getApplicationContext(), "充值金额最大为5000元", Toast.LENGTH_SHORT).show();
+                } else if (value <= 0.0f) {
+                    Toast.makeText(getApplicationContext(), "充值金额必须大于为0元", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "请输入金额", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), RechargePayActivity.class);
+                    intent.putExtra("number", (int) (value * 100) + "");
+                    startActivity(intent);
+                    finish();
                 }
-            default:
-                break;
+            } else {
+                Toast.makeText(getApplicationContext(), "请输入金额", Toast.LENGTH_SHORT).show();
+            }
+
+
+        } else {
         }
     }
 
