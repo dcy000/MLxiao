@@ -29,6 +29,7 @@ include ':lib-common-core',
         ':app-component',
         ':component-cc',
         ':lib-call',
+        ':lib-mall',
         ':lib-mlvoice',
         ':lib-auth'
 

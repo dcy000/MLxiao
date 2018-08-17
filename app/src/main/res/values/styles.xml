@@ -10,6 +10,11 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="WelcomeTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_welcome</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="XDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -36,7 +41,6 @@
     </style>
 
     <style name="jiaohu">
-
         <item name="android:textColor">#b6b2b2</item>
         <item name="android:textSize">25dp</item>
         <item name="android:layout_alignParentRight">true</item>
@@ -46,4 +50,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">30dp</item>
     </style>
+
+    <declare-styleable name="SignView">
+        <attr name="lineColor" format="color"/>
+        <attr name="lineWidth" format="dimension"/>
+    </declare-styleable>
 </resources>

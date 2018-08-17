@@ -42,9 +42,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initContentView();
-
     }
 
     private void initContentView() {
@@ -60,7 +58,6 @@ public class WelcomeActivity extends AppCompatActivity {
             finish();
             return;
         }
-
         playVideo();
     }
 

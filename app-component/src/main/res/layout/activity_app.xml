@@ -40,5 +40,7 @@
             android:layout_height="wrap_content"
             android:onClick="onAnr"
             android:text="ANR" />
+
     </LinearLayout>
+
 </ScrollView>

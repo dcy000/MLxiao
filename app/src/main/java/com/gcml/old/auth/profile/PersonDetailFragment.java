@@ -55,7 +55,6 @@ import com.squareup.picasso.Picasso;
 public class PersonDetailFragment extends Fragment implements View.OnClickListener {
     public String userId;
 
-
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -173,7 +172,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 msg.what = 1;
                 msg.obj = response.getXfid();
                 mHandler.sendMessage(msg);
-
 
                 SharedPreferences.Editor editor = sharedPreferences1.edit();
                 editor.putString("userName", response.getBname());

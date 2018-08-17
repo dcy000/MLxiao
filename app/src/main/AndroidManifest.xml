@@ -223,7 +223,8 @@
             android:name=".WelcomeActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -763,6 +764,9 @@
         <activity
             android:name=".facerecognition.FaceRecognitionActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".settting.activity.FactoryTestActivity" />
+        <activity android:name=".settting.activity.ScreenPointActivity" />
+        <activity android:name=".settting.activity.ScreenTouchActivity" />
     </application>
 
 </manifest>

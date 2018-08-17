@@ -38,7 +38,6 @@ import cn.beecloud.entity.BCReqParams;
 
 public class PayInfoActivity extends BaseActivity implements View.OnClickListener {
 
-
     private static final int REQ_QRCODE_CODE = 1;
     private static final int NOTIFY_RESULT = 10;
     private static final int ERR_CODE = 99;
@@ -62,32 +61,23 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
     ImageView qrcodeImg;
     ImageView qrcodeImg1;
 
-
     private Handler mHandler = new Handler(new Handler.Callback() {
 
         @Override
         public boolean handleMessage(final Message msg) {
             switch (msg.what) {
                 case REQ_QRCODE_CODE:
-
                     qrcodeImg.setImageBitmap(qrCodeBitMap);
-
                     break;
-
                 case 3:
-
                     qrcodeImg1.setImageBitmap(qrCodeBitMap1);
-
                     break;
-
                 case NOTIFY_RESULT:
                     Toast.makeText(PayInfoActivity.this, notify, Toast.LENGTH_LONG).show();
                     break;
-
                 case ERR_CODE:
                     Toast.makeText(PayInfoActivity.this, errMsg, Toast.LENGTH_LONG).show();
                     break;
-
                 case 2:
                     Double numbers = Double.parseDouble(number) / 100;
 
@@ -96,7 +86,6 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         public void onSuccess(String response) {
                             Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                             speak(getString(R.string.pay_success));
-
                         }
                     }, new NetworkManager.FailedCallback() {
                         @Override
@@ -110,15 +99,11 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
                 case 0:
                     Double number1 = Double.parseDouble(number) / 100;
-
                     NetworkApi.PayInfo(Utils.getDeviceId(), number1 + "", date.getTime() + "", MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<String>() {
                         @Override
                         public void onSuccess(String response) {
                             Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-
                             speak(getString(R.string.pay_success));
-
-
                         }
                     }, new NetworkManager.FailedCallback() {
                         @Override
@@ -127,10 +112,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
                         }
                     });
-
                     break;
             }
-
             return true;
         }
     });
@@ -141,7 +124,6 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
     public Boolean sign = true;
     public Boolean sign1 = true;
-
     Date date;
 
     @Override
@@ -161,13 +143,11 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
         Intent intent = getIntent();
         number = intent.getStringExtra("number");//5000
 
-
         //对于二维码，微信使用 WX_NATIVE 作为channel参数
         //支付宝使用ALI_OFFLINE_QRCODE
 
         channelType = BCReqParams.BCChannelTypes.valueOf(type);
         billTitle = "杭州国辰迈联机器人科技有限公司";
-
 
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setMessage("处理中，请稍候...");
@@ -177,16 +157,12 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
         qrcodeImg = this.findViewById(R.id.qrcodeImg);
         qrcodeImg1 = this.findViewById(R.id.qrcodeImg1);
 
-
         reqQrCode();
 
       /*  mImageView1.setOnClickListener(this);
         mImageView2.setOnClickListener(this);*/
         date = new Date();
-
-
     }
-
 
     /**
      * 返回上一页
@@ -208,7 +184,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                             finish();
                         }
                     }
-                }).create(NDialog.CONFIRM).show();
+                }).create(NDialog1.CONFIRM).show();
     }
 
     /**
@@ -231,7 +207,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                             finish();
                         }
                     }
-                }).create(NDialog.CONFIRM).show();
+                }).create(NDialog1.CONFIRM).show();
     }
 
 
@@ -247,9 +223,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         BCQuery.getInstance().queryBillByIDAsync(billId, new BCCallback() {
                             @Override
                             public void done(BCResult result) {
-
                                 BCQueryBillResult billStatus = (BCQueryBillResult) result;
-
                                 //Logg.e("支付信息",billStatus.getResultMsg() +"错误详情："+billStatus.getErrDetail()+"返回码"+billStatus.getResultCode()+"");
 //                                Logg.e("支付信息",billStatus.getBill().getTradeNum() + "\npayresult："+billStatus.getBill().getPayResult()+
 //                                        "\nRevertResult"+billStatus.getBill().getRevertResult()+"\nRefundResult"+billStatus.getBill().getRefundResult());
@@ -267,8 +241,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
-                    }
 
+                    }
                 }
             }
 
@@ -276,17 +250,11 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-
     public void QueryOrders() {
-
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (sign1) {
-
-
-
-
                     if (type.startsWith("BC")) {
                         // BC的渠道通过id查询结果
                         BCQuery.getInstance().queryBillByIDAsync(billId1, new BCCallback() {
@@ -310,8 +278,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
-                    }
 
+                    }
                 }
             }
 
@@ -319,12 +287,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-
     void reqQrCode() {
-
-
         loadingDialog.show();
-
         Map<String, String> optional = new HashMap<String, String>();
         optional.put("用途", "用户充值");
         optional.put("testEN", "迈联智慧");

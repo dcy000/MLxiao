@@ -16,22 +16,19 @@
         android:gravity="center"
         android:layout_marginTop="60dp"/>
 
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@id/warning"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        >
+        android:layout_marginTop="30dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
-
 
             <ImageView
                 android:id="@+id/qrcodeImg"
@@ -47,21 +44,23 @@
                 android:gravity="center"
                 android:layout_below="@id/qrcodeImg"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                >
+                android:layout_marginTop="25dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/alipay_img"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#666"
                     android:text="支付宝"
                     android:layout_marginLeft="14dp"
-                    android:textSize="32dp"
-                    />
+                    android:textSize="32dp" />
+
             </LinearLayout>
+
         </RelativeLayout>
 
         <LinearLayout
@@ -70,7 +69,6 @@
             android:layout_marginLeft="50dp"
             android:orientation="vertical"
             android:gravity="center">
-
 
             <ImageView
                 android:id="@+id/qrcodeImg1"
@@ -86,21 +84,23 @@
                 android:gravity="center"
                 android:layout_below="@id/qrcodeImg1"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                >
+                android:layout_marginTop="25dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/wxpay_img"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#666"
                     android:text="微信"
                     android:layout_marginLeft="14dp"
-                    android:textSize="32dp"
-                    />
+                    android:textSize="32dp" />
+
             </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
