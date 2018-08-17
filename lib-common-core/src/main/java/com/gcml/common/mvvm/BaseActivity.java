@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.gcml.common.repository.utils.Preconditions;
+
 import java.lang.reflect.ParameterizedType;
 
-public abstract class BaseActivity<B extends ViewDataBinding, VM extends AndroidViewModel> extends AppCompatActivity {
+public abstract class BaseActivity<B extends ViewDataBinding, VM extends AndroidViewModel>
+        extends AppCompatActivity {
 
     protected B binding;
 

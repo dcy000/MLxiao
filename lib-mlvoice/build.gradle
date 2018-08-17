@@ -79,7 +79,7 @@ dependencies {
     implementation rootProject.ext.dependencies['gson']
     implementation rootProject.ext.dependencies['okhttp3']
 
-    compile project(":lib-music-player")
+    api project(":lib-music-player")
     implementation(name: 'voicelibrary', ext: 'aar')
 
 }

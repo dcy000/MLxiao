@@ -24,7 +24,7 @@
         </activity>
         <activity android:name="com.gcml.common.repository.RepositoryActivity" />
         <activity android:name="com.gcml.common.app.AppActivity" />
-
+        <activity android:name="com.gcml.common.mvvm.MvvmActivity"/>
     </application>
 
 </manifest>
