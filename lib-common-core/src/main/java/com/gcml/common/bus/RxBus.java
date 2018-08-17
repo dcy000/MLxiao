@@ -9,7 +9,7 @@ import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
 /**
- * Implementation of tagable EventBus by RxJava2
+ * Implementation of tagable EventBus powered by RxJava2
  * Created by afirez on 2017/2/16.
  */
 
