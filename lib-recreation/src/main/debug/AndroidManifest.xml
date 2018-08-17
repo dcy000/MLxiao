@@ -11,9 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".RecreationMainActivity"></activity>
-        <activity android:name=".tool.activtiy.BaikeActivity"></activity>
-        <activity android:name=".tool.activtiy.BaikeResultActivity"></activity>
         <activity android:name=".tool.activtiy.ToolsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +18,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RecreationMainActivity"></activity>
+        <activity android:name=".tool.activtiy.BaikeActivity"></activity>
+        <activity android:name=".tool.activtiy.BaikeResultActivity"></activity>
+        <activity android:name=".tool.activtiy.CalculationActivity" />
+        <activity android:name=".tool.activtiy.CookBookActivity" />
+        <activity android:name=".tool.activtiy.CookBookResultActivity" />
+        <activity android:name=".tool.activtiy.DateInquireActivity" />
+        <activity android:name=".tool.activtiy.DateInquireResultActivity" />
+        <activity android:name=".tool.activtiy.HistoryTodayActivity" />
+        <activity android:name=".tool.activtiy.JieMengActivity" />
+        <activity android:name=".tool.activtiy.JieMengRetultActivity" />
+        <activity android:name=".tool.activtiy.RiddleActivit"></activity>
 
 
         <meta-data

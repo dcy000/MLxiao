@@ -1,4 +1,4 @@
-//ext.mainApp=true
+ext.mainApp=true
 apply from: rootProject.file('cc-settings.gradle')
 
 android {
