@@ -10,17 +10,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".tool.activtiy.ToolsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".RecreationMainActivity"></activity>
-        <activity android:name=".tool.activtiy.BaikeActivity"></activity>
-        <activity android:name=".tool.activtiy.BaikeResultActivity"></activity>
+        <activity android:name=".RecreationMainActivity" />
+        <activity android:name=".tool.activtiy.BaikeActivity" />
+        <activity android:name=".tool.activtiy.BaikeResultActivity" />
         <activity android:name=".tool.activtiy.CalculationActivity" />
         <activity android:name=".tool.activtiy.CookBookActivity" />
         <activity android:name=".tool.activtiy.CookBookResultActivity" />
@@ -29,8 +29,7 @@
         <activity android:name=".tool.activtiy.HistoryTodayActivity" />
         <activity android:name=".tool.activtiy.JieMengActivity" />
         <activity android:name=".tool.activtiy.JieMengRetultActivity" />
-        <activity android:name=".tool.activtiy.RiddleActivit"></activity>
-
+        <activity android:name=".tool.activtiy.RiddleActivit" />
 
         <meta-data
             android:name="com.gcml.common.repository.imageloader.glide.GlideImageLoader"
@@ -47,8 +46,6 @@
         <meta-data
             android:name="com.gcml.common.app.quality.AppFragmentLifecycleCallbacks"
             android:value="FragmentLifecycleCallbacks" />
-
-
         <meta-data
             android:name="com.zhang.hui.lib_recreation.app.CCAppLifecycleCallbacks"
             android:value="AppLifecycleCallbacks" />
@@ -56,7 +53,8 @@
             android:name="com.zhang.hui.lib_recreation.app.RecreationApp"
             android:value="AppLifecycleCallbacks" />
 
+        <activity android:name=".tool.activtiy.LoopListenerActivity">
+        </activity>
     </application>
-
 
 </manifest>
