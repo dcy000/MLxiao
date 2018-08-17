@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gcml.lib_widget.VoiceLineView;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
@@ -15,7 +16,6 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.zhang.hui.lib_recreation.R;
 import com.zhang.hui.lib_recreation.tool.other.StringUtil;
 import com.zhang.hui.lib_recreation.tool.other.XFSkillApi;
-import com.zhang.hui.lib_recreation.tool.wrapview.VoiceLineView;
 import com.zhang.hui.lib_recreation.tool.xfparsebean.BaiKeBean;
 
 import java.util.List;

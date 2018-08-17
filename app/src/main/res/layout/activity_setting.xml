@@ -278,7 +278,6 @@
 
         </RelativeLayout>
 
-
         <RelativeLayout
             android:visibility="gone"
             android:id="@+id/rl_clear_cache"
@@ -313,9 +312,8 @@
                 android:layout_marginRight="24dp"
                 android:background="#DDDDDD" />
 
-
         </RelativeLayout>
 
-
     </LinearLayout>
+
 </ScrollView>

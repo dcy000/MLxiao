@@ -2,7 +2,6 @@ package com.gcml.module_face_recognition;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,7 +26,6 @@ import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.display.ImageUtils;
 import com.gcml.lib_utils.display.LoadingProgressUtils;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.thread.ThreadUtils;
 import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.gcml.lib_widget.CircleImageView;
 import com.gcml.module_face_recognition.faceutils.FaceAuthenticationUtils;
@@ -47,7 +45,6 @@ import com.qiniu.android.storage.UploadManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

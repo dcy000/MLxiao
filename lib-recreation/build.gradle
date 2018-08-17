@@ -44,24 +44,12 @@ android {
         abortOnError false
     }
 
-//    sourceSets {
-//        main {
-//            jniLibs.srcDirs = ['libs']
-//        }
-//    }
-
 
 }
-//repositories {
-//    flatDir {
-//        dirs 'libs'
-//    }
-//
-//}
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["constraint-layout"]
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
@@ -70,9 +58,10 @@ dependencies {
     androidTestImplementation rootProject.ext.dependencies["espresso-core"]
     implementation rootProject.ext.dependencies['gson']
     implementation rootProject.ext.dependencies['okhttp3']
-    //core lib
+    implementation rootProject.ext.dependencies['recyclerview-v7']
+    implementation rootProject.ext.dependencies['BaseRecyclerViewAdapterHelper']
     implementation project(":lib-common-business")
     implementation project(":lib-common-core")
     implementation project(":lib-utils")
-    api project(':lib-widget')
+    implementation project(':lib-widget')
 }

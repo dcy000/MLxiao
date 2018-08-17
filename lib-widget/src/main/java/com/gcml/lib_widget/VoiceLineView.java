@@ -1,4 +1,4 @@
-package com.zhang.hui.lib_recreation.tool.wrapview;
+package com.gcml.lib_widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,11 +10,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 
-import com.zhang.hui.lib_recreation.R;
-import com.zhang.hui.lib_recreation.tool.other.ThreadPool;
-
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 /**
  * Created by lenovo on 2018/3/8.
@@ -137,7 +135,7 @@ public class VoiceLineView extends View {
 
     public synchronized void startRecord() {
         isStart = true;
-        ThreadPool.getInstance().getCachedPools().execute(mRunable);
+        Executors.newCachedThreadPool().execute(mRunable);
     }
 
     public synchronized void stopRecord() {

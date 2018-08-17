@@ -131,7 +131,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_yuyin" />
 
-        <com.zhang.hui.lib_recreation.tool.wrapview.VoiceLineView
+        <com.gcml.lib_widget.VoiceLineView
             android:id="@+id/vl_wave"
             android:layout_width="300dp"
             android:layout_height="27dp"

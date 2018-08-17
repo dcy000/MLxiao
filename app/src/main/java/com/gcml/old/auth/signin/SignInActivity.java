@@ -41,6 +41,7 @@ import com.example.han.referralproject.facerecognition.IJoinGroupListener;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.settting.activity.FactoryTestActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -248,7 +249,8 @@ public class SignInActivity extends BaseActivity {
             Bundle bundle = new Bundle();
             bundle.putBoolean("isTest",true);
             MyApplication.getInstance().userId = "123456";
-            FaceRecognitionActivity.startActivity(mContext, bundle,false);
+            startActivity(new Intent(this, FactoryTestActivity.class));
+//            FaceRecognitionActivity.startActivity(mContext, bundle,false);
             finish();
             return;
         }

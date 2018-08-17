@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_recharge_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="60dp"
+        android:textColor="#ff0000"
+        android:textSize="30sp"
+        android:text="请确定支付完成之后再退出此页面\n提前退出有可能导致充值不成功"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_below="@id/tv_recharge_warning"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_recharge_alipay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/img_recharge_qrcode"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_below="@id/iv_recharge_alipay"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/ic_recharge_alipay"
+                android:drawablePadding="15dp"
+                android:text="支付宝"
+                android:textColor="#666666"
+                android:textSize="32dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_recharge_wxpay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/img_recharge_qrcode"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_below="@id/iv_recharge_wxpay"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/ic_recharge_wxpay"
+                android:drawablePadding="15dp"
+                android:text="微信"
+                android:textColor="#666666"
+                android:textSize="32dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

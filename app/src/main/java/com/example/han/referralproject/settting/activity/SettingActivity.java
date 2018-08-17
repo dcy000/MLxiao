@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SettingActivity extends BaseActivity implements ClearCacheOrResetDialog.OnDialogClickListener, UpDateDialog.OnDialogClickListener {
+
     @BindView(R.id.rl_voice_set)
     RelativeLayout rlVoiceSet;
     @BindView(R.id.rl_wifi_set)
@@ -37,14 +38,13 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     RelativeLayout rlAbout;
     @BindView(R.id.rl_reset)
     RelativeLayout rlReset;
-
-    public String upDateUrl;
     @BindView(R.id.rl_set_keyword)
     RelativeLayout rlSetKeyword;
     @BindView(R.id.rl_set_voice_name)
     RelativeLayout rlSetVoiceName;
     @BindView(R.id.rl_set_talk_type)
     RelativeLayout rlSetTalkType;
+    String upDateUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +76,6 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
                 //清理缓存
                 showDialog(EventType.clearCache);
 //                startActivity(new Intent(this, VoicerSettingDemoActivity.class));
-
                 break;
             case R.id.rl_update:
                 //检测更新
@@ -90,26 +89,20 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
                 //恢复出厂设置
                 showDialog(EventType.reset);
                 break;
-
             case R.id.rl_set_keyword:
                 //设置关键词
 //                startActivity(new Intent(this, SetKeyWordActivity.class));
 //                startActivity(new Intent(this, VoicerSettingDemoActivity.class));
                 startActivity(new Intent(this, CustomKeyWordsActivity.class));
-
                 break;
-
             case R.id.rl_set_voice_name:
                 //设置发音人
                 setVoiceName();
                 break;
-
             case R.id.rl_set_talk_type:
                 //设置聊天模式
                 setTalkType();
                 break;
-
-
         }
     }
 
@@ -120,7 +113,6 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     private void showTalkTypeDialog() {
         TalkTypeDialog dialog = new TalkTypeDialog();
         dialog.show(getFragmentManager(), "talkType");
-
     }
 
     private void setVoiceName() {

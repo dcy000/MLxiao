@@ -5,6 +5,9 @@ android {
     buildToolsVersion rootProject.ext.android.buildToolsVersion
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
     defaultConfig {
         applicationId "com.example.han.referralproject"
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -42,13 +45,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources false
+            signingConfig signingConfigs.debug
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
             signingConfig signingConfigs.debug
         }
 
         debug {
             debuggable true
-            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
+//            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.api.spareUrl)
         }
     }
 

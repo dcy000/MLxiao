@@ -14,8 +14,8 @@ import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.tool.dialog.RiddleDialog;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
-import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.tool.xfparsebean.RiddleBean;
+import com.gcml.lib_widget.VoiceLineView;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;
@@ -181,39 +181,6 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     }
 
     private void startListener() {
-//        SpeechRecognizer speechRecognizer = SpeechRecognizerHelper.initSpeechRecognizer(this);
-//        speechRecognizer.startListening(new RecognizerListener() {
-//            @Override
-//            public void onVolumeChanged(int i, byte[] bytes) {
-//                vlWave.waveH = i / 6 + 2;
-//            }
-//
-//            @Override
-//            public void onBeginOfSpeech() {
-//                showWave();
-//            }
-//
-//            @Override
-//            public void onEndOfSpeech() {
-//                endOfSpeech();
-//                tvPressNotice.setVisibility(View.VISIBLE);
-//            }
-//
-//            @Override
-//            public void onResult(RecognizerResult recognizerResult, boolean b) {
-//                dealData(recognizerResult, b);
-//            }
-//
-//            @Override
-//            public void onError(SpeechError speechError) {
-//                speak("主人,我没听清,您能再说一遍吗");
-//            }
-//
-//            @Override
-//            public void onEvent(int i, int i1, int i2, Bundle bundle) {
-//
-//            }
-//        });
 
         MLVoiceRecognize.startRecognize(this, new MLRecognizerListener() {
             @Override
