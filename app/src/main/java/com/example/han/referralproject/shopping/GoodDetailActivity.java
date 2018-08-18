@@ -24,7 +24,6 @@ import com.squareup.picasso.Picasso;
 
 public class GoodDetailActivity extends BaseActivity implements View.OnClickListener {
 
-
     ImageView mImageView1;
     ImageView mImageView2;
     ImageView mImageView3;

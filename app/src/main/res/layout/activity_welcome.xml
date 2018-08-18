@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.han.referralproject.WelcomeActivity"
-    android:background="@drawable/welcome">
-
-
+    android:background="@drawable/bg_welcome">
 
     <Chronometer
         android:visibility="gone"
@@ -17,6 +15,5 @@
         android:textSize="12pt"
         android:layout_gravity="center_horizontal"
         android:focusable="true" />
-
 
 </RelativeLayout>

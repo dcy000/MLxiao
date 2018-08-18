@@ -6,8 +6,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.tool.xfparsebean.HistoryTodayBean;
-import com.hymane.expandtextview.ExpandTextView;
-import com.hymane.expandtextview.OnReadMoreClickListener;
+import com.gcml.lib_widget.ExpandTextView;
+import com.gcml.lib_widget.OnReadMoreClickListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.List;
@@ -74,7 +74,7 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
                     position = holder.getPosition();
                     HistoryTodayBean bean = getData().get(position);
                     MLVoiceSynthetize.stop();
-                    MLVoiceSynthetize.startSynthesize(expandTextView.getContext(),bean.title+","+ bean.description,false);
+                    MLVoiceSynthetize.startSynthesize(expandTextView.getContext(), bean.title + "," + bean.description, false);
                 }
                 getData().get(holder.getPosition()).flag = true;
             }

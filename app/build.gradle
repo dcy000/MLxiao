@@ -5,6 +5,9 @@ android {
     buildToolsVersion rootProject.ext.android.buildToolsVersion
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
     defaultConfig {
         applicationId "com.example.han.referralproject"
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -42,12 +45,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources false
+            signingConfig signingConfigs.debug
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
+            signingConfig signingConfigs.debug
         }
 
         debug {
             debuggable true
-            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
+//            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.api.spareUrl)
         }
     }
 
@@ -66,6 +72,9 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
 
     signingConfigs {
         debug {
@@ -95,15 +104,17 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //cc
     addComponent 'module-face_recognition'
+    addComponent 'lib-recreation'
 
     if (project.ext.runAsApp) {
-        implementation project(":lib-common-business")
+        implementation project(":lib-common-app")
     }
 
+    implementation project(":lib-common-business")
     implementation project(":lib-common-core")
-
     //lib
     implementation project(':wkvideoplayer')
+    implementation project(':lib-widget')
     implementation project(':module-edu')
     implementation project(':lib-video-player')
     implementation project(':unit')

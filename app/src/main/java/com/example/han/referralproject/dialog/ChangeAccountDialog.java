@@ -9,10 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
+import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
 import com.example.han.referralproject.adapter.ChangeAccountAdapter;
-import com.example.han.referralproject.bean.UserInfoBean;
+import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
@@ -103,7 +104,8 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                    mContext.startActivityForResult(new Intent(mContext, SignInActivity.class));
 //                    ((Activity) mContext).finish();
 //                }
-                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
+                CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+//                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();
                 break;
             case R.id.btn_logout:
@@ -115,7 +117,8 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                    LocalShared.getInstance(mContext).deleteAllAccount();
 //                }
                 LocalShared.getInstance(mContext).loginOut();
-                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
+                CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+//                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();
                 break;
         }

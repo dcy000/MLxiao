@@ -12,6 +12,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         if (project.ext.runAsApp) {
             applicationId "com.gcml.common.demo"
@@ -78,10 +82,13 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     if (project.ext.runAsApp) {
-        implementation project(":lib-common-business")
+        implementation project(":lib-common-app")
     }
-
+    implementation project(":lib-common-business")
     implementation project(":lib-common-core")
+    implementation rootProject.ext.dependencies["livedata-core"]
+    implementation rootProject.ext.dependencies["lifecycle-runtime"]
+    implementation rootProject.ext.dependencies["viewmodel"]
 
     implementation rootProject.ext.dependencies["design"]
     implementation rootProject.ext.dependencies["appcompat-v7"]

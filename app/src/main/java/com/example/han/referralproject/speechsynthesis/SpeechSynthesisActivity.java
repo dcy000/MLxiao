@@ -22,12 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
-import com.example.han.referralproject.activity.MyBaseDataActivity;
+import com.gcml.old.auth.profile.MyBaseDataActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
@@ -44,7 +45,7 @@ import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
-import com.example.han.referralproject.personal.PersonDetailActivity;
+import com.gcml.old.auth.profile.PersonDetailActivity;
 import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
@@ -1061,7 +1062,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
             } else if (inSpell.matches(".*(dangan).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
+                CC.obtainBuilder("com.gcml.old.user.profile").build().callAsync();
+//                startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
             } else {
                 new SpeechTask().execute();
             }
@@ -1584,6 +1586,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         if (!TextUtils.isEmpty(text)) {
             speak(text, isDefaultParam);
+            return;
+        }
+
+        if (!empty){
+            speak(text);
             return;
         }
         str1 = empty ? "我真的不知道了" : text;

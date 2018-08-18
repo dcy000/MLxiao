@@ -30,7 +30,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //file
-    api files('libs/pinyin4j-2.5.0.jar')
+//    api files('libs/pinyin4j-2.5.0.jar')
     //system
     androidTestImplementation rootProject.ext.dependencies["espresso-core"]
     api rootProject.ext.dependencies["constraint-layout"]

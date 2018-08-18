@@ -133,7 +133,7 @@ public class QualityAppLifecycleCallbacks implements AppLifecycleCallbacks {
         @Override
         public int provideBlockThreshold() {
             //1000
-            return 300;
+            return 600;
 //            return super.provideBlockThreshold();
         }
 
@@ -150,7 +150,8 @@ public class QualityAppLifecycleCallbacks implements AppLifecycleCallbacks {
 
         @Override
         public boolean displayNotification() {
-            return super.displayNotification();
+            return false;
+//            return super.displayNotification();
         }
 
         @Override

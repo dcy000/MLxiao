@@ -17,12 +17,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.UserInfoBean;
+import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -34,13 +35,12 @@ import com.gcml.lib_utils.display.ImageUtils;
 import com.gcml.lib_utils.display.LoadingProgressUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.thread.ThreadUtils;
-import com.gzq.administrator.lib_common.base.BaseApplication;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.signin.SignInActivity;
+import com.gcml.old.auth.signin.SignInActivity;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import org.json.JSONArray;
@@ -211,7 +211,8 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
                     }
                     startActivity(intent);
                 } else if ("Welcome".equals(fromWhere)) {
-                    startActivity(new Intent(this, SignInActivity.class));
+                    CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+//                    startActivity(new Intent(this, SignInActivity.class));
                 }
                 finish();
                 break;
@@ -464,7 +465,8 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
     private void recognitionFail() {
         if ("Welcome".equals(fromWhere)) {
             ToastUtils.showLong("该机器人没有此账号的人脸认证信息，请手动登录");
-            startActivity(new Intent(this, SignInActivity.class));
+            CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+//            startActivity(new Intent(this, SignInActivity.class));
         } else if ("Test".equals(fromWhere) || "Pay".equals(fromType)) {
             ToastUtils.showShort("验证未通过");
 //            MLVoiceSynthetize.startSynthesize(this, getString(R.string.shop_yanzheng), false);

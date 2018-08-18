@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             tools:context="com.gcml.old.auth.signin.ChooseLoginTypeActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180pt"
+        android:background="@drawable/sign_in_bg_card"
+        app:cardCornerRadius="4pt"
+        app:cardElevation="4pt"
+        app:cardPreventCornerOverlap="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="1000pt"
+            android:layout_height="767pt">
+
+            <TextView
+                android:id="@+id/tv_phone_sign_in"
+                android:layout_width="800pt"
+                android:layout_height="100pt"
+                android:layout_marginTop="165pt"
+                android:background="@drawable/sign_in_bg_tv_sign_in"
+                android:gravity="center"
+                android:paddingLeft="36pt"
+                android:paddingRight="36pt"
+                android:text="手机登录"
+                android:textColor="@color/white"
+                android:textSize="50pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/et_sign_in_password"
+                android:layout_width="800pt"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60pt"
+                android:gravity="center"
+                android:paddingLeft="36pt"
+                android:paddingRight="36pt"
+                android:text="— 其他登录方式 —"
+                android:textColor="#FF333333"
+                android:textColorHint="#FFBBBBBB"
+                android:textSize="36pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_phone_sign_in"/>
+
+            <TextView
+                android:id="@+id/tv_face_sign_in"
+                android:layout_width="800pt"
+                android:layout_height="100pt"
+                android:layout_marginTop="60pt"
+                android:background="@drawable/sign_in_bg_tv_sign_in2"
+                android:gravity="center"
+                android:text="人脸登录"
+                android:textColor="#3F86FC"
+                android:textSize="50pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_sign_in_password"/>
+
+            <TextView
+                android:id="@+id/account_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="162pt"
+                android:text="还没有账号？"
+                android:textColor="#262626"
+                android:textSize="44pt"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/regist"
+                app:layout_constraintTop_toBottomOf="@id/tv_face_sign_in"/>
+
+            <TextView
+                android:id="@+id/regist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="162pt"
+                android:text="立即注册"
+                android:textColor="#3F86FC"
+                android:textSize="44pt"
+                app:layout_constraintLeft_toRightOf="@id/account_tip"
+                app:layout_constraintRight_toLeftOf="@+id/sign_up_fast"
+                app:layout_constraintTop_toBottomOf="@id/tv_face_sign_in"/>
+
+            <TextView
+                android:id="@+id/sign_up_fast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60pt"
+                android:layout_marginTop="162pt"
+                android:text="快速注册"
+                android:textColor="#3F86FC"
+                android:textSize="44pt"
+                app:layout_constraintLeft_toRightOf="@id/regist"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_face_sign_in"/>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <CheckBox
+        android:id="@+id/cb_sign_in_agree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36pt"
+        android:checked="true"
+        android:textSize="36pt"
+        app:layout_constraintLeft_toLeftOf="@+id/cv_sign_in"
+        app:layout_constraintTop_toBottomOf="@+id/cv_sign_in"/>
+
+    <TextView
+        android:id="@+id/tv_sign_in_agree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16pt"
+        android:layout_marginTop="36pt"
+        android:text="我同意用户协议"
+        android:textSize="36pt"
+        app:layout_constraintLeft_toRightOf="@+id/cb_sign_in_agree"
+        app:layout_constraintTop_toBottomOf="@+id/cv_sign_in"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48pt"
+        android:text="@string/sign_copy"
+        android:textSize="36pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+</android.support.constraint.ConstraintLayout>

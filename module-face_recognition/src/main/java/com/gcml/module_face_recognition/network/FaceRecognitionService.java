@@ -1,6 +1,5 @@
 package com.gcml.module_face_recognition.network;
 
-import com.gcml.common.repository.Api;
 import com.gcml.common.repository.http.ApiResult;
 import com.gcml.module_face_recognition.bean.UserInfoBean;
 import com.gcml.module_face_recognition.bean.XfGroupInfo;
@@ -8,7 +7,6 @@ import com.gcml.module_face_recognition.bean.XfGroupInfo;
 import java.util.List;
 
 import io.reactivex.Observable;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;

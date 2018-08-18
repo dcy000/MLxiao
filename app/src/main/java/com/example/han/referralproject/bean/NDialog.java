@@ -109,7 +109,6 @@ public class NDialog {
                     }).create();
         }
 
-
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {

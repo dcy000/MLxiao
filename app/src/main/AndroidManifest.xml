@@ -155,7 +155,7 @@
             android:name=".activity.WifiConnectActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.AgreementActivity"
+            android:name="com.gcml.old.auth.profile.AgreementActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.PreviousHistoryActivity"
@@ -224,7 +224,8 @@
             android:name=".WelcomeActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -295,52 +296,78 @@
             android:name=".recyclerview.AddAppoActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp1NameActivity"
+            android:name="com.gcml.old.auth.signin.ChooseLoginTypeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.old.auth.signin.SignInActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name="com.gcml.old.auth.signin.FindPasswordActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.gcml.old.auth.signin.SetPasswordActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.gcml.old.auth.register.SignUp1NameActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp2GenderActivity"
+            android:name="com.gcml.old.auth.register.SignUp2GenderActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp3AddressActivity"
+            android:name="com.gcml.old.auth.register.SignUp3AddressActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp4IdCardActivity"
+            android:name="com.gcml.old.auth.register.SignUp4IdCardActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp5MobileVerificationActivity"
+            android:name="com.gcml.old.auth.register.SignUp5MobileVerificationActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp6PasswordActivity"
+            android:name="com.gcml.old.auth.register.SignUp6PasswordActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp7HeightActivity"
+            android:name="com.gcml.old.auth.register.SignUp7HeightActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp8WeightActivity"
+            android:name="com.gcml.old.auth.register.SignUp8WeightActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp9BloodTypeActivity"
+            android:name="com.gcml.old.auth.register.SignUp9BloodTypeActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp10EatActivity"
+            android:name="com.gcml.old.auth.register.SignUp10EatActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp11SmokeActivity"
+            android:name="com.gcml.old.auth.register.SignUp11SmokeActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp12DrinkActivity"
+            android:name="com.gcml.old.auth.register.SignUp12DrinkActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp13SportsActivity"
+            android:name="com.gcml.old.auth.register.SignUp13SportsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity"
+            android:name="com.gcml.old.auth.register.SignUp14DiseaseHistoryActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.old.auth.register.simple.SignUp01NameActivity"
+            android:taskAffinity="com.medlink.fastsignup"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name="com.gcml.old.auth.register.simple.SignUp03PasswordActivity"
+            android:taskAffinity="com.medlink.fastsignup" />
+        <activity
+            android:name="com.gcml.old.auth.register.simple.SignUp02MobileVerificationActivity"
+            android:taskAffinity="com.medlink.fastsignup" />
+
         <activity
             android:name=".recharge.PayActivity"
             android:screenOrientation="landscape" />
@@ -413,9 +440,6 @@
             android:name=".activity.DiseaseDetailsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.register.ConfirmContractActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".video.VideoListActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -423,9 +447,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".shopping.GoodDetailActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.MyBaseDataActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SymptomsActivity"
@@ -443,18 +464,7 @@
         <activity
             android:name=".recyclerview.DoctorAskGuideActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.signin.SignInActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name="com.medlink.danbogh.signin.FindPasswordActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="com.medlink.danbogh.signin.SetPasswordActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".recharge.DefineActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -470,22 +480,37 @@
             android:name=".recyclerview.DoctorAlarmActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.AlertHeightActivity"
+            android:name="com.gcml.old.auth.register.ConfirmContractActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.AlertWeightActivity"
+            android:name="com.gcml.old.auth.profile.MyBaseDataActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.AlertSportActivity"
+            android:name="com.gcml.old.auth.profile.AlertHeightActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.AlertSmokeActivity"
+            android:name="com.gcml.old.auth.profile.AlertWeightActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.AlertEatingActivity"
+            android:name="com.gcml.old.auth.profile.AlertSportActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.AlertDrinkingActivity"
+            android:name="com.gcml.old.auth.profile.AlertSmokeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.old.auth.profile.AlertEatingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.old.auth.profile.AlertDrinkingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.old.auth.profile.AlertMHActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.old.auth.profile.AlertAddressActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.old.auth.profile.PersonDetailActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SelectXuetangTimeActivity"
@@ -500,16 +525,7 @@
             android:name=".activity.MarketActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.AlertMHActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.AlertAddressActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".new_music.MusicPlayActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.ChooseLoginTypeActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".measure.InstructionsActivity"
@@ -587,16 +603,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".children.study.ChildEduStories2Activity" />
-        <activity
-            android:name="com.medlink.danbogh.register.simple.SignUp01NameActivity"
-            android:taskAffinity="com.medlink.fastsignup"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity
-            android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity"
-            android:taskAffinity="com.medlink.fastsignup" />
-        <activity
-            android:name="com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity"
-            android:taskAffinity="com.medlink.fastsignup" />
+
         <activity
             android:name=".tool.DateInquireActivity"
             android:screenOrientation="landscape" />
@@ -635,9 +642,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.AboutActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".personal.PersonDetailActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".tool.ToolsActivity"
@@ -719,7 +723,7 @@
 
         <activity
             android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"/>
 
         <activity
             android:name=".video.MeasureVideoPlayActivity"
@@ -757,6 +761,9 @@
         <activity
             android:name=".facerecognition.FaceRecognitionActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".settting.activity.FactoryTestActivity" />
+        <activity android:name=".settting.activity.ScreenPointActivity" />
+        <activity android:name=".settting.activity.ScreenTouchActivity" />
     </application>
 
 </manifest>

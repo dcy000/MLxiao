@@ -10,6 +10,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.app.AppActivity;
 import com.gcml.common.demo.R;
+import com.gcml.common.mvvm.MvvmActivity;
 import com.gcml.common.repository.RepositoryActivity;
 
 
@@ -62,5 +63,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        CC.obtainBuilder("app.component.cc").build().callAsync();
+    }
+
+    public void onMvvm(View view) {
+        Intent intent = new Intent(this, MvvmActivity.class);
+        startActivity(intent);
     }
 }

@@ -31,7 +31,6 @@
         app:layout_constraintRight_toLeftOf="@id/vp_goods"
         android:paddingRight="22dp">
 
-
         <RadioButton
             android:id="@+id/rb_shanshi"
             android:layout_width="match_parent"

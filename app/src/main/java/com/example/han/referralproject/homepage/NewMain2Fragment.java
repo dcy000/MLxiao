@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
-import com.example.han.referralproject.personal.PersonDetailActivity;
+import com.gcml.old.auth.profile.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
-import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.google.gson.Gson;
 import com.gzq.administrator.lib_common.base.BaseFragment;
@@ -73,7 +73,8 @@ public class NewMain2Fragment extends BaseFragment implements View.OnClickListen
                 OldRouter.routeToOldHomeActivity(getActivity());
                 break;
             case R.id.iv_communicate:
-                startActivity(new Intent(getContext(), SpeechSynthesisActivity.class));
+//                startActivity(new Intent(getContext(), SpeechSynthesisActivity.class));
+                CC.obtainBuilder("app.component.recreation").build().callAsync();
                 break;
             case R.id.iv_check_self:
                 DiseaseUser diseaseUser = new DiseaseUser(
