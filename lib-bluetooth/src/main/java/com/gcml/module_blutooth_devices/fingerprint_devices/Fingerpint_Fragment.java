@@ -143,7 +143,6 @@ public class Fingerpint_Fragment extends BluetoothBaseFragment implements IView,
     public void onStop() {
         super.onStop();
         if (baseBluetoothPresenter != null) {
-
             baseBluetoothPresenter.onDestroy();
         }
         if (helper != null) {

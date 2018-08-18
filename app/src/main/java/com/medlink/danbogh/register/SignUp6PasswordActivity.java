@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -19,22 +20,17 @@ import com.medlink.danbogh.utils.Utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 public class SignUp6PasswordActivity extends BaseActivity {
 
-    @BindView(R.id.et_sign_up_password)
     EditText etPassword;
-    @BindView(R.id.et_sign_up_confirm_password)
+
     EditText etConfirmPassword;
-    @BindView(R.id.tv_sign_up_go_back)
+
     TextView tvGoBack;
-    @BindView(R.id.tv_sign_up_go_forward)
+
     TextView tvGoForward;
-    public Unbinder mUnbinder;
+    private ConstraintLayout clRoot;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, SignUp6PasswordActivity.class);
@@ -49,16 +45,30 @@ public class SignUp6PasswordActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up6_password);
+        etPassword = (EditText) findViewById(R.id.et_sign_up_password);
+        etConfirmPassword = (EditText) findViewById(R.id.et_sign_up_confirm_password);
+        tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
+        tvGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
+        clRoot = (ConstraintLayout) findViewById(R.id.cl_sign_up_root_password);
+        clRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClRootClicked();
+            }
+        });
+        tvGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoBackClicked();
+            }
+        });
+        tvGoForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoForwardClicked();
+            }
+        });
         mToolbar.setVisibility(View.GONE);
-        mUnbinder = ButterKnife.bind(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
-        super.onDestroy();
     }
 
     @Override
@@ -68,7 +78,6 @@ public class SignUp6PasswordActivity extends BaseActivity {
         speak(R.string.sign_up_password_tip);
     }
 
-    @OnClick(R.id.cl_sign_up_root_password)
     public void onClRootClicked() {
         View view = getCurrentFocus();
         if (view != null) {
@@ -76,12 +85,10 @@ public class SignUp6PasswordActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
         finish();
     }
 
-    @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         String password = etPassword.getText().toString().trim();
         if (TextUtils.isEmpty(password)

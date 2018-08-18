@@ -1,4 +1,4 @@
-include ':app',
+include ':app', ':module-health_measure',
         ':lib-pay-beecloud',
         ':module-edu',
         ':lib-music-player',
@@ -26,6 +26,7 @@ include ':lib-common-core',
         ':app-component',
         ':component-cc',
         ':lib-call',
-        'lib-common-business',
-        'lib-mlvoice'
+        ':lib-common-business',
+        ':lib-mlvoice',
+        ':lib-auth'
 

@@ -442,7 +442,7 @@ public class XueyaActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PlayVideoActivity.class);
                 intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getPackageName() + "/血压计.mp4");
-                startActivity(intent);
+                startActivityForResult(intent);
 
             }
         });*/

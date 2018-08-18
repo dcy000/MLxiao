@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
@@ -24,22 +24,16 @@ import com.medlink.danbogh.utils.Utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-
 public class SignUp03PasswordActivity extends BaseActivity {
 
-    @BindView(R.id.et_sign_up_password)
+
     EditText etPassword;
-    @BindView(R.id.et_sign_up_confirm_password)
+
     EditText etConfirmPassword;
-    @BindView(R.id.tv_sign_up_go_back)
+
     TextView tvGoBack;
-    @BindView(R.id.tv_sign_up_go_forward)
+
     TextView tvGoForward;
-    public Unbinder mUnbinder;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, SignUp03PasswordActivity.class);
@@ -54,16 +48,29 @@ public class SignUp03PasswordActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up6_password);
+        etPassword = (EditText) findViewById(R.id.et_sign_up_password);
+        etConfirmPassword = (EditText) findViewById(R.id.et_sign_up_confirm_password);
+        tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
+        tvGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
+        findViewById(R.id.cl_sign_up_root_password).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClRootClicked();
+            }
+        });
+        tvGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoBackClicked();
+            }
+        });
+        tvGoForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoForwardClicked();
+            }
+        });
         mToolbar.setVisibility(View.GONE);
-        mUnbinder = ButterKnife.bind(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
-        super.onDestroy();
     }
 
     @Override
@@ -73,7 +80,6 @@ public class SignUp03PasswordActivity extends BaseActivity {
         speak(R.string.sign_up_password_tip);
     }
 
-    @OnClick(R.id.cl_sign_up_root_password)
     public void onClRootClicked() {
         View view = getCurrentFocus();
         if (view != null) {
@@ -81,12 +87,10 @@ public class SignUp03PasswordActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
         finish();
     }
 
-    @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         String password = etPassword.getText().toString().trim();
         if (TextUtils.isEmpty(password)
@@ -101,9 +105,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
     }
 
     private void navToNext() {
-        Intent intent = new Intent(this, RegisterVideoActivity.class);
-        intent.putExtra("isFast", true);
-        startActivity(intent);
+        CCFaceRecognitionActions.jump2RegisterHead2XunfeiActivity(this);
     }
 
     private void signUp(String password) {

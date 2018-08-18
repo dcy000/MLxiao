@@ -17,10 +17,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegisterHead2XunfeiActivity"
-            android:screenOrientation="landscape"/>
-        <meta-data android:name="com.gcml.module_face_recognition.lifecycle.FaceRecognitionLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks"/>
+        <meta-data
+            android:name="com.gcml.module_face_recognition.lifecycle.FaceRecognitionLifecycleCallbacks"
+            android:value="AppLifecycleCallbacks" />
+
+        <activity
+            android:name=".RegisterHead2XunfeiActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".FaceRecognitionActivity"
+            android:screenOrientation="landscape" />
+
     </application>
 
 </manifest>

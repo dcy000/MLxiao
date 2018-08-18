@@ -480,7 +480,7 @@ public class NimCallHelper {
 //            Context context = MyApplication.getInstance().getApplicationContext();
 //            Intent intent = new Intent(context, AppraiseActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            context.startActivity(intent);
+//            context.startActivityForResult(intent);
 //        }
     }
 

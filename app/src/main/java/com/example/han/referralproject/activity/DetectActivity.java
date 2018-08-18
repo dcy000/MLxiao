@@ -807,7 +807,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onActivitySpeakFinish() {//语音播放完成后，如果血糖异常，则跳转到并发症页面
         if (xuetangAbnormal) {
-//            startActivity(new Intent(this,SymptomsActivity.class));
+//            startActivityForResult(new Intent(this,SymptomsActivity.class));
         }
     }
 
@@ -1098,7 +1098,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 } else {
                     startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 2));
                 }
-//                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 6));
+//                startActivityForResult(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 6));
             }
         });
         findViewById(R.id.history6).setOnClickListener(new View.OnClickListener() {

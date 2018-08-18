@@ -49,7 +49,7 @@ public class VoiceLineView extends View {
     public Integer waveH=2;
 
     public VoiceLineView(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public VoiceLineView(Context context, AttributeSet attrs) {

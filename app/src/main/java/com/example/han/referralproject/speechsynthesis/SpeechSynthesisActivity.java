@@ -34,8 +34,8 @@ import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.HttpCallback;
@@ -660,11 +660,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
             Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
             /*if (inSpell.matches(".*((xin|xing)dian).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DetectActivity.class).putExtra("type", "xindian"));
+                startActivityForResult(new Intent(SpeechSynthesisActivity.this, DetectActivity.class).putExtra("type", "xindian"));
                 return;
             }
             if (inSpell.matches(".*(sanheyi|(xie|xue)(niao|liao)(suan|shuan)|dangu(chun|cun)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DetectActivity.class).putExtra("type", "sanheyi"));
+                startActivityForResult(new Intent(SpeechSynthesisActivity.this, DetectActivity.class).putExtra("type", "sanheyi"));
                 return;
             }*/
             if (matcherWhenAlarm.find()) {
@@ -751,7 +751,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                    ||inSpell.matches(".*(ce|che)(shi|si).*")) {
 //                Intent intent = new Intent(SpeechSynthesisActivity.this, FaceRecognitionActivity.class);
 //                intent.putExtra("from", "Test");
-//                startActivity(intent);
+//                startActivityForResult(intent);
 //                return;
 //            }
 
@@ -827,7 +827,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
             /*if (inSpell.matches(".*(gaoxueya).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+                startActivityForResult(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "高血压"));
             }*/
             if (inSpell.matches(".*(bian(sheng|shen|seng)).*")) {
@@ -910,7 +910,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                mIatDialog.dismiss();
 //                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
 //                intent.putExtra("type", "xueya");
-//                startActivity(intent);
+//                startActivityForResult(intent);
 //                return;
 //            }
             if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
@@ -919,7 +919,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","xueya");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
 
             } else if (inSpell.matches(".*ce.*xueyang.*")
                     || inSpell.matches(".*liang.*xueyang.*")
@@ -929,7 +929,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","xueyang");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
 
             } else if (result.matches(".*测.*血糖.*")
                     || inSpell.matches(".*liang.*xuetang.*")
@@ -939,14 +939,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","xuetang");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                 mIatDialog.dismiss();
 
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","wendu");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
 
             } else if (inSpell.matches(".*ce.*xindian.*")
                     || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
@@ -955,7 +955,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","xindian");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
 
             } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
                 mIatDialog.dismiss();
@@ -963,7 +963,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","sanheyi");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
             } else if (inSpell.matches(".*ce.*tizhong.*")) {
 
                 mIatDialog.dismiss();
@@ -971,7 +971,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","tizhong");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
 
             } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
 
@@ -1156,7 +1156,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","xueya");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
                 return true;
             }
         }
@@ -1172,7 +1172,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","xueyang");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
                 return true;
             }
         }
@@ -1188,7 +1188,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","wendu");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
                 return true;
             }
         }
@@ -1205,7 +1205,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","xuetang");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
 
                 return true;
             }
@@ -1222,7 +1222,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","xindian");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
                 return true;
             }
         }
@@ -1238,7 +1238,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","tizhong");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
 
                 return true;
             }
@@ -1256,7 +1256,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("from","Test");
                 bundle.putString("fromType","sanheyi");
-                FaceRecognitionActivity.startActivity(getApplicationContext(), bundle,false);
+               CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
 
                 return true;
             }
@@ -1740,8 +1740,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void onSuccess(Unit data) {
-                if (data != null)
+                if (data != null) {
                     sessionId = data.getSession_id();
+                }
                 for (Unit.ActionListBean action : data.getAction_list()) {
 
                     if (!TextUtils.isEmpty(action.getSay())) {
@@ -1935,6 +1936,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
      * 听写UI监听器
      */
     private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+        @Override
         public void onResult(RecognizerResult results, boolean isLast) {
             dealData(results, isLast);
         }
@@ -1942,6 +1944,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         /**
          * 识别回调错误.
          */
+        @Override
         public void onError(SpeechError error) {
             showTip(error.getPlainDescription(true));
 

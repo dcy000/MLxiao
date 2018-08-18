@@ -2,6 +2,10 @@ package com.gcml.module_face_recognition.cc;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
+import com.gcml.module_face_recognition.bean.UserInfoBean;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -29,11 +33,27 @@ public class CCResultActions {
      */
     public static final String KEY_EXTRA_CC_CALLBACK = "key_cc_callback";
     /**
+     * CC结果返回UserInfoBean
+     */
+    public static final String KEY_EXTRA_CC_USERINFOBEAN="key_cc_userinfobean";
+    /**
      * CC框架结果反馈
      *
      * @param action
      */
     public static void onCCResultAction(String action) {
         CC.sendCCResult(ccId, CCResult.success(KEY_EXTRA_CC_CALLBACK, action));
+    }
+
+    /**
+     * 返回userinforbean
+     * @param action
+     * @param userInfoBean
+     */
+    public static void onCCResultAction(String action,UserInfoBean userInfoBean){
+        Map<String,Object> map=new HashMap<>();
+        map.put(KEY_EXTRA_CC_CALLBACK,action);
+        map.put(KEY_EXTRA_CC_USERINFOBEAN,userInfoBean);
+        CC.sendCCResult(ccId,CCResult.success());
     }
 }

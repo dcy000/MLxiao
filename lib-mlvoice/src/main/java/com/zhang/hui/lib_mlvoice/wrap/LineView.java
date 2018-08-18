@@ -19,7 +19,7 @@ import java.util.List;
  * Created by lenovo on 2018/3/8.
  */
 
-public class VoiceLineView extends View {
+public class LineView extends View {
     private Paint paint;
     //矩形波纹颜色
     private int lineColor;
@@ -48,15 +48,15 @@ public class VoiceLineView extends View {
     private static final int UPDATE_INTERVAL_TIME = 100;//100ms更新一次
     public Integer waveH = 2;
 
-    public VoiceLineView(Context context) {
-        super(context);
+    public LineView(Context context) {
+        this(context,null);
     }
 
-    public VoiceLineView(Context context, AttributeSet attrs) {
+    public LineView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public VoiceLineView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LineView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         paint = new Paint();
         resetList(list, DEFAULT_WAVE_HEIGHT);

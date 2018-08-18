@@ -33,8 +33,8 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
-import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.facerecognition.ICreateGroupListener;
 import com.example.han.referralproject.facerecognition.IJoinGroupListener;
 import com.example.han.referralproject.homepage.MainActivity;
@@ -210,7 +210,7 @@ public class SignInActivity extends BaseActivity {
             Bundle bundle = new Bundle();
             bundle.putBoolean("isTest",true);
             MyApplication.getInstance().userId = "123456";
-            FaceRecognitionActivity.startActivity(mContext, bundle,false);
+            CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
             finish();
             return;
         }
@@ -320,9 +320,9 @@ public class SignInActivity extends BaseActivity {
         }else {
             Bundle bundle=new Bundle();
             bundle.putString("from","Welcome");
-            FaceRecognitionActivity.startActivity(this,bundle,false);
+            CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
         }
-//        startActivity(new Intent(SignInActivity.this, SignUp1NameActivity.class));
+//        startActivityForResult(new Intent(SignInActivity.this, SignUp1NameActivity.class));
     }
 
     @OnClick(R.id.tv_sign_in_forget_password)

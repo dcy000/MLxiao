@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.gcml.lib_utils.data.LunarUtils;
 import com.gcml.lib_utils.data.TimeUtils;
@@ -304,8 +304,7 @@ public class NewMain1Fragment extends BaseFragment implements View.OnClickListen
                 Bundle bundle = new Bundle();
                 bundle.putString("orderid", "0");
                 bundle.putString("from", "Test");
-//                FaceRecognitionActivity.startActivity(getContext(), FaceRecognitionActivity.class, bundle, false);
-                FaceRecognitionActivity.startActivity(getContext(),bundle,false);
+                CCFaceRecognitionActions.jump2FaceRecognitionActivity(getActivity(),bundle);
                 break;
             case R.id.iv_health_manager:
                 startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));

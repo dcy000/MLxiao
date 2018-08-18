@@ -34,10 +34,7 @@ import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.facerecognition.HeadiconActivity;
-import com.example.han.referralproject.facerecognition.RegisterHead2XunfeiActivity;
-import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.jipush.MyReceiver;
 import com.example.han.referralproject.speech.setting.IatSettings;
@@ -134,7 +131,6 @@ public class BaseActivity extends AppCompatActivity {
         needIgnoreCheckUseridActivities.add(WifiConnectActivity.class);
         needIgnoreCheckUseridActivities.add(ChooseLoginTypeActivity.class);
         needIgnoreCheckUseridActivities.add(SignInActivity.class);
-        needIgnoreCheckUseridActivities.add(FaceRecognitionActivity.class);
         needIgnoreCheckUseridActivities.add(SignUp1NameActivity.class);
         needIgnoreCheckUseridActivities.add(SignUp2GenderActivity.class);
         needIgnoreCheckUseridActivities.add(SignUp3AddressActivity.class);
@@ -149,8 +145,6 @@ public class BaseActivity extends AppCompatActivity {
         needIgnoreCheckUseridActivities.add(SignUp12DrinkActivity.class);
         needIgnoreCheckUseridActivities.add(SignUp13SportsActivity.class);
         needIgnoreCheckUseridActivities.add(SignUp14DiseaseHistoryActivity.class);
-        needIgnoreCheckUseridActivities.add(RegisterHead2XunfeiActivity.class);
-        needIgnoreCheckUseridActivities.add(RegisterVideoActivity.class);
         needIgnoreCheckUseridActivities.add(HeadiconActivity.class);
         needIgnoreCheckUseridActivities.add(Test_mainActivity.class);
     }
@@ -534,7 +528,9 @@ public class BaseActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            if (mMediaRecorder == null) return;
+            if (mMediaRecorder == null) {
+                return;
+            }
             double ratio = (double) mMediaRecorder.getMaxAmplitude() / 100;
             if (ratio > 1) {
                 volume = (int) (20 * Math.log10(ratio));

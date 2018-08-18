@@ -42,9 +42,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
-
-import timber.log.Timber;
-
 import static com.gcml.lib_video_ksyplayer.DataInter.ReceiverKey.KEY_CONTROLLER_COVER;
 
 public class TestVideoActivity extends AppCompatActivity implements OnPlayerEventListener {
@@ -178,8 +175,9 @@ public class TestVideoActivity extends AppCompatActivity implements OnPlayerEven
     protected void onResume() {
         super.onResume();
         if (mVideoView.isInPlaybackState()) {
-            if (!userPause)
+            if (!userPause) {
                 mVideoView.resume();
+            }
         } else {
             mVideoView.rePlay(0);
         }

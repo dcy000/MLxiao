@@ -6,25 +6,25 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 /**
  * Created by lenovo on 2017/10/13.
  */
 
 public class DiseaseHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.tv_sign_up_item_disease)
     TextView tvDisease;
     public DiseaseHistoryModel mModel;
 
     public DiseaseHolder(View itemView) {
         super(itemView);
-        ButterKnife.bind(this, itemView);
+        tvDisease = (TextView) itemView.findViewById(R.id.tv_sign_up_item_disease);
+        tvDisease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvDiseaseClicked();
+            }
+        });
     }
 
-    @OnClick(R.id.tv_sign_up_item_disease)
     public void onTvDiseaseClicked() {
         boolean selected = !mModel.isSelected();
         tvDisease.setSelected(selected);

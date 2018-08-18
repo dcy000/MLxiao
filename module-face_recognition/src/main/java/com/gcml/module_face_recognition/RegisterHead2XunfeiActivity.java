@@ -21,8 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.camera.CameraUtils;
@@ -30,10 +28,6 @@ import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.display.ImageUtils;
 import com.gcml.lib_utils.display.LoadingProgressUtils;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.permission.PermissionsManager;
-import com.gcml.lib_utils.permission.PermissionsResultAction;
-import com.gcml.lib_utils.thread.ThreadUtils;
-import com.gcml.lib_utils.ui.UiUtils;
 import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.gcml.lib_widget.CircleImageView;
 import com.gcml.module_face_recognition.cc.CCResultActions;
@@ -54,7 +48,6 @@ import com.qiniu.android.storage.UploadManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -62,7 +55,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import timber.log.Timber;
 
@@ -90,7 +82,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
 
 
     //统一管理方便维护者查看
-    public interface CCResultConstant {
+    interface ResultActionNames {
         /**
          * 点击了返回按钮
          */
@@ -154,7 +146,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
         ToastUtils.showShort("没有使用摄像头的权限");
-        CCResultActions.onCCResultAction(CCResultConstant.USER_REFUSED_CAMERA_PERMISSION);
+        CCResultActions.onCCResultAction(ResultActionNames.USER_REFUSED_CAMERA_PERMISSION);
         finish();
     }
 
@@ -307,10 +299,10 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
         int i = v.getId();
         if (i == R.id.iv_back) {
             //因为CC启动可能是异步的，所以此处给个反馈
-            CCResultActions.onCCResultAction(CCResultConstant.PRESSED_BACK_BUTTON);
+            CCResultActions.onCCResultAction(ResultActionNames.PRESSED_BACK_BUTTON);
             finish();
         } else if (i == R.id.tiao_guos) {
-            CCResultActions.onCCResultAction(CCResultConstant.PRESSED_JUMP_BUTTON);
+            CCResultActions.onCCResultAction(ResultActionNames.PRESSED_JUMP_BUTTON);
             finish();
         } else {
 
@@ -462,7 +454,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                     if (TextUtils.isEmpty(userid)) {
                         ToastUtils.showShort("userId==null");
                         LoadingProgressUtils.dismissView();
-                        CCResultActions.onCCResultAction(CCResultConstant.ON_ERROR);
+                        CCResultActions.onCCResultAction(ResultActionNames.ON_ERROR);
                         return;
                     }
                     FaceRepository.syncRegistHeadUrl(imageUrl)
@@ -481,7 +473,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                                 public void onNext(Object o) {
                                     //隐藏提示loadding
                                     LoadingProgressUtils.dismissView();
-                                    CCResultActions.onCCResultAction(CCResultConstant.REGIST_HEAD_SUCCESS);
+                                    CCResultActions.onCCResultAction(ResultActionNames.REGIST_HEAD_SUCCESS);
                                 }
 
                                 @Override

@@ -65,9 +65,9 @@ public class NewMain2Fragment extends BaseFragment implements View.OnClickListen
                 startActivity(new Intent(getContext(), PersonDetailActivity.class));
                 break;
             case R.id.iv_health_course:
-//                startActivity(new Intent(getActivity(), FirstDiagnosisActivity.class));
+//                startActivityForResult(new Intent(getActivity(), FirstDiagnosisActivity.class));
                 startActivity(new Intent(getActivity(), HealthIntelligentDetectionActivity.class));
-//                startActivity(new Intent(getActivity(), VideoListActivity.class));
+//                startActivityForResult(new Intent(getActivity(), VideoListActivity.class));
                 break;
             case R.id.entertainment_center:
                 OldRouter.routeToOldHomeActivity(getActivity());

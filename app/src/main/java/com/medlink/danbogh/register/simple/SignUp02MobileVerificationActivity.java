@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -23,27 +24,22 @@ import com.medlink.danbogh.utils.Utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-
 /**
  * Created by lenovo on 2017/10/12.
  */
 
 public class SignUp02MobileVerificationActivity extends BaseActivity {
-    @BindView(R.id.et_sign_up_phone)
+
     EditText etPhone;
-    @BindView(R.id.et_sign_up_code)
+
     EditText etCode;
-    @BindView(R.id.tv_sign_up_fetch_code)
+
     TextView tvFetchCode;
-    @BindView(R.id.tv_sign_up_go_back)
+
     TextView tvGoBack;
-    @BindView(R.id.tv_sign_up_go_forward)
+
     TextView tvGoForward;
-    public Unbinder mUnbinder;
+    private ConstraintLayout clRoot;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, SignUp02MobileVerificationActivity.class);
@@ -58,8 +54,37 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_sign_up5_mobile_verification);
+        etPhone = (EditText) findViewById(R.id.et_sign_up_phone);
+        etCode = (EditText) findViewById(R.id.et_sign_up_code);
+        tvFetchCode = (TextView) findViewById(R.id.tv_sign_up_fetch_code);
+        tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
+        tvGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
+        clRoot = (ConstraintLayout) findViewById(R.id.cl_sign_up_root_mobile_verification);
+        clRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClRootClicked();
+            }
+        });
+        tvFetchCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvFetchCodeClicked();
+            }
+        });
+        tvGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoBackClicked();
+            }
+        });
+        tvGoForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoForwardClicked();
+            }
+        });
         mToolbar.setVisibility(View.GONE);
-        mUnbinder = ButterKnife.bind(this);
         initView();
     }
 
@@ -67,9 +92,6 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
     protected void onDestroy() {
         if (countDown != null) {
             Handlers.ui().removeCallbacks(countDown);
-        }
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
         }
         super.onDestroy();
     }
@@ -89,7 +111,6 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
         Utils.hideKeyBroad(editText);
     }
 
-    @OnClick(R.id.cl_sign_up_root_mobile_verification)
     public void onClRootClicked() {
         View view = getCurrentFocus();
         if (view != null) {
@@ -101,7 +122,6 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
 
     private String mCode;
 
-    @OnClick(R.id.tv_sign_up_fetch_code)
     public void onTvFetchCodeClicked() {
         inPhone = false;
         etCode.requestFocus();
@@ -123,7 +143,7 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String code) {
                         mCode = code;
-                         ToastUtils.showShort("获取验证码成功");
+                        ToastUtils.showShort("获取验证码成功");
                         speak("获取验证码成功");
                     }
                 }, new NetworkManager.FailedCallback() {
@@ -165,12 +185,10 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
         }
     };
 
-    @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
         finish();
     }
 
-    @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         String code = etCode.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();

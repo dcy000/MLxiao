@@ -45,7 +45,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import timber.log.Timber;
 
 public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private static final String[] BLOODOXYGEN_BRANDS = {"POD", "iChoice", "SpO2080971"};
@@ -85,7 +84,6 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 search(BLOODSUGAR_BRANDS);
                 break;
             case IPresenter.MEASURE_BLOOD_OXYGEN:
-                Timber.e("搜索血氧设备");
                 search(BLOODOXYGEN_BRANDS);
                 break;
             case IPresenter.MEASURE_WEIGHT:
@@ -161,9 +159,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         public void onDeviceFounded(SearchResult searchResult) {
             String name = searchResult.getName();
             String address = searchResult.getAddress();
-            Timber.e(name + "-----" + address);
             if (!TextUtils.isEmpty(name)) {
-                Timber.e(brands[0]);
                 for (String s : brands) {
                     if (name.equals(s) && !devices.contains(searchResult)) {
                         devices.add(searchResult);
@@ -175,25 +171,13 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchStopped() {
             isSearching = false;
-            Timber.e("搜索到的设备数量：" + devices.size());
             if (devices.size() > 0) {
                 Collections.sort(devices, SearchWithDeviceGroupHelper.this);
                 if (devices.size() >= 2) {
-                    Timber.e("搜索到的第一个是："
-                            + devices.get(0).getName()
-                            + "--" + devices.get(0).getAddress()
-                            + "--" + devices.get(0).rssi
-                            + "++第二个设备"
-                            + devices.get(1).getName()
-                            + "--"+devices.get(1).getAddress()
-                            + "--" + devices.get(1).rssi);
                 } else {
-                    Timber.e("搜索到的第一个是：" + devices.get(0).getName()
-                            + "--" + devices.get(0).getAddress());
                 }
                 initPresenter(devices.get(0).getName(), devices.get(0).getAddress());
             } else {
-                Timber.e("启动下一次搜索");
                 final SearchRequest searchRequest = new SearchRequest.Builder()
                         .searchBluetoothClassicDevice(3000, 1)
                         .searchBluetoothLeDevice(8000, 1)
@@ -277,7 +261,6 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "POD"));
                         break;
                     case "iChoice":
-                        Timber.e("尝试连接超思血氧仪");
                         baseBluetoothPresenter = new Bloodoxygen_Chaosi_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "iChoice"));
                         break;

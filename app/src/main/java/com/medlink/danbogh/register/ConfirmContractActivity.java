@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -18,11 +19,6 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.XDialogFragment;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 public class ConfirmContractActivity extends AppCompatActivity {
 
@@ -35,33 +31,32 @@ public class ConfirmContractActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    @BindView(R.id.tv_name)
+
     TextView tvName;
-    @BindView(R.id.tv_phone)
+
     TextView tvPhone;
-    @BindView(R.id.tv_id_card)
+
     TextView tvIdCard;
-    @BindView(R.id.tv_contract_interval)
+
     TextView tvContractInterval;
-    @BindView(R.id.tv_contract_doctor)
+
     TextView tvContractDoctor;
-    @BindView(R.id.tv_doctor_phone)
+
     TextView tvDoctorPhone;
-    @BindView(R.id.tv_contract_organization)
+
     TextView tvContractOrganization;
-    @BindView(R.id.tv_service_type)
+
     TextView tvServiceType;
-    @BindView(R.id.tv_tab1_personal_info)
+
     TextView tvTab1PersonalInfo;
-    @BindView(R.id.tv_tab2_health_info)
+
     TextView tvTab2HealthInfo;
-    @BindView(R.id.tv_tab3_contract_doctor)
+
     TextView tvTab3ContractDoctor;
-    @BindView(R.id.tv_sign_up_go_back)
+
     TextView tvGoBack;
-    @BindView(R.id.tv_sign_up_go_forward)
+
     TextView tvGoForward;
-    private Unbinder mUnbinder;
 
     private String mDoctorId;
 
@@ -69,10 +64,34 @@ public class ConfirmContractActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_contract);
-        mUnbinder = ButterKnife.bind(this);
+        tvName = (TextView) findViewById(R.id.tv_name);
+        tvPhone = (TextView) findViewById(R.id.tv_phone);
+        tvIdCard = (TextView) findViewById(R.id.tv_id_card);
+        tvContractInterval = (TextView) findViewById(R.id.tv_contract_interval);
+        tvContractDoctor = (TextView) findViewById(R.id.tv_contract_doctor);
+        tvDoctorPhone = (TextView) findViewById(R.id.tv_doctor_phone);
+        tvContractOrganization = (TextView) findViewById(R.id.tv_contract_organization);
+        tvServiceType = (TextView) findViewById(R.id.tv_service_type);
+        tvTab1PersonalInfo = (TextView) findViewById(R.id.tv_tab1_personal_info);
+        tvTab2HealthInfo = (TextView) findViewById(R.id.tv_tab2_health_info);
+        tvTab3ContractDoctor = (TextView) findViewById(R.id.tv_tab3_contract_doctor);
+        tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
+        tvGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
         tvTab1PersonalInfo.setTextColor(Color.parseColor("#3f86fc"));
         tvTab3ContractDoctor.setTextColor(Color.parseColor("#ffffff"));
         tvGoForward.setText("完成");
+        tvGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoBackClicked();
+            }
+        });
+        tvGoForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTvGoForwardClicked();
+            }
+        });
 
         mDoctorId = getIntent().getStringExtra("doctorId");
         NetworkApi.getContractInfo(mDoctorId, new NetworkManager.SuccessCallback<ContractInfo>() {
@@ -106,12 +125,10 @@ public class ConfirmContractActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
         finish();
     }
 
-    @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         NetworkApi.bindDoctor(MyApplication.getInstance().userId, Integer.valueOf(mDoctorId), new NetworkManager.SuccessCallback<String>() {
             @Override
@@ -129,13 +146,5 @@ public class ConfirmContractActivity extends AppCompatActivity {
                 dialogFragment.show(getSupportFragmentManager(), XDialogFragment.tag());
             }
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
     }
 }

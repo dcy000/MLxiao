@@ -113,7 +113,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.health_record_icon_home:
                 Intent intents = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intents);
+                startActivityForResult(intents);
                 finish();
                 break;*/
         }

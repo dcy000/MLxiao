@@ -79,9 +79,9 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <!-- Bugly -->
-    <uses-permission
-        android:name="android.permission.READ_LOGS"
-        tools:ignore="ProtectedPermissions" />
+    <!--<uses-permission-->
+        <!--android:name="android.permission.READ_LOGS"-->
+        <!--tools:ignore="ProtectedPermissions" />-->
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
@@ -721,10 +721,6 @@
             android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity"
             android:screenOrientation="landscape"></activity>
 
-        <activity
-            android:name=".facerecognition.RegisterHead2XunfeiActivity"
-            android:label="新的头像注册界面"
-            android:screenOrientation="landscape" />
         <activity
             android:name=".video.MeasureVideoPlayActivity"
             android:label="测量演示视频播放界面"

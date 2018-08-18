@@ -135,7 +135,7 @@ public class OnlineDoctorListActivity extends BaseActivity {
                 if (!"contract".equals(mFlag)) {
                     intent.putExtra("sign", "1");
                 }
-                startActivity(intent);*/
+                startActivityForResult(intent);*/
 //                finish();
 
             }

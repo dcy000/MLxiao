@@ -18,7 +18,6 @@ public class AppComponent implements IComponent {
 
     @Override
     public boolean onCall(CC cc) {
-
         return false;
     }
 }

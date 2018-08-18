@@ -49,6 +49,13 @@ android {
         }
     }
 
+
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+
 }
 
 dependencies {
@@ -61,6 +68,7 @@ dependencies {
     androidTestImplementation rootProject.ext.dependencies["espresso-core"]
     //core lib
     implementation project(":lib-common-core")
+    implementation project(":lib-utils")
     //voice
     api files('libs/Msc.jar')
     implementation files('libs/Msc.jar')
@@ -70,6 +78,7 @@ dependencies {
     implementation rootProject.ext.dependencies['gson']
     implementation rootProject.ext.dependencies['okhttp3']
 
-    //
     compile project(":lib-music-player")
+    implementation(name: 'voicelibrary', ext: 'aar')
+
 }

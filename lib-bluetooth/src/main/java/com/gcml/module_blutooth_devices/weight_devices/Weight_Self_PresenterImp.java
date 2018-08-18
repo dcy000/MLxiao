@@ -16,8 +16,6 @@ import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import java.util.List;
 import java.util.UUID;
 
-import timber.log.Timber;
-
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
  * version:V1.2.5

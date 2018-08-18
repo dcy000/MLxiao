@@ -94,13 +94,13 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                                public void onClick(int which) {
 //                                    if (which == 1) {
 //                                        LocalShared.getInstance(mContext).deleteAllAccount();
-//                                        mContext.startActivity(new Intent(mContext, SignInActivity.class));
+//                                        mContext.startActivityForResult(new Intent(mContext, SignInActivity.class));
 //                                        ((Activity) mContext).finish();
 //                                    }
 //                                }
 //                            }).create(NDialog.CONFIRM).showShort();
 //                }else{
-//                    mContext.startActivity(new Intent(mContext, SignInActivity.class));
+//                    mContext.startActivityForResult(new Intent(mContext, SignInActivity.class));
 //                    ((Activity) mContext).finish();
 //                }
                 mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
