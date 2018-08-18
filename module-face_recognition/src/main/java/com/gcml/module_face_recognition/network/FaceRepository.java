@@ -5,7 +5,7 @@ import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.module_face_recognition.bean.UserInfoBean;
 import com.gcml.module_face_recognition.bean.XfGroupInfo;
-import com.gcml.module_face_recognition.manifests.SPManifest;
+import com.gcml.module_face_recognition.manifests.FaceRecognitionSPManifest;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class FaceRepository {
      * @return
      */
     public static Observable<List<XfGroupInfo>> recordXfGroupInfo(String groupId, String xfid) {
-        return faceRecognitionService.recordXfGroupInformation(SPManifest.getUserId(), groupId, xfid)
+        return faceRecognitionService.recordXfGroupInformation(FaceRecognitionSPManifest.getUserId(), groupId, xfid)
                 .compose(RxUtils.apiResultTransformer());
     }
 
@@ -51,7 +51,7 @@ public class FaceRepository {
      * @return
      */
     public static Observable<Object> syncRegistHeadUrl(String userPhoto) {
-        return faceRecognitionService.syncRegistHeadUrl(userPhoto, SPManifest.getUserId(), SPManifest.getXunfeiId())
+        return faceRecognitionService.syncRegistHeadUrl(userPhoto, FaceRecognitionSPManifest.getUserId(), FaceRecognitionSPManifest.getXunfeiId())
                 .compose(RxUtils.apiResultTransformer());
     }
 

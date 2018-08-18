@@ -11,9 +11,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.animation.Animation;
@@ -31,12 +29,11 @@ import com.gcml.lib_utils.device.DeviceUtils;
 import com.gcml.lib_utils.display.ImageUtils;
 import com.gcml.lib_utils.display.LoadingProgressUtils;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.thread.ThreadUtils;
 import com.gcml.module_face_recognition.bean.UserInfoBean;
 import com.gcml.module_face_recognition.cc.CCResultActions;
 import com.gcml.module_face_recognition.faceutils.FaceAuthenticationUtils;
 import com.gcml.module_face_recognition.faceutils.IVertifyFaceListener;
-import com.gcml.module_face_recognition.manifests.SPManifest;
+import com.gcml.module_face_recognition.manifests.FaceRecognitionSPManifest;
 import com.gcml.module_face_recognition.network.FaceRepository;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityResult;
@@ -48,7 +45,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -179,10 +175,10 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
         cameraListener = new MyCameraListener();
         CameraUtils.getInstance().setOnCameraPreviewCallback(cameraListener);
         circleAnimation = AnimationUtils.loadAnimation(this, R.anim.face_recognition_anim_rotate_face_check);
-        mAuthid = SPManifest.getXunfeiId();
-        groupid = SPManifest.getGroupId();
-        currentXfid = SPManifest.getXunfeiId();
-        accounts = SPManifest.getAccounts();
+        mAuthid = FaceRecognitionSPManifest.getXunfeiId();
+        groupid = FaceRecognitionSPManifest.getGroupId();
+        currentXfid = FaceRecognitionSPManifest.getXunfeiId();
+        accounts = FaceRecognitionSPManifest.getAccounts();
         getUsers();
     }
 
@@ -441,7 +437,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
     @SuppressLint("CheckResult")
     private void dealPayResult(String scoreFirstXfid) {
         if (mAuthid.equals(scoreFirstXfid)) {
-            FaceRepository.syncPayOrderId(SPManifest.getUserId(), DeviceUtils.getIMEI(), orderid)
+            FaceRepository.syncPayOrderId(FaceRecognitionSPManifest.getUserId(), DeviceUtils.getIMEI(), orderid)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .as(RxUtils.autoDisposeConverter(this))

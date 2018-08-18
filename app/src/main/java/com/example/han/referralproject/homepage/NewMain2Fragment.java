@@ -9,12 +9,12 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
+import com.gcml.lib_utils.base.RecycleBaseFragment;
+import com.gcml.lib_widget.EclipseImageView;
 import com.gcml.old.auth.profile.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.google.gson.Gson;
-import com.gzq.administrator.lib_common.base.BaseFragment;
-import com.gzq.administrator.lib_common.custom_view.EclipseImageView;
 import com.ml.edu.OldRouter;
 
 /**
@@ -24,7 +24,7 @@ import com.ml.edu.OldRouter;
  * created by:gzq
  * description:主页第2页
  */
-public class NewMain2Fragment extends BaseFragment implements View.OnClickListener {
+public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClickListener {
     private EclipseImageView mIvPersonCenter;
     private EclipseImageView mIvHealthCourse;
     private EclipseImageView mEntertainmentCenter;

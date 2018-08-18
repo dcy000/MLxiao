@@ -27,12 +27,6 @@ public class BaseApplication extends Application{
     public void onCreate() {
         super.onCreate();
         mInstance=this;
-//        //初始化内存泄漏检测工具
-//        refWatcher = LeakCanary.install(this);
-        //吐司工具类初始化
-        ToastTool.init(this);
-        //常用屏幕单位转换工具类
-        ScreenUtils.init(this);
         //语音模块初始化
         StringBuilder builder = new StringBuilder();
         builder.append("appid=")

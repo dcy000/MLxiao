@@ -1,19 +1,14 @@
 package com.gcml.module_face_recognition.cc;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.IComponent;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.permission.PermissionsManager;
-import com.gcml.lib_utils.permission.PermissionsResultAction;
 import com.gcml.module_face_recognition.FaceRecognitionActivity;
 import com.gcml.module_face_recognition.RegisterHead2XunfeiActivity;
-import com.gcml.module_face_recognition.manifests.SPManifest;
+import com.gcml.module_face_recognition.manifests.FaceRecognitionSPManifest;
 
 import timber.log.Timber;
 
@@ -48,7 +43,7 @@ public class FaceRecognitionCC implements IComponent {
                             keyExtraXfid);
                 } else {
                     RegisterHead2XunfeiActivity.startActivity(context,
-                            SPManifest.getXunfeiId());
+                            FaceRecognitionSPManifest.getXunfeiId());
                 }
                 //返回true表示异步的，如果没有CC.sendResult()则该异步一直等待
                 return true;

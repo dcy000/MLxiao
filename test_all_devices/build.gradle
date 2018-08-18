@@ -59,7 +59,6 @@ dependencies {
     api rootProject.ext.dependencies["gson"]
     implementation project(':module-health_record')
     implementation project(':lib-utils')
-    implementation project(':lib-common')
 
     api 'com.android.support:multidex:1.0.0'
 }

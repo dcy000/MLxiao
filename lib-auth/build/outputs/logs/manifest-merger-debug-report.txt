@@ -1,0 +1,39 @@
+-- Merging decision tree log ---
+manifest
+ADDED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml:1:1-7:12
+INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml:1:1-7:12
+INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml:1:1-7:12
+INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml:1:1-7:12
+INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml:1:1-7:12
+INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml:1:1-7:12
+INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml:1:1-7:12
+	package
+		ADDED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml:2:5-28
+		INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+		INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+		ADDED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml:1:1-7:12
+		INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+		ADDED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml:1:1-7:12
+		INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml:1:11-69
+application
+ADDED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml:4:5-6:19
+uses-sdk
+INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+		ADDED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+		INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+		ADDED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml
+		INJECTED from F:\MLxiao\lib-auth\src\main\AndroidManifest.xml

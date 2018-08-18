@@ -3,6 +3,7 @@ package com.gcml.module_face_recognition;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -34,7 +35,7 @@ import com.gcml.module_face_recognition.faceutils.FaceAuthenticationUtils;
 import com.gcml.module_face_recognition.faceutils.ICreateGroupListener;
 import com.gcml.module_face_recognition.faceutils.IJoinGroupListener;
 import com.gcml.module_face_recognition.faceutils.IRegisterFaceListener;
-import com.gcml.module_face_recognition.manifests.SPManifest;
+import com.gcml.module_face_recognition.manifests.FaceRecognitionSPManifest;
 import com.gcml.module_face_recognition.network.FaceRepository;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
@@ -106,14 +107,8 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
 
     public static void startActivity(Context context, String xfid) {
         Intent intent = new Intent(context, RegisterHead2XunfeiActivity.class)
-<<<<<<< HEAD
                 .putExtra(KEY_EXTRA_XFID, xfid);
         if (context instanceof Application) {
-=======
-                .putExtra(KEY_EXTRA_XFID, xfid)
-                .putExtra(KEY_EXTRA_CC_ID, ccId);
-        if (!(context instanceof Activity)) {
->>>>>>> 956c9f1aeb1e8acec4cd22ed21c410c63f4a7d6d
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
@@ -246,10 +241,10 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
         mLottAnimation.setAnimation("camera_pre.json");
         mLottAnimation.playAnimation();
 
-        userId = SPManifest.getUserId();
+        userId = FaceRecognitionSPManifest.getUserId();
         xfid = getIntent().getStringExtra(KEY_EXTRA_XFID);
-        groupId = SPManifest.getGroupId();
-        firstXfidOfGroup = SPManifest.getGroupFirstXfid();
+        groupId = FaceRecognitionSPManifest.getGroupId();
+        firstXfidOfGroup = FaceRecognitionSPManifest.getGroupFirstXfid();
         //保存到七牛云上头像的名称
         headPostfix = TimeUtils.getCurTimeString(
                 new SimpleDateFormat("yyyyMMddHHmmss")) + "_" + userId + ".jpg";
@@ -367,8 +362,8 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                 try {
                     JSONObject resObj = new JSONObject(result.getResultString());
                     String groupId = resObj.getString("group_id");
-                    SPManifest.setGroupId(groupId);
-                    SPManifest.setGroupFirstXfid(xfid);
+                    FaceRecognitionSPManifest.setGroupId(groupId);
+                    FaceRecognitionSPManifest.setGroupFirstXfid(xfid);
                     //组创建好以后把自己加入到组中去
                     joinGroup(userid, groupId, xfid);
                     //加组完成以后把头像上传到我们自己的服务器
@@ -469,7 +464,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                                 @Override
                                 public void accept(Object o) throws Exception {
                                     //将账号在本地缓存
-                                    SPManifest.addAccount(userid, xfid);
+                                    FaceRecognitionSPManifest.addAccount(userid, xfid);
                                 }
                             })
                             .as(RxUtils.autoDisposeConverter(RegisterHead2XunfeiActivity.this))

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.gcml.lib_utils.UtilsManager;
 import com.google.gson.Gson;
 import com.gzq.test_all_devices.MyApplication;
 
@@ -35,7 +36,7 @@ public class NetworkManager {
     private NetworkManager(){
         client = new OkHttpClient();
         mGson = new Gson();
-        mContext = MyApplication.getInstance();
+        mContext = UtilsManager.getApplication();
     }
 
     public interface SuccessCallback<T> {

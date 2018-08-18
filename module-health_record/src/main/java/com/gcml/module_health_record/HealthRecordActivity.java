@@ -32,8 +32,7 @@ import com.gcml.module_health_record.fragments.HealthRecordHeartrateFragment;
 import com.gcml.module_health_record.fragments.HealthRecordTemperatureFragment;
 import com.gcml.module_health_record.fragments.HealthRecordWeightFragment;
 import com.gcml.module_health_record.network.HealthRecordNetworkApi;
-import com.gzq.administrator.lib_common.base.BaseApplication;
-import com.iflytek.recognition.MLVoiceRecognize;
+import com.gcml.module_health_record.others.HealthRecordSPManifest;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.text.SimpleDateFormat;
@@ -432,7 +431,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 Log.d("error", e.toString());
             }
         } else if (i == R.id.tv_record_qrcode) {
-            String text = HealthRecordNetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + BaseApplication.getInstance().userId + "&bname=" + BaseApplication.getInstance().userName;
+            String text = HealthRecordNetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + HealthRecordSPManifest.getUserId() + "&bname=" + HealthRecordSPManifest.getUserName();
             DialogImage dialogImage = new DialogImage(this);
             dialogImage.setImage(QRCodeUtils.creatQRCode(text, 600, 600));
             dialogImage.setDescription("扫一扫，下载详细报告");
@@ -445,8 +444,9 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (checkedId == R.id.rb_record_temperature) {
             temp = "1";
-            if (temperatureFragment != null)
+            if (temperatureFragment != null) {
                 fragmentTransaction.replace(R.id.health_record_fl, temperatureFragment).commit();
+            }
             getTemperatureData(startMillisecond, endMillisecond);
 
         } else if (checkedId == R.id.rb_record_blood_pressure) {

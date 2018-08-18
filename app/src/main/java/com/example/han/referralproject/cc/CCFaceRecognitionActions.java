@@ -9,13 +9,9 @@ import android.text.TextUtils;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
-import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
-import com.example.han.referralproject.WelcomeActivity;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog2;
-import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
@@ -23,10 +19,12 @@ import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.old.auth.entity.UserInfoBean;
+import com.gcml.old.auth.register.SignUp14DiseaseHistoryActivity;
+import com.gcml.old.auth.register.simple.SignUp03PasswordActivity;
+import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
+import com.gcml.old.auth.signin.SignInActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity;
-import com.medlink.danbogh.register.simple.SignUp03PasswordActivity;
-import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import java.text.SimpleDateFormat;
@@ -43,7 +41,7 @@ import timber.log.Timber;
  * created by:gzq
  * description:操作module-face_recognition模块的actions
  * 源模块维护CCActions，目标模块维护CCResultActions
- * 一个模块维护一个类，不可不同模块交叉使用
+ * 一个模块维护一个类，不同模块不能交叉使用
  */
 public class CCFaceRecognitionActions {
     public static final String MODULE_NAME = "face_recognition";
