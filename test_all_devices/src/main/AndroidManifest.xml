@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.gzq.test_all_devices">
-
+    <uses-sdk tools:overrideLibrary="com.example.fixedfloatwindow"/>
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -108,6 +108,13 @@
             <!--</intent-filter>-->
         </activity>
         <activity android:name=".TestBluetooth">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".TestLife">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

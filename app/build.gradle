@@ -22,7 +22,7 @@ android {
         renderscriptSupportModeEnabled true    // Enable RS support
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi-v7a'
+            abiFilters 'armeabi-v7a','x86'
         }
 
         manifestPlaceholders = [
@@ -76,14 +76,14 @@ android {
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
 
-    signingConfigs {
-        debug {
-            storeFile file(RELEASE_STORE_FILE)
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASSWORD
-        }
-    }
+//    signingConfigs {
+//        debug {
+//            storeFile file(RELEASE_STORE_FILE)
+//            storePassword RELEASE_STORE_PASSWORD
+//            keyAlias RELEASE_KEY_ALIAS
+//            keyPassword RELEASE_KEY_PASSWORD
+//        }
+//    }
 
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'

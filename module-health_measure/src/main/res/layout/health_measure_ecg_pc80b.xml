@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- draw by view -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#327DFB" >
+
+
+
+        <TextView
+            android:id="@+id/main_pc80B_title_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:textColor="#fff"
+            android:textSize="24sp"
+            android:text="心电测量" />
+
+        <TextView
+            android:id="@+id/main_pc80B_title_gain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:textColor="#fff"
+            android:textSize="24sp"
+            android:layout_toRightOf="@+id/main_pc80B_title_title" />
+
+        <TextView
+            android:id="@+id/main_pc80B_title_hr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="#fff"
+            android:textSize="24sp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/main_pc80B_title_gain"
+            android:text="HR=--" />
+
+        <ImageView
+            android:id="@+id/main_pc80B_title_battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/main_pc80B_title_smooth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/main_pc80B_title_battery"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/main_pc80B_title_pulse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/main_pc80B_title_smooth"
+            android:visibility="invisible" />
+        <ImageView
+            android:id="@+id/icon_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/health_measure_icon_back" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.example.han.referralproject.xindian.BackGround
+            android:id="@+id/main_pc80B_view_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/main_pc80B_MSG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#000"
+            android:textSize="24sp" />
+
+        <com.example.han.referralproject.xindian.DrawThreadPC80B
+            android:id="@+id/main_pc80B_view_draw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="320pt"
+            android:layout_height="120pt"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100pt"
+            android:layout_marginRight="100pt"
+            android:background="@drawable/health_measure_btn_3f86fc"
+            android:gravity="center"
+            android:visibility="visible"
+            android:text="下一步"
+            android:textColor="#FFFFFF"
+            android:textSize="56pt" />
+    </RelativeLayout>
+
+</LinearLayout>
