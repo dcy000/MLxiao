@@ -3,6 +3,7 @@ package com.iflytek.recognition;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -10,6 +11,12 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.constant.TtsSettings;
+
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lenovo on 2018/3/29.
@@ -223,5 +230,51 @@ public class MLVoiceRecognize {
             recognizer.destroy();
         }
 
+    }
+
+    public static void startLoopRecognize(final Context context, @NonNull LoopInterface loopInterface) {
+        Observable.interval(500, 300, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(aLong -> {
+                    SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
+                    return !recognizer.isListening();
+                })
+                .subscribe(aLong -> {
+                    MLVoiceRecognize.startRecognize(context.getApplicationContext(), new MLRecognizerListener() {
+                        @Override
+                        public void onMLVolumeChanged(int i, byte[] bytes) {
+                            loopInterface.onVolumeChanged(i, bytes);
+                        }
+
+                        @Override
+                        public void onMLBeginOfSpeech() {
+                            loopInterface.onBeginOfSpeech();
+
+                        }
+
+                        @Override
+                        public void onMLEndOfSpeech() {
+                            loopInterface.onEndOfSpeech();
+
+                        }
+
+                        @Override
+                        public void onMLResult(String result) {
+                            loopInterface.onResult(result);
+
+
+                        }
+
+                        @Override
+                        public void onMLError(SpeechError error) {
+
+                            loopInterface.onError(error);
+                        }
+
+                    });
+
+
+                });
     }
 }

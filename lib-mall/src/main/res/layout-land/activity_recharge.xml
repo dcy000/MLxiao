@@ -1,114 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="match_parent">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_recharge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_below="@+id/tb_recharge"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_marginLeft="50dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_recharge_50"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="40dp"
-            android:paddingBottom="40dp"
-            android:background="@drawable/selector_recharge"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="50dp"
             android:gravity="center"
-            android:text="¥50"
-            android:textColor="#FFFFFF"
-            android:textSize="65sp" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_recharge_500"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:paddingTop="40dp"
-            android:paddingBottom="40dp"
-            android:background="@drawable/selector_recharge"
+            <Button
+                android:id="@+id/btn_recharge_50"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="40dp"
+                android:paddingBottom="40dp"
+                android:background="@drawable/selector_recharge"
+                android:gravity="center"
+                android:text="¥50"
+                android:textColor="#FFFFFF"
+                android:textSize="65sp" />
+
+            <Button
+                android:id="@+id/btn_recharge_500"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingTop="40dp"
+                android:paddingBottom="40dp"
+                android:background="@drawable/selector_recharge"
+                android:gravity="center"
+                android:text="¥500"
+                android:textColor="#FFFFFF"
+                android:textSize="65sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="50dp"
             android:gravity="center"
-            android:text="¥500"
-            android:textColor="#FFFFFF"
-            android:textSize="65sp" />
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_recharge_100"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="40dp"
+                android:paddingBottom="40dp"
+                android:background="@drawable/selector_recharge"
+                android:gravity="center"
+                android:text="¥100"
+                android:textColor="#FFFFFF"
+                android:textSize="65sp" />
+
+            <Button
+                android:id="@+id/btn_recharge_1000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingTop="40dp"
+                android:paddingBottom="40dp"
+                android:background="@drawable/selector_recharge"
+                android:gravity="center"
+                android:text="¥1000"
+                android:textColor="#FFFFFF"
+                android:textSize="65sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_recharge_200"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="40dp"
+                android:paddingBottom="40dp"
+                android:background="@drawable/selector_recharge"
+                android:gravity="center"
+                android:text="¥200"
+                android:textColor="#FFFFFF"
+                android:textSize="65sp" />
+
+            <Button
+                android:id="@+id/btn_recharge_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingTop="40dp"
+                android:paddingBottom="40dp"
+                android:background="@drawable/selector_recharge"
+                android:gravity="center"
+                android:text="其他"
+                android:textColor="#FFFFFF"
+                android:textSize="65sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_marginLeft="50dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btn_recharge_100"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="40dp"
-            android:paddingBottom="40dp"
-            android:background="@drawable/selector_recharge"
-            android:gravity="center"
-            android:text="¥100"
-            android:textColor="#FFFFFF"
-            android:textSize="65sp" />
-
-        <Button
-            android:id="@+id/btn_recharge_1000"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:paddingTop="40dp"
-            android:paddingBottom="40dp"
-            android:background="@drawable/selector_recharge"
-            android:gravity="center"
-            android:text="¥1000"
-            android:textColor="#FFFFFF"
-            android:textSize="65sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btn_recharge_200"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="40dp"
-            android:paddingBottom="40dp"
-            android:background="@drawable/selector_recharge"
-            android:gravity="center"
-            android:text="¥200"
-            android:textColor="#FFFFFF"
-            android:textSize="65sp" />
-
-        <Button
-            android:id="@+id/btn_recharge_other"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:paddingTop="40dp"
-            android:paddingBottom="40dp"
-            android:background="@drawable/selector_recharge"
-            android:gravity="center"
-            android:text="其他"
-            android:textColor="#FFFFFF"
-            android:textSize="65sp" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>
