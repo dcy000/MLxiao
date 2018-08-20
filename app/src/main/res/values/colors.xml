@@ -71,4 +71,13 @@
     <color name="colorMultipleChoiceItem">#3F86FC</color>
     <!--<color name="white">#fff</color>-->
     <color name="color_bbb">#BBBBBB</color>
+
+    <color name="colorAccen">#FF4081</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorYellow">#FFFF00</color>
+    <color name="colorGreen">#00FF00</color>
+    <color name="colorBlue">#0000FF</color>
+    <color name="colorViolet">#8B00FF</color>
 </resources>

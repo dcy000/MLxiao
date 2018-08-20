@@ -1,5 +1,6 @@
 package com.gcml.module_face_recognition;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -19,22 +21,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.camera.CameraUtils;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.display.ImageUtils;
 import com.gcml.lib_utils.display.LoadingProgressUtils;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.thread.ThreadUtils;
 import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.gcml.lib_widget.CircleImageView;
+import com.gcml.module_face_recognition.cc.CCResultActions;
 import com.gcml.module_face_recognition.faceutils.FaceAuthenticationUtils;
 import com.gcml.module_face_recognition.faceutils.ICreateGroupListener;
 import com.gcml.module_face_recognition.faceutils.IJoinGroupListener;
 import com.gcml.module_face_recognition.faceutils.IRegisterFaceListener;
-import com.gcml.module_face_recognition.manifests.SPManifest;
+import com.gcml.module_face_recognition.manifests.FaceRecognitionSPManifest;
 import com.gcml.module_face_recognition.network.FaceRepository;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
@@ -47,16 +48,17 @@ import com.qiniu.android.storage.UploadManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
+import pub.devrel.easypermissions.EasyPermissions;
 import timber.log.Timber;
 
-public class RegisterHead2XunfeiActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterHead2XunfeiActivity extends AppCompatActivity implements View.OnClickListener, EasyPermissions.PermissionCallbacks {
     private SurfaceView mSfvPreview;
     private LottieAnimationView mLottAnimation;
     private TextView mTvTip;
@@ -76,15 +78,37 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
     private String groupId;
     private String firstXfidOfGroup;
     private static final String KEY_EXTRA_XFID = "key_xfid";
-    private static final String KEY_EXTRA_CC_ID = "key_cc_id";
-    private static final String KEY_EXTRA_CC_CALLBACK = "key_cc_callback";
-    private String ccId;
+    private static final int REQUEST_CAMERA_PERMISSION = 1001;
 
-    public static void startActivity(Context context, String xfid, String ccId) {
+
+    //统一管理方便维护者查看
+    interface ResultActionNames {
+        /**
+         * 点击了返回按钮
+         */
+        String PRESSED_BACK_BUTTON = "pressedBackButton";
+        /**
+         * 点击了跳过按钮
+         */
+        String PRESSED_JUMP_BUTTON = "pressedJumpButton";
+        /**
+         * 出错了
+         */
+        String ON_ERROR = "onError";
+        /**
+         * 注册人头像成功
+         */
+        String REGIST_HEAD_SUCCESS = "RegistHeadSuccess";
+        /**
+         * 用户拒绝了摄像头的权限
+         */
+        String USER_REFUSED_CAMERA_PERMISSION = "userRefusedCameraPermission";
+    }
+
+    public static void startActivity(Context context, String xfid) {
         Intent intent = new Intent(context, RegisterHead2XunfeiActivity.class)
-                .putExtra(KEY_EXTRA_XFID, xfid)
-                .putExtra(KEY_EXTRA_CC_ID, ccId);
-        if (!(context instanceof Activity)) {
+                .putExtra(KEY_EXTRA_XFID, xfid);
+        if (context instanceof Application) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
@@ -98,8 +122,41 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
         initView();
         initHeadDialog();
         getQiniuToken();
-        CameraUtils.getInstance().init(this, mSfvPreview, 1920, 1200, 856, 856);
+
+        CameraUtils.getInstance().init(this, mSfvPreview, 1920,
+                1200, 856, 856);
         CameraUtils.getInstance().setOnCameraPreviewCallback(preCallBack);
+        requestPermissions(this);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+        Timber.e("onRequestPermissionsResult");
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        Timber.e("onPermissionsGranted");
+        CameraUtils.getInstance().openCamera(Camera.CameraInfo.CAMERA_FACING_BACK);
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        ToastUtils.showShort("没有使用摄像头的权限");
+        CCResultActions.onCCResultAction(ResultActionNames.USER_REFUSED_CAMERA_PERMISSION);
+        finish();
+    }
+
+    private void requestPermissions(Activity context) {
+        if (EasyPermissions.hasPermissions(context, Manifest.permission.CAMERA)) {
+            CameraUtils.getInstance().openCamera(Camera.CameraInfo.CAMERA_FACING_BACK);
+        } else {
+            EasyPermissions.requestPermissions(context, "为您拍照需要摄像头权限，您同意打开吗？",
+                    REQUEST_CAMERA_PERMISSION, Manifest.permission.CAMERA);
+        }
     }
 
     private CameraUtils.CameraPreviewCallBack preCallBack = new CameraUtils.CameraPreviewCallBack() {
@@ -184,27 +241,19 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
         mLottAnimation.setAnimation("camera_pre.json");
         mLottAnimation.playAnimation();
 
-        userId = SPManifest.getUserId();
+        userId = FaceRecognitionSPManifest.getUserId();
         xfid = getIntent().getStringExtra(KEY_EXTRA_XFID);
-        ccId = getIntent().getStringExtra(KEY_EXTRA_CC_ID);
-        groupId = SPManifest.getGroupId();
-        firstXfidOfGroup = SPManifest.getGroupFirstXfid();
+        groupId = FaceRecognitionSPManifest.getGroupId();
+        firstXfidOfGroup = FaceRecognitionSPManifest.getGroupFirstXfid();
         //保存到七牛云上头像的名称
         headPostfix = TimeUtils.getCurTimeString(
                 new SimpleDateFormat("yyyyMMddHHmmss")) + "_" + userId + ".jpg";
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        CameraUtils.getInstance().openCamera(Camera.CameraInfo.CAMERA_FACING_BACK);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(this, "主人，让我给你拍个照。三，二，一，茄子", new SynthesizerListener() {
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，让我给你拍个照。三，二，一，茄子", new SynthesizerListener() {
             @Override
             public void onSpeakBegin() {
 
@@ -250,10 +299,10 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
         int i = v.getId();
         if (i == R.id.iv_back) {
             //因为CC启动可能是异步的，所以此处给个反馈
-            onCCAction("pressedBackButton");
+            CCResultActions.onCCResultAction(ResultActionNames.PRESSED_BACK_BUTTON);
             finish();
         } else if (i == R.id.tiao_guos) {
-            onCCAction("pressedJumpButton");
+            CCResultActions.onCCResultAction(ResultActionNames.PRESSED_JUMP_BUTTON);
             finish();
         } else {
 
@@ -313,8 +362,8 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                 try {
                     JSONObject resObj = new JSONObject(result.getResultString());
                     String groupId = resObj.getString("group_id");
-                    SPManifest.setGroupId(groupId);
-                    SPManifest.setGroupFirstXfid(xfid);
+                    FaceRecognitionSPManifest.setGroupId(groupId);
+                    FaceRecognitionSPManifest.setGroupFirstXfid(xfid);
                     //组创建好以后把自己加入到组中去
                     joinGroup(userid, groupId, xfid);
                     //加组完成以后把头像上传到我们自己的服务器
@@ -405,7 +454,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                     if (TextUtils.isEmpty(userid)) {
                         ToastUtils.showShort("userId==null");
                         LoadingProgressUtils.dismissView();
-                        onCCAction("onError");
+                        CCResultActions.onCCResultAction(ResultActionNames.ON_ERROR);
                         return;
                     }
                     FaceRepository.syncRegistHeadUrl(imageUrl)
@@ -415,7 +464,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                                 @Override
                                 public void accept(Object o) throws Exception {
                                     //将账号在本地缓存
-                                    SPManifest.addAccount(userid, xfid);
+                                    FaceRecognitionSPManifest.addAccount(userid, xfid);
                                 }
                             })
                             .as(RxUtils.autoDisposeConverter(RegisterHead2XunfeiActivity.this))
@@ -424,7 +473,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                                 public void onNext(Object o) {
                                     //隐藏提示loadding
                                     LoadingProgressUtils.dismissView();
-                                    onCCAction("RegistHeadSuccess");
+                                    CCResultActions.onCCResultAction(ResultActionNames.REGIST_HEAD_SUCCESS);
                                 }
 
                                 @Override
@@ -445,12 +494,5 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
 
     }
 
-    /**
-     * CC框架结果反馈
-     *
-     * @param action
-     */
-    private void onCCAction(String action) {
-        CC.sendCCResult(ccId, CCResult.success(KEY_EXTRA_CC_CALLBACK, action));
-    }
+
 }

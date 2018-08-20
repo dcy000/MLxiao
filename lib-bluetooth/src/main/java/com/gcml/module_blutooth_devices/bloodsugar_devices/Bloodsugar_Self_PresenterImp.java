@@ -14,7 +14,6 @@ import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import java.util.List;
 import java.util.UUID;
 
-import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -47,7 +46,6 @@ public class Bloodsugar_Self_PresenterImp extends BaseBluetoothPresenter {
                     public void onNotify(UUID service, UUID character, byte[] bytes) {
                         if (bytes.length >= 12) {
                             float sugar = ((float) (bytes[10] << 8) + (float) (bytes[9] & 0xff)) / 18;
-                            Timber.i("<- sugar = %s", sugar);
                             baseView.updateData(String.format("%.2f", sugar));
                         }
                     }

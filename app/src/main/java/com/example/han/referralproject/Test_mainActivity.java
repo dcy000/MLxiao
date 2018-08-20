@@ -99,45 +99,49 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                 case R.id.ll_xueya:
                     measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-                    MeasureVideoPlayActivity.startActivity(this, uri, null, "血压测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血压测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case R.id.ll_xueyang:
                     measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
-                    MeasureVideoPlayActivity.startActivity(this, uri, null, "血氧测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血氧测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case R.id.ll_tiwen:
                     measureType = IPresenter.MEASURE_TEMPERATURE;
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
-                    MeasureVideoPlayActivity.startActivity(this, uri, null, "耳温测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "耳温测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case R.id.ll_xuetang:
                     measureType = IPresenter.MEASURE_BLOOD_SUGAR;
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-                    MeasureVideoPlayActivity.startActivity(this, uri, null, "血糖测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血糖测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case R.id.ll_xindian:
                     measureType = IPresenter.MEASURE_ECG;
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-                    MeasureVideoPlayActivity.startActivity(this, uri, null, "心电测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "心电测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case R.id.ll_san:
                     measureType = IPresenter.MEASURE_OTHERS;
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-                    MeasureVideoPlayActivity.startActivity(this, uri, null, "三合一测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "三合一测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case R.id.ll_tizhong://体重
+                case R.id.ll_tizhong:
+                    //体重
                     measureType = IPresenter.MEASURE_WEIGHT;
                     AllMeasureActivity.startActivity(this, measureType);
                     break;
-                case R.id.ll_more://敬请期待
+                case R.id.ll_more:
+                    //敬请期待
                     ToastUtils.showShort("敬请期待");
+                    break;
+                default:
                     break;
             }
         }
@@ -175,8 +179,11 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     case IPresenter.MEASURE_OTHERS:
                         intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_OTHERS);
                         break;
-                    case IPresenter.CONTROL_FINGERPRINT://指纹
+                    case IPresenter.CONTROL_FINGERPRINT:
+                        //指纹
                         intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.CONTROL_FINGERPRINT);
+                        break;
+                    default:
                         break;
                 }
                 startActivity(intent);

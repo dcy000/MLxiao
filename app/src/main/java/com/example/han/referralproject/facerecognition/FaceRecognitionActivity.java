@@ -89,9 +89,10 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
             int requestCode = bundle.getInt("requestCode", 1);
             ((FragmentActivity) context).startActivityForResult(new Intent(context,
                     FaceRecognitionActivity.class).putExtras(bundle), requestCode);
-        } else
+        } else {
             context.startActivity(new Intent(context, FaceRecognitionActivity.class)
                     .putExtras(bundle));
+        }
     }
 
     @Override
@@ -238,8 +239,9 @@ public class FaceRecognitionActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onStartResolveImage() {
-        if (isPhoto)
+        if (isPhoto) {
             LoadingProgressUtils.showViewWithLabel(this, "正在解析头像信息");
+        }
     }
 
     @Override

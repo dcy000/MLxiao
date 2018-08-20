@@ -132,37 +132,6 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
 
             }
         });
-
-
-       /* RetrofitService retrofitService = RetrofitClient.getClient();
-        // 创建有一个回调对象
-        Call<List<Goods>> call = retrofitService.GoodsList(url);
-        // 用回调对象发起请求
-        call.enqueue(new Callback<List<Goods>>() {
-            // 回调方法
-            @Override
-            public void onResponse(Call<List<Goods>> call, Response<List<Goods>> response) {
-                if (response.isSuccessful()) {
-                    List<Goods> list = new ArrayList<Goods>();
-                    mlist.clear();
-                    list = response.body();
-                    mlist.addAll(list);
-                    setData();
-
-                    mShopAdapter.notifyDataSetChanged();
-
-                } else {
-
-                }
-            }
-
-            // 返回http状态码非成功的回调方法
-            @Override
-            public void onFailure(Call<List<Goods>> call, Throwable t) {
-
-            }
-        });*/
-
     }
 
 

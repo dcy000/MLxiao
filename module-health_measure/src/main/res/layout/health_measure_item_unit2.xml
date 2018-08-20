@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:id="@+id/health_diary_tv_item_unit"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="60pt"
+    android:textColor="@drawable/health_measure_diary_tv_item_unit"
+    android:layout_width="208pt"
+    android:layout_height="70pt"
+    android:gravity="center"/>

@@ -93,7 +93,7 @@ public class BloodPresureMeasuerFragment extends HealthBloodDetectionFragment {
 //                            ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
 //                            }.getType());
 //                            if (apiResponse.isSuccessful()) {
-//                                startActivity(new Intent(getActivity(), WeightMeasureActivity.class));
+//                                startActivityForResult(new Intent(getActivity(), WeightMeasureActivity.class));
 //                                return;
 //                            }
 //                        } catch (Throwable e) {

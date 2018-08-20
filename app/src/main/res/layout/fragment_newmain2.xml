@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.gzq.administrator.lib_common.custom_view.EclipseImageView
+    <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_person_center"
         android:layout_width="594pt"
         android:layout_height="328pt"
@@ -14,7 +14,7 @@
         android:layout_marginTop="20pt"
         android:layout_marginLeft="45pt"
         android:clickable="true"/>
-    <com.gzq.administrator.lib_common.custom_view.EclipseImageView
+    <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_health_course"
         android:layout_width="594pt"
         android:layout_height="328pt"
@@ -24,7 +24,7 @@
         android:layout_marginTop="24pt"
         android:layout_marginLeft="45pt"
         android:clickable="true"/>
-    <com.gzq.administrator.lib_common.custom_view.EclipseImageView
+    <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/entertainment_center"
         android:layout_width="594pt"
         android:layout_height="328pt"
@@ -34,7 +34,7 @@
         android:layout_marginTop="24pt"
         android:layout_marginLeft="45pt"
         android:clickable="true"/>
-    <com.gzq.administrator.lib_common.custom_view.EclipseImageView
+    <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_communicate"
         android:layout_width="594pt"
         android:layout_height="504pt"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toTopOf="@id/iv_person_center"
         android:layout_marginLeft="24pt"
         android:clickable="true"/>
-    <com.gzq.administrator.lib_common.custom_view.EclipseImageView
+    <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_check_self"
         android:layout_width="594pt"
         android:layout_height="504pt"
@@ -53,7 +53,7 @@
         android:layout_marginTop="24pt"
         android:clickable="true"
         />
-    <com.gzq.administrator.lib_common.custom_view.EclipseImageView
+    <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_shopping_mall"
         android:layout_width="594pt"
         android:layout_height="504pt"
@@ -63,7 +63,7 @@
         android:layout_marginLeft="24pt"
         android:clickable="true"
         />
-    <com.gzq.administrator.lib_common.custom_view.EclipseImageView
+    <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_ask_doctor"
         android:layout_width="594pt"
         android:layout_height="504pt"

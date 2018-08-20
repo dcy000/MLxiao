@@ -325,7 +325,7 @@ public class AlertAddressActivity extends BaseActivity {
                 });
 //        LocalShared.getInstance(this.getApplicationContext()).setSignUpAddress(getAddress());
 //        Intent intent = SignUp4IdCardActivity.newIntent(this);
-//        startActivity(intent);
+//        startActivityForResult(intent);
     }
 
     private List<String> mProvinceNames = new ArrayList<>();

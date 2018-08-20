@@ -8,7 +8,6 @@ include ':app',
         ':lib-rulerview',
         ':lib-video-player',
         ':lib-voice',
-        ':lib-common',
         ':lib-widget',
         ':unit',
         ':test_all_devices',
@@ -29,6 +28,8 @@ include ':lib-common-core',
         ':app-component',
         ':component-cc',
         ':lib-call',
+        ':lib-mall',
         ':lib-mlvoice',
-        ':lib-auth'
+        ':lib-auth',
+        ':module-health_measure'
 

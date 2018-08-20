@@ -12,6 +12,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         if (project.ext.runAsApp) {
             applicationId "com.gcml.common.demo"
@@ -74,7 +78,7 @@ dependencies {
 //    addComponent 'demo_component_kt', project(':demo_component_kt') //module方式
 //    addComponent 'demo_component_b', 'com.billy.demo:demo_b:1.1.0'  //maven方式
 //    addComponent 'lib-mlvoice'
-//    addComponent 'lib-recreation'
+    addComponent 'module-face_recognition'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     if (project.ext.runAsApp) {
@@ -89,6 +93,10 @@ dependencies {
     implementation rootProject.ext.dependencies["design"]
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["constraint-layout"]
+
+    implementation rootProject.ext.dependencies["livedata-core"]
+    implementation rootProject.ext.dependencies["lifecycle-runtime"]
+    implementation rootProject.ext.dependencies["viewmodel"]
 
     implementation rootProject.ext.dependencies["rxjava2"]
     implementation rootProject.ext.dependencies["rxandroid2"]

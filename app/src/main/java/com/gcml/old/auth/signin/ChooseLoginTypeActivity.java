@@ -16,8 +16,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.old.auth.register.SignUp1NameActivity;
@@ -104,10 +104,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                     ToastUtils.showLong("未检测到您的登录历史，请输入账号和密码登录");
                     SignInActivity.startActivity(this, SignInActivity.class, goBackActivity);
                 } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("from", "Welcome");
-                    bundle.putSerializable("WillGoBackActivity", goBackActivity);
-                    FaceRecognitionActivity.startActivity(this, bundle, false);
+                    CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,null);
                 }
                 break;
             case R.id.account_tip://注册
@@ -120,6 +117,8 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                 Intent intent = new Intent(ChooseLoginTypeActivity.this, SignUp01NameActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                break;
+            default:
                 break;
         }
     }

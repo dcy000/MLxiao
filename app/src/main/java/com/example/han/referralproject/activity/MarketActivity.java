@@ -21,7 +21,6 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
 
     @BindView(R.id.vp_goods)
     ViewPager vpGoods;
-
     @BindView(R.id.rb_shanshi)
     RadioButton rbShanshi;
     @BindView(R.id.rb_yaopin)

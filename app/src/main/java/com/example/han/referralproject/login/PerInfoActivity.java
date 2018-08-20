@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.NDialog1;
-import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.megvii.faceppidcardui.NDialog;
 import com.megvii.faceppidcardui.util.ConstantData;
@@ -101,9 +101,7 @@ public class PerInfoActivity extends AppCompatActivity implements View.OnClickLi
                     if (sharedPreferences1.getString("mAuthid", "").equals("") ||
                             sharedPreferences2.getString("mAuthid", "").equals("") ||
                             sharedPreferences3.getString("mAuthid", "").equals("")) {
-
-                        intent.setClass(getApplicationContext(), RegisterVideoActivity.class);
-                        startActivity(intent);
+                        CCFaceRecognitionActions.jump2RegisterHead2XunfeiActivity(this);
                     } else {
                         Toast.makeText(getApplicationContext(), "注册用户已达上限", Toast.LENGTH_SHORT).show();
 

@@ -5,16 +5,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.ECGHistory;
 import com.gcml.module_health_record.others.XindianAdapter;
-import com.gzq.administrator.lib_common.base.BaseFragment;
 
 import java.util.ArrayList;
 
 
-public class HealthRecordECGFragment extends BaseFragment {
+public class HealthRecordECGFragment extends RecycleBaseFragment {
 
     private RecyclerView mXindiantu;
 

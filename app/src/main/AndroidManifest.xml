@@ -3,8 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.han.referralproject"
     tools:overrideLibrary="com.witspring.mlrobot">
-
-    <uses-sdk tools:overrideLibrary="tv.danmaku.ijk.media.player_arm64" />
+    <!--解决下面这些库最低支持版本大于统一配置的最低版本-->
+    <uses-sdk tools:overrideLibrary="
+    tv.danmaku.ijk.media.player_arm64,
+    com.carlos.voiceline.mylibrary,
+    com.witspring.mlrobot,
+    com.megvii.faceppidcardui,
+    com.medlink.crash,
+    com.crazypumpkin.versatilerecyclerview.library,
+    com.linheimx.app.library,
+    com.vmloft.develop.library.tools,
+    com.example.fixedfloatwindow,
+    com.polidea.rxandroidble2,
+    com.carlos.voiceline.mylibrary" />
 
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
@@ -80,8 +91,8 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <!-- Bugly -->
     <!--<uses-permission-->
-        <!--android:name="android.permission.READ_LOGS"-->
-        <!--tools:ignore="ProtectedPermissions" />-->
+    <!--android:name="android.permission.READ_LOGS"-->
+    <!--tools:ignore="ProtectedPermissions" />-->
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
@@ -223,7 +234,8 @@
             android:name=".WelcomeActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -721,12 +733,8 @@
 
         <activity
             android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity"
-            android:screenOrientation="landscape"/>
-
-        <activity
-            android:name=".facerecognition.RegisterHead2XunfeiActivity"
-            android:label="新的头像注册界面"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".video.MeasureVideoPlayActivity"
             android:label="测量演示视频播放界面"
@@ -763,6 +771,9 @@
         <activity
             android:name=".facerecognition.FaceRecognitionActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".settting.activity.FactoryTestActivity" />
+        <activity android:name=".settting.activity.ScreenPointActivity" />
+        <activity android:name=".settting.activity.ScreenTouchActivity" />
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.WeightHistory;
@@ -24,11 +25,10 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
-import com.gzq.administrator.lib_common.base.BaseFragment;
 
 import java.util.ArrayList;
 
-public class HealthRecordWeightFragment extends BaseFragment {
+public class HealthRecordWeightFragment extends RecycleBaseFragment {
     private TextView mColor1;
     private TextView mIndicator1;
     private TextView mColor2;

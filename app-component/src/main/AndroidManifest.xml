@@ -5,7 +5,14 @@
     <!-- 读写文件 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--网络-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 相机 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!-- 读取手机状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name="com.gcml.common.app.lifecycle.App"
@@ -24,7 +31,7 @@
         </activity>
         <activity android:name="com.gcml.common.repository.RepositoryActivity" />
         <activity android:name="com.gcml.common.app.AppActivity" />
-
+        <activity android:name="com.gcml.common.mvvm.MvvmActivity"/>
     </application>
 
 </manifest>

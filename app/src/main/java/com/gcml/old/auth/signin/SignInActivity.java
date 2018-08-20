@@ -33,14 +33,15 @@ import com.gcml.old.auth.profile.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
-import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.facerecognition.ICreateGroupListener;
 import com.example.han.referralproject.facerecognition.IJoinGroupListener;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.settting.activity.FactoryTestActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -248,7 +249,7 @@ public class SignInActivity extends BaseActivity {
             Bundle bundle = new Bundle();
             bundle.putBoolean("isTest",true);
             MyApplication.getInstance().userId = "123456";
-            FaceRecognitionActivity.startActivity(mContext, bundle,false);
+            CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
             finish();
             return;
         }
@@ -358,9 +359,9 @@ public class SignInActivity extends BaseActivity {
         }else {
             Bundle bundle=new Bundle();
             bundle.putString("from","Welcome");
-            FaceRecognitionActivity.startActivity(this,bundle,false);
+            CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
         }
-//        startActivity(new Intent(SignInActivity.this, SignUp1NameActivity.class));
+//        startActivityForResult(new Intent(SignInActivity.this, SignUp1NameActivity.class));
     }
 
     public void onTvForgetPasswordClicked() {

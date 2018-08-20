@@ -139,17 +139,17 @@ public class HealthIntelligentDetectionActivity extends BaseActivity implements 
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         if (fragment instanceof HealthFirstTipsFragment) {
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-            MeasureVideoPlayActivity.startActivity(this, uri, null, "血压测量演示视频", BLOODPRESSURE_VIDEO);
+            MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血压测量演示视频", BLOODPRESSURE_VIDEO);
         } else if (fragment instanceof HealthBloodDetectionUiFragment) {
             move2Weight();
         } else if (fragment instanceof HealthWeightDetectionUiFragment) {
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-            MeasureVideoPlayActivity.startActivity(this, uri, null, "血糖测量演示视频", BLOODSUGAR_VIDEO);
+            MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血糖测量演示视频", BLOODSUGAR_VIDEO);
         } else if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             move2Bloodsugar(bundle);
         } else if (fragment instanceof HealthSugarDetectionUiFragment) {
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-            MeasureVideoPlayActivity.startActivity(this, uri, null, "心电测量演示视频",
+            MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "心电测量演示视频",
                     ECG_VIDEO);
         } else if (fragment instanceof HealthThreeInOneDetectionUiFragment) {
             move2FirstDiagnosisReport();
@@ -173,7 +173,7 @@ public class HealthIntelligentDetectionActivity extends BaseActivity implements 
                     putCacheData(ecgData);
                 }
                 Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-                MeasureVideoPlayActivity.startActivity(this, uri, null,
+                MeasureVideoPlayActivity.startActivityForResult(this, uri, null,
                         "三合一测量演示视频", THREE_IN_ONE_VIDEO);
 
             } else if (requestCode == THREE_IN_ONE_VIDEO) {

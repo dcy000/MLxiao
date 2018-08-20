@@ -5,6 +5,9 @@ android {
     buildToolsVersion rootProject.ext.android.buildToolsVersion
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
     defaultConfig {
         applicationId "com.example.han.referralproject"
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -19,7 +22,7 @@ android {
         renderscriptSupportModeEnabled true    // Enable RS support
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi-v7a'
+            abiFilters 'armeabi-v7a','x86'
         }
 
         manifestPlaceholders = [
@@ -42,6 +45,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources false
+            signingConfig signingConfigs.debug
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
             signingConfig signingConfigs.debug
         }
@@ -72,14 +76,14 @@ android {
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
 
-    signingConfigs {
-        debug {
-            storeFile file(RELEASE_STORE_FILE)
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASSWORD
-        }
-    }
+//    signingConfigs {
+//        debug {
+//            storeFile file(RELEASE_STORE_FILE)
+//            storePassword RELEASE_STORE_PASSWORD
+//            keyAlias RELEASE_KEY_ALIAS
+//            keyPassword RELEASE_KEY_PASSWORD
+//        }
+//    }
 
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
@@ -102,12 +106,12 @@ dependencies {
     addComponent 'module-face_recognition'
     addComponent 'lib-recreation'
 
-    if (project.ext.runAsApp) {
-        implementation project(":lib-common-app")
-    }
 
     implementation project(":lib-common-business")
     implementation project(":lib-common-core")
+    if (project.ext.runAsApp) {
+        implementation project(":lib-common-app")
+    }
     //lib
     implementation project(':wkvideoplayer')
     implementation project(':lib-widget')
@@ -122,7 +126,6 @@ dependencies {
     implementation project(':circleindicator')
     implementation project(':module-control_volume')
     implementation project(':module-health_record')
-    implementation project(':lib-common')
     implementation project(':lib-utils')
     implementation project(':lib-music-player')
     implementation project(':lib-video')
@@ -134,20 +137,14 @@ dependencies {
     implementation name: 'library', ext: 'aar'
     implementation name: 'vmtools', ext: 'aar'
     implementation name: 'voicelibrary', ext: 'aar'
-
     //system
-    testImplementation rootProject.ext.dependencies["junit"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
     implementation rootProject.ext.dependencies["constraint-layout"]
     implementation rootProject.ext.dependencies["support-v4"]
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["recyclerview-v7"]
-    implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["design"]
-
-    implementation rootProject.ext.dependencies["lifecycle-runtime"]
-    implementation rootProject.ext.dependencies["livedata-core"]
-    implementation rootProject.ext.dependencies["viewmodel"]
-
+    implementation rootProject.ext.dependencies["cardview-v7"]
     //others
     implementation('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
@@ -182,8 +179,18 @@ dependencies {
     implementation 'com.umeng.analytics:analytics:6.1.2'
     implementation 'me.songning.CircleView:library:1.0.0'
 
-    implementation rootProject.ext.dependencies["rxandroid2"]
-    implementation rootProject.ext.dependencies["rxjava2"]
     implementation rootProject.ext.dependencies["rxandroidble2"]
     implementation rootProject.ext.dependencies["rxpermissions2"]
+    //gson
+    implementation rootProject.ext.dependencies["gson"]
+    //高斯模糊
+    implementation 'com.github.mmin18:realtimeblurview:1.1.0'
+    //图表库
+    implementation rootProject.ext.dependencies["MPAndroidChart"]
+    //黄油刀
+    implementation rootProject.ext.dependencies["butterknife"]
+    //万能适配器
+    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    //Picasso图片加载
+    implementation rootProject.ext.dependencies["picasso"]
 }

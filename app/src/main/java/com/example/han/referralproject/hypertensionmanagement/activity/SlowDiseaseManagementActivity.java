@@ -332,17 +332,17 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         switch (hypertensionLevel) {
 
             case "00"://正常
-//                startActivity(new Intent(SlowDiseaseManagementActivity.this, PressureNornalTipActivity.class));
+//                startActivityForResult(new Intent(SlowDiseaseManagementActivity.this, PressureNornalTipActivity.class));
                 startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
                         .putExtra("fromWhere", "pressureNormal"));
                 break;
             case "01"://偏低
-//                startActivity(new Intent(SlowDiseaseManagementActivity.this, PressureTipActivity.class));
+//                startActivityForResult(new Intent(SlowDiseaseManagementActivity.this, PressureTipActivity.class));
                 startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
                         .putExtra("fromWhere", "pressureFlat"));
                 break;
             case "02"://正常高值
-//                startActivity(new Intent(SlowDiseaseManagementActivity.this, NormalHighTipActivity.class));
+//                startActivityForResult(new Intent(SlowDiseaseManagementActivity.this, NormalHighTipActivity.class));
                 startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
                         .putExtra("fromWhere", "pressureNormalHigh"));
                 break;
@@ -353,7 +353,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             case "23:2":
             case "33:3":
             case "34:3":
-//                startActivity(new Intent(SlowDiseaseManagementActivity.this, HypertensionTipActivity.class));
+//                startActivityForResult(new Intent(SlowDiseaseManagementActivity.this, HypertensionTipActivity.class));
                 startActivity(new Intent(SlowDiseaseManagementActivity.this, BasicInformationActivity.class)
                         .putExtra("fromWhere", "pressureHigh"));
                 break;

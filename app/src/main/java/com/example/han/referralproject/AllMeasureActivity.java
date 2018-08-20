@@ -194,32 +194,32 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
             switch (measureType) {
                 case IPresenter.MEASURE_TEMPERATURE://体温测量
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
-                    MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "耳温枪测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "耳温枪测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case IPresenter.MEASURE_BLOOD_PRESSURE://血压
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-                    MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "血压测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "血压测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case IPresenter.MEASURE_BLOOD_SUGAR://血糖
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-                    MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "血糖测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "血糖测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
-                    MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "血氧测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "血氧测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case IPresenter.MEASURE_ECG:
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-                    MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "心电测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "心电测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case IPresenter.MEASURE_OTHERS://三合一
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-                    MeasureVideoPlayActivity.startActivity(AllMeasureActivity.this, uri, null, "三合一测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "三合一测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case IPresenter.MEASURE_WEIGHT:

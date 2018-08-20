@@ -1,5 +1,6 @@
 package com.example.han.referralproject.application;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -14,13 +15,13 @@ import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
+import com.gcml.common.app.lifecycle.App;
 import com.gcml.common.app.lifecycle.AppDelegate;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.service.ProcessUtils;
 import com.gcml.lib_utils.ui.UiUtils;
 import com.gcml.lib_video_ksyplayer.KSYPlayer;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
-import com.gzq.administrator.lib_common.base.BaseApplication;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;
@@ -34,7 +35,7 @@ import cn.beecloud.BeeCloud;
 import cn.jpush.android.api.JPushInterface;
 
 
-public class MyApplication extends BaseApplication {
+public class MyApplication extends Application {
     private static MyApplication mInstance;
     public String userId;
     public String xfid;

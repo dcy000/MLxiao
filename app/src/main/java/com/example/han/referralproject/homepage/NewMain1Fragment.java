@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
+import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.data.LunarUtils;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.thread.ThreadUtils;
-import com.gzq.administrator.lib_common.base.BaseFragment;
-import com.gzq.administrator.lib_common.custom_view.EclipseImageView;
+import com.gcml.lib_widget.EclipseImageView;
 import com.medlink.danbogh.call2.NimCallActivity;
 
 import java.text.SimpleDateFormat;
@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
  * created by:gzq
  * description:主页第1页
  */
-public class NewMain1Fragment extends BaseFragment implements View.OnClickListener {
+public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClickListener {
 
     private TextView mClock;
     private ImageView mImageWeather;
@@ -304,8 +304,7 @@ public class NewMain1Fragment extends BaseFragment implements View.OnClickListen
                 Bundle bundle = new Bundle();
                 bundle.putString("orderid", "0");
                 bundle.putString("from", "Test");
-//                FaceRecognitionActivity.startActivity(getContext(), FaceRecognitionActivity.class, bundle, false);
-                FaceRecognitionActivity.startActivity(getContext(),bundle,false);
+                CCFaceRecognitionActions.jump2FaceRecognitionActivity(getActivity(),bundle);
                 break;
             case R.id.iv_health_manager:
                 startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));

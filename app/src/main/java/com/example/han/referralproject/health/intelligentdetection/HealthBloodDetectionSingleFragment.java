@@ -35,7 +35,7 @@ public class HealthBloodDetectionSingleFragment extends HealthBloodDetectionFrag
                 ? getString(R.string.tips_detection_right)
                 : getString(R.string.tips_detection_left);
 //        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.tips_xueya);
-//        MeasureVideoPlayActivity.startActivity(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
+//        MeasureVideoPlayActivity.startActivityForResult(this, MeasureVideoPlayActivity.class, uri, null, "血压测量演示视频");
     }
 
     @Override
