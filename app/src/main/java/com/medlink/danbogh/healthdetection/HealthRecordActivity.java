@@ -245,8 +245,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 String text = "https://ce.gcmlrt.com/ZZB/br/whole_informations?bid=" + MyApplication.getInstance().userId
-                        + "&bname=" + QrCodeUtils.urlEncode(MyApplication.getInstance().userName
-                        + "&title=颐硕堂");
+                        + "&bname=" + MyApplication.getInstance().userName + "&title=颐硕堂";
                 MyDialogFragment.newInstance(text).show(getSupportFragmentManager(), MyDialogFragment.TAG);
             }
         });
