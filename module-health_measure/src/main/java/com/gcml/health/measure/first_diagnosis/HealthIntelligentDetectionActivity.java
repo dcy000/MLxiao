@@ -1,5 +1,7 @@
 package com.gcml.health.measure.first_diagnosis;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetecti
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSugarDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthThreeInOneDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
+import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
 import com.gcml.health.measure.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.data.SPUtil;
@@ -44,6 +47,14 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
     private int measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
     private static List<DetectionData> cacheDatas = new ArrayList<>();
     private static HealthBloodDetectionUiFragment.Data bloodpressureCacheData;
+
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, HealthIntelligentDetectionActivity.class);
+        if (context instanceof Application) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        context.startActivity(intent);
+    }
 
     public void putBloodpressureCacheData(HealthBloodDetectionUiFragment.Data data) {
         bloodpressureCacheData=data;

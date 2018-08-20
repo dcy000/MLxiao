@@ -78,16 +78,15 @@ public class LoopListenerActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.textView2:
-                try {
-                    statListener();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
+        int i = v.getId();
+        if (i == R.id.textView2) {
+            try {
+                statListener();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
         }
     }
 

@@ -10,7 +10,7 @@ import com.billy.cc.core.component.IComponent;
  * created by:gzq
  * description:TODO
  */
-public class AppComponent implements IComponent {
+public class AppCC implements IComponent {
     @Override
     public String getName() {
         return "app";

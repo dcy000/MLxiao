@@ -10,7 +10,7 @@ import com.example.han.referralproject.AllMeasureActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 
@@ -63,7 +63,8 @@ public class FactoryTestActivity extends BaseActivity {
                 break;
             case R.id.tv_camera:
                 //摄像头检测
-                startActivity(new Intent(this, FaceRecognitionActivity.class));
+                //TODO：该模块单独抽离出来了，暂时不提供此功能，如遇紧急情况请联系郭志强
+//                startActivity(new Intent(this, FaceRecognitionActivity.class));
                 break;
             case R.id.tv_micro:
                 //麦克风检测

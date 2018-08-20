@@ -13,7 +13,6 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -126,8 +125,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.health_class:
-                intent = new Intent(this, HealthIntelligentDetectionActivity.class);
-                startActivity(intent);
+//                intent = new Intent(this, HealthIntelligentDetectionActivity.class);
+//                startActivity(intent);
 //                intent.setClass(getApplicationContext(), MarketActivity.class);
 //                startActivityForResult(intent);
                 break;
