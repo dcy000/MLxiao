@@ -2,6 +2,7 @@ package com.gcml.health.measure.ecg;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -64,8 +65,12 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
     private ImageView ivBack;
 
     public static void startActivity(Context context, String fromWhere) {
-        context.startActivity(new Intent(context, XinDianDetectActivity.class)
-                .putExtra("fromWhere", fromWhere));
+        Intent intent = new Intent(context, XinDianDetectActivity.class);
+        if (context instanceof Application) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        intent.putExtra("fromWhere", fromWhere);
+        context.startActivity(intent);
     }
 
     public static void startActivityForResult(Activity context, String fromWhere, int requestCode) {
@@ -373,13 +378,14 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.icon_back:
-                finish();
-                break;
-            case R.id.tv_next:
-                uploadEcg(mEcg, mHeartRate);
-                break;
+        super.onClick(v);
+        int i = v.getId();
+        if (i == R.id.icon_back) {
+            finish();
+
+        } else if (i == R.id.tv_next) {
+            uploadEcg(mEcg, mHeartRate);
+
         }
 
     }

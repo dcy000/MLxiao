@@ -33,28 +33,28 @@ public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragmen
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_empty_stomach:
-                if (fragmentChanged!=null){
-                    Bundle bundle=new Bundle();
-                    bundle.putInt("selectMeasureSugarTime",ACTION_EMPTY_STOMACH);
-                    fragmentChanged.onFragmentChanged(this,bundle);
-                }
-                break;
-            case R.id.iv_two_hours:
-                if (fragmentChanged!=null){
-                    Bundle bundle=new Bundle();
-                    bundle.putInt("selectMeasureSugarTime",ACTION_TWO_HOURS);
-                    fragmentChanged.onFragmentChanged(this,bundle);
-                }
-                break;
-            case R.id.iv_other_time:
-                if (fragmentChanged!=null){
-                    Bundle bundle=new Bundle();
-                    bundle.putInt("selectMeasureSugarTime",ACTION_OTHER_TIME);
-                    fragmentChanged.onFragmentChanged(this,bundle);
-                }
-                break;
+        int i = v.getId();
+        if (i == R.id.iv_empty_stomach) {
+            if (fragmentChanged != null) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("selectMeasureSugarTime", ACTION_EMPTY_STOMACH);
+                fragmentChanged.onFragmentChanged(this, bundle);
+            }
+
+        } else if (i == R.id.iv_two_hours) {
+            if (fragmentChanged != null) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("selectMeasureSugarTime", ACTION_TWO_HOURS);
+                fragmentChanged.onFragmentChanged(this, bundle);
+            }
+
+        } else if (i == R.id.iv_other_time) {
+            if (fragmentChanged != null) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("selectMeasureSugarTime", ACTION_OTHER_TIME);
+                fragmentChanged.onFragmentChanged(this, bundle);
+            }
+
         }
     }
 }

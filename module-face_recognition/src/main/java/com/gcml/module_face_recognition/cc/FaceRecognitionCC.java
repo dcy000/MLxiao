@@ -18,6 +18,7 @@ import timber.log.Timber;
  * created on 2018/8/13 15:51
  * created by:gzq
  * description:人脸识别模块路由
+ * TODO:额为补充：Action的命名规则：如果自己是源，那么就CC开头，如CCxxxxx;如果自己是目标，是接收方，则xxxxCC
  */
 public class FaceRecognitionCC implements IComponent {
     private static final String KEY_EXTRA_XFID = "key_xfid";
@@ -29,7 +30,6 @@ public class FaceRecognitionCC implements IComponent {
 
     @Override
     public boolean onCall(CC cc) {
-        Timber.e(cc.toString());
         CCResultActions.setCcId(cc.getCallId());
         Context context = cc.getContext();
         Timber.i(cc.getActionName());

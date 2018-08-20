@@ -76,14 +76,14 @@ android {
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
 
-//    signingConfigs {
-//        debug {
-//            storeFile file(RELEASE_STORE_FILE)
-//            storePassword RELEASE_STORE_PASSWORD
-//            keyAlias RELEASE_KEY_ALIAS
-//            keyPassword RELEASE_KEY_PASSWORD
-//        }
-//    }
+    signingConfigs {
+        debug {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }
 
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
@@ -105,7 +105,7 @@ dependencies {
     //cc
     addComponent 'module-face_recognition'
     addComponent 'lib-recreation'
-
+    addComponent 'module-health_measure'
 
     implementation project(":lib-common-business")
     implementation project(":lib-common-core")

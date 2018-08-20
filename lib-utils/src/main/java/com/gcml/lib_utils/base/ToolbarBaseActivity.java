@@ -1,6 +1,7 @@
 package com.gcml.lib_utils.base;
 
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -58,6 +59,7 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
         mRightView.setOnClickListener(this);
     }
 
+    @CallSuper
     @Override
     public void onClick(View v) {
         if (v.getId()==R.id.ll_back){
@@ -66,6 +68,7 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
             backMainActivity();
         }
     }
+
     protected void backLastActivity() {
         finish();
     }

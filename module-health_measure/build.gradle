@@ -1,5 +1,4 @@
-//apply from: rootProject.file('cc-settings.gradle')
-apply plugin: 'com.android.application'
+apply from: rootProject.file('cc-settings.gradle')
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
@@ -10,10 +9,9 @@ android {
 
 
     defaultConfig {
-        applicationId "com.gcml.health.measure"
-//        if (project.ext.runAsApp) {
-//            applicationId "com.gcml.health.measure"
-//        }
+        if (project.ext.runAsApp) {
+            applicationId "com.gcml.health.measure"
+        }
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -62,6 +60,5 @@ dependencies {
     implementation project(':lib-voice')
     implementation project(':lib-video')
     implementation project(':lib-rulerview')
-    implementation rootProject.ext.dependencies["multidex"]
     implementation rootProject.ext.dependencies["multidex"]
 }

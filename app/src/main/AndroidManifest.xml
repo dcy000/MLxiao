@@ -179,17 +179,6 @@
             android:enabled="true" />
 
         <activity
-            android:name=".xindian.ConnectActivity"
-            android:screenOrientation="landscape" />
-
-        <service
-            android:name=".xindian.ReceiveService"
-            android:enabled="true" />
-
-        <activity
-            android:name=".xindian.XinDianDetectActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".xueya.XueyaActivity"
             android:largeHeap="true"
             android:screenOrientation="landscape" />
@@ -245,14 +234,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Test_mainActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".xueya.AttentionActivity"
             android:largeHeap="true"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".facerecognition.AuthenticationActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".login.PerInfoActivity"
@@ -732,10 +715,6 @@
             android:screenOrientation="landscape" />
 
         <activity
-            android:name=".health.intelligentdetection.HealthIntelligentDetectionActivity"
-            android:screenOrientation="landscape" />
-
-        <activity
             android:name=".video.MeasureVideoPlayActivity"
             android:label="测量演示视频播放界面"
             android:screenOrientation="landscape" />
@@ -768,9 +747,6 @@
         <activity android:name=".hypertensionmanagement.activity.BloodPressureMeasureActivity" />
         <activity android:name=".hypertensionmanagement.activity.BloodClucoseMeasureActivity" />
         <activity android:name=".hypertensionmanagement.activity.WeightMeasureActivity"></activity>
-        <activity
-            android:name=".facerecognition.FaceRecognitionActivity"
-            android:screenOrientation="landscape" />
         <activity android:name=".settting.activity.FactoryTestActivity" />
         <activity android:name=".settting.activity.ScreenPointActivity" />
         <activity android:name=".settting.activity.ScreenTouchActivity" />

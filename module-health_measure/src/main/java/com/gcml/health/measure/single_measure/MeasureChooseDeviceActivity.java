@@ -1,5 +1,7 @@
 package com.gcml.health.measure.single_measure;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,9 +34,18 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     private LinearLayout llMore;
     private ConstraintLayout cl2;
 
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, MeasureChooseDeviceActivity.class);
+        if (context instanceof Application) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        context.startActivity(intent);
+    }
+
     /**
      * 返回上一页
      */
+    @Override
     protected void backLastActivity() {
         if (isTest) {
             backMainActivity();
@@ -45,6 +56,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     /**
      * 返回到主页面
      */
+    @Override
     protected void backMainActivity() {
 //        startActivity(new Intent(mContext, MainActivity.class));
 //        finish();
@@ -74,61 +86,58 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
 
     @Override
     public void onClick(View v) {
-
+        super.onClick(v);
         long currentTime = Calendar.getInstance().getTimeInMillis();
         if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
             lastClickTime = currentTime;
 
             Intent intent = new Intent();
             Uri uri;
-            switch (v.getId()) {
-                case R.id.ll_xueya:
-                    measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
-                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-                    MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血压测量演示视频",
-                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-                    break;
-                case R.id.ll_xueyang:
-                    measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
-                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
-                    MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血氧测量演示视频",
-                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-                    break;
-                case R.id.ll_tiwen:
-                    measureType = IPresenter.MEASURE_TEMPERATURE;
-                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
-                    MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "耳温测量演示视频",
-                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-                    break;
-                case R.id.ll_xuetang:
-                    measureType = IPresenter.MEASURE_BLOOD_SUGAR;
-                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-                    MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血糖测量演示视频",
-                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-                    break;
-                case R.id.ll_xindian:
-                    measureType = IPresenter.MEASURE_ECG;
-                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-                    MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "心电测量演示视频",
-                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-                    break;
-                case R.id.ll_san:
-                    measureType = IPresenter.MEASURE_OTHERS;
-                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-                    MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "三合一测量演示视频",
-                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-                    break;
-                case R.id.ll_tizhong:
-                    //体重
-                    measureType = IPresenter.MEASURE_WEIGHT;
-                    AllMeasureActivity.startActivity(this, measureType);
-                    break;
-                case R.id.ll_more:
-                    //敬请期待
-                    ToastUtils.showShort("敬请期待");
-                    break;
-                default:
-                    break;
+            int i = v.getId();
+            if (i == R.id.ll_xueya) {
+                measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
+                uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
+                MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血压测量演示视频",
+                        MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+
+            } else if (i == R.id.ll_xueyang) {
+                measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
+                uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
+                MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血氧测量演示视频",
+                        MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+
+            } else if (i == R.id.ll_tiwen) {
+                measureType = IPresenter.MEASURE_TEMPERATURE;
+                uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
+                MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "耳温测量演示视频",
+                        MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+
+            } else if (i == R.id.ll_xuetang) {
+                measureType = IPresenter.MEASURE_BLOOD_SUGAR;
+                uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
+                MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血糖测量演示视频",
+                        MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+
+            } else if (i == R.id.ll_xindian) {
+                measureType = IPresenter.MEASURE_ECG;
+                uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
+                MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "心电测量演示视频",
+                        MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+
+            } else if (i == R.id.ll_san) {
+                measureType = IPresenter.MEASURE_OTHERS;
+                uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
+                MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "三合一测量演示视频",
+                        MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+
+            } else if (i == R.id.ll_tizhong) {//体重
+                measureType = IPresenter.MEASURE_WEIGHT;
+                AllMeasureActivity.startActivity(this, measureType);
+
+            } else if (i == R.id.ll_more) {//敬请期待
+                ToastUtils.showShort("敬请期待");
+
+            } else {
             }
         }
     }

@@ -82,8 +82,7 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump
         playerEventListener = new PlayerEventListener();
         mVideoView.setOnPlayerEventListener(playerEventListener);
         mVideoView.setEventHandler(mOnEventAssistHandler);
-        //此处传入Application的上下文是为了解决跳过视屏内存泄漏的问题
-        mReceiverGroup = ReceiverGroupManager.get().getMeasureVideoReceiverGroup(UtilsManager.getApplication(),null);
+        mReceiverGroup = ReceiverGroupManager.get().getMeasureVideoReceiverGroup(this.getApplicationContext(), null);
         mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_NETWORK_RESOURCE, false);
         mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
         mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_IS_HAS_NEXT, false);
@@ -97,7 +96,8 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump
         errorCover.setOnJump2NextListener(this);
 
     }
-    class PlayerEventListener implements OnPlayerEventListener{
+
+    class PlayerEventListener implements OnPlayerEventListener {
 
         @Override
         public void onPlayerEvent(int eventCode, Bundle bundle) {
@@ -113,6 +113,7 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump
             }
         }
     }
+
     private DataSource generatorDataSource(long id) {
         DataSource dataSource = new DataSource();
         dataSource.setId(id);
@@ -160,7 +161,7 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump
     protected void onDestroy() {
         super.onDestroy();
         mVideoView.stopPlayback();
-        playerEventListener=null;
+        playerEventListener = null;
     }
 
     @Override
