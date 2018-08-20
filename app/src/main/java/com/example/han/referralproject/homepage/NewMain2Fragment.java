@@ -9,6 +9,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
+import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_widget.EclipseImageView;
 import com.gcml.old.auth.profile.PersonDetailActivity;
@@ -73,8 +74,8 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 OldRouter.routeToOldHomeActivity(getActivity());
                 break;
             case R.id.iv_communicate:
-//                startActivity(new Intent(getContext(), SpeechSynthesisActivity.class));
-                CC.obtainBuilder("app.component.recreation").build().callAsync();
+                startActivity(new Intent(getContext(), SpeechSynthesisActivity.class));
+//                CC.obtainBuilder("app.component.recreation").build().callAsync();
                 break;
             case R.id.iv_check_self:
                 DiseaseUser diseaseUser = new DiseaseUser(
