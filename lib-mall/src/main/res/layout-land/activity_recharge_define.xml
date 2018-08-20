@@ -5,11 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_recharge_define"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <EditText
         android:id="@+id/deifine_mount"
         android:layout_width="700dp"
         android:layout_height="100dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/bg_button_recharge"
         android:layout_gravity="center"
         android:gravity="center"

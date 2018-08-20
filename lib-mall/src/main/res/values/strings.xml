@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">lib-mall</string>
+
+    <string name="recharge_define">账&#160;&#160;户&#160;&#160;充&#160;&#160;值</string>
 </resources>

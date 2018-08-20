@@ -14,28 +14,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
+import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.medlink.mall.R;
 
 public class RechargeDefineActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText mEditText;
     Button mButton;
+    TranslucentToolBar mToolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge_define);
 
-//        mToolbar.setVisibility(View.VISIBLE);
-//        mTitleText.setText(getString(R.string.pay));
-//        speak(getString(R.string.chongzhi_define));
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        initEiitView();
-
+        mToolBar = findViewById(R.id.tb_recharge_define);
         mEditText = findViewById(R.id.deifine_mount);
         mButton = findViewById(R.id.deifine_pay);
         mButton.setOnClickListener(this);
+
+        initToolBar();
+        initEiitView();
     }
 
     @Override
@@ -63,19 +63,19 @@ public class RechargeDefineActivity extends AppCompatActivity implements View.On
         }
     }
 
-    /**
-     * 返回上一页
-     */
-    protected void backLastActivity() {
-        finish();
-    }
+    private void initToolBar() {
+        mToolBar.setData(getString(R.string.recharge_define), R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, "", new ToolBarClickListener() {
+            @Override
+            public void onLeftClick() {
+                finish();
+            }
 
-    /**
-     * 返回到主页面
-     */
-    protected void backMainActivity() {
+            @Override
+            public void onRightClick() {
 //        startActivity(new Intent(mContext, MainActivity.class));
 //        finish();
+            }
+        });
     }
 
     public void initEiitView() {
