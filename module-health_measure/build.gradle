@@ -63,5 +63,4 @@ dependencies {
     implementation project(':lib-video')
     implementation project(':lib-rulerview')
     implementation rootProject.ext.dependencies["multidex"]
-    implementation rootProject.ext.dependencies["multidex"]
 }

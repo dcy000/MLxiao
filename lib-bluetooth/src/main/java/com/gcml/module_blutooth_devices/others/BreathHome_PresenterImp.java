@@ -14,6 +14,8 @@ import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,6 +56,8 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
                     @Override
                     public void onNotify(UUID service, UUID character, byte[] value) {
                         Log.e(TAG, "onNotify: " + value.length + "======》》》" + new String(value));
+                        //如果isCollected=false,说明是收到的连接请求；如果isCollected=true,则是测量数据
+                        //警告：需要注意的是
                         if (!isCollected) {
                             if (num == 1) {
                                 System.arraycopy(value, 0, deviceRequest, 0, 20);
@@ -131,14 +135,69 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
                         + "0,"
                         + "da");
         Log.e(TAG, "writeRequestConnectData:最终传参： " + requestConnect.toString());
-        BluetoothClientManager.getClient().write(address, UUID.fromString(targetServiceUUid),
-                UUID.fromString(targetCharacteristicUUid), requestConnect.toString().getBytes(),
-                new BleWriteResponse() {
-                    @Override
-                    public void onResponse(int code) {
-                        Log.e(TAG, "写入数据onResponse: " + (code == 0 ? "成功" : "失败"));
-                    }
-                });
+        byte[] connectBytes = requestConnect.toString().getBytes();
+        List<byte[]> decomposeData = decomposeData(connectBytes);
+        readWrite(address, decomposeData);
+
+    }
+
+    /**
+     * 数据分包
+     *
+     * @param datas
+     * @return
+     */
+    private List<byte[]> decomposeData(byte[] datas) {
+        List<byte[]> bytesList = new ArrayList<>();
+        //默认剩余全部
+        byte[] surplus = datas;
+        //将数据分包，每20个字节一包
+        while (surplus != null) {
+            byte[] cacheByte;
+            byte[] newByte;
+            if (surplus.length >= 20) {
+                //先复制前20个字节到新数组，然后将剩余的复制到缓存数组，最后将缓存数组重新赋值给剩余数组
+                cacheByte = new byte[surplus.length - 1];
+                newByte = new byte[20];
+                System.arraycopy(surplus, 0, newByte, 0, 20);
+                System.arraycopy(surplus, 20, cacheByte, 0, surplus.length - 20);
+                surplus = cacheByte;
+            } else {
+                //如果是剩余数组不足20个字节，直接将剩余数组作为新数组加入集合即可
+                newByte = surplus;
+                surplus = null;
+            }
+            bytesList.add(newByte);
+        }
+        return bytesList;
+    }
+
+    private int writePosition = 0;
+
+    /**
+     * 分包写入数据
+     *
+     * @param address
+     * @param list
+     */
+    private void readWrite(final String address, final List<byte[]> list) {
+        if (writePosition < list.size()) {
+            BluetoothClientManager.getClient().write(address, UUID.fromString(targetServiceUUid),
+                    UUID.fromString(targetCharacteristicUUid), list.get(writePosition),
+                    new BleWriteResponse() {
+                        @Override
+                        public void onResponse(int code) {
+                            writePosition++;
+                            //如果某一次写入数据出错了,则不再写入
+                            if (code == 0) {
+                                readWrite(address, list);
+                            } else {
+                                baseView.updateState("连接设备失败");
+                            }
+                        }
+                    });
+        }
+
     }
 
     @Override

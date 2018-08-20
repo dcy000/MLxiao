@@ -35,6 +35,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     /**
      * 返回上一页
      */
+    @Override
     protected void backLastActivity() {
         if (isTest) {
             backMainActivity();
@@ -45,6 +46,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     /**
      * 返回到主页面
      */
+    @Override
     protected void backMainActivity() {
 //        startActivity(new Intent(mContext, MainActivity.class));
 //        finish();
@@ -74,7 +76,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
 
     @Override
     public void onClick(View v) {
-
+        super.onClick(v);
         long currentTime = Calendar.getInstance().getTimeInMillis();
         if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
             lastClickTime = currentTime;
