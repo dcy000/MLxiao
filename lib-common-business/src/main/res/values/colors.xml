@@ -51,5 +51,7 @@
     <color name="config_color_pressed">#EEEEF0</color>
     <color name="config_color_alert_line">#c6c6c6</color>
     <color name="config_color_alert_btn">#3f86fc</color>
+    <color name="config_color_alert_btn_normal">#3f86fc</color>
+    <color name="config_color_alert_btn_pressed">#993f86fc</color>
 
 </resources>

@@ -27,13 +27,13 @@ public abstract class BaseFragment<B extends ViewDataBinding, VM extends Android
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
-        viewModel = initViewModel();
+        viewModel = provideViewModel();
         binding.setVariable(variableId(), viewModel);
-        initView(savedInstanceState);
+        init(savedInstanceState);
         return binding.getRoot();
     }
 
-    protected VM initViewModel() {
+    protected VM provideViewModel() {
         Class<VM> vmClass = (Class<VM>) ((ParameterizedType) getClass().getGenericSuperclass())
                 .getActualTypeArguments()[1];
         return ViewModelProviders.of(this).get(vmClass);
@@ -43,6 +43,6 @@ public abstract class BaseFragment<B extends ViewDataBinding, VM extends Android
 
     protected abstract int variableId();
 
-    protected abstract void initView(Bundle savedInstanceState);
+    protected abstract void init(Bundle savedInstanceState);
 
 }
