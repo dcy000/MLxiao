@@ -10,6 +10,7 @@ public interface QianZui {
 //     */
 //    String qianZuiDoc = "yst_test_docter_";
 //    String qianZui = "yst_test_user_";
+//    String keFu = "10001";
 
     /**
      * 生产
