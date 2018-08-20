@@ -20,7 +20,7 @@ public class MvvmActivity extends BaseActivity<ActivityMvvmBinding, HelloViewMod
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState) {
+    protected void init(Bundle savedInstanceState) {
         viewModel.getHello().set("Hello DataBinding");
     }
 }
