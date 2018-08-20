@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
 import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
@@ -119,7 +119,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 Bundle bundle = new Bundle();
                 bundle.putString("orderid", "0");
                 bundle.putString("from", "Test");
-                FaceRecognitionActivity.startActivity(this, bundle, false);
+                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
                 break;
             case R.id.doctor_ask://医生咨询
                 intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 intent = new Intent(this, HealthIntelligentDetectionActivity.class);
                 startActivity(intent);
 //                intent.setClass(getApplicationContext(), MarketActivity.class);
-//                startActivity(intent);
+//                startActivityForResult(intent);
                 break;
             case R.id.call_family://紧急呼叫家人
                 startActivity(new Intent(this, SlowDiseaseManagementActivity.class));

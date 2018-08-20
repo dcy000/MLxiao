@@ -18,8 +18,6 @@ import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 
-import timber.log.Timber;
-
 
 public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
     private TextView mTitle3;

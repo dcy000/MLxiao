@@ -32,6 +32,17 @@ android {
 
 dependencies {
     implementation project(':lib-utils')
-    implementation project(':lib-common')
     implementation project(':lib-voice')
+    //图表库
+    implementation rootProject.ext.dependencies["MPAndroidChart"]
+    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
+    implementation rootProject.ext.dependencies["design"]
+    //万能适配器
+    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    //okhttp3
+    implementation rootProject.ext.dependencies["okhttp3"]
+    //gson
+    implementation rootProject.ext.dependencies["gson"]
+
 }

@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.support.v4.app.SupportActivity;
 import android.util.Log;
 
-import com.gcml.common.utils.RxLife;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.module_face_recognition.bean.XfGroupInfo;
-import com.gcml.module_face_recognition.manifests.SPManifest;
+import com.gcml.module_face_recognition.manifests.FaceRecognitionSPManifest;
 import com.gcml.module_face_recognition.network.FaceRepository;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityListener;
@@ -82,7 +81,7 @@ public class FaceAuthenticationUtils {
         xfid_userid = new HashMap<>();
         //获取本地所有账号
         if (context != null) {
-            String[] accounts = SPManifest.getAccounts();
+            String[] accounts = FaceRecognitionSPManifest.getAccounts();
             if (accounts != null) {
                 xfids = new String[accounts.length];
                 for (int i = 0; i < accounts.length; i++) {
@@ -442,8 +441,8 @@ public class FaceAuthenticationUtils {
                     deleteGroupListener.onResult(identityResult, b);
                 }
                 if (context != null) {
-                    SPManifest.setGroupId("");
-                    SPManifest.setXunfeiId("");
+                    FaceRecognitionSPManifest.setGroupId("");
+                    FaceRecognitionSPManifest.setXunfeiId("");
                 }
             }
 
@@ -453,8 +452,8 @@ public class FaceAuthenticationUtils {
                     deleteGroupListener.onError(speechError);
                 }
                 if (context != null) {
-                    SPManifest.setGroupId("");
-                    SPManifest.setXunfeiId("");
+                    FaceRecognitionSPManifest.setGroupId("");
+                    FaceRecognitionSPManifest.setXunfeiId("");
                 }
             }
 
@@ -464,8 +463,8 @@ public class FaceAuthenticationUtils {
                     deleteGroupListener.onEvent(i, i1, i2, bundle);
                 }
                 if (context != null) {
-                    SPManifest.setGroupId("");
-                    SPManifest.setXunfeiId("");
+                    FaceRecognitionSPManifest.setGroupId("");
+                    FaceRecognitionSPManifest.setXunfeiId("");
                 }
             }
         });

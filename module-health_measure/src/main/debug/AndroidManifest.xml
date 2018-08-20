@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gcml.module_face_recognition">
+    <!--网络-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 蓝牙 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <application
+        android:name="com.gcml.common.app.lifecycle.App"
+        android:allowBackup="true"
+        android:icon="@drawable/health_measure_ic_robot"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name="MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.gcml.health.measure.single_measure.AllMeasureActivity"
+            android:label="测量页面的容器Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity"
+            android:label="单侧选择测量仪器界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.ecg.XinDianDetectActivity"
+            android:label="心电测量"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity"
+            android:label="智能诊断"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.video.MeasureVideoPlayActivity"
+            android:label="演示视频播放界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.gcml.health.measure.ecg.ECGConnectActivity"
+            android:label="新店蓝牙连接动画界面"
+            android:screenOrientation="landscape" />
+    </application>
+
+</manifest>

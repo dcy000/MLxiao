@@ -14,7 +14,6 @@ import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import java.util.List;
 import java.util.UUID;
 
-import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -47,9 +46,7 @@ public class Bloodoxygen_Self_PresenterImp extends BaseBluetoothPresenter {
                 UUID.fromString(targetCharacteristicUUid), new BleNotifyResponse() {
                     @Override
                     public void onNotify(UUID service, UUID character, byte[] value) {
-                        Timber.e("采集到的数据"+value.length);
                         if (value.length==12){
-                            Timber.e("血氧%s,脉搏%s",value[5],value[6]);
                             baseView.updateData(value[5]+"",value[6]+"");
                         }
                     }
@@ -64,7 +61,6 @@ public class Bloodoxygen_Self_PresenterImp extends BaseBluetoothPresenter {
                 UUID.fromString(targetWriteCharacteristicUUid), DATA_OXYGEN_TO_WRITE, new BleWriteResponse() {
                     @Override
                     public void onResponse(int code) {
-                        Timber.e(code == 0 ? "写入成功" : "写入失败");
                     }
                 });
 

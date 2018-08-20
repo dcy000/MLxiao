@@ -339,7 +339,7 @@ public class TemperatureActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PlayVideoActivity.class);
                 intent.putExtra("url", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getPackageName() + "/电子温度计.mp4");
-                startActivity(intent);
+                startActivityForResult(intent);
 
             }
         });*/

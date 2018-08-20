@@ -30,8 +30,6 @@
             android:text="CC 启动 Activity" />
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onMvvm"
-            android:text="Mvvm" />
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </ScrollView>

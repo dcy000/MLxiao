@@ -48,6 +48,10 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
     private SearchWithDeviceGroupHelper helper;
     private BaseBluetoothPresenter bluetoothPresenter;
     private Bundle bundle;
+    private boolean isMeasureBloodsugarFinished;
+    private boolean isMeasureBUAFinished;
+    private boolean isMeasureCholesterolFinished;
+
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_three_in_one;
@@ -130,17 +134,26 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
             mTvGaoya.setText("0.00");
             mTvDiya.setText("0.00");
             mTvMaibo.setText("0.00");
+            isMeasureBloodsugarFinished = false;
+            isMeasureBUAFinished = false;
+            isMeasureCholesterolFinished = false;
             return;
         }
         if (datas.length == 2) {
-            if (datas[0].equals("bloodsugar")) {
+            if (datas[0].equals("bloodsugar") && !isMeasureBloodsugarFinished) {
+                isMeasureBloodsugarFinished = true;
                 mTvGaoya.setText(datas[1]);
-            } else if (datas[0].equals("bua")) {
+                onMeasureFinished(datas[0], datas[1]);
+            } else if (datas[0].equals("bua") && !isMeasureBUAFinished) {
+                isMeasureBUAFinished = true;
                 mTvDiya.setText(datas[1]);
-            } else if (datas[0].equals("cholesterol")) {
+                onMeasureFinished(datas[0], datas[1]);
+            } else if (datas[0].equals("cholesterol") && !isMeasureCholesterolFinished) {
+                isMeasureCholesterolFinished = true;
                 mTvMaibo.setText(datas[1]);
+                onMeasureFinished(datas[0], datas[1]);
             }
-            onMeasureFinished(datas[0],datas[1]);
+
         }
     }
 
@@ -155,5 +168,16 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
     @Override
     public Context getThisContext() {
         return this.getContext();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (bluetoothPresenter != null) {
+            bluetoothPresenter.onDestroy();
+        }
+        if (helper != null) {
+            helper.destroy();
+        }
     }
 }

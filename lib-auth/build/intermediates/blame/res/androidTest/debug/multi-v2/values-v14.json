@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "H:\\MLxiao\\lib-auth\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v14\\values-v14.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\blockcanary-android-1.5.0.aar\\726da6d8227f68fe9018873958b4f1f9\\res\\values-v14\\values-v14.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "3",
+                        "endColumns": "12",
+                        "endOffsets": "140"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-v14\\values-v14.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\blockcanary-android-1.5.0.aar\\726da6d8227f68fe9018873958b4f1f9\\res\\values-v14\\values-v14.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "3",
+                        "endColumns": "12",
+                        "endOffsets": "140"
+                    }
+                }
+            ]
+        }
+    ]
+}

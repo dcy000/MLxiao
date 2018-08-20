@@ -18,8 +18,6 @@ import com.inuker.bluetooth.library.search.SearchResult;
 import java.util.List;
 import java.util.UUID;
 
-import timber.log.Timber;
-
 /**
  * 小机器人自带的血压计
  * name:eBlood-Pressure
@@ -60,7 +58,6 @@ public class Bloodpressure_Self_PresenterImp extends BaseBluetoothPresenter {
                                     baseView.updateData((bytes[1] & 0xff) + "");
                                     break;
                                 case 12:
-                                    Timber.e("onNotify: " + "高压：" + (bytes[2] & 0xff) + "低压：" + (bytes[4] & 0xff) + "脉搏：" + (bytes[8] & 0xff));
                                     if (!isGetResult) {
                                         isGetResult = true;
                                         baseView.updateData((bytes[2] & 0xff) + "", (bytes[4] & 0xff) + "", (bytes[8] & 0xff) + "");

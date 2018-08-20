@@ -15,7 +15,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
-import com.example.han.referralproject.facerecognition.FaceRecognitionActivity;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -195,9 +195,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                             bundle.putString("orderid",orderid);
                             bundle.putString("from","Pay");
                             bundle.putInt("requestCode",1);
-                            FaceRecognitionActivity.startActivity(getApplicationContext(),bundle,true);
-
-
+                            CCFaceRecognitionActions.jump2FaceRecognitionActivity(GoodDetailActivity.this,bundle);
                         } else if (which == 0) {
 
 
@@ -244,35 +242,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                     }
                 }).create(NDialog.CONFIRM).show();
 
-    }
-    public void showPaySuccessDialog() {
-        speak(getString(R.string.shop_success));
-        dialog2.setMessageCenter(true)
-                .setMessage("支付成功")
-                .setMessageSize(50)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#3F86FC"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog2.OnConfirmListener() {
-                    @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-                            Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-
-                    }
-                }).create(NDialog.CONFIRM).show();
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode==RESULT_OK){
-            if (requestCode==1){
-                showPaySuccessDialog();
-            }
-        }
     }
 
     @Override

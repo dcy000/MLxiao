@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.gcml.old.auth.entity.UserInfoBean;
-import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
@@ -104,9 +104,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
     }
 
     private void navToNext() {
-        Intent intent = new Intent(this, RegisterVideoActivity.class);
-        intent.putExtra("isFast", true);
-        startActivity(intent);
+        CCFaceRecognitionActions.jump2RegisterHead2XunfeiActivity(this);
     }
 
     private void signUp(String password) {

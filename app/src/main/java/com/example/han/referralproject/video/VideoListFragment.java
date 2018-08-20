@@ -335,7 +335,7 @@ public class VideoListFragment extends Fragment {
                     Context context = itemView.getContext();
 //                    Intent intent = new Intent(context, MlVideoPlayerActivity.class);
 //                    intent.putExtra("url", entity.getVideourl());
-//                    context.startActivity(intent);
+//                    context.startActivityForResult(intent);
                     MlVideoPlayer.play(context, entity.getVideourl(), entity.getTitle());
                 }
             });

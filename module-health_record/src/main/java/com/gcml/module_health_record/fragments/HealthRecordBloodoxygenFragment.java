@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.BloodOxygenHistory;
@@ -25,11 +26,10 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
-import com.gzq.administrator.lib_common.base.BaseFragment;
 
 import java.util.ArrayList;
 
-public class HealthRecordBloodoxygenFragment extends BaseFragment {
+public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment {
     private TextView mColor1;
     private TextView mIndicator1;
     private TextView mColor2;
@@ -157,8 +157,9 @@ public class HealthRecordBloodoxygenFragment extends BaseFragment {
                     mChart.getData().getDataSetCount() > 0) {
                 set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
                 set1.setValues(value);
-                if (value.size() <= 3)
+                if (value.size() <= 3) {
                     set1.setMode(LineDataSet.Mode.LINEAR);
+                }
                 mChart.getData().notifyDataChanged();
                 mChart.notifyDataSetChanged();
             } else {
@@ -193,10 +194,11 @@ public class HealthRecordBloodoxygenFragment extends BaseFragment {
                 } else {
                     set1.setFillColor(Color.parseColor("#B3DCE2F3"));
                 }
-                if (value.size() <= 3)
+                if (value.size() <= 3) {
                     set1.setMode(LineDataSet.Mode.LINEAR);
-                else
+                } else {
                     set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+                }
                 ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
                 dataSets.add(set1);
                 LineData data = new LineData(dataSets);

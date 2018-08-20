@@ -14,7 +14,6 @@ import java.util.Map;
  * tips:倒计时工具类
  */
 public class TimeCountDownUtils {
-    private static final String TAG = "TimeCountDownUtils";
     private static volatile TimeCountDownUtils singleton = null;
     private static HashMap<String, TimeCount> timeCountMap = new HashMap<>();
     private static HashMap<String, TimeCountListener> listeners = new HashMap<>();
@@ -83,7 +82,6 @@ public class TimeCountDownUtils {
 
     public void start(String tag) {
         if (TextUtils.isEmpty(tag) || timeCountMap.isEmpty()) {
-            Log.e(TAG, "start: ");
             return;
         }
         TimeCount timeCount = timeCountMap.get(tag);
@@ -94,6 +92,7 @@ public class TimeCountDownUtils {
         if (timeCount != null) {
             timeCount.cancel();
             if (isRecovery) {
+                timeCountListener=null;
                 timeCount = null;
             }
         }
@@ -127,10 +126,12 @@ public class TimeCountDownUtils {
         }
         timeCountMap.clear();
         listeners.clear();
+        timeCountListener=null;
         if (timeCount != null) {
             timeCount.cancel();
             timeCount = null;
         }
+
     }
 
     private TimeCountListener timeCountListener;

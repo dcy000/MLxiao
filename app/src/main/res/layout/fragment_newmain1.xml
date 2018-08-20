@@ -100,7 +100,7 @@
             app:layout_constraintRight_toLeftOf="@+id/ll_health_manager"
             app:layout_constraintHorizontal_chainStyle="packed"
             android:clickable="true">
-            <com.gzq.administrator.lib_common.custom_view.EclipseImageView
+            <com.gcml.lib_widget.EclipseImageView
                 android:id="@+id/iv_health_measure"
                 android:layout_width="280pt"
                 android:layout_height="280pt"
@@ -125,7 +125,7 @@
             app:layout_constraintRight_toLeftOf="@+id/ll_health_call_family"
             android:layout_marginLeft="312pt"
             android:clickable="true">
-            <com.gzq.administrator.lib_common.custom_view.EclipseImageView
+            <com.gcml.lib_widget.EclipseImageView
                 android:id="@+id/iv_health_manager"
                 android:layout_width="280pt"
                 android:layout_height="280pt"
@@ -150,7 +150,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="312pt"
             android:clickable="true">
-            <com.gzq.administrator.lib_common.custom_view.EclipseImageView
+            <com.gcml.lib_widget.EclipseImageView
                 android:id="@+id/iv_health_call_family"
                 android:layout_width="280pt"
                 android:layout_height="280pt"

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
@@ -30,7 +31,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import timber.log.Timber;
 
 
 public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<SearchResult> {
@@ -139,7 +139,6 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                     if (TextUtils.isEmpty(targetAddress)) {
                         throw new NullPointerException("连接的设备为NULL");
                     }
-                    Timber.e("正在尝试连接");
                     connectDevice(targetAddress);
                     break;
                 case IPresenter.DISCOVER_WITH_NAME:
@@ -378,7 +377,6 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 address = lockedDevice.getAddress();
             }
         }
-        Timber.e("尝试重连："+address);
         if (!TextUtils.isEmpty(address)) {
             connectDevice(address);
         }

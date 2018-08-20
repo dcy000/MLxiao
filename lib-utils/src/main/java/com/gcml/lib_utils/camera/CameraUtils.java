@@ -16,6 +16,7 @@ import android.view.SurfaceView;
 import com.gcml.lib_utils.display.ImageUtils;
 import com.gcml.lib_utils.qrcode.scaner.CameraManager;
 import com.gcml.lib_utils.ui.ScreenUtils;
+
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -176,6 +177,7 @@ public class CameraUtils {
             handler = null;
         }
         CameraManager.get().closeDriver();
+        callBack = null;
         activity = null;
     }
 
@@ -190,8 +192,8 @@ public class CameraUtils {
                 width = new AtomicInteger(point.x);
                 height = new AtomicInteger(point.y);
             } else {
-                width=new AtomicInteger(point.y);
-                height=new AtomicInteger(point.x);
+                width = new AtomicInteger(point.y);
+                height = new AtomicInteger(point.x);
             }
             mCropWidth = cropWidth * width.get() / previewWidth;
             mCropHeight = cropHeight * height.get() / previewHeight;
@@ -295,7 +297,7 @@ public class CameraUtils {
         @Override
         public void handleMessage(Message message) {
             if (message.what == DECODE) {
-                if (callBack != null) {
+                if (callBack != null && activity != null) {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -379,6 +381,7 @@ public class CameraUtils {
         void previewSuccess(byte[] datas, Bitmap preBitmap, Bitmap cropBitmap, int prewidth, int preheight, int cropwidth, int cropheight);
 
         void openCameraFail(Exception e);
+
         void cameraClosed();
     }
 

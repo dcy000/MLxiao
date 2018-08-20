@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.DiseaseShowAdapter;
-import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
@@ -75,9 +75,7 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
                     @Override
                     public void onSuccess(String response) {
                         hideLoadingDialog();
-                        startActivity(new Intent(mContext, RegisterVideoActivity.class));
-//                        startActivity(new Intent(mContext, RecoDocActivity.class));
-//                        finish();
+                        CCFaceRecognitionActions.jump2RegisterHead2XunfeiActivity(PreviousHistoryActivity.this);
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override

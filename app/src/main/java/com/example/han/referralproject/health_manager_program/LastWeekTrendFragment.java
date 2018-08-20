@@ -11,11 +11,11 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.module_health_record.fragments.HealthRecordBloodpressureFragment;
 import com.gcml.module_health_record.network.HealthRecordNetworkApi;
 import com.google.gson.Gson;
-import com.gzq.administrator.lib_common.base.BaseFragment;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
@@ -25,7 +25,7 @@ import java.util.Date;
 
 import timber.log.Timber;
 
-public class LastWeekTrendFragment extends BaseFragment {
+public class LastWeekTrendFragment extends RecycleBaseFragment {
     private FrameLayout mLastweekTrendFl;
     private TextView mConclusion;
     private HealthRecordBloodpressureFragment bloodpressureFragment;

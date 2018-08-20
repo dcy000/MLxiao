@@ -2,7 +2,6 @@ package com.gcml.common.app.lifecycle;
 
 import android.app.Application;
 import android.content.Context;
-
 /**
  * Created by afirez on 2018/6/15.
  */

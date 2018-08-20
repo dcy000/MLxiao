@@ -7,9 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
-
-import butterknife.ButterKnife;
-
 public class BodychartActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mHead;
     private ImageView mChest;
@@ -30,7 +27,6 @@ public class BodychartActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bodychart);
-        ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText(R.string.body_guide);
         initView();

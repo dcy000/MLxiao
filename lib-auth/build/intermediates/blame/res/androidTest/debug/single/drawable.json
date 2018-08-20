@@ -1,0 +1,206 @@
+[
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\tooltip_frame_dark.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\tooltip_frame_dark.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_vector_test.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_vector_test.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\88e6b3e62087106ae989645c2120b653\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bg_loading_dialog.xml",
+        "source": "H:\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_loading_dialog.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\88e6b3e62087106ae989645c2120b653\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\design_snackbar_background.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\dd81332a98e2d4aa86e0c908041d8dbd\\res\\drawable\\design_snackbar_background.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\navigation_empty_icon.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\dd81332a98e2d4aa86e0c908041d8dbd\\res\\drawable\\navigation_empty_icon.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\design_password_eye.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\dd81332a98e2d4aa86e0c908041d8dbd\\res\\drawable\\design_password_eye.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_cab_background_top_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\88e6b3e62087106ae989645c2120b653\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\design_fab_background.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\dd81332a98e2d4aa86e0c908041d8dbd\\res\\drawable\\design_fab_background.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\leak_canary_toast_background.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\leakcanary-android-1.5.4.aar\\f84b95dc4fccd2556e9c0e8a44d7138a\\res\\drawable\\leak_canary_toast_background.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\tooltip_frame_light.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\tooltip_frame_light.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\alert_single_selector.xml",
+        "source": "H:\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\alert_single_selector.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\design_bottom_navigation_item_background.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\dd81332a98e2d4aa86e0c908041d8dbd\\res\\drawable\\design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\alert_right_selector.xml",
+        "source": "H:\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\alert_right_selector.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_text_cursor_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_seekbar_track_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\alert_left_selector.xml",
+        "source": "H:\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\alert_left_selector.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bg_alert_dialog.xml",
+        "source": "H:\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\drawable\\bg_alert_dialog.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\ad469b903527e7aed07950f483da70d3\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "H:\\MLxiao\\lib-auth\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\gzq\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\88e6b3e62087106ae989645c2120b653\\res\\drawable\\notification_bg_low.xml"
+    }
+]

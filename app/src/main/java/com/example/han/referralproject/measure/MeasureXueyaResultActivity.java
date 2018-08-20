@@ -199,7 +199,7 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_something_advice:
-//                startActivity(new Intent(this, WeeklyReportActivity.class));
+//                startActivityForResult(new Intent(this, WeeklyReportActivity.class));
                 startActivity(new Intent(this, HypertensionRiskActivity.class));
                 break;
             case R.id.health_knowledge:

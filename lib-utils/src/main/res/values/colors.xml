@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <!--导航栏的背景颜色-->
+    <color name="common_toolbar_bg">#3F86FC</color>
+    <color name="common_toolbar_pressed">#33000000</color>
+    <color name="common_toolbar_normal">#00000000</color>
+</resources>

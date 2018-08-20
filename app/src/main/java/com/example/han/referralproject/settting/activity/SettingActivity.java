@@ -75,7 +75,6 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
             case R.id.rl_clear_cache:
                 //清理缓存
                 showDialog(EventType.clearCache);
-//                startActivity(new Intent(this, VoicerSettingDemoActivity.class));
                 break;
             case R.id.rl_update:
                 //检测更新
@@ -91,8 +90,8 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
                 break;
             case R.id.rl_set_keyword:
                 //设置关键词
-//                startActivity(new Intent(this, SetKeyWordActivity.class));
-//                startActivity(new Intent(this, VoicerSettingDemoActivity.class));
+//                startActivityForResult(new Intent(this, SetKeyWordActivity.class));
+//                startActivityForResult(new Intent(this, VoicerSettingDemoActivity.class));
                 startActivity(new Intent(this, CustomKeyWordsActivity.class));
                 break;
             case R.id.rl_set_voice_name:

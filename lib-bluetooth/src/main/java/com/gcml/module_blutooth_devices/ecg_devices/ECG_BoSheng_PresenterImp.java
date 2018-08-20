@@ -48,14 +48,10 @@ import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.google.gson.Gson;
 import com.inuker.bluetooth.library.utils.ByteUtils;
-
-import java.io.InputStream;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import timber.log.Timber;
 
 /**
  * 博声心电仪
@@ -135,7 +131,6 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                 new Converter() {
                     @Override
                     public <T> T converter(String json, Class<T> clazz) {
-                        Timber.e("初始化博声成功");
                         return new Gson().fromJson(json, clazz);
                     }
                 });
@@ -181,15 +176,12 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                     @Override
                     public void onSuccess(BorsamResponse<RegisterResult> registerResultBorsamResponse) {
                         if (registerResultBorsamResponse == null) {
-                            Timber.e("registerResultBorsamResponse==null");
                         } else {
                             RegisterResult entity = registerResultBorsamResponse.getEntity();
                             if (entity == null) {
-                                Timber.e("entity==null");
                                 //该账号已经注册过
                                 login(username, password);
                             } else {
-                                Timber.e("注册成功.注册id" + entity.getId());
                                 //注册成功后进行两个操作：1.登录；2：修改个人信息
                                 login(username, password);
                                 int birthday = (int) (TimeUtils.date2Milliseconds(TimeUtils.string2Date("1993-01-02", new SimpleDateFormat("yyyy-MM-dd"))) / 1000);
@@ -201,12 +193,10 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
 
                     @Override
                     public void onError(Exception e) {
-                        Timber.e("注册失败"+e.getMessage());
                     }
 
                     @Override
                     public void onFailure(int responseCode, String responseMessage) {
-                        Timber.e("注册失败：" + responseCode + "--" + responseMessage);
                     }
                 });
     }
@@ -217,7 +207,6 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                 .enqueue(new HttpCallback<BorsamResponse<Face>>() {
                     @Override
                     public void onSuccess(BorsamResponse<Face> faceBorsamResponse) {
-                        Timber.e("上传头像成功" + faceBorsamResponse.getEntity().getFace_url());
                     }
 
                     @Override
@@ -227,7 +216,6 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
 
                     @Override
                     public void onFailure(int i, String s) {
-                        Timber.e("上传头像失败：" + i + "--" + s);
                     }
                 });
     }
@@ -247,19 +235,16 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                         } else {
                             PatientApi.userId = loginResultBorsamResponse.getEntity().getUser().getId();
                             PatientApi.token = loginResultBorsamResponse.getEntity().getToken();
-                            Timber.e("登录成功");
                             isLoginBoShengSuccess=true;
                         }
                     }
 
                     @Override
                     public void onError(Exception e) {
-                        Timber.e("登录失败"+e.getMessage());
                     }
 
                     @Override
                     public void onFailure(int responseCode, String responseMessage) {
-                        Timber.e("登录失败:"+responseCode+responseMessage);
                     }
                 });
     }
@@ -270,7 +255,6 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                 .enqueue(new HttpCallback<BorsamResponse>() {
                     @Override
                     public void onSuccess(BorsamResponse borsamResponse) {
-                        Timber.e("修改个人信息成功");
                     }
 
                     @Override
@@ -406,7 +390,6 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                     @Override
                     public void onSuccess(BorsamResponse<UploadFileResult> uploadFileResultBorsamResponse) {
                         String file_no = uploadFileResultBorsamResponse.getEntity().getFile_no();
-                        Timber.e("文件编号：" + file_no);
                         addRecord(file_no, (int) (System.currentTimeMillis() / 1000), 1, "测试");
                     }
 
@@ -430,8 +413,6 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                     public void onSuccess(BorsamResponse<AddRecordResult> addRecordResultBorsamResponse) {
                         AddRecordResult entity = addRecordResultBorsamResponse.getEntity();
 //                        Timber.e("分析数据：" + entity.getExt());
-                        Timber.e("文件地址：" + entity.getFile_url());
-                        Timber.e("报告地址：" + entity.getFile_report());
                         LoadingProgressUtils.dismissView();
                         baseView.updateData(fileNo, entity.getFile_url(), entity.getFile_report());
                     }
