@@ -4,18 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
-import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
+import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_widget.EclipseImageView;
 import com.gcml.old.auth.profile.PersonDetailActivity;
-import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
-import com.example.han.referralproject.util.LocalShared;
 import com.google.gson.Gson;
 import com.ml.edu.OldRouter;
 
