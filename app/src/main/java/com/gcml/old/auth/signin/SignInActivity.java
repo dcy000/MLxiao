@@ -254,6 +254,15 @@ public class SignInActivity extends BaseActivity {
             return;
         }
         showLoadingDialog(getString(R.string.do_login));
+        if (TextUtils.isEmpty(etPhone.getText().toString().trim())
+                || TextUtils.isEmpty(etPassword.getText().toString().trim())) {
+            ToastUtils.showShort("手机号或密码不能为空");
+            return;
+        }
+        if (!cbAgree.isChecked()) {
+            ToastUtils.showShort("登录需要勾选同意用户协议");
+            return;
+        }
         NetworkApi.login(etPhone.getText().toString(), etPassword.getText().toString(), new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
