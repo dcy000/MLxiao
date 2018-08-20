@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
-import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.homepage.MainActivity;
@@ -17,7 +16,6 @@ import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.gcml.old.auth.register.SignUp14DiseaseHistoryActivity;
@@ -190,15 +188,18 @@ public class CCFaceRecognitionActions {
                             if (bundle != null) {
                                 String fromType = bundle.getString("fromType");
                                 if (TextUtils.isEmpty(fromType)) {
-                                    activity.startActivity(new Intent(activity, Test_mainActivity.class));
+//                                    activity.startActivity(new Intent(activity, Test_mainActivity.class));
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                     return;
                                 }
                                 switch (fromType) {
                                     case "xindian":
-                                        activity.startActivity(new Intent(activity, XinDianDetectActivity.class));
+//                                        activity.startActivity(new Intent(activity, XinDianDetectActivity.class));
+                                        CCHealthMeasureActions.jump2XinDianDetectActivity();
                                         break;
                                     default:
-                                        activity.startActivity(new Intent(activity, Test_mainActivity.class));
+//                                        activity.startActivity(new Intent(activity, Test_mainActivity.class));
+                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                         break;
                                 }
                             }
@@ -233,10 +234,12 @@ public class CCFaceRecognitionActions {
                                 String fromType = bundle.getString("fromType");
                                 switch (fromType) {
                                     case "xindian":
-                                        activity.startActivity(new Intent(activity, XinDianDetectActivity.class));
+//                                        activity.startActivity(new Intent(activity, XinDianDetectActivity.class));
+                                        CCHealthMeasureActions.jump2XinDianDetectActivity();
                                         break;
                                     default:
-                                        activity.startActivity(new Intent(activity, Test_mainActivity.class));
+//                                        activity.startActivity(new Intent(activity, Test_mainActivity.class));
+                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                         break;
                                 }
                             }

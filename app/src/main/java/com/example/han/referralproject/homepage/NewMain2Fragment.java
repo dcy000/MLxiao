@@ -8,6 +8,7 @@ import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
+import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.health.intelligentdetection.HealthIntelligentDetectionActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
@@ -66,9 +67,8 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 startActivity(new Intent(getContext(), PersonDetailActivity.class));
                 break;
             case R.id.iv_health_course:
-//                startActivityForResult(new Intent(getActivity(), FirstDiagnosisActivity.class));
-                startActivity(new Intent(getActivity(), HealthIntelligentDetectionActivity.class));
-//                startActivityForResult(new Intent(getActivity(), VideoListActivity.class));
+//                startActivity(new Intent(getActivity(), HealthIntelligentDetectionActivity.class));
+                CCHealthMeasureActions.jump2HealthIntelligentDetectionActivity();
                 break;
             case R.id.entertainment_center:
                 OldRouter.routeToOldHomeActivity(getActivity());
