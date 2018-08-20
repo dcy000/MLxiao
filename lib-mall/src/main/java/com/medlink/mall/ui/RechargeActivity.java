@@ -10,11 +10,15 @@ import android.view.View;
 import android.widget.Button;
 
 import com.gcml.common.widget.dialog.AlertDialog;
+import com.gcml.common.widget.dialog.SheetDialog;
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
+import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.medlink.mall.R;
 
 
 public class RechargeActivity extends AppCompatActivity implements View.OnClickListener {
 
+    TranslucentToolBar mToolBar;
     public Button mButton50;
     public Button mButton100;
     public Button mButton200;
@@ -26,10 +30,8 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge);
-//        speak(getString(R.string.chongzhi));
-//        mToolbar.setVisibility(View.VISIBLE);
-//        mTitleText.setText(getString(R.string.pay));
 
+        mToolBar = findViewById(R.id.tb_recharge);
         mButton50 = findViewById(R.id.btn_recharge_50);
         mButton100 = findViewById(R.id.btn_recharge_100);
         mButton200 = findViewById(R.id.btn_recharge_200);
@@ -51,6 +53,57 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(getApplicationContext(), RechargeActivity.class);
         int i = view.getId();
         if (i == R.id.btn_recharge_50) {//                intent.putExtra("number", "5000");
+            new SheetDialog(RechargeActivity.this).builder()
+                    .setLeftData(R.drawable.ic_alipay, "确认", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    }).setMiddleData(R.drawable.ic_alipay, "确认", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    }).setRightData(R.drawable.ic_alipay, "确认", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+            }).show();
+        } else if (i == R.id.btn_recharge_100) {
+//            intent.putExtra("number", "10000");
+//            startActivity(intent);
+            new SheetDialog(RechargeActivity.this).builder()
+                    .setLeftData(R.drawable.ic_alipay, "确认", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    }).setMiddleData(R.drawable.ic_alipay, "确认", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            }).show();
+        } else if (i == R.id.btn_recharge_200) {
+//            intent.putExtra("number", "20000");
+//            startActivity(intent);
+            new SheetDialog(RechargeActivity.this).builder()
+                    .setLeftData(R.drawable.ic_alipay, "确认", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    }).setRightData(R.drawable.ic_alipay, "确认", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            }).show();
+
+        } else if (i == R.id.btn_recharge_500) {
+//            intent.putExtra("number", "50000");
+//            startActivity(intent);
 //                startActivity(intent);
             new AlertDialog(RechargeActivity.this).builder()
                     .setMsg("请登录账号，体验更多精彩操作,体验更多精彩操作,体验更多精彩操作。")
@@ -65,19 +118,6 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
                 }
             }).show();
-
-        } else if (i == R.id.btn_recharge_100) {
-            intent.putExtra("number", "10000");
-            startActivity(intent);
-
-        } else if (i == R.id.btn_recharge_200) {
-            intent.putExtra("number", "20000");
-            startActivity(intent);
-
-        } else if (i == R.id.btn_recharge_500) {
-            intent.putExtra("number", "50000");
-            startActivity(intent);
-
         } else if (i == R.id.btn_recharge_1000) {
             intent.putExtra("number", "100000");
             startActivity(intent);
@@ -89,6 +129,18 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void initView() {
+        mToolBar.setData("健 康 商 城", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
+            @Override
+            public void onLeftClick() {
+
+            }
+
+            @Override
+            public void onRightClick() {
+
+            }
+        });
+
         GradientDrawable normal50 = getDrawable(10, getResources().getColor(R.color.color_normal_btn50), 1, getResources().getColor(R.color.color_normal_btn50));
         GradientDrawable press50 = getDrawable(10, getResources().getColor(R.color.color_press_btn50), 1, getResources().getColor(R.color.color_press_btn50));
         StateListDrawable selector50 = getSelector(normal50, press50);

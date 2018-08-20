@@ -16,10 +16,9 @@ import com.gcml.common.business.R;
 public final class TranslucentToolBar extends LinearLayout {
 
     private View layRoot;
-    private View vStatusBar;
     private View layLeft;
     private View layRight;
-    public TextView tvTitle;
+    private TextView tvTitle;
     private TextView tvLeft;
     private TextView tvRight;
     private View iconLeft;
@@ -41,25 +40,13 @@ public final class TranslucentToolBar extends LinearLayout {
     private void init() {
         setOrientation(HORIZONTAL);
         View contentView = inflate(getContext(), R.layout.layout_trans_toolbar, this);
-        layRoot = contentView.findViewById(R.id.lay_transroot);
-//        vStatusBar = contentView.findViewById(R.id.v_statusbar);
+        layRoot = contentView.findViewById(R.id.trans_content);
         tvTitle = (TextView) contentView.findViewById(R.id.tv_actionbar_title);
         tvLeft = (TextView) contentView.findViewById(R.id.tv_actionbar_left);
         tvRight = (TextView) contentView.findViewById(R.id.tv_actionbar_right);
         iconLeft = contentView.findViewById(R.id.iv_actionbar_left);
-        iconRight = contentView.findViewById(R.id.v_actionbar_right);
+        iconRight = contentView.findViewById(R.id.iv_actionbar_right);
     }
-
-    /**
-     * 设置状态栏高度
-     *
-     * @param statusBarHeight
-     */
-//    public void setStatusBarHeight(int statusBarHeight) {
-//        ViewGroup.LayoutParams params = vStatusBar.getLayoutParams();
-//        params.height = statusBarHeight;
-//        vStatusBar.setLayoutParams(params);
-//    }
 
     /**
      * 设置是否需要渐变

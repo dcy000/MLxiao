@@ -66,7 +66,7 @@ public class AlertDialog {
 
         // 调整dialog背景大小
         lLayout_bg.setLayoutParams(new FrameLayout.LayoutParams((int) (display
-                .getWidth() * 0.60), (int) (display.getHeight() * 0.50)));
+                .getWidth() * 0.60), (int) (display.getHeight() * 0.55)));
 
         return this;
     }

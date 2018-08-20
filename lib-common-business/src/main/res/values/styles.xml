@@ -22,6 +22,12 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <!--BasePopup动画样式-->
+    <style name="PopupAnimaFade" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/basepopup_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/basepopup_fade_out</item>
+    </style>
+
     <!-- LoadingDialog -->
     <style name="loading_dialog_wrap">
         <item name="android:layout_width">wrap_content</item>
