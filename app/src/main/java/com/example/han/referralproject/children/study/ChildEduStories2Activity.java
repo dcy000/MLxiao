@@ -113,7 +113,7 @@ public class ChildEduStories2Activity extends BaseActivity {
 
         public void onBind(int position) {
             StoryModel storyModel = mModels.get(position);
-            tvNumber.setText(String.valueOf(position));
+            tvNumber.setText(String.valueOf(position+1));
             tvTitle.setText(storyModel.getName());
         }
     }
