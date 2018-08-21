@@ -28,6 +28,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.old.auth.profile.MyBaseDataActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -774,7 +775,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 gotoPersonCenter();
                 return;
             }
-
+            if (inSpell.matches(".*zhujiemian|zujiemian|jujiemian.*")
+                    || inSpell.matches(".*zhujiemian.*")) {
+                gotoHomePage();
+                return;
+            }
             if (inSpell.matches("yishengjianyi")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
                 startActivity(intent);
@@ -1069,6 +1074,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 new SpeechTask().execute();
             }
         }
+    }
+
+    private void gotoHomePage() {
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     private void gotoQianyueYiSheng() {
