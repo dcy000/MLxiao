@@ -61,7 +61,18 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
         }
 
         ImageView ivTitle = findViewById(R.id.ce_common_iv_title);
-        ivTitle.setImageResource(R.drawable.ce_entertianment_ic_title_baby_sheets);
+        switch (sheetCategory) {
+            case SHEET_CATEGORY_CHILD:
+                ivTitle.setImageResource(R.drawable.ce_entertianment_ic_title_child_sheets);
+                break;
+            case SHEET_CATEGORY_LULLABY:
+                ivTitle.setImageResource(R.drawable.ce_entertianment_ic_title_lullaby_sheets);
+                break;
+            case SHEET_CATEGORY_BABY:
+                ivTitle.setImageResource(R.drawable.ce_entertianment_ic_title_baby_sheets);
+                break;
+        }
+
         findViewById(R.id.ce_common_iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

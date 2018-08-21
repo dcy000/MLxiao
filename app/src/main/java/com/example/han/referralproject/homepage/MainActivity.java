@@ -65,7 +65,6 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         initFragments();
         initViewpage();
         initAToken();
-
     }
 
     private void initAToken() {
@@ -86,6 +85,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                 return fragments.size();
             }
         });
+        mViewpage.setCurrentItem(0);
         mViewpage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -114,6 +114,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
 
             }
         });
+
     }
 
     private void initFragments() {
