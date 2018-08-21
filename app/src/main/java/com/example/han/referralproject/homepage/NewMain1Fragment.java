@@ -222,6 +222,8 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                 case "未知":
                                     mImageWeather.setImageResource(R.drawable.weather_unknow);
                                     break;
+                                default:
+                                    break;
 
                             }
                         }
@@ -304,7 +306,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("orderid", "0");
                 bundle.putString("from", "Test");
-                CCFaceRecognitionActions.jump2FaceRecognitionActivity(getActivity(),bundle);
+                CCFaceRecognitionActions.jump2FaceRecognitionActivity(getActivity(), bundle);
                 break;
             case R.id.iv_health_manager:
                 startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));

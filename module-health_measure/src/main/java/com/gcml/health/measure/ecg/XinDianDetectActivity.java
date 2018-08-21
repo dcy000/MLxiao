@@ -86,7 +86,7 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.health_measure_ecg_pc80b);
         startService(new Intent(this, ReceiveService.class));
-
+        mToolbar.setVisibility(View.GONE);
         init();
         String fromWhere = getIntent().getStringExtra("fromWhere");
         if (HealthIntelligentDetectionActivity.class.getSimpleName().equals(fromWhere)) {
@@ -262,6 +262,8 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
                             }
                         }
                         break;
+                        default:
+                            break;
                     }
                 }
                 break;

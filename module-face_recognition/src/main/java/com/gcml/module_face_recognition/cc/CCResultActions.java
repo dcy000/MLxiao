@@ -16,44 +16,54 @@ import java.util.Map;
  */
 public class CCResultActions {
     private static String ccId;
+
     public static String getCcId() {
         return ccId;
     }
 
     /**
      * 需要在FaceRecognitionCC中进行初始化（必须）
+     *
      * @param ccId
      */
     public static void setCcId(String ccId) {
         CCResultActions.ccId = ccId;
     }
 
+
     /**
-     * CC结果返回key
+     * 返回结果参数的keys 和ReceiveResultKeys成对
      */
-    public static final String KEY_EXTRA_CC_CALLBACK = "key_cc_callback";
-    /**
-     * CC结果返回UserInfoBean
-     */
-    public static final String KEY_EXTRA_CC_USERINFOBEAN="key_cc_userinfobean";
+    interface SendResultKeys {
+        /**
+         * CC结果返回key
+         */
+        String KEY_EXTRA_CC_CALLBACK = "key_cc_callback";
+        /**
+         * CC结果返回UserInfoBean
+         */
+        String KEY_EXTRA_CC_USERINFOBEAN = "key_cc_userinfobean";
+    }
+
     /**
      * CC框架结果反馈
      *
      * @param action
      */
     public static void onCCResultAction(String action) {
-        CC.sendCCResult(ccId, CCResult.success(KEY_EXTRA_CC_CALLBACK, action));
+        CC.sendCCResult(ccId, CCResult.success(SendResultKeys.KEY_EXTRA_CC_CALLBACK, action));
     }
 
     /**
      * 返回userinforbean
+     *
      * @param action
      * @param userInfoBean
      */
-    public static void onCCResultAction(String action,UserInfoBean userInfoBean){
-        Map<String,Object> map=new HashMap<>();
-        map.put(KEY_EXTRA_CC_CALLBACK,action);
-        map.put(KEY_EXTRA_CC_USERINFOBEAN,userInfoBean);
-        CC.sendCCResult(ccId,CCResult.success());
+    public static void onCCResultAction(String action, UserInfoBean userInfoBean) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(SendResultKeys.KEY_EXTRA_CC_CALLBACK, action);
+        map.put(SendResultKeys.KEY_EXTRA_CC_USERINFOBEAN, userInfoBean);
+        CC.sendCCResult(ccId, CCResult.success());
     }
 }

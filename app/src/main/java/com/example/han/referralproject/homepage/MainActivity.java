@@ -13,6 +13,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.StatusBarFragment;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.util.LocalShared;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.lenovo.rto.accesstoken.AccessToken;
@@ -165,6 +166,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
 
         getPersonInfo();
     }
+
     //获取个人信息，得到网易账号登录所需的账号和密码
     private void getPersonInfo() {
         if ("123456".equals(MyApplication.getInstance().userId)) {
@@ -180,10 +182,10 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                             JSONObject object = new JSONObject(response.body());
                             if (object.optBoolean("tag")) {
                                 JSONObject data = object.optJSONObject("data");
-                                if (!DataUtils.isEmpty(data)){
+                                if (!DataUtils.isEmpty(data)) {
                                     UserInfoBean userInfoBean = new Gson().fromJson(data.toString(), UserInfoBean.class);
                                     if (userInfoBean != null) {
-
+                                        LocalShared.getInstance(MainActivity.this).setUserInfo(userInfoBean);
                                         String wyyxId = userInfoBean.wyyxId;
                                         String wyyxPwd = userInfoBean.wyyxPwd;
                                         if (TextUtils.isEmpty(wyyxId) || TextUtils.isEmpty(wyyxPwd)) {
@@ -205,6 +207,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
 
     /**
      * 控制状态bar中日期信息的显示或者隐藏
+     *
      * @param showStateBar
      */
     public void setShowStateBarListener(ShowStateBar showStateBar) {
@@ -214,6 +217,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
     public interface ShowStateBar {
         void showStateBar(boolean isshow);
     }
+
     @Override
     public void onSuccess(AccessToken data) {
         EHSharedPreferences.WriteInfo(ACCESSTOKEN_KEY, data);

@@ -15,6 +15,7 @@ import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Chaosi_PresenterImp;
+import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Kangtai_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Self_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Chaosi_PresenterImp;
@@ -159,6 +160,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         public void onDeviceFounded(SearchResult searchResult) {
             String name = searchResult.getName();
             String address = searchResult.getAddress();
+            Logg.e(SearchWithDeviceGroupHelper.class,">>>>>>"+name+"-->>"+address);
             if (!TextUtils.isEmpty(name)) {
                 for (String s : brands) {
                     if (name.equals(s) && !devices.contains(searchResult)) {
@@ -173,9 +175,6 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
             isSearching = false;
             if (devices.size() > 0) {
                 Collections.sort(devices, SearchWithDeviceGroupHelper.this);
-                if (devices.size() >= 2) {
-                } else {
-                }
                 initPresenter(devices.get(0).getName(), devices.get(0).getAddress());
             } else {
                 final SearchRequest searchRequest = new SearchRequest.Builder()

@@ -6,6 +6,7 @@
     <!-- 蓝牙 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <application>
+        <service android:name=".ecg.ReceiveService"/>
         <activity
             android:name="com.gcml.health.measure.single_measure.AllMeasureActivity"
             android:label="测量页面的容器Activity"

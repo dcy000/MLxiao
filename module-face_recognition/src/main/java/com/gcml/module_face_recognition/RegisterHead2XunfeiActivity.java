@@ -82,7 +82,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
 
 
     //统一管理方便维护者查看
-    interface ResultActionNames {
+    interface SendResultActionNames {
         /**
          * 点击了返回按钮
          */
@@ -146,7 +146,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
         ToastUtils.showShort("没有使用摄像头的权限");
-        CCResultActions.onCCResultAction(ResultActionNames.USER_REFUSED_CAMERA_PERMISSION);
+        CCResultActions.onCCResultAction(SendResultActionNames.USER_REFUSED_CAMERA_PERMISSION);
         finish();
     }
 
@@ -299,10 +299,10 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
         int i = v.getId();
         if (i == R.id.iv_back) {
             //因为CC启动可能是异步的，所以此处给个反馈
-            CCResultActions.onCCResultAction(ResultActionNames.PRESSED_BACK_BUTTON);
+            CCResultActions.onCCResultAction(SendResultActionNames.PRESSED_BACK_BUTTON);
             finish();
         } else if (i == R.id.tiao_guos) {
-            CCResultActions.onCCResultAction(ResultActionNames.PRESSED_JUMP_BUTTON);
+            CCResultActions.onCCResultAction(SendResultActionNames.PRESSED_JUMP_BUTTON);
             finish();
         } else {
 
@@ -454,7 +454,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                     if (TextUtils.isEmpty(userid)) {
                         ToastUtils.showShort("userId==null");
                         LoadingProgressUtils.dismissView();
-                        CCResultActions.onCCResultAction(ResultActionNames.ON_ERROR);
+                        CCResultActions.onCCResultAction(SendResultActionNames.ON_ERROR);
                         return;
                     }
                     FaceRepository.syncRegistHeadUrl(imageUrl)
@@ -473,7 +473,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                                 public void onNext(Object o) {
                                     //隐藏提示loadding
                                     LoadingProgressUtils.dismissView();
-                                    CCResultActions.onCCResultAction(ResultActionNames.REGIST_HEAD_SUCCESS);
+                                    CCResultActions.onCCResultAction(SendResultActionNames.REGIST_HEAD_SUCCESS);
                                 }
 
                                 @Override

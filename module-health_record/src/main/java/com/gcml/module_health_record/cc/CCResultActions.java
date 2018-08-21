@@ -1,4 +1,4 @@
-package com.gcml.health.measure.cc;
+package com.gcml.module_health_record.cc;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -34,15 +34,6 @@ public class CCResultActions {
         public static final String KEY_EXTRA_CC_CALLBACK = "key_cc_callback";
     }
 
-    /**
-     * 异步操作的Actions
-     */
-    interface ResultActions{
-        /**
-         * 点击历史记录
-         */
-        String PRESS_HEALTH_RECORD="press_health_record";
-    }
     /**
      * CC框架结果反馈
      *

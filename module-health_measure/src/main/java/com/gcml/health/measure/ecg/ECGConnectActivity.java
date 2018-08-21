@@ -49,8 +49,9 @@ public class ECGConnectActivity extends Activity implements OnClickListener{
 		filter.addAction(ReceiveService.ACTION_BLUETOOH_OFF);
 		registerReceiver(receiver, filter);
 		// ��API11�Ժ����ֱ�ӵ��ø÷��� ������dialog��ʽ���ֵ�activity����ⲿʱ�Ƿ���ʧ
-		if (Build.VERSION.SDK_INT >= 11)
+		if (Build.VERSION.SDK_INT >= 11) {
 			setFinishOnTouchOutside(false);
+		}
 		startCon();
 	}
 
@@ -138,6 +139,7 @@ public class ECGConnectActivity extends Activity implements OnClickListener{
 
 	public void dismiss(final long time) {
 		new Thread() {
+			@Override
 			public void run() {
 				try {
 					Thread.sleep(time * 1000);
