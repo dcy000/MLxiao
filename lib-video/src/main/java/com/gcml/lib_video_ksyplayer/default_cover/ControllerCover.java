@@ -408,6 +408,11 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
             case OnPlayerEventListener.PLAYER_EVENT_ON_SEEK_COMPLETE:
                 mTimerUpdateProgressEnable = true;
                 break;
+            case OnPlayerEventListener.PLAYER_EVENT_ON_PLAY_COMPLETE:
+                jump2Next.performClick();
+                break;
+            default:
+                break;
         }
     }
 
@@ -492,7 +497,7 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
 
         } else if (i == R.id.jumpToNext) {
             if (jump2NextListener != null) {
-                notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_CLOSE,null);
+                notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_CLOSE, null);
                 jump2NextListener.clickJump2Next(view);
             }
         }

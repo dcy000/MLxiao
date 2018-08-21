@@ -14,6 +14,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
+import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 
@@ -51,6 +52,7 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
         String address = null;
         String brand = null;
         String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, "");
+        Logg.d(Bloodoxygen_Fragment.class,sp_bloodoxygen);
         if (!TextUtils.isEmpty(sp_bloodoxygen)) {
             String[] split = sp_bloodoxygen.split(",");
             if (split.length == 2) {
@@ -71,6 +73,7 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
     }
 
     private void chooseConnectType(String address, String brand) {
+        Logg.d(Bloodoxygen_Fragment.class,""+address+brand);
         if (TextUtils.isEmpty(address)) {
             helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_OXYGEN);
             helper.start();

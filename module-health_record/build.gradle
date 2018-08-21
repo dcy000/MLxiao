@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply from: rootProject.file('cc-settings.gradle')
 
 android {
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -44,5 +44,6 @@ dependencies {
     implementation rootProject.ext.dependencies["okhttp3"]
     //gson
     implementation rootProject.ext.dependencies["gson"]
-
+    implementation project(':lib-common-core')
+    implementation project(':lib-common-business')
 }

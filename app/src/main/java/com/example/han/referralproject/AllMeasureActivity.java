@@ -41,6 +41,8 @@ import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.gcml.module_health_record.HealthRecordActivity;
 
+import timber.log.Timber;
+
 public class AllMeasureActivity extends BaseActivity implements FragmentChanged {
     private BluetoothBaseFragment baseFragment;
     private int measure_type;
@@ -164,26 +166,36 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
         @Override
         public void jump2HealthHistory(int measureType) {
             switch (measureType) {
-                case IPresenter.MEASURE_TEMPERATURE://体温测量
-                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 0);
+                case IPresenter.MEASURE_TEMPERATURE:
+                    //体温测量
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, 0);
                     break;
-                case IPresenter.MEASURE_BLOOD_PRESSURE://血压
-                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 1);
+                case IPresenter.MEASURE_BLOOD_PRESSURE:
+                    //血压
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, 1);
                     break;
-                case IPresenter.MEASURE_BLOOD_SUGAR://血糖
-                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 2);
+                case IPresenter.MEASURE_BLOOD_SUGAR:
+                    //血糖
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, 2);
                     break;
-                case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
-                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 3);
+                case IPresenter.MEASURE_BLOOD_OXYGEN:
+                    //血氧
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, 3);
                     break;
-                case IPresenter.MEASURE_WEIGHT://体重
-                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 8);
+                case IPresenter.MEASURE_WEIGHT:
+                    //体重
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, 8);
                     break;
                 case IPresenter.MEASURE_ECG:
-                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 7);
+                    //心电
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, 7);
                     break;
-                case IPresenter.MEASURE_OTHERS://三合一
-                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 5);
+                case IPresenter.MEASURE_OTHERS:
+                    //三合一
+                    HealthRecordActivity.startActivity(AllMeasureActivity.this, 5);
+                    break;
+                default:
+                    Timber.e("》》》没有匹配到任何一项（jump2HealthHistory）");
                     break;
             }
 
@@ -192,38 +204,60 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
         @Override
         public void jump2DemoVideo(int measureType) {
             switch (measureType) {
-                case IPresenter.MEASURE_TEMPERATURE://体温测量
+                case IPresenter.MEASURE_TEMPERATURE:
+                    //体温测量
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
-                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "耳温枪测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(
+                            AllMeasureActivity.this,
+                            uri, null, "耳温枪测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case IPresenter.MEASURE_BLOOD_PRESSURE://血压
+                case IPresenter.MEASURE_BLOOD_PRESSURE:
+                    //血压
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "血压测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(
+                            AllMeasureActivity.this,
+                            uri, null, "血压测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case IPresenter.MEASURE_BLOOD_SUGAR://血糖
+                case IPresenter.MEASURE_BLOOD_SUGAR:
+                    //血糖
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "血糖测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(
+                            AllMeasureActivity.this,
+                            uri, null, "血糖测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
+                case IPresenter.MEASURE_BLOOD_OXYGEN:
+                    //血氧
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
-                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "血氧测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(
+                            AllMeasureActivity.this,
+                            uri, null, "血氧测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case IPresenter.MEASURE_ECG:
+                    //心电
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "心电测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(
+                            AllMeasureActivity.this,
+                            uri, null, "心电测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case IPresenter.MEASURE_OTHERS://三合一
+                case IPresenter.MEASURE_OTHERS:
+                    //三合一
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "三合一测量演示视频",
+                    MeasureVideoPlayActivity.startActivityForResult(
+                            AllMeasureActivity.this,
+                            uri, null, "三合一测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case IPresenter.MEASURE_WEIGHT:
+                    //体重
                     ToastUtils.showShort("主人，该设备暂无演示视频");
+                    break;
+                default:
+                    Timber.e("》》》没有匹配到任何一项（jump2DemoVideo）");
                     break;
             }
         }
@@ -282,6 +316,7 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
                     ((Weight_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_ECG:
+                    //心电
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
                     ((ECG_Fragment) baseFragment).dealLogic();
                     break;
@@ -291,6 +326,7 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
                     ((ThreeInOne_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.CONTROL_FINGERPRINT:
+                    //指纹识别
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT);
                     ((Fingerpint_Fragment) baseFragment).dealLogic();
                     break;

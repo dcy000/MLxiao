@@ -61,7 +61,7 @@ public class CCFaceRecognitionActions {
     /**
      * 所有接受action的name
      */
-    interface ResultActionNames {
+    interface ReceiveResultActionNames {
         /**
          * 点击了返回按钮
          */
@@ -105,7 +105,7 @@ public class CCFaceRecognitionActions {
     /**
      * 所有接受参数的Key
      */
-    interface ResultKeys {
+    interface ReceiveResultKeys {
         /**
          * 接受的action的key
          */
@@ -129,18 +129,18 @@ public class CCFaceRecognitionActions {
             @Override
             public void onResult(CC cc, CCResult result) {
                 Timber.e(result.toString());
-                String dataItem = result.getDataItem(ResultKeys.KEY_EXTRA_CC_CALLBACK);
+                String dataItem = result.getDataItem(ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
                 switch (dataItem) {
-                    case ResultActionNames.PRESSED_BACK_BUTTON:
+                    case ReceiveResultActionNames.PRESSED_BACK_BUTTON:
                         //点击了返回按钮
                         break;
-                    case ResultActionNames.PRESSED_JUMP_BUTTON:
+                    case ReceiveResultActionNames.PRESSED_JUMP_BUTTON:
                         //点击了跳过按钮
                         break;
-                    case ResultActionNames.ON_ERROR:
+                    case ReceiveResultActionNames.ON_ERROR:
                         //注册出错了
                         break;
-                    case ResultActionNames.REGIST_HEAD_SUCCESS:
+                    case ReceiveResultActionNames.REGIST_HEAD_SUCCESS:
                         //注册头像成功
                         if (activity instanceof SignUp14DiseaseHistoryActivity) {
                             //正常注册流程
@@ -150,7 +150,7 @@ public class CCFaceRecognitionActions {
                             activity.startActivity(new Intent(activity, MainActivity.class));
                         }
                         break;
-                    case ResultActionNames.USER_REFUSED_CAMERA_PERMISSION:
+                    case ReceiveResultActionNames.USER_REFUSED_CAMERA_PERMISSION:
                         //用户拒绝了摄像头权限
                         break;
                     default:
@@ -172,12 +172,12 @@ public class CCFaceRecognitionActions {
                 .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
             @Override
             public void onResult(CC cc, CCResult result) {
-                String dataItem = result.getDataItem(ResultKeys.KEY_EXTRA_CC_CALLBACK);
+                String dataItem = result.getDataItem(ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
                 switch (dataItem) {
-                    case ResultActionNames.PRESSED_BACK_BUTTON:
+                    case ReceiveResultActionNames.PRESSED_BACK_BUTTON:
                         //点击了返回按钮
                         break;
-                    case ResultActionNames.PRESSED_JUMP_BUTTON:
+                    case ReceiveResultActionNames.PRESSED_JUMP_BUTTON:
                         //点击了跳过按钮
                         if (activity instanceof ChooseLoginTypeActivity) {
                             //选择人脸登录
@@ -205,16 +205,16 @@ public class CCFaceRecognitionActions {
                             }
                         }
                         break;
-                    case ResultActionNames.ON_ERROR:
+                    case ReceiveResultActionNames.ON_ERROR:
                         if (activity instanceof ChooseLoginTypeActivity) {
                             ToastUtils.showLong("该机器人没有此账号的人脸认证信息，请手动登录");
                         } else if (activity instanceof MainActivity) {
                             ToastUtils.showShort("验证未通过");
                         } else if (activity instanceof GoodDetailActivity) {
-                            ToastUtils.showShort("验证未通过");
+//                            ToastUtils.showShort("验证未通过");
                         }
                         break;
-                    case ResultActionNames.FACE_RECOGNITION_SUCCESS:
+                    case ReceiveResultActionNames.FACE_RECOGNITION_SUCCESS:
                         //验证头像成功
                         if (activity instanceof ChooseLoginTypeActivity) {
                             activity.startActivity(new Intent(activity, MainActivity.class));
@@ -223,7 +223,7 @@ public class CCFaceRecognitionActions {
                                     + LocalShared.getInstance(activity).getUserId());
                             Map<String, Object> dataMap = result.getDataMap();
                             if (dataMap != null && dataMap.size() > 0) {
-                                UserInfoBean userinfo = (UserInfoBean) dataMap.get(ResultKeys.KEY_EXTRA_CC_USERINFOBEAN);
+                                UserInfoBean userinfo = (UserInfoBean) dataMap.get(ReceiveResultKeys.KEY_EXTRA_CC_USERINFOBEAN);
                                 LocalShared.getInstance(activity).setUserInfo(userinfo);
                                 LocalShared.getInstance(activity).setSex(userinfo.sex);
                                 LocalShared.getInstance(activity).setUserPhoto(userinfo.userPhoto);
@@ -247,7 +247,7 @@ public class CCFaceRecognitionActions {
                             showPaySuccessDialog(activity);
                         }
                         break;
-                    case ResultActionNames.USER_REFUSED_CAMERA_PERMISSION:
+                    case ReceiveResultActionNames.USER_REFUSED_CAMERA_PERMISSION:
                         //用户拒绝了摄像头权限
                         break;
                     default:

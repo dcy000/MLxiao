@@ -1,5 +1,6 @@
 package com.gcml.module_health_record;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -81,9 +82,11 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     private LinearLayout mLlBack;
     private TextView mTvTopTitle;
     private ImageView mIvTopRight;
-    public static void startActivity(Context context, Class<?> clazz, int position) {
-        Intent intent = new Intent();
-        intent.setClass(context, clazz);
+    public static void startActivity(Context context, int position) {
+        Intent intent = new Intent(context,HealthRecordActivity.class);
+        if (context instanceof Application){
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
         intent.putExtra("position", position);
         context.startActivity(intent);
     }
@@ -231,7 +234,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         mLlBack = findViewById(R.id.ll_back);
         mLlBack.setOnClickListener(this);
         mTvTopTitle = findViewById(R.id.tv_top_title);
-        mTvTopTitle.setText("历史测量");
+        mTvTopTitle.setText("健 康 数 据");
         mIvTopRight = findViewById(R.id.iv_top_right);
         mIvTopRight.setOnClickListener(this);
 

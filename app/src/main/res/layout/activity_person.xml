@@ -198,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="测量历史"
+                    android:text="健康数据"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 
