@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.gcml.lib_utils.service.ProcessUtils;
 import com.gcml.lib_utils.ui.dialog.DialogImage;
 import com.yhao.floatwindow.FloatWindow;
 import com.yhao.floatwindow.MoveType;
@@ -32,20 +31,25 @@ public class VolumeControlFloatwindow {
      * 获取设备当前音量
      */
     private static int currentVolume;
+    private static TextView tvVolume;
+    private static int maxVolume;
+    private static ImageView icon_voice;
+    private static AudioManager mAudioManager;
+    private static SeekBar seekBar;
 
     public static void init(final Context application) {
 
         //初始化音频管理器
-        final AudioManager mAudioManager = (AudioManager) application.getSystemService(AUDIO_SERVICE);
+        mAudioManager = (AudioManager) application.getSystemService(AUDIO_SERVICE);
         //获取系统最大音量
-        final int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
 
         final ImageView imageView = new ImageView(application);
         imageView.setClickable(true);
         imageView.setFocusableInTouchMode(false);
         imageView.setImageResource(R.drawable.volume_control_float_button);
-        if (FloatWindow.get("volume_control")!=null){
+        if (FloatWindow.get("volume_control") != null) {
             return;
         }
         FloatWindow
@@ -71,9 +75,9 @@ public class VolumeControlFloatwindow {
             public void onClick(View v) {
                 currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
                 View inflate = LayoutInflater.from(application).inflate(R.layout.volume_control_layout, null);
-                SeekBar seekBar = inflate.findViewById(R.id.seekBar);
-                final ImageView icon_voice = inflate.findViewById(R.id.image_volume);
-                final TextView tvVolume = inflate.findViewById(R.id.tv_volume);
+                seekBar = inflate.findViewById(R.id.seekBar);
+                icon_voice = inflate.findViewById(R.id.image_volume);
+                tvVolume = inflate.findViewById(R.id.tv_volume);
                 seekBar.setMax(maxVolume);
                 seekBar.setProgress(currentVolume);
                 tvVolume.setText((int) ((currentVolume / (float) maxVolume) * 100) + "%");
@@ -191,6 +195,7 @@ public class VolumeControlFloatwindow {
 
         }
     };
+
     private static String userId(Context application) {
         String userId = "";
         try {
@@ -203,6 +208,17 @@ public class VolumeControlFloatwindow {
             e.printStackTrace();
         }
         return userId;
+    }
+
+    public static void setVolumSB(int progress) {
+        tvVolume.setText((int) ((progress / (float) maxVolume) * 100) + "%");
+        seekBar.setProgress(progress);
+        if (progress == 0) {
+            icon_voice.setImageResource(R.drawable.volume_control_icon_voice_mute);
+            return;
+        }
+        icon_voice.setImageResource(R.drawable.volume_control_icon_voice);
+        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, AudioManager.FLAG_PLAY_SOUND);
     }
 
 }
