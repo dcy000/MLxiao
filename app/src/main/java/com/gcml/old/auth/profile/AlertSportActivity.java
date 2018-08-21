@@ -216,7 +216,7 @@ public class AlertSportActivity extends BaseActivity {
             return;
         }
         NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, positionSelected + 1 + "",
-                buffer == null ? "" : buffer.substring(0, buffer.length() - 1), data.dz, new NetworkManager.SuccessCallback<Object>() {
+                TextUtils.isEmpty(buffer) ? "" : buffer.substring(0, buffer.length() - 1), data.dz, new NetworkManager.SuccessCallback<Object>() {
                     @Override
                     public void onSuccess(Object response) {
                         ToastUtils.showShort("修改成功");

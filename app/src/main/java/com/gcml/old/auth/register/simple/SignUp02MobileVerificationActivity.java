@@ -192,6 +192,10 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
     public void onTvGoForwardClicked() {
         String code = etCode.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();
+        if (TextUtils.isEmpty(mCode)) {
+            ToastUtils.showShort("请获取验证码");
+        }
+
         if (TextUtils.isEmpty(code) || !Utils.isValidPhone(phone)) {
             speak(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
             return;
