@@ -1,5 +1,6 @@
 package com.gcml.health.measure.single_measure;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.gcml.health.measure.R;
+import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodoxygenFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
@@ -50,8 +52,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private Uri uri;
 
     public static void startActivity(Context context, int measure_type) {
-        context.startActivity(new Intent(context, AllMeasureActivity.class)
-                .putExtra(IPresenter.MEASURE_TYPE, measure_type));
+        Intent intent = new Intent(context, AllMeasureActivity.class);
+        if (context instanceof Application) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        intent.putExtra(IPresenter.MEASURE_TYPE, measure_type);
+        context.startActivity(intent);
     }
 
     @Override
@@ -159,35 +165,41 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private DealVoiceAndJump dealVoiceAndJump = new DealVoiceAndJump() {
         @Override
         public void updateVoice(String voice) {
-            MLVoiceSynthetize.startSynthesize(AllMeasureActivity.this,voice,false);
+            MLVoiceSynthetize.startSynthesize(AllMeasureActivity.this, voice, false);
         }
 
         @Override
         public void jump2HealthHistory(int measureType) {
-            //TODO:跳转历史记录
-//            switch (measureType) {
-//                case IPresenter.MEASURE_TEMPERATURE://体温测量
+            switch (measureType) {
+                case IPresenter.MEASURE_TEMPERATURE://体温测量
+                    CCHealthRecordActions.jump2HealthRecordActivity(0);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 0);
-//                    break;
-//                case IPresenter.MEASURE_BLOOD_PRESSURE://血压
+                    break;
+                case IPresenter.MEASURE_BLOOD_PRESSURE://血压
+                    CCHealthRecordActions.jump2HealthRecordActivity(1);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 1);
-//                    break;
-//                case IPresenter.MEASURE_BLOOD_SUGAR://血糖
+                    break;
+                case IPresenter.MEASURE_BLOOD_SUGAR://血糖
+                    CCHealthRecordActions.jump2HealthRecordActivity(2);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 2);
-//                    break;
-//                case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
+                    break;
+                case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
+                    CCHealthRecordActions.jump2HealthRecordActivity(3);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 3);
-//                    break;
-//                case IPresenter.MEASURE_WEIGHT://体重
+                    break;
+                case IPresenter.MEASURE_WEIGHT://体重
+                    CCHealthRecordActions.jump2HealthRecordActivity(8);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 8);
-//                    break;
-//                case IPresenter.MEASURE_ECG:
+                    break;
+                case IPresenter.MEASURE_ECG:
+                    CCHealthRecordActions.jump2HealthRecordActivity(7);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 7);
-//                    break;
-//                case IPresenter.MEASURE_OTHERS://三合一
+                    break;
+                case IPresenter.MEASURE_OTHERS://三合一
+                    CCHealthRecordActions.jump2HealthRecordActivity(5);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 5);
-//                    break;
-//            }
+                    break;
+            }
 
         }
 

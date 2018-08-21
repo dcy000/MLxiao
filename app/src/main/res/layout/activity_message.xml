@@ -10,4 +10,5 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginTop="30dp" />
+    <include layout="@layout/layout_empty_data" android:id="@+id/view_empty_data"/>
 </RelativeLayout>

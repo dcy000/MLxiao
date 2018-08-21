@@ -43,7 +43,7 @@ public class WeigtMeasureFragment extends HealthWeightDetectionFragment implemen
         mUiModel.setUnitPosition(0);
         mUiModel.setUnits(new String[]{"kg"});
         mUiModel.setUnitSum(new String[]{"kg"});
-        mUiModel.setSelectedValues(new float[]{0f});
+        mUiModel.setSelectedValues(new float[]{50f});
         mUiModel.setMinValues(new float[]{0f});
         mUiModel.setMaxValues(new float[]{200f});
         mUiModel.setPerValues(new float[]{0.2f});
@@ -120,29 +120,6 @@ public class WeigtMeasureFragment extends HealthWeightDetectionFragment implemen
                 ToastUtils.showLong("数据上传失败");
             }
         });
-//        OkGo.<String>post(NetworkApi.DETECTION_DATA + LocalShared.getInstance(getContext()).getUserId() + "/")
-//                .upJson(new Gson().toJson(datas))
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onSuccess(Response<String> response) {
-//                        if (!response.isSuccessful()) {
-//                            ToastUtils.showLong("数据上传失败");
-//                            return;
-//                        }
-//                        String body = response.body();
-//                        try {
-//                            ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
-//                            }.getType());
-//                            if (apiResponse.isSuccessful()) {
-//                                navToNext();
-//                                return;
-//                            }
-//                        } catch (Throwable e) {
-//                            e.printStackTrace();
-//                        }
-//                        ToastUtils.showLong("数据上传失败");
-//                    }
-//                });
     }
 
     private void navToNext() {

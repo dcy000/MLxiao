@@ -1,5 +1,6 @@
 package com.gcml.module_health_record;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -81,13 +82,46 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     private LinearLayout mLlBack;
     private TextView mTvTopTitle;
     private ImageView mIvTopRight;
-    public static void startActivity(Context context, Class<?> clazz, int position) {
-        Intent intent = new Intent();
-        intent.setClass(context, clazz);
+
+    public static void startActivity(Context context, int position) {
+        Intent intent = new Intent(context, HealthRecordActivity.class);
+        if (context instanceof Application) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
         intent.putExtra("position", position);
         context.startActivity(intent);
     }
 
+    public interface MeasureType {
+        /**
+         * 测量体温
+         */
+        int MEASURE_TEMPERATURE = 21;
+        /**
+         * 测量血压
+         */
+        int MEASURE_BLOOD_PRESSURE = 22;
+        /**
+         * 测量血糖
+         */
+        int MEASURE_BLOOD_SUGAR = 23;
+        /**
+         * 测量血氧
+         */
+        int MEASURE_BLOOD_OXYGEN = 24;
+        /**
+         * 测量耳温
+         */
+        int MEASURE_WEIGHT = 25;
+        /**
+         * 测量三合一
+         */
+        int MEASURE_OTHERS = 26;
+        /**
+         * 测量心电
+         */
+        int MEASURE_ECG = 27;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,6 +130,12 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         MLVoiceSynthetize.startSynthesize(this, "主人，请查看您的历史测量数据", false);
         initView();
         initDialog();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MLVoiceSynthetize.stop();
     }
 
     private void initDatePicker(boolean isSelectEndTime) {
@@ -158,34 +198,46 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                         + "-" + selectEndMonth + "-" +
                         selectEndDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
                 switch (temp) {
-                    case "1"://体温
+                    case "1":
+                        //体温
                         getTemperatureData(startMillisecond, endMillisecond);
                         break;
-                    case "2"://血压
+                    case "2":
+                        //血压
                         getBloodpressureData(startMillisecond, endMillisecond);
                         break;
-                    case "3"://心跳
+                    case "3":
+                        //心跳
                         getHeartRateData(startMillisecond, endMillisecond);
                         break;
-                    case "4"://血糖
+                    case "4":
+                        //血糖
                         getBloodsugarData(startMillisecond, endMillisecond);
                         break;
-                    case "5"://血氧
+                    case "5":
+                        //血氧
                         getBloodoxygenData(startMillisecond, endMillisecond);
                         break;
-                    case "6"://脉搏
+                    case "6":
+                        //脉搏
                         break;
-                    case "7"://胆固醇
+                    case "7":
+                        //胆固醇
                         getCholesterolData(startMillisecond, endMillisecond);
                         break;
-                    case "8"://血尿酸
+                    case "8":
+                        //血尿酸
                         getBUAData(startMillisecond, endMillisecond);
                         break;
-                    case "9"://心电图
+                    case "9":
+                        //心电图
                         getEcgData(startMillisecond, endMillisecond);
                         break;
-                    case "10"://体重
+                    case "10":
+                        //体重
                         getWeightData(startMillisecond, endMillisecond);
+                        break;
+                    default:
                         break;
                 }
             }
@@ -231,7 +283,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         mLlBack = findViewById(R.id.ll_back);
         mLlBack.setOnClickListener(this);
         mTvTopTitle = findViewById(R.id.tv_top_title);
-        mTvTopTitle.setText("历史测量");
+        mTvTopTitle.setText("健 康 数 据");
         mIvTopRight = findViewById(R.id.iv_top_right);
         mIvTopRight.setOnClickListener(this);
 
@@ -265,58 +317,69 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         //默认选择第一个
         switch (radioGroupPosition) {
-            case 0://体温
+            case 0:
+                //体温
                 temp = "1";
                 mRgHealthRecord.check(R.id.rb_record_temperature);
                 fragmentTransaction.replace(R.id.health_record_fl, temperatureFragment).commit();
 //                getTemperatureData(endMillisecond, startMillisecond);
                 break;
-            case 1://血压
+            case 1:
+                //血压
                 temp = "2";
                 mRgHealthRecord.check(R.id.rb_record_blood_pressure);
                 fragmentTransaction.replace(R.id.health_record_fl, bloodpressureFragment).commit();
 //                getBloodpressureData(endMillisecond, startMillisecond);
                 break;
-            case 2://血糖
+            case 2:
+                //血糖
                 temp = "4";
                 mRgHealthRecord.check(R.id.rb_record_blood_glucose);
                 fragmentTransaction.replace(R.id.health_record_fl, bloodsugarFragment).commit();
 //                getBloodsugarData(endMillisecond, startMillisecond);
                 break;
-            case 3://血氧
+            case 3:
+                //血氧
                 temp = "5";
                 mRgHealthRecord.check(R.id.rb_record_blood_oxygen);
                 fragmentTransaction.replace(R.id.health_record_fl, bloodoxygenFragment).commit();
 //                getBloodoxygenData(endMillisecond, startMillisecond);
                 break;
-            case 4://心跳
+            case 4:
+                //心跳
                 temp = "3";
                 mRgHealthRecord.check(R.id.rb_record_heart_rate);
                 fragmentTransaction.replace(R.id.health_record_fl, heartrateFragment).commit();
                 break;
-            case 5://胆固醇
+            case 5:
+                //胆固醇
                 temp = "7";
                 mRgHealthRecord.check(R.id.rb_record_cholesterol);
                 fragmentTransaction.replace(R.id.health_record_fl, cholesterolFragment).commit();
 //                getHeartRateData(endMillisecond, startMillisecond);
                 break;
-            case 6://血尿酸
+            case 6:
+                //血尿酸
                 temp = "8";
                 mRgHealthRecord.check(R.id.rb_record_bua);
                 fragmentTransaction.replace(R.id.health_record_fl, buaFragment).commit();
 //                getBUAData(endMillisecond, startMillisecond);
                 break;
-            case 7://心电图
+            case 7:
+                //心电图
                 temp = "9";
                 mRgHealthRecord.check(R.id.rb_record_ecg);
                 fragmentTransaction.replace(R.id.health_record_fl, ecgFragment).commit();
 //                getEcgData(endMillisecond, startMillisecond);
                 break;
-            case 8://体重
+            case 8:
+                //体重
                 temp = "10";
                 mRgHealthRecord.check(R.id.rb_record_weight);
                 fragmentTransaction.replace(R.id.health_record_fl, weightFragment).commit();
 //                getWeightData(endMillisecond, startMillisecond);
+                break;
+            default:
                 break;
         }
 

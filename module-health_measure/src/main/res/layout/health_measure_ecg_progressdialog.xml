@@ -38,7 +38,7 @@
             android:layout_below="@+id/dialog_pro"
             android:layout_centerHorizontal="true"
             android:paddingBottom="20dp"
-            android:text="TextView"
+            android:text="正在搜索..."
             android:textColor="#fff"
             android:textSize="18sp" />
     </RelativeLayout>

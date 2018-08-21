@@ -17,7 +17,7 @@ ext {
     developUrl = api.testUrl
 
     //线上正式运行的IP地址
-    produceUrl = api.testUrl
+    produceUrl = api.produceUrl
 
     baseUrls = [
             "debug"  : "\"http://47.96.98.60:8080/\"",

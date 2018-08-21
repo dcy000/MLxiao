@@ -8,11 +8,14 @@ import android.os.Handler;
 import com.creative.bluetooth.BluetoothOpertion;
 import com.creative.bluetooth.IBluetoothCallBack;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import timber.log.Timber;
 
 public class ECGBluetooth {
 
@@ -169,6 +172,7 @@ public class ECGBluetooth {
 	 * start discovery bluetooth device in bluetooth version 2.0,3.0 
 	 */
 	public void startDiscovery() {
+		Timber.e("ECGBluetooth》》》开始搜索蓝牙");
 		//if (bluStatus == BLU_STATUS_NORMAL) {
 			bluSocket = null;
 			if (!openBluetooth())
@@ -300,6 +304,7 @@ public class ECGBluetooth {
 		public void onFindDevice(BluetoothDevice arg0) {
 			if (arg0 != null) {
 				String name = arg0.getName();
+				Timber.e("心电搜索到设备"+name+"+++++>>>>"+arg0.getAddress());
 				// String addr = arg0.getAddress();
 				// if (checkAddress(addr)) {
 				if (conDeviceName != -1) {

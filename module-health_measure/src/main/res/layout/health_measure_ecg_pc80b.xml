@@ -83,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <com.example.han.referralproject.xindian.BackGround
+        <com.gcml.health.measure.ecg.BackGround
             android:id="@+id/main_pc80B_view_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

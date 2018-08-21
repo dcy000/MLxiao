@@ -38,7 +38,7 @@ public class Bloodsugar_Self_PresenterImp extends BaseBluetoothPresenter {
     protected void connectSuccessed(String address, List<BluetoothServiceDetail> serviceDetails, boolean isReturnServiceAndCharacteristic) {
         super.connectSuccessed(address, serviceDetails, isReturnServiceAndCharacteristic);
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-        baseView.updateData("initialization","0.00");
+        baseView.updateData("initialization","0.0");
         SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, targetName + "," + address);
         BluetoothClientManager.getClient().notify(address, UUID.fromString(targetServiceUUid),
                 UUID.fromString(targetCharacteristicUUid), new BleNotifyResponse() {
@@ -46,7 +46,7 @@ public class Bloodsugar_Self_PresenterImp extends BaseBluetoothPresenter {
                     public void onNotify(UUID service, UUID character, byte[] bytes) {
                         if (bytes.length >= 12) {
                             float sugar = ((float) (bytes[10] << 8) + (float) (bytes[9] & 0xff)) / 18;
-                            baseView.updateData(String.format("%.2f", sugar));
+                            baseView.updateData(String.format("%.1f", sugar));
                         }
                     }
 

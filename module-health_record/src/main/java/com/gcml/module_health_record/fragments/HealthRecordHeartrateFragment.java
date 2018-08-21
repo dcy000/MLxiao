@@ -13,8 +13,10 @@ import android.widget.TextView;
 
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.HeartRateHistory;
+import com.gcml.module_health_record.cc.CCHealthMeasureActions;
 import com.gcml.module_health_record.others.MyFloatNumFormatter;
 import com.gcml.module_health_record.others.MyMarkerView;
 import com.gcml.module_health_record.others.TimeFormatter;
@@ -30,7 +32,7 @@ import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 
-public class HealthRecordHeartrateFragment extends RecycleBaseFragment {
+public class HealthRecordHeartrateFragment extends RecycleBaseFragment implements View.OnClickListener {
     private TextView mColor1;
     private TextView mIndicator1;
     private TextView mColor2;
@@ -42,6 +44,8 @@ public class HealthRecordHeartrateFragment extends RecycleBaseFragment {
     private RadioButton mRbOneHour;
     private RadioButton mRbTwoHour;
     private RadioGroup mRgXuetangTime;
+    private TextView mTvEmptyDataTips;
+    private TextView mBtnGo;
 
     @Override
     protected int initLayout() {
@@ -67,6 +71,10 @@ public class HealthRecordHeartrateFragment extends RecycleBaseFragment {
         mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
         mIndicator1.setText("心率(次/分钟)");
         mLlSecond.setVisibility(View.GONE);
+
+        mTvEmptyDataTips = (TextView) view.findViewById(R.id.tv_empty_data_tips);
+        mBtnGo = (TextView) view.findViewById(R.id.btn_go);
+        mBtnGo.setOnClickListener(this);
     }
 
     private void initChart() {
@@ -228,10 +236,22 @@ public class HealthRecordHeartrateFragment extends RecycleBaseFragment {
 
     public void refreshErrorData(String message) {
         ToastUtils.showShort(message);
-        if (mChart != null&&isAdded()) {
+        if (mChart != null && isAdded()) {
             mChart.setNoDataText(getResources().getString(R.string.noData));
             mChart.setData(null);
             mChart.invalidate();
+            mTvEmptyDataTips.setText("啊哦!你还没有测量数据");
+            view.findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.btn_go) {
+            //TODO:跳转到测量界面
+            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_OXYGEN);
+        } else {
         }
     }
 }

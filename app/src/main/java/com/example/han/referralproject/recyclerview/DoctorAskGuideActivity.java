@@ -48,32 +48,30 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
             case R.id.doctor_yuyue:
                 if (FastClickUtil.isFastClick()) {
                     NetworkApi.PersonInfo(MyApplication.getInstance().userId,
-                            new NetworkManager.SuccessCallback<UserInfo>() {
-                                @Override
-                                public void onSuccess(UserInfo userInfo) {
-                                    String state = userInfo.getState();
-                                    if ("0".equals(state) && TextUtils.isEmpty(userInfo.getDoctername())) {
+                            userInfo -> {
+                                if (userInfo == null) {
+                                    return;
+                                }
+                                String state = userInfo.getState();
+                                if ("0".equals(state)) {
+                                    if (TextUtils.isEmpty(userInfo.getDoctername())) {
                                         Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
                                         intent.putExtra("flag", "contract");
                                         startActivity(intent);
-                                    } else if ("0".equals(state) && !TextUtils.isEmpty(userInfo.getDoctername())) {
+                                    } else {
                                         Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
                                         startActivity(intent);
-                                    } else {
-                                        startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity.class));
                                     }
+
+                                } else if ("1".equals(state)) {
+                                    startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity.class));
                                 }
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-                                    ToastUtils.showShort(message);
-                                }
-                            });
+                            }, message -> ToastUtils.showShort(message));
                 }
                 break;
             case R.id.doctor_zaixian:
                 if (FastClickUtil.isFastClick()) {
-                    Log.d("============","click");
+                    Log.d("============", "click");
                     startActivity(new Intent(this, OnlineDoctorListActivity.class));
                 }
                 break;

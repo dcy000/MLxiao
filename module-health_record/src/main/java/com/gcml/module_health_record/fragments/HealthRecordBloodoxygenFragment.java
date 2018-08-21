@@ -5,16 +5,21 @@ import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.gcml.common.mvp.IPresenter;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.BloodOxygenHistory;
+import com.gcml.module_health_record.cc.CCHealthMeasureActions;
 import com.gcml.module_health_record.others.MyMarkerView;
 import com.gcml.module_health_record.others.TimeFormatter;
 import com.github.mikephil.charting.charts.LineChart;
@@ -29,7 +34,7 @@ import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 
-public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment {
+public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment implements View.OnClickListener {
     private TextView mColor1;
     private TextView mIndicator1;
     private TextView mColor2;
@@ -41,6 +46,14 @@ public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment {
     private RadioButton mRbOneHour;
     private RadioButton mRbTwoHour;
     private RadioGroup mRgXuetangTime;
+    /**
+     * 啊哦!还没有数据
+     */
+    private TextView mTvEmptyDataTips;
+    /**
+     * 马上去测量
+     */
+    private TextView mBtnGo;
 
     @Override
     protected int initLayout() {
@@ -68,6 +81,9 @@ public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment {
         mLlSecond.setVisibility(View.GONE);
 
 
+        mTvEmptyDataTips = (TextView) view.findViewById(R.id.tv_empty_data_tips);
+        mBtnGo = (TextView) view.findViewById(R.id.btn_go);
+        mBtnGo.setOnClickListener(this);
     }
 
     private void initChart() {
@@ -209,11 +225,22 @@ public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment {
 
     public void refreshErrorData(String message) {
         ToastUtils.showShort(message);
-        if (mChart != null&&isAdded()) {
+        if (mChart != null && isAdded()) {
             mChart.setNoDataText(getResources().getString(R.string.noData));
             mChart.setData(null);
             mChart.invalidate();
+            mTvEmptyDataTips.setText("啊哦!你还没有测量数据");
+            view.findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.btn_go) {
+            //TODO:跳转到测量界面
+            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_OXYGEN);
+        } else {
+        }
+    }
 }

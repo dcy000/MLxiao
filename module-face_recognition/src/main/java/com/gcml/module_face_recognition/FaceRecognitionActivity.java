@@ -90,7 +90,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
     private FaceListener faceListener;
     private VoiceListener voiceListener;
 
-    public interface ResultActionNames {
+    public interface SendResultActionNames {
         /**
          * 点击了返回按钮
          */
@@ -156,7 +156,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
         ToastUtils.showShort("没有使用摄像头的权限");
-        CCResultActions.onCCResultAction(RegisterHead2XunfeiActivity.ResultActionNames.USER_REFUSED_CAMERA_PERMISSION);
+        CCResultActions.onCCResultAction(RegisterHead2XunfeiActivity.SendResultActionNames.USER_REFUSED_CAMERA_PERMISSION);
         finish();
     }
 
@@ -235,7 +235,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
 
         @Override
         public void onResult(IdentityResult result, boolean islast) {
-            Timber.e("线程：" + Thread.currentThread().getName());
+            Timber.e("人脸识别：" + Thread.currentThread().getName());
             LoadingProgressUtils.dismissView();
             try {
                 String resultStr = result.getResultString();
@@ -244,13 +244,14 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
                     JSONArray scoreList = resultJson.getJSONObject("ifv_result").getJSONArray("candidates");
                     Timber.d(scoreList.toString());
                     String scoreFirstXfid = scoreList.getJSONObject(0).optString("user");
-                    Timber.d("最高分数的讯飞id" + scoreFirstXfid);
+                    Timber.e("人脸识别" + scoreFirstXfid);
                     final double firstScore = scoreList.getJSONObject(0).optDouble("score");
                     if (firstScore > 80) {
                         if ("Test".equals(fromWhere) || "Welcome".equals(fromWhere)) {
-                            Timber.e("验证分数》80的讯飞id" + scoreFirstXfid);
+                            Timber.e("人脸识别验证分数》80的讯飞id" + scoreFirstXfid);
                             authenticationSuccessForTest(scoreFirstXfid);
                         } else if ("Pay".equals(fromWhere)) {
+                            Timber.e("人脸识别：从支付过来");
                             dealPayResult(scoreFirstXfid);
                         }
 
@@ -395,11 +396,11 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.iv_back) {
-            CCResultActions.onCCResultAction(ResultActionNames.PRESSED_BACK_BUTTON);
+            CCResultActions.onCCResultAction(SendResultActionNames.PRESSED_BACK_BUTTON);
             finish();
 
         } else if (i == R.id.tiao_guos) {
-            CCResultActions.onCCResultAction(ResultActionNames.PRESSED_JUMP_BUTTON);
+            CCResultActions.onCCResultAction(SendResultActionNames.PRESSED_JUMP_BUTTON);
             finish();
 
         } else {
@@ -437,6 +438,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
     @SuppressLint("CheckResult")
     private void dealPayResult(String scoreFirstXfid) {
         if (mAuthid.equals(scoreFirstXfid)) {
+            Timber.e("人脸识别支付识别成功");
             FaceRepository.syncPayOrderId(FaceRecognitionSPManifest.getUserId(), DeviceUtils.getIMEI(), orderid)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -459,6 +461,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
                         }
                     });
         } else {
+            Timber.e("人脸识别支付识别失败：原因是不是本人支付");
             FaceRepository.cancelPayOrderId("3", "0", "1", orderid)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -519,7 +522,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
      * 验证失败
      */
     private void recognitionFail() {
-        CCResultActions.onCCResultAction(ResultActionNames.ON_ERROR);
+        CCResultActions.onCCResultAction(SendResultActionNames.ON_ERROR);
         finish();
     }
 
@@ -528,7 +531,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
      */
     private void recognitionSuccess(UserInfoBean userInfoBean) {
         ToastUtils.showShort("通过验证");
-        CCResultActions.onCCResultAction(ResultActionNames.FACE_RECOGNITION_SUCCESS, userInfoBean);
+        CCResultActions.onCCResultAction(SendResultActionNames.FACE_RECOGNITION_SUCCESS, userInfoBean);
         finish();
     }
 }

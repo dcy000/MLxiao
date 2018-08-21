@@ -21,11 +21,37 @@ import timber.log.Timber;
  * TODO:额为补充：Action的命名规则：如果自己是源，那么就CC开头，如CCxxxxx;如果自己是目标，是接收方，则xxxxCC
  */
 public class FaceRecognitionCC implements IComponent {
-    private static final String KEY_EXTRA_XFID = "key_xfid";
-
     @Override
     public String getName() {
         return "face_recognition";
+    }
+
+    /**
+     * 接收参数key，和SendKeys成对
+     */
+    interface ReceiveKeys {
+        /**
+         * 讯飞id
+         */
+        String KEY_EXTRA_XFID = "key_xfid";
+        /**
+         * 传递bundle对象的key
+         */
+        String KEY_EXTRA_BUNDLE = "key_bundle";
+    }
+
+    /**
+     * 接收的操作Actions,和SendActionNames成对
+     */
+    interface ReceiceActionNames {
+        /**
+         * 跳转RegisterHead2XunfeiActivity
+         */
+        String TO_REGISTERHEAD2XUNFEIACTIVITY = "To_RegisterHead2XunfeiActivity";
+        /**
+         * 跳转到FaceRecognitionActivity
+         */
+        String TO_FACERECOGNITIONACTIVITY = "To_FaceRecognitionActivity";
     }
 
     @Override
@@ -35,9 +61,9 @@ public class FaceRecognitionCC implements IComponent {
         Timber.i(cc.getActionName());
         String actionName = cc.getActionName();
         switch (actionName) {
-            case "To_RegisterHead2XunfeiActivity":
+            case ReceiceActionNames.TO_REGISTERHEAD2XUNFEIACTIVITY:
                 //如果从前一个页面传递有讯飞id则直接使用，如果没有则尝试去SP中获取。
-                String keyExtraXfid = cc.getParamItem(KEY_EXTRA_XFID);
+                String keyExtraXfid = cc.getParamItem(ReceiveKeys.KEY_EXTRA_XFID);
                 if (!TextUtils.isEmpty(keyExtraXfid)) {
                     RegisterHead2XunfeiActivity.startActivity(context,
                             keyExtraXfid);
@@ -47,8 +73,8 @@ public class FaceRecognitionCC implements IComponent {
                 }
                 //返回true表示异步的，如果没有CC.sendResult()则该异步一直等待
                 return true;
-            case "To_FaceRecognitionActivity":
-                FaceRecognitionActivity.startActivity(context, cc.getParamItem("key_bundle"));
+            case ReceiceActionNames.TO_FACERECOGNITIONACTIVITY:
+                FaceRecognitionActivity.startActivity(context, cc.getParamItem(ReceiveKeys.KEY_EXTRA_BUNDLE));
                 return true;
             default:
                 ToastUtils.showShort("没有匹配到CC_Action");

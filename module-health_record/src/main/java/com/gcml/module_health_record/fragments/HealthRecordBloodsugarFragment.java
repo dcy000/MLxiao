@@ -13,8 +13,10 @@ import android.widget.TextView;
 
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.BloodSugarHistory;
+import com.gcml.module_health_record.cc.CCHealthMeasureActions;
 import com.gcml.module_health_record.others.MyMarkerView;
 import com.gcml.module_health_record.others.TimeFormatter;
 import com.github.mikephil.charting.charts.LineChart;
@@ -42,6 +44,8 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
     private RadioButton mRbTwoHour;
     private RadioGroup mRgXuetangTime;
     private int eatedTime = 0;//默认空腹：0；饭后一小时：1；饭后两小时
+    private TextView mTvEmptyDataTips;
+    private TextView mBtnGo;
 
 
     @Override
@@ -72,6 +76,9 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         mIndicator1.setText("血糖(mmol/L)");
         mLlSecond.setVisibility(View.GONE);
 
+        mTvEmptyDataTips = (TextView) view.findViewById(R.id.tv_empty_data_tips);
+        mBtnGo = (TextView) view.findViewById(R.id.btn_go);
+        mBtnGo.setOnClickListener(this);
 
     }
 
@@ -289,10 +296,12 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
 
     public void refreshErrorData(String message) {
         ToastUtils.showShort(message);
-        if (mChart != null&&isAdded()) {
+        if (mChart != null && isAdded()) {
             mChart.setNoDataText(getResources().getString(R.string.noData));
             mChart.setData(null);
             mChart.invalidate();
+            mTvEmptyDataTips.setText("啊哦!你还没有测量数据");
+            view.findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
         }
     }
 
@@ -317,7 +326,8 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
                 bloodsugarSelectTime.requestData();
             }
 
-        } else {
+        } else if (i==R.id.btn_go){
+            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_SUGAR);
         }
     }
     public interface BloodsugarSelectTime{

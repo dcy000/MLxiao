@@ -13,8 +13,10 @@ import android.widget.TextView;
 
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.WeightHistory;
+import com.gcml.module_health_record.cc.CCHealthMeasureActions;
 import com.gcml.module_health_record.others.MyMarkerView;
 import com.gcml.module_health_record.others.TimeFormatter;
 import com.github.mikephil.charting.charts.LineChart;
@@ -28,7 +30,7 @@ import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 
-public class HealthRecordWeightFragment extends RecycleBaseFragment {
+public class HealthRecordWeightFragment extends RecycleBaseFragment implements View.OnClickListener {
     private TextView mColor1;
     private TextView mIndicator1;
     private TextView mColor2;
@@ -40,6 +42,8 @@ public class HealthRecordWeightFragment extends RecycleBaseFragment {
     private RadioButton mRbOneHour;
     private RadioButton mRbTwoHour;
     private RadioGroup mRgXuetangTime;
+    private TextView mTvEmptyDataTips;
+    private TextView mBtnGo;
 
     @Override
     protected int initLayout() {
@@ -64,6 +68,10 @@ public class HealthRecordWeightFragment extends RecycleBaseFragment {
         mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
         mIndicator1.setText("体重(Kg)");
         mLlSecond.setVisibility(View.GONE);
+
+        mTvEmptyDataTips = (TextView) view.findViewById(R.id.tv_empty_data_tips);
+        mBtnGo = (TextView) view.findViewById(R.id.btn_go);
+        mBtnGo.setOnClickListener(this);
 
     }
 
@@ -203,10 +211,11 @@ public class HealthRecordWeightFragment extends RecycleBaseFragment {
                 set1.setFormSize(0f);
                 //曲线区域颜色填充
                 set1.setDrawFilled(false);
-                if (values.size() <= 3)
+                if (values.size() <= 3) {
                     set1.setMode(LineDataSet.Mode.LINEAR);
-                else
+                } else {
                     set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+                }
                 if (Utils.getSDKInt() >= 18) {
                     // fill drawable only supported on api level 18 and above
                     Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.fade_tiwen);
@@ -225,10 +234,22 @@ public class HealthRecordWeightFragment extends RecycleBaseFragment {
 
     public void refreshErrorData(String message) {
         ToastUtils.showShort(message);
-        if (mChart != null&&isAdded()) {
+        if (mChart != null && isAdded()) {
             mChart.setNoDataText(getResources().getString(R.string.noData));
             mChart.setData(null);
             mChart.invalidate();
+            mTvEmptyDataTips.setText("啊哦!你还没有测量数据");
+            view.findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.btn_go) {
+            //TODO:跳转到测量界面
+            CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_WEIGHT);
+        } else {
         }
     }
 }

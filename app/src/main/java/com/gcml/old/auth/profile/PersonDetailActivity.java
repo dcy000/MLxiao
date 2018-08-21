@@ -73,7 +73,7 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
 
     private void initView() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("个人中心");
+        mTitleText.setText("个 人 中 心");
         mRightView.setImageResource(R.drawable.icon_wifi);
         mRightView.setOnClickListener(this);
 
