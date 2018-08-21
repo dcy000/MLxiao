@@ -104,7 +104,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                    mContext.startActivityForResult(new Intent(mContext, SignInActivity.class));
 //                    ((Activity) mContext).finish();
 //                }
-                CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+                CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();
                 break;
@@ -117,7 +117,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                    LocalShared.getInstance(mContext).deleteAllAccount();
 //                }
                 LocalShared.getInstance(mContext).loginOut();
-                CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+                CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();
                 break;

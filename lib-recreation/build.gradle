@@ -59,6 +59,9 @@ dependencies {
     implementation rootProject.ext.dependencies['okhttp3']
     implementation rootProject.ext.dependencies['recyclerview-v7']
     implementation rootProject.ext.dependencies['BaseRecyclerViewAdapterHelper']
+    if (project.ext.runAsApp) {
+        implementation project(":lib-common-app")
+    }
     implementation project(":lib-common-business")
     implementation project(":lib-common-core")
     implementation project(":lib-utils")

@@ -106,6 +106,7 @@ dependencies {
     addComponent 'module-face_recognition'
     addComponent 'lib-recreation'
     addComponent 'module-health_measure'
+    addComponent 'lib-auth'
 
     implementation project(":lib-common-business")
     implementation project(":lib-common-core")

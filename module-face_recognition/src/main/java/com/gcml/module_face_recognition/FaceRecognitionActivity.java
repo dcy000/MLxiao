@@ -116,7 +116,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
     public static void startActivity(Context context, Bundle bundle) {
         Intent intent = new Intent(context, FaceRecognitionActivity.class)
                 .putExtras(bundle);
-        if (context instanceof Application) {
+        if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
