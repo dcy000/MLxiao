@@ -57,7 +57,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
     }
 
     public void putBloodpressureCacheData(HealthBloodDetectionUiFragment.Data data) {
-        bloodpressureCacheData=data;
+        bloodpressureCacheData = data;
     }
 
     public HealthBloodDetectionUiFragment.Data getBloodpressureCacheData() {
@@ -91,9 +91,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_measure_activity_intelligent_detection);
-        mToolbar.setVisibility(View.VISIBLE);
-        mRightView.setImageResource(R.drawable.health_measure_ic_blutooth_light);
-        mTitleText.setText("智能检测");
+        mToolbar.setVisibility(View.GONE);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         baseFragment = (BluetoothBaseFragment) fm.findFragmentByTag(HealthFirstTipsFragment.class.getName());
@@ -166,6 +164,10 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
         } else if (fragment instanceof HealthThreeInOneDetectionUiFragment) {
             move2FirstDiagnosisReport();
         }
+
+        mToolbar.setVisibility(View.VISIBLE);
+        mRightView.setImageResource(R.drawable.health_measure_ic_blutooth_light);
+        mTitleText.setText("智能检测");
     }
 
     @Override

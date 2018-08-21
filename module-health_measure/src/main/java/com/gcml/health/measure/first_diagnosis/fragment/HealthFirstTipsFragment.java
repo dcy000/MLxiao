@@ -2,6 +2,7 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.gcml.health.measure.R;
 import com.gcml.lib_utils.UtilsManager;
@@ -12,10 +13,11 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 /**
  *
  */
-public class HealthFirstTipsFragment extends BluetoothBaseFragment {
+public class HealthFirstTipsFragment extends BluetoothBaseFragment implements View.OnClickListener {
 
 
     private ITimeCountListener timeCountListener;
+    private ImageView ivGrayBack;
 
     public HealthFirstTipsFragment() {
         // Required empty public constructor
@@ -28,7 +30,8 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment {
 
     @Override
     protected void initView(View view, Bundle bundle) {
-
+        ivGrayBack = view.findViewById(R.id.ivGrayBack);
+        ivGrayBack.setOnClickListener(this);
     }
 
 
@@ -42,6 +45,15 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment {
                 timeCountListener);
         TimeCountDownUtils.getInstance().start();
     }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.ivGrayBack) {
+            getActivity().finish();
+        }
+    }
+
     class ITimeCountListener implements TimeCountDownUtils.TimeCountListener {
 
         @Override
@@ -57,11 +69,12 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment {
             }
         }
     }
+
     @Override
     public void onStop() {
         super.onStop();
         MLVoiceSynthetize.stop();
         TimeCountDownUtils.getInstance().cancelAll();
-        timeCountListener=null;
+        timeCountListener = null;
     }
 }

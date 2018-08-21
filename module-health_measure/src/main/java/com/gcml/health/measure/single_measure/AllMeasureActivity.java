@@ -1,5 +1,6 @@
 package com.gcml.health.measure.single_measure;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -51,8 +52,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private Uri uri;
 
     public static void startActivity(Context context, int measure_type) {
-        context.startActivity(new Intent(context, AllMeasureActivity.class)
-                .putExtra(IPresenter.MEASURE_TYPE, measure_type));
+        Intent intent = new Intent(context, AllMeasureActivity.class);
+        if (context instanceof Application) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        intent.putExtra(IPresenter.MEASURE_TYPE, measure_type);
+        context.startActivity(intent);
     }
 
     @Override
@@ -160,7 +165,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private DealVoiceAndJump dealVoiceAndJump = new DealVoiceAndJump() {
         @Override
         public void updateVoice(String voice) {
-            MLVoiceSynthetize.startSynthesize(AllMeasureActivity.this,voice,false);
+            MLVoiceSynthetize.startSynthesize(AllMeasureActivity.this, voice, false);
         }
 
         @Override
