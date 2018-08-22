@@ -121,7 +121,7 @@ dependencies {
     implementation project(':unit')
     implementation(project(':lib-bluetooth')) { exclude group: "com.android.support" }
     implementation project(':lib-pay-beecloud')
-    implementation project(':circleprogress')
+    implementation project(':lib-progress-orb')
     implementation project(':expand-textview-library')
     implementation project(':lib-rulerview')
     implementation project(':circleindicator')

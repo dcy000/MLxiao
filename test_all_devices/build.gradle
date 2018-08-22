@@ -61,4 +61,6 @@ dependencies {
     implementation project(':lib-utils')
 
     api 'com.android.support:multidex:1.0.0'
+    api rootProject.ext.dependencies["lifecycle-extensions"]
+    api rootProject.ext.dependencies["lifecycle-runtime"]
 }

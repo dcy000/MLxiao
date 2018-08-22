@@ -31,5 +31,8 @@
             android:name=".ecg.ECGConnectActivity"
             android:label="新店蓝牙连接动画界面"
             android:screenOrientation="landscape" />
+        <activity android:name=".single_measure.ShowMeasureBloodpressureResultActivity"
+            android:screenOrientation="landscape"
+            android:label="展示单测血压结果分析界面"/>
     </application>
 </manifest>
