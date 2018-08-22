@@ -119,7 +119,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
             intent.putExtras(bundle);
         }
         if (!(context instanceof Activity)) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
         context.startActivity(intent);
     }

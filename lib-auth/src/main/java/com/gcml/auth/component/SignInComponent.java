@@ -21,7 +21,7 @@ public class SignInComponent implements IComponent {
         Intent intent = new Intent();
         intent.setClass(context, SignInActivity.class);
         if (!(context instanceof Activity)) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
         context.startActivity(intent);
         CC.sendCCResult(cc.getCallId(), CCResult.success());
