@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".tool.activtiy.ToolsActivity"/>
+        <activity android:name=".tool.activtiy.ToolsActivity" />
         <activity android:name=".RecreationMainActivity" />
         <activity android:name=".tool.activtiy.BaikeActivity" />
         <activity android:name=".tool.activtiy.BaikeResultActivity" />
@@ -21,7 +21,8 @@
         <activity android:name=".tool.activtiy.HistoryTodayActivity" />
         <activity android:name=".tool.activtiy.JieMengActivity" />
         <activity android:name=".tool.activtiy.JieMengRetultActivity" />
-        <activity android:name=".tool.activtiy.RiddleActivit"></activity>
+        <activity android:name=".tool.activtiy.RiddleActivit" />
+        <activity android:name=".navigation.RecreationEntranceActivity"></activity>
     </application>
 
 </manifest>

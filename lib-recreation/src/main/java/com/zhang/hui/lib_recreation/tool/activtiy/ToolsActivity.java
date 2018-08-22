@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
+import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.zhang.hui.lib_recreation.R;
 
 public class ToolsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -19,12 +21,30 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
     private ImageView mIvCaimi;
     private ImageView mIvShengxiao;
     private ImageView mIvTongfanCi;
+    private TranslucentToolBar mTbTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tools);
         initView();
+        initTitle();
+    }
+
+    private void initTitle() {
+        mTbTitle = (TranslucentToolBar) findViewById(R.id.tb_toor_title);
+        mTbTitle.setOnClickListener(this);
+        mTbTitle.setData("小 工 具", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, "", new ToolBarClickListener() {
+            @Override
+            public void onLeftClick() {
+                finish();
+            }
+
+            @Override
+            public void onRightClick() {
+
+            }
+        });
     }
 
     private void initView() {
@@ -65,8 +85,6 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(this, CalculationActivity.class));
         } else if (i == R.id.iv_caimi) {
             startActivity(new Intent(this, RiddleActivit.class));
-        } else if (i == R.id.iv_shengxiao) {
-        } else if (i == R.id.iv_tongfan_ci) {
         }
     }
 }

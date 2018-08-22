@@ -4,19 +4,28 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="48dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.gcml.common.widget.toolbar.TranslucentToolBar
+            android:id="@+id/tb_toor_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.gcml.common.widget.toolbar.TranslucentToolBar>
+
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="48dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
+
             <LinearLayout
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -42,6 +51,7 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,6 +78,7 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,6 +105,7 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -120,6 +132,7 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -146,6 +159,7 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -175,11 +189,13 @@
 
 
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="40dp"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -208,14 +224,15 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_shengxiao"
@@ -235,14 +252,15 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_tongfan_ci"
@@ -264,13 +282,10 @@
             </LinearLayout>
 
 
-
         </LinearLayout>
 
 
-
     </LinearLayout>
-
 
 
 </ScrollView>
