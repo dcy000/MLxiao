@@ -8,7 +8,7 @@ android {
         minSdkVersion gradle.minSdkVersion
         targetSdkVersion gradle.targetSdkVersion
         versionCode 23
-        versionName "Robot.1.2.2"
+        versionName "Robot.SDHG.1.0.0"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
