@@ -357,8 +357,8 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         MLVoiceSynthetize.stop();
     }
 }

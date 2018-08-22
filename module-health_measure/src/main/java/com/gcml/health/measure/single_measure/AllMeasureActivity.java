@@ -22,6 +22,7 @@ import com.gcml.health.measure.single_measure.fragment.SingleMeasureTemperatureF
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureThreeInOneFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureWeightFragment;
 import com.gcml.health.measure.video.MeasureVideoPlayActivity;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.data.DataUtils;
 import com.gcml.lib_utils.data.SPUtil;
@@ -172,7 +173,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private DealVoiceAndJump dealVoiceAndJump = new DealVoiceAndJump() {
         @Override
         public void updateVoice(String voice) {
-            MLVoiceSynthetize.startSynthesize(AllMeasureActivity.this, voice, false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), voice, false);
         }
 
         @Override

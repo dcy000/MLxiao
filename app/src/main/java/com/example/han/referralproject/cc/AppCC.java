@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.IComponent;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.NormalHightActivity;
 
 /**
@@ -34,6 +35,10 @@ public class AppCC implements IComponent {
          * 跳转到TreatmentPlanActivity页面
          */
         String TO_TREATMENTPLANACTIVITY = "ToTreatmentPlanActivity";
+        /**
+         * 跳转到MainActivity
+         */
+        String TO_MAINACTIVITY = "ToMainActivity";
     }
 
     /**
@@ -67,6 +72,13 @@ public class AppCC implements IComponent {
                     intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 }
                 context.startActivity(intent1);
+                break;
+            case ReceiveActionNames.TO_MAINACTIVITY:
+                Intent intent2 = new Intent(context, MainActivity.class);
+                if (context instanceof Application) {
+                    intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
+                context.startActivity(intent2);
                 break;
             default:
                 break;

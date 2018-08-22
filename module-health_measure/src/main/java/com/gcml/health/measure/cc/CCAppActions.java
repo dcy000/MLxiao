@@ -27,6 +27,10 @@ public class CCAppActions {
          * 跳转到TreatmentPlanActivity页面
          */
         String TO_TREATMENTPLANACTIVITY = "ToTreatmentPlanActivity";
+        /**
+         * 跳转到MainActivity
+         */
+        String TO_MAINACTIVITY = "ToMainActivity";
     }
 
     /**
@@ -51,6 +55,14 @@ public class CCAppActions {
     public static void jump2TreatmentPlanActivity() {
         CCResult call = CC.obtainBuilder(MODULE_NAME)
                 .setActionName(SendActionNames.TO_TREATMENTPLANACTIVITY)
+                .build()
+                .call();
+        Timber.i("》》》CCAppActions：" + call.toString());
+    }
+
+    public static void jump2MainActivity() {
+        CCResult call = CC.obtainBuilder(MODULE_NAME)
+                .setActionName(SendActionNames.TO_MAINACTIVITY)
                 .build()
                 .call();
         Timber.i("》》》CCAppActions：" + call.toString());
