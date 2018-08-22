@@ -24,6 +24,10 @@ public class HealthMeasureApi {
     public static final String DETECTION_DATA = BasicUrl + "/ZZB/api/healthMonitor/detection/";
     //首诊结果获取
     public static final String DETECTION_RESULT = BasicUrl + "/ZZB/api/healthMonitor/detection/result/";
+    //获取诊断信息
+    public static final String GET_DIAGNOSE_INFO = BasicUrl + "/ZZB/api/healthMonitor/hypertension/diagnose/";
+    //血压周报告、月报告接口
+    public static final String WeeklyOrMonthlyReport = BasicUrl + "/ZZB/api/healthMonitor/report/hypertension/week/";
 
     /**
      * 新的上传测量数据的接口
@@ -58,5 +62,16 @@ public class HealthMeasureApi {
                         callback.onError();
                     }
                 });
+    }
+
+    /**
+     * 获取血压测量诊断结果信息
+     * @param userId
+     * @param callback
+     */
+    public static void getDiagnoseInfo(String userId, StringCallback callback) {
+        OkGo.<String>get(GET_DIAGNOSE_INFO + userId + "/")
+                .params("userId", userId)
+                .execute(callback);
     }
 }

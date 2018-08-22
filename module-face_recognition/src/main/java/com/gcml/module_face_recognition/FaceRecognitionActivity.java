@@ -385,7 +385,6 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
         super.onStop();
         destroyAnimation();
         CameraUtils.getInstance().closeCamera();
-        MLVoiceSynthetize.stop();
         LoadingProgressUtils.dismissView();
         FaceAuthenticationUtils.getInstance(mContext).cancelIdentityVerifier();
         cameraListener = null;

@@ -10,11 +10,15 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.gcml.health.measure.R;
+import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.ecg.XinDianDetectActivity;
 import com.gcml.health.measure.video.MeasureVideoPlayActivity;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.iflytek.recognition.MLVoiceRecognize;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Calendar;
 
@@ -58,8 +62,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
      */
     @Override
     protected void backMainActivity() {
-//        startActivity(new Intent(mContext, MainActivity.class));
-//        finish();
+        CCAppActions.jump2MainActivity();
     }
 
 
@@ -67,6 +70,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_measure_activity_choose_device);
+        mTitleText.setText("健 康 检 测");
         initView();
         mToolbar.setVisibility(View.VISIBLE);
         isTest = getIntent().getBooleanExtra("isTest", false);
@@ -79,9 +83,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         llTiwen.setOnClickListener(this);
         llSan.setOnClickListener(this);
         llMore.setOnClickListener(this);
-        //TODO:语音
-//        speak(R.string.tips_test);
 
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请选择你需要测量的项目", false);
     }
 
     @Override
@@ -130,11 +133,13 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
                 MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "三合一测量演示视频",
                         MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
 
-            } else if (i == R.id.ll_tizhong) {//体重
+            } else if (i == R.id.ll_tizhong) {
+                //体重
                 measureType = IPresenter.MEASURE_WEIGHT;
                 AllMeasureActivity.startActivity(this, measureType);
 
-            } else if (i == R.id.ll_more) {//敬请期待
+            } else if (i == R.id.ll_more) {
+                //敬请期待
                 ToastUtils.showShort("敬请期待");
 
             } else {
@@ -197,5 +202,10 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         llSan = (LinearLayout) findViewById(R.id.ll_san);
         llMore = (LinearLayout) findViewById(R.id.ll_more);
         cl2 = (ConstraintLayout) findViewById(R.id.cl_2);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MLVoiceSynthetize.stop();
     }
 }

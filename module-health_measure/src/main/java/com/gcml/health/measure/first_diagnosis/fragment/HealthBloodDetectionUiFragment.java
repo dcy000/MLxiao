@@ -275,7 +275,6 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
 
             @Override
             public void onError() {
-                ToastUtils.showShort("上传数据失败");
             }
         });
     }
