@@ -114,8 +114,10 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
     }
 
     public static void startActivity(Context context, Bundle bundle) {
-        Intent intent = new Intent(context, FaceRecognitionActivity.class)
-                .putExtras(bundle);
+        Intent intent = new Intent(context, FaceRecognitionActivity.class);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -219,7 +221,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
         }
 
         @Override
-        public void openCameraFail(Exception e) {
+        public void openCameraFail(Throwable e) {
             ToastUtils.showShort("打开摄像头失败");
             closeAnimation();
         }

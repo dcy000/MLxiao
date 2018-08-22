@@ -3,7 +3,8 @@
     package="com.gcml.auth">
 
     <application>
-        <activity android:name=".ui.AuthActivity"></activity>
+        <activity android:name=".ui.AuthActivity" />
+        <activity android:name=".ui.signin.SignInActivity"></activity>
     </application>
 
 </manifest>
