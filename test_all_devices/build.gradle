@@ -41,6 +41,8 @@ repositories {
 }
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
+    api rootProject.ext.dependencies["lifecycle-extensions"]
+    api rootProject.ext.dependencies["lifecycle-runtime"]
     api(project(':lib-bluetooth')) {
         exclude group: "com.android.support"
     }

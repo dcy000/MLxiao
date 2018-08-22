@@ -1,9 +1,13 @@
 package com.gcml.common.utils;
 
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
+import android.content.Context;
 import android.databinding.ObservableField;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 
 import com.gcml.common.repository.http.ApiException;
@@ -11,6 +15,8 @@ import com.gcml.common.repository.http.ApiResult;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.AutoDisposeConverter;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
+
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -76,5 +82,26 @@ public class RxUtils {
                 observableField.addOnPropertyChangedCallback(callback);
             }
         });
+    }
+
+    public static Observable<Integer> rxWifiLevel(Context context, int numsLevel) {
+        return Observable.interval(0,3, TimeUnit.SECONDS)
+                .map(new Function<Long, Integer>() {
+                    @Override
+                    public Integer apply(Long aLong) throws Exception {
+                        @SuppressLint("WifiManagerPotentialLeak")
+                        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                        if (wm == null) {
+                            return 0;
+                        }
+                        @SuppressLint("MissingPermission")
+                        WifiInfo wifiInfo = wm.getConnectionInfo();
+                        String bssid = wifiInfo.getBSSID();
+                        if (bssid == null) {
+                            return 0;
+                        }
+                        return WifiManager.calculateSignalLevel(wifiInfo.getRssi(), numsLevel);
+                    }
+                });
     }
 }

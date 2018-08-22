@@ -181,7 +181,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                         if (isFirstWifi){
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                CC.obtainBuilder("com.gcml.old.user.signin").build().callAsync();
+                                CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                                startActivity(new Intent(mContext, SignInActivity.class));
                             } else {
                                 startActivity(new Intent(mContext, MainActivity.class));
