@@ -1,6 +1,7 @@
 package com.gcml.health.measure.single_measure;
 
 import android.app.Application;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,6 +22,7 @@ import com.gcml.health.measure.single_measure.fragment.SingleMeasureTemperatureF
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureThreeInOneFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureWeightFragment;
 import com.gcml.health.measure.video.MeasureVideoPlayActivity;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.data.DataUtils;
 import com.gcml.lib_utils.data.SPUtil;
@@ -43,6 +45,12 @@ import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.inuker.bluetooth.library.utils.BluetoothUtils;
+
+import java.lang.reflect.Method;
+import java.util.List;
+
+import timber.log.Timber;
 
 public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentChanged {
     private BluetoothBaseFragment baseFragment;
@@ -165,29 +173,34 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private DealVoiceAndJump dealVoiceAndJump = new DealVoiceAndJump() {
         @Override
         public void updateVoice(String voice) {
-            MLVoiceSynthetize.startSynthesize(AllMeasureActivity.this, voice, false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), voice, false);
         }
 
         @Override
         public void jump2HealthHistory(int measureType) {
             switch (measureType) {
-                case IPresenter.MEASURE_TEMPERATURE://体温测量
+                case IPresenter.MEASURE_TEMPERATURE:
+                    //体温测量
                     CCHealthRecordActions.jump2HealthRecordActivity(0);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 0);
                     break;
-                case IPresenter.MEASURE_BLOOD_PRESSURE://血压
+                case IPresenter.MEASURE_BLOOD_PRESSURE:
+                    //血压
                     CCHealthRecordActions.jump2HealthRecordActivity(1);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 1);
                     break;
-                case IPresenter.MEASURE_BLOOD_SUGAR://血糖
+                case IPresenter.MEASURE_BLOOD_SUGAR:
+                    //血糖
                     CCHealthRecordActions.jump2HealthRecordActivity(2);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 2);
                     break;
-                case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
+                case IPresenter.MEASURE_BLOOD_OXYGEN:
+                    //血氧
                     CCHealthRecordActions.jump2HealthRecordActivity(3);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 3);
                     break;
-                case IPresenter.MEASURE_WEIGHT://体重
+                case IPresenter.MEASURE_WEIGHT:
+                    //体重
                     CCHealthRecordActions.jump2HealthRecordActivity(8);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 8);
                     break;
@@ -195,9 +208,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     CCHealthRecordActions.jump2HealthRecordActivity(7);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 7);
                     break;
-                case IPresenter.MEASURE_OTHERS://三合一
+                case IPresenter.MEASURE_OTHERS:
+                    //三合一
                     CCHealthRecordActions.jump2HealthRecordActivity(5);
 //                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 5);
+                    break;
+                default:
                     break;
             }
 
@@ -206,22 +222,26 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         @Override
         public void jump2DemoVideo(int measureType) {
             switch (measureType) {
-                case IPresenter.MEASURE_TEMPERATURE://体温测量
+                case IPresenter.MEASURE_TEMPERATURE:
+                    //体温测量
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
                     MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "耳温枪测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case IPresenter.MEASURE_BLOOD_PRESSURE://血压
+                case IPresenter.MEASURE_BLOOD_PRESSURE:
+                    //血压
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
                     MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "血压测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case IPresenter.MEASURE_BLOOD_SUGAR://血糖
+                case IPresenter.MEASURE_BLOOD_SUGAR:
+                    //血糖
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
                     MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "血糖测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case IPresenter.MEASURE_BLOOD_OXYGEN://血氧
+                case IPresenter.MEASURE_BLOOD_OXYGEN:
+                    //血氧
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
                     MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "血氧测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
@@ -231,13 +251,17 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "心电测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
-                case IPresenter.MEASURE_OTHERS://三合一
+                case IPresenter.MEASURE_OTHERS:
+                    //三合一
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
                     MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "三合一测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case IPresenter.MEASURE_WEIGHT:
+                    //体重
                     ToastUtils.showShort("主人，该设备暂无演示视频");
+                    break;
+                default:
                     break;
             }
         }
@@ -269,43 +293,54 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         TimeCountDownUtils.getInstance().start();
 
         if (isMeasure) {
+            //先清除已经绑定的设备
+            List<BluetoothDevice> bondedBluetoothClassicDevices = BluetoothUtils.getBondedBluetoothClassicDevices();
+            unpairDevice(bondedBluetoothClassicDevices);
             switch (measure_type) {
                 case IPresenter.MEASURE_TEMPERATURE:
                     //体温测量
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE);
+                    ((Temperature_Fragment) baseFragment).onStop();
                     ((Temperature_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_BLOOD_PRESSURE:
                     //血压
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
+                    ((Bloodpressure_Fragment) baseFragment).onStop();
                     ((Bloodpressure_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_BLOOD_SUGAR:
                     //血糖
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR);
+                    ((Bloodsugar_Fragment) baseFragment).onStop();
                     ((Bloodsugar_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_BLOOD_OXYGEN:
                     //血氧
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN);
+                    ((Bloodoxygen_Fragment) baseFragment).onStop();
                     ((Bloodoxygen_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_WEIGHT:
                     //体重
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_WEIGHT);
+                    ((Weight_Fragment) baseFragment).onStop();
                     ((Weight_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_ECG:
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
+                    ((ECG_Fragment) baseFragment).onStop();
                     ((ECG_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_OTHERS:
                     //三合一
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE);
+                    ((ThreeInOne_Fragment) baseFragment).onStop();
                     ((ThreeInOne_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.CONTROL_FINGERPRINT:
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT);
+                    ((Fingerpint_Fragment) baseFragment).onStop();
                     ((Fingerpint_Fragment) baseFragment).dealLogic();
                     break;
                 default:
@@ -322,6 +357,22 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             dialogImage.setCanceledOnTouchOutside(true);
             dialogImage.show();
 
+        }
+
+    }
+
+    /**
+     * 解除已配对设备
+     */
+    private static void unpairDevice(List<BluetoothDevice> devices) {
+        for (BluetoothDevice device : devices) {
+            try {
+                Method m = device.getClass()
+                        .getMethod("removeBond", (Class[]) null);
+                m.invoke(device, (Object[]) null);
+            } catch (Exception e) {
+                Timber.e(e.getMessage());
+            }
         }
 
     }

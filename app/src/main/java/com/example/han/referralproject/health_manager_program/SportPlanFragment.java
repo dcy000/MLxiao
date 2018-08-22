@@ -113,6 +113,7 @@ public  class SportPlanFragment extends Fragment implements View.OnClickListener
 
     private void getData() {
         Log.e(TAG, "getDataCache: ");
+        //TODO:运动习惯如果用户没有填写，该接口会报错 错误截图：https://gitee.com/guozhiqiang15/ML_BUG/blob/master/image/efb55cdc71deda309e1f57536e8f250.png
         OkGo.<String>get(NetworkApi.SportHealthPlan)
                 .params("userId", MyApplication.getInstance().userId)
                 .execute(new StringCallback() {

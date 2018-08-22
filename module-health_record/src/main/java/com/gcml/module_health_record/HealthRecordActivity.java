@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.qrcode.QRCodeUtils;
@@ -23,6 +24,7 @@ import com.gcml.lib_utils.ui.dialog.BaseDialog;
 import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
 import com.gcml.lib_utils.ui.dialog.DialogImage;
 import com.gcml.lib_utils.ui.dialog.date_picker.DialogWheelYearMonthDay;
+import com.gcml.module_health_record.cc.CCAppActions;
 import com.gcml.module_health_record.fragments.HealthRecordBUAFragment;
 import com.gcml.module_health_record.fragments.HealthRecordBloodoxygenFragment;
 import com.gcml.module_health_record.fragments.HealthRecordBloodpressureFragment;
@@ -127,14 +129,14 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_recoed_activity_health_record);
-        MLVoiceSynthetize.startSynthesize(this, "主人，请查看您的历史测量数据", false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请查看您的历史测量数据", false);
         initView();
         initDialog();
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         MLVoiceSynthetize.stop();
     }
 
@@ -485,14 +487,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         } else if (i == R.id.ll_back) {
             finish();
         } else if (i == R.id.iv_top_right) {
-            try {
-                Class clz = Class.forName("com.example.han.referralproject.homepage.MainActivity");
-                startActivity(new Intent(this, clz));
-                finish();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                Log.d("error", e.toString());
-            }
+            CCAppActions.jump2MainActivity();
         } else if (i == R.id.tv_record_qrcode) {
             String text = HealthRecordNetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + HealthRecordSPManifest.getUserId() + "&bname=" + HealthRecordSPManifest.getUserName();
             DialogImage dialogImage = new DialogImage(this);

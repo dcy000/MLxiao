@@ -61,4 +61,6 @@ dependencies {
     implementation project(':lib-video')
     implementation project(':lib-rulerview')
     implementation rootProject.ext.dependencies["multidex"]
+    implementation project(':lib-widget')
+    implementation project(':lib-progress-orb')
 }

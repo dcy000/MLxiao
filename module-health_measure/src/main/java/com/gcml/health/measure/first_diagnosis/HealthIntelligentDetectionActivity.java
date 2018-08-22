@@ -24,6 +24,7 @@ import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
 import com.gcml.health.measure.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.lib_utils.data.TimeCountDownUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
@@ -44,6 +45,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
     private static final int THREE_IN_ONE_VIDEO = 1004;
     //心电演示视频
     private static final int ECG_VIDEO = 1005;
+    private boolean isFirst = true;
     private int measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
     private static List<DetectionData> cacheDatas = new ArrayList<>();
     private static HealthBloodDetectionUiFragment.Data bloodpressureCacheData;
@@ -165,6 +167,16 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
             move2FirstDiagnosisReport();
         }
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (isFirst) {
+            isFirst = false;
+            return;
+        }
         mToolbar.setVisibility(View.VISIBLE);
         mRightView.setImageResource(R.drawable.health_measure_ic_blutooth_light);
         mTitleText.setText("智能检测");
