@@ -20,20 +20,21 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetecti
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSugarDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthThreeInOneDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
-import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
 import com.gcml.health.measure.video.MeasureVideoPlayActivity;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.data.TimeCountDownUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity implements FragmentChanged {
+public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump {
     private BluetoothBaseFragment baseFragment;
     private Uri uri;
     //血压视频请求吗
@@ -178,7 +179,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
             return;
         }
         mToolbar.setVisibility(View.VISIBLE);
-        mRightView.setImageResource(R.drawable.health_measure_ic_blutooth_light);
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         mTitleText.setText("智能检测");
     }
 
@@ -301,6 +302,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
             FragmentTransaction transaction = fm.beginTransaction();
             baseFragment = new HealthBloodDetectionUiFragment();
             baseFragment.setOnFragmentChangedListener(this);
+            baseFragment.setOnDealVoiceAndJumpListener(this);
             transaction.replace(R.id.fl_container, baseFragment);
             transaction.addToBackStack(null);
             transaction.commitAllowingStateLoss();
@@ -312,5 +314,28 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
         super.onDestroy();
         bloodpressureCacheData = null;
         cacheDatas = null;
+        MLVoiceSynthetize.stop();
+    }
+
+    @Override
+    public void updateVoice(String voice) {
+        String connected = getResources().getString(R.string.bluetooth_device_connected);
+        String disconnected = getResources().getString(R.string.bluetooth_device_disconnected);
+        if (connected.equals(voice)) {
+            mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_connected);
+        } else if (disconnected.equals(voice)) {
+            mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+        }
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), voice, false);
+    }
+
+    @Override
+    public void jump2HealthHistory(int measureType) {
+
+    }
+
+    @Override
+    public void jump2DemoVideo(int measureType) {
+
     }
 }

@@ -21,6 +21,7 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        isJump2Next=false;
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
         Bundle arguments = getArguments();

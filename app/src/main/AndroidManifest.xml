@@ -750,6 +750,8 @@
         <activity android:name=".settting.activity.FactoryTestActivity" />
         <activity android:name=".settting.activity.ScreenPointActivity" />
         <activity android:name=".settting.activity.ScreenTouchActivity" />
+        <activity android:name=".tcm.activity.HealthManagementResultActivity" />
+        <activity android:name=".tcm.activity.OlderHealthManagementSerciveActivity" />
     </application>
 
 </manifest>

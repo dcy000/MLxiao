@@ -73,7 +73,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_measure_activity_all_measure);
         mToolbar.setVisibility(View.VISIBLE);
-        mRightView.setImageResource(R.drawable.health_measure_ic_blutooth_light);
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         dealLogic();
     }
 
@@ -173,6 +173,14 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private DealVoiceAndJump dealVoiceAndJump = new DealVoiceAndJump() {
         @Override
         public void updateVoice(String voice) {
+            String connected = getResources().getString(R.string.bluetooth_device_connected);
+            String disconnected=getResources().getString(R.string.bluetooth_device_disconnected);
+            if (connected.equals(voice)){
+                mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_connected);
+            }else if (disconnected.equals(voice)){
+                mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+            }
+
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), voice, false);
         }
 
@@ -247,6 +255,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
                     break;
                 case IPresenter.MEASURE_ECG:
+                    //心电
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
                     MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "心电测量演示视频",
                             MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);

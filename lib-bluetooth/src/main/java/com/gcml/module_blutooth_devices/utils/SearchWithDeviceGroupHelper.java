@@ -55,7 +55,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private static final String[] WEIGHT_BRANDS = {"VScale", "SHHC-60F1", "iChoice", "SENSSUN_CLOUD", "000FatScale01"};
     private static final String[] ECG_BRANDS = {"WeCardio STD", "A12-B"};
     private static final String[] FINGERPRINT_BRANDS = {"zjwellcom"};
-    private static final String[] OTHERS_BRANDS = {"BeneCheck GL-0F8B0C"};
+    private static final String[] OTHERS_BRANDS = {"BeneCheck GL"};
     private List<SearchResult> devices;
     private int measureType;
     private BaseBluetoothPresenter baseBluetoothPresenter;
@@ -160,10 +160,10 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         public void onDeviceFounded(SearchResult searchResult) {
             String name = searchResult.getName();
             String address = searchResult.getAddress();
-            Logg.e(SearchWithDeviceGroupHelper.class,">>>>>>"+name+"-->>"+address);
+            Log.e(SearchWithDeviceGroupHelper.class.getSimpleName(),"》》》"+name+"》》》"+address);
             if (!TextUtils.isEmpty(name)) {
                 for (String s : brands) {
-                    if (name.equals(s) && !devices.contains(searchResult)) {
+                    if (name.startsWith(s) && !devices.contains(searchResult)) {
                         devices.add(searchResult);
                     }
                 }

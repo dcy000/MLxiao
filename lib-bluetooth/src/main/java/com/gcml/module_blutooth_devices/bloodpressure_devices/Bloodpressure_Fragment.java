@@ -29,6 +29,7 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
     private BaseBluetoothPresenter baseBluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
     private Bundle bundle;
+
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_bloodpressure;
@@ -44,7 +45,7 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
         mTvGaoya = view.findViewById(R.id.tv_gaoya);
         mTvDiya = view.findViewById(R.id.tv_diya);
         mTvMaibo = view.findViewById(R.id.tv_maibo);
-        this.bundle=bundle;
+        this.bundle = bundle;
 
     }
 
@@ -104,6 +105,8 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
     public void updateData(String... datas) {
         if (datas.length == 1) {
             mTvGaoya.setText(datas[0]);
+            mTvDiya.setText("0");
+            mTvMaibo.setText("0");
             isMeasureFinishedOfThisTime = false;
         } else if (datas.length == 3) {
             mTvGaoya.setText(datas[0]);
