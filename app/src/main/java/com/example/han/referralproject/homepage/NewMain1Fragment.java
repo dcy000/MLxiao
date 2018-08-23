@@ -13,6 +13,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
+import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.data.LunarUtils;
 import com.gcml.lib_utils.data.TimeUtils;
@@ -309,7 +310,8 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 CCFaceRecognitionActions.jump2FaceRecognitionActivity(getActivity(), bundle);
                 break;
             case R.id.iv_health_manager:
-                startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));
+//                startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));
+                startActivity(new Intent(getContext(), OlderHealthManagementSerciveActivity.class));
                 break;
             case R.id.iv_health_call_family:
                 NimCallActivity.launchNoCheck(getContext(), MyApplication.getInstance().eqid);
