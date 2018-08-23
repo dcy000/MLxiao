@@ -31,7 +31,7 @@ public class FindPasswordActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.auth_activity_find_password);
+        setContentView(R.layout.auth_activity_find_password_old);
         clRoot = (ConstraintLayout) findViewById(R.id.cl_root);
         tvTitle = (TextView) findViewById(R.id.tv_find_password_title);
         etPhone = (EditText) findViewById(R.id.et_find_password_phone);

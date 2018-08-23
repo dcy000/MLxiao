@@ -19,6 +19,7 @@ import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.AutoDisposeConverter;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -26,6 +27,7 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Cancellable;
 import io.reactivex.functions.Function;
 
@@ -124,5 +126,17 @@ public class RxUtils {
                 return WifiManager.calculateSignalLevel(wifiInfo.getRssi(), numsLevel);
             }
         }).distinct();
+    }
+
+    public static Observable<Integer> rxCountDown(int interval, int times) {
+        return Observable.interval(0, interval, TimeUnit.SECONDS)
+                .map(new Function<Long, Integer>() {
+                    @Override
+                    public Integer apply(Long aLong) throws Exception {
+                        return times - aLong.intValue();
+                    }
+                })
+                .take(times + 1);
+
     }
 }

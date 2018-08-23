@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
+import android.text.TextUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +19,13 @@ public class Utils {
     @SuppressLint("MissingPermission")
     public static String getDeviceId(ContentResolver contentResolver) {
         return Settings.System.getString(contentResolver, Settings.System.ANDROID_ID);
+    }
+
+    public static boolean isValidPhone(String phone) {
+        if (TextUtils.isEmpty(phone)) {
+            return false;
+        }
+        return phone.matches("[1][34578]\\d{9}");
     }
 
     @SuppressLint("MissingPermission")

@@ -46,8 +46,9 @@ dependencies {
     implementation rootProject.ext.dependencies["recyclerview-v7"]
 
     implementation rootProject.ext.dependencies["room-runtime"]
-    annotationProcessor rootProject.ext.dependencies["room-compiler"]
     implementation rootProject.ext.dependencies["room-rxjava2"]
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    annotationProcessor rootProject.ext.dependencies["room-compiler"]
 
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["runner"]

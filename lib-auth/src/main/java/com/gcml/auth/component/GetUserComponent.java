@@ -35,7 +35,7 @@ public class GetUserComponent implements IComponent {
 
                     @Override
                     public void onError(Throwable e) {
-                        CC.sendCCResult(cc.getCallId(), CCResult.error("请重新登录！"));
+                        CC.sendCCResult(cc.getCallId(), CCResult.error("请重新登录"));
                     }
                 });
         return true;
