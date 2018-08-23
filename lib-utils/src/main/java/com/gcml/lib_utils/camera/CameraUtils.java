@@ -12,6 +12,7 @@ import android.support.annotation.WorkerThread;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.TextView;
 
 import com.gcml.lib_utils.display.ImageUtils;
 import com.gcml.lib_utils.qrcode.scaner.CameraManager;
@@ -199,7 +200,7 @@ public class CameraUtils {
             mCropHeight = cropHeight * height.get() / previewHeight;
             CameraManager.FRAME_WIDTH = mCropWidth;
             CameraManager.FRAME_HEIGHT = mCropHeight;
-        } catch (IOException e) {
+        } catch (Throwable e) {
             e.printStackTrace();
             if (callBack != null) {
                 callBack.openCameraFail(e);
@@ -380,7 +381,7 @@ public class CameraUtils {
 
         void previewSuccess(byte[] datas, Bitmap preBitmap, Bitmap cropBitmap, int prewidth, int preheight, int cropwidth, int cropheight);
 
-        void openCameraFail(Exception e);
+        void openCameraFail(Throwable e);
 
         void cameraClosed();
     }

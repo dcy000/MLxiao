@@ -44,7 +44,7 @@ public class PreferencesHelper {
             String name,
             String key) {
         SharedPreferences preferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
-        return preferences.getLong(key, 0);
+        return preferences.getLong(key, -1);
     }
 
     public void remove(

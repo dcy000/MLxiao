@@ -1,5 +1,6 @@
 package com.gcml.old.auth.profile;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MessageActivity;
@@ -42,11 +46,15 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.gcml.common.data.UserEntity;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
+import com.medlink.danbogh.call2.NimAccountHelper;
 import com.ml.edu.OldRouter;
 import com.squareup.picasso.Picasso;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by lenovo on 2018/3/12.
@@ -164,6 +172,52 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
 
     private void getData() {
+        boolean empty = TextUtils.isEmpty(MyApplication.getInstance().userId);
+        if (empty) {
+            String message = "请重新登录！";
+            ToastUtils.showShort(message);
+            CC.obtainBuilder("com.gcml.old.user.auth")
+                    .build()
+                    .callAsync();
+        } else {
+            getApiData();
+        }
+
+//        new way
+//        CC.obtainBuilder("com.gcml.user.auth.getUser")
+//                .build()
+//                .callAsync(new IComponentCallback() {
+//                    @Override
+//                    public void onResult(CC cc, CCResult result) {
+//                        if (result.isSuccess()) {
+//                            UserEntity user = result.getDataItem("user");
+//                            MyApplication.getInstance().userId = String.valueOf(user.getId());
+//                            getApiData();
+//                        } else {
+//                            String message = result.getErrorMessage();
+//                            ToastUtils.showShort(message);
+//                            CC.obtainBuilder("com.gcml.old.user.auth")
+//                                    .build()
+//                                    .callAsync();
+//                        }
+//                    }
+//                });
+    }
+
+    private void getApiData() {
+        final FragmentActivity activity = getActivity();
+        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+            ToastUtils.showShort("请重新登陆");
+            MobclickAgent.onProfileSignOff();
+            NimAccountHelper.getInstance().logout();//退出网易IM
+            if (activity != null) {
+                LocalShared.getInstance(activity).loginOut();
+                activity.finish();
+            }
+//                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
+            return;
+        }
+
         NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
@@ -179,7 +233,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 MyApplication.getInstance().userName = response.getBname();
                 tvUserName.setText(response.getBname());
                 //    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount())+"元");
-                Picasso.with(getActivity())
+                Picasso.with(activity)
                         .load(response.getuser_photo())
                         .placeholder(R.drawable.avatar_placeholder)
                         .error(R.drawable.avatar_placeholder)
@@ -350,6 +404,14 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 Intent intentAlarm = AlarmList2Activity.newLaunchIntent(getActivity());
                 startActivity(intentAlarm);
                 break;
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mChangeAccountDialog != null) {
+            mChangeAccountDialog.cancel();
         }
     }
 }

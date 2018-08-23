@@ -192,7 +192,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
         }
 
         @Override
-        public void openCameraFail(Exception e) {
+        public void openCameraFail(Throwable e) {
             Timber.e("启动设备失败");
         }
 
