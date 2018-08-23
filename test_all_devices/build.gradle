@@ -5,7 +5,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         applicationId "com.gzq.test_all_devices"
         versionCode 1

@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="presenter"
+            type="com.gcml.auth.ui.AuthActivity"/>
+        <variable
             name="authViewModel"
             type="com.gcml.auth.ui.AuthViewModel" />
     </data>
@@ -18,7 +21,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cl_auth_items"
             android:layout_width="1000pt"
-            android:layout_height="676pt"
+            android:layout_height="767pt"
             android:layout_marginTop="180pt"
             android:background="@drawable/common_bg_shadow"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -54,8 +57,8 @@
                 android:id="@+id/tv_sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/common_btn_transparent_99ffffff"
-                android:onClick="@{() -> authViewModel.goSignUp()}"
+                android:background="@drawable/common_bg_btn_transparent"
+                android:onClick="@{() -> presenter.goSignUp()}"
                 android:text="立即注册"
                 android:textColor="@color/config_color_appthema"
                 android:textSize="48pt"
@@ -67,10 +70,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="118pt"
-                android:background="@drawable/common_btn_transparent_99ffffff"
+                android:background="@drawable/common_bg_btn_transparent"
                 android:drawablePadding="40pt"
                 android:drawableTop="@drawable/auth_ic_phone"
-                android:onClick="@{() -> authViewModel.goSignInByPhone()}"
+                android:onClick="@{() -> presenter.goSignInByPhone()}"
                 android:padding="10pt"
                 android:text="手机登录"
                 android:textColor="@color/config_color_base_3"
@@ -83,10 +86,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="118pt"
-                android:background="@drawable/common_btn_transparent_99ffffff"
+                android:background="@drawable/common_bg_btn_transparent"
                 android:drawablePadding="40pt"
                 android:drawableTop="@drawable/auth_ic_face"
-                android:onClick="@{() -> authViewModel.goSignInByFace()}"
+                android:onClick="@{() -> presenter.goSignInByFace()}"
                 android:padding="10pt"
                 android:text="人脸登录"
                 android:textColor="@color/config_color_base_3"
@@ -101,8 +104,8 @@
             android:id="@+id/iv_wifi_state"
             android:layout_width="240pt"
             android:layout_height="200pt"
-            android:background="@drawable/common_btn_transparent_99ffffff"
-            android:onClick="@{() -> authViewModel.goWifi()}"
+            android:background="@drawable/common_bg_btn_transparent"
+            android:onClick="@{() -> presenter.goWifi()}"
             android:paddingBottom="40pt"
             android:paddingLeft="60pt"
             android:paddingRight="60pt"
@@ -137,8 +140,8 @@
             android:id="@+id/tv_protocol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/common_btn_transparent_99ffffff"
-            android:onClick="@{() -> authViewModel.goUserProtocol()}"
+            android:background="@drawable/common_bg_btn_transparent"
+            android:onClick="@{() -> presenter.goUserProtocol()}"
             android:text="用户协议"
             android:textColor="#86B2FF"
             android:textSize="36pt"

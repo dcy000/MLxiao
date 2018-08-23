@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/multiple_choice_tv_item"
     android:layout_width="400pt"
+    android:descendantFocusability="blocksDescendants"
     android:layout_height="wrap_content"
     android:background="@drawable/multiple_choice_item_bg"
     android:button="@null"

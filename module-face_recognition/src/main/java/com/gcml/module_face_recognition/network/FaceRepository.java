@@ -48,10 +48,11 @@ public class FaceRepository {
      * 同步七牛云返回的头像地址到我们自己的服务器
      *
      * @param userPhoto
+     * @param xfid
      * @return
      */
-    public static Observable<Object> syncRegistHeadUrl(String userPhoto) {
-        return faceRecognitionService.syncRegistHeadUrl(userPhoto, FaceRecognitionSPManifest.getUserId(), FaceRecognitionSPManifest.getXunfeiId())
+    public static Observable<Object> syncRegistHeadUrl(String userPhoto, String xfid) {
+        return faceRecognitionService.syncRegistHeadUrl(userPhoto, FaceRecognitionSPManifest.getUserId(), xfid)
                 .compose(RxUtils.apiResultTransformer());
     }
 

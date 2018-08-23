@@ -192,7 +192,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
         }
 
         @Override
-        public void openCameraFail(Exception e) {
+        public void openCameraFail(Throwable e) {
             Timber.e("启动设备失败");
         }
 
@@ -457,7 +457,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                         CCResultActions.onCCResultAction(SendResultActionNames.ON_ERROR);
                         return;
                     }
-                    FaceRepository.syncRegistHeadUrl(imageUrl)
+                    FaceRepository.syncRegistHeadUrl(imageUrl,xfid)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .doOnNext(new Consumer<Object>() {
@@ -479,6 +479,9 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                                 @Override
                                 public void onError(Throwable e) {
                                     ToastUtils.showShort("save to our server fail");
+                                    LoadingProgressUtils.dismissView();
+                                    CCResultActions.onCCResultAction(SendResultActionNames.ON_ERROR);
+                                    finish();
                                 }
 
                                 @Override
