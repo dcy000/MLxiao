@@ -29,7 +29,7 @@ public class RecreationEntranceActivity extends AppCompatActivity implements Vie
     }
 
     private void initTitle() {
-        tbTitle.setData("娱 乐 中 心", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, "", new ToolBarClickListener() {
+        tbTitle.setData("娱 乐 中 心", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();

@@ -21,20 +21,18 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
     private ImageView mIvCaimi;
     private ImageView mIvShengxiao;
     private ImageView mIvTongfanCi;
-    private TranslucentToolBar mTbTitle;
+    private TranslucentToolBar tbTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tools);
         initView();
-        initTitle();
+//        initTitle();
     }
 
     private void initTitle() {
-        mTbTitle = (TranslucentToolBar) findViewById(R.id.tb_toor_title);
-        mTbTitle.setOnClickListener(this);
-        mTbTitle.setData("小 工 具", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, "", new ToolBarClickListener() {
+        tbTitle.setData("小 工 具", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();
@@ -48,6 +46,7 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
+//        tbTitle = (TranslucentToolBar) findViewById(R.id.tb_title);
         mIvJiemeng = (ImageView) findViewById(R.id.iv_jiemeng);
         mIvJiemeng.setOnClickListener(this);
         mIvJinjintian = (ImageView) findViewById(R.id.iv_jinjintian);
