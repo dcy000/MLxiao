@@ -79,11 +79,18 @@ public class MultipleChoiceFragment extends Fragment {
 
     private void initGV(Bundle arguments) {
         gridView.setAdapter(new MyAdapter());
-        if (arguments.getBoolean(IS_MULTIPLE_CHOOIC))
+        if (arguments.getBoolean(IS_MULTIPLE_CHOOIC)) {
+            //多选
             gridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE);
-        else
+            //显示下一步
+            tvButton.setVisibility(View.VISIBLE);
+            //设置3列
+            gridView.setNumColumns(3);
+        } else {
             gridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
-
+            tvButton.setVisibility(View.GONE);
+            gridView.setNumColumns(1);
+        }
     }
 
     @Override
@@ -126,6 +133,10 @@ public class MultipleChoiceFragment extends Fragment {
 
     @OnClick(R.id.tv_button)
     public void onViewClicked() {
+        toNextPage();
+    }
+
+    private void toNextPage() {
         SparseBooleanArray checkedItemPositions = gridView.getCheckedItemPositions();
         int count = gridView.getCheckedItemCount();
         int[] checked = new int[count];
@@ -139,10 +150,10 @@ public class MultipleChoiceFragment extends Fragment {
         }
 
         if (listener != null) {
-            if (checked.length==0){
+            if (checked.length == 0) {
                 return;
             }
-            listener.onNextStep(checked,questionBean);
+            listener.onNextStep(checked, questionBean);
         }
     }
 
@@ -221,6 +232,8 @@ public class MultipleChoiceFragment extends Fragment {
                 gridView.setItemChecked(size - 1, false);
                 gridView.setItemChecked(position, vh.cbSymptom.isChecked());
             }
+
+            toNextPage();
         }
     };
 
