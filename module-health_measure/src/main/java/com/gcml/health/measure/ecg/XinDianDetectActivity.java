@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,10 +20,13 @@ import android.widget.Toast;
 
 import com.creative.ecg.StatusMsg;
 import com.gcml.health.measure.R;
+import com.gcml.health.measure.cc.CCAppActions;
+import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
+import com.gcml.health.measure.single_measure.AllMeasureActivity;
 import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
 import com.gcml.health.measure.utils.ECGUtil;
 import com.gcml.health.measure.video.MeasureVideoPlayActivity;
@@ -63,6 +67,15 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
     private int mHeartRate;
     private TextView tvNext;
     private ImageView ivBack;
+    /**
+     * 历史记录
+     */
+    private TextView mBtnHealthHistory;
+    /**
+     * 使用演示
+     */
+    private TextView mBtnVideoDemo;
+    private Uri uri;
 
     public static void startActivity(Context context, String fromWhere) {
         Intent intent = new Intent(context, XinDianDetectActivity.class);
@@ -79,14 +92,21 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
     }
 
     @Override
+    protected void backMainActivity() {
+        CCAppActions.jump2MainActivity();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 设置当前activity常亮 必须放在setContentView之前
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.health_measure_ecg_pc80b);
+        initView();
         startService(new Intent(this, ReceiveService.class));
-        mToolbar.setVisibility(View.GONE);
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("心 电 检 测");
         init();
         String fromWhere = getIntent().getStringExtra("fromWhere");
         if (HealthIntelligentDetectionActivity.class.getSimpleName().equals(fromWhere)) {
@@ -388,6 +408,13 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
         } else if (i == R.id.tv_next) {
             uploadEcg(mEcg, mHeartRate);
 
+        }else if (i==R.id.btn_health_history){
+            CCHealthRecordActions.jump2HealthRecordActivity(7);
+
+        }else if (i==R.id.btn_video_demo){
+            uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
+            MeasureVideoPlayActivity.startActivityForResult(XinDianDetectActivity.this, uri, null, "心电测量演示视频",
+                    MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
         }
 
     }
@@ -470,10 +497,11 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
     }
 
     private void setHR(int hr) {
-        if (hr != 0)
+        if (hr != 0) {
             setTVtext(tv_HR, "HR=" + hr);
-        else
+        } else {
             setTVtext(tv_HR, "HR=--");
+        }
     }
 
     private void setMSG(String msg) {
@@ -526,6 +554,7 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
 
     private void replay() {
         new Thread() {
+            @Override
             public void run() {
                 if (drawRunable.isPause()) {
                     drawRunable.Continue();
@@ -544,4 +573,10 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
         }.start();
     }
 
+    private void initView() {
+        mBtnHealthHistory = (TextView) findViewById(R.id.btn_health_history);
+        mBtnHealthHistory.setOnClickListener(this);
+        mBtnVideoDemo = (TextView) findViewById(R.id.btn_video_demo);
+        mBtnVideoDemo.setOnClickListener(this);
+    }
 }

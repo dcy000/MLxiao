@@ -46,7 +46,7 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="70dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/video_selector_jump2next"
         android:gravity="center"

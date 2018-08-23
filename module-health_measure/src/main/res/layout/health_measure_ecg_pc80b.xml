@@ -8,7 +8,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#327DFB" >
+        android:background="#327DFB"
+        android:visibility="gone">
 
 
 
@@ -87,21 +88,27 @@
             android:id="@+id/main_pc80B_view_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
         <TextView
             android:id="@+id/main_pc80B_MSG"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="#000"
-            android:textSize="24sp" />
+            android:textSize="34sp" />
 
         <com.gcml.health.measure.ecg.DrawThreadPC80B
             android:id="@+id/main_pc80B_view_draw"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-
+        <include
+            android:id="@+id/bottom_btn"
+            layout="@layout/bluetooth_layout_two_button"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100pt"
+            android:layout_marginLeft="100pt"/>
         <TextView
             android:id="@+id/tv_next"
             android:layout_width="320pt"
@@ -110,7 +117,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="100pt"
             android:layout_marginRight="100pt"
-            android:background="@drawable/health_measure_btn_3f86fc"
+            android:background="@drawable/bluetooth_btn_health_history_set"
             android:gravity="center"
             android:visibility="visible"
             android:text="下一步"
