@@ -2,20 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.han.referralproject"
-    tools:overrideLibrary="com.witspring.mlrobot">
-    <!--解决下面这些库最低支持版本大于统一配置的最低版本-->
-    <uses-sdk tools:overrideLibrary="
-    tv.danmaku.ijk.media.player_arm64,
-    com.carlos.voiceline.mylibrary,
-    com.witspring.mlrobot,
-    com.megvii.faceppidcardui,
-    com.medlink.crash,
-    com.crazypumpkin.versatilerecyclerview.library,
-    com.linheimx.app.library,
-    com.vmloft.develop.library.tools,
-    com.example.fixedfloatwindow,
-    com.polidea.rxandroidble2,
-    com.carlos.voiceline.mylibrary" />
+    tools:overrideLibrary="com.witspring.mlrobot"> <!-- 解决下面这些库最低支持版本大于统一配置的最低版本 -->
+    <uses-sdk tools:overrideLibrary="     tv.danmaku.ijk.media.player_arm64,     com.carlos.voiceline.mylibrary,     com.witspring.mlrobot,     com.megvii.faceppidcardui,     com.medlink.crash,     com.crazypumpkin.versatilerecyclerview.library,     com.linheimx.app.library,     com.vmloft.develop.library.tools,     com.example.fixedfloatwindow,     com.polidea.rxandroidble2,     com.carlos.voiceline.mylibrary" />
 
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
@@ -89,10 +77,11 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+
     <!-- Bugly -->
-    <!--<uses-permission-->
-    <!--android:name="android.permission.READ_LOGS"-->
-    <!--tools:ignore="ProtectedPermissions" />-->
+    <!-- <uses-permission -->
+    <!-- android:name="android.permission.READ_LOGS" -->
+    <!-- tools:ignore="ProtectedPermissions" /> -->
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
@@ -360,7 +349,6 @@
         <activity
             android:name="com.gcml.old.auth.register.simple.SignUp02MobileVerificationActivity"
             android:taskAffinity="com.medlink.fastsignup" />
-
         <activity
             android:name=".recharge.PayActivity"
             android:screenOrientation="landscape" />
@@ -457,7 +445,6 @@
         <activity
             android:name=".recyclerview.DoctorAskGuideActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".recharge.DefineActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -596,7 +583,6 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".children.study.ChildEduStories2Activity" />
-
         <activity
             android:name=".tool.DateInquireActivity"
             android:screenOrientation="landscape" />
@@ -713,7 +699,6 @@
             android:name=".AllMeasureActivity"
             android:label="所有测量界面的载体Activity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".video.MeasureVideoPlayActivity"
             android:label="测量演示视频播放界面"
@@ -746,12 +731,13 @@
         <activity android:name=".hypertensionmanagement.activity.NormalHightActivity" />
         <activity android:name=".hypertensionmanagement.activity.BloodPressureMeasureActivity" />
         <activity android:name=".hypertensionmanagement.activity.BloodClucoseMeasureActivity" />
-        <activity android:name=".hypertensionmanagement.activity.WeightMeasureActivity"></activity>
+        <activity android:name=".hypertensionmanagement.activity.WeightMeasureActivity" />
         <activity android:name=".settting.activity.FactoryTestActivity" />
         <activity android:name=".settting.activity.ScreenPointActivity" />
         <activity android:name=".settting.activity.ScreenTouchActivity" />
         <activity android:name=".tcm.activity.HealthManagementResultActivity" />
         <activity android:name=".tcm.activity.OlderHealthManagementSerciveActivity" />
+        <activity android:name=".tcm.SymptomCheckActivity"></activity>
     </application>
 
 </manifest>
