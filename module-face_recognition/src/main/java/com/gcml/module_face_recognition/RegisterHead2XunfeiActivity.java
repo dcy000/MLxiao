@@ -457,7 +457,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                         CCResultActions.onCCResultAction(SendResultActionNames.ON_ERROR);
                         return;
                     }
-                    FaceRepository.syncRegistHeadUrl(imageUrl,xfid)
+                    FaceRepository.syncRegistHeadUrl(imageUrl, xfid)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .doOnNext(new Consumer<Object>() {
@@ -478,9 +478,16 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
 
                                 @Override
                                 public void onError(Throwable e) {
-                                    ToastUtils.showShort("save to our server fail");
+                                    if (e instanceof NullPointerException) {
+                                        LoadingProgressUtils.dismissView();
+                                        CCResultActions.onCCResultAction(SendResultActionNames.REGIST_HEAD_SUCCESS);
+                                        ToastUtils.showShort("更换头像成功");
+                                        finish();
+                                        return;
+                                    }
                                     LoadingProgressUtils.dismissView();
                                     CCResultActions.onCCResultAction(SendResultActionNames.ON_ERROR);
+                                    ToastUtils.showShort("save to our server fail");
                                     finish();
                                 }
 
