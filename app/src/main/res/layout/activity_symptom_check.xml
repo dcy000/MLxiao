@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.tcm.SymptomCheckActivity">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></com.gcml.common.widget.toolbar.TranslucentToolBar>
+
+    <ImageView
+        android:id="@+id/iv_symptom_check"
+        android:layout_width="648pt"
+        android:layout_height="648pt"
+        android:layout_marginStart="256pt"
+        android:layout_marginTop="156pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb_title"
+        android:background="@drawable/ic_symptom_check_set"/>
+
+    <ImageView
+        android:id="@+id/iv_chine_constitution"
+        android:layout_width="648pt"
+        android:layout_height="648pt"
+        android:layout_marginStart="112pt"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_symptom_check"
+        app:layout_constraintStart_toEndOf="@+id/iv_symptom_check"
+        app:layout_constraintTop_toTopOf="@+id/iv_symptom_check"
+        android:background="@drawable/ic_symptom_chinese_set" />
+
+
+</android.support.constraint.ConstraintLayout>

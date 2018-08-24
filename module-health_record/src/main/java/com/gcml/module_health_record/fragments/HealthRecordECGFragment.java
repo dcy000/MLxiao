@@ -38,6 +38,7 @@ public class HealthRecordECGFragment extends RecycleBaseFragment implements View
 
 
     public void refreshData(ArrayList<ECGHistory> response, String temp) {
+        view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
         mXindiantu.setLayoutManager(new LinearLayoutManager(getContext()));
         mXindiantu.setAdapter(new XindianAdapter(R.layout.health_record_item_message, response));
     }

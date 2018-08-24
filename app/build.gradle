@@ -22,7 +22,7 @@ android {
         renderscriptSupportModeEnabled true    // Enable RS support
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi-v7a','x86'
+            abiFilters 'armeabi-v7a', 'x86'
         }
 
         manifestPlaceholders = [
@@ -104,6 +104,7 @@ repositories {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //cc
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     addComponent 'module-face_recognition'
     addComponent 'lib-recreation'
     addComponent 'module-health_measure'

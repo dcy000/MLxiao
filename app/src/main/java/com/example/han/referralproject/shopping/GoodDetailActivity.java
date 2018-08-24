@@ -157,10 +157,11 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 });*/
 
 
-                NetworkApi.order_info(MyApplication.getInstance().userId, Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Integer.parseInt(mTextView2.getText().toString()) * Integer.parseInt(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<Order>() {
+                NetworkApi.preparingPay(MyApplication.getInstance().userId, Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Integer.parseInt(mTextView2.getText().toString()) * Integer.parseInt(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<String>() {
+
                     @Override
-                    public void onSuccess(Order response) {
-                        ShowNormals(response.getOrderid());
+                    public void onSuccess(String data) {
+                        ShowNormals(data);
                     }
 
                 }, new NetworkManager.FailedCallback() {
@@ -191,11 +192,11 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onClick(int which) {
                         if (which == 1) {
-                            Bundle bundle=new Bundle();
-                            bundle.putString("orderid",orderid);
-                            bundle.putString("from","Pay");
-                            bundle.putInt("requestCode",1);
-                            CCFaceRecognitionActions.jump2FaceRecognitionActivity(GoodDetailActivity.this,bundle);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("orderid", orderid);
+                            bundle.putString("from", "Pay");
+                            bundle.putInt("requestCode", 1);
+                            CCFaceRecognitionActions.jump2FaceRecognitionActivity(GoodDetailActivity.this, bundle);
                         } else if (which == 0) {
 
 
@@ -250,7 +251,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
         if (mActivity != null) {
             mActivity = null;
         }
-
 
 
     }
