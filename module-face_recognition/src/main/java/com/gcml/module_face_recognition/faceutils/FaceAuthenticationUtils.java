@@ -98,7 +98,7 @@ public class FaceAuthenticationUtils {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(((SupportActivity) context)))
-                .subscribeWith(new DefaultObserver<List<XfGroupInfo>>() {
+                .subscribe(new DefaultObserver<List<XfGroupInfo>>() {
                     @Override
                     public void onNext(List<XfGroupInfo> xfGroupInfos) {
                         Timber.e("上传组id到服务器成功");

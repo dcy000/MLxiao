@@ -84,7 +84,7 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
                     @Override
                     public void onNext(Boolean has) {
                         if (has) {
-                            CC.obtainBuilder("com.gcml.user.auth.setpassword")
+                            CC.obtainBuilder("com.gcml.auth.setpassword")
                                     .addParam("phone", phone)
                                     .setContext(FindPasswordActivity.this)
                                     .build()

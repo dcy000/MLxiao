@@ -12,7 +12,7 @@ import com.gcml.auth.ui.signup.SignUpActivity;
 public class SignUpComponent implements IComponent{
     @Override
     public String getName() {
-        return "com.gcml.user.auth.signup";
+        return "com.gcml.auth.signup";
     }
 
     @Override
