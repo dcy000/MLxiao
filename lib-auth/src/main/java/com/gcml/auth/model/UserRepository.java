@@ -11,6 +11,7 @@ import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.utils.RxUtils;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
@@ -41,6 +42,21 @@ public class UserRepository {
         return mPreferences;
     }
 
+    public Observable<UserEntity> signUp(String deviceId, String account, String pwd) {
+        return mUserService.signUp(deviceId, account, pwd)
+                .compose(RxUtils.apiResultTransformer())
+                .doOnNext(new Consumer<UserEntity>() {
+                    @SuppressLint("ApplySharedPref")
+                    @Override
+                    public void accept(UserEntity user) throws Exception {
+                        mUserDao.addAll(user);
+                        getPreferences().edit()
+                                .putInt("userId", user.getId())
+                                .commit();
+                    }
+                });
+    }
+
     public Observable<UserEntity> signIn(
             String userName,
             String pwd
@@ -66,6 +82,7 @@ public class UserRepository {
                 int userId = getPreferences().getInt("userId", -1);
                 if (userId == -1) {
                     emitter.onError(new EmptyResultSetException("no user sign in"));
+                    return;
                 }
                 emitter.onSuccess(userId);
             }
@@ -76,4 +93,50 @@ public class UserRepository {
             }
         });
     }
+
+    public Observable<Boolean> hasAccount(String account) {
+        return mUserService.hasAccount("3", account)
+                .compose(RxUtils.apiResultTransformer())
+                .map(new Function<Object, Boolean>() {
+                    @Override
+                    public Boolean apply(Object o) throws Exception {
+                        return true;
+                    }
+                })
+                .onErrorResumeNext(new Function<Throwable, ObservableSource<? extends Boolean>>() {
+                    @Override
+                    public ObservableSource<? extends Boolean> apply(Throwable throwable) throws Exception {
+                        if (throwable instanceof NullPointerException) {
+                            return Observable.just(true);
+                        }
+                        return Observable.just(false);
+                    }
+                });
+    }
+
+    public Observable<String> fetchCode(String phone) {
+        return mUserService.fetchCode(phone)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<Boolean> updatePassword(String account, String pwd) {
+        return mUserService.updatePassword(account, pwd)
+                .compose(RxUtils.apiResultTransformer())
+                .map(new Function<Object, Boolean>() {
+                    @Override
+                    public Boolean apply(Object o) throws Exception {
+                        return true;
+                    }
+                })
+                .onErrorResumeNext(new Function<Throwable, ObservableSource<? extends Boolean>>() {
+                    @Override
+                    public ObservableSource<? extends Boolean> apply(Throwable throwable) throws Exception {
+                        if (throwable instanceof NullPointerException) {
+                            return Observable.just(true);
+                        }
+                        return Observable.just(false);
+                    }
+                });
+    }
+
 }

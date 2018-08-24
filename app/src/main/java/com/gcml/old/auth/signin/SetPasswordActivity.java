@@ -34,7 +34,7 @@ public class SetPasswordActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.auth_activity_set_password);
+        setContentView(R.layout.auth_activity_set_password_old);
         clRoot = (ConstraintLayout) findViewById(R.id.cl_root);
         etCode = (EditText) findViewById(R.id.et_set_password_find_code);
         tvFetchCode = (TextView) findViewById(R.id.tv_set_password_fetch_code);

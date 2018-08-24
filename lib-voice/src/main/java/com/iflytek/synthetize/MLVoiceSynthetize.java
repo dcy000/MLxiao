@@ -66,7 +66,7 @@ public class MLVoiceSynthetize {
                     }
                 };
             }
-            synthesizer = SpeechSynthesizer.createSynthesizer(context, initListener);
+            synthesizer = SpeechSynthesizer.createSynthesizer(context.getApplicationContext(), initListener);
         }
         if (!whine) {
             setParam(context, synthesizer);
@@ -91,7 +91,8 @@ public class MLVoiceSynthetize {
      */
     public static void setParam(Context context, SpeechSynthesizer synthesizer) {
         //语音选项设置
-        SharedPreferences sharedPreferences = context.getSharedPreferences(TtsSettings.PREFER_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getApplicationContext()
+                .getSharedPreferences(TtsSettings.PREFER_NAME, Context.MODE_PRIVATE);
         initDefaultParam(synthesizer, sharedPreferences);
     }
 

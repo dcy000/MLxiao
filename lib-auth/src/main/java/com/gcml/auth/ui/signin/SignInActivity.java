@@ -15,11 +15,14 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.lib_utils.app.AppUtils;
 import com.gcml.lib_utils.display.KeyboardUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -140,6 +143,19 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
         viewModel.signIn(phone, pwd)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showLoading("正在加载...");
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissLoading();
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity user) {
@@ -147,6 +163,12 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                                 .addParam("userId", user.getId())
                                 .build()
                                 .callAsync();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort("手机号或密码错误");
                     }
                 });
 
@@ -160,9 +182,10 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     }
 
     public void goForgetPassword() {
-        CC.obtainBuilder("com.gcml.old.user.auth")
-                .setActionName("forgetPassword")
-                .addParam("phone", binding.etPhone.getText().toString().trim())
+        String phone = binding.etPhone.getText().toString().trim();
+        CC.obtainBuilder("com.gcml.user.auth.findpassword")
+                .setContext(this)
+                .addParam("phone", phone)
                 .build()
                 .callAsync();
     }
@@ -172,5 +195,34 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                 .setActionName("protocol")
                 .build()
                 .callAsync();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dismissLoading();
+    }
+
+    private LoadingDialog mLoadingDialog;
+
+    private void showLoading(String tips) {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+        mLoadingDialog = new LoadingDialog.Builder(this)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord(tips)
+                .create();
+        mLoadingDialog.show();
+    }
+
+    private void dismissLoading() {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
     }
 }

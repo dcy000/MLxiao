@@ -84,7 +84,7 @@
         android:id="@+id/health_diary_tv_action"
         android:layout_width="360pt"
         android:layout_height="120pt"
-        android:background="@drawable/health_measure_diary_bg_tv_action"
+        android:background="@drawable/bluetooth_btn_health_history_set"
         android:gravity="center"
         android:textColor="#FFFFFF"
         android:textSize="56px"

@@ -9,10 +9,5 @@ import com.gcml.common.mvvm.BaseViewModel;
 public class AuthViewModel extends BaseViewModel {
     public AuthViewModel(@NonNull Application application) {
         super(application);
-        init();
-    }
-
-    private void init() {
-
     }
 }

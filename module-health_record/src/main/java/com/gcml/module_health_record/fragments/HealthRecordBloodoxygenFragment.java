@@ -148,6 +148,7 @@ public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment impleme
     }
 
     public void refreshData(ArrayList<BloodOxygenHistory> response, String temp) {
+        view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
         initChart();
         ArrayList<Entry> value = new ArrayList<Entry>();
         ArrayList<Long> times = new ArrayList<>();

@@ -11,17 +11,15 @@ import io.reactivex.Observable;
 
 public class SignInViewModel extends BaseViewModel {
 
-    private UserRepository  mUserRepository = new UserRepository();
+    private UserRepository mUserRepository = new UserRepository();
 
     public SignInViewModel(@NonNull Application application) {
         super(application);
     }
 
-
     public Observable<UserEntity> signIn(
             String userName,
-            String pwd
-    ){
+            String pwd) {
         return mUserRepository.signIn(userName, pwd);
     }
 

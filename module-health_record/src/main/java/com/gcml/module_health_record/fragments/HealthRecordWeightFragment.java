@@ -144,6 +144,7 @@ public class HealthRecordWeightFragment extends RecycleBaseFragment implements V
     }
 
     public void refreshData(ArrayList<WeightHistory> response, String temp) {
+        view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
         initChart();
         ArrayList<Entry> values = new ArrayList<Entry>();
         ArrayList<Long> times = new ArrayList<>();

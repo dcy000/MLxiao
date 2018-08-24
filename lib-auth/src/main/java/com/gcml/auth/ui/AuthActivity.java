@@ -44,23 +44,36 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     }
 
     public void goSignUp(){
-        CC.obtainBuilder("com.gcml.old.user.auth").setActionName("signup").build().callAsync();
+        CC.obtainBuilder("com.gcml.old.user.auth")
+                .setActionName("signup")
+                .build()
+                .callAsync();
     }
 
     public void goSignInByPhone(){
 //        CC.obtainBuilder("com.gcml.old.user.auth").setActionName("signin").build().callAsync();
-        CC.obtainBuilder("com.gcml.user.auth.signin").build().callAsync();
+        CC.obtainBuilder("com.gcml.user.auth.signin")
+                .build()
+                .callAsync();
     }
 
     public void goSignInByFace(){
-        CC.obtainBuilder("face_recognition").setActionName("To_FaceRecognitionActivity").build().callAsync();
+        CC.obtainBuilder("face_recognition")
+                .setActionName("To_FaceRecognitionActivity")
+                .build()
+                .callAsync();
     }
 
     public void goWifi(){
-        CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
+        CC.obtainBuilder("com.gcml.old.wifi")
+                .build()
+                .callAsync();
     }
 
     public void goUserProtocol(){
-        CC.obtainBuilder("com.gcml.old.user.auth").setActionName("protocol").build().callAsync();
+        CC.obtainBuilder("com.gcml.old.user.auth")
+                .setActionName("protocol")
+                .build()
+                .callAsync();
     }
 }
