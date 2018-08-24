@@ -62,6 +62,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private IView view;
     private boolean isSearching = false;
     private MySearchResponse mySearchResponse;
+    private static final String TAG = "SearchWithDeviceGroupHe";
     /**
      * 蓝牙连接的敏感权限
      */
@@ -154,13 +155,14 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchStarted() {
             isSearching = true;
+            Log.e(TAG, "onSearchStarted: " );
         }
 
         @Override
         public void onDeviceFounded(SearchResult searchResult) {
             String name = searchResult.getName();
             String address = searchResult.getAddress();
-            Log.e(SearchWithDeviceGroupHelper.class.getSimpleName(),"》》》"+name+"》》》"+address);
+            Log.e(TAG,"》》》"+name+"》》》"+address);
             if (!TextUtils.isEmpty(name)) {
                 for (String s : brands) {
                     if (name.startsWith(s) && !devices.contains(searchResult)) {
@@ -190,6 +192,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchCanceled() {
             isSearching = false;
+            Log.e(TAG, "onSearchCanceled: " );
         }
     }
 

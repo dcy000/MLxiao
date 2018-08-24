@@ -152,6 +152,7 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
     }
 
     public void refreshData(ArrayList<BloodPressureHistory> response, String temp) {
+        view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
         initChart();
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
         ArrayList<Entry> yVals2 = new ArrayList<Entry>();

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.gcml.health.measure.R;
@@ -31,6 +32,7 @@ import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.qrcode.QRCodeUtils;
 import com.gcml.lib_utils.ui.dialog.DialogImage;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
@@ -303,51 +305,59 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
 
         if (isMeasure) {
             //先清除已经绑定的设备
-            List<BluetoothDevice> bondedBluetoothClassicDevices = BluetoothUtils.getBondedBluetoothClassicDevices();
-            unpairDevice(bondedBluetoothClassicDevices);
+            unpairDevice();
+            String nameAddress=null;
             switch (measure_type) {
                 case IPresenter.MEASURE_TEMPERATURE:
                     //体温测量
+                    nameAddress= (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE,"");
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE);
                     ((Temperature_Fragment) baseFragment).onStop();
                     ((Temperature_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_BLOOD_PRESSURE:
                     //血压
+                    nameAddress= (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE,"");
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
                     ((Bloodpressure_Fragment) baseFragment).onStop();
                     ((Bloodpressure_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_BLOOD_SUGAR:
                     //血糖
+                    nameAddress= (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR,"");
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR);
                     ((Bloodsugar_Fragment) baseFragment).onStop();
                     ((Bloodsugar_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_BLOOD_OXYGEN:
                     //血氧
+                    nameAddress= (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN,"");
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN);
                     ((Bloodoxygen_Fragment) baseFragment).onStop();
                     ((Bloodoxygen_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_WEIGHT:
                     //体重
+                    nameAddress= (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT,"");
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_WEIGHT);
                     ((Weight_Fragment) baseFragment).onStop();
                     ((Weight_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_ECG:
+                    nameAddress= (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG,"");
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
                     ((ECG_Fragment) baseFragment).onStop();
                     ((ECG_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.MEASURE_OTHERS:
                     //三合一
+                    nameAddress= (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE,"");
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE);
                     ((ThreeInOne_Fragment) baseFragment).onStop();
                     ((ThreeInOne_Fragment) baseFragment).dealLogic();
                     break;
                 case IPresenter.CONTROL_FINGERPRINT:
+                    nameAddress= (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT,"");
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT);
                     ((Fingerpint_Fragment) baseFragment).onStop();
                     ((Fingerpint_Fragment) baseFragment).dealLogic();
@@ -355,6 +365,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 default:
                     break;
             }
+            clearBluetoothCache(nameAddress);
         } else {
             if (DataUtils.isNullString(pdfUrl)) {
                 return;
@@ -370,10 +381,20 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
 
     }
 
+    private void clearBluetoothCache(String nameAddress) {
+        if (!TextUtils.isEmpty(nameAddress)){
+            String[] split = nameAddress.split(",");
+            if (split.length==2&& !TextUtils.isEmpty(split[1])){
+                BluetoothClientManager.getClient().refreshCache(split[1]);
+            }
+        }
+    }
+
     /**
      * 解除已配对设备
      */
-    private static void unpairDevice(List<BluetoothDevice> devices) {
+    private void unpairDevice() {
+        List<BluetoothDevice> devices = BluetoothUtils.getBondedBluetoothClassicDevices();
         for (BluetoothDevice device : devices) {
             try {
                 Method m = device.getClass()
