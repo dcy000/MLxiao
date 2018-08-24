@@ -56,6 +56,7 @@ public class MultipleChoiceFragment extends Fragment {
     Unbinder unbinder;
     public List<String> items;
     private PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean;
+    private Bundle arguments;
 
 
     @Override
@@ -68,7 +69,7 @@ public class MultipleChoiceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.multiple_choice_fragment_2, null);
         unbinder = ButterKnife.bind(this, view);
-        Bundle arguments = getArguments();
+        arguments = getArguments();
         tvTitle.setText(arguments.getString(TIP_CONTENT));
         tvTipContent.setText(arguments.getString(WARM_TIP));
         questionBean = (PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean) arguments.getSerializable(CONTENT_STRINGS);
@@ -233,7 +234,10 @@ public class MultipleChoiceFragment extends Fragment {
                 gridView.setItemChecked(position, vh.cbSymptom.isChecked());
             }
 
-            toNextPage();
+
+            if (!arguments.getBoolean(IS_MULTIPLE_CHOOIC)) {
+                toNextPage();
+            }
         }
     };
 
