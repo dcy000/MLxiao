@@ -15,7 +15,8 @@
     com.vmloft.develop.library.tools,
     com.example.fixedfloatwindow,
     com.polidea.rxandroidble2,
-    com.carlos.voiceline.mylibrary" />
+    com.carlos.voiceline.mylibrary,
+    com.gcml.lib_widget"/>
 
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
