@@ -61,7 +61,7 @@
                 android:textSize="40pt" />
         </LinearLayout>
 
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_gao"
             android:layout_width="match_parent"
             android:layout_height="32pt"
@@ -104,7 +104,7 @@
                 android:textSize="40pt" />
         </LinearLayout>
 
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_zhengchang"
             android:layout_width="match_parent"
             android:layout_height="32pt"
@@ -147,7 +147,7 @@
                 android:textSize="40pt" />
         </LinearLayout>
 
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_di"
             android:layout_width="match_parent"
             android:layout_height="32pt"
@@ -199,7 +199,7 @@
                 android:textSize="40pt" />
         </LinearLayout>
 
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_empty"
             android:layout_width="match_parent"
             android:layout_height="32pt"
@@ -242,7 +242,7 @@
                 android:textSize="40pt" />
         </LinearLayout>
 
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_one"
             android:layout_width="match_parent"
             android:layout_height="32pt"
@@ -285,7 +285,7 @@
                 android:textSize="40pt" />
         </LinearLayout>
 
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_two"
             android:layout_width="match_parent"
             android:layout_height="32pt"

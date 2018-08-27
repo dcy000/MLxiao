@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -74,7 +74,7 @@ public class WeeklyReport3Fragment extends Fragment {
     @BindView(R.id.pc_yinjiu)
     TextView pcYinjiu;
     @BindView(R.id.rpb_sum)
-    RxTextRoundProgressBar rpbSum;
+    TextRoundProgressBar rpbSum;
     //    @BindView(R.id.tv_progress)
 //    TextView tvProgress;
     @BindView(R.id.tv_progress3)

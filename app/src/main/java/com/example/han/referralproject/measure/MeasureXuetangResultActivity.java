@@ -22,7 +22,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.blood_sugar_risk_assessment.BloodsugarRiskAssessmentActivity;
 import com.example.han.referralproject.intelligent_diagnosis.BloodsugarMonthlyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.BloodsugarWeeklyReportActivity;
-import com.example.han.referralproject.view.progress.RxRoundProgressBar;
+import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.littlejie.circleprogress.WaveProgress;
 
 public class MeasureXuetangResultActivity extends BaseActivity implements View.OnClickListener {
@@ -33,17 +33,17 @@ public class MeasureXuetangResultActivity extends BaseActivity implements View.O
     private float cp_piangao, cp_zhengchang, cp_piandi, cp_one, cp_two, cp_empty;
     private TextView tvMeasureTitle;
     private TextView tvGao;
-    private RxRoundProgressBar rpbGao;
+    private RoundProgressBar rpbGao;
     private TextView tvZhengchang;
-    private RxRoundProgressBar rpbZhengchang;
+    private RoundProgressBar rpbZhengchang;
     private TextView tvDi;
-    private RxRoundProgressBar rpbDi;
+    private RoundProgressBar rpbDi;
     private TextView tvEmpty;
-    private RxRoundProgressBar rpbEmpty;
+    private RoundProgressBar rpbEmpty;
     private TextView tvOne;
-    private RxRoundProgressBar rpbOne;
+    private RoundProgressBar rpbOne;
     private TextView tvTwo;
-    private RxRoundProgressBar rpbTwo;
+    private RoundProgressBar rpbTwo;
     private TextView measureType;
     private TextView currentXuetang;
     private WaveProgress waveProgressBar;

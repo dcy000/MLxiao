@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.formatter.WeeklyReportTimeFormatter;
-import com.example.han.referralproject.view.progress.RxRoundProgressBar;
+import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -41,11 +41,11 @@ public class BloodsugarWeeklyReport1Fragment extends Fragment implements View.On
     private View view;
     private TextView tvXueyaTitle;
     private TextView bloodsugarEmpty;
-    private RxRoundProgressBar rpbBloodsugarEmpty;
+    private RoundProgressBar rpbBloodsugarEmpty;
     private TextView bloodsugarOne;
-    private RxRoundProgressBar rpbBloodsugarOne;
+    private RoundProgressBar rpbBloodsugarOne;
     private TextView bloodsugarTwo;
-    private RxRoundProgressBar rpbBloodsugarTwo;
+    private RoundProgressBar rpbBloodsugarTwo;
     private WaveProgress waveProgressBar;
     private RadioButton rbEmpty;
     private RadioButton rbOne;

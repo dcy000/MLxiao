@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class New_WeeklyReport2Fragment extends Fragment {
     private ImageView imgDiya;
     private TextView pcDiya;
     private TextView tvProgress2;
-    private RxTextRoundProgressBar rpbSum;
+    private TextRoundProgressBar rpbSum;
     private LinearLayout llRight;
 
     @Nullable

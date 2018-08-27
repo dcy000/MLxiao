@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class BloodsugarWeeklyReport2Fragment extends Fragment {
     private ImageView imgTwo;
     private TextView pcTwo;
     private TextView progressDisplay;
-    private RxTextRoundProgressBar rpbSum;
+    private TextRoundProgressBar rpbSum;
     private View mBloodsugarEmpty;
     private View mBloodsugarOne;
     private View mBloodsugarTwo;

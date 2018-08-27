@@ -19,7 +19,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -71,7 +71,7 @@ public class New_MonthlyReport3Fragment extends Fragment implements View.OnClick
     private TextView pcTizhong;
     private ImageView imgYinjiu;
     private TextView pcYinjiu;
-    private RxTextRoundProgressBar rpbSum;
+    private TextRoundProgressBar rpbSum;
     private TextView tvProgress3;
     private TextView treatmentPlan;
     private TextView viewCompetion;

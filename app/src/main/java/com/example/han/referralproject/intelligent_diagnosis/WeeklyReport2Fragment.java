@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.model.WeekReportModel;
-import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +42,7 @@ public class WeeklyReport2Fragment extends Fragment {
     @BindView(R.id.pc_diya)
     TextView pcDiya;
     @BindView(R.id.rpb_sum)
-    RxTextRoundProgressBar rpbSum;
+    TextRoundProgressBar rpbSum;
     @BindView(R.id.ll_right)
     LinearLayout llRight;
     Unbinder unbinder;

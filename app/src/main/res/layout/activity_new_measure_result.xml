@@ -53,7 +53,7 @@
                 android:textColor="#333"
                 android:textSize="48pt" />
         </LinearLayout>
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_gao"
             android:layout_width="match_parent"
             android:layout_height="32pt"
@@ -93,7 +93,7 @@
                 android:layout_marginRight="50pt"
                 />
         </LinearLayout>
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_zhengchang"
             android:layout_width="match_parent"
             android:layout_height="32pt"
@@ -133,7 +133,7 @@
                 android:layout_marginRight="50pt"
                 />
         </LinearLayout>
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_di"
             android:layout_width="match_parent"
             android:layout_height="32pt"
@@ -183,7 +183,7 @@
                 />
         </LinearLayout>
 
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_gaoya"
             android:layout_width="match_parent"
             android:layout_height="32pt"
@@ -224,7 +224,7 @@
                 />
         </LinearLayout>
 
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_diya"
             android:layout_width="match_parent"
             android:layout_height="32pt"
