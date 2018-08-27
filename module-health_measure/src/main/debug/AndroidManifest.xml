@@ -2,21 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.gcml.health.measure">
-    <uses-sdk tools:overrideLibrary="
-    com.gcml.lib_widget"/>
+    <uses-sdk tools:overrideLibrary="com.gcml.lib_widget"/>
     <!--网络-->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 蓝牙 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <application
-        android:name="com.gcml.common.app.lifecycle.App"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@drawable/health_measure_ic_robot"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <service android:name=".ecg.ReceiveService"/>
-        <activity android:name="MainActivity">
+        <!--<activity android:name="MainActivity">-->
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
 
@@ -24,7 +23,7 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
 
             <!--</intent-filter>-->
-        </activity>
+        <!--</activity>-->
         <activity
             android:name="com.gcml.health.measure.single_measure.AllMeasureActivity"
             android:label="测量页面的容器Activity"
