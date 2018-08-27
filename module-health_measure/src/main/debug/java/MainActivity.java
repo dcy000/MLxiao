@@ -1,7 +1,7 @@
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.gcml.module_face_recognition.R;
+import com.gcml.health.measure.R;
 
 
 public class MainActivity extends AppCompatActivity {
