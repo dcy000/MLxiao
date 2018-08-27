@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.billy.cc.core.component.CC;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.zhang.hui.lib_recreation.R;
@@ -53,6 +54,7 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onRightClick() {
+                CC.obtainBuilder("com.gcml.old.main").build().callAsync();
             }
         });
 
