@@ -77,16 +77,16 @@ public class CameraUtils {
 
     public static void followScreenOrientation(Context context, Camera camera) {
         if (context == null || camera == null) {
-            Log.e(TAG, "context == null or camera == null while followScreenOrientation for camera");
+            Timber.e("context == null or camera == null while followScreenOrientation for camera");
             return;
         }
         final int orientation = context.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             camera.setDisplayOrientation(180);
-            Log.e(TAG, "orientation " + 180);
+            Timber.i("orientation %s", 180);
         } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             camera.setDisplayOrientation(90);
-            Log.e(TAG, "orientation " + 90);
+            Timber.i("orientation %s", 90);
         }
     }
 
@@ -94,11 +94,11 @@ public class CameraUtils {
 
     public static void startPreview(Camera camera, SurfaceHolder holder) {
         if (camera == null || holder == null) {
-            Log.e(TAG, "camera == null or holder == null while START preview for camera");
+            Timber.e("camera == null or holder == null while START preview for camera");
             return;
         }
         if (isPreviewing) {
-            Log.e(TAG, "isPreviewing: " + isPreviewing);
+            Timber.i("isPreviewing: %s", isPreviewing);
             return;
         }
         isPreviewing = true;
@@ -108,13 +108,13 @@ public class CameraUtils {
             camera.startPreview();
         } catch (IOException e) {
             isPreviewing = false;
-            Log.e(TAG, "Error while START preview for camera", e);
+            Timber.e(e, "Error while START preview for camera");
         }
     }
 
     public static void stopPreview(Camera camera) {
         if (camera == null) {
-            Log.e(TAG, "camera == null while START preview for camera");
+            Timber.e("camera == null while START preview for camera");
             return;
         }
         isPreviewing = false;
@@ -122,16 +122,16 @@ public class CameraUtils {
             camera.stopPreview();
             camera.setPreviewDisplay(null);
         } catch (Exception e) {
-            Log.e(TAG, "Error while STOP preview for camera", e);
+            Timber.e(e, "Error while STOP preview for camera");
         }
     }
 
     public static void setPreviewCallback(Camera camera, Camera.PreviewCallback previewCallback) {
         if (camera == null) {
-            Log.e(TAG, "camera == null while setOneShotPreviewCallback for camera");
+            Timber.e("camera == null while setOneShotPreviewCallback for camera");
             return;
         }
-        Log.e(TAG, "previewCallback: " + previewCallback);
+        Timber.i("previewCallback: %s", previewCallback);
         try {
             camera.setPreviewCallback(previewCallback);
         } catch (Throwable e) {
@@ -141,10 +141,10 @@ public class CameraUtils {
 
     public static void setOneShotPreviewCallback(Camera camera, Camera.PreviewCallback previewCallback) {
         if (camera == null) {
-            Log.e(TAG, "camera == null while setOneShotPreviewCallback for camera");
+            Timber.e("camera == null while setOneShotPreviewCallback for camera");
             return;
         }
-        Log.e(TAG, "previewCallback: " + previewCallback);
+        Timber.i("previewCallback: %s", previewCallback);
         try {
             camera.setOneShotPreviewCallback(previewCallback);
         } catch (Throwable e) {
@@ -154,10 +154,10 @@ public class CameraUtils {
 
     public static void setPreviewCallbackWithBuffer(Camera camera, Camera.PreviewCallback previewCallback) {
         if (camera == null) {
-            Log.e(TAG, "camera == null while setOneShotPreviewCallback for camera");
+            Timber.e("camera == null while setOneShotPreviewCallback for camera");
             return;
         }
-        Log.e(TAG, "previewCallback: " + previewCallback);
+        Timber.i("previewCallback: %s", previewCallback);
         try {
             camera.setPreviewCallbackWithBuffer(previewCallback);
         } catch (Throwable e) {
@@ -167,10 +167,10 @@ public class CameraUtils {
 
     public static void addCallbackBuffer(Camera camera, byte[] buffer) {
         if (camera == null) {
-            Log.e(TAG, "camera == null while addCallbackBuffer for camera");
+            Timber.e("camera == null while addCallbackBuffer for camera");
             return;
         }
-        Log.e(TAG, "addCallbackBuffer: " + buffer);
+        Timber.i("addCallbackBuffer: %s", buffer);
         try {
             camera.addCallbackBuffer(buffer);
         } catch (Throwable e) {
