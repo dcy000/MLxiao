@@ -125,13 +125,13 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
         mRightText.setVisibility(View.GONE);
         mRightView.setImageResource(R.drawable.white_wifi_3);
         mRightView.setOnClickListener(v -> startActivity(new Intent(PrimaryHypertensionActivity.this, WifiConnectActivity.class)));
-        mLeftView.setOnClickListener(new View.OnClickListener() {
+        mllBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (vp.getCurrentItem()==0){
+                if (vp.getCurrentItem() == 0) {
                     finish();
                 }
-                vp.setCurrentItem(vp.getCurrentItem() -1);
+                vp.setCurrentItem(vp.getCurrentItem() - 1);
             }
         });
     }
