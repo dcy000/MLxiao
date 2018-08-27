@@ -158,7 +158,7 @@ public class SetPasswordActivity extends BaseActivity<AuthActivitySetPasswordBin
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
                         if (aBoolean) {
-                            CC.obtainBuilder("com.gcml.user.auth.signin")
+                            CC.obtainBuilder("com.gcml.auth.signin")
                                     .build()
                                     .callAsync();
                         }

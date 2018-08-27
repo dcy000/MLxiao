@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 public class GetUserComponent implements IComponent {
     @Override
     public String getName() {
-        return "com.gcml.user.auth.getUser";
+        return "com.gcml.auth.getUser";
     }
 
     @Override

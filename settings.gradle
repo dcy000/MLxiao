@@ -1,4 +1,4 @@
-include ':app',
+include ':app', ':lib-auth-face',
         ':lib-recreation',
         ':lib-pay-beecloud',
         ':module-edu',
