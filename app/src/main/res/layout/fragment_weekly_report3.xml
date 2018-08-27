@@ -505,7 +505,7 @@
             android:layout_marginRight="40pt"
             android:layout_marginTop="-16pt"/>
 
-        <com.example.han.referralproject.view.progress.RxTextRoundProgressBar
+        <com.gcml.lib_widget.progressbar.TextRoundProgressBar
             android:id="@+id/rpb_sum"
             android:layout_width="match_parent"
             android:layout_height="40pt"

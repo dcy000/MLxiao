@@ -22,7 +22,7 @@ android {
         renderscriptSupportModeEnabled true    // Enable RS support
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi-v7a','x86'
+            abiFilters 'armeabi-v7a', 'x86'
         }
 
         manifestPlaceholders = [
@@ -104,10 +104,12 @@ repositories {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //cc
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     addComponent 'module-face_recognition'
     addComponent 'lib-recreation'
     addComponent 'module-health_measure'
 //    addComponent 'lib-auth'
+    addComponent 'module-video'
 
     implementation project(":lib-common-business")
     implementation project(":lib-common-core")
@@ -115,10 +117,10 @@ dependencies {
         implementation project(":lib-common-app")
     }
     //lib
-    implementation project(':wkvideoplayer')
+//    implementation project(':wkvideoplayer')
     implementation project(':lib-widget')
     implementation project(':module-edu')
-    implementation project(':lib-video-player')
+//    implementation project(':lib-video-player')
     implementation project(':unit')
     implementation(project(':lib-bluetooth')) { exclude group: "com.android.support" }
     implementation project(':lib-pay-beecloud')

@@ -52,7 +52,7 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
 
     public void goSignInByPhone(){
 //        CC.obtainBuilder("com.gcml.old.user.auth").setActionName("signin").build().callAsync();
-        CC.obtainBuilder("com.gcml.user.auth.signin")
+        CC.obtainBuilder("com.gcml.auth.signin")
                 .build()
                 .callAsync();
     }

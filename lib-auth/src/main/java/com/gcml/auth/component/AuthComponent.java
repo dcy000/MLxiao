@@ -12,7 +12,7 @@ import com.gcml.auth.ui.AuthActivity;
 public class AuthComponent implements IComponent{
     @Override
     public String getName() {
-        return "com.gcml.user.auth";
+        return "com.gcml.auth";
     }
 
     @Override

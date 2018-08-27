@@ -6,11 +6,10 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.han.referralproject.AllMeasureActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.cc.CCFaceRecognitionActions;
+import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 
@@ -56,10 +55,7 @@ public class FactoryTestActivity extends BaseActivity {
                 break;
             case R.id.tv_bluetooth:
                 //蓝牙检测
-                Intent intent = new Intent();
-                intent.setClass(this, AllMeasureActivity.class);
-                intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_OXYGEN);
-                startActivity(intent);
+                CCHealthMeasureActions.jump2AllMeasureActivity(IPresenter.MEASURE_BLOOD_OXYGEN);
                 break;
             case R.id.tv_camera:
                 //摄像头检测

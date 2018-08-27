@@ -15,7 +15,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class BloodsugarMonthlyReport2Fragment extends Fragment implements View.O
     private ImageView imgTwo;
     private TextView pcTwo;
     private TextView progressDisplay;
-    private RxTextRoundProgressBar rpbSum;
+    private TextRoundProgressBar rpbSum;
     private LinearLayout llRight;
     private RadioButton mRbFirst;
     private RadioButton mRbSecond;

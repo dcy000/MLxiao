@@ -183,7 +183,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
 
     public void goForgetPassword() {
         String phone = binding.etPhone.getText().toString().trim();
-        CC.obtainBuilder("com.gcml.user.auth.findpassword")
+        CC.obtainBuilder("com.gcml.auth.findpassword")
                 .setContext(this)
                 .addParam("phone", phone)
                 .build()

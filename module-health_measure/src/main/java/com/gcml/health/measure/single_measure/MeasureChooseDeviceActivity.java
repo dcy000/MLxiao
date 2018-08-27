@@ -8,16 +8,17 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.LinearLayout;
-
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
+import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.ecg.XinDianDetectActivity;
-import com.gcml.health.measure.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Calendar;
@@ -100,39 +101,27 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             if (i == R.id.ll_xueya) {
                 measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
                 uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-                MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血压测量演示视频",
-                        MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-
+                jump2MeasureVideoPlayActivity(uri,"血压测量演示视频");
             } else if (i == R.id.ll_xueyang) {
                 measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
                 uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
-                MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血氧测量演示视频",
-                        MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-
+                jump2MeasureVideoPlayActivity(uri,"血氧测量演示视频");
             } else if (i == R.id.ll_tiwen) {
                 measureType = IPresenter.MEASURE_TEMPERATURE;
                 uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
-                MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "耳温测量演示视频",
-                        MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-
+                jump2MeasureVideoPlayActivity(uri,"耳温测量演示视频");
             } else if (i == R.id.ll_xuetang) {
                 measureType = IPresenter.MEASURE_BLOOD_SUGAR;
                 uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-                MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血糖测量演示视频",
-                        MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-
+                jump2MeasureVideoPlayActivity(uri,"血糖测量演示视频");
             } else if (i == R.id.ll_xindian) {
                 measureType = IPresenter.MEASURE_ECG;
                 uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-                MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "心电测量演示视频",
-                        MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-
+                jump2MeasureVideoPlayActivity(uri,"心电测量演示视频");
             } else if (i == R.id.ll_san) {
                 measureType = IPresenter.MEASURE_OTHERS;
                 uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-                MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "三合一测量演示视频",
-                        MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
-
+                jump2MeasureVideoPlayActivity(uri,"三合一测量演示视频");
             } else if (i == R.id.ll_tizhong) {
                 //体重
                 measureType = IPresenter.MEASURE_WEIGHT;
@@ -146,51 +135,73 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             }
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
-            if (resultCode == RESULT_OK) {
-                if (measureType == IPresenter.MEASURE_ECG) {
-                    XinDianDetectActivity.startActivity(this,
-                            MeasureChooseDeviceActivity.class.getSimpleName());
-                    return;
-                }
-                Intent intent = new Intent();
-                intent.setClass(this, AllMeasureActivity.class);
-                switch (measureType) {
-
-                    case IPresenter.MEASURE_BLOOD_PRESSURE:
-                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_PRESSURE);
+    /**
+     * 跳转到MeasureVideoPlayActivity
+     */
+    private void jump2MeasureVideoPlayActivity(Uri uri, String title) {
+        CC.obtainBuilder(CCVideoActions.MODULE_NAME)
+                .setActionName(CCVideoActions.SendActionNames.TO_MEASUREACTIVITY)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URI, uri)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URL, null)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_TITLE, title)
+                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+            @Override
+            public void onResult(CC cc, CCResult result) {
+                String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
+                switch (resultAction) {
+                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
+                        //点击了返回按钮
                         break;
-                    case IPresenter.MEASURE_BLOOD_OXYGEN:
-                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_OXYGEN);
+                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_SKIP:
+                        //点击了跳过按钮
+                        aferVideo();
                         break;
-                    case IPresenter.MEASURE_TEMPERATURE:
-                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_TEMPERATURE);
-                        break;
-                    case IPresenter.MEASURE_BLOOD_SUGAR:
-                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_SUGAR);
-                        break;
-                    case IPresenter.MEASURE_WEIGHT:
-                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_WEIGHT);
-                        break;
-                    case IPresenter.MEASURE_OTHERS:
-                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_OTHERS);
-                        break;
-                    case IPresenter.CONTROL_FINGERPRINT:
-                        //指纹
-                        intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.CONTROL_FINGERPRINT);
+                    case CCVideoActions.ReceiveResultActionNames.VIDEO_PLAY_END:
+                        //视屏播放结束
+                        aferVideo();
                         break;
                     default:
-                        break;
                 }
-                startActivity(intent);
             }
-        }
+        });
     }
+    private void aferVideo(){
+        if (measureType == IPresenter.MEASURE_ECG) {
+            XinDianDetectActivity.startActivity(this,
+                    MeasureChooseDeviceActivity.class.getSimpleName());
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setClass(this, AllMeasureActivity.class);
+        switch (measureType) {
 
+            case IPresenter.MEASURE_BLOOD_PRESSURE:
+                intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_PRESSURE);
+                break;
+            case IPresenter.MEASURE_BLOOD_OXYGEN:
+                intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_OXYGEN);
+                break;
+            case IPresenter.MEASURE_TEMPERATURE:
+                intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_TEMPERATURE);
+                break;
+            case IPresenter.MEASURE_BLOOD_SUGAR:
+                intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_BLOOD_SUGAR);
+                break;
+            case IPresenter.MEASURE_WEIGHT:
+                intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_WEIGHT);
+                break;
+            case IPresenter.MEASURE_OTHERS:
+                intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.MEASURE_OTHERS);
+                break;
+            case IPresenter.CONTROL_FINGERPRINT:
+                //指纹
+                intent.putExtra(IPresenter.MEASURE_TYPE, IPresenter.CONTROL_FINGERPRINT);
+                break;
+            default:
+                break;
+        }
+        startActivity(intent);
+    }
     private void initView() {
         llXueya = (LinearLayout) findViewById(R.id.ll_xueya);
         llXueyang = (LinearLayout) findViewById(R.id.ll_xueyang);

@@ -13,8 +13,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
+import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodoxygenFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
@@ -22,7 +26,6 @@ import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodsugarFr
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureTemperatureFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureThreeInOneFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureWeightFragment;
-import com.gcml.health.measure.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.data.DataUtils;
@@ -235,38 +238,32 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 case IPresenter.MEASURE_TEMPERATURE:
                     //体温测量
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
-                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "耳温枪测量演示视频",
-                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+                    jump2MeasureVideoPlayActivity(uri,"耳温枪测量演示视频");
                     break;
                 case IPresenter.MEASURE_BLOOD_PRESSURE:
                     //血压
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "血压测量演示视频",
-                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+                    jump2MeasureVideoPlayActivity(uri,"血压测量演示视频");
                     break;
                 case IPresenter.MEASURE_BLOOD_SUGAR:
                     //血糖
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "血糖测量演示视频",
-                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+                    jump2MeasureVideoPlayActivity(uri,"血糖测量演示视频");
                     break;
                 case IPresenter.MEASURE_BLOOD_OXYGEN:
                     //血氧
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
-                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "血氧测量演示视频",
-                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+                    jump2MeasureVideoPlayActivity(uri,"血氧测量演示视频");
                     break;
                 case IPresenter.MEASURE_ECG:
                     //心电
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "心电测量演示视频",
-                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+                    jump2MeasureVideoPlayActivity(uri,"心电测量演示视频");
                     break;
                 case IPresenter.MEASURE_OTHERS:
                     //三合一
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-                    MeasureVideoPlayActivity.startActivityForResult(AllMeasureActivity.this, uri, null, "三合一测量演示视频",
-                            MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+                    jump2MeasureVideoPlayActivity(uri,"三合一测量演示视频");
                     break;
                 case IPresenter.MEASURE_WEIGHT:
                     //体重
@@ -277,7 +274,34 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             }
         }
     };
-
+    /**
+     * 跳转到MeasureVideoPlayActivity
+     */
+    private void jump2MeasureVideoPlayActivity(Uri uri, String title) {
+        CC.obtainBuilder(CCVideoActions.MODULE_NAME)
+                .setActionName(CCVideoActions.SendActionNames.TO_MEASUREACTIVITY)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URI, uri)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URL, null)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_TITLE, title)
+                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+            @Override
+            public void onResult(CC cc, CCResult result) {
+                String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
+                switch (resultAction) {
+                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
+                        //点击了返回按钮
+                        break;
+                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_SKIP:
+                        //点击了跳过按钮
+                        break;
+                    case CCVideoActions.ReceiveResultActionNames.VIDEO_PLAY_END:
+                        //视屏播放结束
+                        break;
+                    default:
+                }
+            }
+        });
+    }
     private boolean canClickRefresh = true;
     private final TimeCountDownUtils.TimeCountListener timeCountListener
             = new TimeCountDownUtils.TimeCountListener() {

@@ -12,7 +12,7 @@ import com.gcml.auth.ui.findpassword.FindPasswordActivity;
 public class FindPasswordComponent implements IComponent {
     @Override
     public String getName() {
-        return "com.gcml.user.auth.findpassword";
+        return "com.gcml.auth.findpassword";
     }
 
     @Override

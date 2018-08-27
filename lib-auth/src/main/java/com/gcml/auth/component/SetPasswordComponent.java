@@ -13,7 +13,7 @@ public class SetPasswordComponent implements IComponent {
 
     @Override
     public String getName() {
-        return "com.gcml.user.auth.setpassword";
+        return "com.gcml.auth.setpassword";
     }
 
     @Override

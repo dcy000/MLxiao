@@ -184,7 +184,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         }
 
 //        new way
-//        CC.obtainBuilder("com.gcml.user.auth.getUser")
+//        CC.obtainBuilder("com.gcml.auth.getUser")
 //                .build()
 //                .callAsync(new IComponentCallback() {
 //                    @Override

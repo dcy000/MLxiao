@@ -35,7 +35,7 @@ public class AuthComponent implements IComponent {
             intent.putExtra("phone", (String)cc.getParamItem("phone"));
         } else {
             intent.setClass(context, ChooseLoginTypeActivity.class);
-//            CC.obtainBuilder("com.gcml.user.auth").build().callAsync();
+//            CC.obtainBuilder("com.gcml.auth").build().callAsync();
 //            CC.sendCCResult(cc.getCallId(), CCResult.success());
 //            return false;
         }

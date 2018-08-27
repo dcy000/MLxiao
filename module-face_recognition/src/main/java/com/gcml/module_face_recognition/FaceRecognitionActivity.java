@@ -476,7 +476,9 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
 
                         @Override
                         public void onError(Throwable e) {
-
+                            if (e instanceof NullPointerException) {
+                                recognitionFail();
+                            }
                         }
 
                         @Override

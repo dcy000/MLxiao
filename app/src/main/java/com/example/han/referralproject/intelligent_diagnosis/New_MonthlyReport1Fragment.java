@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.formatter.MonthlyReportTimeFormatter;
-import com.example.han.referralproject.view.progress.RxRoundProgressBar;
+import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -36,9 +36,9 @@ import java.util.List;
 public class New_MonthlyReport1Fragment extends Fragment {
     private View view;
     private TextView tvGao;
-    private RxRoundProgressBar rpbGao;
+    private RoundProgressBar rpbGao;
     private TextView tvDi;
-    private RxRoundProgressBar rpbDi;
+    private RoundProgressBar rpbDi;
     private WaveProgress waveProgressBar;
     private LinearLayout ll1;
     private LineChart weekXueyaChart;
@@ -69,8 +69,9 @@ public class New_MonthlyReport1Fragment extends Fragment {
     }
 
     public void notifyData(WeeklyOrMonthlyReport report) {
-        if (report == null)
+        if (report == null) {
             return;
+        }
         String highPressureAvg = report.getHighPressureAvg();
         if (!TextUtils.isEmpty(highPressureAvg)) {
             tvGao.setText(highPressureAvg);
@@ -227,10 +228,12 @@ public class New_MonthlyReport1Fragment extends Fragment {
             set2 = (LineDataSet) weekXueyaChart.getData().getDataSetByIndex(1);
             set1.setValues(yVals1);
             set2.setValues(yVals2);
-            if (yVals1.size() <= 3)
+            if (yVals1.size() <= 3) {
                 set1.setMode(LineDataSet.Mode.LINEAR);
-            if (yVals2.size() <= 3)
+            }
+            if (yVals2.size() <= 3) {
                 set2.setMode(LineDataSet.Mode.LINEAR);
+            }
             weekXueyaChart.getData().notifyDataChanged();
             weekXueyaChart.notifyDataSetChanged();
         } else {
@@ -255,10 +258,11 @@ public class New_MonthlyReport1Fragment extends Fragment {
             set1.setFormLineWidth(0f);
             set1.setFormLineDashEffect(new DashPathEffect(new float[]{0f, 0f}, 0f));
             set1.setFormSize(0f);
-            if (yVals1.size() <= 3)
+            if (yVals1.size() <= 3) {
                 set1.setMode(LineDataSet.Mode.LINEAR);
-            else
+            } else {
                 set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            }
             set2 = new LineDataSet(yVals2, "");
             set2.setAxisDependency(YAxis.AxisDependency.LEFT);
             set2.setColor(getResources().getColor(R.color.line2_color));
@@ -278,10 +282,11 @@ public class New_MonthlyReport1Fragment extends Fragment {
             set2.setFormLineWidth(0f);
             set2.setFormLineDashEffect(new DashPathEffect(new float[]{0f, 0f}, 0f));
             set2.setFormSize(0f);
-            if (yVals2.size() <= 3)
+            if (yVals2.size() <= 3) {
                 set2.setMode(LineDataSet.Mode.LINEAR);
-            else
+            } else {
                 set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            }
             LineData data = new LineData(set1, set2);
             data.setValueTextSize(18f);
             weekXueyaChart.setData(data);

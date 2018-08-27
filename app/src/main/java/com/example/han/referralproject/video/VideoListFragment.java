@@ -21,10 +21,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.cc.CCVideoActions;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
-import com.ml.videoplayer.MlVideoPlayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -332,11 +332,7 @@ public class VideoListFragment extends Fragment {
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     VideoEntity entity = videos.get(position);
-                    Context context = itemView.getContext();
-//                    Intent intent = new Intent(context, MlVideoPlayerActivity.class);
-//                    intent.putExtra("url", entity.getVideourl());
-//                    context.startActivityForResult(intent);
-                    MlVideoPlayer.play(context, entity.getVideourl(), entity.getTitle());
+                    CCVideoActions.jump2NormalVideoPlayActivity(entity.getVideourl(),entity.getTitle());
                 }
             });
         }
@@ -351,9 +347,4 @@ public class VideoListFragment extends Fragment {
         super.onResume();
     }
 
-    @Override
-    public void onPause() {
-        MlVideoPlayer.release();
-        super.onPause();
-    }
 }
