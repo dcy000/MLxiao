@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.formatter.MonthlyReportTimeFormatter;
-import com.example.han.referralproject.view.progress.RxRoundProgressBar;
+import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -42,11 +42,11 @@ public class BloodsugarMonthlyReport1Fragment extends Fragment implements View.O
     private View view;
     private TextView tvXueyaTitle;
     private TextView bloodsugarEmpty;
-    private RxRoundProgressBar rpbBloodsugarEmpty;
+    private RoundProgressBar rpbBloodsugarEmpty;
     private TextView bloodsugarOne;
-    private RxRoundProgressBar rpbBloodsugarOne;
+    private RoundProgressBar rpbBloodsugarOne;
     private TextView bloodsugarTwo;
-    private RxRoundProgressBar rpbBloodsugarTwo;
+    private RoundProgressBar rpbBloodsugarTwo;
     private WaveProgress waveProgressBar;
     private LinearLayout ll1;
     private RadioButton rbEmpty;
@@ -207,10 +207,10 @@ public class BloodsugarMonthlyReport1Fragment extends Fragment implements View.O
         ArrayList<Long> times = new ArrayList<>();
         List<WeeklyOrMonthlyBloodsugarReport.WeekDateListBean> weekDateList = report.getWeekDateList();
         if (weekDateList != null && weekDateList.size() > 0) {
-            for (int i=0;i<weekDateList.size();i++) {
+            for (int i = 0; i < weekDateList.size(); i++) {
                 WeeklyOrMonthlyBloodsugarReport.WeekDateListBean weekDateListBean = weekDateList.get(i);
                 if (weekDateListBean != null) {
-                    if (weekDateListBean.getBloodSugarAvg()!=null) {
+                    if (weekDateListBean.getBloodSugarAvg() != null) {
                         value.add(new Entry(i, weekDateListBean.getBloodSugarAvg().floatValue()));
                     }
                     if (!TextUtils.isEmpty(weekDateListBean.getEndTime())) {
@@ -316,6 +316,7 @@ public class BloodsugarMonthlyReport1Fragment extends Fragment implements View.O
                 break;
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

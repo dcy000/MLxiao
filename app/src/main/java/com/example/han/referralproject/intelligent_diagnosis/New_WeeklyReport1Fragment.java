@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.formatter.WeeklyReportTimeFormatter;
-import com.example.han.referralproject.view.progress.RxRoundProgressBar;
+import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -35,9 +35,9 @@ import java.util.List;
 public class New_WeeklyReport1Fragment extends Fragment {
     private View view;
     private TextView mTvGao;
-    private RxRoundProgressBar mRpbGao;
+    private RoundProgressBar mRpbGao;
     private TextView mTvDi;
-    private RxRoundProgressBar mRpbDi;
+    private RoundProgressBar mRpbDi;
     private WaveProgress mWaveProgressBar;
     private LineChart mWeekXueyaChart;
     private TextView mTvAdvice;

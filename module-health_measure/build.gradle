@@ -1,6 +1,7 @@
 apply from: rootProject.file('cc-settings.gradle')
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
@@ -52,6 +53,9 @@ dependencies {
     androidTestImplementation rootProject.ext.dependencies["espresso-core"]
     implementation project(':lib-common-business')
     implementation project(':lib-common-core')
+    if (project.ext.runAsApp) {
+        implementation project(":lib-common-app")
+    }
     implementation project(':lib-utils')
     implementation project(':lib-bluetooth')
     implementation 'com.lzy.net:okgo:3.0.4'
@@ -60,7 +64,6 @@ dependencies {
     implementation project(':lib-voice')
     implementation project(':lib-video')
     implementation project(':lib-rulerview')
-    implementation rootProject.ext.dependencies["multidex"]
     implementation project(':lib-widget')
     implementation project(':lib-progress-orb')
 }

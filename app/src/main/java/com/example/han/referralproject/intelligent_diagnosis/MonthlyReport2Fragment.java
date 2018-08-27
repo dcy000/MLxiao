@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.MonthlyReport;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.view.progress.RxRoundProgressBar;
-import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.gcml.lib_widget.progressbar.RoundProgressBar;
+import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 import com.littlejie.circleprogress.WaveProgress;
 
 import butterknife.BindView;
@@ -30,11 +30,11 @@ public class MonthlyReport2Fragment extends Fragment {
     @BindView(R.id.tv_gaoya)
     TextView tvGaoya;
     @BindView(R.id.rpb_gao)
-    RxRoundProgressBar rpbGao;
+    RoundProgressBar rpbGao;
     @BindView(R.id.tv_diya)
     TextView tvDiya;
     @BindView(R.id.rpb_diya)
-    RxRoundProgressBar rpbDiya;
+    RoundProgressBar rpbDiya;
     @BindView(R.id.wave_progress_bar)
     WaveProgress waveProgressBar;
     @BindView(R.id.cl_left)
@@ -54,7 +54,7 @@ public class MonthlyReport2Fragment extends Fragment {
     @BindView(R.id.tv_progress1)
     TextView tvProgress1;
     @BindView(R.id.rpb_sum)
-    RxTextRoundProgressBar rpbSum;
+    TextRoundProgressBar rpbSum;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     Unbinder unbinder;

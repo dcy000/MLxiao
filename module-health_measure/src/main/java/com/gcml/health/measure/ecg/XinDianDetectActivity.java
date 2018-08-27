@@ -18,18 +18,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.creative.ecg.StatusMsg;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
+import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
-import com.gcml.health.measure.single_measure.AllMeasureActivity;
 import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
 import com.gcml.health.measure.utils.ECGUtil;
-import com.gcml.health.measure.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.display.ToastUtils;
 
@@ -413,12 +415,40 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
 
         }else if (i==R.id.btn_video_demo){
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-            MeasureVideoPlayActivity.startActivityForResult(XinDianDetectActivity.this, uri, null, "心电测量演示视频",
-                    MeasureVideoPlayActivity.REQUEST_PALY_VIDEO);
+            jump2MeasureVideoPlayActivity(uri,"心电测量演示视频");
         }
 
     }
-
+    /**
+     * 跳转到MeasureVideoPlayActivity
+     */
+    private void jump2MeasureVideoPlayActivity(Uri uri, String title) {
+        CC.obtainBuilder(CCVideoActions.MODULE_NAME)
+                .setActionName(CCVideoActions.SendActionNames.TO_MEASUREACTIVITY)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URI, uri)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URL, null)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_TITLE, title)
+                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+            @Override
+            public void onResult(CC cc, CCResult result) {
+                String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
+                switch (resultAction) {
+                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
+                        //点击了返回按钮
+                        break;
+                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_SKIP:
+                        //点击了跳过按钮
+                        showConnectAnimation();
+                        break;
+                    case CCVideoActions.ReceiveResultActionNames.VIDEO_PLAY_END:
+                        //视屏播放结束
+                        showConnectAnimation();
+                        break;
+                    default:
+                }
+            }
+        });
+    }
     private void uploadEcg(final int ecg, final int heartRate) {
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData ecgData = new DetectionData();
@@ -449,10 +479,6 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MeasureVideoPlayActivity.REQUEST_PALY_VIDEO) {
-            showConnectAnimation();
-            return;
-        }
         if (requestCode == 0x100) {
             StaticReceive.setmHandler(mHandler);
         }

@@ -12,7 +12,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.health.measure.R;
+import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.ecg.XinDianDetectActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
@@ -22,7 +26,6 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetecti
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSugarDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthThreeInOneDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
-import com.gcml.health.measure.video.MeasureVideoPlayActivity;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.data.SPUtil;
@@ -57,6 +60,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
     private int measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
     private static List<DetectionData> cacheDatas = new ArrayList<>();
     private static HealthBloodDetectionUiFragment.Data bloodpressureCacheData;
+    private int requestPlayVideoCode;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, HealthIntelligentDetectionActivity.class);
@@ -194,24 +198,88 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         if (fragment instanceof HealthFirstTipsFragment) {
+            requestPlayVideoCode = BLOODPRESSURE_VIDEO;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
-            MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血压测量演示视频", BLOODPRESSURE_VIDEO);
+            jump2MeasureVideoPlayActivity(uri, "血压测量演示视频");
         } else if (fragment instanceof HealthBloodDetectionUiFragment) {
             move2Weight();
         } else if (fragment instanceof HealthWeightDetectionUiFragment) {
+            requestPlayVideoCode = BLOODSUGAR_VIDEO;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
-            MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "血糖测量演示视频", BLOODSUGAR_VIDEO);
+            jump2MeasureVideoPlayActivity(uri, "血糖测量演示视频");
         } else if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             move2Bloodsugar(bundle);
         } else if (fragment instanceof HealthSugarDetectionUiFragment) {
+            requestPlayVideoCode = ECG_VIDEO;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
-            MeasureVideoPlayActivity.startActivityForResult(this, uri, null, "心电测量演示视频",
-                    ECG_VIDEO);
+            jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
         } else if (fragment instanceof HealthThreeInOneDetectionUiFragment) {
             move2FirstDiagnosisReport();
         }
 
 
+    }
+
+    /**
+     * 跳转到MeasureVideoPlayActivity
+     */
+    private void jump2MeasureVideoPlayActivity(Uri uri, String title) {
+        CC.obtainBuilder(CCVideoActions.MODULE_NAME)
+                .setActionName(CCVideoActions.SendActionNames.TO_MEASUREACTIVITY)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URI, uri)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URL, null)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_TITLE, title)
+                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+            @Override
+            public void onResult(CC cc, CCResult result) {
+                String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
+                switch (resultAction) {
+                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
+                        //点击了返回按钮
+                        break;
+                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_SKIP:
+                        //点击了跳过按钮
+                        afterVideo();
+                        break;
+                    case CCVideoActions.ReceiveResultActionNames.VIDEO_PLAY_END:
+                        //视屏播放结束
+                        afterVideo();
+                        break;
+                    default:
+                }
+            }
+        });
+    }
+
+    private void afterVideo() {
+        if (requestPlayVideoCode == BLOODPRESSURE_VIDEO) {
+            move2Bloodpressure();
+        } else if (requestPlayVideoCode == BLOODSUGAR_VIDEO) {
+            move2BloodsugarTimeSelection();
+        } else if (requestPlayVideoCode == THREE_IN_ONE_VIDEO) {
+            move2ThreeInOne();
+        } else if (requestPlayVideoCode == ECG_VIDEO) {
+            move2ECG();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == JUMP_TO_ECG) {
+                if (data != null) {
+                    DetectionData ecgData = new DetectionData();
+                    ecgData.setDetectionType("2");
+                    ecgData.setEcg(String.valueOf(data.getIntExtra("ecg", 0)));
+                    ecgData.setHeartRate(data.getIntExtra("heartRate", 0));
+                    putCacheData(ecgData);
+                }
+                requestPlayVideoCode = THREE_IN_ONE_VIDEO;
+                Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
+                jump2MeasureVideoPlayActivity(uri, "三合一测量演示视频");
+            }
+        }
     }
 
     @Override
@@ -224,34 +292,6 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
         mToolbar.setVisibility(View.VISIBLE);
         mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         mTitleText.setText("智能检测");
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == BLOODPRESSURE_VIDEO) {
-                move2Bloodpressure();
-            } else if (requestCode == BLOODSUGAR_VIDEO) {
-                move2BloodsugarTimeSelection();
-            } else if (requestCode == JUMP_TO_ECG) {
-                if (data != null) {
-                    DetectionData ecgData = new DetectionData();
-                    ecgData.setDetectionType("2");
-                    ecgData.setEcg(String.valueOf(data.getIntExtra("ecg", 0)));
-                    ecgData.setHeartRate(data.getIntExtra("heartRate", 0));
-                    putCacheData(ecgData);
-                }
-                Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
-                MeasureVideoPlayActivity.startActivityForResult(this, uri, null,
-                        "三合一测量演示视频", THREE_IN_ONE_VIDEO);
-
-            } else if (requestCode == THREE_IN_ONE_VIDEO) {
-                move2ThreeInOne();
-            } else if (requestCode == ECG_VIDEO) {
-                move2ECG();
-            }
-        }
     }
 
     private void move2FirstDiagnosisReport() {

@@ -38,7 +38,7 @@ public class RecreationEntranceActivity extends AppCompatActivity implements Vie
 
             @Override
             public void onRightClick() {
-
+                CC.obtainBuilder("com.gcml.old.main").build().callAsync();
             }
         });
     }

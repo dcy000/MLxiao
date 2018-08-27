@@ -35,6 +35,10 @@ public class CCHealthMeasureActions {
          * 心电
          */
         String TO_ECG="ToECG";
+        /**
+         * 跳转到AllMeasureActivity
+         */
+        String TO_ALL_MEASURE_ACTIVITY = "ToAllMeasureActivity";
     }
 
     /**
@@ -45,6 +49,10 @@ public class CCHealthMeasureActions {
          * 表示这个跳转是哪一个页面发起的
          */
         String KEY_EXTRA_FROM_WHERE = "key_from_where";
+        /**
+         * 测量仪器类型
+         */
+        String KEY_EXTRA_MEASURE_TYPE = "measure_type";
     }
     /**
      * 跳转到选择所有测量设备的界面
@@ -71,5 +79,19 @@ public class CCHealthMeasureActions {
                 .setActionName(SendActionNames.TO_ECG)
                 .build().call();
         Timber.d("CCHealthMeasureActions>>>>>>>>>"+call.toString());
+    }
+    /**
+     * 跳转到测量界面
+     *
+     * @param measureType
+     */
+    public static void jump2AllMeasureActivity(int measureType) {
+
+        CCResult call = CC.obtainBuilder(MODULE_NAME)
+                .setActionName(SendActionNames.TO_ALL_MEASURE_ACTIVITY)
+                .addParam(SendKeys.KEY_EXTRA_MEASURE_TYPE, measureType)
+                .build()
+                .call();
+        Timber.d("》》》CCHealthMeasureActions" + call.toString());
     }
 }

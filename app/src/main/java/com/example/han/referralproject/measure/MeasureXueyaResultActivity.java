@@ -22,7 +22,7 @@ import com.example.han.referralproject.blood_pressure_risk_assessment.Hypertensi
 import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.view.progress.RxRoundProgressBar;
+import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.littlejie.circleprogress.WaveProgress;
 
 import butterknife.BindView;
@@ -32,19 +32,19 @@ public class MeasureXueyaResultActivity extends BaseActivity implements View.OnC
     @BindView(R.id.tv_gao)
     TextView tvGao;
     @BindView(R.id.rpb_gao)
-    RxRoundProgressBar rpbGao;
+    RoundProgressBar rpbGao;
     @BindView(R.id.tv_di)
     TextView tvDi;
     @BindView(R.id.rpb_di)
-    RxRoundProgressBar rpbDi;
+    RoundProgressBar rpbDi;
     @BindView(R.id.tv_gaoya)
     TextView tvGaoya;
     @BindView(R.id.rpb_gaoya)
-    RxRoundProgressBar rpbGaoya;
+    RoundProgressBar rpbGaoya;
     @BindView(R.id.tv_diya)
     TextView tvDiya;
     @BindView(R.id.rpb_diya)
-    RxRoundProgressBar rpbDiya;
+    RoundProgressBar rpbDiya;
     @BindView(R.id.ll_left)
     LinearLayout llLeft;
     @BindView(R.id.tv_result_title)

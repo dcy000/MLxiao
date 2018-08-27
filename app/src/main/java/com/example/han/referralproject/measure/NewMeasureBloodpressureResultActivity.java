@@ -19,8 +19,8 @@ import com.example.han.referralproject.hypertensionmanagement.activity.NormalHig
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.view.progress.RxRoundProgressBar;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.google.gson.Gson;
 import com.littlejie.circleprogress.WaveProgress;
 import com.lzy.okgo.OkGo;
@@ -53,27 +53,27 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
      * 0次
      */
     private TextView mTvGao;
-    private RxRoundProgressBar mRpbGao;
+    private RoundProgressBar mRpbGao;
     /**
      * 0次
      */
     private TextView mTvZhengchang;
-    private RxRoundProgressBar mRpbZhengchang;
+    private RoundProgressBar mRpbZhengchang;
     /**
      * 0次
      */
     private TextView mTvDi;
-    private RxRoundProgressBar mRpbDi;
+    private RoundProgressBar mRpbDi;
     /**
      * 120
      */
     private TextView mTvGaoya;
-    private RxRoundProgressBar mRpbGaoya;
+    private RoundProgressBar mRpbGaoya;
     /**
      * 80
      */
     private TextView mTvDiya;
-    private RxRoundProgressBar mRpbDiya;
+    private RoundProgressBar mRpbDiya;
     private LinearLayout mLlLeft;
     /**
      * 本次测量结果

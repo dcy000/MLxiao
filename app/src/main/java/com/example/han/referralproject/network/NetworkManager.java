@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.util.Utils;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -130,7 +131,7 @@ public class NetworkManager {
 //        if (!TextUtils.isEmpty(CustomApplication.getInstance().userToken)){
 //            builder.addHeader("token", CustomApplication.getInstance().userToken);
 //        }
-        Request request = builder.build();
+        Request request = builder.addHeader("equipmentId", Utils.getDeviceId()).build();
         if (request != null) {
             client.newCall(request).enqueue(responseCallback);
         }

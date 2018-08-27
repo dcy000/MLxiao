@@ -929,6 +929,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
 
             } else if (inSpell.matches(".*ce.*xueyang.*")
+                    || inSpell.matches(".*xueyang.*")
                     || inSpell.matches(".*liang.*xueyang.*")
                     || inSpell.matches(".*ce.*baohedu.*")) {
                 mIatDialog.dismiss();

@@ -2,9 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.han.referralproject"
-    tools:overrideLibrary="com.witspring.mlrobot"> <!-- 解决下面这些库最低支持版本大于统一配置的最低版本 -->
-    <uses-sdk tools:overrideLibrary="     tv.danmaku.ijk.media.player_arm64,     com.carlos.voiceline.mylibrary,     com.witspring.mlrobot,     com.megvii.faceppidcardui,     com.medlink.crash,     com.crazypumpkin.versatilerecyclerview.library,     com.linheimx.app.library,     com.vmloft.develop.library.tools,     com.example.fixedfloatwindow,     com.polidea.rxandroidble2,     com.carlos.voiceline.mylibrary" />
-
+    tools:overrideLibrary="com.witspring.mlrobot">
+    <!--解决下面这些库最低支持版本大于统一配置的最低版本-->
+    <uses-sdk tools:overrideLibrary="
+    tv.danmaku.ijk.media.player_arm64,
+    com.carlos.voiceline.mylibrary,
+    com.witspring.mlrobot,
+    com.megvii.faceppidcardui,
+    com.medlink.crash,
+    com.crazypumpkin.versatilerecyclerview.library,
+    com.linheimx.app.library,
+    com.vmloft.develop.library.tools,
+    com.example.fixedfloatwindow,
+    com.polidea.rxandroidble2,
+    com.carlos.voiceline.mylibrary,
+    com.gcml.lib_widget"/>
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <!-- 如果需要实时音视频通话模块，下面的权限也是必须的。否则，可以不加 -->
@@ -163,17 +175,6 @@
             android:name=".activity.MessageActivity"
             android:screenOrientation="landscape" />
 
-        <service
-            android:name=".xindian.ReceiveService"
-            android:enabled="true" />
-
-        <activity
-            android:name=".xueya.XueyaActivity"
-            android:largeHeap="true"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".PlayVideoActivity"
-            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
             android:screenOrientation="landscape" />
@@ -223,13 +224,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".xueya.AttentionActivity"
-            android:largeHeap="true"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".xindian.XindianActivity" />
         <activity
             android:name=".facerecognition.RegisterVideoActivity"
             android:screenOrientation="landscape"
@@ -694,14 +690,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".physicalexamination.activity.MonitorResultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".AllMeasureActivity"
-            android:label="所有测量界面的载体Activity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".video.MeasureVideoPlayActivity"
-            android:label="测量演示视频播放界面"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.gcml.module_health_record.HealthRecordActivity"

@@ -32,4 +32,5 @@ dependencies {
     api 'com.kk.taurus.playerbase:playerbase:3.3.0'
     implementation files('libs/libksyplayer.jar')
     implementation files('libs/libksystat.jar')
+    implementation project(':lib-common-core')
 }

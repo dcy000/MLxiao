@@ -26,6 +26,7 @@ import com.example.han.referralproject.intelligent_diagnosis.SportPlan;
 import com.example.han.referralproject.intelligent_diagnosis.SportPlanDetailActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -41,7 +42,7 @@ import java.util.List;
  * Created by Administrator on 2018/5/16.
  */
 
-public  class SportPlanFragment extends Fragment implements View.OnClickListener {
+public class SportPlanFragment extends Fragment implements View.OnClickListener {
     private View view;
     private TextView intakeSalt;
     private TextView intakeOil;
@@ -69,7 +70,7 @@ public  class SportPlanFragment extends Fragment implements View.OnClickListener
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (view==null) {
+        if (view == null) {
             view = inflater.inflate(R.layout.activity_sport, container, false);
             initView(view);
             setAdapter();
@@ -122,10 +123,12 @@ public  class SportPlanFragment extends Fragment implements View.OnClickListener
                         try {
                             JSONObject object = new JSONObject(response.body());
                             if (object.optInt("code") == 200) {
+                                moreExercise.setVisibility(View.VISIBLE);
                                 SportPlan data = new Gson().fromJson(object.optJSONObject("data").toString(), SportPlan.class);
                                 dealData(data);
-                            }else if (object.optInt("code")==500){
-
+                            } else if (object.optInt("code") == 500) {
+//                                ToastUtils.showShort("暂无数据");
+                                moreExercise.setVisibility(View.GONE);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -221,10 +224,14 @@ public  class SportPlanFragment extends Fragment implements View.OnClickListener
                     moreExercise.setText("更多");
                 } else {
                     isMore = true;
-                    mData.addAll(cacheDatas);
-                    moreExercise.setText("收起");
+                    if (cacheDatas!=null){
+                        mData.addAll(cacheDatas);
+                        moreExercise.setText("收起");
+                    }
                 }
                 adapter.notifyDataSetChanged();
+                break;
+            default:
                 break;
         }
     }

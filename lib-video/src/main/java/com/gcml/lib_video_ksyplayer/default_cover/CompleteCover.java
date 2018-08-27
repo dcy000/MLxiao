@@ -19,6 +19,7 @@ package com.gcml.lib_video_ksyplayer.default_cover;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.lib_video_ksyplayer.R;
@@ -35,6 +36,7 @@ public class CompleteCover extends BaseCover {
 
     private TextView mReplay;
     private TextView mNext;
+    private LinearLayout llBack;
 
     public CompleteCover(Context context) {
         super(context);
@@ -48,7 +50,8 @@ public class CompleteCover extends BaseCover {
 
         mReplay.setOnClickListener(mOnClickListener);
         mNext.setOnClickListener(mOnClickListener);
-
+        llBack = findViewById(R.id.ll_back);
+        llBack.setOnClickListener(mOnClickListener);
         setNextState(false);
 
         getGroupValue().registerOnGroupValueUpdateListener(mOnGroupValueUpdateListener);
@@ -95,10 +98,10 @@ public class CompleteCover extends BaseCover {
             int i = v.getId();
             if (i == R.id.tv_replay) {
                 requestReplay(null);
-
             } else if (i == R.id.tv_next) {
                 notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_NEXT, null);
-
+            }else if (i==R.id.ll_back){
+                notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_BACK, null);
             }
             setPlayCompleteState(false);
         }
