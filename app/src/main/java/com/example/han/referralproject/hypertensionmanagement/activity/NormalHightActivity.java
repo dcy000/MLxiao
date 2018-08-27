@@ -127,6 +127,15 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
         mRightText.setVisibility(View.GONE);
         mRightView.setImageResource(R.drawable.white_wifi_3);
         mRightView.setOnClickListener(v -> startActivity(new Intent(NormalHightActivity.this, WifiConnectActivity.class)));
+        mLeftView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (vp.getCurrentItem()==0){
+                    finish();
+                }
+                vp.setCurrentItem(vp.getCurrentItem() -1);
+            }
+        });
     }
 
     @Override
