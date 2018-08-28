@@ -8,12 +8,15 @@ import android.os.Bundle;
 import com.gcml.auth.face.BR;
 import com.gcml.auth.face.R;
 import com.gcml.auth.face.databinding.AuthActivityFaceSignUpBinding;
-import com.gcml.auth.face.utils.PreviewHelper;
+import com.gcml.auth.face.model.PreviewHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.utils.RxUtils;
 
+import java.io.ByteArrayOutputStream;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBinding, FaceSignUpViewModel> {
@@ -41,8 +44,8 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
             public void run() {
                 int[] outLocation = new int[2];
                 Timber.i("%s x %s", outLocation[0], outLocation[1]);
-                binding.ivAnimation.getLocationOnScreen(outLocation);
-                mPreviewHelper.setUiRect(new Rect(
+                binding.ivAnimation.getLocationInWindow(outLocation);
+                mPreviewHelper.setCropRect(new Rect(
                         outLocation[0],
                         outLocation[1],
                         outLocation[0] + binding.ivAnimation.getWidth(),
@@ -51,12 +54,23 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
             }
         });
         mPreviewHelper.rxStatus()
+                .observeOn(Schedulers.io())
+                .doOnNext(new Consumer<PreviewHelper.Status>() {
+                    @Override
+                    public void accept(PreviewHelper.Status status) throws Exception {
+                        if (status.code == PreviewHelper.Status.EVENT_CROPPED) {
+                            Bitmap faceBitmap = (Bitmap) status.payload;
+                            signUpFace(faceBitmap);
+                        }
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Consumer<PreviewHelper.Status>() {
                     @Override
                     public void accept(PreviewHelper.Status status) throws Exception {
-                        if (status.code == PreviewHelper.Status.EVENT_CROPPED_BITMAP) {
-                            binding.ivAnimation.setImageBitmap((Bitmap) status.payload);
+                        if (status.code == PreviewHelper.Status.EVENT_CROPPED) {
+                            Bitmap faceBitmap = (Bitmap) status.payload;
+                            binding.ivAnimation.setImageBitmap(faceBitmap);
                         }
                     }
                 })
@@ -64,9 +78,30 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
                 .subscribe();
     }
 
+    private void signUpFace(Bitmap faceBitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        faceBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] faceData = baos.toByteArray();
+        String faceId = "";
+        viewModel.signUp(faceData, faceId)
+                .subscribeOn(Schedulers.io())
+                .doOnNext(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+
+                    }
+                })
+                .doOnError(new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                })
+                .subscribe();
+    }
 
     public void goBack() {
-        mPreviewHelper.addBuffer();
+        mPreviewHelper.addBuffer(0);
 //        finish();
     }
 
