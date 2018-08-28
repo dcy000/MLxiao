@@ -44,6 +44,13 @@
             android:onClick="@{() -> presenter.goBack()}"
             android:text="返回"
             android:textSize="48pt" />
+
+        <ImageView
+            android:id="@+id/iv_preview"
+            android:layout_width="760pt"
+            android:layout_height="760pt"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </layout>

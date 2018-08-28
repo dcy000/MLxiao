@@ -1,0 +1,109 @@
+package com.gcml.task.ui;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.gcml.common.widget.RecyclerForScrollView;
+import com.gcml.task.R;
+import com.gcml.task.adapter.TaskMenuAdapter;
+import com.gcml.task.bean.get.TaskBean;
+import com.gcml.task.widget.ListDividerItemDecoration;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TaskFinishFragment extends Fragment {
+
+    // 数据
+    private static String DATA_CONTENT = "dataContent";
+
+    TextView progressTitle, progressNumber, progressMessage, progressTag;
+    ImageView imagePeople1, imagePeople2, imagePeople3, imagePeople4, imagePeople5;
+    RecyclerForScrollView mRecycler;
+    TaskMenuAdapter mAdapter;
+    List<TaskBean.TaskListBean> mList = new ArrayList<>();
+
+    public static TaskFinishFragment newInstance(List<TaskBean.TaskListBean> mData) {
+        TaskFinishFragment fragment = new TaskFinishFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(DATA_CONTENT, (Serializable) mData);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view = View.inflate(getActivity(), R.layout.fragment_task_finish, null);
+
+        Bundle arguments = getArguments();
+        mList = (List<TaskBean.TaskListBean>) arguments.getSerializable(DATA_CONTENT);
+        bindView(view);
+        bindData(mList);
+        return view;
+    }
+
+    private void bindView(View view) {
+        progressTitle = view.findViewById(R.id.tv_task_title);
+        progressNumber = view.findViewById(R.id.tv_task_progress);
+        progressMessage = view.findViewById(R.id.tv_task_message);
+        imagePeople1 = view.findViewById(R.id.iv_task_people1);
+        imagePeople2 = view.findViewById(R.id.iv_task_people2);
+        imagePeople3 = view.findViewById(R.id.iv_task_people3);
+        imagePeople4 = view.findViewById(R.id.iv_task_people4);
+        imagePeople5 = view.findViewById(R.id.iv_task_people5);
+        progressTag = view.findViewById(R.id.tv_task_tag);
+        mRecycler = view.findViewById(R.id.rv_task);
+    }
+
+    private void bindData(List<TaskBean.TaskListBean> list) {
+        int progress = 50;
+        if (progress < 20) {
+            imagePeople1.setVisibility(View.VISIBLE);
+            imagePeople2.setVisibility(View.GONE);
+            imagePeople3.setVisibility(View.GONE);
+            imagePeople4.setVisibility(View.GONE);
+            imagePeople5.setVisibility(View.GONE);
+        } else if (progress < 40) {
+            imagePeople1.setVisibility(View.GONE);
+            imagePeople2.setVisibility(View.VISIBLE);
+            imagePeople3.setVisibility(View.GONE);
+            imagePeople4.setVisibility(View.GONE);
+            imagePeople5.setVisibility(View.GONE);
+        } else if (progress <60) {
+            imagePeople1.setVisibility(View.GONE);
+            imagePeople2.setVisibility(View.GONE);
+            imagePeople3.setVisibility(View.VISIBLE);
+            imagePeople4.setVisibility(View.GONE);
+            imagePeople5.setVisibility(View.GONE);
+        } else if (progress < 80) {
+            imagePeople1.setVisibility(View.GONE);
+            imagePeople2.setVisibility(View.GONE);
+            imagePeople3.setVisibility(View.GONE);
+            imagePeople4.setVisibility(View.VISIBLE);
+            imagePeople5.setVisibility(View.GONE);
+        } else if (progress < 100) {
+            imagePeople1.setVisibility(View.GONE);
+            imagePeople2.setVisibility(View.GONE);
+            imagePeople3.setVisibility(View.GONE);
+            imagePeople4.setVisibility(View.GONE);
+            imagePeople5.setVisibility(View.VISIBLE);
+        }
+        progressTitle.setText("今日任务已完成");
+        progressNumber.setText(progress + "%");
+        progressMessage.setText("的人被您超越");
+        progressTag.setText("您还可以:");
+        mAdapter = new TaskMenuAdapter(R.layout.item_task_daily, list);
+        mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecycler.addItemDecoration(new ListDividerItemDecoration(
+                getContext(), LinearLayoutManager.VERTICAL, 20, getResources().getColor(R.color.config_color_white)));
+        mRecycler.setAdapter(mAdapter);
+    }
+}

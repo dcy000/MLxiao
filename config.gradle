@@ -17,17 +17,17 @@ ext {
     developUrl = api.testUrl
 
     //线上正式运行的IP地址
-    produceUrl = api.produceUrl
+    produceUrl = api.testUrl
 
     baseUrls = [
-            "debug"  : "\"http://47.96.98.60:8080/\"",
+            "debug"  : "\"http://192.168.200.117:8080/\"",
             "release": "\"http://47.96.98.60:8080/\"",
     ]
 
     android = [
             compileSdkVersion: 27,
             buildToolsVersion: "27.0.3",
-            minSdkVersion    : 17,
+            minSdkVersion    : 19,
             targetSdkVersion : 27,
             versionCode      : 17,
             versionName      : "1.2.5"

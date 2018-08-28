@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.gcml.common.business.R;
 
 /**
- * 支持渐变的 ToolBar
+ * 支持渐变的ToolBar
  */
 
 public final class TranslucentToolBar extends LinearLayout {

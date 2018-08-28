@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.medlink.mall.R;
-import com.medlink.mall.ui.MallActivity;
+import com.gcml.mall.R;
+import com.gcml.mall.ui.MallActivity;
 
 public class TestMallActivity extends AppCompatActivity implements View.OnClickListener {
 
