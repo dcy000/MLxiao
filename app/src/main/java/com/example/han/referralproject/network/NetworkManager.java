@@ -33,7 +33,7 @@ public class NetworkManager {
         GET, POST
     }
 
-    private NetworkManager(){
+    private NetworkManager() {
         client = new OkHttpClient();
         mGson = new Gson();
         mContext = MyApplication.getInstance();
@@ -141,7 +141,7 @@ public class NetworkManager {
         Callback responseCallback = new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
-                if (e instanceof ConnectException){
+                if (e instanceof ConnectException) {
                     handleFailedRequest("请检查网络连接");
                 } else {
                     handleFailedRequest(e.getMessage());
@@ -171,15 +171,15 @@ public class NetworkManager {
                     public void run() {
                         try {
                             JSONObject responseObject = new JSONObject(response);
-                            if (responseObject.getBoolean("tag")) {
+                            if (responseObject.optBoolean("tag")) {
                                 if (type == null) {
-                                    successCallback.onSuccess(responseObject.getString("data"));
+                                    successCallback.onSuccess(responseObject.optString("data"));
                                 } else if (type instanceof Class || type instanceof Type) {
-                                    successCallback.onSuccess(mGson.fromJson(responseObject.getString("data"),
+                                    successCallback.onSuccess(mGson.fromJson(responseObject.optString("data"),
                                             type instanceof Class ? (Class) type : (Type) type));
                                 }
                             } else {
-                                setDefaultFailed(responseObject.getString("message"));
+                                setDefaultFailed(responseObject.optString("message"));
                             }
                         } catch (Exception e) {
                             if (e == null) {

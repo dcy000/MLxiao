@@ -226,6 +226,7 @@ public class AlertSmokeActivity extends BaseActivity {
                                 speak("主人，您的吸烟情况已经修改为" + "从不吸烟");
                                 break;
                         }
+                        finish();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
