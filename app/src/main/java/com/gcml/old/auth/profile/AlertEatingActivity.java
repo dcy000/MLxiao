@@ -249,11 +249,12 @@ public class AlertEatingActivity extends BaseActivity {
                                 speak("主人，您的饮食情况已经修改为" + "偏好甜食");
                                 break;
                         }
+                        finish();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-
+                        finish();
                     }
                 });
     }

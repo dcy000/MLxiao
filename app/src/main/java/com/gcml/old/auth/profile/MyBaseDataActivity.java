@@ -140,11 +140,11 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mNumber.setText(response.eqid);
                 String sports = HealthInfo.SPORTS_MAP.get(response.exerciseHabits);
                 mMotion.setText(TextUtils.isEmpty(sports) ? "尚未填写" : sports);
-                String smoke = HealthInfo.SPORTS_MAP.get(response.smoke);
+                String smoke = HealthInfo.SMOKE_MAP.get(response.smoke);
                 mSmoke.setText(TextUtils.isEmpty(smoke) ? "尚未填写" : smoke);
-                String eat = HealthInfo.SPORTS_MAP.get(response.eatingHabits);
+                String eat = HealthInfo.EAT_MAP.get(response.eatingHabits);
                 mEating.setText(TextUtils.isEmpty(eat) ? "尚未填写" : eat);
-                String drink = HealthInfo.SPORTS_MAP.get(response.drink);
+                String drink = HealthInfo.DRINK_MAP.get(response.drink);
                 mDrinking.setText(TextUtils.isEmpty(drink) ? "尚未填写" : drink);
                 mAddress.setText(TextUtils.isEmpty(response.dz) ? "尚未填写" : response.dz);
                 String deseaseHistory = HealthInfo.getDeseaseHistory(response.mh);
