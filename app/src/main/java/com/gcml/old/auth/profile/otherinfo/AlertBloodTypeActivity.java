@@ -5,13 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
 import com.gcml.old.auth.register.SelectAdapter;
 import com.google.gson.Gson;
@@ -28,56 +28,79 @@ import java.util.List;
 
 import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
 
-public class AlertSexActivity extends AppCompatActivity implements View.OnClickListener {
+public class AlertBloodTypeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TranslucentToolBar mTbSex;
+    private TranslucentToolBar tbBloodTypeTitle;
     /**
-     * 您的性别
+     * 您的血型
      */
-    private TextView mTvSignUpHeight;
-    private RecyclerView mRvSignUpContent;
+    private TextView tvSignUpHeight;
+    private RecyclerView rvSignUpContent;
     /**
      * 上一步
      */
-    private TextView mTvSignUpGoBack;
+    private TextView tvSignUpGoBack;
     /**
      * 下一步
      */
-    private TextView mTvSignUpGoForward;
+    private TextView tvSignUpGoForward;
+    private List<String> strings = new ArrayList<>();
     private int currentPositon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alert_sex);
+        setContentView(R.layout.activity_alert_blood_type);
         initView();
         initData();
         initRV();
     }
 
-    private List<String> strings = new ArrayList<>();
+    private void initRV() {
+        GalleryLayoutManager manager = new GalleryLayoutManager(1);
+        manager.attach(rvSignUpContent, 1);
+        manager.setCallbackInFling(true);
+        manager.setOnItemSelectedListener(new GalleryLayoutManager.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(RecyclerView recyclerView, View view, int positon) {
+                currentPositon = positon;
+                ToastUtils.showShort(strings.get(positon));
+            }
+        });
+
+        SelectAdapter adapter = new SelectAdapter();
+        adapter.setStrings(strings);
+        adapter.setOnItemClickListener(new SelectAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                rvSignUpContent.smoothScrollToPosition(position);
+            }
+        });
+
+        rvSignUpContent.setAdapter(adapter);
+    }
 
     private void initData() {
-        strings = Arrays.asList("男", "女");
+        strings = Arrays.asList("AB", "A", "B", "O");
     }
 
     private void initView() {
-        mTbSex = (TranslucentToolBar) findViewById(R.id.tb_sex_title);
-        mTvSignUpHeight = (TextView) findViewById(R.id.tv_sign_up_height);
-        mRvSignUpContent = (RecyclerView) findViewById(R.id.rv_sign_up_content);
-        mTvSignUpGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
-        mTvSignUpGoBack.setOnClickListener(this);
-        mTvSignUpGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
-        mTvSignUpGoForward.setOnClickListener(this);
+        tbBloodTypeTitle = (TranslucentToolBar) findViewById(R.id.tb_blood_type_title);
+        tvSignUpHeight = (TextView) findViewById(R.id.tv_sign_up_height);
+        rvSignUpContent = (RecyclerView) findViewById(R.id.rv_sign_up_content);
+        tvSignUpGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
+        tvSignUpGoBack.setOnClickListener(this);
+        tvSignUpGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
+        tvSignUpGoForward.setOnClickListener(this);
 
-        mTvSignUpGoBack.setText("取消");
-        mTvSignUpGoForward.setText("确定");
-        mTbSex.setData("修改姓名", R.drawable.common_icon_back, "返回",
+
+        tvSignUpGoBack.setText("取消");
+        tvSignUpGoForward.setText("确定");
+        tbBloodTypeTitle.setData("修 改 血 型", R.drawable.common_icon_back, "返回",
                 0, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
-
-
+                        finish();
                     }
 
                     @Override
@@ -86,28 +109,6 @@ public class AlertSexActivity extends AppCompatActivity implements View.OnClickL
                     }
                 });
 
-
-    }
-
-    private void initRV() {
-        GalleryLayoutManager manager = new GalleryLayoutManager(1);
-        manager.attach(mRvSignUpContent, 1);
-        manager.setCallbackInFling(true);
-        manager.setOnItemSelectedListener((recyclerView, view, positon) -> {
-            currentPositon = positon;
-            Toast.makeText(AlertSexActivity.this, strings.get(positon), Toast.LENGTH_SHORT).show();
-        });
-
-        SelectAdapter adapter = new SelectAdapter();
-        adapter.setStrings(strings);
-        adapter.setOnItemClickListener(new SelectAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                mRvSignUpContent.smoothScrollToPosition(position);
-            }
-        });
-
-        mRvSignUpContent.setAdapter(adapter);
     }
 
     @Override
@@ -125,11 +126,10 @@ public class AlertSexActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void nextStep() {
-        String seletedSex = strings.get(currentPositon);
-
+        String seletedType = strings.get(currentPositon);
         PUTUserBean bean = new PUTUserBean();
         bean.bid = Integer.parseInt(LocalShared.getInstance(this).getUserId());
-        bean.sex = seletedSex;
+        bean.bloodType = seletedType;
 
         NetworkApi.putUserInfo(bean.bid, new Gson().toJson(bean), new StringCallback() {
             @Override
@@ -165,4 +165,6 @@ public class AlertSexActivity extends AppCompatActivity implements View.OnClickL
     private void speak(String text) {
         MLVoiceSynthetize.startSynthesize(this, text, false);
     }
+
+
 }

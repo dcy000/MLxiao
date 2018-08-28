@@ -315,12 +315,14 @@ public class AlertAddressActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Object response) {
                         ToastUtils.showShort("修改成功");
-                        speak("主人，您的地址已经修改成功");
+                        speak("修改成功");
+                        finish();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-
+                        ToastUtils.showShort("修改失败");
+                        finish();
                     }
                 });
 //        LocalShared.getInstance(this.getApplicationContext()).setSignUpAddress(getAddress());

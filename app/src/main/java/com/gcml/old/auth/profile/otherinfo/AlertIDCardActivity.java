@@ -154,9 +154,4 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
         MLVoiceSynthetize.startSynthesize(this, text, false);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        MLVoiceSynthetize.stop();
-    }
 }

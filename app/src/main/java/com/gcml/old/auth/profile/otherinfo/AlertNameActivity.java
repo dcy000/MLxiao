@@ -116,9 +116,4 @@ public class AlertNameActivity extends AppCompatActivity implements View.OnClick
         MLVoiceSynthetize.startSynthesize(this, text, false);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        MLVoiceSynthetize.stop();
-    }
 }

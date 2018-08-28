@@ -100,7 +100,7 @@ public class MLVoiceSynthetize {
      * 开始合成
      */
     public static void startSynthesize(Context context, String text,boolean whine) {
-        startSynthesize(context, whine, text);
+        startSynthesize(context.getApplicationContext(), whine, text);
     }
 
     /**

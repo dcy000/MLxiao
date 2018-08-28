@@ -22,6 +22,7 @@ import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.old.auth.entity.HealthInfo;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.gcml.old.auth.profile.otherinfo.AlertAgeActivity;
+import com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity;
 import com.gcml.old.auth.profile.otherinfo.AlertIDCardActivity;
 import com.gcml.old.auth.profile.otherinfo.AlertNameActivity;
 import com.gcml.old.auth.profile.otherinfo.AlertSexActivity;
@@ -276,7 +277,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.ll_blood_info:
                 //修改血型
-//                startActivity(new Intent(this, AlertBloodTypeActivity.class));
+                startActivity(new Intent(this, AlertBloodTypeActivity.class));
                 break;
             case R.id.ll_name_info:
                 //修改姓名

@@ -211,7 +211,8 @@ public class AlertHeightActivity extends BaseActivity {
                     public void onSuccess(Object response) {
                         LocalShared.getInstance(AlertHeightActivity.this).setUserHeight(height);
                         com.gcml.lib_utils.display.ToastUtils.showShort("修改成功");
-                        speak("主人，您的身高已经修改为" + height + "厘米");
+//                        speak("主人，您的身高已经修改为" + height + "厘米");
+                        speak("修改成功");
 
                     }
                 }, new NetworkManager.FailedCallback() {

@@ -158,9 +158,4 @@ public class AlertAgeActivity extends AppCompatActivity implements View.OnClickL
         MLVoiceSynthetize.startSynthesize(this, text, false);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        MLVoiceSynthetize.stop();
-    }
 }

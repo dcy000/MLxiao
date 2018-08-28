@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.gcml.common.widget.toolbar.TranslucentToolBar
-        android:id="@+id/tb_sex_title"
-        android:layout_width="match_parent"
+        android:id="@+id/tb_blood_type_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"></com.gcml.common.widget.toolbar.TranslucentToolBar>
 
     <TextView
@@ -14,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:gravity="center"
-        android:text="您的性别"
+        android:text="您的血型"
         android:textColor="#8C8C8C"
         android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"

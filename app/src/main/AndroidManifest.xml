@@ -715,7 +715,8 @@
         <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertNameActivity" />
         <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertAgeActivity" />
         <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertIDCardActivity" />
-        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertSexActivity"></activity>
+        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertSexActivity" />
+        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity"></activity>
     </application>
 
 </manifest>
