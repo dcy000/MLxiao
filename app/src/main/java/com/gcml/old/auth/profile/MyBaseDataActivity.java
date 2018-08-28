@@ -9,9 +9,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
+import com.gcml.lib_utils.data.StringUtil;
 import com.gcml.old.auth.entity.HealthInfo;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
@@ -21,6 +26,10 @@ import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by gzq on 2017/11/24.
@@ -228,10 +237,10 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(this, AlertDrinkingActivity.class).putExtra("data", response));
                 break;
             case R.id.ll_history:
-                startActivity(new Intent(this,AlertMHActivity.class).putExtra("data",response));
+                startActivity(new Intent(this, AlertMHActivity.class).putExtra("data", response));
                 break;
             case R.id.address:
-                startActivity(new Intent(this,AlertAddressActivity.class).putExtra("data",response));
+                startActivity(new Intent(this, AlertAddressActivity.class).putExtra("data", response));
                 break;
             case R.id.tv_reset:
                 LocalShared.getInstance(mContext).reset();
@@ -239,6 +248,20 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
+            case R.id.head:
+                CC.obtainBuilder("face_recognition")
+                        .setActionName("To_RegisterHead2XunfeiActivity")
+                        .addParam("key_xfid", StringUtil.produceXfid())
+                        .build().callAsyncCallbackOnMainThread((cc, result) -> {
+                    if ("RegistHeadSuccess".equals(result.getDataItem("key_cc_callback"))) {
+
+
+                    }
+
+                });
+                break;
+
         }
     }
+
 }

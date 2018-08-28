@@ -29,12 +29,12 @@ public final class TranslucentToolBar extends LinearLayout {
     }
 
     public TranslucentToolBar(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs,0);
     }
 
     public TranslucentToolBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
     }
 
     private void init() {

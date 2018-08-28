@@ -59,7 +59,7 @@
                 android:textSize="40pt" />
         </LinearLayout>
 
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_bloodsugar_empty"
             android:layout_width="match_parent"
             android:layout_height="32pt"
@@ -102,7 +102,7 @@
                 android:textSize="40pt" />
         </LinearLayout>
 
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_bloodsugar_one"
             android:layout_width="match_parent"
             android:layout_height="32pt"
@@ -145,7 +145,7 @@
                 android:textSize="40pt" />
         </LinearLayout>
 
-        <com.example.han.referralproject.view.progress.RxRoundProgressBar
+        <com.gcml.lib_widget.progressbar.RoundProgressBar
             android:id="@+id/rpb_bloodsugar_two"
             android:layout_width="match_parent"
             android:layout_height="32pt"

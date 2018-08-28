@@ -192,7 +192,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
         }
 
         @Override
-        public void openCameraFail(Exception e) {
+        public void openCameraFail(Throwable e) {
             Timber.e("启动设备失败");
         }
 
@@ -409,6 +409,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                     //该组不存在;无效的参数
                     createGroup(userid, xfid);
                 } else {
+                    // 加组失败也上传头像
                     uploadHeadToSelf(userid, xfid);
                 }
 
@@ -457,7 +458,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                         CCResultActions.onCCResultAction(SendResultActionNames.ON_ERROR);
                         return;
                     }
-                    FaceRepository.syncRegistHeadUrl(imageUrl)
+                    FaceRepository.syncRegistHeadUrl(imageUrl, xfid)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .doOnNext(new Consumer<Object>() {
@@ -478,7 +479,17 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
 
                                 @Override
                                 public void onError(Throwable e) {
+                                    if (e instanceof NullPointerException) {
+                                        LoadingProgressUtils.dismissView();
+                                        CCResultActions.onCCResultAction(SendResultActionNames.REGIST_HEAD_SUCCESS);
+                                        ToastUtils.showShort("更换头像成功");
+                                        finish();
+                                        return;
+                                    }
+                                    LoadingProgressUtils.dismissView();
+                                    CCResultActions.onCCResultAction(SendResultActionNames.ON_ERROR);
                                     ToastUtils.showShort("save to our server fail");
+                                    finish();
                                 }
 
                                 @Override

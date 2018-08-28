@@ -15,8 +15,8 @@
     com.vmloft.develop.library.tools,
     com.example.fixedfloatwindow,
     com.polidea.rxandroidble2,
-    com.carlos.voiceline.mylibrary" />
-
+    com.carlos.voiceline.mylibrary,
+    com.gcml.lib_widget"/>
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <!-- 如果需要实时音视频通话模块，下面的权限也是必须的。否则，可以不加 -->
@@ -89,10 +89,11 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+
     <!-- Bugly -->
-    <!--<uses-permission-->
-    <!--android:name="android.permission.READ_LOGS"-->
-    <!--tools:ignore="ProtectedPermissions" />-->
+    <!-- <uses-permission -->
+    <!-- android:name="android.permission.READ_LOGS" -->
+    <!-- tools:ignore="ProtectedPermissions" /> -->
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
@@ -174,17 +175,6 @@
             android:name=".activity.MessageActivity"
             android:screenOrientation="landscape" />
 
-        <service
-            android:name=".xindian.ReceiveService"
-            android:enabled="true" />
-
-        <activity
-            android:name=".xueya.XueyaActivity"
-            android:largeHeap="true"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".PlayVideoActivity"
-            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.DetectActivity"
             android:screenOrientation="landscape" />
@@ -234,13 +224,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".xueya.AttentionActivity"
-            android:largeHeap="true"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".xindian.XindianActivity" />
         <activity
             android:name=".facerecognition.RegisterVideoActivity"
             android:screenOrientation="landscape"
@@ -360,7 +345,6 @@
         <activity
             android:name="com.gcml.old.auth.register.simple.SignUp02MobileVerificationActivity"
             android:taskAffinity="com.medlink.fastsignup" />
-
         <activity
             android:name=".recharge.PayActivity"
             android:screenOrientation="landscape" />
@@ -457,7 +441,6 @@
         <activity
             android:name=".recyclerview.DoctorAskGuideActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".recharge.DefineActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -596,7 +579,6 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".children.study.ChildEduStories2Activity" />
-
         <activity
             android:name=".tool.DateInquireActivity"
             android:screenOrientation="landscape" />
@@ -710,15 +692,6 @@
             android:name=".physicalexamination.activity.MonitorResultActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".AllMeasureActivity"
-            android:label="所有测量界面的载体Activity"
-            android:screenOrientation="landscape" />
-
-        <activity
-            android:name=".video.MeasureVideoPlayActivity"
-            android:label="测量演示视频播放界面"
-            android:screenOrientation="landscape" />
-        <activity
             android:name="com.gcml.module_health_record.HealthRecordActivity"
             android:label="历史测量数据界面"
             android:screenOrientation="landscape" />
@@ -746,10 +719,13 @@
         <activity android:name=".hypertensionmanagement.activity.NormalHightActivity" />
         <activity android:name=".hypertensionmanagement.activity.BloodPressureMeasureActivity" />
         <activity android:name=".hypertensionmanagement.activity.BloodClucoseMeasureActivity" />
-        <activity android:name=".hypertensionmanagement.activity.WeightMeasureActivity"></activity>
+        <activity android:name=".hypertensionmanagement.activity.WeightMeasureActivity" />
         <activity android:name=".settting.activity.FactoryTestActivity" />
         <activity android:name=".settting.activity.ScreenPointActivity" />
         <activity android:name=".settting.activity.ScreenTouchActivity" />
+        <activity android:name=".tcm.activity.HealthManagementResultActivity" />
+        <activity android:name=".tcm.activity.OlderHealthManagementSerciveActivity" />
+        <activity android:name=".tcm.SymptomCheckActivity"></activity>
     </application>
 
 </manifest>

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.MonthlyReport;
-import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,7 +54,7 @@ public class MonthlyReport3Fragment extends Fragment {
     @BindView(R.id.tv_progress2)
     TextView tvProgress2;
     @BindView(R.id.rpb_sum)
-    RxTextRoundProgressBar rpbSum;
+    TextRoundProgressBar rpbSum;
     @BindView(R.id.ll_right)
     LinearLayout llRight;
     Unbinder unbinder;

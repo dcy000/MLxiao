@@ -559,7 +559,7 @@
             android:textSize="72pt"
             android:textStyle="bold" />
 
-        <com.example.han.referralproject.view.progress.RxTextRoundProgressBar
+        <com.gcml.lib_widget.progressbar.TextRoundProgressBar
             android:id="@+id/rpb_sum"
             android:layout_width="match_parent"
             android:layout_height="40pt"

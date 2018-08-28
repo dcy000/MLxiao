@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.Chronometer;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
+import com.example.han.referralproject.cc.CCVideoActions;
 import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -26,9 +29,6 @@ import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.lib_utils.network.WiFiUtil;
 
 import java.util.ArrayList;
-
-import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerStandard;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -151,87 +151,41 @@ public class WelcomeActivity extends AppCompatActivity {
         VolumeControlFloatwindow.init(this.getApplicationContext());
     }
 
-    @Override
-    protected void onPause() {
-        JZVideoPlayerStandard.releaseAllVideos();
-        super.onPause();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (JZVideoPlayerStandard.backPress()) {
-            return;
-        }
-        super.onBackPressed();
-    }
-
     private void playVideo() {
         boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
-//        if (isFirstIn) {
         if (false) {
-            JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-            JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-            JZVideoPlayerStandard.startFullscreen(this, MyVideoPlayer.class, VEDIO_URL, "迈联智慧");
+            jump2NormalVideoPlayActivity(VEDIO_URL,"迈联智慧");
         } else {
             checkVersion();
         }
     }
 
-    public static class MyVideoPlayer extends JZVideoPlayerStandard {
-        private WelcomeActivity mWelcomeActivity;
-
-        public MyVideoPlayer(Context context) {
-            super(context);
-        }
-
-        @Override
-        public int getLayoutId() {
-            return R.layout.ml_player_splash;
-        }
-
-        @Override
-        public void init(Context context) {
-            super.init(context);
-            findViewById(R.id.common_tv_action).setOnClickListener(this);
-            backButton.setVisibility(GONE);
-            batteryTimeLayout.setVisibility(GONE);
-            try {
-                mWelcomeActivity = (WelcomeActivity) context;
-            } catch (Throwable e) {
-                mWelcomeActivity = null;
-                e.printStackTrace();
-            }
-
-            backButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    MyVideoPlayer.this.onClick(v);
-                    if (mWelcomeActivity != null) {
-                        mWelcomeActivity.onVideoPlayedComplete();
-                    }
-                }
-            });
-        }
-
-        @Override
-        public void onClick(View v) {
-            super.onClick(v);
-            if (v.getId() == R.id.common_tv_action) {
-                backPress();
-                if (mWelcomeActivity != null) {
-                    mWelcomeActivity.onVideoPlayedComplete();
+    public void jump2NormalVideoPlayActivity(String url, String title) {
+        CC.obtainBuilder(CCVideoActions.MODULE_NAME)
+                .setActionName(CCVideoActions.SendActionNames.TO_NORMALVIDEOPLAYACTIVITY)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URI, null)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URL, url)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_TITLE, title)
+                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+            @Override
+            public void onResult(CC cc, CCResult result) {
+                String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
+                switch (resultAction) {
+                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
+                        //点击了返回按钮
+                        break;
+                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_SKIP:
+                        //点击了跳过按钮
+                        onVideoPlayedComplete();
+                        break;
+                    case CCVideoActions.ReceiveResultActionNames.VIDEO_PLAY_END:
+                        //视屏播放结束
+                        onVideoPlayedComplete();
+                        break;
+                    default:
                 }
             }
-        }
-
-        @Override
-        public void onStateAutoComplete() {
-            super.onStateAutoComplete();
-            backPress();
-            if (mWelcomeActivity != null) {
-                mWelcomeActivity.onVideoPlayedComplete();
-            }
-        }
+        });
     }
 
     private void onVideoPlayedComplete() {

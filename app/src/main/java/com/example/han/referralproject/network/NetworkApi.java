@@ -585,7 +585,18 @@ public class NetworkApi {
 
         NetworkManager.getInstance().postResultClass(ORDER_INFO, paramsMap, Order.class, listener, failedCallback);
     }
+    public static void preparingPay(String userid, String eqid, String articles, String number, String price, String photo, String time, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("userid", userid);
+        paramsMap.put("eqid", eqid);
+        paramsMap.put("articles", articles);
+        paramsMap.put("number", number);
+        paramsMap.put("price", price);
+        paramsMap.put("photo", photo);
+        paramsMap.put("time", time);
 
+        NetworkManager.getInstance().postResultString(ORDER_INFO, paramsMap, listener, failedCallback);
+    }
     public static void pay_status(String userid, String eqid, String orderid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", userid);
@@ -1299,5 +1310,28 @@ public class NetworkApi {
                 .execute(callback);
     }
 
+
+    /**
+     * 老年人中医药健康管理服务记录表
+     */
+
+    public static String TCM_HEALTH_MANAGER_FOR_OLDER = /*BasicUrl + */"http://118.31.73.176:8080/ZZB/api/health/inquiry/constitution/questionnaire/";
+
+    public static void getHealthManagementForOlder(StringCallback stringCallback) {
+        OkGo.<String>get(TCM_HEALTH_MANAGER_FOR_OLDER).headers("equipmentId", Utils.getDeviceId()).execute(stringCallback);
+    }
+
+
+    /**
+     * 老年人中医药健康管理服务记录表  提交答案
+     */
+    public static String POST_HEALTH_MANAGEMENT_ANWSER_URL = /*BasicUrl + */"http://118.31.73.176:8080/ZZB/api/health/inquiry/constitution/questionnaire/";
+
+    public static void postHealthManagementAnwser(String anwserJson, StringCallback callback) {
+        OkGo.<String>post(POST_HEALTH_MANAGEMENT_ANWSER_URL)
+                .headers("equipmentId", Utils.getDeviceId())
+                .upJson(anwserJson)
+                .execute(callback);
+    }
 
 }

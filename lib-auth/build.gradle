@@ -14,6 +14,9 @@ android {
     }
 
     defaultConfig {
+        if (project.ext.runAsApp) {
+            applicationId "com.gcml.auth"
+        }
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode 1
@@ -44,6 +47,11 @@ dependencies {
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["constraint-layout"]
     implementation rootProject.ext.dependencies["recyclerview-v7"]
+
+    implementation rootProject.ext.dependencies["room-runtime"]
+    implementation rootProject.ext.dependencies["room-rxjava2"]
+
+    annotationProcessor rootProject.ext.dependencies["room-compiler"]
 
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["runner"]

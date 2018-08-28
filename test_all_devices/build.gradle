@@ -5,7 +5,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         applicationId "com.gzq.test_all_devices"
         versionCode 1
@@ -63,4 +63,6 @@ dependencies {
     implementation project(':lib-utils')
 
     api 'com.android.support:multidex:1.0.0'
+    api rootProject.ext.dependencies["lifecycle-extensions"]
+    api rootProject.ext.dependencies["lifecycle-runtime"]
 }

@@ -31,8 +31,8 @@ import timber.log.Timber;
 
 public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     private DialogSure dialogSure;
-    private String tips_first = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行<font color='#F56C6C'>2–3次</font>测量。请先左手测量！";
-    private String tips_first_speak = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行2–3次测量。请先左手测量！";
+    private String tips_first = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行<font color='#F56C6C'>2–3次</font>测量。请先测量左手！";
+    private String tips_first_speak = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行2–3次测量。请先测量左手！";
     private boolean isJump2Next = false;
     private boolean isMeasureOver = false;
 
@@ -275,7 +275,6 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
 
             @Override
             public void onError() {
-                ToastUtils.showShort("上传数据失败");
             }
         });
     }
@@ -359,7 +358,6 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
 
     @Override
     protected void clickHealthHistory(View view) {
-        //TODO:为了测试方便注释掉 后面需要回复
         if (isMeasureOver) {
             if (fragmentChanged != null&&!isJump2Next) {
                 fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this,null);

@@ -74,9 +74,10 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
     private ObjectAnimator mBottomAnimator;
     private ObjectAnimator mTopAnimator;
     private TextView jump2Next;
-
-    public ControllerCover(Context context) {
+    private boolean isShowButtonSkip;
+    public ControllerCover(Context context,boolean isShowButtonSkip) {
         super(context);
+        this.isShowButtonSkip=isShowButtonSkip;
     }
 
     @Override
@@ -97,6 +98,11 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
         mSeekBar.setOnSeekBarChangeListener(onSeekBarChangeListener);
         jump2Next = getView().findViewById(R.id.jumpToNext);
         jump2Next.setOnClickListener(this);
+        if (isShowButtonSkip){
+            jump2Next.setVisibility(View.VISIBLE);
+        }else{
+            jump2Next.setVisibility(View.GONE);
+        }
         getGroupValue().registerOnGroupValueUpdateListener(mOnGroupValueUpdateListener);
 
     }

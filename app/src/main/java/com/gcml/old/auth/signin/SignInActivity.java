@@ -41,7 +41,6 @@ import com.example.han.referralproject.facerecognition.IJoinGroupListener;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.settting.activity.FactoryTestActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -84,7 +83,7 @@ public class SignInActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.auth_activity_sign_in);
+        setContentView(R.layout.auth_activity_sign_in_old);
         etPhone = (EditText) findViewById(R.id.et_sign_in_phone);
         clRoot = (ConstraintLayout) findViewById(R.id.cl_root);
         etPassword = (EditText) findViewById(R.id.et_sign_in_password);

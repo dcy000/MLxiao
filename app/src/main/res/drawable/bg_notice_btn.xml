@@ -5,7 +5,7 @@
 
         <shape android:shape="rectangle">
             <!--圆角-->
-            <corners android:radius="5dp" />
+            <corners android:radius="10pt" />
             <!--填充颜色-->
             <solid android:color="#ffbdd6fc" />
 
@@ -18,7 +18,7 @@
 
         <shape android:shape="rectangle">
             <!--圆角-->
-            <corners android:radius="5dp" />
+            <corners android:radius="10pt" />
             <!--填充颜色-->
             <solid android:color="#ff3f86fc" />
 

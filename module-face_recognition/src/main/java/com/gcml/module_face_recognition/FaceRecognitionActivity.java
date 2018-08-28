@@ -114,10 +114,12 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
     }
 
     public static void startActivity(Context context, Bundle bundle) {
-        Intent intent = new Intent(context, FaceRecognitionActivity.class)
-                .putExtras(bundle);
+        Intent intent = new Intent(context, FaceRecognitionActivity.class);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
         if (!(context instanceof Activity)) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
         context.startActivity(intent);
     }
@@ -219,7 +221,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
         }
 
         @Override
-        public void openCameraFail(Exception e) {
+        public void openCameraFail(Throwable e) {
             ToastUtils.showShort("打开摄像头失败");
             closeAnimation();
         }
@@ -383,7 +385,6 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
         super.onStop();
         destroyAnimation();
         CameraUtils.getInstance().closeCamera();
-        MLVoiceSynthetize.stop();
         LoadingProgressUtils.dismissView();
         FaceAuthenticationUtils.getInstance(mContext).cancelIdentityVerifier();
         cameraListener = null;
@@ -475,7 +476,9 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
 
                         @Override
                         public void onError(Throwable e) {
-
+                            if (e instanceof NullPointerException) {
+                                recognitionFail();
+                            }
                         }
 
                         @Override

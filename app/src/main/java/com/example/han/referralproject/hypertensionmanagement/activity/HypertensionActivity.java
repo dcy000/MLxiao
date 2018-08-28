@@ -124,6 +124,15 @@ public class HypertensionActivity extends BaseActivity implements MultipleChoice
         mRightText.setVisibility(View.GONE);
         mRightView.setImageResource(R.drawable.white_wifi_3);
         mRightView.setOnClickListener(v -> startActivity(new Intent(HypertensionActivity.this, WifiConnectActivity.class)));
+        mllBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (vp.getCurrentItem()==0){
+                    finish();
+                }
+                vp.setCurrentItem(vp.getCurrentItem() -1);
+            }
+        });
     }
 
     @Override

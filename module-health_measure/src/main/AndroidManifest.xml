@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.gcml.health.measure">
     <!--网络-->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -24,12 +25,14 @@
             android:label="智能诊断"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.gcml.health.measure.video.MeasureVideoPlayActivity"
-            android:label="演示视频播放界面"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".ecg.ECGConnectActivity"
             android:label="新店蓝牙连接动画界面"
             android:screenOrientation="landscape" />
+        <activity android:name=".single_measure.ShowMeasureBloodpressureResultActivity"
+            android:screenOrientation="landscape"
+            android:label="展示单测血压结果分析界面"/>
+        <activity android:name=".first_diagnosis.FirstDiagnosisActivity"
+            android:screenOrientation="landscape"
+            android:label="新的首诊容器Activity"/>
     </application>
 </manifest>

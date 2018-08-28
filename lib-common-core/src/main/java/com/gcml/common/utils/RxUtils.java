@@ -4,7 +4,10 @@ package com.gcml.common.utils;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.ObservableField;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -16,6 +19,7 @@ import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.AutoDisposeConverter;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -23,6 +27,7 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Cancellable;
 import io.reactivex.functions.Function;
 
@@ -85,23 +90,53 @@ public class RxUtils {
     }
 
     public static Observable<Integer> rxWifiLevel(Context context, int numsLevel) {
-        return Observable.interval(0,3, TimeUnit.SECONDS)
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                emitter.onNext("1");
+                BroadcastReceiver receiver = new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        emitter.onNext("1");
+                    }
+                };
+                IntentFilter filter = new IntentFilter(WifiManager.RSSI_CHANGED_ACTION);
+                context.getApplicationContext().registerReceiver(receiver, filter);
+                emitter.setCancellable(new Cancellable() {
+                    @Override
+                    public void cancel() throws Exception {
+                        context.getApplicationContext().unregisterReceiver(receiver);
+                    }
+                });
+            }
+        }).map(new Function<String, Integer>() {
+            @Override
+            public Integer apply(String s) throws Exception {
+                @SuppressLint("WifiManagerPotentialLeak")
+                WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                if (wm == null) {
+                    return 0;
+                }
+                @SuppressLint("MissingPermission")
+                WifiInfo wifiInfo = wm.getConnectionInfo();
+                String bssid = wifiInfo.getBSSID();
+                if (bssid == null) {
+                    return 0;
+                }
+                return WifiManager.calculateSignalLevel(wifiInfo.getRssi(), numsLevel);
+            }
+        }).distinct();
+    }
+
+    public static Observable<Integer> rxCountDown(int interval, int times) {
+        return Observable.interval(0, interval, TimeUnit.SECONDS)
                 .map(new Function<Long, Integer>() {
                     @Override
                     public Integer apply(Long aLong) throws Exception {
-                        @SuppressLint("WifiManagerPotentialLeak")
-                        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-                        if (wm == null) {
-                            return 0;
-                        }
-                        @SuppressLint("MissingPermission")
-                        WifiInfo wifiInfo = wm.getConnectionInfo();
-                        String bssid = wifiInfo.getBSSID();
-                        if (bssid == null) {
-                            return 0;
-                        }
-                        return WifiManager.calculateSignalLevel(wifiInfo.getRssi(), numsLevel);
+                        return times - aLong.intValue();
                     }
-                });
+                })
+                .take(times + 1);
+
     }
 }
