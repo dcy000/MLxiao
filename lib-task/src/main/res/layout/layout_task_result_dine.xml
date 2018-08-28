@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_shadow">
+
+    <RelativeLayout
+        android:id="@+id/rl_dine_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="22dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_task_result_left"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_dine_tag"/>
+
+        <TextView
+            android:id="@+id/tv_dine_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="总体分析"
+            android:textSize="32sp"
+            android:textColor="@color/task_color_base"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_task_result_right"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_dine_tag"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_task_result_line"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/rl_dine_top"/>
+
+    <LinearLayout
+        android:id="@+id/ll_dine_content1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="每日食盐摄入"
+            android:textSize="28sp"
+            android:textColor="@color/config_color_base_9"/>
+
+        <TextView
+            android:id="@+id/tv_dine_content1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="36sp"
+            android:textColor="@color/config_color_base_3"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_dine_content1"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="每日饮酒"
+            android:textSize="28sp"
+            android:textColor="@color/config_color_base_9"/>
+
+        <TextView
+            android:id="@+id/tv_dine_content3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="36sp"
+            android:textColor="@color/config_color_base_3"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_dine_content2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/line"
+        android:layout_marginRight="130dp"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="每日油脂摄入"
+            android:textSize="28sp"
+            android:textColor="@color/config_color_base_9"/>
+
+        <TextView
+            android:id="@+id/tv_dine_content2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text=""
+            android:textSize="28sp"
+            android:textColor="@color/config_color_base_3"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_dine_content2"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="130dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="每日吸烟        "
+            android:textSize="28sp"
+            android:textColor="@color/config_color_base_9"/>
+
+        <TextView
+            android:id="@+id/tv_dine_content4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text=""
+            android:textSize="36sp"
+            android:textColor="@color/config_color_base_3"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

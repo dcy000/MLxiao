@@ -29,6 +29,7 @@ include ':lib-common-core',
         ':component-cc',
         ':lib-call',
         ':lib-mall',
+        ':lib-task',
         ':lib-mlvoice',
         ':lib-auth',
         ':module-health_measure'

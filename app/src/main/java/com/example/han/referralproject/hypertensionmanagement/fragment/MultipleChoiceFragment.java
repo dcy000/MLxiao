@@ -255,5 +255,4 @@ public class MultipleChoiceFragment extends Fragment {
 
     private MultipleChoiceFragment.OnButtonClickListener listener;
 
-
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.medlink.mall">
+    package="com.gcml.mall">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
@@ -27,12 +27,12 @@
 
     <application>
         <activity
-            android:name=".ui.MallActivity"
+            android:name="com.gcml.mall.ui.MallActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
 
         <meta-data
-            android:name="com.medlink.mall.MallAppLifecycleCallbacks"
+            android:name="com.gcml.mall.MallAppLifecycleCallbacks"
             android:value="AppLifecycleCallbacks" />
     </application>
 
