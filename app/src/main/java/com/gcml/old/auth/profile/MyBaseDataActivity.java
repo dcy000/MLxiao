@@ -10,26 +10,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.cc.CCFaceRecognitionActions;
-import com.gcml.lib_utils.data.StringUtil;
-import com.gcml.old.auth.entity.HealthInfo;
-import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.lib_utils.data.StringUtil;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.old.auth.entity.HealthInfo;
+import com.gcml.old.auth.entity.UserInfoBean;
+import com.gcml.old.auth.profile.otherinfo.AlertAgeActivity;
+import com.gcml.old.auth.profile.otherinfo.AlertIDCardActivity;
+import com.gcml.old.auth.profile.otherinfo.AlertNameActivity;
+import com.gcml.old.auth.profile.otherinfo.AlertSexActivity;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
 
 /**
  * Created by gzq on 2017/11/24.
@@ -94,6 +91,13 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     private TextView mAddress;
     private TextView mHistory;
     private LinearLayout mLlHistory;
+    private LinearLayout mLlNameInfo;
+    private LinearLayout mLlAgeInfo;
+    private LinearLayout mLlSexInfo;
+    private LinearLayout mLlBloodInfo;
+    private LinearLayout mLlIdcardInfo;
+    private LinearLayout mLlAddressOnfo;
+    private CharSequence idCardCode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,7 +129,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                         .fit()
                         .into(mHead);
                 mName.setText(response.bname);
-
+                idCardCode = response.sfz;
                 mAge.setText(Utils.age(response.sfz) + "岁");
                 mSex.setText(TextUtils.isEmpty(response.sex) ? "尚未填写" : response.sex);
                 mHeight.setText(TextUtils.isEmpty(response.height) ? "尚未填写" : response.height + "cm");
@@ -145,7 +149,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 String deseaseHistory = HealthInfo.getDeseaseHistory(response.mh);
                 mHistory.setText(TextUtils.isEmpty(deseaseHistory) ? "尚未填写" : deseaseHistory);
 
-                String shenfen = response.sfz.substring(0, 5) + "********" + response.sfz.substring(response.sfz.length() - 5, response.sfz.length());
+                String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 4, response.sfz.length());
                 mIdcard.setText(shenfen);
             }
         }, new NetworkManager.FailedCallback() {
@@ -194,6 +198,20 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         mLlHistory = findViewById(R.id.ll_history);
         mLlHistory.setOnClickListener(this);
         findViewById(R.id.tv_reset).setOnClickListener(this);
+
+        findViewById(R.id.ll_address_onfo).setOnClickListener(this);
+        mLlNameInfo = (LinearLayout) findViewById(R.id.ll_name_info);
+        mLlNameInfo.setOnClickListener(this);
+        mLlAgeInfo = (LinearLayout) findViewById(R.id.ll_age_info);
+        mLlAgeInfo.setOnClickListener(this);
+        mLlSexInfo = (LinearLayout) findViewById(R.id.ll_sex_info);
+        mLlSexInfo.setOnClickListener(this);
+        mLlBloodInfo = (LinearLayout) findViewById(R.id.ll_blood_info);
+        mLlBloodInfo.setOnClickListener(this);
+        mLlIdcardInfo = (LinearLayout) findViewById(R.id.ll_idcard_info);
+        mLlIdcardInfo.setOnClickListener(this);
+        mLlAddressOnfo = (LinearLayout) findViewById(R.id.ll_address_onfo);
+        mLlAddressOnfo.setOnClickListener(this);
     }
 
     @Override
@@ -225,7 +243,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
             case R.id.ll_history:
                 startActivity(new Intent(this, AlertMHActivity.class).putExtra("data", response));
                 break;
-            case R.id.address:
+            case R.id.ll_address_onfo:
                 startActivity(new Intent(this, AlertAddressActivity.class).putExtra("data", response));
                 break;
             case R.id.tv_reset:
@@ -244,7 +262,32 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 });
                 break;
 
+            case R.id.ll_age_info:
+                //修改年龄
+                if (TextUtils.isEmpty(idCardCode)) {
+                    startActivity(new Intent(this, AlertAgeActivity.class));
+                } else {
+                    ToastUtils.showShort("年龄与身份证号关联,不可更改~");
+                }
+                break;
+            case R.id.ll_sex_info:
+                startActivity(new Intent(this, AlertSexActivity.class));
+                //修改性别
+                break;
+            case R.id.ll_blood_info:
+                //修改血型
+//                startActivity(new Intent(this, AlertBloodTypeActivity.class));
+                break;
+            case R.id.ll_name_info:
+                //修改姓名
+                startActivity(new Intent(this, AlertNameActivity.class));
+                break;
+            case R.id.ll_idcard_info:
+                //修改身份证号码
+                startActivity(new Intent(this, AlertIDCardActivity.class));
+                break;
         }
     }
+
 
 }

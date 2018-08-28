@@ -2,21 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.han.referralproject"
-    tools:overrideLibrary="com.witspring.mlrobot">
-    <!--解决下面这些库最低支持版本大于统一配置的最低版本-->
-    <uses-sdk tools:overrideLibrary="
-    tv.danmaku.ijk.media.player_arm64,
-    com.carlos.voiceline.mylibrary,
-    com.witspring.mlrobot,
-    com.megvii.faceppidcardui,
-    com.medlink.crash,
-    com.crazypumpkin.versatilerecyclerview.library,
-    com.linheimx.app.library,
-    com.vmloft.develop.library.tools,
-    com.example.fixedfloatwindow,
-    com.polidea.rxandroidble2,
-    com.carlos.voiceline.mylibrary,
-    com.gcml.lib_widget"/>
+    tools:overrideLibrary="com.witspring.mlrobot"> <!-- 解决下面这些库最低支持版本大于统一配置的最低版本 -->
+    <uses-sdk tools:overrideLibrary="     tv.danmaku.ijk.media.player_arm64,     com.carlos.voiceline.mylibrary,     com.witspring.mlrobot,     com.megvii.faceppidcardui,     com.medlink.crash,     com.crazypumpkin.versatilerecyclerview.library,     com.linheimx.app.library,     com.vmloft.develop.library.tools,     com.example.fixedfloatwindow,     com.polidea.rxandroidble2,     com.carlos.voiceline.mylibrary,     com.gcml.lib_widget" />
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <!-- 如果需要实时音视频通话模块，下面的权限也是必须的。否则，可以不加 -->
@@ -174,7 +161,6 @@
         <activity
             android:name=".activity.MessageActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".activity.DetectActivity"
             android:screenOrientation="landscape" />
@@ -725,7 +711,11 @@
         <activity android:name=".settting.activity.ScreenTouchActivity" />
         <activity android:name=".tcm.activity.HealthManagementResultActivity" />
         <activity android:name=".tcm.activity.OlderHealthManagementSerciveActivity" />
-        <activity android:name=".tcm.SymptomCheckActivity"></activity>
+        <activity android:name=".tcm.SymptomCheckActivity" />
+        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertNameActivity" />
+        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertAgeActivity" />
+        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertIDCardActivity" />
+        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertSexActivity"></activity>
     </application>
 
 </manifest>
