@@ -409,6 +409,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
                     //该组不存在;无效的参数
                     createGroup(userid, xfid);
                 } else {
+                    // 加组失败也上传头像
                     uploadHeadToSelf(userid, xfid);
                 }
 

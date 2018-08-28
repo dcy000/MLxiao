@@ -17,27 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:name="com.gcml.common.app.lifecycle.App">
-        <meta-data
-            android:name="com.gcml.common.repository.imageloader.glide.GlideImageLoader"
-            android:value="ImageLoader" />
-        <meta-data
-            android:name="com.gcml.common.app.quality.QualityAppLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks" />
-        <meta-data
-            android:name="debug.CCAppLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks" />
-        <meta-data
-            android:name="com.gcml.common.repository.RepositoryAppLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks" />
-        <meta-data
-            android:name="com.gcml.common.app.quality.AppActivityLifecycleCallbacks"
-            android:value="ActivityLifecycleCallbacks" />
-        <meta-data
-            android:name="com.gcml.common.app.quality.AppFragmentLifecycleCallbacks"
-            android:value="FragmentLifecycleCallbacks" />
-        <meta-data
-            android:name="debug.InitializationLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks" />
 
         <activity android:name="debug.MainActivity"
             android:screenOrientation="landscape">
