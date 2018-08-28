@@ -234,8 +234,12 @@ public class MultipleChoiceFragment extends Fragment {
                 gridView.setItemChecked(position, vh.cbSymptom.isChecked());
             }
 
-
+            //单选 点击翻页
             if (!arguments.getBoolean(IS_MULTIPLE_CHOOIC)) {
+                toNextPage();
+            }
+            //多选 点击无 翻页
+            if ("无".equals(items.get(position))) {
                 toNextPage();
             }
         }

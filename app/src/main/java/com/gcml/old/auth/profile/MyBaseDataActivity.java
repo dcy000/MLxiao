@@ -127,7 +127,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mName.setText(response.bname);
 
                 mAge.setText(Utils.age(response.sfz) + "岁");
-                mPhone.setText(TextUtils.isEmpty(response.sex) ? "尚未填写" : response.sex);
+                mSex.setText(TextUtils.isEmpty(response.sex) ? "尚未填写" : response.sex);
                 mHeight.setText(TextUtils.isEmpty(response.height) ? "尚未填写" : response.height + "cm");
                 mWeight.setText(TextUtils.isEmpty(response.weight) ? "尚未填写" : response.weight + "Kg");
                 mBlood.setText(TextUtils.isEmpty(response.bloodType) ? "尚未填写" : response.bloodType + "型");
@@ -158,6 +158,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
 
     private void initView() {
         mHead = findViewById(R.id.head);
+        mHead.setOnClickListener(this);
         mName = findViewById(R.id.name);
         mAge = findViewById(R.id.age);
         mSex = findViewById(R.id.sex);
@@ -185,28 +186,13 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         llEating.setOnClickListener(this);
         llDrinking.setOnClickListener(this);
 
-        mHead.setOnClickListener(this);
-        mName.setOnClickListener(this);
-        mAge.setOnClickListener(this);
-        mSex.setOnClickListener(this);
-        mBlood.setOnClickListener(this);
-        mHeight.setOnClickListener(this);
         mLlHeight = findViewById(R.id.ll_height);
-        mWeight.setOnClickListener(this);
         mLlWeight = findViewById(R.id.ll_weight);
-        mPhone.setOnClickListener(this);
-        mIdcard.setOnClickListener(this);
-        mNumber.setOnClickListener(this);
         mAddress = findViewById(R.id.address);
-        mMotion.setOnClickListener(this);
-        mSmoke.setOnClickListener(this);
-        mEating.setOnClickListener(this);
         mDrinking = findViewById(R.id.drinking);
-        mDrinking.setOnClickListener(this);
         mHistory = findViewById(R.id.history);
         mLlHistory = findViewById(R.id.ll_history);
         mLlHistory.setOnClickListener(this);
-        mAddress.setOnClickListener(this);
         findViewById(R.id.tv_reset).setOnClickListener(this);
     }
 
@@ -254,10 +240,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                         .addParam("key_xfid", StringUtil.produceXfid())
                         .build().callAsyncCallbackOnMainThread((cc, result) -> {
                     if ("RegistHeadSuccess".equals(result.getDataItem("key_cc_callback"))) {
-
-
                     }
-
                 });
                 break;
 
