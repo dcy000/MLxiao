@@ -5,6 +5,7 @@ import android.content.Context;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.IComponent;
 import com.gcml.health.measure.ecg.XinDianDetectActivity;
+import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.single_measure.AllMeasureActivity;
 import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
@@ -58,7 +59,8 @@ public class HealthMeasureCC implements IComponent {
                 MeasureChooseDeviceActivity.startActivity(context);
                 break;
             case ReceiveActionNames.FIRST_DIAGNOSIS:
-                HealthIntelligentDetectionActivity.startActivity(context);
+//                HealthIntelligentDetectionActivity.startActivity(context);
+                FirstDiagnosisActivity.startActivity(context);
                 break;
             case ReceiveActionNames.TO_ECG:
                 //TODO:此页面的跳转逻辑应该重新梳理

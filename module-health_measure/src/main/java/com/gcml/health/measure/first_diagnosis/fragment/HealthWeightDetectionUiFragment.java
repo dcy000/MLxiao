@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.gcml.health.measure.R;
+import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetailsModel;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
@@ -91,7 +92,7 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
                     fragmentChanged.onFragmentChanged(
                             HealthWeightDetectionUiFragment.this, null);
                 }
-                ((HealthIntelligentDetectionActivity) getActivity()).putCacheData(weightData);
+                ((FirstDiagnosisActivity) getActivity()).putCacheData(weightData);
             }
 
             @Override

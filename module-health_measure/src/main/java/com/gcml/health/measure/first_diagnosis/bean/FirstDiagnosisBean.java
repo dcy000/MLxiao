@@ -14,18 +14,9 @@ import java.util.List;
  * description:TODO
  */
 public class FirstDiagnosisBean {
-    private List<DetectionData> cacheDatas;
     private String fragmentTag;
     private Uri videoUri;
     private String videoTitle;
-
-    public List<DetectionData> getCacheDatas() {
-        return cacheDatas;
-    }
-
-    public void setCacheDatas(List<DetectionData> cacheDatas) {
-        this.cacheDatas = cacheDatas;
-    }
 
     public String getFragmentTag() {
         return fragmentTag;
@@ -51,8 +42,7 @@ public class FirstDiagnosisBean {
         this.videoTitle = videoTitle;
     }
 
-    public FirstDiagnosisBean(List<DetectionData> cacheDatas, String fragmentTag, Uri videoUri, String videoTitle) {
-        this.cacheDatas = cacheDatas;
+    public FirstDiagnosisBean(String fragmentTag, Uri videoUri, String videoTitle) {
         this.fragmentTag = fragmentTag;
         this.videoUri = videoUri;
         this.videoTitle = videoTitle;
