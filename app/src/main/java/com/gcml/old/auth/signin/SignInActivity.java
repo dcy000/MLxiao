@@ -29,10 +29,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.settting.activity.FactoryTestActivity;
 import com.gcml.old.auth.profile.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
