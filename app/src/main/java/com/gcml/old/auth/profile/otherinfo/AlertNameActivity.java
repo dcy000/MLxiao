@@ -1,5 +1,6 @@
 package com.gcml.old.auth.profile.otherinfo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -52,8 +54,8 @@ public class AlertNameActivity extends AppCompatActivity implements View.OnClick
 
         mTvSignUpGoBack.setText("取消");
         mTvSignUpGoForward.setText("确定");
-        mTvNameTitle.setData("修 改 姓 名", R.drawable.common_icon_back, "返回",
-                0, null, new ToolBarClickListener() {
+        mTvNameTitle.setData("修改姓名", R.drawable.common_icon_back, "返回",
+                R.drawable.common_icon_home, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
                         finish();
@@ -61,7 +63,8 @@ public class AlertNameActivity extends AppCompatActivity implements View.OnClick
 
                     @Override
                     public void onRightClick() {
-
+                        startActivity(new Intent(AlertNameActivity.this, MainActivity.class));
+                        finish();
                     }
                 });
 

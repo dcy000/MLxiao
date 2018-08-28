@@ -1,5 +1,6 @@
 package com.gcml.old.auth.profile.otherinfo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -96,8 +98,8 @@ public class AlertBloodTypeActivity extends AppCompatActivity implements View.On
 
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
-        tbBloodTypeTitle.setData("修 改 血 型", R.drawable.common_icon_back, "返回",
-                0, null, new ToolBarClickListener() {
+        tbBloodTypeTitle.setData("修改血型", R.drawable.common_icon_back, "返回",
+                R.drawable.common_icon_home, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
                         finish();
@@ -105,7 +107,8 @@ public class AlertBloodTypeActivity extends AppCompatActivity implements View.On
 
                     @Override
                     public void onRightClick() {
-
+                        startActivity(new Intent(AlertBloodTypeActivity.this, MainActivity.class));
+                        finish();
                     }
                 });
 

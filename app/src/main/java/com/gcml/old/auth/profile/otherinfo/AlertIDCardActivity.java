@@ -1,5 +1,6 @@
 package com.gcml.old.auth.profile.otherinfo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
@@ -66,8 +68,8 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
 
         mTvSignUpGoBack.setText("取消");
         mTvSignUpGoForward.setText("确定");
-        mTbIdcardTitle.setData("修 改 身 份 证 号", R.drawable.common_icon_back, "返回",
-                0, null, new ToolBarClickListener() {
+        mTbIdcardTitle.setData("修改身份证号", R.drawable.common_icon_back, "返回",
+                R.drawable.common_icon_home, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
                         finish();
@@ -75,7 +77,8 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void onRightClick() {
-
+                        startActivity(new Intent(AlertIDCardActivity.this, MainActivity.class));
+                        finish();
                     }
                 });
 

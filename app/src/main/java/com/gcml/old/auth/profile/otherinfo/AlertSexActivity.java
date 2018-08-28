@@ -72,8 +72,8 @@ public class AlertSexActivity extends AppCompatActivity implements View.OnClickL
 
         mTvSignUpGoBack.setText("取消");
         mTvSignUpGoForward.setText("确定");
-        mTbSex.setData("修改姓名", R.drawable.common_icon_back, "返回",
-                0, null, new ToolBarClickListener() {
+        mTbSex.setData("修改性别", R.drawable.common_icon_back, "返回",
+                R.drawable.common_icon_home, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
 

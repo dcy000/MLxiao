@@ -1,5 +1,6 @@
 package com.gcml.old.auth.profile.otherinfo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -98,8 +100,8 @@ public class AlertAgeActivity extends AppCompatActivity implements View.OnClickL
 
         mTvSignUpGoBack.setText("取消");
         mTvSignUpGoForward.setText("确定");
-        mTbAgeTitle.setData("修 改 年 龄", R.drawable.common_icon_back, "返回",
-                0, null, new ToolBarClickListener() {
+        mTbAgeTitle.setData("修改年龄", R.drawable.common_icon_back, "返回",
+                R.drawable.common_icon_home, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
                         finish();
@@ -107,7 +109,8 @@ public class AlertAgeActivity extends AppCompatActivity implements View.OnClickL
 
                     @Override
                     public void onRightClick() {
-
+                        startActivity(new Intent(AlertAgeActivity.this, MainActivity.class));
+                        finish();
                     }
                 });
     }
