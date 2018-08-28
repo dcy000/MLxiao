@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="420dp"
+        android:layout_height="385dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_task_choice" />
+
+    <RelativeLayout
+        android:id="@+id/rl_task_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.是否有以下症状? (1/4)"
+            android:textColor="#333333"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18pt"
+            android:text="您好，根据系统中显示的3次数据判定，您血压偏低，现系统正为您生成预防高血压方案。"
+            android:textColor="#ff999999"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_task_choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_task_top"
+        android:layout_alignLeft="@+id/rl_task_top"
+        android:layout_marginTop="12dp" />
+
+    <TextView
+        android:id="@+id/tv_task_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/btn_task_next"
+        android:paddingBottom="11dp"
+        android:paddingLeft="38dp"
+        android:paddingRight="38dp"
+        android:paddingTop="11dp"
+        android:text="下一步"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"/>
+
+</RelativeLayout>

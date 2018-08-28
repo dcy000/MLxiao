@@ -42,6 +42,11 @@ public class FactoryTestActivity extends BaseActivity {
         initTitle();
     }
 
+    @Override
+    protected void backLastActivity() {
+        finish();
+    }
+
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("工厂检测");

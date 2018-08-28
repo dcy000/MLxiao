@@ -20,7 +20,7 @@ ext {
     produceUrl = api.produceUrl
 
     baseUrls = [
-            "debug"  : "\"http://47.96.98.60:8080/\"",
+            "debug"  : "\"http://192.168.200.117:8080/\"",
             "release": "\"http://47.96.98.60:8080/\"",
     ]
 

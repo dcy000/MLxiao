@@ -246,11 +246,11 @@ public class SignInActivity extends BaseActivity {
 
     public void onTvSignInClicked() {
         if ("123456".equals(etPhone.getText().toString()) && "654321".equals(etPassword.getText().toString())) {
-            Bundle bundle = new Bundle();
-            bundle.putBoolean("isTest",true);
-            MyApplication.getInstance().userId = "123456";
-            CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
-            finish();
+//            Bundle bundle = new Bundle();
+//            bundle.putBoolean("isTest",true);
+//            MyApplication.getInstance().userId = "123456";
+//            CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
+            startActivity(new Intent(SignInActivity.this, FactoryTestActivity.class));
             return;
         }
         showLoadingDialog(getString(R.string.do_login));

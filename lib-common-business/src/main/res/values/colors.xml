@@ -48,6 +48,7 @@
     <color name="config_color_red">#FA3A3A</color>
 
     <color name="config_color_separator">#DEE0E2</color>
+    <color name="config_color_quarantine">#BBBBBB</color>
     <color name="config_color_separator_darken">#D4D6D8</color>
     <color name="config_color_background">#F4F5F7</color>
     <color name="config_color_background_pressed">#EEEFF1</color>

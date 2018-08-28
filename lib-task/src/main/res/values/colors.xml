@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="task_color_base">#3F86FC</color>
+    <color name="task_color_base_5">#803F86FC</color>
+    <color name="task_color_gray">#3CD5F0</color>
+
+    <color name="task_color_pink">#F56C6C</color>
+    <color name="task_color_pink_5">#80F56C6C</color>
+
+</resources>

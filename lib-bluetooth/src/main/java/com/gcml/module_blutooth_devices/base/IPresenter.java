@@ -82,7 +82,7 @@ public interface IPresenter {
      */
     int MEASURE_BLOOD_OXYGEN = 24;
     /**
-     * 测量耳温
+     * 测量体重
      */
     int MEASURE_WEIGHT = 25;
     /**

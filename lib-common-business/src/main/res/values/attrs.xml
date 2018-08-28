@@ -8,4 +8,37 @@
     </declare-styleable>
     <attr name="LoadingStyle" format="reference"/>
 
+    <!-- RulerView -->
+    <declare-styleable name="RulerView">
+        <attr name="ruler_textColor" format="color" />
+        <attr name="ruler_textSize" format="dimension" />
+        <attr name="ruler_lineColor" format="color" />
+        <attr name="ruler_lineSpaceWidth" format="dimension" />
+        <attr name="ruler_lineWidth" format="dimension" />
+        <attr name="ruler_lineMaxHeight" format="dimension" />
+        <attr name="ruler_lineMidHeight" format="dimension" />
+        <attr name="ruler_lineMinHeight" format="dimension" />
+        <attr name="ruler_textMarginTop" format="dimension" />
+        <attr name="ruler_alphaEnable" format="boolean" />
+        <attr name="ruler_minValue" format="float"/>
+        <attr name="ruler_maxValue" format="float"/>
+        <attr name="ruler_selectorValue" format="float"/>
+        <attr name="ruler_perValue" format="float"/>
+    </declare-styleable>
+
+    <!-- SelecterView -->
+    <declare-styleable name="SelecterView">
+        <!--可见数目-->
+        <attr name="selecter_VisibleSize" format="integer"></attr>
+
+        <!--被选择文字的大小和颜色-->
+        <attr name="selecter_SelectedTextSize" format="float"></attr>
+        <attr name="selecter_SelectedTextColor" format="color|reference"></attr>
+
+        <!--未被被选择文字的大小和颜色-->
+        <attr name="selecter_TextSize" format="float"></attr>
+        <attr name="selecter_TextColor" format="color|reference"></attr>
+
+    </declare-styleable>
+
 </resources>
