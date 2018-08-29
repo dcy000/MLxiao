@@ -2,6 +2,7 @@ package com.gcml.common.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.common.business.R;
+import com.gcml.common.repository.imageloader.ImageLoader;
+import com.gcml.common.repository.imageloader.glide.GlideImageLoader;
+
+import timber.log.Timber;
 
 /**
  * 作者：wecent
@@ -20,41 +25,40 @@ import com.gcml.common.business.R;
  * 描述：仿IOS提示弹出框
  */
 
-public class AlertDialog {
+public class IconDialog {
 
     private Context context;
     private Dialog dialog;
     private LinearLayout lLayout_bg;
-    private TextView txt_msg;
+    private ImageView img_icon;
     private Button btn_neg;
     private Button btn_pos;
     private ImageView img_line;
     private Display display;
-    private boolean showMsg = false;
+    private boolean showIcon = false;
     private boolean showPosBtn = false;
     private boolean showNegBtn = false;
 
-    public AlertDialog(Context context) {
+    public IconDialog(Context context) {
         this.context = context;
         WindowManager windowManager = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
         display = windowManager.getDefaultDisplay();
     }
 
-    public AlertDialog builder() {
+    public IconDialog builder() {
         // 获取Dialog布局
-        View view = LayoutInflater.from(context).inflate(
-                R.layout.layout_alert_dialog, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_icon_dialog, null);
 
         // 获取自定义Dialog布局中的控件
-        lLayout_bg = (LinearLayout) view.findViewById(R.id.lLayout_bg);
-        txt_msg = (TextView) view.findViewById(R.id.txt_msg);
-        txt_msg.setVisibility(View.GONE);
-        btn_neg = (Button) view.findViewById(R.id.btn_neg);
+        lLayout_bg = view.findViewById(R.id.lLayout_bg);
+        img_icon = view.findViewById(R.id.img_icon);
+        img_icon.setVisibility(View.GONE);
+        btn_neg = view.findViewById(R.id.btn_neg);
         btn_neg.setVisibility(View.GONE);
-        btn_pos = (Button) view.findViewById(R.id.btn_pos);
+        btn_pos = view.findViewById(R.id.btn_pos);
         btn_pos.setVisibility(View.GONE);
-        img_line = (ImageView) view.findViewById(R.id.img_line);
+        img_line = view.findViewById(R.id.img_line);
         img_line.setVisibility(View.GONE);
 
         // 定义Dialog布局和参数
@@ -63,27 +67,34 @@ public class AlertDialog {
 
         // 调整dialog背景大小
         lLayout_bg.setLayoutParams(new FrameLayout.LayoutParams((int) (display
-                .getWidth() * 0.60), (int) (display.getHeight() * 0.55)));
-
+                .getWidth() * 0.60), (int) (display.getHeight() * 0.60)));
         return this;
     }
 
-    public AlertDialog setMsg(String msg) {
-        showMsg = true;
-        if ("".equals(msg)) {
-            txt_msg.setText("内容");
+    public IconDialog setIcon(int icon) {
+        showIcon = true;
+        if (icon == 0) {
+            ImageLoader.Options options = ImageLoader.newOptionsBuilder(img_icon, R.drawable.common_ic_robot)
+                    .resize(480, 480)
+                    .circle()
+                    .build();
+            ImageLoader.instance().load(options);
         } else {
-            txt_msg.setText(msg);
+            ImageLoader.Options options = ImageLoader.newOptionsBuilder(img_icon, icon)
+                    .resize(480, 480)
+                    .circle()
+                    .build();
+            ImageLoader.instance().load(options);
         }
         return this;
     }
 
-    public AlertDialog setCancelable(boolean cancel) {
+    public IconDialog setCancelable(boolean cancel) {
         dialog.setCancelable(cancel);
         return this;
     }
 
-    public AlertDialog setPositiveButton(String text, final View.OnClickListener listener) {
+    public IconDialog setPositiveButton(String text, final View.OnClickListener listener) {
         showPosBtn = true;
         if ("".equals(text)) {
             btn_pos.setText("确定");
@@ -100,7 +111,7 @@ public class AlertDialog {
         return this;
     }
 
-    public AlertDialog setNegativeButton(String text,
+    public IconDialog setNegativeButton(String text,
                                          final View.OnClickListener listener) {
         showNegBtn = true;
         if ("".equals(text)) {
@@ -119,8 +130,8 @@ public class AlertDialog {
     }
 
     private void setLayout() {
-        if (showMsg) {
-            txt_msg.setVisibility(View.VISIBLE);
+        if (showIcon) {
+            img_icon.setVisibility(View.VISIBLE);
         }
 
         if (!showPosBtn && !showNegBtn) {
