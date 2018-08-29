@@ -1,7 +1,5 @@
 package com.gcml.old.auth.entity;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 public class UserInfoBean implements Serializable {
