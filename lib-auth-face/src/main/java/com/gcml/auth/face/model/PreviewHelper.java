@@ -1,4 +1,4 @@
-package com.gcml.auth.face.utils;
+package com.gcml.auth.face.model;
 
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
@@ -19,6 +19,7 @@ import android.support.v4.util.Pools;
 import android.view.SurfaceHolder;
 import android.view.View;
 
+import com.gcml.auth.face.utils.CameraUtils;
 import com.gcml.common.utils.RxUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -59,7 +60,8 @@ public class PreviewHelper
 
     private View mPreviewView;
 
-    private Rect mUiRect;
+    // 预览图像裁剪区域
+    private Rect mCropRect;
 
     private int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
     private volatile Camera mCamera;
@@ -100,7 +102,9 @@ public class PreviewHelper
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy(LifecycleOwner owner) {
-        mCameraHandler.removeCallbacksAndMessages(null);
+        if (mCameraHandler != null) {
+            mCameraHandler.removeCallbacksAndMessages(null);
+        }
         CameraUtils.close(mCamera);
         mCamera = null;
         if (mCameraThread != null) {
@@ -143,8 +147,8 @@ public class PreviewHelper
         this.mPreviewView = previewView;
     }
 
-    public void setUiRect(Rect uiRect) {
-        mUiRect = uiRect;
+    public void setCropRect(Rect cropRect) {
+        mCropRect = cropRect;
     }
 
     public void setSurfaceHolder(SurfaceHolder surfaceHolder) {
@@ -197,6 +201,16 @@ public class PreviewHelper
         });
     }
 
+    private Camera.PreviewCallback mPreviewCallback = new Camera.PreviewCallback() {
+        @Override
+        public void onPreviewFrame(byte[] data, Camera camera) {
+            rxData.onNext(data);
+        }
+    };
+
+    /**
+     * 用于预览帧数据
+     */
     private final Pools.Pool<byte[]> pool = new Pools.SynchronizedPool<>(18);
 
     public byte[] obtainData(int size) {
@@ -216,14 +230,14 @@ public class PreviewHelper
         }
     }
 
-    public void addBuffer() {
+    public void addBuffer(long delayMillis) {
         if (mCamera != null) {
-            cameraHandler().post(new Runnable() {
+            cameraHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     addBufferInternal();
                 }
-            });
+            }, delayMillis);
         }
     }
 
@@ -235,13 +249,6 @@ public class PreviewHelper
         byte[] buffer = obtainData(bufferSize);
         CameraUtils.addCallbackBuffer(mCamera, buffer);
     }
-
-    private Camera.PreviewCallback mPreviewCallback = new Camera.PreviewCallback() {
-        @Override
-        public void onPreviewFrame(byte[] data, Camera camera) {
-            rxData.onNext(data);
-        }
-    };
 
     private PublishSubject<byte[]> rxData = PublishSubject.create();
 
@@ -265,19 +272,20 @@ public class PreviewHelper
 
     private Observable<byte[]> processFrame(byte[] bytes) {
         return Observable.just(bytes)
-                .observeOn(Schedulers.io())
-                .doOnNext(new Consumer<byte[]>() {
+                .map(new Function<byte[], byte[]>() {
                     @Override
-                    public void accept(byte[] bytes) throws Exception {
+                    public byte[] apply(byte[] bytes) throws Exception {
                         processFrameInternal(bytes);
+                        return bytes;
                     }
-                });
+                })
+                .subscribeOn(Schedulers.io());
     }
 
-
     /**
-     * 预览帧指定区域裁剪
-     * @param bytes
+     * 预览帧 区域裁剪
+     *
+     * @param bytes 预览帧
      */
     private void processFrameInternal(byte[] bytes) {
         if (mCamera != null) {
@@ -286,7 +294,7 @@ public class PreviewHelper
             int previewHeight = parameters.getPreviewSize().height;
             // 由于预览图片和界面显示大小可能不一样，
             // 计算缩放后的区域
-            Rect rect = getScaledRect(mPreviewView, mUiRect, previewWidth, previewHeight);
+            Rect rect = getScaledRect(mPreviewView, mCropRect, previewWidth, previewHeight);
 
 //            int rotationCount = getRotationCount();
 //            if (rotationCount==1 || rotationCount == 3) {
@@ -294,9 +302,12 @@ public class PreviewHelper
 //                previewWidth = previewHeight;
 //                previewHeight = temp;
 //            }
+
+            // 旋转裁剪区域
+            // 可用于优化性能
 //            bytes = rotateData(bytes, mCamera);
 
-            // 预览图像数据方向可能有问题，
+            // 预览图像数据方向可能有方向问题，
             // 计算旋转后的区域
             rect = getRotatedRect(previewWidth, previewHeight, rect);
 
@@ -312,13 +323,13 @@ public class PreviewHelper
             if (rotation == 90 || rotation == 270) {
                 bitmap = rotate(bitmap, rotation);
             }
-            rxStatus.onNext(Status.of(Status.EVENT_CROPPED_BITMAP, bitmap));
+            rxStatus.onNext(Status.of(Status.EVENT_CROPPED, bitmap));
         }
     }
 
     private Rect scaledRect;
 
-    public Rect getScaledRect(View previewView, Rect uiRect, int previewWidth, int previewHeight) {
+    public Rect getScaledRect(View previewView, Rect cropRect, int previewWidth, int previewHeight) {
         if (scaledRect == null) {
             int uiWidth = previewView.getWidth();
             int uiHeight = previewView.getHeight();
@@ -338,7 +349,7 @@ public class PreviewHelper
                 height = previewHeight;
             }
 
-            scaledRect = new Rect(uiRect);
+            scaledRect = new Rect(cropRect);
             scaledRect.left = scaledRect.left * width / uiWidth;
             scaledRect.right = scaledRect.right * width / uiWidth;
             scaledRect.top = scaledRect.top * height / uiHeight;
@@ -419,7 +430,7 @@ public class PreviewHelper
 
     public static class Status {
         public static final int ERROR_ON_OPEN_CAMERA = -1;
-        public static final int EVENT_CROPPED_BITMAP = 1;
+        public static final int EVENT_CROPPED = 1;
 
         public int code;
 

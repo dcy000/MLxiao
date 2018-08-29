@@ -227,11 +227,12 @@ public class AlertDrinkingActivity extends BaseActivity {
                                 break;
 
                         }
+                        finish();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-
+                        finish();
                     }
                 });
     }
