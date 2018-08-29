@@ -10,6 +10,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.app.AppActivity;
 import com.gcml.common.demo.R;
+import com.gcml.common.dialog.DialogActivity;
 import com.gcml.common.mvvm.MvvmActivity;
 import com.gcml.common.repository.RepositoryActivity;
 
@@ -29,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onRepository(View view) {
         Intent intent = new Intent(this, RepositoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void onDialog(View view) {
+        Intent intent = new Intent(this, DialogActivity.class);
         startActivity(intent);
     }
 

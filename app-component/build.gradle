@@ -1,3 +1,4 @@
+ext.mainApp = true
 apply from: rootProject.file('cc-settings.gradle')
 //apply from: 'https://raw.githubusercontent.com/luckybilly/CC/master/cc-settings.gradle'
 
