@@ -4,13 +4,16 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.gcml.auth.face.BR;
 import com.gcml.auth.face.R;
 import com.gcml.auth.face.databinding.AuthActivityFaceSignUpBinding;
 import com.gcml.auth.face.model.PreviewHelper;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.lib_utils.display.ToastUtils;
 
 import java.io.ByteArrayOutputStream;
 
@@ -79,15 +82,23 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
     }
 
     private void signUpFace(Bitmap faceBitmap) {
+        String userId = UserSpHelper.getUserId();
+        if (TextUtils.isEmpty(userId)) {
+            ToastUtils.showShort("请先登录！");
+            finish();
+        }
+        String faceId = UserSpHelper.getFaceId();
+        if (TextUtils.isEmpty(faceId)) {
+//            faceId = UserSpHelper.p
+        }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         faceBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] faceData = baos.toByteArray();
-        String faceId = "";
         viewModel.signUp(faceData, faceId)
                 .subscribeOn(Schedulers.io())
-                .doOnNext(new Consumer<Boolean>() {
+                .doOnNext(new Consumer<String>() {
                     @Override
-                    public void accept(Boolean aBoolean) throws Exception {
+                    public void accept(String avatar) throws Exception {
 
                     }
                 })

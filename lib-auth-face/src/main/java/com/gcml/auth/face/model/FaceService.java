@@ -9,6 +9,13 @@ import retrofit2.http.Query;
 
 public interface FaceService {
 
+//    @POST("ZZB/xf/insert_group_record")
+//    Observable<ApiResult<List<XfGroupInfo>>> recordXfGroupInformation(
+//            @Query("userid") String userid,
+//            @Query("gid") String gid,
+//            @Query("xfid") String xfid
+//    );
+
     @GET("ZZB/br/seltoken")
     Observable<ApiResult<String>> getQiniuToken();
 

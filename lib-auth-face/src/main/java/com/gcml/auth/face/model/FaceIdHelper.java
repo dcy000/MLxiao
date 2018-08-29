@@ -1,7 +1,6 @@
 package com.gcml.auth.face.model;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.iflytek.cloud.ErrorCode;
@@ -40,7 +39,7 @@ import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_JOIN_GROUP_UNKNOW
 
 
 /**
- * 讯飞人脸业务工具
+ * 讯飞 1：N 人脸业务工具
  */
 public class FaceIdHelper {
 
@@ -80,23 +79,31 @@ public class FaceIdHelper {
         }).unsubscribeOn(Schedulers.io()).subscribeOn(Schedulers.io());
     }
 
-    public Observable<Boolean> signUp(Context context, byte[] faceData, String faceId) {
+
+    /**
+     *
+     * @param context 用于创建验证器
+     * @param faceData faceData
+     * @param faceId faceId
+     * @return faceId
+     */
+    public Observable<String> signUp(Context context, byte[] faceData, String faceId) {
         return obtainVerifier(context)
-                .flatMap(new Function<IdentityVerifier, ObservableSource<? extends Boolean>>() {
+                .flatMap(new Function<IdentityVerifier, ObservableSource<? extends String>>() {
                     @Override
-                    public ObservableSource<? extends Boolean> apply(IdentityVerifier verifier) throws Exception {
+                    public ObservableSource<? extends String> apply(IdentityVerifier verifier) throws Exception {
                         return signUpInternal(verifier, faceData, faceId);
                     }
                 });
     }
 
-    private Observable<Boolean> signUpInternal(
+    private Observable<String> signUpInternal(
             IdentityVerifier verifier,
             byte[] faceData,
             String faceId) {
-        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+        return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 verifier.setParameter(SpeechConstant.PARAMS, null);
                 // 设置业务场景：人脸（ifr）或声纹（ivp）
                 verifier.setParameter(SpeechConstant.MFV_SCENES, "ifr");
@@ -108,7 +115,7 @@ public class FaceIdHelper {
                     @Override
                     public void onResult(IdentityResult identityResult, boolean b) {
                         Timber.i("Face sign up success");
-                        emitter.onNext(true);
+                        emitter.onNext(faceId);
                     }
 
                     @Override
@@ -142,9 +149,8 @@ public class FaceIdHelper {
         }).subscribeOn(Schedulers.io());
     }
 
-    public Observable<Boolean> joinOrCreateGroup(
+    public Observable<String> joinOrCreateGroup(
             Context context,
-            String userId,
             String groupId,
             String faceId) {
         return joinGroup(context, groupId, faceId)
@@ -159,7 +165,7 @@ public class FaceIdHelper {
                                 if (error instanceof FaceRepository.FaceError
                                         && ((FaceRepository.FaceError) error).getCode() == ERROR_ON_JOIN_GROUP_NOT_EXIST
                                         && count.compareAndSet(0, 1)) {
-                                    return createGroup(context, userId, faceId);
+                                    return createGroup(context, faceId);
                                 }
                                 return Observable.error(error);
                             }
@@ -168,26 +174,26 @@ public class FaceIdHelper {
                 });
     }
 
-    public Observable<Boolean> joinGroup(
+    public Observable<String> joinGroup(
             Context context,
             String groupId,
             String faceId) {
         return obtainVerifier(context)
-                .flatMap(new Function<IdentityVerifier, ObservableSource<? extends Boolean>>() {
+                .flatMap(new Function<IdentityVerifier, ObservableSource<String>>() {
                     @Override
-                    public ObservableSource<Boolean> apply(IdentityVerifier verifier) throws Exception {
+                    public ObservableSource<String> apply(IdentityVerifier verifier) throws Exception {
                         return joinGroupInternal(verifier, groupId, faceId);
                     }
                 });
     }
 
-    public Observable<Boolean> joinGroupInternal(
+    public Observable<String> joinGroupInternal(
             IdentityVerifier verifier,
             String groupId,
             String faceId) {
-        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+        return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 verifier.setParameter(SpeechConstant.PARAMS, null);
                 // 设置会话场景
                 verifier.setParameter(SpeechConstant.MFV_SCENES, "ipt");
@@ -198,7 +204,7 @@ public class FaceIdHelper {
                 IdentityListener listener = new IdentityListener() {
                     @Override
                     public void onResult(IdentityResult identityResult, boolean b) {
-                        emitter.onNext(true);
+                        emitter.onNext(groupId);
                     }
 
                     @Override
@@ -224,20 +230,18 @@ public class FaceIdHelper {
 
     public Observable<String> createGroup(
             Context context,
-            String userId,
             String faceId) {
         return obtainVerifier(context)
                 .flatMap(new Function<IdentityVerifier, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(IdentityVerifier verifier) throws Exception {
-                        return createGroupInternal(verifier, userId, faceId);
+                        return createGroupInternal(verifier, faceId);
                     }
                 });
     }
 
     private Observable<String> createGroupInternal(
             IdentityVerifier verifier,
-            String userId,
             String faceId) {
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
@@ -257,10 +261,7 @@ public class FaceIdHelper {
                         try {
                             JSONObject resultObj = new JSONObject(result.getResultString());
                             String groupId = resultObj.optString("group_id");
-//                            FaceRecognitionSPManifest.setGroupId(groupId);
-//                            FaceRecognitionSPManifest.setGroupFirstXfid(xfid);
-//                            uploadHeadToSelf(userid, xfid);
-//                            FaceAuthenticationUtils.getInstance(mContext).updateGroupInformation(groupId, xfid);
+                            emitter.onNext(groupId);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -364,46 +365,5 @@ public class FaceIdHelper {
                 verifier.stopWrite("ifr");
             }
         });
-    }
-
-
-
-    /**
-     * 老版存储本机登录账户信息的key
-     */
-    private static final String KEY_USER_ACCOUNT = "user_accounts";
-    /**
-     * 新版存储本机登录账户信息的key
-     */
-    private static final String KEY_USER_ACCOUNT_NEW = "user_accounts_new";
-    /**
-     * 用户id的key
-     */
-    private static final String KEY_USER_ID = "user_id";
-    /**
-     * 讯飞id的key
-     */
-    private static final String KEY_XUNFEI_ID = "Xunfei_Id";
-
-    /**
-     * 人脸识别组id
-     */
-    private static final String KEY_GROUP_ID = "group_id";
-    /**
-     * 创建人脸识别组的时候传入的第一个讯飞id
-     */
-    private static final String KEY_CREATE_GROUP_FIRST_XFID = "group_first_xfid";
-
-    private volatile SharedPreferences mPreferences;
-
-    public SharedPreferences getPreferences(Context context) {
-        if (mPreferences == null) {
-            synchronized (this) {
-                if (mPreferences == null) {
-                    mPreferences = context.getSharedPreferences("ScopeMediaPrefsFile", Context.MODE_PRIVATE);
-                }
-            }
-        }
-        return mPreferences;
     }
 }

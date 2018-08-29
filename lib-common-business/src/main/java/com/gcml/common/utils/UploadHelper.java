@@ -1,4 +1,4 @@
-package com.gcml.auth.face.model;
+package com.gcml.common.utils;
 
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -17,7 +17,7 @@ public class UploadHelper {
     private UploadManager mUploader = new UploadManager();
 
     /**
-     * 文件上传工具
+     * 七牛云文件上传工具
      *
      * @param data  要上传文件的字节数据
      * @param key   要上传文件的外链后缀
