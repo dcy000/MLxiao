@@ -118,7 +118,7 @@ public class SMSVerificationDialog extends DialogFragment implements View.OnClic
     private onNextClickListener listener;
 
     private void speak(String text) {
-        MLVoiceSynthetize.startSynthesize(getContext(), text, false);
+        MLVoiceSynthetize.startSynthesize(getActivity(), text, false);
     }
 
     private void sendCode() {
@@ -126,6 +126,7 @@ public class SMSVerificationDialog extends DialogFragment implements View.OnClic
         NetworkApi.getCode(phoneNumber, codeJson -> {
             SMSVerificationDialog.this.code = codeJson;
             if (codeJson != null) {
+                Handlers.ui().removeCallbacksAndMessages(null);
                 updateCountDownUi();
                 ToastUtils.showShort("获取验证码成功");
             } else {
