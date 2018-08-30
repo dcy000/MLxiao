@@ -585,6 +585,7 @@ public class NetworkApi {
 
         NetworkManager.getInstance().postResultClass(ORDER_INFO, paramsMap, Order.class, listener, failedCallback);
     }
+
     public static void preparingPay(String userid, String eqid, String articles, String number, String price, String photo, String time, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", userid);
@@ -597,6 +598,7 @@ public class NetworkApi {
 
         NetworkManager.getInstance().postResultString(ORDER_INFO, paramsMap, listener, failedCallback);
     }
+
     public static void pay_status(String userid, String eqid, String orderid, NetworkManager.SuccessCallback<String> listener, NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("userid", userid);
@@ -1332,6 +1334,24 @@ public class NetworkApi {
                 .headers("equipmentId", Utils.getDeviceId())
                 .upJson(anwserJson)
                 .execute(callback);
+    }
+
+
+    public static final String MODIFY_USER_INFO_URL = BasicUrl + "/ZZB/api/user/info/";
+
+    public static void putUserInfo(int userId, String jsonData, StringCallback callback) {
+        OkGo.<String>put(MODIFY_USER_INFO_URL + userId + "/")
+                .upJson(jsonData)
+                .execute(callback);
+    }
+
+    public static final String AUTH_IS_REGISTERED_ID_CARD = BasicUrl + "/ZZB/login/user_sfz_login";
+
+    public static void isRegisteredByIdCard(String idCard, NetworkManager.SuccessCallback<UserInfoBean> successCallback,
+                                            NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("sfz", idCard);
+        NetworkManager.getInstance().postResultClass(AUTH_IS_REGISTERED_ID_CARD, params, UserInfoBean.class, successCallback, failedCallback);
     }
 
 }

@@ -10,26 +10,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.cc.CCFaceRecognitionActions;
-import com.gcml.lib_utils.data.StringUtil;
-import com.gcml.old.auth.entity.HealthInfo;
-import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.lib_utils.data.StringUtil;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.old.auth.entity.HealthInfo;
+import com.gcml.old.auth.entity.UserInfoBean;
+import com.gcml.old.auth.profile.otherinfo.AlertAgeActivity;
+import com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity;
+import com.gcml.old.auth.profile.otherinfo.AlertIDCardActivity;
+import com.gcml.old.auth.profile.otherinfo.AlertNameActivity;
+import com.gcml.old.auth.profile.otherinfo.AlertSexActivity;
+import com.gcml.old.auth.profile.otherinfo.dialog.SMSVerificationDialog;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
 
 /**
  * Created by gzq on 2017/11/24.
@@ -94,6 +93,14 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     private TextView mAddress;
     private TextView mHistory;
     private LinearLayout mLlHistory;
+    private LinearLayout mLlNameInfo;
+    private LinearLayout mLlAgeInfo;
+    private LinearLayout mLlSexInfo;
+    private LinearLayout mLlBloodInfo;
+    private LinearLayout mLlIdcardInfo;
+    private LinearLayout mLlAddressOnfo;
+    private CharSequence idCardCode;
+    private String phone;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,9 +132,10 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                         .fit()
                         .into(mHead);
                 mName.setText(response.bname);
-
+                idCardCode = response.sfz;
+                phone = response.tel;
                 mAge.setText(Utils.age(response.sfz) + "岁");
-                mPhone.setText(TextUtils.isEmpty(response.sex) ? "尚未填写" : response.sex);
+                mSex.setText(TextUtils.isEmpty(response.sex) ? "尚未填写" : response.sex);
                 mHeight.setText(TextUtils.isEmpty(response.height) ? "尚未填写" : response.height + "cm");
                 mWeight.setText(TextUtils.isEmpty(response.weight) ? "尚未填写" : response.weight + "Kg");
                 mBlood.setText(TextUtils.isEmpty(response.bloodType) ? "尚未填写" : response.bloodType + "型");
@@ -135,17 +143,17 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mNumber.setText(response.eqid);
                 String sports = HealthInfo.SPORTS_MAP.get(response.exerciseHabits);
                 mMotion.setText(TextUtils.isEmpty(sports) ? "尚未填写" : sports);
-                String smoke = HealthInfo.SPORTS_MAP.get(response.smoke);
+                String smoke = HealthInfo.SMOKE_MAP.get(response.smoke);
                 mSmoke.setText(TextUtils.isEmpty(smoke) ? "尚未填写" : smoke);
-                String eat = HealthInfo.SPORTS_MAP.get(response.eatingHabits);
+                String eat = HealthInfo.EAT_MAP.get(response.eatingHabits);
                 mEating.setText(TextUtils.isEmpty(eat) ? "尚未填写" : eat);
-                String drink = HealthInfo.SPORTS_MAP.get(response.drink);
+                String drink = HealthInfo.DRINK_MAP.get(response.drink);
                 mDrinking.setText(TextUtils.isEmpty(drink) ? "尚未填写" : drink);
                 mAddress.setText(TextUtils.isEmpty(response.dz) ? "尚未填写" : response.dz);
                 String deseaseHistory = HealthInfo.getDeseaseHistory(response.mh);
                 mHistory.setText(TextUtils.isEmpty(deseaseHistory) ? "尚未填写" : deseaseHistory);
 
-                String shenfen = response.sfz.substring(0, 5) + "********" + response.sfz.substring(response.sfz.length() - 5, response.sfz.length());
+                String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 4, response.sfz.length());
                 mIdcard.setText(shenfen);
             }
         }, new NetworkManager.FailedCallback() {
@@ -158,6 +166,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
 
     private void initView() {
         mHead = findViewById(R.id.head);
+        mHead.setOnClickListener(this);
         mName = findViewById(R.id.name);
         mAge = findViewById(R.id.age);
         mSex = findViewById(R.id.sex);
@@ -185,29 +194,28 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         llEating.setOnClickListener(this);
         llDrinking.setOnClickListener(this);
 
-        mHead.setOnClickListener(this);
-        mName.setOnClickListener(this);
-        mAge.setOnClickListener(this);
-        mSex.setOnClickListener(this);
-        mBlood.setOnClickListener(this);
-        mHeight.setOnClickListener(this);
         mLlHeight = findViewById(R.id.ll_height);
-        mWeight.setOnClickListener(this);
         mLlWeight = findViewById(R.id.ll_weight);
-        mPhone.setOnClickListener(this);
-        mIdcard.setOnClickListener(this);
-        mNumber.setOnClickListener(this);
         mAddress = findViewById(R.id.address);
-        mMotion.setOnClickListener(this);
-        mSmoke.setOnClickListener(this);
-        mEating.setOnClickListener(this);
         mDrinking = findViewById(R.id.drinking);
-        mDrinking.setOnClickListener(this);
         mHistory = findViewById(R.id.history);
         mLlHistory = findViewById(R.id.ll_history);
         mLlHistory.setOnClickListener(this);
-        mAddress.setOnClickListener(this);
         findViewById(R.id.tv_reset).setOnClickListener(this);
+
+        findViewById(R.id.ll_address_onfo).setOnClickListener(this);
+        mLlNameInfo = (LinearLayout) findViewById(R.id.ll_name_info);
+        mLlNameInfo.setOnClickListener(this);
+        mLlAgeInfo = (LinearLayout) findViewById(R.id.ll_age_info);
+        mLlAgeInfo.setOnClickListener(this);
+        mLlSexInfo = (LinearLayout) findViewById(R.id.ll_sex_info);
+        mLlSexInfo.setOnClickListener(this);
+        mLlBloodInfo = (LinearLayout) findViewById(R.id.ll_blood_info);
+        mLlBloodInfo.setOnClickListener(this);
+        mLlIdcardInfo = (LinearLayout) findViewById(R.id.ll_idcard_info);
+        mLlIdcardInfo.setOnClickListener(this);
+        mLlAddressOnfo = (LinearLayout) findViewById(R.id.ll_address_onfo);
+        mLlAddressOnfo.setOnClickListener(this);
     }
 
     @Override
@@ -239,7 +247,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
             case R.id.ll_history:
                 startActivity(new Intent(this, AlertMHActivity.class).putExtra("data", response));
                 break;
-            case R.id.address:
+            case R.id.ll_address_onfo:
                 startActivity(new Intent(this, AlertAddressActivity.class).putExtra("data", response));
                 break;
             case R.id.tv_reset:
@@ -249,19 +257,52 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.head:
-                CC.obtainBuilder("face_recognition")
-                        .setActionName("To_RegisterHead2XunfeiActivity")
-                        .addParam("key_xfid", StringUtil.produceXfid())
-                        .build().callAsyncCallbackOnMainThread((cc, result) -> {
-                    if ("RegistHeadSuccess".equals(result.getDataItem("key_cc_callback"))) {
-
-
-                    }
-
+                SMSVerificationDialog dialog = new SMSVerificationDialog();
+                Bundle bundle = new Bundle();
+                bundle.putString("phone", phone);
+                dialog.setArguments(bundle);
+                dialog.setListener(() -> {
+                    modifyHead();
                 });
+                dialog.show(getFragmentManager(), "phoneCode");
                 break;
 
+            case R.id.ll_age_info:
+                //修改年龄
+                if (TextUtils.isEmpty(idCardCode)) {
+                    startActivity(new Intent(this, AlertAgeActivity.class));
+                } else {
+                    ToastUtils.showShort("年龄与身份证号关联,不可更改~");
+                }
+                break;
+            case R.id.ll_sex_info:
+                startActivity(new Intent(this, AlertSexActivity.class));
+                //修改性别
+                break;
+            case R.id.ll_blood_info:
+                //修改血型
+                startActivity(new Intent(this, AlertBloodTypeActivity.class));
+                break;
+            case R.id.ll_name_info:
+                //修改姓名
+                startActivity(new Intent(this, AlertNameActivity.class));
+                break;
+            case R.id.ll_idcard_info:
+                //修改身份证号码
+                startActivity(new Intent(this, AlertIDCardActivity.class));
+                break;
         }
     }
+
+    private void modifyHead() {
+        CC.obtainBuilder("face_recognition")
+                .setActionName("To_RegisterHead2XunfeiActivity")
+                .addParam("key_xfid", StringUtil.produceXfid())
+                .build().callAsyncCallbackOnMainThread((cc, result) -> {
+            if ("RegistHeadSuccess".equals(result.getDataItem("key_cc_callback"))) {
+            }
+        });
+    }
+
 
 }

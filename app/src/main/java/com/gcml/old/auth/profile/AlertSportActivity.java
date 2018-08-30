@@ -234,11 +234,12 @@ public class AlertSportActivity extends BaseActivity {
                                 speak("主人，您的运动情况已经修改为" + "从不运动");
                                 break;
                         }
+                        finish();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-
+                        finish();
                     }
                 });
     }

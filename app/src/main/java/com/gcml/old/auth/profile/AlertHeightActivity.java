@@ -139,7 +139,7 @@ public class AlertHeightActivity extends BaseActivity {
             buffer = null;
         } else {
             String[] mhs = data.mh.split("\\s+");
-            for (int i = 0; i <mhs.length; i++) {
+            for (int i = 0; i < mhs.length; i++) {
                 if (mhs[i].equals("高血压"))
                     buffer.append(1 + ",");
                 else if (mhs[i].equals("糖尿病"))
@@ -206,12 +206,13 @@ public class AlertHeightActivity extends BaseActivity {
         final String height = mStrings.get(selectedPosition);
 
         NetworkApi.alertBasedata(MyApplication.getInstance().userId, height, data.weight, eat, smoke, drink, exercise,
-                buffer == null ? "" : buffer.substring(0, buffer.length() - 1), data.dz, new NetworkManager.SuccessCallback<Object>() {
+                TextUtils.isEmpty(buffer) ? "" : buffer.substring(0, buffer.length() - 1), data.dz, new NetworkManager.SuccessCallback<Object>() {
                     @Override
                     public void onSuccess(Object response) {
                         LocalShared.getInstance(AlertHeightActivity.this).setUserHeight(height);
                         com.gcml.lib_utils.display.ToastUtils.showShort("修改成功");
-                        speak("主人，您的身高已经修改为" + height + "厘米");
+//                        speak("主人，您的身高已经修改为" + height + "厘米");
+                        speak("修改成功");
 
                     }
                 }, new NetworkManager.FailedCallback() {

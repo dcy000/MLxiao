@@ -21,16 +21,15 @@ import com.gcml.common.business.R;
  */
 
 public class AlertDialog {
+
     private Context context;
     private Dialog dialog;
     private LinearLayout lLayout_bg;
-//    private TextView txt_title;
     private TextView txt_msg;
     private Button btn_neg;
     private Button btn_pos;
     private ImageView img_line;
     private Display display;
-//    private boolean showTitle = false;
     private boolean showMsg = false;
     private boolean showPosBtn = false;
     private boolean showNegBtn = false;
@@ -49,8 +48,6 @@ public class AlertDialog {
 
         // 获取自定义Dialog布局中的控件
         lLayout_bg = (LinearLayout) view.findViewById(R.id.lLayout_bg);
-//        txt_title = (TextView) view.findViewById(R.id.txt_title);
-//        txt_title.setVisibility(View.GONE);
         txt_msg = (TextView) view.findViewById(R.id.txt_msg);
         txt_msg.setVisibility(View.GONE);
         btn_neg = (Button) view.findViewById(R.id.btn_neg);
@@ -70,16 +67,6 @@ public class AlertDialog {
 
         return this;
     }
-
-//    public AlertDialog setTitle(String title) {
-//        showTitle = true;
-//        if ("".equals(title)) {
-//            txt_title.setText("标题");
-//        } else {
-//            txt_title.setText(title);
-//        }
-//        return this;
-//    }
 
     public AlertDialog setMsg(String msg) {
         showMsg = true;
@@ -132,15 +119,6 @@ public class AlertDialog {
     }
 
     private void setLayout() {
-//        if (!showTitle && !showMsg) {
-//            txt_title.setText("提示");
-//            txt_title.setVisibility(View.VISIBLE);
-//        }
-
-//        if (showTitle) {
-//            txt_title.setVisibility(View.VISIBLE);
-//        }
-
         if (showMsg) {
             txt_msg.setVisibility(View.VISIBLE);
         }

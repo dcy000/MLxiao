@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
-import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 
@@ -108,7 +107,7 @@ public class CameraUtils {
             camera.startPreview();
         } catch (IOException e) {
             isPreviewing = false;
-            Timber.e(e, "Error while START preview for camera");
+            Timber.e(e, "FaceError while START preview for camera");
         }
     }
 
@@ -122,7 +121,7 @@ public class CameraUtils {
             camera.stopPreview();
             camera.setPreviewDisplay(null);
         } catch (Exception e) {
-            Timber.e(e, "Error while STOP preview for camera");
+            Timber.e(e, "FaceError while STOP preview for camera");
         }
     }
 

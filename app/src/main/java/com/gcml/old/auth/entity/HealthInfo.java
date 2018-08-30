@@ -6,7 +6,7 @@ import java.util.Map;
 public class HealthInfo {
     public static final Map<String, String> EAT_MAP = new HashMap<>();
 
-    {
+    static {
         EAT_MAP.put("1", "荤素搭配");
         EAT_MAP.put("2", "偏好吃荤");
         EAT_MAP.put("3", "偏好吃素");
@@ -23,7 +23,7 @@ public class HealthInfo {
 
     public static final Map<String, String> SMOKE_MAP = new HashMap<>();
 
-    {
+    static {
         SMOKE_MAP.put("1", "经常抽烟");
         SMOKE_MAP.put("2", "偶尔抽烟");
         SMOKE_MAP.put("3", "从不抽烟");
@@ -34,7 +34,7 @@ public class HealthInfo {
 
     public static final Map<String, String> SPORTS_MAP = new HashMap<>();
 
-    {
+    static {
         SPORTS_MAP.put("1", "每天一次");
         SPORTS_MAP.put("2", "每周几次");
         SPORTS_MAP.put("3", "偶尔运动");
@@ -47,7 +47,7 @@ public class HealthInfo {
 
     public static final Map<String, String> DRINK_MAP = new HashMap<>();
 
-    {
+    static {
         DRINK_MAP.put("1", "经常喝酒");
         DRINK_MAP.put("2", "偶尔喝酒");
         DRINK_MAP.put("3", "从不喝酒");
@@ -59,7 +59,7 @@ public class HealthInfo {
 
     public static final Map<String, String> DESEASE_HISTORY_MAP = new HashMap<>();
 
-    {
+    static {
         DESEASE_HISTORY_MAP.put("1", "高血压");
         DESEASE_HISTORY_MAP.put("2", "糖尿病");
         DESEASE_HISTORY_MAP.put("3", "冠心病");

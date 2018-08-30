@@ -59,8 +59,8 @@ public class AlertMHActivity extends BaseActivity {
             }
         });
         data = (UserInfoBean) getIntent().getSerializableExtra("data");
-        buffer=new StringBuffer();
-        if(data!=null){
+        buffer = new StringBuffer();
+        if (data != null) {
             initView();
         }
     }
@@ -132,7 +132,7 @@ public class AlertMHActivity extends BaseActivity {
             buffer = null;
         } else {
             String[] mhs = data.mh.split("\\s+");
-            for (int i = 0; i <mhs.length; i++) {
+            for (int i = 0; i < mhs.length; i++) {
                 if (mhs[i].equals("高血压"))
                     buffer.append(1 + ",");
                 else if (mhs[i].equals("糖尿病"))
@@ -191,16 +191,17 @@ public class AlertMHActivity extends BaseActivity {
         }
 
         NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, exercise,
-                mh,data.dz,new NetworkManager.SuccessCallback<Object>() {
+                mh, data.dz, new NetworkManager.SuccessCallback<Object>() {
                     @Override
                     public void onSuccess(Object response) {
                         ToastUtils.showShort("修改成功");
                         speak("主人，您的病史已经修改成功");
+                        finish();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-
+                        finish();
                     }
                 });
     }

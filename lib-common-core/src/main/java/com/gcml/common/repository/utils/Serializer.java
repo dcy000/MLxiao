@@ -2,6 +2,8 @@ package com.gcml.common.repository.utils;
 
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -34,7 +36,7 @@ public class Serializer {
         return gson.toJson(object);
     }
 
-    public <T> T deserialize(String json, Class<T> clazz) {
-        return gson.fromJson(json, clazz);
+    public <T> T deserialize(String json, Type type) {
+        return gson.fromJson(json, type);
     }
 }
