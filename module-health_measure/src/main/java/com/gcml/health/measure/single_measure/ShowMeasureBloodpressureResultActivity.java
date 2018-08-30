@@ -46,7 +46,6 @@ import timber.log.Timber;
  */
 public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity implements View.OnClickListener {
 
-
     /**
      * 本周测量次数
      */

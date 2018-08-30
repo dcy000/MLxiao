@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -332,6 +333,7 @@ public class VideoListFragment extends Fragment {
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     VideoEntity entity = videos.get(position);
+                    Log.e("xxxxx", entity.getVideourl() + entity.getTitle());
                     CCVideoActions.jump2NormalVideoPlayActivity(entity.getVideourl(),entity.getTitle());
                 }
             });

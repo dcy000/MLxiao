@@ -8,7 +8,7 @@ import org.litepal.crud.DataSupport;
  * Created by lenovo on 2017/9/21.
  */
 
-public class AlarmModel extends DataSupport{
+public class AlarmModel extends DataSupport {
 
     public static final int INTERVAL_NONE = 0;
     public static final int INTERVAL_DAY = 1;

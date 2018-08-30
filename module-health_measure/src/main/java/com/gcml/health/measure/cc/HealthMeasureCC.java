@@ -8,6 +8,7 @@ import com.gcml.health.measure.ecg.XinDianDetectActivity;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.single_measure.AllMeasureActivity;
 import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
+import com.gcml.module_blutooth_devices.base.IPresenter;
 
 import timber.log.Timber;
 

@@ -10,6 +10,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
+import com.example.han.referralproject.cc.CCVideoActions;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 
@@ -31,13 +32,15 @@ public class FactoryTestActivity extends BaseActivity {
     TextView tvScreenPoint;
     @BindView(R.id.tv_screen_touch)
     TextView tvScreenTouch;
+    @BindView(R.id.tv_screen_video)
+    TextView tvScreenVideo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_factory_test);
         ButterKnife.bind(this);
-        speak("主人欢迎来到设置页面");
+        speak("主人欢迎来到工厂检测页面");
         initTitle();
     }
 
@@ -51,7 +54,7 @@ public class FactoryTestActivity extends BaseActivity {
         mTitleText.setText("工厂检测");
     }
 
-    @OnClick({R.id.tv_wifi, R.id.tv_bluetooth, R.id.tv_camera, R.id.tv_micro, R.id.tv_screen_point, R.id.tv_screen_touch})
+    @OnClick({R.id.tv_wifi, R.id.tv_bluetooth, R.id.tv_camera, R.id.tv_micro, R.id.tv_screen_point, R.id.tv_screen_touch, R.id.tv_screen_video})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_wifi:
@@ -65,7 +68,7 @@ public class FactoryTestActivity extends BaseActivity {
             case R.id.tv_camera:
                 //摄像头检测
                 //TODO：该模块单独抽离出来了，暂时不提供此功能，如遇紧急情况请联系郭志强
-//                startActivity(new Intent(this, FaceRecognitionActivity.class));
+                startActivity(new Intent(this, CameraActivity.class));
                 break;
             case R.id.tv_micro:
                 //麦克风检测
@@ -78,6 +81,10 @@ public class FactoryTestActivity extends BaseActivity {
             case R.id.tv_screen_touch:
                 //屏幕触摸检测
                 startActivity(new Intent(this, ScreenTouchActivity.class));
+                break;
+            case R.id.tv_screen_video:
+                //屏幕触摸检测
+                CCVideoActions.jump2NormalVideoPlayActivity("http://oyptcv2pb.bkt.clouddn.com/abc_1530069151305","小视频");
                 break;
             default:
                 break;
