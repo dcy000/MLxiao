@@ -65,10 +65,20 @@ public class CCHealthMeasureActions {
         Timber.d("CCHealthMeasureActions>>>>>>>>>"+call.toString());
     }
 
+//    /**
+//     * 跳转到首诊界面
+//     */
+//    public static void jump2HealthIntelligentDetectionActivity(){
+//        CCResult call = CC.obtainBuilder(MODULE_NAME)
+//                .setActionName(SendActionNames.FIRST_DIAGNOSIS)
+//                .build().call();
+//        Timber.d("CCHealthMeasureActions>>>>>>>>>"+call.toString());
+//    }
+
     /**
-     * 跳转到首诊界面
+     * 跳转到新的首诊页面
      */
-    public static void jump2HealthIntelligentDetectionActivity(){
+    public static void jump2FirstDiagnosisActivity(){
         CCResult call = CC.obtainBuilder(MODULE_NAME)
                 .setActionName(SendActionNames.FIRST_DIAGNOSIS)
                 .build().call();

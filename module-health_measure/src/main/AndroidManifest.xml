@@ -34,5 +34,14 @@
         <activity android:name=".first_diagnosis.FirstDiagnosisActivity"
             android:screenOrientation="landscape"
             android:label="新的首诊容器Activity"/>
+        <activity android:name=".health_report_form.HealthReportFormActivity"
+            android:screenOrientation="landscape"
+            android:label="首诊结果报表"/>
+        <activity android:name=".health_inquiry.HealthInquiryActivity"
+            android:screenOrientation="landscape"
+            android:label="健康调查"/>
+        <activity android:name=".health_report_form.HealthReportFormDetailActivity"
+            android:screenOrientation="landscape"
+            android:label="结果分析详情页"/>
     </application>
 </manifest>

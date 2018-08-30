@@ -68,18 +68,19 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 startActivity(new Intent(getContext(), PersonDetailActivity.class));
                 break;
             case R.id.iv_health_course:
-                startActivity(new Intent(getActivity(), VideoListActivity.class));
+//                startActivity(new Intent(getActivity(), VideoListActivity.class));
 //                CCHealthMeasureActions.jump2HealthIntelligentDetectionActivity();
+                CCHealthMeasureActions.jump2FirstDiagnosisActivity();
                 break;
             case R.id.entertainment_center:
 //                OldRouter.routeToOldHomeActivity(getActivity());
-            CC.obtainBuilder("app.component.recreation").build().callAsync();
+                CC.obtainBuilder("app.component.recreation").build().callAsync();
                 break;
             case R.id.iv_communicate:
                 startActivity(new Intent(getContext(), SpeechSynthesisActivity.class));
                 break;
             case R.id.iv_check_self:
-               startActivity(new Intent(getContext(), SymptomCheckActivity.class));
+                startActivity(new Intent(getContext(), SymptomCheckActivity.class));
                 break;
             case R.id.iv_shopping_mall:
                 startActivity(new Intent(getContext(), MarketActivity.class));

@@ -29,6 +29,9 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiF
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.lib_utils.ui.dialog.BaseDialog;
+import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
+import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
@@ -90,13 +93,6 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
         cacheDatas.add(detectionData);
     }
 
-    public void removeCacheData(DetectionData detectionData) {
-        if (detectionData == null) {
-            return;
-        }
-        cacheDatas.remove(detectionData);
-    }
-
     public List<DetectionData> getCacheDatas() {
         return cacheDatas;
     }
@@ -121,6 +117,25 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
 
     @Override
     protected void backMainActivity() {
+        showRefreshBluetoothDialog();
+    }
+
+    /**
+     * 展示刷新
+     */
+    private void showRefreshBluetoothDialog() {
+        DialogSureCancel sureCancel = new DialogSureCancel(this);
+        sureCancel.setContent("您确定解绑之前的设备，重新连接新设备吗？");
+        sureCancel.setOnClickCancelListener(null);
+        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
+            @Override
+            public void clickSure(BaseDialog dialog) {
+                untieDevice();
+            }
+        });
+    }
+
+    private void untieDevice() {
         unpairDevice();
         String nameAddress = null;
         switch (measureType) {

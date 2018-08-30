@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.gcml.lib_utils.handler.WeakHandler;
 import com.gcml.lib_utils.permission.PermissionsManager;
@@ -377,6 +378,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 address = lockedDevice.getAddress();
             }
         }
+        Log.e("重连设备物理地址：", "retryConnect: "+address );
         if (!TextUtils.isEmpty(address)) {
             connectDevice(address);
         }

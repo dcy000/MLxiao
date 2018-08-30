@@ -6,6 +6,7 @@ import android.util.SparseIntArray;
 import android.view.View;
 
 import com.gcml.health.measure.R;
+import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
@@ -269,8 +270,8 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                     isJump2Next = true;
                     fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
                 }
-                ((HealthIntelligentDetectionActivity) getActivity()).putCacheData(pressureData);
-                ((HealthIntelligentDetectionActivity) getActivity()).putCacheData(pulseData);
+                ((FirstDiagnosisActivity) getActivity()).putCacheData(pressureData);
+                ((FirstDiagnosisActivity) getActivity()).putCacheData(pulseData);
             }
 
             @Override
@@ -352,7 +353,7 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
         data.leftPulse = leftPulse;
         data.rightPulse = rightPulse;
         //将该数据在Activity中缓存
-        ((HealthIntelligentDetectionActivity) getActivity()).putBloodpressureCacheData(data);
+        ((FirstDiagnosisActivity) getActivity()).putBloodpressureCacheData(data);
         return data;
     }
 

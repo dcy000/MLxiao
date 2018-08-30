@@ -53,6 +53,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".health_inquiry.HealthInquiryActivity"
+            android:screenOrientation="landscape">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".health_report_form.HealthReportFormActivity"
+            android:screenOrientation="landscape">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".health_report_form.HealthReportFormDetailActivity"
+            android:screenOrientation="landscape"
+            android:label="结果分析详情页"/>
     </application>
 
 </manifest>

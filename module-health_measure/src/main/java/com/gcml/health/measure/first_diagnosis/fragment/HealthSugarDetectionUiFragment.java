@@ -3,6 +3,7 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
@@ -56,7 +57,7 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
                         isJump2Next = true;
                         fragmentChanged.onFragmentChanged(HealthSugarDetectionUiFragment.this, null);
                     }
-                    ((HealthIntelligentDetectionActivity) getActivity()).putCacheData(data);
+                    ((FirstDiagnosisActivity) getActivity()).putCacheData(data);
                 }
 
                 @Override

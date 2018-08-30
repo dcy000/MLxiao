@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
+import android.view.WindowManager;
 
+import com.example.han.referralproject.R;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -13,6 +15,7 @@ import com.iflytek.cloud.VoiceWakeuper;
 import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
 import com.iflytek.cloud.util.ResourceUtil;
+import com.medlink.danbogh.wakeup.dialog.VoiceDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +29,7 @@ public class WakeupHelper {
 
     @SuppressLint("StaticFieldLeak")
     private static Context sContext;
+    private VoiceDialog voiceDialog;
 
     public static void init(Context context) {
         sContext = context.getApplicationContext();
@@ -134,9 +138,16 @@ public class WakeupHelper {
                         JSONObject jsonObj = new JSONObject(json);
                         int score = jsonObj.optInt("score");
                         if (score >= 20) {
-                            Intent intent = new Intent(sContext, SpeechSynthesisActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            sContext.startActivity(intent);
+//                            Intent intent = new Intent(sContext, SpeechSynthesisActivity.class);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            sContext.startActivity(intent);
+                            if (voiceDialog == null) {
+                                voiceDialog = new VoiceDialog(sContext, R.style.XDialog);
+                                voiceDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                            }
+                            if (voiceDialog != null && !voiceDialog.isShowing()) {
+                                voiceDialog.show();
+                            }
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

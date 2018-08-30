@@ -14,13 +14,23 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <com.example.han.referralproject.imageview.CircleImageView
-            android:id="@+id/head"
+        <FrameLayout
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25dp"
-            />
+            android:layout_marginTop="25dp">
+
+            <com.example.han.referralproject.imageview.CircleImageView
+                android:id="@+id/head"
+                android:layout_width="150dp"
+                android:layout_height="150dp" />
+
+            <ImageView
+                android:layout_width="142dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:background="@drawable/ic_modify_head" />
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/ll_name_info"
@@ -608,14 +618,14 @@
             </LinearLayout>
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="10dp"
                 android:text="恢复出厂设置"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
