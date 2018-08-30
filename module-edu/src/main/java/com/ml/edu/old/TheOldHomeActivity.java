@@ -1,5 +1,6 @@
 package com.ml.edu.old;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,9 @@ public class TheOldHomeActivity extends AppCompatActivity {
 
     public static Intent intent(Context context) {
         Intent intent = new Intent(context, TheOldHomeActivity.class);
+        if (!(context instanceof Activity)) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
         return intent;
     }
 
