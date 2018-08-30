@@ -12,6 +12,8 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
+import timber.log.Timber;
+
 /**
  *
  */
@@ -21,7 +23,7 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
 //    private ITimeCountListener timeCountListener;
     private ImageView ivGrayBack;
     private OnSynthesizerListener onSynthesizerListener;
-
+    private long time;
     public HealthFirstTipsFragment() {
         // Required empty public constructor
     }
@@ -45,7 +47,7 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
             onSynthesizerListener = new OnSynthesizerListener();
         }
         MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                getString(R.string.health_measure_first_detect_tips), onSynthesizerListener,false);
+                "初次见面，我是小E,来做个全套体检吧", onSynthesizerListener,false);
 //        timeCountListener = new ITimeCountListener();
 //        TimeCountDownUtils.getInstance().create(3000, 1000,
 //                timeCountListener);
@@ -55,7 +57,7 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
 
         @Override
         public void onSpeakBegin() {
-
+            time=System.currentTimeMillis();
         }
 
         @Override
@@ -80,6 +82,7 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
 
         @Override
         public void onCompleted(SpeechError speechError) {
+            Timber.e("语音耗时："+(System.currentTimeMillis()-time));
             if (fragmentChanged != null) {
                 fragmentChanged.onFragmentChanged(
                         HealthFirstTipsFragment.this, null);

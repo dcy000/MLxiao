@@ -178,12 +178,11 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.btnNext:
-                dealClick();
-                break;
+        int i = v.getId();
+        if (i == R.id.btnNext) {
+            dealClick();
+
+        } else {
         }
     }
 }

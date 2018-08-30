@@ -121,6 +121,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
     private void initView() {
         mFrame = (FrameLayout) findViewById(R.id.frame);
         mTitleText.setText("健 康 调 查");
+        userId=HealthMeasureSPManifest.getUserId();
     }
 
     @Override

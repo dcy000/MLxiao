@@ -77,11 +77,9 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.tv_see_detail:
-                break;
+        int i = v.getId();
+        if (i == R.id.tv_see_detail) {
+        } else {
         }
     }
 }

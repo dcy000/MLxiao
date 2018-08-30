@@ -23,7 +23,9 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
 
     private ViewPager mViewpage;
     private List<Fragment> fragments;
+    public static void startActivity(){
 
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
