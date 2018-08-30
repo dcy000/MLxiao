@@ -294,6 +294,16 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     }
 
     @Override
+    protected void backLastActivity() {
+        showPosition--;
+        if (showPosition > 0) {
+            showFragment(showPosition);
+        } else {
+            finish();
+        }
+    }
+
+    @Override
     protected void backMainActivity() {
         showRefreshBluetoothDialog();
     }

@@ -353,7 +353,7 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
         data.leftPulse = leftPulse;
         data.rightPulse = rightPulse;
         //将该数据在Activity中缓存
-        ((HealthIntelligentDetectionActivity) getActivity()).putBloodpressureCacheData(data);
+        ((FirstDiagnosisActivity) getActivity()).putBloodpressureCacheData(data);
         return data;
     }
 

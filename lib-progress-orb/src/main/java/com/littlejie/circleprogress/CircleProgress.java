@@ -12,6 +12,7 @@ import android.graphics.RectF;
 import android.graphics.SweepGradient;
 import android.graphics.Typeface;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -56,6 +57,7 @@ public class CircleProgress extends View {
     //绘制数值
     private TextPaint mValuePaint;
     private float mValue;
+    private String mValueWithString;
     private float mMaxValue;
     private float mValueOffset;
     private int mPrecision;
@@ -182,7 +184,6 @@ public class CircleProgress extends View {
         mValuePaint.setTextSize(mValueSize);
         mValuePaint.setColor(mValueColor);
 //        mValuePaint.setTypeface(Typeface.DEFAULT_BOLD);
-        mValuePaint.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "font/DINEngschrift-Alternate.otf"));
         mValuePaint.setFakeBoldText(true);
         mValuePaint.setTextAlign(Paint.Align.CENTER);
         // 设置Typeface对象，即字体风格，包括粗体，斜体以及衬线体，非衬线体等
@@ -248,7 +249,7 @@ public class CircleProgress extends View {
         //计算文字绘制时的 baseline
         //由于文字的baseline、descent、ascent等属性只与textSize和typeface有关，所以此时可以直接计算
         //若value、hint、unit由同一个画笔绘制或者需要动态设置文字的大小，则需要在每次更新后再次计算
-        mValueOffset = mCenterPoint.y + getBaselineOffsetFromY(mValuePaint)-30;
+        mValueOffset = mCenterPoint.y + getBaselineOffsetFromY(mValuePaint) - 30;
         mHintOffset = mCenterPoint.y - mRadius * mTextOffsetPercentInRadius + getBaselineOffsetFromY(mHintPaint);
         mSmallUnitOffset = mValueOffset;
         mUnitOffset = mCenterPoint.y + mRadius * mTextOffsetPercentInRadius + getBaselineOffsetFromY(mUnitPaint) + 10;
@@ -291,13 +292,18 @@ public class CircleProgress extends View {
             float mSmallUnitPosition = mCenterPoint.x * 2 - all_margin - mSmallUnitWidth / 2;
             canvas.drawText(String.valueOf(mSmallUnit), mSmallUnitPosition, mSmallUnitOffset, mSmallUnitPaint);
         } else {
-            canvas.drawText(String.format(mPrecisionFormat, mValue), mCenterPoint.x, mValueOffset, mValuePaint);
+            if (TextUtils.isEmpty(mValueWithString)) {
+                mValuePaint.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "font/DINEngschrift-Alternate.otf"));
+                canvas.drawText(String.format(mPrecisionFormat, mValue), mCenterPoint.x, mValueOffset, mValuePaint);
+            } else {
+                canvas.drawText(mValueWithString, mCenterPoint.x, mValueOffset, mValuePaint);
+            }
         }
         if (mHint != null) {
             canvas.drawText(mHint.toString(), mCenterPoint.x, mHintOffset, mHintPaint);
         }
         if (mUnit != null) {
-            canvas.drawText(mUnit.toString(), mCenterPoint.x, mUnitOffset+30, mUnitPaint);
+            canvas.drawText(mUnit.toString(), mCenterPoint.x, mUnitOffset + 30, mUnitPaint);
         }
     }
 
@@ -435,6 +441,14 @@ public class CircleProgress extends View {
 
     public void setAnimTime(long animTime) {
         mAnimTime = animTime;
+    }
+
+    public String getValueWithString() {
+        return mValueWithString;
+    }
+
+    public void setValueWithString(String mValueWithString) {
+        this.mValueWithString = mValueWithString;
     }
 
     /**
