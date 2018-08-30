@@ -14,12 +14,12 @@ import com.gcml.task.bean.Post.TaskSchemaResultBean;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 /**
- * desc: TaskResultActivity .
+ * desc: TaskComplyResultActivity .
  * author: wecent .
  * date: 2018/8/20 .
  */
 
-public class TaskResultActivity extends AppCompatActivity implements View.OnClickListener {
+public class TaskComplyResultActivity extends AppCompatActivity implements View.OnClickListener {
 
     TranslucentToolBar mToolBar;
     TextView resultTitle;
@@ -71,7 +71,7 @@ public class TaskResultActivity extends AppCompatActivity implements View.OnClic
         mToolBar.setData("问 卷 结 果", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
-                CC.obtainBuilder("app.component.task.prompt").setContext(TaskResultActivity.this).build().callAsync();
+                CC.obtainBuilder("app.component.task.comply").setContext(TaskComplyResultActivity.this).build().callAsync();
                 finish();
             }
 
@@ -107,7 +107,7 @@ public class TaskResultActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_task_result_again) {
-            CC.obtainBuilder("app.component.task.prompt").setContext(TaskResultActivity.this).build().callAsync();
+            CC.obtainBuilder("app.component.task.comply").setContext(TaskComplyResultActivity.this).build().callAsync();
             finish();
         } else if (v.getId() == R.id.tv_task_result_affirm) {
             CC.obtainBuilder("app.component.task").build().callAsync();

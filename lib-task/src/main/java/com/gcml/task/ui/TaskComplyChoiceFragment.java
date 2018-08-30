@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * desc: TaskChoiceFragment .
+ * desc: 依从性调查问卷选择 .
  * author: wecent .
  * date: 2018/8/20 .
  */
 
-public class TaskChoiceFragment extends Fragment implements View.OnClickListener {
+public class TaskComplyChoiceFragment extends Fragment implements View.OnClickListener {
 
     // 问题内容
     private static String TITLE_CONTENT = "titleContent";
@@ -44,8 +44,8 @@ public class TaskChoiceFragment extends Fragment implements View.OnClickListener
     private TaskChoiceAdapter mAdapter;
     private TaskHealthBean.QuestionListBean mData;
 
-    public static TaskChoiceFragment newInstance(String title, String hint, TaskHealthBean.QuestionListBean mData, boolean isMultiple) {
-        TaskChoiceFragment fragment = new TaskChoiceFragment();
+    public static TaskComplyChoiceFragment newInstance(String title, String hint, TaskHealthBean.QuestionListBean mData, boolean isMultiple) {
+        TaskComplyChoiceFragment fragment = new TaskComplyChoiceFragment();
         Bundle bundle = new Bundle();
         bundle.putString(TITLE_CONTENT, title);
         bundle.putString(HINT_CONTENT, hint);
@@ -129,10 +129,10 @@ public class TaskChoiceFragment extends Fragment implements View.OnClickListener
         void onNextStep(String[] selected, TaskHealthBean.QuestionListBean questionList);
     }
 
-    public void setNextStepListener(TaskChoiceFragment.OnNextStepClickListener listener) {
+    public void setNextStepListener(TaskComplyChoiceFragment.OnNextStepClickListener listener) {
         this.listener = listener;
     }
 
-    private TaskChoiceFragment.OnNextStepClickListener listener;
+    private TaskComplyChoiceFragment.OnNextStepClickListener listener;
 
 }

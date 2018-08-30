@@ -8,25 +8,25 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
 import com.gcml.task.bean.Post.TaskSchemaResultBean;
-import com.gcml.task.ui.TaskResultActivity;
+import com.gcml.task.ui.TaskComplyResultActivity;
 
 /**
- * desc: TaskResultComponent .
+ * desc: TaskComplyResultComponent .
  * author: wecent .
  * date: 2018/8/21 .
  */
 
-public class TaskResultComponent implements IComponent {
+public class TaskComplyResultComponent implements IComponent {
 
     @Override
     public String getName() {
-        return "app.component.task.result";
+        return "app.component.task.comply.result";
     }
 
     @Override
     public boolean onCall(CC cc) {
         Context context = cc.getContext();
-        Intent intent = new Intent(context, TaskResultActivity.class);
+        Intent intent = new Intent(context, TaskComplyResultActivity.class);
         TaskSchemaResultBean resultBean = cc.getParamItem("resultBean");
         intent.putExtra("resultBean", resultBean);
         if (!(context instanceof Activity)) {

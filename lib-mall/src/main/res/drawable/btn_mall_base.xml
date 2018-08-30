@@ -5,15 +5,15 @@
             <!--圆角-->
             <corners android:radius="5dp" />
             <!--填充颜色-->
-            <solid android:color="@color/task_color_base_5" />
+            <solid android:color="#803F86FC" />
         </shape>
     </item>
-    <item android:state_pressed="false">
+    <item android:state_checked="false">
         <shape android:shape="rectangle">
             <!--圆角-->
             <corners android:radius="5dp" />
             <!--填充颜色-->
-            <solid android:color="@color/task_color_base" />
+            <solid android:color="#3F86FC" />
         </shape>
     </item>
 </selector>

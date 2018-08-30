@@ -15,6 +15,11 @@ import com.gcml.task.R;
 import com.gcml.task.bean.DetailsModel;
 import com.gcml.task.bean.ItemsModel;
 
+/**
+ * desc: 每日任务类型和每日任务量组合页面.
+ * author: wecent .
+ * date: 2018/8/20 .
+ */
 
 public class TaskDialyGroupFragment extends Fragment
         implements TaskDialyDetailsFragment.OnActionListener {

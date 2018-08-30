@@ -37,13 +37,13 @@
         <activity android:name=".ui.TaskActivity"
             android:launchMode="singleTask"/>
 
-        <activity android:name=".ui.TaskHealthActivity"
+        <activity android:name=".ui.TaskComplyChoiceActivity"
             android:launchMode="singleTask"/>
 
-        <activity android:name=".ui.TaskResultActivity"
+        <activity android:name=".ui.TaskComplyResultActivity"
             android:launchMode="singleTask"/>
 
-        <activity android:name=".ui.TaskPromptActivity"
+        <activity android:name=".ui.TaskComplyActivity"
             android:launchMode="singleTask"/>
 
         <activity android:name=".ui.TaskDialyActivity"

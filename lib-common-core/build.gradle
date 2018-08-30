@@ -98,6 +98,8 @@ dependencies {
     implementation rootProject.ext.dependencies["glide"]
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]
 
+    annotationProcessor rootProject.ext.dependencies["nice-spinner"]
+
     api rootProject.ext.dependencies["timber"]
     implementation rootProject.ext.dependencies["stetho"]
     implementation rootProject.ext.dependencies["stetho-okhttp3"]
