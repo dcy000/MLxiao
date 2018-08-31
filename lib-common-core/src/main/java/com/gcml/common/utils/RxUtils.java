@@ -16,14 +16,12 @@ import android.support.annotation.NonNull;
 import com.gcml.common.repository.http.ApiException;
 import com.gcml.common.repository.http.ApiResult;
 import com.gcml.common.repository.utils.Serializer;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.AutoDisposeConverter;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
 import java.lang.reflect.Type;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -31,7 +29,6 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Cancellable;
 import io.reactivex.functions.Function;
 

@@ -7,17 +7,17 @@
 
         <variable
             name="presenter"
-            type="com.gcml.auth.face.ui.FaceSignUpActivity" />
+            type="com.gcml.auth.face.ui.FaceSignInActivity" />
 
         <variable
             name="viewModel"
-            type="com.gcml.auth.face.ui.FaceSignUpViewModel" />
+            type="com.gcml.auth.face.ui.FaceSignInViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.FaceSignUpActivity">
+        tools:context=".ui.FaceSignInActivity">
 
         <SurfaceView
             android:id="@+id/sv_preview"
@@ -92,5 +92,4 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
-
 </layout>

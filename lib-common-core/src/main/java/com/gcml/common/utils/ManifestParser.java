@@ -47,7 +47,7 @@ public final class ManifestParser<T> {
                 if (!TextUtils.isEmpty(mMetaDataValue) && mMetaDataValue.equals(appInfo.metaData.get(key))) {
                     modules.add(parseModule(key));
                     if (Log.isLoggable(TAG, Log.DEBUG)) {
-                        Timber.d("Loaded : " + key);
+                        Timber.d("Loaded : %s", key);
                     }
                 }
             }

@@ -51,6 +51,7 @@ dependencies {
     implementation rootProject.ext.dependencies["room-runtime"]
     implementation rootProject.ext.dependencies["room-rxjava2"]
 
+    api 'com.github.arcadefire:nice-spinner:1.3.4'
     annotationProcessor rootProject.ext.dependencies["room-compiler"]
 
     testImplementation rootProject.ext.dependencies["junit"]

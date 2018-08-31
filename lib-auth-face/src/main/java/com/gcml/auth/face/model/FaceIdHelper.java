@@ -294,23 +294,30 @@ public class FaceIdHelper {
         }).subscribeOn(Schedulers.io());
     }
 
-    public Observable<Float> signIn(Context context, byte[] faceData, String groupId) {
+    /**
+     *
+     * @param context 用于初始化引擎
+     * @param faceData 人脸数据
+     * @param groupId 组 Id
+     * @return faceId:score
+     */
+    public Observable<String> signIn(Context context, byte[] faceData, String groupId) {
         return obtainVerifier(context)
-                .flatMap(new Function<IdentityVerifier, ObservableSource<Float>>() {
+                .flatMap(new Function<IdentityVerifier, ObservableSource<String>>() {
                     @Override
-                    public ObservableSource<Float> apply(IdentityVerifier verifier) throws Exception {
+                    public ObservableSource<String> apply(IdentityVerifier verifier) throws Exception {
                         return signInInternal(verifier, faceData, groupId);
                     }
                 });
     }
 
-    private ObservableSource<Float> signInInternal(
+    private ObservableSource<String> signInInternal(
             IdentityVerifier verifier,
             byte[] faceData,
             String groupId) {
-        return Observable.create(new ObservableOnSubscribe<Float>() {
+        return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void subscribe(ObservableEmitter<Float> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 verifier.setParameter(SpeechConstant.PARAMS, null);
                 // 设置业务场景
                 verifier.setParameter(SpeechConstant.MFV_SCENES, "ifr");
@@ -336,7 +343,8 @@ public class FaceIdHelper {
                             String firstFaceId = firstScoreObj.optString("user");
                             double firstScore = firstScoreObj.optDouble("score");
                             Timber.i("FirstFace: {faceId: %s, score: %s}", firstFaceId, firstScore);
-                            emitter.onNext((float) firstScore);
+                            String faceIdWithScore = String.format("%s:%s", firstFaceId, firstScore);
+                            emitter.onNext(faceIdWithScore);
                         } catch (Throwable e) {
                             Timber.e(e, "Face sign in error");
                             emitter.onError(new FaceRepository.FaceError(ERROR_ON_FACE_SIGN_IN, "", e));

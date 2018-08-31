@@ -20,6 +20,7 @@ import android.view.SurfaceHolder;
 import android.view.View;
 
 import com.gcml.auth.face.utils.CameraUtils;
+import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -260,14 +261,18 @@ public class PreviewHelper
                         return processFrame(bytes);
                     }
                 })
-                .doOnNext(new Consumer<byte[]>() {
+                .as(RxUtils.autoDisposeConverter(mActivity))
+                .subscribe(new DefaultObserver<byte[]>() {
                     @Override
-                    public void accept(byte[] bytes) throws Exception {
+                    public void onNext(byte[] bytes) {
                         recycleData(bytes);
                     }
-                })
-                .as(RxUtils.autoDisposeConverter(mActivity))
-                .subscribe();
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
+                });
     }
 
     private Observable<byte[]> processFrame(byte[] bytes) {

@@ -4,14 +4,17 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.gcml.common.utils.UploadHelper;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.IRepositoryHelper;
 import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UploadHelper;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.Observable;
@@ -21,6 +24,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class FaceRepository {
 
@@ -80,7 +84,7 @@ public class FaceRepository {
                                 })
                                 .subscribeOn(Schedulers.io());
                     }
-                });
+                }).subscribeOn(Schedulers.io());
     }
 
     public Observable<String> faceId() {
@@ -117,8 +121,9 @@ public class FaceRepository {
      * 1. 人脸注册
      * 2. 1:N 人脸加组
      * 3. 上传头像
+     *
      * @param faceData 人脸字节数据
-     * @param faceId 人脸 id
+     * @param faceId   人脸 id
      * @return 头像外链地址
      */
     public Observable<String> signUp(@NonNull byte[] faceData, @NonNull String faceId) {
@@ -151,15 +156,19 @@ public class FaceRepository {
                         }
                         return uploadAvatar(faceData, userId, faceId);
                     }
+                }).doOnNext(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        UserSpHelper.addAccount(UserSpHelper.getUserId(), faceId);
+                    }
                 });
     }
 
     /**
-     *
      * @param faceId 人脸 id
      * @return groupId
      */
-    private ObservableSource<String> tryJoinGroup(@NonNull String faceId) {
+    private Observable<String> tryJoinGroup(@NonNull String faceId) {
         String userId = UserSpHelper.getUserId();
         if (TextUtils.isEmpty(userId)) {
             return Observable.error(new NullPointerException("userId == null"));
@@ -177,18 +186,33 @@ public class FaceRepository {
     }
 
     /**
-     *
      * @param faceId 人脸 id
      * @return groupId
      */
     private Observable<String> createAndJoinGroup(String faceId) {
         return mFaceIdHelper.createGroup(mContext, faceId)
-                .doOnNext(new Consumer<String>() {
+                .flatMap(new Function<String, ObservableSource<String>>() {
                     @Override
-                    public void accept(String groupId) throws Exception {
+                    public ObservableSource<String> apply(String groupId) throws Exception {
+                        Timber.i("createGroup success");
                         UserSpHelper.setGroupId(groupId);
                         UserSpHelper.setGroupFirstFaceId(faceId);
-                        // 上传 groupId 到业务服务器
+                        String userId = UserSpHelper.getUserId();
+                        return mFaceService.updateFaceGroup(userId, groupId, faceId)
+                                .compose(RxUtils.apiResultTransformer())
+                                .map(new Function<List<FaceGroup>, String>() {
+                                    @Override
+                                    public String apply(List<FaceGroup> faceGroups) throws Exception {
+                                        return groupId;
+                                    }
+                                })
+                                .doOnNext(new Consumer<String>() {
+                                    @Override
+                                    public void accept(String s) throws Exception {
+                                        Timber.i("updateFaceGroup success");
+                                    }
+                                })
+                                .subscribeOn(Schedulers.io());
                     }
                 })
                 .flatMap(new Function<String, ObservableSource<String>>() {
@@ -201,7 +225,6 @@ public class FaceRepository {
     }
 
     /**
-     *
      * @param faceId 人脸 id
      * @return groupId
      */
@@ -217,7 +240,37 @@ public class FaceRepository {
                         return Observable.error(error);
                     }
                 })
+                .doOnNext(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        Timber.i("joinGroup success");
+                    }
+                })
                 .subscribeOn(Schedulers.io());
     }
 
+    /**
+     * @param faceData 人脸数据
+     * @param groupId  组 Id
+     * @return faceId:score
+     */
+    public Observable<String> signIn(byte[] faceData, String groupId) {
+        return mFaceIdHelper.signIn(mContext, faceData, groupId);
+    }
+
+    public Observable<List<UserEntity>> getLocalUsers() {
+        String[] accounts = UserSpHelper.getAccounts();
+        if (accounts == null) {
+            return Observable.just(new ArrayList<>());
+        }
+        StringBuilder mAccountIdBuilder = new StringBuilder();
+        for (String item : accounts) {
+            mAccountIdBuilder.append(item.split(",")[0])
+                    .append(",");
+        }
+        mAccountIdBuilder.deleteCharAt(mAccountIdBuilder.length() - 1);
+        return mFaceService.getAllUsers(mAccountIdBuilder.toString())
+                .compose(RxUtils.apiResultTransformer())
+                .onErrorResumeNext(Observable.just(new ArrayList<>()));
+    }
 }

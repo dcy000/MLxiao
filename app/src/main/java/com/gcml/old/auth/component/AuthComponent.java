@@ -35,9 +35,9 @@ public class AuthComponent implements IComponent {
             intent.putExtra("phone", (String)cc.getParamItem("phone"));
         } else {
             intent.setClass(context, ChooseLoginTypeActivity.class);
-//            CC.obtainBuilder("com.gcml.auth").build().callAsync();
-//            CC.sendCCResult(cc.getCallId(), CCResult.success());
-//            return false;
+            CC.obtainBuilder("com.gcml.auth").build().callAsync();
+            CC.sendCCResult(cc.getCallId(), CCResult.success());
+            return false;
         }
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

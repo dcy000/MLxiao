@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -150,8 +152,11 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 String deseaseHistory = HealthInfo.getDeseaseHistory(response.mh);
                 mHistory.setText(TextUtils.isEmpty(deseaseHistory) ? "尚未填写" : deseaseHistory);
 
-                String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 4, response.sfz.length());
-                mIdcard.setText(shenfen);
+                if (!TextUtils.isEmpty(response.sfz) && response.sfz.length() == 18) {
+                    String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 4, response.sfz.length());
+                    mIdcard.setText(shenfen);
+                }
+                mIdcard.setText("");
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -254,13 +259,25 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.head:
-                CC.obtainBuilder("face_recognition")
-                        .setActionName("To_RegisterHead2XunfeiActivity")
-                        .addParam("key_xfid", StringUtil.produceXfid())
-                        .build().callAsyncCallbackOnMainThread((cc, result) -> {
-                    if ("RegistHeadSuccess".equals(result.getDataItem("key_cc_callback"))) {
-                    }
-                });
+                CC.obtainBuilder("com.gcml.auth.face.signup")
+                        .setActionName("forResult")
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+                                if (result.isSuccess()) {
+                                    ToastUtils.showShort("更换人脸成功");
+                                }
+                            }
+                        });
+
+//                CC.obtainBuilder("face_recognition")
+//                        .setActionName("To_RegisterHead2XunfeiActivity")
+//                        .addParam("key_xfid", StringUtil.produceXfid())
+//                        .build().callAsyncCallbackOnMainThread((cc, result) -> {
+//                    if ("RegistHeadSuccess".equals(result.getDataItem("key_cc_callback"))) {
+//                    }
+//                });
                 break;
 
             case R.id.ll_age_info:

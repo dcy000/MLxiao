@@ -52,12 +52,19 @@ public class UserSpHelper {
         return (String) SPUtil.get(KEY_USER_ID, "");
     }
 
+    public static void setUserId(String userId) {
+        SPUtil.put(KEY_USER_ID, userId);
+    }
+
     /**
      * 存储讯飞id到sp中
      *
      * @param faceId 人脸 Id
      */
     public static void setFaceId(String faceId) {
+        if (TextUtils.isEmpty(faceId)) {
+            faceId = "";
+        }
         SPUtil.put(KEY_XUNFEI_ID, faceId);
     }
 

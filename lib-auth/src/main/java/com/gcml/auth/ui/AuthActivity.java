@@ -3,12 +3,15 @@ package com.gcml.auth.ui;
 import android.os.Bundle;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityAuthBinding;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.app.AppUtils;
+import com.gcml.lib_utils.display.ToastUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -44,10 +47,13 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     }
 
     public void goSignUp(){
-        CC.obtainBuilder("com.gcml.old.user.auth")
-                .setActionName("signup")
+        CC.obtainBuilder("com.gcml.auth.signup")
                 .build()
                 .callAsync();
+//        CC.obtainBuilder("com.gcml.old.user.auth")
+//                .setActionName("signup")
+//                .build()
+//                .callAsync();
     }
 
     public void goSignInByPhone(){
@@ -58,10 +64,17 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     }
 
     public void goSignInByFace(){
-        CC.obtainBuilder("face_recognition")
-                .setActionName("To_FaceRecognitionActivity")
+        CC.obtainBuilder("com.gcml.auth.face.signin")
+                .addParam("componentName", "com.gcml.old.home")
                 .build()
-                .callAsync();
+                .callAsync(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+                        if (!result.isSuccess()) {
+                            ToastUtils.showShort(result.getErrorMessage());
+                        }
+                    }
+                });
     }
 
     public void goWifi(){

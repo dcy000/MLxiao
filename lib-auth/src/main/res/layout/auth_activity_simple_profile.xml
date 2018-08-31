@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.gcml.auth.ui.profile.SimpleProfileActivity" />
+
+        <variable
+            name="viewModel"
+            type="com.gcml.auth.ui.profile.SimpleProfileViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.profile.SimpleProfileActivity">
+
+        <com.gcml.common.widget.toolbar.TranslucentToolBar
+            android:id="@+id/tb_simple_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="1200pt"
+            android:layout_height="942pt"
+            android:layout_marginTop="40pt"
+            android:background="@drawable/common_bg_shadow"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tb_simple_profile">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="真实姓名"
+                android:textColor="@color/config_color_base_3"
+                android:textSize="50pt"
+                app:layout_constraintBottom_toBottomOf="@+id/et_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/et_name"
+                app:layout_constraintTop_toTopOf="@+id/et_name" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="800pt"
+                android:layout_height="120pt"
+                android:layout_marginTop="65pt"
+                android:background="@drawable/auth_sign_in_bg_et"
+                android:gravity="center_vertical"
+                android:hint="输入你的真实姓名"
+                android:inputType="text"
+                android:paddingLeft="36pt"
+                android:paddingRight="36pt"
+                android:textColor="#FF333333"
+                android:textColorHint="#FFBBBBBB"
+                android:textSize="50pt"
+                app:layout_constraintLeft_toRightOf="@+id/tv_name"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_id_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="身份证号"
+                android:textColor="@color/config_color_base_3"
+                android:textSize="50pt"
+                app:layout_constraintBottom_toBottomOf="@+id/et_id_card"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/et_id_card"
+                app:layout_constraintTop_toTopOf="@+id/et_id_card" />
+
+            <EditText
+                android:id="@+id/et_id_card"
+                android:layout_width="800pt"
+                android:layout_height="120pt"
+                android:layout_marginTop="44pt"
+                android:background="@drawable/auth_sign_in_bg_et"
+                android:digits="0123456789xX"
+                android:gravity="center_vertical"
+                android:hint="输入你的身份证号码"
+                android:maxLength="18"
+                android:maxLines="1"
+                android:paddingLeft="36pt"
+                android:paddingRight="36pt"
+                android:singleLine="true"
+                android:textColor="#FF333333"
+                android:textColorHint="#FFBBBBBB"
+                android:textSize="50pt"
+                app:layout_constraintLeft_toRightOf="@+id/tv_id_card"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_name" />
+
+            <TextView
+                android:id="@+id/tv_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="104pt"
+                android:text="你的性别"
+                android:textColor="@color/config_color_base_3"
+                android:textSize="50pt"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_id_card"
+                app:layout_constraintRight_toRightOf="@+id/tv_id_card"
+                app:layout_constraintTop_toBottomOf="@+id/tv_id_card" />
+
+            <TextView
+                android:id="@+id/tv_man"
+                android:layout_width="200pt"
+                android:layout_height="100pt"
+                android:layout_marginLeft="50pt"
+                android:background="@drawable/common_bg_chk_3f86fc_50"
+                android:gravity="center"
+                android:onClick="@{() -> presenter.selectMan()}"
+                android:text="男"
+                android:textColor="@color/common_chk_666666"
+                android:textSize="50pt"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_sex"
+                app:layout_constraintLeft_toRightOf="@+id/tv_sex"
+                app:layout_constraintTop_toTopOf="@+id/tv_sex" />
+
+            <TextView
+                android:id="@+id/tv_women"
+                android:layout_width="200pt"
+                android:layout_height="100pt"
+                android:layout_marginLeft="24pt"
+                android:background="@drawable/common_bg_chk_3f86fc_50"
+                android:gravity="center"
+                android:onClick="@{() -> presenter.selectWoman()}"
+                android:text="女"
+                android:textColor="@color/common_chk_666666"
+                android:textSize="50pt"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_sex"
+                app:layout_constraintLeft_toRightOf="@+id/tv_man"
+                app:layout_constraintTop_toTopOf="@+id/tv_sex" />
+
+            <TextView
+                android:id="@+id/tv_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="104pt"
+                android:text="你的身高"
+                android:textColor="@color/config_color_base_3"
+                android:textSize="50pt"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_sex"
+                app:layout_constraintRight_toRightOf="@+id/tv_sex"
+                app:layout_constraintTop_toBottomOf="@+id/tv_sex" />
+
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/sp_height"
+                android:layout_width="310pt"
+                android:layout_height="120pt"
+                android:layout_marginLeft="50pt"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_height"
+                app:layout_constraintLeft_toRightOf="@+id/tv_height"
+                app:layout_constraintTop_toTopOf="@+id/tv_height" />
+
+            <TextView
+                android:id="@+id/tv_next"
+                android:layout_width="0dp"
+                android:layout_height="100pt"
+                android:layout_marginLeft="76pt"
+                android:layout_marginRight="76pt"
+                android:layout_marginTop="115pt"
+                android:background="@drawable/common_bg_btn_3f86fc"
+                android:gravity="center"
+                android:onClick="@{() -> presenter.goNext()}"
+                android:text="完成"
+                android:textColor="@color/config_color_white"
+                android:textSize="50pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_height" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

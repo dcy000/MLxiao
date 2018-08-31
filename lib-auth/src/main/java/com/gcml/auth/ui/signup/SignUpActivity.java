@@ -76,7 +76,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
         if (TextUtils.isEmpty(phone)) {
             binding.tvCode.setEnabled(true);
             ToastUtils.showShort("手机号不能为空");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "手机号不能为空", true);
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "手机号不能为空", false);
             return;
         }
         viewModel.hasAccount(phone)
@@ -101,7 +101,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                         if (hasAccount) {
                             binding.tvCode.setEnabled(true);
                             ToastUtils.showShort("账号不合法或账号已注册");
-                            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "账号不合法或账号已注册", true);
+                            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "账号不合法或账号已注册", false);
                         } else {
                             doFetchCode(phone);
                         }
@@ -125,14 +125,14 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                     public void onNext(String code) {
                         SignUpActivity.this.code = code;
                         ToastUtils.showShort("获取验证码成功");
-                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码成功", true);
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码成功", false);
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         ToastUtils.showShort("获取验证码失败");
-                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码失败", true);
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码失败", false);
                     }
                 });
     }
@@ -154,15 +154,14 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                         binding.tvCode.setEnabled(true);
                     }
                 })
-                .doOnNext(new Consumer<Integer>() {
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void onNext(Integer integer) {
                         binding.tvCode.setText(
                                 String.format(Locale.getDefault(), "已发送（%d）", integer));
                     }
-                })
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe();
+                });
     }
 
     public void goNext() {
@@ -171,7 +170,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
         if (TextUtils.isEmpty(phone)) {
             binding.tvNext.setEnabled(true);
             ToastUtils.showShort("手机号不能为空");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "手机号不能为空", true);
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "手机号不能为空", false);
             return;
         }
         viewModel.hasAccount(phone)
@@ -195,8 +194,8 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                     public void onNext(Boolean hasAccount) {
                         if (hasAccount) {
                             binding.tvNext.setEnabled(true);
-                            ToastUtils.showShort("账号不合法或账号已注册");
-                            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "账号不合法或账号已注册", true);
+                            ToastUtils.showShort("账号已注册");
+                            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "账号已注册", false);
                         } else {
                             rtySignUp(phone);
                         }
@@ -207,16 +206,18 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     private void rtySignUp(String phone) {
         String code = binding.etCode.getText().toString().trim();
         if (TextUtils.isEmpty(code) || !code.equals(this.code)) {
+            binding.tvNext.setEnabled(true);
             ToastUtils.showShort("验证码错误");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "验证码错误", true);
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "验证码错误", false);
             return;
         }
         String password = binding.etPassword.getText().toString().trim();
         if (TextUtils.isEmpty(password)
                 || !TextUtils.isDigitsOnly(password)
                 || password.length() != 6) {
+            binding.tvNext.setEnabled(true);
             ToastUtils.showShort("主人,请输入6位数字密码");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,请输入6位数字密码", true);
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,请输入6位数字密码", false);
             return;
         }
         doSignUp(phone, password);
@@ -236,6 +237,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                 .doOnTerminate(new Action() {
                     @Override
                     public void run() throws Exception {
+                        binding.tvNext.setEnabled(true);
                         dismissLoading();
                     }
                 })
@@ -243,12 +245,17 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
-
+                        CC.obtainBuilder("com.gcml.auth.face.signup")
+                                .addParam("componentName", "com.gcml.auth.updateSimpleProfile")
+                                .build()
+                                .callAsync();
+                        finish();
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        ToastUtils.showShort("注册失败");
                     }
                 });
     }

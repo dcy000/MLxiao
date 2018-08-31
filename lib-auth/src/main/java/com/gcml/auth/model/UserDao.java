@@ -17,7 +17,7 @@ public interface UserDao {
     Single<List<UserEntity>> findAll();
 
     @Query("SELECT * FROM UserOld WHERE id = :userId")
-    Single<UserEntity> findOneById(int userId);
+    Single<UserEntity> findOneById(String userId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addAll(UserEntity... user);
