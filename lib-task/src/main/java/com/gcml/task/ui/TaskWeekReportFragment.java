@@ -36,8 +36,11 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * A simple {@link Fragment} subclass.
+ * desc: 周目标差距列表页（包括食盐、运动、饮酒和体重） .
+ * author: wecent .
+ * date: 2018/8/20 .
  */
+
 public class TaskWeekReportFragment extends Fragment {
 
     private TranslucentToolBar mToolBar;

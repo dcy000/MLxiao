@@ -25,6 +25,21 @@
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
 
+        <activity android:name=".ui.TaskComplyChoiceActivity"
+            android:launchMode="singleTask"/>
+
+        <activity android:name=".ui.TaskComplyResultActivity"
+            android:launchMode="singleTask"/>
+
+        <activity android:name=".ui.TaskComplyActivity"
+            android:launchMode="singleTask"/>
+
+        <activity android:name=".ui.TaskDialyActivity"
+            android:launchMode="singleTask"/>
+
+        <activity android:name=".ui.TaskDialyContactActivity"
+            android:launchMode="singleTask"/>
+
         <meta-data
             android:name="com.gcml.task.TaskApplication"
             android:value="AppLifecycleCallbacks" />

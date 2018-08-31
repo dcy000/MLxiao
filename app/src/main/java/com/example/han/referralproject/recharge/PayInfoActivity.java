@@ -419,8 +419,6 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
     protected void onStop() {
         super.onStop();
         sign = false;
-
         sign1 = false;
-
     }
 }

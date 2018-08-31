@@ -28,6 +28,12 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * desc: 每日任务页面，包括食盐、运动和饮酒设置（多页面连续设置） .
+ * author: wecent .
+ * date: 2018/8/20 .
+ */
+
 public class TaskDialyContactActivity extends AppCompatActivity implements TaskDialyDetailsFragment.OnActionListener {
 
     private int what;

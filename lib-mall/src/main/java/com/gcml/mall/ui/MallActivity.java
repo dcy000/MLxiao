@@ -57,45 +57,7 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
         goodsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                final LoadingDialog tipDialog;
-                switch (position) {
-                    case 0:
-                        tipDialog = new LoadingDialog.Builder(MallActivity.this)
-                                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                                .setTipWord("正在加载")
-                                .create();
-                        break;
-                    case 1:
-                        tipDialog = new LoadingDialog.Builder(MallActivity.this)
-                                .setIconType(LoadingDialog.Builder.ICON_TYPE_SUCCESS)
-                                .setTipWord("发送成功")
-                                .create();
-                        break;
-                    case 2:
-                        tipDialog = new LoadingDialog.Builder(MallActivity.this)
-                                .setIconType(LoadingDialog.Builder.ICON_TYPE_FAIL)
-                                .setTipWord("发送失败")
-                                .create();
-                        break;
-                    case 3:
-                        tipDialog = new LoadingDialog.Builder(MallActivity.this)
-                                .setIconType(LoadingDialog.Builder.ICON_TYPE_INFO)
-                                .setTipWord("请勿重复操作")
-                                .create();
-                        break;
-                    default:
-                        tipDialog = new LoadingDialog.Builder(MallActivity.this)
-                                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                                .setTipWord("正在加载")
-                                .create();
-                }
-                tipDialog.show();
-                goodsRecycler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        tipDialog.dismiss();
-                    }
-                }, 1000);
+
             }
         });
         goodsRecycler.setLayoutManager(new GridLayoutManager(this, 3));

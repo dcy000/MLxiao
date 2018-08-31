@@ -13,12 +13,12 @@ public class TaskWheelBean implements Serializable {
      * userid : 0
      */
 
-    public int bmi;
+    public Integer bmi;
     public String wineType;
-    public int drink;
-    public int na;
+    public Integer drink;
+    public Integer na;
     public String sportType;
-    public int sports;
-    public int userid;
+    public Integer sports;
+    public Integer userid;
 
 }

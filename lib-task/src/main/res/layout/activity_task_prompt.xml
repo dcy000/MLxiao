@@ -44,7 +44,7 @@
         android:layout_height="390dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/img_task_prompt_robot"/>
+        android:src="@drawable/common_ic_robot"/>
 
     <ImageView
         android:layout_width="132dp"

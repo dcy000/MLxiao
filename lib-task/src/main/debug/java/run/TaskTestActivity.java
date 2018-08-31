@@ -75,7 +75,7 @@ public class TaskTestActivity extends AppCompatActivity implements View.OnClickL
                         if (throwable instanceof NullPointerException) {
                             CC.obtainBuilder("app.component.task").build().callAsync();
                         } else {
-                            CC.obtainBuilder("app.component.task.prompt").build().callAsync();
+                            CC.obtainBuilder("app.component.task.comply").build().callAsync();
                         }
                     }
                 });

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_recharge_define"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/deifine_mount"
+        android:layout_width="700dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/bg_button_recharge"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:hint="单笔最高5000元"
+        android:inputType="numberDecimal"
+        android:maxLength="4"
+        android:maxLines="1"
+        android:textColorHint="#999999"
+        android:textSize="50sp"/>
+
+    <Button
+        android:id="@+id/deifine_pay"
+        android:layout_width="240dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/btn_mall_base"
+        android:gravity="center"
+        android:text="充值"
+        android:textColor="@color/color_white"
+        android:textSize="35sp" />
+
+</LinearLayout>

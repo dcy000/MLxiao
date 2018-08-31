@@ -33,7 +33,8 @@ import com.gcml.old.auth.signin.SignInActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WifiConnectActivity extends BaseActivity implements View.OnClickListener{
+public class WifiConnectActivity extends BaseActivity implements View.OnClickListener {
+
     private WifiConnectRecyclerAdapter mConnectAdapter;
     private List<ScanResult> mDataList = new ArrayList<>();
     private WiFiUtil mWiFiUtil;
@@ -167,6 +168,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                         boolean isConnected = state == NetworkInfo.State.CONNECTED;
                         Log.e("TAG", "isConnected:" + isConnected);
                         if (isConnected) {
+
                         } else {
 
                         }

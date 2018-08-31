@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="高脂摄入过多"
+    android:textColor="@drawable/health_measure_selector_inquiry_644_full"
+    android:textSize="56pt"
+    android:gravity="center"
+    android:id="@+id/tv_answer"
+    android:clickable="true">
+
+</TextView>

@@ -25,7 +25,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * desc: TaskActivity .
+ * desc: 日常任务页面，包括待完成任务和已完成任务 .
  * author: wecent .
  * date: 2018/8/20 .
  */
@@ -124,6 +124,12 @@ public class TaskActivity extends FragmentActivity {
                         }, 500);
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getTaskData();
     }
 
     @Override

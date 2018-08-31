@@ -34,7 +34,7 @@ public interface TaskService {
      * 查询用户是否完成健康问卷.
      */
     @GET("/ZZB/api/healthMonitor/questionnaire/hypertension/compliance/{userId}/")
-    Observable<ApiResult<TaskHealthBean>> isTaskHealth(
+    Observable<ApiResult<Object>> isTaskHealth(
             @Path("userId") String userId
     );
 

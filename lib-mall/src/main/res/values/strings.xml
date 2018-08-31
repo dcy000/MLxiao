@@ -2,4 +2,15 @@
     <string name="app_name">lib-mall</string>
 
     <string name="recharge_define">账&#160;&#160;户&#160;&#160;充&#160;&#160;值</string>
+
+    <string name="qrcode_wait_for_scan">扫描二维码登录</string>
+    <string name="qrcode_scanned">点击确认登录</string>
+    <string name="auth">微信登录</string>
+    <string name="cancel_auth">取消登录</string>
+    <string name="result_succ" formatted="false">登录成功，code=%s</string>
+    <string name="result_normal_err">登录失败，一般错误</string>
+    <string name="result_network_err">登录失败，网络错误</string>
+    <string name="result_json_decode_err">json解码失败</string>
+    <string name="result_user_cancel">用户取消</string>
+    <string name="result_timeout_err">登录失败，超时错误</string>
 </resources>
