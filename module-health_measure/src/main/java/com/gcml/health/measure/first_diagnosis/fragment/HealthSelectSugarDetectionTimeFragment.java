@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragment implements View.OnClickListener {
 
@@ -30,6 +31,12 @@ public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragmen
     public static final int ACTION_EMPTY_STOMACH = 0;
     public static final int ACTION_TWO_HOURS = 2;
     public static final int ACTION_OTHER_TIME = 3;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MLVoiceSynthetize.startSynthesize(getContext(),"主人，请选择您当前的状态",false);
+    }
 
     @Override
     public void onClick(View v) {

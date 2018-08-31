@@ -77,8 +77,9 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
         mQuestionTitle.setText((++pageIndex) + "." + questionListBean.getQuestionName());
         mQuestionTip = (TextView) view.findViewById(R.id.question_tip);
         mAnswerList = (RecyclerView) view.findViewById(R.id.answer_list);
-        mBtnNext = (TextView) view.findViewById(R.id.btnNext);
-        mBtnNext.setOnClickListener(this);
+//        mBtnNext = (TextView) view.findViewById(R.id.btnNext);
+//        mBtnNext.setOnClickListener(this);
+        mBtnNext=findClickView(R.id.btnNext);
         checkBtnBG();
         initRecycleview();
     }

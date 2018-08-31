@@ -21,6 +21,7 @@ import com.gcml.lib_utils.device.DeviceUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.google.gson.Gson;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,12 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         mRvDevices = (RecyclerView) view.findViewById(R.id.rv_devices);
         initData();
         initRecycleview();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MLVoiceSynthetize.startSynthesize(getContext(),"请选择您拥有的仪器，小E默认给您做了选择，如果没有该设备请再次点击该设备取消",false);
     }
 
     private void initRecycleview() {

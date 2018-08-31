@@ -113,7 +113,7 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView {
         }
         if (datas.length == 1) {
             //其中超思有的数据获取实在子线程 ，此处展示应在UI线程
-            getActivity().runOnUiThread(new Runnable() {
+            mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     mEcgView.addData(ByteUtils.stringToBytes(datas[0]));

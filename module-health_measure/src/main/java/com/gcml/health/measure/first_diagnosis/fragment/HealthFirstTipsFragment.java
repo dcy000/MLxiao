@@ -3,6 +3,7 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.gcml.health.measure.R;
 import com.gcml.lib_utils.UtilsManager;
@@ -20,10 +21,11 @@ import timber.log.Timber;
 public class HealthFirstTipsFragment extends BluetoothBaseFragment implements View.OnClickListener {
 
 
-//    private ITimeCountListener timeCountListener;
+    //    private ITimeCountListener timeCountListener;
     private ImageView ivGrayBack;
     private OnSynthesizerListener onSynthesizerListener;
     private long time;
+
     public HealthFirstTipsFragment() {
         // Required empty public constructor
     }
@@ -35,29 +37,41 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
 
     @Override
     protected void initView(View view, Bundle bundle) {
+        if (onSynthesizerListener == null) {
+            onSynthesizerListener = new OnSynthesizerListener();
+        }
+        if (bundle != null) {
+            String title = bundle.getString("title");
+            ((TextView) view.findViewById(R.id.tv_tips)).setText(title);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+                    "主人，做一个风险评估吧", onSynthesizerListener,false);
+        }else{
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+                    "初次见面，我是小E,来做个全套体检吧", onSynthesizerListener, false);
+        }
         ivGrayBack = view.findViewById(R.id.ivGrayBack);
         ivGrayBack.setOnClickListener(this);
+
+
+
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        if (onSynthesizerListener==null){
-            onSynthesizerListener = new OnSynthesizerListener();
-        }
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                "初次见面，我是小E,来做个全套体检吧", onSynthesizerListener,false);
+
 //        timeCountListener = new ITimeCountListener();
 //        TimeCountDownUtils.getInstance().create(3000, 1000,
 //                timeCountListener);
 //        TimeCountDownUtils.getInstance().start();
     }
-    class  OnSynthesizerListener implements SynthesizerListener{
+
+    class OnSynthesizerListener implements SynthesizerListener {
 
         @Override
         public void onSpeakBegin() {
-            time=System.currentTimeMillis();
+            time = System.currentTimeMillis();
         }
 
         @Override
@@ -82,7 +96,7 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
 
         @Override
         public void onCompleted(SpeechError speechError) {
-            Timber.e("语音耗时："+(System.currentTimeMillis()-time));
+            Timber.e("语音耗时：" + (System.currentTimeMillis() - time));
             if (fragmentChanged != null) {
                 fragmentChanged.onFragmentChanged(
                         HealthFirstTipsFragment.this, null);
@@ -94,11 +108,12 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
 
         }
     }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.ivGrayBack) {
-            getActivity().finish();
+            mActivity.finish();
         }
     }
 
@@ -116,13 +131,5 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
                         HealthFirstTipsFragment.this, null);
             }
         }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        MLVoiceSynthetize.stop();
-//        TimeCountDownUtils.getInstance().cancelAll();
-//        timeCountListener = null;
     }
 }

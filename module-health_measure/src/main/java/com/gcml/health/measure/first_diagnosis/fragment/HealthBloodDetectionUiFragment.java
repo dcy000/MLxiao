@@ -270,8 +270,8 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                     isJump2Next = true;
                     fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
                 }
-                ((FirstDiagnosisActivity) getActivity()).putCacheData(pressureData);
-                ((FirstDiagnosisActivity) getActivity()).putCacheData(pulseData);
+                ((FirstDiagnosisActivity) mActivity).putCacheData(pressureData);
+                ((FirstDiagnosisActivity) mActivity).putCacheData(pulseData);
             }
 
             @Override
@@ -353,7 +353,7 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
         data.leftPulse = leftPulse;
         data.rightPulse = rightPulse;
         //将该数据在Activity中缓存
-        ((FirstDiagnosisActivity) getActivity()).putBloodpressureCacheData(data);
+        ((FirstDiagnosisActivity) mActivity).putBloodpressureCacheData(data);
         return data;
     }
 
