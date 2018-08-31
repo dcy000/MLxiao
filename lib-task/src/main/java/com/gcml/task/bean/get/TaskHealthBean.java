@@ -59,6 +59,7 @@ public class TaskHealthBean implements Serializable {
             public String hmAnswerId;
             public String hmQuestionId;
             public String answerInfo;
+            public boolean isChoosed;
         }
     }
 }

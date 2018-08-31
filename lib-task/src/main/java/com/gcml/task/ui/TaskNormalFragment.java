@@ -67,17 +67,17 @@ public class TaskNormalFragment extends Fragment {
 
     private void bindData(List<TaskBean.TaskListBean> list) {
         progressMsg.setText("完成进度");
-//        int done = 0;
-//        for (int i = 0; i < list.size(); i++) {
-//            if (list.get(i).complitionStatus.equals("1")) {
-//                done++;
-//            }
-//        }
-//        int progress = done * 100 / list.size();
-//        progressNum.setText(progress + "%");
-//        progressLeft.setText(done + "");
+        int done = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).complitionStatus.equals("1")) {
+                done++;
+            }
+        }
+        int progress = done * 100 / list.size();
+        progressNum.setText(progress + "%");
+        progressLeft.setText(done + "");
         progressRight.setText("/" + list.size());
-//        mProgress.setProgress(progress);
+        mProgress.setProgress(progress);
         mAdapter = new TaskMenuAdapter(R.layout.item_task_daily, list);
         mRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mRecycler.addItemDecoration(new GridDividerItemDecoration(16, 16));

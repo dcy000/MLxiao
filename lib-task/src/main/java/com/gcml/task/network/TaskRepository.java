@@ -35,8 +35,8 @@ public class TaskRepository {
     }
 
     public Observable<TaskReportBean> taskReportListFromApi(
-            String userId, String state) {
-        return mTaskService.taskReport(userId, state)
+            String userid, String state) {
+        return mTaskService.taskReport(userid, state)
                 .compose(RxUtils.apiResultTransformer());
     }
 

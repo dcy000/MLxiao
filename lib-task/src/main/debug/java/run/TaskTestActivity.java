@@ -38,6 +38,7 @@ public class TaskTestActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         if (v.getId() == R.id.tv_task_action) {
             getIsTaskHealth();
+//            CC.obtainBuilder("app.component.task.comply").build().callAsync();
         }
     }
 

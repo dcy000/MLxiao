@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cb_task_choice"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="220dp"
     android:layout_height="50dp"
-    android:background="@drawable/btn_task_choice"
-    android:button="@null"
-    android:checkMark="?android:listChoiceIndicatorSingle"
-    android:gravity="center"
-    android:lines="1"
+    android:text="默认选项"
     android:textColor="@color/text_task_choice"
-    android:textSize="28sp" />
+    android:textSize="28sp"
+    android:gravity="center"
+    android:id="@+id/tv_answer"
+    android:background="@drawable/btn_task_choice"
+    android:clickable="true">
+
+</TextView>

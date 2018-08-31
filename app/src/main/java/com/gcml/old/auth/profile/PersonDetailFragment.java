@@ -350,7 +350,8 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), HealthRecordActivity.class));
                 break;
             case R.id.iv_jiankang_riji:
-                startActivity(new Intent(getActivity(), HealthDiaryActivity.class));
+//                startActivity(new Intent(getActivity(), HealthDiaryActivity.class));
+                CC.obtainBuilder("app.component.task.diary.contact").build().callAsync();
                 break;
             case R.id.tv_update:
                 ((BaseActivity) getActivity()).showLoadingDialog("检查更新中");

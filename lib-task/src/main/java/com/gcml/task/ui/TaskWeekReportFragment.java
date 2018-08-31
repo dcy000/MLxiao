@@ -76,7 +76,7 @@ public class TaskWeekReportFragment extends Fragment {
     }
 
     private void bindData() {
-        mToolBar.setData("周 目 标 差 距", R.drawable.common_icon_back, "返回", 0, null, new ToolBarClickListener() {
+        mToolBar.setData("周 目 标 差 距", R.drawable.common_btn_back, "返回", 0, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 getActivity().finish();
