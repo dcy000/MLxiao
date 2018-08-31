@@ -16,6 +16,7 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.cc.CCVideoActions;
@@ -353,16 +354,21 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
      * 展示刷新
      */
     private void showRefreshBluetoothDialog() {
-        DialogSureCancel sureCancel = new DialogSureCancel(this);
-        sureCancel.setContent("您确定解绑之前的设备，重新连接新设备吗？");
-        sureCancel.setOnClickCancelListener(null);
-        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
-            @Override
-            public void clickSure(BaseDialog dialog) {
-                dialog.dismiss();
-                untieDevice();
-            }
-        });
+        new AlertDialog(AllMeasureActivity.this)
+                .builder()
+                .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
+                .setNegativeButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        untieDevice();
+                    }
+                })
+                .setPositiveButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                }).show();
     }
 
     private void untieDevice() {
