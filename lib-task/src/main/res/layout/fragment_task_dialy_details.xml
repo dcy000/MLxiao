@@ -89,7 +89,7 @@
         android:id="@+id/tv_task_diary_action"
         android:layout_width="300pt"
         android:layout_height="100pt"
-        android:background="@drawable/common_bg_menu_setting"
+        android:background="@drawable/btn_task_next"
         android:text="下一步"
         android:gravity="center"
         android:textColor="#FFFFFF"

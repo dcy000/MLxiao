@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.lib_utils.display.KeyboardUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
@@ -60,6 +61,10 @@ public class SMSVerificationDialog extends DialogFragment implements View.OnClic
         return view;
     }
 
+    private void initKeyBoard() {
+        KeyboardUtils.hideKeyboard(getActivity(), etCode);
+    }
+
     private void initView(View view) {
         etCode = view.findViewById(R.id.et_code);
         tvSendCode = view.findViewById(R.id.tv_send_code);
@@ -67,6 +72,8 @@ public class SMSVerificationDialog extends DialogFragment implements View.OnClic
         tvNext = view.findViewById(R.id.tv_next);
         tvNext.setOnClickListener(this);
         tvPhone = view.findViewById(R.id.tv_phone);
+
+        initKeyBoard();
     }
 
     private void initPhoneNoticeInfo() {
@@ -122,11 +129,13 @@ public class SMSVerificationDialog extends DialogFragment implements View.OnClic
     }
 
     private void sendCode() {
+        if (!tvSendCode.isSelected()) {
+            return;
+        }
         //请求验证码
         NetworkApi.getCode(phoneNumber, codeJson -> {
             SMSVerificationDialog.this.code = codeJson;
             if (codeJson != null) {
-                Handlers.ui().removeCallbacksAndMessages(null);
                 updateCountDownUi();
                 ToastUtils.showShort("获取验证码成功");
             } else {

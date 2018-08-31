@@ -10,7 +10,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="30dp"
-        android:src="@drawable/common_icon_back"/>
+        android:src="@drawable/common_ic_back"/>
 
     <TextView
         android:id="@+id/tv_task_prompt_title"

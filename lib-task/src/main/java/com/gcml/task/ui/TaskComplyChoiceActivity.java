@@ -7,12 +7,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -61,16 +63,34 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
     }
 
     private void bindData() {
-        mToolBar.setData("健 康 问 答", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
+        mToolBar.setData("健 康 问 答", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
-                finish();
+                if (mViewPager.getCurrentItem() == 0) {
+                    CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                    finish();
+                    return;
+                }
+                mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
             }
 
             @Override
             public void onRightClick() {
+                new AlertDialog(TaskComplyChoiceActivity.this).builder()
+                        .setMsg("您已经开始做题，是否要离开当前页面？")
+                        .setNegativeButton("继续做题", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
 
+                            }
+                        })
+                        .setPositiveButton("确认离开", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                                finish();
+                            }
+                        }).show();
             }
         });
         getTaskHealthData();
@@ -115,7 +135,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                             TaskHealthBean.QuestionListBean questionBean = mList.get(i);
                             TaskComplyChoiceFragment instance = TaskComplyChoiceFragment.newInstance(
                                     mList.get(i).questionName,
-                                    "请认证阅读",
+                                    i,
                                     mList.get(i),
                                     false);
                             instance.setNextStepListener(TaskComplyChoiceActivity.this);
@@ -142,19 +162,13 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
     }
 
     @Override
-    public void onNextStep(String[] selected, TaskHealthBean.QuestionListBean questionList) {
+    public void onNextStep(int position, TaskHealthBean.QuestionListBean questionList) {
         //更新提交数据的bean
         List<TaskSchemaBean.AnswerListBean> answerList = mPostData.answerList;
-        for (int i = 0; i < answerList.size(); i++) {
-            if (questionList.hmQuestionId.equals(answerList.get(i).hmQuestionId)) {
-                answerList.get(i).answerName = getAnswerNames(questionList, selected).toString()
-                        .replaceAll("\\[", "")
-                        .replaceAll("]", "");
-                answerList.get(i).hmAnswerId = questionList.answerList.get(Integer.parseInt(selected[0])).hmAnswerId;
-                answerList.get(i).score = getAnswerScores(questionList, selected);//每个项目 得分之后
-                answerList.get(i).questionSeq = questionList.seq;
-            }
-        }
+        answerList.get(position).answerName = getAnswerInfo(questionList);
+        answerList.get(position).hmAnswerId = getHmAnswerId(questionList);
+        answerList.get(position).score = getAnswerScores(questionList);
+        answerList.get(position).questionSeq = questionList.seq;
         //最后一页
         if (mViewPager.getCurrentItem() + 1 == mViewPager.getAdapter().getCount()) {
             //算总分
@@ -171,22 +185,35 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
         mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
     }
 
-    private List<String> getAnswerNames(TaskHealthBean.QuestionListBean questionList, String[] selected) {
-        List<String> strings = new ArrayList<>();
-        for (int i = 0; i < selected.length; i++) {
-            strings.add(questionList.answerList.get(Integer.parseInt(selected[i])).answerInfo);
+    private String getAnswerInfo(TaskHealthBean.QuestionListBean questionList) {
+        String answer = "";
+        for (int i = 0; i < questionList.answerList.size(); i++) {
+            if (questionList.answerList.get(i).isChoosed) {
+                answer = questionList.answerList.get(i).answerInfo;
+            }
         }
-        return strings;
+        return answer;
     }
 
-    private int getAnswerScores(TaskHealthBean.QuestionListBean questionList, String[] selected) {
+    private String getHmAnswerId(TaskHealthBean.QuestionListBean questionList) {
+        String answerId = "";
+        for (int i = 0; i < questionList.answerList.size(); i++) {
+            if (questionList.answerList.get(i).isChoosed) {
+                answerId = questionList.answerList.get(i).hmAnswerId;
+            }
+        }
+        return answerId;
+    }
+
+    private int getAnswerScores(TaskHealthBean.QuestionListBean questionList) {
         int score = 0;
-        for (int i = 0; i < selected.length; i++) {
-            score += questionList.answerList.get(Integer.parseInt(selected[i])).answerScore;
+        for (int i = 0; i < questionList.answerList.size(); i++) {
+            if (questionList.answerList.get(i).isChoosed) {
+                score =  questionList.answerList.get(i).answerScore;
+            }
         }
         return score;
     }
-
 
     @SuppressLint("CheckResult")
     private void postHealthData() {
@@ -224,7 +251,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                                 successDialog.dismiss();
                             }
                         }, 500);
-                        CC.obtainBuilder("public.result")
+                        CC.obtainBuilder("app.component.task.comply.result")
                                 .addParam("resultBean", body)
                                 .build()
                                 .callAsync();

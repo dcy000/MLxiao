@@ -59,7 +59,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
     }
 
     private void bindData() {
-        mToolBar.setData("每 日 任 务", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
+        mToolBar.setData("每 日 任 务", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();

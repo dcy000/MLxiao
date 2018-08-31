@@ -6,11 +6,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gcml.task.R;
 import com.gcml.task.adapter.TaskChoiceAdapter;
 import com.gcml.task.bean.get.TaskHealthBean;
@@ -31,7 +33,7 @@ public class TaskComplyChoiceFragment extends Fragment implements View.OnClickLi
     // 问题内容
     private static String TITLE_CONTENT = "titleContent";
     // 引导提示
-    private static String HINT_CONTENT = "HintContent";
+    private static String DATA_POSITION = "dataPosition";
     // 选项数据
     private static String DATA_CONTENT = "dataContent";
     // 是否多选
@@ -42,13 +44,15 @@ public class TaskComplyChoiceFragment extends Fragment implements View.OnClickLi
     private TextView mNext;
     private RecyclerView mRecycler;
     private TaskChoiceAdapter mAdapter;
+    private int mPosition;
     private TaskHealthBean.QuestionListBean mData;
+    public List<String> selectedList = new ArrayList<>();
 
-    public static TaskComplyChoiceFragment newInstance(String title, String hint, TaskHealthBean.QuestionListBean mData, boolean isMultiple) {
+    public static TaskComplyChoiceFragment newInstance(String title, int position, TaskHealthBean.QuestionListBean mData, boolean isMultiple) {
         TaskComplyChoiceFragment fragment = new TaskComplyChoiceFragment();
         Bundle bundle = new Bundle();
         bundle.putString(TITLE_CONTENT, title);
-        bundle.putString(HINT_CONTENT, hint);
+        bundle.putInt(DATA_POSITION, position);
         bundle.putSerializable(DATA_CONTENT, mData);
         bundle.putBoolean(IS_MULTIPLE, isMultiple);
         fragment.setArguments(bundle);
@@ -66,6 +70,7 @@ public class TaskComplyChoiceFragment extends Fragment implements View.OnClickLi
         View view = View.inflate(getActivity(), R.layout.fragment_task_choice, null);
 
         Bundle arguments = getArguments();
+        mPosition = arguments.getInt(DATA_POSITION);
         mData = (TaskHealthBean.QuestionListBean) arguments.getSerializable(DATA_CONTENT);
         bindView(view);
         bindData(arguments);
@@ -81,21 +86,71 @@ public class TaskComplyChoiceFragment extends Fragment implements View.OnClickLi
 
     private void bindData(Bundle arguments) {
         mTitle.setText(arguments.getString(TITLE_CONTENT));
-        mHint.setText(arguments.getString(HINT_CONTENT));
         mNext.setOnClickListener(this);
         if (arguments.getBoolean(IS_MULTIPLE)) {
             mNext.setVisibility(View.VISIBLE);
-            mAdapter = new TaskChoiceAdapter(getContext(), mData.answerList, true);
+            mAdapter = new TaskChoiceAdapter(R.layout.item_task_choice, mData.answerList);
+            mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    TaskHealthBean.QuestionListBean.AnswerListBean myInfo = mData.answerList.get(position);
+                    if (myInfo.isChoosed) {
+                        myInfo.isChoosed = false;
+                        view.setSelected(false);
+                    } else {
+                        //选中非"无"按钮，需要将"无"的选中状态取消
+                        for (TaskHealthBean.QuestionListBean.AnswerListBean bean : mData.answerList) {
+                            if (position != 0 && bean.isChoosed) {
+                                bean.isChoosed = false;
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                        //选中"无"按钮，其他的按钮状态都取消
+                        if (position == 0) {
+                            for (int i = 0; i < mData.answerList.size(); i++) {
+                                if (i != position) {
+                                    mData.answerList.get(i).isChoosed = false;
+                                } else {
+                                    mData.answerList.get(i).isChoosed = true;
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                        listener.onNextStep(mPosition, mData);
+                    }
+                }
+            });
             mRecycler.setLayoutManager(new GridLayoutManager(getContext(), 3));
             mRecycler.addItemDecoration(new GridDividerItemDecoration(24, 24));
             mRecycler.setAdapter(mAdapter);
         } else {
             mNext.setVisibility(View.GONE);
-            mAdapter = new TaskChoiceAdapter(getContext(), mData.answerList, false);
-            mAdapter.setOnSelectListener(new TaskChoiceAdapter.OnSelectListener() {
+            mAdapter = new TaskChoiceAdapter(R.layout.item_task_choice, mData.answerList);
+            Log.e("xxxxxxxxxxx", "4");
+            mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
-                public void onSelected(int p) {
-                    listener.onNextStep(mAdapter.getSelected(), mData);
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    Log.e("xxxxxxxxxxx", "0");
+                    TaskHealthBean.QuestionListBean.AnswerListBean myInfo = mData.answerList.get(position);
+                    if (myInfo.isChoosed) {
+                        myInfo.isChoosed = false;
+                        selectedList.remove(position + "");
+                        view.setSelected(false);
+                        Log.e("xxxxxxxxxxx", "1");
+                    } else {
+                        for (TaskHealthBean.QuestionListBean.AnswerListBean bean : mData.answerList) {
+                            if (myInfo == bean) {
+                                bean.isChoosed = true;
+                                selectedList.add(position + "");
+                            } else {
+                                bean.isChoosed = false;
+                                selectedList.remove(position + "");
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                        listener.onNextStep(mPosition, mData);
+                        Log.e("xxxxxxxxxxx", "2");
+                    }
                 }
             });
             mRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -103,6 +158,14 @@ public class TaskComplyChoiceFragment extends Fragment implements View.OnClickLi
                     getContext(), LinearLayoutManager.VERTICAL, 24, getResources().getColor(R.color.config_color_white)));
             mRecycler.setAdapter(mAdapter);
         }
+    }
+
+    public String[] getSelected() {
+        String[] result = new String[selectedList.size()];
+        for (int i = 0; i < selectedList.size(); i++) {
+            result[i] = selectedList.get(i);
+        }
+        return result;
     }
 
     private static List<String> getStrings(ArrayList<TaskHealthBean.QuestionListBean> questionList) {
@@ -117,16 +180,16 @@ public class TaskComplyChoiceFragment extends Fragment implements View.OnClickLi
     public void onClick(View v) {
         if (v.getId() == R.id.tv_task_next) {
             if (listener != null) {
-                if (mAdapter.getSelected().length == 0){
+                if (getSelected().length == 0){
                     return;
                 }
-                listener.onNextStep(mAdapter.getSelected(), mData);
+                listener.onNextStep(mPosition, mData);
             }
         }
     }
 
     public interface OnNextStepClickListener {
-        void onNextStep(String[] selected, TaskHealthBean.QuestionListBean questionList);
+        void onNextStep(int position, TaskHealthBean.QuestionListBean questionList);
     }
 
     public void setNextStepListener(TaskComplyChoiceFragment.OnNextStepClickListener listener) {

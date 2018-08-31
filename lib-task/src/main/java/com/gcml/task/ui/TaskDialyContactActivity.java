@@ -48,7 +48,7 @@ public class TaskDialyContactActivity extends AppCompatActivity implements TaskD
         setContentView(R.layout.activity_task);
         mToolBar = findViewById(R.id.tb_task);
 
-        mToolBar.setData("健  康  日  记", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
+        mToolBar.setData("健  康  日  记", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 if (what <= 0) {
@@ -228,6 +228,7 @@ public class TaskDialyContactActivity extends AppCompatActivity implements TaskD
                                 finish();
                             }
                         }, 500);
+                        showWeekTarget();
                     }
 
                     @Override

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,7 +8,6 @@
         android:layout_width="1920pt"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/shape_bg_clear_reset_dialog"
         android:orientation="vertical">
 
         <ImageView
@@ -30,18 +30,19 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8pt"
                 android:gravity="center"
-                android:text="按下请说话"
+                android:text="主人,您请说"
                 android:textColor="#FF333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"
+                android:visibility="gone" />
 
             <com.gcml.lib_widget.VoiceLineView
                 android:id="@+id/vl_voice_wave"
-                android:layout_width="300pt"
+                android:layout_width="match_parent"
                 android:layout_height="40pt"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="25pt"
-                android:layout_marginTop="8pt"
-                android:visibility="gone" />
+                android:layout_marginTop="16pt"
+                app:voiceLineColor="#FF87BDEF" />
 
         </FrameLayout>
 

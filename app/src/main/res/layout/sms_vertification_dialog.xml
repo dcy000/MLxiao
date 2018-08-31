@@ -27,6 +27,7 @@
             android:background="@drawable/shape_bg_code">
 
             <EditText
+                android:textColorHint="#bbb"
                 android:id="@+id/et_code"
                 android:layout_width="800pt"
                 android:layout_height="132pt"
