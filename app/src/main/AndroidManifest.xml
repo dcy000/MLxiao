@@ -775,7 +775,9 @@
         <activity android:name=".health.DetectFollowDoctorActivity" />
         <activity android:name=".health.DetectDrugComplianceActivity" />
         <activity android:name=".health.DetectDrugEffectActivity" />
-        <activity android:name=".require2.healthservice.BindHealthManageSystemActivity"></activity>
+        <activity android:name=".require2.healthservice.BindHealthManageSystemActivity" />
+        <activity android:name=".health.HypoglycemiaReactionActivity" />
+        <activity android:name=".health.StapleFoodActivity"></activity>
     </application>
 
 </manifest>

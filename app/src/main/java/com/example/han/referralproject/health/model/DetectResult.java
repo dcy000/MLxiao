@@ -56,7 +56,7 @@ public class DetectResult implements Serializable {
     public String smoke;
     public String sportCost;
     public String sportFrequency;
-    public String  sportWeekTimes;
+    public String sportWeekTimes;
     public String sportTime;
     public String sportIntension;
     public int sugarTime;
@@ -64,6 +64,8 @@ public class DetectResult implements Serializable {
     public int uricAcid;
     public int userId;
     public String watchState;
+    public String hypoglycemia;
+    public String stapleFood;
     public int weight;
     public String wineDrink;
     public String currentPhoto;//体检报告的头像   key  "detectHeadIcon"

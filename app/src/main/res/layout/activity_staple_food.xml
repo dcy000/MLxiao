@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.han.referralproject.health.DetectHealthSmokeActivity">
+
     <TextView
         android:id="@+id/detect_health_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50pt"
-        android:text="请选择每日吸烟量"
+        android:text="请选择每天主食量"
         android:textColor="#333333"
         android:textSize="100pt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/detect_health_rv_times"
@@ -26,19 +26,19 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/detect_health_tv_times"
-        app:layout_constraintTop_toBottomOf="@+id/detect_health_tv_title"/>
+        app:layout_constraintTop_toBottomOf="@+id/detect_health_tv_title" />
 
     <TextView
         android:id="@+id/detect_health_tv_times"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="克/天"
         android:textColor="#FFC107"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="@+id/detect_health_rv_times"
         app:layout_constraintLeft_toRightOf="@+id/detect_health_rv_times"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/detect_health_rv_times"
-        android:text="支/日"/>
+        app:layout_constraintTop_toTopOf="@+id/detect_health_rv_times" />
 
-    <include layout="@layout/include_sign_up_nav"/>
+    <include layout="@layout/include_sign_up_nav" />
 </android.support.constraint.ConstraintLayout>

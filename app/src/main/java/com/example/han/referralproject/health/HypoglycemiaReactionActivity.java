@@ -12,18 +12,17 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.health.model.DetectResult;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 
 /**
- * 药物不良反应
+ * 低血糖反应
  */
-public class DetectDrugEffectActivity extends BaseActivity {
+public class HypoglycemiaReactionActivity extends BaseActivity {
 
     private GridView gvItems;
-    private MyAdapter adapter;
+    private HypoglycemiaReactionActivity.MyAdapter adapter;
     private TextView tvGoback;
     private TextView tvGoForward;
     private String detectCategory;
@@ -32,9 +31,9 @@ public class DetectDrugEffectActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         detectCategory = getIntent().getStringExtra("detectCategory");
-        setContentView(R.layout.detect_pressure_yaowu_bulinag);
+        setContentView(R.layout.activity_hypoglycemia_reaction);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("药物不良反应情况");
+        mTitleText.setText("低血糖反应");
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.GONE);
         gvItems = (GridView) findViewById(R.id.detect_health_gv_items);
@@ -43,9 +42,9 @@ public class DetectDrugEffectActivity extends BaseActivity {
         tvGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetectDrugEffectActivity.this, DetectPsychologicalRecoveryActivity.class);
+                Intent intent = new Intent(HypoglycemiaReactionActivity.this, DetectDrugEffectActivity.class);
                 intent.putExtras(getIntent());
-                intent.putExtra("yaowubuliang", "1");
+                intent.putExtra("dixuetang", "0");
                 startActivity(intent);
                 finish();
             }
@@ -53,29 +52,25 @@ public class DetectDrugEffectActivity extends BaseActivity {
         tvGoForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = null;
-                if ("detectSugar".equals(detectCategory)) {
-                    intent = new Intent(DetectDrugEffectActivity.this, HypoglycemiaReactionActivity.class);
-                } else {
-                    intent = new Intent(DetectDrugEffectActivity.this, DetectResultActivity.class);
-                }
+                Intent intent = new Intent(HypoglycemiaReactionActivity.this, StapleFoodActivity.class);
                 intent.putExtras(getIntent());
                 int checkedItemPosition = gvItems.getCheckedItemPosition();
-                intent.putExtra("yaowubuliang", checkedItemPosition + "");
+                intent.putExtra("dixuetang", checkedItemPosition + 1+"");
                 startActivity(intent);
                 finish();
             }
         });
         prepareData();
-        adapter = new MyAdapter();
+        adapter = new HypoglycemiaReactionActivity.MyAdapter();
         gvItems.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         gvItems.setAdapter(adapter);
-        gvItems.setItemChecked(1, true);
+        gvItems.setItemChecked(0, true);
     }
 
     private void prepareData() {
         items.add("无");
-        items.add("有");
+        items.add("偶尔");
+        items.add("频繁");
     }
 
     private ArrayList<String> items = new ArrayList<>();
@@ -83,7 +78,7 @@ public class DetectDrugEffectActivity extends BaseActivity {
     private View.OnClickListener symptomOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            VH vh = (VH) v.getTag();
+            HypoglycemiaReactionActivity.VH vh = (HypoglycemiaReactionActivity.VH) v.getTag();
             gvItems.setItemChecked(vh.position, vh.cbSymptom.isChecked());
         }
     };
@@ -125,14 +120,14 @@ public class DetectDrugEffectActivity extends BaseActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            VH vh;
+            HypoglycemiaReactionActivity.VH vh;
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(parent.getContext());
                 convertView = inflater.inflate(R.layout.detect_health_item_symptom, parent, false);
-                vh = new VH(convertView);
+                vh = new HypoglycemiaReactionActivity.VH(convertView);
                 convertView.setTag(vh);
             } else {
-                vh = (VH) convertView.getTag();
+                vh = (HypoglycemiaReactionActivity.VH) convertView.getTag();
             }
             vh.onBind(position, getItem(position));
             return convertView;
@@ -146,7 +141,7 @@ public class DetectDrugEffectActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        speak("请选药物不良反应情况");
+        speak("请选择低血糖反应");
         setDisableGlobalListen(true);
         super.onResume();
     }

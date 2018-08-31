@@ -138,6 +138,12 @@ public class DetectResultActivity extends BaseActivity {
         tem = TextUtils.isEmpty(tem) ? "0.0" : tem;
         detectResult.setTemperAture(tem);
         detectResult.currentPhoto = getIntent().getStringExtra("detectHeadIcon");
+        //糖尿病体检
+        String hypoglycemia = getIntent().getStringExtra("dixuetang");
+        String stapleFood = getIntent().getStringExtra("zhushi");
+        detectResult.hypoglycemia = hypoglycemia;
+        detectResult.stapleFood = stapleFood;
+
 
         //血压随访新加的
         detectResult.psychologicalRecovery = getIntent().getStringExtra("xinli");
@@ -201,9 +207,11 @@ public class DetectResultActivity extends BaseActivity {
         detectResult.setBloodSugar(Float.parseFloat(sugar));
         detectResult.setUserId(Integer.parseInt(LocalShared.getInstance(this).getUserId()));
         String url = NetworkApi.BasicUrl + "/ZZB/api/health/inquiry/examination/";
-        OkGo.<String>post(url).headers("equipmentId", Utils.getDeviceId()).upJson(new Gson().toJson(detectResult)).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
+        OkGo.<String>post(url).headers("equipmentId", Utils.getDeviceId())
+                .upJson(new Gson().toJson(detectResult))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
 //                try {
 //                    JSONObject jsonObject = new JSONObject(response.body());
 //                    String message = jsonObject.optString("message");
@@ -214,27 +222,27 @@ public class DetectResultActivity extends BaseActivity {
 //                    e.printStackTrace();
 //                }
 
-                String body = response.body();
-                ExaminationReportBean bean = new Gson().fromJson(body, ExaminationReportBean.class);
-                if (bean != null) {
+                        String body = response.body();
+                        ExaminationReportBean bean = new Gson().fromJson(body, ExaminationReportBean.class);
+                        if (bean != null) {
 
-                    if (bean.tag) {
-                        if (bean.data != null) {
-                            dealOtherDataInfo(bean.data);
+                            if (bean.tag) {
+                                if (bean.data != null) {
+                                    dealOtherDataInfo(bean.data);
+                                }
+
+                            } else {
+                                String message = bean.message;
+                                if (!TextUtils.isEmpty(message)) {
+                                    T.show(message);
+                                }
+                            }
+
                         }
 
-                    } else {
-                        String message = bean.message;
-                        if (!TextUtils.isEmpty(message)) {
-                            T.show(message);
-                        }
+
                     }
-
-                }
-
-
-            }
-        });
+                });
 
 //            String oxygen = intent.getStringExtra("oxygen");
 //            mDetectTvResultOxygenInfo.setText(oxygen + "mmHg");
