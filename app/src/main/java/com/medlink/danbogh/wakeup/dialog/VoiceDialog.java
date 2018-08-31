@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.gcml.lib_utils.data.StringUtil;
-import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_widget.VoiceLineView;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;
@@ -100,18 +99,23 @@ public class VoiceDialog extends Dialog {
             @Override
             public void onMLEndOfSpeech() {
                 VoiceDialog.this.onEndOfSpeech();
-                text.setVisibility(View.VISIBLE);
+//                text.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onMLResult(String result) {
-                ondata(result);
-                ToastUtils.showShort(result);
+//                Intent intent = new Intent(context, SpeechSynthesisActivity.class);
+//                if (!(context instanceof Activity)) {
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                }
+//                context.startActivity(intent);
+                DataDealHelper helper = new DataDealHelper();
+                helper.onDataAction(context, result);
             }
 
             @Override
             public void onMLError(SpeechError error) {
-
+                dismiss();
             }
         });
     }
@@ -125,7 +129,7 @@ public class VoiceDialog extends Dialog {
     private Handler mainHandler = new Handler();
 
     private void onEndOfSpeech() {
-        vlWave.setVisibility(View.GONE);
+//        vlWave.setVisibility(View.GONE);
         vlWave.stopRecord();
         isStart = false;
         recordTotalTime = 0;
@@ -138,7 +142,7 @@ public class VoiceDialog extends Dialog {
             return;
         }
         isStart = true;
-        text.setVisibility(View.GONE);
+//        text.setVisibility(View.GONE);
         vlWave.setVisibility(View.VISIBLE);
         vlWave.setText("00:00");
         vlWave.startRecord();
@@ -165,6 +169,12 @@ public class VoiceDialog extends Dialog {
         MLVoiceRecognize.stop();
         MLVoiceSynthetize.stop();
         mainHandler.removeCallbacksAndMessages(null);
+    }
 
+    @Override
+    public void show() {
+        super.show();
+        MLVoiceSynthetize.startSynthesize(context, "嗨我在~~", false);
+        onYuyinClick();
     }
 }

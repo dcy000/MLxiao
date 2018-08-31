@@ -1,5 +1,6 @@
 package com.ml.edu.old.music;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,9 @@ public class TheOldMusicActivity extends AppCompatActivity {
 
     public static Intent intent(Context context) {
         Intent intent = new Intent(context, TheOldMusicActivity.class);
+        if (!(context instanceof Activity)) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
         return intent;
     }
 

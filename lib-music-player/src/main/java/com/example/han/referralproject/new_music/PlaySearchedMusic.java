@@ -1,6 +1,7 @@
 package com.example.han.referralproject.new_music;
 
 import android.app.Activity;
+import android.content.Context;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -9,7 +10,7 @@ import java.io.File;
 public abstract class PlaySearchedMusic extends PlayMusic {
     private SearchMusic.Song mSong;
 
-    public PlaySearchedMusic(Activity activity, SearchMusic.Song song) {
+    public PlaySearchedMusic(Context activity, SearchMusic.Song song) {
         super(activity, 2);
         mSong = song;
     }
