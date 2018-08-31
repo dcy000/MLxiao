@@ -136,7 +136,7 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
                 } else {
                     answerListBean.setChoosed(true);
                     view.setSelected(true);
-                    //只有多选才会有下面的情况，做个判断
+                    //0是单选，1是多选
                     if ("1".equals(questionType)) {
                         //选中非"无"按钮，需要将"无"的选中状态取消
                         for (HealthInquiryBean.QuestionListBean.AnswerListBean bean : mData) {
@@ -156,6 +156,16 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
                             }
                             adapter.notifyDataSetChanged();
                         }
+                    }else if ("0".equals(questionType)){
+                        //单选互斥
+                        for (HealthInquiryBean.QuestionListBean.AnswerListBean bean : mData) {
+                            if (answerListBean==bean) {
+                                bean.setChoosed(true);
+                            }else{
+                                bean.setChoosed(false);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
                     }
 
                 }
@@ -164,7 +174,6 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
                     dealClick();
                 }
 
-                Timber.e("数据：" + (new Gson().toJson(questionListBean)));
             }
         });
     }

@@ -359,6 +359,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         sureCancel.setOnClickSureListener(new DialogClickSureListener() {
             @Override
             public void clickSure(BaseDialog dialog) {
+                dialog.dismiss();
                 untieDevice();
             }
         });

@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 
 import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.R;
+import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
 import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
@@ -93,7 +94,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
 
                     @Override
                     public void onError(Throwable e) {
-
+                        ToastUtils.showShort("获取数据失败："+e.getMessage());
                     }
 
                     @Override
@@ -187,6 +188,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                             @Override
                             public void onNext(Object o) {
                                 ToastUtils.showShort("上传数据成功");
+                                FirstDiagnosisActivity.startActivity(HealthInquiryActivity.this);
                             }
 
                             @Override
