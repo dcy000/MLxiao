@@ -33,7 +33,7 @@ public class GetUserXFInfoBean implements Serializable {
 
         public String vipState;
         public List<TUserXunfei> list;
-        public String currentGroup;
+        public Object currentGroup;
         public String xunfeiId;
     }
 
