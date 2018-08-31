@@ -466,7 +466,10 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                             return;
                         }
                         hideLoadingDialog();
-                        initXFInfo(response.bid, faceData);
+                        try {
+                            initXFInfo(response.bid, faceData);
+                        } catch (Exception e) {
+                        }
                         shared.setUserInfo(response);
                         LocalShared.getInstance(mContext).setSex(response.sex);
                         LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
