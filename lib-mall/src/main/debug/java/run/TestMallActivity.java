@@ -7,25 +7,26 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gcml.mall.R;
-import com.gcml.mall.ui.MallActivity;
+import com.gcml.mall.ui.ScanQRCodeLoginActivity;
 
 public class TestMallActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView welcomeText, actionText;
+    TextView mTitle, mAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_mall);
-        welcomeText = findViewById(R.id.tv_mall_welcome);
-        actionText = findViewById(R.id.tv_mall_action);
+        mTitle = findViewById(R.id.tv_mall_title);
+        mAction = findViewById(R.id.tv_mall_action);
+        mAction.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_mall_action:
-                startActivity(new Intent(this, MallActivity.class));
+                startActivity(new Intent(this, ScanQRCodeLoginActivity.class));
         }
     }
 }

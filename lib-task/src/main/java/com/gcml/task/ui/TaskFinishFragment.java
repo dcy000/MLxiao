@@ -19,6 +19,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * desc: 已完成任务 .
+ * author: wecent .
+ * date: 2018/8/20 .
+ */
+
 public class TaskFinishFragment extends Fragment {
 
     // 数据

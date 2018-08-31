@@ -40,7 +40,7 @@ public class ShanshiFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shanshi, container, false);
         unbinder = ButterKnife.bind(this, view);
-        mData=new ArrayList<>();
+        mData = new ArrayList<>();
         initData();
         setAdapter();
         return view;

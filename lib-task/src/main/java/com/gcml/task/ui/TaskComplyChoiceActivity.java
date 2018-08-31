@@ -33,9 +33,12 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * 原发性高血压问卷
+ * desc: 依从性调查问卷选择页面 .
+ * author: wecent .
+ * date: 2018/8/20 .
  */
-public class TaskHealthActivity extends AppCompatActivity implements TaskChoiceFragment.OnNextStepClickListener {
+
+public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskComplyChoiceFragment.OnNextStepClickListener {
 
     ViewPager mViewPager;
     TranslucentToolBar mToolBar;
@@ -61,7 +64,7 @@ public class TaskHealthActivity extends AppCompatActivity implements TaskChoiceF
         mToolBar.setData("健 康 问 答", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
-                CC.obtainBuilder("app.component.task.test").setContext(TaskHealthActivity.this).build().callAsync();
+                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
                 finish();
             }
 
@@ -75,7 +78,7 @@ public class TaskHealthActivity extends AppCompatActivity implements TaskChoiceF
 
     @SuppressLint("CheckResult")
     private void getTaskHealthData() {
-        LoadingDialog tipDialog = new LoadingDialog.Builder(TaskHealthActivity.this)
+        LoadingDialog tipDialog = new LoadingDialog.Builder(TaskComplyChoiceActivity.this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
@@ -110,12 +113,12 @@ public class TaskHealthActivity extends AppCompatActivity implements TaskChoiceF
                         mPostData.answerList = new ArrayList<>();
                         for (int i = 0; i < mList.size(); i++) {
                             TaskHealthBean.QuestionListBean questionBean = mList.get(i);
-                            TaskChoiceFragment instance = TaskChoiceFragment.newInstance(
+                            TaskComplyChoiceFragment instance = TaskComplyChoiceFragment.newInstance(
                                     mList.get(i).questionName,
                                     "请认证阅读",
                                     mList.get(i),
                                     false);
-                            instance.setNextStepListener(TaskHealthActivity.this);
+                            instance.setNextStepListener(TaskComplyChoiceActivity.this);
                             fragments.add(instance);
                             //给提交的数据赋值
                             TaskSchemaBean.AnswerListBean answerBean = new TaskSchemaBean.AnswerListBean();
@@ -133,7 +136,7 @@ public class TaskHealthActivity extends AppCompatActivity implements TaskChoiceF
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        Toast.makeText(TaskHealthActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TaskComplyChoiceActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -187,7 +190,7 @@ public class TaskHealthActivity extends AppCompatActivity implements TaskChoiceF
 
     @SuppressLint("CheckResult")
     private void postHealthData() {
-        LoadingDialog upDialog = new LoadingDialog.Builder(TaskHealthActivity.this)
+        LoadingDialog upDialog = new LoadingDialog.Builder(TaskComplyChoiceActivity.this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在上传")
                 .create();
@@ -211,7 +214,7 @@ public class TaskHealthActivity extends AppCompatActivity implements TaskChoiceF
                     @Override
                     public void onNext(TaskSchemaResultBean body) {
                         super.onNext(body);
-                        LoadingDialog successDialog = new LoadingDialog.Builder(TaskHealthActivity.this)
+                        LoadingDialog successDialog = new LoadingDialog.Builder(TaskComplyChoiceActivity.this)
                                 .setIconType(LoadingDialog.Builder.ICON_TYPE_SUCCESS)
                                 .setTipWord("上传成功")
                                 .create();
@@ -221,7 +224,7 @@ public class TaskHealthActivity extends AppCompatActivity implements TaskChoiceF
                                 successDialog.dismiss();
                             }
                         }, 500);
-                        CC.obtainBuilder("app.component.task.result")
+                        CC.obtainBuilder("public.result")
                                 .addParam("resultBean", body)
                                 .build()
                                 .callAsync();
@@ -230,7 +233,7 @@ public class TaskHealthActivity extends AppCompatActivity implements TaskChoiceF
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        LoadingDialog errorDialog = new LoadingDialog.Builder(TaskHealthActivity.this)
+                        LoadingDialog errorDialog = new LoadingDialog.Builder(TaskComplyChoiceActivity.this)
                                 .setIconType(LoadingDialog.Builder.ICON_TYPE_FAIL)
                                 .setTipWord("上传失败")
                                 .create();

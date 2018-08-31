@@ -87,10 +87,10 @@
 
         <ImageView
             android:id="@+id/iv_task_action"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/ic_launcher_round"
+            android:src="@drawable/img_task_finish"
             android:visibility="gone"/>
 
     </RelativeLayout>

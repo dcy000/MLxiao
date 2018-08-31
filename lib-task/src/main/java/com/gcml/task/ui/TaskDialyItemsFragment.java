@@ -23,6 +23,12 @@ import com.gcml.task.bean.ItemsModel;
 
 import java.util.ArrayList;
 
+/**
+ * desc: 每日任务类型设置页面，包括运动和饮酒设置（需配合TaskDialyItemsFragment使用） .
+ * author: wecent .
+ * date: 2018/8/20 .
+ */
+
 public class TaskDialyItemsFragment extends Fragment {
 
     private ItemsModel mModel;

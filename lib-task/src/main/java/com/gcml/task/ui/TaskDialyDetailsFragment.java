@@ -20,6 +20,12 @@ import com.gcml.task.R;
 
 import java.util.Arrays;
 
+/**
+ * desc: 每日任务量设置页面，包括食盐、运动和饮酒设置（运动和饮酒需配合TaskDialyItemsFragment使用） .
+ * author: wecent .
+ * date: 2018/8/20 .
+ */
+
 public class TaskDialyDetailsFragment extends Fragment {
 
     private DetailsModel mModel;

@@ -28,7 +28,7 @@ public class TaskRepository {
                 .compose(RxUtils.apiResultTransformer());
     }
 
-    public Observable<TaskHealthBean> isTaskHealthListFromApi(
+    public Observable<Object> isTaskHealthListFromApi(
             String userId) {
         return mTaskService.isTaskHealth(userId)
                 .compose(RxUtils.apiResultTransformer());

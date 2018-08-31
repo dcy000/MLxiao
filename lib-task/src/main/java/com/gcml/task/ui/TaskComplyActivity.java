@@ -12,7 +12,13 @@ import com.billy.cc.core.component.CC;
 import com.gcml.task.R;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
-public class TaskPromptActivity extends AppCompatActivity implements View.OnClickListener {
+/**
+ * desc: 依从性调查问卷入口 .
+ * author: wecent .
+ * date: 2018/8/20 .
+ */
+
+public class TaskComplyActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView mTitle, mMessage;
     ImageView mBack;
@@ -54,7 +60,7 @@ public class TaskPromptActivity extends AppCompatActivity implements View.OnClic
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                CC.obtainBuilder("app.component.task.health").build().callAsync();
+                CC.obtainBuilder("app.component.task.comply.choice").build().callAsync();
             }
         }, 3000);
     }

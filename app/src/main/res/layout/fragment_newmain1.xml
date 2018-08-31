@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <TextView
         android:id="@+id/clock"
         android:layout_width="wrap_content"
@@ -12,8 +13,8 @@
         android:text="13:24"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="228pt"
-        />
+        android:layout_marginLeft="228pt" />
+
     <ImageView
         android:id="@+id/image_weather"
         android:layout_width="200pt"
@@ -24,6 +25,7 @@
         android:layout_marginLeft="100pt"
         android:layout_marginBottom="80pt"
         android:scaleType="fitXY"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,6 +35,7 @@
         app:layout_constraintLeft_toRightOf="@id/image_weather"
         android:layout_marginLeft="100pt"
         android:layout_marginBottom="80pt">
+
         <TextView
             android:id="@+id/temperature"
             android:layout_width="wrap_content"
@@ -40,15 +43,17 @@
             android:text="**℃"
             android:textColor="#333333"
             android:textSize="140pt"/>
+
         <TextView
             android:id="@+id/weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="*"
             android:textColor="#333333"
-            android:textSize="80pt"
-            />
+            android:textSize="80pt" />
+
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_date_and_week"
         android:layout_width="0dp"
@@ -58,6 +63,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clock"
         android:layout_marginTop="30pt">
+
         <TextView
             android:id="@+id/gregorian_calendar"
             android:layout_width="wrap_content"
@@ -66,6 +72,7 @@
             android:textColor="#333"
             android:text="12月18日"
             android:layout_marginLeft="228pt"/>
+
         <TextView
             android:id="@+id/lunar_calendar"
             android:layout_width="wrap_content"
@@ -74,6 +81,7 @@
             android:textColor="#333"
             android:text="农历十一月初一"
             android:layout_marginLeft="100pt"/>
+
         <TextView
             android:id="@+id/weekToday"
             android:layout_width="wrap_content"
@@ -82,7 +90,9 @@
             android:textColor="#333"
             android:text="星期一"
             android:layout_marginLeft="100pt"/>
+
     </LinearLayout>
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -90,6 +100,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_date_and_week"
         android:layout_marginTop="100pt">
+
         <LinearLayout
             android:id="@+id/ll_health_measure"
             android:layout_width="wrap_content"
@@ -100,12 +111,14 @@
             app:layout_constraintRight_toLeftOf="@+id/ll_health_manager"
             app:layout_constraintHorizontal_chainStyle="packed"
             android:clickable="true">
+
             <com.gcml.lib_widget.EclipseImageView
                 android:id="@+id/iv_health_measure"
                 android:layout_width="280pt"
                 android:layout_height="280pt"
                 android:background="@drawable/newmain_health_measure"
                 android:clickable="true"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -115,6 +128,7 @@
                 android:layout_marginTop="40pt"/>
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_health_manager"
             android:layout_width="wrap_content"
@@ -125,21 +139,24 @@
             app:layout_constraintRight_toLeftOf="@+id/ll_health_call_family"
             android:layout_marginLeft="312pt"
             android:clickable="true">
+
             <com.gcml.lib_widget.EclipseImageView
-                android:id="@+id/iv_health_manager"
+                android:id="@+id/iv_health_dialy_task"
                 android:layout_width="280pt"
                 android:layout_height="280pt"
-                android:background="@drawable/newmain_health_manager"
+                android:background="@drawable/newmain_health_dialy_task"
                 android:clickable="true"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="健康管理"
+                android:text="每日任务"
                 android:textColor="#333"
                 android:textSize="64pt"
                 android:layout_marginTop="40pt"/>
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_health_call_family"
             android:layout_width="wrap_content"
@@ -150,12 +167,14 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="312pt"
             android:clickable="true">
+
             <com.gcml.lib_widget.EclipseImageView
                 android:id="@+id/iv_health_call_family"
                 android:layout_width="280pt"
                 android:layout_height="280pt"
                 android:background="@drawable/newmain_health_call_family"
                 android:clickable="true"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -165,5 +184,7 @@
                 android:layout_marginTop="40pt"/>
 
         </LinearLayout>
+
     </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>

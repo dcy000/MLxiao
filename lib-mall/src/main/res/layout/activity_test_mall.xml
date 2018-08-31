@@ -5,17 +5,17 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_task_title"
+        android:id="@+id/tv_mall_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true"
-        android:text="欢迎来到每日任务"
+        android:text="欢迎来到迈联商城"
         android:textSize="36sp"
-        android:textColor="@color/task_color_base"/>
+        android:textColor="@color/config_color_black"/>
 
     <TextView
-        android:id="@+id/tv_task_action"
+        android:id="@+id/tv_mall_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -25,7 +25,7 @@
         android:paddingRight="50dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:background="@drawable/common_bg_menu_setting"
+        android:background="@drawable/btn_mall_base"
         android:textSize="28sp"
         android:text="进入"
         android:textColor="@color/config_color_white"/>

@@ -109,6 +109,7 @@ dependencies {
     addComponent 'lib-recreation'
     addComponent 'module-health_measure'
 //    addComponent 'lib-auth'
+    addComponent 'lib-task'
     addComponent 'module-video'
 
     implementation project(":lib-common-business")

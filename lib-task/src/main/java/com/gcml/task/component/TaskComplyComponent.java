@@ -7,25 +7,25 @@ import android.content.Intent;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
-import com.gcml.task.ui.TaskHealthActivity;
+import com.gcml.task.ui.TaskComplyActivity;
 
 /**
- * desc: TaskHealthComponent .
+ * desc: TaskComplyComponent .
  * author: wecent .
- * date: 2018/8/21 .
+ * date: 2018/8/23 .
  */
 
-public class TaskHealthComponent implements IComponent {
+public class TaskComplyComponent implements IComponent {
 
     @Override
     public String getName() {
-        return "app.component.task.health";
+        return "app.component.task.comply";
     }
 
     @Override
     public boolean onCall(CC cc) {
         Context context = cc.getContext();
-        Intent intent = new Intent(context, TaskHealthActivity.class);
+        Intent intent = new Intent(context, TaskComplyActivity.class);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
