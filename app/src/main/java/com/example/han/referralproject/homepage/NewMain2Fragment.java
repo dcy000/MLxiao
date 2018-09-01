@@ -7,18 +7,13 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
-import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
-import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_widget.EclipseImageView;
 import com.gcml.old.auth.profile.PersonDetailActivity;
-import com.google.gson.Gson;
-import com.ml.edu.OldRouter;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
