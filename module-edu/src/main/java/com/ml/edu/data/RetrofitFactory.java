@@ -36,7 +36,7 @@ public class RetrofitFactory {
             synchronized (this) {
                 if (retrofit == null) {
                     retrofit = new Retrofit.Builder()
-                            .baseUrl(BuildConfig.OLD_BASE_URL)
+                            .baseUrl(BuildConfig.SERVER_ADDRESS)
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .build();

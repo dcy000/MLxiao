@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.Utils;
 import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
@@ -18,6 +19,7 @@ import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
 import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.device.DeviceUtils;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -144,7 +146,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
         mToolbar.setVisibility(View.VISIBLE);
         //播报语音
         Timber.d(questionListBean.getQuestionName());
-        MLVoiceSynthetize.startSynthesize(this,"主人，"+questionListBean.getQuestionName(),false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，"+questionListBean.getQuestionName(),false);
     }
 
     private void initView() {

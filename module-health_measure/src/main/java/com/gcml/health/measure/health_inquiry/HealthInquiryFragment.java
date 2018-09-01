@@ -14,9 +14,11 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
 import com.gcml.health.measure.divider.LinearLayoutDividerItemDecoration;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.google.gson.Gson;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
     private HealthInquiryBean.QuestionListBean questionListBean;
     private int pageIndex;
     private BaseQuickAdapter<HealthInquiryBean.QuestionListBean.AnswerListBean, BaseViewHolder> adapter;
-    private boolean is432=true;
+    private boolean is432 = true;
 
     @Override
     public void onAttach(Context context) {
@@ -79,7 +81,7 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
         mAnswerList = (RecyclerView) view.findViewById(R.id.answer_list);
 //        mBtnNext = (TextView) view.findViewById(R.id.btnNext);
 //        mBtnNext.setOnClickListener(this);
-        mBtnNext=findClickView(R.id.btnNext);
+        mBtnNext = findClickView(R.id.btnNext);
         checkBtnBG();
         initRecycleview();
     }
@@ -111,9 +113,9 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
                 BaseViewHolder>(R.layout.health_measure_item_inquiry, mData) {
             @Override
             protected void convert(BaseViewHolder helper, HealthInquiryBean.QuestionListBean.AnswerListBean item) {
-                if (is432){
+                if (is432) {
                     helper.getView(R.id.tv_answer).setBackgroundResource(R.drawable.health_measure_selector_inquiry_432_full);
-                }else{
+                } else {
                     helper.getView(R.id.tv_answer).setBackgroundResource(R.drawable.health_measure_selector_inquiry_644_full);
                 }
                 if (item.getChoosed()) {
@@ -157,12 +159,12 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
                             }
                             adapter.notifyDataSetChanged();
                         }
-                    }else if ("0".equals(questionType)){
+                    } else if ("0".equals(questionType)) {
                         //单选互斥
                         for (HealthInquiryBean.QuestionListBean.AnswerListBean bean : mData) {
-                            if (answerListBean==bean) {
+                            if (answerListBean == bean) {
                                 bean.setChoosed(true);
-                            }else{
+                            } else {
                                 bean.setChoosed(false);
                             }
                             adapter.notifyDataSetChanged();
@@ -190,9 +192,29 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btnNext) {
+            if (!checkSelectOne()){
+                ToastUtils.showShort("请至少选择一项");
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"请至少选择一项",false);
+                return;
+            }
             dealClick();
 
         } else {
         }
+    }
+
+    /**
+     * 检查是否至少选中一个
+     * @return
+     */
+    private boolean checkSelectOne() {
+        boolean isSelectOne = false;
+        for (HealthInquiryBean.QuestionListBean.AnswerListBean bean : mData) {
+            if (bean.getChoosed()) {
+                isSelectOne = true;
+                break;
+            }
+        }
+        return isSelectOne;
     }
 }
