@@ -18,6 +18,7 @@ import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.task.R;
 import com.gcml.task.bean.Post.TaskSchemaResultBean;
 import com.gcml.task.bean.get.TaskHealthBean;
@@ -127,8 +128,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                         mPostData.equipmentId = Utils.getDeviceId(getContentResolver());
                         mPostData.hmQuestionnaireId = body.hmQuestionnaireId;
                         mPostData.hmQuestionnaireName = body.questionnaireName;
-//                        mPostData.userId = LocalShared.getInstance(PrimaryHypertensionActivity.this).getUserId();
-                        mPostData.userId = 100206;
+                        mPostData.userId = Integer.parseInt((String) SPUtil.get("user_id", ""));
                         mPostData.score = 0;
                         mPostData.answerList = new ArrayList<>();
                         for (int i = 0; i < mList.size(); i++) {
@@ -221,7 +221,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在上传")
                 .create();
-        mTaskRepository.taskHealthListForApi(mPostData, "100206")
+        mTaskRepository.taskHealthListForApi(mPostData, (String) SPUtil.get("user_id",""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {

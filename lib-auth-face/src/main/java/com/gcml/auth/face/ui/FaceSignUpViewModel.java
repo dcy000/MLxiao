@@ -16,7 +16,7 @@ public class FaceSignUpViewModel extends BaseViewModel {
         super(application);
     }
 
-    public Observable<Boolean> signUp(byte[] faceData, String faceId) {
+    public Observable<String> signUp(byte[] faceData, String faceId) {
         return mFaceRepository.signUp(faceData, faceId);
     }
 }

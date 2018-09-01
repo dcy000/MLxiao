@@ -16,11 +16,7 @@ public class SetPasswordViewModel extends BaseViewModel {
         super(application);
     }
 
-    public Observable<String> fetchCode(String phone) {
-        return mUserRepository.fetchCode(phone);
-    }
-
-    public Observable<Boolean> updatePassword(String account, String pwd) {
+    public Observable<Object> updatePassword(String account, String pwd) {
         return mUserRepository.updatePassword(account, pwd);
     }
 }

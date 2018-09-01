@@ -14,6 +14,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.task.R;
 import com.gcml.task.bean.DetailsModel;
 import com.gcml.task.bean.ItemsModel;
@@ -196,7 +197,7 @@ public class TaskDialyContactActivity extends AppCompatActivity implements TaskD
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在上传")
                 .create();
-        mTaskRepository.taskWheelListForApi(wheel, "100206")
+        mTaskRepository.taskWheelListForApi(wheel, (String) SPUtil.get("user_id",""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {

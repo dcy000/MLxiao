@@ -2,6 +2,7 @@ package com.gcml.common.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -89,6 +90,24 @@ public class IconDialog {
         return this;
     }
 
+    public IconDialog setIcon(Bitmap bitmap) {
+        showIcon = true;
+        if (bitmap == null) {
+            ImageLoader.Options options = ImageLoader.newOptionsBuilder(img_icon, R.drawable.common_ic_robot)
+                    .resize(480, 480)
+                    .circle()
+                    .build();
+            ImageLoader.instance().load(options);
+        } else {
+            ImageLoader.Options options = ImageLoader.newOptionsBuilder(img_icon, bitmap)
+                    .resize(480, 480)
+                    .circle()
+                    .build();
+            ImageLoader.instance().load(options);
+        }
+        return this;
+    }
+
     public IconDialog setCancelable(boolean cancel) {
         dialog.setCancelable(cancel);
         return this;
@@ -168,5 +187,9 @@ public class IconDialog {
     public void show() {
         setLayout();
         dialog.show();
+    }
+
+    public void dismiss() {
+        dialog.dismiss();
     }
 }
