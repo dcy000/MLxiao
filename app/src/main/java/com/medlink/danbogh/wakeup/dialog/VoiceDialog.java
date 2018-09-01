@@ -104,13 +104,9 @@ public class VoiceDialog extends Dialog {
 
             @Override
             public void onMLResult(String result) {
-//                Intent intent = new Intent(context, SpeechSynthesisActivity.class);
-//                if (!(context instanceof Activity)) {
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                }
-//                context.startActivity(intent);
                 DataDealHelper helper = new DataDealHelper();
                 helper.onDataAction(context, result);
+                dismiss();
             }
 
             @Override
