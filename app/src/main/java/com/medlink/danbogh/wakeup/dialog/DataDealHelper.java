@@ -99,6 +99,11 @@ public class DataDealHelper {
         }
         intent.putExtra(key, value);
         context.startActivity(intent);
+
+        if (listener!=null){
+            listener.onEnd();
+        }
+
     }
 
     private void startActivity(Class<?> cls, String key, int value) {
@@ -108,6 +113,11 @@ public class DataDealHelper {
         }
         intent.putExtra(key, value);
         context.startActivity(intent);
+
+
+        if (listener!=null){
+            listener.onEnd();
+        }
     }
 
     private void startActivity(Class<?> cls, String key, Object value) {
@@ -117,7 +127,22 @@ public class DataDealHelper {
         }
         intent.putExtra(key, (Serializable) value);
         context.startActivity(intent);
+
+
+        if (listener!=null){
+            listener.onEnd();
+        }
     }
+
+    interface OnEndListener {
+        void onEnd();
+    }
+
+    public void setListener(OnEndListener listener) {
+        this.listener = listener;
+    }
+
+    OnEndListener listener;
 
 
     public void onDataAction(Context context, String result) {
@@ -136,6 +161,11 @@ public class DataDealHelper {
             String tip = String.format(Locale.CHINA,
                     "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
             speak(tip, false);
+
+
+            if (listener!=null){
+                listener.onEnd();
+            }
             return;
         }
 
@@ -153,12 +183,22 @@ public class DataDealHelper {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+
+                    if (listener!=null){
+                        listener.onEnd();
+                    }
                 }
             }, new NetworkManager.FailedCallback() {
                 @Override
                 public void onFailed(String message) {
                     speak("当前已经是最新版本了");
                     Toast.makeText(context, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+
+
+                    if (listener!=null){
+                        listener.onEnd();
+                    }
                 }
             });
             return;
@@ -166,11 +206,19 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
             NimCallActivity.launchNoCheck(context, MyApplication.getInstance().eqid);
+
+            if (listener!=null){
+                listener.onEnd();
+            }
             return;
         }
 
         if (inSpell.matches(".*yinyue.*")) {
             OldRouter.routeToOldMusicActivity(context);
+
+            if (listener!=null){
+                listener.onEnd();
+            }
             return;
         }
 
@@ -309,6 +357,10 @@ public class DataDealHelper {
             bundle.putString("fromType", "xueya");
             CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
 
+            if (listener!=null){
+                listener.onEnd();
+            }
+
         } else if (inSpell.matches(".*ce.*xueyang.*")
                 || inSpell.matches(".*xueyang.*")
                 || inSpell.matches(".*liang.*xueyang.*")
@@ -319,6 +371,10 @@ public class DataDealHelper {
             bundle.putString("fromType", "xueyang");
             CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
 
+            if (listener!=null){
+                listener.onEnd();
+            }
+
         } else if (result.matches(".*测.*血糖.*")
                 || inSpell.matches(".*liang.*xuetang.*")
                 || inSpell.matches(".*xuetangyi.*")
@@ -328,11 +384,19 @@ public class DataDealHelper {
             bundle.putString("from", "Test");
             bundle.putString("fromType", "xuetang");
             CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
+
+            if (listener!=null){
+                listener.onEnd();
+            }
         } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
             Bundle bundle = new Bundle();
             bundle.putString("from", "Test");
             bundle.putString("fromType", "wendu");
             CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
+
+            if (listener!=null){
+                listener.onEnd();
+            }
 
         } else if (inSpell.matches(".*ce.*xindian.*")
                 || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
@@ -341,16 +405,28 @@ public class DataDealHelper {
             bundle.putString("fromType", "xindian");
             CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
 
+            if (listener!=null){
+                listener.onEnd();
+            }
+
         } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
             Bundle bundle = new Bundle();
             bundle.putString("from", "Test");
             bundle.putString("fromType", "sanheyi");
             CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
+
+            if (listener!=null){
+                listener.onEnd();
+            }
         } else if (inSpell.matches(".*ce.*tizhong.*")) {
             Bundle bundle = new Bundle();
             bundle.putString("from", "Test");
             bundle.putString("fromType", "tizhong");
             CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
+
+            if (listener!=null){
+                listener.onEnd();
+            }
 
         } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
             startActivity(VideoListActivity.class);
@@ -431,6 +507,11 @@ public class DataDealHelper {
         } else if (inSpell.matches(".*(dangan).*")) {
             CC.obtainBuilder("com.gcml.old.user.profile").build().callAsync();
 //                startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
+
+
+            if (listener!=null){
+                listener.onEnd();
+            }
         } else {
             new SpeechTask().execute();
         }
@@ -456,6 +537,10 @@ public class DataDealHelper {
             @Override
             public void onFailed(String message) {
                 ToastUtils.showShort(message);
+
+                if (listener!=null){
+                    listener.onEnd();
+                }
             }
         });
     }
@@ -496,6 +581,11 @@ public class DataDealHelper {
             } else {
                 onActivitySpeakFinish();
             }
+
+
+            if (listener!=null){
+                listener.onEnd();
+            }
             return;
         }
 
@@ -513,15 +603,24 @@ public class DataDealHelper {
                 music = text.substring(index);
                 searchMusic(music);
             }
+
             return;
         }
 
         if (!TextUtils.isEmpty(text)) {
             speak(text);
+
+            if (listener!=null){
+                listener.onEnd();
+            }
             return;
         }
 
         if (!empty) {
+
+            if (listener!=null){
+                listener.onEnd();
+            }
             speak(text);
             return;
         }
@@ -530,6 +629,10 @@ public class DataDealHelper {
             str1 = sendMessage(str);
         } catch (Exception e) {
             defaultToke();
+
+            if (listener!=null){
+                listener.onEnd();
+            }
         }
     }
 
@@ -668,6 +771,11 @@ public class DataDealHelper {
 
             }
         }
+
+        if (listener!=null){
+            listener.onEnd();
+        }
+
     }
 
     private List<SearchMusic.Song> mSearchMusicList = new ArrayList<>();
