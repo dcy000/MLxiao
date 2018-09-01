@@ -29,8 +29,7 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "true"
             buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
-            buildConfigField "String", "BASE_URL_DEBUG", rootProject.ext.baseUrls["debug"]
-            buildConfigField "String", "BASE_URL_RElEASE", rootProject.ext.baseUrls["release"]
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -39,8 +38,7 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             buildConfigField "boolean", "USE_CANARY", "false"
             buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
-            buildConfigField "String", "BASE_URL_DEBUG", rootProject.ext.baseUrls["debug"]
-            buildConfigField "String", "BASE_URL_RElEASE", rootProject.ext.baseUrls["release"]
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
             minifyEnabled false
             shrinkResources false
             zipAlignEnabled true

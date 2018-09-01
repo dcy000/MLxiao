@@ -100,7 +100,7 @@ public enum RepositoryApp implements IRepositoryApp {
                 builder.printHttpLogLevel(HttpLogInterceptor.Level.NONE);
             }
 
-            String baseUrl = debug ? BuildConfig.BASE_URL_DEBUG : BuildConfig.BASE_URL_RElEASE;
+            String baseUrl = BuildConfig.SERVER_ADDRESS;
             builder.baseUrl(baseUrl)
                     // 这里提供一个全局处理 Http 请求和响应结果的处理类,可以比客户端提前一步拿到服务器返回的结果
                     .httpInterceptor(new HttpInterceptorImpl())
