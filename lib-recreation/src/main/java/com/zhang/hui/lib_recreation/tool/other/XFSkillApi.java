@@ -362,7 +362,7 @@ public class XFSkillApi {
                 .add("text", contentText)
                 .build();
         Request request = new Request.Builder()
-                .url(BuildConfig.BASE_URL_DEBUG + "/ZZB/xf/xfrq")
+                .url(BuildConfig.SERVER_ADDRESS + "ZZB/xf/xfrq")
                 .post(body)
                 .build();
         return client.newCall(request);

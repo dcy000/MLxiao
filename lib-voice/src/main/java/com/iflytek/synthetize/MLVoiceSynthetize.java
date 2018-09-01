@@ -70,7 +70,7 @@ public class MLVoiceSynthetize {
         }
         if (!whine) {
             setParam(context, synthesizer);
-        }else{
+        } else {
             setRandomParam();
         }
         return synthesizer;
@@ -99,14 +99,22 @@ public class MLVoiceSynthetize {
     /**
      * 开始合成
      */
-    public static void startSynthesize(Context context, String text,boolean whine) {
+    public static void startSynthesize(Context context, String text) {
+        startSynthesize(context, text, false);
+    }
+
+
+    /**
+     * 开始合成
+     */
+    public static void startSynthesize(Context context, String text, boolean whine) {
         startSynthesize(context.getApplicationContext(), whine, text);
     }
 
     /**
      * 开始合成
      */
-    public static void startSynthesize(Context context, String text,SynthesizerListener synthesizerListener,boolean whine) {
+    public static void startSynthesize(Context context, String text, SynthesizerListener synthesizerListener, boolean whine) {
         startSynthesize(context, whine, synthesizerListener, text);
     }
 
@@ -116,7 +124,6 @@ public class MLVoiceSynthetize {
     public static void startSynthesize(Context context, boolean isDefaultParam, String text) {
         startSynthesize(context, isDefaultParam, null, text);
     }
-
 
 
     /**

@@ -31,6 +31,7 @@ import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 
@@ -127,7 +128,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
         mTvNext = (TextView) view.findViewById(R.id.tv_next);
-
+        MLVoiceSynthetize.startSynthesize(context,"主人，请打开设备开关，准备测量",false);
         initOther();
     }
 

@@ -9,6 +9,7 @@ import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,12 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
         super.onStart();
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MLVoiceSynthetize.startSynthesize(getContext(),"主人，请将试纸插入仪器，开始测量",false);
     }
 
     private HashMap<String, Float> results = new HashMap<>();
@@ -68,9 +75,9 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
                     fragmentChanged.onFragmentChanged(
                             HealthThreeInOneDetectionUiFragment.this, null);
                 }
-                ((FirstDiagnosisActivity) getActivity()).putCacheData(sugarData);
-                ((FirstDiagnosisActivity) getActivity()).putCacheData(cholesterolData);
-                ((FirstDiagnosisActivity) getActivity()).putCacheData(lithicAcidData);
+                ((FirstDiagnosisActivity) mActivity).putCacheData(sugarData);
+                ((FirstDiagnosisActivity) mActivity).putCacheData(cholesterolData);
+                ((FirstDiagnosisActivity) mActivity).putCacheData(lithicAcidData);
             }
 
             @Override

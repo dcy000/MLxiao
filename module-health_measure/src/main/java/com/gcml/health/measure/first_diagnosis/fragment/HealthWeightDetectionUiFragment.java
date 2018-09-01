@@ -92,7 +92,7 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
                     fragmentChanged.onFragmentChanged(
                             HealthWeightDetectionUiFragment.this, null);
                 }
-                ((FirstDiagnosisActivity) getActivity()).putCacheData(weightData);
+                ((FirstDiagnosisActivity) mActivity).putCacheData(weightData);
             }
 
             @Override

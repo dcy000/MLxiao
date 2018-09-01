@@ -9,6 +9,7 @@ import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,13 @@ public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment{
         mBtnHealthHistory.setText("下一步");
         mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MLVoiceSynthetize.startSynthesize(getContext(),"主人，请打开设备开关,开始测量",false);
+    }
+
     @Override
     protected void clickHealthHistory(View view) {
         if (fragmentChanged != null && !isJump2Next) {
@@ -52,7 +60,7 @@ public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment{
                         isJump2Next = true;
                         fragmentChanged.onFragmentChanged(HealthBloodOxygenDetectionFragment.this, null);
                     }
-                    ((FirstDiagnosisActivity) getActivity()).putCacheData(data);
+                    ((FirstDiagnosisActivity) mActivity).putCacheData(data);
                 }
 
                 @Override

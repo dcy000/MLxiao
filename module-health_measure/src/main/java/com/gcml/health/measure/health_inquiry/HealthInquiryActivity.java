@@ -5,15 +5,21 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.Utils;
+import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.R;
+import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
+import com.gcml.health.measure.first_diagnosis.fragment.HealthFirstTipsFragment;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
 import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.device.DeviceUtils;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -21,6 +27,7 @@ import com.gcml.lib_utils.ui.dialog.BaseDialog;
 import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
 import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.OkGo;
 
 import java.util.ArrayList;
@@ -30,13 +37,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.http.PATCH;
+import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
  * version:V1.2.5
  * created on 2018/8/28 16:31
  * created by:gzq
- * description:TODO
+ * description:健康调查问卷
  */
 public class HealthInquiryActivity extends ToolbarBaseActivity implements FragmentChanged {
     private FrameLayout mFrame;
@@ -62,7 +70,11 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
         if (backStackEntryCount > 1) {
             // 立即回退一步,并且把缓存的数据清除
             getSupportFragmentManager().popBackStackImmediate();
-            cacheDatas.remove(cacheDatas.size() - 1);
+
+            int size = cacheDatas.size();
+            if (size > 0) {
+                cacheDatas.remove(size - 1);
+            }
         } else {
             //回退栈中只剩一个时,退出应用
             finish();
@@ -88,13 +100,17 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                     public void onNext(HealthInquiryBean healthInquiryBeans) {
                         if (healthInquiryBeans != null) {
                             HealthInquiryActivity.this.healthInquiryBean = healthInquiryBeans;
-                            replaceFragment(healthInquiryBeans.getQuestionList().get(pageIndex), pageIndex++);
+                            addFirstTipFragment();
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("获取数据失败："+e.getMessage());
+                        if (BuildConfig.DEBUG) {
+                            ToastUtils.showShort("获取数据失败");
+                        } else {
+                            ToastUtils.showShort("获取数据失败:" + e.getMessage());
+                        }
                     }
 
                     @Override
@@ -103,6 +119,16 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                     }
                 });
 
+    }
+
+    private void addFirstTipFragment() {
+        mToolbar.setVisibility(View.GONE);
+        HealthFirstTipsFragment firstTipsFragment = new HealthFirstTipsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("title", "主人，做一个风险评估吧！");
+        firstTipsFragment.setArguments(bundle);
+        firstTipsFragment.setOnFragmentChangedListener(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, firstTipsFragment).commit();
     }
 
     private void replaceFragment(HealthInquiryBean.QuestionListBean questionListBean, int pageIndex) {
@@ -117,12 +143,16 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                 .replace(R.id.frame, fragment)
                 .addToBackStack(null)
                 .commit();
+        mToolbar.setVisibility(View.VISIBLE);
+        //播报语音
+        Timber.d(questionListBean.getQuestionName());
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，"+questionListBean.getQuestionName(),false);
     }
 
     private void initView() {
         mFrame = (FrameLayout) findViewById(R.id.frame);
         mTitleText.setText("健 康 调 查");
-        userId=HealthMeasureSPManifest.getUserId();
+        userId = HealthMeasureSPManifest.getUserId();
     }
 
     @Override
@@ -143,6 +173,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
             @Override
             public void clickSure(BaseDialog dialog) {
                 //TODO:进入MainActivity
+                CCAppActions.jump2MainActivity();
             }
         });
     }
@@ -150,6 +181,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
     @SuppressLint("CheckResult")
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
+
         if (healthInquiryBean != null) {
             if (pageIndex < 6) {
                 replaceFragment(healthInquiryBean.getQuestionList().get(pageIndex), pageIndex++);

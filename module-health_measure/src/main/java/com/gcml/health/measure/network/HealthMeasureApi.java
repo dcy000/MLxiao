@@ -19,15 +19,15 @@ import java.util.ArrayList;
 public class HealthMeasureApi {
     public static final String BasicUrl= BuildConfig.SERVER_ADDRESS;
     //血压测量惯用手
-    public static final String DETECTION_BLOOD_HAND = BasicUrl + "/ZZB/api/healthMonitor/detection/hypertension/hand/";
+    public static final String DETECTION_BLOOD_HAND = BasicUrl + "ZZB/api/healthMonitor/detection/hypertension/hand/";
     //测量数据上传
-    public static final String DETECTION_DATA = BasicUrl + "/ZZB/api/healthMonitor/detection/";
+    public static final String DETECTION_DATA = BasicUrl + "ZZB/api/healthMonitor/detection/";
     //首诊结果获取
-    public static final String DETECTION_RESULT = BasicUrl + "/ZZB/api/healthMonitor/detection/result/";
+    public static final String DETECTION_RESULT = BasicUrl + "ZZB/api/healthMonitor/detection/result/";
     //获取诊断信息
-    public static final String GET_DIAGNOSE_INFO = BasicUrl + "/ZZB/api/healthMonitor/hypertension/diagnose/";
+    public static final String GET_DIAGNOSE_INFO = BasicUrl + "ZZB/api/healthMonitor/hypertension/diagnose/";
     //血压周报告、月报告接口
-    public static final String WeeklyOrMonthlyReport = BasicUrl + "/ZZB/api/healthMonitor/report/hypertension/week/";
+    public static final String WeeklyOrMonthlyReport = BasicUrl + "ZZB/api/healthMonitor/report/hypertension/week/";
 
     /**
      * 新的上传测量数据的接口
