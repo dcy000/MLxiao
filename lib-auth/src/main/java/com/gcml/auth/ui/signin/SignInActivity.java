@@ -8,10 +8,13 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignInBinding;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -177,9 +180,20 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
 
     public void goSignInByFace() {
         CC.obtainBuilder("com.gcml.auth.face.signin")
-                .addParam("componentName", "com.gcml.old.home")
                 .build()
-                .callAsync();
+                .callAsync(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+                        if (result.isSuccess()) {
+                            UserSpHelper.setUserId(result.getDataItem("userId"));
+                            CC.obtainBuilder("com.gcml.old.home")
+                                    .build()
+                                    .callAsync();
+                        } else {
+                            ToastUtils.showShort(result.getErrorMessage());
+                        }
+                    }
+                });
     }
 
     public void goForgetPassword() {

@@ -2,6 +2,8 @@ package com.gcml.auth.ui.profile;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ArrayAdapter;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.auth.R;
@@ -14,6 +16,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
+import com.gcml.lib_utils.display.KeyboardUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -48,8 +51,12 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
                 barClickListener);
         binding.tvMan.setSelected(manSelected);
         binding.tvWomen.setSelected(!manSelected);
-        binding.spHeight.attachDataSource(getHeights());
-        binding.spHeight.setSelectedIndex(148);
+        binding.spHeight.setAdapter(new ArrayAdapter<String>(
+                this,
+                R.layout.common_item_spinner,
+                getHeights()
+        ));
+        binding.spHeight.setSelection(148);
     }
 
     private List<String> heights = new ArrayList<>();
@@ -78,6 +85,14 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
         }
     };
 
+    public void rootOnClick() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            KeyboardUtils.hideKeyboard(this, view);
+        }
+    }
+
+
     private boolean manSelected = true;
 
     public void selectMan() {
@@ -104,7 +119,7 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
             MLVoiceSynthetize.startSynthesize(
                     getApplicationContext(),
                     getString(R.string.auth_empty_name),
-                    true);
+                    false);
             ToastUtils.showShort(R.string.auth_empty_name);
             return;
         }
@@ -114,14 +129,14 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
             MLVoiceSynthetize.startSynthesize(
                     getApplicationContext(),
                     getString(R.string.auth_id_card_tip),
-                    true);
+                    false);
             ToastUtils.showShort(R.string.auth_id_card_tip);
             return;
         }
 
         String sex = manSelected ? "男" : "女";
 
-        int index = binding.spHeight.getSelectedIndex();
+        int index = binding.spHeight.getSelectedItemPosition();
         String height = getHeights().get(index);
         if (!TextUtils.isEmpty(height)) {
             height = height.replaceAll("cm", "");

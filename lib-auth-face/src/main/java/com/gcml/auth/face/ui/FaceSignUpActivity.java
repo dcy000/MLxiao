@@ -55,7 +55,6 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
         if (TextUtils.isEmpty(faceId)) {
             faceId = UserSpHelper.produceFaceId();
         }
-        componentName = getIntent().getStringExtra("componentName");
         callId = getIntent().getStringExtra("callId");
         binding.setPresenter(this);
         RxUtils.rxWifiLevel(getApplication(), 4)
@@ -125,13 +124,13 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
     private void showFace(Bitmap faceBitmap) {
         new IconDialog(this).builder()
                 .setIcon(faceBitmap)
-                .setPositiveButton("取消", new View.OnClickListener() {
+                .setPositiveButton("重拍", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         start(3000);
                     }
                 })
-                .setNegativeButton("确定", new View.OnClickListener() {
+                .setNegativeButton("确认头像", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         signUpFace(faceBitmap);
@@ -223,17 +222,6 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
 
     @Override
     public void finish() {
-        if (!error && !TextUtils.isEmpty(componentName)) {
-            CC.obtainBuilder(componentName)
-                    .build()
-                    .callAsync();
-        }
-        super.finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
         if (!TextUtils.isEmpty(callId)) {
             CCResult result;
             if (error) {
@@ -244,11 +232,15 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
             //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
             CC.sendCCResult(callId, result);
         }
+        super.finish();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+    }
 
-    private String componentName;
     private String callId;
     private volatile boolean error = true;
 }

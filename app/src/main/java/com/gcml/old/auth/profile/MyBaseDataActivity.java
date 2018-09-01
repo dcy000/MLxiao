@@ -260,7 +260,6 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.head:
                 CC.obtainBuilder("com.gcml.auth.face.signup")
-                        .setActionName("forResult")
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override

@@ -78,7 +78,7 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
     public void fetchCode() {
         final String phone = binding.etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入正确的手机号码", true);
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入正确的手机号码", false);
             ToastUtils.showShort("主人，请输入正确的手机号码");
             return;
         }
@@ -115,14 +115,14 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
                     public void onNext(String code) {
                         FindPasswordActivity.this.code = code;
                         ToastUtils.showShort("获取验证码成功");
-                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码成功", true);
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码成功", false);
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         ToastUtils.showShort("获取验证码失败");
-                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码失败", true);
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码失败", false);
                     }
                 });
     }
@@ -157,7 +157,7 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
     public void goNext() {
         final String phone = binding.etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入正确的手机号码", true);
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入正确的手机号码", false);
             ToastUtils.showShort("主人，请输入正确的手机号码");
             return;
         }
@@ -180,14 +180,14 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
     private void checkCode(String phone) {
         String code = binding.etCode.getText().toString().trim();
         if (TextUtils.isEmpty(code)) {
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,请输入验证码", true);
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,请输入验证码", false);
             ToastUtils.showShort("主人,请输入验证码");
             return;
         }
 
         if (!code.equals(this.code)) {
             ToastUtils.showShort("验证码错误");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "验证码错误", true);
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "验证码错误", false);
             return;
         }
 
@@ -201,7 +201,7 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入您的手机号码", true);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入您的手机号码", false);
     }
 
     @Override

@@ -16,6 +16,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
+        android:onClick="@{() -> presenter.rootOnClick()}"
         android:layout_height="match_parent"
         tools:context=".ui.profile.SimpleProfileActivity">
 
@@ -153,14 +154,17 @@
                 app:layout_constraintRight_toRightOf="@+id/tv_sex"
                 app:layout_constraintTop_toBottomOf="@+id/tv_sex" />
 
-            <org.angmarch.views.NiceSpinner
+
+            <Spinner
                 android:id="@+id/sp_height"
                 android:layout_width="310pt"
                 android:layout_height="120pt"
                 android:layout_marginLeft="50pt"
+                android:background="@drawable/common_bg_spinner"
+                android:textSize="50pt"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_height"
                 app:layout_constraintLeft_toRightOf="@+id/tv_height"
-                app:layout_constraintTop_toTopOf="@+id/tv_height" />
+                app:layout_constraintTop_toTopOf="@+id/tv_height"/>
 
             <TextView
                 android:id="@+id/tv_next"

@@ -9,14 +9,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCFaceRecognitionActions;
+import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.data.LunarUtils;
 import com.gcml.lib_utils.data.TimeUtils;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.thread.ThreadUtils;
 import com.gcml.lib_widget.EclipseImageView;
 import com.medlink.danbogh.call2.NimCallActivity;
@@ -307,7 +313,22 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 Bundle bundle = new Bundle();
                 bundle.putString("orderid", "0");
                 bundle.putString("from", "Test");
-                CCFaceRecognitionActions.jump2FaceRecognitionActivity(getActivity(), bundle);
+//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(getActivity(), bundle);
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                UserSpHelper.setUserId(userId);
+                                if (result.isSuccess()) {
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
                 break;
             case R.id.iv_health_manager:
                 startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));

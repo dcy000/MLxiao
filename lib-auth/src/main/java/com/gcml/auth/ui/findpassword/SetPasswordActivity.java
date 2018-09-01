@@ -68,7 +68,7 @@ public class SetPasswordActivity extends BaseActivity<AuthActivitySetPasswordBin
         String pwd = binding.etPassword.getText().toString().trim();
         if (TextUtils.isEmpty(pwd) || pwd.length() != 6) {
             ToastUtils.showShort("请输入6位数字密码");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入6位数字密码", true);
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入6位数字密码", false);
             return;
         }
         viewModel.updatePassword(mPhone, pwd)
@@ -94,7 +94,7 @@ public class SetPasswordActivity extends BaseActivity<AuthActivitySetPasswordBin
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入验证码及新的6位数字密码", true);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入新的6位数字密码", false);
     }
 
     @Override

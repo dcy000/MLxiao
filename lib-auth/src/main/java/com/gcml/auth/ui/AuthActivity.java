@@ -8,6 +8,7 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityAuthBinding;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.app.AppUtils;
@@ -43,10 +44,10 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
                     }
                 });
         AppUtils.AppInfo appInfo = AppUtils.getAppInfo();
-        binding.tvAppVersion.setText(appInfo == null ? "": appInfo.getVersionName());
+        binding.tvAppVersion.setText(appInfo == null ? "" : appInfo.getVersionName());
     }
 
-    public void goSignUp(){
+    public void goSignUp() {
         CC.obtainBuilder("com.gcml.auth.signup")
                 .build()
                 .callAsync();
@@ -56,34 +57,38 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
 //                .callAsync();
     }
 
-    public void goSignInByPhone(){
+    public void goSignInByPhone() {
 //        CC.obtainBuilder("com.gcml.old.user.auth").setActionName("signin").build().callAsync();
         CC.obtainBuilder("com.gcml.auth.signin")
                 .build()
                 .callAsync();
     }
 
-    public void goSignInByFace(){
+    public void goSignInByFace() {
         CC.obtainBuilder("com.gcml.auth.face.signin")
-                .addParam("componentName", "com.gcml.old.home")
                 .build()
-                .callAsync(new IComponentCallback() {
+                .callAsyncCallbackOnMainThread(new IComponentCallback() {
                     @Override
                     public void onResult(CC cc, CCResult result) {
-                        if (!result.isSuccess()) {
+                        if (result.isSuccess()) {
+                            UserSpHelper.setUserId(result.getDataItem("userId"));
+                            CC.obtainBuilder("com.gcml.old.home")
+                                    .build()
+                                    .callAsync();
+                        } else {
                             ToastUtils.showShort(result.getErrorMessage());
                         }
                     }
                 });
     }
 
-    public void goWifi(){
+    public void goWifi() {
         CC.obtainBuilder("com.gcml.old.wifi")
                 .build()
                 .callAsync();
     }
 
-    public void goUserProtocol(){
+    public void goUserProtocol() {
         CC.obtainBuilder("com.gcml.old.user.auth")
                 .setActionName("protocol")
                 .build()

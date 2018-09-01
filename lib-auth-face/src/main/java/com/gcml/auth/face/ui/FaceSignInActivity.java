@@ -55,7 +55,6 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     @Override
     protected void init(Bundle savedInstanceState) {
         callId = getIntent().getStringExtra("callId");
-        componentName = getIntent().getStringExtra("componentName");
         binding.setPresenter(this);
         RxUtils.rxWifiLevel(getApplication(), 4)
                 .subscribeOn(Schedulers.io())
@@ -115,7 +114,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                         // see onPreviewStatus(PreviewHelper.Status status)
                     }
                 },
-                true
+                false
         );
     }
 
@@ -185,16 +184,12 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         start("请把人脸放在框内",
-                                "请把人脸放在框内 。三，二，一",
+                                "请把人脸放在框内",
                                 3000);
                     }
                 });
 
     }
-
-    private String theFaceId = "";
-    private boolean currentUser;
-
 
     private void processFaceIdAndScore(String faceId, float score) {
         if (score < 30) {
@@ -219,16 +214,17 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                                 return;
                             }
                             for (UserEntity user : users) {
-                                if (user != null) {
-                                    if (!TextUtils.isEmpty(user.xfid) && user.xfid.equals(faceId)) {
-                                        theFaceId = faceId;
-                                        if (theFaceId.equals(UserSpHelper.getFaceId())) {
-                                            currentUser = true;
-                                        }
-                                        error = false;
-                                        finish();
-                                        return;
-                                    }
+                                if (user == null) {
+                                    continue;
+                                }
+                                if (!TextUtils.isEmpty(user.xfid)
+                                        && user.xfid.equals(faceId)) {
+                                    theFaceId = faceId;
+                                    theUserId = user.id;
+                                    currentUser = theFaceId.equals(UserSpHelper.getFaceId());
+                                    error = false;
+                                    finish();
+                                    return;
                                 }
                             }
                             finish();
@@ -264,7 +260,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     protected void onResume() {
         super.onResume();
         start("请把人脸放在框内",
-                "请把人脸放在框内 。三，二，一",
+                "请把人脸放在框内",
                 3000);
     }
 
@@ -275,40 +271,27 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
         MLVoiceSynthetize.stop();
     }
 
-
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (TextUtils.isEmpty(componentName) && !TextUtils.isEmpty(callId)) {
+    public void finish() {
+        if (!TextUtils.isEmpty(callId)) {
             CCResult result;
             if (error) {
-                result = CCResult.error("faceId", theFaceId);
-                result.addData("currentUser", currentUser);
+                result = CCResult.error("人脸验证未通过");
             } else {
                 result = CCResult.success("faceId", theFaceId);
                 result.addData("currentUser", currentUser);
+                result.addData("userId", theUserId);
             }
             //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
             CC.sendCCResult(callId, result);
         }
-    }
-
-    @Override
-    public void finish() {
-        if (!TextUtils.isEmpty(componentName)) {
-            if (!error) {
-                CC.obtainBuilder(componentName)
-                        .build()
-                        .call();
-                CC.sendCCResult(callId, CCResult.success());
-            } else {
-                CC.sendCCResult(callId, CCResult.error(""));
-            }
-        }
         super.finish();
     }
 
-    private String componentName;
     private String callId;
     private volatile boolean error = true;
+
+    private String theFaceId = "";
+    private String theUserId = "";
+    private boolean currentUser;
 }

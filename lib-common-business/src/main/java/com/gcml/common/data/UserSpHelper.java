@@ -53,6 +53,9 @@ public class UserSpHelper {
     }
 
     public static void setUserId(String userId) {
+        if (TextUtils.isEmpty(userId)) {
+            userId = "";
+        }
         SPUtil.put(KEY_USER_ID, userId);
     }
 
