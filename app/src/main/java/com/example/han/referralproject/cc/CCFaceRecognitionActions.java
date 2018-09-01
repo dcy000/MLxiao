@@ -1,6 +1,7 @@
 package com.example.han.referralproject.cc;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -166,7 +167,7 @@ public class CCFaceRecognitionActions {
      * @param activity
      * @param bundle
      */
-    public static void jump2FaceRecognitionActivity(Activity activity, Bundle bundle) {
+    public static void jump2FaceRecognitionActivity(Context activity, Bundle bundle) {
         CC.obtainBuilder(MODULE_NAME).setActionName(SendActionNames.TO_FACERECOGNITIONACTIVITY)
                 .addParam(SendKeys.KEY_EXTRA_BUNDLE, bundle)
                 .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
@@ -185,24 +186,9 @@ public class CCFaceRecognitionActions {
                         } else if (activity instanceof GoodDetailActivity) {
 
                         } else if (activity instanceof MainActivity) {
-                            if (bundle != null) {
-                                String fromType = bundle.getString("fromType");
-                                if (TextUtils.isEmpty(fromType)) {
-//                                    activity.startActivity(new Intent(activity, Test_mainActivity.class));
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                    return;
-                                }
-                                switch (fromType) {
-                                    case "xindian":
-//                                        activity.startActivity(new Intent(activity, XinDianDetectActivity.class));
-                                        CCHealthMeasureActions.jump2XinDianDetectActivity();
-                                        break;
-                                    default:
-//                                        activity.startActivity(new Intent(activity, Test_mainActivity.class));
-                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                        break;
-                                }
-                            }
+                            JumpPage(bundle);
+                        } else {
+                            JumpPage(bundle);
                         }
                         break;
                     case ReceiveResultActionNames.ON_ERROR:
@@ -258,7 +244,28 @@ public class CCFaceRecognitionActions {
 
     }
 
-    public static void showPaySuccessDialog(Activity activity) {
+    private static void JumpPage(Bundle bundle) {
+        if (bundle != null) {
+            String fromType = bundle.getString("fromType");
+            if (TextUtils.isEmpty(fromType)) {
+//                                    activity.startActivity(new Intent(activity, Test_mainActivity.class));
+                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                return;
+            }
+            switch (fromType) {
+                case "xindian":
+//                                        activity.startActivity(new Intent(activity, XinDianDetectActivity.class));
+                    CCHealthMeasureActions.jump2XinDianDetectActivity();
+                    break;
+                default:
+//                                        activity.startActivity(new Intent(activity, Test_mainActivity.class));
+                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                    break;
+            }
+        }
+    }
+
+    public static void showPaySuccessDialog(Context activity) {
         MLVoiceSynthetize.startSynthesize(activity, "主人，恭喜您支付成功", false);
         NDialog2 dialog2 = new NDialog2(activity);
         dialog2.setMessageCenter(true)

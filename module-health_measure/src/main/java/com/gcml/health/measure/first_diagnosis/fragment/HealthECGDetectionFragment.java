@@ -26,7 +26,14 @@ import com.gcml.health.measure.ecg.DrawThreadPC80B;
 import com.gcml.health.measure.ecg.ECGConnectActivity;
 import com.gcml.health.measure.ecg.ReceiveService;
 import com.gcml.health.measure.ecg.StaticReceive;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.health.measure.network.NetworkCallback;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.iflytek.synthetize.MLVoiceSynthetize;
+
+import java.util.ArrayList;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -121,7 +128,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
         mTvNext = (TextView) view.findViewById(R.id.tv_next);
-
+        MLVoiceSynthetize.startSynthesize(context,"主人，请打开设备开关，准备测量",false);
         initOther();
     }
 
@@ -335,6 +342,8 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
                             mEcg = data.getInt("nResult");
                             mHeartRate = data.getInt("nHR");
+                            uploadEcg(mEcg,mHeartRate);
+
                             //TODO:播报语音和上传数据
 //                            speak(String.format(getString(R.string.tips_result_xindian), mHeartRate, measureResult[mEcg]));
 //                            if (getIntent().getBooleanExtra("forResult", false)) {
@@ -396,6 +405,30 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         }
 
     };
+    private void uploadEcg(final int ecg, final int heartRate) {
+        ArrayList<DetectionData> datas = new ArrayList<>();
+        DetectionData ecgData = new DetectionData();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        ecgData.setDetectionType("2");
+        ecgData.setEcg(String.valueOf(ecg));
+        ecgData.setHeartRate(heartRate);
+        datas.add(ecgData);
+
+        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+            @Override
+            public void onSuccess(String callbackString) {
+                ToastUtils.showShort("数据上传成功");
+                Intent intent = new Intent();
+                intent.putExtra("ecg", ecg);
+                intent.putExtra("heartRate", heartRate);
+            }
+
+            @Override
+            public void onError() {
+                ToastUtils.showLong("数据上传失败");
+            }
+        });
+    }
     /**
      * 设置滤波模式
      *

@@ -14,6 +14,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.task.R;
 import com.gcml.task.bean.DetailsModel;
 import com.gcml.task.bean.ItemsModel;
@@ -27,6 +28,12 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+
+/**
+ * desc: 每日任务页面，包括食盐、运动和饮酒设置（单页面单独设置） .
+ * author: wecent .
+ * date: 2018/8/20 .
+ */
 
 public class TaskDialyActivity extends FragmentActivity implements TaskDialyDetailsFragment.OnActionListener {
 
@@ -53,7 +60,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
     }
 
     private void bindData() {
-        mToolBar.setData("每 日 任 务", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
+        mToolBar.setData("每 日 任 务", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();
@@ -168,6 +175,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
             wheel.wineType = item;
             wheel.drink = (int) (selectedValue * sportMulriple);
         }
+        wheel.userid = Integer.parseInt((String) SPUtil.get("user_id",""));
         postWheelData(wheel);
     }
 
@@ -177,7 +185,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在上传")
                 .create();
-        mTaskRepository.taskWheelListForApi(wheel, "100206")
+        mTaskRepository.taskWheelListForApi(wheel, (String) SPUtil.get("user_id",""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {

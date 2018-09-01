@@ -20,4 +20,11 @@
         <item>信号较差请重新测量</item>
         <item>分析结果出现错误</item>
     </string-array>
+    <integer-array name="array_color_progressbar">
+        <item>@color/color_0DD192</item>
+        <item>@color/color_FFCE00</item>
+        <item>@color/color_F3AA43</item>
+        <item>@color/color_F08A40</item>
+        <item>@color/color_F56C6B</item>
+    </integer-array>
 </resources>

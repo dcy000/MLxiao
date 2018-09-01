@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.lib_utils.R;
+import com.gcml.lib_utils.click.ClickEventListener;
 
 /**
  * Created by gzq on 2018/4/12.
@@ -68,7 +69,15 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
             backMainActivity();
         }
     }
+    /**
+     * Find出来的View，自带防抖功能
+     */
+    public <T extends View> T findClickView(int id) {
 
+        T view = (T) findViewById(id);
+        view.setOnClickListener(new ClickEventListener(this));
+        return view;
+    }
     protected void backLastActivity() {
         finish();
     }

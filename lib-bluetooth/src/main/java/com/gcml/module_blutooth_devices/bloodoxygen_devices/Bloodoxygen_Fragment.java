@@ -106,6 +106,7 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
             mTvResult.setText(datas[0]);
             if (!isMeasureFinishedOfThisTime&&Float.parseFloat(datas[0])!=0){
                 isMeasureFinishedOfThisTime=true;
+                //ÑªÑõ¡¢Âö²«
                 onMeasureFinished(datas[0], datas[1]);
             }
         }

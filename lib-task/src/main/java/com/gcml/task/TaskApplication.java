@@ -2,6 +2,7 @@ package com.gcml.task;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.gcml.common.app.lifecycle.AppLifecycleCallbacks;
 import com.iflytek.cloud.SpeechConstant;
@@ -16,7 +17,7 @@ public class TaskApplication implements AppLifecycleCallbacks {
 
     @Override
     public void attachBaseContext(Application app, Context base) {
-
+        MultiDex.install(base);
     }
 
     @Override

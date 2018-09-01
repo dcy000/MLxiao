@@ -37,7 +37,7 @@ public class QaApi {
                 .add("text", text)
                 .build();
         Request request = new Request.Builder()
-                .url(BuildConfig.SERVER_ADDRESS + "/ZZB/xf/xfrq")
+                .url(BuildConfig.SERVER_ADDRESS + "ZZB/xf/xfrq")
                 .post(body)
                 .build();
         Call call = client.newCall(request);

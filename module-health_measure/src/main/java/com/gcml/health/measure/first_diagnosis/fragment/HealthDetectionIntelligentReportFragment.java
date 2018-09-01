@@ -52,7 +52,7 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cacheDatas = ((HealthIntelligentDetectionActivity) getActivity()).getCacheDatas();
+        cacheDatas = ((HealthIntelligentDetectionActivity) mActivity).getCacheDatas();
         if (cacheDatas.isEmpty()) {
             ToastUtils.showShortOnTop("您还没有测量哦，快去测量哦！");
             return;
@@ -110,7 +110,7 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
     protected void initView(View view, Bundle savedInstanceState) {
         rvReport = view.findViewById(R.id.rv_report);
         rvReport.setLayoutManager(new LinearLayoutManager(
-                getActivity(), LinearLayoutManager.VERTICAL, false));
+                mActivity, LinearLayoutManager.VERTICAL, false));
         mAdapter = new Adapter();
         rvReport.setAdapter(mAdapter);
     }
@@ -193,7 +193,7 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         @Override
         public void onBind(int position) {
-            HealthBloodDetectionUiFragment.Data pressure = ((HealthIntelligentDetectionActivity) getActivity()).getBloodpressureCacheData();
+            HealthBloodDetectionUiFragment.Data pressure = ((HealthIntelligentDetectionActivity) mActivity).getBloodpressureCacheData();
             String leftPressure = pressure.leftHighPressure + "/" + pressure.leftLowPressure;
             String rightPressure = pressure.rightHighPressure + "/" + pressure.rightLowPressure;
             String leftPulse = String.valueOf(pressure.leftPulse);

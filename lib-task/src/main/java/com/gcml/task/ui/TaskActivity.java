@@ -13,6 +13,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.task.R;
 import com.gcml.task.bean.get.TaskBean;
 import com.gcml.task.network.TaskRepository;
@@ -25,7 +26,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * desc: TaskActivity .
+ * desc: 日常任务页面，包括待完成任务和已完成任务 .
  * author: wecent .
  * date: 2018/8/20 .
  */
@@ -55,19 +56,17 @@ public class TaskActivity extends FragmentActivity {
 
     private void bindData() {
         MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，欢迎来到每日任务。", false);
-        mToolBar.setData("每 日 任 务", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
+        mToolBar.setData("每 日 任 务", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
-                CC.obtainBuilder("app.component.task.test")
-                        .setContext(TaskActivity.this)
-                        .build()
-                        .callAsync();
+                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
                 finish();
             }
 
             @Override
             public void onRightClick() {
-
+                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                finish();
             }
         });
         getTaskData();
@@ -79,7 +78,7 @@ public class TaskActivity extends FragmentActivity {
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
-        mTaskRepository.taskListFromApi("100206")
+        mTaskRepository.taskListFromApi((String) SPUtil.get("user_id", ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -124,6 +123,12 @@ public class TaskActivity extends FragmentActivity {
                         }, 500);
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getTaskData();
     }
 
     @Override

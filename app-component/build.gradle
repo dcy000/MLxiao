@@ -1,4 +1,4 @@
-ext.mainApp = true
+//ext.mainApp = true
 apply from: rootProject.file('cc-settings.gradle')
 //apply from: 'https://raw.githubusercontent.com/luckybilly/CC/master/cc-settings.gradle'
 
@@ -39,8 +39,6 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "true"
             buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
-            buildConfigField "String", "BASE_URL_DEBUG", rootProject.ext.baseUrls["debug"]
-            buildConfigField "String", "BASE_URL_RElEASE", rootProject.ext.baseUrls["release"]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -49,8 +47,6 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             buildConfigField "boolean", "USE_CANARY", "false"
             buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
-            buildConfigField "String", "BASE_URL_DEBUG", rootProject.ext.baseUrls["debug"]
-            buildConfigField "String", "BASE_URL_RElEASE", rootProject.ext.baseUrls["release"]
             minifyEnabled false
             shrinkResources false
             zipAlignEnabled true

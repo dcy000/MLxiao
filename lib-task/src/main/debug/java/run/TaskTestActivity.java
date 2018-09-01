@@ -38,12 +38,13 @@ public class TaskTestActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         if (v.getId() == R.id.tv_task_action) {
             getIsTaskHealth();
+//            CC.obtainBuilder("app.component.task.comply").build().callAsync();
         }
     }
 
     @SuppressLint("CheckResult")
     private void getIsTaskHealth() {
-        mTaskRepository.isTaskHealthListFromApi("100206")
+        mTaskRepository.isTaskHealthListFromApi((String) SPUtil.get("user_id",""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -75,7 +76,7 @@ public class TaskTestActivity extends AppCompatActivity implements View.OnClickL
                         if (throwable instanceof NullPointerException) {
                             CC.obtainBuilder("app.component.task").build().callAsync();
                         } else {
-                            CC.obtainBuilder("app.component.task.prompt").build().callAsync();
+                            CC.obtainBuilder("app.component.task.comply").build().callAsync();
                         }
                     }
                 });

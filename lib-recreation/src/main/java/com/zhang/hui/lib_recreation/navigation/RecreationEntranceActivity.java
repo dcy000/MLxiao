@@ -24,7 +24,7 @@ public class RecreationEntranceActivity extends AppCompatActivity implements Vie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recreation_entrance);
+        setContentView(R.layout.activity_recreation_entrance_new);
         initView();
         initTitle();
     }
@@ -44,8 +44,7 @@ public class RecreationEntranceActivity extends AppCompatActivity implements Vie
     }
 
     private void initView() {
-
-        tbTitle = (TranslucentToolBar) findViewById(R.id.tb_title);
+        tbTitle = (TranslucentToolBar) findViewById(R.id.tb_title_fun);
         llYule = (ImageView) findViewById(R.id.ll_yule);
         llYule.setOnClickListener(this);
         llYoujiao = (ImageView) findViewById(R.id.ll_youjiao);

@@ -487,4 +487,5 @@
         android:text="检查更新"
         android:textSize="20sp"
         android:textColor="#999999"/>
+    
 </RelativeLayout>

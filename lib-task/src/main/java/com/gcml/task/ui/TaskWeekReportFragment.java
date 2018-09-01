@@ -22,6 +22,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.task.R;
 import com.gcml.task.bean.TargetModel;
 import com.gcml.task.bean.get.TaskReportBean;
@@ -36,8 +37,11 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * A simple {@link Fragment} subclass.
+ * desc: 周目标差距列表页（包括食盐、运动、饮酒和体重） .
+ * author: wecent .
+ * date: 2018/8/20 .
  */
+
 public class TaskWeekReportFragment extends Fragment {
 
     private TranslucentToolBar mToolBar;
@@ -73,7 +77,7 @@ public class TaskWeekReportFragment extends Fragment {
     }
 
     private void bindData() {
-        mToolBar.setData("周 目 标 差 距", R.drawable.common_icon_back, "返回", 0, null, new ToolBarClickListener() {
+        mToolBar.setData("周 目 标 差 距", R.drawable.common_btn_back, "返回", 0, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 getActivity().finish();
@@ -124,7 +128,7 @@ public class TaskWeekReportFragment extends Fragment {
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
-        mTaskRepository.taskReportListFromApi("100206", "1")
+        mTaskRepository.taskReportListFromApi((String) SPUtil.get("user_id",""), "1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {

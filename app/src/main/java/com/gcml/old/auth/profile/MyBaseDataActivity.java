@@ -28,6 +28,7 @@ import com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity;
 import com.gcml.old.auth.profile.otherinfo.AlertIDCardActivity;
 import com.gcml.old.auth.profile.otherinfo.AlertNameActivity;
 import com.gcml.old.auth.profile.otherinfo.AlertSexActivity;
+import com.gcml.old.auth.profile.otherinfo.dialog.SMSVerificationDialog;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -101,6 +102,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     private LinearLayout mLlIdcardInfo;
     private LinearLayout mLlAddressOnfo;
     private CharSequence idCardCode;
+    private String phone;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -133,6 +135,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                         .into(mHead);
                 mName.setText(response.bname);
                 idCardCode = response.sfz;
+                phone = response.tel;
                 mAge.setText(Utils.age(response.sfz) + "岁");
                 mSex.setText(TextUtils.isEmpty(response.sex) ? "尚未填写" : response.sex);
                 mHeight.setText(TextUtils.isEmpty(response.height) ? "尚未填写" : response.height + "cm");
@@ -259,24 +262,14 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.head:
-                CC.obtainBuilder("com.gcml.auth.face.signup")
-                        .build()
-                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                            @Override
-                            public void onResult(CC cc, CCResult result) {
-                                if (result.isSuccess()) {
-                                    ToastUtils.showShort("更换人脸成功");
-                                }
-                            }
-                        });
-
-//                CC.obtainBuilder("face_recognition")
-//                        .setActionName("To_RegisterHead2XunfeiActivity")
-//                        .addParam("key_xfid", StringUtil.produceXfid())
-//                        .build().callAsyncCallbackOnMainThread((cc, result) -> {
-//                    if ("RegistHeadSuccess".equals(result.getDataItem("key_cc_callback"))) {
-//                    }
-//                });
+                SMSVerificationDialog dialog = new SMSVerificationDialog();
+                Bundle bundle = new Bundle();
+                bundle.putString("phone", phone);
+                dialog.setArguments(bundle);
+                dialog.setListener(() -> {
+                    modifyHead();
+                });
+                dialog.show(getFragmentManager(), "phoneCode");
                 break;
 
             case R.id.ll_age_info:
@@ -304,6 +297,19 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(this, AlertIDCardActivity.class));
                 break;
         }
+    }
+
+    private void modifyHead() {
+        CC.obtainBuilder("com.gcml.auth.face.signup")
+                .build()
+                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+                        if (result.isSuccess()) {
+                            ToastUtils.showShort("更换人脸成功");
+                        }
+                    }
+                });
     }
 
 

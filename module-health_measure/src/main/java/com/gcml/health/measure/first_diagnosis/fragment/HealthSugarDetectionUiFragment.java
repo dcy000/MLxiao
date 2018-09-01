@@ -3,12 +3,14 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,12 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
             selectMeasureSugarTime = arguments.getInt("selectMeasureSugarTime", 0);
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MLVoiceSynthetize.startSynthesize(getContext(),"主人，请将试纸插入仪器，开始测量",false);
     }
 
     @Override
@@ -56,7 +64,7 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
                         isJump2Next = true;
                         fragmentChanged.onFragmentChanged(HealthSugarDetectionUiFragment.this, null);
                     }
-                    ((HealthIntelligentDetectionActivity) getActivity()).putCacheData(data);
+                    ((FirstDiagnosisActivity) mActivity).putCacheData(data);
                 }
 
                 @Override

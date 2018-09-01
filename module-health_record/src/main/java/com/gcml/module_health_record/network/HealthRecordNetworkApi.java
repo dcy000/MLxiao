@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 public class HealthRecordNetworkApi {
     public static final String BasicUrl = BuildConfig.SERVER_ADDRESS;
-    public static final String Get_HealthRecord = BasicUrl + "/ZZB/br/cl_data";//正式服务器
+    public static final String Get_HealthRecord = BasicUrl + "ZZB/br/cl_data";//正式服务器
 
 
     /**

@@ -4,25 +4,20 @@ ext {
     //TODO:如果有新的IP,请添加到下面的集合中。生产IP不要轻易改动，开发只需更改开发地址即可。如果是在模块中使用，
     //TODO:请自行在build.gradle中配置BuildConfig,参考app模块
     api = [
-            testUrl       : "\"http://47.96.98.60:8080\"",//测试服务器
-            spareUrl      : "\"http://116.62.36.12:8080\"",//备用服务器
-            produceUrl    : "\"http://118.31.238.207:8080\"",//正式服务器
-            sungaofengUrl : "\"http://192.168.200.103:8080\"",//孙高峰
-            lintiancongUrl: "\"http://192.168.200.117:8080\"",//林天聪
-            caowenbo      : "\"http://192.168.200.157:8080\""//曹文博
+            testUrl       : "\"http://47.96.98.60:8080/\"",//测试服务器
+            spareUrl      : "\"http://116.62.36.12:8080/\"",//备用服务器
+            produceUrl    : "\"http://118.31.238.207:8080/\"",//正式服务器
+            sungaofengUrl : "\"http://192.168.200.103:8080/\"",//孙高峰
+            lintiancongUrl: "\"http://192.168.200.117:8080/\"",//林天聪
+            caowenbo      : "\"http://192.168.200.157:8080/\""//曹文博
     ]
     //TODO:各自开发的模块中还未统一IP的请尽早统一，避免不必要的风险。
     //TODO:开发时只更改开发引用即可，下方的生产引用不要轻易更改。
     //开发使用的IP地址
-    developUrl = api.testUrl
+    developUrl = api.lintiancongUrl
 
     //线上正式运行的IP地址
     produceUrl = api.testUrl
-
-    baseUrls = [
-            "debug"  : "\"http://47.96.98.60:8080/\"",
-            "release": "\"http://47.96.98.60:8080/\"",
-    ]
 
     android = [
             compileSdkVersion: 27,

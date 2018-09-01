@@ -13,6 +13,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface TaskService {
 
@@ -34,7 +35,7 @@ public interface TaskService {
      * 查询用户是否完成健康问卷.
      */
     @GET("/ZZB/api/healthMonitor/questionnaire/hypertension/compliance/{userId}/")
-    Observable<ApiResult<TaskHealthBean>> isTaskHealth(
+    Observable<ApiResult<Object>> isTaskHealth(
             @Path("userId") String userId
     );
 
@@ -43,8 +44,8 @@ public interface TaskService {
      */
     @GET("/ZZB/ai/sel/")
     Observable<ApiResult<TaskReportBean>> taskReport(
-            @Path("userId") String userId,
-            @Path("state") String state
+            @Query("userid") String userid,
+            @Query("state") String state
     );
 
     /**

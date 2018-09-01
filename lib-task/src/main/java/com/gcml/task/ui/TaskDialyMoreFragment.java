@@ -24,8 +24,11 @@ import com.gcml.task.R;
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
+ * desc: 每日任务类型更多选项（最多支持8项任务类型添加） .
+ * author: wecent .
+ * date: 2018/8/20 .
  */
+
 public class TaskDialyMoreFragment extends Fragment {
 
     private TranslucentToolBar mToolBar;

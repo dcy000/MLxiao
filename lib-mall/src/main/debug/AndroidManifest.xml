@@ -32,7 +32,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.gcml.mall.ui.RechargeActivity">
+        <activity android:name="run.TestMallActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,6 +40,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.gcml.mall.ui.RechargeDefineActivity" />
+        <activity android:name=".ui.ScanQRCodeLoginActivity" />
         <!--<activity android:name=".ui.RechargeActivity" />-->
 
         <meta-data

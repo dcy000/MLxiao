@@ -32,7 +32,6 @@ public class AlarmService extends Service {
             alarmIntent.setClass(getBaseContext(), ReminderActivity.class);
         } else if ("1".equals(tag)) {
             alarmIntent.setClass(getBaseContext(), DoctorAlarmActivity.class);
-
         }
 
         alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

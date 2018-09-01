@@ -1,6 +1,5 @@
 package com.example.han.referralproject.homepage;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,10 +13,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
-import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
-import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.data.LunarUtils;
@@ -65,7 +61,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
     private TextView mWeekToday;
     private LinearLayout mLlDateAndWeek;
     private EclipseImageView mIvHealthMeasure;
-    private EclipseImageView mIvHealthManager;
+    private EclipseImageView mIvHealthDialyTask;
     private EclipseImageView mIvHealthCallFamily;
 
     @Override
@@ -95,8 +91,8 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
         mLlDateAndWeek.setOnClickListener(this);
         mIvHealthMeasure = view.findViewById(R.id.iv_health_measure);
         mIvHealthMeasure.setOnClickListener(this);
-        mIvHealthManager = view.findViewById(R.id.iv_health_manager);
-        mIvHealthManager.setOnClickListener(this);
+        mIvHealthDialyTask = view.findViewById(R.id.iv_health_dialy_task);
+        mIvHealthDialyTask.setOnClickListener(this);
         mIvHealthCallFamily = view.findViewById(R.id.iv_health_call_family);
         mIvHealthCallFamily.setOnClickListener(this);
         synchroSystemTime();
@@ -330,9 +326,21 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                             }
                         });
                 break;
-            case R.id.iv_health_manager:
-                startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));
+            case R.id.iv_health_dialy_task:
+//                startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));
 //                startActivity(new Intent(getContext(), OlderHealthManagementSerciveActivity.class));
+                CC.obtainBuilder("com.gcml.task.isTask")
+                .build()
+                .callAsync(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+                        if (result.isSuccess()) {
+                            CC.obtainBuilder("app.component.task").build().callAsync();
+                        } else {
+                            CC.obtainBuilder("app.component.task.comply").build().callAsync();
+                        }
+                    }
+                });
                 break;
             case R.id.iv_health_call_family:
                 NimCallActivity.launchNoCheck(getContext(), MyApplication.getInstance().eqid);

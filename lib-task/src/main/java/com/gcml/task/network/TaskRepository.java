@@ -28,15 +28,15 @@ public class TaskRepository {
                 .compose(RxUtils.apiResultTransformer());
     }
 
-    public Observable<TaskHealthBean> isTaskHealthListFromApi(
+    public Observable<Object> isTaskHealthListFromApi(
             String userId) {
         return mTaskService.isTaskHealth(userId)
                 .compose(RxUtils.apiResultTransformer());
     }
 
     public Observable<TaskReportBean> taskReportListFromApi(
-            String userId, String state) {
-        return mTaskService.taskReport(userId, state)
+            String userid, String state) {
+        return mTaskService.taskReport(userid, state)
                 .compose(RxUtils.apiResultTransformer());
     }
 
