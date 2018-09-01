@@ -186,7 +186,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
             if (pageIndex < 6) {
                 replaceFragment(healthInquiryBean.getQuestionList().get(pageIndex), pageIndex++);
             } else {
-                //TODO：六道题全部做完，上传结果
+                //六道题全部做完，上传结果
                 HealthInquiryPostBean postBean = new HealthInquiryPostBean();
                 postBean.setEquipmentId(DeviceUtils.getIMEI());
                 postBean.setHmQuestionnaireId(healthInquiryBean.getHmQuestionnaireId());

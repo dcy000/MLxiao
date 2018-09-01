@@ -5,6 +5,7 @@ import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.repository.http.ApiResult;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;
+import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
 import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
@@ -58,5 +59,11 @@ public class HealthMeasureRepository {
      */
     public static Observable<Object> postUserHasedDevices(String userId, List<PostDeviceBean> postDeviceBeans){
         return healthMeasureServer.postUserHasedDevices(userId,postDeviceBeans).compose(RxUtils.apiResultTransformer());
+    }
+    /**
+     * 获取首诊问卷报告
+     */
+    public static Observable<FirstReportBean> getFirstReport(String userId){
+        return healthMeasureServer.getFirstReport(userId).compose(RxUtils.apiResultTransformer());
     }
 }
