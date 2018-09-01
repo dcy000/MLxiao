@@ -3,6 +3,7 @@ package com.gcml.health.measure.network;
 import com.gcml.common.repository.Api;
 import com.gcml.common.repository.http.ApiResult;
 import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;
+import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
 import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
@@ -33,4 +34,6 @@ public interface HealthMeasureServer {
     Observable<ApiResult<List<DeviceBean>>> getUserHasedDevices(@Path("userId") String userId);
     @POST("ZZB/api/health/device/user/{userId}/")
     Observable<ApiResult<Object>> postUserHasedDevices(@Path("userId") String userId, @Body List<PostDeviceBean> beans);
+    @GET("ZZB/api/healthMonitor/report/risk/{userId}/")
+    Observable<ApiResult<FirstReportBean>> getFirstReport(@Path("userId") String userId);
 }
