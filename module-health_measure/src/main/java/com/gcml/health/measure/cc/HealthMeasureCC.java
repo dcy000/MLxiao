@@ -7,6 +7,7 @@ import com.billy.cc.core.component.IComponent;
 import com.gcml.health.measure.ecg.XinDianDetectActivity;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
+import com.gcml.health.measure.health_inquiry.HealthInquiryActivity;
 import com.gcml.health.measure.single_measure.AllMeasureActivity;
 import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
 import com.gcml.module_blutooth_devices.base.IPresenter;
@@ -46,6 +47,10 @@ public class HealthMeasureCC implements IComponent {
          * 心电
          */
         String TO_ECG = "ToECG";
+        /**
+         * 健康调查
+         */
+        String TO_HEALTHINQUIRYACTIVITY="To_HealthInquiryActivity";
     }
     interface ReceiveKeys{
         String KEY_EXTRA_MEASURE_TYPE="measure_type";
@@ -70,6 +75,9 @@ public class HealthMeasureCC implements IComponent {
             case ReceiveActionNames.TO_ALL_MEASURE_ACTIVITY:
                 int param = cc.getParamItem(ReceiveKeys.KEY_EXTRA_MEASURE_TYPE);
                 AllMeasureActivity.startActivity(context,param);
+                break;
+            case ReceiveActionNames.TO_HEALTHINQUIRYACTIVITY:
+                HealthInquiryActivity.startActivity(context);
                 break;
             default:
                 Timber.e("未匹配到任何操作Action");

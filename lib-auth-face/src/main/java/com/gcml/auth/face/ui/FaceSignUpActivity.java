@@ -100,7 +100,7 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
         binding.ivTips.setText("请把人脸放在框内");
         MLVoiceSynthetize.startSynthesize(
                 getApplicationContext(),
-                "请把人脸放在框内 。三，二，一",
+                "请把人脸放在框内 。三，二，衣。茄子",
                 new MLSynthesizerListener() {
                     @Override
                     public void onCompleted(SpeechError speechError) {
@@ -185,6 +185,7 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        faceId = UserSpHelper.produceFaceId();
                         error = true;
                         start(3000);
                     }

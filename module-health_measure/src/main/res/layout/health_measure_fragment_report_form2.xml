@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#333"
-            android:text="危险因素"
+            android:text="风险因素"
             android:textSize="64pt"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"

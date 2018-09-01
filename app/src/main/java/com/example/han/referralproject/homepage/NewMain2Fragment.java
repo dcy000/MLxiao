@@ -11,6 +11,7 @@ import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
+import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_widget.EclipseImageView;
 import com.gcml.old.auth.profile.PersonDetailActivity;
@@ -63,9 +64,9 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 startActivity(new Intent(getContext(), PersonDetailActivity.class));
                 break;
             case R.id.iv_health_course:
-//                startActivity(new Intent(getActivity(), VideoListActivity.class));
+                startActivity(new Intent(getActivity(), VideoListActivity.class));
 //                CCHealthMeasureActions.jump2HealthIntelligentDetectionActivity();
-                CCHealthMeasureActions.jump2FirstDiagnosisActivity();
+//                CCHealthMeasureActions.jump2FirstDiagnosisActivity();
                 break;
             case R.id.entertainment_center:
 //                OldRouter.routeToOldHomeActivity(getActivity());

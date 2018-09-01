@@ -148,7 +148,7 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
                         .replaceAll("\\[", "")
                         .replaceAll("]", "");
                 answerList.get(i).hmAnswerId = answerBean.answerList.get(checked[0]).hmAnswerId;
-                answerList.get(i).answerScore = getScore(answerBean, checked);//每个项目 得分之后
+                answerList.get(i).score = getScore(answerBean, checked);//每个项目 得分之后
             }
         }
 
@@ -158,7 +158,7 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
             //跳转逻辑
             //算总分
             for (int i = 0; i < answerList.size(); i++) {
-                postBean.score += answerList.get(i).answerScore;
+                postBean.score += answerList.get(i).score;
             }
             postData();
             return;

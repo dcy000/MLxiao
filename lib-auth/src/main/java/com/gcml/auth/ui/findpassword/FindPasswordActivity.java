@@ -128,7 +128,7 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
     }
 
     private void startTimer() {
-        RxUtils.rxCountDown(1, 3)
+        RxUtils.rxCountDown(1, 60)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {

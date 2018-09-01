@@ -38,6 +38,7 @@ import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.health.HealthDiaryActivity;
+import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
@@ -321,22 +322,28 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_check://病症自查
-                DiseaseUser diseaseUser = new DiseaseUser(
-                        LocalShared.getInstance(getActivity()).getUserName(),
-                        LocalShared.getInstance(getActivity()).getSex().equals("男") ? 1 : 2,
-                        Integer.parseInt(LocalShared.getInstance(getActivity()).getUserAge()) * 12,
-                        LocalShared.getInstance(getActivity()).getUserPhoto()
-                );
-                String currentUser = new Gson().toJson(diseaseUser);
-                Intent intent = new Intent(getActivity(), com.witspring.unitbody.ChooseMemberActivity.class);
-                intent.putExtra("currentUser", currentUser);
+//                DiseaseUser diseaseUser = new DiseaseUser(
+//                        LocalShared.getInstance(getActivity()).getUserName(),
+//                        LocalShared.getInstance(getActivity()).getSex().equals("男") ? 1 : 2,
+//                        Integer.parseInt(LocalShared.getInstance(getActivity()).getUserAge()) * 12,
+//                        LocalShared.getInstance(getActivity()).getUserPhoto()
+//                );
+//                String currentUser = new Gson().toJson(diseaseUser);
+//                Intent intent = new Intent(getActivity(), com.witspring.unitbody.ChooseMemberActivity.class);
+//                intent.putExtra("currentUser", currentUser);
+//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), SlowDiseaseManagementActivity.class);
                 startActivity(intent);
                 break;
             case R.id.iv_message:
                 startActivity(new Intent(getActivity(), MessageActivity.class));
                 break;
             case R.id.iv_laoren_yule:
-                OldRouter.routeToOldHomeActivity(getActivity());
+                CC.obtainBuilder("health_measure")
+                        .setActionName("To_HealthInquiryActivity")
+                        .build()
+                        .call();
+//                OldRouter.routeToOldHomeActivity(getActivity());
                 break;
             case R.id.iv_change_account:
                 mChangeAccountDialog = new ChangeAccountDialog(getActivity());

@@ -18,8 +18,8 @@ public class UserEntity implements Parcelable {
     public String categoryId;
     @SerializedName("doid")
     public String doctorId;
-    @SerializedName("eq")
-    public String eq;
+//    @SerializedName("eq")
+//    public String eq;
     @SerializedName("bname")
     public String name;
     @SerializedName("sex")
@@ -38,8 +38,8 @@ public class UserEntity implements Parcelable {
     public String deviceId;
     @SerializedName("state")
     public String state;
-    @SerializedName("qyzt")
-    public String qyzt;
+//    @SerializedName("qyzt")
+//    public String qyzt;
     @SerializedName("height")
     public String height;
     @SerializedName("weight")
@@ -91,7 +91,6 @@ public class UserEntity implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.categoryId);
         dest.writeString(this.doctorId);
-        dest.writeString(this.eq);
         dest.writeString(this.name);
         dest.writeString(this.sex);
         dest.writeString(this.address);
@@ -101,7 +100,7 @@ public class UserEntity implements Parcelable {
         dest.writeString(this.deseaseHistory);
         dest.writeString(this.deviceId);
         dest.writeString(this.state);
-        dest.writeString(this.qyzt);
+//        dest.writeString(this.qyzt);
         dest.writeString(this.height);
         dest.writeString(this.weight);
         dest.writeString(this.bloodType);
@@ -131,7 +130,6 @@ public class UserEntity implements Parcelable {
         this.id = in.readString();
         this.categoryId = in.readString();
         this.doctorId = in.readString();
-        this.eq = in.readString();
         this.name = in.readString();
         this.sex = in.readString();
         this.address = in.readString();
@@ -141,7 +139,7 @@ public class UserEntity implements Parcelable {
         this.deseaseHistory = in.readString();
         this.deviceId = in.readString();
         this.state = in.readString();
-        this.qyzt = in.readString();
+//        this.qyzt = in.readString();
         this.height = in.readString();
         this.weight = in.readString();
         this.bloodType = in.readString();

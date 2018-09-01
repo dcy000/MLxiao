@@ -3,9 +3,6 @@ package com.gcml.auth.model;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.repository.http.ApiResult;
 
-
-import java.util.List;
-
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -54,7 +51,7 @@ public interface UserService {
             @Field("pwd") String pwd
     );
 
-    @POST("/ZZB/api/user/info/{userId}/")
+    @PUT("/ZZB/api/user/info/{userId}/")
     Observable<ApiResult<Object>> updateProfile(
             @Path("userId") String userId,
             @Body() UserEntity user

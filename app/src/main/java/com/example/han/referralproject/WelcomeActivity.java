@@ -144,12 +144,6 @@ public class WelcomeActivity extends AppCompatActivity {
         return false;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //启动音量控制悬浮按钮
-        VolumeControlFloatwindow.init(this.getApplicationContext());
-    }
 
     private void playVideo() {
         boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
