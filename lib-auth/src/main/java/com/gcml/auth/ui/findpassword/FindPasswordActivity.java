@@ -16,7 +16,11 @@ import com.gcml.lib_utils.display.KeyboardUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
+import java.util.Locale;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -69,10 +73,12 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
         CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
     }
 
-    public void goNext() {
+    private String code = "";
+
+    public void fetchCode() {
         final String phone = binding.etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入正确的手机号码", true);
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入正确的手机号码", false);
             ToastUtils.showShort("主人，请输入正确的手机号码");
             return;
         }
@@ -84,11 +90,7 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
                     @Override
                     public void onNext(Boolean has) {
                         if (has) {
-                            CC.obtainBuilder("com.gcml.auth.setpassword")
-                                    .addParam("phone", phone)
-                                    .setContext(FindPasswordActivity.this)
-                                    .build()
-                                    .callAsync();
+                            fetchCodeInternal(phone);
                         } else {
                             ToastUtils.showShort("账号不存在！");
                         }
@@ -96,10 +98,110 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
                 });
     }
 
+    private void fetchCodeInternal(String phone) {
+        binding.tvCode.setEnabled(false);
+        viewModel.fetchCode(phone)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        startTimer();
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<String>() {
+                    @Override
+                    public void onNext(String code) {
+                        FindPasswordActivity.this.code = code;
+                        ToastUtils.showShort("获取验证码成功");
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码成功", false);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort("获取验证码失败");
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码失败", false);
+                    }
+                });
+    }
+
+    private void startTimer() {
+        RxUtils.rxCountDown(1, 3)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        binding.tvCode.setEnabled(false);
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        binding.tvCode.setText("获取验证码");
+                        binding.tvCode.setEnabled(true);
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Integer>() {
+                    @Override
+                    public void onNext(Integer integer) {
+                        binding.tvCode.setText(
+                                String.format(Locale.getDefault(), "已发送（%d）", integer));
+                    }
+                });
+    }
+
+    public void goNext() {
+        final String phone = binding.etPhone.getText().toString().trim();
+        if (!Utils.isValidPhone(phone)) {
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入正确的手机号码", false);
+            ToastUtils.showShort("主人，请输入正确的手机号码");
+            return;
+        }
+        viewModel.hasAccount(phone)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Boolean>() {
+                    @Override
+                    public void onNext(Boolean has) {
+                        if (has) {
+                            checkCode(phone);
+                        } else {
+                            ToastUtils.showShort("账号不存在！");
+                        }
+                    }
+                });
+    }
+
+    private void checkCode(String phone) {
+        String code = binding.etCode.getText().toString().trim();
+        if (TextUtils.isEmpty(code)) {
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,请输入验证码", false);
+            ToastUtils.showShort("主人,请输入验证码");
+            return;
+        }
+
+        if (!code.equals(this.code)) {
+            ToastUtils.showShort("验证码错误");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "验证码错误", false);
+            return;
+        }
+
+        CC.obtainBuilder("com.gcml.auth.setpassword")
+                .addParam("phone", phone)
+                .setContext(FindPasswordActivity.this)
+                .build()
+                .callAsync();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入您的手机号码", true);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入您的手机号码", false);
     }
 
     @Override

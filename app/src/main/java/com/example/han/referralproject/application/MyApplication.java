@@ -105,7 +105,6 @@ public class MyApplication extends Application {
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
         JPushInterface.init(this);
         NimInitHelper.getInstance().init(this, true);
-        NimInitHelper.getInstance().init(this, true);
         initVideoPlay();
     }
 

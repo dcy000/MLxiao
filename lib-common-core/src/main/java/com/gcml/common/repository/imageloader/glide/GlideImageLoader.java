@@ -1,5 +1,6 @@
 package com.gcml.common.repository.imageloader.glide;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -31,6 +32,7 @@ public class GlideImageLoader implements IImageLoader {
         return ImageLoader.GLIDE;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void load(ImageLoader.Options options) {
         RequestOptions requestOptions = new RequestOptions();
@@ -98,6 +100,7 @@ public class GlideImageLoader implements IImageLoader {
         builder.apply(requestOptions).into((ImageView) options.target());
     }
 
+    @SuppressLint("CheckResult")
     private RequestBuilder requestBuilder(ImageLoader.Options options) {
         RequestBuilder builder;
         if (options.asGif()) {
@@ -108,6 +111,8 @@ public class GlideImageLoader implements IImageLoader {
 
         if (!TextUtils.isEmpty(options.url())) {
             builder.load(options.url());
+        } else if (options.model() != null){
+            builder.load(options.model());
         } else {
             builder.load(options.resource());
         }

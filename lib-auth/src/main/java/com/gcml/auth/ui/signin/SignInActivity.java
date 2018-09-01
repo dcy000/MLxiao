@@ -8,13 +8,17 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignInBinding;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.Utils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.lib_utils.app.AppUtils;
 import com.gcml.lib_utils.display.KeyboardUtils;
@@ -139,8 +143,8 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
             ToastUtils.showShort("登录需要勾选同意用户协议");
             return;
         }
-
-        viewModel.signIn(phone, pwd)
+        String deviceId = Utils.getDeviceId(getContentResolver());
+        viewModel.signIn(deviceId, phone, pwd)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -160,7 +164,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                     @Override
                     public void onNext(UserEntity user) {
                         CC.obtainBuilder("com.gcml.old.home")
-                                .addParam("userId", user.getId())
+                                .addParam("userId", user.id)
                                 .build()
                                 .callAsync();
                     }
@@ -175,10 +179,21 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     }
 
     public void goSignInByFace() {
-        CC.obtainBuilder("face_recognition")
-                .setActionName("To_FaceRecognitionActivity")
+        CC.obtainBuilder("com.gcml.auth.face.signin")
                 .build()
-                .callAsync();
+                .callAsync(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+                        if (result.isSuccess()) {
+                            UserSpHelper.setUserId(result.getDataItem("userId"));
+                            CC.obtainBuilder("com.gcml.old.home")
+                                    .build()
+                                    .callAsync();
+                        } else {
+                            ToastUtils.showShort(result.getErrorMessage());
+                        }
+                    }
+                });
     }
 
     public void goForgetPassword() {

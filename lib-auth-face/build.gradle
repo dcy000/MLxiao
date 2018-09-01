@@ -53,6 +53,7 @@ dependencies {
 
     implementation rootProject.ext.dependencies["room-runtime"]
     implementation rootProject.ext.dependencies["room-rxjava2"]
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor rootProject.ext.dependencies["room-compiler"]
 
     implementation rootProject.ext.dependencies["timber"]

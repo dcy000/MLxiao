@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
@@ -18,6 +20,7 @@ import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.cc.CCFaceRecognitionActions;
+import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
@@ -45,6 +48,7 @@ import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.profile.PersonDetailActivity;
@@ -99,6 +103,11 @@ public class DataDealHelper {
         }
         intent.putExtra(key, value);
         context.startActivity(intent);
+
+        if (listener != null) {
+            listener.onEnd();
+        }
+
     }
 
     private void startActivity(Class<?> cls, String key, int value) {
@@ -108,6 +117,11 @@ public class DataDealHelper {
         }
         intent.putExtra(key, value);
         context.startActivity(intent);
+
+
+        if (listener != null) {
+            listener.onEnd();
+        }
     }
 
     private void startActivity(Class<?> cls, String key, Object value) {
@@ -117,7 +131,22 @@ public class DataDealHelper {
         }
         intent.putExtra(key, (Serializable) value);
         context.startActivity(intent);
+
+
+        if (listener != null) {
+            listener.onEnd();
+        }
     }
+
+    interface OnEndListener {
+        void onEnd();
+    }
+
+    public void setListener(OnEndListener listener) {
+        this.listener = listener;
+    }
+
+    OnEndListener listener;
 
 
     public void onDataAction(Context context, String result) {
@@ -136,6 +165,11 @@ public class DataDealHelper {
             String tip = String.format(Locale.CHINA,
                     "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
             speak(tip, false);
+
+
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
@@ -153,12 +187,22 @@ public class DataDealHelper {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+
+                    if (listener != null) {
+                        listener.onEnd();
+                    }
                 }
             }, new NetworkManager.FailedCallback() {
                 @Override
                 public void onFailed(String message) {
                     speak("当前已经是最新版本了");
                     Toast.makeText(context, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+
+
+                    if (listener != null) {
+                        listener.onEnd();
+                    }
                 }
             });
             return;
@@ -166,11 +210,19 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
             NimCallActivity.launchNoCheck(context, MyApplication.getInstance().eqid);
+
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
         if (inSpell.matches(".*yinyue.*")) {
             OldRouter.routeToOldMusicActivity(context);
+
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
@@ -304,53 +356,158 @@ public class DataDealHelper {
 //            return;
 //        }
         if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
-            Bundle bundle = new Bundle();
-            bundle.putString("from", "Test");
-            bundle.putString("fromType", "xueya");
-            CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
+            CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .build()
+                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+                            boolean currentUser = result.getDataItem("currentUser");
+                            String userId = result.getDataItem("userId");
+                            UserSpHelper.setUserId(userId);
+                            if (result.isSuccess()) {
+                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                            } else {
+                                ToastUtils.showShort(result.getErrorMessage());
+                            }
+                            if (listener != null) {
+                                listener.onEnd();
+                            }
+                        }
+                    });
+
 
         } else if (inSpell.matches(".*ce.*xueyang.*")
                 || inSpell.matches(".*xueyang.*")
                 || inSpell.matches(".*liang.*xueyang.*")
                 || inSpell.matches(".*ce.*baohedu.*")) {
 
-            Bundle bundle = new Bundle();
-            bundle.putString("from", "Test");
-            bundle.putString("fromType", "xueyang");
-            CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
+            CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .build()
+                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+                            boolean currentUser = result.getDataItem("currentUser");
+                            String userId = result.getDataItem("userId");
+                            UserSpHelper.setUserId(userId);
+                            if (result.isSuccess()) {
+                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                            } else {
+                                ToastUtils.showShort(result.getErrorMessage());
+                            }
+                            if (listener != null) {
+                                listener.onEnd();
+                            }
+                        }
+                    });
+
 
         } else if (result.matches(".*测.*血糖.*")
                 || inSpell.matches(".*liang.*xuetang.*")
                 || inSpell.matches(".*xuetangyi.*")
                 ) {
 
-            Bundle bundle = new Bundle();
-            bundle.putString("from", "Test");
-            bundle.putString("fromType", "xuetang");
-            CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
+            CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .build()
+                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+                            boolean currentUser = result.getDataItem("currentUser");
+                            String userId = result.getDataItem("userId");
+                            UserSpHelper.setUserId(userId);
+                            if (result.isSuccess()) {
+                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                            } else {
+                                ToastUtils.showShort(result.getErrorMessage());
+                            }
+                            if (listener != null) {
+                                listener.onEnd();
+                            }
+                        }
+                    });
+
+
         } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
-            Bundle bundle = new Bundle();
-            bundle.putString("from", "Test");
-            bundle.putString("fromType", "wendu");
-            CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
+            CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .build()
+                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+                            boolean currentUser = result.getDataItem("currentUser");
+                            String userId = result.getDataItem("userId");
+                            UserSpHelper.setUserId(userId);
+                            if (result.isSuccess()) {
+                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                            } else {
+                                ToastUtils.showShort(result.getErrorMessage());
+                            }
+
+                            if (listener != null) {
+                                listener.onEnd();
+                            }
+                        }
+                    });
 
         } else if (inSpell.matches(".*ce.*xindian.*")
                 || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
-            Bundle bundle = new Bundle();
-            bundle.putString("from", "Test");
-            bundle.putString("fromType", "xindian");
-            CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
+            CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .build()
+                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+                            boolean currentUser = result.getDataItem("currentUser");
+                            String userId = result.getDataItem("userId");
+                            UserSpHelper.setUserId(userId);
+                            if (result.isSuccess()) {
+                                CCHealthMeasureActions.jump2XinDianDetectActivity();
+                            } else {
+                                ToastUtils.showShort(result.getErrorMessage());
+                            }
+                            if (listener != null) {
+                                listener.onEnd();
+                            }
+                        }
+                    });
+
 
         } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
-            Bundle bundle = new Bundle();
-            bundle.putString("from", "Test");
-            bundle.putString("fromType", "sanheyi");
-            CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
+            CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .build()
+                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+                            boolean currentUser = result.getDataItem("currentUser");
+                            String userId = result.getDataItem("userId");
+                            UserSpHelper.setUserId(userId);
+                            if (result.isSuccess()) {
+                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                            } else {
+                                ToastUtils.showShort(result.getErrorMessage());
+                            }
+                            if (listener != null) {
+                                listener.onEnd();
+                            }
+                        }
+                    });
+
         } else if (inSpell.matches(".*ce.*tizhong.*")) {
-            Bundle bundle = new Bundle();
-            bundle.putString("from", "Test");
-            bundle.putString("fromType", "tizhong");
-            CCFaceRecognitionActions.jump2FaceRecognitionActivity(context, bundle);
+            CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .build()
+                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+                            boolean currentUser = result.getDataItem("currentUser");
+                            String userId = result.getDataItem("userId");
+                            UserSpHelper.setUserId(userId);
+                            if (result.isSuccess()) {
+                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                            } else {
+                                ToastUtils.showShort(result.getErrorMessage());
+                            }
+                            if (listener != null) {
+                                listener.onEnd();
+                            }
+                        }
+                    });
 
         } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
             startActivity(VideoListActivity.class);
@@ -431,6 +588,11 @@ public class DataDealHelper {
         } else if (inSpell.matches(".*(dangan).*")) {
             CC.obtainBuilder("com.gcml.old.user.profile").build().callAsync();
 //                startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
+
+
+            if (listener != null) {
+                listener.onEnd();
+            }
         } else {
             new SpeechTask().execute();
         }
@@ -456,6 +618,10 @@ public class DataDealHelper {
             @Override
             public void onFailed(String message) {
                 ToastUtils.showShort(message);
+
+                if (listener != null) {
+                    listener.onEnd();
+                }
             }
         });
     }
@@ -496,6 +662,11 @@ public class DataDealHelper {
             } else {
                 onActivitySpeakFinish();
             }
+
+
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
@@ -513,15 +684,24 @@ public class DataDealHelper {
                 music = text.substring(index);
                 searchMusic(music);
             }
+
             return;
         }
 
         if (!TextUtils.isEmpty(text)) {
             speak(text);
+
+            if (listener != null) {
+                listener.onEnd();
+            }
             return;
         }
 
         if (!empty) {
+
+            if (listener != null) {
+                listener.onEnd();
+            }
             speak(text);
             return;
         }
@@ -530,6 +710,10 @@ public class DataDealHelper {
             str1 = sendMessage(str);
         } catch (Exception e) {
             defaultToke();
+
+            if (listener != null) {
+                listener.onEnd();
+            }
         }
     }
 
@@ -668,6 +852,11 @@ public class DataDealHelper {
 
             }
         }
+
+        if (listener != null) {
+            listener.onEnd();
+        }
+
     }
 
     private List<SearchMusic.Song> mSearchMusicList = new ArrayList<>();

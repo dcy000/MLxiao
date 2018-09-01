@@ -16,6 +16,10 @@ public class FindPasswordViewModel extends BaseViewModel {
         super(application);
     }
 
+    public Observable<String> fetchCode(String phone) {
+        return mUserRepository.fetchCode(phone);
+    }
+
     public Observable<Boolean> hasAccount(String account) {
         return mUserRepository.hasAccount(account);
     }

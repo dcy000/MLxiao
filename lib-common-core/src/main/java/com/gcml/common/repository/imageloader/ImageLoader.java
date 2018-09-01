@@ -48,6 +48,10 @@ public class ImageLoader implements IImageLoader {
         return new Options.Builder(target, resource);
     }
 
+    public static Options.Builder newOptionsBuilder(View target, Object model) {
+        return new Options.Builder(target, model);
+    }
+
     @Override
     public int id() {
         return 0;
@@ -102,6 +106,7 @@ public class ImageLoader implements IImageLoader {
         private View target;
         private String url;
         private int resource;  // 图片地址
+        private Object model;
         private int placeholder;// 占位符
         private int error;// 错误占位符
         private int width;
@@ -120,6 +125,7 @@ public class ImageLoader implements IImageLoader {
             this.target = builder.target;
             this.url = builder.url;
             this.resource = builder.resource;
+            this.model = builder.model;
             this.placeholder = builder.placeholder;
             this.error = builder.error;
             this.width = builder.width;
@@ -143,6 +149,9 @@ public class ImageLoader implements IImageLoader {
             return url;
         }
 
+        public Object model() {
+            return model;
+        }
         public int resource() {
             return resource;
         }
@@ -203,6 +212,7 @@ public class ImageLoader implements IImageLoader {
         public static class Builder {
             private View target;
             private String url;
+            private Object model;
             private int resource = -1;  // 图片地址
             private int placeholder;// 占位符
             private int error;// 错误占位符
@@ -226,6 +236,11 @@ public class ImageLoader implements IImageLoader {
             public Builder(View target, int resource) {
                 this.target = target;
                 this.resource = resource;
+            }
+
+            public Builder(View target, Object model) {
+                this.target = target;
+                this.model = model;
             }
 
             public Builder placeholder(@DrawableRes int placeholder) {

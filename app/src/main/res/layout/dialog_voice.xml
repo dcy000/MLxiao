@@ -42,7 +42,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="25pt"
                 android:layout_marginTop="16pt"
-                app:voiceLineColor="#FF87BDEF" />
+                app:voiceLineColor="#FF87BDEF"
+                app:voiceTextColor="#fff" />
+            />
 
         </FrameLayout>
 

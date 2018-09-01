@@ -12,5 +12,6 @@
 
     <application>
         <activity android:name=".ui.FaceSignUpActivity"/>
+        <activity android:name=".ui.FaceSignInActivity"/>
     </application>
 </manifest>

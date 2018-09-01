@@ -13,6 +13,8 @@ import android.text.TextUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Utils {
@@ -102,6 +104,48 @@ public class Utils {
         return result;
     }
 
+    public static boolean checkIdCard1(String idCard) {
+        return idCard != null
+                && idCard.length() == 18
+                && isDate(idCard.substring(6, 14));
+    }
+
+    public static boolean checkIdCard(String idCard) {
+        if (idCard == null || idCard.length() != 18) {
+            return false;
+        }
+        char[] chars = idCard.toCharArray();
+        int length = chars.length - 1;
+        int[] ratios = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
+        int[] tails = {1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2};
+        int sum = 0;
+        int i;
+        for (i = 0; i < length; i++) {
+            if (chars[i] < '0' && chars[i] > '9') {
+                return false;
+            }
+            sum += (chars[i] - '0') * ratios[i];
+        }
+        if (!(chars[i] == 'x'
+                || chars[i] == 'X'
+                || (chars[i] >= '0' && chars[i] <= '9'))) {
+            return false;
+        }
+        int value;
+        if (chars[i] == 'x' || chars[i] == 'X') {
+            value = 10;
+        } else {
+            value = chars[i] - '0';
+        }
+        return value == tails[sum % 11] && isDate(new String(chars, 6, 8));
+    }
+
+    public static boolean isDate(String strDate) {
+        Pattern pattern = Pattern.compile(
+                "^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))?$");
+        Matcher m = pattern.matcher(strDate);
+        return m.matches();
+    }
 
     public static String getDateToString(long milSecond, String pattern) {
         Date date = new Date(milSecond);

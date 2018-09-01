@@ -5,8 +5,10 @@
     <application>
         <activity android:name=".ui.AuthActivity" />
         <activity android:name=".ui.signin.SignInActivity" />
+        <activity android:name=".ui.signup.SignUpActivity" />
         <activity android:name=".ui.findpassword.FindPasswordActivity" />
         <activity android:name=".ui.findpassword.SetPasswordActivity"/>
+        <activity android:name=".ui.profile.SimpleProfileActivity"/>
     </application>
 
 </manifest>

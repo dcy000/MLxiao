@@ -8,6 +8,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.data.UserSpHelper;
 
 public class HomeComponent implements IComponent {
 
@@ -19,7 +20,7 @@ public class HomeComponent implements IComponent {
     @Override
     public boolean onCall(CC cc) {
         Object userId = cc.getParamItem("userId");
-        MyApplication.getInstance().userId = userId == null? "" : String.valueOf(userId);
+        MyApplication.getInstance().userId = userId == null? UserSpHelper.getUserId() : String.valueOf(userId);
         Context context = cc.getContext();
         Intent intent = new Intent();
         intent.setClass(context, MainActivity.class);

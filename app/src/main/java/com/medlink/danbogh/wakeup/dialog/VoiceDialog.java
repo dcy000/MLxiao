@@ -104,18 +104,21 @@ public class VoiceDialog extends Dialog {
 
             @Override
             public void onMLResult(String result) {
-//                Intent intent = new Intent(context, SpeechSynthesisActivity.class);
-//                if (!(context instanceof Activity)) {
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                }
-//                context.startActivity(intent);
                 DataDealHelper helper = new DataDealHelper();
+                helper.setListener(() -> {
+                    dismiss();
+                });
                 helper.onDataAction(context, result);
             }
 
             @Override
             public void onMLError(SpeechError error) {
-                dismiss();
+                mainHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismiss();
+                    }
+                }, 1000);
             }
         });
     }
@@ -174,7 +177,12 @@ public class VoiceDialog extends Dialog {
     @Override
     public void show() {
         super.show();
-        MLVoiceSynthetize.startSynthesize(context, "嗨我在~~", false);
-        onYuyinClick();
+        MLVoiceSynthetize.startSynthesize(context, "我在", false);
+        mainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onYuyinClick();
+            }
+        }, 1000);
     }
 }

@@ -108,7 +108,8 @@ dependencies {
     addComponent 'module-face_recognition'
     addComponent 'lib-recreation'
     addComponent 'module-health_measure'
-//    addComponent 'lib-auth'
+    addComponent 'lib-auth'
+    addComponent 'lib-auth-face'
     addComponent 'lib-task'
     addComponent 'module-video'
 

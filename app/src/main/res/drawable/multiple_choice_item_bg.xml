@@ -4,14 +4,14 @@
         <shape>
             <stroke android:color="@color/colorMultipleChoiceItem"/>
             <solid android:color="@color/colorMultipleChoiceItem"/>
-            <corners android:radius="60px"/>
+            <corners android:radius="50pt"/>
         </shape>
     </item>
     <item>
         <shape>
-            <stroke android:color="@color/colorMultipleChoiceItem" android:width="1pt"/>
+            <stroke android:color="@color/colorMultipleChoiceItem" android:width="4pt"/>
             <solid android:color="@color/white"/>
-            <corners android:radius="60px"/>
+            <corners android:radius="50pt"/>
         </shape>
     </item>
 </selector>

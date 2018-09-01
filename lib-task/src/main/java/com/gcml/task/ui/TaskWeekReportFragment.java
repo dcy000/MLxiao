@@ -22,6 +22,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.task.R;
 import com.gcml.task.bean.TargetModel;
 import com.gcml.task.bean.get.TaskReportBean;
@@ -127,7 +128,7 @@ public class TaskWeekReportFragment extends Fragment {
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
-        mTaskRepository.taskReportListFromApi("100206", "1")
+        mTaskRepository.taskReportListFromApi((String) SPUtil.get("user_id",""), "1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {

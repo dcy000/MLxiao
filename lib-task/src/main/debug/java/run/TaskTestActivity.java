@@ -44,7 +44,7 @@ public class TaskTestActivity extends AppCompatActivity implements View.OnClickL
 
     @SuppressLint("CheckResult")
     private void getIsTaskHealth() {
-        mTaskRepository.isTaskHealthListFromApi("100206")
+        mTaskRepository.isTaskHealthListFromApi((String) SPUtil.get("user_id",""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {

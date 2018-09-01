@@ -18,9 +18,10 @@ public class SignInViewModel extends BaseViewModel {
     }
 
     public Observable<UserEntity> signIn(
+            String deviceId,
             String userName,
             String pwd) {
-        return mUserRepository.signIn(userName, pwd);
+        return mUserRepository.signIn(deviceId, userName, pwd);
     }
 
 }

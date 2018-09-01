@@ -20,6 +20,7 @@ import android.view.SurfaceHolder;
 import android.view.View;
 
 import com.gcml.auth.face.utils.CameraUtils;
+import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -45,7 +46,7 @@ import timber.log.Timber;
  * <p>
  * 注意：
  * 1. 设置预览回调时，setPreviewCallback 和 setOneShotPreviewCallback 都存在内存抖动
- * 2. Camera API 在哪个 Looper 线程打开相机，那么 onPreviewFrame 等相机回调就执行在打开相机的 Looper 线程
+ * 2. 在哪个 Looper 线程 open Camera，那么 onPreviewFrame 等 Camera 回调就执行在打开相机的 Looper 线程
  * 3. onPreviewFrame 方法中不要执行过于复杂的逻辑操作，这样会阻塞 Camera，无法获取新的 Frame，导致帧率下降
  */
 public class PreviewHelper
@@ -260,14 +261,18 @@ public class PreviewHelper
                         return processFrame(bytes);
                     }
                 })
-                .doOnNext(new Consumer<byte[]>() {
+                .as(RxUtils.autoDisposeConverter(mActivity))
+                .subscribe(new DefaultObserver<byte[]>() {
                     @Override
-                    public void accept(byte[] bytes) throws Exception {
+                    public void onNext(byte[] bytes) {
                         recycleData(bytes);
                     }
-                })
-                .as(RxUtils.autoDisposeConverter(mActivity))
-                .subscribe();
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
+                });
     }
 
     private Observable<byte[]> processFrame(byte[] bytes) {
@@ -316,14 +321,14 @@ public class PreviewHelper
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             image.compressToJpeg(rect, 100, baos);
             byte[] cropped = baos.toByteArray();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(cropped, 0, cropped.length);
+            Bitmap croppedBitmap = BitmapFactory.decodeByteArray(cropped, 0, cropped.length);
 
             //旋转图片
             int rotation = CameraUtils.calculateRotation(mActivity, mCameraId);
             if (rotation == 90 || rotation == 270) {
-                bitmap = rotate(bitmap, rotation);
+                croppedBitmap = rotate(croppedBitmap, rotation);
             }
-            rxStatus.onNext(Status.of(Status.EVENT_CROPPED, bitmap));
+            rxStatus.onNext(Status.of(Status.EVENT_CROPPED, croppedBitmap));
         }
     }
 

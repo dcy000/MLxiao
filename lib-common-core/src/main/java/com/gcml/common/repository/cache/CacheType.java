@@ -2,17 +2,17 @@ package com.gcml.common.repository.cache;
 
 public enum CacheType {
     /**
-     * RepositoryManager 的 RetrofitService 容器类型
+     * RepositoryHelper 的 RetrofitService 容器类型
      */
     RETROFIT_SERVICE_CACHE_TYPE,
 
     /**
-     * RepositoryManager 的 CacheService 容器类型
+     * RepositoryHelper 的 CacheService 容器类型
      */
     CACHE_SERVICE_CACHE_TYPE,
 
     /**
-     * RepositoryManager 的 RoomDatabase 容器类型
+     * RepositoryHelper 的 RoomDatabase 容器类型
      */
     ROOM_DATABASE_CACHE_TYPE,
 

@@ -9,18 +9,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.NDialog2;
-import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.lib_utils.display.ToastUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.squareup.picasso.Picasso;
+
+import timber.log.Timber;
 
 public class GoodDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -167,8 +173,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-
-
                         ShowNormal("余额不足请及时充值");
                     }
                 });
@@ -196,28 +200,10 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                             bundle.putString("orderid", orderid);
                             bundle.putString("from", "Pay");
                             bundle.putInt("requestCode", 1);
-                            CCFaceRecognitionActions.jump2FaceRecognitionActivity(GoodDetailActivity.this, bundle);
+                            checkUser(orderid);
+//                            CCFaceRecognitionActions.jump2FaceRecognitionActivity(GoodDetailActivity.this, bundle);
                         } else if (which == 0) {
-
-
-                            NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-                                    ShowNormal("取消成功");
-
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-                                    ShowNormal("取消失败");
-
-
-                                }
-                            });
-
-
+                            cancelOrder(orderid);
                         }
 
                     }
@@ -225,6 +211,75 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
     }
 
+    private void cancelOrder(String orderid) {
+        NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
+            @Override
+            public void onSuccess(String response) {
+                ShowNormal("取消成功");
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ShowNormal("取消失败");
+            }
+        });
+    }
+
+    private void syncOrder(String orderid) {
+        String deviceId = com.gcml.common.utils.Utils.getDeviceId(getContentResolver());
+        NetworkApi.pay_status(MyApplication.getInstance().userId, deviceId, orderid, new NetworkManager.SuccessCallback<String>() {
+            @Override
+            public void onSuccess(String response) {
+                Timber.i("同步订单成功");
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                Timber.i("同步订单失败");
+            }
+        });
+    }
+
+    private void checkUser(String orderid) {
+        CC.obtainBuilder("com.gcml.auth.face.signin")
+                .build()
+                .callAsync(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+                        boolean currentUser = result.getDataItem("currentUser");
+                        if (result.isSuccess() && currentUser) {
+                            showPaySuccessDialog(GoodDetailActivity.this);
+                            syncOrder(orderid);
+                        } else {
+                            ToastUtils.showShort(result.getErrorMessage());
+                            cancelOrder(orderid);
+                        }
+                    }
+                });
+    }
+
+
+    public static void showPaySuccessDialog(Activity activity) {
+        MLVoiceSynthetize.startSynthesize(activity.getApplicationContext(), "主人，恭喜您支付成功", false);
+        NDialog2 dialog2 = new NDialog2(activity);
+        dialog2.setMessageCenter(true)
+                .setMessage("支付成功")
+                .setMessageSize(50)
+                .setCancleable(false)
+                .setButtonCenter(true)
+                .setPositiveTextColor(Color.parseColor("#3F86FC"))
+                .setButtonSize(40)
+                .setOnConfirmListener(new NDialog2.OnConfirmListener() {
+                    @Override
+                    public void onClick(int which) {
+                        if (which == 1) {
+                            Intent intent = new Intent(activity, OrderListActivity.class);
+                            activity.startActivity(intent);
+                        }
+
+                    }
+                }).create(NDialog.CONFIRM).show();
+    }
 
     public void ShowNormal(String message) {
         dialog2.setMessageCenter(true)

@@ -189,12 +189,18 @@ public class Utils {
     }
 
     public static String getProcessName(Context context) {
+        if (context == null) {
+            return "";
+        }
         String processName = null;
         ActivityManager manager = ((ActivityManager)
                 context.getSystemService(Context.ACTIVITY_SERVICE));
+        if (manager == null) {
+            return "";
+        }
         while (true) {
             for (ActivityManager.RunningAppProcessInfo info : manager.getRunningAppProcesses()) {
-                if (info.pid == android.os.Process.myPid()) {
+                if (info != null && info.pid == android.os.Process.myPid()) {
                     processName = info.processName;
                     break;
                 }
