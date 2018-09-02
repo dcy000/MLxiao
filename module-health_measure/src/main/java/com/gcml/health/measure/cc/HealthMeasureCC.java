@@ -101,26 +101,26 @@ public class HealthMeasureCC implements IComponent {
                 HealthInquiryActivity.startActivity(context);
                 break;
             case ReceiveActionNames.TO_BLOODPRESSUREMANAGERACTIVITY:
-                SingleMeasureBloodpressureFragment singleMeasureBloodpressureFragment = new SingleMeasureBloodpressureFragment();
-                singleMeasureBloodpressureFragment.getVideoDemoView().setVisibility(View.GONE);
-                singleMeasureBloodpressureFragment.getHealthRecordView().setText("下一步");
-                CCResultActions.onCCResultActionWithFragmentBean(singleMeasureBloodpressureFragment);
+//                SingleMeasureBloodpressureFragment singleMeasureBloodpressureFragment = new SingleMeasureBloodpressureFragment();
+//                singleMeasureBloodpressureFragment.getVideoDemoView().setVisibility(View.GONE);
+//                singleMeasureBloodpressureFragment.getHealthRecordView().setText("下一步");
+//                CCResultActions.onCCResultActionWithFragmentBean(singleMeasureBloodpressureFragment);
 
-//                BloodpressureManagerActivity.startActivity(context);
-                break;
+                BloodpressureManagerActivity.startActivity(context);
+                return true;
             case ReceiveActionNames.TO_BLOODSUGARMANAGERACTIVITY:
-                SingleMeasureBloodsugarFragment singleMeasureBloodsugarFragment = new SingleMeasureBloodsugarFragment();
-                singleMeasureBloodsugarFragment.getVideoDemoView().setVisibility(View.GONE);
-                singleMeasureBloodsugarFragment.getHealthRecordView().setText("下一步");
-                CCResultActions.onCCResultActionWithFragmentBean(singleMeasureBloodsugarFragment);
+//                SingleMeasureBloodsugarFragment singleMeasureBloodsugarFragment = new SingleMeasureBloodsugarFragment();
+//                singleMeasureBloodsugarFragment.getVideoDemoView().setVisibility(View.GONE);
+//                singleMeasureBloodsugarFragment.getHealthRecordView().setText("下一步");
+//                CCResultActions.onCCResultActionWithFragmentBean(singleMeasureBloodsugarFragment);
 
-//                BloodsugarManagerActivity.startActivity(context);
-                break;
+                BloodsugarManagerActivity.startActivity(context);
+                return true;
             case ReceiveActionNames.TO_WEIGHTMANAGERACTIVITY:
-                HealthWeightDetectionUiFragment healthWeightDetectionUiFragment = new HealthWeightDetectionUiFragment();
-                CCResultActions.onCCResultActionWithFragmentBean(healthWeightDetectionUiFragment);
-//                WeightManagerActivity.startActivity(context);
-                break;
+//                HealthWeightDetectionUiFragment healthWeightDetectionUiFragment = new HealthWeightDetectionUiFragment();
+//                CCResultActions.onCCResultActionWithFragmentBean(healthWeightDetectionUiFragment);
+                WeightManagerActivity.startActivity(context);
+                return true;
             default:
                 Timber.e("未匹配到任何操作Action");
                 break;

@@ -7,9 +7,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
 import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 
@@ -53,12 +57,26 @@ public class PressureNornalTipActivity extends BaseActivity implements WarmNotic
 
     @Override
     public void onFragmentBtnClick() {
-        startActivity(new Intent(this, WeightMeasureActivity.class));
+        CC.obtainBuilder("health_measure")
+                .setActionName("To_WeightManagerActivity")
+                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+            @Override
+            public void onResult(CC cc, CCResult result) {
+                startActivity(new Intent(PressureNornalTipActivity.this, TreatmentPlanActivity.class));
+            }
+        });
 
     }
 
     @Override
     public void onFragmentBtnTimeOut() {
-        startActivity(new Intent(this, WeightMeasureActivity.class));
+        CC.obtainBuilder("health_measure")
+                .setActionName("To_WeightManagerActivity")
+                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+            @Override
+            public void onResult(CC cc, CCResult result) {
+                startActivity(new Intent(PressureNornalTipActivity.this, TreatmentPlanActivity.class));
+            }
+        });
     }
 }

@@ -3,6 +3,7 @@ package com.gcml.health.measure.hypertension_management;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import com.gcml.health.measure.R;
@@ -28,10 +29,14 @@ public class BloodsugarManagerActivity extends BaseManagementActivity{
     }
     @Override
     protected void dealLogic() {
+        mTitleText.setText("血 糖 测 量");
         measure_type= IPresenter.MEASURE_BLOOD_PRESSURE;
         SingleMeasureBloodsugarFragment singleMeasureBloodsugarFragment = new SingleMeasureBloodsugarFragment();
-        singleMeasureBloodsugarFragment.getVideoDemoView().setVisibility(View.GONE);
-        singleMeasureBloodsugarFragment.getHealthRecordView().setText("下一步");
+        singleMeasureBloodsugarFragment.setOnDealVoiceAndJumpListener(this);
+        singleMeasureBloodsugarFragment.setOnFragmentChangedListener(this);
+        Bundle bundle=new Bundle();
+        bundle.putBoolean("isOnlyShowBtnHealthRecord",true);
+        singleMeasureBloodsugarFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame,singleMeasureBloodsugarFragment).commit();
         super.dealLogic();
     }

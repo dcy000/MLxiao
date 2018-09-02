@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
@@ -128,7 +131,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 });
             }
 
-        }else{
+        } else {
             ToastUtils.showShort("网络繁忙");
         }
 
@@ -203,7 +206,16 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                     .putExtra("fromWhere", "pressureNormalHigh"));
         } else {
 //            toDetete();
-            startActivity(new Intent(this, WeightMeasureActivity.class));
+//            startActivity(new Intent(this, WeightMeasureActivity.class));
+
+            CC.obtainBuilder("health_measure")
+                    .setActionName("To_WeightManagerActivity")
+                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+                @Override
+                public void onResult(CC cc, CCResult result) {
+                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
+                }
+            });
         }
 
     }
@@ -236,7 +248,15 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             startActivity(new Intent(SlowDiseaseManagementActivity.this, SlowDiseaseManagementTipActivity.class));
         } else {
             if (diagnoseInfo.lowPressure == null) {
-                startActivity(new Intent(this, BloodPressureMeasureActivity.class));
+//                startActivity(new Intent(this, BloodPressureMeasureActivity.class));
+                CC.obtainBuilder("health_measure")
+                        .setActionName("To_BloodpressureManagerActivity")
+                        .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+                        startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
+                    }
+                });
             } else {
                 startActivity(new Intent(this, TreatmentPlanActivity.class));
             }

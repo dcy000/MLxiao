@@ -9,9 +9,13 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionBean;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceFragment;
@@ -130,10 +134,10 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
         mllBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (vp.getCurrentItem()==0){
+                if (vp.getCurrentItem() == 0) {
                     finish();
                 }
-                vp.setCurrentItem(vp.getCurrentItem() -1);
+                vp.setCurrentItem(vp.getCurrentItem() - 1);
             }
         });
     }
@@ -242,7 +246,16 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
                     return;
                 }
             }
-            startActivity(new Intent(NormalHightActivity.this, WeightMeasureActivity.class));
+//            startActivity(new Intent(NormalHightActivity.this, WeightMeasureActivity.class));
+            CC.obtainBuilder("health_measure")
+                    .setActionName("To_WeightManagerActivity")
+                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+                @Override
+                public void onResult(CC cc, CCResult result) {
+                    startActivity(new Intent(NormalHightActivity.this, TreatmentPlanActivity.class));
+                }
+            });
+
             sure.dismiss();
         });
         sure.show();

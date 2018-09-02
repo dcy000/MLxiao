@@ -7,9 +7,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceStringFragment;
 import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
 import com.medlink.danbogh.alarm.AlarmDetail2Activity;
@@ -60,7 +64,22 @@ public class IsEmptyStomachOrNotActivity extends BaseActivity implements Multipl
     @Override
     public void onNextStep(int[] checked) {
         if ("是".equals(itmes[checked[0]])) {
-            startActivity(new Intent(this, BloodClucoseMeasureActivity.class));
+//            startActivity(new Intent(this, BloodClucoseMeasureActivity.class));
+            CC.obtainBuilder("health_measure")
+                    .setActionName("To_BloodsugarManagerActivity")
+                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+                @Override
+                public void onResult(CC cc, CCResult result) {
+                    CC.obtainBuilder("health_measure")
+                            .setActionName("To_WeightManagerActivity")
+                            .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+                            startActivity(new Intent(IsEmptyStomachOrNotActivity.this, TreatmentPlanActivity.class));
+                        }
+                    });
+                }
+            });
         } else {
             AlarmDetail2Activity.newLaunchIntent(this, -1);
             AppManager.getAppManager().finishAllActivity();

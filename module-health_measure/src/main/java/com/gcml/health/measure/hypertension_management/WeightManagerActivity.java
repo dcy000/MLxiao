@@ -21,19 +21,23 @@ import com.gcml.module_blutooth_devices.base.IPresenter;
  * created by:gzq
  * description:TODO
  */
-public class WeightManagerActivity extends BaseManagementActivity{
-    public static void startActivity(Context context){
-        Intent intent=new Intent(context,WeightManagerActivity.class);
-        if (context instanceof Application){
+public class WeightManagerActivity extends BaseManagementActivity {
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, WeightManagerActivity.class);
+        if (context instanceof Application) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
     }
+
     @Override
     protected void dealLogic() {
-        measure_type= IPresenter.MEASURE_BLOOD_PRESSURE;
+        mTitleText.setText("体 重 测 量");
+        measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
         HealthWeightDetectionUiFragment healthWeightDetectionUiFragment = new HealthWeightDetectionUiFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame,healthWeightDetectionUiFragment).commit();
+        healthWeightDetectionUiFragment.setOnDealVoiceAndJumpListener(this);
+        healthWeightDetectionUiFragment.setOnFragmentChangedListener(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, healthWeightDetectionUiFragment).commit();
         super.dealLogic();
     }
 
@@ -41,5 +45,7 @@ public class WeightManagerActivity extends BaseManagementActivity{
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         //点击了下一步
         CCResultActions.onCCResultAction(ResultAction.MEASURE_SUCCESS);
+        CC.obtainBuilder("com.gcml.old.finishAll").build().callAsync();
+        finish();
     }
 }
