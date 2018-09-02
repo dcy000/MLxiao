@@ -3,6 +3,7 @@ package com.gcml.lib_video_ksyplayer.default_cover;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.lib_video_ksyplayer.R;
@@ -34,6 +35,7 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
 
     private int mCurrPosition;
     private TextView jump2Next;
+    private LinearLayout llBack;
 
 
     public ErrorCover(Context context) {
@@ -47,6 +49,8 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
         mInfo = getView().findViewById(R.id.tv_error_info);
         mRetry = getView().findViewById(R.id.tv_retry);
         mRetry.setOnClickListener(this);
+        llBack = findViewById(R.id.ll_back);
+        llBack.setOnClickListener(this);
         jump2Next = getView().findViewById(R.id.jumpToNext);
         jump2Next.setOnClickListener(this);
     }
@@ -79,6 +83,8 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
                 setErrorState(false);
                 requestRetry(bundle);
                 break;
+            default:
+                break;
         }
     }
 
@@ -97,8 +103,9 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
     }
 
     private void handleStatusUI(int networkState) {
-        if (!getGroupValue().getBoolean(DataInter.Key.KEY_NETWORK_RESOURCE))
+        if (!getGroupValue().getBoolean(DataInter.Key.KEY_NETWORK_RESOURCE)) {
             return;
+        }
         if (networkState < 0) {
             mStatus = STATUS_NETWORK_ERROR;
             setErrorInfo("无网络！");
@@ -110,8 +117,9 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
                     setErrorState(false);
                 }
             } else {
-                if (!isUseMobileNet)
+                if (!isUseMobileNet) {
                     return;
+                }
                 mStatus = STATUS_MOBILE;
                 setErrorInfo("您正在使用移动网络！");
                 setHandleInfo("继续");
@@ -149,6 +157,8 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
             case OnPlayerEventListener.PLAYER_EVENT_ON_TIMER_UPDATE:
                 mCurrPosition = bundle.getInt(EventKey.INT_ARG1);
                 break;
+            default:
+                break;
         }
     }
 
@@ -182,11 +192,13 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
         int i = v.getId();
         if (i == R.id.tv_retry) {
             handleStatus();
-        }else if (i==R.id.jumpToNext){
+        } else if (i == R.id.jumpToNext) {
             if (jump2NextListener != null) {
-                notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_CLOSE,null);
+                notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_CLOSE, null);
                 jump2NextListener.clickJump2Next(v);
             }
+        } else if (i == R.id.ll_back) {
+            notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_BACK, null);
         }
     }
 
