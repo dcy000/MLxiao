@@ -22,7 +22,7 @@ public class TaskMenuAdapter extends BaseQuickAdapter<TaskBean.TaskListBean, Bas
     protected void convert(BaseViewHolder helper, TaskBean.TaskListBean item) {
         helper.setText(R.id.tv_task_name, item.name);
         helper.setText(R.id.tv_task_name_other, item.name);
-        helper.setText(R.id.tv_task_time, "(测试时间段" + TimeHelper.formatDateTimeHour(item.remindStart) + "-" +  TimeHelper.formatDateTimeHour(item.remindEnd) + ")");
+        helper.setText(R.id.tv_task_time, "(测试时间：" + TimeHelper.formatDateTimeHour(item.remindStart) + "-" +  TimeHelper.formatDateTimeHour(item.remindEnd) + ")");
         if (item.mustStatus.equals("1")) {
             helper.setVisible(R.id.tv_task_tag, true);
             helper.setVisible(R.id.ll_task_name, true);
