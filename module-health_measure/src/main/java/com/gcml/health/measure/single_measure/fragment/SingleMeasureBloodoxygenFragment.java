@@ -3,6 +3,7 @@ package com.gcml.health.measure.single_measure.fragment;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -20,7 +21,7 @@ public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 2) {
-            MLVoiceSynthetize.startSynthesize(getContext(), "主人，您本次测量血氧" + results[0] + "%,脉搏" + results[1], false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血氧" + results[0] + "%,脉搏" + results[1], false);
 
 
             ArrayList<DetectionData> datas = new ArrayList<>();
@@ -48,8 +49,8 @@ public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        MLVoiceSynthetize.stop();
+    public void onDestroyView() {
+        super.onDestroyView();
+        MLVoiceSynthetize.destory();
     }
 }

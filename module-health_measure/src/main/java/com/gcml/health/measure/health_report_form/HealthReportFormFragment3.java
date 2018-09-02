@@ -169,19 +169,19 @@ public class HealthReportFormFragment3 extends BluetoothBaseFragment implements 
             }
             switch (riskLevel) {
                 case 1:
-                    mTvBottom.setText("您未来"+type+"发病等级为低风险。小E建议您在今后将");
+                    mTvBottom.setText("您未来"+type+"发病等级为低风险。小E给您的建议，");
                     break;
                 case 2:
-                    mTvBottom.setText("您未来"+type+"发病等级为较低风险。小E建议您在今后将");
+                    mTvBottom.setText("您未来"+type+"发病等级为较低风险。小E给您的建议，");
                     break;
                 case 3:
-                    mTvBottom.setText("您未来"+type+"发病等级为中等风险。小E建议您在今后将");
+                    mTvBottom.setText("您未来"+type+"发病等级为中等风险。小E给您的建议，");
                     break;
                 case 4:
-                    mTvBottom.setText("您未来"+type+"发病等级为较高风险。小E建议您在今后将");
+                    mTvBottom.setText("您未来"+type+"发病等级为较高风险。小E给您的建议，");
                     break;
                 case 5:
-                    mTvBottom.setText("您未来"+type+"发病等级为高风险。小E建议您在今后将");
+                    mTvBottom.setText("您未来"+type+"发病等级为高风险。小E给您的建议，");
                     break;
                 default:
                     break;

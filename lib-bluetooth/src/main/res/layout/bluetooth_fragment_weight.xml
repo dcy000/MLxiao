@@ -173,7 +173,7 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="体脂"
+            android:text="体质"
             android:textStyle="bold"
             android:textColor="#333"
             android:textSize="88pt"

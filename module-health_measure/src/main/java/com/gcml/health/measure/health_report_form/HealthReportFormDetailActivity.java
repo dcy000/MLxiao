@@ -71,4 +71,10 @@ public class HealthReportFormDetailActivity extends ToolbarBaseActivity {
         mTvAdvice = (TextView) findViewById(R.id.tv_advice);
         mTitleText.setText("评 估 结 果");
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MLVoiceSynthetize.destory();
+    }
 }

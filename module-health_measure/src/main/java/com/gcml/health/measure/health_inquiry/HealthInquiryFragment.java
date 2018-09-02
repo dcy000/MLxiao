@@ -17,12 +17,9 @@ import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.List;
-
-import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -84,6 +81,16 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
         mBtnNext = findClickView(R.id.btnNext);
         checkBtnBG();
         initRecycleview();
+        changeTips();
+    }
+
+    private void changeTips() {
+        for (HealthInquiryBean.QuestionListBean.AnswerListBean bean : mData) {
+            if ("1".equals(bean.getExclusiveStatus())) {
+                mQuestionTip.setText("(可多选，选择“"+bean.getAnswerInfo()+"”后自动跳转到下一页)");
+                break;
+            }
+        }
     }
 
     //遍历一边题目 如果其中有一个答案字数较多，则使用宽度较大的背景
@@ -116,7 +123,7 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
                 if (is432) {
                     helper.getView(R.id.tv_answer).setBackgroundResource(R.drawable.health_measure_selector_inquiry_432_full);
                 } else {
-                    helper.getView(R.id.tv_answer).setBackgroundResource(R.drawable.health_measure_selector_inquiry_644_full);
+                    helper.getView(R.id.tv_answer).setBackgroundResource(R.drawable.health_measure_selector_inquiry_700_full);
                 }
                 if (item.getChoosed()) {
                     helper.getView(R.id.tv_answer).setSelected(true);
@@ -158,6 +165,8 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
                                 }
                             }
                             adapter.notifyDataSetChanged();
+                            //自动跳转到下一页
+                            dealClick();
                         }
                     } else if ("0".equals(questionType)) {
                         //单选互斥
@@ -216,5 +225,11 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
             }
         }
         return isSelectOne;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        MLVoiceSynthetize.destory();
     }
 }

@@ -4,7 +4,7 @@
         <shape>
             <corners android:radius="50pt" />
             <stroke android:width="4pt" android:color="#7F3F86FC" />
-            <size android:width="644pt" android:height="100pt" />
+            <size android:width="700pt" android:height="100pt" />
         </shape>
         <color android:color="#7F3F86FC" />
     </item>
@@ -12,7 +12,7 @@
         <shape>
             <corners android:radius="50pt" />
             <stroke android:width="4pt" android:color="#3F86FC" />
-            <size android:width="644pt" android:height="100pt" />
+            <size android:width="700pt" android:height="100pt" />
         </shape>
         <color android:color="#3F86FC"/>
     </item>
