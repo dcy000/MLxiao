@@ -254,6 +254,12 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        MLVoiceSynthetize.stop();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         cacheDatas = null;
