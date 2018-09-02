@@ -168,7 +168,7 @@ public class FaceRepository {
      * @param faceId 人脸 id
      * @return groupId
      */
-    private Observable<String> tryJoinGroup(@NonNull String faceId) {
+    public Observable<String> tryJoinGroup(@NonNull String faceId) {
         String userId = UserSpHelper.getUserId();
         if (TextUtils.isEmpty(userId)) {
             return Observable.error(new NullPointerException("userId == null"));

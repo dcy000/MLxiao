@@ -9,7 +9,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
 import com.gcml.auth.ui.signup.SignUpActivity;
 
-public class SignUpComponent implements IComponent{
+public class SignUpComponent implements IComponent {
     @Override
     public String getName() {
         return "com.gcml.auth.signup";

@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="presenter"
-            type="com.gcml.auth.ui.signin.SignInActivity"/>
+            type="com.gcml.auth.ui.signin.SignInActivity" />
+
         <variable
             name="signInViewModel"
-            type="com.gcml.auth.ui.signin.SignInViewModel"/>
+            type="com.gcml.auth.ui.signin.SignInViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -18,6 +20,7 @@
         android:background="#F7FDFF"
         android:onClick="@{() -> presenter.rootOnClick()}"
         tools:context=".ui.signin.SignInActivity">
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cl_auth_items"
             android:layout_width="1000pt"
@@ -55,8 +58,8 @@
                 android:background="@drawable/auth_sign_in_bg_et"
                 android:gravity="center_vertical"
                 android:hint="请输入你的密码"
-                android:maxLength="6"
                 android:inputType="textPassword"
+                android:maxLength="6"
                 android:paddingLeft="36pt"
                 android:paddingRight="36pt"
                 android:textColor="#FF333333"
@@ -85,31 +88,31 @@
                 android:id="@+id/tv_face_auth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="人脸登录"
                 android:layout_marginTop="16pt"
-                android:textColor="#FF3F86FC"
                 android:onClick="@{() -> presenter.goSignInByFace()}"
+                android:paddingBottom="40pt"
+                android:paddingRight="120pt"
+                android:paddingTop="20pt"
+                android:text="人脸登录"
+                android:textColor="#FF3F86FC"
                 android:textSize="44pt"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_sign_in"
-                app:layout_constraintTop_toBottomOf="@+id/tv_sign_in"
-                android:paddingTop="20pt"
-                android:paddingBottom="40pt"
-                android:paddingRight="120pt"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_sign_in" />
 
             <TextView
                 android:id="@+id/tv_forget_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16pt"
-                android:text="忘记密码"
                 android:onClick="@{() -> presenter.goForgetPassword()}"
+                android:paddingBottom="40pt"
+                android:paddingLeft="80pt"
+                android:paddingTop="20pt"
+                android:text="忘记密码"
                 android:textColor="#FF999999"
                 android:textSize="44pt"
                 app:layout_constraintRight_toRightOf="@+id/tv_sign_in"
-                app:layout_constraintTop_toBottomOf="@+id/tv_sign_in"
-                android:paddingLeft="80pt"
-                android:paddingBottom="40pt"
-                android:paddingTop="20pt"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_sign_in" />
         </android.support.constraint.ConstraintLayout>
 
         <ImageView
@@ -147,6 +150,7 @@
             android:layout_marginTop="36pt"
             android:checked="true"
             android:textSize="36pt"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="@+id/cl_auth_items"
             app:layout_constraintTop_toBottomOf="@+id/cl_auth_items" />
 
@@ -158,6 +162,7 @@
             android:text="我同意"
             android:textColor="@color/config_color_base_9"
             android:textSize="36pt"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/cb_agree_protocol"
             app:layout_constraintLeft_toRightOf="@+id/cb_agree_protocol"
             app:layout_constraintTop_toTopOf="@+id/cb_agree_protocol" />
@@ -171,6 +176,7 @@
             android:text="用户协议"
             android:textColor="#86B2FF"
             android:textSize="36pt"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/cb_agree_protocol"
             app:layout_constraintLeft_toRightOf="@+id/tv_agree"
             app:layout_constraintTop_toTopOf="@+id/cb_agree_protocol" />
@@ -193,11 +199,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10pt"
-            tools:text="v1.2.5"
             android:textColor="@color/config_color_base_8"
             android:textSize="36pt"
             app:layout_constraintBottom_toBottomOf="@+id/tv_copyright"
             app:layout_constraintLeft_toRightOf="@+id/tv_copyright"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="v1.2.5" />
     </android.support.constraint.ConstraintLayout>
 </layout>
