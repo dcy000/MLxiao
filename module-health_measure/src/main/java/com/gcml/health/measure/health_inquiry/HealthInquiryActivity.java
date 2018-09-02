@@ -1,6 +1,10 @@
 package com.gcml.health.measure.health_inquiry;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -54,7 +58,15 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
     private HealthInquiryBean healthInquiryBean;
     private static List<HealthInquiryBean.QuestionListBean> cacheDatas = new ArrayList<>();
     private String userId = "100206";
+    private DialogSureCancel mSureCancel;
 
+    public static void startActivity(Context context){
+        Intent intent=new Intent(context,HealthInquiryActivity.class);
+        if (!(context instanceof Activity)) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        context.startActivity(intent);
+    }
     public void addHealthInquiryBean(HealthInquiryBean.QuestionListBean cache) {
         if (cacheDatas == null) {
             cacheDatas = new ArrayList<>();
@@ -161,15 +173,18 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
     }
 
     private void showExitDialog() {
-        DialogSureCancel sureCancel = new DialogSureCancel(this);
-        sureCancel.setContent("您已经开始做题，是否要离开当前页面");
-        sureCancel.getSureView().setTextColor(Color.parseColor("#BBBBBB"));
-        sureCancel.getSureView().setText("确认离开");
-        sureCancel.getCancelView().setTextColor(getResources().getColor(R.color.color_3F86FC));
-        sureCancel.getCancelView().setText("继续做题");
-        sureCancel.show();
-        sureCancel.setOnClickCancelListener(null);
-        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
+        if (mSureCancel != null) {
+            mSureCancel.dismiss();
+        }
+        mSureCancel = new DialogSureCancel(this);
+        mSureCancel.setContent("您已经开始做题，是否要离开当前页面");
+        mSureCancel.getSureView().setTextColor(Color.parseColor("#BBBBBB"));
+        mSureCancel.getSureView().setText("确认离开");
+        mSureCancel.getCancelView().setTextColor(getResources().getColor(R.color.color_3F86FC));
+        mSureCancel.getCancelView().setText("继续做题");
+        mSureCancel.show();
+        mSureCancel.setOnClickCancelListener(null);
+        mSureCancel.setOnClickSureListener(new DialogClickSureListener() {
             @Override
             public void clickSure(BaseDialog dialog) {
                 //TODO:进入MainActivity
@@ -186,7 +201,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
             if (pageIndex < 6) {
                 replaceFragment(healthInquiryBean.getQuestionList().get(pageIndex), pageIndex++);
             } else {
-                //TODO：六道题全部做完，上传结果
+                //六道题全部做完，上传结果
                 HealthInquiryPostBean postBean = new HealthInquiryPostBean();
                 postBean.setEquipmentId(DeviceUtils.getIMEI());
                 postBean.setHmQuestionnaireId(healthInquiryBean.getHmQuestionnaireId());
@@ -241,6 +256,9 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
     protected void onDestroy() {
         super.onDestroy();
         cacheDatas = null;
+        if (mSureCancel != null) {
+            mSureCancel.dismiss();
+        }
     }
 
 

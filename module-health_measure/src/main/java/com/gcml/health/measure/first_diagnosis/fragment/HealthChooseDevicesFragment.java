@@ -47,7 +47,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
     private List<ChooseDeviceBean> deviceBeans;
     private BaseQuickAdapter<ChooseDeviceBean, BaseViewHolder> adapter;
     public static final String KEY_DEVICE_NUM = "key_device_num";
-    private String userId;
+    private String userId="100206";
 
     @Override
     protected int initLayout() {
@@ -112,6 +112,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
     @SuppressLint("CheckResult")
     private void initData() {
         this.deviceBeans = new ArrayList<>();
+        //TODO:测试结束后打开下面的注释
         userId = HealthMeasureSPManifest.getUserId();
         HealthMeasureRepository.getUserHasedDevices(userId)
                 .subscribeOn(Schedulers.io())

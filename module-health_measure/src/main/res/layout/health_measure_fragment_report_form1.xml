@@ -152,7 +152,7 @@
           android:layout_marginBottom="60pt"
           android:layout_marginLeft="48pt"
           android:layout_marginRight="48pt"
-          android:text="根据您的风险评估结果，向右滑动可查看相应报告"
+          android:text="根据您的风险评估结果，向左滑动可查看相应报告"
           android:textColor="#999999"
           android:textSize="48pt"
           app:layout_constraintBottom_toBottomOf="parent"
@@ -178,7 +178,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textColor="#333"
-          android:text="指标"
+          android:text="风险因素"
           android:textSize="64pt"
           android:textStyle="bold"
           app:layout_constraintLeft_toLeftOf="parent"
@@ -221,6 +221,7 @@
           android:layout_marginLeft="48pt"
           android:layout_marginRight="48pt"
           android:layout_marginTop="60pt"
-          android:layout_marginBottom="60pt"/>
+          android:layout_marginBottom="60pt"
+          android:overScrollMode="never"/>
    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

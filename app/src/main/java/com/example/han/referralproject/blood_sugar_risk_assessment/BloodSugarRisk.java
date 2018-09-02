@@ -15,7 +15,7 @@ public class BloodSugarRisk implements MultiItemEntity{
     public static final int TWO_BUTTON = 400;
     /**
      * seq : null
-     * answerList : [{"seq":0,"hmAnswerId":"03957ecb-b6c1-444e-a207-be31e2b317b7","hmQuestionId":"d99786d0-3269-469b-ab34-4133e6eca7be","hmQuestionnaireId":"64e3f45b-f093-440f-9667-3253bf0afb2c","answerInfo":"<45岁","answerScore":0},{"seq":0,"hmAnswerId":"050f3af2-9006-4357-a538-cd342063d89a","hmQuestionId":"d99786d0-3269-469b-ab34-4133e6eca7be","hmQuestionnaireId":"64e3f45b-f093-440f-9667-3253bf0afb2c","answerInfo":"45--54岁","answerScore":2},{"seq":0,"hmAnswerId":"a1e8c537-2efb-4afd-aa0e-8aa6bf031e90","hmQuestionId":"d99786d0-3269-469b-ab34-4133e6eca7be","hmQuestionnaireId":"64e3f45b-f093-440f-9667-3253bf0afb2c","answerInfo":"54--64岁","answerScore":3},{"seq":0,"hmAnswerId":"bf774ae8-ae0c-4437-b802-976df0e0fff4","hmQuestionId":"d99786d0-3269-469b-ab34-4133e6eca7be","hmQuestionnaireId":"64e3f45b-f093-440f-9667-3253bf0afb2c","answerInfo":">64岁","answerScore":4}]
+     * answerList : [{"seq":0,"hmAnswerId":"03957ecb-b6c1-444e-a207-be31e2b317b7","hmQuestionId":"d99786d0-3269-469b-ab34-4133e6eca7be","hmQuestionnaireId":"64e3f45b-f093-440f-9667-3253bf0afb2c","answerInfo":"<45岁","score":0},{"seq":0,"hmAnswerId":"050f3af2-9006-4357-a538-cd342063d89a","hmQuestionId":"d99786d0-3269-469b-ab34-4133e6eca7be","hmQuestionnaireId":"64e3f45b-f093-440f-9667-3253bf0afb2c","answerInfo":"45--54岁","score":2},{"seq":0,"hmAnswerId":"a1e8c537-2efb-4afd-aa0e-8aa6bf031e90","hmQuestionId":"d99786d0-3269-469b-ab34-4133e6eca7be","hmQuestionnaireId":"64e3f45b-f093-440f-9667-3253bf0afb2c","answerInfo":"54--64岁","score":3},{"seq":0,"hmAnswerId":"bf774ae8-ae0c-4437-b802-976df0e0fff4","hmQuestionId":"d99786d0-3269-469b-ab34-4133e6eca7be","hmQuestionnaireId":"64e3f45b-f093-440f-9667-3253bf0afb2c","answerInfo":">64岁","score":4}]
      * hmQuestionId : d99786d0-3269-469b-ab34-4133e6eca7be
      * hmQuestionnaireId : 64e3f45b-f093-440f-9667-3253bf0afb2c
      * questionName : 年龄
@@ -122,7 +122,7 @@ public class BloodSugarRisk implements MultiItemEntity{
          * hmQuestionId : d99786d0-3269-469b-ab34-4133e6eca7be
          * hmQuestionnaireId : 64e3f45b-f093-440f-9667-3253bf0afb2c
          * answerInfo : <45岁
-         * answerScore : 0
+         * score : 0
          */
 
         private int seq;

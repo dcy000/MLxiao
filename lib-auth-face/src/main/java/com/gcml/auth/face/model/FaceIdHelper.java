@@ -120,6 +120,8 @@ public class FaceIdHelper {
 
                     @Override
                     public void onError(SpeechError speechError) {
+                        //未检测到人脸 （11700）
+                        //模型或记录已存在 (10121)
                         Timber.e("Face sign up error");
                         emitter.onError(new FaceRepository.FaceError(
                                 ERROR_ON_FACE_SIGN_UP,

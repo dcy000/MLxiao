@@ -168,9 +168,17 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
                     @Override
                     public void onNext(Object o) {
                         ToastUtils.showShort("更新资料成功");
-                        CC.obtainBuilder("com.gcml.old.home")
+//                        CC.obtainBuilder("com.gcml.old.home")
+//                                .build()
+//                                .callAsync();
+                        CC.obtainBuilder("health_measure")
                                 .build()
                                 .callAsync();
+                        CC.obtainBuilder("health_measure")
+                                .setActionName("To_HealthInquiryActivity")
+                                .build()
+                                .call();
+
                         finish();
                     }
 

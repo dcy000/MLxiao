@@ -123,10 +123,12 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
 
     @Override
     public void updateData(String... datas) {
-        if (datas.length==2){
-            mTvTizhong.setText("0.00");
+        if (datas.length == 2) {
+            if (mTvTizhong != null) {
+                mTvTizhong.setText("0.00");
+            }
             isMeasureFinishedOfThisTime = false;
-        }else if (datas.length == 1) {
+        } else if (datas.length == 1) {
             if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[0]) != 0) {
                 isMeasureFinishedOfThisTime = true;
                 onMeasureFinished(datas[0]);

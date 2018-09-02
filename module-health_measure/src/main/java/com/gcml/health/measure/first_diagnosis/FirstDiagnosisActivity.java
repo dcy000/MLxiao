@@ -29,6 +29,8 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthSugarDetectionUiFr
 import com.gcml.health.measure.first_diagnosis.fragment.HealthTemperatureDetectionFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthThreeInOneDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
+import com.gcml.health.measure.health_report_form.HealthReportFormActivity;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.health.measure.R;
@@ -244,7 +246,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         //最后一个Fragment点击了下一步应该跳转到HealthReportFormActivity
         if (fragment.getClass().getSimpleName().equals(finalFragment)){
-            //TODO:跳转到HealthReportFormActivity
+            HealthReportFormActivity.startActivity(this);
             return;
         }
         //每次跳转到下一个Fragment的时候都应该把右上角的蓝牙按钮初始化

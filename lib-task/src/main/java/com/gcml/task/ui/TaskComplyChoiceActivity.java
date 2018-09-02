@@ -49,6 +49,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
     List<TaskHealthBean.QuestionListBean> mList = new ArrayList<>();
     TaskRepository mTaskRepository = new TaskRepository();
     TaskSchemaBean mPostData = new TaskSchemaBean();
+    private LoadingDialog mTipDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,10 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
 
     @SuppressLint("CheckResult")
     private void getTaskHealthData() {
-        LoadingDialog tipDialog = new LoadingDialog.Builder(TaskComplyChoiceActivity.this)
+        if (mTipDialog != null) {
+            mTipDialog.dismiss();
+        }
+        mTipDialog = new LoadingDialog.Builder(TaskComplyChoiceActivity.this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
@@ -109,13 +113,13 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) {
-                        tipDialog.show();
+                        mTipDialog.show();
                     }
                 })
                 .doOnTerminate(new Action() {
                     @Override
                     public void run() {
-                        tipDialog.dismiss();
+                        mTipDialog.dismiss();
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
@@ -295,15 +299,12 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        MLVoiceSynthetize.stop();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        MLVoiceSynthetize.destory();
+        if (mTipDialog != null) {
+            mTipDialog.dismiss();
+        }
+        MLVoiceSynthetize.stop();
     }
 
 }

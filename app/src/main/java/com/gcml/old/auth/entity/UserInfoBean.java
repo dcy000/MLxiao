@@ -1,5 +1,7 @@
 package com.gcml.old.auth.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class UserInfoBean implements Serializable {
@@ -24,7 +26,7 @@ public class UserInfoBean implements Serializable {
     public String smoke;
     public String drink;
     public String exerciseHabits;
-//    @SerializedName("user_photo")
+    @SerializedName("user_photo")
     public String userPhoto;
     public String xfid;
     public String hypertensionHand;

@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="根据您提供的相关病史结果，您已经患有糖尿"
-        android:textColor="#666"
+        android:textColor="#333"
         android:textSize="56pt"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -68,6 +68,7 @@
             android:layout_marginRight="40pt"
             android:layout_marginTop="48pt"/>
         <TextView
+            android:id="@+id/tv_advice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
