@@ -83,6 +83,8 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
                 setErrorState(false);
                 requestRetry(bundle);
                 break;
+            default:
+                break;
         }
     }
 
@@ -155,6 +157,8 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
             case OnPlayerEventListener.PLAYER_EVENT_ON_TIMER_UPDATE:
                 mCurrPosition = bundle.getInt(EventKey.INT_ARG1);
                 break;
+            default:
+                break;
         }
     }
 
@@ -188,12 +192,12 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
         int i = v.getId();
         if (i == R.id.tv_retry) {
             handleStatus();
-        }else if (i==R.id.jumpToNext){
+        } else if (i == R.id.jumpToNext) {
             if (jump2NextListener != null) {
-                notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_CLOSE,null);
+                notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_CLOSE, null);
                 jump2NextListener.clickJump2Next(v);
             }
-        }else if (i==R.id.ll_back){
+        } else if (i == R.id.ll_back) {
             notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_BACK, null);
         }
     }
