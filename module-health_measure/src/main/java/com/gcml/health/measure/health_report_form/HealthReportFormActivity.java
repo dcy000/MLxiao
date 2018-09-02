@@ -19,6 +19,7 @@ import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -43,7 +44,8 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
     private ViewPager mViewpage;
     private List<Fragment> fragments;
     public static final String KEY_DATA = "key_data";
-    public static final String KEY_TYPE="key_type";
+    public static final String KEY_TYPE = "key_type";
+
     public static void startActivity(Context context) {
         context.startActivity(new Intent(context, HealthReportFormActivity.class));
     }
@@ -53,7 +55,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_measure_activity_report_form);
         initView();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，请查看您的疾病风险评估报告，向左滑动查看详情");
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请查看您的疾病风险评估报告，向左滑动查看详情");
         getData();
 
     }
@@ -126,14 +128,14 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         Bundle bundle2 = new Bundle();
         if ("0".equals(dm)) {
             HealthReportFormFragment2 fragment2 = new HealthReportFormFragment2();
-            bundle2.putParcelable(KEY_DATA,firstReportBean);
-            bundle2.putString(KEY_TYPE,"糖尿病");
+            bundle2.putParcelable(KEY_DATA, firstReportBean);
+            bundle2.putString(KEY_TYPE, "糖尿病");
             fragment2.setArguments(bundle2);
             fragments.add(fragment2);
         } else if ("1".equals(dm)) {
             HealthReportFormFragment3 fragment2 = new HealthReportFormFragment3();
-            bundle2.putParcelable(KEY_DATA,firstReportBean);
-            bundle2.putString(KEY_TYPE,"糖尿病");
+            bundle2.putParcelable(KEY_DATA, firstReportBean);
+            bundle2.putString(KEY_TYPE, "糖尿病");
             fragment2.setArguments(bundle2);
             fragments.add(fragment2);
         }
@@ -142,14 +144,14 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         Bundle bundle3 = new Bundle();
         if ("0".equals(htn)) {
             HealthReportFormFragment2 fragment3 = new HealthReportFormFragment2();
-            bundle3.putParcelable(KEY_DATA,firstReportBean);
-            bundle3.putString(KEY_TYPE,"高血压");
+            bundle3.putParcelable(KEY_DATA, firstReportBean);
+            bundle3.putString(KEY_TYPE, "高血压");
             fragment3.setArguments(bundle3);
             fragments.add(fragment3);
         } else if ("1".equals(htn)) {
             HealthReportFormFragment3 fragment3 = new HealthReportFormFragment3();
-            bundle3.putParcelable(KEY_DATA,firstReportBean);
-            bundle3.putString(KEY_TYPE,"高血压");
+            bundle3.putParcelable(KEY_DATA, firstReportBean);
+            bundle3.putString(KEY_TYPE, "高血压");
             fragment3.setArguments(bundle3);
             fragments.add(fragment3);
         }
@@ -158,14 +160,14 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         Bundle bundle4 = new Bundle();
         if ("0".equals(fat)) {
             HealthReportFormFragment2 fragment4 = new HealthReportFormFragment2();
-            bundle4.putParcelable(KEY_DATA,firstReportBean);
-            bundle4.putString(KEY_TYPE,"肥胖症");
+            bundle4.putParcelable(KEY_DATA, firstReportBean);
+            bundle4.putString(KEY_TYPE, "肥胖症");
             fragment4.setArguments(bundle4);
             fragments.add(fragment4);
         } else if ("1".equals(fat)) {
             HealthReportFormFragment3 fragment4 = new HealthReportFormFragment3();
-            bundle4.putParcelable(KEY_DATA,firstReportBean);
-            bundle4.putString(KEY_TYPE,"肥胖症");
+            bundle4.putParcelable(KEY_DATA, firstReportBean);
+            bundle4.putString(KEY_TYPE, "肥胖症");
             fragment4.setArguments(bundle4);
             fragments.add(fragment4);
         }
@@ -174,14 +176,14 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         Bundle bundle5 = new Bundle();
         if ("0".equals(icvd)) {
             HealthReportFormFragment2 fragment5 = new HealthReportFormFragment2();
-            bundle5.putParcelable(KEY_DATA,firstReportBean);
-            bundle5.putString(KEY_TYPE,"心血管病");
+            bundle5.putParcelable(KEY_DATA, firstReportBean);
+            bundle5.putString(KEY_TYPE, "心血管病");
             fragment5.setArguments(bundle5);
             fragments.add(fragment5);
         } else if ("1".equals(icvd)) {
             HealthReportFormFragment3 fragment5 = new HealthReportFormFragment3();
-            bundle5.putParcelable(KEY_DATA,firstReportBean);
-            bundle5.putString(KEY_TYPE,"心血管病");
+            bundle5.putParcelable(KEY_DATA, firstReportBean);
+            bundle5.putString(KEY_TYPE, "心血管病");
             fragment5.setArguments(bundle5);
             fragments.add(fragment5);
         }
@@ -198,6 +200,40 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
             @Override
             public int getCount() {
                 return fragments.size();
+            }
+        });
+        mViewpage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        mTitleText.setText("健 康 报 告");
+                        break;
+                    case 1:
+                        mTitleText.setText("糖 尿 病 评 估 报 告");
+                        break;
+                    case 2:
+                        mTitleText.setText("高 血 压 评 估 报 告");
+                        break;
+                    case 3:
+                        mTitleText.setText("肥 胖 症 评 估 报 告");
+                        break;
+                    case 4:
+                        mTitleText.setText("心 血 管 病 评 估 报 告");
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
     }
@@ -235,5 +271,4 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
             loadingDialog.dismiss();
         }
     }
-
 }

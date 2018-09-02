@@ -3,6 +3,7 @@ package com.gcml.health.measure.single_measure.fragment;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -44,7 +45,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
                 lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
             }
             if (sugarData != null && cholesterolData != null && lithicAcidData != null) {
-                MLVoiceSynthetize.startSynthesize(getContext(), "主人，您本次测量血糖"
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖"
                         + sugarData.getBloodSugar() + ",尿酸" + lithicAcidData.getUricAcid() + ",胆固醇"
                         + cholesterolData.getCholesterol(), false);
                 datas.add(sugarData);
@@ -67,8 +68,8 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        MLVoiceSynthetize.stop();
+    public void onDestroyView() {
+        super.onDestroyView();
+        MLVoiceSynthetize.destory();
     }
 }

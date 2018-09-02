@@ -145,6 +145,11 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
     }
 
     @Override
+    protected void backMainActivity() {
+        CCAppActions.jump2MainActivity();
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_measure_activity_show_measure_bloodpressure_result);
@@ -322,6 +327,10 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
         mCurrentDiya.setText(String.valueOf(currentLowBloodpressure));
         currentSuggest = getIntent().getStringExtra("suggest");
         mTvSuggest.setText(currentSuggest);
+
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+                "主人，您本次测量高压"+currentHighBloodpressure+",低压"
+                        +currentLowBloodpressure+",健康分数"+healthScore+"分。"+currentSuggest);
 
     }
 

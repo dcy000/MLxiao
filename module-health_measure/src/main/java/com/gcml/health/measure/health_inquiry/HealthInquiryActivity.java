@@ -137,7 +137,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
         mToolbar.setVisibility(View.GONE);
         HealthFirstTipsFragment firstTipsFragment = new HealthFirstTipsFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title", "主人，做一个风险评估吧！");
+        bundle.putString("title", "初次见面，我是小E！为了更好地了解您的身体，先来做一个全套体检吧!");
         firstTipsFragment.setArguments(bundle);
         firstTipsFragment.setOnFragmentChangedListener(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, firstTipsFragment).commit();
@@ -236,6 +236,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                             public void onNext(Object o) {
                                 ToastUtils.showShort("上传数据成功");
                                 FirstDiagnosisActivity.startActivity(HealthInquiryActivity.this);
+                                finish();
                             }
 
                             @Override

@@ -3,6 +3,7 @@ package com.gcml.health.measure.single_measure.fragment;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -20,7 +21,7 @@ public class SingleMeasureTemperatureFragment extends Temperature_Fragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
-            MLVoiceSynthetize.startSynthesize(getContext(),"主人，您本次测量耳温"+results[0]+"摄氏度",false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，您本次测量耳温"+results[0]+"摄氏度",false);
             ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData temperatureData = new DetectionData();
             //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
@@ -42,8 +43,8 @@ public class SingleMeasureTemperatureFragment extends Temperature_Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        MLVoiceSynthetize.stop();
+    public void onDestroyView() {
+        super.onDestroyView();
+        MLVoiceSynthetize.destory();
     }
 }

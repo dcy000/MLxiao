@@ -44,10 +44,10 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
             String title = bundle.getString("title");
             ((TextView) view.findViewById(R.id.tv_tips)).setText(title);
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                    "主人，做一个风险评估吧", onSynthesizerListener,false);
+                    "初次见面，我是小E！为了更好地了解您的身体，先来做一个全套体检吧", onSynthesizerListener,false);
         }else{
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                    "初次见面，和小E一起做个全套体检吧", onSynthesizerListener, false);
+                    "恭喜您完成问卷，下面让我们进行身体指标检测吧", onSynthesizerListener, false);
         }
         ivGrayBack = view.findViewById(R.id.ivGrayBack);
         ivGrayBack.setOnClickListener(this);
