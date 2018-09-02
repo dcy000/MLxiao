@@ -306,6 +306,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
             if (error) {
                 if (hasSkip) {
                     result = CCResult.error("skip");
+                    result.addData("userId", UserSpHelper.getUserId());
                 } else {
                     result = CCResult.error("人脸验证未通过");
                 }

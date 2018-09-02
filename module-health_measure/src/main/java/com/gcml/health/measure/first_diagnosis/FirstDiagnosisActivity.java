@@ -453,9 +453,15 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        MLVoiceSynthetize.stop();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         bloodpressureCacheData = null;
-        MLVoiceSynthetize.stop();
+
     }
 }
