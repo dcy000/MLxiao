@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -132,7 +133,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                         mPostData.equipmentId = Utils.getDeviceId(getContentResolver());
                         mPostData.hmQuestionnaireId = body.hmQuestionnaireId;
                         mPostData.hmQuestionnaireName = body.questionnaireName;
-                        mPostData.userId = Integer.parseInt((String) SPUtil.get("user_id", ""));
+                        mPostData.userId = Integer.parseInt(UserSpHelper.getUserId());
                         mPostData.score = 0;
                         mPostData.answerList = new ArrayList<>();
                         for (int i = 0; i < mList.size(); i++) {
@@ -225,7 +226,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在上传")
                 .create();
-        mTaskRepository.taskHealthListForApi(mPostData, (String) SPUtil.get("user_id",""))
+        mTaskRepository.taskHealthListForApi(mPostData, UserSpHelper.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
