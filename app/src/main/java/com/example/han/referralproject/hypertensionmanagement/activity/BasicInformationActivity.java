@@ -46,6 +46,7 @@ public class BasicInformationActivity extends BaseActivity {
                 tvNameInfo.setText(response.bname);
                 tvSexInfo.setText(response.sex);
                 tvHeightInfo.setText(response.height + "cm");
+                tvBirthInfo.setText(response.birthday);
             }
         }, message -> ToastUtils.showShort(message));
     }

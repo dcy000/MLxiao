@@ -29,7 +29,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class RadioActivity extends BaseActivity {
+import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+
+public class RadioActivity extends BaseActivity implements
+        IMediaPlayer.OnPreparedListener,
+        IMediaPlayer.OnErrorListener,
+        IMediaPlayer.OnBufferingUpdateListener,
+        IMediaPlayer.OnCompletionListener,
+        IMediaPlayer.OnInfoListener,
+        IMediaPlayer.OnSeekCompleteListener {
     private static final String TAG = "radio";
     private RecyclerView rvRadios;
     private List<RadioEntity> entities = new ArrayList<>();
@@ -63,6 +72,7 @@ public class RadioActivity extends BaseActivity {
             @Override
             public void run() {
                 audioHandler.removeCallbacksAndMessages(null);
+                stopPlay();
             }
         });
         super.onDestroy();
@@ -77,12 +87,12 @@ public class RadioActivity extends BaseActivity {
 
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
-        ivPauseOrPlay = findViewById(R.id.old_iv_pause_or_play);
-        ivPrev = findViewById(R.id.old_iv_prev);
-        ivNext = findViewById(R.id.old_iv_next);
-        tvSelectedFm = findViewById(R.id.old_tv_selected_fm);
-        tvSelectedName = findViewById(R.id.old_tv_selected_name);
-        rvRadios = findViewById(R.id.old_rv_radios);
+        ivPauseOrPlay = (ImageView) findViewById(R.id.old_iv_pause_or_play);
+        ivPrev = (ImageView) findViewById(R.id.old_iv_prev);
+        ivNext = (ImageView) findViewById(R.id.old_iv_next);
+        tvSelectedFm = (TextView) findViewById(R.id.old_tv_selected_fm);
+        tvSelectedName = (TextView) findViewById(R.id.old_tv_selected_name);
+        rvRadios = (RecyclerView) findViewById(R.id.old_rv_radios);
 
         findViewById(R.id.old_iv_radio_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +123,7 @@ public class RadioActivity extends BaseActivity {
                     fetchFm();
                 } else {
                     Handlers.bg().removeCallbacks(fetchAction);
+                    stopPlay();
                 }
             }
         });
@@ -157,6 +168,7 @@ public class RadioActivity extends BaseActivity {
     @Override
     protected void onPause() {
         onStopped();
+        stopPlay();
         super.onPause();
     }
 
@@ -193,9 +205,11 @@ public class RadioActivity extends BaseActivity {
                 audioHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        startPlay(audiopath);
                     }
                 });
             } else {
+                hideLoadingDialog();
                 speak("主人，未搜索到该频道，请更换频道再试");
             }
 
@@ -288,8 +302,8 @@ public class RadioActivity extends BaseActivity {
             super(itemView);
             this.onItemClickListener = onItemClickListener;
             indicator = itemView.findViewById(R.id.old_radio_indicator);
-            tvName = itemView.findViewById(R.id.old_radio_name);
-            tvFm = itemView.findViewById(R.id.old_tv_fm);
+            tvName = (TextView) itemView.findViewById(R.id.old_radio_name);
+            tvFm = (TextView) itemView.findViewById(R.id.old_tv_fm);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -301,6 +315,7 @@ public class RadioActivity extends BaseActivity {
         }
     }
 
+    private volatile IjkMediaPlayer mPlayer;
 
     private volatile boolean isPlaying;
 
@@ -317,17 +332,84 @@ public class RadioActivity extends BaseActivity {
         @Override
         public void onAudioFocusChange(int focusChange) {
             if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
+                pausePlay();
             }
 
             if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
                 onStopped();
+                stopPlay();
                 return;
             }
             if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+                resumePlay();
             }
         }
     };
 
+    private void pausePlay() {
+        String url = this.url;
+        if (url != null && mPlayer != null && mPlayer.isPlaying()) {
+            onStopped();
+            audioHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mPlayer.pause();
+                }
+            });
+        }
+    }
+
+    private void resumePlay() {
+        String url = this.url;
+        if (url != null && mPlayer != null && !mPlayer.isPlaying()) {
+            onPlaying();
+            audioHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mPlayer.start();
+                }
+            });
+        }
+    }
+
+    private String url;
+
+    public void startPlay(String url) {
+        this.url = url;
+        int result = audioManager.requestAudioFocus(
+                onAudioFocusChangeListener,
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN
+        );
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            startPlayActually(url);
+        }
+    }
+
+    private void startPlayActually(String url) {
+        if (mPlayer != null) {
+            mPlayer.stop();
+            mPlayer.release();
+            mPlayer = null;
+        }
+        onPlaying();
+        mPlayer = new IjkMediaPlayer();
+        try {
+            mPlayer.setDataSource(url);
+            mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mPlayer.setOnPreparedListener(this);
+            mPlayer.setOnErrorListener(this);
+            mPlayer.setOnBufferingUpdateListener(this);
+            mPlayer.setOnCompletionListener(this);
+            mPlayer.setOnInfoListener(this);
+            mPlayer.setOnSeekCompleteListener(this);
+            mPlayer.prepareAsync();
+        } catch (Throwable e) {
+            e.printStackTrace();
+            stopPlay();
+            onStopped();
+        }
+    }
 
     private volatile boolean isBuffering;
 
@@ -359,4 +441,54 @@ public class RadioActivity extends BaseActivity {
         });
     }
 
+    private void stopPlay() {
+        audioManager.abandonAudioFocus(onAudioFocusChangeListener);
+        if (mPlayer != null) {
+            audioHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mPlayer.stop();
+                    mPlayer.release();
+                    mPlayer = null;
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onPrepared(IMediaPlayer player) {
+        Log.d(TAG, "onPrepared: ");
+        player.start();
+    }
+
+    @Override
+    public boolean onError(IMediaPlayer player, int i, int i1) {
+        Log.d(TAG, "onError: " + i + " " + i1);
+        stopPlay();
+        onStopped();
+        return true;
+    }
+
+    @Override
+    public void onBufferingUpdate(IMediaPlayer player, int i) {
+        Log.d(TAG, "onBufferingUpdate: " + i);
+    }
+
+    @Override
+    public void onCompletion(IMediaPlayer player) {
+        Log.d(TAG, "onCompletion: ");
+        stopPlay();
+        onStopped();
+    }
+
+    @Override
+    public boolean onInfo(IMediaPlayer player, int i, int i1) {
+        Log.d(TAG, "onInfo: " + i + " " + i1);
+        return true;
+    }
+
+    @Override
+    public void onSeekComplete(IMediaPlayer player) {
+        Log.d(TAG, "onSeekComplete: ");
+    }
 }

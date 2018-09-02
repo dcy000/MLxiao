@@ -6,6 +6,7 @@ public class UserInfoBean implements Serializable {
     public String bid;
     public String categoryid;
     public String doct;
+    public String birthday;
     public String eq;
     public String bname;
     public String sex;

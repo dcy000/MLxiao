@@ -261,7 +261,7 @@ public class BaseActivity extends AppCompatActivity {
                 jpushTitle.setText(title);
             }
             jpushText.setText(message);
-            jpushTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(),new SimpleDateFormat("yyyy.MM.dd HH:mm")));
+            jpushTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy.MM.dd HH:mm")));
             final LinearLayout jpushLl = view.findViewById(R.id.jpush_ll);
             final RealtimeBlurView jpushRbv = view.findViewById(R.id.jpush_rbv);
             ViewTreeObserver vto = jpushLl.getViewTreeObserver();
@@ -795,20 +795,26 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void showLoadingDialog(String message) {
-        if (mDialog == null) {
-            mDialog = new ProgressDialog(mContext);
-            mDialog.setCanceledOnTouchOutside(false);
-            mDialog.setIndeterminate(true);
-            mDialog.setMessage(message);
+        if (mDialog != null) {
+            mDialog.dismiss();
         }
+        mDialog = new ProgressDialog(mContext);
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.setIndeterminate(true);
+        mDialog.setMessage(message);
         mDialog.show();
     }
 
 
     public void hideLoadingDialog() {
-        if (mDialog == null) {
-            return;
+        if (mDialog != null) {
+            mDialog.dismiss();
         }
-        mDialog.dismiss();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        hideLoadingDialog();
     }
 }
