@@ -1,4 +1,4 @@
-package com.example.han.referralproject.hypertensionmanagement.util;
+package com.gcml.common.data;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -50,8 +50,10 @@ public class AppManager {
      * 结束当前Activity（堆栈中最后一个压入的）
      */
     public void finishActivity() {
-        Activity activity = activityStack.lastElement();
-        finishActivity(activity);
+        if (!activityStack.isEmpty()) {
+            Activity activity = activityStack.lastElement();
+            finishActivity(activity);
+        }
     }
 
     /**

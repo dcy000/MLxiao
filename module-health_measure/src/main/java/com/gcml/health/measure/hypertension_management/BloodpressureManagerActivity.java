@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gcml.common.data.AppManager;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
@@ -38,6 +39,7 @@ public class BloodpressureManagerActivity extends BaseManagementActivity{
         bundle.putBoolean("isOnlyShowBtnHealthRecord",true);
         singleMeasureBloodpressureFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame,singleMeasureBloodpressureFragment).commit();
+        AppManager.getAppManager().addActivity(this);
         super.dealLogic();
     }
 

@@ -15,7 +15,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceStringFragment;
-import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
+import com.gcml.common.data.AppManager;
 import com.medlink.danbogh.alarm.AlarmDetail2Activity;
 
 import java.util.Arrays;

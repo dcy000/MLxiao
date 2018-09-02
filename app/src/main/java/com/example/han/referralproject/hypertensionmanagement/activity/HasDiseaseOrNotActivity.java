@@ -11,7 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceStringFragment;
-import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
+import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;

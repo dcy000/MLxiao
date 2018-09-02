@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.data.AppManager;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
@@ -45,7 +46,8 @@ public class WeightManagerActivity extends BaseManagementActivity {
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         //点击了下一步
         CCResultActions.onCCResultAction(ResultAction.MEASURE_SUCCESS);
-        CC.obtainBuilder("com.gcml.old.finishAll").build().callAsync();
+//        CC.obtainBuilder("com.gcml.old.finishAll").build().callAsync();
+        AppManager.getAppManager().finishAllActivity();
         finish();
     }
 }

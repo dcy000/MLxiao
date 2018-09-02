@@ -19,7 +19,7 @@ import com.example.han.referralproject.health_manager_program.TreatmentPlanActiv
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionBean;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceFragment;
-import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
+import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
