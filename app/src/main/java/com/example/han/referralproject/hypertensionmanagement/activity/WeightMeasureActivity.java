@@ -7,7 +7,7 @@ import android.widget.FrameLayout;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WeigtMeasureFragment;
-import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
+import com.gcml.common.data.AppManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

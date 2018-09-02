@@ -931,6 +931,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
 
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
@@ -938,7 +939,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                 boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -957,6 +958,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "xueyang");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
@@ -964,7 +966,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                 boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -981,6 +983,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "xuetang");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
@@ -988,9 +991,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                 boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
+
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
                             }
@@ -1003,6 +1007,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "wendu");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
@@ -1010,7 +1015,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                 boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1026,14 +1031,15 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "xindian");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2XinDianDetectActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1048,14 +1054,15 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "sanheyi");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1071,6 +1078,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "tizhong");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
@@ -1078,7 +1086,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                 boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1276,14 +1284,15 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "xueya");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1307,6 +1316,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "xueyang");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
@@ -1314,7 +1324,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                 boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1338,14 +1348,15 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "wendu");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1370,14 +1381,15 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "xuetang");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1401,14 +1413,15 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "xindian");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2XinDianDetectActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1432,6 +1445,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "tizhong");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
@@ -1464,6 +1478,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                bundle.putString("fromType", "sanheyi");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
@@ -1471,7 +1486,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                 boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());

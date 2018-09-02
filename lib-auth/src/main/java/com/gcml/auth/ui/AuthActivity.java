@@ -13,6 +13,7 @@ import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.app.AppUtils;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -93,5 +94,18 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
                 .setActionName("protocol")
                 .build()
                 .callAsync();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(),
+                "主人，欢迎使用健康管家，如果您已经有账号，请选择手机或人脸登录。如果还没有账号，请点击立即注册。");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MLVoiceSynthetize.stop();
     }
 }

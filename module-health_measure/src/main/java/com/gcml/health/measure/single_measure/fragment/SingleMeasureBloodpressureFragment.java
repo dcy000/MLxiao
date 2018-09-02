@@ -1,5 +1,7 @@
 package com.gcml.health.measure.single_measure.fragment;
 
+import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
@@ -26,13 +28,24 @@ import java.util.List;
  * description:单次血压测量
  */
 public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
-    //提供者两个方法的目的是方便外部对这两个按钮进行显示和隐藏
-    public TextView getHealthRecordView(){
-        return mBtnHealthHistory;
+
+    private boolean isOnlyShowBtnHealthRecord;
+
+    public SingleMeasureBloodpressureFragment() {
     }
-    public TextView getVideoDemoView(){
-        return mBtnVideoDemo;
+
+    @Override
+    protected void initView(View view, Bundle bundle) {
+        super.initView(view, bundle);
+        if (bundle!=null){
+            isOnlyShowBtnHealthRecord = bundle.getBoolean("isOnlyShowBtnHealthRecord");
+            if (isOnlyShowBtnHealthRecord) {
+                mBtnVideoDemo.setVisibility(View.GONE);
+                mBtnHealthHistory.setText("下一步");
+            }
+        }
     }
+
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3) {
@@ -61,8 +74,10 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
                         if (apiResponse.isSuccessful()) {
                             ToastUtils.showLong("上传数据成功");
                             DetectionResult result = apiResponse.getData().get(0);
-                            ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
-                                    result.getScore(), highPressure, lowPressure, result.getResult());
+                            if (!isOnlyShowBtnHealthRecord) {
+                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
+                                        result.getScore(), highPressure, lowPressure, result.getResult());
+                            }
                             return;
                         }
                     } catch (Throwable e) {

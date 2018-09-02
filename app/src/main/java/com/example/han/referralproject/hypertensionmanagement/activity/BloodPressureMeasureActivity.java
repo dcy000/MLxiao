@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.intelligentdetection.HealthBloodDetectionFragment;
 import com.example.han.referralproject.hypertensionmanagement.fragment.BloodPresureMeasuerFragment;
-import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
+import com.gcml.common.data.AppManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;

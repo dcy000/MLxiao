@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="presenter"
-            type="com.gcml.auth.ui.AuthActivity"/>
+            type="com.gcml.auth.ui.AuthActivity" />
+
         <variable
             name="authViewModel"
             type="com.gcml.auth.ui.AuthViewModel" />
@@ -121,6 +123,7 @@
             android:layout_marginTop="36pt"
             android:checked="true"
             android:textSize="36pt"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="@+id/cl_auth_items"
             app:layout_constraintTop_toBottomOf="@+id/cl_auth_items" />
 
@@ -132,6 +135,7 @@
             android:text="我同意"
             android:textColor="@color/config_color_base_9"
             android:textSize="36pt"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/cb_agree_protocol"
             app:layout_constraintLeft_toRightOf="@+id/cb_agree_protocol"
             app:layout_constraintTop_toTopOf="@+id/cb_agree_protocol" />
@@ -145,6 +149,7 @@
             android:text="用户协议"
             android:textColor="#86B2FF"
             android:textSize="36pt"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/cb_agree_protocol"
             app:layout_constraintLeft_toRightOf="@+id/tv_agree"
             app:layout_constraintTop_toTopOf="@+id/cb_agree_protocol" />
@@ -158,20 +163,20 @@
             android:textColor="@color/config_color_base_8"
             android:textSize="36pt"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/tv_app_version" />
+            app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
             android:id="@+id/tv_app_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="48pt"
             android:layout_marginLeft="10pt"
-            android:text="v1.2.5"
+            android:layout_marginRight="48pt"
             android:textColor="@color/config_color_base_8"
             android:textSize="36pt"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_copyright"
-            app:layout_constraintLeft_toRightOf="@+id/tv_copyright"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="v1.2.5" />
     </android.support.constraint.ConstraintLayout>
 </layout>

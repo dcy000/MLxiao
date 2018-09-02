@@ -46,7 +46,7 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
         binding.setPresenter(this);
         binding.tbSimpleProfile.setData(
                 "完 善 信 息",
-                R.drawable.common_icon_back, "返回",
+                0, null,
                 R.drawable.common_icon_home, null,
                 barClickListener);
         binding.tvMan.setSelected(manSelected);
@@ -191,8 +191,16 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        MLVoiceSynthetize.stop();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(),
+                "请完善您的个人信息");
         dismissLoading();
     }
 

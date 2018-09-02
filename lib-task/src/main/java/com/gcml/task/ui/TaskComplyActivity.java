@@ -42,7 +42,7 @@ public class TaskComplyActivity extends AppCompatActivity implements View.OnClic
         mTitle.setText("请跟小E来做个问卷吧，");
         mMessage.setText("小E会根据您的问卷结果给您制定健康任务。");
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                "请跟小E来做个问卷吧，小E会根据您的问卷结果给您制定健康任务。",
+                "欢迎来到每日任务，让小E先咨询您几个问题吧。",
                 false);
         mBack.setOnClickListener(this);
     }

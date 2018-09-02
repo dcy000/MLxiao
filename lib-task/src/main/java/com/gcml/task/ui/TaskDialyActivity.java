@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -176,7 +175,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
             wheel.wineType = item;
             wheel.drink = (int) (selectedValue * sportMulriple);
         }
-        wheel.userid = Integer.parseInt(UserSpHelper.getUserId());
+        wheel.userid = Integer.parseInt((String) SPUtil.get("user_id",""));
         postWheelData(wheel);
     }
 
@@ -186,7 +185,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在上传")
                 .create();
-        mTaskRepository.taskWheelListForApi(wheel, UserSpHelper.getUserId())
+        mTaskRepository.taskWheelListForApi(wheel, (String) SPUtil.get("user_id",""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {

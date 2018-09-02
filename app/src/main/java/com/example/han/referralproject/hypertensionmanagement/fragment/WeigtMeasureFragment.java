@@ -17,7 +17,7 @@ import com.example.han.referralproject.health.intelligentdetection.HealthWeightD
 import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
 import com.example.han.referralproject.health.model.DetailsModel;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
-import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
+import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkCallback;
 import com.gcml.lib_utils.display.ToastUtils;

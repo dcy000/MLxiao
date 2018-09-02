@@ -78,18 +78,16 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_wifi_state"
+        <TextView
+            android:id="@+id/tv_skip"
             android:layout_width="240pt"
             android:layout_height="200pt"
             android:background="@drawable/common_bg_btn_transparent"
-            android:onClick="@{()->presenter.goWifi()}"
-            android:paddingBottom="40pt"
-            android:paddingLeft="60pt"
-            android:paddingRight="60pt"
-            android:paddingTop="40pt"
-            android:src="@drawable/common_ic_wifi_state"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:gravity="center"
+            android:onClick="@{()->presenter.skip()}"
+            android:text="跳过"
+            android:textColor="@color/config_color_base_3"
+            android:textSize="50pt"
+            app:layout_constraintRight_toRightOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </layout>
