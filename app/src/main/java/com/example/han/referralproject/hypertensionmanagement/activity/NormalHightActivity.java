@@ -205,7 +205,7 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
     private int getScore(PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean answerBean, int[] checked) {
         int score = 0;
         for (int i = 0; i < checked.length; i++) {
-            score += answerBean.answerList.get(checked[i]).score;
+            score += answerBean.answerList.get(checked[i]).answerScore;
         }
         return score;
     }
