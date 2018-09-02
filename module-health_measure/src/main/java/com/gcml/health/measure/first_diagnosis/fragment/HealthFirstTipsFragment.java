@@ -47,7 +47,7 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
                     "主人，做一个风险评估吧", onSynthesizerListener,false);
         }else{
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                    "初次见面，我是小E,来做个全套体检吧", onSynthesizerListener, false);
+                    "初次见面，和小E一起做个全套体检吧", onSynthesizerListener, false);
         }
         ivGrayBack = view.findViewById(R.id.ivGrayBack);
         ivGrayBack.setOnClickListener(this);
