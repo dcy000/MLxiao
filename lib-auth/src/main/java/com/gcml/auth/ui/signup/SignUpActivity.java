@@ -269,6 +269,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         ToastUtils.showShort("注册失败");
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "注册失败");
                     }
                 });
     }
