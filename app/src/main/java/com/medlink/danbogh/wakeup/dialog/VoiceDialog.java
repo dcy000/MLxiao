@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.gcml.lib_utils.data.StringUtil;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_widget.VoiceLineView;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;
@@ -104,6 +105,7 @@ public class VoiceDialog extends Dialog {
 
             @Override
             public void onMLResult(String result) {
+                ToastUtils.showShortOnCentet(result);
                 DataDealHelper helper = new DataDealHelper();
                 helper.setListener(() -> {
                     dismiss();
