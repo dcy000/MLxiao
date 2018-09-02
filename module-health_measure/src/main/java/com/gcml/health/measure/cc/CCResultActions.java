@@ -1,5 +1,7 @@
 package com.gcml.health.measure.cc;
 
+import android.support.v4.app.Fragment;
+
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 
@@ -50,5 +52,13 @@ public class CCResultActions {
      */
     public static void onCCResultAction(String action) {
         CC.sendCCResult(ccId, CCResult.success(ResultKeys.KEY_EXTRA_CC_CALLBACK, action));
+    }
+
+    /**
+     * 返回一个Fragment对象
+     * @param fragment
+     */
+    public static void onCCResultActionWithFragmentBean(Fragment fragment){
+        CC.sendCCResult(ccId,CCResult.success(ResultKeys.KEY_EXTRA_CC_CALLBACK,fragment));
     }
 }

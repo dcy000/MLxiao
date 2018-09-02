@@ -1,8 +1,12 @@
 package com.gcml.health.measure.single_measure.fragment;
 
+import android.text.TextUtils;
+
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -20,7 +24,18 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
-            MLVoiceSynthetize.startSynthesize(getContext(), "主人，您本次测量体重" + results[0] + "公斤", false);
+            //得到身高和体重，再计算一下体质
+            if (mTvTizhi!=null){
+                String userHeight = HealthMeasureSPManifest.getUserHeight();
+                if (!TextUtils.isEmpty(userHeight)) {
+                    float parseFloat = Float.parseFloat(userHeight);
+                    float weight = Float.parseFloat(results[0]);
+                    if (mTvTizhi != null) {
+                        mTvTizhi.setText(String.format("%.2f", weight / (parseFloat * parseFloat / 10000)));
+                    }
+                }
+            }
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量体重" + results[0] + "公斤", false);
             ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData data = new DetectionData();
             //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
@@ -41,9 +56,10 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
         }
     }
 
+
     @Override
-    public void onStop() {
-        super.onStop();
-        MLVoiceSynthetize.stop();
+    public void onDestroyView() {
+        super.onDestroyView();
+        MLVoiceSynthetize.destory();
     }
 }

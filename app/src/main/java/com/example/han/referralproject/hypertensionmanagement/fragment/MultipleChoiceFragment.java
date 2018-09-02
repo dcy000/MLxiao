@@ -71,7 +71,7 @@ public class MultipleChoiceFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         arguments = getArguments();
         tvTitle.setText(arguments.getString(TIP_CONTENT));
-        tvTipContent.setText(arguments.getString(WARM_TIP));
+//        tvTipContent.setText(arguments.getString(WARM_TIP));
         questionBean = (PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean) arguments.getSerializable(CONTENT_STRINGS);
         items = getStrings(questionBean);
         initGV(arguments);
@@ -87,10 +87,13 @@ public class MultipleChoiceFragment extends Fragment {
             tvButton.setVisibility(View.VISIBLE);
             //设置3列
             gridView.setNumColumns(3);
+            //辅助提示
+            tvTipContent.setVisibility(View.VISIBLE);
         } else {
             gridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
             tvButton.setVisibility(View.GONE);
             gridView.setNumColumns(1);
+            tvTipContent.setVisibility(View.GONE);
         }
     }
 
@@ -152,6 +155,7 @@ public class MultipleChoiceFragment extends Fragment {
 
         if (listener != null) {
             if (checked.length == 0) {
+                MLVoiceSynthetize.startSynthesize(getActivity(), "请至少选择一个选项", false);
                 return;
             }
             listener.onNextStep(checked, questionBean);

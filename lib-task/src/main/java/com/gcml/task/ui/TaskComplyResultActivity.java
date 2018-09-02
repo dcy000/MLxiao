@@ -89,7 +89,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
 
         testContent1.setText(resultBean.detectionPlan.HTN);
         testContent2.setText(resultBean.detectionPlan.weight);
-        testContent3.setText(resultBean.detectionPlan.GLU);
+        testContent3.setText(resultBean.detectionPlan.htn);
 
         sportContent1.setText("");
         sportContent2.setText("");

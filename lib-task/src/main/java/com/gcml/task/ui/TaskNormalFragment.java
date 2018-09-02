@@ -69,7 +69,8 @@ public class TaskNormalFragment extends Fragment {
         progressMsg.setText("完成进度");
         int done = 0;
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).complitionStatus.equals("1")) {
+            TaskBean.TaskListBean taskListBean = list.get(i);
+            if ("1".equals(taskListBean.complitionStatus)) {
                 done++;
             }
         }

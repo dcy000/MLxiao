@@ -43,5 +43,14 @@
         <activity android:name=".health_report_form.HealthReportFormDetailActivity"
             android:screenOrientation="landscape"
             android:label="结果分析详情页"/>
+        <activity android:name=".hypertension_management.BloodpressureManagerActivity"
+            android:screenOrientation="landscape"
+            android:label="慢病管理中的血压测量"/>
+        <activity android:name=".hypertension_management.BloodsugarManagerActivity"
+            android:screenOrientation="landscape"
+            android:label="慢病管理中的血糖测量"/>
+        <activity android:name=".hypertension_management.WeightManagerActivity"
+            android:screenOrientation="landscape"
+            android:label="慢病管理中的体重测量"/>
     </application>
 </manifest>

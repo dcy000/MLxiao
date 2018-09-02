@@ -173,5 +173,10 @@ public class SMSVerificationDialog extends DialogFragment implements View.OnClic
         Handlers.ui().removeCallbacksAndMessages(null);
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+//        getDialog().setCancelable(false);
+//        getDialog().setCanceledOnTouchOutside(false);
+    }
 }

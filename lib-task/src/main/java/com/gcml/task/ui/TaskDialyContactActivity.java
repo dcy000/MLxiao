@@ -9,17 +9,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseIntArray;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
-import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.task.R;
 import com.gcml.task.bean.DetailsModel;
 import com.gcml.task.bean.ItemsModel;
 import com.gcml.task.bean.Post.TaskWheelBean;
 import com.gcml.task.network.TaskRepository;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,6 @@ public class TaskDialyContactActivity extends AppCompatActivity implements TaskD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
         mToolBar = findViewById(R.id.tb_task);
-
         mToolBar.setData("健  康  日  记", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
@@ -197,7 +197,7 @@ public class TaskDialyContactActivity extends AppCompatActivity implements TaskD
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在上传")
                 .create();
-        mTaskRepository.taskWheelListForApi(wheel, (String) SPUtil.get("user_id",""))
+        mTaskRepository.taskWheelListForApi(wheel, UserSpHelper.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -294,6 +294,16 @@ public class TaskDialyContactActivity extends AppCompatActivity implements TaskD
         drinkUnitValues.put(0, 100);
         drinkUnitValues.put(1, 500);
         drinkUnitValues.put(2, 1);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
 }

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -69,7 +70,6 @@ public class TaskActivity extends FragmentActivity {
                 finish();
             }
         });
-        getTaskData();
     }
 
     @SuppressLint("CheckResult")
@@ -78,7 +78,7 @@ public class TaskActivity extends FragmentActivity {
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
-        mTaskRepository.taskListFromApi((String) SPUtil.get("user_id", ""))
+        mTaskRepository.taskListFromApi(UserSpHelper.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {

@@ -22,7 +22,7 @@ public class TaskMenuAdapter extends BaseQuickAdapter<TaskBean.TaskListBean, Bas
     protected void convert(BaseViewHolder helper, TaskBean.TaskListBean item) {
         helper.setText(R.id.tv_task_name, item.name);
         helper.setText(R.id.tv_task_name_other, item.name);
-        helper.setText(R.id.tv_task_time, "(测试时间段" + TimeHelper.formatDateTimeHour(item.remindStart) + "-" +  TimeHelper.formatDateTimeHour(item.remindEnd) + ")");
+        helper.setText(R.id.tv_task_time, "(测试时间：" + TimeHelper.formatDateTimeHour(item.remindStart) + "-" +  TimeHelper.formatDateTimeHour(item.remindEnd) + ")");
         if (item.mustStatus.equals("1")) {
             helper.setVisible(R.id.tv_task_tag, true);
             helper.setVisible(R.id.ll_task_name, true);
@@ -33,7 +33,7 @@ public class TaskMenuAdapter extends BaseQuickAdapter<TaskBean.TaskListBean, Bas
             helper.setVisible(R.id.ll_task_name, false);
             helper.setVisible(R.id.tv_task_name_other, true);
         }
-        if (item.complitionStatus.equals("0")) {
+        if ("0".equals(item.complitionStatus)) {
             if (TimeHelper.getSecondsFromDate(TimeHelper.getCUSeconds()) > item.remindStart && TimeHelper.getSecondsFromDate(TimeHelper.getCUSeconds()) < item.remindEnd) {
                 helper.setVisible(R.id.tv_task_action, true);
                 helper.setVisible(R.id.iv_task_action, false);

@@ -122,7 +122,19 @@ public class ToastUtils {
         } else {
             mToast.setText(resId);
         }
-        mToast.setGravity(Gravity.TOP,0,0);
+        mToast.setGravity(Gravity.TOP,0,600);
+        mToast.show();
+    }
+
+    public static void showShortOnCentet(CharSequence message) {
+        if (mToast == null) {
+            mToast = Toast.makeText(getApplication(), message, Toast.LENGTH_SHORT);
+            TextView v = mToast.getView().findViewById(android.R.id.message);
+            v.setTextSize(28);
+        } else {
+            mToast.setText(message);
+        }
+        mToast.setGravity(Gravity.TOP,0,600);
         mToast.show();
     }
 }

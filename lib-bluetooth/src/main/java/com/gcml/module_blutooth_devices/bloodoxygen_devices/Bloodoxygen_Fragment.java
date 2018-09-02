@@ -18,7 +18,6 @@ import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 
-
 public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
@@ -106,7 +105,6 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
             mTvResult.setText(datas[0]);
             if (!isMeasureFinishedOfThisTime&&Float.parseFloat(datas[0])!=0){
                 isMeasureFinishedOfThisTime=true;
-                //ÑªÑõ¡¢Âö²«
                 onMeasureFinished(datas[0], datas[1]);
             }
         }

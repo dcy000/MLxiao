@@ -40,9 +40,9 @@ public class SlowDiseaseManagementTipActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("慢 病 管 理");
         mRightText.setVisibility(View.GONE);
-        mRightView.setImageResource(R.drawable.white_wifi_3);
+//        mRightView.setImageResource(R.drawable.white_wifi_3);
         tvContent.setText(CONTENT);
-        mRightView.setOnClickListener(v -> startActivity(new Intent(SlowDiseaseManagementTipActivity.this, WifiConnectActivity.class)));
+//        mRightView.setOnClickListener(v -> startActivity(new Intent(SlowDiseaseManagementTipActivity.this, WifiConnectActivity.class)));
     }
 
     @OnClick({R.id.tv_next_step, R.id.tv_to_mall})
