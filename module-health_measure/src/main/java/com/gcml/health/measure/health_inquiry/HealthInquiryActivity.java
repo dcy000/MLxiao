@@ -118,7 +118,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
 
                     @Override
                     public void onError(Throwable e) {
-                        if (BuildConfig.DEBUG) {
+                        if (!BuildConfig.DEBUG) {
                             ToastUtils.showShort("获取数据失败");
                         } else {
                             ToastUtils.showShort("获取数据失败:" + e.getMessage());
