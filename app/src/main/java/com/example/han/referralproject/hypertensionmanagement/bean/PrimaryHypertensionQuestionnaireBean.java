@@ -71,7 +71,7 @@ public class PrimaryHypertensionQuestionnaireBean implements Serializable {
                 public String hmQuestionId;
                 public String hmQuestionnaireId;
                 public String answerInfo;
-                public int answerScore;
+                public int score;
             }
         }
     }

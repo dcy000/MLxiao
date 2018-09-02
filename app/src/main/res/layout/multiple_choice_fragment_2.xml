@@ -35,17 +35,16 @@
 
     <GridView
         android:id="@+id/grid_view"
-        android:layout_width="match_parent"
+        android:layout_width="1360pt"
         android:layout_height="match_parent"
         android:layout_alignLeft="@+id/tv_title"
         android:layout_marginTop="220pt"
         android:columnWidth="432pt"
         android:numColumns="3"
-        android:stretchMode="none"
-        android:verticalSpacing="30pt" />
+        android:stretchMode="spacingWidth"
+        android:verticalSpacing="48pt" />
 
     <TextView
-        android:gravity="center"
         android:id="@+id/tv_button"
         android:layout_width="320pt"
         android:layout_height="100pt"
@@ -54,6 +53,7 @@
         android:layout_marginBottom="100pt"
         android:layout_marginLeft="59pt"
         android:background="@drawable/bg_notice_btn"
+        android:gravity="center"
         android:paddingBottom="22pt"
         android:paddingLeft="38pt"
         android:paddingRight="38pt"
