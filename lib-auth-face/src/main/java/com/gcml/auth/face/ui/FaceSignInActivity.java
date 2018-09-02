@@ -26,6 +26,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -185,21 +186,30 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                         super.onError(throwable);
                         start("请把人脸放在框内",
                                 "请把人脸放在框内",
-                                3000);
+                                1000);
                     }
                 });
 
     }
 
+    AtomicInteger retryCount = new AtomicInteger(0);
+
     private void processFaceIdAndScore(String faceId, float score) {
         if (score < 30) {
             // 验证不通过
-            finish();
+            int count = retryCount.getAndIncrement();
+            if (count == 5) {
+                finish();
+            } else {
+                start("请把人脸放在框内",
+                        "请把人脸放在框内",
+                        1000);
+            }
         } else if (score < 80) {
             // 重新验证
             start("请把人脸靠近一点",
                     "请把人脸靠近一点",
-                    3000);
+                    1000);
         } else {
             // 当前组存在人脸
             viewModel.getLocalUsers()
@@ -210,7 +220,14 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                         @Override
                         public void onNext(List<UserEntity> users) {
                             if (users.isEmpty()) {
-                                finish();
+                                int count = retryCount.getAndIncrement();
+                                if (count == 5) {
+                                    finish();
+                                } else {
+                                    start("请把人脸放在框内",
+                                            "请把人脸放在框内",
+                                            1000);
+                                }
                                 return;
                             }
                             for (UserEntity user : users) {
@@ -227,13 +244,27 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                                     return;
                                 }
                             }
-                            finish();
+                            int count = retryCount.getAndIncrement();
+                            if (count == 5) {
+                                finish();
+                            } else {
+                                start("请把人脸放在框内",
+                                        "请把人脸放在框内",
+                                        1000);
+                            }
                         }
 
                         @Override
                         public void onError(Throwable throwable) {
                             super.onError(throwable);
-                            finish();
+                            int count = retryCount.getAndIncrement();
+                            if (count == 5) {
+                                finish();
+                            } else {
+                                start("请把人脸放在框内",
+                                        "请把人脸放在框内",
+                                        1000);
+                            }
                         }
                     });
         }
@@ -261,7 +292,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
         super.onResume();
         start("请把人脸放在框内",
                 "请把人脸放在框内",
-                3000);
+                1000);
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseIntArray;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -197,7 +198,7 @@ public class TaskDialyContactActivity extends AppCompatActivity implements TaskD
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在上传")
                 .create();
-        mTaskRepository.taskWheelListForApi(wheel, (String) SPUtil.get("user_id",""))
+        mTaskRepository.taskWheelListForApi(wheel, UserSpHelper.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {

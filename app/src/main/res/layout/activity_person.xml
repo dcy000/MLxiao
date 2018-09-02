@@ -173,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="症状自查"
+                    android:text="健康管理"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 
@@ -295,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="娱乐"
+                    android:text="风险评估"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 

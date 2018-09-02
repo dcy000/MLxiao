@@ -53,6 +53,9 @@ import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.profile.PersonDetailActivity;
 import com.google.gson.Gson;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SynthesizerListener;
+import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
@@ -85,7 +88,44 @@ public class DataDealHelper {
     private String result;
 
     private void speak(String text, boolean whine) {
-        MLVoiceSynthetize.startSynthesize(context, text, whine);
+        MLVoiceSynthetize.startSynthesize(context, text, new SynthesizerListener() {
+            @Override
+            public void onSpeakBegin() {
+
+            }
+
+            @Override
+            public void onBufferProgress(int i, int i1, int i2, String s) {
+
+            }
+
+            @Override
+            public void onSpeakPaused() {
+
+            }
+
+            @Override
+            public void onSpeakResumed() {
+
+            }
+
+            @Override
+            public void onSpeakProgress(int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onCompleted(SpeechError speechError) {
+                if (listener != null) {
+                    listener.onEnd();
+                }
+            }
+
+            @Override
+            public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+            }
+        }, whine);
     }
 
     private void speak(String text) {
@@ -165,11 +205,6 @@ public class DataDealHelper {
             String tip = String.format(Locale.CHINA,
                     "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
             speak(tip, false);
-
-
-            if (listener != null) {
-                listener.onEnd();
-            }
             return;
         }
 
@@ -188,21 +223,12 @@ public class DataDealHelper {
                         e.printStackTrace();
                     }
 
-
-                    if (listener != null) {
-                        listener.onEnd();
-                    }
                 }
             }, new NetworkManager.FailedCallback() {
                 @Override
                 public void onFailed(String message) {
                     speak("当前已经是最新版本了");
                     Toast.makeText(context, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
-
-
-                    if (listener != null) {
-                        listener.onEnd();
-                    }
                 }
             });
             return;
@@ -311,45 +337,59 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "冠心病");
+            return;
         }
         if (inSpell.matches(".*(zhiqiguanxiaochuan).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "支气管哮喘");
+            return;
         }
         if (inSpell.matches(".*(gan(yin|ying)hua).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "肝硬化");
+            return;
         }
         if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "糖尿病");
+            return;
         }
         if (inSpell.matches(".*(tongfeng).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "痛风");
+            return;
         }
         if (inSpell.matches(".*(changweiyan).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "肠胃炎");
+            return;
         }
         if (inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "急性上呼吸道感染");
+            return;
         }
         if (inSpell.matches(".*(xinbaoyan).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "心包炎");
+            return;
         }
         if (inSpell.matches(".*((pin|ping)(xie|xue)).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "贫血");
+            return;
         }
         if (inSpell.matches(".*(feiyan).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "肺炎");
+            return;
         }
         if (inSpell.matches(".*(di(xie|xue)tang).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "低血糖");
+            return;
         }
         if (inSpell.matches(".*((nao|lao)chu(xie|xue)).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "脑出血");
+            return;
         }
         if (inSpell.matches(".*(fei(suan|shuan)sai).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "肺栓塞");
+            return;
         }
         if (inSpell.matches(".*(dianxian).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "癫痫");
+            return;
         }
 //        boolean dealKeyWord = keyWordDeal(inSpell);
 //        if (dealKeyWord) {
@@ -369,12 +409,12 @@ public class DataDealHelper {
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
-                            if (listener != null) {
-                                listener.onEnd();
-                            }
                         }
                     });
 
+            if (listener != null) {
+                listener.onEnd();
+            }
 
         } else if (inSpell.matches(".*ce.*xueyang.*")
                 || inSpell.matches(".*xueyang.*")
@@ -394,11 +434,11 @@ public class DataDealHelper {
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
-                            if (listener != null) {
-                                listener.onEnd();
-                            }
                         }
                     });
+            if (listener != null) {
+                listener.onEnd();
+            }
 
 
         } else if (result.matches(".*测.*血糖.*")
@@ -419,11 +459,11 @@ public class DataDealHelper {
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
-                            if (listener != null) {
-                                listener.onEnd();
-                            }
                         }
                     });
+            if (listener != null) {
+                listener.onEnd();
+            }
 
 
         } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
@@ -441,11 +481,11 @@ public class DataDealHelper {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
 
-                            if (listener != null) {
-                                listener.onEnd();
-                            }
                         }
                     });
+            if (listener != null) {
+                listener.onEnd();
+            }
 
         } else if (inSpell.matches(".*ce.*xindian.*")
                 || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
@@ -462,11 +502,11 @@ public class DataDealHelper {
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
-                            if (listener != null) {
-                                listener.onEnd();
-                            }
                         }
                     });
+            if (listener != null) {
+                listener.onEnd();
+            }
 
 
         } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
@@ -483,11 +523,11 @@ public class DataDealHelper {
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
-                            if (listener != null) {
-                                listener.onEnd();
-                            }
                         }
                     });
+            if (listener != null) {
+                listener.onEnd();
+            }
 
         } else if (inSpell.matches(".*ce.*tizhong.*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
@@ -503,11 +543,11 @@ public class DataDealHelper {
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
-                            if (listener != null) {
-                                listener.onEnd();
-                            }
                         }
                     });
+            if (listener != null) {
+                listener.onEnd();
+            }
 
         } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
             startActivity(VideoListActivity.class);
@@ -662,11 +702,6 @@ public class DataDealHelper {
             } else {
                 onActivitySpeakFinish();
             }
-
-
-            if (listener != null) {
-                listener.onEnd();
-            }
             return;
         }
 
@@ -690,18 +725,10 @@ public class DataDealHelper {
 
         if (!TextUtils.isEmpty(text)) {
             speak(text);
-
-            if (listener != null) {
-                listener.onEnd();
-            }
             return;
         }
 
         if (!empty) {
-
-            if (listener != null) {
-                listener.onEnd();
-            }
             speak(text);
             return;
         }
@@ -710,10 +737,6 @@ public class DataDealHelper {
             str1 = sendMessage(str);
         } catch (Exception e) {
             defaultToke();
-
-            if (listener != null) {
-                listener.onEnd();
-            }
         }
     }
 
@@ -852,11 +875,6 @@ public class DataDealHelper {
 
             }
         }
-
-        if (listener != null) {
-            listener.onEnd();
-        }
-
     }
 
     private List<SearchMusic.Song> mSearchMusicList = new ArrayList<>();

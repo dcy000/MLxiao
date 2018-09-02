@@ -10,7 +10,7 @@ import java.util.List;
 public class HealthManagementAnwserBean implements Serializable {
 
     /**
-     * answerList : [{"answerScore":0,"hmAnswerId":"string","hmQuestionId":"string","questionSeq":0}]
+     * answerList : [{"score":0,"hmAnswerId":"string","hmQuestionId":"string","questionSeq":0}]
      * equipmentId : string
      * hmQuestionnaireAssessId : string
      * hmQuestionnaireId : string
@@ -27,7 +27,7 @@ public class HealthManagementAnwserBean implements Serializable {
 
     public static class AnswerListBean {
         /**
-         * answerScore : 0
+         * score : 0
          * hmAnswerId : string
          * hmQuestionId : string
          * questionSeq : 0

@@ -145,14 +145,14 @@ public class HypertensionActivity extends BaseActivity implements MultipleChoice
                         .replaceAll("\\[", "")
                         .replaceAll("]", "");
                 answerList.get(i).hmAnswerId = answerBean.answerList.get(checked[0]).hmAnswerId;
-                answerList.get(i).answerScore = getScore(answerBean, checked);//每个项目 得分之后
+                answerList.get(i).score = getScore(answerBean, checked);//每个项目 得分之后
             }
         }
         //最后一页
         if (vp.getCurrentItem() + 1 == vp.getAdapter().getCount()) {
             //跳转逻辑
             for (int i = 0; i < answerList.size(); i++) {
-                postBean.score += answerList.get(i).answerScore;
+                postBean.score += answerList.get(i).score;
             }
             postData();
             return;
@@ -163,7 +163,7 @@ public class HypertensionActivity extends BaseActivity implements MultipleChoice
     private int getScore(PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean answerBean, int[] checked) {
         int score = 0;
         for (int i = 0; i < checked.length; i++) {
-            score += answerBean.answerList.get(checked[i]).answerScore;
+            score += answerBean.answerList.get(checked[i]).score;
         }
         return score;
     }

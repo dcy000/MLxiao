@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -49,6 +50,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
     List<TaskHealthBean.QuestionListBean> mList = new ArrayList<>();
     TaskRepository mTaskRepository = new TaskRepository();
     TaskSchemaBean mPostData = new TaskSchemaBean();
+    private LoadingDialog mTipDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +101,10 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
 
     @SuppressLint("CheckResult")
     private void getTaskHealthData() {
-        LoadingDialog tipDialog = new LoadingDialog.Builder(TaskComplyChoiceActivity.this)
+        if (mTipDialog != null) {
+            mTipDialog.dismiss();
+        }
+        mTipDialog = new LoadingDialog.Builder(TaskComplyChoiceActivity.this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
@@ -109,13 +114,13 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) {
-                        tipDialog.show();
+                        mTipDialog.show();
                     }
                 })
                 .doOnTerminate(new Action() {
                     @Override
                     public void run() {
-                        tipDialog.dismiss();
+                        mTipDialog.dismiss();
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
@@ -128,7 +133,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                         mPostData.equipmentId = Utils.getDeviceId(getContentResolver());
                         mPostData.hmQuestionnaireId = body.hmQuestionnaireId;
                         mPostData.hmQuestionnaireName = body.questionnaireName;
-                        mPostData.userId = Integer.parseInt((String) SPUtil.get("user_id", ""));
+                        mPostData.userId = Integer.parseInt(UserSpHelper.getUserId());
                         mPostData.score = 0;
                         mPostData.answerList = new ArrayList<>();
                         for (int i = 0; i < mList.size(); i++) {
@@ -221,7 +226,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在上传")
                 .create();
-        mTaskRepository.taskHealthListForApi(mPostData, (String) SPUtil.get("user_id",""))
+        mTaskRepository.taskHealthListForApi(mPostData, UserSpHelper.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -295,15 +300,12 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        MLVoiceSynthetize.stop();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        MLVoiceSynthetize.destory();
+        if (mTipDialog != null) {
+            mTipDialog.dismiss();
+        }
+        MLVoiceSynthetize.stop();
     }
 
 }

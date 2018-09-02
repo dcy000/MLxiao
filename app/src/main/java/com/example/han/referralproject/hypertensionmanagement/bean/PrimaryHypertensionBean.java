@@ -40,6 +40,6 @@ public class PrimaryHypertensionBean implements Serializable {
         public String hmAnswerId;
         public String hmQuestionId;
         public String questionName;
-        public int answerScore;
+        public int score;
     }
 }

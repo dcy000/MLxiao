@@ -75,7 +75,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 case SEARCH_MAC2NAME://搜索不到mac转搜name
                     Logg.e(BaseBluetoothPresenter.class, "物理地址转名字搜索handleMessage: ");
                     discoverType = DISCOVER_WITH_NAME;
-                    BluetoothClientManager.getClient().refreshCache(discoverSetting.getTargetMac());
+//                    BluetoothClientManager.getClient().refreshCache(discoverSetting.getTargetMac());
                     request = setSearchRequest();
                     searchDevices();
                     break;

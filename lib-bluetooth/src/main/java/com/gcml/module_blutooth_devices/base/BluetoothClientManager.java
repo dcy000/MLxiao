@@ -19,8 +19,7 @@ public class BluetoothClientManager {
 
     public static BluetoothClient getClient() {
         if (baseContext == null) {
-            new UnsupportedOperationException("未初始化");
-            return null;
+            throw new UnsupportedOperationException("未初始化");
         }
 
         if (mClient == null) {

@@ -10,9 +10,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
+import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
@@ -23,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -61,9 +65,21 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
 
     @SuppressLint("CheckResult")
     private void getData() {
-        HealthMeasureRepository.getFirstReport("100206")
+        HealthMeasureRepository.getFirstReport(HealthMeasureSPManifest.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showLoading("加载中");
+                    }
+                })
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        dismissLoading();
+                    }
+                })
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribeWith(new DefaultObserver<FirstReportBean>() {
                     @Override
@@ -190,4 +206,34 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         mViewpage = (ViewPager) findViewById(R.id.viewpage);
         mTitleText.setText("健 康 报 告");
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dismissLoading();
+    }
+
+    private LoadingDialog mLoadingDialog;
+
+    private void showLoading(String tips) {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+        mLoadingDialog = new LoadingDialog.Builder(this)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord(tips)
+                .create();
+        mLoadingDialog.show();
+    }
+
+    private void dismissLoading() {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+    }
+
 }
