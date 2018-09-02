@@ -23,6 +23,7 @@ import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.lib_utils.app.AppUtils;
 import com.gcml.lib_utils.display.KeyboardUtils;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -150,7 +151,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("正在加载...");
+                        showLoading("正在登录...");
                     }
                 })
                 .doOnTerminate(new Action() {
@@ -165,6 +166,9 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                     public void onNext(UserEntity user) {
                         CC.obtainBuilder("com.gcml.old.home")
                                 .addParam("userId", user.id)
+                                .build()
+                                .callAsync();
+                        CC.obtainBuilder("com.gcml.auth.face.joingroup")
                                 .build()
                                 .callAsync();
                     }
@@ -215,6 +219,19 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     @Override
     protected void onResume() {
         super.onResume();
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(),
+                "请输入您的手机号和密码进行登录。");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MLVoiceSynthetize.stop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         dismissLoading();
     }
 

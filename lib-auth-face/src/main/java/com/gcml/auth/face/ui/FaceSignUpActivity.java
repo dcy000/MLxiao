@@ -18,6 +18,7 @@ import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.IconDialog;
+import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLSynthesizerListener;
@@ -29,6 +30,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -86,14 +88,18 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
         });
         mPreviewHelper.rxStatus()
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(new Consumer<PreviewHelper.Status>() {
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<PreviewHelper.Status>() {
                     @Override
-                    public void accept(PreviewHelper.Status status) throws Exception {
+                    public void onNext(PreviewHelper.Status status) {
                         onPreviewStatus(status);
                     }
-                })
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe();
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
+                });
     }
 
     private void start(int delayMillis) {
@@ -122,12 +128,14 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
     }
 
     private void showFace(Bitmap faceBitmap) {
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(),
+                "请确认是否是您的头像，如果不是请选择重新拍摄。");
         new IconDialog(this).builder()
                 .setIcon(faceBitmap)
                 .setPositiveButton("重拍", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        start(3000);
+                        start(0);
                     }
                 })
                 .setNegativeButton("确认头像", new View.OnClickListener() {
@@ -170,7 +178,14 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        binding.ivTips.setText("人脸录入中");
+                        binding.ivTips.setText("人脸录入...");
+                        showLoading("人脸录入...");
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissLoading();
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
@@ -187,7 +202,7 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
                         super.onError(throwable);
                         faceId = UserSpHelper.produceFaceId();
                         error = true;
-                        start(3000);
+                        start(0);
                     }
                 });
 
@@ -212,7 +227,7 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
     @Override
     protected void onResume() {
         super.onResume();
-        start(3000);
+        start(0);
     }
 
     @Override
@@ -220,6 +235,36 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
         super.onPause();
         MLVoiceSynthetize.stop();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dismissLoading();
+    }
+
+    private LoadingDialog mLoadingDialog;
+
+    private void showLoading(String tips) {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+        mLoadingDialog = new LoadingDialog.Builder(this)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord(tips)
+                .create();
+        mLoadingDialog.show();
+    }
+
+    private void dismissLoading() {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+    }
+
 
     @Override
     public void finish() {
@@ -234,12 +279,6 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
             CC.sendCCResult(callId, result);
         }
         super.finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
     }
 
     private String callId;

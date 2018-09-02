@@ -29,7 +29,7 @@ public class FaceSignInComponent implements IComponent {
                 .subscribeOn(Schedulers.io())
                 .blockingFirst();
         if (users.isEmpty()) {
-            CC.sendCCResult(cc.getCallId(), CCResult.error("当前设备未注册过人脸, 请登录后注册人脸"));
+            CC.sendCCResult(cc.getCallId(), CCResult.error("您尚未在当前设备注册过人脸，本次请先用手机号登录。"));
             return false;
         }
 
@@ -39,6 +39,8 @@ public class FaceSignInComponent implements IComponent {
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
+        boolean skip = cc.getParamItem("skip", false);
+        intent.putExtra("skip", skip);
         intent.putExtra("callId", cc.getCallId());
         context.startActivity(intent);
         return true;

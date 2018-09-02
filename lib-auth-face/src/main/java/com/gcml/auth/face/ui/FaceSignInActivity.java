@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -42,6 +43,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
 
     private PreviewHelper mPreviewHelper;
     private Animation mAnimation;
+    private boolean skip;
 
     @Override
     protected int layoutId() {
@@ -56,17 +58,9 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     @Override
     protected void init(Bundle savedInstanceState) {
         callId = getIntent().getStringExtra("callId");
+        skip = getIntent().getBooleanExtra("skip", false);
         binding.setPresenter(this);
-        RxUtils.rxWifiLevel(getApplication(), 4)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer integer) throws Exception {
-                        binding.ivWifiState.setImageLevel(integer);
-                    }
-                });
+        binding.tvSkip.setVisibility(skip ? View.VISIBLE : View.GONE);
         mPreviewHelper = new PreviewHelper(this);
         mPreviewHelper.setSurfaceHolder(binding.svPreview.getHolder());
         mPreviewHelper.setPreviewView(binding.svPreview);
@@ -275,8 +269,11 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
         finish();
     }
 
-    public void goWifi() {
-        CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
+    private boolean hasSkip;
+
+    public void skip() {
+        hasSkip = true;
+        finish();
     }
 
     @Override
@@ -307,7 +304,11 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
         if (!TextUtils.isEmpty(callId)) {
             CCResult result;
             if (error) {
-                result = CCResult.error("人脸验证未通过");
+                if (hasSkip) {
+                    result = CCResult.error("skip");
+                } else {
+                    result = CCResult.error("人脸验证未通过");
+                }
             } else {
                 result = CCResult.success("faceId", theFaceId);
                 result.addData("currentUser", currentUser);

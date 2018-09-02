@@ -357,6 +357,7 @@ public class DataDealHelper {
 //        }
         if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .addParam("skip", true)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
@@ -364,7 +365,7 @@ public class DataDealHelper {
                             boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
                             UserSpHelper.setUserId(userId);
-                            if (result.isSuccess()) {
+                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -382,6 +383,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*ce.*baohedu.*")) {
 
             CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .addParam("skip", true)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
@@ -389,7 +391,7 @@ public class DataDealHelper {
                             boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
                             UserSpHelper.setUserId(userId);
-                            if (result.isSuccess()) {
+                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -407,6 +409,7 @@ public class DataDealHelper {
                 ) {
 
             CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .addParam("skip", true)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
@@ -414,7 +417,7 @@ public class DataDealHelper {
                             boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
                             UserSpHelper.setUserId(userId);
-                            if (result.isSuccess()) {
+                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -428,6 +431,7 @@ public class DataDealHelper {
 
         } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .addParam("skip", true)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
@@ -435,7 +439,7 @@ public class DataDealHelper {
                             boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
                             UserSpHelper.setUserId(userId);
-                            if (result.isSuccess()) {
+                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -450,6 +454,7 @@ public class DataDealHelper {
         } else if (inSpell.matches(".*ce.*xindian.*")
                 || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .addParam("skip", true)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
@@ -457,7 +462,7 @@ public class DataDealHelper {
                             boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
                             UserSpHelper.setUserId(userId);
-                            if (result.isSuccess()) {
+                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                 CCHealthMeasureActions.jump2XinDianDetectActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -471,6 +476,7 @@ public class DataDealHelper {
 
         } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .addParam("skip", true)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
@@ -478,7 +484,7 @@ public class DataDealHelper {
                             boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
                             UserSpHelper.setUserId(userId);
-                            if (result.isSuccess()) {
+                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -491,6 +497,7 @@ public class DataDealHelper {
 
         } else if (inSpell.matches(".*ce.*tizhong.*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .addParam("skip", true)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
@@ -498,7 +505,7 @@ public class DataDealHelper {
                             boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
                             UserSpHelper.setUserId(userId);
-                            if (result.isSuccess()) {
+                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());

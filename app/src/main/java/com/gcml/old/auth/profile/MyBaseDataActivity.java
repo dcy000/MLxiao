@@ -158,13 +158,14 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 if (!TextUtils.isEmpty(response.sfz) && response.sfz.length() == 18) {
                     String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 4, response.sfz.length());
                     mIdcard.setText(shenfen);
+                } else {
+                    mIdcard.setText("尚未填写");
                 }
-                mIdcard.setText("");
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastUtils.showShort(message);
+                ToastUtils.showShort("网络繁忙");
             }
         });
     }

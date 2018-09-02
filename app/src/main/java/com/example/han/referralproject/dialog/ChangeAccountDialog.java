@@ -22,6 +22,7 @@ import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class ChangeAccountDialog extends Dialog implements View.OnClickListener {
@@ -52,9 +53,10 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
         }
         StringBuilder userIds = new StringBuilder();
         for (String item : mAccountIds) {
+
             userIds.append(item.split(",")[0]).append(",");
         }
-        NetworkApi.getAllUsers(userIds.substring(0, userIds.length() - 1), mListener);
+        NetworkApi.getAllUsersNew(userIds.substring(0, userIds.length() - 1), mListener);
 
     }
 

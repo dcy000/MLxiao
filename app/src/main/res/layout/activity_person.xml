@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
-    android:paddingRight="20dp"
-    android:paddingBottom="17dp">
+    android:paddingBottom="17dp"
+    android:paddingRight="20dp">
 
     <LinearLayout
         android:id="@+id/linearlayou1"
@@ -260,9 +260,9 @@
         </LinearLayout>
 
         <TextView
-            android:layout_margin="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:drawableLeft="@drawable/shape_ic_blue"
             android:drawablePadding="8dp"
             android:text="健康生活"
@@ -274,6 +274,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -307,7 +308,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_youjiao_wenyu"
@@ -328,14 +330,14 @@
             </LinearLayout>
 
 
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_jiankang_riji"
@@ -355,6 +357,7 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -476,7 +479,6 @@
         android:visibility="gone" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tv_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -485,7 +487,8 @@
         android:layout_marginLeft="20dp"
         android:padding="10dp"
         android:text="检查更新"
+        android:textColor="#999999"
         android:textSize="20sp"
-        android:textColor="#999999"/>
-    
+        android:visibility="gone" />
+
 </RelativeLayout>

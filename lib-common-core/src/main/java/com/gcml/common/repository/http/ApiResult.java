@@ -9,13 +9,15 @@ import com.google.gson.annotations.SerializedName;
 public class ApiResult<T> {
     @SerializedName("tag")
     private boolean successful;
+    @SerializedName("code")
+    private int code;
     @SerializedName("message")
     private String message;
     @SerializedName("data")
     private T data;
 
     public boolean isSuccessful() {
-        return successful;
+        return successful || code == 200;
     }
 
     public void setSuccessful(boolean successful) {
@@ -38,10 +40,19 @@ public class ApiResult<T> {
         this.data = data;
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "ApiResult{" +
                 "successful=" + successful +
+                ", code=" + code +
                 ", message='" + message + '\'' +
                 ", data=" + data +
                 '}';
