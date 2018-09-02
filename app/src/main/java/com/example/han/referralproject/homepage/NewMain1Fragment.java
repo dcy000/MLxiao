@@ -101,14 +101,14 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
     private void getLocation() {
         //TODO:打正式包的时候打开该注释
-//        WeatherUtils.getInstance().initLocation(getContext());
-//        WeatherUtils.getInstance().setOnLocationResultListener(new WeatherUtils.LocationResult() {
-//            @Override
-//            public void onResult(String city, String county) {
-//                getWeather(city + county);
-//            }
-//        });
-        getWeather("杭州");
+        WeatherUtils.getInstance().initLocation(getContext());
+        WeatherUtils.getInstance().setOnLocationResultListener(new WeatherUtils.LocationResult() {
+            @Override
+            public void onResult(String city, String county) {
+                getWeather(city);
+            }
+        });
+//        getWeather("杭州");
     }
 
     private void getWeather(String address) {

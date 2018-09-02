@@ -17,6 +17,7 @@ import com.baidu.location.LocationClientOption;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -24,10 +25,16 @@ import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.old.auth.entity.City;
 import com.gcml.old.auth.entity.Province;
+import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.Utils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -310,21 +317,45 @@ public class AlertAddressActivity extends BaseActivity {
             speak(R.string.sign_up3_address_tip);
             return;
         }
-        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, exercise,
-                TextUtils.isEmpty(buffer) ? "" : buffer.substring(0, buffer.length() - 1), getAddress(), new NetworkManager.SuccessCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object response) {
-                        ToastUtils.showShort("修改成功");
-                        speak("修改成功");
+//        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, exercise,
+//                TextUtils.isEmpty(buffer) ? "" : buffer.substring(0, buffer.length() - 1), getAddress(), new NetworkManager.SuccessCallback<Object>() {
+//                    @Override
+//                    public void onSuccess(Object response) {
+//                        ToastUtils.showShort("修改成功");
+//                        speak("修改成功");
+//                        finish();
+//                    }
+//                }, new NetworkManager.FailedCallback() {
+//                    @Override
+//                    public void onFailed(String message) {
+//                        ToastUtils.showShort("修改失败");
+//                        finish();
+//                    }
+//                });
+        PUTUserBean bean = new PUTUserBean();
+        bean.bid = Integer.parseInt(UserSpHelper.getUserId());
+        bean.dz = address;
+        NetworkApi.putUserInfo(bean.bid, new Gson().toJson(bean), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject json = new JSONObject(body);
+                    boolean tag = json.getBoolean("tag");
+                    if (tag) {
+                        runOnUiThread(() -> speak("修改成功"));
                         finish();
+                    } else {
+                        runOnUiThread(() -> speak("修改失败"));
                     }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        ToastUtils.showShort("修改失败");
-                        finish();
-                    }
-                });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+
 //        LocalShared.getInstance(this.getApplicationContext()).setSignUpAddress(getAddress());
 //        Intent intent = SignUp4IdCardActivity.newIntent(this);
 //        startActivityForResult(intent);

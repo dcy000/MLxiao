@@ -10,12 +10,20 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
 import com.gcml.old.auth.register.EatAdapter;
 import com.gcml.old.auth.register.EatModel;
+import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -224,39 +232,65 @@ public class AlertEatingActivity extends BaseActivity {
             ToastUtils.showShort("请选择其中一个");
             return;
         }
-        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, positionSelected + 1 + "", smoke, drink, exercise,
-                TextUtils.isEmpty(buffer) ? "" : buffer.substring(0, buffer.length() - 1), data.dz, new NetworkManager.SuccessCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object response) {
-                        ToastUtils.showShort("修改成功");
-                        switch (positionSelected + 1) {
-                            case 1:
-                                speak("主人，您的饮食情况已经修改为" + "荤素搭配");
-                                break;
-                            case 2:
-                                speak("主人，您的饮食情况已经修改为" + "偏好吃荤");
-                                break;
-                            case 3:
-                                speak("主人，您的饮食情况已经修改为" + "偏好吃素");
-                                break;
-                            case 4:
-                                speak("主人，您的饮食情况已经修改为" + "偏好吃咸");
-                                break;
-                            case 5:
-                                speak("主人，您的饮食情况已经修改为" + "偏好油腻");
-                                break;
-                            case 6:
-                                speak("主人，您的饮食情况已经修改为" + "偏好甜食");
-                                break;
-                        }
+//        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, positionSelected + 1 + "", smoke, drink, exercise,
+//                TextUtils.isEmpty(buffer) ? "" : buffer.substring(0, buffer.length() - 1), data.dz, new NetworkManager.SuccessCallback<Object>() {
+//                    @Override
+//                    public void onSuccess(Object response) {
+//                        ToastUtils.showShort("修改成功");
+//                        switch (positionSelected + 1) {
+//                            case 1:
+//                                speak("主人，您的饮食情况已经修改为" + "荤素搭配");
+//                                break;
+//                            case 2:
+//                                speak("主人，您的饮食情况已经修改为" + "偏好吃荤");
+//                                break;
+//                            case 3:
+//                                speak("主人，您的饮食情况已经修改为" + "偏好吃素");
+//                                break;
+//                            case 4:
+//                                speak("主人，您的饮食情况已经修改为" + "偏好吃咸");
+//                                break;
+//                            case 5:
+//                                speak("主人，您的饮食情况已经修改为" + "偏好油腻");
+//                                break;
+//                            case 6:
+//                                speak("主人，您的饮食情况已经修改为" + "偏好甜食");
+//                                break;
+//                        }
+//                        finish();
+//                    }
+//                }, new NetworkManager.FailedCallback() {
+//                    @Override
+//                    public void onFailed(String message) {
+//                        finish();
+//                    }
+//                });
+
+
+
+        PUTUserBean bean = new PUTUserBean();
+        bean.bid = Integer.parseInt(UserSpHelper.getUserId());
+        bean.eatingHabits = positionSelected + 1 + "";
+
+        NetworkApi.putUserInfo(bean.bid, new Gson().toJson(bean), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject json = new JSONObject(body);
+                    boolean tag = json.getBoolean("tag");
+                    if (tag) {
+                        runOnUiThread(() -> speak("修改成功"));
                         finish();
+                    } else {
+                        runOnUiThread(() -> speak("修改失败"));
                     }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        finish();
-                    }
-                });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 
     @Override
