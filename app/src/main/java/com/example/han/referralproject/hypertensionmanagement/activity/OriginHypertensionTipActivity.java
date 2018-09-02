@@ -23,7 +23,7 @@ public class OriginHypertensionTipActivity extends BaseActivity implements WarmN
 
     @BindView(R.id.fl_container)
     FrameLayout flContainer;
-    public static final String CONTENT = "为提供给您更好的高血压管理方案,请认真选择以下问题!";
+    public static final String CONTENT = "为给您提供更好的方案,以下问题请认真回答。";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class OriginHypertensionTipActivity extends BaseActivity implements WarmN
         setContentView(R.layout.activity_hypertension_tip);
         ButterKnife.bind(this);
         initTitle();
-        mlSpeak("主人，为更您更好的方案，以下答题请认真完成");
+        mlSpeak("为给您提供更好的方案,以下问题请认真回答。");
         initView();
         AppManager.getAppManager().addActivity(this);
     }
