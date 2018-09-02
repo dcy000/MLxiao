@@ -36,10 +36,11 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
     private int mCurrPosition;
     private TextView jump2Next;
     private LinearLayout llBack;
+    private boolean iShowSkipButton=false;
 
-
-    public ErrorCover(Context context) {
+    public ErrorCover(Context context,boolean iShowSkipButton) {
         super(context);
+        this.iShowSkipButton=iShowSkipButton;
     }
 
     @Override
@@ -53,6 +54,11 @@ public class ErrorCover extends BaseCover implements View.OnClickListener {
         llBack.setOnClickListener(this);
         jump2Next = getView().findViewById(R.id.jumpToNext);
         jump2Next.setOnClickListener(this);
+        if (iShowSkipButton){
+            jump2Next.setVisibility(View.VISIBLE);
+        }else{
+            jump2Next.setVisibility(View.GONE);
+        }
     }
 
     @Override
