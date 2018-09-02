@@ -1,11 +1,14 @@
 package com.gcml.health.measure.single_measure.fragment;
 
+import android.widget.TextView;
+
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.health.measure.single_measure.ShowMeasureBloodpressureResultActivity;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.google.gson.Gson;
@@ -23,10 +26,17 @@ import java.util.List;
  * description:单次血压测量
  */
 public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
+    //提供者两个方法的目的是方便外部对这两个按钮进行显示和隐藏
+    public TextView getHealthRecordView(){
+        return mBtnHealthHistory;
+    }
+    public TextView getVideoDemoView(){
+        return mBtnVideoDemo;
+    }
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3) {
-            MLVoiceSynthetize.startSynthesize(getContext(), "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
 
             ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData pressureData = new DetectionData();
@@ -68,9 +78,10 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
         }
     }
 
+
     @Override
-    public void onStop() {
-        super.onStop();
-        MLVoiceSynthetize.stop();
+    public void onDestroyView() {
+        super.onDestroyView();
+        MLVoiceSynthetize.destory();
     }
 }

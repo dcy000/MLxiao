@@ -210,7 +210,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="显示形式"
+            android:text="查询日期"
             android:textColor="#333"
             android:textStyle="bold"
             android:textSize="48pt"
@@ -233,7 +233,8 @@
             android:paddingLeft="20pt"
             android:paddingRight="20pt"
             android:layout_marginLeft="16pt"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_time_start"

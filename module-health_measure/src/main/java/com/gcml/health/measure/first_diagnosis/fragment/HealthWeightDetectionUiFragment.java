@@ -44,6 +44,7 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
+        super.initView(view, savedInstanceState);
         showUi();
         dealLogic();
     }

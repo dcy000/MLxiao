@@ -110,8 +110,8 @@ public class ThisWeekHealthPlanFragment extends Fragment implements View.OnClick
         double bloodSugarTarget = data.getBloodSugarTarget();
         mTvXuetangEmpty.setText(String.format("%.2f", bloodSugarTarget));
         double bloodSugarOneTarget = data.getBloodSugarOneTarget();
-        mTvXuetangOne.setText(String.format("%.2f", bloodSugarOneTarget));
         double bloodSugarTwoTarget = data.getBloodSugarTwoTarget();
+        mTvXuetangOne.setText(String.format("%.2f", bloodSugarTwoTarget));
         mTvXuetangTwo.setText(String.format("%.2f", bloodSugarTwoTarget));
     }
 
