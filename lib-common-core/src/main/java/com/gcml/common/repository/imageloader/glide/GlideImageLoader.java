@@ -107,9 +107,9 @@ public class GlideImageLoader implements IImageLoader {
     private RequestBuilder requestBuilder(ImageLoader.Options options) {
         RequestBuilder builder;
         if (options.asGif()) {
-            builder = requestManager(options).asGif();
+            builder = requestManager(options.host()).asGif();
         } else {
-            builder = requestManager(options).asBitmap();
+            builder = requestManager(options.host()).asBitmap();
         }
 
         if (!TextUtils.isEmpty(options.url())) {
@@ -122,8 +122,7 @@ public class GlideImageLoader implements IImageLoader {
         return builder;
     }
 
-    private RequestManager requestManager(ImageLoader.Options options) {
-        Object host = options.host();
+    private RequestManager requestManager(Object host) {
         if (host instanceof View) {
             return Glide.with((View) host);
         } else if (host instanceof FragmentActivity) {
@@ -148,12 +147,12 @@ public class GlideImageLoader implements IImageLoader {
     }
 
     @Override
-    public void pause(Context context) {
-        Glide.with(context).pauseRequests();
+    public void pause(Object host) {
+        requestManager(host).pauseRequests();
     }
 
     @Override
-    public void resume(Context context) {
-        Glide.with(context).resumeRequests();
+    public void resume(Object host) {
+        requestManager(host).resumeRequests();
     }
 }

@@ -52,6 +52,11 @@ public class ImageLoader implements IImageLoader {
         return new Options.Builder(target, model);
     }
 
+    /**
+     *
+     * @param host  must be Instance of View Or FragmentActivity, Activity, Context, Fragment.
+     * @return Load Options Builder
+     */
     public static Options.Builder with(Object host) {
         return new Options.Builder().host(host);
     }
@@ -78,18 +83,18 @@ public class ImageLoader implements IImageLoader {
     }
 
     @Override
-    public void pause(Context context) {
+    public void pause(Object host) {
         IImageLoader iImageLoader = loaders.get(loaderId);
         if (iImageLoader != null) {
-            iImageLoader.pause(context);
+            iImageLoader.pause(host);
         }
     }
 
     @Override
-    public void resume(Context context) {
+    public void resume(Object host) {
         IImageLoader iImageLoader = loaders.get(loaderId);
         if (iImageLoader != null) {
-            iImageLoader.resume(context);
+            iImageLoader.resume(host);
         }
     }
 
@@ -125,7 +130,7 @@ public class ImageLoader implements IImageLoader {
         private int blurValue;   // 高斯模糊参数，越大越模糊
         private int radius;
         private boolean circle;
-        private int loaderId = GLIDE;
+        private int loaderId;
 
         public Options(Builder builder) {
             this.host = builder.host;
