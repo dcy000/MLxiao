@@ -191,14 +191,14 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     private void processFaceIdAndScore(String faceId, float score) {
         if (score < 30) {
             // 验证不通过
-            int count = retryCount.getAndIncrement();
-            if (count == 5) {
-                finish();
-            } else {
+//            int count = retryCount.getAndIncrement();
+//            if (count == 5) {
+//                finish();
+//            } else {
                 start("请把人脸放在框内",
                         "请把人脸放在框内",
                         1000);
-            }
+//            }
         } else if (score < 80) {
             // 重新验证
             start("请把人脸靠近一点",
@@ -306,6 +306,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
             if (error) {
                 if (hasSkip) {
                     result = CCResult.error("skip");
+                    result.addData("userId", UserSpHelper.getUserId());
                 } else {
                     result = CCResult.error("人脸验证未通过");
                 }

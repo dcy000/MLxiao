@@ -3,7 +3,13 @@
     package="com.gcml.common">
 
     <!-- 读写文件 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application>
+        <meta-data
+            android:name="com.gcml.common.app.lifecycle.TopActivityHelper"
+            android:value="ActivityLifecycleCallbacks" />
+    </application>
 
 </manifest>

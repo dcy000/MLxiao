@@ -7,17 +7,21 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.WarmNoticeFragment;
-import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
+import com.gcml.common.data.AppManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- *偏低 生成方案
+ * 偏低 生成方案
  */
 public class PressureFlatTipActivity extends BaseActivity implements WarmNoticeFragment.OnButtonClickListener {
     public static final String CONTENT = "  您好,根据系统中显示的三次数据判定,您血压偏低,现系统正为您生成预防高血压方案";
@@ -53,11 +57,27 @@ public class PressureFlatTipActivity extends BaseActivity implements WarmNoticeF
 
     @Override
     public void onFragmentBtnClick() {
-        startActivity(new Intent(this, WeightMeasureActivity.class));
+//        startActivity(new Intent(this, WeightMeasureActivity.class));
+        CC.obtainBuilder("health_measure")
+                .setActionName("To_WeightManagerActivity")
+                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+            @Override
+            public void onResult(CC cc, CCResult result) {
+                startActivity(new Intent(PressureFlatTipActivity.this, TreatmentPlanActivity.class));
+            }
+        });
     }
 
     @Override
     public void onFragmentBtnTimeOut() {
-        startActivity(new Intent(this, WeightMeasureActivity.class));
+        CC.obtainBuilder("health_measure")
+                .setActionName("To_WeightManagerActivity")
+                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+            @Override
+            public void onResult(CC cc, CCResult result) {
+                AppManager.getAppManager().finishAllActivity();
+                startActivity(new Intent(PressureFlatTipActivity.this, TreatmentPlanActivity.class));
+            }
+        });
     }
 }

@@ -66,6 +66,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
+
         android:id="@+id/iv_baike"
         android:layout_width="198pt"
         android:layout_height="198pt"
@@ -77,6 +78,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/iv_caimi"
         android:layout_width="198pt"
         android:layout_height="198pt"
@@ -99,6 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_jiemeng" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -79,7 +79,7 @@ public class TheOldHomeActivity extends AppCompatActivity {
 
             if (position == 1) {
                 try {
-                    Class<?> aClass = Class.forName("com.example.han.referralproject.video.TheOldVideoActivity");
+                    Class<?> aClass = Class.forName("com.example.han.referralproject.video.VideoListActivity");
                     Intent intent = new Intent();
                     intent.setClass(TheOldHomeActivity.this, aClass);
                     startActivity(intent);

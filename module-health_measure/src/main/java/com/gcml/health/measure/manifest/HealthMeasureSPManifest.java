@@ -1,5 +1,6 @@
 package com.gcml.health.measure.manifest;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.data.SPUtil;
 
 /**
@@ -21,7 +22,8 @@ public class HealthMeasureSPManifest {
      * @return
      */
     public static String getUserId() {
-        return (String) SPUtil.get(KEY_USER_ID, "");
+        return UserSpHelper.getUserId();
+//        return (String) SPUtil.get(KEY_USER_ID, "");
     }
 
     /**

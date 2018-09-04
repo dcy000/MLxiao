@@ -135,6 +135,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         countDownDisposable.dispose();
+                        binding.tvCode.setEnabled(true);
                         ToastUtils.showShort("获取验证码失败");
                         MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码失败", false);
                     }
@@ -269,6 +270,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         ToastUtils.showShort("注册失败");
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "注册失败");
                     }
                 });
     }

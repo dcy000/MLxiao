@@ -87,7 +87,7 @@ public class NormalVideoPlayActivity extends AppCompatActivity{
         mVideoView.setOnPlayerEventListener(playerEventListener);
         mVideoView.setEventHandler(mOnEventAssistHandler);
         mReceiverGroup = ReceiverGroupManager.get().getNormalVideoReceiverGroup(this.getApplicationContext(), null);
-        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_NETWORK_RESOURCE, false);
+        mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_NETWORK_RESOURCE, true);
         mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true);
         mReceiverGroup.getGroupValue().putBoolean(DataInter.Key.KEY_IS_HAS_NEXT, false);
         mVideoView.setReceiverGroup(mReceiverGroup);

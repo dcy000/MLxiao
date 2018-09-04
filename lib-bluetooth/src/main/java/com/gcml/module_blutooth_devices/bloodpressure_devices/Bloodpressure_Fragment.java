@@ -2,6 +2,7 @@ package com.gcml.module_blutooth_devices.bloodpressure_devices;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
         return R.layout.bluetooth_fragment_bloodpressure;
     }
 
+    @CallSuper
     @Override
     protected void initView(View view, final Bundle bundle) {
         mTitle3 = view.findViewById(R.id.title3);

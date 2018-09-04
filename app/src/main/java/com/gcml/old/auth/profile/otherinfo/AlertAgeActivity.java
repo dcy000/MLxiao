@@ -11,6 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -133,7 +134,7 @@ public class AlertAgeActivity extends AppCompatActivity implements View.OnClickL
         String seletedAge = strings.get(currentPositon);
 
         PUTUserBean bean = new PUTUserBean();
-        bean.bid = Integer.parseInt(LocalShared.getInstance(this).getUserId());
+        bean.bid = Integer.parseInt(UserSpHelper.getUserId());
         bean.age = Integer.parseInt(seletedAge);
 
         NetworkApi.putUserInfo(bean.bid, new Gson().toJson(bean), new StringCallback() {

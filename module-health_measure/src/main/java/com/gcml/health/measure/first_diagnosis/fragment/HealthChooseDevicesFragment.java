@@ -183,7 +183,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
                 }
             }
         } else {
-            //默认四件套
+            //默认5件套
             this.deviceBeans.get(0).setChoosed(true);
             this.deviceBeans.get(1).setChoosed(true);
             this.deviceBeans.get(2).setChoosed(true);
@@ -251,6 +251,10 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
             if (bean.getChoosed()) {
                 deviceNum.add(bean.getDeviceLevel());
             }
+        }
+        //默认体重必选
+        if (!deviceNum.contains(7)){
+            deviceNum.add(7);
         }
         return deviceNum;
     }

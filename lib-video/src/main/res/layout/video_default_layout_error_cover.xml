@@ -4,7 +4,34 @@
     android:layout_height="match_parent"
     android:visibility="gone"
     android:background="@drawable/video_default_bg">
+    <LinearLayout
+        android:id="@+id/ll_back"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+        <ImageView
+            android:id="@+id/cover_player_controller_image_view_back_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="30dp"
+            android:paddingRight="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/video_go_back" />
 
+        <TextView
+            android:id="@+id/cover_player_controller_text_view_video_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/cover_player_controller_image_view_back_icon"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="返回"
+            android:textColor="#ffffff"
+            android:textSize="32sp"
+            android:layout_marginRight="8dp"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
