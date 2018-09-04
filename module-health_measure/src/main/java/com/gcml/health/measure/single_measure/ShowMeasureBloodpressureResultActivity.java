@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
-import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.single_measure.bean.DiagnoseInfoBean;
 import com.gcml.health.measure.single_measure.bean.NewWeeklyOrMonthlyBean;
@@ -192,7 +192,7 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
     }
 
     private void getData() {
-        HealthMeasureApi.getDiagnoseInfo(HealthMeasureSPManifest.getUserId(), new StringCallback() {
+        HealthMeasureApi.getDiagnoseInfo(UserSpHelper.getUserId(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
@@ -208,7 +208,7 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
         Calendar curr = Calendar.getInstance();
         long weekAgoTime = curr.getTimeInMillis();
         OkGo.<String>get(HealthMeasureApi.WeeklyOrMonthlyReport)
-                .params("userId", HealthMeasureSPManifest.getUserId())
+                .params("userId", UserSpHelper.getUserId())
                 .params("endTimeStamp", weekAgoTime)
                 .params("num", "1")
                 .execute(new StringCallback() {

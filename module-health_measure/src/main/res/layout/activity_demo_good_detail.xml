@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.han.referralproject.shopping.GoodDetailActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linearlayout1"
@@ -17,7 +16,7 @@
             android:id="@+id/goods_image"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:src="@drawable/xindian" />
+            android:src="@drawable/health_measure_good_detail_ecg" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -34,7 +33,8 @@
                 android:textSize="40sp" />
 
             <TextView
-                android:visibility="invisible"
+                android:id="@+id/tv_description"
+                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="@string/goods_amount"
+                    android:text="198"
                     android:textColor="#FF2D2D"
                     android:textSize="45sp" />
 
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:src="@drawable/img_xq_jian" />
+            android:src="@drawable/health_measure_img_xq_jian" />
 
         <TextView
             android:id="@+id/goods_mount"
@@ -101,7 +101,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/shape_mount"
+            android:background="@drawable/health_measure_shape_mount"
             android:gravity="center"
             android:text="1"
             android:textSize="45sp" />
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:src="@drawable/img_xq_jia" />
+            android:src="@drawable/health_measure_img_xq_jia" />
 
     </LinearLayout>
 
@@ -129,7 +129,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="250dp"
-        android:text="总价：198"
+        android:text="总价：999.00"
         android:textColor="#FF2D2D"
         android:textSize="50sp" />
 
@@ -139,7 +139,7 @@
         android:layout_height="90dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/selector_buy"
+        android:background="@color/color_3F86FC"
         android:gravity="center"
         android:text="购买"
         android:textColor="#FFFFFF"

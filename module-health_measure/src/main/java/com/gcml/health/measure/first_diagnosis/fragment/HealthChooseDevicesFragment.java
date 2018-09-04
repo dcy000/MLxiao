@@ -9,13 +9,13 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
 import com.gcml.health.measure.first_diagnosis.bean.ChooseDeviceBean;
 import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;
 import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
-import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.device.DeviceUtils;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -113,7 +113,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
     private void initData() {
         this.deviceBeans = new ArrayList<>();
         //TODO:测试结束后打开下面的注释
-        userId = HealthMeasureSPManifest.getUserId();
+        userId = UserSpHelper.getUserId();
         HealthMeasureRepository.getUserHasedDevices(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

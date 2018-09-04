@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.health.measure.BuildConfig;
@@ -21,7 +22,6 @@ import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthFirstTipsFragment;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
-import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
@@ -164,7 +164,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
     private void initView() {
         mFrame = (FrameLayout) findViewById(R.id.frame);
         mTitleText.setText("健 康 调 查");
-        userId = HealthMeasureSPManifest.getUserId();
+        userId = UserSpHelper.getUserId();
     }
 
     @Override

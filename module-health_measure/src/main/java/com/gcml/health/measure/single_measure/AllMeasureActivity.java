@@ -17,6 +17,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.widget.dialog.AlertDialog;
+import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.cc.CCVideoActions;
@@ -89,6 +90,10 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private void dealLogic() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         measure_type = getIntent().getIntExtra(IPresenter.MEASURE_TYPE, -1);
+        //TODO:测试代码
+        if (BuildConfig.RUN_APP){
+            measure_type=IPresenter.MEASURE_BLOOD_PRESSURE;
+        }
         switch (measure_type) {
             case IPresenter.MEASURE_TEMPERATURE:
                 //体温测量

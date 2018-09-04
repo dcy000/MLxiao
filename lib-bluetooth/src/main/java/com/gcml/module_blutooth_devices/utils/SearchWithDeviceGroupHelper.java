@@ -21,6 +21,7 @@ import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Self_Pre
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Chaosi_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_KN550_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Self_PresenterImp;
+import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_YuWell_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_GlucWell_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Sannuo_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Self_PresenterImp;
@@ -49,7 +50,7 @@ import java.util.List;
 
 public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private static final String[] BLOODOXYGEN_BRANDS = {"POD", "iChoice", "SpO2080971"};
-    private static final String[] BLOODPRESSURE_BRANDS = {"eBlood-Pressure", "iChoice", "KN-550BT 110"};
+    private static final String[] BLOODPRESSURE_BRANDS = {"eBlood-Pressure", "Yuwell", "iChoice", "KN-550BT 110"};
     private static final String[] BLOODSUGAR_BRANDS = {"Bioland-BGM", "BLE-Glucowell", "BDE_WEIXIN_TTM"};
     private static final String[] TEMPERATURE_BRANDS = {"AET-WD", "ClinkBlood", "MEDXING-IRT", "FSRKB-EWQ01"};
     private static final String[] WEIGHT_BRANDS = {"VScale", "SHHC-60F1", "iChoice", "SENSSUN_CLOUD", "000FatScale01"};
@@ -155,14 +156,14 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchStarted() {
             isSearching = true;
-            Log.e(TAG, "onSearchStarted: " );
+            Log.e(TAG, "onSearchStarted: ");
         }
 
         @Override
         public void onDeviceFounded(SearchResult searchResult) {
             String name = searchResult.getName();
             String address = searchResult.getAddress();
-            Log.e(TAG,"》》》"+name+"》》》"+address);
+            Log.e(TAG, "》》》" + name + "》》》" + address);
             if (!TextUtils.isEmpty(name)) {
                 for (String s : brands) {
                     if (name.startsWith(s) && !devices.contains(searchResult)) {
@@ -192,7 +193,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchCanceled() {
             isSearching = false;
-            Log.e(TAG, "onSearchCanceled: " );
+            Log.e(TAG, "onSearchCanceled: ");
         }
     }
 
@@ -225,6 +226,10 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                     case "eBlood-Pressure":
                         baseBluetoothPresenter = new Bloodpressure_Self_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "eBlood-Pressure"));
+                        break;
+                    case "Yuwell":
+                        baseBluetoothPresenter = new Bloodpressure_YuWell_PresenterImp(view,
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Yuwell BP-YE680A"));
                         break;
                     case "iChoice":
                         baseBluetoothPresenter = new Bloodpressure_Chaosi_PresenterImp(view,
@@ -341,6 +346,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
 
     /**
      * 按降序排列
+     *
      * @param o1
      * @param o2
      * @return

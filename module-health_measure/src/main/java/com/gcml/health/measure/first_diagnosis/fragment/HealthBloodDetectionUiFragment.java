@@ -5,12 +5,11 @@ import android.text.Html;
 import android.util.SparseIntArray;
 import android.view.View;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
-import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
-import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.data.TimeCountDownUtils;
@@ -214,7 +213,7 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     }
 
     private void uploadHandData(final Data data) {
-        OkGo.<String>post(HealthMeasureApi.DETECTION_BLOOD_HAND + HealthMeasureSPManifest.getUserId() + "/")
+        OkGo.<String>post(HealthMeasureApi.DETECTION_BLOOD_HAND + UserSpHelper.getUserId() + "/")
                 .params("handState", data.right)
                 .execute(new StringCallback() {
                     @Override

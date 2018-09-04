@@ -90,6 +90,10 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
                     baseBluetoothPresenter = new Bloodpressure_Self_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "eBlood-Pressure"));
                     break;
+                case "Yuwell":
+                    baseBluetoothPresenter = new Bloodpressure_YuWell_PresenterImp(this,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Yuwell"));
+                    break;
                 case "iChoice":
                     baseBluetoothPresenter = new Bloodpressure_Chaosi_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "iChoice"));
@@ -97,6 +101,8 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
                 case "KN-550BT 110":
                     baseBluetoothPresenter = new Bloodpressure_KN550_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "KN-550BT 110"));
+                    break;
+                default:
                     break;
             }
         }
