@@ -57,6 +57,7 @@ public class UserRepository {
                         mUserDao.addAll(user);
                         UserSpHelper.setUserId(user.id);
                         UserSpHelper.setFaceId(user.xfid);
+                        UserSpHelper.addAccount(user.id, user.xfid);
                     }
                 });
     }

@@ -87,7 +87,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                 .subscribe(new DefaultObserver<PreviewHelper.Status>() {
                     @Override
                     public void onNext(PreviewHelper.Status status) {
-                        onPreviewStatus(status);
+                        onPreviewStatusChanged(status);
                     }
 
                     @Override
@@ -106,18 +106,19 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                     @Override
                     public void onCompleted(SpeechError speechError) {
                         mPreviewHelper.addBuffer(delayMillis);
-                        // see onPreviewStatus(PreviewHelper.Status status)
+                        // see onPreviewStatusChanged(PreviewHelper.Status status)
                     }
                 },
                 false
         );
     }
 
-    private void onPreviewStatus(PreviewHelper.Status status) {
+    private void onPreviewStatusChanged(PreviewHelper.Status status) {
         if (status.code == PreviewHelper.Status.EVENT_CROPPED) {
             Bitmap faceBitmap = (Bitmap) status.payload;
             signInFace(faceBitmap);
         } else if (status.code == PreviewHelper.Status.ERROR_ON_OPEN_CAMERA) {
+            binding.ivTips.setText("打开相机失败");
             ToastUtils.showShort("打开相机失败");
         }
     }

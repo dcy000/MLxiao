@@ -61,7 +61,9 @@ public class FaceIdHelper {
                             emitter.onNext(IdentityVerifier.getVerifier());
                         } else {
                             Timber.e("Face Engine init error");
-                            emitter.onError(new FaceRepository.FaceError(ERROR_ON_ENGINE_INIT, "", null));
+                            if (!emitter.isDisposed()) {
+                                emitter.onError(new FaceRepository.FaceError(ERROR_ON_ENGINE_INIT, "", null));
+                            }
                         }
                     }
                 };
@@ -81,10 +83,9 @@ public class FaceIdHelper {
 
 
     /**
-     *
-     * @param context 用于创建验证器
+     * @param context  用于创建验证器
      * @param faceData faceData
-     * @param faceId faceId
+     * @param faceId   faceId
      * @return faceId
      */
     public Observable<String> signUp(Context context, byte[] faceData, String faceId) {
@@ -297,10 +298,9 @@ public class FaceIdHelper {
     }
 
     /**
-     *
-     * @param context 用于初始化引擎
+     * @param context  用于初始化引擎
      * @param faceData 人脸数据
-     * @param groupId 组 Id
+     * @param groupId  组 Id
      * @return faceId:score
      */
     public Observable<String> signIn(Context context, byte[] faceData, String groupId) {
@@ -341,6 +341,7 @@ public class FaceIdHelper {
                             JSONArray scoreArray = resultObj
                                     .optJSONObject("ifv_result")
                                     .optJSONArray("candidates");
+                            Timber.i(scoreArray.toString());
                             JSONObject firstScoreObj = scoreArray.optJSONObject(0);
                             String firstFaceId = firstScoreObj.optString("user");
                             double firstScore = firstScoreObj.optDouble("score");

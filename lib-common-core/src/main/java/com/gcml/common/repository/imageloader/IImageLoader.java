@@ -10,8 +10,8 @@ public interface IImageLoader {
 
     void clearMemory(Context context);
 
-    void pause(Context context);
+    void pause(Object host);
 
-    void resume(Context context);
+    void resume(Object host);
 
 }

@@ -40,16 +40,48 @@ public class ImageLoader implements IImageLoader {
         }
     }
 
+    /**
+     * use {@link ImageLoader#with(Object host)}
+     *
+     * @param target target to use resource
+     * @param url url of resource
+     * @return Load Options Builder
+     */
+    @Deprecated
     public static Options.Builder newOptionsBuilder(View target, String url) {
         return new Options.Builder(target, url);
     }
 
+    /**
+     * use {@link ImageLoader#with(Object host)}
+     *
+     * @param target target to use resource
+     * @param resource DrawableRes
+     * @return Load Options Builder
+     */
+    @Deprecated
     public static Options.Builder newOptionsBuilder(View target, @DrawableRes int resource) {
         return new Options.Builder(target, resource);
     }
 
+    /**
+     * use {@link ImageLoader#with(Object host)}
+     *
+     * @param target target to use resource
+     * @param model model of resource. Can be Bitmap, File, Uri, URL, and so on.
+     * @return Load Options Builder
+     */
+    @Deprecated
     public static Options.Builder newOptionsBuilder(View target, Object model) {
         return new Options.Builder(target, model);
+    }
+
+    /**
+     * @param host must be Instance of View Or FragmentActivity, Activity, Context, Fragment.
+     * @return Load Options Builder
+     */
+    public static Options.Builder with(Object host) {
+        return new Options.Builder().host(host);
     }
 
     @Override
@@ -74,18 +106,18 @@ public class ImageLoader implements IImageLoader {
     }
 
     @Override
-    public void pause(Context context) {
+    public void pause(Object host) {
         IImageLoader iImageLoader = loaders.get(loaderId);
         if (iImageLoader != null) {
-            iImageLoader.pause(context);
+            iImageLoader.pause(host);
         }
     }
 
     @Override
-    public void resume(Context context) {
+    public void resume(Object host) {
         IImageLoader iImageLoader = loaders.get(loaderId);
         if (iImageLoader != null) {
-            iImageLoader.resume(context);
+            iImageLoader.resume(host);
         }
     }
 
@@ -103,6 +135,7 @@ public class ImageLoader implements IImageLoader {
     }
 
     public static class Options {
+        private Object host;
         private View target;
         private String url;
         private int resource;  // 图片地址
@@ -120,8 +153,10 @@ public class ImageLoader implements IImageLoader {
         private int blurValue;   // 高斯模糊参数，越大越模糊
         private int radius;
         private boolean circle;
+        private int loaderId;
 
         public Options(Builder builder) {
+            this.host = builder.host;
             this.target = builder.target;
             this.url = builder.url;
             this.resource = builder.resource;
@@ -139,6 +174,11 @@ public class ImageLoader implements IImageLoader {
             this.blurValue = builder.blurValue;
             this.radius = builder.radius;
             this.circle = builder.circle;
+            this.loaderId = builder.loaderId;
+        }
+
+        public Object host() {
+            return host;
         }
 
         public View target() {
@@ -152,6 +192,7 @@ public class ImageLoader implements IImageLoader {
         public Object model() {
             return model;
         }
+
         public int resource() {
             return resource;
         }
@@ -210,6 +251,7 @@ public class ImageLoader implements IImageLoader {
         }
 
         public static class Builder {
+            private Object host;
             private View target;
             private String url;
             private Object model;
@@ -227,20 +269,52 @@ public class ImageLoader implements IImageLoader {
             private int blurValue = 15;   // 高斯模糊参数，越大越模糊
             private int radius = 0;
             private boolean circle = false;
+            private int loaderId = GLIDE;
+
+            public Builder() {
+            }
 
             public Builder(View target, String url) {
+                this.host = target;
                 this.target = target;
                 this.url = url;
             }
 
             public Builder(View target, int resource) {
+                this.host = target;
                 this.target = target;
                 this.resource = resource;
             }
 
             public Builder(View target, Object model) {
+                this.host = target;
                 this.target = target;
                 this.model = model;
+            }
+
+            public Builder host(Object host) {
+                this.host = host;
+                return this;
+            }
+
+            public Builder load(String url) {
+                this.url = url;
+                return this;
+            }
+
+            public Builder load(@DrawableRes int resource) {
+                this.resource = resource;
+                return this;
+            }
+
+            /**
+             *
+             * @param model model of resource. Can be Bitmap, File, Uri, URL, and so on.
+             * @return Load Options Builder
+             */
+            public Builder load(Object model) {
+                this.model = model;
+                return this;
             }
 
             public Builder placeholder(@DrawableRes int placeholder) {
@@ -304,8 +378,27 @@ public class ImageLoader implements IImageLoader {
                 return this;
             }
 
+            public Builder glide() {
+                return loaderId(GLIDE);
+            }
+
+            public Builder fressco() {
+                return loaderId(FRESCO);
+            }
+
+            public Builder loaderId(int loaderId) {
+                this.loaderId = loaderId;
+                return this;
+            }
+
             public Options build() {
                 return new Options(this);
+            }
+
+            public void into(View view) {
+                this.target = view;
+                Options options = new Options(this);
+                ImageLoader.instance().loaderId(options.loaderId).load(options);
             }
         }
     }
