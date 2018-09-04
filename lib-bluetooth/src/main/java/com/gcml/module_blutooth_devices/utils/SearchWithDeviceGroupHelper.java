@@ -222,25 +222,23 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 }
                 break;
             case IPresenter.MEASURE_BLOOD_PRESSURE:
-                switch (brand) {
-                    case "eBlood-Pressure":
-                        baseBluetoothPresenter = new Bloodpressure_Self_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "eBlood-Pressure"));
-                        break;
-                    case "Yuwell":
-                        baseBluetoothPresenter = new Bloodpressure_YuWell_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Yuwell BP-YE680A"));
-                        break;
-                    case "iChoice":
-                        baseBluetoothPresenter = new Bloodpressure_Chaosi_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "iChoice"));
-                        break;
-                    case "KN-550BT 110":
-                        baseBluetoothPresenter = new Bloodpressure_KN550_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "KN-550BT 110"));
-                        break;
-                    default:
-                        break;
+                if ("eBlood-Pressure".equals(brand)) {
+                    baseBluetoothPresenter = new Bloodpressure_Self_PresenterImp(view,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "eBlood-Pressure"));
+
+                } else if (brand.startsWith("Yuwell")) {
+                    baseBluetoothPresenter = new Bloodpressure_YuWell_PresenterImp(view,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Yuwell"));
+
+                } else if ("iChoice".equals(brand)) {
+                    baseBluetoothPresenter = new Bloodpressure_Chaosi_PresenterImp(view,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "iChoice"));
+
+                } else if ("KN-550BT 110".equals(brand)) {
+                    baseBluetoothPresenter = new Bloodpressure_KN550_PresenterImp(view,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "KN-550BT 110"));
+
+                } else {
                 }
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:

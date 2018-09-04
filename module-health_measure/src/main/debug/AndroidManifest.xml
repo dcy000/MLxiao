@@ -59,11 +59,11 @@
         <activity android:name="com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity"
             android:screenOrientation="landscape"
             android:label="新的首诊容器界面">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".health_inquiry.HealthInquiryActivity"
             android:screenOrientation="landscape">
