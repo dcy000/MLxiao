@@ -40,21 +40,44 @@ public class ImageLoader implements IImageLoader {
         }
     }
 
+    /**
+     * use {@link ImageLoader#with(Object host)}
+     *
+     * @param target target to use resource
+     * @param url url of resource
+     * @return Load Options Builder
+     */
+    @Deprecated
     public static Options.Builder newOptionsBuilder(View target, String url) {
         return new Options.Builder(target, url);
     }
 
+    /**
+     * use {@link ImageLoader#with(Object host)}
+     *
+     * @param target target to use resource
+     * @param resource DrawableRes
+     * @return Load Options Builder
+     */
+    @Deprecated
     public static Options.Builder newOptionsBuilder(View target, @DrawableRes int resource) {
         return new Options.Builder(target, resource);
     }
 
+    /**
+     * use {@link ImageLoader#with(Object host)}
+     *
+     * @param target target to use resource
+     * @param model model of resource. Can be Bitmap, File, Uri, URL, and so on.
+     * @return Load Options Builder
+     */
+    @Deprecated
     public static Options.Builder newOptionsBuilder(View target, Object model) {
         return new Options.Builder(target, model);
     }
 
     /**
-     *
-     * @param host  must be Instance of View Or FragmentActivity, Activity, Context, Fragment.
+     * @param host must be Instance of View Or FragmentActivity, Activity, Context, Fragment.
      * @return Load Options Builder
      */
     public static Options.Builder with(Object host) {
@@ -284,6 +307,11 @@ public class ImageLoader implements IImageLoader {
                 return this;
             }
 
+            /**
+             *
+             * @param model model of resource. Can be Bitmap, File, Uri, URL, and so on.
+             * @return Load Options Builder
+             */
             public Builder load(Object model) {
                 this.model = model;
                 return this;
