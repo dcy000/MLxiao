@@ -1,9 +1,12 @@
 package com.gcml.common.repository.imageloader.glide;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -104,14 +107,14 @@ public class GlideImageLoader implements IImageLoader {
     private RequestBuilder requestBuilder(ImageLoader.Options options) {
         RequestBuilder builder;
         if (options.asGif()) {
-            builder = requestManager(options.target()).asGif();
+            builder = requestManager(options).asGif();
         } else {
-            builder = requestManager(options.target()).asBitmap();
+            builder = requestManager(options).asBitmap();
         }
 
         if (!TextUtils.isEmpty(options.url())) {
             builder.load(options.url());
-        } else if (options.model() != null){
+        } else if (options.model() != null) {
             builder.load(options.model());
         } else {
             builder.load(options.resource());
@@ -119,8 +122,22 @@ public class GlideImageLoader implements IImageLoader {
         return builder;
     }
 
-    private RequestManager requestManager(View target) {
-        return Glide.with(target);
+    private RequestManager requestManager(ImageLoader.Options options) {
+        Object host = options.host();
+        if (host instanceof View) {
+            return Glide.with((View) host);
+        } else if (host instanceof FragmentActivity) {
+            return Glide.with((FragmentActivity) host);
+        } else if (host instanceof Activity) {
+            return Glide.with((Activity) host);
+        } else if (host instanceof Fragment) {
+            return Glide.with((Fragment) host);
+        } else if (host instanceof android.app.Fragment) {
+            return Glide.with((android.app.Fragment) host);
+        } else if (host instanceof Context) {
+            return Glide.with((Context) host);
+        }
+        throw new IllegalArgumentException("host must be Instance of View, FragmentActivity, Activity, Context Or Fragment.");
     }
 
     @Override

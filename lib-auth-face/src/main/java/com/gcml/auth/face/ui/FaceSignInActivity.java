@@ -118,6 +118,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
             Bitmap faceBitmap = (Bitmap) status.payload;
             signInFace(faceBitmap);
         } else if (status.code == PreviewHelper.Status.ERROR_ON_OPEN_CAMERA) {
+            binding.ivTips.setText("打开相机失败");
             ToastUtils.showShort("打开相机失败");
         }
     }

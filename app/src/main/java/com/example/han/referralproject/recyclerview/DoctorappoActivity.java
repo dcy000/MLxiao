@@ -1216,7 +1216,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
 //        if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
 //            Picasso.with(this)
-//                    .load(sharedPreferences1.getString("docter_photo", ""))
+//                    .start(sharedPreferences1.getString("docter_photo", ""))
 //                    .placeholder(R.drawable.avatar_placeholder)
 //                    .error(R.drawable.avatar_placeholder)
 //                    .tag(this)

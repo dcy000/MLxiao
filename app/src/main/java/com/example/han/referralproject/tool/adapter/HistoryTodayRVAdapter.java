@@ -33,7 +33,7 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
 //        open.setText(bean.description);
 //        ImageView openImg = holder.getView(R.id.img_pic);
 //        if (!bean.imgs.isEmpty()) {
-//            Glide.with(openImg.getContext()).load(bean.imgs.get(0)).into(openImg);
+//            Glide.with(openImg.getContext()).start(bean.imgs.get(0)).into(openImg);
 //        }
 //        close.isOpen = bean.flag;
 //        if (bean.flag) {

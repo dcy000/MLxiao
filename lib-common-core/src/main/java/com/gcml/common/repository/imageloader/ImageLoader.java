@@ -52,6 +52,10 @@ public class ImageLoader implements IImageLoader {
         return new Options.Builder(target, model);
     }
 
+    public static Options.Builder with(Object host) {
+        return new Options.Builder().host(host);
+    }
+
     @Override
     public int id() {
         return 0;
@@ -103,6 +107,7 @@ public class ImageLoader implements IImageLoader {
     }
 
     public static class Options {
+        private Object host;
         private View target;
         private String url;
         private int resource;  // 图片地址
@@ -120,8 +125,10 @@ public class ImageLoader implements IImageLoader {
         private int blurValue;   // 高斯模糊参数，越大越模糊
         private int radius;
         private boolean circle;
+        private int loaderId = GLIDE;
 
         public Options(Builder builder) {
+            this.host = builder.host;
             this.target = builder.target;
             this.url = builder.url;
             this.resource = builder.resource;
@@ -139,6 +146,11 @@ public class ImageLoader implements IImageLoader {
             this.blurValue = builder.blurValue;
             this.radius = builder.radius;
             this.circle = builder.circle;
+            this.loaderId = builder.loaderId;
+        }
+
+        public Object host() {
+            return host;
         }
 
         public View target() {
@@ -152,6 +164,7 @@ public class ImageLoader implements IImageLoader {
         public Object model() {
             return model;
         }
+
         public int resource() {
             return resource;
         }
@@ -210,6 +223,7 @@ public class ImageLoader implements IImageLoader {
         }
 
         public static class Builder {
+            private Object host;
             private View target;
             private String url;
             private Object model;
@@ -227,20 +241,47 @@ public class ImageLoader implements IImageLoader {
             private int blurValue = 15;   // 高斯模糊参数，越大越模糊
             private int radius = 0;
             private boolean circle = false;
+            private int loaderId = GLIDE;
+
+            public Builder() {
+            }
 
             public Builder(View target, String url) {
+                this.host = target;
                 this.target = target;
                 this.url = url;
             }
 
             public Builder(View target, int resource) {
+                this.host = target;
                 this.target = target;
                 this.resource = resource;
             }
 
             public Builder(View target, Object model) {
+                this.host = target;
                 this.target = target;
                 this.model = model;
+            }
+
+            public Builder host(Object host) {
+                this.host = host;
+                return this;
+            }
+
+            public Builder load(String url) {
+                this.url = url;
+                return this;
+            }
+
+            public Builder load(@DrawableRes int resource) {
+                this.resource = resource;
+                return this;
+            }
+
+            public Builder load(Object model) {
+                this.model = model;
+                return this;
             }
 
             public Builder placeholder(@DrawableRes int placeholder) {
@@ -304,8 +345,27 @@ public class ImageLoader implements IImageLoader {
                 return this;
             }
 
+            public Builder glide() {
+                return loaderId(GLIDE);
+            }
+
+            public Builder fressco() {
+                return loaderId(FRESCO);
+            }
+
+            public Builder loaderId(int loaderId) {
+                this.loaderId = loaderId;
+                return this;
+            }
+
             public Options build() {
                 return new Options(this);
+            }
+
+            public void into(View view) {
+                this.target = view;
+                Options options = new Options(this);
+                ImageLoader.instance().loaderId(options.loaderId).load(options);
             }
         }
     }
