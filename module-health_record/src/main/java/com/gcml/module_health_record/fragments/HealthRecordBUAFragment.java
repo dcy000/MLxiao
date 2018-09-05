@@ -104,7 +104,7 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
         xAxis.setLabelCount(4);
 
 
-        LimitLine ll1 = new LimitLine(149f, "149μmol/L");
+        LimitLine ll1 = new LimitLine(1.49f, "1.49mmol/L");
         ll1.setLineWidth(2f);
         ll1.setLineColor(Color.parseColor("#CFD8F1"));
         ll1.enableDashedLine(10.0f, 10f, 0f);
@@ -112,21 +112,21 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
         ll1.setTextSize(18f);
 
 
-        LimitLine ll2 = new LimitLine(416f, "416μmol/L");
+        LimitLine ll2 = new LimitLine(4.16f, "4.16mmol/L");
         ll2.setLineWidth(2f);
         ll2.setLineColor(Color.parseColor("#CFD8F1"));
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll2.setTextSize(18f);
 
-        LimitLine ll3 = new LimitLine(357f, "357μmol/L");
+        LimitLine ll3 = new LimitLine(3.57f, "3.57mmol/L");
         ll3.setLineWidth(2f);
         ll3.setLineColor(Color.parseColor("#D3EFD0"));
         ll3.enableDashedLine(10.0f, 10f, 0f);
         ll3.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll3.setTextSize(18f);
 
-        LimitLine ll4 = new LimitLine(89f, "89μmol/L");
+        LimitLine ll4 = new LimitLine(0.89f, "0.89mmol/L");
         ll4.setLineWidth(2f);
         ll4.setLineColor(Color.parseColor("#D3EFD0"));
         ll4.enableDashedLine(10.0f, 10f, 0f);
@@ -142,8 +142,7 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
         leftAxis.addLimitLine(ll4);
         leftAxis.resetAxisMaximum();
         leftAxis.resetAxisMinimum();
-        leftAxis.setAxisMaximum(500);
-        leftAxis.setAxisMinimum(50);
+        leftAxis.setAxisMaximum(10);
         //网格线
         leftAxis.setDrawGridLines(false);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
@@ -164,7 +163,7 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
         ArrayList<Long> times = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
         for (int i = 0; i < response.size(); i++) {
-            if (response.get(i).uric_acid < 149 || response.get(i).uric_acid > 416) {
+            if (response.get(i).uric_acid < 1.49 || response.get(i).uric_acid > 4.16) {
                 colors.add(Color.RED);
             } else {
                 colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
@@ -184,8 +183,9 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
                     mChart.getData().getDataSetCount() > 0) {
                 set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
                 set1.setValues(value);
-                if (value.size() <= 3)
+                if (value.size() <= 3) {
                     set1.setMode(LineDataSet.Mode.LINEAR);
+                }
                 mChart.getData().notifyDataChanged();
                 mChart.notifyDataSetChanged();
             } else {
@@ -224,10 +224,11 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
                 } else {
                     set1.setFillColor(Color.parseColor("#B3DCE2F3"));
                 }
-                if (value.size() <= 3)
+                if (value.size() <= 3) {
                     set1.setMode(LineDataSet.Mode.LINEAR);
-                else
+                } else {
                     set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+                }
                 ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
                 dataSets.add(set1);
 

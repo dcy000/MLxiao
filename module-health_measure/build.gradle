@@ -29,6 +29,7 @@ android {
             zipAlignEnabled false
             shrinkResources false
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
+            buildConfigField("boolean", "RUN_APP", "${project.ext.runAsApp}")
         }
 
         debug {

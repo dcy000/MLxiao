@@ -10,15 +10,17 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
  * version:V1.2.5
  * created on 2018/8/6 11:13
  * created by:gzq
- * description:单次单合一测量
+ * description:单次三合一测量
  */
 public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
-    ArrayList<DetectionData> datas = new ArrayList<>();
+    private ArrayList<DetectionData> datas = new ArrayList<>();
     DetectionData sugarData;
     DetectionData cholesterolData;
     DetectionData lithicAcidData;

@@ -16,6 +16,8 @@ import com.gcml.module_health_record.others.XindianAdapter;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 
 public class HealthRecordECGFragment extends RecycleBaseFragment implements View.OnClickListener {
 
@@ -40,7 +42,8 @@ public class HealthRecordECGFragment extends RecycleBaseFragment implements View
     public void refreshData(ArrayList<ECGHistory> response, String temp) {
         view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
         mXindiantu.setLayoutManager(new LinearLayoutManager(getContext()));
-        mXindiantu.setAdapter(new XindianAdapter(R.layout.health_record_item_message, response));
+        mXindiantu.setAdapter(new XindianAdapter(R.layout.health_record_item_message, response,
+                getResources().getStringArray(R.array.ecg_measureres)));
     }
 
     public void refreshErrorData(String message) {

@@ -93,9 +93,9 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                         showLoading("加载中");
                     }
                 })
-                .doOnSubscribe(new Consumer<Disposable>() {
+                .doOnNext(new Consumer<FirstReportBean>() {
                     @Override
-                    public void accept(Disposable disposable) throws Exception {
+                    public void accept(FirstReportBean firstReportBean) throws Exception {
                         dismissLoading();
                     }
                 })
