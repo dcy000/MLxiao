@@ -121,7 +121,7 @@ public class CameraUtils {
             camera.stopPreview();
             camera.setPreviewDisplay(null);
         } catch (Exception e) {
-            Timber.e(e, "FaceError while STOP preview for camera");
+            Timber.e(e, "Error while STOP preview for camera");
         }
     }
 

@@ -3,8 +3,10 @@ package com.gcml.health.measure.hypertension_management;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
+import com.gcml.common.data.AppManager;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
@@ -28,11 +30,16 @@ public class BloodpressureManagerActivity extends BaseManagementActivity{
     }
     @Override
     protected void dealLogic() {
+        mTitleText.setText("血 压 测 量");
         measure_type= IPresenter.MEASURE_BLOOD_PRESSURE;
         SingleMeasureBloodpressureFragment singleMeasureBloodpressureFragment = new SingleMeasureBloodpressureFragment();
-        singleMeasureBloodpressureFragment.getVideoDemoView().setVisibility(View.GONE);
-        singleMeasureBloodpressureFragment.getHealthRecordView().setText("下一步");
+        singleMeasureBloodpressureFragment.setOnDealVoiceAndJumpListener(this);
+        singleMeasureBloodpressureFragment.setOnDealVoiceAndJumpListener(this);
+        Bundle bundle=new Bundle();
+        bundle.putBoolean("isOnlyShowBtnHealthRecord",true);
+        singleMeasureBloodpressureFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame,singleMeasureBloodpressureFragment).commit();
+        AppManager.getAppManager().addActivity(this);
         super.dealLogic();
     }
 

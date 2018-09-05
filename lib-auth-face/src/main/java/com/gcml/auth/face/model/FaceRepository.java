@@ -168,7 +168,7 @@ public class FaceRepository {
      * @param faceId 人脸 id
      * @return groupId
      */
-    private Observable<String> tryJoinGroup(@NonNull String faceId) {
+    public Observable<String> tryJoinGroup(@NonNull String faceId) {
         String userId = UserSpHelper.getUserId();
         if (TextUtils.isEmpty(userId)) {
             return Observable.error(new NullPointerException("userId == null"));
@@ -255,7 +255,14 @@ public class FaceRepository {
      * @return faceId:score
      */
     public Observable<String> signIn(byte[] faceData, String groupId) {
-        return mFaceIdHelper.signIn(mContext, faceData, groupId);
+        return mFaceIdHelper.signIn(mContext, faceData, groupId)
+                .doOnNext(new Consumer<String>() {
+                    @Override
+                    public void accept(String faceIdWithScore) throws Exception {
+                        String[] strings = faceIdWithScore.split(":");
+                        UserSpHelper.addAccount(UserSpHelper.getUserId(), strings[0]);
+                    }
+                });
     }
 
     public Observable<List<UserEntity>> getLocalUsers() {

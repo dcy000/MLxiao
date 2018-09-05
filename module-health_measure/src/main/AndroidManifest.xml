@@ -52,5 +52,8 @@
         <activity android:name=".hypertension_management.WeightManagerActivity"
             android:screenOrientation="landscape"
             android:label="慢病管理中的体重测量"/>
+        <activity android:name=".demo.DemoGoodDetailActivity"
+            android:screenOrientation="landscape"
+            android:label="演示推荐商品的页面"/>
     </application>
 </manifest>

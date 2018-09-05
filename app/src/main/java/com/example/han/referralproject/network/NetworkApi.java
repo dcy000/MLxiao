@@ -116,6 +116,7 @@ public class NetworkApi {
     public static final String DOCTOR_URL = BasicUrl + "ZZB/docter/search_OneDocter";
     public static final String PERSON_URL = BasicUrl + "ZZB/br/selOneUser_con";
     public static final String GetInfo_URL = BasicUrl + "ZZB/br/selMoreUser";
+    public static final String GetInfo_New_URL = BasicUrl + "ZZB/api/user/info/users/";
     public static final String PERSON_AMOUNT = BasicUrl + "ZZB/eq/eq_amount";
     public static final String YUYUE_URL = BasicUrl + "ZZB/bl/insertReserve";
     public static final String YUYUE_URL_INFO = BasicUrl + "ZZB/bl/selAllreserveByDoidAndUserid";
@@ -679,6 +680,13 @@ public class NetworkApi {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("p", accounts);
         NetworkManager.getInstance().getResultClass(GetInfo_URL, paramsMap, new TypeToken<ArrayList<UserInfoBean>>() {
+        }.getType(), callback);
+    }
+
+    public static void getAllUsersNew(String accounts, NetworkManager.SuccessCallback<ArrayList<UserInfoBean>> callback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("users", accounts);
+        NetworkManager.getInstance().getResultClass(GetInfo_New_URL, paramsMap, new TypeToken<ArrayList<UserInfoBean>>() {
         }.getType(), callback);
     }
 

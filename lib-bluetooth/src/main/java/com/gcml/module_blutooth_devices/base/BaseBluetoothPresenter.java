@@ -182,7 +182,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                             if (TextUtils.isEmpty(targetName)) {
                                 throw new NullPointerException("连接的设备为NULL");
                             }
-                            if (!TextUtils.isEmpty(name) && name.equals(targetName)) {
+                            if (!TextUtils.isEmpty(name) && name.startsWith(targetName)) {
                                 BluetoothClientManager.getClient().stopSearch();
                                 isOnSearching = false;
 //                                lockedDevice = new BluetoothDevice(DEVICE_INITIAL, searchResult);
@@ -201,7 +201,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                                     discoveredTargetDevice(searchResult);
                                     return;
                                 }
-                                if (name.equals(targetName)) {
+                                if (name.startsWith(targetName)) {
                                     discoverNewDevices(searchResult);
                                 }
                             }

@@ -101,14 +101,14 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
     private void getLocation() {
         //TODO:打正式包的时候打开该注释
-//        WeatherUtils.getInstance().initLocation(getContext());
-//        WeatherUtils.getInstance().setOnLocationResultListener(new WeatherUtils.LocationResult() {
-//            @Override
-//            public void onResult(String city, String county) {
-//                getWeather(city + county);
-//            }
-//        });
-        getWeather("杭州");
+        WeatherUtils.getInstance().initLocation(getContext());
+        WeatherUtils.getInstance().setOnLocationResultListener(new WeatherUtils.LocationResult() {
+            @Override
+            public void onResult(String city, String county) {
+                getWeather(city);
+            }
+        });
+//        getWeather("杭州");
     }
 
     private void getWeather(String address) {
@@ -311,14 +311,15 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 bundle.putString("from", "Test");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(getActivity(), bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
-                                if (result.isSuccess()) {
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -330,17 +331,17 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 //                startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));
 //                startActivity(new Intent(getContext(), OlderHealthManagementSerciveActivity.class));
                 CC.obtainBuilder("com.gcml.task.isTask")
-                .build()
-                .callAsync(new IComponentCallback() {
-                    @Override
-                    public void onResult(CC cc, CCResult result) {
-                        if (result.isSuccess()) {
-                            CC.obtainBuilder("app.component.task").build().callAsync();
-                        } else {
-                            CC.obtainBuilder("app.component.task.comply").build().callAsync();
-                        }
-                    }
-                });
+                        .build()
+                        .callAsync(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+                                if (result.isSuccess()) {
+                                    CC.obtainBuilder("app.component.task").build().callAsync();
+                                } else {
+                                    CC.obtainBuilder("app.component.task.comply").build().callAsync();
+                                }
+                            }
+                        });
                 break;
             case R.id.iv_health_call_family:
                 NimCallActivity.launchNoCheck(getContext(), MyApplication.getInstance().eqid);
@@ -348,4 +349,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
         }
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MyApplication.getInstance().userId = UserSpHelper.getUserId();
+    }
 }

@@ -230,6 +230,5 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        MLVoiceSynthetize.destory();
     }
 }

@@ -2,6 +2,7 @@ package com.gcml.module_blutooth_devices.bloodpressure_devices;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
         return R.layout.bluetooth_fragment_bloodpressure;
     }
 
+    @CallSuper
     @Override
     protected void initView(View view, final Bundle bundle) {
         mTitle3 = view.findViewById(R.id.title3);
@@ -88,6 +90,10 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
                     baseBluetoothPresenter = new Bloodpressure_Self_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "eBlood-Pressure"));
                     break;
+                case "Yuwell":
+                    baseBluetoothPresenter = new Bloodpressure_YuWell_PresenterImp(this,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Yuwell"));
+                    break;
                 case "iChoice":
                     baseBluetoothPresenter = new Bloodpressure_Chaosi_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "iChoice"));
@@ -95,6 +101,8 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
                 case "KN-550BT 110":
                     baseBluetoothPresenter = new Bloodpressure_KN550_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "KN-550BT 110"));
+                    break;
+                default:
                     break;
             }
         }

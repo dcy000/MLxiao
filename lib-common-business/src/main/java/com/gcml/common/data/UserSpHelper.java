@@ -42,6 +42,10 @@ public class UserSpHelper {
      * 创建人脸识别组的时候传入的第一个讯飞id
      */
     private static final String KEY_CREATE_GROUP_FIRST_XFID = "group_first_xfid";
+    /**
+     * 用户身高的key
+     */
+    private static final String KEY_USER_HEIGHT="user_height";
 
     /**
      * 获取SP中存储的userid
@@ -183,4 +187,11 @@ public class UserSpHelper {
         return false;
     }
 
+    /**
+     * 获取存储在SP中的用户身高 单位cm
+     * @return
+     */
+    public static String getUserHeight(){
+        return (String) SPUtil.get(KEY_USER_HEIGHT,"");
+    }
 }

@@ -106,7 +106,7 @@ public enum RepositoryApp implements IRepositoryApp {
                     .httpInterceptor(new HttpInterceptorImpl())
                     .gsonConfiguration((context1, gsonBuilder) -> {
                         gsonBuilder
-                                .serializeNulls()//支持序列化null的参数
+//                                .serializeNulls()//支持序列化null的参数
                                 .enableComplexMapKeySerialization();//支持将序列化key为object的map,默认只能序列化key为string的map
                     })
                     //这里可以自己自定义配置Retrofit的参数,甚至你可以替换系统配置好的okhttp对象

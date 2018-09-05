@@ -1,9 +1,9 @@
 package com.gcml.health.measure.network;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
-import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
@@ -33,7 +33,7 @@ public class HealthMeasureApi {
      * 新的上传测量数据的接口
      */
     public static void postMeasureData(ArrayList<DetectionData> datas, final NetworkCallback callback) {
-        OkGo.<String>post(DETECTION_DATA + HealthMeasureSPManifest.getUserId() + "/")
+        OkGo.<String>post(DETECTION_DATA + UserSpHelper.getUserId() + "/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
                     @Override

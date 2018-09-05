@@ -144,28 +144,32 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
                 default:
                     break;
             }
-            mCpChart.setValue(Float.parseFloat(morbidity));
             mTvResultProbability.setText("您的" + type + "发病率为" + morbidity + "%");
             switch (riskLevel) {
                 case 1:
                     mCpChart.setValueWithString("低风险");
                     mTvBottom.setText("您未来"+type+"发病等级为低风险。小E给您的建议，");
+                    mCpChart.setValue(6.0f);
                     break;
                 case 2:
                     mCpChart.setValueWithString("较低风险");
                     mTvBottom.setText("您未来"+type+"发病等级为较低风险。小E给您的建议，");
+                    mCpChart.setValue(12.0f);
                     break;
                 case 3:
                     mCpChart.setValueWithString("中等风险");
                     mTvBottom.setText("您未来"+type+"发病等级为中等风险。小E给您的建议，");
+                    mCpChart.setValue(18.0f);
                     break;
                 case 4:
                     mCpChart.setValueWithString("较高风险");
                     mTvBottom.setText("您未来"+type+"发病等级为较高风险。小E给您的建议，");
+                    mCpChart.setValue(24.0f);
                     break;
                 case 5:
                     mCpChart.setValueWithString("高风险");
                     mTvBottom.setText("您未来"+type+"发病等级为高风险。小E给您的建议，");
+                    mCpChart.setValue(30.0f);
                     break;
                 default:
                     break;

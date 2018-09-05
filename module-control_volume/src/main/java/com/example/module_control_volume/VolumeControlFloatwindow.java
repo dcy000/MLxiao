@@ -125,13 +125,9 @@ public class VolumeControlFloatwindow {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         currentVolume = progress;
-                        tvVolume.setText((int) ((progress / (float) maxVolume) * 100) + "%");
-                        if (progress == 0) {
+                        if (currentVolume == 0) {
                             icon_voice.setImageResource(R.drawable.volume_control_icon_voice_mute);
-                            return;
                         }
-                        icon_voice.setImageResource(R.drawable.volume_control_icon_voice);
-                        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, AudioManager.FLAG_PLAY_SOUND);
                     }
 
                     @Override
@@ -141,7 +137,13 @@ public class VolumeControlFloatwindow {
 
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
-
+                        tvVolume.setText((int) ((currentVolume / (float) maxVolume) * 100) + "%");
+                        if (currentVolume == 0) {
+                            icon_voice.setImageResource(R.drawable.volume_control_icon_voice_mute);
+                            return;
+                        }
+                        icon_voice.setImageResource(R.drawable.volume_control_icon_voice);
+                        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, AudioManager.FLAG_PLAY_SOUND);
 
                     }
                 });

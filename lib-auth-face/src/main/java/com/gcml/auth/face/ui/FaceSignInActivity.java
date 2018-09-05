@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -42,6 +43,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
 
     private PreviewHelper mPreviewHelper;
     private Animation mAnimation;
+    private boolean skip;
 
     @Override
     protected int layoutId() {
@@ -56,17 +58,9 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     @Override
     protected void init(Bundle savedInstanceState) {
         callId = getIntent().getStringExtra("callId");
+        skip = getIntent().getBooleanExtra("skip", false);
         binding.setPresenter(this);
-        RxUtils.rxWifiLevel(getApplication(), 4)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer integer) throws Exception {
-                        binding.ivWifiState.setImageLevel(integer);
-                    }
-                });
+        binding.tvSkip.setVisibility(skip ? View.VISIBLE : View.GONE);
         mPreviewHelper = new PreviewHelper(this);
         mPreviewHelper.setSurfaceHolder(binding.svPreview.getHolder());
         mPreviewHelper.setPreviewView(binding.svPreview);
@@ -93,7 +87,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                 .subscribe(new DefaultObserver<PreviewHelper.Status>() {
                     @Override
                     public void onNext(PreviewHelper.Status status) {
-                        onPreviewStatus(status);
+                        onPreviewStatusChanged(status);
                     }
 
                     @Override
@@ -112,18 +106,19 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                     @Override
                     public void onCompleted(SpeechError speechError) {
                         mPreviewHelper.addBuffer(delayMillis);
-                        // see onPreviewStatus(PreviewHelper.Status status)
+                        // see onPreviewStatusChanged(PreviewHelper.Status status)
                     }
                 },
                 false
         );
     }
 
-    private void onPreviewStatus(PreviewHelper.Status status) {
+    private void onPreviewStatusChanged(PreviewHelper.Status status) {
         if (status.code == PreviewHelper.Status.EVENT_CROPPED) {
             Bitmap faceBitmap = (Bitmap) status.payload;
             signInFace(faceBitmap);
         } else if (status.code == PreviewHelper.Status.ERROR_ON_OPEN_CAMERA) {
+            binding.ivTips.setText("打开相机失败");
             ToastUtils.showShort("打开相机失败");
         }
     }
@@ -197,14 +192,14 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     private void processFaceIdAndScore(String faceId, float score) {
         if (score < 30) {
             // 验证不通过
-            int count = retryCount.getAndIncrement();
-            if (count == 5) {
-                finish();
-            } else {
+//            int count = retryCount.getAndIncrement();
+//            if (count == 5) {
+//                finish();
+//            } else {
                 start("请把人脸放在框内",
                         "请把人脸放在框内",
                         1000);
-            }
+//            }
         } else if (score < 80) {
             // 重新验证
             start("请把人脸靠近一点",
@@ -275,8 +270,11 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
         finish();
     }
 
-    public void goWifi() {
-        CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
+    private boolean hasSkip;
+
+    public void skip() {
+        hasSkip = true;
+        finish();
     }
 
     @Override
@@ -307,7 +305,12 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
         if (!TextUtils.isEmpty(callId)) {
             CCResult result;
             if (error) {
-                result = CCResult.error("人脸验证未通过");
+                if (hasSkip) {
+                    result = CCResult.error("skip");
+                    result.addData("userId", UserSpHelper.getUserId());
+                } else {
+                    result = CCResult.error("人脸验证未通过");
+                }
             } else {
                 result = CCResult.success("faceId", theFaceId);
                 result.addData("currentUser", currentUser);

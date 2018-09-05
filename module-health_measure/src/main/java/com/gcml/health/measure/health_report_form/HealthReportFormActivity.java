@@ -8,20 +8,29 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
+import com.gcml.health.measure.demo.DemoGoodTipsFragment;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
-import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.module_blutooth_devices.base.FragmentChanged;
+import com.gcml.lib_utils.ui.dialog.BaseDialog;
+import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
+import com.gcml.lib_utils.ui.dialog.DialogSure;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +54,8 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
     private List<Fragment> fragments;
     public static final String KEY_DATA = "key_data";
     public static final String KEY_TYPE = "key_type";
+    private String userId;
+    private int checkViewpageState = 4;
 
     public static void startActivity(Context context) {
         context.startActivity(new Intent(context, HealthReportFormActivity.class));
@@ -67,7 +78,13 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
 
     @SuppressLint("CheckResult")
     private void getData() {
-        HealthMeasureRepository.getFirstReport(HealthMeasureSPManifest.getUserId())
+        //TODO:测试代码
+        if (BuildConfig.RUN_APP) {
+            userId = " 100217";
+        } else {
+            userId = UserSpHelper.getUserId();
+        }
+        HealthMeasureRepository.getFirstReport(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -187,6 +204,9 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
             fragment5.setArguments(bundle5);
             fragments.add(fragment5);
         }
+
+//        DemoGoodTipsFragment tipsFragment = new DemoGoodTipsFragment();
+//        fragments.add(tipsFragment);
         initViewPage();
     }
 
@@ -206,6 +226,9 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+                if (position == 4&& positionOffsetPixels == 0 && checkViewpageState > 0) {
+                    checkViewpageState--;
+                }
             }
 
             @Override
@@ -226,6 +249,9 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                     case 4:
                         mTitleText.setText("心 血 管 病 评 估 报 告");
                         break;
+                    case 5:
+                        mTitleText.setText("智 能 推 荐");
+                        break;
                     default:
                         break;
                 }
@@ -233,9 +259,34 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                if (state == 0 && checkViewpageState <= 0) {
+                    showEndDialog();
+                }
             }
         });
+    }
+
+    private DialogSure dialogSure;
+
+    private void showEndDialog() {
+        checkViewpageState = 4;
+        if (dialogSure == null) {
+            dialogSure = new DialogSure(this);
+            View inflate = LayoutInflater.from(this).inflate(R.layout.health_measure_dialog_enter_mainactivity, null, false);
+            dialogSure.setContentView(inflate);
+            TextView btnEnter = inflate.findViewById(R.id.btn_enter);
+            btnEnter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Timber.e("点击了主页面");
+                    CCAppActions.jump2MainActivity();
+                }
+            });
+        }
+        if (!dialogSure.isShowing()) {
+            dialogSure.show();
+        }
+
     }
 
     private void initView() {

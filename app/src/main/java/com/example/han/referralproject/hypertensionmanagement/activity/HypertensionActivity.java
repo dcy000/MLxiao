@@ -14,7 +14,7 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionBean;
 import com.example.han.referralproject.hypertensionmanagement.bean.PrimaryHypertensionQuestionnaireBean;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceFragment;
-import com.example.han.referralproject.hypertensionmanagement.util.AppManager;
+import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
@@ -163,7 +163,7 @@ public class HypertensionActivity extends BaseActivity implements MultipleChoice
     private int getScore(PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean answerBean, int[] checked) {
         int score = 0;
         for (int i = 0; i < checked.length; i++) {
-            score += answerBean.answerList.get(checked[i]).score;
+            score += answerBean.answerList.get(checked[i]).answerScore;
         }
         return score;
     }

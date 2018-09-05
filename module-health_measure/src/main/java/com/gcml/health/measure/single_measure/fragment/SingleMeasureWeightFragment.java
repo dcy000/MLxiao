@@ -2,8 +2,8 @@ package com.gcml.health.measure.single_measure.fragment;
 
 import android.text.TextUtils;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
-import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.UtilsManager;
@@ -26,7 +26,7 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
         if (results.length == 1) {
             //得到身高和体重，再计算一下体质
             if (mTvTizhi!=null){
-                String userHeight = HealthMeasureSPManifest.getUserHeight();
+                String userHeight = UserSpHelper.getUserHeight();
                 if (!TextUtils.isEmpty(userHeight)) {
                     float parseFloat = Float.parseFloat(userHeight);
                     float weight = Float.parseFloat(results[0]);

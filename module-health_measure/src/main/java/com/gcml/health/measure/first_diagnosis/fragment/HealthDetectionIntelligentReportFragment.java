@@ -16,12 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
-import com.gcml.health.measure.manifest.HealthMeasureSPManifest;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.ui.UiUtils;
@@ -59,7 +59,7 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         }
         String json = new Gson().toJson(cacheDatas);
         cacheDatas.clear();
-        OkGo.<String>post(HealthMeasureApi.DETECTION_RESULT + HealthMeasureSPManifest.getUserId() + "/")
+        OkGo.<String>post(HealthMeasureApi.DETECTION_RESULT + UserSpHelper.getUserId() + "/")
                 .upJson(json)
                 .execute(new StringCallback() {
                     @Override

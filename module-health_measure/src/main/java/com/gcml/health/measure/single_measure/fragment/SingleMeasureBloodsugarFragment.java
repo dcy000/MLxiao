@@ -24,19 +24,16 @@ import java.util.ArrayList;
  */
 public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
     private Bundle bundle;
-
-    //提供者两个方法的目的是方便外部对这两个按钮进行显示和隐藏
-    public TextView getHealthRecordView(){
-        return mBtnHealthHistory;
-    }
-    public TextView getVideoDemoView(){
-        return mBtnVideoDemo;
-    }
     @Override
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
         this.bundle = bundle;
-
+        if (bundle!=null){
+            if (bundle.getBoolean("isOnlyShowBtnHealthRecord")) {
+                mBtnVideoDemo.setVisibility(View.GONE);
+                mBtnHealthHistory.setText("下一步");
+            }
+        }
     }
 
     @Override

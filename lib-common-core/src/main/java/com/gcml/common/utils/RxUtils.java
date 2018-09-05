@@ -54,7 +54,11 @@ public class RxUtils {
                                     }
                                     return Observable.just(result.getData());
                                 } else {
-                                    return Observable.error(new ApiException(result.getMessage()));
+                                    String message = result.getMessage();
+                                    if (result.getCode() == 500) {
+                                        message = "服务器繁忙";
+                                    }
+                                    return Observable.error(new ApiException(message));
                                 }
                             }
                         }

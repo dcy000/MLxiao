@@ -29,15 +29,15 @@
     <!-- SelecterView -->
     <declare-styleable name="SelecterView">
         <!--可见数目-->
-        <attr name="selecter_VisibleSize" format="integer"></attr>
+        <attr name="selecter_VisibleSize" format="integer" />
 
         <!--被选择文字的大小和颜色-->
-        <attr name="selecter_SelectedTextSize" format="float"></attr>
-        <attr name="selecter_SelectedTextColor" format="color|reference"></attr>
+        <attr name="selecter_SelectedTextSize" format="float" />
+        <attr name="selecter_SelectedTextColor" format="color|reference" />
 
         <!--未被被选择文字的大小和颜色-->
-        <attr name="selecter_TextSize" format="float"></attr>
-        <attr name="selecter_TextColor" format="color|reference"></attr>
+        <attr name="selecter_TextSize" format="float" />
+        <attr name="selecter_TextColor" format="color|reference" />
 
     </declare-styleable>
 

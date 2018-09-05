@@ -24,6 +24,7 @@ import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -75,10 +76,10 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     public void fetchCode() {
         binding.tvCode.setEnabled(false);
         String phone = binding.etPhone.getText().toString().trim();
-        if (TextUtils.isEmpty(phone)) {
+        if (TextUtils.isEmpty(phone) || phone.length() != 11) {
             binding.tvCode.setEnabled(true);
-            ToastUtils.showShort("手机号不能为空");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "手机号不能为空", false);
+            ToastUtils.showShort("请输入正确的手机号");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入正确的手机号", false);
             return;
         }
         viewModel.hasAccount(phone)
@@ -102,8 +103,8 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                     public void onNext(Boolean hasAccount) {
                         if (hasAccount) {
                             binding.tvCode.setEnabled(true);
-                            ToastUtils.showShort("账号不合法或账号已注册");
-                            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "账号不合法或账号已注册", false);
+                            ToastUtils.showShort("手机号码已注册");
+                            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "手机号码已注册", false);
                         } else {
                             doFetchCode(phone);
                         }
@@ -133,14 +134,18 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        countDownDisposable.dispose();
+                        binding.tvCode.setEnabled(true);
                         ToastUtils.showShort("获取验证码失败");
                         MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码失败", false);
                     }
                 });
     }
 
+    private Disposable countDownDisposable = Disposables.empty();
+
     private void startTimer() {
-        RxUtils.rxCountDown(1, 60)
+        countDownDisposable = RxUtils.rxCountDown(1, 60)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -157,7 +162,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Integer>() {
+                .subscribeWith(new DefaultObserver<Integer>() {
                     @Override
                     public void onNext(Integer integer) {
                         binding.tvCode.setText(
@@ -169,10 +174,10 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     public void goNext() {
         String phone = binding.etPhone.getText().toString().trim();
         binding.tvNext.setEnabled(false);
-        if (TextUtils.isEmpty(phone)) {
+        if (TextUtils.isEmpty(phone) || phone.length() != 11) {
             binding.tvNext.setEnabled(true);
-            ToastUtils.showShort("手机号不能为空");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "手机号不能为空", false);
+            ToastUtils.showShort("请输入正确的手机号");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入正确的手机号");
             return;
         }
         viewModel.hasAccount(phone)
@@ -199,13 +204,13 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                             ToastUtils.showShort("账号已注册");
                             MLVoiceSynthetize.startSynthesize(getApplicationContext(), "账号已注册", false);
                         } else {
-                            rtySignUp(phone);
+                            trySignUp(phone);
                         }
                     }
                 });
     }
 
-    private void rtySignUp(String phone) {
+    private void trySignUp(String phone) {
         String code = binding.etCode.getText().toString().trim();
         if (TextUtils.isEmpty(code) || !code.equals(this.code)) {
             binding.tvNext.setEnabled(true);
@@ -233,7 +238,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("正在加载...");
+                        showLoading("正在注册...");
                     }
                 })
                 .doOnTerminate(new Action() {
@@ -265,8 +270,22 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         ToastUtils.showShort("注册失败");
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "注册失败");
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(),
+                "请输入您的手机号和密码进行登录。");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MLVoiceSynthetize.stop();
     }
 
     @Override
