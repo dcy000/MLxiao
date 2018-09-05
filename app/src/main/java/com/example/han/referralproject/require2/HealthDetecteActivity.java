@@ -138,20 +138,20 @@ public class HealthDetecteActivity extends BaseActivity {
                                 case R.id.im_pressure_fllow_up:
                                     //血压随访
 //                                    JianKangJianCe("1");
-                                    Intent intent=new Intent(HealthDetecteActivity.this, DetectActivity.class);
+                                    Intent intent = new Intent(HealthDetecteActivity.this, DetectActivity.class);
                                     intent.putExtra("type", "xueya");
                                     intent.putExtra("isDetect", true);
                                     intent.putExtra("detectCategory", "detectPressure");
                                     startActivity(intent);
                                     break;
-                                    //血糖随访
+                                //血糖随访
                                 case R.id.im_sugar_fllow_up:
                                     JianKangJianCe("2");
                                     break;
 
                             }
                         } else {
-                            ShowToFiledDialog(isBindDoctor);
+                            ShowToFiledDialog(isBindDoctor, id);
                         }
                     }
 
@@ -163,8 +163,20 @@ public class HealthDetecteActivity extends BaseActivity {
                 });
     }
 
-    private void ShowToFiledDialog(final boolean isBindDoctor) {
-        SomeCommonDialog dialog = new SomeCommonDialog(DialogTypeEnum.noDocument);
+    private void ShowToFiledDialog(final boolean isBindDoctor, final int id) {
+        SomeCommonDialog dialog = null;
+        switch (id) {
+            case R.id.im_health_detecte:
+                dialog = new SomeCommonDialog(DialogTypeEnum.noDocument);
+                break;
+            case R.id.im_pressure_fllow_up:
+                dialog = new SomeCommonDialog(DialogTypeEnum.noDocumentForPresure);
+                break;
+            case R.id.im_sugar_fllow_up:
+                dialog = new SomeCommonDialog(DialogTypeEnum.noDocumentForPresure);
+                break;
+
+        }
         dialog.setListener(new SomeCommonDialog.OnDialogClickListener() {
             @Override
             public void onClickConfirm(DialogTypeEnum type) {

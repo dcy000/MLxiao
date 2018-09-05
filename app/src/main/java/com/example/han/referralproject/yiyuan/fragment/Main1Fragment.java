@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
@@ -38,6 +39,7 @@ import com.example.han.referralproject.yiyuan.bean.HealthDetectQualificationBean
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.google.gson.Gson;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
@@ -422,17 +424,21 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                         }
                         WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
                         if (reultBean.tag) {
-                            if (JIANKANG_TIJIAN.equals(name)) {
-                                //--"0" 健康体检次数
-                                JianKangJianCe("0");
-                            } else if (GAOXUEYA_TIJIAN.equals(name)) {
-                                JianKangJianCe("1");
-                            } else if (TANGNIAOBING_TIJIAN.equals(name)) {
-                                JianKangJianCe("2");
-//                                showFllowUpTimesDialog("07月-08月");
-                            }
+//                            if (JIANKANG_TIJIAN.equals(name)) {
+//                                //--"0" 健康体检次数
+//                                JianKangJianCe("0");
+//                            } else if (GAOXUEYA_TIJIAN.equals(name)) {
+//                                JianKangJianCe("1");
+//                            } else if (TANGNIAOBING_TIJIAN.equals(name)) {
+//                                JianKangJianCe("2");
+////                                showFllowUpTimesDialog("07月-08月");
+//                            }
+
+                            T.show("您已建档完毕");
+                            MLVoiceSynthetize.startSynthesize(getActivity(),"您已经建档完毕",false);
                         } else {
-                            ShowToFiledDialog(isBindDoctor);
+//                            ShowToFiledDialog(isBindDoctor);
+                            startActivity(new Intent(getActivity(), BuildingRecordActivity.class).putExtra("bind", isBindDoctor));
                         }
                     }
 
