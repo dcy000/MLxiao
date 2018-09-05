@@ -673,17 +673,17 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".health.DetectHealthSymptomsActivity" />
-        <activity android:name=".health.DetectHealthSportsActivity" />
-        <activity android:name=".health.DetectHealthSmokeActivity" />
-        <activity android:name=".health.DetectHealthDrinkActivity" />
-        <activity android:name=".health.DetectHealthSaltActivity" />
-        <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity" />
-        <activity android:name=".questionair.activity.MonitorResultActivity" />
-        <activity android:name=".idcard.IdCardInfoActivity" />
-        <activity android:name=".idcard.SignInIdCardActivity" />
-        <activity android:name=".health.DetectResultActivity" />
-        <activity android:name=".yiyuan.activity.YiYuanLoginActivity" />
+        <activity android:name=".health.DetectHealthSymptomsActivity"   android:screenOrientation="landscape" />
+        <activity android:name=".health.DetectHealthSportsActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".health.DetectHealthSmokeActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".health.DetectHealthDrinkActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".health.DetectHealthSaltActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".questionair.activity.ChineseMedicineMonitorActivity"   android:screenOrientation="landscape" />
+        <activity android:name=".questionair.activity.MonitorResultActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".idcard.IdCardInfoActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".idcard.SignInIdCardActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".health.DetectResultActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".yiyuan.activity.YiYuanLoginActivity"    android:screenOrientation="landscape"/>
         <activity
             android:name=".intelligent_system.intelligent_diagnosis.MonthlyReportActivity"
             android:label="血压季度分析报告"
@@ -735,21 +735,21 @@
         <activity
             android:name=".intelligent_system.intelligent_diagnosis.DeleteGroupActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".yiyuan.activity.InquiryAndFileActivity" />
-        <activity android:name=".yiyuan.activity.DrinkWenActivity" />
-        <activity android:name=".yiyuan.activity.InquiryAndFileEndActivity" />
-        <activity android:name=".yiyuan.activity.PregnancyWenActivity" />
-        <activity android:name=".yiyuan.activity.XueYaWenActivity" />
-        <activity android:name=".yiyuan.activity.YinJiuWenActivity" />
-        <activity android:name=".yiyuan.activity.YueJingWenActivity" />
-        <activity android:name=".yiyuan.activity.GuoMinAndJiBingActivity" />
-        <activity android:name=".intelligent_system.blood_pressure_risk_assessment.HypertensionRiskActivity" />
-        <activity android:name=".yiyuan.activity.DrinkInfoActivity" />
-        <activity android:name=".yiyuan.activity.DoctorMesInfoActivity" />
-        <activity android:name=".olderhealthmanagement.OlderHealthManagementSerciveActivity" />
-        <activity android:name=".olderhealthmanagement.HealthManagementResultActivity" />
-        <activity android:name=".activity.SingleDetectActivity" />
-        <activity android:name=".require2.login.ChoiceLoginTypeActivity">
+        <activity android:name=".yiyuan.activity.InquiryAndFileActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".yiyuan.activity.DrinkWenActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".yiyuan.activity.InquiryAndFileEndActivity"   android:screenOrientation="landscape" />
+        <activity android:name=".yiyuan.activity.PregnancyWenActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".yiyuan.activity.XueYaWenActivity"   android:screenOrientation="landscape" />
+        <activity android:name=".yiyuan.activity.YinJiuWenActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".yiyuan.activity.YueJingWenActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".yiyuan.activity.GuoMinAndJiBingActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".intelligent_system.blood_pressure_risk_assessment.HypertensionRiskActivity"   android:screenOrientation="landscape" />
+        <activity android:name=".yiyuan.activity.DrinkInfoActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".yiyuan.activity.DoctorMesInfoActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".olderhealthmanagement.OlderHealthManagementSerciveActivity"   android:screenOrientation="landscape" />
+        <activity android:name=".olderhealthmanagement.HealthManagementResultActivity"   android:screenOrientation="landscape" />
+        <activity android:name=".activity.SingleDetectActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".require2.login.ChoiceLoginTypeActivity"   android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -758,26 +758,26 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".require2.register.activtiy.ChoiceIDCardRegisterTypeActivity" />
-        <activity android:name=".require2.register.activtiy.IDCardNumberRegisterActivity" />
-        <activity android:name=".require2.register.activtiy.PhoneAndCodeActivity" />
-        <activity android:name=".require2.register.activtiy.RealNameActivity" />
-        <activity android:name=".require2.register.activtiy.SexActivity" />
-        <activity android:name=".require2.register.activtiy.AddressActivity" />
-        <activity android:name=".require2.login.LoginByIDCardNuberActivity" />
-        <activity android:name=".require2.register.activtiy.InputFaceActivity" />
-        <activity android:name=".require2.register.activtiy.RegisterByIdCardActivity" />
-        <activity android:name=".require2.login.CodeActivity" />
-        <activity android:name=".require2.login.FaceLoginActivity" />
-        <activity android:name=".require2.HealthDetecteActivity" />
-        <activity android:name=".health.DetectPressureDrinkActivity" />
-        <activity android:name=".health.DetectPsychologicalRecoveryActivity" />
-        <activity android:name=".health.DetectFollowDoctorActivity" />
-        <activity android:name=".health.DetectDrugComplianceActivity" />
-        <activity android:name=".health.DetectDrugEffectActivity" />
-        <activity android:name=".require2.healthservice.BindHealthManageSystemActivity" />
-        <activity android:name=".health.HypoglycemiaReactionActivity" />
-        <activity android:name=".health.StapleFoodActivity"></activity>
+        <activity android:name=".require2.register.activtiy.ChoiceIDCardRegisterTypeActivity"   android:screenOrientation="landscape" />
+        <activity android:name=".require2.register.activtiy.IDCardNumberRegisterActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".require2.register.activtiy.PhoneAndCodeActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".require2.register.activtiy.RealNameActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".require2.register.activtiy.SexActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".require2.register.activtiy.AddressActivity" android:screenOrientation="landscape" android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity android:name=".require2.login.LoginByIDCardNuberActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".require2.register.activtiy.InputFaceActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".require2.register.activtiy.RegisterByIdCardActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".require2.login.CodeActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".require2.login.FaceLoginActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".require2.HealthDetecteActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".health.DetectPressureDrinkActivity"   android:screenOrientation="landscape" />
+        <activity android:name=".health.DetectPsychologicalRecoveryActivity"   android:screenOrientation="landscape" />
+        <activity android:name=".health.DetectFollowDoctorActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".health.DetectDrugComplianceActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".health.DetectDrugEffectActivity"    android:screenOrientation="landscape"/>
+        <activity android:name=".require2.healthservice.BindHealthManageSystemActivity"   android:screenOrientation="landscape" />
+        <activity android:name=".health.HypoglycemiaReactionActivity"   android:screenOrientation="landscape" />
+        <activity android:name=".health.StapleFoodActivity" android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

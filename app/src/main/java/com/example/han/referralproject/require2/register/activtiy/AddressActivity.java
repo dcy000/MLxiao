@@ -150,6 +150,7 @@ public class AddressActivity extends BaseActivity {
                 String detailAddress = canClearEditText.getPhone();
                 if (TextUtils.isEmpty(detailAddress)) {
                     mlSpeak("请输入详细地址");
+                    return;
                 }
                 String address = tvProvinceInfo.getText().toString() + tvCity.getText().toString() + tvBlockInfo.getText().toString() + detailAddress;
                 startActivity(new Intent(this, InputFaceActivity.class)
