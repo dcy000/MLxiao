@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.building_record.BuildingRecordActivity;
@@ -262,12 +263,12 @@ public class InquiryAndFileActivity extends BaseActivity {
         mLeftView.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);
         mRightView.setImageResource(R.drawable.white_wifi_3);
-//        mRightView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(InquiryAndFileActivity.this, WifiConnectActivity.class));
-//            }
-//        });
+        mRightView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(InquiryAndFileActivity.this, WifiConnectActivity.class));
+            }
+        });
 
     }
 
