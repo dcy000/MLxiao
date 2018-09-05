@@ -8,16 +8,16 @@ import com.gcml.common.app.lifecycle.AppLifecycleCallbacks;
 public class MallAppLifecycleCallbacks implements AppLifecycleCallbacks {
     @Override
     public void attachBaseContext(Application app, Context base) {
-        MallApp.INSTANCE.attachBaseContext(app, base);
+        MallApplication.INSTANCE.attachBaseContext(app, base);
     }
 
     @Override
     public void onCreate(Application app) {
-        MallApp.INSTANCE.onCreate(app);
+        MallApplication.INSTANCE.onCreate(app);
     }
 
     @Override
     public void onTerminate(Application app) {
-        MallApp.INSTANCE.onTerminate(app);
+        MallApplication.INSTANCE.onTerminate(app);
     }
 }

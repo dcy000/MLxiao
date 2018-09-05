@@ -96,6 +96,8 @@ dependencies {
     implementation rootProject.ext.dependencies["glide"]
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]
 
+    api rootProject.ext.dependencies["multidex"]
+
     api rootProject.ext.dependencies["timber"]
     implementation rootProject.ext.dependencies["stetho"]
     implementation rootProject.ext.dependencies["stetho-okhttp3"]

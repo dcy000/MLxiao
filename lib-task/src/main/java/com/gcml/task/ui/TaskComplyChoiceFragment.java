@@ -126,17 +126,14 @@ public class TaskComplyChoiceFragment extends Fragment implements View.OnClickLi
         } else {
             mNext.setVisibility(View.GONE);
             mAdapter = new TaskChoiceAdapter(R.layout.item_task_choice, mData.answerList);
-            Log.e("xxxxxxxxxxx", "4");
             mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    Log.e("xxxxxxxxxxx", "0");
                     TaskHealthBean.QuestionListBean.AnswerListBean myInfo = mData.answerList.get(position);
                     if (myInfo.isChoosed) {
                         myInfo.isChoosed = false;
                         selectedList.remove(position + "");
                         view.setSelected(false);
-                        Log.e("xxxxxxxxxxx", "1");
                     } else {
                         for (TaskHealthBean.QuestionListBean.AnswerListBean bean : mData.answerList) {
                             if (myInfo == bean) {
@@ -149,7 +146,6 @@ public class TaskComplyChoiceFragment extends Fragment implements View.OnClickLi
                             adapter.notifyDataSetChanged();
                         }
                         listener.onNextStep(mPosition, mData);
-                        Log.e("xxxxxxxxxxx", "2");
                     }
                 }
             });

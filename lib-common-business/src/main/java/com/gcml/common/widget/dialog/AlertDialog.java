@@ -1,11 +1,14 @@
 package com.gcml.common.widget.dialog;
 
+import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Point;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -58,7 +61,7 @@ public class AlertDialog {
         img_line.setVisibility(View.GONE);
 
         // 定义Dialog布局和参数
-        dialog = new Dialog(context, R.style.AlertDialog);
+        dialog = new Dialog(context, R.style.HealthPopupAnimaFade);
         dialog.setContentView(view);
 
         // 调整dialog背景大小

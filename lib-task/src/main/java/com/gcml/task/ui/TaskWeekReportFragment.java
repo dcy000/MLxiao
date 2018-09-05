@@ -17,6 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -52,6 +56,7 @@ public class TaskWeekReportFragment extends Fragment {
     private RecyclerView.Adapter<TargetHolder> mAdapter;
     TaskRepository mTaskRepository = new TaskRepository();
     Handler mHandler = new Handler();
+    private String userHeight;
 
     public static TaskWeekReportFragment newInstance() {
         Bundle args = new Bundle();
@@ -242,12 +247,11 @@ public class TaskWeekReportFragment extends Fragment {
         }
         float bmi = Float.parseFloat(response.lastWeek.bmis);
         float targetBmi = Float.parseFloat(response.lastWeek.bmim);
-//        LocalShared shared = LocalShared.getInstance(getContext());
-//        float height = shared == null ? 0 : Float.parseFloat(shared.getUserHeight());
-//        if (height > 0) {
-//            targetWeight = targetBmi / height / height * 10000;
-//            weight = bmi / height / height * 10000;
-//        }
+        float height = getUserHight();
+        if (height > 0) {
+            targetWeight = targetBmi / height / height * 10000;
+            weight = bmi / height / height * 10000;
+        }
         target = bmi < targetBmi ? "少于" : "少于";
         String s = String.valueOf(targetWeight);
         String s1 = String.valueOf(weight);
@@ -257,6 +261,21 @@ public class TaskWeekReportFragment extends Fragment {
         targetModel.source = "体重" + s1 + "kg";
         mTargetModels.add(targetModel);
         mAdapter.notifyDataSetChanged();
+    }
+
+    private float getUserHight() {
+        CC.obtainBuilder("com.gcml.auth.getUser").build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+            @Override
+            public void onResult(CC cc, CCResult result) {
+                if (result.isSuccess()) {
+                    UserEntity userInfo = result.getDataItem("user");
+                    userHeight = userInfo.height;
+                } else {
+                    userHeight = "";
+                }
+            }
+        });
+        return Float.parseFloat(userHeight);
     }
 
     private int[] backgroudReses = new int[]{

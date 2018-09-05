@@ -67,6 +67,7 @@ public class TaskSchemaResultBean implements Serializable {
          * sportWeekTime : 0
          * timeCost : 0
          * weekCount : 0
+         * weightTarget : 0.00
          */
 
         public String sportLevel;
@@ -76,6 +77,7 @@ public class TaskSchemaResultBean implements Serializable {
         public int sportWeekTime;
         public int timeCost;
         public int weekCount;
+        public double weightTarget;
         public List<SportListBean> sportList;
 
         public static class SportListBean implements Serializable {

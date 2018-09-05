@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.billy.cc.core.component.CC;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.SheetDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -50,23 +51,23 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), RechargeActivity.class);
+        Intent intent = new Intent(RechargeActivity.this, RechargeQrcodeActivity.class);
         int i = view.getId();
         if (i == R.id.btn_recharge_50) {
-            intent.putExtra("number", "5000");
+            intent.putExtra("billMoney", 5000);
             startActivity(intent);
         } else if (i == R.id.btn_recharge_100) {
-            intent.putExtra("number", "10000");
+            intent.putExtra("billMoney", 10000);
             startActivity(intent);
         } else if (i == R.id.btn_recharge_200) {
-            intent.putExtra("number", "20000");
+            intent.putExtra("billMoney", 20000);
             startActivity(intent);
         } else if (i == R.id.btn_recharge_500) {
-            intent.putExtra("number", "50000");
+            intent.putExtra("billMoney", 50000);
             startActivity(intent);
             startActivity(intent);
         } else if (i == R.id.btn_recharge_1000) {
-            intent.putExtra("number", "100000");
+            intent.putExtra("billMoney", 100000);
             startActivity(intent);
         } else if (i == R.id.btn_recharge_other) {
             Intent inten = new Intent(getApplicationContext(), RechargeDefineActivity.class);
@@ -78,12 +79,13 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         mToolBar.setData("健 康 商 城", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
-
+                finish();
             }
 
             @Override
             public void onRightClick() {
-
+                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                finish();
             }
         });
 

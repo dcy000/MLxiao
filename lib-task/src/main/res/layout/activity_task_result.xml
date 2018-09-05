@@ -32,7 +32,9 @@
 
             <include layout="@layout/layout_task_result_test"/>
 
-            <include layout="@layout/layout_task_result_sport"/>
+            <include layout="@layout/layout_task_result_sport"
+                android:id="@+id/rl_task_result_sport"
+                android:visibility="gone"/>
 
             <include layout="@layout/layout_task_result_dine"/>
 

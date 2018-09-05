@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.widget.popup.ActiveShowPopup;
 import com.gcml.mall.R;
-import com.gcml.mall.ui.ScanQRCodeLoginActivity;
+import com.gcml.mall.ui.RechargeActivity;
+import com.gcml.mall.ui.RechargeQrcodeActivity;
 
 public class TestMallActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,7 +28,7 @@ public class TestMallActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_mall_action:
-                startActivity(new Intent(this, ScanQRCodeLoginActivity.class));
+                startActivity(new Intent(this, RechargeActivity.class));
         }
     }
 }

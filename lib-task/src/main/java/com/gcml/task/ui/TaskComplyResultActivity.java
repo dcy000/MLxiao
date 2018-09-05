@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
@@ -22,6 +23,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 public class TaskComplyResultActivity extends AppCompatActivity implements View.OnClickListener {
 
     TranslucentToolBar mToolBar;
+    RelativeLayout mLayoutSport;
     TextView resultTitle;
     TextView totalContent1, totalContent2, totalContent3, totalContent4;
     TextView testContent1, testContent2, testContent3;
@@ -42,6 +44,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
 
     private void bindView() {
         mToolBar = findViewById(R.id.tb_task_result);
+        mLayoutSport = findViewById(R.id.rl_task_result_sport);
         resultTitle = findViewById(R.id.tv_task_result_title);
 
         totalContent1 = findViewById(R.id.tv_total_content1);
@@ -82,23 +85,28 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
         });
         resultTitle.setText(resultBean.result);
 
-        totalContent1.setText(resultBean.initiative);
-        totalContent2.setText(resultBean.compliance);
-        totalContent3.setText(resultBean.attitude);
-        totalContent4.setText(resultBean.awareness);
+        totalContent1.setText(resultBean.initiative == null ? "暂无": resultBean.initiative);
+        totalContent2.setText(resultBean.compliance == null ? "暂无": resultBean.compliance);
+        totalContent3.setText(resultBean.attitude == null ? "暂无": resultBean.attitude);
+        totalContent4.setText(resultBean.awareness == null ? "暂无": resultBean.awareness);
 
-        testContent1.setText(resultBean.detectionPlan.HTN);
-        testContent2.setText(resultBean.detectionPlan.weight);
-        testContent3.setText(resultBean.detectionPlan.htn);
+        testContent1.setText(resultBean.detectionPlan.HTN == null ? "暂无": resultBean.detectionPlan.HTN);
+        testContent2.setText(resultBean.detectionPlan.weight == null ? "暂无": resultBean.detectionPlan.weight);
+        testContent3.setText(resultBean.detectionPlan.GLU == null ? "暂无": resultBean.detectionPlan.GLU);
 
-        sportContent1.setText("");
-        sportContent2.setText("");
-        sportContent3.setText("");
+        if (resultBean.sportRecommend != null) {
+            mLayoutSport.setVisibility(View.VISIBLE);
+            sportContent1.setText("每周" + resultBean.sportRecommend.weekCount + "次");
+            sportContent2.setText(resultBean.sportRecommend.timeCost + "min");
+            sportContent3.setText(resultBean.sportRecommend.weightTarget + "kg");
+        } else {
+            mLayoutSport.setVisibility(View.GONE);
+        }
 
-        dineContent1.setText(resultBean.intake.naSalt);
-        dineContent2.setText(resultBean.intake.grease);
-        dineContent3.setText(resultBean.intake.drink);
-        dineContent4.setText(resultBean.intake.smoke);
+        dineContent1.setText(resultBean.intake.naSalt == null ? "暂无": resultBean.intake.naSalt);
+        dineContent2.setText(resultBean.intake.grease == null ? "暂无": resultBean.intake.grease);
+        dineContent3.setText(resultBean.intake.drink == null ? "暂无": resultBean.intake.drink);
+        dineContent4.setText(resultBean.intake.smoke == null ? "暂无": resultBean.intake.smoke);
 
         resultAgain.setOnClickListener(this);
         resultAffirm.setOnClickListener(this);

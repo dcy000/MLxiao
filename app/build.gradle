@@ -111,6 +111,7 @@ dependencies {
     addComponent 'lib-auth'
     addComponent 'lib-auth-face'
     addComponent 'lib-task'
+    addComponent 'lib-mall'
     addComponent 'module-video'
 
     implementation project(":lib-common-business")
