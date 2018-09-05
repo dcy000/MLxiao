@@ -118,12 +118,14 @@ public class PhoneVerificationCodeView extends LinearLayout {
 
     public void countDown() {
         tvSendCode.setSelected(false);
+        tvSendCode.setEnabled(false);
         postDelayed(new Runnable() {
             @Override
             public void run() {
                 count--;
                 if (count <= 0) {
                     tvSendCode.setSelected(true);
+                    tvSendCode.setEnabled(true);
                     tvSendCode.setText("发送验证码");
                     count = TIME;
                     return;

@@ -169,12 +169,14 @@ public class CodeActivity extends BaseActivity {
 
     private void updateCountDownUi() {
         tvSendCode.setSelected(false);
+        tvSendCode.setEnabled(false);
         Handlers.ui().postDelayed(new Runnable() {
             @Override
             public void run() {
                 count--;
                 if (count <= 0) {
                     tvSendCode.setSelected(true);
+                    tvSendCode.setEnabled(true);
                     tvSendCode.setText("发送验证码");
                     count = 60;
                     return;
