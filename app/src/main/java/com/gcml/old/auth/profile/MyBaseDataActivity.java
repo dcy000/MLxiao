@@ -21,6 +21,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.data.StringUtil;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.ui.UiUtils;
 import com.gcml.old.auth.entity.HealthInfo;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.gcml.old.auth.profile.otherinfo.AlertAgeActivity;
@@ -263,6 +264,12 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.head:
+                if (TextUtils.isEmpty(phone)
+                        || !TextUtils.isDigitsOnly(phone)
+                        || phone.length() != 11) {
+                    ToastUtils.showShort("请重新登陆");
+                    return;
+                }
                 SMSVerificationDialog dialog = new SMSVerificationDialog();
                 Bundle bundle = new Bundle();
                 bundle.putString("phone", phone);

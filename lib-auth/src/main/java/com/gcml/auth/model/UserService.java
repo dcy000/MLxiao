@@ -17,7 +17,7 @@ import retrofit2.http.Query;
 public interface UserService {
 
     @FormUrlEncoded()
-    @POST("/ZZB/login/applogin")
+    @POST("ZZB/login/applogin")
     Observable<ApiResult<UserEntity>> signIn(
             @Header("equipmentId") String deviceId,
             @Field("username") String account,
@@ -25,35 +25,38 @@ public interface UserService {
     );
 
     @FormUrlEncoded()
-    @POST("/ZZB/acc/sel_account")
+    @POST("ZZB/acc/sel_account")
     Observable<ApiResult<Object>> hasAccount(
             @Field("cate") String cate,
             @Field("account") String account
     );
 
-    @GET("/ZZB/br/GainCode")
+    @GET("ZZB/br/GainCode")
     Observable<ApiResult<String>> fetchCode(
             @Query("mobile") String phone
     );
 
-    @FormUrlEncoded()
-    @POST("/ZZB/acc/update_account_pwd")
+    @POST("ZZB/acc/update_account_pwd")
     Observable<ApiResult<Object>> updatePassword(
-            @Field("account") String account,
-            @Field("pwd") String pwd
+            @Query("account") String account,
+            @Query("pwd") String pwd
     );
 
-    @FormUrlEncoded()
-    @POST("/ZZB/br/appadd")
+    @POST("ZZB/br/appadd")
     Observable<ApiResult<UserEntity>> signUp(
-            @Field("eqid") String deviceId,
-            @Field("tel") String account,
-            @Field("pwd") String pwd
+            @Query("eqid") String deviceId,
+            @Query("tel") String account,
+            @Query("pwd") String pwd
     );
 
-    @PUT("/ZZB/api/user/info/{userId}/")
+    @PUT("ZZB/api/user/info/{userId}/")
     Observable<ApiResult<Object>> updateProfile(
             @Path("userId") String userId,
-            @Body() UserEntity user
+            @Body UserEntity user
+    );
+
+    @GET("ZZB/api/user/info/idCard/{idCard}/")
+    Observable<ApiResult<Object>> hasIdCard(
+            @Path("idCard") String idCard
     );
 }

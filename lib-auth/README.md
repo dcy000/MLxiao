@@ -14,7 +14,7 @@
 1. 普通注册 br/appadd
 2. 查询手机号 login/tel_isClod
 3. 查询身份证 /api/user/info/idCard/{idCard}/
-
+    
 #### 查询用户信息
 1. 获取用户基本信息  br/selOneUserEverything
 

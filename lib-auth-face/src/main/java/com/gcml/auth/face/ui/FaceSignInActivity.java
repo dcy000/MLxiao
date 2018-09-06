@@ -124,16 +124,17 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     }
 
     private void signInFace(Bitmap faceBitmap) {
-//        String userId = UserSpHelper.getUserId();
-//        if (TextUtils.isEmpty(userId)) {
-//            ToastUtils.showShort("请先登录！");
-//            finish();
-//        }
+        String userId = UserSpHelper.getUserId();
+        if (TextUtils.isEmpty(userId)) {
+            ToastUtils.showShort("请先登录！");
+            finish();
+        }
 
         Observable.just(faceBitmap)
                 .map(new Function<Bitmap, byte[]>() {
                     @Override
                     public byte[] apply(Bitmap bitmap) throws Exception {
+                        Timber.i("Compress Image Data");
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         faceBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         if (!faceBitmap.isRecycled()) {
@@ -146,6 +147,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                     @Override
                     public ObservableSource<String> apply(byte[] faceData) throws Exception {
                         String groupId = UserSpHelper.getGroupId();
+                        Timber.i("Face signIn");
                         return viewModel.signIn(faceData, groupId)
                                 .subscribeOn(Schedulers.io());
                     }

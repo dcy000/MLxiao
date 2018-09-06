@@ -193,6 +193,7 @@ public class PreviewHelper
                 if (mCamera == null) {
                     rxStatus.onNext(Status.of(Status.ERROR_ON_OPEN_CAMERA));
                 } else {
+                    Timber.i("Face Camera opened");
                     configCameraInternal();
                     CameraUtils.startPreview(mCamera, holder);
                     CameraUtils.setPreviewCallbackWithBuffer(mCamera, mPreviewCallback);
@@ -298,6 +299,7 @@ public class PreviewHelper
             int previewHeight = parameters.getPreviewSize().height;
             // 由于预览图片和界面显示大小可能不一样，
             // 计算缩放后的区域
+            Timber.i("CropRect");
             Rect rect = getScaledRect(mPreviewView, mCropRect, previewWidth, previewHeight);
 
 //            int rotationCount = getRotationCount();
@@ -313,9 +315,11 @@ public class PreviewHelper
 
             // 预览图像数据方向可能有方向问题，
             // 计算旋转后的区域
+            Timber.i("RotateRect");
             rect = getRotatedRect(previewWidth, previewHeight, rect);
 
             //裁剪区域
+            Timber.i("CropImage");
             YuvImage image = new YuvImage(bytes, ImageFormat.NV21, previewWidth, previewHeight, null);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             image.compressToJpeg(rect, 100, baos);
@@ -323,6 +327,7 @@ public class PreviewHelper
             Bitmap croppedBitmap = BitmapFactory.decodeByteArray(cropped, 0, cropped.length);
 
             //旋转图片
+            Timber.i("RotateImage");
             int rotation = CameraUtils.calculateRotation(mActivity, mCameraId);
             if (rotation == 90 || rotation == 270) {
                 croppedBitmap = rotate(croppedBitmap, rotation);

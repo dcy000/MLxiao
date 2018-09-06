@@ -17,7 +17,7 @@ public class TaskApplication implements AppLifecycleCallbacks {
 
     @Override
     public void attachBaseContext(Application app, Context base) {
-        MultiDex.install(base);
+//        MultiDex.install(base);
     }
 
     @Override
