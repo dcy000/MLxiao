@@ -252,7 +252,7 @@ public class MLVoiceSynthetize {
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer != null) {
             synthesizer.stopSpeaking();
-            synthesizer.destroy();
+//            synthesizer.destroy();
         }
     }
 

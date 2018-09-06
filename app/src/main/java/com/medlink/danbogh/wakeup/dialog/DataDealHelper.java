@@ -19,7 +19,6 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
@@ -55,7 +54,6 @@ import com.gcml.old.auth.profile.PersonDetailActivity;
 import com.google.gson.Gson;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
-import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
@@ -784,15 +782,14 @@ public class DataDealHelper {
                 if (data != null) {
                     sessionId = data.getSession_id();
                 }
-                for (Unit.ActionListBean action : data.getAction_list()) {
-
-                    if (!TextUtils.isEmpty(action.getSay())) {
-                        sb = new StringBuilder();
-                        sb.append(action.getSay());
+                List<Unit.ActionListBean> list = data.getAction_list();
+                if (list != null && list.size() != 0) {
+                    if (list.size() >= 10) {
+                        str1 = list.get(new Random().nextInt(10)).getSay().replace("<USER-NAME>", "");
+                    } else {
+                        str1 = list.get(0).getSay().replace("<USER-NAME>", "");
                     }
-
                 }
-                str1 = sb.toString().replace("<USER-NAME>", "");
                 defaultToke();
             }
 
@@ -853,6 +850,7 @@ public class DataDealHelper {
                         break;
                     case 10:
                         speak(context.getString(R.string.speak_10));
+                        break;
                     case 11:
                     case 12:
                     case 13:
@@ -873,13 +871,15 @@ public class DataDealHelper {
                     case 28:
                     case 29:
                     case 30:
-                        //变声学舌
                         speak(result);
                         break;
                     default:
+                        speak(result);
                         break;
                 }
 
+            } else {
+                speak(str1);
             }
         }
     }
