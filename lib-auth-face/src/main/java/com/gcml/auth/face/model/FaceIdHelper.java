@@ -124,11 +124,13 @@ public class FaceIdHelper {
                         //未检测到人脸 （11700）
                         //模型或记录已存在 (10121)
                         Timber.e("Face sign up error");
-                        emitter.onError(new FaceRepository.FaceError(
-                                ERROR_ON_FACE_SIGN_UP,
-                                error.getMessage(),
-                                error)
-                        );
+                        if (!emitter.isDisposed()) {
+                            emitter.onError(new FaceRepository.FaceError(
+                                    ERROR_ON_FACE_SIGN_UP,
+                                    error.getPlainDescription(true),
+                                    error)
+                            );
+                        }
                     }
 
                     @Override
@@ -207,10 +209,12 @@ public class FaceIdHelper {
                     @Override
                     public void onError(SpeechError error) {
                         Timber.e(error);
-                        if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {
-                            emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_NOT_EXIST, error.getErrorDescription(), error));
-                        } else {
-                            emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_UNKNOWN, error.getErrorDescription(), error));
+                        if (!emitter.isDisposed()) {
+                            if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {
+                                emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_NOT_EXIST, error.getErrorDescription(), error));
+                            } else {
+                                emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_UNKNOWN, error.getErrorDescription(), error));
+                            }
                         }
                     }
 
@@ -266,8 +270,10 @@ public class FaceIdHelper {
 
                     @Override
                     public void onError(SpeechError error) {
-                        Timber.e(error, "创建组失败");
-                        emitter.onError(new FaceRepository.FaceError(ERROR_ON_CREATE_GROUP, error.getErrorDescription(), error));
+                        Timber.e(error, error.getPlainDescription(true));
+                        if (!emitter.isDisposed()) {
+                            emitter.onError(new FaceRepository.FaceError(ERROR_ON_CREATE_GROUP, error.getErrorDescription(), error));
+                        }
                     }
 
                     @Override
@@ -275,12 +281,6 @@ public class FaceIdHelper {
 
                     }
                 };
-                emitter.setCancellable(new Cancellable() {
-                    @Override
-                    public void cancel() throws Exception {
-
-                    }
-                });
                 verifier.execute("ipt", "add", param, listener);
             }
         }).doOnNext(new Consumer<String>() {
@@ -329,7 +329,9 @@ public class FaceIdHelper {
                             int ret = resultObj.optInt("ret");
                             if (ErrorCode.SUCCESS != ret) {
                                 Timber.e("FaceWithDevice sign in error");
-                                emitter.onError(new FaceRepository.FaceError(ERROR_ON_FACE_SIGN_IN, "", null));
+                                if (!emitter.isDisposed()) {
+                                    emitter.onError(new FaceRepository.FaceError(ERROR_ON_FACE_SIGN_IN, "", null));
+                                }
                                 return;
                             }
                             JSONArray scoreArray = resultObj
@@ -343,18 +345,22 @@ public class FaceIdHelper {
                             String faceIdWithScore = String.format("%s:%s", firstFaceId, firstScore);
                             emitter.onNext(faceIdWithScore);
                         } catch (Throwable e) {
-                            Timber.e(e, "FaceWithDevice sign in error");
-                            emitter.onError(new FaceRepository.FaceError(ERROR_ON_FACE_SIGN_IN, "", e));
+                            Timber.e(e, "Face sign in error");
+                            if (!emitter.isDisposed()) {
+                                emitter.onError(new FaceRepository.FaceError(ERROR_ON_FACE_SIGN_IN, "", e));
+                            }
                         }
                     }
 
                     @Override
                     public void onError(SpeechError error) {
-                        Timber.e(error, "FaceWithDevice sign in error");
-                        emitter.onError(new FaceRepository.FaceError(
-                                ERROR_ON_FACE_SIGN_IN,
-                                error.getPlainDescription(true),
-                                error));
+                        Timber.e(error, "Face sign in error");
+                        if (!emitter.isDisposed()) {
+                            emitter.onError(new FaceRepository.FaceError(
+                                    ERROR_ON_FACE_SIGN_IN,
+                                    error.getPlainDescription(true),
+                                    error));
+                        }
                     }
 
                     @Override
