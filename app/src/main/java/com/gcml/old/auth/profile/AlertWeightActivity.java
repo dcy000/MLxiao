@@ -1,16 +1,21 @@
 package com.gcml.old.auth.profile;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
+import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
 import com.google.gson.Gson;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
@@ -25,8 +30,24 @@ public class AlertWeightActivity extends AlertHeightActivity {
     @Override
     protected void initView() {
         super.initView();
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("修改体重");
+//        mToolbar.setVisibility(View.VISIBLE);
+//        mTitleText.setText("修改体重");
+
+        toolBar.setData("修改体重", R.drawable.common_icon_back, "返回",
+                R.drawable.common_icon_home, null, new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+                        finish();
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        startActivity(new Intent(AlertWeightActivity.this, MainActivity.class));
+                        finish();
+                    }
+                });
+
+
         tvSignUpHeight.setText("您的体重");
         tvSignUpUnit.setText("kg");
     }
@@ -85,5 +106,10 @@ public class AlertWeightActivity extends AlertHeightActivity {
     @Override
     protected int geTip() {
         return R.string.sign_up_weight_tip;
+    }
+
+
+    private void speak(String text) {
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), text);
     }
 }

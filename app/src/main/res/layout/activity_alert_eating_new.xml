@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/alert_bg">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_eat_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.gcml.common.widget.toolbar.TranslucentToolBar>
+
+    <include layout="@layout/include_sign_up_content_health_info_new" />
+
+    <include layout="@layout/include_sign_up_nav" />
+</android.support.constraint.ConstraintLayout>
