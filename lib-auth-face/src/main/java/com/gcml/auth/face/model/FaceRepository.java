@@ -21,9 +21,9 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -176,15 +176,12 @@ public class FaceRepository {
         if (TextUtils.isEmpty(userId)) {
             return Observable.error(new NullPointerException("userId == null"));
         }
-
-        String groupFirstFaceId = UserSpHelper.getGroupFirstFaceId();
         String groupId = UserSpHelper.getGroupId();
-        if (TextUtils.isEmpty(groupId) || TextUtils.isEmpty(groupFirstFaceId)) {
-            //当前机器没创建过组 尝试创建并加组
+        if (TextUtils.isEmpty(groupId)) {
+            Timber.i("当前机器没创建过组 尝试创建并加组");
             return createAndJoinGroup(faceId);
         }
-
-        //当前机器创建过组 尝试加组 当组不存在时 尝试创建并加组
+        Timber.i("当前机器创建过组 尝试加组, 当组不存在时 尝试创建并加组");
         return joinOrCreateGroup(groupId, faceId);
     }
 
@@ -197,15 +194,14 @@ public class FaceRepository {
                 .flatMap(new Function<String, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(String groupId) throws Exception {
-                        Timber.i("createGroup success");
                         UserSpHelper.setGroupId(groupId);
                         UserSpHelper.setGroupFirstFaceId(faceId);
                         String userId = UserSpHelper.getUserId();
                         return mFaceService.updateFaceGroup(userId, groupId, faceId)
                                 .compose(RxUtils.apiResultTransformer())
-                                .map(new Function<List<FaceGroupInfo>, String>() {
+                                .map(new Function<Object, String>() {
                                     @Override
-                                    public String apply(List<FaceGroupInfo> faceGroups) throws Exception {
+                                    public String apply(Object obj) throws Exception {
                                         return groupId;
                                     }
                                 })
@@ -222,6 +218,12 @@ public class FaceRepository {
                     @Override
                     public ObservableSource<String> apply(String groupId) throws Exception {
                         return joinOrCreateGroup(groupId, faceId);
+                    }
+                })
+                .doOnNext(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        UserSpHelper.setGroupId(s);
                     }
                 })
                 .subscribeOn(Schedulers.io());
@@ -246,7 +248,7 @@ public class FaceRepository {
                 .doOnNext(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        Timber.i("joinGroup success");
+                        UserSpHelper.setGroupId(s);
                     }
                 })
                 .subscribeOn(Schedulers.io());
@@ -259,13 +261,19 @@ public class FaceRepository {
      */
     public Observable<String> signIn(byte[] faceData, String groupId) {
         return mFaceIdHelper.signIn(mContext, faceData, groupId)
-                .doOnNext(new Consumer<String>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void accept(String faceIdWithScore) throws Exception {
-                        String[] strings = faceIdWithScore.split(":");
-                        UserSpHelper.addAccount(UserSpHelper.getUserId(), strings[0]);
+                    public void accept(Disposable disposable) throws Exception {
+                        Timber.i("Face SignIn : groupId = %s ", groupId);
                     }
                 });
+//                .doOnNext(new Consumer<String>() {
+//                    @Override
+//                    public void accept(String faceIdWithScore) throws Exception {
+//                        String[] strings = faceIdWithScore.split(":");
+//                        UserSpHelper.addAccount(UserSpHelper.getUserId(), strings[0]);
+//                    }
+//                });
     }
 
     public Observable<List<UserEntity>> getLocalUsers() {

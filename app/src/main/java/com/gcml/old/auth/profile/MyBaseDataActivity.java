@@ -227,6 +227,10 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        if (response == null) {
+            ToastUtils.showShort("请重新登陆");
+            return;
+        }
         switch (v.getId()) {
             default:
                 break;

@@ -18,12 +18,12 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Cancellable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -39,11 +39,19 @@ import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_JOIN_GROUP_UNKNOW
 
 
 /**
- * 讯飞 1：N 人脸业务工具
+ * 讯飞人脸业务工具
+ * 支持 1:1 识别， 1：N 组创建/添加成员/查询组成员/删除成员/删除组/
+ * 有些操作暂未实现, 见官方demo
+ *
+ * @see this#obtainEngine(Context context), 获取引擎
+ * @see this#signUp(Context context, byte[] faceData, String faceId), 1:1 人脸注册
+ * @see this#signIn(Context context, byte[] faceData, String faceId), 1:N 人脸检索
+ * @see this#createGroup(Context context, String faceId), 1:N 创建组
+ * @see this#joinGroup(Context context, String groupId, String faceId), 1:N 加组
  */
 public class FaceIdHelper {
 
-    public Observable<IdentityVerifier> obtainVerifier(Context context) {
+    public Observable<IdentityVerifier> obtainEngine(Context context) {
         return Observable.create(new ObservableOnSubscribe<IdentityVerifier>() {
             @Override
             public void subscribe(ObservableEmitter<IdentityVerifier> emitter) throws Exception {
@@ -73,10 +81,16 @@ public class FaceIdHelper {
                         if (IdentityVerifier.getVerifier() != null) {
                             IdentityVerifier.getVerifier().cancel();
                             IdentityVerifier.getVerifier().destroy();
+                            Timber.e("Face Engine destroy");
                         }
                     }
                 });
                 IdentityVerifier.createVerifier(context, initListener);
+            }
+        }).doOnSubscribe(new Consumer<Disposable>() {
+            @Override
+            public void accept(Disposable disposable) throws Exception {
+                Timber.i("Face obtainEngine: ");
             }
         }).unsubscribeOn(Schedulers.io()).subscribeOn(Schedulers.io());
     }
@@ -89,7 +103,7 @@ public class FaceIdHelper {
      * @return faceId
      */
     public Observable<String> signUp(Context context, byte[] faceData, String faceId) {
-        return obtainVerifier(context)
+        return obtainEngine(context)
                 .flatMap(new Function<IdentityVerifier, ObservableSource<? extends String>>() {
                     @Override
                     public ObservableSource<? extends String> apply(IdentityVerifier verifier) throws Exception {
@@ -114,8 +128,8 @@ public class FaceIdHelper {
                 verifier.setParameter(SpeechConstant.AUTH_ID, faceId);
                 IdentityListener identityListener = new IdentityListener() {
                     @Override
-                    public void onResult(IdentityResult identityResult, boolean b) {
-                        Timber.i("Face sign up success");
+                    public void onResult(IdentityResult result, boolean b) {
+                        Timber.i("Face sign up success, %s", result.getResultString());
                         emitter.onNext(faceId);
                     }
 
@@ -123,7 +137,7 @@ public class FaceIdHelper {
                     public void onError(SpeechError error) {
                         //未检测到人脸 （11700）
                         //模型或记录已存在 (10121)
-                        Timber.e("Face sign up error");
+                        Timber.e(error, "Face sign up error， %s", error.getPlainDescription(true));
                         if (!emitter.isDisposed()) {
                             emitter.onError(new FaceRepository.FaceError(
                                     ERROR_ON_FACE_SIGN_UP,
@@ -145,39 +159,19 @@ public class FaceIdHelper {
                 // stopWrite之后，才会触发 listener 中的回调接口，返回结果或者错误信息。
                 verifier.stopWrite("ifr");
             }
+        }).doOnSubscribe(new Consumer<Disposable>() {
+            @Override
+            public void accept(Disposable disposable) throws Exception {
+                Timber.i("Face signUp: ");
+            }
         }).subscribeOn(Schedulers.io());
-    }
-
-    public Observable<String> joinOrCreateGroup(
-            Context context,
-            String groupId,
-            String faceId) {
-        return joinGroup(context, groupId, faceId)
-                .retryWhen(new Function<Observable<? extends Throwable>, ObservableSource<?>>() {
-                    private AtomicInteger count = new AtomicInteger(0);
-
-                    @Override
-                    public ObservableSource<?> apply(Observable<? extends Throwable> rxError) throws Exception {
-                        return rxError.flatMap(new Function<Throwable, ObservableSource<?>>() {
-                            @Override
-                            public ObservableSource<?> apply(Throwable error) throws Exception {
-                                if (error instanceof FaceRepository.FaceError
-                                        && ((FaceRepository.FaceError) error).getCode() == ERROR_ON_JOIN_GROUP_NOT_EXIST
-                                        && count.compareAndSet(0, 1)) {
-                                    return createGroup(context, faceId);
-                                }
-                                return Observable.error(error);
-                            }
-                        });
-                    }
-                });
     }
 
     public Observable<String> joinGroup(
             Context context,
             String groupId,
             String faceId) {
-        return obtainVerifier(context)
+        return obtainEngine(context)
                 .flatMap(new Function<IdentityVerifier, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(IdentityVerifier verifier) throws Exception {
@@ -202,18 +196,20 @@ public class FaceIdHelper {
                 String param = String.format(format, faceId, groupId);
                 IdentityListener listener = new IdentityListener() {
                     @Override
-                    public void onResult(IdentityResult identityResult, boolean b) {
+                    public void onResult(IdentityResult result, boolean b) {
+                        Timber.i("Face joinGroup Success, %s", result.getResultString());
                         emitter.onNext(groupId);
                     }
 
                     @Override
                     public void onError(SpeechError error) {
-                        Timber.e(error);
+                        String errorMsg = error.getPlainDescription(true);
+                        Timber.e(error, "Face joinGroup Error, %s", errorMsg);
                         if (!emitter.isDisposed()) {
                             if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {
-                                emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_NOT_EXIST, error.getErrorDescription(), error));
+                                emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_NOT_EXIST, errorMsg, error));
                             } else {
-                                emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_UNKNOWN, error.getErrorDescription(), error));
+                                emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_UNKNOWN, errorMsg, error));
                             }
                         }
                     }
@@ -225,6 +221,11 @@ public class FaceIdHelper {
                 };
                 verifier.execute("ipt", "add", param, listener);
             }
+        }).doOnSubscribe(new Consumer<Disposable>() {
+            @Override
+            public void accept(Disposable disposable) throws Exception {
+                Timber.i("Face joinGroup: groupId = %s", groupId);
+            }
         }).subscribeOn(Schedulers.io());
     }
 
@@ -232,7 +233,7 @@ public class FaceIdHelper {
     public Observable<String> createGroup(
             Context context,
             String faceId) {
-        return obtainVerifier(context)
+        return obtainEngine(context)
                 .flatMap(new Function<IdentityVerifier, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(IdentityVerifier verifier) throws Exception {
@@ -259,8 +260,10 @@ public class FaceIdHelper {
                 IdentityListener listener = new IdentityListener() {
                     @Override
                     public void onResult(IdentityResult result, boolean b) {
+                        String resultJson = result.getResultString();
+                        Timber.i("Face createGroup Success，%s", resultJson);
                         try {
-                            JSONObject resultObj = new JSONObject(result.getResultString());
+                            JSONObject resultObj = new JSONObject(resultJson);
                             String groupId = resultObj.optString("group_id");
                             emitter.onNext(groupId);
                         } catch (JSONException e) {
@@ -270,9 +273,10 @@ public class FaceIdHelper {
 
                     @Override
                     public void onError(SpeechError error) {
-                        Timber.e(error, error.getPlainDescription(true));
+                        String errorMsg = error.getPlainDescription(true);
+                        Timber.e(error, "Face createGroup Error，%s", errorMsg);
                         if (!emitter.isDisposed()) {
-                            emitter.onError(new FaceRepository.FaceError(ERROR_ON_CREATE_GROUP, error.getErrorDescription(), error));
+                            emitter.onError(new FaceRepository.FaceError(ERROR_ON_CREATE_GROUP, errorMsg, error));
                         }
                     }
 
@@ -283,10 +287,10 @@ public class FaceIdHelper {
                 };
                 verifier.execute("ipt", "add", param, listener);
             }
-        }).doOnNext(new Consumer<String>() {
+        }).doOnSubscribe(new Consumer<Disposable>() {
             @Override
-            public void accept(String groupId) throws Exception {
-
+            public void accept(Disposable disposable) throws Exception {
+                Timber.i("Face createGroup: ");
             }
         }).subscribeOn(Schedulers.io());
     }
@@ -298,7 +302,7 @@ public class FaceIdHelper {
      * @return faceId:score
      */
     public Observable<String> signIn(Context context, byte[] faceData, String groupId) {
-        return obtainVerifier(context)
+        return obtainEngine(context)
                 .flatMap(new Function<IdentityVerifier, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(IdentityVerifier verifier) throws Exception {
@@ -323,21 +327,25 @@ public class FaceIdHelper {
                 IdentityListener listener = new IdentityListener() {
                     @Override
                     public void onResult(IdentityResult result, boolean b) {
-                        String json = result.getResultString();
+                        String resultJson = result.getResultString();
                         try {
-                            JSONObject resultObj = new JSONObject(json);
+                            JSONObject resultObj = new JSONObject(resultJson);
                             int ret = resultObj.optInt("ret");
                             if (ErrorCode.SUCCESS != ret) {
-                                Timber.e("FaceWithDevice sign in error");
+                                String errorMsg = new SpeechError(ret).getPlainDescription(true);
+                                Timber.e("Face sign in error, %s", errorMsg);
                                 if (!emitter.isDisposed()) {
-                                    emitter.onError(new FaceRepository.FaceError(ERROR_ON_FACE_SIGN_IN, "", null));
+                                    emitter.onError(new FaceRepository.FaceError(
+                                            ERROR_ON_FACE_SIGN_IN,
+                                            errorMsg,
+                                            null));
                                 }
                                 return;
                             }
                             JSONArray scoreArray = resultObj
                                     .optJSONObject("ifv_result")
                                     .optJSONArray("candidates");
-                            Timber.i(scoreArray.toString());
+                            Timber.i("Face sign in success, %s", resultJson);
                             JSONObject firstScoreObj = scoreArray.optJSONObject(0);
                             String firstFaceId = firstScoreObj.optString("user");
                             double firstScore = firstScoreObj.optDouble("score");
@@ -345,7 +353,7 @@ public class FaceIdHelper {
                             String faceIdWithScore = String.format("%s:%s", firstFaceId, firstScore);
                             emitter.onNext(faceIdWithScore);
                         } catch (Throwable e) {
-                            Timber.e(e, "Face sign in error");
+                            Timber.e(e, "Face sign in error, %s", e.getMessage());
                             if (!emitter.isDisposed()) {
                                 emitter.onError(new FaceRepository.FaceError(ERROR_ON_FACE_SIGN_IN, "", e));
                             }
@@ -354,11 +362,12 @@ public class FaceIdHelper {
 
                     @Override
                     public void onError(SpeechError error) {
-                        Timber.e(error, "Face sign in error");
+                        String errorMsg = error.getPlainDescription(true);
+                        Timber.e(error, "Face sign in error, %s", errorMsg);
                         if (!emitter.isDisposed()) {
                             emitter.onError(new FaceRepository.FaceError(
                                     ERROR_ON_FACE_SIGN_IN,
-                                    error.getPlainDescription(true),
+                                    errorMsg,
                                     error));
                         }
                     }

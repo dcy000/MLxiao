@@ -1,3 +1,4 @@
+
 package com.example.han.referralproject.application;
 
 import android.app.Application;
@@ -17,6 +18,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.gcml.common.app.lifecycle.App;
 import com.gcml.common.app.lifecycle.AppDelegate;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.service.ProcessUtils;
 import com.gcml.lib_utils.ui.UiUtils;
@@ -37,7 +39,13 @@ import cn.jpush.android.api.JPushInterface;
 
 public class MyApplication extends Application {
     private static MyApplication mInstance;
+
+    /**
+     * @see UserSpHelper#getUserId()
+     */
+    @Deprecated
     public String userId;
+
     public String xfid;
     public String telphoneNum;
     public String userName;

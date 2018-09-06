@@ -15,6 +15,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.module_control_volume.VolumeControlFloatwindow;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.lenovo.rto.accesstoken.AccessToken;
@@ -138,6 +139,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
 
     @Override
     protected void onResume() {
+        MyApplication.getInstance().userId = UserSpHelper.getUserId();
         //启动音量控制悬浮按钮
         VolumeControlFloatwindow.init(this.getApplicationContext());
         setEnableListeningLoop(false);

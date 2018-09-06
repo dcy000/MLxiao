@@ -48,6 +48,7 @@ import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.google.gson.Gson;
@@ -148,6 +149,11 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     @Override
     public void onStart() {
         super.onStart();
+        MyApplication.getInstance().userId = UserSpHelper.getUserId();
+        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+            ToastUtils.showShort("请重新登录");
+            return;
+        }
         getData();
     }
 

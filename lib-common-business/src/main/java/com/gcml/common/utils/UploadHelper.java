@@ -10,6 +10,11 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
+/**
+ * 七牛云文件上传工具
+ *
+ * @see this#upload(byte[], String, String), 文件上传
+ */
 public class UploadHelper {
 
     public static final String BASE_URL_QINIU = "http://oyptcv2pb.bkt.clouddn.com/";
@@ -17,8 +22,6 @@ public class UploadHelper {
     private UploadManager mUploader = new UploadManager();
 
     /**
-     * 七牛云文件上传工具
-     *
      * @param data  要上传文件的字节数据
      * @param key   要上传文件的外链后缀
      * @param token 七牛 token
@@ -34,7 +37,7 @@ public class UploadHelper {
                 UpCompletionHandler completionHandler = new UpCompletionHandler() {
                     @Override
                     public void complete(String key, ResponseInfo info, JSONObject response) {
-                        if (!info.isOK()) {
+                        if (!info.isOK() && !emitter.isDisposed()) {
                             emitter.onError(new RuntimeException(info.error));
                             return;
                         }

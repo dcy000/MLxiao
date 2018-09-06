@@ -19,7 +19,7 @@ public interface FaceService {
 
     @FormUrlEncoded
     @POST("ZZB/xf/insert_group_record")
-    Observable<ApiResult<List<FaceGroupInfo>>> updateFaceGroup(
+    Observable<ApiResult<Object>> updateFaceGroup(
             @Field("userid") String userId,
             @Field("gid") String groupId,
             @Field("xfid") String faceId
