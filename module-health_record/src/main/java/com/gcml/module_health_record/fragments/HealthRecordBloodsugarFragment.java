@@ -17,6 +17,7 @@ import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.BloodSugarHistory;
 import com.gcml.module_health_record.cc.CCHealthMeasureActions;
+import com.gcml.module_health_record.others.MyFloatNumFormatter;
 import com.gcml.module_health_record.others.MyMarkerView;
 import com.gcml.module_health_record.others.TimeFormatter;
 import com.github.mikephil.charting.charts.LineChart;
@@ -176,6 +177,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         leftAxis.setDrawZeroLine(false);
         //绘制警戒线在绘制数据之后
         leftAxis.setDrawLimitLinesBehindData(false);
+        leftAxis.setTextSize(20f);
         //禁用右边的Y轴
         mChart.getAxisRight().setEnabled(false);
         mChart.animateX(2500);
@@ -256,7 +258,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
             } else {
                 set1 = new LineDataSet(value, "");
                 set1.setDrawIcons(false);
-
+                set1.setValueFormatter(new MyFloatNumFormatter("4"));
                 //设置选中指示线的样式
                 set1.setHighLightColor(Color.rgb(244, 117, 117));
                 //走势线的样式

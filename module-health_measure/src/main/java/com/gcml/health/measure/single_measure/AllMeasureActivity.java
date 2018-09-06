@@ -204,36 +204,29 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 case IPresenter.MEASURE_TEMPERATURE:
                     //体温测量
                     CCHealthRecordActions.jump2HealthRecordActivity(0);
-//                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 0);
                     break;
                 case IPresenter.MEASURE_BLOOD_PRESSURE:
                     //血压
                     CCHealthRecordActions.jump2HealthRecordActivity(1);
-//                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 1);
                     break;
                 case IPresenter.MEASURE_BLOOD_SUGAR:
                     //血糖
                     CCHealthRecordActions.jump2HealthRecordActivity(2);
-//                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 2);
                     break;
                 case IPresenter.MEASURE_BLOOD_OXYGEN:
                     //血氧
                     CCHealthRecordActions.jump2HealthRecordActivity(3);
-//                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 3);
                     break;
                 case IPresenter.MEASURE_WEIGHT:
                     //体重
                     CCHealthRecordActions.jump2HealthRecordActivity(8);
-//                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 8);
                     break;
                 case IPresenter.MEASURE_ECG:
                     CCHealthRecordActions.jump2HealthRecordActivity(7);
-//                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 7);
                     break;
                 case IPresenter.MEASURE_OTHERS:
                     //三合一
                     CCHealthRecordActions.jump2HealthRecordActivity(5);
-//                    HealthRecordActivity.startActivity(AllMeasureActivity.this, HealthRecordActivity.class, 5);
                     break;
                 default:
                     break;
@@ -313,31 +306,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         });
     }
 
-//    private boolean canClickRefresh = true;
-//    private final TimeCountDownUtils.TimeCountListener timeCountListener
-//            = new TimeCountDownUtils.TimeCountListener() {
-//        @Override
-//
-//        public void onTick(long millisUntilFinished, String tag) {
-//            canClickRefresh = false;
-//        }
-//
-//        @Override
-//        public void onFinish(String tag) {
-//            canClickRefresh = false;
-//            canClickRefresh = true;
-//        }
-//    };
-
     @Override
     protected void backMainActivity() {
-//        if (!canClickRefresh) {
-//            ToastUtils.showShort("您点击的太快了");
-//            return;
-//        }
-//        TimeCountDownUtils.getInstance().create(5000, 1000, timeCountListener);
-//        TimeCountDownUtils.getInstance().start();
-
         if (isMeasure) {
             showRefreshBluetoothDialog();
         } else {

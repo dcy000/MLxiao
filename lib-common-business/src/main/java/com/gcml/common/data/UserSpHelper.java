@@ -46,6 +46,10 @@ public class UserSpHelper {
      * 用户身高的key
      */
     private static final String KEY_USER_HEIGHT="user_height";
+    /**
+     * 用户名字
+     */
+    private static final String KEY_USER_NAME="user_name";
 
     /**
      * 获取SP中存储的userid
@@ -193,5 +197,13 @@ public class UserSpHelper {
      */
     public static String getUserHeight(){
         return (String) SPUtil.get(KEY_USER_HEIGHT,"");
+    }
+
+    /**
+     * 获取SP中存储的username
+     * @return
+     */
+    public static String getUserName(){
+        return (String) SPUtil.get(KEY_USER_NAME,"");
     }
 }

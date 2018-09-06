@@ -14,15 +14,27 @@ public class MyFloatNumFormatter implements IValueFormatter {
     private DecimalFormat mFormat;
 
     public MyFloatNumFormatter(String flag) {
-        switch (flag){
-            case "1"://体温
+        switch (flag) {
+            case "1":
+                //体温
                 mFormat = new DecimalFormat("#0.0");
                 break;
-            case "3"://心率
-                mFormat=new DecimalFormat("#0.0");
+            case "2":
+                mFormat = new DecimalFormat("#0");
                 break;
-            case "7"://胆固醇
-                mFormat=new DecimalFormat("#0.00");
+            case "3":
+                //心率
+                mFormat = new DecimalFormat("#0.0");
+                break;
+            case "4":
+                //血糖
+                mFormat = new DecimalFormat("#0.0");
+                break;
+            case "7":
+                //胆固醇
+                mFormat = new DecimalFormat("#0.00");
+                break;
+            default:
                 break;
         }
 

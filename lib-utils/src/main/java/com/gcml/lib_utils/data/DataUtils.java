@@ -113,7 +113,30 @@ public class DataUtils {
         return isInteger(value) || isDouble(value);
     }
 
+    /**
+     * 将有空格的字符串中的空格替换成%20
+     * 例如w e a 替换之后w%20e%20a
+     * @param str
+     * @return
+     */
 
+    public static String replaceSpace(String str) {
+        if(str==null){
+            return null;
+        }
+        StringBuilder newStr = new StringBuilder();
+        for(int i=0;i<str.length();i++){
+            if(str.charAt(i)==' '){
+                // newStr.append("%20");
+                newStr.append('%');
+                newStr.append('2');
+                newStr.append('0');
+            }else{
+                newStr.append(str.charAt(i));
+            }
+        }
+        return newStr.toString();
+    }
     /**
      * 隐藏手机中间4位号码
      * 130****0000

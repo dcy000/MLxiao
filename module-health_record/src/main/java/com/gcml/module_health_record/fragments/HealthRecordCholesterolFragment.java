@@ -192,8 +192,9 @@ public class HealthRecordCholesterolFragment extends RecycleBaseFragment impleme
                     mChart.getData().getDataSetCount() > 0) {
                 set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
                 set1.setValues(value);
-                if (value.size() <= 3)
+                if (value.size() <= 3) {
                     set1.setMode(LineDataSet.Mode.LINEAR);
+                }
                 mChart.getData().notifyDataChanged();
                 mChart.notifyDataSetChanged();
             } else {

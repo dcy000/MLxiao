@@ -59,7 +59,7 @@ public class ThreeInOne_Self_PresenterImp extends BaseBluetoothPresenter {
         int number = temp % basic;
         float result = (float) (number / Math.pow(10, 13 - flag));
         if (bytes[1] == 65) {//血糖
-            baseView.updateData("bloodsugar",String.format("%.2f",result));
+            baseView.updateData("bloodsugar",String.format("%.1f",result));
         } else if (bytes[1] == 81) {//尿酸
             baseView.updateData("bua",String.format("%.2f",result));
         } else if (bytes[1] == 97) {//胆固醇

@@ -25,6 +25,7 @@ public class HealthTemperatureDetectionFragment extends Temperature_Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        isJump2Next=false;
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
         mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);

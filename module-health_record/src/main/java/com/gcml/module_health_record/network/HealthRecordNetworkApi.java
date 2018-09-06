@@ -1,6 +1,7 @@
 package com.gcml.module_health_record.network;
 
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.module_health_record.BuildConfig;
 import com.gcml.module_health_record.bean.BUA;
 import com.gcml.module_health_record.bean.BloodOxygenHistory;
@@ -12,7 +13,6 @@ import com.gcml.module_health_record.bean.HeartRateHistory;
 import com.gcml.module_health_record.bean.PulseHistory;
 import com.gcml.module_health_record.bean.TemperatureHistory;
 import com.gcml.module_health_record.bean.WeightHistory;
-import com.gcml.module_health_record.others.HealthRecordSPManifest;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class HealthRecordNetworkApi {
     ) {
         HashMap<String, String> params = new HashMap<>();
 
-        params.put("bid", HealthRecordSPManifest.getUserId());
+        params.put("bid", UserSpHelper.getUserId());
 //        params.put("bid","100001");
         params.put("temp", temp);
         params.put("starttime", start);
@@ -53,7 +53,7 @@ public class HealthRecordNetworkApi {
     public static void getBloodpressureHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", HealthRecordSPManifest.getUserId());
+        params.put("bid", UserSpHelper.getUserId());
 //        params.put("bid","100001");
         params.put("temp", temp);
         params.put("starttime", start);
@@ -73,7 +73,7 @@ public class HealthRecordNetworkApi {
     public static void getBloodSugarHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<BloodSugarHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", HealthRecordSPManifest.getUserId());
+        params.put("bid", UserSpHelper.getUserId());
         params.put("temp", temp);
         params.put("starttime", start);
         params.put("endtime", end);
@@ -91,7 +91,7 @@ public class HealthRecordNetworkApi {
     public static void getBloodOxygenHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", HealthRecordSPManifest.getUserId());
+        params.put("bid", UserSpHelper.getUserId());
         params.put("temp", temp);
         params.put("starttime", start);
         params.put("endtime", end);
@@ -109,7 +109,7 @@ public class HealthRecordNetworkApi {
     public static void getHeartRateHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<HeartRateHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", HealthRecordSPManifest.getUserId());
+        params.put("bid", UserSpHelper.getUserId());
         params.put("temp", temp);
         params.put("starttime", start);
         params.put("endtime", end);
@@ -127,7 +127,7 @@ public class HealthRecordNetworkApi {
     public static void getPulseHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<PulseHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", HealthRecordSPManifest.getUserId());
+        params.put("bid", UserSpHelper.getUserId());
         params.put("temp", temp);
         params.put("starttime", start);
         params.put("endtime", end);
@@ -145,7 +145,7 @@ public class HealthRecordNetworkApi {
     public static void getCholesterolHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<CholesterolHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", HealthRecordSPManifest.getUserId());
+        params.put("bid", UserSpHelper.getUserId());
 //        params.put("bid","100001");
         params.put("temp", temp);
         params.put("starttime", start);
@@ -164,7 +164,7 @@ public class HealthRecordNetworkApi {
     public static void getBUAHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<BUA>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", HealthRecordSPManifest.getUserId());
+        params.put("bid",UserSpHelper.getUserId());
 //        params.put("bid","100001");
         params.put("temp", temp);
         params.put("starttime", start);
@@ -183,7 +183,7 @@ public class HealthRecordNetworkApi {
     public static void getECGHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<ECGHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", HealthRecordSPManifest.getUserId());
+        params.put("bid", UserSpHelper.getUserId());
 //        params.put("bid", "100001");
         params.put("temp", temp);
         params.put("starttime", start);
@@ -206,7 +206,7 @@ public class HealthRecordNetworkApi {
     ) {
         HashMap<String, String> params = new HashMap<>();
 
-        params.put("bid", HealthRecordSPManifest.getUserId());
+        params.put("bid",UserSpHelper.getUserId());
 //        params.put("bid","100001");
         params.put("temp", temp);
         params.put("starttime", start);

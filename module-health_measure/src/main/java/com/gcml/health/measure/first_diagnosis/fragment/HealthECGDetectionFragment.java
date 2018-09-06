@@ -98,6 +98,8 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
      * 绘图线程
      */
     private Thread drawThread;
+    private boolean isJump2Next = false;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -128,7 +130,8 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
         mTvNext = (TextView) view.findViewById(R.id.tv_next);
-        MLVoiceSynthetize.startSynthesize(context,"主人，请打开设备开关，准备测量",false);
+        mTvNext.setOnClickListener(this);
+        MLVoiceSynthetize.startSynthesize(context, "主人，请打开设备开关，准备测量", false);
         initOther();
     }
 
@@ -157,9 +160,11 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
     @Override
     public void onStart() {
         super.onStart();
+        isJump2Next = false;
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setVisibility(View.GONE);
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -211,9 +216,14 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             Uri uri = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.tips_xindian);
             jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
 
-        } else {
+        } else if (i == R.id.tv_next) {
+            if (fragmentChanged != null) {
+                isJump2Next = true;
+                fragmentChanged.onFragmentChanged(this, null);
+            }
         }
     }
+
     /**
      * 跳转到MeasureVideoPlayActivity
      */
@@ -244,6 +254,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             }
         });
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -342,28 +353,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
                             mEcg = data.getInt("nResult");
                             mHeartRate = data.getInt("nHR");
-                            uploadEcg(mEcg,mHeartRate);
-
-                            //TODO:播报语音和上传数据
-//                            speak(String.format(getString(R.string.tips_result_xindian), mHeartRate, measureResult[mEcg]));
-//                            if (getIntent().getBooleanExtra("forResult", false)) {
-//                                return;
-//                            }
-//                            DataInfoBean ecgInfo = new DataInfoBean();
-//                            ecgInfo.ecg = data.getInt("nResult");
-//                            ecgInfo.heart_rate = data.getInt("nHR");
-//                            HealthMeasureApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
-//                                @Override
-//                                public void onSuccess(MeasureResult response) {
-//                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
-//                                }
-//                            }, new NetworkManager.FailedCallback() {
-//                                @Override
-//                                public void onFailed(String message) {
-//
-//                                }
-//                            });
-
+                            uploadEcg(mEcg, mHeartRate);
                         }
                         break;
                         case 7: {// 传输设置    setting data transmission mode
@@ -405,6 +395,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         }
 
     };
+
     private void uploadEcg(final int ecg, final int heartRate) {
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData ecgData = new DetectionData();
@@ -418,9 +409,11 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             @Override
             public void onSuccess(String callbackString) {
                 ToastUtils.showShort("数据上传成功");
-                Intent intent = new Intent();
-                intent.putExtra("ecg", ecg);
-                intent.putExtra("heartRate", heartRate);
+                if (fragmentChanged != null) {
+                    isJump2Next = true;
+                    fragmentChanged.onFragmentChanged(HealthECGDetectionFragment.this, null);
+                }
+
             }
 
             @Override
@@ -429,6 +422,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             }
         });
     }
+
     /**
      * 设置滤波模式
      *
@@ -437,6 +431,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
     private void setSmooth(boolean isVisible) {
         setImgVisible(mMainPc80BTitleSmooth, isVisible);
     }
+
     private void setImgVisible(ImageView img, boolean isVisible) {
         if (isVisible) {
             img.setVisibility(View.VISIBLE);
@@ -444,6 +439,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             img.setVisibility(View.INVISIBLE);
         }
     }
+
     /**
      * 设置搏动标记
      * set pulse flag

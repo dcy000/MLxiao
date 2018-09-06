@@ -26,6 +26,8 @@ import com.example.han.referralproject.cc.CCVideoActions;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.gcml.lib_utils.data.DataUtils;
+import com.gcml.lib_utils.data.StringUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -334,7 +336,8 @@ public class VideoListFragment extends Fragment {
                     int position = getAdapterPosition();
                     VideoEntity entity = videos.get(position);
                     Log.e("xxxxx", entity.getVideourl() + entity.getTitle());
-                    CCVideoActions.jump2NormalVideoPlayActivity(entity.getVideourl(),entity.getTitle());
+                    String replaceSpace = DataUtils.replaceSpace(entity.getVideourl());
+                    CCVideoActions.jump2NormalVideoPlayActivity(replaceSpace,entity.getTitle());
                 }
             });
         }
