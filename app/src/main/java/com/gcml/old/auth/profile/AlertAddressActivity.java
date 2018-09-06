@@ -1,7 +1,9 @@
 package com.gcml.old.auth.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +19,10 @@ import com.baidu.location.LocationClientOption;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
+import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -28,6 +33,7 @@ import com.gcml.old.auth.entity.Province;
 import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.Handlers;
@@ -41,7 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AlertAddressActivity extends BaseActivity {
+public class AlertAddressActivity extends AppCompatActivity {
 
     TextView tvGoBack;
 
@@ -63,7 +69,7 @@ public class AlertAddressActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alert_address);
+        setContentView(R.layout.activity_alert_address_new);
         clRoot = (ConstraintLayout) findViewById(R.id.cl_sign_up_root_address);
         tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
         tvGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
@@ -71,8 +77,22 @@ public class AlertAddressActivity extends BaseActivity {
         spCity = (Spinner) findViewById(R.id.sp_city);
         spCounty = (Spinner) findViewById(R.id.sp_county);
         etAddress = (EditText) findViewById(R.id.et_sign_up_address);
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("修改住址");
+
+        TranslucentToolBar toolBar = findViewById(R.id.tb_address_title);
+        toolBar.setData("修改住址", R.drawable.common_icon_back, "返回",
+                R.drawable.common_icon_home, null, new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+                        finish();
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        startActivity(new Intent(AlertAddressActivity.this, MainActivity.class));
+                        finish();
+                    }
+                });
+
         tvGoBack.setText("取消");
         tvGoForward.setText("确定");
         data = (UserInfoBean) getIntent().getSerializableExtra("data");
@@ -314,7 +334,7 @@ public class AlertAddressActivity extends BaseActivity {
         String address = etAddress.getText().toString().trim();
         if (TextUtils.isEmpty(address)) {
             ToastUtils.showShort(R.string.sign_up3_address_tip);
-            speak(R.string.sign_up3_address_tip);
+            speak("主人,请输入您的住址");
             return;
         }
 //        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, exercise,
@@ -359,6 +379,10 @@ public class AlertAddressActivity extends BaseActivity {
 //        LocalShared.getInstance(this.getApplicationContext()).setSignUpAddress(getAddress());
 //        Intent intent = SignUp4IdCardActivity.newIntent(this);
 //        startActivityForResult(intent);
+    }
+
+    private void speak(String text) {
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), text);
     }
 
     private List<String> mProvinceNames = new ArrayList<>();
@@ -492,75 +516,77 @@ public class AlertAddressActivity extends BaseActivity {
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
     public static final String REGEX_IN_GO_FORWARD = ".*(下一步|下一部|确定|完成).*";
 
-    @Override
-    protected void onSpeakListenerResult(String result) {
-        ToastUtils.showShort(result);
+//    @Override
+//    protected void onSpeakListenerResult(String result) {
+//        ToastUtils.showShort(result);
+//
+//        if (result.matches(REGEX_IN_GO_BACK)) {
+//            onTvGoBackClicked();
+//            return;
+//        }
+//
+//        if (result.matches(REGEX_IN_GO_FORWARD)) {
+//            onTvGoForwardClicked();
+//            return;
+//        }
+//
+//        String inSpell = PinYinUtils.converterToSpell(result);
+//        if (inSpell.matches(REGEX_IN_DEL_ALL)) {
+//            etAddress.setText("");
+//            return;
+//        }
+//
+//        String target = etAddress.getText().toString().trim();
+//        if (inSpell.matches(REGEX_IN_DEL)) {
+//            if (!TextUtils.isEmpty(target)) {
+//                etAddress.setText(target.substring(0, target.length() - 1));
+//                etAddress.setSelection(target.length() - 1);
+//            }
+//            return;
+//        }
+//
+//        if (mProvinceNames != null) {
+//            int size = mProvinceNames.size();
+//            for (int i = 0; i < size; i++) {
+//                String provinceName = mProvinceNames.get(i);
+//                String provinceSpell = PinYinUtils.converterToSpell(provinceName);
+//                if (inSpell.equals(provinceSpell)) {
+//                    spProvince.setSelection(i);
+//                    return;
+//                }
+//            }
+//        }
+//
+//        if (mCityNames != null) {
+//            int size = mCityNames.size();
+//            for (int i = 0; i < size; i++) {
+//                String cityName = mCityNames.get(i);
+//                String citySpell = PinYinUtils.converterToSpell(cityName);
+//                if (inSpell.equals(citySpell)) {
+//                    spCity.setSelection(i);
+//                    return;
+//                }
+//            }
+//        }
+//
+//        if (mCountyNames != null) {
+//            int size = mCountyNames.size();
+//            for (int i = 0; i < size; i++) {
+//                String countyName = mCountyNames.get(i);
+//                String countySpell = PinYinUtils.converterToSpell(countyName);
+//                if (inSpell.equals(countySpell)) {
+//                    spCounty.setSelection(i);
+//                    return;
+//                }
+//            }
+//        }
+//
+//        String text = target + result;
+//        if (text.length() < 30) {
+//            etAddress.setText(text);
+//            etAddress.setSelection(text.length());
+//        }
+//    }
 
-        if (result.matches(REGEX_IN_GO_BACK)) {
-            onTvGoBackClicked();
-            return;
-        }
 
-        if (result.matches(REGEX_IN_GO_FORWARD)) {
-            onTvGoForwardClicked();
-            return;
-        }
-
-        String inSpell = PinYinUtils.converterToSpell(result);
-        if (inSpell.matches(REGEX_IN_DEL_ALL)) {
-            etAddress.setText("");
-            return;
-        }
-
-        String target = etAddress.getText().toString().trim();
-        if (inSpell.matches(REGEX_IN_DEL)) {
-            if (!TextUtils.isEmpty(target)) {
-                etAddress.setText(target.substring(0, target.length() - 1));
-                etAddress.setSelection(target.length() - 1);
-            }
-            return;
-        }
-
-        if (mProvinceNames != null) {
-            int size = mProvinceNames.size();
-            for (int i = 0; i < size; i++) {
-                String provinceName = mProvinceNames.get(i);
-                String provinceSpell = PinYinUtils.converterToSpell(provinceName);
-                if (inSpell.equals(provinceSpell)) {
-                    spProvince.setSelection(i);
-                    return;
-                }
-            }
-        }
-
-        if (mCityNames != null) {
-            int size = mCityNames.size();
-            for (int i = 0; i < size; i++) {
-                String cityName = mCityNames.get(i);
-                String citySpell = PinYinUtils.converterToSpell(cityName);
-                if (inSpell.equals(citySpell)) {
-                    spCity.setSelection(i);
-                    return;
-                }
-            }
-        }
-
-        if (mCountyNames != null) {
-            int size = mCountyNames.size();
-            for (int i = 0; i < size; i++) {
-                String countyName = mCountyNames.get(i);
-                String countySpell = PinYinUtils.converterToSpell(countyName);
-                if (inSpell.equals(countySpell)) {
-                    spCounty.setSelection(i);
-                    return;
-                }
-            }
-        }
-
-        String text = target + result;
-        if (text.length() < 30) {
-            etAddress.setText(text);
-            etAddress.setSelection(text.length());
-        }
-    }
 }

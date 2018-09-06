@@ -1,6 +1,8 @@
 package com.gcml.old.auth.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,7 +11,10 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
+import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -18,6 +23,7 @@ import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
 import com.gcml.old.auth.register.SelectAdapter;
 import com.google.gson.Gson;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
@@ -30,7 +36,7 @@ import java.util.List;
 
 import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
 
-public class AlertHeightActivity extends BaseActivity {
+public class AlertHeightActivity extends AppCompatActivity {
 
     TextView tvSignUpHeight;
 
@@ -47,19 +53,37 @@ public class AlertHeightActivity extends BaseActivity {
     protected UserInfoBean data;
     protected String eat = "", smoke = "", drink = "", exercise = "";
     protected StringBuffer buffer;
+    public TranslucentToolBar toolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alert_height);
+        setContentView(R.layout.activity_alert_height_new);
         tvSignUpHeight = (TextView) findViewById(R.id.tv_sign_up_height);
         rvSignUpContent = (RecyclerView) findViewById(R.id.rv_sign_up_content);
         tvSignUpUnit = (TextView) findViewById(R.id.tv_sign_up_unit);
         tvSignUpGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
         tvSignUpGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
 
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("修改身高");
+//        mToolbar.setVisibility(View.VISIBLE);
+//        mTitleText.setText("修改身高");
+
+        toolBar = findViewById(R.id.tb_hight_title);
+        toolBar.setData("修改身高", R.drawable.common_icon_back, "返回",
+                R.drawable.common_icon_home, null, new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+                        finish();
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        startActivity(new Intent(AlertHeightActivity.this, MainActivity.class));
+                        finish();
+                    }
+                });
+
+
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
         tvSignUpGoBack.setOnClickListener(new View.OnClickListener() {
@@ -232,7 +256,6 @@ public class AlertHeightActivity extends BaseActivity {
 //                });
 
 
-
         PUTUserBean bean = new PUTUserBean();
         bean.bid = Integer.parseInt(UserSpHelper.getUserId());
         bean.height = height;
@@ -258,8 +281,9 @@ public class AlertHeightActivity extends BaseActivity {
         });
     }
 
-    @Override
-    protected void onActivitySpeakFinish() {
-        finish();
+    private void speak(String text) {
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), text);
     }
+
+
 }
