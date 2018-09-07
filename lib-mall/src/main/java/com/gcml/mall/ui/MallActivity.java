@@ -9,8 +9,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.mall.adapter.MallGoodsAdapter;
 import com.gcml.mall.bean.GoodsBean;
@@ -35,14 +37,30 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mall);
         onMenuClickListener = this;
+
+        bindView();
+        bindData();
+    }
+
+    private void bindView() {
         mToolBar = findViewById(R.id.tb_mall);
         menuRecycler = findViewById(R.id.rv_mall_menu);
         goodsRecycler = findViewById(R.id.rv_mall_goods);
-
-        initData();
     }
 
-    private void initData() {
+    private void bindData() {
+        mToolBar.setData("健 康 商 城", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+            @Override
+            public void onLeftClick() {
+                finish();
+            }
+
+            @Override
+            public void onRightClick() {
+                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                finish();
+            }
+        });
         for (int i = 1; i < 21; i++) {
             menuList.add("第" + i + "条");
         }
@@ -65,14 +83,6 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
         goodsRecycler.setAdapter(goodsAdapter);
     }
 
-    private void initToolBar() {
-//        mToolBar.setData("健 康 商 城", R.drawable.common_icon_home, "返回", "", );
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public void onMenuClick(int position) {
@@ -97,5 +107,10 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
         for (int i = position; i < 20; i++) {
             goodsList.add(new GoodsBean("第" + i + "个商品", R.drawable.placeholder, "" + i * 100.00));
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

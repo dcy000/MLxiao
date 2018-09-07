@@ -9,9 +9,11 @@
         android:id="@+id/item_tv_wifi_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:textSize="30sp"
-        android:textColor="#000"/>
+        android:textColor="#000"
+        android:text="sdadadasdasd"/>
 
     <TextView
         android:id="@+id/item_tv_wifi_ip"
@@ -22,13 +24,16 @@
         android:visibility="gone"/>
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:id="@+id/item_iv_wifi_level"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/common_img_wifi" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#DDDDDD"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
