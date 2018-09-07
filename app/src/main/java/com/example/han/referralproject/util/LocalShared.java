@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.speech.setting.IatSettings;
@@ -157,6 +158,10 @@ public class LocalShared {
         return false;
     }
 
+    /**
+     * @see UserSpHelper#getUserId()
+     */
+    @Deprecated
     public String getUserId() {
         return mShared.getString(UserId, "");
     }

@@ -198,23 +198,13 @@ public class Utils {
         if (manager == null) {
             return "";
         }
-        while (true) {
-            for (ActivityManager.RunningAppProcessInfo info : manager.getRunningAppProcesses()) {
-                if (info != null && info.pid == android.os.Process.myPid()) {
-                    processName = info.processName;
-                    break;
-                }
-            }
-            if (!TextUtils.isEmpty(processName)) {
-                return processName;
-            }
-            // take a rest and again
-            try {
-                Thread.sleep(100L);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
+        for (ActivityManager.RunningAppProcessInfo info : manager.getRunningAppProcesses()) {
+            if (info != null && info.pid == android.os.Process.myPid()) {
+                processName = info.processName;
+                break;
             }
         }
+        return processName;
     }
 
     public static String md5(String text) {

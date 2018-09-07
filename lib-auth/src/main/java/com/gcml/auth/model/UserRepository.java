@@ -19,6 +19,7 @@ import io.reactivex.SingleOnSubscribe;
 import io.reactivex.SingleSource;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 public class UserRepository {
 
@@ -37,9 +38,14 @@ public class UserRepository {
                     @SuppressLint("ApplySharedPref")
                     @Override
                     public void accept(UserEntity user) throws Exception {
-                        UserSpHelper.setUserId(user.id);
-                        UserSpHelper.setFaceId(user.xfid);
                         mUserDao.addAll(user);
+                    }
+                })
+                .flatMap(new Function<UserEntity, ObservableSource<UserEntity>>() {
+                    @Override
+                    public ObservableSource<UserEntity> apply(UserEntity user) throws Exception {
+                        return signIn(deviceId, account, pwd)
+                                .subscribeOn(Schedulers.io());
                     }
                 });
     }
@@ -119,6 +125,11 @@ public class UserRepository {
         }
         user.id = userId;
         return mUserService.updateProfile(userId, user)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<Object> hasIdCard(String idCard) {
+        return mUserService.hasIdCard(idCard)
                 .compose(RxUtils.apiResultTransformer());
     }
 }

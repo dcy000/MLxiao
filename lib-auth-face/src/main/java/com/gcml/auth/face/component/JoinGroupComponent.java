@@ -18,7 +18,7 @@ public class JoinGroupComponent implements IComponent {
     @Override
     public boolean onCall(CC cc) {
         FaceRepository faceRepository = new FaceRepository();
-        faceRepository.tryJoinGroup(UserSpHelper.getUserId())
+        faceRepository.tryJoinGroup(UserSpHelper.getFaceId())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new DefaultObserver<String>() {
                     @Override

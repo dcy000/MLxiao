@@ -307,9 +307,9 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.ll_date_and_week:
                 break;
             case R.id.iv_health_measure:
-                Bundle bundle = new Bundle();
-                bundle.putString("orderid", "0");
-                bundle.putString("from", "Test");
+//                Bundle bundle = new Bundle();
+//                bundle.putString("orderid", "0");
+//                bundle.putString("from", "Test");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(getActivity(), bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
@@ -319,8 +319,8 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                             public void onResult(CC cc, CCResult result) {
 //                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());

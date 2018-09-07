@@ -51,7 +51,7 @@ public class VideoListActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
 //        mTitleText.setText(R.string.title_health_class);
         mTitleText.setText(R.string.title_health_class);
-        mRightView.setImageResource(R.drawable.icon_wifi);
+//        mRightView.setImageResource(R.drawable.icon_wifi);
         mUnbinder = ButterKnife.bind(this);
         position = getIntent().getIntExtra("position", 0);
 
@@ -95,14 +95,14 @@ public class VideoListActivity extends BaseActivity {
         });
         rgHealthVideo.check(provideCheckedId(position));
 
-        mRightView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(VideoListActivity.this, WifiConnectActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        mRightView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(VideoListActivity.this, WifiConnectActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
     }
 
     @Override

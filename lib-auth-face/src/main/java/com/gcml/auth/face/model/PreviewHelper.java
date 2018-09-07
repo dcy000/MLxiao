@@ -193,9 +193,11 @@ public class PreviewHelper
                 if (mCamera == null) {
                     rxStatus.onNext(Status.of(Status.ERROR_ON_OPEN_CAMERA));
                 } else {
+                    Timber.i("Face Camera opened");
                     configCameraInternal();
                     CameraUtils.startPreview(mCamera, holder);
                     CameraUtils.setPreviewCallbackWithBuffer(mCamera, mPreviewCallback);
+                    rxStatus.onNext(Status.of(Status.EVENT_CAMERA_OPENED));
                 }
             }
         });
@@ -204,6 +206,7 @@ public class PreviewHelper
     private Camera.PreviewCallback mPreviewCallback = new Camera.PreviewCallback() {
         @Override
         public void onPreviewFrame(byte[] data, Camera camera) {
+            Timber.i("Face Camera Data");
             rxData.onNext(data);
         }
     };
@@ -231,6 +234,7 @@ public class PreviewHelper
     }
 
     public void addBuffer(long delayMillis) {
+        Timber.i("Face take Camera Data: Camera = %s", mCamera);
         if (mCamera != null) {
             cameraHandler().postDelayed(new Runnable() {
                 @Override
@@ -298,6 +302,7 @@ public class PreviewHelper
             int previewHeight = parameters.getPreviewSize().height;
             // 由于预览图片和界面显示大小可能不一样，
             // 计算缩放后的区域
+            Timber.i("Face CropRect");
             Rect rect = getScaledRect(mPreviewView, mCropRect, previewWidth, previewHeight);
 
 //            int rotationCount = getRotationCount();
@@ -313,9 +318,11 @@ public class PreviewHelper
 
             // 预览图像数据方向可能有方向问题，
             // 计算旋转后的区域
+            Timber.i("Face RotateRect");
             rect = getRotatedRect(previewWidth, previewHeight, rect);
 
             //裁剪区域
+            Timber.i("Face CropImage");
             YuvImage image = new YuvImage(bytes, ImageFormat.NV21, previewWidth, previewHeight, null);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             image.compressToJpeg(rect, 100, baos);
@@ -323,6 +330,7 @@ public class PreviewHelper
             Bitmap croppedBitmap = BitmapFactory.decodeByteArray(cropped, 0, cropped.length);
 
             //旋转图片
+            Timber.i("Face RotateImage");
             int rotation = CameraUtils.calculateRotation(mActivity, mCameraId);
             if (rotation == 90 || rotation == 270) {
                 croppedBitmap = rotate(croppedBitmap, rotation);
@@ -434,6 +442,7 @@ public class PreviewHelper
 
     public static class Status {
         public static final int ERROR_ON_OPEN_CAMERA = -1;
+        public static final int EVENT_CAMERA_OPENED = 0;
         public static final int EVENT_CROPPED = 1;
 
         public int code;

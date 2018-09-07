@@ -1984,15 +1984,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 if (data != null) {
                     sessionId = data.getSession_id();
                 }
-                for (Unit.ActionListBean action : data.getAction_list()) {
-
-                    if (!TextUtils.isEmpty(action.getSay())) {
-                        sb = new StringBuilder();
-                        sb.append(action.getSay());
+                List<Unit.ActionListBean> list = data.getAction_list();
+                if (list != null && list.size() != 0) {
+                    if (list.size() >= 10) {
+                        str1 = list.get(new Random().nextInt(10)).getSay().replace("<USER-NAME>", "");
+                    } else {
+                        str1 = list.get(0).getSay().replace("<USER-NAME>", "");
                     }
-
                 }
-                str1 = sb.toString().replace("<USER-NAME>", "");
                 defaultToke();
             }
 

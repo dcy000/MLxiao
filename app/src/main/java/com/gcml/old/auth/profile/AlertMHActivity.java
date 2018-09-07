@@ -1,6 +1,8 @@
 package com.gcml.old.auth.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -10,7 +12,10 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
+import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -19,6 +24,7 @@ import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
 import com.gcml.old.auth.register.DiseaseHistoryAdapter;
 import com.gcml.old.auth.register.DiseaseHistoryModel;
 import com.google.gson.Gson;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
@@ -28,7 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlertMHActivity extends BaseActivity {
+public class AlertMHActivity extends AppCompatActivity {
 
 
     RecyclerView rvSignUpContent;
@@ -46,12 +52,29 @@ public class AlertMHActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alert_mh);
+        setContentView(R.layout.activity_alert_mh_new);
         rvSignUpContent = (RecyclerView) findViewById(R.id.rv_sign_up_content);
         tvSignUpGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
         tvSignUpGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("修改病史");
+//        mToolbar.setVisibility(View.VISIBLE);
+//        mTitleText.setText("修改病史");
+
+        TranslucentToolBar toolBar = findViewById(R.id.tb_mh_title);
+        toolBar.setData("修改病史", R.drawable.common_icon_back, "返回",
+                R.drawable.common_icon_home, null, new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+                        finish();
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        startActivity(new Intent(AlertMHActivity.this, MainActivity.class));
+                        finish();
+                    }
+                });
+
+
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
         tvSignUpGoBack.setOnClickListener(new View.OnClickListener() {
@@ -250,6 +273,11 @@ public class AlertMHActivity extends BaseActivity {
         }
         int length = mhBuilder.length();
         return length == 0 ? mhBuilder.toString() : mhBuilder.substring(0, length - 1);
+    }
+
+
+    private void speak(String text) {
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), text);
     }
 
 }

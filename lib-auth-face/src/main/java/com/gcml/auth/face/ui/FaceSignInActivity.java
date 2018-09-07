@@ -99,13 +99,14 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
 
     private void start(String tips, String voiceTips, int delayMillis) {
         binding.ivTips.setText(tips);
+        mPreviewHelper.addBuffer(2000);
         MLVoiceSynthetize.startSynthesize(
                 getApplicationContext(),
                 voiceTips,
                 new MLSynthesizerListener() {
                     @Override
                     public void onCompleted(SpeechError speechError) {
-                        mPreviewHelper.addBuffer(delayMillis);
+//                        mPreviewHelper.addBuffer(delayMillis);
                         // see onPreviewStatusChanged(PreviewHelper.Status status)
                     }
                 },
@@ -117,6 +118,10 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
         if (status.code == PreviewHelper.Status.EVENT_CROPPED) {
             Bitmap faceBitmap = (Bitmap) status.payload;
             signInFace(faceBitmap);
+        } else if (status.code == PreviewHelper.Status.EVENT_CAMERA_OPENED) {
+            start("把人脸放框内",
+                    "把人脸放框内",
+                    0);
         } else if (status.code == PreviewHelper.Status.ERROR_ON_OPEN_CAMERA) {
             binding.ivTips.setText("打开相机失败");
             ToastUtils.showShort("打开相机失败");
@@ -134,6 +139,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                 .map(new Function<Bitmap, byte[]>() {
                     @Override
                     public byte[] apply(Bitmap bitmap) throws Exception {
+                        Timber.i("Face Compress Image Data");
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         faceBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         if (!faceBitmap.isRecycled()) {
@@ -146,6 +152,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                     @Override
                     public ObservableSource<String> apply(byte[] faceData) throws Exception {
                         String groupId = UserSpHelper.getGroupId();
+                        Timber.i("Face signIn");
                         return viewModel.signIn(faceData, groupId)
                                 .subscribeOn(Schedulers.io());
                     }
@@ -179,9 +186,14 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        start("请把人脸放在框内",
-                                "请把人脸放在框内",
-                                1000);
+                        int count = retryCount.getAndIncrement();
+                        if (count == 5) {
+                            finish();
+                        } else {
+                            start("把人脸放框内",
+                                    "把人脸放框内",
+                                    0);
+                        }
                     }
                 });
 
@@ -196,15 +208,15 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
 //            if (count == 5) {
 //                finish();
 //            } else {
-                start("请把人脸放在框内",
-                        "请把人脸放在框内",
-                        1000);
+            start("把人脸放框内",
+                    "把人脸放框内",
+                    0);
 //            }
         } else if (score < 80) {
             // 重新验证
             start("请把人脸靠近一点",
                     "请把人脸靠近一点",
-                    1000);
+                    0);
         } else {
             // 当前组存在人脸
             viewModel.getLocalUsers()
@@ -219,9 +231,9 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                                 if (count == 5) {
                                     finish();
                                 } else {
-                                    start("请把人脸放在框内",
-                                            "请把人脸放在框内",
-                                            1000);
+                                    start("把人脸放框内",
+                                            "把人脸放框内",
+                                            0);
                                 }
                                 return;
                             }
@@ -243,9 +255,9 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                             if (count == 5) {
                                 finish();
                             } else {
-                                start("请把人脸放在框内",
-                                        "请把人脸放在框内",
-                                        1000);
+                                start("把人脸放框内",
+                                        "把人脸放框内",
+                                        0);
                             }
                         }
 
@@ -256,9 +268,9 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                             if (count == 5) {
                                 finish();
                             } else {
-                                start("请把人脸放在框内",
-                                        "请把人脸放在框内",
-                                        1000);
+                                start("把人脸放框内",
+                                        "把人脸放框内",
+                                        0);
                             }
                         }
                     });
@@ -283,14 +295,6 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
         if (mPreviewHelper != null) {
             mPreviewHelper.configCamera();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        start("请把人脸放在框内",
-                "请把人脸放在框内",
-                1000);
     }
 
     @Override

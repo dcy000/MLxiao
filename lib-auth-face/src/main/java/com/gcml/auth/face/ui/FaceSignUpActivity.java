@@ -76,7 +76,7 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
             @Override
             public void run() {
                 int[] outLocation = new int[2];
-                Timber.i("%s x %s", outLocation[0], outLocation[1]);
+                Timber.i("Face CropRect: %s x %s", outLocation[0], outLocation[1]);
                 binding.ivAnimation.getLocationOnScreen(outLocation);
                 mPreviewHelper.setCropRect(new Rect(
                         outLocation[0],

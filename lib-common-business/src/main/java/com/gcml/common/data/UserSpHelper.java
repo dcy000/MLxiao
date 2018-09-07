@@ -164,7 +164,6 @@ public class UserSpHelper {
         return (String) SPUtil.get(KEY_GROUP_ID, "");
     }
 
-
     /**
      * 讯飞组创建时候传入的xfid
      *
