@@ -14,6 +14,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.HypertensionDetection;
 import com.example.han.referralproject.bean.QuestionChoosed;
 import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.common.data.UserSpHelper;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -202,7 +203,7 @@ public class HypertensionRiskActivity extends BaseActivity implements IFragmentC
     }
 
     private void postUserAnswers() {
-        String userId = MyApplication.getInstance().userId;
+        String userId = UserSpHelper.getUserId();
         postQuestions.setUserId(Integer.parseInt(userId));
         final String result = new Gson().toJson(postQuestions);
         Log.e("最后的解析结果", "postUserAnswers: " + result);

@@ -26,6 +26,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.gcml.old.auth.register.ConfirmContractActivity;
@@ -382,7 +383,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void OnlineTime() {
-        NetworkApi.onlinedoctor_zixun(doctor.getDocterid(), MyApplication.getInstance().userId, 0, new NetworkManager.SuccessCallback<OnlineTime>() {
+        NetworkApi.onlinedoctor_zixun(doctor.getDocterid(), UserSpHelper.getUserId(), 0, new NetworkManager.SuccessCallback<OnlineTime>() {
             @Override
             public void onSuccess(OnlineTime response) {
 

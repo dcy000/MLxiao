@@ -19,6 +19,7 @@ import com.example.han.referralproject.hypertensionmanagement.activity.NormalHig
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.google.gson.Gson;
@@ -184,7 +185,7 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
     }
 
     private void getData() {
-        NetworkApi.getDiagnoseInfo(MyApplication.getInstance().userId, new StringCallback() {
+        NetworkApi.getDiagnoseInfo(UserSpHelper.getUserId(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
@@ -200,7 +201,7 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
         Calendar curr = Calendar.getInstance();
         long weekAgoTime = curr.getTimeInMillis();
         OkGo.<String>get(NetworkApi.WeeklyOrMonthlyReport)
-                .params("userId", MyApplication.getInstance().userId)
+                .params("userId", UserSpHelper.getUserId())
                 .params("endTimeStamp", weekAgoTime)
                 .params("num", "1")
                 .execute(new StringCallback() {

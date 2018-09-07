@@ -1,5 +1,9 @@
 package com.example.han.referralproject.bean;
 
+/**
+ * @see com.gcml.common.data.UserEntity
+ */
+@Deprecated
 public class UserInfo {
 
     public String doctername;

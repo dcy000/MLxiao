@@ -40,6 +40,7 @@ import com.example.han.referralproject.jipush.MyReceiver;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.handler.WeakHandler;
@@ -191,7 +192,7 @@ public class BaseActivity extends AppCompatActivity {
     //在此处检查有没有登录，如果还没有登录先跳转到登录页面去，等登录成功以后再跳转回该页面
     //因为有的页面没有在onResume中刷新页面，所有先finish掉当前页面，登录成功后再创建新的
     private void checkIsLogin() {
-        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
             ToastUtils.showShort("请登录");
             CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //            ChooseLoginTypeActivity.startActivity(this, ChooseLoginTypeActivity.class, this.getClass());

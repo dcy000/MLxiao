@@ -46,15 +46,23 @@ public class MyApplication extends Application {
     @Deprecated
     public String userId;
 
+    /**
+     * @see UserSpHelper#getFaceId()
+     */
+    @Deprecated
     public String xfid;
+    @Deprecated
     public String telphoneNum;
+    @Deprecated
     public String userName;
+    @Deprecated
     public String hypertensionHand;
-
+    @Deprecated
     public String nimUserId() {
-        return "user_" + userId;
+        return "user_" + UserSpHelper.getUserId();
     }
 
+    @Deprecated
     public String eqid;
     public static final int PLAN_ID_KSY = 1;
 
@@ -100,7 +108,6 @@ public class MyApplication extends Application {
         LitePal.initialize(this);
         mInstance = this;
         LocalShared mShared = LocalShared.getInstance(this);
-        userId = mShared.getUserId();
         xfid = mShared.getXunfeiId();
         telphoneNum = mShared.getPhoneNum();
         eqid = mShared.getEqID();

@@ -19,6 +19,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.RadarChart;
@@ -94,7 +95,7 @@ public class New_MonthlyReport3Fragment extends Fragment implements View.OnClick
         curr.set(Calendar.WEEK_OF_YEAR, curr.get(Calendar.WEEK_OF_YEAR) - 1);
         long monthAgoTime = curr.getTimeInMillis();
         OkGo.<String>get(NetworkApi.Life_Therapy)
-                .params("userId", MyApplication.getInstance().userId)
+                .params("userId", UserSpHelper.getUserId())
                 .params("endTimeStamp", monthAgoTime)
                 .params("num", "4")
                 .execute(new StringCallback() {

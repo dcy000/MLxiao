@@ -348,11 +348,4 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 break;
         }
     }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        MyApplication.getInstance().userId = UserSpHelper.getUserId();
-    }
 }

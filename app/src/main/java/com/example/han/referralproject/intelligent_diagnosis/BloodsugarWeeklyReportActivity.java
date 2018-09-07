@@ -12,6 +12,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -81,7 +82,7 @@ public class BloodsugarWeeklyReportActivity extends BaseActivity {
         curr.set(Calendar.WEEK_OF_YEAR, curr.get(Calendar.WEEK_OF_YEAR) - 1);
         long weekAgoTime = curr.getTimeInMillis();
         OkGo.<String>get(NetworkApi.WeeklyOrMonthlyBloodsugar)
-                .params("userId", MyApplication.getInstance().userId)
+                .params("userId", UserSpHelper.getUserId())
                 .params("endTimeStamp", weekAgoTime)
                 .params("num", "1")
                 .execute(new StringCallback() {

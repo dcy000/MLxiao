@@ -19,6 +19,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.intelligent_diagnosis.WeekDietPlan;
 import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.common.data.UserSpHelper;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -73,7 +74,7 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
     private void getData() {
         Log.e(TAG, "getDataCache: ");
         OkGo.<String>get(NetworkApi.WeekHealthDietPlan)
-                .params("userId", MyApplication.getInstance().userId)
+                .params("userId", UserSpHelper.getUserId())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
