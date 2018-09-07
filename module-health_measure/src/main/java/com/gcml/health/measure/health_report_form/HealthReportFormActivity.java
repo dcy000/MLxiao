@@ -21,6 +21,7 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.demo.DemoGoodTipsFragment;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
+import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
@@ -93,16 +94,16 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                         showLoading("加载中");
                     }
                 })
-                .doOnNext(new Consumer<FirstReportBean>() {
+                .doOnNext(new Consumer<FirstReportReceiveBean>() {
                     @Override
-                    public void accept(FirstReportBean firstReportBean) throws Exception {
+                    public void accept(FirstReportReceiveBean firstReportBean) throws Exception {
                         dismissLoading();
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribeWith(new DefaultObserver<FirstReportBean>() {
+                .subscribeWith(new DefaultObserver<FirstReportReceiveBean>() {
                     @Override
-                    public void onNext(FirstReportBean firstReportBean) {
+                    public void onNext(FirstReportReceiveBean firstReportBean) {
                         if (firstReportBean != null) {
                             dealData(firstReportBean);
                         } else {
@@ -122,7 +123,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                 });
     }
 
-    private void dealData(FirstReportBean firstReportBean) {
+    private void dealData(FirstReportReceiveBean firstReportBean) {
         fragments = new ArrayList<>();
         HealthReportFormFragment1 fragment1 = new HealthReportFormFragment1();
         Bundle bundle1 = new Bundle();
@@ -130,81 +131,25 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         fragment1.setArguments(bundle1);
         fragments.add(fragment1);
 
+        List<FirstReportReceiveBean.ReportListBean> reportList = firstReportBean.getReportList();
+        for (FirstReportReceiveBean.ReportListBean reportListBean : reportList) {
+            String illnessStatus = reportListBean.getIllnessStatus();
+            Bundle bundle = new Bundle();
+            if ("0".equals(illnessStatus)) {
+                HealthReportFormFragment2 fragment2 = new HealthReportFormFragment2();
+                bundle.putParcelable(KEY_DATA, firstReportBean);
+                bundle.putString(KEY_TYPE, reportListBean.getIllnessName());
+                fragment2.setArguments(bundle);
+                fragments.add(fragment2);
+            } else if ("1".equals(illnessStatus)) {
+                HealthReportFormFragment3 fragment3 = new HealthReportFormFragment3();
+                bundle.putParcelable(KEY_DATA, firstReportBean);
+                bundle.putString(KEY_TYPE, reportListBean.getIllnessName());
+                fragment3.setArguments(bundle);
+                fragments.add(fragment3);
+            }
 
-        //糖尿病
-        String dm = firstReportBean.getDm().getIllnessStatus();
-        //高血压
-        String htn = firstReportBean.getHtn().getIllnessStatus();
-        //肥胖症
-        String fat = firstReportBean.getFat().getIllnessStatus();
-        //心血管
-        String icvd = firstReportBean.getIcvd().getIllnessStatus();
-        //0是为未确诊，1是确诊
-
-
-        Bundle bundle2 = new Bundle();
-        if ("0".equals(dm)) {
-            HealthReportFormFragment2 fragment2 = new HealthReportFormFragment2();
-            bundle2.putParcelable(KEY_DATA, firstReportBean);
-            bundle2.putString(KEY_TYPE, "糖尿病");
-            fragment2.setArguments(bundle2);
-            fragments.add(fragment2);
-        } else if ("1".equals(dm)) {
-            HealthReportFormFragment3 fragment2 = new HealthReportFormFragment3();
-            bundle2.putParcelable(KEY_DATA, firstReportBean);
-            bundle2.putString(KEY_TYPE, "糖尿病");
-            fragment2.setArguments(bundle2);
-            fragments.add(fragment2);
         }
-
-
-        Bundle bundle3 = new Bundle();
-        if ("0".equals(htn)) {
-            HealthReportFormFragment2 fragment3 = new HealthReportFormFragment2();
-            bundle3.putParcelable(KEY_DATA, firstReportBean);
-            bundle3.putString(KEY_TYPE, "高血压");
-            fragment3.setArguments(bundle3);
-            fragments.add(fragment3);
-        } else if ("1".equals(htn)) {
-            HealthReportFormFragment3 fragment3 = new HealthReportFormFragment3();
-            bundle3.putParcelable(KEY_DATA, firstReportBean);
-            bundle3.putString(KEY_TYPE, "高血压");
-            fragment3.setArguments(bundle3);
-            fragments.add(fragment3);
-        }
-
-
-        Bundle bundle4 = new Bundle();
-        if ("0".equals(fat)) {
-            HealthReportFormFragment2 fragment4 = new HealthReportFormFragment2();
-            bundle4.putParcelable(KEY_DATA, firstReportBean);
-            bundle4.putString(KEY_TYPE, "肥胖症");
-            fragment4.setArguments(bundle4);
-            fragments.add(fragment4);
-        } else if ("1".equals(fat)) {
-            HealthReportFormFragment3 fragment4 = new HealthReportFormFragment3();
-            bundle4.putParcelable(KEY_DATA, firstReportBean);
-            bundle4.putString(KEY_TYPE, "肥胖症");
-            fragment4.setArguments(bundle4);
-            fragments.add(fragment4);
-        }
-
-
-        Bundle bundle5 = new Bundle();
-        if ("0".equals(icvd)) {
-            HealthReportFormFragment2 fragment5 = new HealthReportFormFragment2();
-            bundle5.putParcelable(KEY_DATA, firstReportBean);
-            bundle5.putString(KEY_TYPE, "缺血性心血管病");
-            fragment5.setArguments(bundle5);
-            fragments.add(fragment5);
-        } else if ("1".equals(icvd)) {
-            HealthReportFormFragment3 fragment5 = new HealthReportFormFragment3();
-            bundle5.putParcelable(KEY_DATA, firstReportBean);
-            bundle5.putString(KEY_TYPE, "缺血性心血管病");
-            fragment5.setArguments(bundle5);
-            fragments.add(fragment5);
-        }
-
 //        DemoGoodTipsFragment tipsFragment = new DemoGoodTipsFragment();
 //        fragments.add(tipsFragment);
         initViewPage();
@@ -226,7 +171,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                if (position == 4&& positionOffsetPixels == 0 && checkViewpageState > 0) {
+                if (position == 4 && positionOffsetPixels == 0 && checkViewpageState > 0) {
                     checkViewpageState--;
                 }
             }
