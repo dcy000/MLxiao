@@ -178,15 +178,17 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
 
             @Override
             public void onPageSelected(int position) {
+
                 switch (position) {
                     case 0:
                         mTitleText.setText("健 康 报 告");
                         break;
                     case 1:
-                        mTitleText.setText("糖 尿 病 评 估 报 告");
+                        mTitleText.setText("高 血 压 评 估 报 告");
+
                         break;
                     case 2:
-                        mTitleText.setText("高 血 压 评 估 报 告");
+                        mTitleText.setText("糖 尿 病 评 估 报 告");
                         break;
                     case 3:
                         mTitleText.setText("肥 胖 症 评 估 报 告");
