@@ -2,6 +2,7 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 
 import android.view.View;
 
+import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
@@ -28,6 +29,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
         isJump2Next=false;
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
+        setBtnClickableState(false);
     }
 
     @Override
@@ -74,11 +76,12 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
                         ((FirstDiagnosisActivity) mActivity).putCacheData(cholesterolData);
                         ((FirstDiagnosisActivity) mActivity).putCacheData(lithicAcidData);
 
-                        if (fragmentChanged != null && !isJump2Next) {
-                            isJump2Next = true;
-                            fragmentChanged.onFragmentChanged(
-                                    HealthThreeInOneDetectionUiFragment.this, null);
-                        }
+//                        if (fragmentChanged != null && !isJump2Next) {
+//                            isJump2Next = true;
+//                            fragmentChanged.onFragmentChanged(
+//                                    HealthThreeInOneDetectionUiFragment.this, null);
+//                        }
+                        setBtnClickableState(true);
                     }
 
                     @Override
@@ -95,6 +98,16 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
         if (fragmentChanged != null && !isJump2Next) {
             isJump2Next = true;
             fragmentChanged.onFragmentChanged(this, null);
+        }
+    }
+
+    private void setBtnClickableState(boolean enableClick){
+        if (enableClick){
+            mBtnHealthHistory.setClickable(true);
+            mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
+        }else{
+            mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+            mBtnHealthHistory.setClickable(false);
         }
     }
 }

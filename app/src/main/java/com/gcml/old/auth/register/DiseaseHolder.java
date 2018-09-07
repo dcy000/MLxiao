@@ -17,12 +17,12 @@ public class DiseaseHolder extends RecyclerView.ViewHolder {
     public DiseaseHolder(View itemView) {
         super(itemView);
         tvDisease = (TextView) itemView.findViewById(R.id.tv_sign_up_item_disease);
-        tvDisease.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onTvDiseaseClicked();
-            }
-        });
+//        tvDisease.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                onTvDiseaseClicked();
+//            }
+//        });
     }
 
     public void onTvDiseaseClicked() {
@@ -53,4 +53,5 @@ public class DiseaseHolder extends RecyclerView.ViewHolder {
         tvDisease.setText(mModel.getName());
         tvDisease.setSelected(selected);
     }
+
 }

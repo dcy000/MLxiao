@@ -15,6 +15,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.data.LunarUtils;
 import com.gcml.lib_utils.data.TimeUtils;
@@ -101,7 +102,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
     private void getLocation() {
         //TODO:打正式包的时候打开该注释
-        WeatherUtils.getInstance().initLocation(getContext());
+        WeatherUtils.getInstance().initLocation(UtilsManager.getApplication());
         WeatherUtils.getInstance().setOnLocationResultListener(new WeatherUtils.LocationResult() {
             @Override
             public void onResult(String city, String county) {

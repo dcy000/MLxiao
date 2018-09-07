@@ -253,6 +253,8 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
                 }
                 adapter.notifyDataSetChanged();
                 break;
+            default:
+                break;
         }
     }
 

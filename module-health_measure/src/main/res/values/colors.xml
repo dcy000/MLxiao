@@ -6,6 +6,7 @@
     <color name="color_7F3F86FC">#7F3F86FC</color>
     <color name="color_3F86FC">#3F86FC</color>
     <color name="color_eeeeee">#EEEEEE</color>
+
     <color name="color_0DD192">#0DD192</color>
     <color name="color_FFCE00">#FFCE00</color>
     <color name="color_F3AA43">#F3AA43</color>
@@ -13,5 +14,25 @@
     <color name="color_F56C6B">#F56C6B</color>
     <integer-array name="circle_progress_blue">
         <item>@color/color_3F86FC</item>
+    </integer-array>
+    <integer-array name="circle_progress_color_0DD192">
+        <item>@color/color_0DD192</item>
+        <item>@color/color_0DD192</item>
+    </integer-array>
+    <integer-array name="circle_progress_color_FFCE00">
+        <item>@color/color_FFCE00</item>
+        <item>@color/color_FFCE00</item>
+    </integer-array>
+    <integer-array name="circle_progress_color_F3AA43">
+        <item>@color/color_F3AA43</item>
+        <item>@color/color_F3AA43</item>
+    </integer-array>
+    <integer-array name="circle_progress_color_F08A40">
+        <item>@color/color_F08A40</item>
+        <item>@color/color_F08A40</item>
+    </integer-array>
+    <integer-array name="circle_progress_color_F56C6B">
+        <item>@color/color_F56C6B</item>
+        <item>@color/color_F56C6B</item>
     </integer-array>
 </resources>

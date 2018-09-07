@@ -41,7 +41,7 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
         super.onStart();
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
-        mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+        setBtnClickableState(false);
         notifyDetectionStepChanged(detectionStep);
     }
 
@@ -142,6 +142,8 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
             case DetectionStep.DONE:
                 notifyDetectionStepChanged(DetectionStep.DONE);
                 break;
+            default:
+                break;
         }
     }
 
@@ -169,9 +171,9 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                 showDialog(getString(R.string.health_measure_tips_right_3));
                 break;
             case DetectionStep.DONE:
-                isMeasureOver = true;
-                mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
                 uploadHandData(prepareData());
+                break;
+            default:
                 break;
         }
     }
@@ -223,6 +225,8 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                             return;
                         }
                         String body = response.body();
+                        //保存惯用手
+                        UserSpHelper.setUserHypertensionHand(data.right + "");
                         try {
                             ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
                             }.getType());
@@ -265,12 +269,14 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
         HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
             @Override
             public void onSuccess(String callbackString) {
-                if (fragmentChanged != null && !isJump2Next) {
-                    isJump2Next = true;
-                    fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
-                }
+//                if (fragmentChanged != null && !isJump2Next) {
+//                    isJump2Next = true;
+//                    fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
+//                }
                 ((FirstDiagnosisActivity) mActivity).putCacheData(pressureData);
                 ((FirstDiagnosisActivity) mActivity).putCacheData(pulseData);
+                isMeasureOver = true;
+                setBtnClickableState(true);
             }
 
             @Override
@@ -359,8 +365,8 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     @Override
     protected void clickHealthHistory(View view) {
         if (isMeasureOver) {
-            if (fragmentChanged != null&&!isJump2Next) {
-                fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this,null);
+            if (fragmentChanged != null && !isJump2Next) {
+                fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
             }
         } else {
             ToastUtils.showShort("测量次数不够");
@@ -380,6 +386,16 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
         public int rightLowPressure;
         public int leftPulse;
         public int rightPulse;
+    }
+
+    private void setBtnClickableState(boolean enableClick) {
+        if (enableClick) {
+            mBtnHealthHistory.setClickable(true);
+            mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
+        } else {
+            mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+            mBtnHealthHistory.setClickable(false);
+        }
     }
 
     @Override

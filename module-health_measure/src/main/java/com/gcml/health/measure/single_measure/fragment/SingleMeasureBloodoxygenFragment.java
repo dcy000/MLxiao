@@ -21,7 +21,8 @@ public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 2) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血氧" + results[0] + "%,脉搏" + results[1], false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+                    "主人，您本次测量血氧" + results[0] + "%,脉搏" + results[1], false);
 
 
             ArrayList<DetectionData> datas = new ArrayList<>();
