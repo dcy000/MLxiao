@@ -15,10 +15,6 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
-import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
-import io.reactivex.SingleOnSubscribe;
-import io.reactivex.SingleSource;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -121,14 +117,14 @@ public class UserRepository {
                 .compose(RxUtils.apiResultTransformer());
     }
 
-    public Observable<Object> updateProfile(UserEntity user) {
+    public Observable<Object> putProfile(UserEntity user) {
         String userId = UserSpHelper.getUserId();
 
         if (TextUtils.isEmpty(userId)) {
             return Observable.error(new IllegalStateException("user not sign in"));
         }
         user.id = userId;
-        return mUserService.updateProfile(userId, user)
+        return mUserService.putProfile(userId, user)
                 .compose(RxUtils.apiResultTransformer());
     }
 

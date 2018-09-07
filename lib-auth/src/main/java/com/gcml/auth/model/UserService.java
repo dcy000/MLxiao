@@ -50,7 +50,7 @@ public interface UserService {
     );
 
     @PUT("ZZB/api/user/info/{userId}/")
-    Observable<ApiResult<Object>> updateProfile(
+    Observable<ApiResult<Object>> putProfile(
             @Path("userId") String userId,
             @Body UserEntity user
     );

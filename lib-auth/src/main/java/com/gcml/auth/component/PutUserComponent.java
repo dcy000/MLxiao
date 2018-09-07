@@ -8,18 +8,18 @@ import com.gcml.common.data.UserEntity;
 
 import io.reactivex.Observable;
 
-public class GetUserComponent implements IComponent {
+public class PutUserComponent implements IComponent {
     @Override
     public String getName() {
-        return "com.gcml.auth.getUser";
+        return "com.gcml.auth.putUser";
     }
 
     @Override
     public boolean onCall(CC cc) {
-        //暂时是本地的 User
-        UserRepository repository = new UserRepository();
-        Observable<UserEntity> rxUser = repository.getUserSignIn();
-        CC.sendCCResult(cc.getCallId(), CCResult.success("user", rxUser));
+        UserEntity user = cc.getParamItem("user");
+        UserRepository userRepository = new UserRepository();
+        Observable<Object> rxPutProfile = userRepository.putProfile(user);
+        CC.sendCCResult(cc.getCallId(), CCResult.success("data", rxPutProfile));
         return false;
     }
 }
