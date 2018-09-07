@@ -19,6 +19,7 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetailsModel;
 import com.gcml.health.measure.widget.CenterScrollListener;
 import com.gcml.health.measure.widget.OverFlyingLayoutManager;
+import com.gcml.lib_utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.ml.rulerview.RulerView;
 
@@ -114,7 +115,7 @@ public class HealthDiaryDetailsFragment extends Fragment {
         rvUnits = findViewById(R.id.health_diary_rv_units);
         tvAction = findViewById(R.id.health_diary_tv_action);
         FragmentActivity activity = getActivity();
-        MLVoiceSynthetize.startSynthesize(getContext(), "主人，请" + mModel.getTitle(), false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请" + mModel.getTitle(), false);
         tvTitle.setText(mModel.getTitle());
         tvCount.setText(getCount(
                 mModel.getSelectedValues()[mModel.getUnitPosition()],
@@ -146,13 +147,6 @@ public class HealthDiaryDetailsFragment extends Fragment {
         tvAction.setOnClickListener(actionOnClickListener);
         return mView;
     }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        MLVoiceSynthetize.stop();
-    }
-
     public void setValue(final float value) {
         if (rvRuler != null) {
             rvRuler.post(new Runnable() {

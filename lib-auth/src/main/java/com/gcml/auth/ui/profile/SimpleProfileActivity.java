@@ -6,14 +6,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.billy.cc.core.component.CC;
-import com.gcml.auth.R;
 import com.gcml.auth.BR;
+import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySimpleProfileBinding;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.lib_utils.display.KeyboardUtils;
@@ -78,10 +79,21 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
 
         @Override
         public void onRightClick() {
-            CC.obtainBuilder("com.gcml.old.home")
-                    .build()
-                    .callAsync();
-            finish();
+            new AlertDialog(SimpleProfileActivity.this).builder()
+                    .setMsg("您正在完善信息，是否要离开当前页面？")
+                    .setNegativeButton("完善信息", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    })
+                    .setPositiveButton("确认离开", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                            finish();
+                        }
+                    }).show();
         }
     };
 
@@ -185,7 +197,7 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        ToastUtils.showShort("更新资料失败");
+                        ToastUtils.showShort(throwable.getMessage());
                     }
                 });
     }

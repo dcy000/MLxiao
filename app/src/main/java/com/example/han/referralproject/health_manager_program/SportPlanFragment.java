@@ -26,6 +26,7 @@ import com.example.han.referralproject.intelligent_diagnosis.SportPlan;
 import com.example.han.referralproject.intelligent_diagnosis.SportPlanDetailActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -116,7 +117,7 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
         Log.e(TAG, "getDataCache: ");
         //TODO:运动习惯如果用户没有填写，该接口会报错 错误截图：https://gitee.com/guozhiqiang15/ML_BUG/blob/master/image/efb55cdc71deda309e1f57536e8f250.png
         OkGo.<String>get(NetworkApi.SportHealthPlan)
-                .params("userId", MyApplication.getInstance().userId)
+                .params("userId", UserSpHelper.getUserId())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

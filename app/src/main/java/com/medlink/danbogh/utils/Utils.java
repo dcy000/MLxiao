@@ -16,6 +16,7 @@ import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -192,29 +193,23 @@ public class Utils {
         if (context == null) {
             return "";
         }
-        String processName = null;
         ActivityManager manager = ((ActivityManager)
                 context.getSystemService(Context.ACTIVITY_SERVICE));
         if (manager == null) {
             return "";
         }
-        while (true) {
-            for (ActivityManager.RunningAppProcessInfo info : manager.getRunningAppProcesses()) {
-                if (info != null && info.pid == android.os.Process.myPid()) {
-                    processName = info.processName;
-                    break;
-                }
-            }
-            if (!TextUtils.isEmpty(processName)) {
-                return processName;
-            }
-            // take a rest and again
-            try {
-                Thread.sleep(100L);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
+        List<ActivityManager.RunningAppProcessInfo> runningAppProcesses = manager.getRunningAppProcesses();
+        if (runningAppProcesses == null) {
+            return "";
+        }
+        String processName = "";
+        for (ActivityManager.RunningAppProcessInfo info : runningAppProcesses) {
+            if (info != null && info.pid == android.os.Process.myPid()) {
+                processName = info.processName;
+                break;
             }
         }
+        return processName;
     }
 
     public static String md5(String text) {

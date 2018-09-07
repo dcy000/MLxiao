@@ -28,11 +28,11 @@
             android:name="com.gcml.health.measure.single_measure.AllMeasureActivity"
             android:label="测量页面的容器Activity"
             android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name="com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity"
@@ -59,11 +59,11 @@
         <activity android:name="com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity"
             android:screenOrientation="landscape"
             android:label="新的首诊容器界面">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".health_inquiry.HealthInquiryActivity"
             android:screenOrientation="landscape">
@@ -87,6 +87,9 @@
         <activity android:name=".demo.DemoGoodDetailActivity"
             android:screenOrientation="landscape"
             android:label="演示用的上平详情"/>
+        <activity android:name=".bloodpressure_habit.GetHypertensionHandActivity"
+            android:screenOrientation="landscape"
+            android:label="惯用手"/>
     </application>
 
 </manifest>

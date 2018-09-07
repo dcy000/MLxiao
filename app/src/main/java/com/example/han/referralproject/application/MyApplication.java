@@ -1,3 +1,4 @@
+
 package com.example.han.referralproject.application;
 
 import android.app.Application;
@@ -17,6 +18,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.gcml.common.app.lifecycle.App;
 import com.gcml.common.app.lifecycle.AppDelegate;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.service.ProcessUtils;
 import com.gcml.lib_utils.ui.UiUtils;
@@ -37,16 +39,30 @@ import cn.jpush.android.api.JPushInterface;
 
 public class MyApplication extends Application {
     private static MyApplication mInstance;
-    public String userId;
-    public String xfid;
-    public String telphoneNum;
-    public String userName;
-    public String hypertensionHand;
 
+    /**
+     * @see UserSpHelper#getUserId()
+     */
+    @Deprecated
+    public String userId;
+
+    /**
+     * @see UserSpHelper#getFaceId()
+     */
+    @Deprecated
+    public String xfid;
+    @Deprecated
+    public String telphoneNum;
+    @Deprecated
+    public String userName;
+    @Deprecated
+    public String hypertensionHand;
+    @Deprecated
     public String nimUserId() {
-        return "user_" + userId;
+        return "user_" + UserSpHelper.getUserId();
     }
 
+    @Deprecated
     public String eqid;
     public static final int PLAN_ID_KSY = 1;
 
@@ -92,7 +108,6 @@ public class MyApplication extends Application {
         LitePal.initialize(this);
         mInstance = this;
         LocalShared mShared = LocalShared.getInstance(this);
-        userId = mShared.getUserId();
         xfid = mShared.getXunfeiId();
         telphoneNum = mShared.getPhoneNum();
         eqid = mShared.getEqID();

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_health_record.others.MyFloatNumFormatter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -183,37 +184,45 @@ public class HealthRecordBloodsugarFragment extends BluetoothBaseFragment implem
         for (int i = 0; i < response.size(); i++) {
             times.add(response.get(i).time);
             switch (eatedTime) {
-                case 0://空腹
+                case 0:
+                    //空腹
                     if (response.get(i).sugar_time == 0) {
                         value.add(new Entry(i, response.get(i).blood_sugar));
                         if (response.get(i).blood_sugar > 7.0 || response.get(i).blood_sugar < 3.61) {
                             colors.add(Color.RED);
                         } else {
-                            colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                            //正常字体的颜色
+                            colors.add(getResources().getColor(R.color.node_text_color));
                         }
                     }
                     break;
-                case 1://饭后一小时
+                case 1:
+                    //饭后一小时
                     if (response.get(i).sugar_time == 1) {
                         times.add(response.get(i).time);
                         value.add(new Entry(i, response.get(i).blood_sugar));
                         if (response.get(i).blood_sugar > 11.1 || response.get(i).blood_sugar < 3.61) {
                             colors.add(Color.RED);
                         } else {
-                            colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                            //正常字体的颜色
+                            colors.add(getResources().getColor(R.color.node_text_color));
                         }
                     }
                     break;
-                case 2://饭后两小时
+                case 2:
+                    //饭后两小时
                     if (response.get(i).sugar_time == 2) {
                         times.add(response.get(i).time);
                         value.add(new Entry(i, response.get(i).blood_sugar));
                         if (response.get(i).blood_sugar > 7.8 || response.get(i).blood_sugar < 3.61) {
                             colors.add(Color.RED);
                         } else {
-                            colors.add(getResources().getColor(R.color.node_text_color));//正常字体的颜色
+                            //正常字体的颜色
+                            colors.add(getResources().getColor(R.color.node_text_color));
                         }
                     }
+                    break;
+                default:
                     break;
             }
 
@@ -232,8 +241,9 @@ public class HealthRecordBloodsugarFragment extends BluetoothBaseFragment implem
                     mChart.getData().getDataSetCount() > 0) {
                 set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
                 set1.setValues(value);
-                if (value.size() <= 3)
+                if (value.size() <= 3) {
                     set1.setMode(LineDataSet.Mode.LINEAR);
+                }
                 mChart.getData().notifyDataChanged();
                 mChart.notifyDataSetChanged();
             } else {
@@ -259,7 +269,6 @@ public class HealthRecordBloodsugarFragment extends BluetoothBaseFragment implem
                 set1.setFormLineWidth(0f);
                 set1.setFormLineDashEffect(new DashPathEffect(new float[]{0f, 0f}, 0f));
                 set1.setFormSize(0f);
-//
                 //曲线区域颜色填充
                 set1.setDrawFilled(false);
                 if (Utils.getSDKInt() >= 18) {
@@ -269,10 +278,11 @@ public class HealthRecordBloodsugarFragment extends BluetoothBaseFragment implem
                 } else {
                     set1.setFillColor(Color.BLACK);
                 }
-                if (value.size() <= 3)
+                if (value.size() <= 3) {
                     set1.setMode(LineDataSet.Mode.LINEAR);
-                else
+                } else {
                     set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+                }
 
                 ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
                 dataSets.add(set1);
@@ -303,29 +313,32 @@ public class HealthRecordBloodsugarFragment extends BluetoothBaseFragment implem
                 break;
             case R.id.rb_kongfu:
                 eatedTime = 0;
-                if (bloodsugarSelectTime!=null){
+                if (bloodsugarSelectTime != null) {
                     bloodsugarSelectTime.requestData();
                 }
                 break;
             case R.id.rb_one_hour:
                 eatedTime = 1;
-                if (bloodsugarSelectTime!=null){
+                if (bloodsugarSelectTime != null) {
                     bloodsugarSelectTime.requestData();
                 }
                 break;
             case R.id.rb_two_hour:
                 eatedTime = 2;
-                if (bloodsugarSelectTime!=null){
+                if (bloodsugarSelectTime != null) {
                     bloodsugarSelectTime.requestData();
                 }
                 break;
         }
     }
-    public interface BloodsugarSelectTime{
-        void  requestData();
+
+    public interface BloodsugarSelectTime {
+        void requestData();
     }
+
     private BloodsugarSelectTime bloodsugarSelectTime;
-    public void setRequestBloodsugarData(BloodsugarSelectTime bloodsugarSelectTime){
-        this.bloodsugarSelectTime=bloodsugarSelectTime;
+
+    public void setRequestBloodsugarData(BloodsugarSelectTime bloodsugarSelectTime) {
+        this.bloodsugarSelectTime = bloodsugarSelectTime;
     }
 }

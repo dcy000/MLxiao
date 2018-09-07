@@ -20,6 +20,7 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.data.UserSpHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -130,7 +131,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     public void onClick(int which) {
                         if (which == 1) {
 
-                            NetworkApi.YuYue(start_time, end_time, MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.YuYue(start_time, end_time, UserSpHelper.getUserId(), doctorId, new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
                                     //sharedPreference.getString("doctor_id", "")

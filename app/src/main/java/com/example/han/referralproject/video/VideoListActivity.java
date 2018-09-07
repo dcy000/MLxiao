@@ -14,6 +14,8 @@ import android.widget.RadioGroup;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.gcml.lib_utils.UtilsManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 
 import java.util.ArrayList;
@@ -49,7 +51,7 @@ public class VideoListActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
 //        mTitleText.setText(R.string.title_health_class);
         mTitleText.setText(R.string.title_health_class);
-        mRightView.setImageResource(R.drawable.icon_wifi);
+//        mRightView.setImageResource(R.drawable.icon_wifi);
         mUnbinder = ButterKnife.bind(this);
         position = getIntent().getIntExtra("position", 0);
 
@@ -93,22 +95,20 @@ public class VideoListActivity extends BaseActivity {
         });
         rgHealthVideo.check(provideCheckedId(position));
 
-        mRightView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(VideoListActivity.this, WifiConnectActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        mRightView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(VideoListActivity.this, WifiConnectActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
     }
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(true);
-        setEnableListeningLoop(false);
         super.onResume();
-        speak("主人，欢迎观看健康课堂");
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，欢迎观看健康课堂");
     }
 
     private List<VideoListFragment> mFragments;
@@ -162,17 +162,13 @@ public class VideoListActivity extends BaseActivity {
     }
 
     @Override
-    protected void onSpeakListenerResult(String result) {
-        super.onSpeakListenerResult(result);
-    }
-
-    @Override
     protected void onDestroy() {
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
         Handlers.bg().removeCallbacksAndMessages(null);
         Handlers.ui().removeCallbacksAndMessages(null);
+        MLVoiceSynthetize.destory();
         super.onDestroy();
     }
 

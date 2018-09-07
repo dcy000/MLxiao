@@ -6,4 +6,12 @@ package com.gcml.module_health_record.bean;
 
 public class ECGHistory extends BaseBean{
     public String ecg;
+
+    @Override
+    public String toString() {
+        return "ECGHistory{" +
+                "ecg='" + ecg + '\'' +
+                ", time=" + time +
+                '}';
+    }
 }

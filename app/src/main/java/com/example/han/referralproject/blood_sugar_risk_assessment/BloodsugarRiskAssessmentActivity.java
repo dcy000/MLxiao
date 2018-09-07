@@ -16,6 +16,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -149,7 +150,7 @@ public class BloodsugarRiskAssessmentActivity extends BaseActivity implements Vi
                 postBloodSugarRisk.setEquipmentId(LocalShared.getInstance(MyApplication.getInstance()).getEqID());
                 postBloodSugarRisk.setHmQuestionnaireAssessId("");
                 postBloodSugarRisk.setHmQuestionnaireId(hmQuestionnaireId);
-                String userId = MyApplication.getInstance().userId;
+                String userId = UserSpHelper.getUserId();
                 if (!TextUtils.isEmpty(userId)) {
                     postBloodSugarRisk.setUserId(Integer.parseInt(userId));
                 }

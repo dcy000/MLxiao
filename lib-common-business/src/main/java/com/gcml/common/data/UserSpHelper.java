@@ -46,6 +46,14 @@ public class UserSpHelper {
      * 用户身高的key
      */
     private static final String KEY_USER_HEIGHT="user_height";
+    /**
+     * 用户名字
+     */
+    private static final String KEY_USER_NAME="user_name";
+    /**
+     * 用户血压测量惯用手 0：左手 1：右手
+     */
+    private static final String KEY_USER_HYPERTENSIONHAND="user_hypertensionHand";
 
     /**
      * 获取SP中存储的userid
@@ -156,7 +164,6 @@ public class UserSpHelper {
         return (String) SPUtil.get(KEY_GROUP_ID, "");
     }
 
-
     /**
      * 讯飞组创建时候传入的xfid
      *
@@ -193,5 +200,29 @@ public class UserSpHelper {
      */
     public static String getUserHeight(){
         return (String) SPUtil.get(KEY_USER_HEIGHT,"");
+    }
+
+    /**
+     * 获取SP中存储的username
+     * @return
+     */
+    public static String getUserName(){
+        return (String) SPUtil.get(KEY_USER_NAME,"");
+    }
+
+    /**
+     * 获取存在SP中的惯用手
+     * @return
+     */
+    public static String getUserHypertensionHand(){
+        return (String) SPUtil.get(KEY_USER_HYPERTENSIONHAND,"");
+    }
+
+    /**
+     * 保存惯用手到SP中
+     * @param hypertensionHand
+     */
+    public static void setUserHypertensionHand(String hypertensionHand){
+        SPUtil.put(KEY_USER_HYPERTENSIONHAND,hypertensionHand);
     }
 }

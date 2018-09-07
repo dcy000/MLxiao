@@ -47,8 +47,9 @@ public class BaseManagementActivity extends ToolbarBaseActivity implements DealV
     protected int measure_type;
     protected BluetoothBaseFragment baseFragment;
     protected FrameLayout mFrame;
-    interface ResultAction{
-        String MEASURE_SUCCESS="measure_success";
+
+    interface ResultAction {
+        String MEASURE_SUCCESS = "measure_success";
     }
 
     @Override
@@ -86,73 +87,13 @@ public class BaseManagementActivity extends ToolbarBaseActivity implements DealV
                 }).show();
     }
 
-
-    private void untieDevice() {
+    @CallSuper
+    protected void untieDevice() {
         //先清除已经绑定的设备
         unpairDevice();
-        String nameAddress = null;
-        switch (measure_type) {
-            case IPresenter.MEASURE_TEMPERATURE:
-                //体温测量
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE);
-                ((Temperature_Fragment) baseFragment).onStop();
-                ((Temperature_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_BLOOD_PRESSURE:
-                //血压
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
-                ((Bloodpressure_Fragment) baseFragment).onStop();
-                ((Bloodpressure_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_BLOOD_SUGAR:
-                //血糖
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR);
-                ((Bloodsugar_Fragment) baseFragment).onStop();
-                ((Bloodsugar_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_BLOOD_OXYGEN:
-                //血氧
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN);
-                ((Bloodoxygen_Fragment) baseFragment).onStop();
-                ((Bloodoxygen_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_WEIGHT:
-                //体重
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_WEIGHT);
-                ((Weight_Fragment) baseFragment).onStop();
-                ((Weight_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_ECG:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
-                ((ECG_Fragment) baseFragment).onStop();
-                ((ECG_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_OTHERS:
-                //三合一
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE);
-                ((ThreeInOne_Fragment) baseFragment).onStop();
-                ((ThreeInOne_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.CONTROL_FINGERPRINT:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT);
-                ((Fingerpint_Fragment) baseFragment).onStop();
-                ((Fingerpint_Fragment) baseFragment).dealLogic();
-                break;
-            default:
-                break;
-        }
-        clearBluetoothCache(nameAddress);
     }
 
-    private void clearBluetoothCache(String nameAddress) {
+    protected void clearBluetoothCache(String nameAddress) {
         if (!TextUtils.isEmpty(nameAddress)) {
             String[] split = nameAddress.split(",");
             if (split.length == 2 && !TextUtils.isEmpty(split[1])) {

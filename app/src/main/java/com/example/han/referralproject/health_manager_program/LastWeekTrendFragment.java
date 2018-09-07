@@ -11,6 +11,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.module_health_record.fragments.HealthRecordBloodpressureFragment;
@@ -73,7 +74,7 @@ public class LastWeekTrendFragment extends RecycleBaseFragment {
     }
 
     private void getResult() {
-        NetworkApi.getDiagnoseInfo(MyApplication.getInstance().userId, new StringCallback() {
+        NetworkApi.getDiagnoseInfo(UserSpHelper.getUserId(), new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);

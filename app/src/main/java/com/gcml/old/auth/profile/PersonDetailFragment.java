@@ -1,6 +1,5 @@
 package com.gcml.old.auth.profile;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,13 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.User;
@@ -37,7 +33,6 @@ import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
-import com.example.han.referralproject.health.HealthDiaryActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -47,10 +42,9 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
-import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
-import com.google.gson.Gson;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.ml.edu.OldRouter;
@@ -112,7 +106,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.activity_person, container, false);
         ((BaseActivity) getActivity()).speak(getString(R.string.person_info));
 
-        userId = MyApplication.getInstance().userId;
+        userId = UserSpHelper.getUserId();
         headImg = view.findViewById(R.id.per_image);
         recreation = view.findViewById(R.id.iv_laoren_yule);
         recreation.setOnClickListener(this);
@@ -148,6 +142,10 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     @Override
     public void onStart() {
         super.onStart();
+        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
+            ToastUtils.showShort("请重新登录");
+            return;
+        }
         getData();
     }
 
@@ -173,7 +171,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
 
     private void getData() {
-        boolean empty = TextUtils.isEmpty(MyApplication.getInstance().userId);
+        boolean empty = TextUtils.isEmpty(UserSpHelper.getUserId());
         if (empty) {
             String message = "请重新登录！";
             ToastUtils.showShort(message);
@@ -207,7 +205,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
     private void getApiData() {
         final FragmentActivity activity = getActivity();
-        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
             ToastUtils.showShort("请重新登陆");
             MobclickAgent.onProfileSignOff();
             NimAccountHelper.getInstance().logout();//退出网易IM
@@ -219,7 +217,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             return;
         }
 
-        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+        NetworkApi.PersonInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
 
@@ -287,7 +285,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             }
         });
 
-        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+        NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
             @Override
             public void onSuccess(Doctor response) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -27,6 +27,7 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
@@ -1351,7 +1352,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     }
 
     public void yuYueDoctor() {
-        NetworkApi.YuYue_info(MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
+        NetworkApi.YuYue_info(UserSpHelper.getUserId(), doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
             @Override
             public void onSuccess(ArrayList<YuYueInfo> response) {
                 allReservationHistory.clear();
@@ -1380,7 +1381,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     public void getDoctorInfo() {
         showLoadingDialog("");
-        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+        NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
             @Override
             public void onSuccess(Doctor response) {
                 hideLoadingDialog();

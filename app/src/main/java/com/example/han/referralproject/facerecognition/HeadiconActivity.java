@@ -22,6 +22,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserSpHelper;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.qiniu.android.http.ResponseInfo;
@@ -37,6 +38,7 @@ import java.util.Random;
 
 import timber.log.Timber;
 
+@Deprecated
 public class HeadiconActivity extends BaseActivity {
 
     ImageView mCircleImageView;
@@ -86,7 +88,7 @@ public class HeadiconActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //确定头像的时候就给该机器创建唯一的人脸识别组
-                final String userid = MyApplication.getInstance().userId;
+                final String userid = UserSpHelper.getUserId();
                 final String xfid = LocalShared.getInstance(HeadiconActivity.this).getXunfeiId();
                 checkGroup(userid, xfid);
 //                createGroup(userid, xfid);
@@ -154,7 +156,7 @@ public class HeadiconActivity extends BaseActivity {
                     public void complete(String key, ResponseInfo info, JSONObject res) {
                         if (info.isOK()) {
                             String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
-                            NetworkApi.return_imageUrl(imageUrl, MyApplication.getInstance().userId, LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
+                            NetworkApi.return_imageUrl(imageUrl, UserSpHelper.getUserId(), LocalShared.getInstance(getApplicationContext()).getXunfeiId(),
                                     new NetworkManager.SuccessCallback<Object>() {
                                         @Override
                                         public void onSuccess(Object response) {

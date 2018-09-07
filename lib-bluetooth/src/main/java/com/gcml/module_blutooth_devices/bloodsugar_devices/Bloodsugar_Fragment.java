@@ -87,16 +87,18 @@ public class Bloodsugar_Fragment extends BluetoothBaseFragment implements IView,
                     bluetoothPresenter = new Bloodsugar_Self_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Bioland-BGM"));
                     break;
+                default:
+                    break;
             }
         }
     }
 
     @Override
     public void updateData(String... datas) {
-        if (datas.length==2){
+        if (datas.length == 2) {
             mTvResult.setText("0.00");
             isMeasureFinishedOfThisTime = false;
-        }else if (datas.length == 1) {
+        } else if (datas.length == 1) {
             mTvResult.setText(datas[0]);
             if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[0]) != 0) {
                 isMeasureFinishedOfThisTime = true;

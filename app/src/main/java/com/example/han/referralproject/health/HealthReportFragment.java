@@ -17,12 +17,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.model.TargetModel;
 import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.ui.UiUtils;
 
@@ -99,7 +99,7 @@ public class HealthReportFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        NetworkApi.getWeekReport(MyApplication.getInstance().userId,
+        NetworkApi.getWeekReport(UserSpHelper.getUserId(),
                 new NetworkManager.SuccessCallback<WeekReportModel>() {
                     @Override
                     public void onSuccess(WeekReportModel response) {

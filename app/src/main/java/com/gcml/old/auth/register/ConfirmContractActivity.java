@@ -17,6 +17,7 @@ import com.example.han.referralproject.bean.ContractInfo;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.XDialogFragment;
 
@@ -129,7 +130,7 @@ public class ConfirmContractActivity extends AppCompatActivity {
     }
 
     public void onTvGoForwardClicked() {
-        NetworkApi.bindDoctor(MyApplication.getInstance().userId, Integer.valueOf(mDoctorId), new NetworkManager.SuccessCallback<String>() {
+        NetworkApi.bindDoctor(UserSpHelper.getUserId(), Integer.valueOf(mDoctorId), new NetworkManager.SuccessCallback<String>() {
             @Override
             public void onSuccess(String response) {
                 XDialogFragment dialogFragment = new XDialogFragment();

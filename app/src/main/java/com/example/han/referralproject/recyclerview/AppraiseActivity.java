@@ -22,6 +22,7 @@ import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.data.UserSpHelper;
 import com.squareup.picasso.Picasso;
 
 public class AppraiseActivity extends BaseActivity implements View.OnClickListener {
@@ -346,7 +347,7 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
 
                         }
 
-                        NetworkApi.appraise(sharedPreferences1.getString("doctor_id", ""), MyApplication.getInstance().userId, str.toString(), i, System.currentTimeMillis() + "", doid, new NetworkManager.SuccessCallback<String>() {
+                        NetworkApi.appraise(sharedPreferences1.getString("doctor_id", ""), UserSpHelper.getUserId(), str.toString(), i, System.currentTimeMillis() + "", doid, new NetworkManager.SuccessCallback<String>() {
 
                             @Override
                             public void onSuccess(String response) {

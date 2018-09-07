@@ -81,7 +81,7 @@ public class HealthInfo {
     }
 
     public static String getDeseaseHistory(String mh) {
-        String[] mhs = mh.split("\\s+");
+        String[] mhs = mh.split(",");
         if (mhs == null || mhs.length == 0) {
             return "";
         }
@@ -105,6 +105,8 @@ public class HealthInfo {
                 builder.append("高血脂");
             else if (mhs[i].equals("9"))
                 builder.append("其他");
+            else if (mhs[i].equals("11"))
+                builder.append("无");
             if (mhs.length - 1 != i) {
                 builder.append(",");
             }

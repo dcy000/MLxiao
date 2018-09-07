@@ -135,9 +135,12 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
 
         String phone = binding.etPhone.getText().toString().trim();
         String pwd = binding.etPassword.getText().toString().trim();
-        if (TextUtils.isEmpty(phone)
-                || TextUtils.isEmpty(pwd)) {
-            ToastUtils.showShort("手机号或密码不能为空");
+        if (TextUtils.isEmpty(phone)) {
+            ToastUtils.showShort("手机号不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(pwd)) {
+            ToastUtils.showShort("密码不能为空");
             return;
         }
         if (!binding.cbAgreeProtocol.isChecked()) {

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
@@ -52,7 +53,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
             public void onClick(View v) {
                 new JpushAliasUtils(mContext).setAlias("user_"+itemBean.bid);
                 NimAccountHelper.getInstance().logout();
-                MyApplication.getInstance().userId = itemBean.bid;
+                UserSpHelper.setUserId(itemBean.bid);
                 MyApplication.getInstance().xfid=itemBean.xfid;
                 MyApplication.getInstance().eqid=itemBean.eqid;
                 LocalShared.getInstance(mContext).setUserInfo(itemBean);

@@ -8,6 +8,7 @@ import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
+import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
@@ -64,13 +65,19 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 startActivity(new Intent(getContext(), PersonDetailActivity.class));
                 break;
             case R.id.iv_health_course:
-                startActivity(new Intent(getActivity(), VideoListActivity.class));
+                //健康管理
+                Intent intent = new Intent(getActivity(), SlowDiseaseManagementActivity.class);
+                startActivity(intent);
+//                startActivity(new Intent(getActivity(), VideoListActivity.class));
 //                CCHealthMeasureActions.jump2HealthIntelligentDetectionActivity();
 //                CCHealthMeasureActions.jump2FirstDiagnosisActivity();
                 break;
             case R.id.entertainment_center:
 //                OldRouter.routeToOldHomeActivity(getActivity());
-                CC.obtainBuilder("app.component.recreation").build().callAsync();
+                //健康课堂
+                startActivity(new Intent(getActivity(), VideoListActivity.class));
+                //娱乐中心
+//                CC.obtainBuilder("app.component.recreation").build().callAsync();
                 break;
             case R.id.iv_communicate:
                 startActivity(new Intent(getContext(), SpeechSynthesisActivity.class));

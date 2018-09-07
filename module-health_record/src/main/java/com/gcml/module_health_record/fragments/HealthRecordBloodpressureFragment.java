@@ -17,6 +17,7 @@ import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.BloodPressureHistory;
 import com.gcml.module_health_record.cc.CCHealthMeasureActions;
+import com.gcml.module_health_record.others.MyFloatNumFormatter;
 import com.gcml.module_health_record.others.MyMarkerView;
 import com.gcml.module_health_record.others.TimeFormatter;
 import com.github.mikephil.charting.charts.LineChart;
@@ -27,6 +28,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.Utils;
+
 import java.util.ArrayList;
 
 public class HealthRecordBloodpressureFragment extends RecycleBaseFragment implements View.OnClickListener {
@@ -164,7 +166,8 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
             if (response.get(i).high_pressure > 130 || response.get(i).high_pressure < 90) {
                 colors1.add(Color.RED);
             } else {
-                colors1.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
+                //正常字体的颜色
+                colors1.add(getResources().getColor(R.color.health_record_node_text_color));
             }
 
             if (response.get(i).low_pressure > 85 || response.get(i).low_pressure < 60) {
@@ -191,10 +194,12 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
                 set2 = (LineDataSet) mChart.getData().getDataSetByIndex(1);
                 set1.setValues(yVals1);
                 set2.setValues(yVals2);
-                if (yVals1.size() <= 3)
+                if (yVals1.size() <= 3) {
                     set1.setMode(LineDataSet.Mode.LINEAR);
-                if (yVals2.size() <= 3)
+                }
+                if (yVals2.size() <= 3) {
                     set2.setMode(LineDataSet.Mode.LINEAR);
+                }
                 mChart.getData().notifyDataChanged();
                 mChart.notifyDataSetChanged();
             } else {
@@ -209,7 +214,7 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
                 set1.setCircleRadius(8f);
                 set1.setDrawCircleHole(true);
                 set1.setCircleHoleRadius(4f);
-
+                set1.setValueFormatter(new MyFloatNumFormatter("2"));
                 set1.setHighLightColor(Color.rgb(244, 117, 117));
                 //设置直线圆滑过渡
 //            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
@@ -226,10 +231,11 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
                 set1.setFormLineWidth(0f);
                 set1.setFormLineDashEffect(new DashPathEffect(new float[]{0f, 0f}, 0f));
                 set1.setFormSize(0f);
-                if (yVals1.size() <= 3)
+                if (yVals1.size() <= 3) {
                     set1.setMode(LineDataSet.Mode.LINEAR);
-                else
+                } else {
                     set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+                }
 
                 set2 = new LineDataSet(yVals2, "");
                 set2.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -241,6 +247,7 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
                 set2.setCircleRadius(8f);
                 set2.setDrawCircleHole(true);
                 set2.setCircleHoleRadius(4f);
+                set2.setValueFormatter(new MyFloatNumFormatter("2"));
                 set2.setHighLightColor(Color.rgb(244, 117, 117));
                 //设置直线圆滑过渡
 //            set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
@@ -257,10 +264,11 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
                 set2.setFormLineWidth(0f);
                 set2.setFormLineDashEffect(new DashPathEffect(new float[]{0f, 0f}, 0f));
                 set2.setFormSize(0f);
-                if (yVals2.size() <= 3)
+                if (yVals2.size() <= 3) {
                     set2.setMode(LineDataSet.Mode.LINEAR);
-                else
+                } else {
                     set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+                }
                 LineData data = new LineData(set1, set2);
                 data.setValueTextSize(18f);
                 mChart.setData(data);
@@ -286,6 +294,7 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
             //TODO:跳转到测量界面
             CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_BLOOD_PRESSURE);
         } else {
+
         }
     }
 }

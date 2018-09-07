@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.speech.setting.IatSettings;
@@ -136,9 +137,9 @@ public class LocalShared {
             if (TextUtils.isEmpty(old_accountsString)) {
                 return null;
             } else {
-                addAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
+                addAccount(UserSpHelper.getUserId(), MyApplication.getInstance().xfid);
                 mShared.edit().putString(UserAccounts, "").commit();
-                return new String[]{MyApplication.getInstance().userId + "," + MyApplication.getInstance().xfid};
+                return new String[]{UserSpHelper.getUserId() + "," + MyApplication.getInstance().xfid};
             }
 
         }
@@ -157,6 +158,10 @@ public class LocalShared {
         return false;
     }
 
+    /**
+     * @see UserSpHelper#getUserId()
+     */
+    @Deprecated
     public String getUserId() {
         return mShared.getString(UserId, "");
     }
@@ -169,7 +174,7 @@ public class LocalShared {
         if (infoBean == null) {
             return;
         }
-        MyApplication.getInstance().userId = infoBean.bid;
+        UserSpHelper.setUserId(infoBean.bid);
         MyApplication.getInstance().telphoneNum = infoBean.tel;
         MyApplication.getInstance().userName = infoBean.bname;
         MyApplication.getInstance().eqid = infoBean.eqid;
@@ -207,12 +212,10 @@ public class LocalShared {
 
     public void loginOut() {
         //String accountHistory = deleteAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
-        MyApplication.getInstance().userId = null;
         mShared.edit().putString(UserId, "").commit();
     }
 
     public void reset() {
-        MyApplication.getInstance().userId = null;
         mShared.edit().clear().commit();
         if (context != null) {
             context.getSharedPreferences(IatSettings.PREFER_NAME, Context.MODE_PRIVATE)

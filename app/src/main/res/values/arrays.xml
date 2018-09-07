@@ -10,6 +10,7 @@
         <item>甲亢</item>
         <item>高血脂</item>
         <item>其他</item>
+        <item>无</item>
     </string-array>
     <string-array name="ecg_measureres">
         <item>波形未见异常</item>

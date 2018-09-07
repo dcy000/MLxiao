@@ -1,5 +1,6 @@
 package com.gcml.old.auth.profile.otherinfo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -8,10 +9,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
 import com.gcml.old.auth.register.SelectAdapter;
 import com.google.gson.Gson;
@@ -76,13 +79,13 @@ public class AlertSexActivity extends AppCompatActivity implements View.OnClickL
                 R.drawable.common_icon_home, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
-
-
+                        finish();
                     }
 
                     @Override
                     public void onRightClick() {
-
+                        startActivity(new Intent(AlertSexActivity.this, MainActivity.class));
+                        finish();
                     }
                 });
 
@@ -95,7 +98,7 @@ public class AlertSexActivity extends AppCompatActivity implements View.OnClickL
         manager.setCallbackInFling(true);
         manager.setOnItemSelectedListener((recyclerView, view, positon) -> {
             currentPositon = positon;
-            Toast.makeText(AlertSexActivity.this, strings.get(positon), Toast.LENGTH_SHORT).show();
+            ToastUtils.showShort(strings.get(positon));
         });
 
         SelectAdapter adapter = new SelectAdapter();

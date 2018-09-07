@@ -19,6 +19,7 @@ import com.example.han.referralproject.tcm.bean.OlderHealthManagementBean;
 import com.example.han.referralproject.tcm.fragment.HealthItemFragment;
 import com.example.han.referralproject.tcm.wrap.MonitorViewPager;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
@@ -159,7 +160,7 @@ public class OlderHealthManagementSerciveActivity extends BaseActivity {
         showLoadingDialog("正在提交...");
         HealthManagementAnwserBean anwserBean = new HealthManagementAnwserBean();
         anwserBean.equipmentId = LocalShared.getInstance(this).getEqID();
-        anwserBean.userId = MyApplication.getInstance().userId;
+        anwserBean.userId = UserSpHelper.getUserId();
         anwserBean.hmQuestionnaireId = this.hmQuestionnaireId;
         anwserBean.answerList = new ArrayList<>();
 

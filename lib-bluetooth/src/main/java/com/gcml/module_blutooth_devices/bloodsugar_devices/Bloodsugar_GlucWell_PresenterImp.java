@@ -79,14 +79,16 @@ public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter imp
         if (TextUtils.isEmpty(s))
             return;
         switch (connectState) {
-            case BleConnectState.CONNECT_SUCCESS:// 蓝牙连接设备成功
+            case BleConnectState.CONNECT_SUCCESS:
+                // 蓝牙连接设备成功
                 baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-                baseView.updateData("initialization","0.00");
-                SPUtil.put( Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, targetName + "," + targetAddress);
+                baseView.updateData("initialization", "0.00");
+                SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, targetName + "," + targetAddress);
                 BleManager.getInstance().sendGetSnCommond();
                 break;
 
-            case BleConnectState.DISCONNECTED:// 已断开设备的蓝牙连接
+            case BleConnectState.DISCONNECTED:
+                // 已断开设备的蓝牙连接
                 if (((Fragment) baseView).isAdded()) {
                     baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
                 }
@@ -100,8 +102,11 @@ public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter imp
                 }
                 break;
 
-            case BleConnectState.CONNECT_FAILURE:// 蓝牙连接设备失败
+            case BleConnectState.CONNECT_FAILURE:
+                // 蓝牙连接设备失败
 
+                break;
+            default:
                 break;
         }
     }
@@ -143,6 +148,8 @@ public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter imp
             case BleMeasureToastType.MEASURE_ERROR:
                 Logg.e(Bloodsugar_GlucWell_PresenterImp.class, "测量异常: ");
                 break;
+            default:
+                break;
         }
     }
 
@@ -152,10 +159,14 @@ public class Bloodsugar_GlucWell_PresenterImp extends BaseBluetoothPresenter imp
             return;
         }
         switch (actionType) {
-            case BleActionType.ACTION_REALTIME://实时数据
+            case BleActionType.ACTION_REALTIME:
+                //实时数据
                 break;
 
-            case BleActionType.ACTION_HISTORY://历史数据
+            case BleActionType.ACTION_HISTORY:
+                //历史数据
+                break;
+            default:
                 break;
         }
 

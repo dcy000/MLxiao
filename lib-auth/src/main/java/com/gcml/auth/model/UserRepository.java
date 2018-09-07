@@ -12,6 +12,8 @@ import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.utils.RxUtils;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
@@ -19,6 +21,7 @@ import io.reactivex.SingleOnSubscribe;
 import io.reactivex.SingleSource;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 public class UserRepository {
 
@@ -37,9 +40,14 @@ public class UserRepository {
                     @SuppressLint("ApplySharedPref")
                     @Override
                     public void accept(UserEntity user) throws Exception {
-                        UserSpHelper.setUserId(user.id);
-                        UserSpHelper.setFaceId(user.xfid);
                         mUserDao.addAll(user);
+                    }
+                })
+                .flatMap(new Function<UserEntity, ObservableSource<UserEntity>>() {
+                    @Override
+                    public ObservableSource<UserEntity> apply(UserEntity user) throws Exception {
+                        return signIn(deviceId, account, pwd)
+                                .subscribeOn(Schedulers.io());
                     }
                 });
     }
@@ -62,21 +70,23 @@ public class UserRepository {
                 });
     }
 
-    public Single<UserEntity> getUserSignIn() {
-        return Single.create(new SingleOnSubscribe<String>() {
+    public Observable<UserEntity> getUserSignIn() {
+        return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void subscribe(SingleEmitter<String> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 String userId = UserSpHelper.getUserId();
                 if (TextUtils.isEmpty(userId)) {
-                    emitter.onError(new EmptyResultSetException("no user sign in"));
+                    if (!emitter.isDisposed()) {
+                        emitter.onError(new EmptyResultSetException("user not sign in"));
+                    }
                     return;
                 }
-                emitter.onSuccess(userId);
+                emitter.onNext(userId);
             }
-        }).flatMap(new Function<String, SingleSource<? extends UserEntity>>() {
+        }).flatMap(new Function<String, ObservableSource<? extends UserEntity>>() {
             @Override
-            public SingleSource<? extends UserEntity> apply(String userId) throws Exception {
-                return mUserDao.findOneById(userId);
+            public ObservableSource<? extends UserEntity> apply(String userId) throws Exception {
+                return mUserDao.findOneById(userId).toObservable();
             }
         });
     }
@@ -119,6 +129,11 @@ public class UserRepository {
         }
         user.id = userId;
         return mUserService.updateProfile(userId, user)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<Object> hasIdCard(String idCard) {
+        return mUserService.hasIdCard(idCard)
                 .compose(RxUtils.apiResultTransformer());
     }
 }

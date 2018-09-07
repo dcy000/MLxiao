@@ -15,6 +15,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.cc.CCVideoActions;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -81,7 +82,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                 // 如果从开始计时到现在超过了60s
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
-                                    if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+                                    if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                                         CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                                        Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
 //                                        startActivity(intent);
@@ -113,7 +114,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         // 如果从开始计时到现在超过了60s
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
-                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+                            if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                                 CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                                Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
 //                                startActivity(intent);

@@ -184,8 +184,9 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
             new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    if (fromUser)
+                    if (fromUser) {
                         updateUI(progress, seekBar.getMax());
+                    }
                 }
 
                 @Override
@@ -209,8 +210,9 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
     private Runnable mSeekEventRunnable = new Runnable() {
         @Override
         public void run() {
-            if (mSeekProgress < 0)
+            if (mSeekProgress < 0) {
                 return;
+            }
             Bundle bundle = BundlePool.obtain();
             bundle.putInt(EventKey.INT_DATA, mSeekProgress);
             requestSeek(bundle);
@@ -376,8 +378,9 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
 
     @Override
     public void onTimerUpdate(int curr, int duration, int bufferPercentage) {
-        if (!mTimerUpdateProgressEnable)
+        if (!mTimerUpdateProgressEnable) {
             return;
+        }
         if (mTimeFormat == null) {
             mTimeFormat = TimeUtil.getFormat(duration);
         }

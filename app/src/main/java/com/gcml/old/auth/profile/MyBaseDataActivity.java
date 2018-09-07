@@ -21,6 +21,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.data.StringUtil;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.ui.UiUtils;
 import com.gcml.old.auth.entity.HealthInfo;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.gcml.old.auth.profile.otherinfo.AlertAgeActivity;
@@ -153,7 +154,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mDrinking.setText(TextUtils.isEmpty(drink) ? "尚未填写" : drink);
                 mAddress.setText(TextUtils.isEmpty(response.dz) ? "尚未填写" : response.dz);
                 String deseaseHistory = HealthInfo.getDeseaseHistory(response.mh);
-                mHistory.setText(TextUtils.isEmpty(deseaseHistory) ? "尚未填写" : deseaseHistory);
+                mHistory.setText(TextUtils.isEmpty(deseaseHistory) ? "无" : deseaseHistory.replaceAll(",","/"));
 
                 if (!TextUtils.isEmpty(response.sfz) && response.sfz.length() == 18) {
                     String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 4, response.sfz.length());
@@ -226,6 +227,10 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        if (response == null) {
+            ToastUtils.showShort("请重新登陆");
+            return;
+        }
         switch (v.getId()) {
             default:
                 break;
@@ -263,6 +268,12 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.head:
+                if (TextUtils.isEmpty(phone)
+                        || !TextUtils.isDigitsOnly(phone)
+                        || phone.length() != 11) {
+                    ToastUtils.showShort("请重新登陆");
+                    return;
+                }
                 SMSVerificationDialog dialog = new SMSVerificationDialog();
                 Bundle bundle = new Bundle();
                 bundle.putString("phone", phone);

@@ -49,17 +49,19 @@ public class RxUtils {
                             public Observable<T> apply(ApiResult<T> result) {
                                 if (result.isSuccessful()) {
                                     if (result.getData() == null) {
-                                        Type type = new TypeToken<T>() {}.getType();
+                                        Type type = new TypeToken<T>() {
+                                        }.getType();
                                         T t = Serializer.getInstance().deserialize("{}", type);
                                         return Observable.just(t);
                                     }
                                     return Observable.just(result.getData());
                                 } else {
+                                    int code = result.getCode();
                                     String message = result.getMessage();
-                                    if (result.getCode() == 500) {
+                                    if (code == 500) {
                                         message = "服务器繁忙";
                                     }
-                                    return Observable.error(new ApiException(message));
+                                    return Observable.error(new ApiException(message, code));
                                 }
                             }
                         }
@@ -186,6 +188,5 @@ public class RxUtils {
                     }
                 })
                 .take(times + 1);
-
     }
 }

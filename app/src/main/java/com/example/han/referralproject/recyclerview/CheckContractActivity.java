@@ -15,6 +15,7 @@ import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.squareup.picasso.Picasso;
 
@@ -47,7 +48,7 @@ public class CheckContractActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("签  约  医  生");
 
-        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+        NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
             @Override
             public void onSuccess(Doctor response) {
                 if (!TextUtils.isEmpty(response.getDocter_photo())) {
@@ -94,7 +95,7 @@ public class CheckContractActivity extends BaseActivity {
     }
 
     private void onCancelContract() {
-        NetworkApi.cancelContract(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Object>() {
+        NetworkApi.cancelContract(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Object>() {
                     @Override
                     public void onSuccess(Object response) {
                         ToastUtils.showShort("取消成功");

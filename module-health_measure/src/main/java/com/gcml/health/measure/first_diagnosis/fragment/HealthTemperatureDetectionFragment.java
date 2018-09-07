@@ -25,9 +25,10 @@ public class HealthTemperatureDetectionFragment extends Temperature_Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        isJump2Next=false;
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
-        mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+        setBtnClickableState(false);
     }
 
     @Override
@@ -55,10 +56,11 @@ public class HealthTemperatureDetectionFragment extends Temperature_Fragment {
             HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
                 @Override
                 public void onSuccess(String callbackString) {
-                    if (fragmentChanged != null && !isJump2Next) {
-                        isJump2Next = true;
-                        fragmentChanged.onFragmentChanged(HealthTemperatureDetectionFragment.this, null);
-                    }
+//                    if (fragmentChanged != null && !isJump2Next) {
+//                        isJump2Next = true;
+//                        fragmentChanged.onFragmentChanged(HealthTemperatureDetectionFragment.this, null);
+//                    }
+                    setBtnClickableState(true);
                     ((FirstDiagnosisActivity) mActivity).putCacheData(data);
                 }
 
@@ -67,6 +69,16 @@ public class HealthTemperatureDetectionFragment extends Temperature_Fragment {
                     ToastUtils.showShort("上传数据失败");
                 }
             });
+        }
+    }
+
+    private void setBtnClickableState(boolean enableClick){
+        if (enableClick){
+            mBtnHealthHistory.setClickable(true);
+            mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
+        }else{
+            mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+            mBtnHealthHistory.setClickable(false);
         }
     }
 }
