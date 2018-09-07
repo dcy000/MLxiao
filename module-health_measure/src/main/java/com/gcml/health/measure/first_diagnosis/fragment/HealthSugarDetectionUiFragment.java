@@ -43,10 +43,6 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
 
     @Override
     protected void clickHealthHistory(View view) {
-        if (!mBtnHealthHistory.isClickable()) {
-            ToastUtils.showShort("请先测量");
-            return;
-        }
         if (fragmentChanged != null && !isJump2Next) {
             isJump2Next = true;
             fragmentChanged.onFragmentChanged(this, null);

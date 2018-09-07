@@ -218,10 +218,6 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
 
         } else if (i == R.id.tv_next) {
-            if (!mTvNext.isClickable()){
-                ToastUtils.showShort("请先测量");
-                return;
-            }
             if (fragmentChanged != null) {
                 isJump2Next = true;
                 fragmentChanged.onFragmentChanged(this, null);

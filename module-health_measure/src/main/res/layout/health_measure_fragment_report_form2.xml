@@ -120,7 +120,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginLeft="48pt"
             android:layout_marginRight="48pt"
-            android:layout_marginTop="60pt"
+            android:layout_marginTop="28pt"
             android:layout_marginBottom="60pt"
             android:overScrollMode="never"/>
     </android.support.constraint.ConstraintLayout>

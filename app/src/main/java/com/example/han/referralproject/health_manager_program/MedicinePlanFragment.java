@@ -75,7 +75,11 @@ public class MedicinePlanFragment extends Fragment {
                                         .toString(), MedicineBean.class);
                                 dealData(data);
                             } else if (object.optInt("code") == 500) {
-                                ToastUtils.showShort("暂无推荐");
+                                mTvTitle.setText("主人，您的各项指标均在正常范围内，暂无药物方案推荐。");
+                                view.findViewById(R.id.layout_empty_data).setVisibility(View.VISIBLE);
+                                view.findViewById(R.id.layout_empty_data)
+                                        .findViewById(R.id.btn_go).setVisibility(View.GONE);
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -194,13 +194,13 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         if ("0".equals(icvd)) {
             HealthReportFormFragment2 fragment5 = new HealthReportFormFragment2();
             bundle5.putParcelable(KEY_DATA, firstReportBean);
-            bundle5.putString(KEY_TYPE, "心血管病");
+            bundle5.putString(KEY_TYPE, "缺血性心血管病");
             fragment5.setArguments(bundle5);
             fragments.add(fragment5);
         } else if ("1".equals(icvd)) {
             HealthReportFormFragment3 fragment5 = new HealthReportFormFragment3();
             bundle5.putParcelable(KEY_DATA, firstReportBean);
-            bundle5.putString(KEY_TYPE, "心血管病");
+            bundle5.putString(KEY_TYPE, "缺血性心血管病");
             fragment5.setArguments(bundle5);
             fragments.add(fragment5);
         }
@@ -247,7 +247,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                         mTitleText.setText("肥 胖 症 评 估 报 告");
                         break;
                     case 4:
-                        mTitleText.setText("心 血 管 病 评 估 报 告");
+                        mTitleText.setText("缺 血 性 心 血 管 病 评 估 报 告");
                         break;
                     case 5:
                         mTitleText.setText("智 能 推 荐");

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/iv_entertainment_enter"
+        android:layout_width="594pt"
+        android:layout_height="504pt"
+        android:background="@drawable/newmain_entertainment_center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20pt"
+        android:layout_marginLeft="45pt"
+        android:clickable="true"/>
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/iv_eat_medicine"
+        android:layout_width="594pt"
+        android:layout_height="504pt"
+        android:background="@drawable/newmain_eat_medicine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_entertainment_enter"
+        android:layout_marginTop="24pt"
+        android:layout_marginLeft="45pt"
+        android:clickable="true"/>
+</android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.gcml.health.measure.health_report_form;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.health.measure.R;
+import com.gcml.health.measure.divider.LinearLayoutDividerItemDecoration;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportParseBean;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -133,7 +135,7 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
                     result=fat.getResult();
                     advice=fat.getAdvice();
                     break;
-                case "心血管病":
+                case "缺血性心血管病":
                     FirstReportBean.RiskBean icvd = firstReportBean.getIcvd();
                     riskLevel = icvd.getRiskLevel();
                     morbidity = icvd.getMorbidity();
@@ -150,26 +152,31 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
                     mCpChart.setValueWithString("低风险");
                     mTvBottom.setText("您未来"+type+"发病等级为低风险。小E给您的建议，");
                     mCpChart.setValue(6.0f);
+                    safeGetColorArrays(R.array.circle_progress_color_0DD192);
                     break;
                 case 2:
                     mCpChart.setValueWithString("较低风险");
                     mTvBottom.setText("您未来"+type+"发病等级为较低风险。小E给您的建议，");
                     mCpChart.setValue(12.0f);
+                    safeGetColorArrays(R.array.circle_progress_color_FFCE00);
                     break;
                 case 3:
                     mCpChart.setValueWithString("中等风险");
                     mTvBottom.setText("您未来"+type+"发病等级为中等风险。小E给您的建议，");
                     mCpChart.setValue(18.0f);
+                    safeGetColorArrays(R.array.circle_progress_color_F3AA43);
                     break;
                 case 4:
                     mCpChart.setValueWithString("较高风险");
                     mTvBottom.setText("您未来"+type+"发病等级为较高风险。小E给您的建议，");
                     mCpChart.setValue(24.0f);
+                    safeGetColorArrays(R.array.circle_progress_color_F08A40);
                     break;
                 case 5:
                     mCpChart.setValueWithString("高风险");
                     mTvBottom.setText("您未来"+type+"发病等级为高风险。小E给您的建议，");
                     mCpChart.setValue(30.0f);
+                    safeGetColorArrays(R.array.circle_progress_color_F56C6B);
                     break;
                 default:
                     break;
@@ -196,6 +203,16 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
             ToastUtils.showShort("传递的数据未获取到");
         }
 
+    }
+    private void safeGetColorArrays(int colorArray){
+        Resources resources = getResources();
+        if (resources!=null){
+            int[] intArray = resources.getIntArray(colorArray);
+            if (intArray!=null){
+                mCpChart.setGradientColors(intArray);
+            }
+
+        }
     }
     private void setRecycleview(List<FirstReportParseBean> factorList) {
         mRvReport.setLayoutManager(new LinearLayoutManager(mContext));

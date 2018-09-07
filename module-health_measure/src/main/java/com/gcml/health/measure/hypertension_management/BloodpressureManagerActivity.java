@@ -9,6 +9,7 @@ import android.view.View;
 import com.gcml.common.data.AppManager;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
+import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
 import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.base.IPresenter;
@@ -35,12 +36,9 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
     protected void dealLogic() {
         mTitleText.setText("血 压 测 量");
         measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
-        baseFragment = new SingleMeasureBloodpressureFragment();
+        baseFragment=new HealthBloodDetectionOnlyOneFragment();
         baseFragment.setOnDealVoiceAndJumpListener(this);
         baseFragment.setOnDealVoiceAndJumpListener(this);
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("isOnlyShowBtnHealthRecord", true);
-        baseFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, baseFragment).commit();
         AppManager.getAppManager().addActivity(this);
         super.dealLogic();

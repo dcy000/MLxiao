@@ -20,6 +20,7 @@ import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.FirstDiagnosisBean;
+import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodOxygenDetectionFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthChooseDevicesFragment;
@@ -74,6 +75,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private BluetoothBaseFragment fragment;
     private boolean isShowHealthChooseDevicesFragment = false;
     private String finalFragment;
+
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, FirstDiagnosisActivity.class);
         if (context instanceof Application) {
@@ -141,15 +143,19 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             case "HealthBloodDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("血 压 测 量");
-                //如果本地缓存的有惯用手数据则只需测量一次，如果
+
+                String userId = UserSpHelper.getUserId();
                 String userHypertensionHand = UserSpHelper.getUserHypertensionHand();
-                if (TextUtils.isEmpty(userHypertensionHand)){
+                if (TextUtils.isEmpty(userId)) {
+                    //首先判断userId,如果为空，则说明走的是注册流程到达这里的
                     fragment = new HealthBloodDetectionUiFragment();
-                }else{
-                    fragment = new SingleMeasureBloodpressureFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putBoolean("isOnlyShowBtnHealthRecord", true);
-                    fragment.setArguments(bundle);
+                } else {
+                    //如果本地缓存的有惯用手数据则只需测量一次，如果没有则需要惯用手判断
+                    if (TextUtils.isEmpty(userHypertensionHand)) {
+                        fragment = new HealthBloodDetectionUiFragment();
+                    } else {
+                        fragment = new HealthBloodDetectionOnlyOneFragment();
+                    }
                 }
                 measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
                 break;
@@ -256,7 +262,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         //最后一个Fragment点击了下一步应该跳转到HealthReportFormActivity
-        if (fragment.getClass().getSimpleName().equals(finalFragment)){
+        if (fragment.getClass().getSimpleName().equals(finalFragment)) {
             HealthReportFormActivity.startActivity(this);
             return;
         }
@@ -341,7 +347,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         }
         //TODO:报告做成了Activity,所以在初始化结束后应该记录一下最后一个Fragment是哪一个，
         // TODO:这样点击最后一个Fragment的下一步才能跳转到HealthReportFormActivity
-        finalFragment=firstDiagnosisBeans.get(firstDiagnosisBeans.size()-1).getFragmentTag();
+        finalFragment = firstDiagnosisBeans.get(firstDiagnosisBeans.size() - 1).getFragmentTag();
     }
 
     @Override
@@ -370,8 +376,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     protected void backLastActivity() {
         showPosition--;
         if (showPosition > 0) {
-            if (showPosition==1){
-                isShowHealthChooseDevicesFragment=true;
+            if (showPosition == 1) {
+                isShowHealthChooseDevicesFragment = true;
             }
             showFragment(showPosition);
         } else {

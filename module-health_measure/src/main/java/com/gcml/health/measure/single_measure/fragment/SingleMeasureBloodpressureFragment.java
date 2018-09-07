@@ -36,7 +36,6 @@ import java.util.List;
  */
 public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
 
-    private boolean isOnlyShowBtnHealthRecord;
 
     public SingleMeasureBloodpressureFragment() {
     }
@@ -44,14 +43,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     @Override
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
-        if (bundle != null) {
-            isOnlyShowBtnHealthRecord = bundle.getBoolean("isOnlyShowBtnHealthRecord");
-            if (isOnlyShowBtnHealthRecord) {
-                mBtnVideoDemo.setVisibility(View.GONE);
-                mBtnHealthHistory.setText("下一步");
-            }
-        }
-        getHypertensionHand();
+//        getHypertensionHand();
     }
 
     /**
@@ -75,7 +67,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
         DialogSure dialogSure = new DialogSure(mContext);
         dialogSure.setContent("请使用" + hand + "测量");
         dialogSure.show();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，请使用"+hand+"测量");
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请使用" + hand + "测量");
         dialogSure.setOnClickSureListener(new DialogClickSureListener() {
             @Override
             public void clickSure(BaseDialog dialog) {
@@ -112,11 +104,8 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
                         if (apiResponse.isSuccessful()) {
                             ToastUtils.showLong("上传数据成功");
                             DetectionResult result = apiResponse.getData().get(0);
-                            if (!isOnlyShowBtnHealthRecord) {
-                                ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
-                                        result.getScore(), highPressure, lowPressure, result.getResult());
-                            }
-                            return;
+                            ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
+                                    result.getScore(), highPressure, lowPressure, result.getResult());
                         }
                     } catch (Throwable e) {
                         e.printStackTrace();

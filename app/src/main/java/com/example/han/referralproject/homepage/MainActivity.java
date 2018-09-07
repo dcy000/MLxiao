@@ -53,9 +53,11 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
     private LinearLayout mNewmainBottomIndicator;
     private View mIndicatorLeft;
     private View mIndicatorRight;
+    private View mIndicatorMiddle;
     private List<Fragment> fragments;
     private NewMain1Fragment newMain1Fragment;
     private NewMain2Fragment newMain2Fragment;
+    private NewMain3Fragment newMain3Fragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,12 +100,21 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
             public void onPageSelected(int position) {
                 if (position == 0) {
                     mIndicatorLeft.setVisibility(View.VISIBLE);
+                    mIndicatorMiddle.setVisibility(View.INVISIBLE);
                     mIndicatorRight.setVisibility(View.INVISIBLE);
                     if (showStateBar != null) {
                         showStateBar.showStateBar(false);
                     }
                 } else if (position == 1) {
                     mIndicatorLeft.setVisibility(View.INVISIBLE);
+                    mIndicatorMiddle.setVisibility(View.VISIBLE);
+                    mIndicatorRight.setVisibility(View.INVISIBLE);
+                    if (showStateBar != null) {
+                        showStateBar.showStateBar(true);
+                    }
+                } else if (position == 2) {
+                    mIndicatorLeft.setVisibility(View.INVISIBLE);
+                    mIndicatorMiddle.setVisibility(View.INVISIBLE);
                     mIndicatorRight.setVisibility(View.VISIBLE);
                     if (showStateBar != null) {
                         showStateBar.showStateBar(true);
@@ -120,13 +131,15 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
     }
 
 
-
     private void initFragments() {
         fragments = new ArrayList<>();
         newMain1Fragment = new NewMain1Fragment();
         newMain2Fragment = new NewMain2Fragment();
+        newMain3Fragment = new NewMain3Fragment();
+
         fragments.add(newMain1Fragment);
         fragments.add(newMain2Fragment);
+        fragments.add(newMain3Fragment);
     }
 
     private void initView() {
@@ -134,6 +147,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         mNewmainBottomIndicator = findViewById(R.id.newmain_bottom_indicator);
         mIndicatorLeft = findViewById(R.id.indicator_left);
         mIndicatorRight = findViewById(R.id.indicator_right);
+        mIndicatorMiddle = findViewById(R.id.indicator_middle);
     }
 
 
