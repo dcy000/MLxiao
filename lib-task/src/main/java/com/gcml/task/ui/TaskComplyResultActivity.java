@@ -71,7 +71,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
 
     private void bindData() {
         MLVoiceSynthetize.startSynthesize(getApplicationContext(), resultBean.result, false);
-        mToolBar.setData("问 卷 结 果", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+        mToolBar.setData("健 康 报 告", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 CC.obtainBuilder("app.component.task.comply").setContext(TaskComplyResultActivity.this).build().callAsync();
@@ -80,7 +80,8 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
 
             @Override
             public void onRightClick() {
-
+                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                finish();
             }
         });
         resultTitle.setText(resultBean.result);
@@ -103,9 +104,9 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
             mLayoutSport.setVisibility(View.GONE);
         }
 
-        dineContent1.setText(resultBean.intake.naSalt == null ? "暂无": resultBean.intake.naSalt);
-        dineContent2.setText(resultBean.intake.grease == null ? "暂无": resultBean.intake.grease);
-        dineContent3.setText(resultBean.intake.drink == null ? "暂无": resultBean.intake.drink);
+        dineContent1.setText(resultBean.intake.naSalt == null ? "暂无": "<" + resultBean.intake.naSalt);
+        dineContent2.setText(resultBean.intake.grease == null ? "暂无": "<" + resultBean.intake.grease);
+        dineContent3.setText(resultBean.intake.drink == null ? "暂无": "<" + resultBean.intake.drink);
         dineContent4.setText(resultBean.intake.smoke == null ? "暂无": resultBean.intake.smoke);
 
         resultAgain.setOnClickListener(this);

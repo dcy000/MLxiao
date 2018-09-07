@@ -14,6 +14,14 @@
         android:textSize="36sp"
         android:textColor="@color/config_color_black"/>
 
+    <ImageView
+        android:id="@+id/iv_mall_wifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/common_ic_wifi_state"/>
+
     <TextView
         android:id="@+id/tv_mall_action"
         android:layout_width="wrap_content"

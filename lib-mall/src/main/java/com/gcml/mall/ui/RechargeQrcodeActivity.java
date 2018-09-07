@@ -3,6 +3,7 @@ package com.gcml.mall.ui;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,8 @@ import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.mall.R;
 import com.gcml.mall.network.MallRepository;
+import com.gcml.mall.thread.Callback;
+import com.gcml.mall.thread.EasyThread;
 import com.gcml.mall.utils.BillUtils;
 
 import java.util.Date;
@@ -30,7 +33,6 @@ import java.util.Map;
 import cn.beecloud.BCOfflinePay;
 import cn.beecloud.BCPay;
 import cn.beecloud.BCQuery;
-import cn.beecloud.BeeCloud;
 import cn.beecloud.async.BCCallback;
 import cn.beecloud.async.BCResult;
 import cn.beecloud.entity.BCQRCodeResult;
@@ -55,6 +57,7 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
     Date billDate;
     String errorMsg;
     MallRepository mMallRepository = new MallRepository();
+    EasyThread executor = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,6 +92,13 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
 
         billTitle = "杭州国辰迈联机器人科技有限公司";
         billDate = new Date();
+
+        // 创建一个独立的实例进行使用
+        executor = EasyThread.Builder
+                .createFixed(4)
+                .setPriority(Thread.MAX_PRIORITY)
+                .setCallback(new ToastCallback())
+                .build();
 
         getRechargeQrcode();
     }
@@ -279,6 +289,8 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
 
     public void queryWxpayResult() {
         Log.e("xxxxxxxxxxxxxx", "支付");
+        executor.setName("alipay_catch_task")
+                .execute(new WxpayCatchTask());
 //        mHandler.postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
@@ -413,16 +425,18 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
                 true,     //是否生成二维码的bitmap
                 480,       //二维码的尺寸, 以px为单位, 如果为null则默认为360
                 wxpayCallback);
+    }
 
-//        BCOfflinePay.PayParams wxpayParam = new BCOfflinePay.PayParams();
-//        wxpayParam.channelType = BCReqParams.BCChannelTypes.valueOf("BC_ALI_QRCODE");
-//        wxpayParam.billTitle = billTitle; //商品描述
-//        wxpayParam.billTotalFee = billMoney; //总金额, 以分为单位, 必须是正整数
-//        wxpayParam.billNum = BillUtils.genBillNum();         //流水号
-//        wxpayParam.optional = optional;   //扩展参数
-//        wxpayParam.genQRCode = true;      //是否生成二维码的bitmap
-//        wxpayParam.qrCodeWidth = 480;     //二维码的尺寸, 以px为单位, 如果为null则默认为360
-//        BCOfflinePay.getInstance().reqQRCodeAsync(wxpayParam, wxpayCallback);
+    private class WxpayCatchTask implements Runnable {
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -430,6 +444,55 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
         super.onStop();
         isAlipaySign = false;
         isWxpaySign = false;
+    }
+
+    private class LogCallback implements Callback {
+
+        private final String TAG = "LogCallback";
+
+        @Override
+        public void onError(String name, Throwable t) {
+            Log.e(TAG, String.format("[任务线程%s]/[回调线程%s]执行失败: %s", name, Thread.currentThread(), t.getMessage()), t);
+        }
+
+        @Override
+        public void onCompleted(String name) {
+            Log.d(TAG, String.format("[任务线程%s]/[回调线程%s]执行完毕：", name, Thread.currentThread()));
+        }
+
+        @Override
+        public void onStart(String name) {
+            Log.d(TAG, String.format("[任务线程%s]/[回调线程%s]执行开始：", name, Thread.currentThread()));
+        }
+    }
+
+    private class ToastCallback extends LogCallback {
+
+        @Override
+        public void onError(String name, Throwable t) {
+            super.onError(name, t);
+            toast("线程%s运行出现异常，异常信息为：%s", name, t.getMessage());
+        }
+
+        @Override
+        public void onCompleted(String name) {
+            super.onCompleted(name);
+            toast("线程%s运行完毕", name);
+        }
+    }
+
+    private void toast(final String message, final Object... args) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Toast.makeText(this, String.format(message, args), Toast.LENGTH_SHORT).show();
+        } else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(RechargeQrcodeActivity.this, String.format(message, args), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
     }
 
 }

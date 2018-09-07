@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.databinding.ObservableField;
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
@@ -134,6 +135,44 @@ public class RxUtils {
                     return 0;
                 }
                 return WifiManager.calculateSignalLevel(wifiInfo.getRssi(), numsLevel);
+            }
+        }).distinct();
+    }
+
+    public static Observable<Integer> rxWifiLevels(Context context, int numsLevel, ScanResult wifi) {
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                emitter.onNext("1");
+                BroadcastReceiver receiver = new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        emitter.onNext("1");
+                    }
+                };
+                IntentFilter filter = new IntentFilter(WifiManager.RSSI_CHANGED_ACTION);
+                context.getApplicationContext().registerReceiver(receiver, filter);
+                emitter.setCancellable(new Cancellable() {
+                    @Override
+                    public void cancel() throws Exception {
+                        context.getApplicationContext().unregisterReceiver(receiver);
+                    }
+                });
+            }
+        }).map(new Function<String, Integer>() {
+            @Override
+            public Integer apply(String s) throws Exception {
+                @SuppressLint("WifiManagerPotentialLeak")
+                WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                if (wm == null) {
+                    return 0;
+                }
+                @SuppressLint("MissingPermission")
+                String bssid = wifi.BSSID;
+                if (bssid == null) {
+                    return 0;
+                }
+                return WifiManager.calculateSignalLevel(wifi.level, numsLevel);
             }
         }).distinct();
     }

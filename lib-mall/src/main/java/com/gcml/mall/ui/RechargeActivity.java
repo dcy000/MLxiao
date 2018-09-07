@@ -10,10 +10,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.billy.cc.core.component.CC;
-import com.gcml.common.widget.dialog.AlertDialog;
-import com.gcml.common.widget.dialog.SheetDialog;
+import com.gcml.common.widget.dialog.InputDialog;
+import com.gcml.common.widget.popup.FriendInvitePopup;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.mall.R;
 
 
@@ -54,11 +55,27 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(RechargeActivity.this, RechargeQrcodeActivity.class);
         int i = view.getId();
         if (i == R.id.btn_recharge_50) {
-            intent.putExtra("billMoney", 5000);
-            startActivity(intent);
+//            intent.putExtra("billMoney", 5000);
+//            startActivity(intent);
+            FriendInvitePopup popup = new FriendInvitePopup(RechargeActivity.this);
+            popup.showPopupWindow();
         } else if (i == R.id.btn_recharge_100) {
-            intent.putExtra("billMoney", 10000);
-            startActivity(intent);
+//            intent.putExtra("billMoney", 10000);
+//            startActivity(intent);
+            new InputDialog(RechargeActivity.this)
+                    .builder()
+                    .setPositiveButton("连接", new InputDialog.OnInputChangeListener() {
+                        @Override
+                        public void onInput(String s) {
+                            ToastUtils.showShort(s);
+                        }
+                    })
+                    .setNegativeButton("取消", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    }).show();
         } else if (i == R.id.btn_recharge_200) {
             intent.putExtra("billMoney", 20000);
             startActivity(intent);
