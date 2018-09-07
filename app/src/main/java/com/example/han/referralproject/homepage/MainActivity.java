@@ -15,6 +15,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.module_control_volume.VolumeControlFloatwindow;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.lenovo.rto.accesstoken.AccessToken;
@@ -192,6 +193,8 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                                     UserInfoBean userInfoBean = new Gson().fromJson(data.toString(), UserInfoBean.class);
                                     if (userInfoBean != null) {
                                         LocalShared.getInstance(MainActivity.this).setUserInfo(userInfoBean);
+                                        //保存惯用手到SP中
+                                        UserSpHelper.setUserHypertensionHand(userInfoBean.hypertensionHand);
                                         String wyyxId = userInfoBean.wyyxId;
                                         String wyyxPwd = userInfoBean.wyyxPwd;
                                         if (TextUtils.isEmpty(wyyxId) || TextUtils.isEmpty(wyyxPwd)) {

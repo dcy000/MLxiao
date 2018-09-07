@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
@@ -31,6 +32,7 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthThreeInOneDetectio
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
 import com.gcml.health.measure.health_report_form.HealthReportFormActivity;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.health.measure.R;
@@ -59,7 +61,7 @@ import timber.log.Timber;
  * version:V1.2.5
  * created on 2018/8/27 13:52
  * created by:gzq
- * description:TODO
+ * description:风险评估各Fragment调度Activity
  */
 public class FirstDiagnosisActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump {
     private List<FirstDiagnosisBean> firstDiagnosisBeans;
@@ -139,7 +141,16 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             case "HealthBloodDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("血 压 测 量");
-                fragment = new HealthBloodDetectionUiFragment();
+                //如果本地缓存的有惯用手数据则只需测量一次，如果
+                String userHypertensionHand = UserSpHelper.getUserHypertensionHand();
+                if (TextUtils.isEmpty(userHypertensionHand)){
+                    fragment = new HealthBloodDetectionUiFragment();
+                }else{
+                    fragment = new SingleMeasureBloodpressureFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("isOnlyShowBtnHealthRecord", true);
+                    fragment.setArguments(bundle);
+                }
                 measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
                 break;
             case "HealthBloodOxygenDetectionFragment":
@@ -359,6 +370,9 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     protected void backLastActivity() {
         showPosition--;
         if (showPosition > 0) {
+            if (showPosition==1){
+                isShowHealthChooseDevicesFragment=true;
+            }
             showFragment(showPosition);
         } else {
             finish();

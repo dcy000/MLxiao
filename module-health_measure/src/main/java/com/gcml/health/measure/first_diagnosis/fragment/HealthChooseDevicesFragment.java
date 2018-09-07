@@ -252,7 +252,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
                 deviceNum.add(bean.getDeviceLevel());
             }
         }
-        //默认体重必选
+        //TODO:默认体重必选,如果需要去掉，只需把下面代码去掉即可，其他地方不用修改
         if (!deviceNum.contains(7)){
             deviceNum.add(7);
         }

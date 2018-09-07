@@ -131,6 +131,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         mBtnVideoDemo.setOnClickListener(this);
         mTvNext = (TextView) view.findViewById(R.id.tv_next);
         mTvNext.setOnClickListener(this);
+        setBtnClickableState(false);
         MLVoiceSynthetize.startSynthesize(context, "主人，请打开设备开关，准备测量", false);
         initOther();
     }
@@ -217,13 +218,25 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
 
         } else if (i == R.id.tv_next) {
+            if (!mTvNext.isClickable()){
+                ToastUtils.showShort("请先测量");
+                return;
+            }
             if (fragmentChanged != null) {
                 isJump2Next = true;
                 fragmentChanged.onFragmentChanged(this, null);
             }
         }
     }
-
+    private void setBtnClickableState(boolean enableClick){
+        if (enableClick){
+            mTvNext.setClickable(true);
+            mTvNext.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
+        }else{
+            mTvNext.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+            mTvNext.setClickable(false);
+        }
+    }
     /**
      * 跳转到MeasureVideoPlayActivity
      */
@@ -409,11 +422,11 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             @Override
             public void onSuccess(String callbackString) {
                 ToastUtils.showShort("数据上传成功");
-                if (fragmentChanged != null) {
-                    isJump2Next = true;
-                    fragmentChanged.onFragmentChanged(HealthECGDetectionFragment.this, null);
-                }
-
+//                if (fragmentChanged != null) {
+//                    isJump2Next = true;
+//                    fragmentChanged.onFragmentChanged(HealthECGDetectionFragment.this, null);
+//                }
+                setBtnClickableState(true);
             }
 
             @Override

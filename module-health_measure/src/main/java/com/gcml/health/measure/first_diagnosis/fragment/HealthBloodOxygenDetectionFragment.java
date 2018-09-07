@@ -27,7 +27,7 @@ public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment{
         super.onStart();
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
-        mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+        setBtnClickableState(false);
     }
 
     @Override
@@ -38,6 +38,10 @@ public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment{
 
     @Override
     protected void clickHealthHistory(View view) {
+        if (!mBtnHealthHistory.isClickable()){
+            ToastUtils.showShort("请先测量");
+            return;
+        }
         if (fragmentChanged != null && !isJump2Next) {
             isJump2Next = true;
             fragmentChanged.onFragmentChanged(this, null);
@@ -56,11 +60,13 @@ public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment{
             HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
                 @Override
                 public void onSuccess(String callbackString) {
-                    if (fragmentChanged != null && !isJump2Next) {
-                        isJump2Next = true;
-                        fragmentChanged.onFragmentChanged(HealthBloodOxygenDetectionFragment.this, null);
-                    }
+//                    if (fragmentChanged != null && !isJump2Next) {
+//                        isJump2Next = true;
+//                        fragmentChanged.onFragmentChanged(HealthBloodOxygenDetectionFragment.this, null);
+//                    }
                     ((FirstDiagnosisActivity) mActivity).putCacheData(data);
+                    setBtnClickableState(true);
+
                 }
 
                 @Override
@@ -68,6 +74,15 @@ public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment{
                     ToastUtils.showShort("上传数据失败");
                 }
             });
+        }
+    }
+    private void setBtnClickableState(boolean enableClick){
+        if (enableClick){
+            mBtnHealthHistory.setClickable(true);
+            mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
+        }else{
+            mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+            mBtnHealthHistory.setClickable(false);
         }
     }
 }

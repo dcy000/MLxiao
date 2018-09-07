@@ -88,11 +88,11 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
         HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
             @Override
             public void onSuccess(String callbackString) {
-                if (fragmentChanged != null && !isJump2Next) {
-                    isJump2Next = true;
-                    fragmentChanged.onFragmentChanged(
-                            HealthWeightDetectionUiFragment.this, null);
-                }
+//                if (fragmentChanged != null && !isJump2Next) {
+//                    isJump2Next = true;
+//                    fragmentChanged.onFragmentChanged(
+//                            HealthWeightDetectionUiFragment.this, null);
+//                }
                 ((FirstDiagnosisActivity) mActivity).putCacheData(weightData);
             }
 

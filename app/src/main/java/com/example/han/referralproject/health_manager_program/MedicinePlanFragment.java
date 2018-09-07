@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -63,7 +64,7 @@ public class MedicinePlanFragment extends Fragment {
     }
 
     private void getData() {
-        OkGo.<String>get(NetworkApi.Medicine_Program + "100034" + "/")
+        OkGo.<String>get(NetworkApi.Medicine_Program + UserSpHelper.getUserId() + "/")
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

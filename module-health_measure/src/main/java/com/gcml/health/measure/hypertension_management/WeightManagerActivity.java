@@ -13,14 +13,17 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
  * version:V1.2.5
  * created on 2018/9/2 19:52
  * created by:gzq
- * description:TODO
+ * description:提供给高血压管理入口进入的体重测量界面
  */
 public class WeightManagerActivity extends BaseManagementActivity {
     public static void startActivity(Context context) {
@@ -35,11 +38,22 @@ public class WeightManagerActivity extends BaseManagementActivity {
     protected void dealLogic() {
         mTitleText.setText("体 重 测 量");
         measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
-        HealthWeightDetectionUiFragment healthWeightDetectionUiFragment = new HealthWeightDetectionUiFragment();
-        healthWeightDetectionUiFragment.setOnDealVoiceAndJumpListener(this);
-        healthWeightDetectionUiFragment.setOnFragmentChangedListener(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame, healthWeightDetectionUiFragment).commit();
+        baseFragment = new HealthWeightDetectionUiFragment();
+        baseFragment.setOnDealVoiceAndJumpListener(this);
+        baseFragment.setOnFragmentChangedListener(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, baseFragment).commit();
         super.dealLogic();
+    }
+
+    @Override
+    protected void untieDevice() {
+        super.untieDevice();
+        //体重
+        String nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
+        SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_WEIGHT);
+        ((Weight_Fragment) baseFragment).onStop();
+        ((Weight_Fragment) baseFragment).dealLogic();
+        clearBluetoothCache(nameAddress);
     }
 
     @Override
