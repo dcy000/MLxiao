@@ -134,7 +134,7 @@ public class QaApi {
                 //笑话
                 String content = resultObj.optString("content");
                 if (!TextUtils.isEmpty(content)) {
-                    results.put("text", results.get("text") + content);
+                    results.put("text", results.get("text"));
                 }
                 return results;
             }
@@ -161,14 +161,14 @@ public class QaApi {
 
             //评书,历史上的今天,搞笑段子,相声小品,公开课,名人演讲,戏曲
             if (service.equals("storyTelling")
-                    ||service.equals("history")
-                    ||service.equals("LEIQIAO.funnyPassage")
-                    ||service.equals("crossTalk")
-                    ||service.equals("LEIQIAO.openClass")
-                    ||service.equals("LEIQIAO.speech")
-                    ||service.equals("drama")
-                    ){
-                String url=resultObj.getString("url");
+                    || service.equals("history")
+                    || service.equals("LEIQIAO.funnyPassage")
+                    || service.equals("crossTalk")
+                    || service.equals("LEIQIAO.openClass")
+                    || service.equals("LEIQIAO.speech")
+                    || service.equals("drama")
+                    ) {
+                String url = resultObj.getString("url");
                 if (!TextUtils.isEmpty(url)) {
                     results.put("audiopath", url);
                 }
