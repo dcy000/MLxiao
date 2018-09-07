@@ -43,7 +43,9 @@ public class SPUtil {
         } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
         } else {
-            editor.putString(key, object.toString());
+            if (object != null) {
+                editor.putString(key, object.toString());
+            }
         }
 
         SharedPreferencesCompat.apply(editor);
@@ -88,7 +90,6 @@ public class SPUtil {
 
     /**
      * 清除所有数据
-     *
      */
     public static void clear() {
         SharedPreferences sp = getApplication().getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
