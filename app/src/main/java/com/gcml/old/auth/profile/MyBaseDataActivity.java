@@ -154,7 +154,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mDrinking.setText(TextUtils.isEmpty(drink) ? "尚未填写" : drink);
                 mAddress.setText(TextUtils.isEmpty(response.dz) ? "尚未填写" : response.dz);
                 String deseaseHistory = HealthInfo.getDeseaseHistory(response.mh);
-                mHistory.setText(TextUtils.isEmpty(deseaseHistory) ? "尚未填写" : deseaseHistory);
+                mHistory.setText(TextUtils.isEmpty(deseaseHistory) ? "无" : deseaseHistory.replaceAll(",","/"));
 
                 if (!TextUtils.isEmpty(response.sfz) && response.sfz.length() == 18) {
                     String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 4, response.sfz.length());

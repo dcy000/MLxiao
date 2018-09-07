@@ -46,7 +46,7 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
         ivCaimi = (ImageView) findViewById(R.id.iv_caimi);
         ivCaimi.setOnClickListener(this);
 
-        tlbTitle.setData("症 状 自 查", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
+        tlbTitle.setData("小 工 具", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();
@@ -72,9 +72,9 @@ public class ToolsActivity extends AppCompatActivity implements View.OnClickList
         } else if (i == R.id.iv_caipu) {
             startActivity(new Intent(this, CookBookActivity.class));
         } else if (i == R.id.iv_jisuan) {
-            startActivity(new Intent(this, BaikeActivity.class));
-        } else if (i == R.id.iv_baike) {
             startActivity(new Intent(this, CalculationActivity.class));
+        } else if (i == R.id.iv_baike) {
+            startActivity(new Intent(this, BaikeActivity.class));
         } else if (i == R.id.iv_jisuan) {
             startActivity(new Intent(this, RiddleActivit.class));
         }

@@ -162,7 +162,7 @@ public class AlertMHActivity extends AppCompatActivity {
         if ("尚未填写".equals(data.mh)) {
             buffer = null;
         } else {
-            String[] mhs = data.mh.split("\\s+");
+            String[] mhs = data.mh.split(",");
             for (int i = 0; i < mhs.length; i++) {
                 if (mhs[i].equals("高血压"))
                     buffer.append(1 + ",");
@@ -182,6 +182,8 @@ public class AlertMHActivity extends AppCompatActivity {
                     buffer.append(8 + ",");
                 else if (mhs[i].equals("其他"))
                     buffer.append(9 + ",");
+                else if (mhs[i].equals("无"))
+                    buffer.append(11 + ",");
             }
         }
         mLayoutManager = new GridLayoutManager(this, 3);
@@ -194,7 +196,7 @@ public class AlertMHActivity extends AppCompatActivity {
 
 
     private List<DiseaseHistoryModel> modals() {
-        mModels = new ArrayList<>(9);
+        mModels = new ArrayList<>(10);
         String[] diseaseTypes = getResources().getStringArray(R.array.disease_type);
         for (String diseaseType : diseaseTypes) {
             DiseaseHistoryModel model = new DiseaseHistoryModel(

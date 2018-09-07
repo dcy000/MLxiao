@@ -12,6 +12,8 @@ import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.utils.RxUtils;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
@@ -68,21 +70,23 @@ public class UserRepository {
                 });
     }
 
-    public Single<UserEntity> getUserSignIn() {
-        return Single.create(new SingleOnSubscribe<String>() {
+    public Observable<UserEntity> getUserSignIn() {
+        return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void subscribe(SingleEmitter<String> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 String userId = UserSpHelper.getUserId();
                 if (TextUtils.isEmpty(userId)) {
-                    emitter.onError(new EmptyResultSetException("no user sign in"));
+                    if (!emitter.isDisposed()) {
+                        emitter.onError(new EmptyResultSetException("user not sign in"));
+                    }
                     return;
                 }
-                emitter.onSuccess(userId);
+                emitter.onNext(userId);
             }
-        }).flatMap(new Function<String, SingleSource<? extends UserEntity>>() {
+        }).flatMap(new Function<String, ObservableSource<? extends UserEntity>>() {
             @Override
-            public SingleSource<? extends UserEntity> apply(String userId) throws Exception {
-                return mUserDao.findOneById(userId);
+            public ObservableSource<? extends UserEntity> apply(String userId) throws Exception {
+                return mUserDao.findOneById(userId).toObservable();
             }
         });
     }
