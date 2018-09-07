@@ -3,6 +3,7 @@ package com.medlink.danbogh.wakeup.dialog;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -47,6 +48,7 @@ import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
+import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -70,6 +72,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.content.Context.AUDIO_SERVICE;
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 import static com.example.lenovo.rto.Constans.SCENE_Id;
 
@@ -577,7 +580,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*shengyin.*tigao.*")
                 || inSpell.matches(".*yinliang.*shenggao.*")
                 || inSpell.matches(".*shenggao.*yinliang.*")) {
-//            addVoice();
+            addVoice();
         } else if (inSpell.matches(".*xiaoshengyin.*")
                 || inSpell.matches(".*xiaoyinliang.*")
                 || inSpell.matches(".*xiaoshengdian.*")
@@ -589,7 +592,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*jiangdi.*shengyin.*")
                 || inSpell.matches(".*shengyin.*jiangdi.*")) {
 
-//            deleteVoice();
+            deleteVoice();
 
 
         } else if (inSpell.matches(".*bu.*liao.*") || result.contains("退出")
@@ -929,4 +932,32 @@ public class DataDealHelper {
     private void gotoPersonCenter() {
         startActivity(PersonDetailActivity.class);
     }
+
+    private void addVoice() {
+        AudioManager manager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
+        int maxVolume = manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        int volume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        volume += 3;
+        if (volume < maxVolume) {
+            speak("调大声音");
+            manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
+        } else {
+            speak("当前已经是最大声音了");
+        }
+    }
+
+
+    private void deleteVoice() {
+        AudioManager manager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
+        int volume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        volume -= 3;
+        if (volume > 3) {
+            speak("调小声音");
+            manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
+        } else {
+            speak("当前已经是最小声音了");
+        }
+
+    }
+
 }
