@@ -139,7 +139,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                 .map(new Function<Bitmap, byte[]>() {
                     @Override
                     public byte[] apply(Bitmap bitmap) throws Exception {
-                        Timber.i("Compress Image Data");
+                        Timber.i("Face Compress Image Data");
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         faceBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         if (!faceBitmap.isRecycled()) {
