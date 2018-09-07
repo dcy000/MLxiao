@@ -17,7 +17,7 @@ import com.gcml.common.business.R;
 /**
  * 作者：wecent
  * 时间：2017/10/24
- * 描述：仿IOS提示弹出框
+ * 描述：仿IOS提示弹出框（底部预留两个按钮，提示文本左对其）
  */
 
 public class AlertDialog {
@@ -58,7 +58,7 @@ public class AlertDialog {
         img_line.setVisibility(View.GONE);
 
         // 定义Dialog布局和参数
-        dialog = new Dialog(context, R.style.AlertDialog);
+        dialog = new Dialog(context, R.style.HealthPopupAnimaFade);
         dialog.setContentView(view);
 
         // 调整dialog背景大小

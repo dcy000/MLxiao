@@ -18,8 +18,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
@@ -27,61 +28,91 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
-import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.widget.SwitchView;
 import com.gcml.lib_utils.network.WiFiUtil;
-import com.gcml.old.auth.signin.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 public class WifiConnectActivity extends BaseActivity implements View.OnClickListener {
 
-    private WifiConnectRecyclerAdapter mConnectAdapter;
-    private List<ScanResult> mDataList = new ArrayList<>();
+
+    private RecyclerView mRecycler;
+    private List<ScanResult> mList = new ArrayList<>();
+    private WifiConnectRecyclerAdapter mAdapter;
     private WiFiUtil mWiFiUtil;
-    private Switch mSwitch;
+    private SwitchView mSwitch;
     private View mConnectedLayout;
     private TextView mConnectedWifiName;
+    private ImageView mConnectedWifiLevel;
     private WifiManager mWifiManager;
     private boolean isFirstWifi = false;
     private MediaPlayer mediaPlayer;
+    private Animation mRefreshAnim;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi_connect_layout);
+
+        bindView();
+        bindData();
+    }
+
+    private void bindView() {
+        mConnectedLayout = findViewById(R.id.rl_connected);
+        mConnectedWifiName = findViewById(R.id.tv_connect_name);
+        mConnectedWifiLevel = findViewById(R.id.iv_connect_levle);
+        mSwitch = findViewById(R.id.switch_wifi);
+        mRecycler = findViewById(R.id.rv_wifi);
+    }
+
+    private void bindData() {
         mToolbar.setVisibility(View.VISIBLE);
         mRightView.setImageResource(R.drawable.icon_refresh);
+        mRightView.setOnClickListener(this);
         mTitleText.setText("WiFi连接");
+        mRefreshAnim =  AnimationUtils.loadAnimation(this, R.anim.common_wifi_refresh);
+
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         boolean iswifiConnected=cm != null
                 && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
-        if(iswifiConnected){
-//            mediaPlayer=MediaPlayer.create(this,R.raw.wifi_connected);
+        if (iswifiConnected) {
             speak("主人,您的wifi已连接,如果需要更换,请点击对应wifi名称");
-        }else{
-//            mediaPlayer = MediaPlayer.create(this, R.raw.wifi_connect);
+        } else {
             speak("主人,请连接wifi,如果未找到,请点击右上角的刷新按钮");
         }
-
-//        mediaPlayer.start();//播放音乐
-
-        mRightView.setOnClickListener(this);
         isFirstWifi= getIntent().getBooleanExtra("is_first_wifi", false);
         mWiFiUtil = WiFiUtil.getInstance(this);
         mWiFiUtil.openWifi();
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        mConnectedLayout = findViewById(R.id.rl_connected);
-        mConnectedWifiName = findViewById(R.id.tv_connect_name);
-        mSwitch = findViewById(R.id.switch_wifi);
-        mSwitch.setChecked(mWiFiUtil.isWifiOpened());
-        mSwitch.setOnCheckedChangeListener(mCheckedChangeListener);
-        RecyclerView mWifiRv = findViewById(R.id.rv_wifi);
-        mWifiRv.setLayoutManager(new LinearLayoutManager(mContext));
-        mConnectAdapter = new WifiConnectRecyclerAdapter(mContext, mDataList);
-        mWifiRv.setAdapter(mConnectAdapter);
-        scanWifi();
+
+        mSwitch.setOpened(mWiFiUtil.isWifiOpened());
+        mSwitch.setOnStateChangedListener(new SwitchView.OnStateChangedListener() {
+            @Override
+            public void toggleToOn(SwitchView view) {
+                view.toggleSwitch(true);
+                mWiFiUtil.openWifi();
+            }
+
+            @Override
+            public void toggleToOff(SwitchView view) {
+                view.toggleSwitch(false);
+                mWiFiUtil.closeWifi();
+            }
+        });
+
+        mRecycler.setLayoutManager(new LinearLayoutManager(mContext));
+        mAdapter = new WifiConnectRecyclerAdapter(mContext, mList);
+        mRecycler.setAdapter(mAdapter);
+
+        getWifiData();
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
@@ -89,33 +120,47 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         registerReceiver(mNetworkReceiver, filter);
     }
 
-    private void scanWifi() {
-        mDataList.clear();
+    private void getWifiData() {
+        mRightView.startAnimation(mRefreshAnim);
+        mRightView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mRightView.clearAnimation();
+            }
+        }, 5000);
+        mList.clear();
         mWiFiUtil.startScan();
         WifiInfo mInfo = mWifiManager.getConnectionInfo();
         if (mInfo != null) {
             mConnectedLayout.setVisibility(View.VISIBLE);
             mConnectedWifiName.setText(mInfo.getSSID());
+            RxUtils.rxWifiLevel(getApplication(), 4)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new Consumer<Integer>() {
+                        @Override
+                        public void accept(Integer level) throws Exception {
+                            mConnectedWifiLevel.setImageLevel(level);
+                        }
+                    });
             for (ScanResult itemResult : mWiFiUtil.getWifiList()) {
                 if (!itemResult.BSSID.equals(mInfo.getBSSID())){
-                    mDataList.add(itemResult);
+                    mList.add(itemResult);
                 }
             }
         } else {
             mConnectedLayout.setVisibility(View.GONE);
-            mDataList.addAll(mWiFiUtil.getWifiList());
+            mList.addAll(mWiFiUtil.getWifiList());
         }
-        mConnectAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_top_right:
-                scanWifi();
-                break;
-            case R.id.tv_system:
-                startActivity(new Intent("android.net.wifi.PICK_WIFI_NETWORK"));
+                getWifiData();
                 break;
         }
     }
@@ -130,16 +175,16 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private CompoundButton.OnCheckedChangeListener mCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked) {
-                mWiFiUtil.openWifi();
-            } else {
-                mWiFiUtil.closeWifi();
-            }
-        }
-    };
+//    private CompoundButton.OnCheckedChangeListener mCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+//        @Override
+//        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//            if (isChecked) {
+//                mWiFiUtil.openWifi();
+//            } else {
+//                mWiFiUtil.closeWifi();
+//            }
+//        }
+//    };
 
     private BroadcastReceiver mNetworkReceiver = new BroadcastReceiver() {
         @Override
@@ -183,7 +228,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                     if (networkInfo != null && networkInfo.isConnected()){
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                         if (isFirstWifi){
-                            if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
+                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
                                 CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                                startActivity(new Intent(mContext, SignInActivity.class));
                             } else {
@@ -191,7 +236,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                             }
                             finish();
                         } else {
-                            scanWifi();
+                            getWifiData();
                         }
                     }
 //                    if (info != null) {

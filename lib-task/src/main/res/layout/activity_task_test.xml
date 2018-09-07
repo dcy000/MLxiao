@@ -25,7 +25,7 @@
         android:paddingRight="50dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:background="@drawable/btn_task_next"
+        android:background="@drawable/common_bg_btn_next"
         android:textSize="28sp"
         android:text="进入"
         android:textColor="@color/config_color_white"/>

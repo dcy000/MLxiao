@@ -39,13 +39,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.gcml.mall.ui.RechargeDefineActivity" />
-        <activity android:name=".ui.ScanQRCodeLoginActivity" />
-        <!--<activity android:name=".ui.RechargeActivity" />-->
 
-        <meta-data
-            android:name="com.gcml.mall.MallAppLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks" />
+        <activity android:name=".ui.RechargeActivity" />
+
+        <activity android:name=".ui.RechargeDefineActivity" />
+
+        <activity android:name=".ui.RechargeQrcodeActivity" />
+
+        <!--<meta-data-->
+            <!--android:name=".MallAppLifecycleCallbacks"-->
+            <!--android:value="AppLifecycleCallbacks" />-->
     </application>
 
 </manifest>

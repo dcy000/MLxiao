@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.billy.cc.core.component.CC;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.mall.R;
@@ -28,13 +29,40 @@ public class RechargeDefineActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge_define);
 
+        bindView();
+        bindData();
+    }
+
+    private void bindView() {
         mToolBar = findViewById(R.id.tb_recharge_define);
         mEditText = findViewById(R.id.deifine_mount);
         mButton = findViewById(R.id.deifine_pay);
         mButton.setOnClickListener(this);
+    }
 
-        initToolBar();
-        initEiitView();
+    private void bindData() {
+        mToolBar.setData(getString(R.string.recharge_define), R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, "", new ToolBarClickListener() {
+            @Override
+            public void onLeftClick() {
+                finish();
+            }
+
+            @Override
+            public void onRightClick() {
+                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                finish();
+            }
+        });
+
+        mEditText = findViewById(R.id.deifine_mount);
+        // 新建一个可以添加属性的文本对象
+        SpannableString ss = new SpannableString("请输入充值金额");
+        // 新建一个属性对象,设置文字的大小
+        AbsoluteSizeSpan ass = new AbsoluteSizeSpan(45, true);
+        // 附加属性到文本
+        ss.setSpan(ass, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        // 设置hint
+        mEditText.setHint(new SpannedString(ss)); // 一定要进行转换,否则属性会消失
     }
 
     @Override
@@ -48,44 +76,16 @@ public class RechargeDefineActivity extends AppCompatActivity implements View.On
                 } else if (value <= 0.0f) {
                     Toast.makeText(getApplicationContext(), "充值金额必须大于为0元", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(getApplicationContext(), RechargePayActivity.class);
-                    intent.putExtra("number", (int) (value * 100) + "");
+                    Intent intent = new Intent(getApplicationContext(), RechargeQrcodeActivity.class);
+                    intent.putExtra("billMoney", (int) (value * 100));
                     startActivity(intent);
                     finish();
                 }
             } else {
                 Toast.makeText(getApplicationContext(), "请输入金额", Toast.LENGTH_SHORT).show();
             }
-
-
         } else {
+
         }
-    }
-
-    private void initToolBar() {
-        mToolBar.setData(getString(R.string.recharge_define), R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, "", new ToolBarClickListener() {
-            @Override
-            public void onLeftClick() {
-                finish();
-            }
-
-            @Override
-            public void onRightClick() {
-//        startActivity(new Intent(mContext, MainActivity.class));
-//        finish();
-            }
-        });
-    }
-
-    public void initEiitView() {
-        mEditText = findViewById(R.id.deifine_mount);
-        // 新建一个可以添加属性的文本对象
-        SpannableString ss = new SpannableString("请输入充值金额");
-        // 新建一个属性对象,设置文字的大小
-        AbsoluteSizeSpan ass = new AbsoluteSizeSpan(45, true);
-        // 附加属性到文本
-        ss.setSpan(ass, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        // 设置hint
-        mEditText.setHint(new SpannedString(ss)); // 一定要进行转换,否则属性会消失
     }
 }

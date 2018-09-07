@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#3f86fc</color>
-    <color name="colorPrimaryDark">#993f86fc</color>
-    <color name="colorAccent">#3f86fc</color>
+    <color name="config_color_primary">#3f86fc</color>
+    <color name="config_color_primary_dark">#993f86fc</color>
+    <color name="config_color_primary_gray">#803f86fc</color>
 
     <color name="config_color_transparent">#00000000</color>
     <color name="config_color_appthema">#3f86fc</color>
