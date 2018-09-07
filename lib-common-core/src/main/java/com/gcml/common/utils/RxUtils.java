@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.databinding.ObservableField;
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
@@ -48,17 +49,19 @@ public class RxUtils {
                             public Observable<T> apply(ApiResult<T> result) {
                                 if (result.isSuccessful()) {
                                     if (result.getData() == null) {
-                                        Type type = new TypeToken<T>() {}.getType();
+                                        Type type = new TypeToken<T>() {
+                                        }.getType();
                                         T t = Serializer.getInstance().deserialize("{}", type);
                                         return Observable.just(t);
                                     }
                                     return Observable.just(result.getData());
                                 } else {
+                                    int code = result.getCode();
                                     String message = result.getMessage();
-                                    if (result.getCode() == 500) {
+                                    if (code == 500) {
                                         message = "服务器繁忙";
                                     }
-                                    return Observable.error(new ApiException(message));
+                                    return Observable.error(new ApiException(message, code));
                                 }
                             }
                         }
@@ -138,6 +141,44 @@ public class RxUtils {
         }).distinct();
     }
 
+    public static Observable<Integer> rxWifiLevels(Context context, int numsLevel, ScanResult wifi) {
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                emitter.onNext("1");
+                BroadcastReceiver receiver = new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        emitter.onNext("1");
+                    }
+                };
+                IntentFilter filter = new IntentFilter(WifiManager.RSSI_CHANGED_ACTION);
+                context.getApplicationContext().registerReceiver(receiver, filter);
+                emitter.setCancellable(new Cancellable() {
+                    @Override
+                    public void cancel() throws Exception {
+                        context.getApplicationContext().unregisterReceiver(receiver);
+                    }
+                });
+            }
+        }).map(new Function<String, Integer>() {
+            @Override
+            public Integer apply(String s) throws Exception {
+                @SuppressLint("WifiManagerPotentialLeak")
+                WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                if (wm == null) {
+                    return 0;
+                }
+                @SuppressLint("MissingPermission")
+                String bssid = wifi.BSSID;
+                if (bssid == null) {
+                    return 0;
+                }
+                return WifiManager.calculateSignalLevel(wifi.level, numsLevel);
+            }
+        }).distinct();
+    }
+
     public static Observable<Integer> rxCountDown(int interval, int times) {
         return Observable.interval(0, interval, TimeUnit.SECONDS)
                 .map(new Function<Long, Integer>() {
@@ -147,6 +188,5 @@ public class RxUtils {
                     }
                 })
                 .take(times + 1);
-
     }
 }

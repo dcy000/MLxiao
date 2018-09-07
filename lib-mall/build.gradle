@@ -29,6 +29,7 @@ android {
             buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            multiDexEnabled true
         }
 
         release {
@@ -58,6 +59,7 @@ dependencies {
 
     implementation project(":lib-common-business")
     implementation project(":lib-common-core")
+    implementation project(':lib-pay-beecloud')
 
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["recyclerview-v7"]

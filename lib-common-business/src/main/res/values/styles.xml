@@ -36,6 +36,12 @@
         <item name="android:windowExitAnimation">@anim/basepopup_fade_out</item>
     </style>
 
+    <!--BasePopup动画样式-->
+    <style name="HealthPopupAnimaFade" parent="AlertDialog">
+        <item name="android:windowEnterAnimation">@anim/popup_health_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_health_fade_out</item>
+    </style>
+
     <!-- LoadingDialog -->
     <style name="loading_dialog_wrap">
         <item name="android:layout_width">wrap_content</item>

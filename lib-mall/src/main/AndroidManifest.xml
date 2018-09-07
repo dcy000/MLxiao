@@ -27,9 +27,19 @@
 
     <application>
         <activity
-            android:name="com.gcml.mall.ui.MallActivity"
+            android:name=".ui.MallActivity"
+            android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
+
+        <activity android:name=".ui.RechargeActivity"
+            android:launchMode="singleTask" />
+
+        <activity android:name=".ui.RechargeDefineActivity"
+            android:launchMode="singleTask" />
+
+        <activity android:name=".ui.RechargeQrcodeActivity"
+            android:launchMode="singleTask" />
 
         <meta-data
             android:name="com.gcml.mall.MallAppLifecycleCallbacks"

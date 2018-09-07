@@ -16,6 +16,7 @@ import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -192,13 +193,17 @@ public class Utils {
         if (context == null) {
             return "";
         }
-        String processName = null;
         ActivityManager manager = ((ActivityManager)
                 context.getSystemService(Context.ACTIVITY_SERVICE));
         if (manager == null) {
             return "";
         }
-        for (ActivityManager.RunningAppProcessInfo info : manager.getRunningAppProcesses()) {
+        List<ActivityManager.RunningAppProcessInfo> runningAppProcesses = manager.getRunningAppProcesses();
+        if (runningAppProcesses == null) {
+            return "";
+        }
+        String processName = "";
+        for (ActivityManager.RunningAppProcessInfo info : runningAppProcesses) {
             if (info != null && info.pid == android.os.Process.myPid()) {
                 processName = info.processName;
                 break;

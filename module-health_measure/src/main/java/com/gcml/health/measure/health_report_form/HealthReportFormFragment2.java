@@ -17,6 +17,7 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.divider.LinearLayoutDividerItemDecoration;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportParseBean;
+import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.littlejie.circleprogress.CircleProgress;
@@ -61,12 +62,16 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
      */
     private TextView mTvSeeDetail;
     private String type;
-    private FirstReportBean firstReportBean;
+    private FirstReportReceiveBean firstReportBean;
     private Drawable drawableUp;
     private Drawable drawableDown;
     private Drawable drawableWarning;
     private String result;
     private String advice;
+    private String morbidity;
+    private int riskLevel=1;
+    private List<FirstReportReceiveBean.FactorListBeanX> factorList;
+
     @Override
     protected int initLayout() {
         return R.layout.health_measure_fragment_report_form2;
@@ -107,44 +112,17 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
         if (bundle != null) {
             type = bundle.getString(HealthReportFormActivity.KEY_TYPE);
             firstReportBean = bundle.getParcelable(HealthReportFormActivity.KEY_DATA);
-            int riskLevel=1;
-            String morbidity = null;
-            List<FirstReportBean.FactorListBean> factorList=null;
-            switch (type) {
-                case "糖尿病":
-                    FirstReportBean.RiskBean dm = firstReportBean.getDm();
-                    riskLevel = dm.getRiskLevel();
-                    morbidity = dm.getMorbidity();
-                    factorList=dm.getFactorList();
-                    result=dm.getResult();
-                    advice=dm.getAdvice();
+            List<FirstReportReceiveBean.ReportListBean> reportList = firstReportBean.getReportList();
+
+            for (FirstReportReceiveBean.ReportListBean reportListBean:reportList){
+                if (reportListBean.getIllnessName().equals(type)){
+                    factorList=reportListBean.getFactorList();
+                    result=reportListBean.getResult();
+                    advice=reportListBean.getAdvice();
+                    morbidity=reportListBean.getMorbidity();
+                    riskLevel=reportListBean.getRiskLevel();
                     break;
-                case "高血压":
-                    FirstReportBean.RiskBean htn = firstReportBean.getHtn();
-                    riskLevel = htn.getRiskLevel();
-                    morbidity = htn.getMorbidity();
-                    factorList=htn.getFactorList();
-                    result=htn.getResult();
-                    advice=htn.getAdvice();
-                    break;
-                case "肥胖症":
-                    FirstReportBean.RiskBean fat = firstReportBean.getFat();
-                    riskLevel = fat.getRiskLevel();
-                    morbidity = fat.getMorbidity();
-                    factorList=fat.getFactorList();
-                    result=fat.getResult();
-                    advice=fat.getAdvice();
-                    break;
-                case "缺血性心血管病":
-                    FirstReportBean.RiskBean icvd = firstReportBean.getIcvd();
-                    riskLevel = icvd.getRiskLevel();
-                    morbidity = icvd.getMorbidity();
-                    factorList=icvd.getFactorList();
-                    result=icvd.getResult();
-                    advice=icvd.getAdvice();
-                    break;
-                default:
-                    break;
+                }
             }
             mTvResultProbability.setText("您的" + type + "发病率为" + morbidity + "%");
             switch (riskLevel) {
@@ -182,8 +160,8 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
                     break;
             }
             List<FirstReportParseBean> firstReportParseBeans = new ArrayList<>();
-            for (FirstReportBean.FactorListBean xxxx : factorList) {
-                for (FirstReportBean.ListBean beanXXXX : xxxx.getList()) {
+            for (FirstReportReceiveBean.FactorListBeanX xxxx : factorList) {
+                for (FirstReportReceiveBean.ListBean beanXXXX : xxxx.getList()) {
                     FirstReportParseBean firstReportParseBean = new FirstReportParseBean();
                     firstReportParseBean.setAnomalyStatus(beanXXXX.getAnomalyStatus());
                     firstReportParseBean.setFactorCode(beanXXXX.getFactorCode());
@@ -242,6 +220,8 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
                     ((TextView) helper.getView(R.id.tv_middle)).setCompoundDrawables(null, null, drawableUp, null);
                 } else if ("3".equals(anomalyStatus)) {
                     ((TextView) helper.getView(R.id.tv_middle)).setCompoundDrawables(null, null, drawableDown, null);
+                }else{
+
                 }
             }
         });
