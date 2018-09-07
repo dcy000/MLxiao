@@ -40,12 +40,13 @@ import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_JOIN_GROUP_UNKNOW
 
 /**
  * 讯飞人脸业务工具
- * 支持 1:1 识别， 1：N 组创建/添加成员/查询组成员/删除成员/删除组/
+ * 1:1 注册 识别 删除，
+ * 1:N 人脸检索 组创建/添加成员/查询组成员/删除成员/删除组/
  * 有些操作暂未实现, 见官方demo
  *
  * @see this#obtainEngine(Context context), 获取引擎
  * @see this#signUp(Context context, byte[] faceData, String faceId), 1:1 人脸注册
- * @see this#signIn(Context context, byte[] faceData, String faceId), 1:N 人脸检索
+ * @see this#signIn(Context context, byte[] faceData, String groupId), 1:N 人脸检索
  * @see this#createGroup(Context context, String faceId), 1:N 创建组
  * @see this#joinGroup(Context context, String groupId, String faceId), 1:N 加组
  */
@@ -79,9 +80,11 @@ public class FaceIdHelper {
                     @Override
                     public void cancel() throws Exception {
                         if (IdentityVerifier.getVerifier() != null) {
-                            IdentityVerifier.getVerifier().cancel();
+                            if (IdentityVerifier.getVerifier().isWorking()) {
+                                IdentityVerifier.getVerifier().cancel();
+                            }
                             IdentityVerifier.getVerifier().destroy();
-                            Timber.e("Face Engine destroy");
+                            Timber.i("Face Engine destroy");
                         }
                     }
                 });
@@ -135,8 +138,12 @@ public class FaceIdHelper {
 
                     @Override
                     public void onError(SpeechError error) {
-                        //未检测到人脸 （11700）
+                        //没网（20001）
+                        //网络信号差
                         //模型或记录已存在 (10121)
+                        //模型数据不存在 (10116)
+                        //空组 （10141）
+                        //组不存在 （10143）
                         Timber.e(error, "Face sign up error， %s", error.getPlainDescription(true));
                         if (!emitter.isDisposed()) {
                             emitter.onError(new FaceRepository.FaceError(
