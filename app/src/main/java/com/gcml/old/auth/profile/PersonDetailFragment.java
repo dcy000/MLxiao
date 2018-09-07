@@ -113,7 +113,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.activity_person, container, false);
         ((BaseActivity) getActivity()).speak(getString(R.string.person_info));
 
-        userId = MyApplication.getInstance().userId;
+        userId = UserSpHelper.getUserId();
         headImg = view.findViewById(R.id.per_image);
         recreation = view.findViewById(R.id.iv_laoren_yule);
         recreation.setOnClickListener(this);
@@ -149,8 +149,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     @Override
     public void onStart() {
         super.onStart();
-        MyApplication.getInstance().userId = UserSpHelper.getUserId();
-        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
             ToastUtils.showShort("请重新登录");
             return;
         }
@@ -179,7 +178,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
 
     private void getData() {
-        boolean empty = TextUtils.isEmpty(MyApplication.getInstance().userId);
+        boolean empty = TextUtils.isEmpty(UserSpHelper.getUserId());
         if (empty) {
             String message = "请重新登录！";
             ToastUtils.showShort(message);
@@ -213,7 +212,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
     private void getApiData() {
         final FragmentActivity activity = getActivity();
-        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
             ToastUtils.showShort("请重新登陆");
             MobclickAgent.onProfileSignOff();
             NimAccountHelper.getInstance().logout();//退出网易IM
@@ -225,7 +224,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             return;
         }
 
-        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+        NetworkApi.PersonInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
 
@@ -293,7 +292,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             }
         });
 
-        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+        NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
             @Override
             public void onSuccess(Doctor response) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();

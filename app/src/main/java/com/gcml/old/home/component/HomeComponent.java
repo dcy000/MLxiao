@@ -19,8 +19,7 @@ public class HomeComponent implements IComponent {
 
     @Override
     public boolean onCall(CC cc) {
-        Object userId = cc.getParamItem("userId");
-        MyApplication.getInstance().userId = userId == null? UserSpHelper.getUserId() : String.valueOf(userId);
+//        Object userId = cc.getParamItem("userId");
         Context context = cc.getContext();
         Intent intent = new Intent();
         intent.setClass(context, MainActivity.class);

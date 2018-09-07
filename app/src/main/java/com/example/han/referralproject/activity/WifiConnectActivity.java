@@ -27,6 +27,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.network.WiFiUtil;
 import com.gcml.old.auth.signin.SignInActivity;
 
@@ -182,7 +183,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                     if (networkInfo != null && networkInfo.isConnected()){
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                         if (isFirstWifi){
-                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+                            if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                                 CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                                startActivity(new Intent(mContext, SignInActivity.class));
                             } else {

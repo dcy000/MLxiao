@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
 import com.gcml.auth.R;
 import com.gcml.auth.BR;
 import com.gcml.auth.databinding.AuthActivitySimpleProfileBinding;

@@ -18,6 +18,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.RadarChart;
@@ -93,7 +94,7 @@ public class New_WeeklyReport3Fragment extends Fragment implements View.OnClickL
         curr.set(Calendar.DAY_OF_MONTH, curr.get(Calendar.DAY_OF_MONTH) - 7);
         long weekAgoTime = curr.getTimeInMillis();
         OkGo.<String>get(NetworkApi.Life_Therapy)
-                .params("userId", MyApplication.getInstance().userId)
+                .params("userId", UserSpHelper.getUserId())
                 .params("endTimeStamp", weekAgoTime)
                 .params("num", "1")
                 .execute(new StringCallback() {

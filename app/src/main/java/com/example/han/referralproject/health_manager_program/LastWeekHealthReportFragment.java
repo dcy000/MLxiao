@@ -19,6 +19,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.intelligent_diagnosis.LastWeekAllReport;
 import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -76,7 +77,7 @@ public class LastWeekHealthReportFragment extends Fragment {
         curr.set(Calendar.WEEK_OF_YEAR, curr.get(Calendar.WEEK_OF_YEAR) - 1);
         long weekAgoTime = curr.getTimeInMillis();
         OkGo.<String>get(NetworkApi.LastWeekAllReport)
-                .params("userId", MyApplication.getInstance().userId)
+                .params("userId", UserSpHelper.getUserId())
                 .params("timeStamp", weekAgoTime)
                 .execute(new StringCallback() {
                     @Override

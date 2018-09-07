@@ -27,6 +27,7 @@ import com.example.han.referralproject.intelligent_diagnosis.FoodMaterialDetailA
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.gcml.common.data.UserSpHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
@@ -116,7 +117,7 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
     private void getData() {
         Log.e(TAG, "getDataCache: ");
         OkGo.<String>get(NetworkApi.Daily_Recommended_Intake)
-                .params("userId", MyApplication.getInstance().userId)
+                .params("userId", UserSpHelper.getUserId())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -137,7 +138,7 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
                     }
                 });
         OkGo.<String>get(NetworkApi.Daily_Food_Recommendation)
-                .params("userId", MyApplication.getInstance().userId)
+                .params("userId", UserSpHelper.getUserId())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

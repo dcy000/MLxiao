@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
@@ -100,7 +101,7 @@ public class UpdateAppManager {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+                        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                             CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                            context.startActivity(new Intent(context, ChooseLoginTypeActivity.class));
                         } else {

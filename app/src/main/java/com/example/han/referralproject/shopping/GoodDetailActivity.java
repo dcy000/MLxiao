@@ -22,6 +22,7 @@ import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.squareup.picasso.Picasso;
@@ -163,7 +164,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 });*/
 
 
-                NetworkApi.preparingPay(MyApplication.getInstance().userId, Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Integer.parseInt(mTextView2.getText().toString()) * Integer.parseInt(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<String>() {
+                NetworkApi.preparingPay(UserSpHelper.getUserId(), Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Integer.parseInt(mTextView2.getText().toString()) * Integer.parseInt(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<String>() {
 
                     @Override
                     public void onSuccess(String data) {
@@ -227,7 +228,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
     private void syncOrder(String orderid) {
         String deviceId = com.gcml.common.utils.Utils.getDeviceId(getContentResolver());
-        NetworkApi.pay_status(MyApplication.getInstance().userId, deviceId, orderid, new NetworkManager.SuccessCallback<String>() {
+        NetworkApi.pay_status(UserSpHelper.getUserId(), deviceId, orderid, new NetworkManager.SuccessCallback<String>() {
             @Override
             public void onSuccess(String response) {
                 Timber.i("同步订单成功");

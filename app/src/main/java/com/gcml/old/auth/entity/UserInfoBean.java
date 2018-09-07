@@ -2,6 +2,10 @@ package com.gcml.old.auth.entity;
 
 import java.io.Serializable;
 
+/**
+ * @see com.gcml.common.data.UserEntity
+ */
+@Deprecated
 public class UserInfoBean implements Serializable {
     public String bid;
     public String categoryid;

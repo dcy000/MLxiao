@@ -3,6 +3,7 @@ package com.example.han.referralproject.bean;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.gcml.common.data.UserSpHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class DataInfoBean {
     public Map<String, String> getParamsMap(){
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("time", String.valueOf(System.currentTimeMillis()));
-        paramsMap.put("userid", MyApplication.getInstance().userId);
+        paramsMap.put("userid", UserSpHelper.getUserId());
         if (!TextUtils.isEmpty(temper_ature)){
             paramsMap.put("temper_ature", temper_ature);
         }

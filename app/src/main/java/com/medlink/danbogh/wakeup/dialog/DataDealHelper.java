@@ -645,7 +645,7 @@ public class DataDealHelper {
 
 
     private void gotoQianyueYiSheng() {
-        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+        NetworkApi.PersonInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
                 if ("1".equals(response.getState())) {

@@ -2,6 +2,10 @@ package com.gcml.module_face_recognition.bean;
 
 import java.io.Serializable;
 
+/**
+ * @see com.gcml.common.data.UserEntity
+ */
+@Deprecated
 public class UserInfoBean implements Serializable{
     public String bid;
     public String categoryid;
