@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
@@ -30,6 +31,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.SwitchView;
+import com.gcml.lib_utils.network.NetUitls;
 import com.gcml.lib_utils.network.WiFiUtil;
 
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     private WifiConnectRecyclerAdapter mAdapter;
     private WiFiUtil mWiFiUtil;
     private SwitchView mSwitch;
-    private View mConnectedLayout;
+    private RelativeLayout mConnectedLayout;
     private TextView mConnectedWifiName;
     private ImageView mConnectedWifiLevel;
     private WifiManager mWifiManager;
@@ -131,7 +133,8 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mList.clear();
         mWiFiUtil.startScan();
         WifiInfo mInfo = mWifiManager.getConnectionInfo();
-        if (mInfo != null) {
+
+        if (mInfo != null && NetUitls.isWifiConnected()) {
             mConnectedLayout.setVisibility(View.VISIBLE);
             mConnectedWifiName.setText(mInfo.getSSID());
             RxUtils.rxWifiLevel(getApplication(), 4)
