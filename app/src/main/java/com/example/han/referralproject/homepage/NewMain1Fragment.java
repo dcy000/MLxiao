@@ -15,6 +15,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.data.LunarUtils;
 import com.gcml.lib_utils.data.TimeUtils;
@@ -101,7 +102,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
     private void getLocation() {
         //TODO:打正式包的时候打开该注释
-        WeatherUtils.getInstance().initLocation(getContext());
+        WeatherUtils.getInstance().initLocation(UtilsManager.getApplication());
         WeatherUtils.getInstance().setOnLocationResultListener(new WeatherUtils.LocationResult() {
             @Override
             public void onResult(String city, String county) {
@@ -306,9 +307,9 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.ll_date_and_week:
                 break;
             case R.id.iv_health_measure:
-                Bundle bundle = new Bundle();
-                bundle.putString("orderid", "0");
-                bundle.putString("from", "Test");
+//                Bundle bundle = new Bundle();
+//                bundle.putString("orderid", "0");
+//                bundle.putString("from", "Test");
 //                CCFaceRecognitionActions.jump2FaceRecognitionActivity(getActivity(), bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
@@ -318,8 +319,8 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                             public void onResult(CC cc, CCResult result) {
 //                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -347,12 +348,5 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 NimCallActivity.launchNoCheck(getContext(), MyApplication.getInstance().eqid);
                 break;
         }
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        MyApplication.getInstance().userId = UserSpHelper.getUserId();
     }
 }

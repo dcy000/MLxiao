@@ -16,6 +16,7 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.profile.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
@@ -37,7 +38,7 @@ import java.util.List;
 
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 
-
+@Deprecated
 public class MainActivity extends BaseActivity implements View.OnClickListener, HttpListener<AccessToken> {
 
     ImageView mImageView1;
@@ -146,7 +147,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void onResume() {
-        NimAccountHelper.getInstance().login("user_" + MyApplication.getInstance().userId, "123456", null);
+        String userId = UserSpHelper.getUserId();
+        NimAccountHelper.getInstance().login("user_" + userId, "123456", null);
         setEnableListeningLoop(false);
         super.onResume();
         NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {

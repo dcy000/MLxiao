@@ -55,5 +55,8 @@
         <activity android:name=".demo.DemoGoodDetailActivity"
             android:screenOrientation="landscape"
             android:label="演示推荐商品的页面"/>
+        <activity android:name=".bloodpressure_habit.GetHypertensionHandActivity"
+            android:screenOrientation="landscape"
+            android:label="惯用手"/>
     </application>
 </manifest>

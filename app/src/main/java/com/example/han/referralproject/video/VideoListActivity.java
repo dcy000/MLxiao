@@ -14,6 +14,8 @@ import android.widget.RadioGroup;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.gcml.lib_utils.UtilsManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 
 import java.util.ArrayList;
@@ -105,10 +107,8 @@ public class VideoListActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(true);
-        setEnableListeningLoop(false);
         super.onResume();
-        speak("主人，欢迎观看健康课堂");
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，欢迎观看健康课堂");
     }
 
     private List<VideoListFragment> mFragments;
@@ -162,17 +162,13 @@ public class VideoListActivity extends BaseActivity {
     }
 
     @Override
-    protected void onSpeakListenerResult(String result) {
-        super.onSpeakListenerResult(result);
-    }
-
-    @Override
     protected void onDestroy() {
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
         Handlers.bg().removeCallbacksAndMessages(null);
         Handlers.ui().removeCallbacksAndMessages(null);
+        MLVoiceSynthetize.destory();
         super.onDestroy();
     }
 

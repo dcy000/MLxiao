@@ -3,6 +3,7 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
@@ -23,9 +24,10 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        isJump2Next=false;
+        isJump2Next = false;
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
+        setBtnClickableState(false);
         Bundle arguments = getArguments();
         if (arguments != null) {
             selectMeasureSugarTime = arguments.getInt("selectMeasureSugarTime", 0);
@@ -36,7 +38,7 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getContext(),"主人，请将试纸插入仪器，开始测量",false);
+        MLVoiceSynthetize.startSynthesize(getContext(), "主人，请将试纸插入仪器，开始测量", false);
     }
 
     @Override
@@ -60,10 +62,11 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
             HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
                 @Override
                 public void onSuccess(String callbackString) {
-                    if (fragmentChanged != null && !isJump2Next) {
-                        isJump2Next = true;
-                        fragmentChanged.onFragmentChanged(HealthSugarDetectionUiFragment.this, null);
-                    }
+//                    if (fragmentChanged != null && !isJump2Next) {
+//                        isJump2Next = true;
+//                        fragmentChanged.onFragmentChanged(HealthSugarDetectionUiFragment.this, null);
+//                    }
+                    setBtnClickableState(true);
                     ((FirstDiagnosisActivity) mActivity).putCacheData(data);
                 }
 
@@ -72,6 +75,16 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
                     ToastUtils.showShort("上传数据失败");
                 }
             });
+        }
+    }
+
+    private void setBtnClickableState(boolean enableClick) {
+        if (enableClick) {
+            mBtnHealthHistory.setClickable(true);
+            mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
+        } else {
+            mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+            mBtnHealthHistory.setClickable(false);
         }
     }
 }

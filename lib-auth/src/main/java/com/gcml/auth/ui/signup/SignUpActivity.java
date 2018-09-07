@@ -264,6 +264,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                                         }
                                     }
                                 });
+                        finish();
                     }
 
                     @Override

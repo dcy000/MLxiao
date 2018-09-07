@@ -120,7 +120,7 @@
           android:id="@+id/tv_title_angiocardiopathy"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="心血管病"
+          android:text="缺血性\n心血管病"
           android:textColor="#333"
           android:textSize="56pt"
           app:layout_constraintTop_toBottomOf="@id/cpb_obesity"

@@ -29,6 +29,7 @@ import com.example.han.referralproject.bean.SymptomBean;
 import com.example.han.referralproject.bean.SymptomResultBean;
 import com.example.han.referralproject.bean.TemperatureHistory;
 import com.example.han.referralproject.bean.UserInfo;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.bean.WeeklyReport;
@@ -200,7 +201,7 @@ public class NetworkApi {
      * 新的上传测量数据的接口
      */
     public static void postMeasureData(ArrayList<DetectionData> datas, NetworkCallback callback) {
-        OkGo.<String>post(DETECTION_DATA + MyApplication.getInstance().userId + "/")
+        OkGo.<String>post(DETECTION_DATA + UserSpHelper.getUserId() + "/")
                 .upJson(new Gson().toJson(datas))
                 .execute(new StringCallback() {
                     @Override
@@ -263,7 +264,7 @@ public class NetworkApi {
             NetworkManager.SuccessCallback<Object> successCallback,
             NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("userid", MyApplication.getInstance().userId);
+        params.put("userid", UserSpHelper.getUserId());
         params.put("na", String.valueOf(salt));
         params.put("sports", String.valueOf(sports));
         params.put("drink", String.valueOf(drink));
@@ -703,28 +704,28 @@ public class NetworkApi {
     }
 
     public static void clueNotify(NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>> callback) {
-        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
             return;
         }
         Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("bid", MyApplication.getInstance().userId);
+        paramsMap.put("bid", UserSpHelper.getUserId());
         NetworkManager.getInstance().getResultClass(ClueUrl, paramsMap, new TypeToken<ArrayList<ClueInfoBean>>() {
         }.getType(), callback);
     }
 
     public static void getYzList(NetworkManager.SuccessCallback<ArrayList<YzInfoBean>> callback) {
         Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("userid", MyApplication.getInstance().userId);
+        paramsMap.put("userid", UserSpHelper.getUserId());
         NetworkManager.getInstance().getResultClass(GetYZUrl, paramsMap, new TypeToken<ArrayList<YzInfoBean>>() {
         }.getType(), callback);
     }
 
     public static void setUserMh(String mh, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
-        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
             return;
         }
         Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("bid", MyApplication.getInstance().userId);
+        paramsMap.put("bid", UserSpHelper.getUserId());
         paramsMap.put("mh", mh);
         NetworkManager.getInstance().postResultString(AddMhUrl, paramsMap, callback, failedCallback);
     }
@@ -796,7 +797,7 @@ public class NetworkApi {
             NetworkManager.SuccessCallback<ContractInfo> successCallback,
             NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("userid", MyApplication.getInstance().userId);
+        params.put("userid", UserSpHelper.getUserId());
         params.put("docterid", doctorId);
         NetworkManager.getInstance().getResultClass(GET_CONTRACT_INFO, params, ContractInfo.class, successCallback, failedCallback);
 
@@ -811,7 +812,7 @@ public class NetworkApi {
     public static void getMyBaseData(
             NetworkManager.SuccessCallback<UserInfoBean> successCallback, NetworkManager.FailedCallback failedCallback) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", MyApplication.getInstance().userId);
+        params.put("bid", UserSpHelper.getUserId());
         NetworkManager.getInstance().getResultClass(GET_MY_BASE_DATA, params, UserInfoBean.class, successCallback, failedCallback);
     }
 
@@ -826,7 +827,7 @@ public class NetworkApi {
     ) {
         HashMap<String, String> params = new HashMap<>();
 
-        params.put("bid", MyApplication.getInstance().userId);
+        params.put("bid", UserSpHelper.getUserId());
 //        params.put("bid","100001");
         params.put("temp", temp);
         params.put("starttime", start);
@@ -845,7 +846,7 @@ public class NetworkApi {
     public static void getBloodpressureHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<BloodPressureHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", MyApplication.getInstance().userId);
+        params.put("bid", UserSpHelper.getUserId());
 //        params.put("bid","100001");
         params.put("temp", temp);
         params.put("starttime", start);
@@ -865,7 +866,7 @@ public class NetworkApi {
     public static void getBloodSugarHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<BloodSugarHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", MyApplication.getInstance().userId);
+        params.put("bid", UserSpHelper.getUserId());
         params.put("temp", temp);
         params.put("starttime", start);
         params.put("endtime", end);
@@ -883,7 +884,7 @@ public class NetworkApi {
     public static void getBloodOxygenHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<BloodOxygenHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", MyApplication.getInstance().userId);
+        params.put("bid", UserSpHelper.getUserId());
         params.put("temp", temp);
         params.put("starttime", start);
         params.put("endtime", end);
@@ -901,7 +902,7 @@ public class NetworkApi {
     public static void getHeartRateHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<HeartRateHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", MyApplication.getInstance().userId);
+        params.put("bid", UserSpHelper.getUserId());
         params.put("temp", temp);
         params.put("starttime", start);
         params.put("endtime", end);
@@ -919,7 +920,7 @@ public class NetworkApi {
     public static void getPulseHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<PulseHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", MyApplication.getInstance().userId);
+        params.put("bid", UserSpHelper.getUserId());
         params.put("temp", temp);
         params.put("starttime", start);
         params.put("endtime", end);
@@ -937,7 +938,7 @@ public class NetworkApi {
     public static void getCholesterolHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<CholesterolHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", MyApplication.getInstance().userId);
+        params.put("bid", UserSpHelper.getUserId());
 //        params.put("bid","100001");
         params.put("temp", temp);
         params.put("starttime", start);
@@ -956,7 +957,7 @@ public class NetworkApi {
     public static void getBUAHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<BUA>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", MyApplication.getInstance().userId);
+        params.put("bid", UserSpHelper.getUserId());
 //        params.put("bid","100001");
         params.put("temp", temp);
         params.put("starttime", start);
@@ -975,7 +976,7 @@ public class NetworkApi {
     public static void getECGHistory(String start, String end, String temp, NetworkManager.SuccessCallback<ArrayList<ECGHistory>> successCallback, NetworkManager.FailedCallback failedCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", MyApplication.getInstance().userId);
+        params.put("bid", UserSpHelper.getUserId());
 //        params.put("bid", "100001");
         params.put("temp", temp);
         params.put("starttime", start);
@@ -998,7 +999,7 @@ public class NetworkApi {
     ) {
         HashMap<String, String> params = new HashMap<>();
 
-        params.put("bid", MyApplication.getInstance().userId);
+        params.put("bid", UserSpHelper.getUserId());
 //        params.put("bid","100001");
         params.put("temp", temp);
         params.put("starttime", start);
@@ -1099,11 +1100,11 @@ public class NetworkApi {
      * @param failedCallback
      */
     public static void recordGroup(String gid, String xfid, NetworkManager.SuccessCallback<String> callback, NetworkManager.FailedCallback failedCallback) {
-        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
             return;
         }
         Map<String, String> paramsMap = new HashMap<>();
-        paramsMap.put("userid", MyApplication.getInstance().userId);
+        paramsMap.put("userid", UserSpHelper.getUserId());
         paramsMap.put("gid", gid);
         paramsMap.put("xfid", xfid);
         NetworkManager.getInstance().postResultString(Add_Group, paramsMap, callback, failedCallback);
@@ -1135,7 +1136,7 @@ public class NetworkApi {
     public static void getXfGroupInfo(String ip, String gid, String xfid, NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
             return;
         }
         params.put("userid", "0");
@@ -1157,7 +1158,7 @@ public class NetworkApi {
      */
     public static void getMessages(String docterid, String dis_state, NetworkManager.SuccessCallback<ArrayList<MessagesOfCenter>> successCallback
     ) {
-        if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
             return;
         }
         HashMap<String, String> params = new HashMap<>();

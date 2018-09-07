@@ -13,6 +13,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.utils.FastClickUtil;
 
@@ -47,7 +48,7 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.doctor_yuyue:
                 if (FastClickUtil.isFastClick()) {
-                    NetworkApi.PersonInfo(MyApplication.getInstance().userId,
+                    NetworkApi.PersonInfo(UserSpHelper.getUserId(),
                             userInfo -> {
                                 if (userInfo == null) {
                                     return;

@@ -137,9 +137,9 @@ public class LocalShared {
             if (TextUtils.isEmpty(old_accountsString)) {
                 return null;
             } else {
-                addAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
+                addAccount(UserSpHelper.getUserId(), MyApplication.getInstance().xfid);
                 mShared.edit().putString(UserAccounts, "").commit();
-                return new String[]{MyApplication.getInstance().userId + "," + MyApplication.getInstance().xfid};
+                return new String[]{UserSpHelper.getUserId() + "," + MyApplication.getInstance().xfid};
             }
 
         }
@@ -174,7 +174,7 @@ public class LocalShared {
         if (infoBean == null) {
             return;
         }
-        MyApplication.getInstance().userId = infoBean.bid;
+        UserSpHelper.setUserId(infoBean.bid);
         MyApplication.getInstance().telphoneNum = infoBean.tel;
         MyApplication.getInstance().userName = infoBean.bname;
         MyApplication.getInstance().eqid = infoBean.eqid;
@@ -212,12 +212,10 @@ public class LocalShared {
 
     public void loginOut() {
         //String accountHistory = deleteAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
-        MyApplication.getInstance().userId = null;
         mShared.edit().putString(UserId, "").commit();
     }
 
     public void reset() {
-        MyApplication.getInstance().userId = null;
         mShared.edit().clear().commit();
         if (context != null) {
             context.getSharedPreferences(IatSettings.PREFER_NAME, Context.MODE_PRIVATE)

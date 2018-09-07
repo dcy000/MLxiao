@@ -17,7 +17,7 @@ ext {
     developUrl = api.lintiancongUrl
 
     //线上正式运行的IP地址
-    produceUrl = api.testUrl
+    produceUrl = api.produceUrl
 
     android = [
             compileSdkVersion: 27,

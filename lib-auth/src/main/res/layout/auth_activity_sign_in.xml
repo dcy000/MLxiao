@@ -150,7 +150,6 @@
             android:layout_marginTop="36pt"
             android:checked="true"
             android:textSize="36pt"
-            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="@+id/cl_auth_items"
             app:layout_constraintTop_toBottomOf="@+id/cl_auth_items" />
 
@@ -162,7 +161,6 @@
             android:text="我同意"
             android:textColor="@color/config_color_base_9"
             android:textSize="36pt"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/cb_agree_protocol"
             app:layout_constraintLeft_toRightOf="@+id/cb_agree_protocol"
             app:layout_constraintTop_toTopOf="@+id/cb_agree_protocol" />
@@ -176,7 +174,6 @@
             android:text="用户协议"
             android:textColor="#86B2FF"
             android:textSize="36pt"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/cb_agree_protocol"
             app:layout_constraintLeft_toRightOf="@+id/tv_agree"
             app:layout_constraintTop_toTopOf="@+id/cb_agree_protocol" />
