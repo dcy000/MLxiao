@@ -398,49 +398,70 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="36pt"
                 />
-            <TextView
-                android:id="@+id/tv_suggest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintTop_toBottomOf="@id/tv_suggest_title"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:textColor="#333"
-                android:textSize="48pt"
-                android:layout_marginLeft="60pt"
-                android:layout_marginRight="60pt"
-                android:layout_marginTop="16pt"
-                android:text="主人，您血糖偏低，并有下降趋势，低血糖出现饥饿、头昏眼花、面色苍白、心慌手颤、出冷汗、虚弱无力等症状，低血糖还容易诱发心律失常，心绞痛、心肌梗死以及脑血管意外并发症，请持续测量，必要时及时联系医生。"
-                android:lineSpacingMultiplier="1.2"/>
-            <TextView
-                android:id="@+id/tv_something_advice"
-                android:layout_width="340pt"
-                android:layout_height="100pt"
-                android:background="@drawable/health_measure_selector_btn_risk_assessment"
-                android:text="风险评估"
-                android:textColor="@color/white"
-                android:textSize="48pt"
-                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/health_knowledge"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                android:layout_marginBottom="50pt"
-                android:clickable="true"/>
-            <TextView
-                android:id="@+id/health_knowledge"
-                android:layout_width="340pt"
-                android:layout_height="100pt"
-                android:background="@drawable/health_measure_selector_btn_health_program"
-                android:text="健康方案"
-                android:textColor="@color/white"
-                android:textSize="48pt"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="@id/tv_something_advice"
-                app:layout_constraintLeft_toRightOf="@id/tv_something_advice"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginLeft="102pt"
-                android:clickable="true"/>
+                android:orientation="vertical"
+                >
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="vertical">
+                   <TextView
+                       android:id="@+id/tv_suggest"
+                       android:layout_width="match_parent"
+                       android:layout_height="0dp"
+                       android:layout_weight="1"
+                       android:textColor="#333"
+                       android:textSize="48pt"
+                       android:layout_marginLeft="60pt"
+                       android:layout_marginRight="60pt"
+                       android:layout_marginTop="16pt"
+                       android:text="主人，您血糖偏低，并有下降趋势，低血糖出现饥饿、头昏眼花、面色苍白、心慌手颤、出冷汗、虚弱无力等症状，低血糖还容易诱发心律失常，心绞痛、心肌梗死以及脑血管意外并发症，请持续测量，必要时及时联系医生。"
+                       android:lineSpacingMultiplier="1.2"/>
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:gravity="center_horizontal"
+                      android:layout_marginTop="40pt">
+                      <TextView
+                          android:id="@+id/tv_something_advice"
+                          android:layout_width="340pt"
+                          android:layout_height="100pt"
+                          android:background="@drawable/health_measure_selector_btn_risk_assessment"
+                          android:text="风险评估"
+                          android:textColor="@color/white"
+                          android:textSize="48pt"
+                          android:gravity="center"
+                          app:layout_constraintBottom_toBottomOf="parent"
+                          app:layout_constraintLeft_toLeftOf="parent"
+                          app:layout_constraintRight_toLeftOf="@+id/health_knowledge"
+                          app:layout_constraintHorizontal_chainStyle="packed"
+                          android:layout_marginBottom="50pt"
+                          android:clickable="true"/>
+                      <TextView
+                          android:id="@+id/health_knowledge"
+                          android:layout_width="340pt"
+                          android:layout_height="100pt"
+                          android:background="@drawable/health_measure_selector_btn_health_program"
+                          android:text="健康方案"
+                          android:textColor="@color/white"
+                          android:textSize="48pt"
+                          android:gravity="center"
+                          app:layout_constraintBottom_toBottomOf="@id/tv_something_advice"
+                          app:layout_constraintLeft_toRightOf="@id/tv_something_advice"
+                          app:layout_constraintRight_toRightOf="parent"
+                          android:layout_marginLeft="102pt"
+                          android:clickable="true"/>
+                  </LinearLayout>
+               </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

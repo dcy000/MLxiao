@@ -37,8 +37,11 @@ import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
+import com.example.han.referralproject.children.ChildEduHomeActivity;
+import com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.HttpCallback;
@@ -54,6 +57,7 @@ import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
+import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
@@ -71,7 +75,9 @@ import com.example.lenovo.rto.unit.UnitModel;
 import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_health_record.HealthRecordActivity;
+import com.gcml.old.auth.profile.MyBaseDataActivity;
 import com.gcml.old.auth.profile.PersonDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -91,6 +97,7 @@ import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 import com.ml.edu.OldRouter;
+import com.ml.edu.old.TheOldHomeActivity;
 import com.ml.edu.old.music.TheOldMusicActivity;
 
 import org.json.JSONException;
@@ -713,6 +720,196 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
+            if (inSpell.matches(".*((meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
+                CC.obtainBuilder("app.component.task").build().callAsync();
+                return;
+            }
+
+            if (inSpell.matches(".*(zuogetijian|jianchashenti|zuotijian).*")) {
+
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                UserSpHelper.setUserId(userId);
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+
+//                CC.obtainBuilder("health_measure")
+//                        .setActionName("SingleMeasure").build()
+//                        .call();
+                return;
+            }
+
+
+            if (inSpell.matches(".*(cexueya|liangxueya|xueyajiance).*")) {
+
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                UserSpHelper.setUserId(userId);
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+
+                                    CC.obtainBuilder("health_measure")
+                                            .setActionName("ToAllMeasureActivity")
+                                            .addParam("measure_type", IPresenter.MEASURE_BLOOD_PRESSURE)
+                                            .build().call();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+
+                return;
+            }
+
+
+            if (inSpell.matches(".*(cexueyang|liangxueyang).*")) {
+
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                UserSpHelper.setUserId(userId);
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+
+                                    CC.obtainBuilder("health_measure")
+                                            .setActionName("ToAllMeasureActivity")
+                                            .addParam("measure_type", IPresenter.MEASURE_BLOOD_OXYGEN)
+                                            .build().call();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+
+                return;
+            }
+
+
+            if (inSpell.matches(".*(cetiwen|liangtiwen|cewendu|liangwendu).*")) {
+
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                UserSpHelper.setUserId(userId);
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+
+                                    CC.obtainBuilder("health_measure")
+                                            .setActionName("ToAllMeasureActivity")
+                                            .addParam("measure_type", IPresenter.MEASURE_TEMPERATURE)
+                                            .build().call();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+
+                return;
+            }
+
+            if (inSpell.matches(".*(cexuetang|liangxuetang|xuetangyi).*")) {
+
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                UserSpHelper.setUserId(userId);
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+
+                                    CC.obtainBuilder("health_measure")
+                                            .setActionName("ToAllMeasureActivity")
+                                            .addParam("measure_type", IPresenter.MEASURE_BLOOD_SUGAR)
+                                            .build().call();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+
+                return;
+            }
+
+            if (inSpell.matches(".*(celizhong|liangtizhong).*")) {
+
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                UserSpHelper.setUserId(userId);
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+
+                                    CC.obtainBuilder("health_measure")
+                                            .setActionName("ToAllMeasureActivity")
+                                            .addParam("measure_type", IPresenter.MEASURE_WEIGHT)
+                                            .build().call();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+
+                return;
+            }
+
+            if (inSpell.matches(".*(cexindian|liangxindian|xiandianceliang|xindianceshi|xindianjiance|xiandiantu).*")) {
+
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                UserSpHelper.setUserId(userId);
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    CCHealthMeasureActions.jump2XinDianDetectActivity();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+
+                return;
+            }
+
             if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
                 NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
 //                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
@@ -742,12 +939,57 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
+            if (inSpell.matches(".*(yulezhongxin).*")) {
+                CC.obtainBuilder("app.component.recreation").build().callAsync();
+                return;
+            }
+
+            if (inSpell.matches(".*(laorenyule).*")) {
+                startActivity(TheOldHomeActivity.class);
+                return;
+            }
+
+            if (inSpell.matches(".*(youjiao|youjiaowenyu).*")) {
+                startActivity(ChildEduHomeActivity.class);
+                return;
+            }
+
+
+            if (inSpell.matches(".*(xiaogongju).*")) {
+                CC.obtainBuilder("app.component.recreation.tools").build().call();
+                return;
+            }
+
+
             if (inSpell.matches(".*yinyue.*")) {
                 OldRouter.routeToOldMusicActivity(this);
                 return;
             }
+            if (inSpell.matches(".*(jiankangguanli|gaoxueyaguanli|gaoxueyafangan|" +
+                    "gaoxueyazhiliao|gaoxueyacaipu|jiankangfangan|jiankangbaogao).*")) {
+                startActivity(SlowDiseaseManagementActivity.class);
+                return;
+            }
+            if (inSpell.matches(".*(fengxian|fengxianpinggu|fengxianpanduan|huanbingfenxiang|debingfengxian|jiankangyuce|jiankangyuche).*")) {
+                CC.obtainBuilder("health_measure")
+                        .setActionName("To_HealthInquiryActivity")
+                        .build()
+                        .call();
+                return;
+            }
 
-            if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo).*")) {
+            if (inSpell.matches(".*(qiehuan|qiehuanzhanghao|chongxindenglu|tianjiazhanghao).*")) {
+                startActivity(MyBaseDataActivity.class);
+                return;
+            }
+
+            if (inSpell.matches(".*(shezhi|jiqirenshezhi|wifilianjie|tiaojieyinliang|yiliangdaxiao).*")) {
+                startActivity(SettingActivity.class);
+                return;
+            }
+
+
+            if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo|celiangshuju|jiankangshuju|jiankangdangan|jianchajieguo).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
                 return;
             }
@@ -772,17 +1014,41 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
+
+            if (inSpell.matches(".*(erge|ertonggequ).*")) {
+                startActivity(ChildEduSheetDetailsActivity.class,"sheetCategory","儿童歌曲");
+                return;
+            }
+
+
+            if (inSpell.matches(".*(yaolanqu).*")) {
+                startActivity(ChildEduSheetDetailsActivity.class,"sheetCategory","摇篮曲");
+                return;
+            }
+
+            if (inSpell.matches(".*(taijiaoyinyue|taijiao).*")) {
+                startActivity(ChildEduSheetDetailsActivity.class,"sheetCategory","胎教音乐");
+                return;
+            }
+
             if (inSpell.matches(".*gerenzhongxin.*")
-                    || inSpell.matches(".*gerenshezhi.*")) {
+                    || inSpell.matches(".*guorenzhongxin.*")) {
                 gotoPersonCenter();
                 return;
             }
+
+            if (inSpell.matches(".*(geren|xiugai)xinxi.*")
+                    || inSpell.matches(".*huantouxiang.*")) {
+                startActivity(new Intent(this, MyBaseDataActivity.class));
+                return;
+            }
+
             if (inSpell.matches(".*zhujiemian|zujiemian|jujiemian.*")
                     || inSpell.matches(".*zhujiemian.*")) {
                 gotoHomePage();
                 return;
             }
-            if (inSpell.matches("yishengjianyi")) {
+            if (inSpell.matches("yishengjianyi|chakanxiaoxi")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
                 startActivity(intent);
                 return;
@@ -857,58 +1123,72 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (inSpell.matches(".*(guanxin(bin|bing)).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "冠心病"));
+                return;
             }
             if (inSpell.matches(".*(zhiqiguanxiaochuan).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "支气管哮喘"));
+                return;
             }
             if (inSpell.matches(".*(gan(yin|ying)hua).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "肝硬化"));
+                return;
             }
             if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "糖尿病"));
+                return;
             }
             if (inSpell.matches(".*(tongfeng).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "痛风"));
+                return;
             }
             if (inSpell.matches(".*(changweiyan).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "肠胃炎"));
+                return;
             }
             if (inSpell.matches(".*(ji(xin|xing)(sang|shang)huxidaoganran).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "急性上呼吸道感染"));
+                return;
             }
             if (inSpell.matches(".*(xinbaoyan).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "心包炎"));
+                return;
             }
             if (inSpell.matches(".*((pin|ping)(xie|xue)).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "贫血"));
+                return;
             }
             if (inSpell.matches(".*(feiyan).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "肺炎"));
+                return;
             }
             if (inSpell.matches(".*(di(xie|xue)tang).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "低血糖"));
+                return;
             }
             if (inSpell.matches(".*((nao|lao)chu(xie|xue)).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "脑出血"));
+                return;
             }
             if (inSpell.matches(".*(fei(suan|shuan)sai).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "肺栓塞"));
+                return;
             }
             if (inSpell.matches(".*(dianxian).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "癫痫"));
+                return;
             }
             boolean dealKeyWord = keyWordDeal(inSpell);
             if (dealKeyWord) {
@@ -1152,7 +1432,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
-            } else if (inSpell.matches(".*chongqian.*") || inSpell.matches(".*chongzhi.*") || result.contains("钱不够") || result.contains("没钱")) {
+            } else if (inSpell.matches(".*chongqian|qianbugou|meiqian.*") || inSpell.matches(".*chongzhi.*") || result.contains("钱不够") || result.contains("没钱")) {
                 Intent intent = new Intent(getApplicationContext(), PayActivity.class);
                 startActivity(intent);
             } else if (inSpell.matches(".*maidongxi")
@@ -1169,7 +1449,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
 
 
-            } else if (inSpell.matches(".*dingdan")) {
+            } else if (inSpell.matches(".*dingdan|wodedingdan|chakandingdan|dingdanxiangqing|gouwuqingdan")) {
 
                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                 startActivity(intent);
@@ -2167,7 +2447,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private File file;//要播放的文件
 
 
-    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixing|chiyao|fuyao).*";
+    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixing|chiyao|fuyao|chiyaotixing).*";
     public static final String REGEX_SET_ALARM_WHEN = ".*tixing.*(shangwu|xiawu).*(\\d{1,2}):(\\d{1,2}).*yao.*";
     public static final String REGEX_SEE_DOCTOR = ".*(bushufu|touteng|fa(sao|shao)|duziteng|nanshou).*";
 
@@ -2300,4 +2580,23 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private void startActivity(Class<?> cls) {
+        startActivity(cls, null, null);
+    }
+
+    private void startActivity(Class<?> cls, String key, String value) {
+        Intent intent = new Intent(this, cls);
+        if (!(this instanceof Activity)) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        intent.putExtra(key, value);
+        startActivity(intent);
+
+//        if (listener != null) {
+//            listener.onEnd();
+//        }
+
+    }
+
 }

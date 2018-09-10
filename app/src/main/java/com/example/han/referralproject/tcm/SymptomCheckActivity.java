@@ -18,6 +18,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.google.gson.Gson;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public class SymptomCheckActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -56,6 +57,8 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
                 startActivity(new Intent(SymptomCheckActivity.this, MainActivity.class));
             }
         });
+
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,欢迎来到症状自查");
     }
 
     @Override
