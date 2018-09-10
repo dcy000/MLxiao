@@ -48,13 +48,13 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
     private RadioGroup mRg;
     private TextView mTvZaocan;
     private ImageView mIv1;
-    private JustifyTextView mTvBreakfast;
+    private TextView mTvBreakfast;
     private TextView mTvWucan;
     private ImageView mIv2;
-    private JustifyTextView mTvLunch;
+    private TextView mTvLunch;
     private TextView mTvWancan;
     private ImageView mIv3;
-    private JustifyTextView mTvDinner;
+    private TextView mTvDinner;
     private WeekDietPlan cacheWeekDietPlan;
     private IChangToolbar iChangToolbar;
     private String TAG = "WeekDietPlanFragment";
@@ -112,17 +112,27 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
             String lunch = mondayCookbook.getLunch();
             String dinner = mondayCookbook.getDinner();
             if (!TextUtils.isEmpty(breakfast)) {
-                mTvBreakfast.setText(breakfast);
+                mTvBreakfast.setText(ToDBC(breakfast));
             }
-            if (!TextUtils.isEmpty(lunch)) {
+            if (!TextUtils.isEmpty(ToDBC(lunch))) {
                 mTvLunch.setText(lunch);
             }
-            if (!TextUtils.isEmpty(dinner)) {
+            if (!TextUtils.isEmpty(ToDBC(dinner))) {
                 mTvDinner.setText(dinner);
             }
         }
     }
-
+    private   String ToDBC(String input) {
+        char[] c = input.toCharArray();
+        for (int i = 0; i< c.length; i++) {
+            if (c[i] == 12288) {
+                c[i] = (char) 32;
+                continue;
+            }if (c[i]> 65280&& c[i]< 65375)
+                c[i] = (char) (c[i] - 65248);
+        }
+        return new String(c);
+    }
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser) {
