@@ -163,6 +163,30 @@ public class AlertSexActivity extends AppCompatActivity implements View.OnClickL
 
             }
         });
+
+        //        UserEntity user = new UserEntity();
+//        user.age = seletedAge;
+//        CCResult result = CC.obtainBuilder("com.gcml.auth.putUser")
+//                .addParam("user", user)
+//                .build()
+//                .call();
+//        Observable<Object> data = result.getDataItem("data");
+//        data.subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .as(RxUtils.autoDisposeConverter(this))
+//                .subscribe(new DefaultObserver<Object>() {
+//                    @Override
+//                    public void onNext(Object o) {
+//                        super.onNext(o);
+//                        runOnUiThread(() -> speak("修改成功"));
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable throwable) {
+//                        super.onError(throwable);
+//                        runOnUiThread(() -> speak("修改失败"));
+//                    }
+//                });
     }
 
     private void speak(String text) {

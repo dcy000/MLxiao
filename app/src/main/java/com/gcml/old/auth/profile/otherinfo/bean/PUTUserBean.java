@@ -3,9 +3,11 @@ package com.gcml.old.auth.profile.otherinfo.bean;
 import java.io.Serializable;
 
 /**
+ * @see com.gcml.common.data.UserEntity
  * Created by lenovo on 2018/8/28.
  */
 
+@Deprecated
 public class PUTUserBean implements Serializable{
     public Integer age;
     public Integer bid;
