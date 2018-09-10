@@ -43,7 +43,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     @Override
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
-//        getHypertensionHand();
+        getHypertensionHand();
     }
 
     /**

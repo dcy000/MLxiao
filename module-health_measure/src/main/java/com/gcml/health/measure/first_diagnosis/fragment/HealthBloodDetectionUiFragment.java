@@ -390,9 +390,11 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
 
     private void setBtnClickableState(boolean enableClick) {
         if (enableClick) {
+            mBtnHealthHistory.setVisibility(View.VISIBLE);
             mBtnHealthHistory.setClickable(true);
             mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
         } else {
+            mBtnHealthHistory.setVisibility(View.GONE);
             mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
             mBtnHealthHistory.setClickable(false);
         }

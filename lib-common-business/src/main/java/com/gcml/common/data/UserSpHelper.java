@@ -1,6 +1,7 @@
 package com.gcml.common.data;
 
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.gcml.lib_utils.data.SPUtil;
 
@@ -45,15 +46,19 @@ public class UserSpHelper {
     /**
      * 用户身高的key
      */
-    private static final String KEY_USER_HEIGHT="user_height";
+    private static final String KEY_USER_HEIGHT = "user_height";
     /**
      * 用户名字
      */
-    private static final String KEY_USER_NAME="user_name";
+    private static final String KEY_USER_NAME = "user_name";
     /**
      * 用户血压测量惯用手 0：左手 1：右手
      */
-    private static final String KEY_USER_HYPERTENSIONHAND="user_hypertensionHand";
+    private static final String KEY_USER_HYPERTENSIONHAND = "user_hypertensionHand";
+    /**
+     * 判断有没有做过风险评估
+     */
+    private static final String KEY_IS_FIRST_RISK_ASSESSMENT = "isFirstRisk";
 
     /**
      * 获取SP中存储的userid
@@ -196,33 +201,62 @@ public class UserSpHelper {
 
     /**
      * 获取存储在SP中的用户身高 单位cm
+     *
      * @return
      */
-    public static String getUserHeight(){
-        return (String) SPUtil.get(KEY_USER_HEIGHT,"");
+    public static String getUserHeight() {
+        return (String) SPUtil.get(KEY_USER_HEIGHT, "");
     }
 
     /**
      * 获取SP中存储的username
+     *
      * @return
      */
-    public static String getUserName(){
-        return (String) SPUtil.get(KEY_USER_NAME,"");
+    public static String getUserName() {
+        return (String) SPUtil.get(KEY_USER_NAME, "");
     }
 
     /**
      * 获取存在SP中的惯用手
+     *
      * @return
      */
-    public static String getUserHypertensionHand(){
-        return (String) SPUtil.get(KEY_USER_HYPERTENSIONHAND,"");
+    public static String getUserHypertensionHand() {
+        return (String) SPUtil.get(KEY_USER_HYPERTENSIONHAND, "");
     }
 
     /**
      * 保存惯用手到SP中
+     *
      * @param hypertensionHand
      */
-    public static void setUserHypertensionHand(String hypertensionHand){
-        SPUtil.put(KEY_USER_HYPERTENSIONHAND,hypertensionHand);
+    public static void setUserHypertensionHand(String hypertensionHand) {
+        SPUtil.put(KEY_USER_HYPERTENSIONHAND, hypertensionHand);
+    }
+
+    /**
+     * 记录有没有做过风险评估的报告
+     *
+     * @param isDo
+     */
+    public static void setRiskAssessmentState(boolean isDo) {
+        String userId = getUserId();
+        if (TextUtils.isEmpty(userId)) {
+            return;
+        }
+        SPUtil.put(userId + KEY_IS_FIRST_RISK_ASSESSMENT, isDo);
+    }
+
+    /**
+     * 获取存在SP中的是否做过风险评估的标志
+     * @return
+     */
+    public static boolean getRiskAssessmentState() {
+        String userId = getUserId();
+        if (TextUtils.isEmpty(userId)) {
+            return false;
+        }
+        return (boolean) SPUtil.get(userId + KEY_IS_FIRST_RISK_ASSESSMENT, false);
     }
 }

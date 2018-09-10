@@ -153,7 +153,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         //体重秤
         this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_weight, false, "体重秤", 7));
         //更多
-        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_more, false, "敬请期待", 0));
+//        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_more, false, "敬请期待", 0));
         if (deviceBeans != null) {
             for (DeviceBean deviceBean : deviceBeans) {
                 switch (deviceBean.getName()) {
