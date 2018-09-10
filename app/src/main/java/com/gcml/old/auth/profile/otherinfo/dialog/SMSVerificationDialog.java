@@ -19,6 +19,9 @@ import com.gcml.lib_utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by lenovo on 2018/8/29.
  */
@@ -140,16 +143,20 @@ public class SMSVerificationDialog extends DialogFragment implements View.OnClic
         }
         //请求验证码
         NetworkApi.getCode(phoneNumber, codeJson -> {
-            SMSVerificationDialog.this.code = codeJson;
-            if (codeJson != null) {
-                updateCountDownUi();
-                ToastUtils.showShort("获取验证码成功");
-            } else {
+            try {
+                JSONObject codeObj = new JSONObject(codeJson);
+                SMSVerificationDialog.this.code = codeObj.optString("code");
+                if (codeJson != null) {
+                    updateCountDownUi();
+                    ToastUtils.showShort("获取验证码成功");
+                } else {
+                    ToastUtils.showShort("获取验证码失败");
+                }
+            } catch (Throwable e) {
                 ToastUtils.showShort("获取验证码失败");
+                e.printStackTrace();
             }
-
         }, message -> ToastUtils.showShort("获取验证码失败"));
-
     }
 
 
