@@ -96,6 +96,7 @@ public class HealthMeasureCC implements IComponent {
             case ReceiveActionNames.TO_ALL_MEASURE_ACTIVITY:
                 int param = cc.getParamItem(ReceiveKeys.KEY_EXTRA_MEASURE_TYPE);
                 AllMeasureActivity.startActivity(context, param);
+
                 break;
             case ReceiveActionNames.TO_HEALTHINQUIRYACTIVITY:
                 HealthInquiryActivity.startActivity(context);

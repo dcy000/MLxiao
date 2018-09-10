@@ -212,7 +212,7 @@ public class PreviewHelper
     };
 
     /**
-     * 用于预览帧数据
+     * 解决预览帧数据内存抖动 自己管理预览帧数据
      */
     private final Pools.Pool<byte[]> pool = new Pools.SynchronizedPool<>(18);
 

@@ -109,7 +109,13 @@ public class UserRepository {
 
     public Observable<String> fetchCode(String phone) {
         return mUserService.fetchCode(phone)
-                .compose(RxUtils.apiResultTransformer());
+                .compose(RxUtils.apiResultTransformer())
+                .map(new Function<Code, String>() {
+                    @Override
+                    public String apply(Code code) throws Exception {
+                        return code.code;
+                    }
+                });
     }
 
     public Observable<Object> updatePassword(String account, String pwd) {
