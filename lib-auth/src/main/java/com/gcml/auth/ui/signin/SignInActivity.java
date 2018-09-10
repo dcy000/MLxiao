@@ -1,5 +1,6 @@
 package com.gcml.auth.ui.signin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -122,16 +123,13 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     }
 
     public void signIn() {
-//        if ("123456".equals(binding.etPhone.getText().toString()) && "654321".equals(binding.etPassword.getText().toString())) {
-//            Bundle bundle = new Bundle();
-//            bundle.putBoolean("isTest",true);
-////            MyApplication.getInstance().userId = "123456";
-////            CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
-//
-//
-//            finish();
-//            return;
-//        }
+        if ("123456".equals(binding.etPhone.getText().toString())
+                && "654321".equals(binding.etPassword.getText().toString())) {
+            CC.obtainBuilder("com.gcml.old.system.factoryTest")
+                    .build()
+                    .callAsync();
+            return;
+        }
 
         String phone = binding.etPhone.getText().toString().trim();
         String pwd = binding.etPassword.getText().toString().trim();
@@ -211,6 +209,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                 .build()
                 .callAsync();
     }
+
 
     public void goUserProtocol() {
         CC.obtainBuilder("com.gcml.old.user.auth")
