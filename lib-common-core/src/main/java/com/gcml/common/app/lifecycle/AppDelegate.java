@@ -130,7 +130,7 @@ public enum AppDelegate implements AppLifecycleCallbacks {
             mAppActivityLifecycleCallbacks = new Application.ActivityLifecycleCallbacks() {
                 @Override
                 public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                    Timber.i("%s.onActivityCreated: ", activity.getClass().getName());
+                    Timber.i("onActivityCreated: %s %s", activity, savedInstanceState);
                     if (activity instanceof FragmentActivity) {
                         FragmentManager fm = ((FragmentActivity) activity).getSupportFragmentManager();
                         fm.registerFragmentLifecycleCallbacks(appFragmentLifecycleCallbacks(), true);
@@ -142,32 +142,32 @@ public enum AppDelegate implements AppLifecycleCallbacks {
 
                 @Override
                 public void onActivityStarted(Activity activity) {
-                    Timber.i("%s.onActivityStarted: ", activity.getClass().getName());
+                    Timber.i("onActivityStarted: %s", activity);
                 }
 
                 @Override
                 public void onActivityResumed(Activity activity) {
-                    Timber.i("%s.onActivityResumed: ", activity.getClass().getName());
+                    Timber.i("onActivityResumed: %s", activity);
                 }
 
                 @Override
                 public void onActivityPaused(Activity activity) {
-                    Timber.i("%s.onActivityPaused: ", activity.getClass().getName());
+                    Timber.i("onActivityPaused: %s", activity);
                 }
 
                 @Override
                 public void onActivityStopped(Activity activity) {
-                    Timber.i("%s.onActivityStopped: ", activity.getClass().getName());
+                    Timber.i("onActivityStopped: %s", activity);
                 }
 
                 @Override
                 public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-                    Timber.i("%s.onActivitySaveInstanceState: ", activity.getClass().getName());
+                    Timber.i("onActivitySaveInstanceState: %s %s", activity, outState);
                 }
 
                 @Override
                 public void onActivityDestroyed(Activity activity) {
-                    Timber.i("%s.onActivityDestroyed: ", activity.getClass().getName());
+                    Timber.i("onActivityDestroyed: %s", activity);
                 }
             };
         }
@@ -179,72 +179,72 @@ public enum AppDelegate implements AppLifecycleCallbacks {
             mAppFragmentLifecycleCallbacks = new FragmentManager.FragmentLifecycleCallbacks() {
                 @Override
                 public void onFragmentPreAttached(FragmentManager fm, Fragment f, Context context) {
-                    Timber.i("%s.onFragmentPreAttached: ", f.getClass().getName());
+                    Timber.i("onFragmentPreAttached: %s %s", f, fm);
                 }
 
                 @Override
                 public void onFragmentAttached(FragmentManager fm, Fragment f, Context context) {
-                    Timber.i("%s.onFragmentAttached: ", f.getClass().getName());
+                    Timber.i("onFragmentAttached: %s %s", f, fm);
                 }
 
                 @Override
                 public void onFragmentPreCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
-                    Timber.i("%s.onFragmentPreCreated: ", f.getClass().getName());
+                    Timber.i("onFragmentPreCreated: %s %s", f, fm);
                 }
 
                 @Override
                 public void onFragmentCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
-                    Timber.i("%s.onFragmentCreated: ", f.getClass().getName());
+                    Timber.i("onFragmentCreated: %s %s", f, fm);
                 }
 
                 @Override
                 public void onFragmentActivityCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
-                    Timber.i("%s.onFragmentActivityCreated: ", f.getClass().getName());
+                    Timber.i("onFragmentActivityCreated: %s %s", f, fm);
                 }
 
                 @Override
                 public void onFragmentViewCreated(FragmentManager fm, Fragment f, View v, Bundle savedInstanceState) {
-                    Timber.i("%s.onFragmentViewCreated: ", f.getClass().getName());
+                    Timber.i("onFragmentViewCreated: %s %s", f, fm);
                 }
 
                 @Override
                 public void onFragmentStarted(FragmentManager fm, Fragment f) {
-                    Timber.i("%s.onFragmentStarted: ", f.getClass().getName());
+                    Timber.i("onFragmentStarted: %s %s", f, fm);
                 }
 
                 @Override
                 public void onFragmentResumed(FragmentManager fm, Fragment f) {
-                    Timber.i("%s.onFragmentResumed: ", f.getClass().getName());
+                    Timber.i("onFragmentResumed: %s %s", f, fm);
                 }
 
                 @Override
                 public void onFragmentPaused(FragmentManager fm, Fragment f) {
-                    Timber.i("%s.onFragmentPaused: ", f.getClass().getName());
+                    Timber.i("onFragmentPaused: %s %s", f, fm);
                 }
 
                 @Override
                 public void onFragmentStopped(FragmentManager fm, Fragment f) {
-                    Timber.i("%s.onFragmentStopped: ", f.getClass().getName());
+                    Timber.i("onFragmentStopped: %s %s", f, fm);
                 }
 
                 @Override
                 public void onFragmentSaveInstanceState(FragmentManager fm, Fragment f, Bundle outState) {
-                    Timber.i("%s.onFragmentSaveInstanceState: ", f.getClass().getName());
+                    Timber.i("onFragmentSaveInstanceState: %s %s %s", f, fm, outState);
                 }
 
                 @Override
                 public void onFragmentViewDestroyed(FragmentManager fm, Fragment f) {
-                    Timber.i("%s.onFragmentViewDestroyed: ", f.getClass().getName());
+                    Timber.i("onFragmentViewDestroyed: %s %s", f, fm);
                 }
 
                 @Override
                 public void onFragmentDestroyed(FragmentManager fm, Fragment f) {
-                    Timber.i("%s.onFragmentDestroyed: ", f.getClass().getName());
+                    Timber.i("onFragmentDestroyed: %s %s", f, fm);
                 }
 
                 @Override
                 public void onFragmentDetached(FragmentManager fm, Fragment f) {
-                    Timber.i("%s.onFragmentDetached: ", f.getClass().getName());
+                    Timber.i("onFragmentDetached: %s %s", f, fm);
                 }
             };
         }

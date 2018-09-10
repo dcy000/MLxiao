@@ -32,7 +32,7 @@ public interface UserService {
     );
 
     @GET("ZZB/br/GainCode")
-    Observable<ApiResult<String>> fetchCode(
+    Observable<ApiResult<Code>> fetchCode(
             @Query("mobile") String phone
     );
 

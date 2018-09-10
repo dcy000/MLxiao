@@ -180,6 +180,12 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
             MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入正确的手机号");
             return;
         }
+
+//        if (!binding.cbAgreeProtocol.isChecked()) {
+//            ToastUtils.showShort("登录需要勾选同意用户协议");
+//            return;
+//        }
+
         viewModel.hasAccount(phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -274,6 +280,13 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                         MLVoiceSynthetize.startSynthesize(getApplicationContext(), "注册失败");
                     }
                 });
+    }
+
+    public void goUserProtocol() {
+        CC.obtainBuilder("com.gcml.old.user.auth")
+                .setActionName("protocol")
+                .build()
+                .callAsync();
     }
 
     @Override
