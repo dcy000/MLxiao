@@ -960,6 +960,24 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
+            if (inSpell.matches(".*(zhougongjiemeng|jiemeng|jiegemeng).*")) {
+                CC.obtainBuilder("app.component.recreation.tool").setActionName("oneiromancy").build().call();
+                return;
+            }
+
+            if (inSpell.matches(".*(lishijintian|lishishangdejintian|lishishangjintiandeshijian).*")) {
+                CC.obtainBuilder("app.component.recreation.tool").setActionName("historyToday").build().call();
+                return;
+            }
+
+            if (inSpell.matches(".*(chaxunriqi|jintianxingqiji|jidianle|jintianshenmerizhi).*")) {
+                CC.obtainBuilder("app.component.recreation.tool").setActionName("dateInquiry").build().call();
+                return;
+            }
+            if (inSpell.matches(".*(caipu|shaocai|zuocai|tuijiancai).*")) {
+                CC.obtainBuilder("app.component.recreation.tool").setActionName("cookBook").build().call();
+                return;
+            }
 
             if (inSpell.matches(".*yinyue.*")) {
                 OldRouter.routeToOldMusicActivity(this);
@@ -1016,18 +1034,18 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             if (inSpell.matches(".*(erge|ertonggequ).*")) {
-                startActivity(ChildEduSheetDetailsActivity.class,"sheetCategory","儿童歌曲");
+                startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "儿童歌曲");
                 return;
             }
 
 
             if (inSpell.matches(".*(yaolanqu).*")) {
-                startActivity(ChildEduSheetDetailsActivity.class,"sheetCategory","摇篮曲");
+                startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "摇篮曲");
                 return;
             }
 
             if (inSpell.matches(".*(taijiaoyinyue|taijiao).*")) {
-                startActivity(ChildEduSheetDetailsActivity.class,"sheetCategory","胎教音乐");
+                startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "胎教音乐");
                 return;
             }
 
