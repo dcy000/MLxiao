@@ -72,6 +72,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import timber.log.Timber;
+
 import static android.content.Context.AUDIO_SERVICE;
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 import static com.example.lenovo.rto.Constans.SCENE_Id;
@@ -700,6 +702,7 @@ public class DataDealHelper {
             str = "百科" + str.substring(0, str.length() - 2);
         }
         results = QaApi.getQaFromXf(str);
+        Timber.i("QaApi %s",results);
         String audiopath = results.get("audiopath");
         String text = results.get("text");
         boolean empty = TextUtils.isEmpty(text);
