@@ -57,7 +57,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
     private int pageIndex = 0;
     private HealthInquiryBean healthInquiryBean;
     private static List<HealthInquiryBean.QuestionListBean> cacheDatas = new ArrayList<>();
-    private String userId = "100206";
+    private String userId = "";
     private DialogSureCancel mSureCancel;
 
     public static void startActivity(Context context){
@@ -76,22 +76,6 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
 
     @Override
     protected void backLastActivity() {
-//        // 获取当前回退栈中的Fragment个数
-//        int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-//        // 判断当前回退栈中的fragment个数,
-//        if (backStackEntryCount > 1) {
-//            // 立即回退一步,并且把缓存的数据清除
-//            getSupportFragmentManager().popBackStackImmediate();
-//
-//            int size = cacheDatas.size();
-//            if (size > 0) {
-//                cacheDatas.remove(size - 1);
-//            }
-//        } else {
-//            //回退栈中只剩一个时,退出应用
-//            finish();
-//        }
-
         if (--pageIndex>0){
             replaceFragment(healthInquiryBean.getQuestionList().get(pageIndex-1),pageIndex-1);
             int size = cacheDatas.size();
@@ -122,7 +106,12 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                     public void onNext(HealthInquiryBean healthInquiryBeans) {
                         if (healthInquiryBeans != null) {
                             HealthInquiryActivity.this.healthInquiryBean = healthInquiryBeans;
-                            addFirstTipFragment();
+                            //如果已经做过风险评估则不需要引导页
+                            if (UserSpHelper.getRiskAssessmentState()){
+                                replaceFragment(healthInquiryBean.getQuestionList().get(pageIndex), pageIndex++);
+                            }else{
+                                addFirstTipFragment();
+                            }
                         }
                     }
 
@@ -243,6 +232,8 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                         .subscribeWith(new DefaultObserver<Object>() {
                             @Override
                             public void onNext(Object o) {
+                                //问题回答结束就算是做过风险评估了 下次再进入就不需要引导页了 为了保证唯一性，需要和userId进行绑定
+                                UserSpHelper.setRiskAssessmentState(true);
                                 ToastUtils.showShort("上传数据成功");
                                 FirstDiagnosisActivity.startActivity(HealthInquiryActivity.this);
                                 finish();

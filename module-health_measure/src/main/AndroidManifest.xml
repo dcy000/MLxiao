@@ -58,5 +58,8 @@
         <activity android:name=".bloodpressure_habit.GetHypertensionHandActivity"
             android:screenOrientation="landscape"
             android:label="惯用手"/>
+        <activity android:name=".measure_abnormal.HealthMeasureAbnormalActivity"
+            android:screenOrientation="landscape"
+            android:label="测量异常后确定原因的界面"/>
     </application>
 </manifest>

@@ -16,28 +16,30 @@ import com.example.han.referralproject.R;
 
 import java.util.Vector;
 
+/**
+ * 解决TextView遇到标点自动换行的bug
+ */
 @SuppressLint("AppCompatCustomView")
 public class StartCustomTextView extends TextView {
-    public  static  int m_iTextHeight; //文本的高度
-    public  static  int m_iTextWidth;//文本的宽度
+    public static int m_iTextHeight; //文本的高度
+    public static int m_iTextWidth;//文本的宽度
 
     private Paint mPaint = null;
-    private String string="";
+    private String string = "";
     private float LineSpace = 0;//行间距
     private int left_Margin;
     private int right_Margin;
     private int bottom_Margin;
 
-    public StartCustomTextView(Context context, AttributeSet set)
-    {
-        super(context,set);
+    public StartCustomTextView(Context context, AttributeSet set) {
+        super(context, set);
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         TypedArray typedArray = context.obtainStyledAttributes(set, R.styleable.CYTextView);
         int width = displayMetrics.widthPixels;
         left_Margin = 29;
         right_Margin = 29;
         bottom_Margin = 29;
-        width = width - left_Margin -right_Margin;
+        width = width - left_Margin - right_Margin;
         float textsize = typedArray.getDimension(R.styleable.CYTextView_textSize, 34);
 //        int textcolor = typedArray.getColor(R.styleable.CYTextView_textColor, getResources().getColor(R.color.white));
         float linespace = typedArray.getDimension(R.styleable.CYTextView_lineSpacingExtra, 15);
@@ -46,15 +48,15 @@ public class StartCustomTextView extends TextView {
         typedArray.recycle();
 
         //设置 CY TextView的宽度和行间距www.jcodecraeer.com
-        m_iTextWidth=width;
-        LineSpace=linespace;
+        m_iTextWidth = width;
+        LineSpace = linespace;
 
         // 构建paint对象
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setColor(Color.parseColor("#666666"));
         mPaint.setTextSize(textsize);
-        switch(typeface){
+        switch (typeface) {
             case 0:
                 mPaint.setTypeface(Typeface.DEFAULT);
                 break;
@@ -75,142 +77,136 @@ public class StartCustomTextView extends TextView {
     }
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         char ch;
         int w = 0;
         int istart = 0;
         int m_iFontHeight;
-        int m_iRealLine=0;
-        int x=2;
-        int y=30;
+        int m_iRealLine = 0;
+        int x = 2;
+        int y = 30;
 
-        Vector m_String=new Vector();
+        Vector m_String = new Vector();
 
         Paint.FontMetrics fm = mPaint.getFontMetrics();
-        m_iFontHeight = (int) Math.ceil(fm.descent - fm.top) + (int)LineSpace;//计算字体高度（字体高度＋行间距）
-        for (int i = 0; i < string.length(); i++)
-        {
+        m_iFontHeight = (int) Math.ceil(fm.descent - fm.top) + (int) LineSpace;//计算字体高度（字体高度＋行间距）
+        for (int i = 0; i < string.length(); i++) {
             ch = string.charAt(i);
             float[] widths = new float[1];
             String srt = String.valueOf(ch);
             mPaint.getTextWidths(srt, widths);
-            if (ch == '\n'){
+            if (ch == '\n') {
                 m_iRealLine++;
                 m_String.addElement(string.substring(istart, i));
                 istart = i + 1;
                 w = 0;
-            }else{
+            } else {
                 w += (int) (Math.ceil(widths[0]));
-                if (w > m_iTextWidth){
+                if (w > m_iTextWidth) {
                     m_iRealLine++;
                     m_String.addElement(string.substring(istart, i));
                     istart = i;
                     i--;
                     w = 0;
-                }else{
-                    if (i == (string.length() - 1)){
+                } else {
+                    if (i == (string.length() - 1)) {
                         m_iRealLine++;
                         m_String.addElement(string.substring(istart, string.length()));
                     }
                 }
             }
         }
-        m_iTextHeight=m_iRealLine*m_iFontHeight+2;
+        m_iTextHeight = m_iRealLine * m_iFontHeight + 2;
 //        canvas.setViewport(m_iTextWidth, m_iTextWidth);
         for (int i = 0, j = 0; i < m_iRealLine; i++, j++) {
-            canvas.drawText((String)(m_String.elementAt(i)), x,  y+m_iFontHeight * j, mPaint);
+            canvas.drawText((String) (m_String.elementAt(i)), x, y + m_iFontHeight * j, mPaint);
         }
     }
 
 
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int measuredHeight = measureHeight(heightMeasureSpec);
         int measuredWidth = measureWidth(widthMeasureSpec);
         this.setMeasuredDimension(measuredWidth, measuredHeight);
-        LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(measuredWidth,measuredHeight);
-        layout.leftMargin= left_Margin;
-        layout.rightMargin= right_Margin;
-        layout.bottomMargin= bottom_Margin;
+        LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(measuredWidth, measuredHeight);
+        layout.leftMargin = left_Margin;
+        layout.rightMargin = right_Margin;
+        layout.bottomMargin = bottom_Margin;
         this.setLayoutParams(layout);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    private int measureHeight(int measureSpec)
-    {
+    private int measureHeight(int measureSpec) {
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
         // Default size if no limits are specified.
         initHeight();
         int result = m_iTextHeight;
-        if (specMode == MeasureSpec.AT_MOST){
+        if (specMode == MeasureSpec.AT_MOST) {
             // Calculate the ideal size of your
             // control within this maximum size.
             // If your control fills the available
             // space return the outer bound.
             result = specSize;
-        }else if (specMode == MeasureSpec.EXACTLY){
+        } else if (specMode == MeasureSpec.EXACTLY) {
             // If your control can fit within these bounds return that value.
 //            result = specSize;
         }
         return result;
     }
 
-    private void initHeight()
-    {
+    private void initHeight() {
         //设置 CY TextView的初始高度为0
-        m_iTextHeight=0;
+        m_iTextHeight = 0;
 
         //大概计算 CY TextView所需高度
         Paint.FontMetrics fm = mPaint.getFontMetrics();
-        int m_iFontHeight = (int) Math.ceil(fm.descent - fm.top) + (int)LineSpace;
-        int line=0;
-        int istart=0;
+        int m_iFontHeight = (int) Math.ceil(fm.descent - fm.top) + (int) LineSpace;
+        int line = 0;
+        int istart = 0;
 
-        int w=0;
-        for (int i = 0; i < string.length(); i++)
-        {
+        int w = 0;
+        for (int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
             float[] widths = new float[1];
             String srt = String.valueOf(ch);
             mPaint.getTextWidths(srt, widths);
-            if (ch == '\n'){
+            if (ch == '\n') {
                 line++;
                 istart = i + 1;
                 w = 0;
-            }else{
+            } else {
                 w += (int) (Math.ceil(widths[0]));
-                if (w > m_iTextWidth){
+                if (w > m_iTextWidth) {
                     line++;
                     istart = i;
                     i--;
                     w = 0;
-                }else{
-                    if (i == (string.length() - 1)){
+                } else {
+                    if (i == (string.length() - 1)) {
                         line++;
                     }
                 }
             }
         }
-        m_iTextHeight=(line)*m_iFontHeight+2;
+        m_iTextHeight = (line) * m_iFontHeight + 2;
     }
 
-    private int measureWidth(int measureSpec)
-    {
+    private int measureWidth(int measureSpec) {
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
         // Default size if no limits are specified.
         int result = 500;
-        if (specMode == MeasureSpec.AT_MOST){
+        if (specMode == MeasureSpec.AT_MOST) {
             // Calculate the ideal size of your control
             // within this maximum size.
             // If your control fills the available space
             // return the outer bound.
             result = specSize;
-        }else if (specMode == MeasureSpec.EXACTLY){
+        } else if (specMode == MeasureSpec.EXACTLY) {
             // If your control can fit within these bounds return that value.
             result = specSize;
         }

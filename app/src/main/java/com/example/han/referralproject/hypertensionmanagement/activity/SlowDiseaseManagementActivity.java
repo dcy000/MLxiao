@@ -299,6 +299,10 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     private void showLessThan3Dialog(String notice) {
         FllowUpTimesDialog dialog = new FllowUpTimesDialog(notice);
         dialog.setListener(this);
+
+        //此处会因为在页面不可见后出现 （此时大多数时候是内存泄漏了）
+        // java.lang.IllegalStateException
+        // Can not perform this action after onSaveInstanceState
         dialog.show(getSupportFragmentManager(), "less3");
         mlSpeak("主人，您尚未满足3天测量标准，请在健康监测中测量三日");
     }

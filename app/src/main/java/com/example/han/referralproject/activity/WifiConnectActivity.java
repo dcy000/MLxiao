@@ -16,20 +16,21 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.SwitchView;
+import com.gcml.lib_utils.network.NetUitls;
 import com.gcml.lib_utils.network.WiFiUtil;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class WifiConnectActivity extends BaseActivity implements View.OnClickListener {
 
@@ -47,7 +49,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     private WifiConnectRecyclerAdapter mAdapter;
     private WiFiUtil mWiFiUtil;
     private SwitchView mSwitch;
-    private View mConnectedLayout;
+    private RelativeLayout mConnectedLayout;
     private TextView mConnectedWifiName;
     private ImageView mConnectedWifiLevel;
     private WifiManager mWifiManager;
@@ -131,7 +133,8 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mList.clear();
         mWiFiUtil.startScan();
         WifiInfo mInfo = mWifiManager.getConnectionInfo();
-        if (mInfo != null) {
+
+        if (mInfo != null && NetUitls.isWifiConnected()) {
             mConnectedLayout.setVisibility(View.VISIBLE);
             mConnectedWifiName.setText(mInfo.getSSID());
             RxUtils.rxWifiLevel(getApplication(), 4)
@@ -145,7 +148,8 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                         }
                     });
             for (ScanResult itemResult : mWiFiUtil.getWifiList()) {
-                if (!itemResult.BSSID.equals(mInfo.getBSSID())){
+                if (itemResult != null &&
+                        !itemResult.BSSID.equals(mInfo.getBSSID())){
                     mList.add(itemResult);
                 }
             }
@@ -189,11 +193,11 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     private BroadcastReceiver mNetworkReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("mylog", intent.getAction());
+            Timber.i(intent.getAction());
             switch (intent.getAction()) {
                 case WifiManager.WIFI_STATE_CHANGED_ACTION:
                     int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
-                    Log.e("TAG", "wifiState:" + wifiState);
+                    Timber.e("wifiState:%s", wifiState);
                     switch (wifiState) {
                         case WifiManager.WIFI_STATE_DISABLED:
                             break;
@@ -212,7 +216,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                         NetworkInfo.State state = networkInfo.getState();
                         //判断网络是否已经连接
                         boolean isConnected = state == NetworkInfo.State.CONNECTED;
-                        Log.e("TAG", "isConnected:" + isConnected);
+                        Timber.e("isConnected:%s", isConnected);
                         if (isConnected) {
 
                         } else {
@@ -228,7 +232,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                     if (networkInfo != null && networkInfo.isConnected()){
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).showShort();
                         if (isFirstWifi){
-                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+                            if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                                 CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                                startActivity(new Intent(mContext, SignInActivity.class));
                             } else {

@@ -103,10 +103,10 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
     }
 
     private void start(int delayMillis) {
-        binding.ivTips.setText("请把人脸放在框内");
+        binding.ivTips.setText("请把脸对准框内");
         MLVoiceSynthetize.startSynthesize(
                 getApplicationContext(),
-                "请把人脸放在框内 。三，二，衣。茄子",
+                "请把脸对准框内 。三，二，衣。茄子",
                 new MLSynthesizerListener() {
                     @Override
                     public void onCompleted(SpeechError speechError) {

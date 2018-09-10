@@ -36,7 +36,7 @@ public class UiUtils {
     }
 
     public static void compatWithOrientation(Configuration config) {
-        //设计图如果是横着的按宽度算，如何设计图是竖着的按高度算
+        //设计图如果是横着的按宽度算，如果设计图是竖着的按高度算
         if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             compat(sContext, sDesignWidth);
             return;

@@ -38,6 +38,9 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.settting.activity.SettingActivity;
+import com.example.han.referralproject.shopping.OrderListActivity;
+import com.example.han.referralproject.tool.ToolsActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
@@ -124,6 +127,10 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         view.findViewById(R.id.view_wifi).setOnClickListener(this);
         view.findViewById(R.id.iv_record).setOnClickListener(this);
         view.findViewById(R.id.iv_jiankang_riji).setOnClickListener(this);
+        view.findViewById(R.id.iv_pay).setOnClickListener(this);
+        view.findViewById(R.id.iv_order).setOnClickListener(this);
+        view.findViewById(R.id.iv_shezhi).setOnClickListener(this);
+        view.findViewById(R.id.iv_tools).setOnClickListener(this);
         tvUserName = view.findViewById(R.id.per_name);
         view.findViewById(R.id.iv_change_account).setOnClickListener(this);
         headImg.setOnClickListener(this);
@@ -319,6 +326,19 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_order:
+                startActivity(new Intent(getActivity(), OrderListActivity.class));
+                break;
+            case R.id.iv_pay:
+//                startActivity(new Intent(getActivity(), PayActivity.class));
+                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
+                break;
+            case R.id.iv_shezhi:
+                startActivity(new Intent(getActivity(), SettingActivity.class));
+                break;
+            case R.id.iv_tools:
+                startActivity(new Intent(getActivity(), ToolsActivity.class));
+                break;
             case R.id.iv_check://病症自查
 //                DiseaseUser diseaseUser = new DiseaseUser(
 //                        LocalShared.getInstance(getActivity()).getUserName(),
