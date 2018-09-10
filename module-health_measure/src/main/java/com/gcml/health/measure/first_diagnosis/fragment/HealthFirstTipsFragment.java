@@ -44,7 +44,7 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
             String title = bundle.getString("title");
             ((TextView) view.findViewById(R.id.tv_tips)).setText(title);
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                    "初次见面，我是小E！为了更好地了解您的身体，先来做一个全套体检吧", onSynthesizerListener,false);
+                    "初次见面，我是小易！为了更好地了解您的身体，先来做一个全套体检吧", onSynthesizerListener,false);
         }else{
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
                     "恭喜您完成问卷，下面让我们进行身体指标检测吧", onSynthesizerListener, false);

@@ -75,6 +75,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private BluetoothBaseFragment fragment;
     private boolean isShowHealthChooseDevicesFragment = false;
     private String finalFragment;
+    private String userId;
+    private String userHypertensionHand;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, FirstDiagnosisActivity.class);
@@ -144,8 +146,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("血 压 测 量");
 
-                String userId = UserSpHelper.getUserId();
-                String userHypertensionHand = UserSpHelper.getUserHypertensionHand();
+                userId = UserSpHelper.getUserId();
+                userHypertensionHand = UserSpHelper.getUserHypertensionHand();
                 if (TextUtils.isEmpty(userId)) {
                     //首先判断userId,如果为空，则说明走的是注册流程到达这里的
                     fragment = new HealthBloodDetectionUiFragment();
@@ -264,6 +266,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         //最后一个Fragment点击了下一步应该跳转到HealthReportFormActivity
         if (fragment.getClass().getSimpleName().equals(finalFragment)) {
             HealthReportFormActivity.startActivity(this);
+            finish();
             return;
         }
         //每次跳转到下一个Fragment的时候都应该把右上角的蓝牙按钮初始化
@@ -418,8 +421,19 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             case IPresenter.MEASURE_BLOOD_PRESSURE:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
-                ((HealthBloodDetectionUiFragment) fragment).onStop();
-                ((HealthBloodDetectionUiFragment) fragment).dealLogic();
+                if (TextUtils.isEmpty(userId)) {
+                    ((HealthBloodDetectionUiFragment) fragment).onStop();
+                    ((HealthBloodDetectionUiFragment) fragment).dealLogic();
+                } else {
+                    //如果本地缓存的有惯用手数据则只需测量一次，如果没有则需要惯用手判断
+                    if (TextUtils.isEmpty(userHypertensionHand)) {
+                        ((HealthBloodDetectionUiFragment) fragment).onStop();
+                        ((HealthBloodDetectionUiFragment) fragment).dealLogic();
+                    } else {
+                        ((HealthBloodDetectionOnlyOneFragment) fragment).onStop();
+                        ((HealthBloodDetectionOnlyOneFragment) fragment).dealLogic();
+                    }
+                }
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");

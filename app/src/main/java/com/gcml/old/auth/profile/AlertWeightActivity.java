@@ -4,12 +4,17 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -24,6 +29,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class AlertWeightActivity extends AlertHeightActivity {
 
@@ -101,6 +110,30 @@ public class AlertWeightActivity extends AlertHeightActivity {
 
             }
         });
+
+//        UserEntity user = new UserEntity();
+//        user.weight = weight;
+//        CCResult result = CC.obtainBuilder("com.gcml.auth.putUser")
+//                .addParam("user", user)
+//                .build()
+//                .call();
+//        Observable<Object> data = result.getDataItem("data");
+//        data.subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .as(RxUtils.autoDisposeConverter(this))
+//                .subscribe(new DefaultObserver<Object>() {
+//                    @Override
+//                    public void onNext(Object o) {
+//                        super.onNext(o);
+//                        runOnUiThread(() -> speak("修改成功"));
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable throwable) {
+//                        super.onError(throwable);
+//                        runOnUiThread(() -> speak("修改失败"));
+//                    }
+//                });
     }
 
     @Override

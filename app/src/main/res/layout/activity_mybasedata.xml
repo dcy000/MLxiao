@@ -599,19 +599,22 @@
                         android:text="病         史"
                         android:textSize="28sp" />
 
-                    <View
-                        android:layout_marginLeft="60dp"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                    <!--<View-->
+                    <!---->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1" />-->
 
                     <TextView
                         android:id="@+id/history"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="60dp"
                         android:layout_marginRight="22dp"
+
                         android:drawablePadding="5dp"
                         android:drawableRight="@drawable/ic_jt"
+                        android:gravity="right"
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>

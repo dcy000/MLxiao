@@ -20,6 +20,6 @@ public class GetUserComponent implements IComponent {
         UserRepository repository = new UserRepository();
         Observable<UserEntity> rxUser = repository.getUserSignIn();
         CC.sendCCResult(cc.getCallId(), CCResult.success("user", rxUser));
-        return true;
+        return false;
     }
 }

@@ -135,7 +135,7 @@ public class MyApplication extends Application {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         UiUtils.compatWithOrientation(newConfig);
-        String curProcessName = ProcessUtils.getCurProcessName(this);
+//        String curProcessName = ProcessUtils.getCurProcessName(this);
 //        if (!TextUtils.isEmpty(curProcessName)) {
 //            if (curProcessName.equals("com.example.han.referralproject:pushcore")) {
 //                //启动音量控制悬浮按钮
@@ -150,6 +150,7 @@ public class MyApplication extends Application {
     }
 
 
+    @Deprecated
     private HandlerThread mBgThread = new HandlerThread("speech", Process.THREAD_PRIORITY_AUDIO);
 
     {

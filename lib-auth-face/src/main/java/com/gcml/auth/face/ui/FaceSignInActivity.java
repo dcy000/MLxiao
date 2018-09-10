@@ -119,8 +119,8 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
             Bitmap faceBitmap = (Bitmap) status.payload;
             signInFace(faceBitmap);
         } else if (status.code == PreviewHelper.Status.EVENT_CAMERA_OPENED) {
-            start("把人脸放框内",
-                    "把人脸放框内",
+            start("请把脸对准框内",
+                    "请把脸对准框内",
                     0);
         } else if (status.code == PreviewHelper.Status.ERROR_ON_OPEN_CAMERA) {
             binding.ivTips.setText("打开相机失败");
@@ -190,8 +190,8 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                         if (count == 5) {
                             finish();
                         } else {
-                            start("把人脸放框内",
-                                    "把人脸放框内",
+                            start("请把脸对准框内",
+                                    "请把脸对准框内",
                                     0);
                         }
                     }
@@ -208,8 +208,8 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
 //            if (count == 5) {
 //                finish();
 //            } else {
-            start("把人脸放框内",
-                    "把人脸放框内",
+            start("请把脸对准框内",
+                    "请把脸对准框内",
                     0);
 //            }
         } else if (score < 80) {
@@ -231,8 +231,8 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                                 if (count == 5) {
                                     finish();
                                 } else {
-                                    start("把人脸放框内",
-                                            "把人脸放框内",
+                                    start("请把脸对准框内",
+                                            "请把脸对准框内",
                                             0);
                                 }
                                 return;
@@ -255,8 +255,8 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                             if (count == 5) {
                                 finish();
                             } else {
-                                start("把人脸放框内",
-                                        "把人脸放框内",
+                                start("请把脸对准框内",
+                                        "请把脸对准框内",
                                         0);
                             }
                         }
@@ -268,8 +268,8 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                             if (count == 5) {
                                 finish();
                             } else {
-                                start("把人脸放框内",
-                                        "把人脸放框内",
+                                start("请把脸对准框内",
+                                        "请把脸对准框内",
                                         0);
                             }
                         }

@@ -84,11 +84,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("基 础 信 息 列 表");
+        mTitleText.setText("慢 病 管 理");
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(SlowDiseaseManagementActivity.this, WifiConnectActivity.class)));
-        mlSpeak("主人，欢迎来到健康管理。");
+        mlSpeak("主人，欢迎来到慢病管理。");
     }
 
     @OnClick({R.id.iv_Hypertension_manage, R.id.iv_blood_sugar_manage})
@@ -299,12 +299,16 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     private void showLessThan3Dialog(String notice) {
         FllowUpTimesDialog dialog = new FllowUpTimesDialog(notice);
         dialog.setListener(this);
+
+        //此处会因为在页面不可见后出现 （此时大多数时候是内存泄漏了）
+        // java.lang.IllegalStateException
+        // Can not perform this action after onSaveInstanceState
         dialog.show(getSupportFragmentManager(), "less3");
         mlSpeak("主人，您尚未满足3天测量标准，请在健康监测中测量三日");
     }
 
     private void showOriginHypertensionDialog() {
-        TwoChoiceDialog dialog = new TwoChoiceDialog("您是否诊断过原发性高血压且正在进行高血压规范治疗？", "是", "否");
+        TwoChoiceDialog dialog = new TwoChoiceDialog("您是否诊断过原发性高血压且正在进行高血压规范治疗？(您的选择将影响您的健康方案，且一旦选择不可更改，请谨慎回答)", "是", "否");
         dialog.setListener(this);
         dialog.show(getFragmentManager(), "yuanfa");
         mlSpeak("主人，您是否已确诊高血压且在治疗？");

@@ -19,6 +19,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportParseBean;
+import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 
@@ -73,12 +74,14 @@ public class HealthReportFormFragment3 extends BluetoothBaseFragment implements 
      */
     private TextView mTvSeeDetail;
     private String type;
-    private FirstReportBean firstReportBean;
+    private FirstReportReceiveBean firstReportBean;
     private Drawable drawableUp;
     private Drawable drawableDown;
     private Drawable drawableWarning;
     private String result;
     private String advice;
+    private int riskLevel=1;
+    private List<FirstReportReceiveBean.FactorListBeanX> factorList;
 
     @Override
     protected int initLayout() {
@@ -124,48 +127,25 @@ public class HealthReportFormFragment3 extends BluetoothBaseFragment implements 
 
             mTvResultFlag.setText(type);
             //0:达标，1：不达标
-            String controlStatus = firstReportBean.getDm().getControlStatus();
-            if ("0".equals(controlStatus)){
-                mTvResult1.setText("您的"+type+"控制较好,");
-                mTvResult2.setText("达标");
-            }else if ("1".equals(controlStatus)){
-                mTvResult1.setText("您的"+type+"控制较差,");
-                mTvResult2.setText("未达标");
-            }
+            List<FirstReportReceiveBean.ReportListBean> reportList = firstReportBean.getReportList();
+            for (FirstReportReceiveBean.ReportListBean reportListBean:reportList){
+                String controlStatus = reportListBean.getControlStatus();
+                String illnessName = reportListBean.getIllnessName();
+                if (illnessName.equals(type)){
+                    if ("0".equals(controlStatus)){
+                        mTvResult1.setText("您的"+type+"控制较好,");
+                        mTvResult2.setText("达标");
+                    }else{
+                        mTvResult1.setText("您的"+type+"控制较差,");
+                        mTvResult2.setText("未达标");
+                    }
+                    factorList=reportListBean.getFactorList();
+                    riskLevel=reportListBean.getRiskLevel();
+                    result=reportListBean.getResult();
+                    advice=reportListBean.getAdvice();
+                    break;
+                }
 
-            int riskLevel=1;
-            List<FirstReportBean.FactorListBean> factorList=null;
-            switch (type) {
-                case "糖尿病":
-                    FirstReportBean.RiskBean dm = firstReportBean.getDm();
-                    factorList=dm.getFactorList();
-                    riskLevel=dm.getRiskLevel();
-                    result=dm.getResult();
-                    advice=dm.getAdvice();
-                    break;
-                case "高血压":
-                    FirstReportBean.RiskBean htn = firstReportBean.getHtn();
-                    factorList=htn.getFactorList();
-                    riskLevel=htn.getRiskLevel();
-                    result=htn.getResult();
-                    advice=htn.getAdvice();
-                    break;
-                case "肥胖症":
-                    FirstReportBean.RiskBean fat = firstReportBean.getFat();
-                    factorList=fat.getFactorList();
-                    riskLevel=fat.getRiskLevel();
-                    result=fat.getResult();
-                    advice=fat.getAdvice();
-                    break;
-                case "心血管病":
-                    FirstReportBean.RiskBean icvd = firstReportBean.getIcvd();
-                    factorList=icvd.getFactorList();
-                    riskLevel=icvd.getRiskLevel();
-                    result=icvd.getResult();
-                    advice=icvd.getAdvice();
-                    break;
-                default:
-                    break;
             }
             switch (riskLevel) {
                 case 1:
@@ -189,8 +169,8 @@ public class HealthReportFormFragment3 extends BluetoothBaseFragment implements 
 
 
             List<FirstReportParseBean> firstReportParseBeans = new ArrayList<>();
-            for (FirstReportBean.FactorListBean xxxx : factorList) {
-                for (FirstReportBean.ListBean beanXXXX : xxxx.getList()) {
+            for (FirstReportReceiveBean.FactorListBeanX xxxx : factorList) {
+                for (FirstReportReceiveBean.ListBean beanXXXX : xxxx.getList()) {
                     FirstReportParseBean firstReportParseBean = new FirstReportParseBean();
                     firstReportParseBean.setAnomalyStatus(beanXXXX.getAnomalyStatus());
                     firstReportParseBean.setFactorCode(beanXXXX.getFactorCode());

@@ -4,12 +4,15 @@ import com.gcml.common.repository.IRepositoryHelper;
 import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.repository.http.ApiResult;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
+import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -63,7 +66,17 @@ public class HealthMeasureRepository {
     /**
      * 获取首诊问卷报告
      */
-    public static Observable<FirstReportBean> getFirstReport(String userId){
+    public static Observable<FirstReportReceiveBean> getFirstReport(String userId){
         return healthMeasureServer.getFirstReport(userId).compose(RxUtils.apiResultTransformer());
+    }
+
+    /**
+     * 判断数据是否是异常数据
+     * @param userId
+     * @param datas
+     * @return
+     */
+    public static Observable<Object> checkIsNormalData(String userId, ArrayList<DetectionData> datas){
+        return healthMeasureServer.checkIsNormalData(userId,datas).compose(RxUtils.apiResultTransformer());
     }
 }

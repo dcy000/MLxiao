@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -44,6 +45,7 @@ public class SMSVerificationDialog extends DialogFragment implements View.OnClic
     public static final String KEY_PHONE = "phone";
     private String phoneNumber;
     private String code;
+    private ImageView close;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,8 +74,12 @@ public class SMSVerificationDialog extends DialogFragment implements View.OnClic
         tvNext = view.findViewById(R.id.tv_next);
         tvNext.setOnClickListener(this);
         tvPhone = view.findViewById(R.id.tv_phone);
+        close = view.findViewById(R.id.iv_close);
+        close.setOnClickListener(v -> {
+            dismiss();
+        });
 
-        initKeyBoard();
+//        initKeyBoard();
     }
 
     private void initPhoneNoticeInfo() {
@@ -176,7 +182,7 @@ public class SMSVerificationDialog extends DialogFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-//        getDialog().setCancelable(false);
-//        getDialog().setCanceledOnTouchOutside(false);
+        getDialog().setCancelable(false);
+        getDialog().setCanceledOnTouchOutside(false);
     }
 }

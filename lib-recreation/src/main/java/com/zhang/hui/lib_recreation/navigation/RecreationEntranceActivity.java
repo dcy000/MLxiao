@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.billy.cc.core.component.CC;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.zhang.hui.lib_recreation.R;
 import com.zhang.hui.lib_recreation.tool.activtiy.ToolsActivity;
 
@@ -41,6 +42,8 @@ public class RecreationEntranceActivity extends AppCompatActivity implements Vie
                 CC.obtainBuilder("com.gcml.old.main").build().callAsync();
             }
         });
+
+        MLVoiceSynthetize.startSynthesize(this,"主人,欢迎来到娱乐中心");
     }
 
     private void initView() {
