@@ -84,11 +84,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("基 础 信 息 列 表");
+        mTitleText.setText("慢 病 管 理");
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(SlowDiseaseManagementActivity.this, WifiConnectActivity.class)));
-        mlSpeak("主人，欢迎来到健康管理。");
+        mlSpeak("主人，欢迎来到慢病管理。");
     }
 
     @OnClick({R.id.iv_Hypertension_manage, R.id.iv_blood_sugar_manage})
