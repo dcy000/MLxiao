@@ -1,0 +1,85 @@
+package com.gcml.health.measure.measure_abnormal;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
+import com.gcml.health.measure.R;
+import com.gcml.lib_utils.UtilsManager;
+import com.gcml.lib_utils.base.ToolbarBaseActivity;
+import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.iflytek.synthetize.MLVoiceSynthetize;
+
+import timber.log.Timber;
+
+/**
+ * copyright：杭州国辰迈联机器人科技有限公司
+ * version:V1.2.5
+ * created on 2018/9/10 14:56
+ * created by:gzq
+ * description:TODO
+ */
+public class HealthMeasureAbnormalActivity extends ToolbarBaseActivity implements HealthMeasureChooseAbnormalReason {
+    private String firstTitle = "主人，您的测量数据与标准值相差较大，您是否存在以下情况：";
+    public static final String KEY_MEASURE_TYPE = "measureType";
+    private int measureType;
+    private HealthMeasureAbnormalBaseFragment baseFragment;
+    public static final String KEY_HAS_ABNIRMAL_REASULT="has_abnormal_reasult";
+    public static void startActivity(Activity context, int measureType,int requestCode) {
+        Intent intent = new Intent(context, HealthMeasureAbnormalActivity.class);
+        intent.putExtra(KEY_MEASURE_TYPE, measureType);
+        context.startActivityForResult(intent,requestCode);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.health_measure_activity_abnormal);
+        measureType = getIntent().getIntExtra(KEY_MEASURE_TYPE, -1);
+        mTitleText.setText("测 量 异 常");
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),firstTitle);
+        initFragment();
+    }
+
+    private void initFragment() {
+        switch (measureType) {
+            default:
+                Timber.e("HealthMeasureAbnormalActivity：传入的参数不正确");
+                break;
+            case IPresenter.MEASURE_BLOOD_PRESSURE:
+                //血压测量
+                baseFragment = new MeasureXueyaWarningFragment();
+                break;
+            case IPresenter.MEASURE_BLOOD_SUGAR:
+                baseFragment=new MeasureXuetangWarningFragment();
+                break;
+        }
+        if (baseFragment != null) {
+            baseFragment.setOnChooseReason(this);
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, baseFragment).commit();
+        }else{
+            Timber.e("HealthMeasureAbnormalActivity：初始化Fragment失败");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MLVoiceSynthetize.stop();
+    }
+
+    @Override
+    public void hasReason(int reason) {
+        Intent intent=new Intent();
+        intent.putExtra(KEY_HAS_ABNIRMAL_REASULT,true);
+        setResult(RESULT_OK,intent);
+    }
+
+    @Override
+    public void noReason() {
+        Intent intent=new Intent();
+        intent.putExtra(KEY_HAS_ABNIRMAL_REASULT,false);
+        setResult(RESULT_OK,intent);
+    }
+}
