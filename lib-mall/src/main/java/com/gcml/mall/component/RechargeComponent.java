@@ -21,7 +21,7 @@ public class RechargeComponent implements IComponent {
         Context context = cc.getContext();
         Intent intent = new Intent(context, RechargeActivity.class);
         if (!(context instanceof Activity)) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
         context.startActivity(intent);
         //发送组件调用的结果（返回信息）
