@@ -39,6 +39,7 @@ import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity;
+import com.example.han.referralproject.children.study.ChildEduPoemListActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
@@ -50,6 +51,7 @@ import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
+import com.example.han.referralproject.physicalexamination.activity.ChineseMedicineMonitorActivity;
 import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
@@ -62,6 +64,8 @@ import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.tcm.SymptomCheckActivity;
+import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.LocalShared;
@@ -79,6 +83,7 @@ import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.profile.MyBaseDataActivity;
 import com.gcml.old.auth.profile.PersonDetailActivity;
+import com.gcml.old.auth.profile.PersonDetailFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.ErrorCode;
@@ -694,7 +699,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*gengxin.*")) {
+            if (inSpell.matches(".*woyaogengxin|genxinxitong|xitonggengxin.*") || inSpell.matches(".*gengxin.*")) {
                 showLoadingDialog("检查更新中");
                 NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
                     @Override
@@ -951,8 +956,19 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(youjiao|youjiaowenyu).*")) {
+            if (inSpell.matches(".*(youjiao|youjiaowenyu|ertongyoujiao|jiaoxiaohai|ertongyule).*")) {
                 startActivity(ChildEduHomeActivity.class);
+                return;
+            }
+
+            if (inSpell.matches(".*(gushi|tangshisongci|songci|tangshi).*") || result.matches(".*古诗.*")) {
+                startActivity(ChildEduPoemListActivity.class);
+                return;
+            }
+
+
+            if (result.matches(".*听故事|故事.*")) {
+                startActivity(ChildEduPoemListActivity.class);
                 return;
             }
 
@@ -972,7 +988,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(chaxunriqi|jintianxingqiji|jidianle|jintianshenmerizhi).*")) {
+            if (inSpell.matches(".*(riqichaxun|jidianle|chaxunriqi|jintianxingqiji|jidianle|jintianshenmerizhi).*")) {
                 CC.obtainBuilder("app.component.recreation.tool").setActionName("dateInquiry").build().call();
                 return;
             }
@@ -986,6 +1002,22 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
+
+            if (inSpell.matches(".*(jisuanqi|zuosuanshu).*")) {
+                CC.obtainBuilder("app.component.recreation.tool").setActionName("calculate").build().call();
+                return;
+            }
+            if (inSpell.matches(".*(zhengzhuangzicha).*")) {
+                startActivity(SymptomCheckActivity.class);
+                return;
+            }
+
+            if (inSpell.matches(".*(zhongyitizhi).*")) {
+                startActivity(OlderHealthManagementSerciveActivity.class);
+                return;
+            }
+
+
             if (inSpell.matches(".*yinyue.*")) {
                 OldRouter.routeToOldMusicActivity(this);
                 return;
@@ -995,7 +1027,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(SlowDiseaseManagementActivity.class);
                 return;
             }
-            if (inSpell.matches(".*(fengxian|fengxianpinggu|fengxianpanduan|huanbingfenxiang|debingfengxian|jiankangyuce|jiankangyuche).*")) {
+            if (inSpell.matches(".*(fengxian|fengxianpinggu|fengxianpanduan" +
+                    "|huanbingfenxiang|debingfengxian|jiankangyuce|jiankangyuche|pinggu).*")) {
                 CC.obtainBuilder("health_measure")
                         .setActionName("To_HealthInquiryActivity")
                         .build()
@@ -1004,7 +1037,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*(qiehuan|qiehuanzhanghao|chongxindenglu|tianjiazhanghao).*")) {
-                startActivity(MyBaseDataActivity.class);
+                startActivity(PersonDetailActivity.class);
                 return;
             }
 
@@ -1033,7 +1066,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(guangbo|diantai|shouyinji).*")) {
+            if (inSpell.matches(".*(guangbo|diantai|shouyinji|zhisheng|diantai).*")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, RadioActivity.class);
                 startActivity(intent);
                 return;
@@ -1056,6 +1089,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
+
+            if (inSpell.matches(".*(tingyinyue|tingge|fangge|yinyueguan).*")) {
+                startActivity(TheOldMusicActivity.class);
+                return;
+            }
+
             if (inSpell.matches(".*gerenzhongxin.*")
                     || inSpell.matches(".*guorenzhongxin.*")) {
                 gotoPersonCenter();
@@ -1069,7 +1108,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*zhujiemian|zujiemian|jujiemian.*")
-                    || inSpell.matches(".*zhujiemian.*")) {
+                    || inSpell.matches(".*zhujiemian|shuijiao|xiuxi|guanbi.*")) {
                 gotoHomePage();
                 return;
             }
@@ -1098,7 +1137,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(jiankangzhishi|jiankangketang|jiemu|shipin|dianshi).*")) {
+            if (inSpell.matches(".*(jiankangzhishi|jiankangketang|jiangkangxuanchuan" +
+                    "|tingke|xuexi|yiqishiyong|shebeishiyong|shiyongjiaocheng|shiyongfangfa" +
+                    "|shebeijianjie|yiqijieshao).*")) {
                 VideoListActivity.launch(SpeechSynthesisActivity.this, 0);
                 return;
             }
@@ -1114,10 +1155,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 VideoListActivity.launch(SpeechSynthesisActivity.this, 3);
                 return;
             }
-            if (inSpell.matches(".*(qianyueyisheng|jiatingyisheng|yuyue).*")) {
+            if (inSpell.matches(".*(qianyueyisheng).*")) {
                 gotoQianyueYiSheng();
                 return;
             }
+
             if (inSpell.matches(".*(zaixianyi(shen|sheng|seng)).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, OnlineDoctorListActivity.class));
                 return;
@@ -1351,7 +1393,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                 }
                             }
                         });
-            } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
+            } else if (inSpell.matches(".*(ce|liang).*(niaosuan|xuezhi|danguchun).*")) {
                 mIatDialog.dismiss();
 //
 //                Bundle bundle = new Bundle();
@@ -1368,7 +1410,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                 String userId = result.getDataItem("userId");
                                 UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+
+                                    CC.obtainBuilder("health_measure")
+                                            .setActionName("ToAllMeasureActivity")
+                                            .addParam("measure_type", IPresenter.MEASURE_OTHERS)
+                                            .build().call();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
@@ -1405,7 +1452,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
 
 
-            } else if (result.matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
+            } else if (inSpell.matches(".*yisheng.*zixun.*") || inSpell.matches("wenyisheng|yishengzixun|jiatingyisheng|yuyue")) {
 
                 if ("".equals(sharedPreferences.getString("name", ""))) {
                     ToastUtils.showShort("请先查看是否与签约医生签约成功");
@@ -2473,7 +2520,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private File file;//要播放的文件
 
 
-    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixing|chiyao|fuyao|chiyaotixing).*";
+    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixing|chiyao|fuyao|chiyaotixing|dingshi).*";
     public static final String REGEX_SET_ALARM_WHEN = ".*tixing.*(shangwu|xiawu).*(\\d{1,2}):(\\d{1,2}).*yao.*";
     public static final String REGEX_SEE_DOCTOR = ".*(bushufu|touteng|fa(sao|shao)|duziteng|nanshou).*";
 
