@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.task.R;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 /**
@@ -22,7 +24,6 @@ public class TaskComplyActivity extends AppCompatActivity implements View.OnClic
 
     TextView mTitle, mMessage;
     ImageView mBack;
-    Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,9 +42,6 @@ public class TaskComplyActivity extends AppCompatActivity implements View.OnClic
     private void bindData() {
         mTitle.setText("请跟小E来做个问卷吧，");
         mMessage.setText("小E会根据您的问卷结果给您制定健康任务。");
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                "欢迎来到每日任务，让小E先咨询您几个问题吧。",
-                false);
         mBack.setOnClickListener(this);
     }
 
@@ -57,12 +55,15 @@ public class TaskComplyActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                CC.obtainBuilder("app.component.task.comply.choice").build().callAsync();
-            }
-        }, 3000);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(),
+                "请跟小E来做个问卷吧，小E会根据您的问卷结果给您制定健康任务",
+                new MLSynthesizerListener() {
+                    @Override
+                    public void onCompleted(SpeechError speechError) {
+                        super.onCompleted(speechError);
+                        CC.obtainBuilder("app.component.task.comply.choice").build().callAsync();
+                    }
+                }, false);
     }
 
     @Override

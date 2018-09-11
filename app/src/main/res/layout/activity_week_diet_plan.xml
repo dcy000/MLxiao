@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:dxh="http://blog.csdn.net/Justin_Dong1122"
+    xmlns:ae="http://www.angellecho.com/"
     android:background="@color/white">
 
     <RadioGroup
@@ -168,8 +170,8 @@
             <ScrollView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginLeft="40pt"
-                android:layout_marginRight="40pt"
+                android:layout_marginLeft="20pt"
+                android:layout_marginRight="20pt"
                 android:layout_marginTop="30pt"
                 android:orientation="vertical"
                 android:overScrollMode="never"
@@ -178,13 +180,13 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_1">
-                <TextView
+                <com.gcml.lib_widget.JustifyTextView
                     android:id="@+id/tv_breakfast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textColor="#666"
-                    android:textSize="56pt" />
+                    android:textSize="56pt"/>
             </ScrollView>
 
             <ImageView
@@ -229,8 +231,8 @@
             <ScrollView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginLeft="40pt"
-                android:layout_marginRight="40pt"
+                android:layout_marginLeft="20pt"
+                android:layout_marginRight="20pt"
                 android:layout_marginTop="30pt"
                 android:orientation="vertical"
                 android:overScrollMode="never"
@@ -240,7 +242,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_2">
 
-                <TextView
+                <com.gcml.lib_widget.JustifyTextView
                     android:id="@+id/tv_lunch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -291,8 +293,8 @@
             <ScrollView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginLeft="40pt"
-                android:layout_marginRight="40pt"
+                android:layout_marginLeft="20pt"
+                android:layout_marginRight="20pt"
                 android:layout_marginTop="30pt"
                 android:orientation="vertical"
                 android:overScrollMode="never"
@@ -302,13 +304,14 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_3">
 
-                <TextView
+                <com.gcml.lib_widget.JustifyTextView
                     android:id="@+id/tv_dinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textColor="#666"
-                    android:textSize="56pt" />
+                    android:textSize="56pt"
+                    />
             </ScrollView>
 
             <ImageView

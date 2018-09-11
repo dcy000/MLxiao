@@ -24,6 +24,7 @@ import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -64,7 +65,7 @@ public class PreviewHelper
     private Rect mCropRect;
 
     private int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
-    private volatile Camera mCamera;
+    private Camera mCamera;
     private int previewWidth = PREVIEW_WIDTH;
     private int previewHeight = PREVIEW_HEIGHT;
     private int fps = FPS;
@@ -82,7 +83,10 @@ public class PreviewHelper
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart(LifecycleOwner owner) {
-
+        Timber.i("addCallback: %s", mSurfaceHolder);
+        if (mSurfaceHolder != null) {
+            mSurfaceHolder.addCallback(this);
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -97,7 +101,10 @@ public class PreviewHelper
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop(LifecycleOwner owner) {
-
+        Timber.i("removeCallback: %s", mSurfaceHolder);
+        if (mSurfaceHolder != null) {
+            mSurfaceHolder.removeCallback(this);
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -152,13 +159,8 @@ public class PreviewHelper
     }
 
     public void setSurfaceHolder(SurfaceHolder surfaceHolder) {
-        if (surfaceHolder == null) {
-            Timber.i("setSurfaceHolder (surfaceHolder == null)");
-        }
+        Timber.i("setSurfaceHolder: %s", surfaceHolder);
         mSurfaceHolder = surfaceHolder;
-        if (mSurfaceHolder != null) {
-            mSurfaceHolder.addCallback(this);
-        }
     }
 
     @Override
@@ -173,7 +175,7 @@ public class PreviewHelper
             Timber.i("surfaceChanged -> restartPreview failed (surface == null)");
             return;
         }
-        Timber.i("surfaceChanged -> restartPreview of");
+        Timber.i("surfaceChanged -> restartPreview");
         CameraUtils.followScreenOrientation(mActivity, mCamera);
         CameraUtils.stopPreview(mCamera);
         CameraUtils.startPreview(mCamera, mSurfaceHolder);
@@ -189,11 +191,13 @@ public class PreviewHelper
         cameraHandler().post(new Runnable() {
             @Override
             public void run() {
-                mCamera = CameraUtils.openByFacing(mCameraId);
+                mCamera = CameraUtils.reconnect(mCamera);
+                if (mCamera == null) {
+                    mCamera = CameraUtils.openByFacing(mCameraId);
+                }
                 if (mCamera == null) {
                     rxStatus.onNext(Status.of(Status.ERROR_ON_OPEN_CAMERA));
                 } else {
-                    Timber.i("Face Camera opened");
                     configCameraInternal();
                     CameraUtils.startPreview(mCamera, holder);
                     CameraUtils.setPreviewCallbackWithBuffer(mCamera, mPreviewCallback);

@@ -19,7 +19,11 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.intelligent_diagnosis.WeekDietPlan;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.view.StartCustomTextView;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.lib_widget.JustifyTextView;
+import com.gcml.lib_widget.MyTextView;
+import com.gcml.lib_widget.MyTextView2;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -108,17 +112,27 @@ public class WeekDietPlanFragment extends Fragment implements View.OnClickListen
             String lunch = mondayCookbook.getLunch();
             String dinner = mondayCookbook.getDinner();
             if (!TextUtils.isEmpty(breakfast)) {
-                mTvBreakfast.setText(breakfast);
+                mTvBreakfast.setText(ToDBC(breakfast));
             }
-            if (!TextUtils.isEmpty(lunch)) {
+            if (!TextUtils.isEmpty(ToDBC(lunch))) {
                 mTvLunch.setText(lunch);
             }
-            if (!TextUtils.isEmpty(dinner)) {
+            if (!TextUtils.isEmpty(ToDBC(dinner))) {
                 mTvDinner.setText(dinner);
             }
         }
     }
-
+    private   String ToDBC(String input) {
+        char[] c = input.toCharArray();
+        for (int i = 0; i< c.length; i++) {
+            if (c[i] == 12288) {
+                c[i] = (char) 32;
+                continue;
+            }if (c[i]> 65280&& c[i]< 65375)
+                c[i] = (char) (c[i] - 65248);
+        }
+        return new String(c);
+    }
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser) {

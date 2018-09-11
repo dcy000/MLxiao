@@ -1,14 +1,8 @@
 package com.example.han.referralproject.adapter;
 
 import android.arch.lifecycle.LifecycleOwner;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
-import android.net.wifi.SupplicantState;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +13,6 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.InputDialog;
-import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.network.WiFiUtil;
 
 import java.util.List;

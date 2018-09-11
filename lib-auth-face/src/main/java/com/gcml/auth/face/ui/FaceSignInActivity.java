@@ -226,6 +226,8 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                     .subscribe(new DefaultObserver<List<UserEntity>>() {
                         @Override
                         public void onNext(List<UserEntity> users) {
+                            Timber.i("faceId: %s", faceId);
+                            Timber.i("%s", users);
                             if (users.isEmpty()) {
                                 int count = retryCount.getAndIncrement();
                                 if (count == 5) {
