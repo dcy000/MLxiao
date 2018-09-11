@@ -25,7 +25,7 @@ public class ComponentTool implements IComponent {
     public static final String ACTION_TODAY = "historyToday";
     public static final String ACTION_DATE = "dateInquiry";
     public static final String ACTION_COOK = "cookBook";
-    public static final String ACTION_BAIKE = "Baike";
+    public static final String ACTION_BAIKE = "baike";
     public static final String ACTION_CALCULATE = "calculate";
 
     @Override

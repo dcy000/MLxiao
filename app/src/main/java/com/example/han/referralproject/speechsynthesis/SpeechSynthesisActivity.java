@@ -981,6 +981,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
+            if (inSpell.matches(".*(baike).*")) {
+                CC.obtainBuilder("app.component.recreation.tool").setActionName("baike").build().call();
+                return;
+            }
+
             if (inSpell.matches(".*yinyue.*")) {
                 OldRouter.routeToOldMusicActivity(this);
                 return;
@@ -2084,7 +2089,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
 
         results = QaApi.getQaFromXf(str);
-        Timber.i("QaApi %s",results);
+        Timber.i("QaApi %s", results);
         String audiopath = results.get("audiopath");
         String text = results.get("text");
         boolean empty = TextUtils.isEmpty(text);
