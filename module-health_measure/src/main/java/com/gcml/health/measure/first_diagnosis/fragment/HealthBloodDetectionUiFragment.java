@@ -32,7 +32,7 @@ import timber.log.Timber;
 public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     private DialogSure dialogSure;
     private String tips_first = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行<font color='#F56C6C'>2–3次</font>测量。请先测量左手！";
-    private String tips_first_speak = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行2–3次测量。请先测量左手！";
+    private String tips_first_speak = "为了保证测量数据准确性，请根据小易提示对左右手血压各进行2–3次测量。请先测量左手！";
     private boolean isJump2Next = false;
     private boolean isMeasureOver = false;
 

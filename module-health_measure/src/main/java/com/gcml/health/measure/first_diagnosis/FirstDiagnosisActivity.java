@@ -207,14 +207,16 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         }
         fragment.setOnFragmentChangedListener(this);
         fragment.setOnDealVoiceAndJumpListener(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commitAllowingStateLoss();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .commitAllowingStateLoss();
     }
 
     /**
      * 将需要测量的设备放在一个有序集合中，按照先后顺序来配置即可
      */
     private void initFirstDiagnosis() {
-        firstDiagnosisBeans = new ArrayList<>();
         //引导页面
         FirstDiagnosisBean firstTip = new FirstDiagnosisBean(HealthFirstTipsFragment.class.getSimpleName(), null, null);
         firstDiagnosisBeans.add(firstTip);
@@ -259,6 +261,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private void initView() {
         mFrame = (FrameLayout) findViewById(R.id.frame);
         mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+        firstDiagnosisBeans = new ArrayList<>();
     }
 
     @Override
@@ -348,8 +351,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                     break;
             }
         }
-        //TODO:报告做成了Activity,所以在初始化结束后应该记录一下最后一个Fragment是哪一个，
-        // TODO:这样点击最后一个Fragment的下一步才能跳转到HealthReportFormActivity
+        //报告做成了Activity,所以在初始化结束后应该记录一下最后一个Fragment是哪一个，
+        //这样点击最后一个Fragment的下一步才能跳转到HealthReportFormActivity
         finalFragment = firstDiagnosisBeans.get(firstDiagnosisBeans.size() - 1).getFragmentTag();
     }
 
@@ -381,6 +384,9 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         if (showPosition > 0) {
             if (showPosition == 1) {
                 isShowHealthChooseDevicesFragment = true;
+                //如果是重新回到仪器选择界面，则把前数据初始化
+                firstDiagnosisBeans.clear();
+                initFirstDiagnosis();
             }
             showFragment(showPosition);
         } else {
