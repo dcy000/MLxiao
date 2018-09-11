@@ -35,19 +35,38 @@ import io.reactivex.subjects.Subject;
 import timber.log.Timber;
 
 /**
- * 相机使用步骤:
- * 1. 打开相机
- * 2. 预览相机
- * 3. 设置预览回调
- * setPreviewCallback
- * setOneShotPreviewCallback
- * setPreviewCallbackWithBuffer / addCallbackBuffer
- * 4. 预览回调数据处理
- * <p>
- * 注意：
- * 1. 设置预览回调时，setPreviewCallback 和 setOneShotPreviewCallback 都存在内存抖动
- * 2. 在哪个 Looper 线程 open Camera，那么 onPreviewFrame 等 Camera 回调就执行在打开相机的 Looper 线程
- * 3. onPreviewFrame 方法中不要执行过于复杂的逻辑操作，这样会阻塞 Camera，无法获取新的 Frame，导致帧率下降
+ * <p>相机预览步骤:</p>
+ *
+ * <p>1. 打开相机</p>
+ * <p>{@link Camera#reconnect() }</p>
+ * <p>{@link Camera#open(int cameraId) }</p>
+ *
+ * <p>2. 预览相机</p>
+ * <p>{@link Camera#startPreview()}</p>
+ *
+ * <p>3. 设置预览回调</p>
+ * <p> (1) {@link Camera#setPreviewCallback}</p>
+ * <p> (2) {@link Camera#setOneShotPreviewCallback}</p>
+ * <p> (3) {@link Camera#setPreviewCallbackWithBuffer }，{@link Camera#addCallbackBuffer}</p>
+ *
+ * <p>4. 预览回调时数据处理</p>
+ * <p>{@link Camera.PreviewCallback#onPreviewFrame(byte[], Camera)}</p>
+ *
+ * <p>注意：</p>
+ *
+ * <p>1. 设置预览回调时，
+ *    {@link Camera#setPreviewCallback}
+ *    和 {@link Camera#setOneShotPreviewCallback} 都存在内存抖动.</p>
+ *
+ * <p>2. 在哪个 Looper 线程調用 {@link Camera#open(int cameraId) }，
+ *    那么 {@link Camera.PreviewCallback#onPreviewFrame(byte[], Camera)}
+ *    等 Camera 回调就执行在打开相机的 Looper 线程。</p>
+ *
+ * <p>3. {@link Camera.PreviewCallback#onPreviewFrame(byte[], Camera)} 回调时，
+ *    不要执行过于复杂的逻辑操作，会阻塞 Camera，导致帧率下降。</p>
+ *
+ * <p>4. 处理好关闭 Camera {@link Camera#release()}</p>
+ *
  */
 public class PreviewHelper
         implements SurfaceHolder.Callback, LifecycleObserver {
