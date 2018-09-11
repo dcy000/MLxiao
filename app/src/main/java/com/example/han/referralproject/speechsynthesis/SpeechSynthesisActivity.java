@@ -740,10 +740,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -766,16 +766,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-
-                                    CC.obtainBuilder("health_measure")
-                                            .setActionName("ToAllMeasureActivity")
-                                            .addParam("measure_type", IPresenter.MEASURE_BLOOD_PRESSURE)
-                                            .build().call();
+                                    UserSpHelper.setUserId(userId);
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+//
+//                                    CC.obtainBuilder("health_measure")
+//                                            .setActionName("ToAllMeasureActivity")
+//                                            .addParam("measure_type", IPresenter.MEASURE_BLOOD_PRESSURE)
+//                                            .build().call();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
@@ -794,16 +794,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-
-                                    CC.obtainBuilder("health_measure")
-                                            .setActionName("ToAllMeasureActivity")
-                                            .addParam("measure_type", IPresenter.MEASURE_BLOOD_OXYGEN)
-                                            .build().call();
+                                    UserSpHelper.setUserId(userId);
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+//
+//                                    CC.obtainBuilder("health_measure")
+//                                            .setActionName("ToAllMeasureActivity")
+//                                            .addParam("measure_type", IPresenter.MEASURE_BLOOD_OXYGEN)
+//                                            .build().call();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
@@ -822,16 +822,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                    UserSpHelper.setUserId(userId);
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
 
-                                    CC.obtainBuilder("health_measure")
-                                            .setActionName("ToAllMeasureActivity")
-                                            .addParam("measure_type", IPresenter.MEASURE_TEMPERATURE)
-                                            .build().call();
+//                                    CC.obtainBuilder("health_measure")
+//                                            .setActionName("ToAllMeasureActivity")
+//                                            .addParam("measure_type", IPresenter.MEASURE_TEMPERATURE)
+//                                            .build().call();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
@@ -849,16 +849,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                    UserSpHelper.setUserId(userId);
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
 
-                                    CC.obtainBuilder("health_measure")
-                                            .setActionName("ToAllMeasureActivity")
-                                            .addParam("measure_type", IPresenter.MEASURE_BLOOD_SUGAR)
-                                            .build().call();
+//                                    CC.obtainBuilder("health_measure")
+//                                            .setActionName("ToAllMeasureActivity")
+//                                            .addParam("measure_type", IPresenter.MEASURE_BLOOD_SUGAR)
+//                                            .build().call();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
@@ -876,16 +876,16 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                    UserSpHelper.setUserId(userId);
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
 
-                                    CC.obtainBuilder("health_measure")
-                                            .setActionName("ToAllMeasureActivity")
-                                            .addParam("measure_type", IPresenter.MEASURE_WEIGHT)
-                                            .build().call();
+//                                    CC.obtainBuilder("health_measure")
+//                                            .setActionName("ToAllMeasureActivity")
+//                                            .addParam("measure_type", IPresenter.MEASURE_WEIGHT)
+//                                            .build().call();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
@@ -903,10 +903,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2XinDianDetectActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1107,7 +1107,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*zhujiemian|zujiemian|jujiemian.*")
+            if (inSpell.matches(".*zhujiemian|zujiemian|jujiemian|zhuye.*")
                     || inSpell.matches(".*zhujiemian|shuijiao|xiuxi|guanbi.*")) {
                 gotoHomePage();
                 return;
@@ -1283,10 +1283,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1310,10 +1310,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1335,10 +1335,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
 
@@ -1359,10 +1359,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1385,8 +1385,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                             public void onResult(CC cc, CCResult result) {
 //                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2XinDianDetectActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1408,14 +1408,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                             public void onResult(CC cc, CCResult result) {
 //                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                    UserSpHelper.setUserId(userId);
 
-                                    CC.obtainBuilder("health_measure")
-                                            .setActionName("ToAllMeasureActivity")
-                                            .addParam("measure_type", IPresenter.MEASURE_OTHERS)
-                                            .build().call();
+//                                    CC.obtainBuilder("health_measure")
+//                                            .setActionName("ToAllMeasureActivity")
+//                                            .addParam("measure_type", IPresenter.MEASURE_OTHERS)
+//                                            .build().call();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
@@ -1435,10 +1435,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1643,8 +1643,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                             public void onResult(CC cc, CCResult result) {
 //                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1673,10 +1673,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1707,8 +1707,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                             public void onResult(CC cc, CCResult result) {
 //                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1740,8 +1740,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                             public void onResult(CC cc, CCResult result) {
 //                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1772,8 +1772,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                             public void onResult(CC cc, CCResult result) {
 //                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2XinDianDetectActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1802,10 +1802,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess()) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1835,10 +1835,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                boolean currentUser = result.getDataItem("currentUser");
+//                                boolean currentUser = result.getDataItem("currentUser");
                                 String userId = result.getDataItem("userId");
-                                UserSpHelper.setUserId(userId);
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
