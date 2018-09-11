@@ -100,6 +100,7 @@ public class DataDealHelper {
 
     private Context context;
     private String result;
+    static Boolean whine = false;
 
     private void speak(String text, boolean whine) {
         MLVoiceSynthetize.startSynthesize(context, text, new SynthesizerListener() {
@@ -143,7 +144,7 @@ public class DataDealHelper {
     }
 
     private void speak(String text) {
-        speak(text, false);
+        speak(text, whine);
     }
 
     private void startActivity(Class<?> cls) {
@@ -207,6 +208,12 @@ public class DataDealHelper {
         this.result = result;
         this.context = context;
         String inSpell = PinYinUtils.converterToSpell(result);
+        if (inSpell.matches(".*(biansheng|biansheng|bianyin).*")) {
+            whine = true;
+        }
+        if (inSpell.matches(".*(huifuzhengchang|xiaoyiyuansheng).*")) {
+            whine = false;
+        }
         Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
         Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
         if (matcherWhenAlarm.find()) {
@@ -218,7 +225,7 @@ public class DataDealHelper {
                     Integer.valueOf(minute));
             String tip = String.format(Locale.CHINA,
                     "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
-            speak(tip, false);
+            speak(tip);
             return;
         }
 
