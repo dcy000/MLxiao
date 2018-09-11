@@ -57,6 +57,7 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
 
         new AlertDialog(this)
                 .builder()
+                .setCancelable(false)
                 .setMsg("请选择您的性别")
                 .setNegativeButton("女性", new View.OnClickListener() {
                     @Override
@@ -69,7 +70,7 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
                         cunrrentItem.setText(1 + "/" + count);
                     }
                 })
-                .setNegativeButton("男性", new View.OnClickListener() {
+                .setPositiveButton("男性", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         sex = SexEnum.man;
