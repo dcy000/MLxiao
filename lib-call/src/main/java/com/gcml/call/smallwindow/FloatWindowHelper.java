@@ -122,7 +122,9 @@ public class FloatWindowHelper {
     }
 
     private void updateViewPosition() {
-        if (wParams != null && wm != null) {
+        if (wParams != null
+                && wm != null
+                && contentParent != null) {
             wm.updateViewLayout(contentParent, wParams);
         }
     }
