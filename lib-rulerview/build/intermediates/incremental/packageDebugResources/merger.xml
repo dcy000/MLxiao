@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main$Generated" generated="true"><source path="F:\MLxiao\lib-rulerview\src\main\res"/><source path="F:\MLxiao\lib-rulerview\build\generated\res\rs\debug"/><source path="F:\MLxiao\lib-rulerview\build\generated\res\resValues\debug"/></dataSet><dataSet config="main" generated-set="main$Generated"><source path="F:\MLxiao\lib-rulerview\src\main\res"><file path="F:\MLxiao\lib-rulerview\src\main\res\values\attrs.xml" qualifiers=""><declare-styleable name="RulerView">
+        <attr format="color" name="ruler_textColor"/>
+        <attr format="dimension" name="ruler_textSize"/>
+        <attr format="color" name="ruler_lineColor"/>
+        <attr format="dimension" name="ruler_lineSpaceWidth"/>
+        <attr format="dimension" name="ruler_lineWidth"/>
+        <attr format="dimension" name="ruler_lineMaxHeight"/>
+        <attr format="dimension" name="ruler_lineMidHeight"/>
+        <attr format="dimension" name="ruler_lineMinHeight"/>
+        <attr format="dimension" name="ruler_textMarginTop"/>
+        <attr format="boolean" name="ruler_alphaEnable"/>
+        <attr format="float" name="ruler_minValue"/>
+        <attr format="float" name="ruler_maxValue"/>
+        <attr format="float" name="ruler_selectorValue"/>
+        <attr format="float" name="ruler_perValue"/>
+    </declare-styleable></file><file path="F:\MLxiao\lib-rulerview\src\main\res\values\strings.xml" qualifiers=""><string name="app_name">lib-rulerview</string></file></source><source path="F:\MLxiao\lib-rulerview\build\generated\res\rs\debug"/><source path="F:\MLxiao\lib-rulerview\build\generated\res\resValues\debug"/></dataSet><dataSet config="debug$Generated" generated="true"><source path="F:\MLxiao\lib-rulerview\src\debug\res"/></dataSet><dataSet config="debug" generated-set="debug$Generated"><source path="F:\MLxiao\lib-rulerview\src\debug\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="RulerView"><attr format="color" name="ruler_textColor"/><attr format="dimension" name="ruler_textSize"/><attr format="color" name="ruler_lineColor"/><attr format="dimension" name="ruler_lineSpaceWidth"/><attr format="dimension" name="ruler_lineWidth"/><attr format="dimension" name="ruler_lineMaxHeight"/><attr format="dimension" name="ruler_lineMidHeight"/><attr format="dimension" name="ruler_lineMinHeight"/><attr format="dimension" name="ruler_textMarginTop"/><attr format="boolean" name="ruler_alphaEnable"/><attr format="float" name="ruler_minValue"/><attr format="float" name="ruler_maxValue"/><attr format="float" name="ruler_selectorValue"/><attr format="float" name="ruler_perValue"/></declare-styleable></configuration></mergedItems></merger>
