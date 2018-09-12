@@ -1,5 +1,6 @@
 package com.medlink.danbogh.register.idcard;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -97,6 +98,10 @@ public class SignInIdCardActivity extends BaseActivity {
         }
     }
 
+    private void onTurnOn() {
+        btHandler().post(oneShutRunnable);
+    }
+
     @Override
     protected void backMainActivity() {
         LocalShared.getInstance(this).setString(FILTER, "");
@@ -107,8 +112,8 @@ public class SignInIdCardActivity extends BaseActivity {
 
     private void removeBounds() {
         if (isRegistered && receiver != null) {
-            unregisterReceiver(receiver);
             isRegistered = false;
+            unregisterReceiver(receiver);
         }
         if (bluetoothAdapter == null) {
             bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -132,9 +137,6 @@ public class SignInIdCardActivity extends BaseActivity {
         }
     }
 
-    private void onTurnOn() {
-        btHandler().post(oneShutRunnable);
-    }
 
     private long startTime;
 
@@ -146,22 +148,22 @@ public class SignInIdCardActivity extends BaseActivity {
         }
     };
 
-    private boolean initializing;
+    private volatile boolean initializing;
 
     private void initDevice() {
         if (initializing) {
             return;
         }
-        registerReceiver();
         initializing = true;
+        registerReceiver();
         if (targetDevice == null) {
             if (!bluetoothAdapter.isEnabled()) {
-                bluetoothAdapter.enable();
                 initializing = false;
+                bluetoothAdapter.enable();
                 return;
             }
             String address = LocalShared.getInstance(this).getString(FILTER);
-            if (!TextUtils.isEmpty(address) && BluetoothAdapter.checkBluetoothAddress(address)) {
+            if (BluetoothAdapter.checkBluetoothAddress(address)) {
                 Log.d(TAG, "initDevice: LocalShared");
                 BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
                 if (device != null) {
@@ -265,8 +267,8 @@ public class SignInIdCardActivity extends BaseActivity {
         isRegistered = true;
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
-        filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         filter.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST);
         registerReceiver(receiver, filter);
@@ -323,8 +325,10 @@ public class SignInIdCardActivity extends BaseActivity {
                     if (bluetoothAdapter != null && bluetoothAdapter.isDiscovering()) {
                         bluetoothAdapter.cancelDiscovery();
                     }
-                    if (targetDevice == null) {
+                    if (targetDevice != null && targetDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
                         onDeviceInitialized();
+                    } else if (targetDevice == null) {
+                        onDeviceNotFound();
                     }
                     break;
                 case BluetoothDevice.ACTION_BOND_STATE_CHANGED:
@@ -577,6 +581,7 @@ public class SignInIdCardActivity extends BaseActivity {
         }
     }
 
+    @SuppressLint("CheckResult")
     private void onRegisterOrLoginNetless() {
         final UserInfoBean user = new UserInfoBean();
         final LocalShared shared = LocalShared.getInstance(this);

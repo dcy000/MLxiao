@@ -402,7 +402,9 @@ public class VideoListFragment extends Fragment {
     }
 
     private void showVideos(List<VideoEntity> entities) {
-        videos = entities;
+        if (videos == null) {
+            videos.addAll(entities);
+        }
         adapter.notifyDataSetChanged();
     }
 

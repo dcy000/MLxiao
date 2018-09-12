@@ -184,24 +184,28 @@ public class AuthenticationActivity extends BaseActivity {
                     break;
                 case TO_CAMERA_PRE_RESOLVE://解析图像
                     if (mCamera != null) {
-                        mCamera.setOneShotPreviewCallback(new PreviewCallback() {
-                            @Override
-                            public void onPreviewFrame(byte[] data, Camera camera) {
-                                b3 = decodeToBitMap(data, mCamera);
-                                if (b3 != null) {
-                                    Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
-                                    if (bitmap != null) {
-                                        if (baos != null)
-                                            baos.reset();
-                                        if (baos != null)
-                                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                                        if (baos != null)
-                                            mImageData = baos.toByteArray();
-                                        myHandler.sendEmptyMessage(TO_FACE_AUTHENTICATION);
+                        try {
+                            mCamera.setOneShotPreviewCallback(new PreviewCallback() {
+                                @Override
+                                public void onPreviewFrame(byte[] data, Camera camera) {
+                                    b3 = decodeToBitMap(data, mCamera);
+                                    if (b3 != null) {
+                                        Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
+                                        if (bitmap != null) {
+                                            if (baos != null)
+                                                baos.reset();
+                                            if (baos != null)
+                                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                            if (baos != null)
+                                                mImageData = baos.toByteArray();
+                                            myHandler.sendEmptyMessage(TO_FACE_AUTHENTICATION);
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
             }

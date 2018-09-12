@@ -1,38 +1,29 @@
 package com.example.han.referralproject.bodytest.activity;
 
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bodytest.adapter.FragAdapter;
 import com.example.han.referralproject.bodytest.bean.MonitorRequestionBean;
-import com.example.han.referralproject.bodytest.constant.ConstitutionJudgmentEnum;
 import com.example.han.referralproject.bodytest.constant.SexEnum;
 import com.example.han.referralproject.bodytest.fragment.MonitorItemFragment;
 import com.example.han.referralproject.bodytest.util.ConstitutionJudgmentUtil;
 import com.example.han.referralproject.bodytest.util.JsonUtil;
+import com.gcml.lib_utils.dialog.AlertDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.medlink.danbogh.utils.T;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 
 public class ChineseMedicineMonitorActivity extends BaseActivity implements View.OnClickListener {
@@ -63,24 +54,25 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
         Gson gson = new Gson();
         data = gson.fromJson(jsonData, new TypeToken<List<MonitorRequestionBean>>() {
         }.getType());
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setMessage("请选择您的性别")
+
+        new AlertDialog(this)
+                .builder()
                 .setCancelable(false)
-                .setPositiveButton("女性", new DialogInterface.OnClickListener() {
+                .setMsg("请选择您的性别")
+                .setNegativeButton("女性", new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
                         sex = SexEnum.woman;
                         data.remove(12);
                         if (data != null)
                             count = data.size();
                         initView();
                         cunrrentItem.setText(1 + "/" + count);
-
                     }
                 })
-                .setNegativeButton("男性", new DialogInterface.OnClickListener() {
+                .setPositiveButton("男性", new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
                         sex = SexEnum.man;
                         data.remove(7);
                         if (data != null)
@@ -88,31 +80,58 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
                         initView();
                         cunrrentItem.setText(1 + "/" + count);
                     }
-                }).create();
-        dialog.show();
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(50);
-        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextSize(50);
-        try {
-            Field mAlert = AlertDialog.class.getDeclaredField("mAlert");
-            mAlert.setAccessible(true);
-            Object mAlertController = mAlert.get(dialog);
-            //通过反射修改title字体大小和颜色
-            Field mTitle = mAlertController.getClass().getDeclaredField("mTitleView");
-            mTitle.setAccessible(true);
-            TextView mTitleView = (TextView) mTitle.get(mAlertController);
-            if (mTitleView != null) {
-                mTitleView.setTextSize(60);
-                mTitleView.setTextColor(Color.BLACK);
-            }
-            //通过反射修改message字体大小和颜色
-            Field mMessage = mAlertController.getClass().getDeclaredField("mMessageView");
-            mMessage.setAccessible(true);
-            TextView mMessageView = (TextView) mMessage.get(mAlertController);
-            mMessageView.setTextSize(50);
-            mMessageView.setTextColor(Color.BLACK);
-        } catch (Throwable e1) {
-            e1.printStackTrace();
-        }
+                })
+                .show();
+//        AlertDialog dialog = new AlertDialog.Builder(this)
+//                .setMessage("请选择您的性别")
+//                .setCancelable(false)
+//                .setPositiveButton("女性", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        sex = SexEnum.woman;
+//                        data.remove(12);
+//                        if (data != null)
+//                            count = data.size();
+//                        initView();
+//                        cunrrentItem.setText(1 + "/" + count);
+//
+//                    }
+//                })
+//                .setNegativeButton("男性", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        sex = SexEnum.man;
+//                        data.remove(7);
+//                        if (data != null)
+//                            count = data.size();
+//                        initView();
+//                        cunrrentItem.setText(1 + "/" + count);
+//                    }
+//                }).create();
+//        dialog.show();
+//        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(50);
+//        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextSize(50);
+//        try {
+//            Field mAlert = AlertDialog.class.getDeclaredField("mAlert");
+//            mAlert.setAccessible(true);
+//            Object mAlertController = mAlert.get(dialog);
+//            //通过反射修改title字体大小和颜色
+//            Field mTitle = mAlertController.getClass().getDeclaredField("mTitleView");
+//            mTitle.setAccessible(true);
+//            TextView mTitleView = (TextView) mTitle.get(mAlertController);
+//            if (mTitleView != null) {
+//                mTitleView.setTextSize(60);
+//                mTitleView.setTextColor(Color.BLACK);
+//            }
+//            //通过反射修改message字体大小和颜色
+//            Field mMessage = mAlertController.getClass().getDeclaredField("mMessageView");
+//            mMessage.setAccessible(true);
+//            TextView mMessageView = (TextView) mMessage.get(mAlertController);
+//            mMessageView.setTextSize(50);
+//            mMessageView.setTextColor(Color.BLACK);
+//        } catch (Throwable e1) {
+//            e1.printStackTrace();
+//        }
     }
 
     private void initView() {

@@ -60,7 +60,7 @@
                 android:id="@+id/tv_face_sign_in"
                 android:layout_width="800pt"
                 android:layout_height="100pt"
-                android:layout_marginTop="10pt"
+                android:layout_marginTop="30pt"
                 android:background="@drawable/sign_in_bg_tv_sign_in2"
                 android:gravity="center"
                 android:text="快速注册"
