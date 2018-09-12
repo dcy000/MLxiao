@@ -1,5 +1,6 @@
 package com.gcml.health.measure.single_measure;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,6 +12,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
@@ -20,6 +24,10 @@ import com.gcml.health.measure.single_measure.bean.NewWeeklyOrMonthlyBean;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.ui.dialog.BaseDialog;
+import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
+import com.gcml.lib_utils.ui.dialog.DialogSure;
+import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.gcml.lib_widget.dialog.FllowUpTimesDialog;
 import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.google.gson.Gson;
@@ -125,6 +133,8 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
     private String currentSuggest;
     //非同日测量次数
     private Integer detectionDayCount;
+    private ProgressDialog mDialog;
+    private DiagnoseInfoBean.DataBean diagnoseInfo;
 
     /**
      * @param context
@@ -156,6 +166,7 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
         initView();
         initViewColor();
         getData();
+        getDiagnoseInfo();
     }
 
     private void initViewColor() {
@@ -192,18 +203,6 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
     }
 
     private void getData() {
-        HealthMeasureApi.getDiagnoseInfo(UserSpHelper.getUserId(), new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
-                if (bean != null && bean.tag && bean.data != null) {
-                    detectionDayCount = bean.data.detectionDayCount;
-                    if (detectionDayCount < 3) {
-                        mHealthKnowledge.setBackgroundColor(Color.parseColor("#BBBBBB"));
-                    }
-                }
-            }
-        });
 
         Calendar curr = Calendar.getInstance();
         long weekAgoTime = curr.getTimeInMillis();
@@ -329,8 +328,8 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
         mTvSuggest.setText(currentSuggest);
 
         MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                "主人，您本次测量高压"+currentHighBloodpressure+",低压"
-                        +currentLowBloodpressure+",健康分数"+healthScore+"分。"+currentSuggest);
+                "主人，您本次测量高压" + currentHighBloodpressure + ",低压"
+                        + currentLowBloodpressure + ",健康分数" + healthScore + "分。" + currentSuggest);
 
     }
 
@@ -342,14 +341,249 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
             CCAppActions.jump2NormalHightActivity("NewMeasureBloodpressureResultActivity");
 
         } else if (i == R.id.health_knowledge) {
-            if (detectionDayCount < 3) {
-                showLessThan3Dialog((3 - detectionDayCount) + "");
-                return;
-            }
-            CCAppActions.jump2TreatmentPlanActivity();
 
+            onclickHypertensionManage();
         } else {
         }
+    }
+
+    /**
+     * 获取诊断的相关信息
+     */
+    private void getDiagnoseInfo() {
+        showLoadingDialog("");
+        HealthMeasureApi.getDiagnoseInfo(UserSpHelper.getUserId(), new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
+                        if (bean != null && bean.tag && bean.data != null) {
+                            diagnoseInfo = bean.data;
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        hideLoadingDialog();
+                        super.onFinish();
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        hideLoadingDialog();
+                    }
+                }
+        );
+
+    }
+
+
+    /**
+     * 点击高血压管理 按钮
+     */
+    private void onclickHypertensionManage() {
+
+        if (diagnoseInfo != null) {
+            if (diagnoseInfo.result == null) {
+                if (diagnoseInfo.hypertensionPrimaryState == null) {
+                    //用户更新原发性信息
+                    showOriginHypertensionDialog();
+                } else if ("1".equals(diagnoseInfo.hypertensionPrimaryState)) {
+                    onOriginClickYes();
+                } else if ("0".equals(diagnoseInfo.hypertensionPrimaryState)) {
+//                onOriginClickNo();
+                    showOriginHypertensionDialog();
+                }
+            } else {
+                DialogSure sure = new DialogSure(this);
+                sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
+                sure.setSure("健康方案");
+                sure.show();
+                sure.setOnClickSureListener(dialog1 -> {
+                    dialog1.dismiss();
+                    toSulotion();
+                });
+            }
+
+        } else {
+            ToastUtils.showShort("网络繁忙");
+        }
+
+
+    }
+
+    private void showOriginHypertensionDialog() {
+//        TwoChoiceDialog dialog = new TwoChoiceDialog("您是否诊断过原发性高血压且正在进行高血压规范治疗？(您的选择将影响您的健康方案，且一旦选择不可更改，请谨慎回答)", "是", "否");
+//        dialog.setListener(this);
+//        dialog.show(getFragmentManager(), "yuanfa");
+//        mlSpeak("主人，您是否已确诊高血压且在治疗？");
+        DialogSureCancel dialogSureCancel = new DialogSureCancel(this);
+        dialogSureCancel.setContent("您是否诊断过原发性高血压且正在进行高血压规范治疗？(您的选择将影响您的健康方案，且一旦选择不可更改，请谨慎回答)");
+        dialogSureCancel.getCancelView().setText("否");
+        dialogSureCancel.getSureView().setText("是");
+        dialogSureCancel.setOnClickCancelListener(null);
+        dialogSureCancel.setOnClickSureListener(new DialogClickSureListener() {
+            @Override
+            public void clickSure(BaseDialog dialog) {
+                postOriginPertensionState("1");
+                CC.obtainBuilder("app")
+                        .setActionName("To_SlowDiseaseManagementTipActivity")
+                        .build()
+                        .call();
+            }
+        });
+    }
+
+    private void postOriginPertensionState(String state) {
+        HealthMeasureApi.postOriginHypertension(state, UserSpHelper.getUserId(), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject object = new JSONObject(body);
+                    if (object.getBoolean("tag")) {
+                        if ("0".equals(state)) {
+                            onOriginClickNo();
+                        } else if ("1".equals(state)) {
+                            onOriginClickNo();
+                        }
+                    } else {
+                        ToastUtils.showShort(object.getString("message"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+    }
+
+    /**
+     * 原发弹框点击否
+     */
+    private void onOriginClickNo() {
+
+        if (diagnoseInfo != null && diagnoseInfo.hypertensionLevel == null) {
+            if (diagnoseInfo != null) {
+                if (diagnoseInfo.detectionDayCount != null) {
+                    if (diagnoseInfo.detectionDayCount >= 3) {
+                        judgeClass();
+                    } else {
+                        showLessThan3Dialog((3 - diagnoseInfo.detectionDayCount) + "");
+                    }
+
+                }
+            } else {
+                showLessThan3Dialog("0");
+            }
+
+        } else {
+            toSulotion();
+        }
+
+
+    }
+
+    /**
+     * 判定等级
+     */
+    private void judgeClass() {
+        Integer high = diagnoseInfo.highPressure;
+        Integer low = diagnoseInfo.lowPressure;
+        if (high == null || low == null) {
+            return;
+        }
+//        高血压 high>=140 或 low>=90
+//        正常高值 140>high>=120 或 90>low>=80
+//        正常 90<=高压<120且60<=低压<80
+//        偏低 高压<90 或 低压<60
+        if (high >= 140 || low >= 90) {
+            onHigh();
+        } else if ((high < 140 && high >= 120) || (low < 90 && low >= 80)) {
+            onNormalHigh();
+        } else if ((high < 120 && high >= 90) && (low < 80 && low >= 60)) {
+            onNormal();
+        } else if (high < 90 || low < 60) {
+            onLow();
+        }
+
+    }
+
+    private void onLow() {
+        CC.obtainBuilder("app")
+                .setActionName("To_BasicInformationActivity")
+                .addParam("fromWhere", "pressureFlat")
+                .build()
+                .call();
+    }
+
+    private void onNormal() {
+        CC.obtainBuilder("app")
+                .setActionName("To_BasicInformationActivity")
+                .addParam("fromWhere", "pressureNormal")
+                .build()
+                .call();
+
+    }
+
+    private void onNormalHigh() {
+        if (diagnoseInfo.risk == null) {
+            CC.obtainBuilder("app")
+                    .setActionName("To_BasicInformationActivity")
+                    .addParam("fromWhere", "pressureNormalHigh")
+                    .build()
+                    .call();
+        } else {
+//            toDetete();
+//            startActivity(new Intent(this, WeightMeasureActivity.class));
+
+            CC.obtainBuilder("health_measure")
+                    .setActionName("To_WeightManagerActivity")
+                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+                @Override
+                public void onResult(CC cc, CCResult result) {
+                    toSulotion();
+                }
+            });
+        }
+
+    }
+
+    private void onHigh() {
+        if (diagnoseInfo.hypertensionTarget == null) {
+            CC.obtainBuilder("app")
+                    .setActionName("To_BasicInformationActivity")
+                    .addParam("fromWhere", "pressureHigh")
+                    .build()
+                    .call();
+        } else if ("1".equals(diagnoseInfo.hypertensionTarget)) {
+            toSulotion();
+        } else if ("0".equals(diagnoseInfo.hypertensionTarget)) {
+            if (diagnoseInfo.heart == null) {
+                CC.obtainBuilder("app")
+                        .setActionName("To_HypertensionTipActivity")
+                        .build()
+                        .call();
+            } else {
+                CC.obtainBuilder("app")
+                        .setActionName("To_IsEmptyStomachOrNotActivity")
+                        .build()
+                        .call();
+            }
+
+        }
+    }
+
+    /**
+     * -->解决方案页面
+     */
+
+    private void toSulotion() {
+        CC.obtainBuilder("app")
+                .setActionName("ToTreatmentPlanActivity")
+                .build()
+                .call();
     }
 
     private void showLessThan3Dialog(String notice) {
@@ -362,6 +596,47 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
         });
         dialog.show(getSupportFragmentManager(), "less3");
         MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您尚未满足3天测量标准，请在健康监测中测量三日", false);
+    }
+    /**
+     * 原发弹框点击是
+     */
+    private void onOriginClickYes() {
+        if (diagnoseInfo.primary == null) {
+            CC.obtainBuilder("app")
+                    .setActionName("To_SlowDiseaseManagementTipActivity")
+                    .build()
+                    .call();
+        } else {
+            if (diagnoseInfo.lowPressure == null) {
+//                startActivity(new Intent(this, BloodPressureMeasureActivity.class));
+                CC.obtainBuilder("health_measure")
+                        .setActionName("To_BloodpressureManagerActivity")
+                        .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+                        toSulotion();
+                    }
+                });
+            } else {
+                toSulotion();
+            }
+        }
+    }
+    public void showLoadingDialog(String message) {
+        if (mDialog != null) {
+            mDialog.dismiss();
+        }
+        mDialog = new ProgressDialog(this);
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.setIndeterminate(true);
+        mDialog.setMessage(message);
+        mDialog.show();
+    }
+
+    public void hideLoadingDialog() {
+        if (mDialog != null) {
+            mDialog.dismiss();
+        }
     }
 
     @Override

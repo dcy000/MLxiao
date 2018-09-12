@@ -22,7 +22,7 @@ public class BreathHomeResultBean {
     private String height;
     private String weight;
     private String pef;//L/min 整型
-    private String pev1;//浮点数
+    private String fev1;//浮点数
     private String fvc;//浮点数
     private String mef75;//浮点数（L/s）
     private String mef50;//浮点数（L/s）
@@ -144,12 +144,12 @@ public class BreathHomeResultBean {
         this.pef = pef;
     }
 
-    public String getPev1() {
-        return pev1;
+    public String getFev1() {
+        return fev1;
     }
 
-    public void setPev1(String pev1) {
-        this.pev1 = pev1;
+    public void setFev1(String fev1) {
+        this.fev1 = fev1;
     }
 
     public String getFvc() {
@@ -233,7 +233,7 @@ public class BreathHomeResultBean {
                 ", height='" + height + '\'' +
                 ", weight='" + weight + '\'' +
                 ", pef='" + pef + '\'' +
-                ", pev1='" + pev1 + '\'' +
+                ", pev1='" + fev1 + '\'' +
                 ", fvc='" + fvc + '\'' +
                 ", mef75='" + mef75 + '\'' +
                 ", mef50='" + mef50 + '\'' +

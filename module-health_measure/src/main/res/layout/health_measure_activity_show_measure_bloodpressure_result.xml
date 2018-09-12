@@ -443,7 +443,8 @@
                           app:layout_constraintRight_toLeftOf="@+id/health_knowledge"
                           app:layout_constraintHorizontal_chainStyle="packed"
                           android:layout_marginBottom="50pt"
-                          android:clickable="true"/>
+                          android:clickable="true"
+                          android:visibility="gone"/>
                       <TextView
                           android:id="@+id/health_knowledge"
                           android:layout_width="340pt"
