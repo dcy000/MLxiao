@@ -74,6 +74,7 @@ public class HealthMeasureCC implements IComponent {
 
     interface ReceiveKeys {
         String KEY_EXTRA_MEASURE_TYPE = "measure_type";
+        String KEY_EXTRA_IS_MEASURE_TASK = "is_measure_task";
     }
 
     @Override
@@ -95,8 +96,11 @@ public class HealthMeasureCC implements IComponent {
                 break;
             case ReceiveActionNames.TO_ALL_MEASURE_ACTIVITY:
                 int param = cc.getParamItem(ReceiveKeys.KEY_EXTRA_MEASURE_TYPE);
-                AllMeasureActivity.startActivity(context, param);
-
+                if (cc.getParamItem(ReceiveKeys.KEY_EXTRA_IS_MEASURE_TASK) == null) {
+                    AllMeasureActivity.startActivity(context, param, false);
+                } else {
+                    AllMeasureActivity.startActivity(context, param, true);
+                }
                 break;
             case ReceiveActionNames.TO_HEALTHINQUIRYACTIVITY:
                 HealthInquiryActivity.startActivity(context);

@@ -50,9 +50,9 @@ public class TaskMenuAdapter extends BaseQuickAdapter<TaskBean.TaskListBean, Bas
                         } else if (item.taskType.equals("34")){
                             CC.obtainBuilder("app.component.task.diary").addParam("what", 2).build().callAsync();
                         } else if (item.taskType.equals("31")) {
-                            CC.obtainBuilder("health_measure").setActionName("ToAllMeasureActivity").addParam("measure_type", 25).build().callAsync();
+                            CC.obtainBuilder("health_measure").setActionName("ToAllMeasureActivity").addParam("measure_type", 25).addParam("is_measure_task", true).build().callAsync();
                         } else if (item.taskType.equals("11")) {
-                            CC.obtainBuilder("health_measure").setActionName("ToAllMeasureActivity").addParam("measure_type", 22).build().callAsync();
+                            CC.obtainBuilder("health_measure").setActionName("ToAllMeasureActivity").addParam("measure_type", 22).addParam("is_measure_task", true).build().callAsync();
                         }
                     }
                 });

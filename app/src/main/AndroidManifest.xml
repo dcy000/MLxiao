@@ -551,7 +551,6 @@
             <!-- <category android:name="android.intent.category.DEFAULT" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".health.HealthDiaryActivity" />
         <activity
             android:name=".tool.JieMengActivity"
             android:screenOrientation="landscape">

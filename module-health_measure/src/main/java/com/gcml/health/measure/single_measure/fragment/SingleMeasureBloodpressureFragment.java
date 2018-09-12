@@ -47,6 +47,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     private ArrayList<DetectionData> datas;
     private int highPressure;
     private int lowPressure;
+    private boolean isMeasureTask = false;
 
     public SingleMeasureBloodpressureFragment() {
     }
@@ -55,6 +56,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
         getHypertensionHand();
+        isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
     }
 
     /**
@@ -155,8 +157,13 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
                     if (apiResponse.isSuccessful()) {
                         ToastUtils.showLong("上传数据成功");
                         DetectionResult result = apiResponse.getData().get(0);
-                        ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
-                                result.getScore(), highPressure, lowPressure, result.getResult());
+                        if (isMeasureTask) {
+                            if (!mActivity.isFinishing())
+                            mActivity.finish();
+                        } else {
+                            ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
+                                    result.getScore(), highPressure, lowPressure, result.getResult());
+                        }
                     }
                 } catch (Throwable e) {
                     e.printStackTrace();

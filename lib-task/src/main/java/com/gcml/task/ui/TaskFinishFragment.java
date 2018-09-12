@@ -35,12 +35,12 @@ public class TaskFinishFragment extends Fragment {
     ImageView imagePeople1, imagePeople2, imagePeople3, imagePeople4, imagePeople5;
     RecyclerForScrollView mRecycler;
     TaskMenuAdapter mAdapter;
-    List<TaskBean.TaskListBean> mList = new ArrayList<>();
+    TaskBean mdata;
 
-    public static TaskFinishFragment newInstance(List<TaskBean.TaskListBean> mData) {
+    public static TaskFinishFragment newInstance(TaskBean mData) {
         TaskFinishFragment fragment = new TaskFinishFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(DATA_CONTENT, (Serializable) mData);
+        bundle.putSerializable(DATA_CONTENT, mData);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -51,9 +51,9 @@ public class TaskFinishFragment extends Fragment {
         View view = View.inflate(getActivity(), R.layout.fragment_task_finish, null);
 
         Bundle arguments = getArguments();
-        mList = (List<TaskBean.TaskListBean>) arguments.getSerializable(DATA_CONTENT);
+        mdata = (TaskBean) arguments.getSerializable(DATA_CONTENT);
         bindView(view);
-        bindData(mList);
+        bindData(mdata);
         return view;
     }
 
@@ -70,33 +70,33 @@ public class TaskFinishFragment extends Fragment {
         mRecycler = view.findViewById(R.id.rv_task);
     }
 
-    private void bindData(List<TaskBean.TaskListBean> list) {
-        int progress = 50;
-        if (progress < 20) {
+    private void bindData(TaskBean data) {
+        int progress = Integer.parseInt(data.surpassHuman);
+        if (progress <= 20) {
             imagePeople1.setVisibility(View.VISIBLE);
             imagePeople2.setVisibility(View.GONE);
             imagePeople3.setVisibility(View.GONE);
             imagePeople4.setVisibility(View.GONE);
             imagePeople5.setVisibility(View.GONE);
-        } else if (progress < 40) {
+        } else if (progress <= 40) {
             imagePeople1.setVisibility(View.GONE);
             imagePeople2.setVisibility(View.VISIBLE);
             imagePeople3.setVisibility(View.GONE);
             imagePeople4.setVisibility(View.GONE);
             imagePeople5.setVisibility(View.GONE);
-        } else if (progress <60) {
+        } else if (progress <=60) {
             imagePeople1.setVisibility(View.GONE);
             imagePeople2.setVisibility(View.GONE);
             imagePeople3.setVisibility(View.VISIBLE);
             imagePeople4.setVisibility(View.GONE);
             imagePeople5.setVisibility(View.GONE);
-        } else if (progress < 80) {
+        } else if (progress <= 80) {
             imagePeople1.setVisibility(View.GONE);
             imagePeople2.setVisibility(View.GONE);
             imagePeople3.setVisibility(View.GONE);
             imagePeople4.setVisibility(View.VISIBLE);
             imagePeople5.setVisibility(View.GONE);
-        } else if (progress < 100) {
+        } else if (progress <= 100) {
             imagePeople1.setVisibility(View.GONE);
             imagePeople2.setVisibility(View.GONE);
             imagePeople3.setVisibility(View.GONE);
@@ -107,6 +107,12 @@ public class TaskFinishFragment extends Fragment {
         progressNumber.setText(progress + "%");
         progressMessage.setText("的人被您超越");
         progressTag.setText("您还可以:");
+        List<TaskBean.TaskListBean> list = new ArrayList<>();
+        for (int i = 0; i < data.taskList.size(); i++) {
+            if (!data.taskList.get(i).mustStatus.equals("1")) {
+                list.add(data.taskList.get(i));
+            }
+        }
         mAdapter = new TaskMenuAdapter(R.layout.item_task_daily, list);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycler.addItemDecoration(new ListDividerItemDecoration(

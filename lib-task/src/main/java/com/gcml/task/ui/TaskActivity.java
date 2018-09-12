@@ -99,10 +99,10 @@ public class TaskActivity extends FragmentActivity {
                     public void onNext(TaskBean body) {
                         super.onNext(body);
                         if (body.complitionStatus) {
-                            TaskFinishFragment instanceFinish = TaskFinishFragment.newInstance(body.taskList);
+                            TaskFinishFragment instanceFinish = TaskFinishFragment.newInstance(body);
                             getSupportFragmentManager().beginTransaction().replace(R.id.fl_task, instanceFinish).commit();
                         } else {
-                            TaskNormalFragment instanceNoemal = TaskNormalFragment.newInstance(body.taskList);
+                            TaskNormalFragment instanceNoemal = TaskNormalFragment.newInstance(body);
                             getSupportFragmentManager().beginTransaction().replace(R.id.fl_task, instanceNoemal).commit();
                         }
                     }

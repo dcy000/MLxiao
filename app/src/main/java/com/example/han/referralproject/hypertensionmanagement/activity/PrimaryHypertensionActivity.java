@@ -127,8 +127,8 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("基 础 信 息 列 表");
         mRightText.setVisibility(View.GONE);
-        mRightView.setImageResource(R.drawable.white_wifi_3);
-        mRightView.setOnClickListener(v -> startActivity(new Intent(PrimaryHypertensionActivity.this, WifiConnectActivity.class)));
+//        mRightView.setImageResource(R.drawable.white_wifi_3);
+//        mRightView.setOnClickListener(v -> startActivity(new Intent(PrimaryHypertensionActivity.this, WifiConnectActivity.class)));
         mllBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

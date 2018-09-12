@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,18 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.aigestudio.wheelpicker.WheelPicker;
+import com.gcml.common.bus.RxBus;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.task.R;
+import com.gcml.task.bean.ChannelModel;
 import com.gcml.task.bean.ItemsModel;
+import com.gcml.task.event.MoreChannelEvent;
+import com.gcml.task.event.SelectChannelEvent;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * desc: 每日任务类型设置页面，包括运动和饮酒设置（需配合TaskDialyItemsFragment使用） .
@@ -33,10 +42,16 @@ public class TaskDialyItemsFragment extends Fragment {
 
     private ItemsModel mModel;
     private View mView;
+    private TextView tvItemsTitle;
     private FrameLayout flItemsContainer;
     private TextView tvItemsMore;
+
     private ArrayList<String> theItems;
     private ArrayList<String> moreItems;
+
+    private List<ChannelModel> mSelectedDatas;
+    private List<ChannelModel> mUnSelectedDatas;
+
     private WheelPicker mWheelPicker;
 
     public static TaskDialyItemsFragment newInstance(ItemsModel model) {
@@ -52,6 +67,10 @@ public class TaskDialyItemsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         theItems = new ArrayList<>();
         moreItems = new ArrayList<>();
+
+        mSelectedDatas = new ArrayList<>();
+        mUnSelectedDatas = new ArrayList<>();
+        updateChannelEvebt();
         Bundle arguments = getArguments();
         if (arguments != null) {
             mModel = arguments.getParcelable("itemsModel");
@@ -59,10 +78,19 @@ public class TaskDialyItemsFragment extends Fragment {
                 ArrayList<String> items = mModel.getItems();
                 int size = items.size();
                 for (int i = 0; i < size; i++) {
-                    if (i >= 10) {
-                        moreItems.add(items.get(i));
-                    } else {
+                    if (i < 10) {
                         theItems.add(items.get(i));
+                        ChannelModel thenchannel = new ChannelModel();
+                        thenchannel.setItemtype(ChannelModel.TYPE_MY_CHANNEL);
+                        thenchannel.setChannelId(String.valueOf(i));
+                        thenchannel.setChannelName(items.get(i));
+                        mSelectedDatas.add(thenchannel);
+                    } else {
+                        ChannelModel morechannel = new ChannelModel();
+                        morechannel.setItemtype(ChannelModel.TYPE_OTHER_CHANNEL);
+                        morechannel.setChannelId(String.valueOf(i));
+                        morechannel.setChannelName(items.get(i));
+                        mUnSelectedDatas.add(morechannel);
                     }
                 }
             }
@@ -70,10 +98,7 @@ public class TaskDialyItemsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_task_dialy_items, container, false);
         flItemsContainer = findViewById(R.id.fl_task_diary_container);
         Context context = getContext();
@@ -92,6 +117,8 @@ public class TaskDialyItemsFragment extends Fragment {
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
         flItemsContainer.addView(mWheelPicker, params);
+        tvItemsTitle = findViewById(R.id.tv_task_diary_title);
+        tvItemsTitle.setText(mModel.getTitle());
         tvItemsMore = findViewById(R.id.tv_task_diary_more);
         tvItemsMore.setOnClickListener(moreItemsOnClickListener);
         return mView;
@@ -100,7 +127,9 @@ public class TaskDialyItemsFragment extends Fragment {
     private View.OnClickListener moreItemsOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            showMoreItems();
+//            showMoreItems();
+            ChannelDialogFragment dialogFragment = ChannelDialogFragment.newInstance(mSelectedDatas, mUnSelectedDatas);
+            dialogFragment.show(getChildFragmentManager(), "CHANNEL");
         }
     };
 
@@ -154,6 +183,26 @@ public class TaskDialyItemsFragment extends Fragment {
     public void onDetach() {
         lbm.unregisterReceiver(receiver);
         super.onDetach();
+    }
+
+    private void updateChannelEvebt() {
+        RxBus.getDefault()
+                .on(MoreChannelEvent.class)
+                .subscribe(RxBus.consumer(new Consumer<MoreChannelEvent>() {
+                    @Override
+                    public void accept(MoreChannelEvent moreChannelEvent) throws Exception {
+                        Log.e("xxxxxxxxxxxx", "onRxBusEventResponse");
+                        if (moreChannelEvent.selectedDatas != null && moreChannelEvent.unSelectedDatas != null) {
+                            mSelectedDatas = moreChannelEvent.selectedDatas;
+                            mUnSelectedDatas = moreChannelEvent.unSelectedDatas;
+                            theItems.clear();
+                            for (int i = 0; i < mSelectedDatas.size(); i++) {
+                                theItems.add(mSelectedDatas.get(i).getChannelName());
+                            }
+                            mWheelPicker.setData(theItems);
+                        }
+                    }
+                }));
     }
 
     private MyReceiver receiver = new MyReceiver();

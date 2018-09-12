@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import okhttp3.Call;
 import okhttp3.FormBody;
@@ -108,7 +109,10 @@ public class QaApi {
             String resultJson = resultArray.toString();
             results.put("resultJson", resultJson);
 
-            JSONObject resultObj = resultArray.getJSONObject(0);
+            int length = resultArray.length();
+            int i = sRandom.nextInt(length);
+            JSONObject resultObj = resultArray.getJSONObject(i);
+
             if (resultObj == null) {
                 return results;
             }
@@ -141,7 +145,7 @@ public class QaApi {
                 //笑话
                 String content = resultObj.optString("content");
                 if (!TextUtils.isEmpty(content)) {
-                    results.put("text", results.get("text") + content);
+                    results.put("text", content);
                 }
                 return results;
             }
@@ -166,8 +170,9 @@ public class QaApi {
                 return results;
             }
 
-            //评书,历史上的今天,搞笑段子,相声小品,公开课,名人演讲,戏曲
+            //评书,历史上的今天,搞笑段子,相声小品,公开课,名人演讲,戏曲,健康讲座
             if (service.equals("storyTelling")
+                    || service.equals("health")
                     || service.equals("history")
                     || service.equals("LEIQIAO.funnyPassage")
                     || service.equals("crossTalk")
@@ -181,7 +186,6 @@ public class QaApi {
                 }
                 return results;
             }
-
 
             if (service.equals("weather")) {
                 //天气
@@ -221,4 +225,6 @@ public class QaApi {
             return results;
         }
     }
+
+    private static Random sRandom = new Random();
 }

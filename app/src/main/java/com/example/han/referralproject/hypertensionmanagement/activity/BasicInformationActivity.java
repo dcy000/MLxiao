@@ -55,8 +55,8 @@ public class BasicInformationActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("基 础 信 息 列 表");
         mRightText.setVisibility(View.GONE);
-        mRightView.setImageResource(R.drawable.white_wifi_3);
-        mRightView.setOnClickListener(v -> startActivity(new Intent(this, WifiConnectActivity.class)));
+//        mRightView.setImageResource(R.drawable.white_wifi_3);
+//        mRightView.setOnClickListener(v -> startActivity(new Intent(this, WifiConnectActivity.class)));
     }
 
     @OnClick({R.id.tv_next_step, R.id.tv_birth_info, R.id.tv_height_info})

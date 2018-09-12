@@ -66,6 +66,10 @@ public interface IPresenter {
      */
     String MEASURE_TYPE = "measure_type";
     /**
+     * 是否是每日任务测量
+     */
+    String IS_MEASURE_TASK = "is_measure_task";
+    /**
      * 测量体温
      */
     int MEASURE_TEMPERATURE = 21;

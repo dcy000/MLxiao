@@ -42,8 +42,8 @@ public class HypertensionTipActivity extends BaseActivity implements WarmNoticeF
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("基 础 信 息 列 表");
         mRightText.setVisibility(View.GONE);
-        mRightView.setImageResource(R.drawable.white_wifi_3);
-        mRightView.setOnClickListener(v -> startActivity(new Intent(HypertensionTipActivity.this, WifiConnectActivity.class)));
+//        mRightView.setImageResource(R.drawable.white_wifi_3);
+//        mRightView.setOnClickListener(v -> startActivity(new Intent(HypertensionTipActivity.this, WifiConnectActivity.class)));
     }
 
     private void initView() {

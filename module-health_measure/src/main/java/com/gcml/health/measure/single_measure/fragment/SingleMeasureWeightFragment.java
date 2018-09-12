@@ -1,7 +1,9 @@
 package com.gcml.health.measure.single_measure.fragment;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -13,6 +15,7 @@ import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -32,6 +35,17 @@ import timber.log.Timber;
  * description:单次体重测量
  */
 public class SingleMeasureWeightFragment extends Weight_Fragment {
+
+    private boolean isMeasureTask = false;
+
+    @Override
+    protected void initView(View view, Bundle bundle) {
+        super.initView(view, bundle);
+        if (bundle != null) {
+            isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
+        }
+    }
+
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
@@ -78,6 +92,9 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
                 @Override
                 public void onSuccess(String callbackString) {
                     ToastUtils.showLong("数据上传成功");
+                    if (isMeasureTask && !mActivity.isFinishing()) {
+                        mActivity.finish();
+                    }
                 }
 
                 @Override
