@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.billy.cc.core.component.CC;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -60,7 +61,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
     }
 
     private void bindData() {
-        mToolBar.setData("每 日 任 务", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+        mToolBar.setData("摄 盐 控 制", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();
@@ -68,13 +69,21 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
 
             @Override
             public void onRightClick() {
-
+                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                finish();
             }
         });
+        if (what == 0) {
+            mToolBar.setTitle("摄 盐 控 制");
+        } else if (what == 1) {
+            mToolBar.setTitle("运 动 控 制");
+        } else {
+            mToolBar.setTitle("饮 酒 控 制");
+        }
 
         saltDetails.setWhat(0);
         saltDetails.setAction("完成");
-        saltDetails.setTitle("选择盐的摄入量");
+        saltDetails.setTitle("选择盐摄入量");
         saltDetails.setUnitPosition(0);
         saltDetails.setUnits(new String[]{"勺", "克"});
         saltDetails.setUnitSum(new String[]{"勺(1勺约等于2克)", "克"});
@@ -126,7 +135,7 @@ public class TaskDialyActivity extends FragmentActivity implements TaskDialyDeta
         sportItems.setItems(sportList);
 
         ItemsModel wineItems = new ItemsModel();
-        wineItems.setTitle("选择酒类与度数");
+        wineItems.setTitle("选择饮酒类型");
         ArrayList<String> wineList = new ArrayList<>();
         wineList.add("白酒");
         wineList.add("啤酒");

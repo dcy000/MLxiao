@@ -33,6 +33,7 @@ public class TaskDialyItemsFragment extends Fragment {
 
     private ItemsModel mModel;
     private View mView;
+    private TextView tvItemsTitle;
     private FrameLayout flItemsContainer;
     private TextView tvItemsMore;
     private ArrayList<String> theItems;
@@ -92,6 +93,8 @@ public class TaskDialyItemsFragment extends Fragment {
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
         flItemsContainer.addView(mWheelPicker, params);
+        tvItemsTitle = findViewById(R.id.tv_task_diary_title);
+        tvItemsTitle.setText(mModel.getTitle());
         tvItemsMore = findViewById(R.id.tv_task_diary_more);
         tvItemsMore.setOnClickListener(moreItemsOnClickListener);
         return mView;

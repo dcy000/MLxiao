@@ -33,13 +33,13 @@ public class TaskNormalFragment extends Fragment {
     TextView progressMsg, progressNum, progressLeft, progressRight;
     RecyclerForScrollView mRecycler;
     TaskMenuAdapter mAdapter;
-    List<TaskBean.TaskListBean> mList = new ArrayList<>();
+    TaskBean mData;
     ProgressBar mProgress;
 
-    public static TaskNormalFragment newInstance(List<TaskBean.TaskListBean> mData) {
+    public static TaskNormalFragment newInstance(TaskBean mData) {
         TaskNormalFragment fragment = new TaskNormalFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(DATA_CONTENT, (Serializable) mData);
+        bundle.putSerializable(DATA_CONTENT, mData);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -50,9 +50,9 @@ public class TaskNormalFragment extends Fragment {
         View view = View.inflate(getActivity(), R.layout.fragment_task_normal, null);
 
         Bundle arguments = getArguments();
-        mList = (List<TaskBean.TaskListBean>) arguments.getSerializable(DATA_CONTENT);
+        mData = (TaskBean) arguments.getSerializable(DATA_CONTENT);
         bindView(view);
-        bindData(mList);
+        bindData(mData);
         return view;
     }
 
@@ -65,21 +65,21 @@ public class TaskNormalFragment extends Fragment {
         mProgress = view.findViewById(R.id.pb_task);
     }
 
-    private void bindData(List<TaskBean.TaskListBean> list) {
+    private void bindData(TaskBean data) {
         progressMsg.setText("完成进度");
         int done = 0;
-        for (int i = 0; i < list.size(); i++) {
-            TaskBean.TaskListBean taskListBean = list.get(i);
+        for (int i = 0; i < data.taskList.size(); i++) {
+            TaskBean.TaskListBean taskListBean = data.taskList.get(i);
             if ("1".equals(taskListBean.complitionStatus)) {
                 done++;
             }
         }
-        int progress = done * 100 / list.size();
+        int progress = done * 100 / data.taskList.size();
         progressNum.setText(progress + "%");
         progressLeft.setText(done + "");
-        progressRight.setText("/" + list.size());
+        progressRight.setText("/" + data.taskList.size());
         mProgress.setProgress(progress);
-        mAdapter = new TaskMenuAdapter(R.layout.item_task_daily, list);
+        mAdapter = new TaskMenuAdapter(R.layout.item_task_daily, data.taskList);
         mRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mRecycler.addItemDecoration(new GridDividerItemDecoration(16, 16));
         mRecycler.setAdapter(mAdapter);
