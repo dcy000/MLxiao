@@ -5,16 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.FrameLayout;
 
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.bloodpressure_habit.fragment.GetHypertensionHandFragment;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.ui.dialog.BaseDialog;
-import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
-import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
@@ -95,17 +94,31 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
      * 展示刷新
      */
     private void showRefreshBluetoothDialog() {
-        DialogSureCancel sureCancel = new DialogSureCancel(this);
-        sureCancel.setContent("您确定解绑之前的设备，重新连接新设备吗？");
-        sureCancel.show();
-        sureCancel.setOnClickCancelListener(null);
-        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
+//        DialogSureCancel sureCancel = new DialogSureCancel(this);
+//        sureCancel.setContent("您确定解绑之前的设备，重新连接新设备吗？");
+//        sureCancel.show();
+//        sureCancel.setOnClickCancelListener(null);
+//        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
+//            @Override
+//            public void clickSure(BaseDialog dialog) {
+//                sureCancel.dismiss();
+//                untieDevice();
+//            }
+//        });
+        new AlertDialog(this)
+                .builder()
+                .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
+                .setNegativeButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        untieDevice();
+                    }
+                }).setPositiveButton("取消", new View.OnClickListener() {
             @Override
-            public void clickSure(BaseDialog dialog) {
-                sureCancel.dismiss();
-                untieDevice();
+            public void onClick(View v) {
+
             }
-        });
+        }).show();
     }
 
     private void untieDevice() {

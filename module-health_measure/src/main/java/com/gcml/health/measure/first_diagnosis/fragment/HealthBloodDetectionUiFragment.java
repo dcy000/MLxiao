@@ -6,6 +6,7 @@ import android.util.SparseIntArray;
 import android.view.View;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
@@ -14,9 +15,6 @@ import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.data.TimeCountDownUtils;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.ui.dialog.BaseDialog;
-import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
-import com.gcml.lib_utils.ui.dialog.DialogSure;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,7 +28,7 @@ import java.util.ArrayList;
 import timber.log.Timber;
 
 public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
-    private DialogSure dialogSure;
+//    private DialogSure dialogSure;
     private String tips_first = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行<font color='#F56C6C'>2–3次</font>测量。请先测量左手！";
     private String tips_first_speak = "为了保证测量数据准确性，请根据小易提示对左右手血压各进行2–3次测量。请先测量左手！";
     private boolean isJump2Next = false;
@@ -181,37 +179,57 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     private void showDialog(String message) {
         //同时语音播报
         MLVoiceSynthetize.startSynthesize(getContext(), message, false);
-        if (dialogSure == null) {
-            dialogSure = new DialogSure(getContext());
-            dialogSure.getTitleView().setVisibility(View.GONE);
-        }
-        dialogSure.setContent(message);
-        dialogSure.show();
-        dialogSure.setOnClickSureListener(new DialogClickSureListener() {
-            @Override
-            public void clickSure(BaseDialog dialog) {
-                dialog.dismiss();
-                MLVoiceSynthetize.stop();
-            }
-        });
+//        if (dialogSure == null) {
+//            dialogSure = new DialogSure(getContext());
+//            dialogSure.getTitleView().setVisibility(View.GONE);
+//        }
+//        dialogSure.setContent(message);
+//        dialogSure.show();
+//        dialogSure.setOnClickSureListener(new DialogClickSureListener() {
+//            @Override
+//            public void clickSure(BaseDialog dialog) {
+//                dialog.dismiss();
+//                MLVoiceSynthetize.stop();
+//            }
+//        });
+
+        new SingleDialog(mContext)
+                .builder()
+                .setMsg(message)
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MLVoiceSynthetize.stop();
+                    }
+                });
     }
 
     private void showFirstDialog(String message, String speak) {
         //同时语音播报
         MLVoiceSynthetize.startSynthesize(getContext(), speak, false);
-        if (dialogSure == null) {
-            dialogSure = new DialogSure(getContext());
-            dialogSure.getTitleView().setVisibility(View.GONE);
-        }
-        dialogSure.getContentView().setText(Html.fromHtml(message));
-        dialogSure.show();
-        dialogSure.setOnClickSureListener(new DialogClickSureListener() {
-            @Override
-            public void clickSure(BaseDialog dialog) {
-                dialog.dismiss();
-                MLVoiceSynthetize.stop();
-            }
-        });
+//        if (dialogSure == null) {
+//            dialogSure = new DialogSure(getContext());
+//            dialogSure.getTitleView().setVisibility(View.GONE);
+//        }
+//        dialogSure.getContentView().setText(Html.fromHtml(message));
+//        dialogSure.show();
+//        dialogSure.setOnClickSureListener(new DialogClickSureListener() {
+//            @Override
+//            public void clickSure(BaseDialog dialog) {
+//                dialog.dismiss();
+//                MLVoiceSynthetize.stop();
+//            }
+//        });
+
+        new SingleDialog(mContext)
+                .builder()
+                .setMsg(Html.fromHtml(message))
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MLVoiceSynthetize.stop();
+                    }
+                }).show();
     }
 
     private void uploadHandData(final Data data) {

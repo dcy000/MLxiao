@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.health.measure.bloodpressure_habit.GetHypertensionHandActivity;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
@@ -20,22 +21,14 @@ import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.health.measure.single_measure.ShowMeasureBloodpressureResultActivity;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.ui.dialog.BaseDialog;
-import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
-import com.gcml.lib_utils.ui.dialog.DialogSure;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -50,7 +43,7 @@ import static android.app.Activity.RESULT_OK;
  * description:单次血压测量
  */
 public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
-    private static final int CODE_REQUEST_ABNORMAL=10001;
+    private static final int CODE_REQUEST_ABNORMAL = 10001;
     private ArrayList<DetectionData> datas;
     private int highPressure;
     private int lowPressure;
@@ -82,16 +75,25 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     }
 
     private void showHypertensionHandDialog(String hand) {
-        DialogSure dialogSure = new DialogSure(mContext);
-        dialogSure.setContent("请使用" + hand + "测量");
-        dialogSure.show();
         MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请使用" + hand + "测量");
-        dialogSure.setOnClickSureListener(new DialogClickSureListener() {
-            @Override
-            public void clickSure(BaseDialog dialog) {
-                dialog.dismiss();
-            }
-        });
+//        DialogSure dialogSure = new DialogSure(mContext);
+//        dialogSure.setContent("请使用" + hand + "测量");
+//        dialogSure.show();
+//        dialogSure.setOnClickSureListener(new DialogClickSureListener() {
+//            @Override
+//            public void clickSure(BaseDialog dialog) {
+//                dialog.dismiss();
+//            }
+//        });
+        new SingleDialog(mContext)
+                .builder()
+                .setMsg("请使用" + hand + "测量")
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                }).show();
     }
 
     @SuppressLint("CheckResult")
@@ -114,7 +116,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
             datas.add(pressureData);
             datas.add(dataPulse);
 
-            HealthMeasureRepository.checkIsNormalData(UserSpHelper.getUserId() ,datas)
+            HealthMeasureRepository.checkIsNormalData(UserSpHelper.getUserId(), datas)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .as(RxUtils.autoDisposeConverter(this))
@@ -126,7 +128,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
 
                         @Override
                         public void onError(Throwable e) {
-                            HealthMeasureAbnormalActivity.startActivity(mActivity, IPresenter.MEASURE_BLOOD_PRESSURE,CODE_REQUEST_ABNORMAL);
+                            HealthMeasureAbnormalActivity.startActivity(mActivity, IPresenter.MEASURE_BLOOD_PRESSURE, CODE_REQUEST_ABNORMAL);
                         }
 
                         @Override
@@ -137,8 +139,9 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
 
         }
     }
-    private void uploadData(){
-        if (datas==null){
+
+    private void uploadData() {
+        if (datas == null) {
             Timber.e("SingleMeasureBloodpressureFragment：数据被回收，程序异常");
             return;
         }
@@ -170,14 +173,14 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==RESULT_OK){
-            if (requestCode==CODE_REQUEST_ABNORMAL){
-                if (data!=null){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CODE_REQUEST_ABNORMAL) {
+                if (data != null) {
                     boolean booleanExtra = data.getBooleanExtra(HealthMeasureAbnormalActivity.KEY_HAS_ABNIRMAL_REASULT, false);
-                    if (booleanExtra){
+                    if (booleanExtra) {
                         //数据异常
-                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，因为你测量出现偏差，此次测量将不会作为历史数据");
-                    }else{
+                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+                    } else {
                         uploadData();
                     }
 

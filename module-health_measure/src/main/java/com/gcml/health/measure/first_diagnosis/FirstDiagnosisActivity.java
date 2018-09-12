@@ -16,6 +16,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
@@ -32,15 +33,10 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthTemperatureDetecti
 import com.gcml.health.measure.first_diagnosis.fragment.HealthThreeInOneDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
 import com.gcml.health.measure.health_report_form.HealthReportFormActivity;
-import com.gcml.health.measure.network.HealthMeasureRepository;
-import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.health.measure.R;
 import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.ui.dialog.BaseDialog;
-import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
-import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
@@ -407,17 +403,31 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
      * 展示刷新
      */
     private void showRefreshBluetoothDialog() {
-        DialogSureCancel sureCancel = new DialogSureCancel(this);
-        sureCancel.setContent("您确定解绑之前的设备，重新连接新设备吗？");
-        sureCancel.show();
-        sureCancel.setOnClickCancelListener(null);
-        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
+//        DialogSureCancel sureCancel = new DialogSureCancel(this);
+//        sureCancel.setContent("您确定解绑之前的设备，重新连接新设备吗？");
+//        sureCancel.show();
+//        sureCancel.setOnClickCancelListener(null);
+//        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
+//            @Override
+//            public void clickSure(BaseDialog dialog) {
+//                sureCancel.dismiss();
+//                untieDevice();
+//            }
+//        });
+        new AlertDialog(this)
+                .builder()
+                .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
+                .setNegativeButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        untieDevice();
+                    }
+                }).setPositiveButton("取消", new View.OnClickListener() {
             @Override
-            public void clickSure(BaseDialog dialog) {
-                sureCancel.dismiss();
-                untieDevice();
+            public void onClick(View v) {
+
             }
-        });
+        }).show();
     }
 
     private void untieDevice() {

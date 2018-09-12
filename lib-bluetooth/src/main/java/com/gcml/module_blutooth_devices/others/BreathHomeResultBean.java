@@ -32,6 +32,11 @@ public class BreathHomeResultBean {
     private String curve;//曲线数据，需要转成byte,再转int。总共600组数据
     private String checkCode;//检验码
 
+    //额外加的字段
+    private String percentPEF;
+    private String percentFEV1;
+    private String percentFEV1_FVC;
+
     public String getActionHead() {
         return actionHead;
     }
@@ -214,6 +219,30 @@ public class BreathHomeResultBean {
 
     public void setCheckCode(String checkCode) {
         this.checkCode = checkCode;
+    }
+
+    public String getPercentPEF() {
+        return percentPEF;
+    }
+
+    public void setPercentPEF(String percentPEF) {
+        this.percentPEF = percentPEF;
+    }
+
+    public String getPercentFEV1() {
+        return percentFEV1;
+    }
+
+    public void setPercentFEV1(String percentFEV1) {
+        this.percentFEV1 = percentFEV1;
+    }
+
+    public String getPercentFEV1_FVC() {
+        return percentFEV1_FVC;
+    }
+
+    public void setPercentFEV1_FVC(String percentFEV1_FVC) {
+        this.percentFEV1_FVC = percentFEV1_FVC;
     }
 
     @Override

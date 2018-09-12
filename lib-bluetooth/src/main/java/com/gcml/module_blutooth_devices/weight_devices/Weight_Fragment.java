@@ -1,6 +1,7 @@
 package com.gcml.module_blutooth_devices.weight_devices;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.text.TextUtils;
@@ -45,6 +46,8 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
         mBtnVideoDemo.setOnClickListener(this);
         mTvTizhong = view.findViewById(R.id.tv_tizhong);
         mTvTizhi = view.findViewById(R.id.tv_tizhi);
+        mTvTizhong.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mTvTizhi.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         this.bundle = bundle;
 
     }

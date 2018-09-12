@@ -17,8 +17,8 @@ import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDi
 import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.ui.dialog.DialogSure;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -120,14 +120,24 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                     showOriginHypertensionDialog();
                 }
             } else {
-                DialogSure sure = new DialogSure(this);
-                sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
-                sure.setSure("健康方案");
-                sure.show();
-                sure.setOnClickSureListener(dialog1 -> {
-                    dialog1.dismiss();
-                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
-                });
+//                DialogSure sure = new DialogSure(this);
+//                sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
+//                sure.setSure("健康方案");
+//                sure.show();
+//                sure.setOnClickSureListener(dialog1 -> {
+//                    dialog1.dismiss();
+//                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
+//                });
+
+                new SingleDialog(this)
+                        .builder()
+                        .setMsg("您在7天内已生成过健康方案，点击健康方案可直接查看。")
+                        .setPositiveButton("健康方案", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
+                            }
+                        }).show();
             }
 
         } else {
