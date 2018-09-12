@@ -50,15 +50,37 @@ public class CameraUtils {
 
     public static Camera openById(int cameraId) {
         try {
+            Timber.i("Camera open ...");
             return Camera.open(cameraId);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignore) {
             try {
+                Timber.i("Camera reopen after 200 millis ...");
+                Thread.sleep(200);
                 return Camera.open(cameraId);
-            } catch (Exception e1) {
-                e1.printStackTrace();
+            } catch (Throwable e) {
+                Timber.i("Camera open error");
+                e.printStackTrace();
                 return null;
             }
+        }
+    }
+
+    public static Camera reconnect(Camera camera) {
+        if (camera == null) {
+            return null;
+        }
+        try {
+            camera.reconnect();
+            Timber.i("camera reconnect success");
+            return camera;
+        } catch (Throwable e) {
+            Timber.e(e, "camera reconnect error");
+            try {
+                camera.release();
+            } catch (Throwable e1) {
+                e1.printStackTrace();
+            }
+            return null;
         }
     }
 
@@ -69,6 +91,7 @@ public class CameraUtils {
         isPreviewing = false;
         try {
             camera.release();
+            Timber.i("Camera release");
         } catch (Throwable e) {
             e.printStackTrace();
         }

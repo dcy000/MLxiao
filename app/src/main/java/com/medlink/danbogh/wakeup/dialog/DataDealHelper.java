@@ -21,8 +21,12 @@ import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
+import com.example.han.referralproject.children.ChildEduHomeActivity;
+import com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity;
+import com.example.han.referralproject.children.study.ChildEduPoemListActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.HttpCallback;
@@ -37,9 +41,13 @@ import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.QaApi;
+import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.tcm.SymptomCheckActivity;
+import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
@@ -52,6 +60,7 @@ import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
+import com.gcml.old.auth.profile.MyBaseDataActivity;
 import com.gcml.old.auth.profile.PersonDetailActivity;
 import com.google.gson.Gson;
 import com.iflytek.cloud.SpeechError;
@@ -61,6 +70,8 @@ import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.ml.edu.OldRouter;
+import com.ml.edu.old.TheOldHomeActivity;
+import com.ml.edu.old.music.TheOldMusicActivity;
 import com.witspring.unitbody.ChooseMemberActivity;
 
 import java.io.Serializable;
@@ -72,6 +83,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import timber.log.Timber;
+
 import static android.content.Context.AUDIO_SERVICE;
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 import static com.example.lenovo.rto.Constans.SCENE_Id;
@@ -81,12 +94,13 @@ import static com.example.lenovo.rto.Constans.SCENE_Id;
  */
 
 public class DataDealHelper {
-    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixing|chiyao|fuyao).*";
+    public static final String REGEX_SET_ALARM = ".*((ding|she|shezhi|)naozhong|tixing|chiyao|fuyao|chiyaotixing|dingshi).*";
     public static final String REGEX_SET_ALARM_WHEN = ".*tixing.*(shangwu|xiawu).*(\\d{1,2}):(\\d{1,2}).*yao.*";
     public static final String REGEX_SEE_DOCTOR = ".*(bushufu|touteng|fa(sao|shao)|duziteng|nanshou).*";
 
     private Context context;
     private String result;
+    static Boolean whine = false;
 
     private void speak(String text, boolean whine) {
         MLVoiceSynthetize.startSynthesize(context, text, new SynthesizerListener() {
@@ -130,7 +144,7 @@ public class DataDealHelper {
     }
 
     private void speak(String text) {
-        speak(text, false);
+        speak(text, whine);
     }
 
     private void startActivity(Class<?> cls) {
@@ -194,6 +208,12 @@ public class DataDealHelper {
         this.result = result;
         this.context = context;
         String inSpell = PinYinUtils.converterToSpell(result);
+        if (inSpell.matches(".*(biansheng|biansheng|bianyin).*")) {
+            whine = true;
+        }
+        if (inSpell.matches(".*(huifuzhengchang|xiaoyiyuansheng).*")) {
+            whine = false;
+        }
         Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
         Matcher matcherWhenAlarm = patternWhenAlarm.matcher(inSpell);
         if (matcherWhenAlarm.find()) {
@@ -205,7 +225,7 @@ public class DataDealHelper {
                     Integer.valueOf(minute));
             String tip = String.format(Locale.CHINA,
                     "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
-            speak(tip, false);
+            speak(tip);
             return;
         }
 
@@ -253,10 +273,177 @@ public class DataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo).*")) {
+
+        if (inSpell.matches(".*(erge|ertonggequ).*")) {
+            startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "儿童歌曲");
+            return;
+        }
+        /*******************************************************/
+        if (inSpell.matches(".*((meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
+            CC.obtainBuilder("app.component.task").build().callAsync();
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+
+        if (inSpell.matches(".*(geren|xiugai)xinxi.*")
+                || inSpell.matches(".*huantouxiang.*")) {
+            startActivity(MyBaseDataActivity.class);
+            return;
+        }
+
+        if (inSpell.matches(".*(jiankangguanli|gaoxueyaguanli|gaoxueyafangan|" +
+                "gaoxueyazhiliao|gaoxueyacaipu|jiankangfangan|jiankangbaogao).*")) {
+            startActivity(SlowDiseaseManagementActivity.class);
+            return;
+        }
+
+        if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo|celiangshuju|jiankangshuju|jiankangdangan|jianchajieguo).*")) {
             startActivity(HealthRecordActivity.class);
             return;
         }
+
+        if (inSpell.matches(".*(fengxian|fengxianpinggu|fengxianpanduan" +
+                "|huanbingfenxiang|debingfengxian|jiankangyuce|jiankangyuche|pinggu).*")) {
+            CC.obtainBuilder("health_measure")
+                    .setActionName("To_HealthInquiryActivity")
+                    .build()
+                    .call();
+
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+
+        if (inSpell.matches(".*(qiehuan|qiehuanzhanghao|chongxindenglu|tianjiazhanghao).*")) {
+            startActivity(PersonDetailActivity.class);
+            return;
+        }
+
+
+        if (inSpell.matches(".*(shezhi|jiqirenshezhi|wifilianjie|tiaojieyinliang|yiliangdaxiao).*")) {
+            startActivity(SettingActivity.class);
+            return;
+        }
+
+        if (inSpell.matches(".*(yulezhongxin).*")) {
+            CC.obtainBuilder("app.component.recreation").build().callAsync();
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+
+        if (inSpell.matches(".*(laorenyule).*")) {
+            startActivity(TheOldHomeActivity.class);
+            return;
+        }
+
+
+        if (inSpell.matches(".*(youjiao|youjiaowenyu|ertongyoujiao|jiaoxiaohai|ertongyule).*")) {
+            startActivity(ChildEduHomeActivity.class);
+            return;
+        }
+
+        if (inSpell.matches(".*(xiaogongju).*")) {
+            CC.obtainBuilder("app.component.recreation.tools").build().call();
+
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+
+        if (inSpell.matches(".*(yaolanqu).*")) {
+            startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "摇篮曲");
+            return;
+        }
+
+        if (inSpell.matches(".*(taijiaoyinyue|taijiao).*")) {
+            startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "胎教音乐");
+            return;
+        }
+
+        if (inSpell.matches(".*(zhougongjiemeng|jiemeng|jiegemeng).*")) {
+            CC.obtainBuilder("app.component.recreation.tool").setActionName("oneiromancy").build().call();
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+
+        if (inSpell.matches(".*(lishijintian|lishishangdejintian|lishishangjintiandeshijian).*")) {
+            CC.obtainBuilder("app.component.recreation.tool").setActionName("historyToday").build().call();
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+
+        if (inSpell.matches(".*(riqichaxun|jidianle|chaxunriqi|jintianxingqiji|jidianle|jintianshenmerizhi).*")) {
+            CC.obtainBuilder("app.component.recreation.tool").setActionName("dateInquiry").build().call();
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+        if (inSpell.matches(".*(caipu|shaocai|zuocai|tuijiancai).*")) {
+            CC.obtainBuilder("app.component.recreation.tool").setActionName("cookBook").build().call();
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+
+        if (inSpell.matches(".*(baike).*")) {
+            CC.obtainBuilder("app.component.recreation.tool").setActionName("baike").build().call();
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+
+
+        if (inSpell.matches(".*(jisuanqi|zuosuanshu).*")) {
+            CC.obtainBuilder("app.component.recreation.tool").setActionName("calculate").build().call();
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
+        if (inSpell.matches(".*(zaima|jiqirenduihua|liaotian|shuohua).*")) {
+            startActivity(SpeechSynthesisActivity.class);
+            return;
+        }
+
+        if (inSpell.matches(".*(zhengzhuangzicha).*")) {
+            startActivity(SymptomCheckActivity.class);
+            return;
+        }
+
+        if (inSpell.matches(".*(zhongyitizhi).*")) {
+            startActivity(OlderHealthManagementSerciveActivity.class);
+            return;
+        }
+
+        if (inSpell.matches(".*(tingyinyue|tingge|fangge|yinyueguan).*")) {
+            startActivity(TheOldMusicActivity.class);
+            return;
+        }
+
+        if (inSpell.matches(".*(gushi|tangshisongci|songci|tangshi).*") || result.matches(".*古诗.*")) {
+            startActivity(ChildEduPoemListActivity.class);
+            return;
+        }
+
+        if (result.matches(".*听故事|故事.*")) {
+            startActivity(ChildEduPoemListActivity.class);
+            return;
+        }
+
+        /*******************************************************/
 
 //            if (inSpell.matches(".*jian(ce|che|ca|cha).*")
 //                    ||inSpell.matches(".*(ce|che)(shi|si).*")) {
@@ -271,7 +458,7 @@ public class DataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(guangbo|diantai|shouyinji).*")) {
+        if (inSpell.matches(".*(guangbo|diantai|shouyinji|zhisheng|diantai).*")) {
             startActivity(RadioActivity.class);
             return;
         }
@@ -281,12 +468,12 @@ public class DataDealHelper {
             gotoPersonCenter();
             return;
         }
-        if (inSpell.matches(".*zhujiemian|zujiemian|jujiemian.*")
-                || inSpell.matches(".*zhujiemian.*")) {
+        if (inSpell.matches(".*zhujiemian|zujiemian|jujiemian|zhuye.*")
+                || inSpell.matches(".*zhujiemian|shuijiao|xiuxi|guanbi.*")) {
             gotoHomePage();
             return;
         }
-        if (inSpell.matches("yishengjianyi")) {
+        if (inSpell.matches("yishengjianyi|chakanxiaoxi")) {
             startActivity(MessageActivity.class);
             return;
         }
@@ -307,7 +494,9 @@ public class DataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(jiankangzhishi|jiankangketang|jiemu|shipin|dianshi).*")) {
+        if (inSpell.matches(".*(jiankangzhishi|jiankangketang|jiangkangxuanchuan" +
+                "|tingke|xuexi|yiqishiyong|shebeishiyong|shiyongjiaocheng|shiyongfangfa" +
+                "|shebeijianjie|yiqijieshao).*")) {
             startActivity(VideoListActivity.class, "position", 0);
             return;
         }
@@ -323,7 +512,7 @@ public class DataDealHelper {
             startActivity(VideoListActivity.class, "position", 3);
             return;
         }
-        if (inSpell.matches(".*(qianyueyisheng|jiatingyisheng|yuyue).*")) {
+        if (inSpell.matches(".*(qianyueyisheng).*")) {
             gotoQianyueYiSheng();
             return;
         }
@@ -403,10 +592,9 @@ public class DataDealHelper {
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-                            boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
-                            UserSpHelper.setUserId(userId);
                             if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                UserSpHelper.setUserId(userId);
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -429,10 +617,10 @@ public class DataDealHelper {
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-                            boolean currentUser = result.getDataItem("currentUser");
+//                            boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
-                            UserSpHelper.setUserId(userId);
                             if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                UserSpHelper.setUserId(userId);
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -455,10 +643,10 @@ public class DataDealHelper {
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-                            boolean currentUser = result.getDataItem("currentUser");
+//                            boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
-                            UserSpHelper.setUserId(userId);
                             if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                UserSpHelper.setUserId(userId);
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -477,10 +665,10 @@ public class DataDealHelper {
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-                            boolean currentUser = result.getDataItem("currentUser");
+//                            boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
-                            UserSpHelper.setUserId(userId);
                             if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                UserSpHelper.setUserId(userId);
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -500,10 +688,10 @@ public class DataDealHelper {
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-                            boolean currentUser = result.getDataItem("currentUser");
+//                            boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
-                            UserSpHelper.setUserId(userId);
                             if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                UserSpHelper.setUserId(userId);
                                 CCHealthMeasureActions.jump2XinDianDetectActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -522,10 +710,10 @@ public class DataDealHelper {
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-                            boolean currentUser = result.getDataItem("currentUser");
+//                            boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
-                            UserSpHelper.setUserId(userId);
                             if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                UserSpHelper.setUserId(userId);
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -543,10 +731,10 @@ public class DataDealHelper {
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-                            boolean currentUser = result.getDataItem("currentUser");
+//                            boolean currentUser = result.getDataItem("currentUser");
                             String userId = result.getDataItem("userId");
-                            UserSpHelper.setUserId(userId);
                             if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                UserSpHelper.setUserId(userId);
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -561,7 +749,7 @@ public class DataDealHelper {
             startActivity(VideoListActivity.class);
 
 
-        } else if (result.matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
+        } else if (inSpell.matches(".*yisheng.*zixun.*") || inSpell.matches("wenyisheng|yishengzixun|jiatingyisheng|yuyue")) {
 
             if ("".equals(context.getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE).getString("name", ""))) {
                 ToastUtils.showShort("请先查看是否与签约医生签约成功");
@@ -607,7 +795,7 @@ public class DataDealHelper {
             );
             String currentUser = new Gson().toJson(diseaseUser);
             startActivity(com.witspring.unitbody.ChooseMemberActivity.class, "currentUser", currentUser);
-        } else if (inSpell.matches(".*chongqian.*") || inSpell.matches(".*chongzhi.*") || result.contains("钱不够") || result.contains("没钱")) {
+        } else if (inSpell.matches(".*chongqian|qianbugou|meiqian.*") || inSpell.matches(".*chongzhi.*") || result.contains("钱不够") || result.contains("没钱")) {
             startActivity(PayActivity.class);
         } else if (inSpell.matches(".*maidongxi")
                 || inSpell.matches(".*mai.*shizhi")
@@ -622,7 +810,7 @@ public class DataDealHelper {
             startActivity(MarketActivity.class);
 
 
-        } else if (inSpell.matches(".*dingdan")) {
+        } else if (inSpell.matches(".*dingdan|wodedingdan|chakandingdan|dingdanxiangqing|gouwuqingdan")) {
 
             startActivity(OrderListActivity.class);
         } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
@@ -700,6 +888,7 @@ public class DataDealHelper {
             str = "百科" + str.substring(0, str.length() - 2);
         }
         results = QaApi.getQaFromXf(str);
+        Timber.i("QaApi %s", results);
         String audiopath = results.get("audiopath");
         String text = results.get("text");
         boolean empty = TextUtils.isEmpty(text);

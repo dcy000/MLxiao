@@ -4,6 +4,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 
 
+import com.gcml.common.repository.RepositoryApp;
 import com.zhang.hui.lib_mlvoice.BuildConfig;
 import com.zhang.hui.lib_mlvoice.VoiceApp;
 
@@ -26,7 +27,7 @@ import okhttp3.ResponseBody;
  */
 
 public class QaApi {
-    public static OkHttpClient client;
+    public static OkHttpClient client = RepositoryApp.INSTANCE.repositoryComponent().okHttpClient();
 
     public static HashMap<String, String> getQaFromXf(String text) {
         if (client == null) {
