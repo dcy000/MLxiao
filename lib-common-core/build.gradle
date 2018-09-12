@@ -101,6 +101,7 @@ dependencies {
 
     api rootProject.ext.dependencies["timber"]
     implementation rootProject.ext.dependencies["stetho"]
+    api rootProject.ext.dependencies["litepal"]
     implementation rootProject.ext.dependencies["stetho-okhttp3"]
     implementation rootProject.ext.dependencies["bugly-crashreport"]
     implementation rootProject.ext.dependencies["bugly-nativecrashreport"]
