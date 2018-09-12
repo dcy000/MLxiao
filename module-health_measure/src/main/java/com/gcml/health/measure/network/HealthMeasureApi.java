@@ -28,6 +28,10 @@ public class HealthMeasureApi {
     public static final String GET_DIAGNOSE_INFO = BasicUrl + "ZZB/api/healthMonitor/hypertension/diagnose/";
     //血压周报告、月报告接口
     public static final String WeeklyOrMonthlyReport = BasicUrl + "ZZB/api/healthMonitor/report/hypertension/week/";
+    /**
+     * 原发性高血压 修改
+     */
+    public static final String POST_ORIGIN_HYPERTENTION = BasicUrl + "/ZZB/api/healthMonitor/hypertension/diagnose/primary/";
 
     /**
      * 新的上传测量数据的接口
@@ -72,6 +76,13 @@ public class HealthMeasureApi {
     public static void getDiagnoseInfo(String userId, StringCallback callback) {
         OkGo.<String>get(GET_DIAGNOSE_INFO + userId + "/")
                 .params("userId", userId)
+                .execute(callback);
+    }
+
+    public static void postOriginHypertension(String hypertensionPrimaryState, String userId, StringCallback callback) {
+        OkGo.<String>post(POST_ORIGIN_HYPERTENTION + userId + "/")
+                .params("userId", userId)
+                .params("hypertensionPrimaryState", hypertensionPrimaryState)
                 .execute(callback);
     }
 }

@@ -47,8 +47,8 @@ public class NormalHighTipActivity extends BaseActivity implements WarmNoticeFra
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("基 础 信 息 列 表");
         mRightText.setVisibility(View.GONE);
-        mRightView.setImageResource(R.drawable.white_wifi_3);
-        mRightView.setOnClickListener(v -> startActivity(new Intent(NormalHighTipActivity.this, WifiConnectActivity.class)));
+//        mRightView.setImageResource(R.drawable.white_wifi_3);
+//        mRightView.setOnClickListener(v -> startActivity(new Intent(NormalHighTipActivity.this, WifiConnectActivity.class)));
     }
 
     @Override

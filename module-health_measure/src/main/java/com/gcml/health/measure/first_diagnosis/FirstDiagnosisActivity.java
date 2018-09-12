@@ -272,8 +272,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             finish();
             return;
         }
-        //每次跳转到下一个Fragment的时候都应该把右上角的蓝牙按钮初始化
-        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         //因为在设备选择页面右上角的按钮是回到主界面，所以需要在此处做一个标记
         if (fragment instanceof HealthFirstTipsFragment) {
             isShowHealthChooseDevicesFragment = true;
@@ -288,6 +286,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         showPosition++;
         //因为每一个Fragment中都有可能视频播放，所以应该先检查该Fragment中是否有视频播放
         checkVideo(showPosition);
+        //每次跳转到下一个Fragment的时候都应该把右上角的蓝牙按钮初始化
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
     }
 
     private void initMeasureDevicesFragment(ArrayList<Integer> integerArrayList) {

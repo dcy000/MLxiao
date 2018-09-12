@@ -92,7 +92,7 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
                 .subscribe(new DefaultObserver<PreviewHelper.Status>() {
                     @Override
                     public void onNext(PreviewHelper.Status status) {
-                        onPreviewStatus(status);
+                        onPreviewStatusChanged(status);
                     }
 
                     @Override
@@ -111,20 +111,25 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
                     @Override
                     public void onCompleted(SpeechError speechError) {
                         mPreviewHelper.addBuffer(delayMillis);
-                        // see onPreviewStatus(PreviewHelper.Status status)
+                        /**
+                         * @see FaceSignUpActivity#onPreviewStatusChanged(PreviewHelper.Status status)
+                         * @see PreviewHelper.Status.EVENT_CROPPED
+                         */
                     }
                 },
                 false
         );
     }
 
-    private void onPreviewStatus(PreviewHelper.Status status) {
-        if (status.code == PreviewHelper.Status.EVENT_CROPPED) {
-            Bitmap faceBitmap = (Bitmap) status.payload;
-            showFace(faceBitmap);
-        } else if (status.code == PreviewHelper.Status.ERROR_ON_OPEN_CAMERA) {
+    private void onPreviewStatusChanged(PreviewHelper.Status status) {
+        if (status.code == PreviewHelper.Status.ERROR_ON_OPEN_CAMERA) {
             binding.ivTips.setText("打开相机失败");
             ToastUtils.showShort("打开相机失败");
+        } else if (status.code == PreviewHelper.Status.EVENT_CAMERA_OPENED) {
+            start(0);
+        } else if (status.code == PreviewHelper.Status.EVENT_CROPPED) {
+            Bitmap faceBitmap = (Bitmap) status.payload;
+            showFace(faceBitmap);
         }
     }
 
@@ -132,6 +137,7 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
                 "请确认是否是您的头像，如果不是请选择重新拍摄。");
         new IconDialog(this).builder()
+                .setCancelable(false)
                 .setIcon(faceBitmap)
                 .setPositiveButton("重拍", new View.OnClickListener() {
                     @Override
@@ -223,12 +229,6 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
         if (mPreviewHelper != null) {
             mPreviewHelper.configCamera();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        start(0);
     }
 
     @Override

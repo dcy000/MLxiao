@@ -88,7 +88,7 @@ public class TestBluetooth extends AppCompatActivity implements IView, View.OnCl
     public void updateData(String... datas) {
         BreathHomeResultBean breathHomeResultBean = new Gson().fromJson(datas[0], BreathHomeResultBean.class);
         mTvPef.setText(breathHomeResultBean.getPef() + "L/min");
-        mTvPev1.setText(breathHomeResultBean.getPev1() + "");
+        mTvPev1.setText(breathHomeResultBean.getFev1() + "");
         mTvFvc.setText(breathHomeResultBean.getFvc());
         mTvMef75.setText(breathHomeResultBean.getMef75() + "L/s");
         mTvMef50.setText(breathHomeResultBean.getMef50() + "L/s");
@@ -151,8 +151,9 @@ public class TestBluetooth extends AppCompatActivity implements IView, View.OnCl
             ToastUtils.showShort("请填写必要参数");
             return;
         }
+
         presenterImp = new BreathHome_PresenterImp(this, new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC,
                 "00:15:87:21:11:D9", "B810229665"),
-                ("sex".equals("男") ? "0" : "1"), age, height, weight);
+                ("sex".equals("男") ? 0 : 1), Integer.parseInt(age), Integer.parseInt(height), Integer.parseInt(weight));
     }
 }

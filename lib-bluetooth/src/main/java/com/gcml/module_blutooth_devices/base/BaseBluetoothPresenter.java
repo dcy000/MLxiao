@@ -33,7 +33,6 @@ import java.util.Comparator;
 import java.util.List;
 
 
-
 public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<SearchResult> {
     /**
      * 搜索设备的配置对象
@@ -207,6 +206,8 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                             }
 
                             break;
+                        default:
+                            break;
                     }
                 } else {
                     Logg.e(BaseBluetoothPresenter.class, "请配置搜索参数");
@@ -378,7 +379,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 address = lockedDevice.getAddress();
             }
         }
-        Log.e("重连设备物理地址：", "retryConnect: "+address );
+        Log.e("重连设备物理地址：", "retryConnect: " + address);
         if (!TextUtils.isEmpty(address)) {
             connectDevice(address);
         }
@@ -405,8 +406,11 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
 
         }
     }
+
     @Override
-    public void onResume(){}
+    public void onResume() {
+    }
+
     @Override
     public void onDestroy() {
         if (weakHandler != null) {
@@ -470,11 +474,11 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
      */
     protected boolean discoveredTargetDevice(SearchResult device) {
         lockedDevice = device.device;
-        if (discoverType != IPresenter.DISCOVER_WITH_MAC && TextUtils.isEmpty(targetAddress)) {
+        if (discoverType == IPresenter.DISCOVER_WITH_MAC && TextUtils.isEmpty(targetAddress)) {
             throw new NullPointerException("连接的设备为NULL");
         }
         isSearchedTargetDevice = true;
-        connectDevice(targetAddress);
+        connectDevice(device.getAddress());
         return false;
     }
 
@@ -498,7 +502,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
      * 连接失败
      */
     protected void connectFailed() {
-        Logg.e(BaseBluetoothPresenter.class,"连接失败");
+        Logg.e(BaseBluetoothPresenter.class, "连接失败");
     }
 
     /**
@@ -551,9 +555,17 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
     protected boolean isSelfDefined() {
         return false;
     }
-    /**采集指纹*/
-    public void collectFingers(){}
-    /**验证指纹*/
-    public void validateFinger(){}
+
+    /**
+     * 采集指纹
+     */
+    public void collectFingers() {
+    }
+
+    /**
+     * 验证指纹
+     */
+    public void validateFinger() {
+    }
 }
 

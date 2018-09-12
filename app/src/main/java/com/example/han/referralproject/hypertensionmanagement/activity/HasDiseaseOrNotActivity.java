@@ -59,8 +59,8 @@ public class HasDiseaseOrNotActivity extends BaseActivity implements MultipleCho
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("基 础 信 息 列 表");
         mRightText.setVisibility(View.GONE);
-        mRightView.setImageResource(R.drawable.white_wifi_3);
-        mRightView.setOnClickListener(v -> startActivity(new Intent(HasDiseaseOrNotActivity.this, WifiConnectActivity.class)));
+//        mRightView.setImageResource(R.drawable.white_wifi_3);
+//        mRightView.setOnClickListener(v -> startActivity(new Intent(HasDiseaseOrNotActivity.this, WifiConnectActivity.class)));
     }
 
     @Override

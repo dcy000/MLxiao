@@ -24,6 +24,7 @@ import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -34,19 +35,38 @@ import io.reactivex.subjects.Subject;
 import timber.log.Timber;
 
 /**
- * 相机使用步骤:
- * 1. 打开相机
- * 2. 预览相机
- * 3. 设置预览回调
- * setPreviewCallback
- * setOneShotPreviewCallback
- * setPreviewCallbackWithBuffer / addCallbackBuffer
- * 4. 预览回调数据处理
- * <p>
- * 注意：
- * 1. 设置预览回调时，setPreviewCallback 和 setOneShotPreviewCallback 都存在内存抖动
- * 2. 在哪个 Looper 线程 open Camera，那么 onPreviewFrame 等 Camera 回调就执行在打开相机的 Looper 线程
- * 3. onPreviewFrame 方法中不要执行过于复杂的逻辑操作，这样会阻塞 Camera，无法获取新的 Frame，导致帧率下降
+ * <p>相机预览步骤:</p>
+ *
+ * <p>1. 打开相机</p>
+ * <p>{@link Camera#reconnect() }</p>
+ * <p>{@link Camera#open(int cameraId) }</p>
+ *
+ * <p>2. 预览相机</p>
+ * <p>{@link Camera#startPreview()}</p>
+ *
+ * <p>3. 设置预览回调</p>
+ * <p> (1) {@link Camera#setPreviewCallback}</p>
+ * <p> (2) {@link Camera#setOneShotPreviewCallback}</p>
+ * <p> (3) {@link Camera#setPreviewCallbackWithBuffer }，{@link Camera#addCallbackBuffer}</p>
+ *
+ * <p>4. 预览回调时数据处理</p>
+ * <p>{@link Camera.PreviewCallback#onPreviewFrame(byte[], Camera)}</p>
+ *
+ * <p>注意：</p>
+ *
+ * <p>1. 设置预览回调时，
+ *    {@link Camera#setPreviewCallback}
+ *    和 {@link Camera#setOneShotPreviewCallback} 都存在内存抖动.</p>
+ *
+ * <p>2. 在哪个 Looper 线程調用 {@link Camera#open(int cameraId) }，
+ *    那么 {@link Camera.PreviewCallback#onPreviewFrame(byte[], Camera)}
+ *    等 Camera 回调就执行在打开相机的 Looper 线程。</p>
+ *
+ * <p>3. {@link Camera.PreviewCallback#onPreviewFrame(byte[], Camera)} 回调时，
+ *    不要执行过于复杂的逻辑操作，会阻塞 Camera，导致帧率下降。</p>
+ *
+ * <p>4. 处理好关闭 Camera {@link Camera#release()}</p>
+ *
  */
 public class PreviewHelper
         implements SurfaceHolder.Callback, LifecycleObserver {
@@ -64,7 +84,7 @@ public class PreviewHelper
     private Rect mCropRect;
 
     private int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
-    private volatile Camera mCamera;
+    private Camera mCamera;
     private int previewWidth = PREVIEW_WIDTH;
     private int previewHeight = PREVIEW_HEIGHT;
     private int fps = FPS;
@@ -82,7 +102,10 @@ public class PreviewHelper
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart(LifecycleOwner owner) {
-
+        Timber.i("addCallback: %s", mSurfaceHolder);
+        if (mSurfaceHolder != null) {
+            mSurfaceHolder.addCallback(this);
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -97,7 +120,10 @@ public class PreviewHelper
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop(LifecycleOwner owner) {
-
+        Timber.i("removeCallback: %s", mSurfaceHolder);
+        if (mSurfaceHolder != null) {
+            mSurfaceHolder.removeCallback(this);
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -152,13 +178,8 @@ public class PreviewHelper
     }
 
     public void setSurfaceHolder(SurfaceHolder surfaceHolder) {
-        if (surfaceHolder == null) {
-            Timber.i("setSurfaceHolder (surfaceHolder == null)");
-        }
+        Timber.i("setSurfaceHolder: %s", surfaceHolder);
         mSurfaceHolder = surfaceHolder;
-        if (mSurfaceHolder != null) {
-            mSurfaceHolder.addCallback(this);
-        }
     }
 
     @Override
@@ -173,7 +194,7 @@ public class PreviewHelper
             Timber.i("surfaceChanged -> restartPreview failed (surface == null)");
             return;
         }
-        Timber.i("surfaceChanged -> restartPreview of");
+        Timber.i("surfaceChanged -> restartPreview");
         CameraUtils.followScreenOrientation(mActivity, mCamera);
         CameraUtils.stopPreview(mCamera);
         CameraUtils.startPreview(mCamera, mSurfaceHolder);
@@ -189,11 +210,13 @@ public class PreviewHelper
         cameraHandler().post(new Runnable() {
             @Override
             public void run() {
-                mCamera = CameraUtils.openByFacing(mCameraId);
+                mCamera = CameraUtils.reconnect(mCamera);
+                if (mCamera == null) {
+                    mCamera = CameraUtils.openByFacing(mCameraId);
+                }
                 if (mCamera == null) {
                     rxStatus.onNext(Status.of(Status.ERROR_ON_OPEN_CAMERA));
                 } else {
-                    Timber.i("Face Camera opened");
                     configCameraInternal();
                     CameraUtils.startPreview(mCamera, holder);
                     CameraUtils.setPreviewCallbackWithBuffer(mCamera, mPreviewCallback);

@@ -11,7 +11,8 @@
         android:id="@+id/mp_album_cover_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="#00000000" />
 
     <me.wcy.lrcview.LrcView
         android:id="@+id/mp_lrc_view_single"
