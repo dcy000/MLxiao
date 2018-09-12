@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:textColor="#F56C6B"
         android:textSize="48pt"
-        android:text="2222"
+        android:text=""
         android:layout_marginLeft="300pt"
         app:layout_constraintLeft_toLeftOf="parent"/>
     <TextView

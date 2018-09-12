@@ -3,6 +3,7 @@ package com.gcml.module_blutooth_devices.others;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.thread.ThreadUtils;
 import com.gcml.module_blutooth_devices.R;
@@ -11,6 +12,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.BluetoothServiceDetail;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.google.gson.Gson;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
@@ -49,13 +51,13 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
     private boolean isRealConnectSuccess = false;
     private StringBuffer resultBuffer = new StringBuffer();
     private String deviceName = "B810229665";
-    private String sex = "0";
-    private String age = "25";
-    private String height = "170";
-    private String weight = "65";
+    private int sex = 0;
+    private int age = 25;
+    private int height = 170;
+    private int weight = 65;
     private String time = TimeUtils.getCurTimeString();
 
-    public BreathHome_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting, String sex, String age, String height, String weight) {
+    public BreathHome_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting, int sex, int age, int height, int weight) {
         super(fragment, discoverSetting);
         requestConnectBean = new BreathHomeRequestConnectBean();
         resultBean = new BreathHomeResultBean();
@@ -68,7 +70,7 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
     @Override
     protected void connectSuccessed(final String address, List<BluetoothServiceDetail> serviceDetails, boolean isReturnServiceAndCharacteristic) {
         super.connectSuccessed(address, serviceDetails, isReturnServiceAndCharacteristic);
-        baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
+        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BREATH_HOME,targetName+","+address);
         BluetoothClientManager.getClient().notify(address, UUID.fromString(targetServiceUUid),
                 UUID.fromString(targetCharacteristicUUid), new BleNotifyResponse() {
                     @Override
@@ -129,7 +131,7 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
                                             resultBean.setHeight(split[11]);
                                             resultBean.setWeight(split[12]);
                                             resultBean.setPef(split[13]);
-                                            resultBean.setPev1(split[14]);
+                                            resultBean.setFev1(split[14]);
                                             resultBean.setFvc(split[15]);
                                             resultBean.setMef75(split[16]);
                                             resultBean.setMef50(split[17]);
@@ -147,6 +149,7 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
                                             }
                                             baseView.updateData(object.toString());
                                             resultBuffer.setLength(0);
+                                            writeReceiveResultCallBackData(address, resultBean);
                                         } else {
                                             Log.e(TAG, "解析结果数据失败");
                                             resultBuffer.setLength(0);
@@ -168,6 +171,35 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
 
     }
 
+    //收到结果数据之后回传信息
+    private void writeReceiveResultCallBackData(String address, BreathHomeResultBean resultBean) {
+        //睡200ms
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        StringBuffer callback = new StringBuffer();
+        callback.append(
+                resultBean.getActionHead() + ","
+                        + resultBean.getDeviceType() + ","
+                        + resultBean.getImei() + ","
+                        + resultBean.getBluetoothVersion() + ","
+                        + resultBean.getChannelNum() + ","
+                        + "11,"
+                        + "1,"
+                        + BreathHomeUtils.checkPEF(sex, age, height, weight, Float.parseFloat(resultBean.getPef())) + ","//pef危险程度:-1 无效 0 正常1 警告2 危险
+                        + BreathHomeUtils.checkFEV1_FVC(sex, age, height, weight, Float.parseFloat(resultBean.getFev1()), Float.parseFloat(resultBean.getFvc())) + ","//fev1危险程度 -1 无效0 正常1 轻2 中3 重4 极重
+                        + BreathHomeUtils.checkFEV1(sex, age, height, weight, Float.parseFloat(resultBean.getFev1())) + ","//fvc危险程度  -1 无效0 正常1 轻2 中3 重
+                        + "0,"
+                        + "da"
+        );
+        Log.e(TAG, "writeRequestConnectData:最终传参： " + resultBean.toString());
+        byte[] bytes = callback.toString().getBytes();
+        List<byte[]> bytes1 = decomposeData(bytes);
+        readyWrite(address, bytes1, true);
+    }
+
 
     private void writeRequestConnectData(String address, BreathHomeRequestConnectBean requestConnectBean) {
         StringBuffer requestConnect = new StringBuffer();
@@ -181,9 +213,9 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
                         + requestConnectBean.getChannelNum() + ","
                         + "20,"
                         + "1,"
-                        + "234,"
-                        + "1.23,"
-                        + "1.24,"
+                        + BreathHomeUtils.drv_pred_pef(sex, age, height, weight) + ","//默认234
+                        + BreathHomeUtils.drv_pred_fev1(sex, age, height, weight) + ","//默认1.23
+                        + BreathHomeUtils.drv_pred_fvc(sex, age, height, weight) + ","//默认值1.24
                         + "0.01,"
                         + "-0.01,"
                         + "0.01,"
@@ -198,7 +230,7 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
         Log.e(TAG, "writeRequestConnectData:最终传参： " + requestConnect.toString());
         byte[] connectBytes = requestConnect.toString().getBytes();
         List<byte[]> decomposeData = decomposeData(connectBytes);
-        readWrite(address, decomposeData);
+        readyWrite(address, decomposeData, false);
     }
 
     /**
@@ -240,7 +272,7 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
      * @param address
      * @param list
      */
-    private void readWrite(final String address, final List<byte[]> list) {
+    private void readyWrite(final String address, final List<byte[]> list, final boolean isWriteResultCall) {
         if (writePosition < list.size()) {
             BluetoothClientManager.getClient().write(address, UUID.fromString(targetServiceUUid),
                     UUID.fromString(targetCharacteristicUUid), list.get(writePosition),
@@ -250,15 +282,23 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
                             writePosition++;
                             //如果某一次写入数据出错了,则不再写入
                             if (code == 0) {
-                                readWrite(address, list);
+                                readyWrite(address, list, isWriteResultCall);
                             } else {
                                 baseView.updateState("连接设备失败");
                             }
                         }
                     });
         } else {
-            baseView.updateState("请开始吹气");
-            isRealConnectSuccess = true;
+            //数据写完之后初始化状态
+            writePosition = 0;
+            if (!isWriteResultCall) {
+                baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
+                isRealConnectSuccess = true;
+            } else {
+                //如果有多条数据同步，该句代码会被调用多次
+                baseView.updateState("请开始吹气");
+            }
+
         }
 
     }

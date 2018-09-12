@@ -74,7 +74,6 @@ public class CameraUtils {
             Timber.i("camera reconnect success");
             return camera;
         } catch (Throwable e) {
-            e.printStackTrace();
             Timber.e(e, "camera reconnect error");
             try {
                 camera.release();
@@ -92,6 +91,7 @@ public class CameraUtils {
         isPreviewing = false;
         try {
             camera.release();
+            Timber.i("Camera release");
         } catch (Throwable e) {
             e.printStackTrace();
         }

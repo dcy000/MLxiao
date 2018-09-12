@@ -56,19 +56,20 @@ public class MainActivity extends AppCompatActivity {
         CC.obtainBuilder("face_recognition")
                 .setActionName("To_RegisterHead2XunfeiActivity")
                 .addParam("key_xfid", "1234567anlcm")
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-            @Override
-            public void onResult(CC cc, CCResult result) {
-                String keyCcCallback = result.getDataItem("key_cc_callback");
-                switch (keyCcCallback) {
-                    case "pressedBackButton":
-                        Intent intent = new Intent(MainActivity.this,
-                                RepositoryActivity.class);
-                        startActivity(intent);
-                        break;
-                }
-            }
-        });
+                .build()
+                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+                        String keyCcCallback = result.getDataItem("key_cc_callback");
+                        switch (keyCcCallback) {
+                            case "pressedBackButton":
+                                Intent intent = new Intent(MainActivity.this,
+                                        RepositoryActivity.class);
+                                startActivity(intent);
+                                break;
+                        }
+                    }
+                });
         CC.obtainBuilder("app.component.cc").build().callAsync();
     }
 

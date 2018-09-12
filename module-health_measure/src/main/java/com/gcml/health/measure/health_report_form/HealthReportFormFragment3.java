@@ -212,6 +212,7 @@ public class HealthReportFormFragment3 extends BluetoothBaseFragment implements 
                 helper.setText(R.id.tv_right, item.getReference());
                 if ("0".equals(anomalyStatus)) {
                     ((TextView) helper.getView(R.id.tv_middle)).setTextColor(Color.parseColor("#333333"));
+                    ((TextView) helper.getView(R.id.tv_middle)).setCompoundDrawables(null, null, null, null);
                 } else if ("1".equals(anomalyStatus)) {
                     ((TextView) helper.getView(R.id.tv_middle)).setCompoundDrawables(null, null, drawableWarning, null);
                 } else if ("2".equals(anomalyStatus)) {
