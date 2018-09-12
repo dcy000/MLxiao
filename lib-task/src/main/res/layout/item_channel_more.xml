@@ -1,0 +1,28 @@
+
+<RelativeLayout
+    android:id="@+id/rl_channel"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_channelname"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/shape_dialy_more_content"
+        android:text="推荐"
+        android:textColor="@color/text_task_diary_more"
+        android:textSize="32sp"
+        android:layout_centerInParent="true"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/img_edit"
+        android:layout_alignParentRight="true"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:visibility="gone"
+        android:src="@drawable/img_task_dialy_more_delete"/>
+
+</RelativeLayout>

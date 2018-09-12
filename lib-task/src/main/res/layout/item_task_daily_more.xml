@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/health_diary_tv_more_item_content"
-        android:layout_width="210pt"
+        android:layout_width="260pt"
         android:layout_height="120pt"
         android:background="@drawable/shape_dialy_more_content"
         android:gravity="center"

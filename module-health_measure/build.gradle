@@ -65,7 +65,6 @@ dependencies {
     implementation rootProject.ext.dependencies["gson"]
     implementation project(':lib-voice')
     implementation project(':lib-video')
-    implementation project(':lib-rulerview')
     implementation project(':lib-widget')
     implementation project(':lib-progress-orb')
     //万能适配器

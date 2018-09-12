@@ -129,7 +129,6 @@ dependencies {
     implementation project(':lib-pay-beecloud')
     implementation project(':lib-progress-orb')
     implementation project(':expand-textview-library')
-    implementation project(':lib-rulerview')
     implementation project(':circleindicator')
     implementation project(':module-control_volume')
     implementation project(':module-health_record')

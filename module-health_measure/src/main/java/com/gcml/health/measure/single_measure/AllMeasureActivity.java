@@ -65,6 +65,7 @@ import timber.log.Timber;
 public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentChanged {
     private BluetoothBaseFragment baseFragment;
     private int measure_type;
+    private boolean isMeasureTask;
     private String pdfUrl = "";
     private boolean isMeasure = true;
     private Uri uri;
@@ -75,6 +76,16 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         intent.putExtra(IPresenter.MEASURE_TYPE, measure_type);
+        context.startActivity(intent);
+    }
+
+    public static void startActivity(Context context, int measure_type, boolean is_measure_task) {
+        Intent intent = new Intent(context, AllMeasureActivity.class);
+        if (context instanceof Application) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        intent.putExtra(IPresenter.MEASURE_TYPE, measure_type);
+        intent.putExtra(IPresenter.IS_MEASURE_TASK, is_measure_task);
         context.startActivity(intent);
     }
 
@@ -90,6 +101,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private void dealLogic() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         measure_type = getIntent().getIntExtra(IPresenter.MEASURE_TYPE, -1);
+        isMeasureTask = getIntent().getBooleanExtra(IPresenter.IS_MEASURE_TASK, false);
         //TODO:测试代码
         if (BuildConfig.RUN_APP){
             measure_type=IPresenter.MEASURE_BLOOD_PRESSURE;
@@ -106,7 +118,10 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 //血压
                 if (baseFragment == null) {
                     mTitleText.setText("血 压 测 量");
+                    Bundle bloodBundle = new Bundle();
+                    bloodBundle.getBoolean(IPresenter.IS_MEASURE_TASK, isMeasureTask);
                     baseFragment = new SingleMeasureBloodpressureFragment();
+                    baseFragment.setArguments(bloodBundle);
                 }
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
@@ -128,7 +143,10 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 //体重
                 if (baseFragment == null) {
                     mTitleText.setText("体 重 测 量");
+                    Bundle weightBundle = new Bundle();
+                    weightBundle.getBoolean(IPresenter.IS_MEASURE_TASK, isMeasureTask);
                     baseFragment = new SingleMeasureWeightFragment();
+                    baseFragment.setArguments(weightBundle);
                 }
                 break;
             case IPresenter.MEASURE_ECG:
