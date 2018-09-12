@@ -4,17 +4,20 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.gcml.common.data.UserSpHelper;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.VoiceWakeuper;
 import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
 import com.iflytek.cloud.util.ResourceUtil;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.wakeup.dialog.VoiceDialog;
 
 import org.json.JSONException;
@@ -141,6 +144,13 @@ public class WakeupHelper {
 //                            Intent intent = new Intent(sContext, SpeechSynthesisActivity.class);
 //                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                            sContext.startActivity(intent);
+
+
+                            String userId = UserSpHelper.getUserId();
+                            if (TextUtils.isEmpty(userId)) {
+                                MLVoiceSynthetize.startSynthesize(sContext, "如需使用唤醒功能,请先登录");
+                                return;
+                            }
                             if (voiceDialog == null) {
                                 voiceDialog = new VoiceDialog(sContext, R.style.XDialog);
                                 voiceDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
