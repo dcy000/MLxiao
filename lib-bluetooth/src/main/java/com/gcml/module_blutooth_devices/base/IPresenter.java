@@ -82,7 +82,7 @@ public interface IPresenter {
      */
     int MEASURE_BLOOD_OXYGEN = 24;
     /**
-     * 测量耳温
+     * 测量体重
      */
     int MEASURE_WEIGHT = 25;
     /**
@@ -101,6 +101,10 @@ public interface IPresenter {
      * 指纹操作
      */
     int CONTROL_FINGERPRINT=29;
+    /**
+     * 测量呼吸家的肺活量仪器
+     */
+    int MEASURE_BREATH_HOME=31;
     /**
      * 检查蓝牙是否已开
      */

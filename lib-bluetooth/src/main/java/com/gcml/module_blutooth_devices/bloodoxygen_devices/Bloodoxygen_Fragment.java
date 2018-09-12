@@ -1,6 +1,7 @@
 package com.gcml.module_blutooth_devices.bloodoxygen_devices;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,9 +15,9 @@ import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
+import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
-
 
 public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
     protected TextView mBtnHealthHistory;
@@ -38,6 +39,7 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
         mBtnVideoDemo = view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
         mTvResult = view.findViewById(R.id.tv_result);
+        mTvResult.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         this.bundle = bundle;
     }
 
@@ -51,6 +53,7 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
         String address = null;
         String brand = null;
         String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, "");
+        Logg.d(Bloodoxygen_Fragment.class,sp_bloodoxygen);
         if (!TextUtils.isEmpty(sp_bloodoxygen)) {
             String[] split = sp_bloodoxygen.split(",");
             if (split.length == 2) {
@@ -71,6 +74,7 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
     }
 
     private void chooseConnectType(String address, String brand) {
+        Logg.d(Bloodoxygen_Fragment.class,""+address+brand);
         if (TextUtils.isEmpty(address)) {
             helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_OXYGEN);
             helper.start();
@@ -98,11 +102,11 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
     public void updateData(String... datas) {
         if (datas.length == 3) {
             mTvResult.setText("0");
-            isMeasureFinishedOfThisTime = false;
+            isMeasureFinishedOfThisTime=false;
         } else if (datas.length == 2) {
             mTvResult.setText(datas[0]);
-            if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[0]) != 0) {
-                isMeasureFinishedOfThisTime = true;
+            if (!isMeasureFinishedOfThisTime&&Float.parseFloat(datas[0])!=0){
+                isMeasureFinishedOfThisTime=true;
                 onMeasureFinished(datas[0], datas[1]);
             }
         }

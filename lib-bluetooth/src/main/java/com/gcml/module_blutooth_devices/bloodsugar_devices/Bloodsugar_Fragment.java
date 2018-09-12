@@ -1,6 +1,7 @@
 package com.gcml.module_blutooth_devices.bloodsugar_devices;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -37,6 +38,7 @@ public class Bloodsugar_Fragment extends BluetoothBaseFragment implements IView,
         mBtnVideoDemo = view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
         mTvResult = view.findViewById(R.id.tv_result);
+        mTvResult.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         this.bundle = bundle;
 
     }
@@ -87,16 +89,18 @@ public class Bloodsugar_Fragment extends BluetoothBaseFragment implements IView,
                     bluetoothPresenter = new Bloodsugar_Self_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Bioland-BGM"));
                     break;
+                default:
+                    break;
             }
         }
     }
 
     @Override
     public void updateData(String... datas) {
-        if (datas.length==2){
+        if (datas.length == 2) {
             mTvResult.setText("0.00");
             isMeasureFinishedOfThisTime = false;
-        }else if (datas.length == 1) {
+        } else if (datas.length == 1) {
             mTvResult.setText(datas[0]);
             if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[0]) != 0) {
                 isMeasureFinishedOfThisTime = true;

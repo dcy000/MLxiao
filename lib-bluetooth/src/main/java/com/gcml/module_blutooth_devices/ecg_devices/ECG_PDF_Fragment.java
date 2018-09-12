@@ -36,7 +36,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 
-import timber.log.Timber;
 
 public class ECG_PDF_Fragment extends BluetoothBaseFragment {
     public static final String KEY_BUNDLE_PDF_URL = "key_pdf_url";

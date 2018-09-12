@@ -151,7 +151,9 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     AllMeasureActivity.startActivity(this, measureType);
                     break;
                 case R.id.ll_more://敬请期待
-                    ToastUtils.showShort("敬请期待");
+//                    ToastUtils.showShort("敬请期待");
+                    measureType=IPresenter.MEASURE_BREATH_HOME;
+                    AllMeasureActivity.startActivity(this,measureType);
                     break;
             }
 

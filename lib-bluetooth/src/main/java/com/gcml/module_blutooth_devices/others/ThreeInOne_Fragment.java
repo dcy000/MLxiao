@@ -48,6 +48,9 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
     private SearchWithDeviceGroupHelper helper;
     private BaseBluetoothPresenter bluetoothPresenter;
     private Bundle bundle;
+    private boolean isMeasureBloodsugarFinished;
+    private boolean isMeasureBUAFinished;
+    private boolean isMeasureCholesterolFinished;
 
     @Override
     protected int initLayout() {
@@ -64,7 +67,7 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
         mTvGaoya = view.findViewById(R.id.tv_gaoya);
         mTvDiya = view.findViewById(R.id.tv_diya);
         mTvMaibo = view.findViewById(R.id.tv_maibo);
-        this.bundle = bundle;
+        this.bundle=bundle;
     }
 
     @Override
@@ -124,10 +127,6 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
             clickVideoDemo(v);
         }
     }
-
-    private boolean isMeasureBloodsugarFinished = false;
-    private boolean isMeasureBUAFinished = false;
-    private boolean isMeasureCholesterolFinished = false;
 
     @Override
     public void updateData(String... datas) {

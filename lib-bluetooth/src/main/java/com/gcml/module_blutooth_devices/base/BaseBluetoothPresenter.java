@@ -7,8 +7,10 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.gcml.lib_utils.handler.WeakHandler;
 import com.gcml.lib_utils.permission.PermissionsManager;
@@ -29,8 +31,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import timber.log.Timber;
 
 
 public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<SearchResult> {
@@ -74,12 +74,9 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 case SEARCH_MAC2NAME://搜索不到mac转搜name
                     Logg.e(BaseBluetoothPresenter.class, "物理地址转名字搜索handleMessage: ");
                     discoverType = DISCOVER_WITH_NAME;
-                    if (discoverSetting != null
-                            && BluetoothClientManager.getClient() != null) {
-                        BluetoothClientManager.getClient().refreshCache(discoverSetting.getTargetMac());
-                        request = setSearchRequest();
-                        searchDevices();
-                    }
+//                    BluetoothClientManager.getClient().refreshCache(discoverSetting.getTargetMac());
+                    request = setSearchRequest();
+                    searchDevices();
                     break;
                 case DEVICE_DISCONNECTED://蓝牙断开连接
                     disConnected();
@@ -142,7 +139,6 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                     if (TextUtils.isEmpty(targetAddress)) {
                         throw new NullPointerException("连接的设备为NULL");
                     }
-                    Timber.e("正在尝试连接");
                     connectDevice(targetAddress);
                     break;
                 case IPresenter.DISCOVER_WITH_NAME:
@@ -185,7 +181,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                             if (TextUtils.isEmpty(targetName)) {
                                 throw new NullPointerException("连接的设备为NULL");
                             }
-                            if (!TextUtils.isEmpty(name) && name.equals(targetName)) {
+                            if (!TextUtils.isEmpty(name) && name.startsWith(targetName)) {
                                 BluetoothClientManager.getClient().stopSearch();
                                 isOnSearching = false;
 //                                lockedDevice = new BluetoothDevice(DEVICE_INITIAL, searchResult);
@@ -204,11 +200,13 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                                     discoveredTargetDevice(searchResult);
                                     return;
                                 }
-                                if (name.equals(targetName)) {
+                                if (name.startsWith(targetName)) {
                                     discoverNewDevices(searchResult);
                                 }
                             }
 
+                            break;
+                        default:
                             break;
                     }
                 } else {
@@ -381,7 +379,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 address = lockedDevice.getAddress();
             }
         }
-        Timber.e("尝试重连：" + address);
+        Log.e("重连设备物理地址：", "retryConnect: " + address);
         if (!TextUtils.isEmpty(address)) {
             connectDevice(address);
         }
@@ -476,11 +474,11 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
      */
     protected boolean discoveredTargetDevice(SearchResult device) {
         lockedDevice = device.device;
-        if (discoverType != IPresenter.DISCOVER_WITH_MAC && TextUtils.isEmpty(targetAddress)) {
+        if (discoverType == IPresenter.DISCOVER_WITH_MAC && TextUtils.isEmpty(targetAddress)) {
             throw new NullPointerException("连接的设备为NULL");
         }
         isSearchedTargetDevice = true;
-        connectDevice(targetAddress);
+        connectDevice(device.getAddress());
         return false;
     }
 

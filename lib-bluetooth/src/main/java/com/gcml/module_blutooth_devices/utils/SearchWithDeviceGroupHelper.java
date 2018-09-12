@@ -15,11 +15,13 @@ import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Chaosi_PresenterImp;
+import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Kangtai_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Self_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Chaosi_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_KN550_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Self_PresenterImp;
+import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_YuWell_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_GlucWell_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Sannuo_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Self_PresenterImp;
@@ -45,23 +47,23 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import timber.log.Timber;
 
 public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private static final String[] BLOODOXYGEN_BRANDS = {"POD", "iChoice", "SpO2080971"};
-    private static final String[] BLOODPRESSURE_BRANDS = {"eBlood-Pressure", "iChoice", "KN-550BT 110"};
+    private static final String[] BLOODPRESSURE_BRANDS = {"eBlood-Pressure", "Yuwell", "iChoice", "KN-550BT 110"};
     private static final String[] BLOODSUGAR_BRANDS = {"Bioland-BGM", "BLE-Glucowell", "BDE_WEIXIN_TTM"};
     private static final String[] TEMPERATURE_BRANDS = {"AET-WD", "ClinkBlood", "MEDXING-IRT", "FSRKB-EWQ01"};
     private static final String[] WEIGHT_BRANDS = {"VScale", "SHHC-60F1", "iChoice", "SENSSUN_CLOUD", "000FatScale01"};
     private static final String[] ECG_BRANDS = {"WeCardio STD", "A12-B"};
     private static final String[] FINGERPRINT_BRANDS = {"zjwellcom"};
-    private static final String[] OTHERS_BRANDS = {"BeneCheck GL-0F8B0C"};
+    private static final String[] OTHERS_BRANDS = {"BeneCheck GL"};
     private List<SearchResult> devices;
     private int measureType;
     private BaseBluetoothPresenter baseBluetoothPresenter;
     private IView view;
     private boolean isSearching = false;
     private MySearchResponse mySearchResponse;
+    private static final String TAG = "SearchWithDeviceGroupHe";
     /**
      * 蓝牙连接的敏感权限
      */
@@ -85,7 +87,6 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 search(BLOODSUGAR_BRANDS);
                 break;
             case IPresenter.MEASURE_BLOOD_OXYGEN:
-                Timber.e("搜索血氧设备");
                 search(BLOODOXYGEN_BRANDS);
                 break;
             case IPresenter.MEASURE_WEIGHT:
@@ -155,17 +156,17 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchStarted() {
             isSearching = true;
+            Log.e(TAG, "onSearchStarted: ");
         }
 
         @Override
         public void onDeviceFounded(SearchResult searchResult) {
             String name = searchResult.getName();
             String address = searchResult.getAddress();
-            Timber.e(name + "-----" + address);
+            Log.e(TAG, "》》》" + name + "》》》" + address);
             if (!TextUtils.isEmpty(name)) {
-                Timber.e(brands[0]);
                 for (String s : brands) {
-                    if (name.equals(s) && !devices.contains(searchResult)) {
+                    if (name.startsWith(s) && !devices.contains(searchResult)) {
                         devices.add(searchResult);
                     }
                 }
@@ -175,25 +176,10 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchStopped() {
             isSearching = false;
-            Timber.e("搜索到的设备数量：" + devices.size());
             if (devices.size() > 0) {
                 Collections.sort(devices, SearchWithDeviceGroupHelper.this);
-                if (devices.size() >= 2) {
-                    Timber.e("搜索到的第一个是："
-                            + devices.get(0).getName()
-                            + "--" + devices.get(0).getAddress()
-                            + "--" + devices.get(0).rssi
-                            + "++第二个设备"
-                            + devices.get(1).getName()
-                            + "--"+devices.get(1).getAddress()
-                            + "--" + devices.get(1).rssi);
-                } else {
-                    Timber.e("搜索到的第一个是：" + devices.get(0).getName()
-                            + "--" + devices.get(0).getAddress());
-                }
                 initPresenter(devices.get(0).getName(), devices.get(0).getAddress());
             } else {
-                Timber.e("启动下一次搜索");
                 final SearchRequest searchRequest = new SearchRequest.Builder()
                         .searchBluetoothClassicDevice(3000, 1)
                         .searchBluetoothLeDevice(8000, 1)
@@ -207,6 +193,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchCanceled() {
             isSearching = false;
+            Log.e(TAG, "onSearchCanceled: ");
         }
     }
 
@@ -235,21 +222,23 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 }
                 break;
             case IPresenter.MEASURE_BLOOD_PRESSURE:
-                switch (brand) {
-                    case "eBlood-Pressure":
-                        baseBluetoothPresenter = new Bloodpressure_Self_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "eBlood-Pressure"));
-                        break;
-                    case "iChoice":
-                        baseBluetoothPresenter = new Bloodpressure_Chaosi_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "iChoice"));
-                        break;
-                    case "KN-550BT 110":
-                        baseBluetoothPresenter = new Bloodpressure_KN550_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "KN-550BT 110"));
-                        break;
-                    default:
-                        break;
+                if ("eBlood-Pressure".equals(brand)) {
+                    baseBluetoothPresenter = new Bloodpressure_Self_PresenterImp(view,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "eBlood-Pressure"));
+
+                } else if (brand.startsWith("Yuwell")) {
+                    baseBluetoothPresenter = new Bloodpressure_YuWell_PresenterImp(view,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Yuwell"));
+
+                } else if ("iChoice".equals(brand)) {
+                    baseBluetoothPresenter = new Bloodpressure_Chaosi_PresenterImp(view,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "iChoice"));
+
+                } else if ("KN-550BT 110".equals(brand)) {
+                    baseBluetoothPresenter = new Bloodpressure_KN550_PresenterImp(view,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "KN-550BT 110"));
+
+                } else {
                 }
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
@@ -277,7 +266,6 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "POD"));
                         break;
                     case "iChoice":
-                        Timber.e("尝试连接超思血氧仪");
                         baseBluetoothPresenter = new Bloodoxygen_Chaosi_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "iChoice"));
                         break;
@@ -356,6 +344,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
 
     /**
      * 按降序排列
+     *
      * @param o1
      * @param o2
      * @return

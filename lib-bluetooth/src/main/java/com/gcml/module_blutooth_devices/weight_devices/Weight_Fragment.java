@@ -1,7 +1,9 @@
 package com.gcml.module_blutooth_devices.weight_devices;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
     private TextView mTvTizhong;
-    private TextView mTvTizhi;
+    protected TextView mTvTizhi;
     private BaseBluetoothPresenter bluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
     private Bundle bundle;
@@ -34,6 +36,7 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
         return R.layout.bluetooth_fragment_weight;
     }
 
+    @CallSuper
     @Override
     protected void initView(View view, final Bundle bundle) {
 
@@ -43,6 +46,8 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
         mBtnVideoDemo.setOnClickListener(this);
         mTvTizhong = view.findViewById(R.id.tv_tizhong);
         mTvTizhi = view.findViewById(R.id.tv_tizhi);
+        mTvTizhong.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mTvTizhi.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         this.bundle = bundle;
 
     }
@@ -123,10 +128,12 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
 
     @Override
     public void updateData(String... datas) {
-        if (datas.length==2){
-            mTvTizhong.setText("0.00");
+        if (datas.length == 2) {
+            if (mTvTizhong != null) {
+                mTvTizhong.setText("0.00");
+            }
             isMeasureFinishedOfThisTime = false;
-        }else if (datas.length == 1) {
+        } else if (datas.length == 1) {
             if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[0]) != 0) {
                 isMeasureFinishedOfThisTime = true;
                 onMeasureFinished(datas[0]);
@@ -134,27 +141,27 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
             if (mTvTizhong != null) {
                 mTvTizhong.setText(datas[0]);
             }
-            String userHeight = null;
-            try {
-                userHeight = SharePreferenceHelper.getInstance().getLocalShared(getContext()).getUserHeight();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (java.lang.InstantiationException e) {
-                e.printStackTrace();
-            }
-            if (!TextUtils.isEmpty(userHeight)) {
-                float parseFloat = Float.parseFloat(userHeight);
-                float weight = Float.parseFloat(datas[0]);
-                if (mTvTizhi != null) {
-                    mTvTizhi.setText(String.format("%.2f", weight / (parseFloat * parseFloat / 10000)));
-                }
-            }
+//            String userHeight = null;
+//            try {
+//                userHeight = SharePreferenceHelper.getInstance().getLocalShared(getContext()).getUserHeight();
+//            } catch (NoSuchMethodException e) {
+//                e.printStackTrace();
+//            } catch (InvocationTargetException e) {
+//                e.printStackTrace();
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (java.lang.InstantiationException e) {
+//                e.printStackTrace();
+//            }
+//            if (!TextUtils.isEmpty(userHeight)) {
+//                float parseFloat = Float.parseFloat(userHeight);
+//                float weight = Float.parseFloat(datas[0]);
+//                if (mTvTizhi != null) {
+//                    mTvTizhi.setText(String.format("%.2f", weight / (parseFloat * parseFloat / 10000)));
+//                }
+//            }
         }
     }
 
@@ -175,8 +182,9 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
     @Override
     public void onStop() {
         super.onStop();
-        if (bluetoothPresenter != null)
+        if (bluetoothPresenter != null) {
             bluetoothPresenter.onDestroy();
+        }
         if (helper != null) {
             helper.destroy();
         }

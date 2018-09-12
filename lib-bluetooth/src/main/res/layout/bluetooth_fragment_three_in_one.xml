@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#f5f5f5">
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl1"
         android:layout_width="976pt"
@@ -31,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28pt"
-            android:text="&lt;3.61"
+            android:text="&lt;3.9"
             android:textColor="#FF3030"
             android:textSize="64pt"
             app:layout_constraintHorizontal_chainStyle="spread"
@@ -44,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28pt"
-            android:text="3.61~6.11"
+            android:text="3.9~6.1"
             android:textColor="#28DA6B"
             android:textSize="64pt"
             app:layout_constraintLeft_toRightOf="@id/title1_1"
@@ -56,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28pt"
-            android:text="&gt;7.0"
+            android:text="&gt;6.1"
             android:textColor="#FF3030"
             android:textSize="64pt"
             app:layout_constraintLeft_toRightOf="@id/title1_2"
@@ -123,31 +124,29 @@
             android:id="@+id/title2_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="56pt"
             android:layout_marginTop="28pt"
-            android:text="0.21~0.44"
+            android:text="≤0.42"
             android:textColor="#FF3030"
             android:textSize="64pt"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/title2_3"
-            app:layout_constraintTop_toBottomOf="@id/title2"
-            android:layout_marginLeft="56pt"
-            />
-
+            app:layout_constraintTop_toBottomOf="@id/title2" />
 
 
         <TextView
             android:id="@+id/title2_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="56pt"
             android:layout_marginTop="28pt"
-            android:text="0.15~0.39"
+            android:text="≤0.36"
             android:textColor="#FF3030"
             android:textSize="64pt"
             app:layout_constraintLeft_toRightOf="@id/title2_1"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title2"
-            android:layout_marginRight="56pt"/>
+            app:layout_constraintTop_toBottomOf="@id/title2" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -195,76 +194,89 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/title3_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28pt"
-            android:text="2.9~6.0"
-            android:textColor="#FF3030"
-            android:textSize="64pt"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/title3_3"
-            app:layout_constraintTop_toBottomOf="@id/title3"
-            android:layout_marginLeft="56pt"/>
+        <!--<TextView-->
+        <!--android:id="@+id/title3_1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="28pt"-->
+        <!--android:text="2.9~6.0"-->
+        <!--android:textColor="#FF3030"-->
+        <!--android:textSize="64pt"-->
+        <!--app:layout_constraintHorizontal_chainStyle="spread_inside"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toLeftOf="@+id/title3_3"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/title3"-->
+        <!--android:layout_marginLeft="56pt"/>-->
 
 
+        <!--<TextView-->
+        <!--android:id="@+id/title3_3"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="28pt"-->
+        <!--android:text="3.1~5.2"-->
+        <!--android:textColor="#FF3030"-->
+        <!--android:textSize="64pt"-->
+        <!--app:layout_constraintLeft_toRightOf="@id/title3_1"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/title3"-->
+        <!--android:layout_marginRight="56pt"/>-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="32pt"-->
+        <!--android:layout_marginLeft="70pt"-->
+        <!--android:text="成人"-->
+        <!--android:textColor="#333"-->
+        <!--android:textSize="48pt"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent" />-->
+
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="32pt"-->
+        <!--android:layout_marginRight="70pt"-->
+        <!--android:text="儿童"-->
+        <!--android:textColor="#333"-->
+        <!--android:textSize="48pt"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent" />-->
         <TextView
             android:id="@+id/title3_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28pt"
-            android:text="3.1~5.2"
+            android:text="&lt;5.2"
             android:textColor="#FF3030"
             android:textSize="64pt"
-            app:layout_constraintLeft_toRightOf="@id/title3_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title3"
-            android:layout_marginRight="56pt"/>
+            app:layout_constraintTop_toBottomOf="@id/title3" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32pt"
-            android:layout_marginLeft="70pt"
-            android:text="成人"
-            android:textColor="#333"
-            android:textSize="48pt"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32pt"
-            android:layout_marginRight="70pt"
-            android:text="儿童"
-            android:textColor="#333"
-            android:textSize="48pt"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 
     <View
         android:layout_width="880pt"
         android:layout_height="match_parent"
-        android:background="@color/bluetooth_white"/>
+        android:background="@color/bluetooth_white" />
+
     <include
         android:id="@+id/bottom_btn"
-        layout="@layout/bluetooth_layout_two_button"
-        />
+        layout="@layout/bluetooth_layout_two_button" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/cl5"
         app:layout_constraintLeft_toLeftOf="@id/bottom_btn"
-        app:layout_constraintRight_toRightOf="@id/bottom_btn">
+        app:layout_constraintRight_toRightOf="@id/bottom_btn"
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/tv_gaoya"
             android:layout_width="402pt"
@@ -275,37 +287,40 @@
             android:textColor="#333"
             android:textSize="120pt"
             android:textStyle="bold"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent" />
+
         <TextView
             android:id="@+id/tv_title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="48pt"
             android:text="血糖"
-            android:textStyle="bold"
             android:textColor="#333"
             android:textSize="88pt"
-            app:layout_constraintRight_toLeftOf="@id/tv_gaoya"
-            app:layout_constraintTop_toTopOf="@id/tv_gaoya"
             app:layout_constraintBottom_toBottomOf="@id/tv_gaoya"
-            android:layout_marginRight="48pt"/>
+            app:layout_constraintRight_toLeftOf="@id/tv_gaoya"
+            app:layout_constraintTop_toTopOf="@id/tv_gaoya" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40pt"
+            android:text="(mmol/L)"
             android:textColor="#999"
-            android:text="(mmHg)"
-            app:layout_constraintTop_toBottomOf="@id/tv_title1"
+            android:textSize="40pt"
             app:layout_constraintLeft_toLeftOf="@id/tv_title1"
-            app:layout_constraintRight_toRightOf="@id/tv_title1"/>
+            app:layout_constraintRight_toRightOf="@id/tv_title1"
+            app:layout_constraintTop_toBottomOf="@id/tv_title1" />
     </android.support.constraint.ConstraintLayout>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/cl4"
         app:layout_constraintBottom_toTopOf="@+id/cl6"
         app:layout_constraintLeft_toLeftOf="@id/bottom_btn"
-        app:layout_constraintRight_toRightOf="@id/bottom_btn">
+        app:layout_constraintRight_toRightOf="@id/bottom_btn"
+        app:layout_constraintTop_toBottomOf="@id/cl4">
+
         <TextView
             android:id="@+id/tv_diya"
             android:layout_width="402pt"
@@ -316,37 +331,40 @@
             android:textColor="#333"
             android:textSize="120pt"
             android:textStyle="bold"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent" />
+
         <TextView
             android:id="@+id/tv_title2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="48pt"
             android:text="尿酸"
-            android:textStyle="bold"
             android:textColor="#333"
             android:textSize="88pt"
-            app:layout_constraintRight_toLeftOf="@id/tv_diya"
-            app:layout_constraintTop_toTopOf="@id/tv_diya"
             app:layout_constraintBottom_toBottomOf="@id/tv_diya"
-            android:layout_marginRight="48pt"/>
+            app:layout_constraintRight_toLeftOf="@id/tv_diya"
+            app:layout_constraintTop_toTopOf="@id/tv_diya" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40pt"
+            android:text="(mmol/L)"
             android:textColor="#999"
-            android:text="(mmHg)"
-            app:layout_constraintTop_toBottomOf="@id/tv_title2"
+            android:textSize="40pt"
             app:layout_constraintLeft_toLeftOf="@id/tv_title2"
-            app:layout_constraintRight_toRightOf="@id/tv_title2"/>
+            app:layout_constraintRight_toRightOf="@id/tv_title2"
+            app:layout_constraintTop_toBottomOf="@id/tv_title2" />
     </android.support.constraint.ConstraintLayout>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/cl5"
         app:layout_constraintBottom_toTopOf="@id/bottom_btn"
         app:layout_constraintLeft_toLeftOf="@id/bottom_btn"
-        app:layout_constraintRight_toRightOf="@id/bottom_btn">
+        app:layout_constraintRight_toRightOf="@id/bottom_btn"
+        app:layout_constraintTop_toBottomOf="@id/cl5">
+
         <TextView
             android:id="@+id/tv_maibo"
             android:layout_width="402pt"
@@ -357,27 +375,28 @@
             android:textColor="#333"
             android:textSize="120pt"
             android:textStyle="bold"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent" />
+
         <TextView
             android:id="@+id/tv_title3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="48pt"
             android:text="胆固醇"
-            android:textStyle="bold"
             android:textColor="#333"
             android:textSize="88pt"
-            app:layout_constraintRight_toLeftOf="@id/tv_maibo"
-            app:layout_constraintTop_toTopOf="@id/tv_maibo"
             app:layout_constraintBottom_toBottomOf="@id/tv_maibo"
-            android:layout_marginRight="48pt"/>
+            app:layout_constraintRight_toLeftOf="@id/tv_maibo"
+            app:layout_constraintTop_toTopOf="@id/tv_maibo" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40pt"
+            android:text="(mmol/L)"
             android:textColor="#999"
-            android:text="(mmHg)"
-            app:layout_constraintTop_toBottomOf="@id/tv_title3"
+            android:textSize="40pt"
             app:layout_constraintLeft_toLeftOf="@id/tv_title3"
-            app:layout_constraintRight_toRightOf="@id/tv_title3"/>
+            app:layout_constraintRight_toRightOf="@id/tv_title3"
+            app:layout_constraintTop_toBottomOf="@id/tv_title3" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

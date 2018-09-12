@@ -15,12 +15,9 @@ import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
-import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 import com.inuker.bluetooth.library.utils.ByteUtils;
-
-import timber.log.Timber;
 
 public class ECG_Fragment extends BluetoothBaseFragment implements IView {
     private ECGSingleGuideView mEcgView;
@@ -116,7 +113,7 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView {
         }
         if (datas.length == 1) {
             //其中超思有的数据获取实在子线程 ，此处展示应在UI线程
-            getActivity().runOnUiThread(new Runnable() {
+            mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     mEcgView.addData(ByteUtils.stringToBytes(datas[0]));
