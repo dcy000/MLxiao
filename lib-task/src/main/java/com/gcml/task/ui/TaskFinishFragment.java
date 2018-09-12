@@ -72,31 +72,31 @@ public class TaskFinishFragment extends Fragment {
 
     private void bindData(TaskBean data) {
         int progress = Integer.parseInt(data.surpassHuman);
-        if (progress < 20) {
+        if (progress <= 20) {
             imagePeople1.setVisibility(View.VISIBLE);
             imagePeople2.setVisibility(View.GONE);
             imagePeople3.setVisibility(View.GONE);
             imagePeople4.setVisibility(View.GONE);
             imagePeople5.setVisibility(View.GONE);
-        } else if (progress < 40) {
+        } else if (progress <= 40) {
             imagePeople1.setVisibility(View.GONE);
             imagePeople2.setVisibility(View.VISIBLE);
             imagePeople3.setVisibility(View.GONE);
             imagePeople4.setVisibility(View.GONE);
             imagePeople5.setVisibility(View.GONE);
-        } else if (progress <60) {
+        } else if (progress <=60) {
             imagePeople1.setVisibility(View.GONE);
             imagePeople2.setVisibility(View.GONE);
             imagePeople3.setVisibility(View.VISIBLE);
             imagePeople4.setVisibility(View.GONE);
             imagePeople5.setVisibility(View.GONE);
-        } else if (progress < 80) {
+        } else if (progress <= 80) {
             imagePeople1.setVisibility(View.GONE);
             imagePeople2.setVisibility(View.GONE);
             imagePeople3.setVisibility(View.GONE);
             imagePeople4.setVisibility(View.VISIBLE);
             imagePeople5.setVisibility(View.GONE);
-        } else if (progress < 100) {
+        } else if (progress <= 100) {
             imagePeople1.setVisibility(View.GONE);
             imagePeople2.setVisibility(View.GONE);
             imagePeople3.setVisibility(View.GONE);
@@ -107,7 +107,13 @@ public class TaskFinishFragment extends Fragment {
         progressNumber.setText(progress + "%");
         progressMessage.setText("的人被您超越");
         progressTag.setText("您还可以:");
-        mAdapter = new TaskMenuAdapter(R.layout.item_task_daily, data.taskList);
+        List<TaskBean.TaskListBean> list = new ArrayList<>();
+        for (int i = 0; i < data.taskList.size(); i++) {
+            if (!data.taskList.get(i).mustStatus.equals("1")) {
+                list.add(data.taskList.get(i));
+            }
+        }
+        mAdapter = new TaskMenuAdapter(R.layout.item_task_daily, list);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycler.addItemDecoration(new ListDividerItemDecoration(
                 getContext(), LinearLayoutManager.VERTICAL, 20, getResources().getColor(R.color.config_color_white)));
