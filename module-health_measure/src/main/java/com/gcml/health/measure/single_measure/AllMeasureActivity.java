@@ -19,6 +19,7 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.R;
+import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
@@ -66,6 +67,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private String pdfUrl = "";
     private boolean isMeasure = true;
     private Uri uri;
+    private boolean isFaceSkip;
+    private boolean isShowBloodsugarSelectTime = false;
 
     public static void startActivity(Context context, int measure_type) {
         Intent intent = new Intent(context, AllMeasureActivity.class);
@@ -99,32 +102,43 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         measure_type = getIntent().getIntExtra(IPresenter.MEASURE_TYPE, -1);
         isMeasureTask = getIntent().getBooleanExtra(IPresenter.IS_MEASURE_TASK, false);
+        isFaceSkip = getIntent().getBooleanExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP, false);
         //TODO:测试代码
-        if (BuildConfig.RUN_APP){
-            measure_type=IPresenter.MEASURE_BLOOD_PRESSURE;
+        if (BuildConfig.RUN_APP) {
+            measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
         }
         switch (measure_type) {
             case IPresenter.MEASURE_TEMPERATURE:
                 //体温测量
                 if (baseFragment == null) {
                     mTitleText.setText("体 温 测 量");
-                    baseFragment = new SingleMeasureTemperatureFragment();
+                    if (isFaceSkip) {
+                        baseFragment = new Temperature_Fragment();
+                    } else {
+                        baseFragment = new SingleMeasureTemperatureFragment();
+                    }
                 }
                 break;
             case IPresenter.MEASURE_BLOOD_PRESSURE:
                 //血压
                 if (baseFragment == null) {
                     mTitleText.setText("血 压 测 量");
-                    Bundle bloodBundle = new Bundle();
-                    bloodBundle.getBoolean(IPresenter.IS_MEASURE_TASK, isMeasureTask);
-                    baseFragment = new SingleMeasureBloodpressureFragment();
-                    baseFragment.setArguments(bloodBundle);
+                    if (isFaceSkip) {
+                        baseFragment = new Bloodpressure_Fragment();
+                    } else {
+                        Bundle bloodBundle = new Bundle();
+                        bloodBundle.getBoolean(IPresenter.IS_MEASURE_TASK, isMeasureTask);
+                        baseFragment = new SingleMeasureBloodpressureFragment();
+                        baseFragment.setArguments(bloodBundle);
+                    }
                 }
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
                 //血糖
                 if (baseFragment == null) {
                     mTitleText.setText("血 糖 测 量");
+                    mRightView.setImageResource(R.drawable.common_icon_home);
+                    isShowBloodsugarSelectTime = true;
                     baseFragment = new HealthSelectSugarDetectionTimeFragment();
                     baseFragment.setOnFragmentChangedListener(this);
                 }
@@ -133,17 +147,25 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 //血氧
                 if (baseFragment == null) {
                     mTitleText.setText("血 氧 测 量");
-                    baseFragment = new SingleMeasureBloodoxygenFragment();
+                    if (isFaceSkip) {
+                        baseFragment = new Bloodoxygen_Fragment();
+                    } else {
+                        baseFragment = new SingleMeasureBloodoxygenFragment();
+                    }
                 }
                 break;
             case IPresenter.MEASURE_WEIGHT:
                 //体重
                 if (baseFragment == null) {
                     mTitleText.setText("体 重 测 量");
-                    Bundle weightBundle = new Bundle();
-                    weightBundle.getBoolean(IPresenter.IS_MEASURE_TASK, isMeasureTask);
-                    baseFragment = new SingleMeasureWeightFragment();
-                    baseFragment.setArguments(weightBundle);
+                    if (isFaceSkip) {
+                        baseFragment = new Weight_Fragment();
+                    } else {
+                        Bundle weightBundle = new Bundle();
+                        weightBundle.getBoolean(IPresenter.IS_MEASURE_TASK, isMeasureTask);
+                        baseFragment = new SingleMeasureWeightFragment();
+                        baseFragment.setArguments(weightBundle);
+                    }
                 }
                 break;
             case IPresenter.MEASURE_ECG:
@@ -156,7 +178,11 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 //三合一
                 if (baseFragment == null) {
                     mTitleText.setText("三 合 一 测 量");
-                    baseFragment = new SingleMeasureThreeInOneFragment();
+                    if (isFaceSkip) {
+                        baseFragment = new ThreeInOne_Fragment();
+                    } else {
+                        baseFragment = new SingleMeasureThreeInOneFragment();
+                    }
                 }
                 break;
             case IPresenter.CONTROL_FINGERPRINT:
@@ -324,6 +350,11 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     @Override
     protected void backMainActivity() {
         if (isMeasure) {
+            //在血糖选择测量时间的界面 点击右上角的图表直接回到主界面
+            if (isShowBloodsugarSelectTime) {
+                CCAppActions.jump2MainActivity();
+                return;
+            }
             showRefreshBluetoothDialog();
         } else {
             if (DataUtils.isNullString(pdfUrl)) {
@@ -464,11 +495,17 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             if (bundle != null) {
-                baseFragment = new SingleMeasureBloodsugarFragment();
+                if (isFaceSkip) {
+                    baseFragment = new Bloodsugar_Fragment();
+                } else {
+                    baseFragment = new SingleMeasureBloodsugarFragment();
+                    baseFragment.setArguments(bundle);
+                }
                 baseFragment.setOnDealVoiceAndJumpListener(dealVoiceAndJump);
-                baseFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame, baseFragment).commit();
+                isShowBloodsugarSelectTime = false;
+                mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_connected);
             }
 
         }

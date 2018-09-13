@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;

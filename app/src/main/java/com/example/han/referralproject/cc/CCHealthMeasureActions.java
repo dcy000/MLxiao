@@ -53,6 +53,23 @@ public class CCHealthMeasureActions {
          * 测量仪器类型
          */
         String KEY_EXTRA_MEASURE_TYPE = "measure_type";
+        /**
+         * 人脸识别点击了跳过按钮
+         */
+        String KEY_EXTRA_CLICK_FACE_SKIP="isFaceSkip";
+    }
+
+    /**
+     * 在人脸识别的时候点击了跳过按钮
+     * @param isFaceSkip
+     */
+    public static void jump2MeasureChooseDeviceActivity(boolean isFaceSkip) {
+        CCResult call = CC.obtainBuilder(MODULE_NAME)
+                .setActionName(SendActionNames.SINGLE_MEASURE)
+                .addParam(SendKeys.KEY_EXTRA_CLICK_FACE_SKIP,isFaceSkip)
+                .build()
+                .call();
+        Timber.d("CCHealthMeasureActions>>>>>>>>>"+call.toString());
     }
     /**
      * 跳转到选择所有测量设备的界面
@@ -64,7 +81,6 @@ public class CCHealthMeasureActions {
                 .call();
         Timber.d("CCHealthMeasureActions>>>>>>>>>"+call.toString());
     }
-
 //    /**
 //     * 跳转到首诊界面
 //     */
