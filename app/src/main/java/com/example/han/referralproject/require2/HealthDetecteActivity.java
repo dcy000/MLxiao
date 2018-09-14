@@ -133,7 +133,12 @@ public class HealthDetecteActivity extends BaseActivity {
                             switch (id) {
                                 case R.id.im_health_detecte:
                                     //健康体检
-                                    JianKangJianCe("0");
+//                                    JianKangJianCe("0");
+                                    Intent intent3 = new Intent(HealthDetecteActivity.this, DetectActivity.class);
+                                    intent3.putExtra("type", "wendu");
+                                    intent3.putExtra("isDetect", true);
+                                    intent3.putExtra("detectCategory", "detectHealth");
+                                    startActivity(intent3);
                                     break;
                                 case R.id.im_pressure_fllow_up:
                                     //血压随访

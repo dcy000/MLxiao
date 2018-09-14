@@ -1361,6 +1361,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 intent4.putExtra("is_right", true);
                                 startActivity(intent4);
                                 break;
+
+                            case "xuetang":
+                                Intent intent = new Intent(DetectActivity.this, DetectActivity.class);
+                                intent.putExtras(getIntent());
+                                intent.putExtra("sugar", mResultTv.getText().toString());
+                                intent.putExtra("type", "sanheyi");
+                                startActivity(intent);
+
+                                break;
+                            case "sanheyi":
+                                Intent intent2 = new Intent(DetectActivity.this, DetectActivity.class);
+                                intent2.putExtras(getIntent());
+                                intent2.putExtra("sanheyi", "");
+                                intent2.putExtra("type", "tizhong");
+                                startActivity(intent2);
+                                break;
                             case "tizhong":
                                 Intent intent1 = new Intent(DetectActivity.this, DetectHealthSymptomsActivity.class);
                                 intent1.putExtras(getIntent());
@@ -1503,6 +1519,18 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             }
         }
         //================右臂血压测量===========结束==
+
+
+        //==== 2018/9/14  ===========健康体检+三合一检测-隐藏历史记录和使用演示==开始
+        if ("sanheyi".equals(type)) {
+            if ("detectHealth".equals(detectCategory)) {
+                findViewById(R.id.sanheyi_video).setVisibility(View.GONE);
+                findViewById(R.id.history5).setVisibility(View.GONE);
+            }
+        }
+        //===============健康体检+三合一检测-隐藏历史记录和使用演示==开始
+
+
     }
 
     View.OnClickListener backOnClickListener = new View.OnClickListener() {
@@ -1510,12 +1538,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         public void onClick(View v) {
             if ("detectHealth".equals(detectCategory)) {
                 switch (type) {
-                    case "tizhong":
-                        Intent intent1 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
-                        intent1.putExtras(getIntent());
-                        intent1.putExtra("weight", "0");
-                        startActivity(intent1);
-                        break;
+
                     case "xueya":
                         if (getIntent().getBooleanExtra("is_right", false)) {
                             Intent intent4 = new Intent(DetectActivity.this, DetectActivity.class);
@@ -1534,8 +1557,28 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         intent4.putExtra("type", "wendu");
                         startActivity(intent4);
                         break;
-                    case "wendu":
+                    case "xuetang":
+                        Intent intent2 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+                        intent2.putExtras(getIntent());
+                        intent2.putExtra("sugar", "0");
+                        startActivity(intent2);
                         break;
+                    case "sanheyi":
+                        Intent intent3 = new Intent(DetectActivity.this, DetectActivity.class);
+                        intent3.putExtras(getIntent());
+                        intent3.putExtra("sanheyi", "0");
+                        intent3.putExtra("type", "xuetang");
+                        startActivity(intent3);
+                        break;
+
+                    case "tizhong":
+                        Intent intent1 = new Intent(DetectActivity.this, DetectActivity.class);
+                        intent1.putExtras(getIntent());
+                        intent1.putExtra("weight", "0");
+                        intent1.putExtra("type", "sanheyi");
+                        startActivity(intent1);
+                        break;
+
                 }
                 finish();
                 return;
