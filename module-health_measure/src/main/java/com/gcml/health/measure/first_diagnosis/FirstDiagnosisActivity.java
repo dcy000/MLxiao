@@ -73,6 +73,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private String finalFragment;
     private String userId;
     private String userHypertensionHand;
+    private Bundle bundle;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, FirstDiagnosisActivity.class);
@@ -185,6 +186,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mTitleText.setText("血 糖 测 量");
                 fragment = new HealthSugarDetectionUiFragment();
                 measureType = IPresenter.MEASURE_BLOOD_SUGAR;
+                fragment.setArguments(bundle);
                 break;
             case "HealthThreeInOneDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -262,6 +264,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
 
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
+        this.bundle = bundle;
         //最后一个Fragment点击了下一步应该跳转到HealthReportFormActivity
         if (fragment.getClass().getSimpleName().equals(finalFragment)) {
             HealthReportFormActivity.startActivity(this);
@@ -271,8 +274,11 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         //因为在设备选择页面右上角的按钮是回到主界面，所以需要在此处做一个标记
         if (fragment instanceof HealthFirstTipsFragment) {
             isShowHealthChooseDevicesFragment = true;
+            mRightView.setImageResource(R.drawable.common_icon_home);
         } else {
             isShowHealthChooseDevicesFragment = false;
+            //每次跳转到下一个Fragment的时候都应该把右上角的蓝牙按钮初始化
+            mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         }
         //设备选择界面点击下一步的时候，需要把选中的设备对应的Fragment进行初始化（动态加载fragment）
         if (bundle != null && fragment instanceof HealthChooseDevicesFragment) {
@@ -282,8 +288,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         showPosition++;
         //因为每一个Fragment中都有可能视频播放，所以应该先检查该Fragment中是否有视频播放
         checkVideo(showPosition);
-        //每次跳转到下一个Fragment的时候都应该把右上角的蓝牙按钮初始化
-        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
     }
 
     private void initMeasureDevicesFragment(ArrayList<Integer> integerArrayList) {

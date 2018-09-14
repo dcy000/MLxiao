@@ -23,12 +23,18 @@ import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
+import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodoxygenFragment;
+import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodpressureFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodoxygenFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodsugarFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureTemperatureFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureThreeInOneFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureWeightFragment;
+import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodsugarFragment;
+import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureTemperatureFragment;
+import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureThreeInOneFragment;
+import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureWeightFragment;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.data.DataUtils;
@@ -113,7 +119,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 if (baseFragment == null) {
                     mTitleText.setText("体 温 测 量");
                     if (isFaceSkip) {
-                        baseFragment = new Temperature_Fragment();
+                        baseFragment = new NonUploadSingleMeasureTemperatureFragment();
                     } else {
                         baseFragment = new SingleMeasureTemperatureFragment();
                     }
@@ -124,7 +130,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 if (baseFragment == null) {
                     mTitleText.setText("血 压 测 量");
                     if (isFaceSkip) {
-                        baseFragment = new Bloodpressure_Fragment();
+                        //因为血压相比于其他检测项多出来一个惯用手判断 所以需要单独处理
+                        baseFragment = new NonUploadSingleMeasureBloodpressureFragment();
                     } else {
                         Bundle bloodBundle = new Bundle();
                         bloodBundle.getBoolean(IPresenter.IS_MEASURE_TASK, isMeasureTask);
@@ -148,7 +155,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 if (baseFragment == null) {
                     mTitleText.setText("血 氧 测 量");
                     if (isFaceSkip) {
-                        baseFragment = new Bloodoxygen_Fragment();
+                        baseFragment = new NonUploadSingleMeasureBloodoxygenFragment();
                     } else {
                         baseFragment = new SingleMeasureBloodoxygenFragment();
                     }
@@ -159,7 +166,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 if (baseFragment == null) {
                     mTitleText.setText("体 重 测 量");
                     if (isFaceSkip) {
-                        baseFragment = new Weight_Fragment();
+                        baseFragment = new NonUploadSingleMeasureWeightFragment();
                     } else {
                         Bundle weightBundle = new Bundle();
                         weightBundle.getBoolean(IPresenter.IS_MEASURE_TASK, isMeasureTask);
@@ -179,7 +186,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 if (baseFragment == null) {
                     mTitleText.setText("三 合 一 测 量");
                     if (isFaceSkip) {
-                        baseFragment = new ThreeInOne_Fragment();
+                        baseFragment = new NonUploadSingleMeasureThreeInOneFragment();
                     } else {
                         baseFragment = new SingleMeasureThreeInOneFragment();
                     }
@@ -496,7 +503,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             if (bundle != null) {
                 if (isFaceSkip) {
-                    baseFragment = new Bloodsugar_Fragment();
+                    baseFragment = new NonUploadSingleMeasureBloodsugarFragment();
                 } else {
                     baseFragment = new SingleMeasureBloodsugarFragment();
                     baseFragment.setArguments(bundle);

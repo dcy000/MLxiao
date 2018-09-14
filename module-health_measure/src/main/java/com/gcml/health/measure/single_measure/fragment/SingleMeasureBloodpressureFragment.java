@@ -54,8 +54,13 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     @Override
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
-        getHypertensionHand();
         isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getHypertensionHand();
     }
 
     /**
@@ -77,15 +82,6 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
 
     private void showHypertensionHandDialog(String hand) {
         MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请使用" + hand + "测量");
-//        DialogSure dialogSure = new DialogSure(mContext);
-//        dialogSure.setContent("请使用" + hand + "测量");
-//        dialogSure.show();
-//        dialogSure.setOnClickSureListener(new DialogClickSureListener() {
-//            @Override
-//            public void clickSure(BaseDialog dialog) {
-//                dialog.dismiss();
-//            }
-//        });
         new SingleDialog(mContext)
                 .builder()
                 .setMsg("请使用" + hand + "测量")
