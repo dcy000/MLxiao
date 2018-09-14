@@ -321,6 +321,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                 String userId = result.getDataItem("userId");
                                 if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
                                     UserSpHelper.setUserId(userId);
+                                    if ("skip".equals(result.getErrorMessage())) {
+                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                        return;
+                                    }
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());

@@ -145,7 +145,18 @@ public class ECGBluetooth {
 		// }
 		startDiscovery();
 	}
-
+	//直接连设备
+	public void connect(String address){
+		if (bluetoothOper!=null){
+			bluSocket = null;
+			if (!openBluetooth())
+				return;
+			bluetoothOper.connect(address);
+			isDiscovery = false;
+			bluStatus = BLU_STATUS_CONNECTING;
+			mHandler.sendEmptyMessage(BLUETOOTH_MSG_CONNECTING);
+		}
+	}
 	// /***
 	// * ��ʼ��������(�͹������� 4.0)
 	// */

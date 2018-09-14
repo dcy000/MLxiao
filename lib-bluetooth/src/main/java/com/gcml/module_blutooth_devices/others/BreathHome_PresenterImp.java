@@ -70,7 +70,7 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
     @Override
     protected void connectSuccessed(final String address, List<BluetoothServiceDetail> serviceDetails, boolean isReturnServiceAndCharacteristic) {
         super.connectSuccessed(address, serviceDetails, isReturnServiceAndCharacteristic);
-        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BREATH_HOME,targetName+","+address);
+        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BREATH_HOME, targetName + "," + address);
         BluetoothClientManager.getClient().notify(address, UUID.fromString(targetServiceUUid),
                 UUID.fromString(targetCharacteristicUUid), new BleNotifyResponse() {
                     @Override
@@ -140,6 +140,9 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
                                             resultBean.setReserve(split[20]);
                                             resultBean.setCurve(split[21]);
                                             resultBean.setCheckCode(split[22]);
+                                            resultBean.setPercentPEF(BreathHomeUtils.percentPEF(sex, age, height, weight, Float.parseFloat(split[13])));
+                                            resultBean.setPercentFEV1(BreathHomeUtils.percentFEV1(sex, age, height, weight, Float.parseFloat(split[14])));
+                                            resultBean.setPercentFEV1_FVC(BreathHomeUtils.percentFEV1_FVC(sex, age, height, weight, Float.parseFloat(split[14]), Float.parseFloat(split[15])));
                                             String result = new Gson().toJson(resultBean);
                                             JSONObject object = null;
                                             try {
@@ -189,8 +192,8 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
                         + "11,"
                         + "1,"
                         + BreathHomeUtils.checkPEF(sex, age, height, weight, Float.parseFloat(resultBean.getPef())) + ","//pef危险程度:-1 无效 0 正常1 警告2 危险
-                        + BreathHomeUtils.checkFEV1_FVC(sex, age, height, weight, Float.parseFloat(resultBean.getFev1()), Float.parseFloat(resultBean.getFvc())) + ","//fev1危险程度 -1 无效0 正常1 轻2 中3 重4 极重
                         + BreathHomeUtils.checkFEV1(sex, age, height, weight, Float.parseFloat(resultBean.getFev1())) + ","//fvc危险程度  -1 无效0 正常1 轻2 中3 重
+                        + BreathHomeUtils.checkFEV1_FVC(sex, age, height, weight, Float.parseFloat(resultBean.getFev1()), Float.parseFloat(resultBean.getFvc())) + ","//fev1危险程度 -1 无效0 正常1 轻2 中3 重4 极重
                         + "0,"
                         + "da"
         );
@@ -205,6 +208,7 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
         StringBuffer requestConnect = new StringBuffer();
         //请求头+终端类型+IMEI+协议版本+渠道号+消息长度（20）+处理结果（成功1失败0）+性别（男0女1）+年龄（>4）
         // +身高（cm）+体重（kg）+更细标志位（不更新0，更新1）+当前时间（xxxx-xx-xx xx:xx:xx）+检验码（不校验0）+da
+        Log.e("PEF默认值计算：", ((int) BreathHomeUtils.drv_pred_pef(sex, age, height, weight))+"");
         requestConnect.append(
                 requestConnectBean.getActionHead() + ","
                         + requestConnectBean.getDeviceType() + ","
@@ -213,7 +217,7 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
                         + requestConnectBean.getChannelNum() + ","
                         + "20,"
                         + "1,"
-                        + BreathHomeUtils.drv_pred_pef(sex, age, height, weight) + ","//默认234
+                        + ((int) BreathHomeUtils.drv_pred_pef(sex, age, height, weight)) + ","//默认234
                         + BreathHomeUtils.drv_pred_fev1(sex, age, height, weight) + ","//默认1.23
                         + BreathHomeUtils.drv_pred_fvc(sex, age, height, weight) + ","//默认值1.24
                         + "0.01,"
@@ -294,9 +298,6 @@ public class BreathHome_PresenterImp extends BaseBluetoothPresenter {
             if (!isWriteResultCall) {
                 baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
                 isRealConnectSuccess = true;
-            } else {
-                //如果有多条数据同步，该句代码会被调用多次
-                baseView.updateState("请开始吹气");
             }
 
         }

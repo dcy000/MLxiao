@@ -168,21 +168,21 @@ public class BreathHomeUtils {
 
         if (age >= 4 && age < 18) {
             if (gender == MALE) {
-                return zapletal_male_pef(age, height, weight);
+                return zapletal_male_pef(age, height, weight)*60;
             } else {
-                return zapletal_female_pef(age, height, weight);
+                return zapletal_female_pef(age, height, weight)*60;
             }
         } else if (age >= 18 && age < 70) {
             if (gender == MALE) {
-                return male_pef(age, height, weight);
+                return male_pef(age, height, weight)*60;
             } else {
-                return female_pef(age, height, weight);
+                return female_pef(age, height, weight)*60;
             }
         } else if (age >= 70) {
             if (gender == MALE) {
-                return male_pef(age, height, weight);
+                return male_pef(age, height, weight)*60;
             } else {
-                return female_pef(age, height, weight);
+                return female_pef(age, height, weight)*60;
             }
         } else {
             return -1;
@@ -403,5 +403,18 @@ public class BreathHomeUtils {
             return 0;
         }
         return -1;
+    }
+
+    static String percentPEF(int gender, double age, double height, double weight, float reality){
+        double percent = reality / drv_pred_pef(gender, age, height, weight);
+        return String.format("%.0f", percent*100)+"%";
+    }
+    static String percentFEV1(int gender, double age, double height, double weight, float reality){
+        double percent = reality / drv_pred_fev1(gender, age, height, weight);
+        return String.format("%.0f", percent*100)+"%";
+    }
+    static String percentFEV1_FVC(int gender, double age, double height, double weight, float fev1, float fvc){
+        float v = fev1 / fvc;
+        return String.format("%.0f", v*100)+"%";
     }
 }

@@ -15,7 +15,7 @@
         android:paddingLeft="48pt"
         android:paddingRight="48pt"
         android:paddingTop="28pt"
-        android:text="历史记录"
+        android:text="健康数据"
         android:textColor="@color/bluetooth_white"
         android:textSize="56pt"
         android:clickable="true"

@@ -2,6 +2,7 @@ package com.gcml.common.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.Spanned;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,7 +70,15 @@ public class SingleDialog {
         }
         return this;
     }
-
+    public SingleDialog setMsg(Spanned spanned){
+        showMsg=true;
+        if (spanned==null){
+            txt_msg.setText("内容");
+        }else{
+            txt_msg.setText(spanned);
+        }
+        return this;
+    }
     public SingleDialog setCancelable(boolean cancel) {
         dialog.setCancelable(cancel);
         return this;

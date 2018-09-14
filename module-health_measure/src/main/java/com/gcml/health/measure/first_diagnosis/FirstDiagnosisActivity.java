@@ -16,6 +16,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
@@ -32,15 +33,10 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthTemperatureDetecti
 import com.gcml.health.measure.first_diagnosis.fragment.HealthThreeInOneDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
 import com.gcml.health.measure.health_report_form.HealthReportFormActivity;
-import com.gcml.health.measure.network.HealthMeasureRepository;
-import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.health.measure.R;
 import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.ui.dialog.BaseDialog;
-import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
-import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
@@ -77,6 +73,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private String finalFragment;
     private String userId;
     private String userHypertensionHand;
+    private Bundle bundle;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, FirstDiagnosisActivity.class);
@@ -189,6 +186,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mTitleText.setText("血 糖 测 量");
                 fragment = new HealthSugarDetectionUiFragment();
                 measureType = IPresenter.MEASURE_BLOOD_SUGAR;
+                fragment.setArguments(bundle);
                 break;
             case "HealthThreeInOneDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -266,6 +264,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
 
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
+        this.bundle = bundle;
         //最后一个Fragment点击了下一步应该跳转到HealthReportFormActivity
         if (fragment.getClass().getSimpleName().equals(finalFragment)) {
             HealthReportFormActivity.startActivity(this);
@@ -275,8 +274,11 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         //因为在设备选择页面右上角的按钮是回到主界面，所以需要在此处做一个标记
         if (fragment instanceof HealthFirstTipsFragment) {
             isShowHealthChooseDevicesFragment = true;
+            mRightView.setImageResource(R.drawable.common_icon_home);
         } else {
             isShowHealthChooseDevicesFragment = false;
+            //每次跳转到下一个Fragment的时候都应该把右上角的蓝牙按钮初始化
+            mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         }
         //设备选择界面点击下一步的时候，需要把选中的设备对应的Fragment进行初始化（动态加载fragment）
         if (bundle != null && fragment instanceof HealthChooseDevicesFragment) {
@@ -286,8 +288,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         showPosition++;
         //因为每一个Fragment中都有可能视频播放，所以应该先检查该Fragment中是否有视频播放
         checkVideo(showPosition);
-        //每次跳转到下一个Fragment的时候都应该把右上角的蓝牙按钮初始化
-        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
     }
 
     private void initMeasureDevicesFragment(ArrayList<Integer> integerArrayList) {
@@ -407,17 +407,31 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
      * 展示刷新
      */
     private void showRefreshBluetoothDialog() {
-        DialogSureCancel sureCancel = new DialogSureCancel(this);
-        sureCancel.setContent("您确定解绑之前的设备，重新连接新设备吗？");
-        sureCancel.show();
-        sureCancel.setOnClickCancelListener(null);
-        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
+//        DialogSureCancel sureCancel = new DialogSureCancel(this);
+//        sureCancel.setContent("您确定解绑之前的设备，重新连接新设备吗？");
+//        sureCancel.show();
+//        sureCancel.setOnClickCancelListener(null);
+//        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
+//            @Override
+//            public void clickSure(BaseDialog dialog) {
+//                sureCancel.dismiss();
+//                untieDevice();
+//            }
+//        });
+        new AlertDialog(this)
+                .builder()
+                .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
+                .setNegativeButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        untieDevice();
+                    }
+                }).setPositiveButton("取消", new View.OnClickListener() {
             @Override
-            public void clickSure(BaseDialog dialog) {
-                sureCancel.dismiss();
-                untieDevice();
+            public void onClick(View v) {
+
             }
-        });
+        }).show();
     }
 
     private void untieDevice() {

@@ -1,7 +1,6 @@
 package com.medlink.danbogh.wakeup;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
@@ -11,7 +10,6 @@ import android.view.WindowManager;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
-import com.gcml.common.app.lifecycle.TopActivityHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -148,7 +146,7 @@ public class WakeupHelper {
 //                            sContext.startActivity(intent);
                             String userId = UserSpHelper.getUserId();
                             if (TextUtils.isEmpty(userId)) {
-                                MLVoiceSynthetize.startSynthesize(sContext,"如需要使用唤醒功能，请先登录");
+                                MLVoiceSynthetize.startSynthesize(sContext, "如需使用唤醒功能,请先登录");
                                 return;
                             }
                             if (voiceDialog == null) {

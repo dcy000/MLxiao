@@ -75,6 +75,10 @@ public class HealthMeasureCC implements IComponent {
     interface ReceiveKeys {
         String KEY_EXTRA_MEASURE_TYPE = "measure_type";
         String KEY_EXTRA_IS_MEASURE_TASK = "is_measure_task";
+        /**
+         * 人脸识别点击了跳过按钮
+         */
+        String KEY_EXTRA_CLICK_FACE_SKIP = "isFaceSkip";
     }
 
     @Override
@@ -84,7 +88,13 @@ public class HealthMeasureCC implements IComponent {
         String actionName = cc.getActionName();
         switch (actionName) {
             case ReceiveActionNames.SINGLE_MEASURE:
-                MeasureChooseDeviceActivity.startActivity(context);
+                Object paramItem = cc.getParamItem(ReceiveKeys.KEY_EXTRA_CLICK_FACE_SKIP);
+                if (paramItem != null) {
+                    MeasureChooseDeviceActivity.startActivity(context, (Boolean) paramItem);
+                } else {
+
+                    MeasureChooseDeviceActivity.startActivity(context, false);
+                }
                 break;
             case ReceiveActionNames.FIRST_DIAGNOSIS:
 //                HealthIntelligentDetectionActivity.startActivity(context);
@@ -92,7 +102,7 @@ public class HealthMeasureCC implements IComponent {
                 break;
             case ReceiveActionNames.TO_ECG:
                 //TODO:此页面的跳转逻辑应该重新梳理
-                XinDianDetectActivity.startActivity(context, "cc");
+                XinDianDetectActivity.startActivity(context, "cc", false);
                 break;
             case ReceiveActionNames.TO_ALL_MEASURE_ACTIVITY:
                 int param = cc.getParamItem(ReceiveKeys.KEY_EXTRA_MEASURE_TYPE);

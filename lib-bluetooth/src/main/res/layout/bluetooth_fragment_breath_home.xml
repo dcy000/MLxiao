@@ -396,9 +396,9 @@
             android:gravity="center"
             android:text="0.00"
             android:textColor="#333"
-            android:textSize="120pt"
+            android:textSize="100pt"
             android:textStyle="bold"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toLeftOf="@+id/tv_maibo_percent"/>
         <TextView
             android:id="@+id/tv_maibo_percent"
             android:layout_width="240pt"

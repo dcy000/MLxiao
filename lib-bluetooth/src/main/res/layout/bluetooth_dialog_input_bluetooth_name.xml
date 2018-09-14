@@ -26,7 +26,8 @@
             android:layout_marginRight="60pt"
             android:paddingLeft="6pt"
             android:paddingRight="6pt"
-            android:text="请输入仪器后背唯一识别码\n字母请大写"
+            android:text="请输入仪器后背唯一识别码
+            字母请大写"
             android:textColor="#333"
             android:textSize="60pt"
             android:textStyle="bold"/>
@@ -34,14 +35,16 @@
         <EditText
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100pt"
             android:layout_margin="40pt"
             android:gravity="center"
             android:maxHeight="400pt"
             android:text=""
-            android:hint=""
+            android:hint="设备唯一识别码"
             android:textColor="#444444"
-            android:textSize="52pt"/>
+            android:textSize="52pt"
+            android:background="@drawable/bluetooth_dialog_input_shape"
+            android:textColorHint="#999"/>
 
         <TextView
             android:id="@+id/textView12"

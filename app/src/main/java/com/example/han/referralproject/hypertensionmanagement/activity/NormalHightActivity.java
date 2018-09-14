@@ -23,8 +23,8 @@ import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.ui.dialog.DialogSure;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -236,29 +236,54 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
     }
 
     private void showResultDialog(String content) {
-        DialogSure sure = new DialogSure(this);
-        sure.setContent(content);
-        sure.setOnClickSureListener(dialog -> {
-            String fromWhere = getIntent().getStringExtra("fromWhere");
-            if (!TextUtils.isEmpty(fromWhere)) {
-                if (fromWhere.equals("NewMeasureBloodpressureResultActivity")) {
-                    finish();
-                    return;
-                }
-            }
-//            startActivity(new Intent(NormalHightActivity.this, WeightMeasureActivity.class));
-            CC.obtainBuilder("health_measure")
-                    .setActionName("To_WeightManagerActivity")
-                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                @Override
-                public void onResult(CC cc, CCResult result) {
-                    startActivity(new Intent(NormalHightActivity.this, TreatmentPlanActivity.class));
-                }
-            });
+//        DialogSure sure = new DialogSure(this);
+//        sure.setContent(content);
+//        sure.setOnClickSureListener(dialog -> {
+//            String fromWhere = getIntent().getStringExtra("fromWhere");
+//            if (!TextUtils.isEmpty(fromWhere)) {
+//                if (fromWhere.equals("NewMeasureBloodpressureResultActivity")) {
+//                    finish();
+//                    return;
+//                }
+//            }
+////            startActivity(new Intent(NormalHightActivity.this, WeightMeasureActivity.class));
+//            CC.obtainBuilder("health_measure")
+//                    .setActionName("To_WeightManagerActivity")
+//                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                @Override
+//                public void onResult(CC cc, CCResult result) {
+//                    startActivity(new Intent(NormalHightActivity.this, TreatmentPlanActivity.class));
+//                }
+//            });
+//
+//            sure.dismiss();
+//        });
+//        sure.show();
 
-            sure.dismiss();
-        });
-        sure.show();
+        new SingleDialog(this)
+                .builder()
+                .setMsg(content)
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String fromWhere = getIntent().getStringExtra("fromWhere");
+                        if (!TextUtils.isEmpty(fromWhere)) {
+                            if (fromWhere.equals("NewMeasureBloodpressureResultActivity")) {
+                                finish();
+                                return;
+                            }
+                        }
+//            startActivity(new Intent(NormalHightActivity.this, WeightMeasureActivity.class));
+                        CC.obtainBuilder("health_measure")
+                                .setActionName("To_WeightManagerActivity")
+                                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+                                startActivity(new Intent(NormalHightActivity.this, TreatmentPlanActivity.class));
+                            }
+                        });
+                    }
+                }).show();
     }
 
 

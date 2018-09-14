@@ -81,7 +81,7 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
                         });
 
             }
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量体重" + results[0] + "公斤", false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量体重" + results[0] + "公斤",false);
             ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData data = new DetectionData();
             //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
