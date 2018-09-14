@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.task.R;
@@ -75,14 +76,25 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
         mToolBar.setData("健 康 报 告", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
-                CC.obtainBuilder("app.component.task.comply").setContext(TaskComplyResultActivity.this).build().callAsync();
                 finish();
             }
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
-                finish();
+                new AlertDialog(TaskComplyResultActivity.this).builder()
+                        .setMsg("您是否要离开当前页面？")
+                        .setNegativeButton("取消", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        })
+                        .setPositiveButton("确认", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        }).show();
             }
         });
         resultTitle.setText(resultBean.result);
@@ -117,7 +129,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_task_result_again) {
-            CC.obtainBuilder("app.component.task.comply").setContext(TaskComplyResultActivity.this).build().callAsync();
+            CC.obtainBuilder("app.component.task.comply.choice").addParam("isFirst", true).setContext(TaskComplyResultActivity.this).build().callAsync();
             finish();
         } else if (v.getId() == R.id.tv_task_result_affirm) {
             CC.obtainBuilder("app.component.task").build().callAsync();
