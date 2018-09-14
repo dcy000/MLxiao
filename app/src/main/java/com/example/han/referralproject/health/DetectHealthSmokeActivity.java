@@ -68,7 +68,7 @@ public class DetectHealthSmokeActivity extends BaseActivity {
                     finish();
                     return;
                 }
-                Intent intent = new Intent(DetectHealthSmokeActivity.this, DetectResultActivity.class);
+                Intent intent = new Intent(DetectHealthSmokeActivity.this, DetectDrugComplianceActivity.class);
                 intent.putExtras(getIntent());
                 intent.putExtra("smoke", times.get(timeSelected));
                 startActivity(intent);

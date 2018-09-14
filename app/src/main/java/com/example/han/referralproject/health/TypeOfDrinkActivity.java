@@ -12,18 +12,13 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.health.model.DetectResult;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 
-/**
- * 血压随访的药物服从性
- */
-public class DetectDrugComplianceActivity extends BaseActivity {
-
+public class TypeOfDrinkActivity extends BaseActivity {
     private GridView gvItems;
-    private MyAdapter adapter;
+    private TypeOfDrinkActivity.MyAdapter adapter;
     private TextView tvGoback;
     private TextView tvGoForward;
     private String detectCategory;
@@ -31,10 +26,10 @@ public class DetectDrugComplianceActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_type_of_drink);
         detectCategory = getIntent().getStringExtra("detectCategory");
-        setContentView(R.layout.detect_pressure_yaowu_fucong);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("药物依从情况");
+        mTitleText.setText("饮酒种类");
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.GONE);
         gvItems = (GridView) findViewById(R.id.detect_health_gv_items);
@@ -43,15 +38,9 @@ public class DetectDrugComplianceActivity extends BaseActivity {
         tvGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = /*new Intent(DetectDrugComplianceActivity.this, DetectPsychologicalRecoveryActivity.class)*/null;
-                if ("detectHealth".equals(detectCategory)) {
-                    intent.setClass(DetectDrugComplianceActivity.this, DetectHealthSmokeActivity.class);
-                } else {
-                    intent.setClass(DetectDrugComplianceActivity.this, DetectPsychologicalRecoveryActivity.class);
-                }
-
+                Intent intent = new Intent(TypeOfDrinkActivity.this, DetectHealthSmokeActivity.class);
                 intent.putExtras(getIntent());
-                intent.putExtra("yaowuyicong", "0");
+                intent.putExtra("typeOfDrink", "0");
                 startActivity(intent);
                 finish();
             }
@@ -59,34 +48,31 @@ public class DetectDrugComplianceActivity extends BaseActivity {
         tvGoForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = /*new Intent(DetectDrugComplianceActivity.this, DetectDrugEffectActivity.class)*/null;
-                if ("detectHealth".equals(detectCategory)) {
-                    intent.setClass(DetectDrugComplianceActivity.this, DetectResult.class);
-                } else {
-                    intent.setClass(DetectDrugComplianceActivity.this, DetectDrugEffectActivity.class);
-                }
-
+                Intent intent = new Intent(TypeOfDrinkActivity.this, DetectDrugComplianceActivity.class);
                 intent.putExtras(getIntent());
                 int checkedItemPosition = gvItems.getCheckedItemPosition();
 //                String value = checkedItemPosition >= 0 && checkedItemPosition < items.size()
 //                        ? items.get(checkedItemPosition)
 //                        : "中(4g~6g)";
-                intent.putExtra("yaowuyicong", checkedItemPosition + 1 + "");
+                intent.putExtra("typeOfDrink", checkedItemPosition + "");
                 startActivity(intent);
                 finish();
             }
         });
         prepareData();
-        adapter = new MyAdapter();
+        adapter = new TypeOfDrinkActivity.MyAdapter();
         gvItems.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         gvItems.setAdapter(adapter);
         gvItems.setItemChecked(1, true);
     }
 
+
     private void prepareData() {
-        items.add("规律");
-        items.add("间断");
-        items.add("不服从");
+        items.add("白酒");
+        items.add("啤酒");
+        items.add("红酒");
+        items.add("黄酒");
+        items.add("其他");
     }
 
     private ArrayList<String> items = new ArrayList<>();
@@ -94,7 +80,7 @@ public class DetectDrugComplianceActivity extends BaseActivity {
     private View.OnClickListener symptomOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            VH vh = (VH) v.getTag();
+            TypeOfDrinkActivity.VH vh = (TypeOfDrinkActivity.VH) v.getTag();
             gvItems.setItemChecked(vh.position, vh.cbSymptom.isChecked());
         }
     };
@@ -136,14 +122,14 @@ public class DetectDrugComplianceActivity extends BaseActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            VH vh;
+            TypeOfDrinkActivity.VH vh;
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(parent.getContext());
                 convertView = inflater.inflate(R.layout.detect_health_item_symptom, parent, false);
-                vh = new VH(convertView);
+                vh = new TypeOfDrinkActivity.VH(convertView);
                 convertView.setTag(vh);
             } else {
-                vh = (VH) convertView.getTag();
+                vh = (TypeOfDrinkActivity.VH) convertView.getTag();
             }
             vh.onBind(position, getItem(position));
             return convertView;
@@ -157,7 +143,7 @@ public class DetectDrugComplianceActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        speak("请选药物依从情况");
+        speak("饮酒种类名称");
         setDisableGlobalListen(true);
         super.onResume();
     }

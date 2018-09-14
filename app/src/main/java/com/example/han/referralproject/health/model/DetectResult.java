@@ -7,36 +7,6 @@ import java.io.Serializable;
  */
 
 public class DetectResult implements Serializable {
-    /**
-     * bloodOxygen : 0
-     * bloodSugar : 0
-     * cholesterol : 0
-     * diabetesSymptom : string
-     * doctorAdvice : string
-     * ecg : string
-     * equipmentId : string
-     * healthExaminationType : string
-     * healthSymptom : string
-     * heartRate : 0
-     * hiHealthExaminationId : string
-     * hypertensionSymptom : string
-     * leftHypertension : {"highPressure":0,"lowPressure":0}
-     * pulse : 0
-     * rightHypertension : {"highPressure":0,"lowPressure":0}
-     * saltIntake : string
-     * smoke : string
-     * sportCost : string
-     * sportFrequency : string
-     * sportIntension : string
-     * sugarTime : 0
-     * temperAture : 0
-     * uricAcid : 0
-     * userId : 0
-     * watchState : string
-     * weight : 0
-     * wineDrink : string
-     */
-
     public int bloodOxygen;
     public float bloodSugar;
     public int cholesterol;
@@ -70,8 +40,9 @@ public class DetectResult implements Serializable {
     public String wineDrink;
     public String currentPhoto;//体检报告的头像   key  "detectHeadIcon"
     public String psychologicalRecovery;//心理调整 1良好 2一般 3差 ,
-    public String drugCompliance;//药物依从 1良好 2一般 3差 ,
-    public String drugAdverseReaction;//药物依从 1良好 2一般 3差 ,
+    public String drugCompliance;
+    public String drugAdverseReaction;
+
 
     public static class LeftHypertensionBean implements Serializable {
         /**
