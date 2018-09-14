@@ -205,6 +205,7 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
     @Override
     protected void onPause() {
         super.onPause();
+        dismissLoading();
         MLVoiceSynthetize.stop();
     }
 
@@ -213,7 +214,6 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
         super.onResume();
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
                 "请完善您的个人信息");
-        dismissLoading();
     }
 
     private LoadingDialog mLoadingDialog;

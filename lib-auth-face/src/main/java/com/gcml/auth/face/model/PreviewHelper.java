@@ -35,37 +35,40 @@ import io.reactivex.subjects.Subject;
 import timber.log.Timber;
 
 /**
- * <p>相机预览步骤:</p>
+ * 相机预览步骤:
  * <p>
- * <p>1. 打开相机</p>
- * <p>{@link Camera#reconnect() }</p>
- * <p>{@link Camera#open(int cameraId) }</p>
+ * <p> 1. 打开相机
+ * <ul>
+ * <li>{@link Camera#reconnect() }</li>
+ * <li>{@link Camera#open(int cameraId) }</li>
+ * </ul>
  * <p>
- * <p>2. 预览相机</p>
+ * <p> 2. 预览相机
  * <p>{@link Camera#startPreview()}</p>
  * <p>
- * <p>3. 设置预览回调</p>
- * <p> (1) {@link Camera#setPreviewCallback}</p>
- * <p> (2) {@link Camera#setOneShotPreviewCallback}</p>
- * <p> (3) {@link Camera#setPreviewCallbackWithBuffer }，{@link Camera#addCallbackBuffer}</p>
+ * <p> 3. 设置预览回调
+ * <ul>
+ * <li>{@link Camera#setPreviewCallback}</li>
+ * <li>{@link Camera#setOneShotPreviewCallback}</li>
+ * <li>{@link Camera#setPreviewCallbackWithBuffer}, {@link Camera#addCallbackBuffer(byte[])}</li>
+ * </ul>
+ * <p> 4. 预览回调时数据处理
+ * <p>{@link Camera.PreviewCallback#onPreviewFrame(byte[], Camera)}
  * <p>
- * <p>4. 预览回调时数据处理</p>
- * <p>{@link Camera.PreviewCallback#onPreviewFrame(byte[], Camera)}</p>
+ * <p>注意：
  * <p>
- * <p>注意：</p>
- * <p>
- * <p>1. 设置预览回调时，
+ * <p> 1. 设置预览回调时，
  * {@link Camera#setPreviewCallback}
- * 和 {@link Camera#setOneShotPreviewCallback} 都存在内存抖动.</p>
+ * 和 {@link Camera#setOneShotPreviewCallback} 都存在内存抖动.
  * <p>
- * <p>2. 在哪个 Looper 线程調用 {@link Camera#open(int cameraId) }，
+ * <p> 2. 在哪个 Looper 线程調用 {@link Camera#open(int cameraId) }，
  * 那么 {@link Camera.PreviewCallback#onPreviewFrame(byte[], Camera)}
  * 等 Camera 回调就执行在打开相机的 Looper 线程。</p>
  * <p>
- * <p>3. {@link Camera.PreviewCallback#onPreviewFrame(byte[], Camera)} 回调时，
- * 不要执行过于复杂的逻辑操作，会阻塞 Camera，导致帧率下降。</p>
+ * <p> 3. {@link Camera.PreviewCallback#onPreviewFrame(byte[], Camera)} 回调时，
+ * 不要同步执行过于复杂的逻辑操作，会阻塞 Camera，导致帧率下降。</p>
  * <p>
- * <p>4. 处理好关闭 Camera {@link Camera#release()}</p>
+ * <p> 4. 处理好关闭 Camera {@link Camera#release()}
  */
 public class PreviewHelper
         implements SurfaceHolder.Callback, LifecycleObserver {
@@ -209,18 +212,15 @@ public class PreviewHelper
         cameraHandler().post(new Runnable() {
             @Override
             public void run() {
-                mCamera = CameraUtils.reconnect(mCamera);
-                if (mCamera == null) {
-                    mCamera = CameraUtils.openByFacing(mCameraId);
-                    if (mCamera == null) {
-                        rxStatus.onNext(Status.of(Status.ERROR_ON_OPEN_CAMERA));
-                    } else {
-                        configCameraInternal();
-                        CameraUtils.startPreview(mCamera, holder);
-                        CameraUtils.setPreviewCallbackWithBuffer(mCamera, mPreviewCallback);
-                        rxStatus.onNext(Status.of(Status.EVENT_CAMERA_OPENED));
-                    }
+                if ((mCamera = CameraUtils.reconnect(mCamera)) != null
+                        || (mCamera = CameraUtils.openByFacing(mCameraId)) != null) {
+                    configCameraInternal();
+                    CameraUtils.startPreview(mCamera, holder);
+                    CameraUtils.setPreviewCallbackWithBuffer(mCamera, mPreviewCallback);
+                    rxStatus.onNext(Status.of(Status.EVENT_CAMERA_OPENED));
+                    return;
                 }
+                rxStatus.onNext(Status.of(Status.ERROR_ON_OPEN_CAMERA));
             }
         });
     }
