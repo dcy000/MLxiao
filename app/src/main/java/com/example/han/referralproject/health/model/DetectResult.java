@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class DetectResult implements Serializable {
     public int bloodOxygen;
     public float bloodSugar;
-    public int cholesterol;
+    public float cholesterol;
     public String diabetesSymptom;
     public String doctorAdvice;
     public String ecg;

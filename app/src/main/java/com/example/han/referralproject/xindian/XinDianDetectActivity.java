@@ -70,7 +70,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         isDetect = intent.getBooleanExtra("isDetect", false);
-		detectCategory = intent.getStringExtra("detectCategory");
+        detectCategory = intent.getStringExtra("detectCategory");
         // 设置当前activity常亮 必须放在setContentView之前
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -89,25 +89,26 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
             mNavView.findViewById(R.id.detect_tv_result_last).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-					if ("detectHealth".equals(detectCategory)) {
-						Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
-						intent1.putExtras(getIntent());
-						intent1.putExtra("type", "xueya");
-						intent1.putExtra("ecg", "0.0");
+                    if ("detectHealth".equals(detectCategory)) {
+                        Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
+                        intent1.putExtras(getIntent());
+                        intent1.putExtra("type", "xueya");
+                        intent1.putExtra("ecg", "0.0");
+                        intent1.putExtra("heartRate", heartRate);
                         intent1.putExtra("is_right", true);
-						startActivity(intent1);
-						finish();
-						return;
-					}
-					if ("detectPressure".equals(detectCategory)) {
-						Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
-						intent1.putExtras(getIntent());
-						intent1.putExtra("type", "xueya");
-						intent1.putExtra("ecg", "0.0");
-						startActivity(intent1);
-						finish();
-						return;
-					}
+                        startActivity(intent1);
+                        finish();
+                        return;
+                    }
+                    if ("detectPressure".equals(detectCategory)) {
+                        Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
+                        intent1.putExtras(getIntent());
+                        intent1.putExtra("type", "xueya");
+                        intent1.putExtra("ecg", "0.0");
+                        startActivity(intent1);
+                        finish();
+                        return;
+                    }
 
                     if ("detectSugar".equals(detectCategory)) {
                         Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
@@ -131,37 +132,38 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
             mNavView.findViewById(R.id.detect_tv_result_next).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-					if ("detectHealth".equals(detectCategory)) {
-						Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
-						intent1.putExtras(getIntent());
-						intent1.putExtra("type", "xuetang");
-						String ecg = tv_MSG == null ? "0.0" : tv_MSG.getText().toString();
-						intent1.putExtra("ecg", ecg);
-						startActivity(intent1);
-						finish();
-						return;
-					}
+                    if ("detectHealth".equals(detectCategory)) {
+                        Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
+                        intent1.putExtras(getIntent());
+                        intent1.putExtra("type", "xuetang");
+                        String ecg = tv_MSG == null ? "0.0" : tv_MSG.getText().toString();
+                        intent1.putExtra("ecg", ecg);
+                        intent1.putExtra("heartRate", heartRate);
+                        startActivity(intent1);
+                        finish();
+                        return;
+                    }
 
-					if ("detectPressure".equals(detectCategory)) {
-						Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
-						intent1.putExtras(getIntent());
-						intent1.putExtra("type", "tizhong");
-						String ecg = tv_MSG == null ? "0.0" : tv_MSG.getText().toString();
-						intent1.putExtra("ecg", ecg);
-						startActivity(intent1);
-						finish();
-						return;
-					}
-					if ("detectSugar".equals(detectCategory)) {
-						Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
-						intent1.putExtras(getIntent());
-						intent1.putExtra("type", "xuetang");
-						String ecg = tv_MSG == null ? "0.0" : tv_MSG.getText().toString();
-						intent1.putExtra("ecg", ecg);
-						startActivity(intent1);
-						finish();
-						return;
-					}
+                    if ("detectPressure".equals(detectCategory)) {
+                        Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
+                        intent1.putExtras(getIntent());
+                        intent1.putExtra("type", "tizhong");
+                        String ecg = tv_MSG == null ? "0.0" : tv_MSG.getText().toString();
+                        intent1.putExtra("ecg", ecg);
+                        startActivity(intent1);
+                        finish();
+                        return;
+                    }
+                    if ("detectSugar".equals(detectCategory)) {
+                        Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
+                        intent1.putExtras(getIntent());
+                        intent1.putExtra("type", "xuetang");
+                        String ecg = tv_MSG == null ? "0.0" : tv_MSG.getText().toString();
+                        intent1.putExtra("ecg", ecg);
+                        startActivity(intent1);
+                        finish();
+                        return;
+                    }
 
                     Intent intent3 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                     intent3.putExtras(getIntent());
@@ -220,6 +222,8 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
             }
         }
     };
+
+    public int heartRate;
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
@@ -311,6 +315,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                             DataInfoBean ecgInfo = new DataInfoBean();
                             ecgInfo.ecg = data.getInt("nResult");
                             ecgInfo.heart_rate = data.getInt("nHR");
+                            heartRate = data.getInt("nHR");
                             NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
                                 @Override
                                 public void onSuccess(MeasureResult response) {

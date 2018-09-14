@@ -43,7 +43,7 @@ public class DetectDrugComplianceActivity extends BaseActivity {
         tvGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = /*new Intent(DetectDrugComplianceActivity.this, DetectPsychologicalRecoveryActivity.class)*/null;
+                Intent intent = /*new Intent(DetectDrugComplianceActivity.this, DetectPsychologicalRecoveryActivity.class)*/new Intent();
                 if ("detectHealth".equals(detectCategory)) {
                     intent.setClass(DetectDrugComplianceActivity.this, DetectHealthSmokeActivity.class);
                 } else {
@@ -59,9 +59,9 @@ public class DetectDrugComplianceActivity extends BaseActivity {
         tvGoForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = /*new Intent(DetectDrugComplianceActivity.this, DetectDrugEffectActivity.class)*/null;
+                Intent intent = /*new Intent(DetectDrugComplianceActivity.this, DetectDrugEffectActivity.class)*/new Intent();
                 if ("detectHealth".equals(detectCategory)) {
-                    intent.setClass(DetectDrugComplianceActivity.this, DetectResult.class);
+                    intent.setClass(DetectDrugComplianceActivity.this, DetectResultActivity.class);
                 } else {
                     intent.setClass(DetectDrugComplianceActivity.this, DetectDrugEffectActivity.class);
                 }
@@ -71,7 +71,7 @@ public class DetectDrugComplianceActivity extends BaseActivity {
 //                String value = checkedItemPosition >= 0 && checkedItemPosition < items.size()
 //                        ? items.get(checkedItemPosition)
 //                        : "中(4g~6g)";
-                intent.putExtra("yaowuyicong", checkedItemPosition + 1 + "");
+                intent.putExtra("yaowuyicong", checkedItemPosition  + "");
                 startActivity(intent);
                 finish();
             }

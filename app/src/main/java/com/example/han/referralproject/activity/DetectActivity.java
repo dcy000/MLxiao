@@ -264,6 +264,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private View mNavView;
     private BloodPressureNoticeDialog dialog1;
     private int pulse;
+    private String cholesterol;
 
 
     /**
@@ -771,6 +772,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             speak(String.format(getString(R.string.tips_result_niaosuan), formatString, speakFlag));
         } else if (notifyData[1] == 97) {//胆固醇
             info.cholesterol = String.format("%.2f", afterResult);
+            this.cholesterol = String.format("%.2f", afterResult);
             mSanHeYiThreeTv.setText(String.format("%.2f", afterResult));
             if (afterResult < 3.0)
                 speakFlag = "偏低";
@@ -1373,7 +1375,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             case "sanheyi":
                                 Intent intent2 = new Intent(DetectActivity.this, DetectActivity.class);
                                 intent2.putExtras(getIntent());
-                                intent2.putExtra("sanheyi", "");
+                                intent2.putExtra("cholesterol ", cholesterol);
                                 intent2.putExtra("type", "tizhong");
                                 startActivity(intent2);
                                 break;
@@ -1566,7 +1568,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     case "sanheyi":
                         Intent intent3 = new Intent(DetectActivity.this, DetectActivity.class);
                         intent3.putExtras(getIntent());
-                        intent3.putExtra("sanheyi", "0");
+                        intent3.putExtra("cholesterol", "0");
                         intent3.putExtra("type", "xuetang");
                         startActivity(intent3);
                         break;

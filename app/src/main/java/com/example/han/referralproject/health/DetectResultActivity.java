@@ -174,6 +174,11 @@ public class DetectResultActivity extends BaseActivity {
         String ecg = intent.getStringExtra("ecg");
         ecg = TextUtils.isEmpty(ecg) ? "0.0" : ecg;
         detectResult.setEcg(ecg);
+
+        //健康体检
+        detectResult.heartRate = getIntent().getIntExtra("heartRate", 0);
+        detectResult.cholesterol = getIntent().getIntExtra("cholesterol", 0);
+
         String weight = intent.getStringExtra("weight");
         weight = TextUtils.isEmpty(weight) ? "0.0" : weight;
         detectResult.setWeight((int) Float.parseFloat(weight));
