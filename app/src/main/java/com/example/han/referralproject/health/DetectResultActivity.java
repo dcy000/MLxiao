@@ -342,7 +342,7 @@ public class DetectResultActivity extends BaseActivity {
 
                             PersonInfoResultBean.DataBean.RecordBean record = data.record;
                             if (record != null) {
-                                if (record.bloodType == null) {
+                                if (TextUtils.isEmpty(record.bloodType)) {
                                     record.bloodType = "暂未填写";
                                 }
                                 mDetectTvBloodTypeInfo.setText(record.bloodType + "型");

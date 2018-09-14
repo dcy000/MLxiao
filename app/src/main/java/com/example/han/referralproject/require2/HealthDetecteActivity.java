@@ -146,7 +146,12 @@ public class HealthDetecteActivity extends BaseActivity {
                                     break;
                                 //血糖随访
                                 case R.id.im_sugar_fllow_up:
-                                    JianKangJianCe("2");
+//                                    JianKangJianCe("2");
+                                    Intent intent1 = new Intent(HealthDetecteActivity.this, DetectActivity.class);
+                                    intent1.putExtra("type", "xueya");
+                                    intent1.putExtra("isDetect", true);
+                                    intent1.putExtra("detectCategory", "detectSugar");
+                                    startActivity(intent1);
                                     break;
 
                             }
