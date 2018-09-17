@@ -134,7 +134,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                         .tag(this)
                         .fit()
                         .into(mHead);
-                mName.setText(response.bname);
+                mName.setText(TextUtils.isEmpty(response.bname) ? "暂未填写" : response.bname);
                 idCardCode = response.sfz;
                 phone = response.tel;
                 if (TextUtils.isEmpty(response.sfz)
