@@ -10,6 +10,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
@@ -70,7 +71,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onRightClick() {
-
+                startActivity(new Intent(SettingActivity.this, MainActivity.class));
+                finish();
             }
         });
     }
