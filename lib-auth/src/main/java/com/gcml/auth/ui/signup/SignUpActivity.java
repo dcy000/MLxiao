@@ -297,6 +297,12 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        code = "";
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
