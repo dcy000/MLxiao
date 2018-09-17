@@ -16,6 +16,7 @@ public class AgreementActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agreement);
         mToolbar.setVisibility(View.VISIBLE);
+        mRightView.setVisibility(View.GONE);
         mRightText.setVisibility(View.GONE);
         mTitleText.setText("用户协议");
         findViewById(R.id.btn_sure).setOnClickListener(this);

@@ -20,6 +20,7 @@ import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -122,13 +123,16 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         ToastUtils.showShort("获取验证码失败");
+                        countDownDisposable.dispose();
                         MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码失败", false);
                     }
                 });
     }
 
+    private Disposable countDownDisposable = Disposables.empty();
+
     private void startTimer() {
-        RxUtils.rxCountDown(1, 60)
+        countDownDisposable = RxUtils.rxCountDown(1, 60)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -144,8 +148,15 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
                         binding.tvCode.setEnabled(true);
                     }
                 })
+                .doOnDispose(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        binding.tvCode.setText("获取验证码");
+                        binding.tvCode.setEnabled(true);
+                    }
+                })
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Integer>() {
+                .subscribeWith(new DefaultObserver<Integer>() {
                     @Override
                     public void onNext(Integer integer) {
                         binding.tvCode.setText(

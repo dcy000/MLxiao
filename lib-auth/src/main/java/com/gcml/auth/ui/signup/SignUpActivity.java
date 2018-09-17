@@ -188,10 +188,10 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
             return;
         }
 
-//        if (!binding.cbAgreeProtocol.isChecked()) {
-//            ToastUtils.showShort("登录需要勾选同意用户协议");
-//            return;
-//        }
+        if (!binding.cbAgreeProtocol.isChecked()) {
+            ToastUtils.showShort("登录需要勾选同意用户协议");
+            return;
+        }
 
         viewModel.hasAccount(phone)
                 .subscribeOn(Schedulers.io())

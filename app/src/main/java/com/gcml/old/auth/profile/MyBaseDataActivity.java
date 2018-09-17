@@ -137,7 +137,11 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mName.setText(response.bname);
                 idCardCode = response.sfz;
                 phone = response.tel;
-                mAge.setText(Utils.age(response.sfz) + "岁");
+                if (TextUtils.isEmpty(response.sfz)) {
+                    mAge.setText((TextUtils.isEmpty(response.age) ? "0" : response.age) + "岁");
+                } else {
+                    mAge.setText(Utils.age(response.sfz) + "岁");
+                }
                 mSex.setText(TextUtils.isEmpty(response.sex) ? "尚未填写" : response.sex);
                 mHeight.setText(TextUtils.isEmpty(response.height) ? "尚未填写" : response.height + "cm");
                 mWeight.setText(TextUtils.isEmpty(response.weight) ? "尚未填写" : response.weight + "Kg");
@@ -154,7 +158,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mDrinking.setText(TextUtils.isEmpty(drink) ? "尚未填写" : drink);
                 mAddress.setText(TextUtils.isEmpty(response.dz) ? "尚未填写" : response.dz);
                 String deseaseHistory = HealthInfo.getDeseaseHistory(response.mh);
-                mHistory.setText(TextUtils.isEmpty(deseaseHistory) ? "无" : deseaseHistory.replaceAll(",","/"));
+                mHistory.setText(TextUtils.isEmpty(deseaseHistory) ? "无" : deseaseHistory.replaceAll(",", "/"));
 
                 if (!TextUtils.isEmpty(response.sfz) && response.sfz.length() == 18) {
                     String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 4, response.sfz.length());
@@ -286,7 +290,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
 
             case R.id.ll_age_info:
                 //修改年龄
-                if (TextUtils.isEmpty(idCardCode)) {
+                if (mIdcard.getText().toString().equals("尚未填写")) {
                     startActivity(new Intent(this, AlertAgeActivity.class));
                 } else {
                     ToastUtils.showShort("年龄与身份证号关联,不可更改~");

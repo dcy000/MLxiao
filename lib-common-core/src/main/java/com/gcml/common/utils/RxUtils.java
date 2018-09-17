@@ -32,6 +32,8 @@ import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Cancellable;
 import io.reactivex.functions.Function;
+import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 
 /**
  * Created by afirez on 18-2-6.
@@ -43,29 +45,56 @@ public class RxUtils {
         return new ObservableTransformer<ApiResult<T>, T>() {
             @Override
             public ObservableSource<T> apply(Observable<ApiResult<T>> upstream) {
-                return upstream.flatMap(
-                        new Function<ApiResult<T>, Observable<T>>() {
-                            @Override
-                            public Observable<T> apply(ApiResult<T> result) {
-                                if (result.isSuccessful()) {
-                                    if (result.getData() == null) {
-                                        Type type = new TypeToken<T>() {
-                                        }.getType();
-                                        T t = Serializer.getInstance().deserialize("{}", type);
-                                        return Observable.just(t);
-                                    }
-                                    return Observable.just(result.getData());
-                                } else {
-                                    int code = result.getCode();
-                                    String message = result.getMessage();
-                                    if (code == 500) {
-                                        message = "服务器繁忙";
-                                    }
-                                    return Observable.error(new ApiException(message, code));
-                                }
-                            }
-                        }
-                );
+                return upstream
+                        .onErrorResumeNext(httpErrorProcessor())
+                        .flatMap(apiResultMapper());
+            }
+        };
+    }
+
+    @NonNull
+    private static <T> Function<ApiResult<T>, Observable<T>> apiResultMapper() {
+        return new Function<ApiResult<T>, Observable<T>>() {
+            @Override
+            public Observable<T> apply(ApiResult<T> result) {
+                if (result.isSuccessful()) {
+                    if (result.getData() == null) {
+                        Type type = new TypeToken<T>() {}.getType();
+                        T t = Serializer.getInstance().deserialize("{}", type);
+                        return Observable.just(t);
+                    }
+                    return Observable.just(result.getData());
+                } else {
+                    int code = result.getCode();
+                    String message = result.getMessage();
+                    if (code == 500) {
+                        message = "服务器繁忙";
+                    }
+                    return Observable.error(new ApiException(message, code));
+                }
+            }
+        };
+    }
+
+    @NonNull
+    private static <T> Function<Throwable, ObservableSource<? extends ApiResult<T>>> httpErrorProcessor() {
+        return new Function<Throwable, ObservableSource<? extends ApiResult<T>>>() {
+            @Override
+            public ObservableSource<? extends ApiResult<T>> apply(Throwable throwable) throws Exception {
+                if (throwable instanceof HttpException
+                        && ((HttpException) throwable).code() >= 500) {
+                    HttpException error = (HttpException) throwable;
+                    ResponseBody body = error.response().errorBody();
+                    String resultJson;
+                    if (body != null) {
+                        resultJson = body.string();
+                        Type type = new TypeToken<ApiResult<T>>() {
+                        }.getType();
+                        ApiResult<T> result = Serializer.getInstance().deserialize(resultJson, type);
+                        return Observable.just(result);
+                    }
+                }
+                return Observable.error(throwable);
             }
         };
     }
