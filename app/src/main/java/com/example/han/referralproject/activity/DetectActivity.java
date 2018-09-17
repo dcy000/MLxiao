@@ -1349,6 +1349,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     intent4.putExtras(getIntent());
                                     intent4.putExtra("highPressure_right", mHighPressTv.getText().toString());
                                     intent4.putExtra("lowPressure_right", mLowPressTv.getText().toString());
+                                    intent4.putExtra("pulse", pulse);
                                     intent4.putExtra("type", "xindian");
                                     startActivity(intent4);
                                     break;
@@ -1358,7 +1359,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 intent4.putExtras(getIntent());
                                 intent4.putExtra("highPressure", mHighPressTv.getText().toString());
                                 intent4.putExtra("lowPressure", mLowPressTv.getText().toString());
-
+                                intent4.putExtra("pulse", pulse);
                                 intent4.putExtra("type", "xueya");
                                 intent4.putExtra("is_right", true);
                                 startActivity(intent4);
@@ -1375,7 +1376,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             case "sanheyi":
                                 Intent intent2 = new Intent(DetectActivity.this, DetectActivity.class);
                                 intent2.putExtras(getIntent());
-                                intent2.putExtra("cholesterol ", cholesterol);
+                                intent2.putExtra("cholesterol", cholesterol);
                                 intent2.putExtra("type", "tizhong");
                                 startActivity(intent2);
                                 break;

@@ -135,7 +135,7 @@ public class DetectResultActivity extends BaseActivity {
          */
         DetectResult detectResult = new DetectResult();
         String tem = intent.getStringExtra("tem");
-        tem = TextUtils.isEmpty(tem) ? "0.0" : tem;
+        tem = TextUtils.isEmpty(tem) ? "0" : tem;
         detectResult.setTemperAture(tem);
         detectResult.currentPhoto = getIntent().getStringExtra("detectHeadIcon");
         //糖尿病体检
@@ -155,32 +155,38 @@ public class DetectResultActivity extends BaseActivity {
 
         //左手血压测量值
         String highPressure = intent.getStringExtra("highPressure");
-        highPressure = TextUtils.isEmpty(highPressure) ? "0.0" : highPressure;
+        highPressure = TextUtils.isEmpty(highPressure) ? "0" : highPressure;
         String lowPressure = intent.getStringExtra("lowPressure");
-        lowPressure = TextUtils.isEmpty(lowPressure) ? "0.0" : lowPressure;
+        lowPressure = TextUtils.isEmpty(lowPressure) ? "0" : lowPressure;
 
         detectResult.leftHypertension = new DetectResult.LeftHypertensionBean(Integer.parseInt(highPressure), Integer.parseInt(lowPressure));
 
         //右手血压测量值
         String highPressureRight = intent.getStringExtra("highPressure_right");
-        highPressureRight = TextUtils.isEmpty(highPressureRight) ? "0.0" : highPressureRight;
+        highPressureRight = TextUtils.isEmpty(highPressureRight) ? "0" : highPressureRight;
         String lowPressureRight = intent.getStringExtra("lowPressure_right");
-        lowPressureRight = TextUtils.isEmpty(lowPressureRight) ? "0.0" : lowPressureRight;
+        lowPressureRight = TextUtils.isEmpty(lowPressureRight) ? "0" : lowPressureRight;
         detectResult.rightHypertension = new DetectResult.RightHypertensionBean(Float.parseFloat(highPressureRight), Float.parseFloat(lowPressureRight));
 
         //血压随访脉搏
         detectResult.pulse = getIntent().getIntExtra("pulse", 0);
 
         String ecg = intent.getStringExtra("ecg");
-        ecg = TextUtils.isEmpty(ecg) ? "0.0" : ecg;
+        ecg = TextUtils.isEmpty(ecg) ? "0" : ecg;
         detectResult.setEcg(ecg);
 
         //健康体检
         detectResult.heartRate = getIntent().getIntExtra("heartRate", 0);
-        detectResult.cholesterol = getIntent().getIntExtra("cholesterol", 0);
+
+        String cholesterol = getIntent().getStringExtra("cholesterol");
+        if (!TextUtils.isEmpty(cholesterol)) {
+            detectResult.cholesterol = Float.parseFloat(cholesterol);
+        }else {
+            detectResult.cholesterol =0;
+        }
 
         String weight = intent.getStringExtra("weight");
-        weight = TextUtils.isEmpty(weight) ? "0.0" : weight;
+        weight = TextUtils.isEmpty(weight) ? "0" : weight;
         detectResult.setWeight((int) Float.parseFloat(weight));
         long[] symptoms = intent.getLongArrayExtra("symptoms");
         StringBuilder builder = new StringBuilder();
@@ -208,7 +214,7 @@ public class DetectResultActivity extends BaseActivity {
         detectResult.setSmoke(intent.getStringExtra("smoke"));
         detectResult.setWeight((int) Float.parseFloat(weight));
         String sugar = intent.getStringExtra("sugar");
-        sugar = TextUtils.isEmpty(sugar) ? "0.0" : sugar;
+        sugar = TextUtils.isEmpty(sugar) ? "0" : sugar;
         detectResult.setBloodSugar(Float.parseFloat(sugar));
         detectResult.setUserId(Integer.parseInt(LocalShared.getInstance(this).getUserId()));
         String url = NetworkApi.BasicUrl + "/ZZB/api/health/inquiry/examination/";

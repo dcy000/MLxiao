@@ -64,6 +64,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
     private boolean isDetect;
     private String detectCategory;
     private View mNavView;
+    private String ecg = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +94,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                         Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                         intent1.putExtras(getIntent());
                         intent1.putExtra("type", "xueya");
-                        intent1.putExtra("ecg", "0.0");
+                        intent1.putExtra("ecg", "0");
                         intent1.putExtra("heartRate", heartRate);
                         intent1.putExtra("is_right", true);
                         startActivity(intent1);
@@ -104,7 +105,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                         Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                         intent1.putExtras(getIntent());
                         intent1.putExtra("type", "xueya");
-                        intent1.putExtra("ecg", "0.0");
+                        intent1.putExtra("ecg", "0");
                         startActivity(intent1);
                         finish();
                         return;
@@ -114,7 +115,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                         Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                         intent1.putExtras(getIntent());
                         intent1.putExtra("type", "xueya");
-                        intent1.putExtra("ecg", "0.0");
+                        intent1.putExtra("ecg", "0");
                         startActivity(intent1);
                         finish();
                         return;
@@ -122,7 +123,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 
                     Intent intent3 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                     intent3.putExtras(getIntent());
-                    intent3.putExtra("ecg", "0.0");
+                    intent3.putExtra("ecg", "0");
                     intent3.putExtra("type", "wendu");
                     intent3.putExtra("isDetect", true);
                     startActivity(intent3);
@@ -136,7 +137,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                         Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                         intent1.putExtras(getIntent());
                         intent1.putExtra("type", "xuetang");
-                        String ecg = tv_MSG == null ? "0.0" : tv_MSG.getText().toString();
+//                        String ecg = tv_MSG == null ? "0" : tv_MSG.getText().toString();
                         intent1.putExtra("ecg", ecg);
                         intent1.putExtra("heartRate", heartRate);
                         startActivity(intent1);
@@ -148,7 +149,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                         Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                         intent1.putExtras(getIntent());
                         intent1.putExtra("type", "tizhong");
-                        String ecg = tv_MSG == null ? "0.0" : tv_MSG.getText().toString();
+//                        String ecg = tv_MSG == null ? "0" : tv_MSG.getText().toString();
                         intent1.putExtra("ecg", ecg);
                         startActivity(intent1);
                         finish();
@@ -158,7 +159,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                         Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                         intent1.putExtras(getIntent());
                         intent1.putExtra("type", "xuetang");
-                        String ecg = tv_MSG == null ? "0.0" : tv_MSG.getText().toString();
+//                        String ecg = tv_MSG == null ? "0" : tv_MSG.getText().toString();
                         intent1.putExtra("ecg", ecg);
                         startActivity(intent1);
                         finish();
@@ -168,7 +169,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                     Intent intent3 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                     intent3.putExtras(getIntent());
                     intent3.putExtra("type", "tizhong");
-                    String ecg = tv_MSG == null ? "0.0" : tv_MSG.getText().toString();
+//                    String ecg = tv_MSG == null ? "0" : tv_MSG.getText().toString();
                     intent3.putExtra("ecg", ecg);
                     intent3.putExtra("isDetect", true);
                     startActivity(intent3);
@@ -314,6 +315,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 
                             DataInfoBean ecgInfo = new DataInfoBean();
                             ecgInfo.ecg = data.getInt("nResult");
+                            ecg = data.getInt("nResult") + "";
                             ecgInfo.heart_rate = data.getInt("nHR");
                             heartRate = data.getInt("nHR");
                             NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
