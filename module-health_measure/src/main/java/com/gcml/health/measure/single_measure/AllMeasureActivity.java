@@ -62,11 +62,12 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
 
-public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentChanged {
+public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentChanged, ThreeInOne_Fragment.MeasureItemChanged {
     private BluetoothBaseFragment baseFragment;
     private int measure_type;
     private boolean isMeasureTask;
@@ -75,7 +76,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private Uri uri;
     private boolean isFaceSkip;
     private boolean isShowBloodsugarSelectTime = false;
-
+    private ArrayList<Integer> threeInOnePosition=new ArrayList<>();
     public static void startActivity(Context context, int measure_type) {
         Intent intent = new Intent(context, AllMeasureActivity.class);
         if (context instanceof Application) {
@@ -190,6 +191,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     } else {
                         baseFragment = new SingleMeasureThreeInOneFragment();
                     }
+                    ((ThreeInOne_Fragment) baseFragment).setOnMeasureItemChanged(this);
                 }
                 break;
             case IPresenter.CONTROL_FINGERPRINT:
@@ -273,8 +275,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     CCHealthRecordActions.jump2HealthRecordActivity(7);
                     break;
                 case IPresenter.MEASURE_OTHERS:
-                    //三合一
-                    CCHealthRecordActions.jump2HealthRecordActivity(5);
+                    //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
+                    if (threeInOnePosition.size()==0){
+                        CCHealthRecordActions.jump2HealthRecordActivity(6);
+                    }else {
+                        CCHealthRecordActions.jump2HealthRecordActivity(threeInOnePosition.get(threeInOnePosition.size()-1));
+                    }
                     break;
                 default:
                     break;
@@ -512,10 +518,15 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame, baseFragment).commit();
                 isShowBloodsugarSelectTime = false;
-                mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_connected);
+                mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
             }
 
         }
+    }
+
+    @Override
+    public void onChanged(int position) {
+        threeInOnePosition.add(position);
     }
 }
 
