@@ -33,5 +33,6 @@
         android:gravity="center"
         android:text="@string/sure"
         android:textColor="#6bb7eb"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:visibility="gone" />
 </LinearLayout>
