@@ -1,6 +1,5 @@
 package com.gcml.auth.ui.signin;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -141,10 +140,10 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
             ToastUtils.showShort("密码不能为空");
             return;
         }
-        if (!binding.cbAgreeProtocol.isChecked()) {
-            ToastUtils.showShort("登录需要勾选同意用户协议");
-            return;
-        }
+//        if (!binding.cbAgreeProtocol.isChecked()) {
+//            ToastUtils.showShort("登录需要勾选同意用户协议");
+//            return;
+//        }
         String deviceId = Utils.getDeviceId(getContentResolver());
         viewModel.signIn(deviceId, phone, pwd)
                 .subscribeOn(Schedulers.io())

@@ -1,5 +1,6 @@
 package com.gcml.health.measure.single_measure.fragment;
 
+import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.NetworkCallback;
@@ -24,51 +25,65 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
     DetectionData sugarData;
     DetectionData cholesterolData;
     DetectionData lithicAcidData;
-
+    //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
     @Override
     protected void onMeasureFinished(String... results) {
-        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
         if (results.length == 2) {
             if (results[0].equals("bloodsugar")) {
                 sugarData = new DetectionData();
                 sugarData.setDetectionType("1");
                 sugarData.setSugarTime(0);
                 sugarData.setBloodSugar(Float.parseFloat(results[1]));
+                datas.add(sugarData);
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + sugarData.getBloodSugar());
+                uploadData(datas);
+
+                if (measureItemChanged!=null){
+                    measureItemChanged.onChanged(2);
+                }
             }
             if (results[0].equals("cholesterol")) {
                 cholesterolData = new DetectionData();
                 cholesterolData.setDetectionType("7");
                 cholesterolData.setCholesterol(Float.parseFloat(results[1]));
+                datas.add(cholesterolData);
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量胆固醇" + cholesterolData.getCholesterol());
+                uploadData(datas);
+                if (measureItemChanged!=null){
+                    measureItemChanged.onChanged(5);
+                }
             }
 
             if (results[0].equals("bua")) {
                 lithicAcidData = new DetectionData();
                 lithicAcidData.setDetectionType("8");
                 lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
-            }
-            if (sugarData != null && cholesterolData != null && lithicAcidData != null) {
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖"
-                        + sugarData.getBloodSugar() + ",尿酸" + lithicAcidData.getUricAcid() + ",胆固醇"
-                        + cholesterolData.getCholesterol(), false);
-                datas.add(sugarData);
-                datas.add(cholesterolData);
+
                 datas.add(lithicAcidData);
-
-                HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-                    @Override
-                    public void onSuccess(String callbackString) {
-                        ToastUtils.showLong("数据上传成功");
-                    }
-
-                    @Override
-                    public void onError() {
-                        ToastUtils.showLong("数据上传失败");
-                    }
-                });
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + lithicAcidData.getUricAcid());
+                uploadData(datas);
+                if (measureItemChanged!=null){
+                    measureItemChanged.onChanged(6);
+                }
             }
         }
     }
+    private void uploadData(ArrayList<DetectionData> datas) {
 
+        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+            @Override
+            public void onSuccess(String callbackString) {
+                ToastUtils.showLong("数据上传成功");
+                datas.clear();
+            }
+
+            @Override
+            public void onError() {
+                ToastUtils.showLong("数据上传失败");
+                datas.clear();
+            }
+        });
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

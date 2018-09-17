@@ -16,6 +16,8 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.widget.dialog.AlertDialog;
+import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.network.HealthMeasureApi;
@@ -24,10 +26,6 @@ import com.gcml.health.measure.single_measure.bean.NewWeeklyOrMonthlyBean;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.ui.dialog.BaseDialog;
-import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
-import com.gcml.lib_utils.ui.dialog.DialogSure;
-import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.gcml.lib_widget.dialog.FllowUpTimesDialog;
 import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.google.gson.Gson;
@@ -395,14 +393,23 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
                     showOriginHypertensionDialog();
                 }
             } else {
-                DialogSure sure = new DialogSure(this);
-                sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
-                sure.setSure("健康方案");
-                sure.show();
-                sure.setOnClickSureListener(dialog1 -> {
-                    dialog1.dismiss();
-                    toSulotion();
-                });
+//                DialogSure sure = new DialogSure(this);
+//                sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
+//                sure.setSure("健康方案");
+//                sure.show();
+//                sure.setOnClickSureListener(dialog1 -> {
+//                    dialog1.dismiss();
+//                    toSulotion();
+//                });
+                new SingleDialog(this)
+                        .builder()
+                        .setMsg("您在7天内已生成过健康方案，点击健康方案可直接查看。")
+                        .setPositiveButton("健康方案", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                toSulotion();
+                            }
+                        }).show();
             }
 
         } else {
@@ -413,25 +420,40 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
     }
 
     private void showOriginHypertensionDialog() {
-//        TwoChoiceDialog dialog = new TwoChoiceDialog("您是否诊断过原发性高血压且正在进行高血压规范治疗？(您的选择将影响您的健康方案，且一旦选择不可更改，请谨慎回答)", "是", "否");
-//        dialog.setListener(this);
-//        dialog.show(getFragmentManager(), "yuanfa");
-//        mlSpeak("主人，您是否已确诊高血压且在治疗？");
-        DialogSureCancel dialogSureCancel = new DialogSureCancel(this);
-        dialogSureCancel.setContent("您是否诊断过原发性高血压且正在进行高血压规范治疗？(您的选择将影响您的健康方案，且一旦选择不可更改，请谨慎回答)");
-        dialogSureCancel.getCancelView().setText("否");
-        dialogSureCancel.getSureView().setText("是");
-        dialogSureCancel.setOnClickCancelListener(null);
-        dialogSureCancel.setOnClickSureListener(new DialogClickSureListener() {
-            @Override
-            public void clickSure(BaseDialog dialog) {
-                postOriginPertensionState("1");
-                CC.obtainBuilder("app")
-                        .setActionName("To_SlowDiseaseManagementTipActivity")
-                        .build()
-                        .call();
-            }
-        });
+//        DialogSureCancel dialogSureCancel = new DialogSureCancel(this);
+//        dialogSureCancel.setContent("您是否诊断过原发性高血压且正在进行高血压规范治疗？(您的选择将影响您的健康方案，且一旦选择不可更改，请谨慎回答)");
+//        dialogSureCancel.getCancelView().setText("否");
+//        dialogSureCancel.getSureView().setText("是");
+//        dialogSureCancel.setOnClickCancelListener(null);
+//        dialogSureCancel.setOnClickSureListener(new DialogClickSureListener() {
+//            @Override
+//            public void clickSure(BaseDialog dialog) {
+//                postOriginPertensionState("1");
+//                CC.obtainBuilder("app")
+//                        .setActionName("To_SlowDiseaseManagementTipActivity")
+//                        .build()
+//                        .call();
+//            }
+//        });
+        new AlertDialog(this)
+                .builder()
+                .setMsg("您是否诊断过原发性高血压且正在进行高血压规范治疗？(您的选择将影响您的健康方案，且一旦选择不可更改，请谨慎回答)")
+                .setNegativeButton("是", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        postOriginPertensionState("1");
+                        CC.obtainBuilder("app")
+                                .setActionName("To_SlowDiseaseManagementTipActivity")
+                                .build()
+                                .call();
+                    }
+                })
+                .setPositiveButton("否", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                }).show();
     }
 
     private void postOriginPertensionState(String state) {

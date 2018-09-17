@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import okhttp3.Call;
 import okhttp3.FormBody;
@@ -24,6 +25,7 @@ import okhttp3.ResponseBody;
  */
 
 public class QaApi {
+    private static Random sRandom = new Random();
     public static OkHttpClient client;
 
     public static HashMap<String, String> getQaFromXf(String text) {
@@ -101,7 +103,11 @@ public class QaApi {
             String resultJson = resultArray.toString();
             results.put("resultJson", resultJson);
 
-            JSONObject resultObj = resultArray.getJSONObject(0);
+
+            int length = resultArray.length();
+            int i = sRandom.nextInt(length);
+            JSONObject resultObj = resultArray.getJSONObject(i);
+
             if (resultObj == null) {
                 return results;
             }
@@ -134,7 +140,7 @@ public class QaApi {
                 //笑话
                 String content = resultObj.optString("content");
                 if (!TextUtils.isEmpty(content)) {
-                    results.put("text", results.get("text"));
+                    results.put("text", content);
                 }
                 return results;
             }

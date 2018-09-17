@@ -84,12 +84,13 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
     private TextView mBtnVideoDemo;
     private Uri uri;
 
-    public static void startActivity(Context context, String fromWhere) {
+    public static void startActivity(Context context, String fromWhere,boolean isSkip) {
         Intent intent = new Intent(context, XinDianDetectActivity.class);
         if (context instanceof Application) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         intent.putExtra("fromWhere", fromWhere);
+        intent.putExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP,isSkip);
         context.startActivity(intent);
     }
 
@@ -113,7 +114,7 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
         initView();
         startService(new Intent(this, ReceiveService.class));
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("心 电 检 测");
+        mTitleText.setText("心 电 测 量");
         init();
         String fromWhere = getIntent().getStringExtra("fromWhere");
         if (HealthIntelligentDetectionActivity.class.getSimpleName().equals(fromWhere)) {
@@ -256,7 +257,9 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
                             mEcg = data.getInt("nResult");
                             mHeartRate = data.getInt("nHR");
                             //TODO:播报语音和上传数据
-                            uploadEcg(mEcg, mHeartRate);
+                            if (!getIntent().getBooleanExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP,false)){
+                                uploadEcg(mEcg, mHeartRate);
+                            }
                             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您的心率为" + mHeartRate + "," + measureResult[mEcg]);
 
                         }

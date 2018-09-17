@@ -26,7 +26,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        isJump2Next=false;
+        isJump2Next = false;
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
         setBtnClickableState(false);
@@ -48,49 +48,65 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
                 sugarData.setDetectionType("1");
                 sugarData.setSugarTime(0);
                 sugarData.setBloodSugar(Float.parseFloat(results[1]));
+                datas.add(sugarData);
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，您本次测量血糖"+sugarData.getBloodSugar());
+                uploadData(datas);
             }
             if (results[0].equals("cholesterol")) {
                 cholesterolData = new DetectionData();
                 cholesterolData.setDetectionType("7");
                 cholesterolData.setCholesterol(Float.parseFloat(results[1]));
+                datas.add(cholesterolData);
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，您本次测量胆固醇"+cholesterolData.getCholesterol());
+                uploadData(datas);
             }
 
             if (results[0].equals("bua")) {
                 lithicAcidData = new DetectionData();
                 lithicAcidData.setDetectionType("8");
                 lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
-            }
-            if (sugarData != null && cholesterolData != null && lithicAcidData != null) {
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖"
-                        + sugarData.getBloodSugar() + ",尿酸" + lithicAcidData.getUricAcid() + ",胆固醇"
-                        + cholesterolData.getCholesterol(), false);
-                datas.add(sugarData);
-                datas.add(cholesterolData);
-                datas.add(lithicAcidData);
 
-                HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-                    @Override
-                    public void onSuccess(String callbackString) {
-                        ToastUtils.showLong("数据上传成功");
-                        ((FirstDiagnosisActivity) mActivity).putCacheData(sugarData);
-                        ((FirstDiagnosisActivity) mActivity).putCacheData(cholesterolData);
-                        ((FirstDiagnosisActivity) mActivity).putCacheData(lithicAcidData);
+                datas.add(lithicAcidData);
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，您本次测量尿酸"+lithicAcidData.getUricAcid());
+                uploadData(datas);
+            }
+//            if (sugarData != null && cholesterolData != null && lithicAcidData != null) {
+//                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖"
+//                        + sugarData.getBloodSugar() + ",尿酸" + lithicAcidData.getUricAcid() + ",胆固醇"
+//                        + cholesterolData.getCholesterol(), false);
+//                datas.add(sugarData);
+//                datas.add(cholesterolData);
+//                datas.add(lithicAcidData);
+//
+//            }
+        }
+    }
+
+    private void uploadData(ArrayList<DetectionData> datas) {
+
+        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+            @Override
+            public void onSuccess(String callbackString) {
+                ToastUtils.showLong("数据上传成功");
+                ((FirstDiagnosisActivity) mActivity).putCacheData(sugarData);
+                ((FirstDiagnosisActivity) mActivity).putCacheData(cholesterolData);
+                ((FirstDiagnosisActivity) mActivity).putCacheData(lithicAcidData);
 
 //                        if (fragmentChanged != null && !isJump2Next) {
 //                            isJump2Next = true;
 //                            fragmentChanged.onFragmentChanged(
 //                                    HealthThreeInOneDetectionUiFragment.this, null);
 //                        }
-                        setBtnClickableState(true);
-                    }
-
-                    @Override
-                    public void onError() {
-                        ToastUtils.showLong("数据上传失败");
-                    }
-                });
+                setBtnClickableState(true);
+                datas.clear();
             }
-        }
+
+            @Override
+            public void onError() {
+                ToastUtils.showLong("数据上传失败");
+                datas.clear();
+            }
+        });
     }
 
     @Override
@@ -101,11 +117,11 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
         }
     }
 
-    private void setBtnClickableState(boolean enableClick){
-        if (enableClick){
+    private void setBtnClickableState(boolean enableClick) {
+        if (enableClick) {
             mBtnHealthHistory.setClickable(true);
             mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
-        }else{
+        } else {
             mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
             mBtnHealthHistory.setClickable(false);
         }

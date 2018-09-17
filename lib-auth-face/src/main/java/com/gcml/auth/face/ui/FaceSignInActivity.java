@@ -21,6 +21,7 @@ import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.network.NetUitls;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -98,13 +99,18 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     }
 
     private void start(String tips, String voiceTips, int delayMillis) {
+        if (!NetUitls.isConnected()) {
+            binding.ivTips.setText("请连接Wifi!");
+            ToastUtils.showShort("请连接Wifi!");
+            return;
+        }
+
         binding.ivTips.setText(tips);
         mPreviewHelper.addBuffer(2000);
         /**
          * @see FaceSignInActivity#onPreviewStatusChanged(PreviewHelper.Status status)
          * @see PreviewHelper.Status.EVENT_CROPPED
          */
-
         MLVoiceSynthetize.startSynthesize(
                 getApplicationContext(),
                 voiceTips,
@@ -119,6 +125,11 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     }
 
     private void onPreviewStatusChanged(PreviewHelper.Status status) {
+        if (!NetUitls.isConnected()) {
+            binding.ivTips.setText("请连接Wifi!");
+            ToastUtils.showShort("请连接Wifi!");
+            return;
+        }
         if (status.code == PreviewHelper.Status.ERROR_ON_OPEN_CAMERA) {
             binding.ivTips.setText("打开相机失败");
             ToastUtils.showShort("打开相机失败");

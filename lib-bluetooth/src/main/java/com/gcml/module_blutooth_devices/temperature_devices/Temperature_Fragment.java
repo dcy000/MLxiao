@@ -1,6 +1,7 @@
 package com.gcml.module_blutooth_devices.temperature_devices;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -42,6 +43,7 @@ public class Temperature_Fragment extends BluetoothBaseFragment implements IView
         mBtnVideoDemo = view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
         mTvResult = view.findViewById(R.id.tv_result);
+        mTvResult.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         this.bundle = bundle;
 
     }

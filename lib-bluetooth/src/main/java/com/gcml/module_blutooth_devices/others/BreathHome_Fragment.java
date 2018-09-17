@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -54,6 +55,18 @@ public class BreathHome_Fragment extends BluetoothBaseFragment implements IView,
     private BaseBluetoothPresenter bluetoothPresenter;
     private Bundle bundle;
     private DialogSure dialogSure;
+    /**
+     * 0%
+     */
+    private TextView mTvGaoyaPercent;
+    /**
+     * 0%
+     */
+    private TextView mTvDiyaPercent;
+    /**
+     * 0%
+     */
+    private TextView mTvMaiboPercent;
 
     @Override
     protected int initLayout() {
@@ -63,6 +76,7 @@ public class BreathHome_Fragment extends BluetoothBaseFragment implements IView,
     @Override
     protected void initView(View view, Bundle bundle) {
 
+        this.bundle = bundle;
         mBtnHealthHistory = (TextView) view.findViewById(R.id.btn_health_history);
         mBtnHealthHistory.setOnClickListener(this);
         mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
@@ -70,10 +84,15 @@ public class BreathHome_Fragment extends BluetoothBaseFragment implements IView,
         mTvGaoya = (TextView) view.findViewById(R.id.tv_gaoya);
         mTvDiya = (TextView) view.findViewById(R.id.tv_diya);
         mTvMaibo = (TextView) view.findViewById(R.id.tv_maibo);
-        this.bundle = bundle;
+        mTvGaoyaPercent = (TextView) view.findViewById(R.id.tv_gaoya_percent);
+        mTvDiyaPercent = (TextView) view.findViewById(R.id.tv_diya_percent);
+        mTvMaiboPercent = (TextView) view.findViewById(R.id.tv_maibo_percent);
         mTvGaoya.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         mTvDiya.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         mTvMaibo.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mTvGaoyaPercent.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mTvDiyaPercent.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mTvMaiboPercent.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
     }
 
     @Override
@@ -156,6 +175,9 @@ public class BreathHome_Fragment extends BluetoothBaseFragment implements IView,
         mTvGaoya.setText(breathHomeResultBean.getPef());
         mTvDiya.setText(breathHomeResultBean.getFev1());
         mTvMaibo.setText(breathHomeResultBean.getFvc());
+        mTvGaoyaPercent.setText(breathHomeResultBean.getPercentPEF());
+        mTvDiyaPercent.setText(breathHomeResultBean.getPercentFEV1());
+        mTvMaiboPercent.setText(breathHomeResultBean.getPercentFEV1_FVC());
     }
 
     @Override

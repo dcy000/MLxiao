@@ -1,6 +1,7 @@
 package com.gcml.module_blutooth_devices.bloodpressure_devices;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.text.TextUtils;
@@ -47,6 +48,9 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
         mTvGaoya = view.findViewById(R.id.tv_gaoya);
         mTvDiya = view.findViewById(R.id.tv_diya);
         mTvMaibo = view.findViewById(R.id.tv_maibo);
+        mTvGaoya.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mTvDiya.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
+        mTvMaibo.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         this.bundle = bundle;
 
     }

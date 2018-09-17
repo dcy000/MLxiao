@@ -45,6 +45,8 @@ public class SPUtil {
         } else {
             if (object != null) {
                 editor.putString(key, object.toString());
+            }else{
+                editor.remove(key);
             }
         }
 

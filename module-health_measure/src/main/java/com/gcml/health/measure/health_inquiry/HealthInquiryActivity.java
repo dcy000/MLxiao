@@ -2,7 +2,6 @@ package com.gcml.health.measure.health_inquiry;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,7 +13,7 @@ import android.widget.FrameLayout;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.common.utils.Utils;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
@@ -27,12 +26,8 @@ import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.device.DeviceUtils;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.ui.dialog.BaseDialog;
-import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
-import com.gcml.lib_utils.ui.dialog.DialogSureCancel;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.lzy.okgo.OkGo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +35,6 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.http.PATCH;
 import timber.log.Timber;
 
 /**
@@ -58,15 +52,16 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
     private HealthInquiryBean healthInquiryBean;
     private static List<HealthInquiryBean.QuestionListBean> cacheDatas = new ArrayList<>();
     private String userId = "";
-    private DialogSureCancel mSureCancel;
+//    private DialogSureCancel mSureCancel;
 
-    public static void startActivity(Context context){
-        Intent intent=new Intent(context,HealthInquiryActivity.class);
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, HealthInquiryActivity.class);
         if (!(context instanceof Activity)) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
     }
+
     public void addHealthInquiryBean(HealthInquiryBean.QuestionListBean cache) {
         if (cacheDatas == null) {
             cacheDatas = new ArrayList<>();
@@ -76,13 +71,13 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
 
     @Override
     protected void backLastActivity() {
-        if (--pageIndex>0){
-            replaceFragment(healthInquiryBean.getQuestionList().get(pageIndex-1),pageIndex-1);
+        if (--pageIndex > 0) {
+            replaceFragment(healthInquiryBean.getQuestionList().get(pageIndex - 1), pageIndex - 1);
             int size = cacheDatas.size();
             if (size > 0) {
                 cacheDatas.remove(size - 1);
             }
-        }else{
+        } else {
             finish();
         }
     }
@@ -107,9 +102,9 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                         if (healthInquiryBeans != null) {
                             HealthInquiryActivity.this.healthInquiryBean = healthInquiryBeans;
                             //如果已经做过风险评估则不需要引导页
-                            if (UserSpHelper.getRiskAssessmentState()){
+                            if (UserSpHelper.getRiskAssessmentState()) {
                                 replaceFragment(healthInquiryBean.getQuestionList().get(pageIndex), pageIndex++);
-                            }else{
+                            } else {
                                 addFirstTipFragment();
                             }
                         }
@@ -156,7 +151,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
         mToolbar.setVisibility(View.VISIBLE);
         //播报语音
         Timber.d(questionListBean.getQuestionName());
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，"+questionListBean.getQuestionName(),false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，" + questionListBean.getQuestionName(), false);
     }
 
     private void initView() {
@@ -171,24 +166,39 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
     }
 
     private void showExitDialog() {
-        if (mSureCancel != null) {
-            mSureCancel.dismiss();
-        }
-        mSureCancel = new DialogSureCancel(this);
-        mSureCancel.setContent("您已经开始做题，是否要离开当前页面");
-        mSureCancel.getSureView().setTextColor(Color.parseColor("#BBBBBB"));
-        mSureCancel.getSureView().setText("确认离开");
-        mSureCancel.getCancelView().setTextColor(getResources().getColor(R.color.color_3F86FC));
-        mSureCancel.getCancelView().setText("继续做题");
-        mSureCancel.show();
-        mSureCancel.setOnClickCancelListener(null);
-        mSureCancel.setOnClickSureListener(new DialogClickSureListener() {
+//        if (mSureCancel != null) {
+//            mSureCancel.dismiss();
+//        }
+//        mSureCancel = new DialogSureCancel(this);
+//        mSureCancel.setContent("您已经开始做题，是否要离开当前页面");
+//        mSureCancel.getSureView().setTextColor(Color.parseColor("#BBBBBB"));
+//        mSureCancel.getSureView().setText("确认离开");
+//        mSureCancel.getCancelView().setTextColor(getResources().getColor(R.color.color_3F86FC));
+//        mSureCancel.getCancelView().setText("继续做题");
+//        mSureCancel.show();
+//        mSureCancel.setOnClickCancelListener(null);
+//        mSureCancel.setOnClickSureListener(new DialogClickSureListener() {
+//            @Override
+//            public void clickSure(BaseDialog dialog) {
+//                //TODO:进入MainActivity
+//                CCAppActions.jump2MainActivity();
+//            }
+//        });
+
+        new AlertDialog(this)
+                .builder()
+                .setMsg("您已经开始做题，是否要离开当前页面")
+                .setNegativeButton("确认离开", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CCAppActions.jump2MainActivity();
+                    }
+                }).setPositiveButton("继续做题", new View.OnClickListener() {
             @Override
-            public void clickSure(BaseDialog dialog) {
-                //TODO:进入MainActivity
-                CCAppActions.jump2MainActivity();
+            public void onClick(View v) {
+
             }
-        });
+        }).show();
     }
 
     @SuppressLint("CheckResult")
@@ -263,9 +273,9 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
     protected void onDestroy() {
         super.onDestroy();
         cacheDatas = null;
-        if (mSureCancel != null) {
-            mSureCancel.dismiss();
-        }
+//        if (mSureCancel != null) {
+//            mSureCancel.dismiss();
+//        }
     }
 
 

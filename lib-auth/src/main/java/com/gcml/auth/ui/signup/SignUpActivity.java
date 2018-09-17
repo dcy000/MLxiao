@@ -136,8 +136,8 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                         super.onError(throwable);
                         countDownDisposable.dispose();
                         binding.tvCode.setEnabled(true);
-                        ToastUtils.showShort("获取验证码失败");
-                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码失败", false);
+                        ToastUtils.showShort(throwable.getMessage());
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), throwable.getMessage(), false);
                     }
                 });
     }
@@ -155,6 +155,13 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                     }
                 })
                 .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        binding.tvCode.setText("获取验证码");
+                        binding.tvCode.setEnabled(true);
+                    }
+                })
+                .doOnDispose(new Action() {
                     @Override
                     public void run() throws Exception {
                         binding.tvCode.setText("获取验证码");
@@ -181,10 +188,10 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
             return;
         }
 
-//        if (!binding.cbAgreeProtocol.isChecked()) {
-//            ToastUtils.showShort("登录需要勾选同意用户协议");
-//            return;
-//        }
+        if (!binding.cbAgreeProtocol.isChecked()) {
+            ToastUtils.showShort("登录需要勾选同意用户协议");
+            return;
+        }
 
         viewModel.hasAccount(phone)
                 .subscribeOn(Schedulers.io())

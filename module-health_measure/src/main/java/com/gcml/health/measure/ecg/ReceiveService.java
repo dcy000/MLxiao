@@ -9,9 +9,12 @@ import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.text.TextUtils;
 
 import com.creative.base.InputStreamReader;
 import com.creative.base.OutputStreamSender;
+import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 
 import java.io.IOException;
 
@@ -77,6 +80,11 @@ public class ReceiveService extends Service {
 				break;
 			case ECGBluetooth.BLUETOOTH_MSG_CONNECTED: {
 				sendBroadcast(BLU_ACTION_STATE_CHANGE, "CONNECTED");
+				//将蓝牙地址保存一下
+				String name = ECGBluetooth.bluSocket
+						.getRemoteDevice().getName();
+				String address = ECGBluetooth.bluSocket.getRemoteDevice().getAddress();
+				SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_ECG,name+","+address);
 				startRece(true);
 			}
 				break;
@@ -176,7 +184,21 @@ public class ReceiveService extends Service {
 			} else if (action.equals(BLU_ACTION_STARTDISCOVERY)) {
 				// ��ʼ�����豸   start connect device
 				int deviceName = intent.getExtras().getInt("device");
-				myBluetooth.startDiscovery(deviceName);
+				String nameAddress = ((String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, ""));
+				//从本地获取缓存 如果取到了物理地址直接连接，如果没有取到则搜索名字
+				if (TextUtils.isEmpty(nameAddress)){
+					myBluetooth.startDiscovery(deviceName);
+				}else{
+					String[] split = nameAddress.split(",");
+					if (split.length == 2) {
+						String address = split[1];
+						if (TextUtils.isEmpty(address)){
+							myBluetooth.startDiscovery(deviceName);
+						}else{
+							myBluetooth.connect(address);
+						}
+					}
+				}
 			} else if (action.equals(BLU_ACTION_STOPDISCOVERY)) {
 				// ֹͣ�豸����  stop device discovery
 				myBluetooth.stopDiscovery();
