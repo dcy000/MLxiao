@@ -82,6 +82,11 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                 ));
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         mPreviewHelper.rxStatus()
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))

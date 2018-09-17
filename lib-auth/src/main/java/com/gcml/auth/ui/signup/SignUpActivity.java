@@ -308,7 +308,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     protected void onResume() {
         super.onResume();
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                "请输入您的手机号和密码进行登录。");
+                "请输入您的手机号和密码进行注册。");
     }
 
     @Override
