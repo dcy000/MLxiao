@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="RulerView"><attr format="color" name="ruler_textColor"/><attr format="dimension" name="ruler_textSize"/><attr format="color" name="ruler_lineColor"/><attr format="dimension" name="ruler_lineSpaceWidth"/><attr format="dimension" name="ruler_lineWidth"/><attr format="dimension" name="ruler_lineMaxHeight"/><attr format="dimension" name="ruler_lineMidHeight"/><attr format="dimension" name="ruler_lineMinHeight"/><attr format="dimension" name="ruler_textMarginTop"/><attr format="boolean" name="ruler_alphaEnable"/><attr format="float" name="ruler_minValue"/><attr format="float" name="ruler_maxValue"/><attr format="float" name="ruler_selectorValue"/><attr format="float" name="ruler_perValue"/></declare-styleable>
-    <string name="app_name">lib-rulerview</string>
-</resources>

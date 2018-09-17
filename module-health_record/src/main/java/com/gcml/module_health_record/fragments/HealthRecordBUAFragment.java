@@ -17,6 +17,7 @@ import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.BUA;
 import com.gcml.module_health_record.cc.CCHealthMeasureActions;
+import com.gcml.module_health_record.others.MyFloatNumFormatter;
 import com.gcml.module_health_record.others.MyMarkerView;
 import com.gcml.module_health_record.others.TimeFormatter;
 import com.github.mikephil.charting.charts.LineChart;
@@ -209,6 +210,7 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
                 set1.setDrawCircleHole(true);
                 set1.setCircleHoleRadius(4f);
                 set1.setValueTextSize(18f);
+                set1.setValueFormatter(new MyFloatNumFormatter("8"));
 
                 //左下角指示器样式
                 set1.setFormLineWidth(0f);

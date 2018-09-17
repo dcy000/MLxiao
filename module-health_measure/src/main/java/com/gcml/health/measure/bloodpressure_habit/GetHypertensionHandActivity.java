@@ -44,6 +44,7 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
         setContentView(R.layout.activity_first_diagnosis);
         initView();
         mTitleText.setText("检 测 惯 用 手");
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         initFragment();
     }
 
@@ -51,6 +52,7 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
         fragment = new GetHypertensionHandFragment();
         fragment.setOnDealVoiceAndJumpListener(this);
         fragment.setOnFragmentChangedListener(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
     }
 
     @Override
@@ -94,17 +96,6 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
      * 展示刷新
      */
     private void showRefreshBluetoothDialog() {
-//        DialogSureCancel sureCancel = new DialogSureCancel(this);
-//        sureCancel.setContent("您确定解绑之前的设备，重新连接新设备吗？");
-//        sureCancel.show();
-//        sureCancel.setOnClickCancelListener(null);
-//        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
-//            @Override
-//            public void clickSure(BaseDialog dialog) {
-//                sureCancel.dismiss();
-//                untieDevice();
-//            }
-//        });
         new AlertDialog(this)
                 .builder()
                 .setMsg("您确定解绑之前的设备，重新连接新设备吗？")

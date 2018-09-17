@@ -59,10 +59,10 @@ public enum AppDelegate implements AppLifecycleCallbacks {
         for (AppLifecycleCallbacks appLifecycleCallbacks : mAppLifecycleCallbacksList) {
             if (appLifecycleCallbacks != null) {
                 appLifecycleCallbacks.attachBaseContext(app, base);
-                Timber.i("%s.attachBaseContext[after]: ", appLifecycleCallbacks.getClass().getName());
+                Timber.i("attachBaseContext[after]: %s", appLifecycleCallbacks);
             }
         }
-        Timber.i("%s.attachBaseContext[after]: ", "AppDelegate");
+        Timber.i("attachBaseContext[after]: %s", this);
     }
 
     @Override
@@ -70,7 +70,7 @@ public enum AppDelegate implements AppLifecycleCallbacks {
         for (AppLifecycleCallbacks appLifecycleCallbacks : mAppLifecycleCallbacksList) {
             if (appLifecycleCallbacks != null) {
                 appLifecycleCallbacks.onCreate(app);
-                Timber.i("%s.onCreate: ", appLifecycleCallbacks.getClass().getName());
+                Timber.i("onCreate: %s", appLifecycleCallbacks);
             }
         }
         app.registerActivityLifecycleCallbacks(appActivityLifecycleCallbacks());
@@ -93,7 +93,7 @@ public enum AppDelegate implements AppLifecycleCallbacks {
             mFragmentLifecycleCallbacksList.clear();
             mFragmentLifecycleCallbacksList.addAll(fragmentLifecycleCallbacksList);
         }
-        Timber.i("%s.onCreate[after]: ", "AppDelegate");
+        Timber.i("onCreate[after]: %s", this);
     }
 
     @Override
@@ -101,7 +101,7 @@ public enum AppDelegate implements AppLifecycleCallbacks {
         for (AppLifecycleCallbacks appLifecycleCallbacks : mAppLifecycleCallbacksList) {
             if (appLifecycleCallbacks != null) {
                 appLifecycleCallbacks.onTerminate(app);
-                Timber.i("%s.onCreate[after]: ", appLifecycleCallbacks.getClass().getName());
+                Timber.i("onCreate[after]: %s", appLifecycleCallbacks);
             }
         }
         mAppLifecycleCallbacksList.clear();
@@ -122,7 +122,7 @@ public enum AppDelegate implements AppLifecycleCallbacks {
         mAppFragmentLifecycleCallbacks = null;
         mFragmentLifecycleCallbacksList.clear();
         mFragmentLifecycleCallbacksManifestParser = null;
-        Timber.i("%s.onTerminate[after]: ", "AppDelegate");
+        Timber.i("onTerminate[after]: %s", this);
     }
 
     private Application.ActivityLifecycleCallbacks appActivityLifecycleCallbacks() {

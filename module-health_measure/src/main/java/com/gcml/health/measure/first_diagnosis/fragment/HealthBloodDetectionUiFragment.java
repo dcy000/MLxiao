@@ -70,12 +70,6 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
         }
     };
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        notifyDetectionStepChanged(detectionStep);
-    }
-
     @IntDef({
             DetectionStep.LEFT_1,
             DetectionStep.LEFT_2,
@@ -179,20 +173,6 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     private void showDialog(String message) {
         //同时语音播报
         MLVoiceSynthetize.startSynthesize(getContext(), message, false);
-//        if (dialogSure == null) {
-//            dialogSure = new DialogSure(getContext());
-//            dialogSure.getTitleView().setVisibility(View.GONE);
-//        }
-//        dialogSure.setContent(message);
-//        dialogSure.show();
-//        dialogSure.setOnClickSureListener(new DialogClickSureListener() {
-//            @Override
-//            public void clickSure(BaseDialog dialog) {
-//                dialog.dismiss();
-//                MLVoiceSynthetize.stop();
-//            }
-//        });
-
         new SingleDialog(mContext)
                 .builder()
                 .setMsg(message)
@@ -201,26 +181,12 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                     public void onClick(View v) {
                         MLVoiceSynthetize.stop();
                     }
-                });
+                }).show();
     }
 
     private void showFirstDialog(String message, String speak) {
         //同时语音播报
         MLVoiceSynthetize.startSynthesize(getContext(), speak, false);
-//        if (dialogSure == null) {
-//            dialogSure = new DialogSure(getContext());
-//            dialogSure.getTitleView().setVisibility(View.GONE);
-//        }
-//        dialogSure.getContentView().setText(Html.fromHtml(message));
-//        dialogSure.show();
-//        dialogSure.setOnClickSureListener(new DialogClickSureListener() {
-//            @Override
-//            public void clickSure(BaseDialog dialog) {
-//                dialog.dismiss();
-//                MLVoiceSynthetize.stop();
-//            }
-//        });
-
         new SingleDialog(mContext)
                 .builder()
                 .setMsg(Html.fromHtml(message))
@@ -249,6 +215,7 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                             ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
                             }.getType());
                             if (apiResponse.isSuccessful()) {
+                                uploadHandStateFinished();
                                 uploadData(data);
                                 return;
                             }
@@ -268,6 +235,12 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
 
     }
 
+    /**
+     * 表示上传惯用手状态结束  供子类使用
+     */
+    protected void uploadHandStateFinished(){
+
+    }
     private void uploadData(Data data) {
         ArrayList<DetectionData> datas = new ArrayList<>();
         final DetectionData pressureData = new DetectionData();
@@ -302,7 +275,6 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
             }
         });
     }
-
     /**
      * @return prepareData = int[1], lowPressure = int[2], pulse = int[3], left = int[4] == 1
      */
@@ -376,7 +348,7 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
         data.leftPulse = leftPulse;
         data.rightPulse = rightPulse;
         //将该数据在Activity中缓存
-        ((FirstDiagnosisActivity) mActivity).putBloodpressureCacheData(data);
+//        ((FirstDiagnosisActivity) mActivity).putBloodpressureCacheData(data);
         return data;
     }
 

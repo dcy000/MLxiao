@@ -20,6 +20,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.IconDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.network.NetUitls;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -59,16 +60,6 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
         }
         callId = getIntent().getStringExtra("callId");
         binding.setPresenter(this);
-        RxUtils.rxWifiLevel(getApplication(), 4)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer integer) throws Exception {
-                        binding.ivWifiState.setImageLevel(integer);
-                    }
-                });
         mPreviewHelper = new PreviewHelper(this);
         mPreviewHelper.setSurfaceHolder(binding.svPreview.getHolder());
         mPreviewHelper.setPreviewView(binding.svPreview);
@@ -86,8 +77,22 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
                 ));
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         mPreviewHelper.rxStatus()
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnDispose(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        if (iconDialog != null) {
+                            iconDialog.dismiss();
+                            iconDialog = null;
+                        }
+                    }
+                })
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<PreviewHelper.Status>() {
                     @Override
@@ -100,9 +105,24 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
                         super.onError(throwable);
                     }
                 });
+        RxUtils.rxWifiLevel(getApplication(), 4)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        binding.ivWifiState.setImageLevel(integer);
+                    }
+                });
     }
 
     private void start(int delayMillis) {
+        if (!NetUitls.isConnected()) {
+            binding.ivTips.setText("请连接Wifi!");
+            ToastUtils.showShort("请连接Wifi!");
+            return;
+        }
         binding.ivTips.setText("请把脸对准框内");
         MLVoiceSynthetize.startSynthesize(
                 getApplicationContext(),
@@ -123,9 +143,17 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
 
     private void onPreviewStatusChanged(PreviewHelper.Status status) {
         if (status.code == PreviewHelper.Status.ERROR_ON_OPEN_CAMERA) {
+            if (iconDialog != null) {
+                iconDialog.dismiss();
+                iconDialog = null;
+            }
             binding.ivTips.setText("打开相机失败");
             ToastUtils.showShort("打开相机失败");
         } else if (status.code == PreviewHelper.Status.EVENT_CAMERA_OPENED) {
+            if (iconDialog != null) {
+                iconDialog.dismiss();
+                iconDialog = null;
+            }
             start(0);
         } else if (status.code == PreviewHelper.Status.EVENT_CROPPED) {
             Bitmap faceBitmap = (Bitmap) status.payload;
@@ -133,10 +161,17 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
         }
     }
 
+    private IconDialog iconDialog;
+
     private void showFace(Bitmap faceBitmap) {
+        if (!NetUitls.isConnected()) {
+            binding.ivTips.setText("请连接Wifi!");
+            ToastUtils.showShort("请连接Wifi!");
+            return;
+        }
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
                 "请确认是否是您的头像，如果不是请选择重新拍摄。");
-        new IconDialog(this).builder()
+        iconDialog = new IconDialog(this).builder()
                 .setCancelable(false)
                 .setIcon(faceBitmap)
                 .setPositiveButton("重拍", new View.OnClickListener() {
@@ -150,7 +185,8 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
                     public void onClick(View v) {
                         signUpFace(faceBitmap);
                     }
-                }).show();
+                });
+        iconDialog.show();
     }
 
     private void signUpFace(Bitmap faceBitmap) {
