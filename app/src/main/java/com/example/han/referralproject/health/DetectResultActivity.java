@@ -181,13 +181,13 @@ public class DetectResultActivity extends BaseActivity {
         String cholesterol = getIntent().getStringExtra("cholesterol");
         if (!TextUtils.isEmpty(cholesterol)) {
             detectResult.cholesterol = Float.parseFloat(cholesterol);
-        }else {
-            detectResult.cholesterol =0;
+        } else {
+            detectResult.cholesterol = 0;
         }
 
         String weight = intent.getStringExtra("weight");
         weight = TextUtils.isEmpty(weight) ? "0" : weight;
-        detectResult.setWeight((int) Float.parseFloat(weight));
+        detectResult.weight = Float.parseFloat(weight);
         long[] symptoms = intent.getLongArrayExtra("symptoms");
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < symptoms.length; i++) {
@@ -212,7 +212,6 @@ public class DetectResultActivity extends BaseActivity {
         detectResult.setSaltIntake(intent.getStringExtra("salt"));
         detectResult.setWineDrink(intent.getStringExtra("drink"));
         detectResult.setSmoke(intent.getStringExtra("smoke"));
-        detectResult.setWeight((int) Float.parseFloat(weight));
         String sugar = intent.getStringExtra("sugar");
         sugar = TextUtils.isEmpty(sugar) ? "0" : sugar;
         detectResult.setBloodSugar(Float.parseFloat(sugar));
