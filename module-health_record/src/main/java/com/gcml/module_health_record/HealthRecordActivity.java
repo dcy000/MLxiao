@@ -216,10 +216,14 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                 endMillisecond = TimeUtils.string2Milliseconds(selectEndYear
                         + "-" + selectEndMonth + "-" +
 <<<<<<< HEAD
+<<<<<<< HEAD
                         selectEndDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
 =======
                         selectEndDay + " 23:59:59", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")) + "";
 >>>>>>> 6a2e2ffe6... 2018/09/20
+=======
+                        selectEndDay+" 23:59:59", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")) + "";
+>>>>>>> efdfe58b5... 2018/09/17 9:50
                 switch (temp) {
                     case "1":
                         //体温

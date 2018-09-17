@@ -85,7 +85,7 @@
                 android:button="@null"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="饭后一小时"
+                android:text="饭后2小时"
                 android:textColor="@drawable/healthhistory_time_text"
                 android:textSize="20sp" />
 
@@ -98,7 +98,7 @@
                 android:button="@null"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="饭后2小时"
+                android:text="其他时间"
                 android:textColor="@drawable/healthhistory_time_text"
                 android:textSize="20sp" />
         </RadioGroup>
