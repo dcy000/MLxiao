@@ -132,7 +132,7 @@ public class CustomKeyWordsActivity extends BaseActivity implements KeyWordRVAda
     private void initJianKangKey() {
         KeyWordBean health = new KeyWordBean();
         health.title = true;
-        health.itemName = "健康监测";
+        health.itemName = "健康检测";
         data.add(health);
         for (int i = 0; i < this.health.length; i++) {
             KeyWordBean bean = new KeyWordBean();
