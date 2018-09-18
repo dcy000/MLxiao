@@ -10,6 +10,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
@@ -17,6 +18,7 @@ import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDi
 import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
@@ -341,11 +343,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 String body = response.body();
                 try {
                     JSONObject object = new JSONObject(body);
-                    if (object.getBoolean("tag")) {
+                    if (object.optBoolean("tag")) {
                         if ("0".equals(state)) {
                             onOriginClickNo();
                         } else if ("1".equals(state)) {
-                            onOriginClickNo();
+                            onOriginClickYes();
                         }
                     } else {
                         ToastUtils.showShort(object.getString("message"));
@@ -394,7 +396,38 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     @Override
     public void onClickConfirm() {
+        CC.obtainBuilder("com.gcml.auth.face.signin")
+                .addParam("skip", true)
+                .build()
+                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+//                                boolean currentUser = result.getDataItem("currentUser");
+                        String userId = result.getDataItem("userId");
+                        if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                            UserSpHelper.setUserId(userId);
+                            if ("skip".equals(result.getErrorMessage())) {
+                                toBloodPressure();
+                                return;
+                            }
+                        } else {
+                            ToastUtils.showShort(result.getErrorMessage());
+                        }
+                    }
+                });
 
+    }
+
+    private void toBloodPressure() {
+        CC.obtainBuilder("health_measure")
+                .setActionName("To_BloodpressureManagerActivity")
+                .build()
+                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+
+                    }
+                });
     }
 
 //
