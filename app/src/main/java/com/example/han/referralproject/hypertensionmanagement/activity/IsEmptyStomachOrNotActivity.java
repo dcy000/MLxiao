@@ -53,7 +53,7 @@ public class IsEmptyStomachOrNotActivity extends BaseActivity implements Multipl
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("基 础 信 息 列 表");
+        mTitleText.setText("健 康 调 查");
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(IsEmptyStomachOrNotActivity.this, WifiConnectActivity.class)));
