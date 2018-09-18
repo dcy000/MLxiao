@@ -328,9 +328,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     public void onClickConfirm(String content) {
         stopSpeaking();
         postOriginPertensionState("1");
-        startActivity(new Intent(this, SlowDiseaseManagementTipActivity.class));
+//        startActivity(new Intent(this, SlowDiseaseManagementTipActivity.class));
     }
-
     @Override
     public void onClickCancel() {
         postOriginPertensionState("0");
