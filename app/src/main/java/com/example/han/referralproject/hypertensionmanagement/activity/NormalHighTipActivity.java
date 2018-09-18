@@ -54,10 +54,12 @@ public class NormalHighTipActivity extends BaseActivity implements WarmNoticeFra
     @Override
     public void onFragmentBtnClick() {
         startActivity(new Intent(this, NormalHightActivity.class));
+        finish();
     }
 
     @Override
     public void onFragmentBtnTimeOut() {
         startActivity(new Intent(this, NormalHightActivity.class));
+        finish();
     }
 }

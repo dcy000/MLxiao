@@ -63,6 +63,7 @@ public class PressureNornalTipActivity extends BaseActivity implements WarmNotic
             @Override
             public void onResult(CC cc, CCResult result) {
                 startActivity(new Intent(PressureNornalTipActivity.this, TreatmentPlanActivity.class));
+                finish();
             }
         });
 
@@ -76,6 +77,7 @@ public class PressureNornalTipActivity extends BaseActivity implements WarmNotic
             @Override
             public void onResult(CC cc, CCResult result) {
                 startActivity(new Intent(PressureNornalTipActivity.this, TreatmentPlanActivity.class));
+                finish();
             }
         });
     }
