@@ -190,7 +190,7 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
                                 .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-                                AppManager.getAppManager().finishAllActivity();
+//                                AppManager.getAppManager().finishAllActivity();
                                 CC.obtainBuilder("health_measure")
                                         .setActionName("To_WeightManagerActivity")
                                         .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
