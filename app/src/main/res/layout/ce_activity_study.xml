@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="@+id/ce_study_iv_tab_why"/>
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/ce_study_iv_tab_brain_teaser"
         android:layout_width="586pt"
         android:layout_height="368pt"
