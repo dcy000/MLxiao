@@ -445,9 +445,9 @@
             android:name="com.gcml.old.auth.register.ConfirmContractActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:name="com.gcml.old.auth.profile.MyBaseDataActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
         <activity
             android:name="com.gcml.old.auth.profile.AlertHeightActivity"
             android:screenOrientation="landscape" />
