@@ -56,11 +56,13 @@ public class OriginHypertensionTipActivity extends BaseActivity implements WarmN
     @Override
     public void onFragmentBtnClick() {
         startActivity(new Intent(this, PrimaryHypertensionActivity.class));
+        finish();
     }
 
     @Override
     public void onFragmentBtnTimeOut() {
         startActivity(new Intent(this, PrimaryHypertensionActivity.class));
+        finish();
     }
 
 

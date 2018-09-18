@@ -10,13 +10,14 @@
         android:background="@drawable/shape_bg_clear_reset_dialog"
         android:orientation="vertical">
 
+        <!--android:paddingRight="80pt"-->
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="498pt"
             android:gravity="center_vertical"
-            android:paddingLeft="80pt"
-            android:paddingRight="80pt"
+            android:paddingLeft="70pt"
+            android:paddingRight="70pt"
             android:paddingTop="60pt"
             android:text="您当前测量次数未满足非同日3次测量，血压诊断条件不足，再测2日即可为您开启方案。"
             android:textColor="#333333"
