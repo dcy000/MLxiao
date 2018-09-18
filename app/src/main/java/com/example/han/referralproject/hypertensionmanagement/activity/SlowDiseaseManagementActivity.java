@@ -84,11 +84,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("慢 病 管 理");
+        mTitleText.setText("健 康 管 理");
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(SlowDiseaseManagementActivity.this, WifiConnectActivity.class)));
-        mlSpeak("主人，欢迎来到慢病管理。");
+        mlSpeak("主人，欢迎来到健康管理");
     }
 
     @OnClick({R.id.iv_Hypertension_manage, R.id.iv_blood_sugar_manage})
@@ -314,7 +314,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         // java.lang.IllegalStateException
         // Can not perform this action after onSaveInstanceState
         dialog.show(getSupportFragmentManager(), "less3");
-        mlSpeak("主人，您尚未满足3天测量标准，请在健康监测中测量三日");
+        mlSpeak("您当前测量次数未满足非同日3次测量，血压诊断条件不足，再测2日即可为您开启方案。");
     }
 
     private void showOriginHypertensionDialog() {
