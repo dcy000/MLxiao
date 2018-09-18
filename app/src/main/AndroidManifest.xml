@@ -716,8 +716,9 @@
         <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertAgeActivity" />
         <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertIDCardActivity" />
         <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertSexActivity" />
-        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity"></activity>
+        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity" />
         <activity android:name=".settting.activity.CameraActivity" />
+        <activity android:name=".hypertensionmanagement.activity.DetecteTipActivity"></activity>
     </application>
 
 </manifest>
