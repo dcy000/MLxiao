@@ -1,56 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="600dp"
+    android:layout_width="1200pt"
+    android:layout_height="658pt"
     android:background="@drawable/shape_bg_clear_reset_dialog"
-    android:layout_height="329dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
-        android:layout_height="249dp"
-        android:gravity="center"
-        android:text="确认清除本地缓存吗？"
+        android:layout_height="598pt"
+        android:lineSpacingMultiplier="1.2"
+        android:paddingLeft="100pt"
+        android:paddingRight="100pt"
+        android:paddingTop="88pt"
+        android:text="您当前测量次数未满足非同日3次测量，血压诊断条件不足，再测2日即可为您开启方案。"
         android:textColor="#333333"
-        android:textSize="36sp" />
+        android:textSize="72pt" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1pt"
         android:background="#ffbbbbbb" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="160pt"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
-            android:textColor="#3F86FC"
-            android:layout_weight="1"
             android:id="@+id/confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="确定"
-            android:textSize="34sp" />
+            android:text="去测量"
+            android:textColor="#3F86FC"
+            android:textSize="68pt" />
 
         <View
-            android:visibility="gone"
-            android:background="#ffbbbbbb"
-            android:layout_width="1dp"
-            android:layout_height="match_parent" />
+            android:layout_width="1pt"
+            android:layout_height="match_parent"
+            android:background="#ffbbbbbb" />
 
         <TextView
-            android:visibility="gone"
-            android:layout_weight="1"
             android:id="@+id/cancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="取消"
+            android:text="下次再说"
             android:textColor="#999999"
-            android:textSize="34sp" />
+            android:textSize="68pt" />
 
 
     </LinearLayout>
