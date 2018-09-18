@@ -37,7 +37,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     @BindView(R.id.iv_blood_sugar_manage)
     ImageView ivBloodSugarManage;
 
-    public static final String CONTENT = "您当前测量次数未满足非同日3次测量,高血压诊断条件不足,再测2日即可为您开启方案";
     private DiagnoseInfoBean.DataBean diagnoseInfo;
 
 
@@ -314,7 +313,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         // java.lang.IllegalStateException
         // Can not perform this action after onSaveInstanceState
         dialog.show(getSupportFragmentManager(), "less3");
-        mlSpeak("您当前测量次数未满足非同日3次测量，血压诊断条件不足，再测2日即可为您开启方案。");
     }
 
     private void showOriginHypertensionDialog() {
@@ -398,4 +396,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     public void onClickConfirm() {
 
     }
+
+//
+//    @Override
+//    public void onClickCancel() {
+//
+//    }
+
 }
