@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.fragment.MultipleChoiceStringFragment;
 import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
@@ -67,16 +68,14 @@ public class HasDiseaseOrNotActivity extends BaseActivity implements MultipleCho
     public void onNextStep(int[] checked) {
         if ("是".equals(itmes[checked[0]])) {
             postTargetState("1");
-            toSolution();
         } else {
             //跳转问卷
             postTargetState("0");
-            startActivity(new Intent(this, HypertensionActivity.class));
         }
     }
 
     private void toSolution() {
-        // TODO: 2018/7/28
+        startActivity(new Intent(this, TreatmentPlanActivity.class));
     }
 
     /**
@@ -91,7 +90,13 @@ public class HasDiseaseOrNotActivity extends BaseActivity implements MultipleCho
                 String body = response.body();
                 try {
                     JSONObject object = new JSONObject(body);
-                    if (object.getBoolean("tag")) {
+                    if (object.optBoolean("tag")) {
+                        if ("0".equals(state)) {
+                            startActivity(new Intent(HasDiseaseOrNotActivity.this, HypertensionActivity.class));
+                        } else if ("1".equals(state)) {
+                            toSolution();
+                        }
+                        toSolution();
                     } else {
                         ToastUtils.showShort(object.getString("message"));
                     }
