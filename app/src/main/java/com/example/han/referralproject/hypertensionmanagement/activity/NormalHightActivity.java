@@ -274,14 +274,16 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
                             }
                         }
 //            startActivity(new Intent(NormalHightActivity.this, WeightMeasureActivity.class));
-                        CC.obtainBuilder("health_measure")
-                                .setActionName("To_WeightManagerActivity")
-                                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                            @Override
-                            public void onResult(CC cc, CCResult result) {
-                                startActivity(new Intent(NormalHightActivity.this, TreatmentPlanActivity.class));
-                            }
-                        });
+//                        CC.obtainBuilder("health_measure")
+//                                .setActionName("To_WeightManagerActivity")
+//                                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                            @Override
+//                            public void onResult(CC cc, CCResult result) {
+//                                startActivity(new Intent(NormalHightActivity.this, TreatmentPlanActivity.class));
+//                            }
+//                        });
+                        startActivity(new Intent(NormalHightActivity.this, DetecteTipActivity.class)
+                                .putExtra("fromWhere", "3"));
                     }
                 }).show();
     }

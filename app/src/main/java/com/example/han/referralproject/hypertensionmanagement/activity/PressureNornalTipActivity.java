@@ -57,28 +57,35 @@ public class PressureNornalTipActivity extends BaseActivity implements WarmNotic
 
     @Override
     public void onFragmentBtnClick() {
-        CC.obtainBuilder("health_measure")
-                .setActionName("To_WeightManagerActivity")
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-            @Override
-            public void onResult(CC cc, CCResult result) {
-                startActivity(new Intent(PressureNornalTipActivity.this, TreatmentPlanActivity.class));
-                finish();
-            }
-        });
+//        CC.obtainBuilder("health_measure")
+//                .setActionName("To_WeightManagerActivity")
+//                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//            @Override
+//            public void onResult(CC cc, CCResult result) {
+//                startActivity(new Intent(PressureNornalTipActivity.this, TreatmentPlanActivity.class));
+//                finish();
+//            }
+//        });
+
+        startActivity(new Intent(this, DetecteTipActivity.class)
+                .putExtra("fromWhere", "3"));
+
 
     }
 
     @Override
     public void onFragmentBtnTimeOut() {
-        CC.obtainBuilder("health_measure")
-                .setActionName("To_WeightManagerActivity")
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-            @Override
-            public void onResult(CC cc, CCResult result) {
-                startActivity(new Intent(PressureNornalTipActivity.this, TreatmentPlanActivity.class));
-                finish();
-            }
-        });
+//        CC.obtainBuilder("health_measure")
+//                .setActionName("To_WeightManagerActivity")
+//                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//            @Override
+//            public void onResult(CC cc, CCResult result) {
+//                startActivity(new Intent(PressureNornalTipActivity.this, TreatmentPlanActivity.class));
+//                finish();
+//            }
+//        });
+        startActivity(new Intent(PressureNornalTipActivity.this, DetecteTipActivity.class)
+                .putExtra("fromWhere","3"));
+
     }
 }

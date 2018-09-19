@@ -58,14 +58,17 @@ public class PressureFlatTipActivity extends BaseActivity implements WarmNoticeF
     @Override
     public void onFragmentBtnClick() {
 //        startActivity(new Intent(this, WeightMeasureActivity.class));
-        CC.obtainBuilder("health_measure")
-                .setActionName("To_WeightManagerActivity")
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-            @Override
-            public void onResult(CC cc, CCResult result) {
-                startActivity(new Intent(PressureFlatTipActivity.this, TreatmentPlanActivity.class));
-            }
-        });
+//        CC.obtainBuilder("health_measure")
+//                .setActionName("To_WeightManagerActivity")
+//                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//            @Override
+//            public void onResult(CC cc, CCResult result) {
+//                startActivity(new Intent(PressureFlatTipActivity.this, TreatmentPlanActivity.class));
+//            }
+//        });
+
+        startActivity(new Intent(PressureFlatTipActivity.this, DetecteTipActivity.class)
+                .putExtra("fromWhere","3"));
     }
 
     @Override

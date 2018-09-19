@@ -65,21 +65,25 @@ public class IsEmptyStomachOrNotActivity extends BaseActivity implements Multipl
     public void onNextStep(int[] checked) {
         if ("是".equals(itmes[checked[0]])) {
 //            startActivity(new Intent(this, BloodClucoseMeasureActivity.class));
-            CC.obtainBuilder("health_measure")
-                    .setActionName("To_BloodsugarManagerActivity")
-                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                @Override
-                public void onResult(CC cc, CCResult result) {
-                    CC.obtainBuilder("health_measure")
-                            .setActionName("To_WeightManagerActivity")
-                            .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                        @Override
-                        public void onResult(CC cc, CCResult result) {
-                            startActivity(new Intent(IsEmptyStomachOrNotActivity.this, TreatmentPlanActivity.class));
-                        }
-                    });
-                }
-            });
+//            CC.obtainBuilder("health_measure")
+//                    .setActionName("To_BloodsugarManagerActivity")
+//                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                @Override
+//                public void onResult(CC cc, CCResult result) {
+//                    CC.obtainBuilder("health_measure")
+//                            .setActionName("To_WeightManagerActivity")
+//                            .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                        @Override
+//                        public void onResult(CC cc, CCResult result) {
+//                            startActivity(new Intent(IsEmptyStomachOrNotActivity.this, TreatmentPlanActivity.class));
+//                        }
+//                    });
+//                }
+//            });
+
+            startActivity(new Intent(this, DetecteTipActivity.class)
+                    .putExtra("fromWhere", "2"));
+
         } else {
             AlarmDetail2Activity.newLaunchIntent(this, -1);
             AppManager.getAppManager().finishAllActivity();
