@@ -74,6 +74,11 @@ public class BciGameActivity extends AppCompatActivity {
                 );
                 endConstraintSet.applyTo(mClRoot);
             }
+
+            @Override
+            public void onPoorSignalChanged(int intensity) {
+
+            }
         });
     }
 

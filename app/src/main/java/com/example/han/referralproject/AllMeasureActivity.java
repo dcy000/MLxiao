@@ -316,6 +316,10 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged 
                     SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT);
                     ((Fingerpint_Fragment) baseFragment).dealLogic();
                     break;
+                case IPresenter.MEASURE_BREATH_HOME:
+                    SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BREATH_HOME);
+                    ((BreathHome_Fragment) baseFragment).dealLogic();
+                    break;
                 default:
                     break;
             }

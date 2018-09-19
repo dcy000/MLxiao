@@ -47,6 +47,7 @@ public class BciGameFruitActivity extends AppCompatActivity {
     private BciDeviceControllerFragment mBciDeviceControllerFragment;
     private TextView tvBlink;
     private TextView tvState;
+    private TextView tvPoorSignal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +68,20 @@ public class BciGameFruitActivity extends AppCompatActivity {
         tvAttention = (TextView) findViewById(R.id.bci_tv_attention);
         tvBlink = (TextView) findViewById(R.id.bci_tv_blink);
         tvState = (TextView) findViewById(R.id.bci_tv_state);
+        tvPoorSignal = (TextView) findViewById(R.id.bci_tv_poor_signal);
         ivFruitChoose = (ImageView) findViewById(R.id.bci_iv_choose_fruit);
         rvFruits = (RecyclerView) findViewById(R.id.bci_rv_fruits);
 
+
+        tvPoorSignal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tvAttention.getText().toString().equals("0")) {
+                    mBciDeviceControllerFragment.getBciSignalObservable().notifyAttentionChanged(50);
+                }
+                mBciDeviceControllerFragment.getBciSignalObservable().notifyBlinkChanged(60);
+            }
+        });
 
         mLayoutManager = new RandomLayoutManager();
         rvFruits.setLayoutManager(mLayoutManager);
@@ -190,9 +202,15 @@ public class BciGameFruitActivity extends AppCompatActivity {
             @Override
             public void onBlinkChanged(int intensity) {
                 tvBlink.setText("" + intensity);
+                Log.i("zzz", "Blink: " + intensity);
                 if (intensity > 50) {
                     animateDown();
                 }
+            }
+
+            @Override
+            public void onPoorSignalChanged(int intensity) {
+                tvPoorSignal.setText("" + intensity);
             }
         });
     }
@@ -203,11 +221,12 @@ public class BciGameFruitActivity extends AppCompatActivity {
             public void run() {
                 final int selectedPosition = mLayoutManager.getSelectedPosition();
                 if (selectedPosition < 0) {
+                    Log.e("zzz", "currentPosition: " + selectedPosition);
                     return;
                 }
 
-                Log.d("fruit", "currentPosition: " + selectedPosition);
-                Log.d("fruit", getFruit(selectedPosition));
+                Log.i("zzz", "currentPosition: " + selectedPosition);
+                Log.i("zzz", getFruit(selectedPosition));
                 final int[] startLocation = new int[2];
                 View view = mLayoutManager.getSelectedView();
                 view.getLocationInWindow(startLocation);

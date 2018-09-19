@@ -14,7 +14,7 @@ import java.util.Random;
  */
 
 public class RandomLayoutManager extends RecyclerView.LayoutManager {
-    private static final String TAG = "RandomLayoutManager";
+    private static final String TAG = "zzz";
 
     public RandomLayoutManager() {
 
@@ -113,7 +113,7 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
             unconsumed -= mWidth + getLeftMargin(scrap);
         }
 
-        Log.d("afirez", String.format("%s, %s", added.size(), hasRemoved));
+//        Log.i(TAG, String.format("%s, %s", added.size(), hasRemoved));
         if (!hasRemoved) {
             for (; unconsumed > 10; ) {
                 int i = makeAvailableRandomPosition();
@@ -146,15 +146,14 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
 
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
-            if (mid > getDecoratedLeft(child) && mid < getDecoratedRight(child)) {
-                int position = getAdapterPosition(child);
-                if (position != this.position) {
-                    selectedPosition = position;
-                    selectedView = child;
-                    break;
-                }
+            if (mid > getDecoratedLeft(child) - getLeftMargin(child) && mid < getDecoratedRight(child)) {
+                selectedPosition = getAdapterPosition(child);
+                selectedView = child;
+                break;
             }
         }
+
+        Log.i(TAG, "selectedPosition: " + selectedPosition);
         if (selectedPosition == -1) {
             onUnselect();
         } else {
@@ -260,7 +259,8 @@ public class RandomLayoutManager extends RecyclerView.LayoutManager {
     private int maxInterval = 50;
 
     private int makeRandomLeftMargin() {
-        return mLeftMarginRandom.nextInt(maxInterval);
+//        return mLeftMarginRandom.nextInt(maxInterval);
+        return 0;
     }
 
     private int makeAvailableRandomPosition() {

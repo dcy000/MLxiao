@@ -35,6 +35,10 @@ public class BciDeviceControllerFragment extends Fragment {
 
     }
 
+    public BciSignalObservable getBciSignalObservable() {
+        return mBciSignalObservable;
+    }
+
     public void register(BciSignalObservable.Observer observer) {
         mBciSignalObservable.registerObserver(observer);
     }
@@ -144,6 +148,7 @@ public class BciDeviceControllerFragment extends Fragment {
                     if (subjectContactQuality_cnt >= 30 || arg1 != subjectContactQuality_last) {
                         String poor = arg1 == 0 ? " Good" : " Poor";
                         Log.d(TAG, "handleMessage: MSG_POOR_SIGNAL " + arg1 + poor);
+                        mBciSignalObservable.notifyPoorSignalChanged(arg1);
                         subjectContactQuality_cnt = 0;
                         subjectContactQuality_last = arg1;
                     } else {

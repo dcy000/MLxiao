@@ -23,6 +23,8 @@ public class BciSignalObservable extends Observable<BciSignalObservable.Observer
         void onAttentionChanged(int intensity);
 
         void onBlinkChanged(int intensity);
+
+        void onPoorSignalChanged(int intensity);
     }
 
     public void notifyAttentionChanged(int intensity) {
@@ -37,6 +39,14 @@ public class BciSignalObservable extends Observable<BciSignalObservable.Observer
         synchronized (mObservers) {
             for (Observer observer : mObservers) {
                 observer.onBlinkChanged(intensity);
+            }
+        }
+    }
+
+    public void notifyPoorSignalChanged(int intensity) {
+        synchronized (mObservers) {
+            for (Observer observer : mObservers) {
+                observer.onPoorSignalChanged(intensity);
             }
         }
     }

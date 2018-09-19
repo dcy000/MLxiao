@@ -127,6 +127,18 @@
         app:layout_constraintTop_toBottomOf="@+id/bci_pb_attention" />
 
     <TextView
+        android:id="@+id/bci_tv_poor_signal"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp"
+        android:text="0"
+        android:textColor="#FF9700"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toTopOf="@+id/bci_tv_state"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
         android:id="@+id/bci_tv_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -134,8 +146,8 @@
         android:text="0"
         android:textColor="#FF9700"
         android:textSize="35sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <ProgressBar
         android:id="@+id/bci_pb_attention"
