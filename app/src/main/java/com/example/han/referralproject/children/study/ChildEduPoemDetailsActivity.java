@@ -119,7 +119,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         isPlaying = true;
         positionSelected++;
         mAdapter.setPositionSelected(positionSelected);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.notifyItemChanged(positionSelected);
         rvPoemSentences.scrollToPosition(positionSelected);
         speak(mSentences.get(positionSelected));
     }
