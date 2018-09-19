@@ -218,14 +218,17 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 //            toDetete();
 //            startActivity(new Intent(this, WeightMeasureActivity.class));
 
-            CC.obtainBuilder("health_measure")
-                    .setActionName("To_WeightManagerActivity")
-                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                @Override
-                public void onResult(CC cc, CCResult result) {
-                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
-                }
-            });
+//            CC.obtainBuilder("health_measure")
+//                    .setActionName("To_WeightManagerActivity")
+//                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                @Override
+//                public void onResult(CC cc, CCResult result) {
+//                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
+//                }
+//            });
+
+            startActivity(new Intent(this, DetecteTipActivity.class)
+                    .putExtra("fromWhere","3"));
         }
 
     }
@@ -259,14 +262,18 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         } else {
             if (diagnoseInfo.lowPressure == null) {
 //                startActivity(new Intent(this, BloodPressureMeasureActivity.class));
-                CC.obtainBuilder("health_measure")
-                        .setActionName("To_BloodpressureManagerActivity")
-                        .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                    @Override
-                    public void onResult(CC cc, CCResult result) {
-                        startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
-                    }
-                });
+//                CC.obtainBuilder("health_measure")
+//                        .setActionName("To_BloodpressureManagerActivity")
+//                        .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                    @Override
+//                    public void onResult(CC cc, CCResult result) {
+//                        startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
+//                    }
+//                });
+
+                startActivity(new Intent(SlowDiseaseManagementActivity.this, DetecteTipActivity.class)
+                        .putExtra("fromWhere", "0"));
+
             } else {
                 startActivity(new Intent(this, TreatmentPlanActivity.class));
             }
@@ -330,6 +337,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         postOriginPertensionState("1");
 //        startActivity(new Intent(this, SlowDiseaseManagementTipActivity.class));
     }
+
     @Override
     public void onClickCancel() {
         postOriginPertensionState("0");
@@ -395,6 +403,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     @Override
     public void onClickConfirm() {
+        //-->人脸-->测量血压
         CC.obtainBuilder("com.gcml.auth.face.signin")
                 .addParam("skip", true)
                 .build()
