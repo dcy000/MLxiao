@@ -90,9 +90,13 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
             return;
         }
         if (fromWhere.equals(FROM_REGISTER_BY_IDCARD)) {
-            startActivity(new Intent(this, InputFaceActivity.class)
-                    .putExtras(getIntent())
-                    .putExtra(REGISTER_PHONE_NUMBER, phone));
+            if (code.equals(this.code)) {
+                startActivity(new Intent(this, InputFaceActivity.class)
+                        .putExtras(getIntent())
+                        .putExtra(REGISTER_PHONE_NUMBER, phone));
+            } else {
+                mlSpeak("验证码错误");
+            }
         } else if (fromWhere.equals(FROM_REGISTER_BY_IDCARD_NUMBER)) {
             if (code.equals(this.code)) {
                 startActivity(new Intent(PhoneAndCodeActivity.this, RealNameActivity.class)
