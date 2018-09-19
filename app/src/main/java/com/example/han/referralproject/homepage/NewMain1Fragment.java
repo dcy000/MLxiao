@@ -325,6 +325,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                         CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
                                         return;
                                     }
+//                                    CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+//                                            .addParam("userId", userId)
+//                                            .build()
+//                                            .callAsync();
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());

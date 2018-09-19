@@ -9,8 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -193,7 +195,10 @@ public class SignUp13SportsActivity extends BaseActivity {
                         LocalShared.getInstance(mContext).setUserPhoto(response.userPhoto);
                         LocalShared.getInstance(mContext).setUserAge(response.age);
                         LocalShared.getInstance(mContext).setUserHeight(response.height);
-                        new JpushAliasUtils(SignUp13SportsActivity.this).setAlias("user_" + response.bid);
+                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                                .addParam("userId", UserSpHelper.getUserId())
+                                .build()
+                                .callAsync();
                         navToNext();
                     }
                 }, new NetworkManager.FailedCallback() {

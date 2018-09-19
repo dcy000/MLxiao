@@ -17,6 +17,7 @@ import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.gcml.old.auth.register.SignUp14DiseaseHistoryActivity;
@@ -205,8 +206,10 @@ public class CCFaceRecognitionActions {
                         if (activity instanceof ChooseLoginTypeActivity) {
                             activity.startActivity(new Intent(activity, MainActivity.class));
                         } else if (activity instanceof MainActivity) {
-                            new JpushAliasUtils(activity).setAlias("user_"
-                                    + LocalShared.getInstance(activity).getUserId());
+                            CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                                    .addParam("userId", UserSpHelper.getUserId())
+                                    .build()
+                                    .callAsync();
                             Map<String, Object> dataMap = result.getDataMap();
                             if (dataMap != null && dataMap.size() > 0) {
                                 UserInfoBean userinfo = (UserInfoBean) dataMap.get(ReceiveResultKeys.KEY_EXTRA_CC_USERINFOBEAN);
