@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.recommend.RecommendActivity">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_recommend_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.gcml.common.widget.toolbar.TranslucentToolBar>
+
+    <TextView
+        android:id="@+id/tv_commend_text"
+        android:layout_width="1492pt"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60pt"
+        android:layout_marginTop="80pt"
+        android:text="根据结果​​显示，您的血糖，血压偏高，小E给您推荐以下商品"
+        android:textColor="#ff999999"
+        android:textSize="56pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb_recommend_title" />
+
+    <TextView
+        android:id="@+id/tv_look_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60pt"
+        android:layout_marginTop="80pt"
+        android:text="查看更多"
+        android:textColor="#ff3f86fc"
+        android:textSize="56pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb_recommend_title" />
+
+    <android.support.v7.widget.RecyclerView
+        android:overScrollMode="never"
+        android:id="@+id/rv_commend_goods"
+        android:layout_width="0pt"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60pt"
+        android:layout_marginStart="60pt"
+        android:layout_marginTop="80pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_commend_text"></android.support.v7.widget.RecyclerView>
+
+</android.support.constraint.ConstraintLayout>
