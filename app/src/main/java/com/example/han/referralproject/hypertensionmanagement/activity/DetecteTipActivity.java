@@ -49,6 +49,7 @@ public class DetecteTipActivity extends AppCompatActivity {
     }
 
     private void toDetecte() {
+        finish();
         Timber.d("timer--3秒--时间就到");
         switch (fromeWhere) {
             case "0"://高血压-->体重-->报告
