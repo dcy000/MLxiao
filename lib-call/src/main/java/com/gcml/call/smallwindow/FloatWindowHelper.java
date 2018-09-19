@@ -62,7 +62,7 @@ public class FloatWindowHelper {
 
     public void setContentView(@LayoutRes int layoutId) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        contentView = inflater.inflate(layoutId, contentParent);
+        contentView = inflater.inflate(layoutId, contentParent, false);
     }
 
     public void setContentView(View contentView) {

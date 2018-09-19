@@ -28,8 +28,10 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.settting.activity.FactoryTestActivity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.profile.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
@@ -266,7 +268,10 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onSuccess(UserInfoBean response) {
                 checkGroup(response.xfid);
-                new JpushAliasUtils(SignInActivity.this).setAlias("user_" + response.bid);
+                CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                        .addParam("userId", UserSpHelper.getUserId())
+                        .build()
+                        .callAsync();
                 LocalShared.getInstance(mContext).setUserInfo(response);
                 LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
                 LocalShared.getInstance(mContext).setSex(response.sex);

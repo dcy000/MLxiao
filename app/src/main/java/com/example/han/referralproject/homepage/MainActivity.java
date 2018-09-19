@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.StatusBarFragment;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -216,6 +217,10 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                                             return;
                                         }
                                         NimAccountHelper.getInstance().login(wyyxId, wyyxPwd, null);
+                                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                                                .addParam("userId", userInfoBean.bid)
+                                                .build()
+                                                .callAsync();
                                     }
                                 }
                             }

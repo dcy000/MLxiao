@@ -41,14 +41,14 @@ public class MyFrameLayout extends FrameLayout {
     }
 
     @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         Timber.i("onTouchEvent: event=%s", event);
         return super.onTouchEvent(event);
     }
 
-    @Override
-    public boolean performClick() {
-        super.performClick();
-        return true;
-    }
 }

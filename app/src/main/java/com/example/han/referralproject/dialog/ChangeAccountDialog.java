@@ -73,39 +73,11 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        new JpushAliasUtils(mContext).deleteAlias();
-        //删除在MainActivity中的组
-//        FaceAuthenticationUtils.getInstance(mContext).
-//                deleteGroup(LocalShared.getInstance(mContext).getGroupId(), LocalShared.getInstance(mContext).getGroupFirstXfid());
-//        FaceAuthenticationUtils.getInstance(mContext).setOnDeleteGroupListener(deleteGroupListener);
+        CC.obtainBuilder("com.gcml.zzb.common.push.deleteTag")
+                .build()
+                .callAsync();
         switch (v.getId()) {
-
             case R.id.view_login://添加账号
-//                //为了解决人脸识别加组缓慢的解决方式，这样做是不规范的
-//                if (LocalShared.getInstance(mContext).isAccountOverflow()) {
-//                    NDialog1 dialog = new NDialog1(mContext);
-//                    dialog.setMessageCenter(true)
-//                            .setMessage("本机登录账号数量达到上限，是否快速清理？")
-//                            .setMessageSize(35)
-//                            .setCancleable(false)
-//                            .setButtonCenter(true)
-//                            .setPositiveTextColor(mContext.getResources().getColor(R.color.toolbar_bg))
-//                            .setNegativeTextColor(Color.parseColor("#999999"))
-//                            .setButtonSize(40)
-//                            .setOnConfirmListener(new NDialog1.OnConfirmListener() {
-//                                @Override
-//                                public void onClick(int which) {
-//                                    if (which == 1) {
-//                                        LocalShared.getInstance(mContext).deleteAllAccount();
-//                                        mContext.startActivityForResult(new Intent(mContext, SignInActivity.class));
-//                                        ((Activity) mContext).finish();
-//                                    }
-//                                }
-//                            }).create(NDialog.CONFIRM).showShort();
-//                }else{
-//                    mContext.startActivityForResult(new Intent(mContext, SignInActivity.class));
-//                    ((Activity) mContext).finish();
-//                }
                 CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();

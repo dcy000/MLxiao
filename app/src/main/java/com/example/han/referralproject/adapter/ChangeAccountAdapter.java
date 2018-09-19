@@ -3,11 +3,13 @@ package com.example.han.referralproject.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.gcml.common.data.UserSpHelper;
@@ -26,7 +28,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
     private Context mContext;
     private ArrayList<UserInfoBean> mUserData;
 
-    public ChangeAccountAdapter(Context context, ArrayList<UserInfoBean> userData){
+    public ChangeAccountAdapter(Context context, ArrayList<UserInfoBean> userData) {
         mUserData = userData;
         mInflater = LayoutInflater.from(context);
         mContext = context;
@@ -51,11 +53,17 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JpushAliasUtils(mContext).setAlias("user_"+itemBean.bid);
+                String userId = itemBean.bid;
+                if (!TextUtils.isEmpty(userId)) {
+                    CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                            .addParam("userId", userId)
+                            .build()
+                            .callAsync();
+                }
                 NimAccountHelper.getInstance().logout();
-                UserSpHelper.setUserId(itemBean.bid);
-                MyApplication.getInstance().xfid=itemBean.xfid;
-                MyApplication.getInstance().eqid=itemBean.eqid;
+                UserSpHelper.setUserId(userId);
+                MyApplication.getInstance().xfid = itemBean.xfid;
+                MyApplication.getInstance().eqid = itemBean.eqid;
                 LocalShared.getInstance(mContext).setUserInfo(itemBean);
                 LocalShared.getInstance(mContext).setSex(itemBean.sex);
                 LocalShared.getInstance(mContext).setUserPhoto(itemBean.userPhoto);
@@ -79,7 +87,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
         public TextView mNameView;
         public CircleImageView mHeaderIv;
 
-        public MyHolder(View view){
+        public MyHolder(View view) {
             super(view);
             mNameView = view.findViewById(R.id.tv_name);
             mHeaderIv = view.findViewById(R.id.iv_header);

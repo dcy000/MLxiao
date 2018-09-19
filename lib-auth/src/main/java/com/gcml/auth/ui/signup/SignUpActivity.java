@@ -11,6 +11,7 @@ import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignUpBinding;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -276,6 +277,10 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                                             CC.obtainBuilder("com.gcml.auth.updateSimpleProfile")
                                                     .build()
                                                     .callAsync();
+//                                            CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+//                                                    .addParam("userId", UserSpHelper.getUserId())
+//                                                    .build()
+//                                                    .callAsync();
                                         }
                                     }
                                 });
@@ -285,8 +290,9 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        ToastUtils.showShort("注册失败");
-                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "注册失败");
+                        String message = throwable.getMessage();
+                        ToastUtils.showShort(message);
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), message);
                     }
                 });
     }
