@@ -1,8 +1,12 @@
 package com.gcml.health.measure.single_measure.fragment;
 
+import android.annotation.SuppressLint;
+
+import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -11,6 +15,9 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
@@ -99,21 +106,45 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
             }
         }
     }
+    @SuppressLint("CheckResult")
     private void uploadData(ArrayList<DetectionData> datas) {
 
-        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-            @Override
-            public void onSuccess(String callbackString) {
-                ToastUtils.showLong("数据上传成功");
-                datas.clear();
-            }
+//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//            @Override
+//            public void onSuccess(String callbackString) {
+//                ToastUtils.showLong("数据上传成功");
+//                datas.clear();
+//            }
+//
+//            @Override
+//            public void onError() {
+//                ToastUtils.showLong("数据上传失败");
+//                datas.clear();
+//            }
+//        });
 
-            @Override
-            public void onError() {
-                ToastUtils.showLong("数据上传失败");
-                datas.clear();
-            }
-        });
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        ToastUtils.showLong("数据上传成功");
+                        datas.clear();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showLong("数据上传失败:"+e.getMessage());
+                        datas.clear();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
     @Override
     public void onDestroyView() {

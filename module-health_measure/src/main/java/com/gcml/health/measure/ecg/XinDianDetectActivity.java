@@ -22,6 +22,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.creative.ecg.StatusMsg;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
@@ -29,6 +30,7 @@ import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
 import com.gcml.health.measure.utils.ECGUtil;
@@ -42,6 +44,9 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
@@ -84,13 +89,13 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
     private TextView mBtnVideoDemo;
     private Uri uri;
 
-    public static void startActivity(Context context, String fromWhere,boolean isSkip) {
+    public static void startActivity(Context context, String fromWhere, boolean isSkip) {
         Intent intent = new Intent(context, XinDianDetectActivity.class);
         if (context instanceof Application) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         intent.putExtra("fromWhere", fromWhere);
-        intent.putExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP,isSkip);
+        intent.putExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP, isSkip);
         context.startActivity(intent);
     }
 
@@ -257,7 +262,7 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
                             mEcg = data.getInt("nResult");
                             mHeartRate = data.getInt("nHR");
                             //TODO:播报语音和上传数据
-                            if (!getIntent().getBooleanExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP,false)){
+                            if (!getIntent().getBooleanExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP, false)) {
                                 uploadEcg(mEcg, mHeartRate);
                             }
                             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您的心率为" + mHeartRate + "," + measureResult[mEcg]);
@@ -304,8 +309,9 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
 
     };
 
+    @SuppressLint("CheckResult")
     private void uploadEcg(final int ecg, final int heartRate) {
-        Timber.e("上传心电数据："+ecg+"心跳："+heartRate);
+        Timber.e("上传心电数据：" + ecg + "心跳：" + heartRate);
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData ecgData = new DetectionData();
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
@@ -314,20 +320,44 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
         ecgData.setHeartRate(heartRate);
         datas.add(ecgData);
 
-        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-            @Override
-            public void onSuccess(String callbackString) {
-                ToastUtils.showShort("数据上传成功");
-                Intent intent = new Intent();
-                intent.putExtra("ecg", ecg);
-                intent.putExtra("heartRate", heartRate);
-            }
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        ToastUtils.showShort("数据上传成功");
+                        Intent intent = new Intent();
+                        intent.putExtra("ecg", ecg);
+                        intent.putExtra("heartRate", heartRate);
+                    }
 
-            @Override
-            public void onError() {
-                ToastUtils.showLong("数据上传失败");
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//            @Override
+//            public void onSuccess(String callbackString) {
+//                ToastUtils.showShort("数据上传成功");
+//                Intent intent = new Intent();
+//                intent.putExtra("ecg", ecg);
+//                intent.putExtra("heartRate", heartRate);
+//            }
+//
+//            @Override
+//            public void onError() {
+//                ToastUtils.showLong("数据上传失败");
+//            }
+//        });
     }
 
     /**

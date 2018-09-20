@@ -1,12 +1,15 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 
+import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -15,6 +18,10 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
     private ArrayList<DetectionData> datas = new ArrayList<>();
@@ -49,7 +56,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
                 sugarData.setSugarTime(0);
                 sugarData.setBloodSugar(Float.parseFloat(results[1]));
                 datas.add(sugarData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，您本次测量血糖"+sugarData.getBloodSugar());
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + sugarData.getBloodSugar());
                 uploadData(datas);
             }
             if (results[0].equals("cholesterol")) {
@@ -57,7 +64,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
                 cholesterolData.setDetectionType("7");
                 cholesterolData.setCholesterol(Float.parseFloat(results[1]));
                 datas.add(cholesterolData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，您本次测量胆固醇"+cholesterolData.getCholesterol());
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量胆固醇" + cholesterolData.getCholesterol());
                 uploadData(datas);
             }
 
@@ -67,7 +74,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
                 lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
 
                 datas.add(lithicAcidData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，您本次测量尿酸"+lithicAcidData.getUricAcid());
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + lithicAcidData.getUricAcid());
                 uploadData(datas);
             }
 //            if (sugarData != null && cholesterolData != null && lithicAcidData != null) {
@@ -82,31 +89,53 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
         }
     }
 
+    @SuppressLint("CheckResult")
     private void uploadData(ArrayList<DetectionData> datas) {
 
-        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-            @Override
-            public void onSuccess(String callbackString) {
-                ToastUtils.showLong("数据上传成功");
-                ((FirstDiagnosisActivity) mActivity).putCacheData(sugarData);
-                ((FirstDiagnosisActivity) mActivity).putCacheData(cholesterolData);
-                ((FirstDiagnosisActivity) mActivity).putCacheData(lithicAcidData);
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        ToastUtils.showLong("数据上传成功");
+//                        ((FirstDiagnosisActivity) mActivity).putCacheData(sugarData);
+//                        ((FirstDiagnosisActivity) mActivity).putCacheData(cholesterolData);
+//                        ((FirstDiagnosisActivity) mActivity).putCacheData(lithicAcidData);
+                        setBtnClickableState(true);
+                        datas.clear();
+                    }
 
-//                        if (fragmentChanged != null && !isJump2Next) {
-//                            isJump2Next = true;
-//                            fragmentChanged.onFragmentChanged(
-//                                    HealthThreeInOneDetectionUiFragment.this, null);
-//                        }
-                setBtnClickableState(true);
-                datas.clear();
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                        datas.clear();
+                    }
 
-            @Override
-            public void onError() {
-                ToastUtils.showLong("数据上传失败");
-                datas.clear();
-            }
-        });
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//            @Override
+//            public void onSuccess(String callbackString) {
+//                ToastUtils.showLong("数据上传成功");
+//                ((FirstDiagnosisActivity) mActivity).putCacheData(sugarData);
+//                ((FirstDiagnosisActivity) mActivity).putCacheData(cholesterolData);
+//                ((FirstDiagnosisActivity) mActivity).putCacheData(lithicAcidData);
+//                setBtnClickableState(true);
+//                datas.clear();
+//            }
+//
+//            @Override
+//            public void onError() {
+//                ToastUtils.showLong("数据上传失败");
+//                datas.clear();
+//            }
+//        });
     }
 
     @Override

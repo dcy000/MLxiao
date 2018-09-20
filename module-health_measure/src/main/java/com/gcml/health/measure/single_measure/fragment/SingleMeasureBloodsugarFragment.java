@@ -96,22 +96,44 @@ public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
         }
     }
 
+    @SuppressLint("CheckResult")
     private void uploadData() {
         if (datas==null){
             Timber.e("SingleMeasureBloodpressureFragment：数据被回收，程序异常");
             return;
         }
-        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-            @Override
-            public void onSuccess(String callbackString) {
-                ToastUtils.showShort("数据上传成功");
-            }
 
-            @Override
-            public void onError() {
-                ToastUtils.showShort("数据上传失败");
-            }
-        });
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        ToastUtils.showShort("数据上传成功");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort("数据上传失败:"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//            @Override
+//            public void onSuccess(String callbackString) {
+//                ToastUtils.showShort("数据上传成功");
+//            }
+//
+//            @Override
+//            public void onError() {
+//                ToastUtils.showShort("数据上传失败");
+//            }
+//        });
     }
 
     @Override

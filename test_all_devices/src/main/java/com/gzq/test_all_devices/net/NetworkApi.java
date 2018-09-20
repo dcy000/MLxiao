@@ -15,6 +15,7 @@ import com.gzq.test_all_devices.health_record_bean.WeightHistory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class NetworkApi {
 //            public static final String BasicUrl = "http://116.62.36.12:8080";//备用服务器
@@ -146,6 +147,9 @@ public class NetworkApi {
 
     public static final String POST_HEAlTH_DIARY = BasicUrl + "/ZZB/ai/insert_influence";
     public static final String POST_TEL_MESSAGE = "ZZB/br/br_teltixing";
+
+    public static final String Get_PersonInfo = BasicUrl + "ZZB/br/selOneUserEverything";
+
 
     /**
      * 获取体温历史数据

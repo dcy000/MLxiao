@@ -1,5 +1,6 @@
 package com.gcml.module_health_record;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -25,6 +27,15 @@ import com.gcml.lib_utils.ui.dialog.BaseDialog;
 import com.gcml.lib_utils.ui.dialog.DialogClickSureListener;
 import com.gcml.lib_utils.ui.dialog.DialogImage;
 import com.gcml.lib_utils.ui.dialog.date_picker.DialogWheelYearMonthDay;
+import com.gcml.module_health_record.bean.BUA;
+import com.gcml.module_health_record.bean.BloodOxygenHistory;
+import com.gcml.module_health_record.bean.BloodPressureHistory;
+import com.gcml.module_health_record.bean.BloodSugarHistory;
+import com.gcml.module_health_record.bean.CholesterolHistory;
+import com.gcml.module_health_record.bean.ECGHistory;
+import com.gcml.module_health_record.bean.HeartRateHistory;
+import com.gcml.module_health_record.bean.TemperatureHistory;
+import com.gcml.module_health_record.bean.WeightHistory;
 import com.gcml.module_health_record.cc.CCAppActions;
 import com.gcml.module_health_record.fragments.HealthRecordBUAFragment;
 import com.gcml.module_health_record.fragments.HealthRecordBloodoxygenFragment;
@@ -36,11 +47,17 @@ import com.gcml.module_health_record.fragments.HealthRecordHeartrateFragment;
 import com.gcml.module_health_record.fragments.HealthRecordTemperatureFragment;
 import com.gcml.module_health_record.fragments.HealthRecordWeightFragment;
 import com.gcml.module_health_record.network.HealthRecordNetworkApi;
+import com.gcml.module_health_record.network.HealthRecordRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class HealthRecordActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, HealthRecordBloodsugarFragment.BloodsugarSelectTime {
@@ -198,7 +215,11 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
                         selectStartDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
                 endMillisecond = TimeUtils.string2Milliseconds(selectEndYear
                         + "-" + selectEndMonth + "-" +
+<<<<<<< HEAD
                         selectEndDay, new SimpleDateFormat("yyyy-MM-dd")) + "";
+=======
+                        selectEndDay + " 23:59:59", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")) + "";
+>>>>>>> 6a2e2ffe6... 2018/09/20
                 switch (temp) {
                     case "1":
                         //体温
@@ -387,59 +408,259 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
 
     }
 
+    @SuppressLint("CheckResult")
     private void getTemperatureData(String start, String end) {
-        HealthRecordNetworkApi.getTemperatureHistory(start, end, temp,
-                response -> temperatureFragment.refreshData(response, temp),
-                message -> temperatureFragment.refreshErrorData(message));
+//        HealthRecordNetworkApi.getTemperatureHistory(start, end, temp,
+//                response -> temperatureFragment.refreshData(response, temp),
+//                message -> temperatureFragment.refreshErrorData(message));
+
+        HealthRecordRepository
+                .getTemperatureHistory(start, end, temp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<List<TemperatureHistory>>() {
+                    @Override
+                    public void onNext(List<TemperatureHistory> temperatureHistories) {
+                        temperatureFragment.refreshData(temperatureHistories, temp);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        temperatureFragment.refreshErrorData("暂无该项数据");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
+    @SuppressLint("CheckResult")
     private void getBloodoxygenData(String start, String end) {
-        HealthRecordNetworkApi.getBloodOxygenHistory(start, end, temp,
-                response -> bloodoxygenFragment.refreshData(response, temp),
-                message -> bloodoxygenFragment.refreshErrorData(message));
+//        HealthRecordNetworkApi.getBloodOxygenHistory(start, end, temp,
+//                response -> bloodoxygenFragment.refreshData(response, temp),
+//                message -> bloodoxygenFragment.refreshErrorData(message));
+
+        HealthRecordRepository.getBloodOxygenHistory(start,end,temp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<List<BloodOxygenHistory>>() {
+                    @Override
+                    public void onNext(List<BloodOxygenHistory> bloodOxygenHistories) {
+                        bloodoxygenFragment.refreshData(bloodOxygenHistories, temp);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        bloodoxygenFragment.refreshErrorData("暂无该项数据");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
+    @SuppressLint("CheckResult")
     private void getBloodpressureData(String start, String end) {
-        HealthRecordNetworkApi.getBloodpressureHistory(start, end, temp,
-                response -> bloodpressureFragment.refreshData(response, temp),
-                message -> bloodpressureFragment.refreshErrorData(message));
+//        HealthRecordNetworkApi.getBloodpressureHistory(start, end, temp,
+//                response -> bloodpressureFragment.refreshData(response, temp),
+//                message -> bloodpressureFragment.refreshErrorData(message));
+
+        HealthRecordRepository.getBloodpressureHistory(start,end,temp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<List<BloodPressureHistory>>() {
+                    @Override
+                    public void onNext(List<BloodPressureHistory> bloodPressureHistories) {
+                        bloodpressureFragment.refreshData(bloodPressureHistories, temp);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        bloodpressureFragment.refreshErrorData("暂无该项数据");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
+    @SuppressLint("CheckResult")
     private void getBloodsugarData(String start, String end) {
-        HealthRecordNetworkApi.getBloodSugarHistory(start, end, temp,
-                response -> bloodsugarFragment.refreshData(response, temp),
-                message -> bloodsugarFragment.refreshErrorData(message));
+//        HealthRecordNetworkApi.getBloodSugarHistory(start, end, temp,
+//                response -> bloodsugarFragment.refreshData(response, temp),
+//                message -> bloodsugarFragment.refreshErrorData(message));
+//
+
+        HealthRecordRepository.getBloodSugarHistory(start,end,temp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<List<BloodSugarHistory>>() {
+                    @Override
+                    public void onNext(List<BloodSugarHistory> bloodSugarHistories) {
+                        bloodsugarFragment.refreshData(bloodSugarHistories, temp);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        bloodsugarFragment.refreshErrorData("暂无该项数据");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
+    @SuppressLint("CheckResult")
     private void getBUAData(String start, String end) {
-        HealthRecordNetworkApi.getBUAHistory(start, end, temp,
-                response -> buaFragment.refreshData(response, temp),
-                message -> buaFragment.refreshErrorData(message));
+//        HealthRecordNetworkApi.getBUAHistory(start, end, temp,
+//                response -> buaFragment.refreshData(response, temp),
+//                message -> buaFragment.refreshErrorData(message));
+
+        HealthRecordRepository.getBUAHistory(start,end,temp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<List<BUA>>() {
+                    @Override
+                    public void onNext(List<BUA> buas) {
+                        buaFragment.refreshData(buas, temp);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        buaFragment.refreshErrorData("暂无该项数据");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 
+    @SuppressLint("CheckResult")
     private void getCholesterolData(String start, String end) {
-        HealthRecordNetworkApi.getCholesterolHistory(start, end, temp,
-                response -> cholesterolFragment.refreshData(response, temp),
-                message -> cholesterolFragment.refreshErrorData(message));
+//        HealthRecordNetworkApi.getCholesterolHistory(start, end, temp,
+//                response -> cholesterolFragment.refreshData(response, temp),
+//                message -> cholesterolFragment.refreshErrorData(message));
+
+        HealthRecordRepository.getCholesterolHistory(start,end,temp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<List<CholesterolHistory>>() {
+                    @Override
+                    public void onNext(List<CholesterolHistory> cholesterolHistories) {
+                        cholesterolFragment.refreshData(cholesterolHistories, temp);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        cholesterolFragment.refreshErrorData("暂无该项数据");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
+    @SuppressLint("CheckResult")
     private void getHeartRateData(String start, String end) {
-        HealthRecordNetworkApi.getHeartRateHistory(start, end, temp,
-                response -> heartrateFragment.refreshData(response, temp),
-                message -> heartrateFragment.refreshErrorData(message));
+//        HealthRecordNetworkApi.getHeartRateHistory(start, end, temp,
+//                response -> heartrateFragment.refreshData(response, temp),
+//                message -> heartrateFragment.refreshErrorData(message));
+
+        HealthRecordRepository.getHeartRateHistory(start,end,temp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<List<HeartRateHistory>>() {
+                    @Override
+                    public void onNext(List<HeartRateHistory> heartRateHistories) {
+                        heartrateFragment.refreshData(heartRateHistories, temp);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        heartrateFragment.refreshErrorData("暂无该项数据");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
+    @SuppressLint("CheckResult")
     private void getWeightData(String start, String end) {
-        HealthRecordNetworkApi.getWeight(start, end, temp,
-                response -> weightFragment.refreshData(response, temp),
-                message -> weightFragment.refreshErrorData(message));
+//        HealthRecordNetworkApi.getWeight(start, end, temp,
+//                response -> weightFragment.refreshData(response, temp),
+//                message -> weightFragment.refreshErrorData(message));
+
+        HealthRecordRepository.getWeight(start,end,temp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<List<WeightHistory>>() {
+                    @Override
+                    public void onNext(List<WeightHistory> weightHistories) {
+                        weightFragment.refreshData(weightHistories, temp);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        weightFragment.refreshErrorData("暂无该项数据");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
+    @SuppressLint("CheckResult")
     private void getEcgData(String start, String end) {
-        HealthRecordNetworkApi.getECGHistory(start, end, temp,
-                response -> ecgFragment.refreshData(response, temp),
-                message -> ecgFragment.refreshErrorData(message));
+//        HealthRecordNetworkApi.getECGHistory(start, end, temp,
+//                response -> ecgFragment.refreshData(response, temp),
+//                message -> ecgFragment.refreshErrorData(message));
+
+        HealthRecordRepository.getECGHistory(start,end,temp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<List<ECGHistory>>() {
+                    @Override
+                    public void onNext(List<ECGHistory> ecgHistories) {
+                        ecgFragment.refreshData(ecgHistories, temp);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ecgFragment.refreshErrorData("暂无该项数据");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void initFragments() {

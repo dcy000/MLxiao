@@ -18,6 +18,7 @@ import com.github.mikephil.charting.utils.Utils;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Custom implementation of the MarkerView.
@@ -30,8 +31,8 @@ public class MyMarkerView extends MarkerView {
     private TextView text_1, text_2, color_1, color_2, title_1, title_2, time;
     private LinearLayout ll2;
     private String flag;
-    private ArrayList<Long> times;
-    private ArrayList<BloodPressureHistory> xueya;
+    private List<Long> times;
+    private List<BloodPressureHistory> xueya;
 
     public MyMarkerView(Context context, int layoutResource, String flag, ArrayList<Long> times) {
         super(context, layoutResource);
@@ -48,7 +49,7 @@ public class MyMarkerView extends MarkerView {
         mFormat = new DecimalFormat("##0");
     }
 
-    public MyMarkerView(Context context, int layoutResource, String flag, ArrayList<Long> times, ArrayList<BloodPressureHistory> xueya) {
+    public MyMarkerView(Context context, int layoutResource, String flag, List<Long> times, List<BloodPressureHistory> xueya) {
         super(context, layoutResource);
         this.flag = flag;
         this.times = times;
