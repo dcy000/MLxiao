@@ -190,29 +190,29 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void checkUpdate(final String checkUrl, final String updateLog, final int versionCode, final String versionName, final String updateUrl, final String updateMD5) {
-        UpdateManager.create(this).setChecker(new IUpdateChecker() {
-            @Override
-            public void check(ICheckAgent agent, String url) {
-                Log.e("ezy.update", "checking");
-                agent.setInfo("");
-            }
-        }).setUrl(checkUrl).setManual(true).setNotifyId(998).setParser(new IUpdateParser() {
-            @Override
-            public UpdateInfo parse(String source) throws Exception {
-                UpdateInfo info = new UpdateInfo();
-                info.hasUpdate = true;
-                info.updateContent = updateLog;
-                info.versionCode = versionCode;
-                info.versionName = versionName;
-                info.url = updateUrl;
-                info.md5 = updateMD5;
-                info.size = 10149314;
-                info.isForce = false;
-                info.isIgnorable = true;
-                info.isSilent = false;
-                return info;
-            }
-        }).check();
+//        UpdateManager.create(this).setChecker(new IUpdateChecker() {
+//            @Override
+//            public void check(ICheckAgent agent, String url) {
+//                Log.e("ezy.update", "checking");
+//                agent.setInfo("");
+//            }
+//        }).setUrl(checkUrl).setManual(true).setNotifyId(998).setParser(new IUpdateParser() {
+//            @Override
+//            public UpdateInfo parse(String source) throws Exception {
+//                UpdateInfo info = new UpdateInfo();
+//                info.hasUpdate = true;
+//                info.updateContent = updateLog;
+//                info.versionCode = versionCode;
+//                info.versionName = versionName;
+//                info.url = updateUrl;
+//                info.md5 = updateMD5;
+//                info.size = 10149314;
+//                info.isForce = false;
+//                info.isIgnorable = true;
+//                info.isSilent = false;
+//                return info;
+//            }
+//        }).check();
     }
 
     private void showClearCacheDialog() {
