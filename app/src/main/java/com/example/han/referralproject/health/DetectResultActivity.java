@@ -259,7 +259,7 @@ public class DetectResultActivity extends BaseActivity {
 //            mDetectTvResultOxygenInfoIndicator.setText("偏低");
 
 
-        mDetectTvResultWeightInfo.setText(weight + "  kg");
+        mDetectTvResultWeightInfo.setText(weight + " kg");
         if (detectCategory.equals("detectHealth")) {
             mDetectTvResultHighPressureInfo.setText("左臂:" + highPressure + " mmHg,   " + "右臂:" + highPressureRight + " mmHg");
             mDetectTvResultLowPressureInfo.setText("左臂:" + lowPressure + " mmHg,   " + "右臂:" + lowPressureRight + " mmHg");
@@ -270,7 +270,9 @@ public class DetectResultActivity extends BaseActivity {
 
         mDetectTvResultTemperateInfo.setText(tem + "℃");
         mDetectTvResultSugarInfo.setText(sugar + "  mmol/L");
-        mDetectTvResultEcgInfo.setText(ecg);
+        String[] stringArray = getResources().getStringArray(R.array.ecg_measureres);
+
+        mDetectTvResultEcgInfo.setText(stringArray[Integer.parseInt(ecg)]);
         initView();
     }
 
@@ -346,8 +348,8 @@ public class DetectResultActivity extends BaseActivity {
                             mDetectTvAgeInfo.setText(data.age + "");
                             mDetectTvGenderInfo.setText(data.sex + "");
                             //接口数据接口更改 身高体重使用外层数据
-                            mDetectTvHeightInfo.setText(data.height);
-                            mDetectTvWeightInfo.setText(data.weight);
+                            mDetectTvHeightInfo.setText(data.height+" cm");
+                            mDetectTvWeightInfo.setText(data.weight+" kg");
 
 
                             PersonInfoResultBean.DataBean.RecordBean record = data.record;

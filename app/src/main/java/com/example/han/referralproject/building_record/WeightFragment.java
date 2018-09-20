@@ -30,11 +30,12 @@ public class WeightFragment extends Fragment implements View.OnClickListener {
     public ArrayList<String> mStrings;
     private SelectAdapter adapter;
     private IFragmentChange iFragmentChange;
-    private String result="";
+    private String result = "";
 
     public void setOnFragmentChange(IFragmentChange iFragmentChange) {
         this.iFragmentChange = iFragmentChange;
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class WeightFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(RecyclerView recyclerView, View item, int position) {
                 selectedPosition = position;
                 select((String) (mStrings == null ? String.valueOf(position) : mStrings.get(position)));
-                result=mStrings == null ? String.valueOf(position) : mStrings.get(position);
+                result = mStrings == null ? String.valueOf(position) : mStrings.get(position);
             }
         });
         adapter = new SelectAdapter();
@@ -69,6 +70,7 @@ public class WeightFragment extends Fragment implements View.OnClickListener {
         });
         rvSignUpContent.setAdapter(adapter);
     }
+
     public void select(String text) {
         T.show(text);
     }
@@ -96,7 +98,7 @@ public class WeightFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        ((BuildingRecordActivity) getActivity()). setDisableGlobalListen(true);
+        ((BuildingRecordActivity) getActivity()).setDisableGlobalListen(true);
         ((BuildingRecordActivity) getActivity()).speak("主人,请输入您的体重");
     }
 
@@ -111,11 +113,12 @@ public class WeightFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.tv_sign_up_go_forward:
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setWeight(result+"kg");
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setWeight(result);
                 iFragmentChange.nextStep(this);
                 break;
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

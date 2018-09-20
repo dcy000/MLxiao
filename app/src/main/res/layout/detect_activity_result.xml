@@ -354,7 +354,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="40pt"
                     android:layout_marginLeft="60pt"
-                    android:layout_marginTop="60pt"
+                    android:layout_marginTop="40pt"
                     android:text="心电： "
                     android:textColor="#999999"
                     android:textSize="66pt"
@@ -382,7 +382,6 @@
                     android:id="@+id/ll_pressure_pulse"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40pt"
                     android:orientation="horizontal">
 
                     <TextView

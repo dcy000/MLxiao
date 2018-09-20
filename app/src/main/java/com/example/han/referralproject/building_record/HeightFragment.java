@@ -107,7 +107,7 @@ public class HeightFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.tv_sign_up_go_forward:
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setHeight(result+"cm");
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setHeight(result);
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
                 }
