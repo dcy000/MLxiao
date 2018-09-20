@@ -111,7 +111,6 @@ public class MyBaseDataActivity extends BaseActivity {
 
     private void initView() {
         //户籍地址
-        originAddress.setText(LocalShared.getInstance(this).getOriginAddress());
 
         showLoadingDialog("正在加载中...");
         NetworkApi.getPersonalInfo(this, new StringCallback() {
@@ -132,8 +131,9 @@ public class MyBaseDataActivity extends BaseActivity {
 
                             //身高体重地址
                             address.setText(data.address);
-                            height.setText(data.height + "");
-                            weight.setText(data.weight + "");
+                            height.setText(data.height + "cm");
+                            weight.setText(data.weight + "kg");
+                            originAddress.setText(data.dz);
 
 
                             Picasso.with(MyBaseDataActivity.this)
