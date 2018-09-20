@@ -123,17 +123,6 @@ public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
 
                     }
                 });
-//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-//            @Override
-//            public void onSuccess(String callbackString) {
-//                ToastUtils.showShort("数据上传成功");
-//            }
-//
-//            @Override
-//            public void onError() {
-//                ToastUtils.showShort("数据上传失败");
-//            }
-//        });
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.view.View;
 
 import com.gcml.common.utils.RxUtils;
@@ -29,6 +30,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
     private DetectionData sugarData;
     private DetectionData cholesterolData;
     private DetectionData lithicAcidData;
+    private int selectMeasureSugarTime;
 
     @Override
     public void onStart() {
@@ -37,6 +39,35 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
         setBtnClickableState(false);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            selectMeasureSugarTime = arguments.getInt("selectMeasureSugarTime", 0);
+        }
+        mTitle11.setText("<3.9");
+        switch (selectMeasureSugarTime) {
+            case 0:
+                //空腹
+                mTitle12.setText("3.9~6.1");
+                mTitle13.setText(">6.1");
+                break;
+            case 1:
+                //饭后1小时
+                mTitle12.setText("3.9~7.8");
+                mTitle13.setText(">7.8");
+                break;
+            case 2:
+                //饭后2小时
+                mTitle12.setText("3.9~7.8");
+                mTitle13.setText(">7.8");
+                break;
+            case 3:
+                //其他时间
+                mTitle12.setText("3.9~11.1");
+                mTitle13.setText(">11.1");
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -53,7 +84,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
             if (results[0].equals("bloodsugar")) {
                 sugarData = new DetectionData();
                 sugarData.setDetectionType("1");
-                sugarData.setSugarTime(0);
+                sugarData.setSugarTime(selectMeasureSugarTime);
                 sugarData.setBloodSugar(Float.parseFloat(results[1]));
                 datas.add(sugarData);
                 MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + sugarData.getBloodSugar());

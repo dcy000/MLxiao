@@ -70,7 +70,7 @@ dependencies {
     api project(':lib-utils')
     api project(':lib-widget')
 
-    implementation 'com.qiniu:qiniu-android-sdk:7.3.12'
+    api 'com.qiniu:qiniu-android-sdk:7.3.12'
 
     implementation rootProject.ext.dependencies["room-runtime"]
     annotationProcessor rootProject.ext.dependencies["room-compiler"]
