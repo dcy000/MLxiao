@@ -113,4 +113,10 @@ public class TwoChoiceDialog extends DialogFragment {
 //            cancel.setTextColor(Color.parseColor("#3F86FC"));
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setCancelable(false);
+    }
 }

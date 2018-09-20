@@ -19,6 +19,7 @@ import com.example.han.referralproject.recommend.RecommendActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.AppManager;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
@@ -65,20 +66,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                         if (bean != null && bean.tag && bean.data != null) {
                             diagnoseInfo = bean.data;
                         }
-                        if (diagnoseInfo != null) {
-                            if (!(diagnoseInfo.risk == null
-                                    && diagnoseInfo.primary == null
-                                    && diagnoseInfo.lowPressure == null
-                                    && diagnoseInfo.hypertensionLevel == null
-                                    && diagnoseInfo.hypertensionPrimaryState == null
-                                    && diagnoseInfo.heart == null
-                                    && diagnoseInfo.hypertensionTarget == null
-                                    && diagnoseInfo.result != null
-                            )) {
-                                ContinueOrNotDialog();
-                            }
-                        }
-
                     }
 
                     @Override
@@ -123,7 +110,27 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      * 点击高血压管理 按钮
      */
     private void onclickHypertensionManage() {
+        if (diagnoseInfo != null) {
+            if (!(diagnoseInfo.risk == null
+                    && diagnoseInfo.primary == null
+                    && diagnoseInfo.lowPressure == null
+                    && diagnoseInfo.hypertensionLevel == null
+                    && diagnoseInfo.hypertensionPrimaryState == null
+                    && diagnoseInfo.heart == null
+                    && diagnoseInfo.hypertensionTarget == null
+                    && diagnoseInfo.result != null
+            )) {
+                ContinueOrNotDialog();
+            }
+        }
 
+//        clickWithoutJudge();
+    }
+
+    /**
+     * 不加是否继续重做的逻辑
+     */
+    private void clickWithoutContinueJudge() {
         if (diagnoseInfo != null) {
             if (diagnoseInfo.result == null) {
                 if (diagnoseInfo.hypertensionPrimaryState == null) {
@@ -136,15 +143,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                     showOriginHypertensionDialog();
                 }
             } else {
-//                DialogSure sure = new DialogSure(this);
-//                sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
-//                sure.setSure("健康方案");
-//                sure.show();
-//                sure.setOnClickSureListener(dialog1 -> {
-//                    dialog1.dismiss();
-//                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
-//                });
-
                 new SingleDialog(this)
                         .builder()
                         .setMsg("您在7天内已生成过健康方案，点击健康方案可直接查看。")
@@ -159,8 +157,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         } else {
             ToastUtils.showShort("网络繁忙");
         }
-
-
     }
 
     /**
@@ -307,7 +303,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                         DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
                         if (bean != null && bean.tag && bean.data != null) {
                             diagnoseInfo = bean.data;
-                            onclickHypertensionManage();
+                            clickWithoutContinueJudge();
                         }
                     }
 
@@ -348,7 +344,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
             @Override
             public void onClickCancel() {
-
+                clickWithoutContinueJudge();
             }
         });
         dialog.show(getFragmentManager(), "yuanfa");
