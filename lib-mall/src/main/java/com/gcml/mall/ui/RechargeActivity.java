@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.widget.dialog.InputDialog;
+import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.common.widget.popup.FriendInvitePopup;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -77,12 +78,30 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                         }
                     }).show();
         } else if (i == R.id.btn_recharge_200) {
-            intent.putExtra("billMoney", 20000);
-            startActivity(intent);
+//            intent.putExtra("billMoney", 20000);
+//            startActivity(intent);
+            new SingleDialog(RechargeActivity.this)
+                    .builder()
+                    .setMsg("附近的说法就是减肥路")
+                    .setPositiveButton("确定", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    }).show();
         } else if (i == R.id.btn_recharge_500) {
-            intent.putExtra("billMoney", 50000);
-            startActivity(intent);
-            startActivity(intent);
+//            intent.putExtra("billMoney", 50000);
+//            startActivity(intent);
+//            startActivity(intent);
+            new SingleDialog(RechargeActivity.this)
+                    .builder()
+                    .setMsg("附近的说法就是减肥路附近的说法就是减肥路附近的说法就是减肥路附近的说法就是减肥路附近的说法就是减肥路")
+                    .setPositiveButton("确定", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    }).show();
         } else if (i == R.id.btn_recharge_1000) {
             intent.putExtra("billMoney", 100000);
             startActivity(intent);

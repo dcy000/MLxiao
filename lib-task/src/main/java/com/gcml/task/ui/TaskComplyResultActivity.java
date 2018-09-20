@@ -46,6 +46,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
         mToolBar = findViewById(R.id.tb_task_result);
         mLayoutSport = findViewById(R.id.rl_task_result_sport);
         resultTitle = findViewById(R.id.tv_task_result_title);
+        resultTitle.setClickable(true);
 
         totalContent1 = findViewById(R.id.tv_total_content1);
         totalContent2 = findViewById(R.id.tv_total_content2);

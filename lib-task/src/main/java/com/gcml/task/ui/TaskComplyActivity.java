@@ -56,12 +56,12 @@ public class TaskComplyActivity extends AppCompatActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                "请跟小E来做个问卷吧，小E会根据您的问卷结果给您制定健康任务",
+                "请跟小忆来做个问卷吧，小忆会根据您的问卷结果给您制定健康任务",
                 new MLSynthesizerListener() {
                     @Override
                     public void onCompleted(SpeechError speechError) {
                         super.onCompleted(speechError);
-                        CC.obtainBuilder("app.component.task.comply.choice").build().callAsync();
+                        CC.obtainBuilder("app.component.task.comply.choice").addParam("isFirst", false).build().callAsync();
                     }
                 }, false);
     }

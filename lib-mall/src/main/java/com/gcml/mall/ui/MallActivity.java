@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.mall.adapter.MallGoodsAdapter;
@@ -71,7 +70,7 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
         menuRecycler.setAdapter(menuAdapter);
 
         getMallGoods(0);
-        goodsAdapter = new MallGoodsAdapter(R.layout.item_goods, goodsList);
+        goodsAdapter = new MallGoodsAdapter(R.layout.item_mall_goods, goodsList);
         goodsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
