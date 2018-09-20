@@ -74,6 +74,7 @@ public class HealthMeasureAbnormalActivity extends ToolbarBaseActivity implement
         Intent intent=new Intent();
         intent.putExtra(KEY_HAS_ABNIRMAL_REASULT,true);
         setResult(RESULT_OK,intent);
+        finish();
     }
 
     @Override
@@ -81,5 +82,6 @@ public class HealthMeasureAbnormalActivity extends ToolbarBaseActivity implement
         Intent intent=new Intent();
         intent.putExtra(KEY_HAS_ABNIRMAL_REASULT,false);
         setResult(RESULT_OK,intent);
+        finish();
     }
 }

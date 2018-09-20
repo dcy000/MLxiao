@@ -25,8 +25,10 @@ import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Frag
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -151,7 +153,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
                 .subscribeWith(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        Timber.e("单测返回来的数据："+o);
+                        Timber.e("单测返回来的数据：" + o);
                         List<DetectionResult> detectionResults = new Gson().fromJson(o.toString(), new TypeToken<List<DetectionResult>>() {
                         }.getType());
 
@@ -169,7 +171,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("上传数据失败:"+e.getMessage());
+                        ToastUtils.showShort("上传数据失败:" + e.getMessage());
                     }
 
                     @Override
@@ -178,34 +180,6 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
                     }
                 });
 
-//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-//            @Override
-//            public void onSuccess(String callbackString) {
-//                try {
-//                    ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(callbackString,
-//                            new TypeToken<ApiResponse<List<DetectionResult>>>() {
-//                            }.getType());
-//                    if (apiResponse.isSuccessful()) {
-//                        ToastUtils.showLong("上传数据成功");
-//                        DetectionResult result = apiResponse.getData().get(0);
-//                        if (isMeasureTask) {
-//                            if (!mActivity.isFinishing())
-//                            mActivity.finish();
-//                        } else {
-//                            ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
-//                                    result.getScore(), highPressure, lowPressure, result.getResult());
-//                        }
-//                    }
-//                } catch (Throwable e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onError() {
-//                ToastUtils.showShort("上传数据失败");
-//            }
-//        });
     }
 
     @Override
