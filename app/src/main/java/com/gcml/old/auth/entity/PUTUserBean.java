@@ -1,4 +1,4 @@
-package com.gcml.old.auth.profile.otherinfo.bean;
+package com.gcml.old.auth.entity;
 
 import java.io.Serializable;
 

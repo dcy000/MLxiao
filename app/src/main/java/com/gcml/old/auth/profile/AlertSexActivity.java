@@ -1,6 +1,5 @@
-package com.gcml.old.auth.profile.otherinfo;
+package com.gcml.old.auth.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -8,19 +7,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
-import com.gcml.common.data.UserEntity;
-import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
+import com.gcml.old.auth.entity.PUTUserBean;
 import com.gcml.old.auth.register.SelectAdapter;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -31,18 +24,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
-public class AlertAgeActivity extends AppCompatActivity implements View.OnClickListener {
+public class AlertSexActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TranslucentToolBar mTbAgeTitle;
+    private TranslucentToolBar mTbSex;
     /**
-     * 您的年龄
+     * 您的性别
      */
     private TextView mTvSignUpHeight;
     private RecyclerView mRvSignUpContent;
@@ -54,28 +45,60 @@ public class AlertAgeActivity extends AppCompatActivity implements View.OnClickL
      * 下一步
      */
     private TextView mTvSignUpGoForward;
+    private int currentPositon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alert_age);
+        setContentView(R.layout.activity_alert_sex);
         initView();
         initData();
         initRV();
     }
 
-    private int currentPositon;
+    private List<String> strings = new ArrayList<>();
+
+    private void initData() {
+        strings = Arrays.asList("男", "女");
+    }
+
+    private void initView() {
+        mTbSex = (TranslucentToolBar) findViewById(R.id.tb_sex_title);
+        mTvSignUpHeight = (TextView) findViewById(R.id.tv_sign_up_height);
+        mRvSignUpContent = (RecyclerView) findViewById(R.id.rv_sign_up_content);
+        mTvSignUpGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
+        mTvSignUpGoBack.setOnClickListener(this);
+        mTvSignUpGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
+        mTvSignUpGoForward.setOnClickListener(this);
+
+        mTvSignUpGoBack.setText("取消");
+        mTvSignUpGoForward.setText("确定");
+        mTbSex.setData("修改性别", R.drawable.common_icon_back, "返回",
+                R.drawable.common_icon_home, null, new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+                        finish();
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        CC.obtainBuilder("com.gcml.old.home")
+                                .build()
+                                .callAsync();
+                        finish();
+                    }
+                });
+
+
+    }
 
     private void initRV() {
         GalleryLayoutManager manager = new GalleryLayoutManager(1);
-        manager.attach(mRvSignUpContent, 20);
+        manager.attach(mRvSignUpContent, 1);
         manager.setCallbackInFling(true);
-        manager.setOnItemSelectedListener(new GalleryLayoutManager.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(RecyclerView recyclerView, View view, int positon) {
-                currentPositon = positon;
-                ToastUtils.showShort(strings.get(positon));
-            }
+        manager.setOnItemSelectedListener((recyclerView, view, positon) -> {
+            currentPositon = positon;
+            ToastUtils.showShort(strings.get(positon));
         });
 
         SelectAdapter adapter = new SelectAdapter();
@@ -88,40 +111,6 @@ public class AlertAgeActivity extends AppCompatActivity implements View.OnClickL
         });
 
         mRvSignUpContent.setAdapter(adapter);
-    }
-
-    List<String> strings = new ArrayList<>();
-
-    private void initData() {
-        for (int i = 10; i < 150; i++) {
-            strings.add(String.valueOf(i));
-        }
-    }
-
-    private void initView() {
-        mTbAgeTitle = (TranslucentToolBar) findViewById(R.id.tb_age_title);
-        mTvSignUpHeight = (TextView) findViewById(R.id.tv_sign_up_height);
-        mRvSignUpContent = (RecyclerView) findViewById(R.id.rv_sign_up_content);
-        mTvSignUpGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
-        mTvSignUpGoBack.setOnClickListener(this);
-        mTvSignUpGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
-        mTvSignUpGoForward.setOnClickListener(this);
-
-        mTvSignUpGoBack.setText("取消");
-        mTvSignUpGoForward.setText("确定");
-        mTbAgeTitle.setData("修改年龄", R.drawable.common_icon_back, "返回",
-                R.drawable.common_icon_home, null, new ToolBarClickListener() {
-                    @Override
-                    public void onLeftClick() {
-                        finish();
-                    }
-
-                    @Override
-                    public void onRightClick() {
-                        startActivity(new Intent(AlertAgeActivity.this, MainActivity.class));
-                        finish();
-                    }
-                });
     }
 
     @Override
@@ -139,11 +128,11 @@ public class AlertAgeActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void nextStep() {
-        String seletedAge = strings.get(currentPositon);
+        String seletedSex = strings.get(currentPositon);
 
         PUTUserBean bean = new PUTUserBean();
-        bean.bid = Integer.parseInt(UserSpHelper.getUserId());
-        bean.age = Integer.parseInt(seletedAge);
+        bean.bid = Integer.parseInt(LocalShared.getInstance(this).getUserId());
+        bean.sex = seletedSex;
 
         NetworkApi.putUserInfo(bean.bid, new Gson().toJson(bean), new StringCallback() {
             @Override
@@ -153,10 +142,20 @@ public class AlertAgeActivity extends AppCompatActivity implements View.OnClickL
                     JSONObject json = new JSONObject(body);
                     boolean tag = json.getBoolean("tag");
                     if (tag) {
-                        runOnUiThread(() -> speak("修改成功"));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                speak("修改成功");
+                            }
+                        });
                         finish();
                     } else {
-                        runOnUiThread(() -> speak("修改失败"));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                speak("修改失败");
+                            }
+                        });
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -165,7 +164,7 @@ public class AlertAgeActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
-//        UserEntity user = new UserEntity();
+        //        UserEntity user = new UserEntity();
 //        user.age = seletedAge;
 //        CCResult result = CC.obtainBuilder("com.gcml.auth.putUser")
 //                .addParam("user", user)
@@ -193,5 +192,4 @@ public class AlertAgeActivity extends AppCompatActivity implements View.OnClickL
     private void speak(String text) {
         MLVoiceSynthetize.startSynthesize(this, text, false);
     }
-
 }

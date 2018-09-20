@@ -1,24 +1,11 @@
 package com.gcml.old.auth.profile;
 
-import android.content.Intent;
-import android.text.TextUtils;
-import android.view.View;
-
 import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
-import com.gcml.common.widget.toolbar.TranslucentToolBar;
-import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
+import com.gcml.old.auth.entity.PUTUserBean;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
@@ -29,10 +16,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class AlertWeightActivity extends AlertHeightActivity {
 
@@ -51,7 +34,9 @@ public class AlertWeightActivity extends AlertHeightActivity {
 
                     @Override
                     public void onRightClick() {
-                        startActivity(new Intent(AlertWeightActivity.this, MainActivity.class));
+                        CC.obtainBuilder("com.gcml.old.home")
+                                .build()
+                                .callAsync();
                         finish();
                     }
                 });

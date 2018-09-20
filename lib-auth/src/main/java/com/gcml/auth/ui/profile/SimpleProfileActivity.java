@@ -176,9 +176,9 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>() {
+                .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
-                    public void onNext(Object o) {
+                    public void onNext(UserEntity user) {
                         ToastUtils.showShort("更新资料成功");
 //                        CC.obtainBuilder("com.gcml.old.home")
 //                                .build()

@@ -1,4 +1,4 @@
-package com.gcml.old.auth.profile;
+package com.gcml.old.auth.personal;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,7 +33,8 @@ import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.dialog.ChangeAccountDialog;
+import com.gcml.common.repository.imageloader.ImageLoader;
+import com.gcml.old.auth.ChangeAccountDialog;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -61,26 +63,6 @@ import com.umeng.analytics.MobclickAgent;
 
 public class PersonDetailFragment extends Fragment implements View.OnClickListener {
     public String userId;
-
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    mUser = (User) msg.obj;
-                    tvUserName.setText(mUser.getBname());
-                    break;
-                case 1:
-
-                    LocalShared.getInstance(getContext()).setXunfeiID(msg.obj + "");
-
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-
-
-    };
 
     User mUser;
 
@@ -213,60 +195,42 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
     private void getApiData() {
         final FragmentActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+
         if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
             ToastUtils.showShort("请重新登陆");
             MobclickAgent.onProfileSignOff();
             NimAccountHelper.getInstance().logout();//退出网易IM
-            if (activity != null) {
-                LocalShared.getInstance(activity).loginOut();
-                activity.finish();
-            }
-//                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
+            CC.obtainBuilder("com.gcml.auth")
+                    .build()
+                    .callAsync();
+            activity.finish();
             return;
         }
 
         NetworkApi.PersonInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
-
-                Message msg = mHandler.obtainMessage();
-                msg.what = 1;
-                msg.obj = response.getXfid();
-                mHandler.sendMessage(msg);
-
-                SharedPreferences.Editor editor = sharedPreferences1.edit();
-                editor.putString("userName", response.getBname());
-                editor.commit();
-                MyApplication.getInstance().userName = response.getBname();
+                UserSpHelper.setFaceId(response.xfid);
                 tvUserName.setText(response.getBname());
-                //    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount())+"元");
-                Picasso.with(activity)
+                ImageLoader.with(activity)
                         .load(response.getuser_photo())
                         .placeholder(R.drawable.avatar_placeholder)
                         .error(R.drawable.avatar_placeholder)
-                        .tag(this)
-                        .fit()
                         .into(headImg);
-
-
                 if ("1".equals(response.getState())) {
                     isSignDoctor.setText("已签约");
                 } else if ("0".equals(response.getState()) && (TextUtils.isEmpty(response.getDoctername()))) {
-
                     isSignDoctor.setText("未签约");
-
                 } else {
                     isSignDoctor.setText("待审核");
-
                 }
-
-
             }
-
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-
 
             }
         });
@@ -274,21 +238,14 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
             @Override
             public void onSuccess(final RobotAmount response) {
-
-
                 if (response.getAmount() != null) {
-
                     tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
-
                 }
-
-
             }
 
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-
 
             }
         });
@@ -305,17 +262,10 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 editor.putString("service_amount", response.getService_amount());
                 editor.putString("docter_photo", response.getDocter_photo());
                 editor.commit();
-
-
                 if (!"".equals(response.getDoctername())) {
-
                     signDoctorName.setText(response.getDoctername());
-
                 }
-
-
             }
-
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {

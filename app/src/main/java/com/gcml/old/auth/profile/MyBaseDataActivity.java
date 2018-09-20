@@ -19,19 +19,11 @@ import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
-import com.gcml.lib_utils.data.StringUtil;
+import com.gcml.common.repository.imageloader.ImageLoader;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.ui.UiUtils;
 import com.gcml.old.auth.entity.HealthInfo;
 import com.gcml.old.auth.entity.UserInfoBean;
-import com.gcml.old.auth.profile.otherinfo.AlertAgeActivity;
-import com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity;
-import com.gcml.old.auth.profile.otherinfo.AlertIDCardActivity;
-import com.gcml.old.auth.profile.otherinfo.AlertNameActivity;
-import com.gcml.old.auth.profile.otherinfo.AlertSexActivity;
-import com.gcml.old.auth.profile.otherinfo.dialog.SMSVerificationDialog;
 import com.medlink.danbogh.utils.Utils;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by gzq on 2017/11/24.
@@ -127,18 +119,16 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
             public void onSuccess(UserInfoBean response) {
                 Log.e(TAG, response.toString());
                 MyBaseDataActivity.this.response = response;
-                Picasso.with(MyBaseDataActivity.this)
+                ImageLoader.with(MyBaseDataActivity.this)
                         .load(response.userPhoto)
                         .placeholder(R.drawable.avatar_placeholder)
                         .error(R.drawable.avatar_placeholder)
-                        .tag(this)
-                        .fit()
                         .into(mHead);
                 mName.setText(TextUtils.isEmpty(response.bname) ? "暂未填写" : response.bname);
                 idCardCode = response.sfz;
                 phone = response.tel;
                 if (TextUtils.isEmpty(response.sfz)
-                        && response.sfz.length() != 18) {
+                        || response.sfz.length() != 18) {
                     mAge.setText(TextUtils.isEmpty(response.age) ? "暂未填写" : response.age + "岁");
                 } else {
                     mAge.setText(Utils.age(response.sfz) + "岁");

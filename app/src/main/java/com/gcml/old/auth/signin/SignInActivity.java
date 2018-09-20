@@ -32,7 +32,7 @@ import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.settting.activity.FactoryTestActivity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.old.auth.profile.AgreementActivity;
+import com.gcml.old.auth.register.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.cc.CCFaceRecognitionActions;
@@ -48,7 +48,6 @@ import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
-import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.Utils;
 
 import org.json.JSONException;

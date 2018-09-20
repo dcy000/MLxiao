@@ -1,6 +1,5 @@
 package com.gcml.old.auth.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -17,21 +16,16 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
-import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.old.auth.entity.City;
 import com.gcml.old.auth.entity.Province;
 import com.gcml.old.auth.entity.UserInfoBean;
-import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
+import com.gcml.old.auth.entity.PUTUserBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -47,10 +41,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class AlertAddressActivity extends AppCompatActivity {
 
@@ -93,7 +83,8 @@ public class AlertAddressActivity extends AppCompatActivity {
 
                     @Override
                     public void onRightClick() {
-                        startActivity(new Intent(AlertAddressActivity.this, MainActivity.class));
+                        CC.obtainBuilder("com.gcml.old.home")
+                                .build().callAsync();
                         finish();
                     }
                 });
