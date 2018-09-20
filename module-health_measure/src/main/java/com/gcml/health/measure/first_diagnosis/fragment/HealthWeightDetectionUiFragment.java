@@ -89,7 +89,6 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
         weightData.setWeight(weight);
         datas.add(weightData);
 
-
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

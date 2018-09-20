@@ -125,7 +125,7 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("基 础 信 息 列 表");
+        mTitleText.setText("健 康 调 查");
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(PrimaryHypertensionActivity.this, WifiConnectActivity.class)));
@@ -185,22 +185,25 @@ public class PrimaryHypertensionActivity extends BaseActivity implements Multipl
                     JSONObject object = new JSONObject(body);
                     if (object.getBoolean("tag")) {
 //                        startActivity(new Intent(PrimaryHypertensionActivity.this, BloodPressureMeasureActivity.class));
-                        CC.obtainBuilder("health_measure")
-                                .setActionName("To_BloodpressureManagerActivity")
-                                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                            @Override
-                            public void onResult(CC cc, CCResult result) {
-                                AppManager.getAppManager().finishAllActivity();
-                                CC.obtainBuilder("health_measure")
-                                        .setActionName("To_WeightManagerActivity")
-                                        .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                                    @Override
-                                    public void onResult(CC cc, CCResult result) {
-                                        startActivity(new Intent(PrimaryHypertensionActivity.this, TreatmentPlanActivity.class));
-                                    }
-                                });
-                            }
-                        });
+//                        CC.obtainBuilder("health_measure")
+//                                .setActionName("To_BloodpressureManagerActivity")
+//                                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                            @Override
+//                            public void onResult(CC cc, CCResult result) {
+////                                AppManager.getAppManager().finishAllActivity();
+//                                CC.obtainBuilder("health_measure")
+//                                        .setActionName("To_WeightManagerActivity")
+//                                        .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                                    @Override
+//                                    public void onResult(CC cc, CCResult result) {
+//                                        startActivity(new Intent(PrimaryHypertensionActivity.this, TreatmentPlanActivity.class));
+//                                    }
+//                                });
+//                            }
+//                        });
+                        startActivity(new Intent(PrimaryHypertensionActivity.this, DetecteTipActivity.class)
+                                .putExtra("fromWhere","0"));
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

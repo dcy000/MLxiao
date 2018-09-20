@@ -1991,7 +1991,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         for (int i = 0; i < yule.size(); i++) {
             if (yuyin.contains(yule.get(i).pinyin)) {
                 //老人娱乐
-                OldRouter.routeToOldHomeActivity(this);
+//                OldRouter.routeToOldHomeActivity(this);
+                startActivity(TheOldHomeActivity.class);
                 return true;
             }
         }

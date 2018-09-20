@@ -127,7 +127,7 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("基 础 信 息 列 表");
+        mTitleText.setText("健 康 调 查");
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(NormalHightActivity.this, WifiConnectActivity.class)));
@@ -274,14 +274,16 @@ public class NormalHightActivity extends BaseActivity implements MultipleChoiceF
                             }
                         }
 //            startActivity(new Intent(NormalHightActivity.this, WeightMeasureActivity.class));
-                        CC.obtainBuilder("health_measure")
-                                .setActionName("To_WeightManagerActivity")
-                                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                            @Override
-                            public void onResult(CC cc, CCResult result) {
-                                startActivity(new Intent(NormalHightActivity.this, TreatmentPlanActivity.class));
-                            }
-                        });
+//                        CC.obtainBuilder("health_measure")
+//                                .setActionName("To_WeightManagerActivity")
+//                                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                            @Override
+//                            public void onResult(CC cc, CCResult result) {
+//                                startActivity(new Intent(NormalHightActivity.this, TreatmentPlanActivity.class));
+//                            }
+//                        });
+                        startActivity(new Intent(NormalHightActivity.this, DetecteTipActivity.class)
+                                .putExtra("fromWhere", "3"));
                     }
                 }).show();
     }
