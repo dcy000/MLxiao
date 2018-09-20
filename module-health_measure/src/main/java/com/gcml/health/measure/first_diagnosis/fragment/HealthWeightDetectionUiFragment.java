@@ -88,21 +88,48 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
         weightData.setDetectionType("3");
         weightData.setWeight(weight);
         datas.add(weightData);
-        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-            @Override
-            public void onSuccess(String callbackString) {
-                if (fragmentChanged != null && !isJump2Next) {
-                    isJump2Next = true;
-                    fragmentChanged.onFragmentChanged(
-                            HealthWeightDetectionUiFragment.this, null);
-                }
-            }
 
-            @Override
-            public void onError() {
-                ToastUtils.showLong("数据上传失败");
-            }
-        });
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+//                        ((FirstDiagnosisActivity) mActivity).putCacheData(weightData);
+                        if (fragmentChanged != null && !isJump2Next) {
+                            isJump2Next = true;
+                            fragmentChanged.onFragmentChanged(
+                                    HealthWeightDetectionUiFragment.this, null);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showLong("数据上传失败:"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//            @Override
+//            public void onSuccess(String callbackString) {
+//                ((FirstDiagnosisActivity) mActivity).putCacheData(weightData);
+//                if (fragmentChanged != null && !isJump2Next) {
+//                    isJump2Next = true;
+//                    fragmentChanged.onFragmentChanged(
+//                            HealthWeightDetectionUiFragment.this, null);
+//                }
+//            }
+//
+//            @Override
+//            public void onError() {
+//                ToastUtils.showLong("数据上传失败");
+//            }
+//        });
     }
 
     @Override
