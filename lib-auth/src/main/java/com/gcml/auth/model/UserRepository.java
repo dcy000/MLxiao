@@ -9,6 +9,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.IRepositoryHelper;
 import com.gcml.common.repository.RepositoryApp;
+import com.gcml.common.user.UserToken;
 import com.gcml.common.utils.RxUtils;
 
 import io.reactivex.Observable;
@@ -32,13 +33,6 @@ public class UserRepository {
     public Observable<UserEntity> signUp(String deviceId, String account, String pwd) {
         return mUserService.signUp(deviceId, account, pwd)
                 .compose(RxUtils.apiResultTransformer())
-                .doOnNext(new Consumer<UserEntity>() {
-                    @SuppressLint("ApplySharedPref")
-                    @Override
-                    public void accept(UserEntity user) throws Exception {
-                        mUserDao.addAll(user);
-                    }
-                })
                 .flatMap(new Function<UserEntity, ObservableSource<UserEntity>>() {
                     @Override
                     public ObservableSource<UserEntity> apply(UserEntity user) throws Exception {
@@ -54,14 +48,26 @@ public class UserRepository {
             String pwd) {
         return mUserService.signIn(deviceId, userName, pwd)
                 .compose(RxUtils.apiResultTransformer())
-                .doOnNext(new Consumer<UserEntity>() {
-                    @SuppressLint("ApplySharedPref")
+                .doOnNext(new Consumer<UserToken>() {
                     @Override
-                    public void accept(UserEntity user) throws Exception {
-                        mUserDao.addAll(user);
-                        UserSpHelper.setUserId(user.id);
-                        UserSpHelper.setFaceId(user.xfid);
-                        UserSpHelper.addAccount(user.id, user.xfid);
+                    public void accept(UserToken userToken) throws Exception {
+                        UserSpHelper.setUserId(userToken.getUserId());
+                        UserSpHelper.setToken(userToken.getToken());
+                        UserSpHelper.setRefreshToken(userToken.getRefreshToken());
+                    }
+                })
+                .flatMap(new Function<UserToken, ObservableSource<UserEntity>>() {
+                    @Override
+                    public ObservableSource<UserEntity> apply(UserToken userToken) throws Exception {
+                        return mUserService.getProfile(userToken.getUserId())
+                                .compose(RxUtils.apiResultTransformer())
+                                .subscribeOn(Schedulers.io());
+                    }
+                }).doOnNext(new Consumer<UserEntity>() {
+                    @Override
+                    public void accept(UserEntity userEntity) throws Exception {
+                        UserSpHelper.setFaceId(userEntity.xfid);
+                        mUserDao.addAll(userEntity);
                     }
                 });
     }
