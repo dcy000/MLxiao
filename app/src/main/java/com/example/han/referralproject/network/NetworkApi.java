@@ -1322,6 +1322,16 @@ public class NetworkApi {
 
 
     /**
+     * 获取诊断信息-->重新生成方案
+     */
+    public static void getDiagnoseInfoNew(String userId, StringCallback callback) {
+        OkGo.<String>get(GET_DIAGNOSE_INFO + userId + "/new/")
+                .params("userId", userId)
+                .execute(callback);
+    }
+
+
+    /**
      * 老年人中医药健康管理服务记录表
      */
 

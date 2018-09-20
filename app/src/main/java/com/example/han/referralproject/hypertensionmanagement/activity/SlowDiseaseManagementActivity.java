@@ -10,14 +10,14 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
-import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.recommend.RecommendActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.AppManager;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -99,7 +99,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 onclickHypertensionManage();
                 break;
             case R.id.iv_blood_sugar_manage:
-                ToastUtils.showShort("敬请期待");
+//                ToastUtils.showShort("敬请期待");
+                startActivity(new Intent(this, RecommendActivity.class));
                 break;
         }
     }
@@ -108,7 +109,27 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      * 点击高血压管理 按钮
      */
     private void onclickHypertensionManage() {
+        if (diagnoseInfo != null) {
+            if (!(diagnoseInfo.risk == null
+                    && diagnoseInfo.primary == null
+                    && diagnoseInfo.lowPressure == null
+                    && diagnoseInfo.hypertensionLevel == null
+                    && diagnoseInfo.hypertensionPrimaryState == null
+                    && diagnoseInfo.heart == null
+                    && diagnoseInfo.hypertensionTarget == null
+                    && diagnoseInfo.result != null
+            )) {
+                ContinueOrNotDialog();
+            }
+        }
 
+//        clickWithoutJudge();
+    }
+
+    /**
+     * 不加是否继续重做的逻辑
+     */
+    private void clickWithoutContinueJudge() {
         if (diagnoseInfo != null) {
             if (diagnoseInfo.result == null) {
                 if (diagnoseInfo.hypertensionPrimaryState == null) {
@@ -121,15 +142,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                     showOriginHypertensionDialog();
                 }
             } else {
-//                DialogSure sure = new DialogSure(this);
-//                sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
-//                sure.setSure("健康方案");
-//                sure.show();
-//                sure.setOnClickSureListener(dialog1 -> {
-//                    dialog1.dismiss();
-//                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
-//                });
-
                 new SingleDialog(this)
                         .builder()
                         .setMsg("您在7天内已生成过健康方案，点击健康方案可直接查看。")
@@ -144,8 +156,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         } else {
             ToastUtils.showShort("网络繁忙");
         }
-
-
     }
 
     /**
@@ -228,7 +238,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 //            });
 
             startActivity(new Intent(this, DetecteTipActivity.class)
-                    .putExtra("fromWhere","3"));
+                    .putExtra("fromWhere", "3"));
         }
 
     }
@@ -247,10 +257,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             }
 
         }
-    }
-
-    private void end() {
-        // TODO: 2018/7/28
     }
 
     /**
@@ -288,20 +294,15 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         startActivity(new Intent(this, TreatmentPlanActivity.class));
     }
 
-    private void getDatimeInfo() {
+    private void getDiagnoseInfoNew() {
         showLoadingDialog("");
-        NetworkApi.getDiagnoseInfo(LocalShared.getInstance(this).getUserId(), new StringCallback() {
+        NetworkApi.getDiagnoseInfoNew(LocalShared.getInstance(this).getUserId(), new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
                         if (bean != null && bean.tag && bean.data != null) {
-
-                            if (bean.data.detectionDayCount >= 3) {
-                                String hypertensionLevel = bean.data.hypertensionLevel;
-                                jumpPages(hypertensionLevel);
-                            } else {
-                                showLessThan3Dialog("0");
-                            }
+                            diagnoseInfo = bean.data;
+                            clickWithoutContinueJudge();
                         }
                     }
 
@@ -329,6 +330,24 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         dialog.setListener(this);
         dialog.show(getFragmentManager(), "yuanfa");
         mlSpeak("主人，您是否已确诊高血压且在治疗？");
+    }
+
+    // TODO: 2018/9/19
+    private void ContinueOrNotDialog() {
+        TwoChoiceDialog dialog = new TwoChoiceDialog("是否继续？", "是", "否");
+        dialog.setListener(new TwoChoiceDialog.OnDialogClickListener() {
+            @Override
+            public void onClickConfirm(String content) {
+                getDiagnoseInfoNew();
+            }
+
+            @Override
+            public void onClickCancel() {
+                clickWithoutContinueJudge();
+            }
+        });
+        dialog.show(getFragmentManager(), "yuanfa");
+        mlSpeak("是否继续？");
     }
 
     @Override
