@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_content"
+    android:id="@+id/lLayout_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_alert_dialog"
@@ -11,18 +11,28 @@
         android:layout_height="0dp"
         android:layout_weight="4"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/txt_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginTop="20dp"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/config_color_black"
-            android:textSize="36sp"/>
+            android:gravity="center_horizontal"
+            android:textColor="@color/config_color_primary"
+            android:textSize="36sp"
+            android:text=""/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"/>
 
     </LinearLayout>
 
@@ -39,13 +49,29 @@
         android:orientation="horizontal" >
 
         <Button
+            android:id="@+id/btn_neg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/alert_left_selector"
+            android:gravity="center"
+            android:textColor="@color/config_color_alert_btn"
+            android:textSize="34sp" />
+
+        <ImageView
+            android:id="@+id/img_line"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/config_color_alert_line" />
+
+        <Button
             android:id="@+id/btn_pos"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/alert_right_selector"
             android:gravity="center"
-            android:textColor="@color/config_color_primary"
+            android:textColor="@color/config_color_base_9"
             android:textSize="34sp" />
 
     </LinearLayout>

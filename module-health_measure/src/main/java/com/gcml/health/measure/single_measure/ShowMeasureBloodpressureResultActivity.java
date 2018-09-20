@@ -152,6 +152,17 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
                 .putExtra("suggest", suggest));
     }
 
+    public static void startActivity(Context context, String state, int score, int currentHigh,
+                                     int currentLow, String suggest, boolean isTask) {
+        context.startActivity(new Intent(context, ShowMeasureBloodpressureResultActivity.class)
+                .putExtra("health_state", state)
+                .putExtra("health_score", score)
+                .putExtra("high_bloodpressure", currentHigh)
+                .putExtra("low_bloodpressure", currentLow)
+                .putExtra("suggest", suggest)
+                .putExtra("isTask", isTask));
+    }
+
     @Override
     protected void backMainActivity() {
         CCAppActions.jump2MainActivity();
@@ -310,6 +321,11 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
         mTvSomethingAdvice = findViewById(R.id.tv_something_advice);
         mTvSomethingAdvice.setOnClickListener(this);
         mHealthKnowledge = findViewById(R.id.health_knowledge);
+        if (getIntent().getBooleanExtra("isTask", false)) {
+            mHealthKnowledge.setText("返回任务");
+        } else {
+            mHealthKnowledge.setText("健康方案");
+        }
         mHealthKnowledge.setOnClickListener(this);
         mLlRight = findViewById(R.id.ll_right);
         healthState = getIntent().getStringExtra("health_state");
@@ -337,10 +353,14 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
         int i = v.getId();
         if (i == R.id.tv_something_advice) {
             CCAppActions.jump2NormalHightActivity("NewMeasureBloodpressureResultActivity");
-
         } else if (i == R.id.health_knowledge) {
-            onclickHypertensionManage();
+            if (getIntent().getBooleanExtra("isTask", false)) {
+                finish();
+            } else {
+                onclickHypertensionManage();
+            }
         } else {
+
         }
     }
 
@@ -378,7 +398,6 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
      * 点击高血压管理 按钮
      */
     private void onclickHypertensionManage() {
-
         if (diagnoseInfo != null) {
             if (!(diagnoseInfo.risk == null
                     && diagnoseInfo.primary == null
@@ -460,7 +479,6 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
                             }
                         }).show();
             }
-
         } else {
             ToastUtils.showShort("网络繁忙");
         }

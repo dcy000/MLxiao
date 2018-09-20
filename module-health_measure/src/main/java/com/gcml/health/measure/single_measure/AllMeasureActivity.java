@@ -361,11 +361,6 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     @Override
     protected void backMainActivity() {
         if (isMeasure) {
-            //在血糖选择测量时间的界面 点击右上角的图表直接回到主界面
-            if (isShowBloodsugarSelectTime) {
-                CCAppActions.jump2MainActivity();
-                return;
-            }
             showRefreshBluetoothDialog();
         } else {
             if (DataUtils.isNullString(pdfUrl)) {

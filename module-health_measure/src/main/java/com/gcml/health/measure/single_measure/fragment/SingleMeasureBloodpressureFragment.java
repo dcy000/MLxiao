@@ -160,9 +160,9 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
                         ToastUtils.showLong("上传数据成功");
                         DetectionResult result = detectionResults.get(0);
                         if (isMeasureTask) {
-                            if (!mActivity.isFinishing()) {
-                                mActivity.finish();
-                            }
+                            ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
+                                    result.getScore(), highPressure, lowPressure, result.getResult(), true);
+                            mActivity.finish();
                         } else {
                             ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
                                     result.getScore(), highPressure, lowPressure, result.getResult());
