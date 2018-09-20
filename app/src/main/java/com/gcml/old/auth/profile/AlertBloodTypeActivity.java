@@ -1,20 +1,19 @@
-package com.gcml.old.auth.profile.otherinfo;
+package com.gcml.old.auth.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
+import com.gcml.old.auth.entity.PUTUserBean;
 import com.gcml.old.auth.register.SelectAdapter;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -107,7 +106,8 @@ public class AlertBloodTypeActivity extends AppCompatActivity implements View.On
 
                     @Override
                     public void onRightClick() {
-                        startActivity(new Intent(AlertBloodTypeActivity.this, MainActivity.class));
+                        CC.obtainBuilder("com.gcml.old.home")
+                                .build().callAsync();
                         finish();
                     }
                 });

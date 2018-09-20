@@ -1,44 +1,42 @@
-package com.gcml.old.auth.profile.otherinfo;
+package com.gcml.old.auth.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.homepage.MainActivity;
+
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.old.auth.entity.UserInfoBean;
-import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
+import com.gcml.old.auth.entity.PUTUserBean;
+import com.gcml.old.auth.register.SelectAdapter;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.medlink.danbogh.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AlertIDCardActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
+import java.util.List;
 
-    private TranslucentToolBar mTbIdcardTitle;
+import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
+
+public class AlertAgeActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private TranslucentToolBar mTbAgeTitle;
     /**
-     * 您的身份证号码
+     * 您的年龄
      */
-    private TextView mTvSignUpIdCard;
-    /**
-     * 请输入身份证号码
-     */
-    private EditText mEtIdCard;
+    private TextView mTvSignUpHeight;
+    private RecyclerView mRvSignUpContent;
     /**
      * 上一步
      */
@@ -47,28 +45,62 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
      * 下一步
      */
     private TextView mTvSignUpGoForward;
-    private ConstraintLayout mClSignUpRootIdCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alert_idcard);
+        setContentView(R.layout.activity_alert_age);
         initView();
+        initData();
+        initRV();
+    }
+
+    private int currentPositon;
+
+    private void initRV() {
+        GalleryLayoutManager manager = new GalleryLayoutManager(1);
+        manager.attach(mRvSignUpContent, 20);
+        manager.setCallbackInFling(true);
+        manager.setOnItemSelectedListener(new GalleryLayoutManager.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(RecyclerView recyclerView, View view, int positon) {
+                currentPositon = positon;
+                ToastUtils.showShort(strings.get(positon));
+            }
+        });
+
+        SelectAdapter adapter = new SelectAdapter();
+        adapter.setStrings(strings);
+        adapter.setOnItemClickListener(new SelectAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                mRvSignUpContent.smoothScrollToPosition(position);
+            }
+        });
+
+        mRvSignUpContent.setAdapter(adapter);
+    }
+
+    List<String> strings = new ArrayList<>();
+
+    private void initData() {
+        for (int i = 10; i < 150; i++) {
+            strings.add(String.valueOf(i));
+        }
     }
 
     private void initView() {
-        mTbIdcardTitle = (TranslucentToolBar) findViewById(R.id.tb_idcard_title);
-        mTvSignUpIdCard = (TextView) findViewById(R.id.tv_sign_up_id_card);
-        mEtIdCard = (EditText) findViewById(R.id.et_id_card);
+        mTbAgeTitle = (TranslucentToolBar) findViewById(R.id.tb_age_title);
+        mTvSignUpHeight = (TextView) findViewById(R.id.tv_sign_up_height);
+        mRvSignUpContent = (RecyclerView) findViewById(R.id.rv_sign_up_content);
         mTvSignUpGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
         mTvSignUpGoBack.setOnClickListener(this);
         mTvSignUpGoForward = (TextView) findViewById(R.id.tv_sign_up_go_forward);
         mTvSignUpGoForward.setOnClickListener(this);
-        mClSignUpRootIdCard = (ConstraintLayout) findViewById(R.id.cl_sign_up_root_id_card);
 
         mTvSignUpGoBack.setText("取消");
         mTvSignUpGoForward.setText("确定");
-        mTbIdcardTitle.setData("修改身份证号", R.drawable.common_icon_back, "返回",
+        mTbAgeTitle.setData("修改年龄", R.drawable.common_icon_back, "返回",
                 R.drawable.common_icon_home, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
@@ -77,11 +109,11 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void onRightClick() {
-                        startActivity(new Intent(AlertIDCardActivity.this, MainActivity.class));
+                        CC.obtainBuilder("com.gcml.old.home")
+                                .build().callAsync();
                         finish();
                     }
                 });
-
     }
 
     @Override
@@ -99,28 +131,11 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void nextStep() {
-        String idCard = mEtIdCard.getText().toString();
-        if (TextUtils.isEmpty(idCard)) {
-            speak("请输入身份证号码");
-            return;
-        }
-        if (!Utils.checkIdCard1(idCard)) {
-            speak("主人,请输入正确的身份证号码");
-            return;
-        }
-        neworkCheckIdCard(idCard);
-    }
+        String seletedAge = strings.get(currentPositon);
 
-    private void neworkCheckIdCard(final String idCardNumber) {
-        NetworkApi.isRegisteredByIdCard(idCardNumber,
-                response -> ToastUtils.showShort("您输入的身份证号码已注册"),
-                message -> putUserInfo(idCardNumber));
-    }
-
-    private void putUserInfo(String idCard) {
         PUTUserBean bean = new PUTUserBean();
-        bean.bid = Integer.parseInt(LocalShared.getInstance(this).getUserId());
-        bean.sfz = idCard;
+        bean.bid = Integer.parseInt(UserSpHelper.getUserId());
+        bean.age = Integer.parseInt(seletedAge);
 
         NetworkApi.putUserInfo(bean.bid, new Gson().toJson(bean), new StringCallback() {
             @Override
@@ -130,20 +145,10 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
                     JSONObject json = new JSONObject(body);
                     boolean tag = json.getBoolean("tag");
                     if (tag) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                speak("修改成功");
-                            }
-                        });
+                        runOnUiThread(() -> speak("修改成功"));
                         finish();
                     } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                speak("修改失败");
-                            }
-                        });
+                        runOnUiThread(() -> speak("修改失败"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -152,7 +157,7 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
-        //        UserEntity user = new UserEntity();
+//        UserEntity user = new UserEntity();
 //        user.age = seletedAge;
 //        CCResult result = CC.obtainBuilder("com.gcml.auth.putUser")
 //                .addParam("user", user)

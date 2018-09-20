@@ -1,4 +1,4 @@
-package com.gcml.old.auth.profile;
+package com.gcml.old.auth.personal;
 
 import android.content.Intent;
 import android.os.Bundle;

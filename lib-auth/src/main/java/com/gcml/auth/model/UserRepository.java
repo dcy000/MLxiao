@@ -1,6 +1,5 @@
 package com.gcml.auth.model;
 
-import android.annotation.SuppressLint;
 import android.arch.persistence.room.EmptyResultSetException;
 import android.content.Context;
 import android.text.TextUtils;
@@ -129,7 +128,7 @@ public class UserRepository {
                 .compose(RxUtils.apiResultTransformer());
     }
 
-    public Observable<Object> putProfile(UserEntity user) {
+    public Observable<UserEntity> putProfile(UserEntity user) {
         String userId = UserSpHelper.getUserId();
 
         if (TextUtils.isEmpty(userId)) {
@@ -137,7 +136,20 @@ public class UserRepository {
         }
         user.id = userId;
         return mUserService.putProfile(userId, user)
-                .compose(RxUtils.apiResultTransformer());
+                .compose(RxUtils.apiResultTransformer())
+                .flatMap(new Function<Object, ObservableSource<UserEntity>>() {
+                    @Override
+                    public ObservableSource<UserEntity> apply(Object o) throws Exception {
+                        return mUserService.getProfile(userId)
+                                .compose(RxUtils.apiResultTransformer())
+                                .subscribeOn(Schedulers.io());
+                    }
+                }).doOnNext(new Consumer<UserEntity>() {
+                    @Override
+                    public void accept(UserEntity userEntity) throws Exception {
+                        mUserDao.addAll(userEntity);
+                    }
+                });
     }
 
     public Observable<Object> hasIdCard(String idCard) {

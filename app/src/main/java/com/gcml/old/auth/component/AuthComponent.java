@@ -7,7 +7,7 @@ import android.content.Intent;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
-import com.gcml.old.auth.profile.AgreementActivity;
+import com.gcml.old.auth.register.AgreementActivity;
 import com.gcml.old.auth.register.simple.SignUp01NameActivity;
 import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
 import com.gcml.old.auth.signin.FindPasswordActivity;

@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.constant.ConstantData;
@@ -17,7 +16,7 @@ import com.example.han.referralproject.hypertensionmanagement.activity.SlowDisea
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.old.auth.profile.PersonDetailActivity;
+import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;

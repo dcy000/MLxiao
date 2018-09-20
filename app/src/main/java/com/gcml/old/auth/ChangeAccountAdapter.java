@@ -1,4 +1,4 @@
-package com.example.han.referralproject.adapter;
+package com.gcml.old.auth;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +18,6 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimAccountHelper;
-import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

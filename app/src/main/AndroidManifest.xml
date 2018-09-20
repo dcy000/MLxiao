@@ -153,7 +153,7 @@
             android:name=".activity.WifiConnectActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.gcml.old.auth.profile.AgreementActivity"
+            android:name="com.gcml.old.auth.register.AgreementActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.PreviousHistoryActivity"
@@ -473,7 +473,7 @@
             android:name="com.gcml.old.auth.profile.AlertAddressActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.gcml.old.auth.profile.PersonDetailActivity"
+            android:name="com.gcml.old.auth.personal.PersonDetailActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SelectXuetangTimeActivity"
@@ -712,11 +712,11 @@
         <activity android:name=".tcm.activity.HealthManagementResultActivity" />
         <activity android:name=".tcm.activity.OlderHealthManagementSerciveActivity" />
         <activity android:name=".tcm.SymptomCheckActivity" />
-        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertNameActivity" />
-        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertAgeActivity" />
-        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertIDCardActivity" />
-        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertSexActivity" />
-        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity"></activity>
+        <activity android:name="com.gcml.old.auth.profile.AlertNameActivity" />
+        <activity android:name="com.gcml.old.auth.profile.AlertAgeActivity" />
+        <activity android:name="com.gcml.old.auth.profile.AlertIDCardActivity" />
+        <activity android:name="com.gcml.old.auth.profile.AlertSexActivity" />
+        <activity android:name="com.gcml.old.auth.profile.AlertBloodTypeActivity"></activity>
         <activity android:name=".settting.activity.CameraActivity" />
     </application>
 

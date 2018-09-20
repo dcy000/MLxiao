@@ -1,6 +1,5 @@
 package com.gcml.old.auth.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,19 +9,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
-import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.old.auth.entity.UserInfoBean;
-import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
+import com.gcml.old.auth.entity.PUTUserBean;
 import com.gcml.old.auth.register.EatAdapter;
 import com.gcml.old.auth.register.EatModel;
 import com.google.gson.Gson;
@@ -35,10 +29,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class AlertDrinkingActivity extends AppCompatActivity {
 
@@ -76,7 +66,9 @@ public class AlertDrinkingActivity extends AppCompatActivity {
 
                     @Override
                     public void onRightClick() {
-                        startActivity(new Intent(AlertDrinkingActivity.this, MainActivity.class));
+                        CC.obtainBuilder("com.gcml.old.home")
+                                .build()
+                                .callAsync();
                         finish();
                     }
                 });
@@ -320,11 +312,6 @@ public class AlertDrinkingActivity extends AppCompatActivity {
 //                    }
 //                });
     }
-
-//    @Override
-//    protected void onActivitySpeakFinish() {
-//        finish();
-//    }
 
     private void speak(String text) {
         MLVoiceSynthetize.startSynthesize(getApplicationContext(), text);
