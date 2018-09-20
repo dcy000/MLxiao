@@ -276,11 +276,22 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                                         if (result.isSuccess()) {
                                             CC.obtainBuilder("com.gcml.auth.updateSimpleProfile")
                                                     .build()
-                                                    .callAsync();
-//                                            CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-//                                                    .addParam("userId", UserSpHelper.getUserId())
-//                                                    .build()
-//                                                    .callAsync();
+                                                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                                        @Override
+                                                        public void onResult(CC cc, CCResult result) {
+                                                            if (result.isSuccess()) {
+                                                                ToastUtils.showShort(result.getErrorMessage());
+                                                                CC.obtainBuilder("health_measure")
+                                                                        .build()
+                                                                        .callAsync();
+                                                                CC.obtainBuilder("health_measure")
+                                                                        .setActionName("To_HealthInquiryActivity")
+                                                                        .build()
+                                                                        .call();
+                                                            }
+                                                        }
+                                                    });
+
                                         }
                                     }
                                 });

@@ -20,11 +20,7 @@ import com.example.han.referralproject.settting.dialog.UpDateDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
-import com.gcml.common.update.ICheckAgent;
-import com.gcml.common.update.IUpdateChecker;
-import com.gcml.common.update.IUpdateParser;
-import com.gcml.common.update.UpdateInfo;
-import com.gcml.common.update.UpdateManager;
+
 import com.gcml.common.utils.VersionHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
