@@ -9,6 +9,7 @@
 1. 讯飞登录 login/xunfei
 2. 身份证登录 login/user_sfz_login
 3. 账号密码登录 login/applogin
+4. 通过 refreshToken 获取新 token login/refresh/
 
 #### 注册
 1. 普通注册 br/appadd

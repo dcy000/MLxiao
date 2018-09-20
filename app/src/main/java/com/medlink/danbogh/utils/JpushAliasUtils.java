@@ -24,7 +24,7 @@ public class JpushAliasUtils {
     // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以。
     public void setAlias(String userId) {
         if (TextUtils.isEmpty(userId)) {
-            Log.e(TAG, "setAlias:设置别名不能为空");
+            Timber.tag(TAG).e("setAlias:设置别名不能为空");
             return;
         }
         if (JPushInterface.isPushStopped(context)) {
@@ -64,7 +64,7 @@ public class JpushAliasUtils {
             super.handleMessage(msg);
             switch (msg.what) {
                 case MSG_SET_ALIAS:
-                    Log.d(TAG, "Set alias in handler.");
+                    Timber.tag(TAG).d("Set alias in handler.");
 //                    JPushInterface.setAlias(context.getApplicationContext(),2000,(String) msg.obj);
                     // 调用 JPush 接口来设置别名。
                     JPushInterface.setAliasAndTags(context.getApplicationContext(),
@@ -73,7 +73,7 @@ public class JpushAliasUtils {
                             mAliasCallback);
                     break;
                 default:
-                    Log.i(TAG, "Unhandled msg - " + msg.what);
+                    Timber.tag(TAG).i("Unhandled msg - %s", msg.what);
             }
         }
     };
