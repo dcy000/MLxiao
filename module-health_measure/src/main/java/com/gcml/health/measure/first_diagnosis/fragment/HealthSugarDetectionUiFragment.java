@@ -1,19 +1,26 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
 
@@ -49,6 +56,7 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
         }
     }
 
+    @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
@@ -59,22 +67,45 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
             data.setSugarTime(selectMeasureSugarTime);
             data.setBloodSugar(Float.parseFloat(results[0]));
             datas.add(data);
-            HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-                @Override
-                public void onSuccess(String callbackString) {
-//                    if (fragmentChanged != null && !isJump2Next) {
-//                        isJump2Next = true;
-//                        fragmentChanged.onFragmentChanged(HealthSugarDetectionUiFragment.this, null);
-//                    }
-                    setBtnClickableState(true);
-                    ((FirstDiagnosisActivity) mActivity).putCacheData(data);
-                }
 
-                @Override
-                public void onError() {
-                    ToastUtils.showShort("上传数据失败");
-                }
-            });
+
+            HealthMeasureRepository.postMeasureData(datas)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribeWith(new DefaultObserver<Object>() {
+                        @Override
+                        public void onNext(Object o) {
+                            setBtnClickableState(true);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            ToastUtils.showShort("上传数据失败:"+e.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+//            HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//                @Override
+//                public void onSuccess(String callbackString) {
+////                    if (fragmentChanged != null && !isJump2Next) {
+////                        isJump2Next = true;
+////                        fragmentChanged.onFragmentChanged(HealthSugarDetectionUiFragment.this, null);
+////                    }
+//                    setBtnClickableState(true);
+//                    ((FirstDiagnosisActivity) mActivity).putCacheData(data);
+//                }
+//
+//                @Override
+//                public void onError() {
+//                    ToastUtils.showShort("上传数据失败");
+//                }
+//            });
         }
     }
 

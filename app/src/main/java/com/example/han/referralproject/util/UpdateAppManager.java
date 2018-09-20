@@ -21,8 +21,6 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
 
 import java.io.File;

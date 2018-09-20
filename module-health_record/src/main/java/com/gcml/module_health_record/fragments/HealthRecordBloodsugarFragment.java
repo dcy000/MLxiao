@@ -31,6 +31,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implements View.OnClickListener {
     private TextView mColor1;
@@ -44,7 +45,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
     private RadioButton mRbOneHour;
     private RadioButton mRbTwoHour;
     private RadioGroup mRgXuetangTime;
-    private int eatedTime = 0;//默认空腹：0；饭后一小时：1；饭后两小时
+    private int eatedTime = 0;//默认空腹：0；饭后一小时：1；饭后两小时:2;其他时间：3
     private TextView mTvEmptyDataTips;
     private TextView mBtnGo;
 
@@ -110,7 +111,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         xAxis.setGranularity(1);
         xAxis.setLabelCount(4);
 
-        LimitLine ll1 = new LimitLine(7.0f, "7.0mmol/L");
+        LimitLine ll1 = new LimitLine(6.1f, "6.1mmol/L");
         ll1.setLineWidth(2f);
         ll1.setLineColor(getResources().getColor(R.color.health_record_picket_line));
         ll1.enableDashedLine(10.0f, 10f, 0f);
@@ -118,7 +119,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         ll1.setTextSize(18f);
 
 
-        LimitLine ll2 = new LimitLine(3.61f, "3.61mmol/L");
+        LimitLine ll2 = new LimitLine(3.9f, "3.9mmol/L");
         ll2.setLineWidth(2f);
         ll2.setLineColor(getResources().getColor(R.color.health_record_picket_line));
         ll2.enableDashedLine(10f, 10f, 0f);
@@ -146,7 +147,21 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         ll5.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll5.setTextSize(10f);
 
-        LimitLine ll6 = new LimitLine(3.61f, "3.61mmol/L");
+        LimitLine ll6 = new LimitLine(3.9f, "3.9mmol/L");
+        ll6.setLineWidth(2f);
+        ll6.setLineColor(Color.parseColor("#F0FC6D9A"));
+        ll6.enableDashedLine(10.0f, 10f, 0f);
+        ll6.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+        ll6.setTextSize(10f);
+
+        LimitLine ll7 = new LimitLine(11.1f, "11.1mmol/L");
+        ll5.setLineWidth(2f);
+        ll5.setLineColor(Color.parseColor("#F0FC6D9A"));
+        ll5.enableDashedLine(10.0f, 10f, 0f);
+        ll5.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+        ll5.setTextSize(10f);
+
+        LimitLine ll8 = new LimitLine(3.9f, "3.9mmol/L");
         ll6.setLineWidth(2f);
         ll6.setLineColor(Color.parseColor("#F0FC6D9A"));
         ll6.enableDashedLine(10.0f, 10f, 0f);
@@ -165,6 +180,9 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         } else if (eatedTime == 2) {
             leftAxis.addLimitLine(ll5);
             leftAxis.addLimitLine(ll6);
+        }else if (eatedTime==3){
+            leftAxis.addLimitLine(ll7);
+            leftAxis.addLimitLine(ll8);
         }
 
         leftAxis.setAxisMinimum(0f);
@@ -183,7 +201,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
         mChart.animateX(2500);
     }
 
-    public void refreshData(ArrayList<BloodSugarHistory> response, String temp) {
+    public void refreshData(List<BloodSugarHistory> response, String temp) {
         view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
         initChart();
         ArrayList<Entry> value = new ArrayList<Entry>();
@@ -197,7 +215,7 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
                     //空腹
                     if (response.get(i).sugar_time == 0) {
                         value.add(new Entry(i, response.get(i).blood_sugar));
-                        if (response.get(i).blood_sugar > 7.0 || response.get(i).blood_sugar < 3.61) {
+                        if (response.get(i).blood_sugar > 6.1 || response.get(i).blood_sugar < 3.9) {
                             colors.add(Color.RED);
                         } else {
                             //正常字体的颜色
@@ -223,7 +241,19 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
                     if (response.get(i).sugar_time == 2) {
                         times.add(response.get(i).time);
                         value.add(new Entry(i, response.get(i).blood_sugar));
-                        if (response.get(i).blood_sugar > 7.8 || response.get(i).blood_sugar < 3.61) {
+                        if (response.get(i).blood_sugar > 7.8 || response.get(i).blood_sugar < 3.9) {
+                            colors.add(Color.RED);
+                        } else {
+                            //正常字体的颜色
+                            colors.add(getResources().getColor(R.color.health_record_node_text_color));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (response.get(i).sugar_time == 3) {
+                        times.add(response.get(i).time);
+                        value.add(new Entry(i, response.get(i).blood_sugar));
+                        if (response.get(i).blood_sugar > 11.1 || response.get(i).blood_sugar < 3.9) {
                             colors.add(Color.RED);
                         } else {
                             //正常字体的颜色
@@ -328,13 +358,13 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
             }
 
         } else if (i == R.id.rb_one_hour) {
-            eatedTime = 1;
+            eatedTime = 2;
             if (bloodsugarSelectTime != null) {
                 bloodsugarSelectTime.requestData();
             }
 
         } else if (i == R.id.rb_two_hour) {
-            eatedTime = 2;
+            eatedTime = 3;
             if (bloodsugarSelectTime != null) {
                 bloodsugarSelectTime.requestData();
             }

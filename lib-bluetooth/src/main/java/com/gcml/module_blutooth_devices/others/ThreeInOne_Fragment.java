@@ -3,7 +3,9 @@ package com.gcml.module_blutooth_devices.others;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gcml.lib_utils.data.SPUtil;
@@ -51,6 +53,18 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
     private boolean isMeasureBloodsugarFinished;
     private boolean isMeasureBUAFinished;
     private boolean isMeasureCholesterolFinished;
+    /**
+     * &lt;3.9
+     */
+    protected TextView mTitle11;
+    /**
+     * 3.9~6.1
+     */
+    protected TextView mTitle12;
+    /**
+     * &gt;6.1
+     */
+    protected TextView mTitle13;
 
     @Override
     protected int initLayout() {
@@ -67,7 +81,10 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
         mTvGaoya = view.findViewById(R.id.tv_gaoya);
         mTvDiya = view.findViewById(R.id.tv_diya);
         mTvMaibo = view.findViewById(R.id.tv_maibo);
-        this.bundle=bundle;
+        this.bundle = bundle;
+        mTitle11 = (TextView) view.findViewById(R.id.title1_1);
+        mTitle12 = (TextView) view.findViewById(R.id.title1_2);
+        mTitle13 = (TextView) view.findViewById(R.id.title1_3);
     }
 
     @Override
@@ -117,12 +134,12 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
         int i = v.getId();
         if (i == R.id.btn_health_history) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_TEMPERATURE);
+                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_OTHERS);
             }
             clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_TEMPERATURE);
+                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_OTHERS);
             }
             clickVideoDemo(v);
         }
@@ -179,5 +196,15 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
         if (helper != null) {
             helper.destroy();
         }
+    }
+
+    public interface MeasureItemChanged {
+        void onChanged(int position);
+    }
+
+    protected MeasureItemChanged measureItemChanged;
+
+    public void setOnMeasureItemChanged(MeasureItemChanged measureItemChanged) {
+        this.measureItemChanged = measureItemChanged;
     }
 }

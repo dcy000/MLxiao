@@ -85,4 +85,13 @@ public class HealthMeasureApi {
                 .params("hypertensionPrimaryState", hypertensionPrimaryState)
                 .execute(callback);
     }
+
+    /**
+     * 获取诊断信息-->重新生成方案
+     */
+    public static void getDiagnoseInfoNew(String userId, StringCallback callback) {
+        OkGo.<String>get(GET_DIAGNOSE_INFO + userId + "/new/")
+                .params("userId", userId)
+                .execute(callback);
+    }
 }

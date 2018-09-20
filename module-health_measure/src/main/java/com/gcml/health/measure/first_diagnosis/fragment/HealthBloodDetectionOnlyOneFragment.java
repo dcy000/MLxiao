@@ -1,22 +1,27 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 
+import com.gcml.common.utils.RxUtils;
+import android.content.Intent;
+import android.text.TextUtils;
+
+import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
+import com.gcml.health.measure.bloodpressure_habit.GetHypertensionHandActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
-import com.gcml.health.measure.network.HealthMeasureApi;
-import com.gcml.health.measure.network.NetworkCallback;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-
 import java.util.ArrayList;
-import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -25,8 +30,8 @@ import java.util.List;
  * created by:gzq
  * description:单独给流程化测试中使用的Fragment
  */
-public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment{
-    private boolean isJump2Next=false;
+public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment {
+    private boolean isJump2Next = false;
 
     @Override
     public void onStart() {
@@ -34,8 +39,11 @@ public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment{
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
         setBtnClickableState(false);
+
+        getHypertensionHand();
     }
 
+    @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3) {
@@ -55,27 +63,49 @@ public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment{
             dataPulse.setPulse(Integer.parseInt(results[2]));
             datas.add(pressureData);
             datas.add(dataPulse);
-            HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-                @Override
-                public void onSuccess(String callbackString) {
-                    try {
-                        ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(callbackString,
-                                new TypeToken<ApiResponse<List<DetectionResult>>>() {
-                                }.getType());
-                        if (apiResponse.isSuccessful()) {
+
+            HealthMeasureRepository.postMeasureData(datas)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribeWith(new DefaultObserver<Object>() {
+                        @Override
+                        public void onNext(Object o) {
                             ToastUtils.showLong("上传数据成功");
                             setBtnClickableState(true);
                         }
-                    } catch (Throwable e) {
-                        e.printStackTrace();
-                    }
-                }
 
-                @Override
-                public void onError() {
-                    ToastUtils.showShort("上传数据失败");
-                }
-            });
+                        @Override
+                        public void onError(Throwable e) {
+                            ToastUtils.showShort("上传数据失败:"+e.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+//            HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//                @Override
+//                public void onSuccess(String callbackString) {
+//                    try {
+//                        ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(callbackString,
+//                                new TypeToken<ApiResponse<List<DetectionResult>>>() {
+//                                }.getType());
+//                        if (apiResponse.isSuccessful()) {
+//                            ToastUtils.showLong("上传数据成功");
+//                            setBtnClickableState(true);
+//                        }
+//                    } catch (Throwable e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                @Override
+//                public void onError() {
+//                    ToastUtils.showShort("上传数据失败");
+//                }
+//            });
         }
     }
 
@@ -95,5 +125,37 @@ public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment{
             mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
             mBtnHealthHistory.setClickable(false);
         }
+    }
+
+
+    /**
+     * 获取惯用手
+     */
+    private void getHypertensionHand() {
+        String userHypertensionHand = UserSpHelper.getUserHypertensionHand();
+        if (TextUtils.isEmpty(userHypertensionHand)) {
+            //还没有录入惯用手，则跳转到惯用手录入activity
+            mContext.startActivity(new Intent(mContext, GetHypertensionHandActivity.class));
+        } else {
+            if ("0".equals(userHypertensionHand)) {
+                showHypertensionHandDialog("左手");
+            } else if ("1".equals(userHypertensionHand)) {
+                showHypertensionHandDialog("右手");
+            }
+        }
+    }
+
+
+    private void showHypertensionHandDialog(String hand) {
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请使用" + hand + "测量");
+        new SingleDialog(mContext)
+                .builder()
+                .setMsg("请使用" + hand + "测量")
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                }).show();
     }
 }

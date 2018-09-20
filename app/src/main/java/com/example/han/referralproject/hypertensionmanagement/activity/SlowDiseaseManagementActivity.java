@@ -14,9 +14,11 @@ import com.example.han.referralproject.health_manager_program.TreatmentPlanActiv
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
-import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.recommend.RecommendActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.AppManager;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
@@ -37,7 +39,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
     @BindView(R.id.iv_blood_sugar_manage)
     ImageView ivBloodSugarManage;
 
-    public static final String CONTENT = "您当前测量次数未满足非同日3次测量,高血压诊断条件不足,再测2日即可为您开启方案";
     private DiagnoseInfoBean.DataBean diagnoseInfo;
 
 
@@ -84,11 +85,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("慢 病 管 理");
+        mTitleText.setText("健 康 管 理");
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(SlowDiseaseManagementActivity.this, WifiConnectActivity.class)));
-        mlSpeak("主人，欢迎来到慢病管理。");
+        mlSpeak("主人，欢迎来到健康管理");
     }
 
     @OnClick({R.id.iv_Hypertension_manage, R.id.iv_blood_sugar_manage})
@@ -98,7 +99,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 onclickHypertensionManage();
                 break;
             case R.id.iv_blood_sugar_manage:
-                ToastUtils.showShort("敬请期待");
+//                ToastUtils.showShort("敬请期待");
+                startActivity(new Intent(this, RecommendActivity.class));
                 break;
         }
     }
@@ -107,7 +109,27 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      * 点击高血压管理 按钮
      */
     private void onclickHypertensionManage() {
+        if (diagnoseInfo != null) {
+            if (!(diagnoseInfo.risk == null
+                    && diagnoseInfo.primary == null
+                    && diagnoseInfo.lowPressure == null
+                    && diagnoseInfo.hypertensionLevel == null
+                    && diagnoseInfo.hypertensionPrimaryState == null
+                    && diagnoseInfo.heart == null
+                    && diagnoseInfo.hypertensionTarget == null
+                    && diagnoseInfo.result != null
+            )) {
+                ContinueOrNotDialog();
+            }
+        }
 
+//        clickWithoutJudge();
+    }
+
+    /**
+     * 不加是否继续重做的逻辑
+     */
+    private void clickWithoutContinueJudge() {
         if (diagnoseInfo != null) {
             if (diagnoseInfo.result == null) {
                 if (diagnoseInfo.hypertensionPrimaryState == null) {
@@ -120,15 +142,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                     showOriginHypertensionDialog();
                 }
             } else {
-//                DialogSure sure = new DialogSure(this);
-//                sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
-//                sure.setSure("健康方案");
-//                sure.show();
-//                sure.setOnClickSureListener(dialog1 -> {
-//                    dialog1.dismiss();
-//                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
-//                });
-
                 new SingleDialog(this)
                         .builder()
                         .setMsg("您在7天内已生成过健康方案，点击健康方案可直接查看。")
@@ -143,8 +156,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         } else {
             ToastUtils.showShort("网络繁忙");
         }
-
-
     }
 
     /**
@@ -217,14 +228,17 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 //            toDetete();
 //            startActivity(new Intent(this, WeightMeasureActivity.class));
 
-            CC.obtainBuilder("health_measure")
-                    .setActionName("To_WeightManagerActivity")
-                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                @Override
-                public void onResult(CC cc, CCResult result) {
-                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
-                }
-            });
+//            CC.obtainBuilder("health_measure")
+//                    .setActionName("To_WeightManagerActivity")
+//                    .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                @Override
+//                public void onResult(CC cc, CCResult result) {
+//                    startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
+//                }
+//            });
+
+            startActivity(new Intent(this, DetecteTipActivity.class)
+                    .putExtra("fromWhere", "3"));
         }
 
     }
@@ -245,10 +259,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         }
     }
 
-    private void end() {
-        // TODO: 2018/7/28
-    }
-
     /**
      * 原发弹框点击是
      */
@@ -258,14 +268,18 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         } else {
             if (diagnoseInfo.lowPressure == null) {
 //                startActivity(new Intent(this, BloodPressureMeasureActivity.class));
-                CC.obtainBuilder("health_measure")
-                        .setActionName("To_BloodpressureManagerActivity")
-                        .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-                    @Override
-                    public void onResult(CC cc, CCResult result) {
-                        startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
-                    }
-                });
+//                CC.obtainBuilder("health_measure")
+//                        .setActionName("To_BloodpressureManagerActivity")
+//                        .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                    @Override
+//                    public void onResult(CC cc, CCResult result) {
+//                        startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
+//                    }
+//                });
+
+                startActivity(new Intent(SlowDiseaseManagementActivity.this, DetecteTipActivity.class)
+                        .putExtra("fromWhere", "0"));
+
             } else {
                 startActivity(new Intent(this, TreatmentPlanActivity.class));
             }
@@ -280,20 +294,15 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         startActivity(new Intent(this, TreatmentPlanActivity.class));
     }
 
-    private void getDatimeInfo() {
+    private void getDiagnoseInfoNew() {
         showLoadingDialog("");
-        NetworkApi.getDiagnoseInfo(LocalShared.getInstance(this).getUserId(), new StringCallback() {
+        NetworkApi.getDiagnoseInfoNew(LocalShared.getInstance(this).getUserId(), new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
                         if (bean != null && bean.tag && bean.data != null) {
-
-                            if (bean.data.detectionDayCount >= 3) {
-                                String hypertensionLevel = bean.data.hypertensionLevel;
-                                jumpPages(hypertensionLevel);
-                            } else {
-                                showLessThan3Dialog("0");
-                            }
+                            diagnoseInfo = bean.data;
+                            clickWithoutContinueJudge();
                         }
                     }
 
@@ -314,21 +323,38 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         // java.lang.IllegalStateException
         // Can not perform this action after onSaveInstanceState
         dialog.show(getSupportFragmentManager(), "less3");
-        mlSpeak("主人，您尚未满足3天测量标准，请在健康监测中测量三日");
     }
 
     private void showOriginHypertensionDialog() {
-        TwoChoiceDialog dialog = new TwoChoiceDialog("您是否诊断过原发性高血压且正在进行高血压规范治疗？(您的选择将影响您的健康方案，且一旦选择不可更改，请谨慎回答)", "是", "否");
+        TwoChoiceDialog dialog = new TwoChoiceDialog("您是否诊断过原发性高血压，且正在进行高血压规范治疗？", "是", "否");
         dialog.setListener(this);
         dialog.show(getFragmentManager(), "yuanfa");
         mlSpeak("主人，您是否已确诊高血压且在治疗？");
+    }
+
+    // TODO: 2018/9/19
+    private void ContinueOrNotDialog() {
+        TwoChoiceDialog dialog = new TwoChoiceDialog("是否继续？", "是", "否");
+        dialog.setListener(new TwoChoiceDialog.OnDialogClickListener() {
+            @Override
+            public void onClickConfirm(String content) {
+                getDiagnoseInfoNew();
+            }
+
+            @Override
+            public void onClickCancel() {
+                clickWithoutContinueJudge();
+            }
+        });
+        dialog.show(getFragmentManager(), "yuanfa");
+        mlSpeak("是否继续？");
     }
 
     @Override
     public void onClickConfirm(String content) {
         stopSpeaking();
         postOriginPertensionState("1");
-        startActivity(new Intent(this, SlowDiseaseManagementTipActivity.class));
+//        startActivity(new Intent(this, SlowDiseaseManagementTipActivity.class));
     }
 
     @Override
@@ -343,11 +369,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 String body = response.body();
                 try {
                     JSONObject object = new JSONObject(body);
-                    if (object.getBoolean("tag")) {
+                    if (object.optBoolean("tag")) {
                         if ("0".equals(state)) {
                             onOriginClickNo();
                         } else if ("1".equals(state)) {
-                            onOriginClickNo();
+                            onOriginClickYes();
                         }
                     } else {
                         ToastUtils.showShort(object.getString("message"));
@@ -396,6 +422,45 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     @Override
     public void onClickConfirm() {
+        //-->人脸-->测量血压
+        CC.obtainBuilder("com.gcml.auth.face.signin")
+                .addParam("skip", true)
+                .build()
+                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+//                                boolean currentUser = result.getDataItem("currentUser");
+                        String userId = result.getDataItem("userId");
+                        if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                            UserSpHelper.setUserId(userId);
+                            if ("skip".equals(result.getErrorMessage())) {
+                                toBloodPressure();
+                                return;
+                            }
+                        } else {
+                            ToastUtils.showShort(result.getErrorMessage());
+                        }
+                    }
+                });
 
     }
+
+    private void toBloodPressure() {
+        CC.obtainBuilder("health_measure")
+                .setActionName("To_BloodpressureManagerActivity")
+                .build()
+                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+
+                    }
+                });
+    }
+
+//
+//    @Override
+//    public void onClickCancel() {
+//
+//    }
+
 }

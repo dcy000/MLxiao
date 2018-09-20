@@ -3,12 +3,17 @@ package com.gcml.health.measure.hypertension_management;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.AppManager;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
+import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodsugarFragment;
 import com.gcml.lib_utils.data.SPUtil;
@@ -34,6 +39,12 @@ public class BloodsugarManagerActivity extends BaseManagementActivity {
 
     @Override
     protected void dealLogic() {
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
+        jump2MeasureVideoPlayActivity(uri, "血糖测量演示视频");
+        super.dealLogic();
+    }
+
+    private void initFragment() {
         mTitleText.setText("血 糖 测 量");
         measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
         baseFragment = new SingleMeasureBloodsugarFragment();
@@ -42,9 +53,8 @@ public class BloodsugarManagerActivity extends BaseManagementActivity {
         Bundle bundle = new Bundle();
         bundle.putBoolean("isOnlyShowBtnHealthRecord", true);
         baseFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame, baseFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, baseFragment).commitAllowingStateLoss();
         AppManager.getAppManager().addActivity(this);
-        super.dealLogic();
     }
 
     @Override
@@ -62,5 +72,34 @@ public class BloodsugarManagerActivity extends BaseManagementActivity {
     public void jump2HealthHistory(int measureType) {
         //点击了下一步
         CCResultActions.onCCResultAction(ResultAction.MEASURE_SUCCESS);
+    }
+
+    /**
+     * 跳转到MeasureVideoPlayActivity
+     */
+    private void jump2MeasureVideoPlayActivity(Uri uri, String title) {
+        CC.obtainBuilder(CCVideoActions.MODULE_NAME)
+                .setActionName(CCVideoActions.SendActionNames.TO_MEASUREACTIVITY)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URI, uri)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_URL, null)
+                .addParam(CCVideoActions.SendKeys.KEY_EXTRA_TITLE, title)
+                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+            @Override
+            public void onResult(CC cc, CCResult result) {
+                String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
+                switch (resultAction) {
+                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
+                        //点击了返回按钮
+                        break;
+                    case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_SKIP:
+                        //点击了跳过按钮
+                    case CCVideoActions.ReceiveResultActionNames.VIDEO_PLAY_END:
+                        //视屏播放结束
+                        initFragment();
+                        break;
+                    default:
+                }
+            }
+        });
     }
 }

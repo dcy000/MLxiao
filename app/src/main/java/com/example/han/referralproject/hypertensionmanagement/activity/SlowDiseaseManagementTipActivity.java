@@ -37,7 +37,7 @@ public class SlowDiseaseManagementTipActivity extends BaseActivity {
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("慢 病 管 理");
+        mTitleText.setText("健 康 管 理");
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
         tvContent.setText(CONTENT);

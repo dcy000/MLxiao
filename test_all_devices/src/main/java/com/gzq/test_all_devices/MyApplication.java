@@ -12,6 +12,14 @@ import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;
+import com.luliang.shapeutils.DevShapeUtils;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
+
+import java.util.logging.Level;
+
+import okhttp3.OkHttpClient;
+import tech.linjiang.pandora.Pandora;
 
 public class MyApplication extends Application {
     public static final int PLAN_ID_KSY = 1;
@@ -37,6 +45,19 @@ public class MyApplication extends Application {
         PlayerConfig.setDefaultPlanId(PLAN_ID_KSY);
         PlayerConfig.setUseDefaultNetworkEventProducer(true);
         PlayerLibrary.init(this);
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");
+        //log打印级别，决定了log显示的详细程度
+        loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY);
+        //log颜色级别，决定了log在控制台显示的颜色
+        loggingInterceptor.setColorLevel(Level.INFO);
+        builder.addInterceptor(loggingInterceptor);
+
+        builder.addInterceptor(Pandora.get().getInterceptor());
+        OkGo.getInstance().init(this)
+                .setOkHttpClient(builder.build());
+        DevShapeUtils.init(this);
 
     }
 

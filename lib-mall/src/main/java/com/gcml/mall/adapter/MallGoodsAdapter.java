@@ -31,6 +31,6 @@ public class MallGoodsAdapter extends BaseQuickAdapter<GoodsBean,BaseViewHolder>
                 .error(R.drawable.placeholder)
                 .tag(mContext)
                 .fit()
-                .into((ImageView) helper.getView(R.id.img));
+                .into((ImageView) helper.getView(R.id.iv_goods_icon));
     }
 }

@@ -30,7 +30,7 @@ public class MallMenuAdapter extends RecyclerView.Adapter<MallMenuAdapter.MallMe
 
     @Override
     public MallMenuAdapter.MallMenuHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MallMenuHolder(LayoutInflater.from(mContext).inflate(R.layout.item_menu,parent,false));
+        return new MallMenuHolder(LayoutInflater.from(mContext).inflate(R.layout.item_mall_menu,parent,false));
     }
 
     @Override
@@ -38,9 +38,11 @@ public class MallMenuAdapter extends RecyclerView.Adapter<MallMenuAdapter.MallMe
         String menu = menuList.get(position);
         holder.menuText.setText(menu);
         if (position == selectItem) {
+            holder.menuMark.setVisibility(View.VISIBLE);
             holder.menuText.setBackgroundColor(Color.WHITE);
-            holder.menuText.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
+            holder.menuText.setTextColor(mContext.getResources().getColor(R.color.config_color_primary));
         } else {
+            holder.menuMark.setVisibility(View.GONE);
             holder.menuText.setBackgroundColor(mContext.getResources().getColor(R.color.color_background));
             holder.menuText.setTextColor(mContext.getResources().getColor(R.color.color_text_gray));
         }
@@ -60,11 +62,13 @@ public class MallMenuAdapter extends RecyclerView.Adapter<MallMenuAdapter.MallMe
     }
 
     class MallMenuHolder extends RecyclerView.ViewHolder {
+        TextView menuMark;
         TextView menuText;
 
         public MallMenuHolder(View view){
             super(view);
-            menuText = view.findViewById(R.id.tv_menu);
+            menuMark = view.findViewById(R.id.tv_menu_mark);
+            menuText = view.findViewById(R.id.tv_menu_name);
         }
     }
 

@@ -49,7 +49,7 @@ public class PressureNornalTipActivity extends BaseActivity implements WarmNotic
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("基 础 信 息 列 表");
+        mTitleText.setText("健 康 调 查");
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(PressureNornalTipActivity.this, WifiConnectActivity.class)));
@@ -57,26 +57,35 @@ public class PressureNornalTipActivity extends BaseActivity implements WarmNotic
 
     @Override
     public void onFragmentBtnClick() {
-        CC.obtainBuilder("health_measure")
-                .setActionName("To_WeightManagerActivity")
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-            @Override
-            public void onResult(CC cc, CCResult result) {
-                startActivity(new Intent(PressureNornalTipActivity.this, TreatmentPlanActivity.class));
-            }
-        });
+//        CC.obtainBuilder("health_measure")
+//                .setActionName("To_WeightManagerActivity")
+//                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//            @Override
+//            public void onResult(CC cc, CCResult result) {
+//                startActivity(new Intent(PressureNornalTipActivity.this, TreatmentPlanActivity.class));
+//                finish();
+//            }
+//        });
+
+        startActivity(new Intent(this, DetecteTipActivity.class)
+                .putExtra("fromWhere", "3"));
+
 
     }
 
     @Override
     public void onFragmentBtnTimeOut() {
-        CC.obtainBuilder("health_measure")
-                .setActionName("To_WeightManagerActivity")
-                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-            @Override
-            public void onResult(CC cc, CCResult result) {
-                startActivity(new Intent(PressureNornalTipActivity.this, TreatmentPlanActivity.class));
-            }
-        });
+//        CC.obtainBuilder("health_measure")
+//                .setActionName("To_WeightManagerActivity")
+//                .build().callAsyncCallbackOnMainThread(new IComponentCallback() {
+//            @Override
+//            public void onResult(CC cc, CCResult result) {
+//                startActivity(new Intent(PressureNornalTipActivity.this, TreatmentPlanActivity.class));
+//                finish();
+//            }
+//        });
+        startActivity(new Intent(PressureNornalTipActivity.this, DetecteTipActivity.class)
+                .putExtra("fromWhere","3"));
+
     }
 }

@@ -2,7 +2,9 @@ package com.example.han.referralproject.settting.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,6 +12,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
@@ -17,17 +20,26 @@ import com.example.han.referralproject.settting.dialog.UpDateDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.gcml.common.update.ICheckAgent;
+import com.gcml.common.update.IUpdateChecker;
+import com.gcml.common.update.IUpdateParser;
+import com.gcml.common.update.UpdateInfo;
+import com.gcml.common.update.UpdateManager;
+import com.gcml.common.utils.VersionHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
-public class SettingActivity extends AppCompatActivity implements View.OnClickListener, UpDateDialog.OnDialogClickListener {
+public class SettingActivity extends AppCompatActivity implements View.OnClickListener{
 
     TranslucentToolBar mToolBar;
     TextView mVoice, mWifi, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache;
-    String updateUrl;
+    // 外存sdcard存放路径
+    private static final String FILE_PATH = Environment.getExternalStorageDirectory() + "/autoupdate/";
+    // 下载应用存放全路径
+    private static final String FILE_NAME = FILE_PATH + "xiaoe_autoupdate.apk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +82,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onRightClick() {
-
+                startActivity(new Intent(SettingActivity.this, MainActivity.class));
+                finish();
             }
         });
     }
@@ -159,20 +172,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override
             public void onSuccess(VersionInfoBean response) {
-                SettingActivity.this.updateUrl = response.url;
                 tipDialog.dismiss();
-                try {
-                    if (response != null && response.vid > getPackageManager().getPackageInfo(SettingActivity.this.getPackageName(), 0).versionCode) {
-//                                new UpdateAppManager(SettingActivity.this).showNoticeDialog(response.url);
-                        UpDateDialog upDateDialog = new UpDateDialog();
-                        upDateDialog.setListener(SettingActivity.this);
-                        upDateDialog.show(getFragmentManager(), "updatedialog");
-
-                    } else {
-                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (response != null && response.vid > VersionHelper.getAppVersionCode(getApplicationContext())) {
+                    checkUpdate(FILE_NAME, response.v_log, response.vid, response.vnumber, response.url, response.v_md5);
+                } else {
+                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
                 }
             }
         }, new NetworkManager.FailedCallback() {
@@ -182,6 +186,33 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
             }
         });
+
+    }
+
+    private void checkUpdate(final String checkUrl, final String updateLog, final int versionCode, final String versionName, final String updateUrl, final String updateMD5) {
+//        UpdateManager.create(this).setChecker(new IUpdateChecker() {
+//            @Override
+//            public void check(ICheckAgent agent, String url) {
+//                Log.e("ezy.update", "checking");
+//                agent.setInfo("");
+//            }
+//        }).setUrl(checkUrl).setManual(true).setNotifyId(998).setParser(new IUpdateParser() {
+//            @Override
+//            public UpdateInfo parse(String source) throws Exception {
+//                UpdateInfo info = new UpdateInfo();
+//                info.hasUpdate = true;
+//                info.updateContent = updateLog;
+//                info.versionCode = versionCode;
+//                info.versionName = versionName;
+//                info.url = updateUrl;
+//                info.md5 = updateMD5;
+//                info.size = 10149314;
+//                info.isForce = false;
+//                info.isIgnorable = true;
+//                info.isSilent = false;
+//                return info;
+//            }
+//        }).check();
     }
 
     private void showClearCacheDialog() {
@@ -220,12 +251,5 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
                     }
                 }).show();
-    }
-
-    @Override
-    public void onUpdateClick(UpDateDialog dialog) {
-        dialog.dismiss();
-        UpdateAppManager manager = new UpdateAppManager(this);
-        manager.showDownloadDialog(this.updateUrl);
     }
 }

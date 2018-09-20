@@ -41,7 +41,9 @@ import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.activity.SettingActivity;
+import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.QaApi;
@@ -62,6 +64,7 @@ import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.profile.MyBaseDataActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -100,6 +103,7 @@ public class DataDealHelper {
     private Context context;
     private String result;
     static Boolean whine = false;
+    private Gson gson;
 
     private void speak(String text, boolean whine) {
         MLVoiceSynthetize.startSynthesize(context, text, new SynthesizerListener() {
@@ -582,6 +586,9 @@ public class DataDealHelper {
         }
 //        boolean dealKeyWord = keyWordDeal(inSpell);
 //        if (dealKeyWord) {
+//            if (listener != null) {
+//                listener.onEnd();
+//            }
 //            return;
 //        }
         if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
@@ -1127,8 +1134,8 @@ public class DataDealHelper {
         int volume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
         volume += 3;
         if (volume < maxVolume) {
-            speak("调大声音");
             manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
+            speak("调大声音");
         } else {
             speak("当前已经是最大声音了");
         }
@@ -1140,12 +1147,479 @@ public class DataDealHelper {
         int volume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
         volume -= 3;
         if (volume > 3) {
-            speak("调小声音");
             manager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
+            speak("调小声音");
         } else {
             speak("当前已经是最小声音了");
         }
 
+    }
+
+    private List<KeyWordDefinevBean> getDefineData(String keyWord) {
+        String xueya = (String) SharedPreferencesUtils.getParam(context, keyWord, "");
+        if (gson == null) {
+            gson = new Gson();
+        }
+        List<KeyWordDefinevBean> list = gson.fromJson(xueya, new TypeToken<List<KeyWordDefinevBean>>() {
+        }.getType());
+        if (list != null) {
+            return list;
+        }
+
+        return new ArrayList<KeyWordDefinevBean>();
+    }
+
+    private boolean keyWordDeal(String yuyin) {
+        if (TextUtils.isEmpty(yuyin)) {
+            return false;
+        }
+        //血压
+//        jiance.addAll(getDefineData("xueyang"));
+//        jiance.addAll(getDefineData("tiwen"));
+//        jiance.addAll(getDefineData("xuetang"));
+//        jiance.addAll(getDefineData("xindian"));
+//        jiance.addAll(getDefineData("tizhong"));
+//        jiance.addAll(getDefineData("sanheyi"));
+        List<KeyWordDefinevBean> jiance = getDefineData("xueya");
+        String pinyin;
+        for (int i = 0; i < jiance.size(); i++) {
+            pinyin = jiance.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+
+//                Bundle bundle = new Bundle();
+//                bundle.putString("from", "Test");
+//                bundle.putString("fromType", "xueya");
+//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+//                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+                return true;
+            }
+        }
+
+        //血氧
+        List<KeyWordDefinevBean> xueyang = getDefineData("xueyang");
+        for (int i = 0; i < xueyang.size(); i++) {
+            pinyin = xueyang.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("from", "Test");
+//                bundle.putString("fromType", "xueyang");
+//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+//                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+
+                return true;
+            }
+        }
+        //体温
+
+        List<KeyWordDefinevBean> tiwen = getDefineData("tiwen");
+        for (int i = 0; i < tiwen.size(); i++) {
+            pinyin = tiwen.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("from", "Test");
+//                bundle.putString("fromType", "wendu");
+//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+//                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+                return true;
+            }
+        }
+
+        //血糖
+
+        List<KeyWordDefinevBean> xuetang = getDefineData("xuetang");
+        for (int i = 0; i < xuetang.size(); i++) {
+            pinyin = xuetang.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("from", "Test");
+//                bundle.putString("fromType", "xuetang");
+//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+//                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+                return true;
+            }
+        }
+
+        //心电
+        List<KeyWordDefinevBean> xindian = getDefineData("xindian");
+        for (int i = 0; i < xindian.size(); i++) {
+            pinyin = xindian.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("from", "Test");
+//                bundle.putString("fromType", "xindian");
+//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+//                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
+                                    CCHealthMeasureActions.jump2XinDianDetectActivity();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+                return true;
+            }
+        }
+
+        //体重
+        List<KeyWordDefinevBean> tizhong = getDefineData("tizhong");
+        for (int i = 0; i < tizhong.size(); i++) {
+            pinyin = tizhong.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("from", "Test");
+//                bundle.putString("fromType", "tizhong");
+//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+//                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                if (result.isSuccess()) {
+                                    UserSpHelper.setUserId(userId);
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+                return true;
+            }
+        }
+
+
+        //三合一
+        List<KeyWordDefinevBean> sanheyi = getDefineData("sanheyi");
+        for (int i = 0; i < sanheyi.size(); i++) {
+            pinyin = sanheyi.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("from", "Test");
+//                bundle.putString("fromType", "sanheyi");
+//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
+                CC.obtainBuilder("com.gcml.auth.face.signin")
+                        .addParam("skip", true)
+                        .build()
+                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                            @Override
+                            public void onResult(CC cc, CCResult result) {
+//                                boolean currentUser = result.getDataItem("currentUser");
+                                String userId = result.getDataItem("userId");
+                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                    UserSpHelper.setUserId(userId);
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                } else {
+                                    ToastUtils.showShort(result.getErrorMessage());
+                                }
+                            }
+                        });
+
+                return true;
+            }
+        }
+
+
+        //调大声音
+        List<KeyWordDefinevBean> addVoice = getDefineData("tiaodashengyin");
+        for (int i = 0; i < addVoice.size(); i++) {
+            pinyin = addVoice.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(addVoice.get(i).pinyin)) {
+                addVoice();
+                return true;
+            }
+        }
+
+        //调小声音
+        List<KeyWordDefinevBean> deleteVoice = getDefineData("tiaoxiaoshengyin");
+        for (int i = 0; i < deleteVoice.size(); i++) {
+            pinyin = deleteVoice.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+                addVoice();
+                return true;
+            }
+        }
+
+        //回到主界面
+        List<KeyWordDefinevBean> home = getDefineData("huidaozhujiemian");
+        for (int i = 0; i < home.size(); i++) {
+            pinyin = home.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+                startActivityWithOutCallback(MainActivity.class);
+                return true;
+            }
+        }
+
+        //个人中心
+        List<KeyWordDefinevBean> personCenter = getDefineData("gerenzhongxin");
+        for (int i = 0; i < personCenter.size(); i++) {
+            pinyin = personCenter.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+                startActivityWithOutCallback(PersonDetailActivity.class);
+                return true;
+            }
+        }
+
+        //症状自查
+        List<KeyWordDefinevBean> check = getDefineData("zhengzhuangzicha");
+        for (int i = 0; i < check.size(); i++) {
+            pinyin = check.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+                startActivityWithOutCallback(SymptomCheckActivity.class);
+                return true;
+            }
+        }
+
+        //测量历史
+        List<KeyWordDefinevBean> celianglishi = getDefineData("celianglishi");
+        for (int i = 0; i < celianglishi.size(); i++) {
+            pinyin = celianglishi.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+                startActivityWithOutCallback(HealthRecordActivity.class);
+                return true;
+            }
+        }
+
+        //医生建议
+        List<KeyWordDefinevBean> doctorJianyi = getDefineData("yishengjianyi");
+        for (int i = 0; i < doctorJianyi.size(); i++) {
+            pinyin = doctorJianyi.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(pinyin)) {
+                startActivityWithOutCallback(MessageActivity.class);
+                return true;
+            }
+        }
+
+        //吃药提醒
+        List<KeyWordDefinevBean> chiyaoTixing = getDefineData("chiyaotixing");
+        for (int i = 0; i < chiyaoTixing.size(); i++) {
+            pinyin = chiyaoTixing.get(i).pinyin;
+            if (TextUtils.isEmpty(pinyin)) {
+                continue;
+            }
+            if (yuyin.contains(chiyaoTixing.get(i).pinyin)) {
+                startActivityWithOutCallback(AlarmList2Activity.class);
+                return true;
+            }
+        }
+
+        //账户充值
+        List<KeyWordDefinevBean> zhanghuchongzhi = getDefineData("zhanghuchongzhi");
+        for (int i = 0; i < zhanghuchongzhi.size(); i++) {
+            if (yuyin.contains(zhanghuchongzhi.get(i).pinyin)) {
+                startActivityWithOutCallback(PayActivity.class);
+                return true;
+            }
+        }
+
+        //我的订单
+        List<KeyWordDefinevBean> dingdan = getDefineData("wodedingdan");
+        for (int i = 0; i < dingdan.size(); i++) {
+            if (yuyin.contains(dingdan.get(i).pinyin)) {
+                startActivityWithOutCallback(OrderListActivity.class);
+                return true;
+            }
+        }
+
+        //健康课堂
+        List<KeyWordDefinevBean> jiankangketang = getDefineData("jiankangketang");
+        for (int i = 0; i < jiankangketang.size(); i++) {
+            if (yuyin.contains(jiankangketang.get(i).pinyin)) {
+                startActivityWithOutCallback(VideoListActivity.class);
+                return true;
+            }
+        }
+
+
+        //娱乐
+        List<KeyWordDefinevBean> yule = getDefineData("yule");
+        for (int i = 0; i < yule.size(); i++) {
+            if (yuyin.contains(yule.get(i).pinyin)) {
+                //老人娱乐
+                startActivityWithOutCallback(TheOldHomeActivity.class);
+                return true;
+            }
+        }
+
+
+        //收音机
+        List<KeyWordDefinevBean> shouyinji = getDefineData("shouyinji");
+        for (int i = 0; i < shouyinji.size(); i++) {
+            if (yuyin.contains(shouyinji.get(i).pinyin)) {
+                startActivityWithOutCallback(RadioActivity.class);
+                return true;
+            }
+        }
+
+        //音乐
+        List<KeyWordDefinevBean> yinyue = getDefineData("yinyue");
+        for (int i = 0; i < yinyue.size(); i++) {
+            if (yuyin.contains(yinyue.get(i).pinyin)) {
+                startActivityWithOutCallback( TheOldMusicActivity.class);
+                return true;
+            }
+        }
+
+
+        //医生咨询
+        List<KeyWordDefinevBean> zixunyisheng = getDefineData("yishengzixun");
+        for (int i = 0; i < zixunyisheng.size(); i++) {
+            if (yuyin.contains(zixunyisheng.get(i).pinyin)) {
+                startActivityWithOutCallback(DoctorAskGuideActivity.class);
+                return true;
+            }
+        }
+
+        //在线医生
+        List<KeyWordDefinevBean> zaixianyisheng = getDefineData("zaixianyisheng");
+        for (int i = 0; i < zaixianyisheng.size(); i++) {
+            if (yuyin.contains(zaixianyisheng.get(i).pinyin)) {
+                startActivityWithOutCallback( OnlineDoctorListActivity.class);
+                return true;
+            }
+        }
+
+        //签约医生
+        List<KeyWordDefinevBean> qianyueyisheng = getDefineData("qianyueyisheng");
+        for (int i = 0; i < qianyueyisheng.size(); i++) {
+            if (yuyin.contains(qianyueyisheng.get(i).pinyin)) {
+                gotoQianyueYiSheng();
+                return true;
+            }
+        }
+
+
+        //健康商城
+        List<KeyWordDefinevBean> jiankang = getDefineData("jiankangshangcheng");
+        for (int i = 0; i < jiankang.size(); i++) {
+            if (yuyin.contains(jiankang.get(i).pinyin)) {
+                startActivityWithOutCallback(MarketActivity.class);
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    private void startActivityWithOutCallback(Class<?> cls/*, String key, String value*/) {
+        Intent intent = new Intent(context, cls);
+        if (!(context instanceof Activity)) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+//        intent.putExtra(key, value);
+        context.startActivity(intent);
     }
 
 }

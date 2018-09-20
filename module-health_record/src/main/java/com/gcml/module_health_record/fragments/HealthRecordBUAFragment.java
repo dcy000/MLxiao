@@ -17,6 +17,7 @@ import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.BUA;
 import com.gcml.module_health_record.cc.CCHealthMeasureActions;
+import com.gcml.module_health_record.others.MyFloatNumFormatter;
 import com.gcml.module_health_record.others.MyMarkerView;
 import com.gcml.module_health_record.others.TimeFormatter;
 import com.github.mikephil.charting.charts.LineChart;
@@ -29,6 +30,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HealthRecordBUAFragment extends RecycleBaseFragment implements View.OnClickListener {
     private TextView mColor1;
@@ -156,7 +158,7 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
         mChart.animateX(2500);
     }
 
-    public void refreshData(ArrayList<BUA> response, String temp) {
+    public void refreshData(List<BUA> response, String temp) {
         view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
         initChart();
         ArrayList<Entry> value = new ArrayList<Entry>();
@@ -209,6 +211,7 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
                 set1.setDrawCircleHole(true);
                 set1.setCircleHoleRadius(4f);
                 set1.setValueTextSize(18f);
+                set1.setValueFormatter(new MyFloatNumFormatter("8"));
 
                 //左下角指示器样式
                 set1.setFormLineWidth(0f);

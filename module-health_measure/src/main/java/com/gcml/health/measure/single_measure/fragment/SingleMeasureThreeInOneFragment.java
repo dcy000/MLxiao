@@ -1,8 +1,14 @@
 package com.gcml.health.measure.single_measure.fragment;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.View;
+
+import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -11,6 +17,9 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
@@ -25,59 +34,57 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
     DetectionData sugarData;
     DetectionData cholesterolData;
     DetectionData lithicAcidData;
+    private int selectMeasureSugarTime;
 
     @Override
-    protected void onMeasureFinished(String... results) {
-        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-//        if (results.length == 2) {
-//            if (results[0].equals("bloodsugar")) {
-//                sugarData = new DetectionData();
-//                sugarData.setDetectionType("1");
-//                sugarData.setSugarTime(0);
-//                sugarData.setBloodSugar(Float.parseFloat(results[1]));
-//            }
-//            if (results[0].equals("cholesterol")) {
-//                cholesterolData = new DetectionData();
-//                cholesterolData.setDetectionType("7");
-//                cholesterolData.setCholesterol(Float.parseFloat(results[1]));
-//            }
-//
-//            if (results[0].equals("bua")) {
-//                lithicAcidData = new DetectionData();
-//                lithicAcidData.setDetectionType("8");
-//                lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
-//            }
-//            if (sugarData != null && cholesterolData != null && lithicAcidData != null) {
-//                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖"
-//                        + sugarData.getBloodSugar() + ",尿酸" + lithicAcidData.getUricAcid() + ",胆固醇"
-//                        + cholesterolData.getCholesterol(), false);
-//                datas.add(sugarData);
-//                datas.add(cholesterolData);
-//                datas.add(lithicAcidData);
-//
-//                HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-//                    @Override
-//                    public void onSuccess(String callbackString) {
-//                        ToastUtils.showLong("数据上传成功");
-//                    }
-//
-//                    @Override
-//                    public void onError() {
-//                        ToastUtils.showLong("数据上传失败");
-//                    }
-//                });
-//            }
-//        }
+    protected void initView(View view, Bundle bundle) {
+        super.initView(view, bundle);
+        if (bundle != null) {
+            selectMeasureSugarTime = bundle.getInt("selectMeasureSugarTime");
+        }
+        mTitle11.setText("<3.9");
+        switch (selectMeasureSugarTime) {
+            case 0:
+                //空腹
+                mTitle12.setText("3.9~6.1");
+                mTitle13.setText(">6.1");
+                break;
+            case 1:
+                //饭后1小时
+                mTitle12.setText("3.9~7.8");
+                mTitle13.setText(">7.8");
+                break;
+            case 2:
+                //饭后2小时
+                mTitle12.setText("3.9~7.8");
+                mTitle13.setText(">7.8");
+                break;
+            case 3:
+                //其他时间
+                mTitle12.setText("3.9~11.1");
+                mTitle13.setText(">11.1");
+                break;
+            default:
+                break;
+        }
+    }
 
+    //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
+    @Override
+    protected void onMeasureFinished(String... results) {
         if (results.length == 2) {
             if (results[0].equals("bloodsugar")) {
                 sugarData = new DetectionData();
                 sugarData.setDetectionType("1");
-                sugarData.setSugarTime(0);
+                sugarData.setSugarTime(selectMeasureSugarTime);
                 sugarData.setBloodSugar(Float.parseFloat(results[1]));
                 datas.add(sugarData);
                 MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + sugarData.getBloodSugar());
                 uploadData(datas);
+
+                if (measureItemChanged != null) {
+                    measureItemChanged.onChanged(2);
+                }
             }
             if (results[0].equals("cholesterol")) {
                 cholesterolData = new DetectionData();
@@ -86,6 +93,9 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
                 datas.add(cholesterolData);
                 MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量胆固醇" + cholesterolData.getCholesterol());
                 uploadData(datas);
+                if (measureItemChanged != null) {
+                    measureItemChanged.onChanged(5);
+                }
             }
 
             if (results[0].equals("bua")) {
@@ -96,25 +106,40 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
                 datas.add(lithicAcidData);
                 MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + lithicAcidData.getUricAcid());
                 uploadData(datas);
+                if (measureItemChanged != null) {
+                    measureItemChanged.onChanged(6);
+                }
             }
         }
     }
+
+    @SuppressLint("CheckResult")
     private void uploadData(ArrayList<DetectionData> datas) {
 
-        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-            @Override
-            public void onSuccess(String callbackString) {
-                ToastUtils.showLong("数据上传成功");
-                datas.clear();
-            }
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        ToastUtils.showLong("数据上传成功");
+                        datas.clear();
+                    }
 
-            @Override
-            public void onError() {
-                ToastUtils.showLong("数据上传失败");
-                datas.clear();
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                        datas.clear();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

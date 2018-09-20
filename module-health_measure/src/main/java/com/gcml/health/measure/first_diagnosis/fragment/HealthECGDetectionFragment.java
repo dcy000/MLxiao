@@ -18,6 +18,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.creative.ecg.StatusMsg;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.cc.CCVideoActions;
@@ -28,12 +29,17 @@ import com.gcml.health.measure.ecg.ReceiveService;
 import com.gcml.health.measure.ecg.StaticReceive;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -405,6 +411,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
     };
 
+    @SuppressLint("CheckResult")
     private void uploadEcg(final int ecg, final int heartRate) {
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData ecgData = new DetectionData();
@@ -414,22 +421,45 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         ecgData.setHeartRate(heartRate);
         datas.add(ecgData);
 
-        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-            @Override
-            public void onSuccess(String callbackString) {
-                ToastUtils.showShort("数据上传成功");
-//                if (fragmentChanged != null) {
-//                    isJump2Next = true;
-//                    fragmentChanged.onFragmentChanged(HealthECGDetectionFragment.this, null);
-//                }
-                setBtnClickableState(true);
-            }
 
-            @Override
-            public void onError() {
-                ToastUtils.showLong("数据上传失败");
-            }
-        });
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        ToastUtils.showShort("数据上传成功");
+                        setBtnClickableState(true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showLong("数据上传失败:"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+//
+//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//            @Override
+//            public void onSuccess(String callbackString) {
+//                ToastUtils.showShort("数据上传成功");
+////                if (fragmentChanged != null) {
+////                    isJump2Next = true;
+////                    fragmentChanged.onFragmentChanged(HealthECGDetectionFragment.this, null);
+////                }
+//                setBtnClickableState(true);
+//            }
+//
+//            @Override
+//            public void onError() {
+//                ToastUtils.showLong("数据上传失败");
+//            }
+//        });
     }
 
     /**

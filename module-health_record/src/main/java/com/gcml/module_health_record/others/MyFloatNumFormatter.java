@@ -34,6 +34,10 @@ public class MyFloatNumFormatter implements IValueFormatter {
                 //胆固醇
                 mFormat = new DecimalFormat("#0.00");
                 break;
+            case "8":
+                //血尿酸
+                mFormat=new DecimalFormat("#0.00");
+                break;
             default:
                 break;
         }

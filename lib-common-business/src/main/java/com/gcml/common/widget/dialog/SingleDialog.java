@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.text.Spanned;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -65,8 +66,14 @@ public class SingleDialog {
         showMsg = true;
         if ("".equals(msg)) {
             txt_msg.setText("内容");
+            txt_msg.setGravity(Gravity.CENTER);
         } else {
             txt_msg.setText(msg);
+            if (msg.length() < 15 ) {
+                txt_msg.setGravity(Gravity.CENTER);
+            } else {
+                txt_msg.setGravity(Gravity.CENTER_VERTICAL);
+            }
         }
         return this;
     }
