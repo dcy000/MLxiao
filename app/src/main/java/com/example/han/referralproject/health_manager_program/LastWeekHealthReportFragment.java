@@ -15,11 +15,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.intelligent_diagnosis.LastWeekAllReport;
 import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.fragment.IChangToolbar;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;

@@ -7,11 +7,10 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
-import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.fragment.IChangToolbar;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.module_health_record.fragments.HealthRecordBloodpressureFragment;

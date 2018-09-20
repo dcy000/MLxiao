@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.fragment.RencommendFragment;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.health.measure.BuildConfig;
@@ -56,7 +57,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
     public static final String KEY_DATA = "key_data";
     public static final String KEY_TYPE = "key_type";
     private String userId;
-    private int checkViewpageState = 4;
+    private int checkViewpageState = 5;
 
     public static void startActivity(Context context) {
         context.startActivity(new Intent(context, HealthReportFormActivity.class));
@@ -150,8 +151,8 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
             }
 
         }
-//        DemoGoodTipsFragment tipsFragment = new DemoGoodTipsFragment();
-//        fragments.add(tipsFragment);
+        RencommendFragment tipsFragment = new RencommendFragment();
+        fragments.add(tipsFragment);
         initViewPage();
     }
 
@@ -171,7 +172,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                if (position == 4 && positionOffsetPixels == 0 && checkViewpageState > 0) {
+                if (position == fragments.size()-1&& positionOffsetPixels == 0 && checkViewpageState > 0) {
                     checkViewpageState--;
                 }
             }
@@ -216,7 +217,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
     private DialogSure dialogSure;
 
     private void showEndDialog() {
-        checkViewpageState = 4;
+        checkViewpageState = fragments.size()-1;
         if (dialogSure == null) {
             dialogSure = new DialogSure(this);
             View inflate = LayoutInflater.from(this).inflate(R.layout.health_measure_dialog_enter_mainactivity, null, false);

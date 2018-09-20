@@ -1,11 +1,11 @@
-package com.example.han.referralproject.recommend.adapter;
+package com.gcml.common.recommend.adapter;
 
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.han.referralproject.R;
+import com.gcml.common.business.R;
 import com.gcml.lib_utils.display.ToastUtils;
 
 import java.util.List;
