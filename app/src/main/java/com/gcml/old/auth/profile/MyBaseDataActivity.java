@@ -19,19 +19,11 @@ import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
-import com.gcml.lib_utils.data.StringUtil;
+import com.gcml.common.repository.imageloader.ImageLoader;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.ui.UiUtils;
 import com.gcml.old.auth.entity.HealthInfo;
 import com.gcml.old.auth.entity.UserInfoBean;
-import com.gcml.old.auth.profile.otherinfo.AlertAgeActivity;
-import com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity;
-import com.gcml.old.auth.profile.otherinfo.AlertIDCardActivity;
-import com.gcml.old.auth.profile.otherinfo.AlertNameActivity;
-import com.gcml.old.auth.profile.otherinfo.AlertSexActivity;
-import com.gcml.old.auth.profile.otherinfo.dialog.SMSVerificationDialog;
 import com.medlink.danbogh.utils.Utils;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by gzq on 2017/11/24.
@@ -127,36 +119,35 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
             public void onSuccess(UserInfoBean response) {
                 Log.e(TAG, response.toString());
                 MyBaseDataActivity.this.response = response;
-                Picasso.with(MyBaseDataActivity.this)
+                ImageLoader.with(MyBaseDataActivity.this)
                         .load(response.userPhoto)
                         .placeholder(R.drawable.avatar_placeholder)
                         .error(R.drawable.avatar_placeholder)
-                        .tag(this)
-                        .fit()
                         .into(mHead);
-                mName.setText(response.bname);
+                mName.setText(TextUtils.isEmpty(response.bname) ? "暂未填写" : response.bname);
                 idCardCode = response.sfz;
                 phone = response.tel;
-                if (TextUtils.isEmpty(response.sfz)) {
-                    mAge.setText((TextUtils.isEmpty(response.age) ? "0" : response.age) + "岁");
+                if (TextUtils.isEmpty(response.sfz)
+                        || response.sfz.length() != 18) {
+                    mAge.setText(TextUtils.isEmpty(response.age) ? "暂未填写" : response.age + "岁");
                 } else {
                     mAge.setText(Utils.age(response.sfz) + "岁");
                 }
-                mSex.setText(TextUtils.isEmpty(response.sex) ? "尚未填写" : response.sex);
-                mHeight.setText(TextUtils.isEmpty(response.height) ? "尚未填写" : response.height + "cm");
-                mWeight.setText(TextUtils.isEmpty(response.weight) ? "尚未填写" : response.weight + "Kg");
-                mBlood.setText(TextUtils.isEmpty(response.bloodType) ? "尚未填写" : response.bloodType + "型");
-                mPhone.setText(TextUtils.isEmpty(response.tel) ? "尚未填写" : response.tel);
+                mSex.setText(TextUtils.isEmpty(response.sex) ? "暂未填写" : response.sex);
+                mHeight.setText(TextUtils.isEmpty(response.height) ? "暂未填写" : response.height + "cm");
+                mWeight.setText(TextUtils.isEmpty(response.weight) ? "暂未填写" : response.weight + "Kg");
+                mBlood.setText(TextUtils.isEmpty(response.bloodType) ? "暂未填写" : response.bloodType + "型");
+                mPhone.setText(TextUtils.isEmpty(response.tel) ? "暂未填写" : response.tel);
                 mNumber.setText(response.eqid);
                 String sports = HealthInfo.SPORTS_MAP.get(response.exerciseHabits);
-                mMotion.setText(TextUtils.isEmpty(sports) ? "尚未填写" : sports);
+                mMotion.setText(TextUtils.isEmpty(sports) ? "暂未填写" : sports);
                 String smoke = HealthInfo.SMOKE_MAP.get(response.smoke);
-                mSmoke.setText(TextUtils.isEmpty(smoke) ? "尚未填写" : smoke);
+                mSmoke.setText(TextUtils.isEmpty(smoke) ? "暂未填写" : smoke);
                 String eat = HealthInfo.EAT_MAP.get(response.eatingHabits);
-                mEating.setText(TextUtils.isEmpty(eat) ? "尚未填写" : eat);
+                mEating.setText(TextUtils.isEmpty(eat) ? "暂未填写" : eat);
                 String drink = HealthInfo.DRINK_MAP.get(response.drink);
-                mDrinking.setText(TextUtils.isEmpty(drink) ? "尚未填写" : drink);
-                mAddress.setText(TextUtils.isEmpty(response.dz) ? "尚未填写" : response.dz);
+                mDrinking.setText(TextUtils.isEmpty(drink) ? "暂未填写" : drink);
+                mAddress.setText(TextUtils.isEmpty(response.dz) ? "暂未填写" : response.dz);
                 String deseaseHistory = HealthInfo.getDeseaseHistory(response.mh);
                 mHistory.setText(TextUtils.isEmpty(deseaseHistory) ? "无" : deseaseHistory.replaceAll(",", "/"));
 
@@ -164,7 +155,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                     String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 4, response.sfz.length());
                     mIdcard.setText(shenfen);
                 } else {
-                    mIdcard.setText("尚未填写");
+                    mIdcard.setText("暂未填写");
                 }
             }
         }, new NetworkManager.FailedCallback() {
@@ -290,7 +281,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
 
             case R.id.ll_age_info:
                 //修改年龄
-                if (mIdcard.getText().toString().equals("尚未填写")) {
+                if (mIdcard.getText().toString().equals("暂未填写")) {
                     startActivity(new Intent(this, AlertAgeActivity.class));
                 } else {
                     ToastUtils.showShort("年龄与身份证号关联,不可更改~");

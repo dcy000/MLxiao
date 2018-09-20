@@ -30,6 +30,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HealthRecordBloodpressureFragment extends RecycleBaseFragment implements View.OnClickListener {
     private TextView mColor1;
@@ -100,7 +101,7 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
         mChart.setNoDataText("");
 
 
-        LimitLine ll1 = new LimitLine(130f, "130mmHg");
+        LimitLine ll1 = new LimitLine(140f, "140mmHg");
         ll1.setLineWidth(2f);
         ll1.setLineColor(getResources().getColor(R.color.health_record_picket_line1));
         ll1.enableDashedLine(10.0f, 10f, 0f);
@@ -124,12 +125,12 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
         xAxis.setGranularity(1f);
         xAxis.setLabelCount(4);
 
-        LimitLine ll3 = new LimitLine(85f, "85mmHg");
-        ll3.setLineWidth(2f);
-        ll3.setLineColor(getResources().getColor(R.color.health_record_picket_line2));
-        ll3.enableDashedLine(10.0f, 10f, 0f);
-        ll3.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-        ll3.setTextSize(20f);
+//        LimitLine ll3 = new LimitLine(85f, "85mmHg");
+//        ll3.setLineWidth(2f);
+//        ll3.setLineColor(getResources().getColor(R.color.health_record_picket_line2));
+//        ll3.enableDashedLine(10.0f, 10f, 0f);
+//        ll3.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
+//        ll3.setTextSize(20f);
 
 
         LimitLine ll4 = new LimitLine(60f, "60mmHg");
@@ -145,7 +146,6 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
         leftAxis.setGranularityEnabled(true);
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
-        leftAxis.addLimitLine(ll3);
         leftAxis.addLimitLine(ll4);
         leftAxis.setAxisMinimum(50f);
         leftAxis.setDrawLimitLinesBehindData(false);
@@ -153,7 +153,7 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
         mChart.getAxisRight().setEnabled(false);
     }
 
-    public void refreshData(ArrayList<BloodPressureHistory> response, String temp) {
+    public void refreshData(List<BloodPressureHistory> response, String temp) {
         view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
         initChart();
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();

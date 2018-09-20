@@ -47,16 +47,6 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
             binding.etPhone.setText(mPhone);
             binding.etPhone.setSelection(mPhone.length());
         }
-        RxUtils.rxWifiLevel(getApplication(), 4)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer integer) throws Exception {
-                        binding.ivWifiState.setImageLevel(integer);
-                    }
-                });
     }
 
     public void rootOnClick() {
@@ -210,9 +200,30 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        RxUtils.rxWifiLevel(getApplication(), 4)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        binding.ivWifiState.setImageLevel(integer);
+                    }
+                });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        code = "";
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入您的手机号码", false);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入您的手机号码");
     }
 
     @Override

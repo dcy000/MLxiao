@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.cc.CCFaceRecognitionActions;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -148,7 +150,10 @@ public class SignUp03PasswordActivity extends BaseActivity {
                         LocalShared.getInstance(mContext).setUserPhoto(response.userPhoto);
                         LocalShared.getInstance(mContext).setUserAge(response.age);
                         LocalShared.getInstance(mContext).setUserHeight(response.height);
-                        new JpushAliasUtils(SignUp03PasswordActivity.this).setAlias("user_" + response.bid);
+                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                                .addParam("userId", UserSpHelper.getUserId())
+                                .build()
+                                .callAsync();
                         NetworkApi.setUserMh("11", new NetworkManager.SuccessCallback<String>() {
                             @Override
                             public void onSuccess(String response) {

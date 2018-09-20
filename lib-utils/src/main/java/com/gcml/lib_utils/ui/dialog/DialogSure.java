@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.gcml.lib_utils.R;
 
-
 /**
  * @author vondear
  * @date 2016/7/19

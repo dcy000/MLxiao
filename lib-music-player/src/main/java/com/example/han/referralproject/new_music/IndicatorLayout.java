@@ -1,6 +1,7 @@
 package com.example.han.referralproject.new_music;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.ImageView;
@@ -52,5 +53,24 @@ public class IndicatorLayout extends LinearLayout {
                 imageView.setImageResource(R.drawable.mp_ic_play_page_indicator_unselected);
             }
         }
+    }
+
+    public void attachToViewPager(ViewPager viewPager) {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setCurrent(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 }

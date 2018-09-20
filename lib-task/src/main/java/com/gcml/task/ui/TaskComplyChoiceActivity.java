@@ -1,6 +1,7 @@
 package com.gcml.task.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,7 +20,6 @@ import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
-import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.task.R;
 import com.gcml.task.bean.Post.TaskSchemaResultBean;
 import com.gcml.task.bean.get.TaskHealthBean;
@@ -53,9 +53,20 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
     private LoadingDialog mTipDialog;
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        if (intent.getExtras().getBoolean("isFirst")) {
+            finish();
+            CC.obtainBuilder("app.component.task.comply.choice").addParam("isFirst", false).setContext(TaskComplyChoiceActivity.this).build().callAsync();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_health);
+
         bindView();
         bindData();
     }
@@ -75,6 +86,10 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                     return;
                 }
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+                MLVoiceSynthetize.stop();
+                MLVoiceSynthetize.startSynthesize(getApplicationContext(),
+                        "主人" + mList.get(mViewPager.getCurrentItem() + 1).questionName,
+                        false);
             }
 
             @Override

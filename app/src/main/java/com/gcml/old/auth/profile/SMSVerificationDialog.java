@@ -1,4 +1,4 @@
-package com.gcml.old.auth.profile.otherinfo.dialog;
+package com.gcml.old.auth.profile;
 
 import android.app.DialogFragment;
 import android.content.DialogInterface;
@@ -19,7 +19,6 @@ import com.gcml.lib_utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**

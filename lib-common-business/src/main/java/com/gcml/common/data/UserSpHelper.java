@@ -1,7 +1,6 @@
 package com.gcml.common.data;
 
 import android.text.TextUtils;
-import android.widget.TextView;
 
 import com.gcml.lib_utils.data.SPUtil;
 
@@ -30,6 +29,8 @@ public class UserSpHelper {
      * 用户id的key
      */
     private static final String KEY_USER_ID = "user_id";
+    private static final String KEY_TOKEN = "token";
+    private static final String KEY_REFRESH_TOKEN = "refreshToken";
     /**
      * 讯飞id的key
      */
@@ -74,6 +75,28 @@ public class UserSpHelper {
             userId = "";
         }
         SPUtil.put(KEY_USER_ID, userId);
+    }
+
+    public static String getToken() {
+        return (String) SPUtil.get(KEY_TOKEN, "");
+    }
+
+    public static void setToken(String token) {
+        if (TextUtils.isEmpty(token)) {
+            token = "";
+        }
+        SPUtil.put(KEY_TOKEN, token);
+    }
+
+    public static String getRefreshToken() {
+        return (String) SPUtil.get(KEY_REFRESH_TOKEN, "");
+    }
+
+    public static void setRefreshToken(String refreshToken) {
+        if (TextUtils.isEmpty(refreshToken)) {
+            refreshToken = "";
+        }
+        SPUtil.put(KEY_REFRESH_TOKEN, refreshToken);
     }
 
     /**

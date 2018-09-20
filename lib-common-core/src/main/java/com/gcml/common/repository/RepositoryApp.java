@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
+import tech.linjiang.pandora.Pandora;
 
 public enum RepositoryApp implements IRepositoryApp {
 
@@ -122,7 +123,8 @@ public enum RepositoryApp implements IRepositoryApp {
                         //okHttpBuilder.sslSocketFactory()
                         okHttpBuilder
                                 .addNetworkInterceptor(new StethoInterceptor())
-                                .writeTimeout(10, TimeUnit.SECONDS);
+                                .writeTimeout(10, TimeUnit.SECONDS)
+                                .addInterceptor(Pandora.get().getInterceptor());
                     })
                     //这里可以自己自定义配置 RxCache 的参数
                     .rxCacheConfiguration((context1, rxCacheBuilder) -> {

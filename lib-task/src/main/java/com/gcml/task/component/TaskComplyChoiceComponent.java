@@ -26,6 +26,8 @@ public class TaskComplyChoiceComponent implements IComponent {
     public boolean onCall(CC cc) {
         Context context = cc.getContext();
         Intent intent = new Intent(context, TaskComplyChoiceActivity.class);
+        boolean isFirst = cc.getParamItem("isFirst");
+        intent.putExtra("isFirst", isFirst);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }

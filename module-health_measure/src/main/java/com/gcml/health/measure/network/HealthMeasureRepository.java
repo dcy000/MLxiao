@@ -1,5 +1,6 @@
 package com.gcml.health.measure.network;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.IRepositoryHelper;
 import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.repository.http.ApiResult;
@@ -78,5 +79,12 @@ public class HealthMeasureRepository {
      */
     public static Observable<Object> checkIsNormalData(String userId, ArrayList<DetectionData> datas){
         return healthMeasureServer.checkIsNormalData(userId,datas).compose(RxUtils.apiResultTransformer());
+    }
+
+    /**
+     * 新的上传数据的接口
+     */
+    public static Observable<Object> postMeasureData(ArrayList<DetectionData> datas){
+        return healthMeasureServer.postMeasureData(UserSpHelper.getUserId(),datas).compose(RxUtils.apiResultTransformer());
     }
 }

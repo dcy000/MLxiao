@@ -27,6 +27,16 @@
                 android:name="SecretKey"
                 android:value="saksvhflsjxywxu"></meta-data>
         </service>
+
+
+        <!--同乐达手环-->
+        <service
+            android:name="com.yc.pedometer.sdk.BluetoothLeService"
+            android:enabled="true" />
+        <service android:name="com.realsil.android.blehub.dfu.DfuService" />
+        <meta-data
+            android:name="YCAPPKEY"
+            android:value="f0b520cdb42c7103f6683977793ae81c" />
     </application>
 
 </manifest>

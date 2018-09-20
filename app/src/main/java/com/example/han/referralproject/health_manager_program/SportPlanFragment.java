@@ -26,6 +26,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.fragment.IChangToolbar;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -215,7 +216,7 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.more_exercise:
                 mData.clear();
-                if (isMore && cacheDatas.size() > 5) {
+                if (isMore && cacheDatas!=null&&cacheDatas.size() > 5) {
                     isMore = false;
                     for (int i = 0; i < 5; i++) {
                         mData.add(cacheDatas.get(i));
@@ -226,6 +227,8 @@ public class SportPlanFragment extends Fragment implements View.OnClickListener 
                     if (cacheDatas!=null){
                         mData.addAll(cacheDatas);
                         moreExercise.setText("收起");
+                    }else{
+                        ToastUtils.showShort("暂无推荐项目");
                     }
                 }
                 adapter.notifyDataSetChanged();

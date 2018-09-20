@@ -123,6 +123,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
     private int currentHighBloodpressure;
     private int currentLowBloodpressure;
     private String currentSuggest;
+    private boolean isTask;
 
     @Override
     protected int initLayout() {
@@ -168,6 +169,12 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
             currentHighBloodpressure = bundle.getInt("high_bloodpressure", 120);
             currentLowBloodpressure = bundle.getInt("low_bloodpressure", 80);
             currentSuggest = bundle.getString("suggest");
+            isTask = bundle.getBoolean("isTask");
+        }
+        if (isTask) {
+            mHealthKnowledge.setText("返回任务");
+        } else {
+            mHealthKnowledge.setText("健康方案");
         }
         mTvState.setText(healthState);
         mWaveProgressBar.setValue(healthScore);
@@ -182,6 +189,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         initViewColor();
         getData();
     }
+
     private void initViewColor() {
         switch (healthState) {
             case "异常增高":
@@ -302,7 +310,12 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
             CCAppActions.jump2NormalHightActivity("NewMeasureBloodpressureResultActivity");
 
         } else if (i == R.id.health_knowledge) {
-            onclickHypertensionManage();
+            if (isTask) {
+                mActivity.finish();
+            } else {
+                onclickHypertensionManage();
+            }
+
         } else {
         }
     }

@@ -352,7 +352,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="40pt"
                 android:layout_marginTop="36pt"
-                android:textColor="#3ACC61"/>
+                android:textColor="#3ACC61"
+                android:visibility="gone"/>
             <com.littlejie.circleprogress.WaveProgress
                 android:id="@+id/wave_progress_bar"
                 android:layout_width="293pt"
@@ -457,7 +458,6 @@
                           app:layout_constraintBottom_toBottomOf="@id/tv_something_advice"
                           app:layout_constraintLeft_toRightOf="@id/tv_something_advice"
                           app:layout_constraintRight_toRightOf="parent"
-                          android:layout_marginLeft="102pt"
                           android:clickable="true"/>
                   </LinearLayout>
                </LinearLayout>

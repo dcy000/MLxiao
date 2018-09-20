@@ -47,7 +47,7 @@ public class Preferences {
     }
 
     public static boolean enableMobileNetworkPlay() {
-        return getBoolean(sContext.getString(R.string.mp_setting_key_mobile_network_play), false);
+        return getBoolean(sContext.getString(R.string.mp_setting_key_mobile_network_play), true);
     }
 
     public static void saveMobileNetworkPlay(boolean enable) {

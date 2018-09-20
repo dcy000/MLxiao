@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
+
     <com.example.han.referralproject.imageview.CircleImageView
         android:id="@+id/iv_header"
         android:layout_width="205dp"
@@ -10,6 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/avatar_placeholder" />
+
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
@@ -19,4 +22,5 @@
         android:gravity="center"
         android:textSize="35sp"
         android:visibility="visible"/>
+
 </LinearLayout>

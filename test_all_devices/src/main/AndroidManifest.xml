@@ -20,6 +20,20 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="false" />
+
+    <uses-permission
+        android:name="android.permission.MEDIA_CONTENT_CONTROL"
+        android:required="false" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        android:required="false" />
+    <uses-permission
+        android:name="android.permission.GET_TASKS"
+        android:required="false" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"

@@ -50,6 +50,17 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
                 .putExtra("suggest", suggest));
     }
 
+    public static void startActivity(Context context, String state, int score, int currentHigh,
+                                     int currentLow, String suggest, boolean isTask) {
+        context.startActivity(new Intent(context, ShowMeasureBloodpressureResultActivity.class)
+                .putExtra("health_state", state)
+                .putExtra("health_score", score)
+                .putExtra("high_bloodpressure", currentHigh)
+                .putExtra("low_bloodpressure", currentLow)
+                .putExtra("suggest", suggest)
+                .putExtra("isTask", isTask));
+    }
+
     @Override
     protected void backMainActivity() {
         CCAppActions.jump2MainActivity();
@@ -89,6 +100,7 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
             bundle.putInt("high_bloodpressure", intent.getIntExtra("high_bloodpressure", 120));
             bundle.putInt("low_bloodpressure", intent.getIntExtra("low_bloodpressure", 80));
             bundle.putString("suggest", intent.getStringExtra("suggest"));
+            bundle.putBoolean("isTask",intent.getBooleanExtra("isTask",false));
             resultFragment.setArguments(bundle);
         }
 

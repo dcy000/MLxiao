@@ -1,17 +1,20 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.IntDef;
 import android.text.Html;
 import android.util.SparseIntArray;
 import android.view.View;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.data.TimeCountDownUtils;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -25,6 +28,9 @@ import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
@@ -241,6 +247,7 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     protected void uploadHandStateFinished(){
 
     }
+    @SuppressLint("CheckResult")
     private void uploadData(Data data) {
         ArrayList<DetectionData> datas = new ArrayList<>();
         final DetectionData pressureData = new DetectionData();
@@ -257,23 +264,42 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
         datas.add(pressureData);
         datas.add(pulseData);
 
-        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-            @Override
-            public void onSuccess(String callbackString) {
-//                if (fragmentChanged != null && !isJump2Next) {
-//                    isJump2Next = true;
-//                    fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
-//                }
-                ((FirstDiagnosisActivity) mActivity).putCacheData(pressureData);
-                ((FirstDiagnosisActivity) mActivity).putCacheData(pulseData);
-                isMeasureOver = true;
-                setBtnClickableState(true);
-            }
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+//                        ((FirstDiagnosisActivity) mActivity).putCacheData(pressureData);
+//                        ((FirstDiagnosisActivity) mActivity).putCacheData(pulseData);
+                        isMeasureOver = true;
+                        setBtnClickableState(true);
+                    }
 
-            @Override
-            public void onError() {
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort("上传数据失败："+e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//            @Override
+//            public void onSuccess(String callbackString) {
+//                ((FirstDiagnosisActivity) mActivity).putCacheData(pressureData);
+//                ((FirstDiagnosisActivity) mActivity).putCacheData(pulseData);
+//                isMeasureOver = true;
+//                setBtnClickableState(true);
+//            }
+//
+//            @Override
+//            public void onError() {
+//            }
+//        });
     }
     /**
      * @return prepareData = int[1], lowPressure = int[2], pulse = int[3], left = int[4] == 1

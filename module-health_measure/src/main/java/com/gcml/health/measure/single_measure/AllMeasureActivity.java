@@ -186,12 +186,10 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 //三合一
                 if (baseFragment == null) {
                     mTitleText.setText("三 合 一 测 量");
-                    if (isFaceSkip) {
-                        baseFragment = new NonUploadSingleMeasureThreeInOneFragment();
-                    } else {
-                        baseFragment = new SingleMeasureThreeInOneFragment();
-                    }
-                    ((ThreeInOne_Fragment) baseFragment).setOnMeasureItemChanged(this);
+                    mRightView.setImageResource(R.drawable.common_icon_home);
+                    isShowBloodsugarSelectTime = true;
+                    baseFragment = new HealthSelectSugarDetectionTimeFragment();
+                    baseFragment.setOnFragmentChangedListener(this);
                 }
                 break;
             case IPresenter.CONTROL_FINGERPRINT:
@@ -363,11 +361,6 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     @Override
     protected void backMainActivity() {
         if (isMeasure) {
-            //在血糖选择测量时间的界面 点击右上角的图表直接回到主界面
-            if (isShowBloodsugarSelectTime) {
-                CCAppActions.jump2MainActivity();
-                return;
-            }
             showRefreshBluetoothDialog();
         } else {
             if (DataUtils.isNullString(pdfUrl)) {
@@ -508,11 +501,21 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             if (bundle != null) {
-                if (isFaceSkip) {
-                    baseFragment = new NonUploadSingleMeasureBloodsugarFragment();
-                } else {
-                    baseFragment = new SingleMeasureBloodsugarFragment();
+                if (measure_type==IPresenter.MEASURE_BLOOD_SUGAR){
+                    if (isFaceSkip) {
+                        baseFragment = new NonUploadSingleMeasureBloodsugarFragment();
+                    } else {
+                        baseFragment = new SingleMeasureBloodsugarFragment();
+                        baseFragment.setArguments(bundle);
+                    }
+                }else if (measure_type==IPresenter.MEASURE_OTHERS){
+                    if (isFaceSkip) {
+                        baseFragment = new NonUploadSingleMeasureThreeInOneFragment();
+                    } else {
+                        baseFragment = new SingleMeasureThreeInOneFragment();
+                    }
                     baseFragment.setArguments(bundle);
+                    ((ThreeInOne_Fragment) baseFragment).setOnMeasureItemChanged(this);
                 }
                 baseFragment.setOnDealVoiceAndJumpListener(dealVoiceAndJump);
                 getSupportFragmentManager().beginTransaction()

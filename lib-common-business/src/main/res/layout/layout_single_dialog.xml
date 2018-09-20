@@ -22,7 +22,7 @@
             android:paddingRight="40dp"
             android:gravity="center_vertical"
             android:textColor="@color/config_color_black"
-            android:textSize="36sp" />
+            android:textSize="36sp"/>
 
     </LinearLayout>
 
@@ -45,7 +45,7 @@
             android:layout_weight="1"
             android:background="@drawable/alert_right_selector"
             android:gravity="center"
-            android:textColor="@color/config_color_base_9"
+            android:textColor="@color/config_color_primary"
             android:textSize="34sp" />
 
     </LinearLayout>

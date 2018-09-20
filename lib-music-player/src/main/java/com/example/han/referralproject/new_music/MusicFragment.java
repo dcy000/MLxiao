@@ -98,6 +98,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener, Mus
         mViewPagerContent.add(lrcView);
         vpPlayPage.setAdapter(new PlayPagerAdapter(mViewPagerContent));
         ilIndicator.create(mViewPagerContent.size());
+        ilIndicator.attachToViewPager(vpPlayPage);
     }
 
 

@@ -27,14 +27,21 @@ import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
 
 import org.litepal.LitePal;
 
+import java.util.logging.Level;
+
 import cn.beecloud.BeeCloud;
 import cn.jpush.android.api.JPushInterface;
+import okhttp3.OkHttpClient;
+import tech.linjiang.pandora.Pandora;
+import tech.linjiang.pandora.network.OkHttpInterceptor;
 
 
 public class MyApplication extends Application {
@@ -57,6 +64,7 @@ public class MyApplication extends Application {
     public String userName;
     @Deprecated
     public String hypertensionHand;
+
     @Deprecated
     public String nimUserId() {
         return "user_" + UserSpHelper.getUserId();
@@ -121,6 +129,26 @@ public class MyApplication extends Application {
         JPushInterface.init(this);
         NimInitHelper.getInstance().init(this, true);
         initVideoPlay();
+        initOkGo();
+    }
+
+    private void initOkGo() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");
+        //log打印级别，决定了log显示的详细程度
+        loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY);
+        //log颜色级别，决定了log在控制台显示的颜色
+        loggingInterceptor.setColorLevel(Level.INFO);
+        builder.addInterceptor(loggingInterceptor);
+        Pandora pandora = Pandora.get();
+        if (pandora != null) {
+            OkHttpInterceptor interceptor = pandora.getInterceptor();
+            if (interceptor != null) {
+                builder.addInterceptor(interceptor);
+            }
+        }
+        OkGo.getInstance().init(this)
+                .setOkHttpClient(builder.build());
     }
 
     private void initVideoPlay() {

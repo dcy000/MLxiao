@@ -1,4 +1,4 @@
-package com.gcml.old.auth.profile;
+package com.gcml.old.auth.personal;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
