@@ -173,8 +173,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onSuccess(VersionInfoBean response) {
                 tipDialog.dismiss();
-//                if (response != null && response.vid > VersionHelper.getAppVersionCode(getApplicationContext())) {
-                if (response != null && response.vid > 0) {
+                if (response != null && response.vid > VersionHelper.getAppVersionCode(getApplicationContext())) {
                     checkUpdate(FILE_NAME, response.v_log, response.vid, response.vnumber, response.url, response.v_md5);
                 } else {
                     MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
