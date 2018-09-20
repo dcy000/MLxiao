@@ -2,25 +2,20 @@ package com.example.han.referralproject.recommend;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.recommend.adapter.RecommendAdapter;
-import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.ui.UiUtils;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -56,13 +51,12 @@ public class RecommendActivity extends AppCompatActivity {
 
                     @Override
                     public void onRightClick() {
-                        startActivity(new Intent(RecommendActivity.this, MainActivity.class
-                        ));
+                        startActivity(new Intent(RecommendActivity.this, MainActivity.class));
                     }
                 });
 
         GridLayoutManager layout = new GridLayoutManager(this, 3);
-//        rvCommendGoods.addItemDecoration(new GridDividerItemDecoration(60, 0));
+//        rvCommendGoods.addItemDecoration(new GridDividerItemDecoration(UiUtils.pt(108), 0));
         rvCommendGoods.setLayoutManager(layout);
         rvCommendGoods.setAdapter(new RecommendAdapter(R.layout.recommend_item, getData()));
     }

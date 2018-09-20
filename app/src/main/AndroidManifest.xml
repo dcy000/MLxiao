@@ -718,7 +718,8 @@
         <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertSexActivity" />
         <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity" />
         <activity android:name=".settting.activity.CameraActivity" />
-        <activity android:name=".hypertensionmanagement.activity.DetecteTipActivity"></activity>
+        <activity android:name=".hypertensionmanagement.activity.DetecteTipActivity" />
+        <activity android:name=".recommend.RecommendActivity"></activity>
     </application>
 
 </manifest>
