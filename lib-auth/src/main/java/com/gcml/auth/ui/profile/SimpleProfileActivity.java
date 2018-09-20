@@ -6,10 +6,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySimpleProfileBinding;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -44,6 +46,7 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        callId = getIntent().getStringExtra("callId");
         binding.setPresenter(this);
         binding.tbSimpleProfile.setData(
                 "完 善 信 息",
@@ -180,17 +183,7 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
                     @Override
                     public void onNext(UserEntity user) {
                         ToastUtils.showShort("更新资料成功");
-//                        CC.obtainBuilder("com.gcml.old.home")
-//                                .build()
-//                                .callAsync();
-                        CC.obtainBuilder("health_measure")
-                                .build()
-                                .callAsync();
-                        CC.obtainBuilder("health_measure")
-                                .setActionName("To_HealthInquiryActivity")
-                                .build()
-                                .call();
-
+                        error = false;
                         finish();
                     }
 
@@ -238,4 +231,22 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
             loadingDialog.dismiss();
         }
     }
+
+    @Override
+    public void finish() {
+        if (!TextUtils.isEmpty(callId)) {
+            CCResult result;
+            if (error) {
+                result = CCResult.error("");
+            } else {
+                result = CCResult.success();
+            }
+            //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
+            CC.sendCCResult(callId, result);
+        }
+        super.finish();
+    }
+
+    private String callId;
+    private volatile boolean error = true;
 }

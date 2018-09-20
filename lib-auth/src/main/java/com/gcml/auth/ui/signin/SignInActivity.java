@@ -164,26 +164,62 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity user) {
-                        CC.obtainBuilder("com.gcml.old.home")
-                                .addParam("userId", user.id)
-                                .build()
-                                .callAsync();
                         CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
                                 .addParam("userId", user.id)
                                 .build()
                                 .callAsync();
-                        CC.obtainBuilder("com.gcml.auth.face.joingroup")
-                                .build()
-                                .callAsync();
+                        checkFace(user);
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        ToastUtils.showShort("手机号或密码错误");
+                        ToastUtils.showShort(throwable.getMessage());
                     }
                 });
 
+    }
+
+    private void checkFace(UserEntity user) {
+        if (TextUtils.isEmpty(user.xfid)) {
+            CC.obtainBuilder("com.gcml.auth.face.signup")
+                    .build()
+                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+                            if (result.isSuccess()) {
+                                CC.obtainBuilder("com.gcml.auth.face.joingroup")
+                                        .build()
+                                        .callAsync();
+                            }
+                            checkProfile(user);
+                        }
+                    });
+        } else {
+            checkProfile(user);
+        }
+    }
+
+    private void checkProfile(UserEntity user) {
+        if (TextUtils.isEmpty(user.idCard)
+                && TextUtils.isEmpty(user.name)
+                && TextUtils.isEmpty(user.height)
+                && TextUtils.isEmpty(user.sex)) {
+            CC.obtainBuilder("com.gcml.auth.updateSimpleProfile")
+                    .build()
+                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+                            CC.obtainBuilder("com.gcml.old.home")
+                                    .build()
+                                    .callAsync();
+                        }
+                    });
+        } else {
+            CC.obtainBuilder("com.gcml.old.home")
+                    .build()
+                    .callAsync();
+        }
     }
 
     public void goSignInByFace() {
