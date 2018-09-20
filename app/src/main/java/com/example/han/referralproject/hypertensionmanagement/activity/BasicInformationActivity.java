@@ -7,10 +7,10 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.gcml.common.data.AppManager;
 import com.example.han.referralproject.network.NetworkApi;
+import com.gcml.common.data.AppManager;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.old.auth.profile.AlertHeightActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +28,10 @@ public class BasicInformationActivity extends BaseActivity {
     TextView tvBirthInfo;
     @BindView(R.id.tv_height_info)
     TextView tvHeightInfo;
+    @BindView(R.id.tv_change_birth)
+    TextView tvChangeBirth;
+    @BindView(R.id.tv_change_height)
+    TextView tvChangeHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +63,7 @@ public class BasicInformationActivity extends BaseActivity {
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(this, WifiConnectActivity.class)));
     }
 
-    @OnClick({R.id.tv_next_step, R.id.tv_birth_info, R.id.tv_height_info})
+    @OnClick({R.id.tv_next_step, R.id.tv_birth_info, R.id.tv_height_info, R.id.tv_change_birth, R.id.tv_change_height})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_next_step:
@@ -83,10 +87,11 @@ public class BasicInformationActivity extends BaseActivity {
 
                 }
                 break;
-            case R.id.tv_birth_info:
+            case R.id.tv_change_birth:
                 break;
-            case R.id.tv_height_info:
+            case R.id.tv_change_height:
                 break;
+
         }
     }
 

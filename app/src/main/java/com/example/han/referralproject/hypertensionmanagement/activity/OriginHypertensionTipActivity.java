@@ -38,7 +38,7 @@ public class OriginHypertensionTipActivity extends BaseActivity implements WarmN
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("基 础 信 息 列 表");
+        mTitleText.setText("健 康 调 查");
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(OriginHypertensionTipActivity.this, WifiConnectActivity.class)));
@@ -56,11 +56,13 @@ public class OriginHypertensionTipActivity extends BaseActivity implements WarmN
     @Override
     public void onFragmentBtnClick() {
         startActivity(new Intent(this, PrimaryHypertensionActivity.class));
+        finish();
     }
 
     @Override
     public void onFragmentBtnTimeOut() {
         startActivity(new Intent(this, PrimaryHypertensionActivity.class));
+        finish();
     }
 
 

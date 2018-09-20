@@ -27,7 +27,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tv_tip_content"
         android:layout_width="1200pt"
         android:layout_height="wrap_content"
@@ -35,6 +34,7 @@
         android:text="您好，根据系统中显示的3次数据判定，您血压偏低，现系统正为您生成预防高血压方案。"
         android:textColor="#ff999999"
         android:textSize="56pt"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/tv_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
         tools:ignore="MissingConstraints" />
@@ -64,10 +64,11 @@
         android:layout_marginTop="72pt"
         android:columnWidth="432pt"
         android:numColumns="3"
-        android:stretchMode="none"
-        android:verticalSpacing="30pt"
+        android:stretchMode="spacingWidth"
+        android:verticalSpacing="48pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
         tools:ignore="MissingConstraints" />
+
 
 </android.support.constraint.ConstraintLayout>

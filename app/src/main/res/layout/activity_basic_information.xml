@@ -125,7 +125,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="379pt"
         android:drawablePadding="15pt"
-        android:drawableRight="@drawable/ic_mark"
         android:textColor="#ff333333"
         android:textSize="56pt"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,13 +137,40 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="379pt"
         android:drawablePadding="15pt"
-        android:drawableRight="@drawable/ic_mark"
         android:textColor="#ff333333"
         android:textSize="56pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_height"
         tools:layout_editor_absoluteY="71pt"
         tools:text="166" />
+
+    <TextView
+        android:id="@+id/tv_change_birth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8pt"
+        android:layout_marginStart="32pt"
+        android:layout_marginTop="8pt"
+        android:text="修改"
+        android:textColor="#ff3f86fc"
+        android:textSize="48pt"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_birth_info"
+        app:layout_constraintStart_toEndOf="@+id/tv_birth_info"
+        app:layout_constraintTop_toTopOf="@+id/tv_birth_info" />
+
+    <TextView
+        android:id="@+id/tv_change_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8pt"
+        android:layout_marginStart="32pt"
+        android:layout_marginTop="8pt"
+        android:text="修改"
+        android:textColor="#ff3f86fc"
+        android:textSize="48pt"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_height_info"
+        app:layout_constraintStart_toEndOf="@+id/tv_height_info"
+        app:layout_constraintTop_toTopOf="@+id/tv_height_info" />
 
 
 </android.support.constraint.ConstraintLayout>

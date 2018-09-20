@@ -445,9 +445,9 @@
             android:name="com.gcml.old.auth.register.ConfirmContractActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:name="com.gcml.old.auth.profile.MyBaseDataActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
         <activity
             android:name="com.gcml.old.auth.profile.AlertHeightActivity"
             android:screenOrientation="landscape" />
@@ -716,8 +716,10 @@
         <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertAgeActivity" />
         <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertIDCardActivity" />
         <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertSexActivity" />
-        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity"></activity>
+        <activity android:name="com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity" />
         <activity android:name=".settting.activity.CameraActivity" />
+        <activity android:name=".hypertensionmanagement.activity.DetecteTipActivity" />
+        <activity android:name=".recommend.RecommendActivity"></activity>
     </application>
 
 </manifest>
