@@ -1,5 +1,6 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,17 +8,23 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetailsModel;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 
 import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class HealthWeightDetectionUiFragment extends Weight_Fragment
         implements HealthDiaryDetailsFragment.OnActionListener {
@@ -73,6 +80,7 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
         }
     }
 
+    @SuppressLint("CheckResult")
     private void uploadData(float weight) {
         ArrayList<DetectionData> datas = new ArrayList<>();
         final DetectionData weightData = new DetectionData();
@@ -80,22 +88,49 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
         weightData.setDetectionType("3");
         weightData.setWeight(weight);
         datas.add(weightData);
-        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-            @Override
-            public void onSuccess(String callbackString) {
-                ((FirstDiagnosisActivity) mActivity).putCacheData(weightData);
-                if (fragmentChanged != null && !isJump2Next) {
-                    isJump2Next = true;
-                    fragmentChanged.onFragmentChanged(
-                            HealthWeightDetectionUiFragment.this, null);
-                }
-            }
 
-            @Override
-            public void onError() {
-                ToastUtils.showLong("数据上传失败");
-            }
-        });
+
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+//                        ((FirstDiagnosisActivity) mActivity).putCacheData(weightData);
+                        if (fragmentChanged != null && !isJump2Next) {
+                            isJump2Next = true;
+                            fragmentChanged.onFragmentChanged(
+                                    HealthWeightDetectionUiFragment.this, null);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showLong("数据上传失败:"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//            @Override
+//            public void onSuccess(String callbackString) {
+//                ((FirstDiagnosisActivity) mActivity).putCacheData(weightData);
+//                if (fragmentChanged != null && !isJump2Next) {
+//                    isJump2Next = true;
+//                    fragmentChanged.onFragmentChanged(
+//                            HealthWeightDetectionUiFragment.this, null);
+//                }
+//            }
+//
+//            @Override
+//            public void onError() {
+//                ToastUtils.showLong("数据上传失败");
+//            }
+//        });
     }
 
     @Override

@@ -41,4 +41,7 @@ public interface HealthMeasureServer {
     Observable<ApiResult<FirstReportReceiveBean>> getFirstReport(@Path("userId") String userId);
     @POST("ZZB/api/healthMonitor/detection/{userId}/check/")
     Observable<ApiResult<Object>>  checkIsNormalData(@Path("userId") String userId, @Body List<DetectionData> datas);
+
+    @POST("ZZB/api/healthMonitor/detection/{userId}/")
+    Observable<ApiResult<Object>> postMeasureData(@Path("userId") String userId,@Body ArrayList<DetectionData> datas);
 }

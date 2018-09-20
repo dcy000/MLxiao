@@ -137,39 +137,75 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
         }
     }
 
+    @SuppressLint("CheckResult")
     private void uploadData() {
         if (datas == null) {
             Timber.e("SingleMeasureBloodpressureFragment：数据被回收，程序异常");
             return;
         }
-        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-            @Override
-            public void onSuccess(String callbackString) {
-                try {
-                    ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(callbackString,
-                            new TypeToken<ApiResponse<List<DetectionResult>>>() {
-                            }.getType());
-                    if (apiResponse.isSuccessful()) {
+        //TODO:测试重新解析返回来的数据
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        Timber.e("单测返回来的数据："+o);
+                        List<DetectionResult> detectionResults = new Gson().fromJson(o.toString(), new TypeToken<List<DetectionResult>>() {
+                        }.getType());
+
                         ToastUtils.showLong("上传数据成功");
-                        DetectionResult result = apiResponse.getData().get(0);
+                        DetectionResult result = detectionResults.get(0);
                         if (isMeasureTask) {
-                            if (!mActivity.isFinishing())
-                            mActivity.finish();
+                            if (!mActivity.isFinishing()) {
+                                mActivity.finish();
+                            }
                         } else {
                             ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
                                     result.getScore(), highPressure, lowPressure, result.getResult());
                         }
                     }
-                } catch (Throwable e) {
-                    e.printStackTrace();
-                }
-            }
 
-            @Override
-            public void onError() {
-                ToastUtils.showShort("上传数据失败");
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort("上传数据失败:"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//            @Override
+//            public void onSuccess(String callbackString) {
+//                try {
+//                    ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(callbackString,
+//                            new TypeToken<ApiResponse<List<DetectionResult>>>() {
+//                            }.getType());
+//                    if (apiResponse.isSuccessful()) {
+//                        ToastUtils.showLong("上传数据成功");
+//                        DetectionResult result = apiResponse.getData().get(0);
+//                        if (isMeasureTask) {
+//                            if (!mActivity.isFinishing())
+//                            mActivity.finish();
+//                        } else {
+//                            ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
+//                                    result.getScore(), highPressure, lowPressure, result.getResult());
+//                        }
+//                    }
+//                } catch (Throwable e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onError() {
+//                ToastUtils.showShort("上传数据失败");
+//            }
+//        });
     }
 
     @Override

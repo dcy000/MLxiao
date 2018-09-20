@@ -33,6 +33,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment implements View.OnClickListener {
     private TextView mColor1;
@@ -147,7 +148,7 @@ public class HealthRecordBloodoxygenFragment extends RecycleBaseFragment impleme
         mChart.animateX(2500);
     }
 
-    public void refreshData(ArrayList<BloodOxygenHistory> response, String temp) {
+    public void refreshData(List<BloodOxygenHistory> response, String temp) {
         view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
         initChart();
         ArrayList<Entry> value = new ArrayList<Entry>();

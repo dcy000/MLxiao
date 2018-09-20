@@ -1,12 +1,15 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 
+import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -17,6 +20,10 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -36,6 +43,7 @@ public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment{
         setBtnClickableState(false);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3) {
@@ -55,27 +63,49 @@ public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment{
             dataPulse.setPulse(Integer.parseInt(results[2]));
             datas.add(pressureData);
             datas.add(dataPulse);
-            HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-                @Override
-                public void onSuccess(String callbackString) {
-                    try {
-                        ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(callbackString,
-                                new TypeToken<ApiResponse<List<DetectionResult>>>() {
-                                }.getType());
-                        if (apiResponse.isSuccessful()) {
+
+            HealthMeasureRepository.postMeasureData(datas)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribeWith(new DefaultObserver<Object>() {
+                        @Override
+                        public void onNext(Object o) {
                             ToastUtils.showLong("上传数据成功");
                             setBtnClickableState(true);
                         }
-                    } catch (Throwable e) {
-                        e.printStackTrace();
-                    }
-                }
 
-                @Override
-                public void onError() {
-                    ToastUtils.showShort("上传数据失败");
-                }
-            });
+                        @Override
+                        public void onError(Throwable e) {
+                            ToastUtils.showShort("上传数据失败:"+e.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+//            HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//                @Override
+//                public void onSuccess(String callbackString) {
+//                    try {
+//                        ApiResponse<List<DetectionResult>> apiResponse = new Gson().fromJson(callbackString,
+//                                new TypeToken<ApiResponse<List<DetectionResult>>>() {
+//                                }.getType());
+//                        if (apiResponse.isSuccessful()) {
+//                            ToastUtils.showLong("上传数据成功");
+//                            setBtnClickableState(true);
+//                        }
+//                    } catch (Throwable e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                @Override
+//                public void onError() {
+//                    ToastUtils.showShort("上传数据失败");
+//                }
+//            });
         }
     }
 
