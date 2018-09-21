@@ -1,4 +1,4 @@
-package com.gcml.old.auth;
+package com.gcml.old.auth.personal;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.repository.imageloader.ImageLoader;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
@@ -25,9 +27,9 @@ import java.util.ArrayList;
 public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdapter.MyHolder> {
     private LayoutInflater mInflater;
     private Context mContext;
-    private ArrayList<UserInfoBean> mUserData;
+    private ArrayList<UserEntity> mUserData;
 
-    public ChangeAccountAdapter(Context context, ArrayList<UserInfoBean> userData) {
+    public ChangeAccountAdapter(Context context, ArrayList<UserEntity> userData) {
         mUserData = userData;
         mInflater = LayoutInflater.from(context);
         mContext = context;
@@ -40,19 +42,17 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
 
     @Override
     public void onBindViewHolder(ChangeAccountAdapter.MyHolder holder, final int position) {
-        final UserInfoBean itemBean = mUserData.get(position);
-        holder.mNameView.setText(itemBean.bname);
-        Picasso.with(mContext)
-                .load(itemBean.userPhoto)
+        final UserEntity user = mUserData.get(position);
+        holder.mNameView.setText(user.name);
+        ImageLoader.with(holder.mHeaderIv)
+                .load(user.avatar)
                 .placeholder(R.drawable.avatar_placeholder)
                 .error(R.drawable.avatar_placeholder)
-                .tag(this)
-                .fit()
                 .into(holder.mHeaderIv);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userId = itemBean.bid;
+                String userId = user.id;
                 if (!TextUtils.isEmpty(userId)) {
                     CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
                             .addParam("userId", userId)
@@ -61,17 +61,6 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
                 }
                 NimAccountHelper.getInstance().logout();
                 UserSpHelper.setUserId(userId);
-                MyApplication.getInstance().xfid = itemBean.xfid;
-                MyApplication.getInstance().eqid = itemBean.eqid;
-                LocalShared.getInstance(mContext).setUserInfo(itemBean);
-                LocalShared.getInstance(mContext).setSex(itemBean.sex);
-                LocalShared.getInstance(mContext).setUserPhoto(itemBean.userPhoto);
-                LocalShared.getInstance(mContext).setUserAge(itemBean.age);
-                LocalShared.getInstance(mContext).setUserHeight(itemBean.height);
-                mContext.getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE)
-                        .edit()
-                        .putString("name", itemBean.doct)
-                        .apply();
                 mContext.sendBroadcast(new Intent("change_account"));
             }
         });

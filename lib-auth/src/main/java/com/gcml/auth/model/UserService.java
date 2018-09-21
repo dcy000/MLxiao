@@ -4,6 +4,8 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.repository.http.ApiResult;
 import com.gcml.common.user.UserToken;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -62,7 +64,12 @@ public interface UserService {
     );
 
     @GET("ZZB/api/user/info/idCard/{idCard}/")
-    Observable<ApiResult<Object>> hasIdCard(
+    Observable<ApiResult<Object>> isIdCardNotExit(
             @Path("idCard") String idCard
+    );
+
+    @GET("ZZB/br/selMoreUser")
+    Observable<ApiResult<List<UserEntity>>> getAllUsers(
+            @Query("p") String usersIds
     );
 }

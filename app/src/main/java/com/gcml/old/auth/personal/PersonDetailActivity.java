@@ -9,22 +9,22 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
+import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-
-public class PersonDetailActivity extends BaseActivity implements View.OnClickListener {
-
-
+public class PersonDetailActivity extends AppCompatActivity {
     List<Fragment> fragments = new ArrayList<>();
     private ViewPager vpContent;
+    private TranslucentToolBar mToolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,8 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_person_detail);
         initView();
         registerReceiver(wifiChangedReceiver, new IntentFilter(WifiManager.RSSI_CHANGED_ACTION));
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(),
+                getString(R.string.person_info));
     }
 
     private BroadcastReceiver wifiChangedReceiver = new BroadcastReceiver() {
@@ -39,11 +41,11 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         public void onReceive(Context context, Intent intent) {
             int level = obtainWifiInfo();
             if (level <= 0 && level >= -50) {
-                mRightView.setImageResource(R.drawable.white_wifi_3);
+                mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_3);
             } else if (level < -50 && level >= -70) {
-                mRightView.setImageResource(R.drawable.white_wifi_2);
+                mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_2);
             } else if (level < -70) {
-                mRightView.setImageResource(R.drawable.white_wifi_1);
+                mToolBar.iconRight.setBackgroundResource(R.drawable.white_wifi_1);
             }
         }
     };
@@ -66,29 +68,28 @@ public class PersonDetailActivity extends BaseActivity implements View.OnClickLi
         return strength;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     private void initView() {
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("个 人 中 心");
-        mRightView.setImageResource(R.drawable.icon_wifi);
-        mRightView.setOnClickListener(this);
+        mToolBar = findViewById(R.id.toolbar);
+        mToolBar.setData("个 人 中 心", R.drawable.common_icon_back, "返回",
+                R.drawable.icon_wifi, null, new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+                        finish();
+                    }
 
+                    @Override
+                    public void onRightClick() {
+                        CC.obtainBuilder("com.gcml.old.wifi")
+                                .build()
+                                .callAsync();
+                    }
+                });
         vpContent = findViewById(R.id.vp_content);
         PersonDetailFragment detail = new PersonDetailFragment();
 //        PersonDetail2Fragment detail2 = new PersonDetail2Fragment();
         fragments.add(detail);
 //        fragments.add(detail2);
-
         vpContent.setAdapter(new PersonDetailFragmentPagerAdapter(getSupportFragmentManager(), fragments));
-    }
-
-    @Override
-    public void onClick(View v) {
-        startActivity(new Intent(this, WifiConnectActivity.class));
     }
 
     @Override

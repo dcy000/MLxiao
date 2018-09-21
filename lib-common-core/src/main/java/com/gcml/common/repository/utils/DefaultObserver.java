@@ -16,7 +16,6 @@ public class DefaultObserver<T> extends DisposableObserver<T> {
     @Override
     public void onError(Throwable throwable) {
         Timber.e(throwable);
-        throwable.printStackTrace();
     }
 
     @Override

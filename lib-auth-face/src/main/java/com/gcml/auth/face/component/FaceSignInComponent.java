@@ -3,16 +3,19 @@ package com.gcml.auth.face.component;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
-import com.gcml.auth.face.model.FaceRepository;
 import com.gcml.auth.face.ui.FaceSignInActivity;
 import com.gcml.common.data.UserEntity;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 public class FaceSignInComponent implements IComponent {
@@ -23,12 +26,20 @@ public class FaceSignInComponent implements IComponent {
 
     @Override
     public boolean onCall(CC cc) {
-        FaceRepository faceRepository = new FaceRepository();
-        List<UserEntity> users = faceRepository
-                .getLocalUsers()
+        Observable<List<UserEntity>> rxUsers = CC.obtainBuilder("com.gcml.auth.getUsers")
+                .build()
+                .call()
+                .getDataItem("data");
+        List<UserEntity> users = rxUsers.onErrorResumeNext(Observable.just(Collections.emptyList()))
                 .subscribeOn(Schedulers.io())
                 .blockingFirst();
-        if (users.isEmpty()) {
+        boolean hasFace = false;
+        for (UserEntity user : users) {
+            if (!TextUtils.isEmpty(user.xfid)) {
+                hasFace = true;
+            }
+        }
+        if (!hasFace) {
             CC.sendCCResult(cc.getCallId(), CCResult.error("您尚未在当前设备注册过人脸，本次请先用手机号登录。"));
             return false;
         }
@@ -42,6 +53,7 @@ public class FaceSignInComponent implements IComponent {
         boolean skip = cc.getParamItem("skip", false);
         intent.putExtra("skip", skip);
         intent.putExtra("callId", cc.getCallId());
+        intent.putParcelableArrayListExtra("users", new ArrayList<>(users));
         context.startActivity(intent);
         return true;
     }
