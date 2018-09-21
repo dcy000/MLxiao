@@ -52,7 +52,7 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
             //得到身高和体重，再计算一下体质
             if (mTvTizhi != null) {
                 CCResult call = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-                Observable<UserEntity> user = (Observable<UserEntity>) call.getDataItem("user");
+                Observable<UserEntity> user =  call.getDataItem("data");
                 user.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .as(RxUtils.autoDisposeConverter(this))

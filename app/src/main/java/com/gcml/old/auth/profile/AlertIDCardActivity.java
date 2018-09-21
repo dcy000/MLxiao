@@ -10,20 +10,18 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.old.auth.entity.PUTUserBean;
-import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.Utils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class AlertIDCardActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -106,73 +104,55 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
             speak("主人,请输入正确的身份证号码");
             return;
         }
-        neworkCheckIdCard(idCard);
+        checkIdCard(idCard);
     }
 
-    private void neworkCheckIdCard(final String idCardNumber) {
-        NetworkApi.isRegisteredByIdCard(idCardNumber,
-                response -> ToastUtils.showShort("您输入的身份证号码已注册"),
-                message -> putUserInfo(idCardNumber));
+    private void checkIdCard(final String idCard) {
+        Observable<Object> data = CC.obtainBuilder("com.gcml.auth.isIdCardNotExit")
+                .build()
+                .call()
+                .getDataItem("data");
+        data.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        putUserInfo(idCard);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort("您输入的身份证号码已注册");
+                    }
+                });
     }
 
     private void putUserInfo(String idCard) {
-        PUTUserBean bean = new PUTUserBean();
-        bean.bid = Integer.parseInt(LocalShared.getInstance(this).getUserId());
-        bean.sfz = idCard;
-
-        NetworkApi.putUserInfo(bean.bid, new Gson().toJson(bean), new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                String body = response.body();
-                try {
-                    JSONObject json = new JSONObject(body);
-                    boolean tag = json.getBoolean("tag");
-                    if (tag) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                speak("修改成功");
-                            }
-                        });
+        UserEntity user = new UserEntity();
+        user.age = idCard;
+        Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.putUser")
+                .addParam("user", user)
+                .build()
+                .call()
+                .getDataItem("data");
+        data.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity o) {
+                        speak("修改成功");
                         finish();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                speak("修改失败");
-                            }
-                        });
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-            }
-        });
-
-        //        UserEntity user = new UserEntity();
-//        user.age = seletedAge;
-//        CCResult result = CC.obtainBuilder("com.gcml.auth.putUser")
-//                .addParam("user", user)
-//                .build()
-//                .call();
-//        Observable<Object> data = result.getDataItem("data");
-//        data.subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .as(RxUtils.autoDisposeConverter(this))
-//                .subscribe(new DefaultObserver<Object>() {
-//                    @Override
-//                    public void onNext(Object o) {
-//                        super.onNext(o);
-//                        runOnUiThread(() -> speak("修改成功"));
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//                        super.onError(throwable);
-//                        runOnUiThread(() -> speak("修改失败"));
-//                    }
-//                });
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        speak("修改失败");
+                    }
+                });
     }
 
     private void speak(String text) {

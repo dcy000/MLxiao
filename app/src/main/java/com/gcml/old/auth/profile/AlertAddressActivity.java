@@ -17,30 +17,28 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.network.NetworkApi;
-import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.old.auth.entity.City;
 import com.gcml.old.auth.entity.Province;
-import com.gcml.old.auth.entity.UserInfoBean;
-import com.gcml.old.auth.entity.PUTUserBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.Utils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class AlertAddressActivity extends AppCompatActivity {
 
@@ -56,7 +54,7 @@ public class AlertAddressActivity extends AppCompatActivity {
 
     EditText etAddress;
 
-    private UserInfoBean data;
+    private UserEntity data;
     private StringBuffer buffer;
     protected String eat = "", smoke = "", drink = "", exercise = "";
     private ConstraintLayout clRoot;
@@ -91,7 +89,7 @@ public class AlertAddressActivity extends AppCompatActivity {
 
         tvGoBack.setText("取消");
         tvGoForward.setText("确定");
-        data = (UserInfoBean) getIntent().getSerializableExtra("data");
+        data = getIntent().getParcelableExtra("data");
         clRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,8 +133,8 @@ public class AlertAddressActivity extends AppCompatActivity {
                     break;
             }
         }
-        if (!TextUtils.isEmpty(data.smoke)) {
-            switch (data.smoke) {
+        if (!TextUtils.isEmpty(data.smokeHabits)) {
+            switch (data.smokeHabits) {
                 case "经常抽烟":
                     smoke = "1";
                     break;
@@ -148,8 +146,8 @@ public class AlertAddressActivity extends AppCompatActivity {
                     break;
             }
         }
-        if (!TextUtils.isEmpty(data.drink)) {
-            switch (data.drink) {
+        if (!TextUtils.isEmpty(data.drinkHabits)) {
+            switch (data.drinkHabits) {
                 case "经常喝酒":
                     smoke = "1";
                     break;
@@ -161,8 +159,8 @@ public class AlertAddressActivity extends AppCompatActivity {
                     break;
             }
         }
-        if (!TextUtils.isEmpty(data.exerciseHabits)) {
-            switch (data.exerciseHabits) {
+        if (!TextUtils.isEmpty(data.sportsHabits)) {
+            switch (data.sportsHabits) {
                 case "每天一次":
                     exercise = "1";
                     break;
@@ -177,10 +175,10 @@ public class AlertAddressActivity extends AppCompatActivity {
                     break;
             }
         }
-        if ("尚未填写".equals(data.mh)) {
+        if ("暂未填写".equals(data.deseaseHistory)) {
             buffer = null;
         } else {
-            String[] mhs = data.mh.split("\\s+");
+            String[] mhs = data.deseaseHistory.split("\\s+");
             for (int i = 0; i < mhs.length; i++) {
                 if (mhs[i].equals("高血压"))
                     buffer.append(1 + ",");
@@ -333,73 +331,32 @@ public class AlertAddressActivity extends AppCompatActivity {
             speak("主人,请输入您的住址");
             return;
         }
-//        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, exercise,
-//                TextUtils.isEmpty(buffer) ? "" : buffer.substring(0, buffer.length() - 1), getAddress(), new NetworkManager.SuccessCallback<Object>() {
-//                    @Override
-//                    public void onSuccess(Object response) {
-//                        ToastUtils.showShort("修改成功");
-//                        speak("修改成功");
-//                        finish();
-//                    }
-//                }, new NetworkManager.FailedCallback() {
-//                    @Override
-//                    public void onFailed(String message) {
-//                        ToastUtils.showShort("修改失败");
-//                        finish();
-//                    }
-//                });
-        PUTUserBean bean = new PUTUserBean();
-        bean.bid = Integer.parseInt(UserSpHelper.getUserId());
-        bean.dz = address;
 
-        NetworkApi.putUserInfo(bean.bid, new Gson().toJson(bean), new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                String body = response.body();
-                try {
-                    JSONObject json = new JSONObject(body);
-                    boolean tag = json.getBoolean("tag");
-                    if (tag) {
-                        runOnUiThread(() -> speak("修改成功"));
+        UserEntity user = new UserEntity();
+        user.address = address;
+        Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.putUser")
+                .addParam("user", user)
+                .build()
+                .call()
+                .getDataItem("data");
+
+        data.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity o) {
+                        speak("修改成功");
                         finish();
-                    } else {
-                        runOnUiThread(() -> speak("修改失败"));
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-            }
-        });
-//
-//        UserEntity user = new UserEntity();
-//        user.address = address;
-//        CCResult result = CC.obtainBuilder("com.gcml.auth.putUser")
-//                .addParam("user", user)
-//                .build()
-//                .call();
-//        Observable<Object> data = result.getDataItem("data");
-//        data.subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .as(RxUtils.autoDisposeConverter(this))
-//                .subscribe(new DefaultObserver<Object>() {
-//                    @Override
-//                    public void onNext(Object o) {
-//                        super.onNext(o);
-//                        runOnUiThread(() -> speak("修改成功"));
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//                        super.onError(throwable);
-//                        runOnUiThread(() -> speak("修改失败"));
-//                    }
-//                });
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        speak("修改失败");
+                    }
+                });
 
-
-//        LocalShared.getInstance(this.getApplicationContext()).setSignUpAddress(getAddress());
-//        Intent intent = SignUp4IdCardActivity.newIntent(this);
-//        startActivityForResult(intent);
     }
 
     private void speak(String text) {
@@ -536,78 +493,5 @@ public class AlertAddressActivity extends AppCompatActivity {
     public static final String REGEX_IN_DEL_ALL = ".*(chongxin|quanbu|suoyou|shuoyou).*";
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
     public static final String REGEX_IN_GO_FORWARD = ".*(下一步|下一部|确定|完成).*";
-
-//    @Override
-//    protected void onSpeakListenerResult(String result) {
-//        ToastUtils.showShort(result);
-//
-//        if (result.matches(REGEX_IN_GO_BACK)) {
-//            onTvGoBackClicked();
-//            return;
-//        }
-//
-//        if (result.matches(REGEX_IN_GO_FORWARD)) {
-//            onTvGoForwardClicked();
-//            return;
-//        }
-//
-//        String inSpell = PinYinUtils.converterToSpell(result);
-//        if (inSpell.matches(REGEX_IN_DEL_ALL)) {
-//            etAddress.setText("");
-//            return;
-//        }
-//
-//        String target = etAddress.getText().toString().trim();
-//        if (inSpell.matches(REGEX_IN_DEL)) {
-//            if (!TextUtils.isEmpty(target)) {
-//                etAddress.setText(target.substring(0, target.length() - 1));
-//                etAddress.setSelection(target.length() - 1);
-//            }
-//            return;
-//        }
-//
-//        if (mProvinceNames != null) {
-//            int size = mProvinceNames.size();
-//            for (int i = 0; i < size; i++) {
-//                String provinceName = mProvinceNames.get(i);
-//                String provinceSpell = PinYinUtils.converterToSpell(provinceName);
-//                if (inSpell.equals(provinceSpell)) {
-//                    spProvince.setSelection(i);
-//                    return;
-//                }
-//            }
-//        }
-//
-//        if (mCityNames != null) {
-//            int size = mCityNames.size();
-//            for (int i = 0; i < size; i++) {
-//                String cityName = mCityNames.get(i);
-//                String citySpell = PinYinUtils.converterToSpell(cityName);
-//                if (inSpell.equals(citySpell)) {
-//                    spCity.setSelection(i);
-//                    return;
-//                }
-//            }
-//        }
-//
-//        if (mCountyNames != null) {
-//            int size = mCountyNames.size();
-//            for (int i = 0; i < size; i++) {
-//                String countyName = mCountyNames.get(i);
-//                String countySpell = PinYinUtils.converterToSpell(countyName);
-//                if (inSpell.equals(countySpell)) {
-//                    spCounty.setSelection(i);
-//                    return;
-//                }
-//            }
-//        }
-//
-//        String text = target + result;
-//        if (text.length() < 30) {
-//            etAddress.setText(text);
-//            etAddress.setSelection(text.length());
-//        }
-//    }
-
 
 }
