@@ -1,5 +1,6 @@
 package com.example.han.referralproject.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,6 +11,7 @@ import android.widget.RadioGroup;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.market.GoodsFragment;
+import com.example.han.referralproject.searchmaket.activity.SearchGoodsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,14 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("健康商城");
         speak("主人，欢迎来到健康商城");
+        mRightView.setImageResource(R.drawable.common_search_good);
+        mRightView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MarketActivity.this, SearchGoodsActivity.class));
+            }
+        });
+
 
         rgHealthGoods.setOnCheckedChangeListener(this);
         vpGoods.addOnPageChangeListener(this);
@@ -115,6 +125,7 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
                 break;
         }
     }
+
 
     @Override
     public void onPageScrolled(int i, float v, int i1) {

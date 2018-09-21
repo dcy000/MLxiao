@@ -30,8 +30,8 @@ public class RecommendRepository {
                 .compose(RxUtils.apiResultTransformer());
     }
 
-    public Observable<List<GoodBean>> recommendGoodsByDetection(List<DetectionData> detectionBeans) {
-        return recommendService.recommendGoodsByDetection(detectionBeans)
+    public Observable<List<GoodBean>> recommendGoodsByDetection(List<DetectionData> detectionBeans, String userId) {
+        return recommendService.recommendGoodsByDetection(detectionBeans, userId)
                 .compose(RxUtils.apiResultTransformer());
     }
 

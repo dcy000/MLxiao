@@ -10,7 +10,7 @@ import android.view.View;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.gcml.common.recommend.fragment.IChangToolbar;
-import com.gcml.common.recommend.fragment.RencommendFragment;
+import com.gcml.common.recommend.fragment.RencommendForUserFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
     private WeekDietPlanFragment treatmentProgramFragment4;
     private SportPlanFragment treatmentProgramFragment5;
     private MedicinePlanFragment treatmentProgramFragment6;
-    private RencommendFragment treatmentProgramFragment7;
+    private RencommendForUserFragment treatmentProgramFragment7;
     public static boolean isSpeaked = false;
     private ViewPager viewpage;
     private CircleIndicator circleIndicator;
@@ -61,7 +61,7 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
 //        treatmentProgramFragment1 = new LastWeekHealthReportFragment();
 //        fragments.add(treatmentProgramFragment1);
 //        treatmentProgramFragment1.setOnChangToolbar(this);
-        treatmentProgramFragment1=new LastWeekTrendFragment();
+        treatmentProgramFragment1 = new LastWeekTrendFragment();
         fragments.add(treatmentProgramFragment1);
         treatmentProgramFragment1.setOnChangToolbar(this);
 
@@ -81,11 +81,11 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
         fragments.add(treatmentProgramFragment5);
         treatmentProgramFragment5.setOnChangToolbar(this);
 
-        treatmentProgramFragment6=new MedicinePlanFragment();
+        treatmentProgramFragment6 = new MedicinePlanFragment();
         fragments.add(treatmentProgramFragment6);
         treatmentProgramFragment6.setOnChangToolbar(this);
 
-        treatmentProgramFragment7=new RencommendFragment();
+        treatmentProgramFragment7 = new RencommendForUserFragment();
         fragments.add(treatmentProgramFragment7);
         treatmentProgramFragment7.setOnChangToolbar(this);
     }
@@ -108,9 +108,9 @@ public class TreatmentPlanActivity extends BaseActivity implements IChangToolbar
             mTitleText.setText("推 荐 食 谱");
         } else if (fragment instanceof SportPlanFragment) {
             mTitleText.setText("运 动 方 案");
-        }else  if (fragment instanceof MedicinePlanFragment){
+        } else if (fragment instanceof MedicinePlanFragment) {
             mTitleText.setText("药 物 方 案");
-        }else if (fragment instanceof RencommendFragment){
+        } else if (fragment instanceof RencommendForUserFragment) {
             mTitleText.setText("智 能 推 荐");
         }
     }

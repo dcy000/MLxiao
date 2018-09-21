@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.business.R;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.adapter.RecommendAdapter;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.recommend.bean.post.DetectionData;
@@ -31,7 +32,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class RencommendFragment extends Fragment {
+public class RencommendForSingleDetecteFragment extends Fragment {
     private static final String ARG_PARAM1 = "detection";
     private static final String ARG_PARAM2 = "param2";
 
@@ -48,11 +49,11 @@ public class RencommendFragment extends Fragment {
         this.iChangToolbar = iChangToolbar;
     }
 
-    public RencommendFragment() {
+    public RencommendForSingleDetecteFragment() {
     }
 
-    public static RencommendFragment newInstance(List<DetectionData> mParam1, String param2) {
-        RencommendFragment fragment = new RencommendFragment();
+    public static RencommendForSingleDetecteFragment newInstance(List<DetectionData> mParam1, String param2) {
+        RencommendForSingleDetecteFragment fragment = new RencommendForSingleDetecteFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, (Serializable) mParam1);
         args.putString(ARG_PARAM2, param2);
@@ -106,7 +107,7 @@ public class RencommendFragment extends Fragment {
                 .setTipWord("正在加载")
                 .create();
 
-        recommendRepository.recommendGoodsByDetection(mParam1)
+        recommendRepository.recommendGoodsByDetection(mParam1, UserSpHelper.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {

@@ -30,8 +30,8 @@ public interface RecommendService {
             @Path("userId") String userId
     );
 
-    @POST("/ZZB/api/mall/recommend/detection/")
+    @POST("/ZZB/api/mall/recommend/detection/{userId}/")
     Observable<ApiResult<List<GoodBean>>> recommendGoodsByDetection(
-            @Body() List<DetectionData> detectionBeans
-    );
+            @Body() List<DetectionData> detectionBeans,
+            @Path("userId") String userId);
 }

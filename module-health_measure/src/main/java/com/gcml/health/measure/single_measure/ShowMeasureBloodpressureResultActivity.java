@@ -10,7 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.gcml.common.recommend.bean.post.DetectionData;
-import com.gcml.common.recommend.fragment.RencommendFragment;
+import com.gcml.common.recommend.fragment.RencommendForSingleDetecteFragment;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.single_measure.fragment.ShowMeasureBloodpressureResultFragment;
@@ -109,7 +109,7 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
             resultFragment.setArguments(bundle);
         }
 
-        RencommendFragment rencommendFragment = RencommendFragment.newInstance(
+        RencommendForSingleDetecteFragment rencommendFragment = RencommendForSingleDetecteFragment.newInstance(
                 (List<DetectionData>) getIntent().getSerializableExtra("detections"), "param2");
 
         fragments.add(resultFragment);
