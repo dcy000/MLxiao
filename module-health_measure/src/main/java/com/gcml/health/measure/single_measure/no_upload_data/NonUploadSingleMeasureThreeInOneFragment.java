@@ -3,7 +3,6 @@ package com.gcml.health.measure.single_measure.no_upload_data;
 import android.os.Bundle;
 import android.view.View;
 
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;

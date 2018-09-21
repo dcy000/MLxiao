@@ -3,7 +3,7 @@ package com.gcml.health.measure.network;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
