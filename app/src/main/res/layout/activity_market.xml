@@ -10,26 +10,26 @@
         android:id="@+id/vp_goods"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/main_bg"
         android:orientation="vertical"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/rg_health_goods"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:background="@color/main_bg"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <RadioGroup
         android:id="@+id/rg_health_goods"
         android:layout_width="220dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:background="@color/main_bg"
+        android:orientation="vertical"
+        android:paddingRight="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/vp_goods"
-        android:paddingRight="22dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/rb_shanshi"
@@ -38,15 +38,16 @@
             android:background="@drawable/bg_rb_history_record"
             android:button="@null"
             android:gravity="center"
-            android:text="精细化膳食"
+            android:text="小E推荐"
             android:textColor="@drawable/bg_rb_history_record"
-            android:visibility="gone"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/line"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
         <RadioButton
             android:id="@+id/rb_yaopin"
             android:layout_width="match_parent"
@@ -54,15 +55,16 @@
             android:background="@drawable/bg_rb_history_record"
             android:button="@null"
             android:gravity="center"
-            android:text="药品"
-            android:visibility="gone"
+            android:text="中西药品"
             android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:visibility="gone"
-            android:background="@color/line" />
+            android:background="@color/line"
+            android:visibility="gone" />
+
         <RadioButton
             android:id="@+id/rb_yiliaoshebei"
             android:layout_width="match_parent"
@@ -70,13 +72,15 @@
             android:background="@drawable/bg_rb_history_record"
             android:button="@null"
             android:gravity="center"
-            android:text="耗材"
+            android:text="监测器材"
             android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/line" />
+
         <RadioButton
             android:id="@+id/rb_baojianpin"
             android:layout_width="match_parent"
@@ -84,15 +88,16 @@
             android:background="@drawable/bg_rb_history_record"
             android:button="@null"
             android:gravity="center"
-            android:text="保健品"
-            android:visibility="gone"
+            android:text="营养保健"
             android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:visibility="gone"
-            android:background="@color/line" />
+            android:background="@color/line"
+            android:visibility="gone" />
+
         <RadioButton
             android:id="@+id/rb_liliao"
             android:layout_width="match_parent"
@@ -101,8 +106,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="理疗康复"
-            android:visibility="gone"
             android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
     </RadioGroup>
 </android.support.constraint.ConstraintLayout>
