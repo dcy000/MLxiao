@@ -13,11 +13,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.intelligent_diagnosis.ThisWeekHealthPlan;
 import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.fragment.IChangToolbar;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;

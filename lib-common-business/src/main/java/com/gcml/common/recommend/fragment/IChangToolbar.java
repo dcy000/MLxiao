@@ -1,4 +1,4 @@
-package com.example.han.referralproject.intelligent_diagnosis;
+package com.gcml.common.recommend.fragment;
 
 import android.support.v4.app.Fragment;
 

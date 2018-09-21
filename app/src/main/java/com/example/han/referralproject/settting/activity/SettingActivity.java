@@ -19,8 +19,6 @@ import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
 import com.example.han.referralproject.settting.dialog.UpDateDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.UpdateAppManager;
-
 import com.gcml.common.utils.VersionHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;

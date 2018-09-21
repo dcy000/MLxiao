@@ -15,15 +15,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.intelligent_diagnosis.IChangToolbar;
 import com.example.han.referralproject.intelligent_diagnosis.WeekDietPlan;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.view.StartCustomTextView;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.lib_widget.JustifyTextView;
-import com.gcml.lib_widget.MyTextView;
-import com.gcml.lib_widget.MyTextView2;
+import com.gcml.common.recommend.fragment.IChangToolbar;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
