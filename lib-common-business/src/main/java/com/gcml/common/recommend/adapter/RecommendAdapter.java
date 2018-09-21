@@ -3,12 +3,12 @@ package com.gcml.common.recommend.adapter;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.business.R;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.repository.imageloader.ImageLoader;
-import com.gcml.lib_utils.display.ToastUtils;
 
 import java.util.List;
 
@@ -34,10 +34,27 @@ public class RecommendAdapter extends BaseQuickAdapter<GoodBean, BaseViewHolder>
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showLong(holder.getPosition() + "");
+//                ToastUtils.showLong(holder.getPosition() + "");
+                if (listener != null) {
+                    listener.onlick(bean, holder.getPosition());
+                }
+
+                CC.obtainBuilder("gcml.market.good.detail")
+                        .addParam("goods", bean).build().call();
             }
         });
 
     }
+
+    interface ClickListener {
+        void onlick(GoodBean bean, int position);
+    }
+
+    public void setListener(ClickListener listener) {
+        this.listener = listener;
+    }
+
+    public ClickListener listener;
+
 
 }

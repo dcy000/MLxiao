@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,12 +41,14 @@ public class SearchGoodsActivity extends AppCompatActivity implements View.OnCli
     private RecyclerView mRvGoods;
     private RecommendRepository recommendRepository = new RecommendRepository();
     private RecommendAdapter adapter;
+    private LoadingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_goods);
         initView();
+        initData();
     }
 
     private void initView() {
@@ -77,12 +80,15 @@ public class SearchGoodsActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initData() {
-        LoadingDialog dialog = new LoadingDialog.Builder(this)
-                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord("正在加载")
-                .create();
+        if (dialog == null) {
+            dialog = new LoadingDialog.Builder(this)
+                    .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                    .setTipWord("正在加载")
+                    .create();
+        }
 
-        recommendRepository.searchGoodsByName(UserSpHelper.getUserId())
+        String GoodName = mEtGoodName.getText().toString().trim();
+        recommendRepository.searchGoodsByName(GoodName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
