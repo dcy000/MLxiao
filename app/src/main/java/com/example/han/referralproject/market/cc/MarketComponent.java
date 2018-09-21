@@ -16,7 +16,7 @@ import com.example.han.referralproject.activity.MarketActivity;
 public class MarketComponent implements IComponent {
     @Override
     public String getName() {
-        return "com.old.gcml.market";
+        return "com.gcml.market";
     }
 
     @Override
