@@ -4,12 +4,15 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
@@ -35,6 +38,7 @@ import com.gcml.task.network.TaskRepository;
 
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -56,13 +60,29 @@ public class TaskWeekReportFragment extends Fragment {
     private RecyclerView.Adapter<TargetHolder> mAdapter;
     TaskRepository mTaskRepository = new TaskRepository();
     Handler mHandler = new Handler();
-    private String userHeight;
+    private UserEntity mUser;
 
     public static TaskWeekReportFragment newInstance() {
         Bundle args = new Bundle();
         TaskWeekReportFragment fragment = new TaskWeekReportFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        CCResult result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+        Observable<UserEntity> rxUser = result.getDataItem("data");
+        rxUser.subscribeOn(Schedulers.io())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity o) {
+                        super.onNext(o);
+                        mUser = o;
+                    }
+                });
     }
 
     @Override
@@ -247,7 +267,7 @@ public class TaskWeekReportFragment extends Fragment {
         }
         float bmi = Float.parseFloat(response.lastWeek.bmis);
         float targetBmi = Float.parseFloat(response.lastWeek.bmim);
-        float height = getUserHight();
+        float height = (mUser == null || TextUtils.isEmpty(mUser.height)) ? 0.0f : Float.parseFloat(mUser.height);
         if (height > 0) {
             targetWeight = targetBmi / height / height * 10000;
             weight = bmi / height / height * 10000;
@@ -261,21 +281,6 @@ public class TaskWeekReportFragment extends Fragment {
         targetModel.source = "体重" + s1 + "kg";
         mTargetModels.add(targetModel);
         mAdapter.notifyDataSetChanged();
-    }
-
-    private float getUserHight() {
-        CC.obtainBuilder("com.gcml.auth.getUser").build().callAsyncCallbackOnMainThread(new IComponentCallback() {
-            @Override
-            public void onResult(CC cc, CCResult result) {
-                if (result.isSuccess()) {
-                    UserEntity userInfo = result.getDataItem("user");
-                    userHeight = userInfo.height;
-                } else {
-                    userHeight = "";
-                }
-            }
-        });
-        return Float.parseFloat(userHeight);
     }
 
     private int[] backgroudReses = new int[]{

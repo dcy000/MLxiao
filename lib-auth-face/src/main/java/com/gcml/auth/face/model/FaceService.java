@@ -59,4 +59,9 @@ public interface FaceService {
     Observable<ApiResult<String>> getFaceId(
             @Path("userId") String userId
     );
+
+    @GET("ZZB/br/selOneUserEverything")
+    Observable<ApiResult<UserEntity>> getProfile(
+            @Query("bid") String userId
+    );
 }

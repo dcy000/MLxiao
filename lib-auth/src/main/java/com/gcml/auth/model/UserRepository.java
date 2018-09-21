@@ -11,6 +11,8 @@ import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.user.UserToken;
 import com.gcml.common.utils.RxUtils;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -58,15 +60,12 @@ public class UserRepository {
                 .flatMap(new Function<UserToken, ObservableSource<UserEntity>>() {
                     @Override
                     public ObservableSource<UserEntity> apply(UserToken userToken) throws Exception {
-                        return mUserService.getProfile(userToken.getUserId())
-                                .compose(RxUtils.apiResultTransformer())
-                                .subscribeOn(Schedulers.io());
+                        return fetchUser(userToken.getUserId());
                     }
                 }).doOnNext(new Consumer<UserEntity>() {
                     @Override
                     public void accept(UserEntity userEntity) throws Exception {
                         UserSpHelper.setFaceId(userEntity.xfid);
-                        mUserDao.addAll(userEntity);
                     }
                 });
     }
@@ -140,11 +139,16 @@ public class UserRepository {
                 .flatMap(new Function<Object, ObservableSource<UserEntity>>() {
                     @Override
                     public ObservableSource<UserEntity> apply(Object o) throws Exception {
-                        return mUserService.getProfile(userId)
-                                .compose(RxUtils.apiResultTransformer())
+                        return fetchUser(userId)
                                 .subscribeOn(Schedulers.io());
                     }
-                }).doOnNext(new Consumer<UserEntity>() {
+                });
+    }
+
+    public Observable<UserEntity> fetchUser(String userId) {
+        return mUserService.getProfile(userId)
+                .compose(RxUtils.apiResultTransformer())
+                .doOnNext(new Consumer<UserEntity>() {
                     @Override
                     public void accept(UserEntity userEntity) throws Exception {
                         mUserDao.addAll(userEntity);
@@ -152,8 +156,17 @@ public class UserRepository {
                 });
     }
 
-    public Observable<Object> hasIdCard(String idCard) {
-        return mUserService.hasIdCard(idCard)
+    /**
+     *
+     * @return users
+     */
+    public Observable<List<UserEntity>> getUsers() {
+        return mUserDao.findAll()
+                .toObservable();
+    }
+
+    public Observable<Object> isIdCardNotExit(String idCard) {
+        return mUserService.isIdCardNotExit(idCard)
                 .compose(RxUtils.apiResultTransformer());
     }
 }

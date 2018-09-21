@@ -8,26 +8,23 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.old.auth.entity.PUTUserBean;
 import com.gcml.old.auth.register.SelectAdapter;
-import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class AlertSexActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -130,63 +127,29 @@ public class AlertSexActivity extends AppCompatActivity implements View.OnClickL
     private void nextStep() {
         String seletedSex = strings.get(currentPositon);
 
-        PUTUserBean bean = new PUTUserBean();
-        bean.bid = Integer.parseInt(LocalShared.getInstance(this).getUserId());
-        bean.sex = seletedSex;
-
-        NetworkApi.putUserInfo(bean.bid, new Gson().toJson(bean), new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                String body = response.body();
-                try {
-                    JSONObject json = new JSONObject(body);
-                    boolean tag = json.getBoolean("tag");
-                    if (tag) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                speak("修改成功");
-                            }
-                        });
+        UserEntity user = new UserEntity();
+        user.sex = seletedSex;
+        Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.putUser")
+                .addParam("user", user)
+                .build()
+                .call()
+                .getDataItem("data");
+        data.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity o) {
+                        speak("修改成功");
                         finish();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                speak("修改失败");
-                            }
-                        });
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-            }
-        });
-
-        //        UserEntity user = new UserEntity();
-//        user.age = seletedAge;
-//        CCResult result = CC.obtainBuilder("com.gcml.auth.putUser")
-//                .addParam("user", user)
-//                .build()
-//                .call();
-//        Observable<Object> data = result.getDataItem("data");
-//        data.subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .as(RxUtils.autoDisposeConverter(this))
-//                .subscribe(new DefaultObserver<Object>() {
-//                    @Override
-//                    public void onNext(Object o) {
-//                        super.onNext(o);
-//                        runOnUiThread(() -> speak("修改成功"));
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//                        super.onError(throwable);
-//                        runOnUiThread(() -> speak("修改失败"));
-//                    }
-//                });
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        speak("修改失败");
+                    }
+                });
     }
 
     private void speak(String text) {
