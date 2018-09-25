@@ -1,5 +1,6 @@
 package com.gcml.health.measure.bloodpressure_habit;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -58,6 +59,12 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
     @Override
     protected void backMainActivity() {
         showRefreshBluetoothDialog();
+    }
+
+    @Override
+    protected void backLastActivity() {
+        setResult(Activity.RESULT_OK);
+        super.backLastActivity();
     }
 
     private void initView() {

@@ -1,9 +1,11 @@
 package com.gcml.health.measure.measure_abnormal;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 
 import com.gcml.health.measure.R;
 import com.gcml.lib_utils.UtilsManager;
@@ -25,11 +27,20 @@ public class HealthMeasureAbnormalActivity extends ToolbarBaseActivity implement
     public static final String KEY_MEASURE_TYPE = "measureType";
     private int measureType;
     private HealthMeasureAbnormalBaseFragment baseFragment;
-    public static final String KEY_HAS_ABNIRMAL_REASULT="has_abnormal_reasult";
-    public static void startActivity(Activity context, int measureType,int requestCode) {
-        Intent intent = new Intent(context, HealthMeasureAbnormalActivity.class);
-        intent.putExtra(KEY_MEASURE_TYPE, measureType);
-        context.startActivityForResult(intent,requestCode);
+    public static final String KEY_HAS_ABNIRMAL_REASULT = "has_abnormal_reasult";
+
+    public static void startActivity(Object obj, int measureType, int requestCode) {
+        if (obj instanceof Activity) {
+            Activity context = (Activity) obj;
+            Intent intent = new Intent(context, HealthMeasureAbnormalActivity.class);
+            intent.putExtra(KEY_MEASURE_TYPE, measureType);
+            context.startActivityForResult(intent, requestCode);
+        } else if (obj instanceof Fragment) {
+            Fragment fragment = (Fragment) obj;
+            Intent intent = new Intent(fragment.getContext(), HealthMeasureAbnormalActivity.class);
+            intent.putExtra(KEY_MEASURE_TYPE, measureType);
+            fragment.startActivityForResult(intent, requestCode);
+        }
     }
 
     @Override
@@ -38,7 +49,7 @@ public class HealthMeasureAbnormalActivity extends ToolbarBaseActivity implement
         setContentView(R.layout.health_measure_activity_abnormal);
         measureType = getIntent().getIntExtra(KEY_MEASURE_TYPE, -1);
         mTitleText.setText("测 量 异 常");
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),firstTitle);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), firstTitle);
         initFragment();
     }
 
@@ -52,13 +63,13 @@ public class HealthMeasureAbnormalActivity extends ToolbarBaseActivity implement
                 baseFragment = new MeasureXueyaWarningFragment();
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
-                baseFragment=new MeasureXuetangWarningFragment();
+                baseFragment = new MeasureXuetangWarningFragment();
                 break;
         }
         if (baseFragment != null) {
             baseFragment.setOnChooseReason(this);
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, baseFragment).commit();
-        }else{
+        } else {
             Timber.e("HealthMeasureAbnormalActivity：初始化Fragment失败");
         }
     }
@@ -71,17 +82,17 @@ public class HealthMeasureAbnormalActivity extends ToolbarBaseActivity implement
 
     @Override
     public void hasReason(int reason) {
-        Intent intent=new Intent();
-        intent.putExtra(KEY_HAS_ABNIRMAL_REASULT,true);
-        setResult(RESULT_OK,intent);
+        Intent intent = new Intent();
+        intent.putExtra(KEY_HAS_ABNIRMAL_REASULT, true);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
     @Override
     public void noReason() {
-        Intent intent=new Intent();
-        intent.putExtra(KEY_HAS_ABNIRMAL_REASULT,false);
-        setResult(RESULT_OK,intent);
+        Intent intent = new Intent();
+        intent.putExtra(KEY_HAS_ABNIRMAL_REASULT, false);
+        setResult(RESULT_OK, intent);
         finish();
     }
 }

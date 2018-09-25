@@ -45,6 +45,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     private static final int CODE_REQUEST_ABNORMAL = 10001;
+    private static final int CODE_REQUEST_GETHYPERTENSIONHAND = 66;
     private ArrayList<DetectionData> datas;
     private int highPressure;
     private int lowPressure;
@@ -57,11 +58,6 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
         isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         getHypertensionHand();
     }
 
@@ -72,7 +68,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
         String userHypertensionHand = UserSpHelper.getUserHypertensionHand();
         if (TextUtils.isEmpty(userHypertensionHand)) {
             //还没有录入惯用手，则跳转到惯用手录入activity
-            mContext.startActivity(new Intent(mContext, GetHypertensionHandActivity.class));
+            startActivityForResult(new Intent(mContext, GetHypertensionHandActivity.class), CODE_REQUEST_GETHYPERTENSIONHAND);
         } else {
             if ("0".equals(userHypertensionHand)) {
                 showHypertensionHandDialog("左手");
@@ -185,8 +181,8 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == CODE_REQUEST_ABNORMAL) {
+        if (requestCode == CODE_REQUEST_ABNORMAL) {
+            if (resultCode == RESULT_OK) {
                 if (data != null) {
                     boolean booleanExtra = data.getBooleanExtra(HealthMeasureAbnormalActivity.KEY_HAS_ABNIRMAL_REASULT, false);
                     if (booleanExtra) {
@@ -197,8 +193,20 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
                     }
 
                 }
+                return;
+            }
+            return;
+        }
+
+        if (requestCode == CODE_REQUEST_GETHYPERTENSIONHAND) {
+            if (resultCode == RESULT_OK) {
+                mActivity.finish();
+            } else {
+                getHypertensionHand();
+                dealLogic();
             }
         }
+
     }
 
     @Override

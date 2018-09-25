@@ -5,11 +5,11 @@
 ### 
 POST {{baseUrl}}login/applogin
 content-type : application/x-www-form-urlencoded
-equipmentId : 197a113b2d9eb455
+equipmentId : test
 Authorization: {{token}}
 
 {
-    "username" : "18702515218",
+    "username" : "18818131887",
     "password" : "123456"
 }
 

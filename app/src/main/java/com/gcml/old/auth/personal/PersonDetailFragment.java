@@ -30,6 +30,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
@@ -263,6 +264,9 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             case R.id.iv_pay:
                 startActivity(new Intent(getActivity(), PayActivity.class));
 //                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
+                break;
+            case R.id.iv_shezhi:
+                startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
             case R.id.iv_message:
                 startActivity(new Intent(getActivity(), MessageActivity.class));
