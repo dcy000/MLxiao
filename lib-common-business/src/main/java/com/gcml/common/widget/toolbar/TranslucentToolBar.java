@@ -22,7 +22,7 @@ public final class TranslucentToolBar extends LinearLayout {
     private TextView tvLeft;
     private TextView tvRight;
     private View iconLeft;
-    private View iconRight;
+    public View iconRight;
 
     public TranslucentToolBar(Context context) {
         this(context, null);

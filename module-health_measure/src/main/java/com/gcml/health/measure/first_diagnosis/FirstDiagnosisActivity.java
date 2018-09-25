@@ -19,7 +19,7 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.FirstDiagnosisBean;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
@@ -74,7 +74,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private String userId;
     private String userHypertensionHand;
     private Bundle bundle;
-    private boolean isShowSelectBloodsugarMeasureTime=false;
+    private boolean isShowSelectBloodsugarMeasureTime = false;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, FirstDiagnosisActivity.class);
@@ -182,7 +182,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mTitleText.setText("选择测量时间");
                 mRightView.setImageResource(R.drawable.common_icon_home);
                 fragment = new HealthSelectSugarDetectionTimeFragment();
-                isShowSelectBloodsugarMeasureTime=true;
+                isShowSelectBloodsugarMeasureTime = true;
                 break;
             case "HealthSugarDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -270,7 +270,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         this.bundle = bundle;
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
-            isShowSelectBloodsugarMeasureTime=false;
+            isShowSelectBloodsugarMeasureTime = false;
         }
         //最后一个Fragment点击了下一步应该跳转到HealthReportFormActivity
         if (fragment.getClass().getSimpleName().equals(finalFragment)) {
@@ -411,7 +411,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             CCAppActions.jump2MainActivity();
             return;
         }
-        if (isShowSelectBloodsugarMeasureTime){
+        if (isShowSelectBloodsugarMeasureTime) {
             CCAppActions.jump2MainActivity();
             return;
         }

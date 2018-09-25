@@ -1,4 +1,4 @@
-package com.gcml.old.auth;
+package com.gcml.old.auth.personal;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -10,21 +10,29 @@ import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.gcml.old.auth.entity.UserInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.repository.utils.DefaultObserver;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class ChangeAccountDialog extends Dialog implements View.OnClickListener {
     private RecyclerView mRecyclerView;
     private ChangeAccountAdapter mChangeAccountAdapter;
-    private ArrayList<UserInfoBean> mDataList = new ArrayList<>();
+    private ArrayList<UserEntity> mDataList = new ArrayList<>();
     private Context mContext;
+    private Disposable mDisposable = Disposables.empty();
 
     public ChangeAccountDialog(Context context) {
         super(context, R.style.XDialog);
@@ -41,30 +49,22 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
         mRecyclerView.setAdapter(mChangeAccountAdapter);
         findViewById(R.id.view_login).setOnClickListener(this);
         findViewById(R.id.btn_logout).setOnClickListener(this);
-        String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
 
-        if (mAccountIds == null) {
-            return;
-        }
-        StringBuilder userIds = new StringBuilder();
-        for (String item : mAccountIds) {
-
-            userIds.append(item.split(",")[0]).append(",");
-        }
-        NetworkApi.getAllUsersNew(userIds.substring(0, userIds.length() - 1), mListener);
-
+        Observable<List<UserEntity>> rxUsers = CC.obtainBuilder("com.gcml.auth.getUsers")
+                .build()
+                .call()
+                .getDataItem("data");
+        mDisposable = rxUsers.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorResumeNext(Observable.just(Collections.emptyList()))
+                .subscribeWith(new DefaultObserver<List<UserEntity>>() {
+                    @Override
+                    public void onNext(List<UserEntity> users) {
+                        mDataList.addAll(users);
+                        mChangeAccountAdapter.notifyDataSetChanged();
+                    }
+                });
     }
-
-    private NetworkManager.SuccessCallback<ArrayList<UserInfoBean>> mListener = new NetworkManager.SuccessCallback<ArrayList<UserInfoBean>>() {
-        @Override
-        public void onSuccess(ArrayList<UserInfoBean> response) {
-            if (response == null) {
-                return;
-            }
-            mDataList.addAll(response);
-            mChangeAccountAdapter.notifyDataSetChanged();
-        }
-    };
 
     @Override
     public void onClick(View v) {
@@ -91,5 +91,11 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
                 ((Activity) mContext).finish();
                 break;
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mDisposable.dispose();
     }
 }

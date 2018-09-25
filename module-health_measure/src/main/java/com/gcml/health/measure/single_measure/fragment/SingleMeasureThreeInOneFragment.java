@@ -5,11 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.gcml.common.utils.RxUtils;
-import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
-import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureRepository;
-import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
@@ -20,7 +17,6 @@ import java.util.ArrayList;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司

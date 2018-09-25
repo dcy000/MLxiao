@@ -1,7 +1,9 @@
-package com.gcml.health.measure.first_diagnosis.bean;
+package com.gcml.common.recommend.bean.post;
 
 import com.gcml.common.utils.Utils;
 import com.gcml.lib_utils.device.DeviceUtils;
+
+import java.io.Serializable;
 
 //    TDate {
 //        bloodOxygen (number, optional): 血氧（%） ,
@@ -25,7 +27,7 @@ import com.gcml.lib_utils.device.DeviceUtils;
 //        yz (string, optional): 医嘱 ,
 //        zid (integer, optional): 数据信息id
 //    }
-public class DetectionData {
+public class DetectionData implements Serializable {
     private Float bloodOxygen;
     private Float bloodSugar;
     private Float cholesterol;

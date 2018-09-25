@@ -1,0 +1,16 @@
+@baseUrl = http://47.96.98.60:8080/ZZB/
+@token = 13154564531
+
+
+### 
+POST {{baseUrl}}login/applogin
+content-type : application/x-www-form-urlencoded
+equipmentId : 197a113b2d9eb455
+Authorization: {{token}}
+
+{
+    "username" : "18702515218",
+    "password" : "123456"
+}
+
+

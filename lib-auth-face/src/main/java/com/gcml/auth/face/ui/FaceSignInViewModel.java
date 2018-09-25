@@ -21,8 +21,4 @@ public class FaceSignInViewModel extends BaseViewModel {
     public Observable<String> signIn(byte[] faceData, String faceId) {
         return mFaceRepository.signIn(faceData, faceId);
     }
-
-    public Observable<List<UserEntity>> getLocalUsers() {
-        return mFaceRepository.getLocalUsers();
-    }
 }

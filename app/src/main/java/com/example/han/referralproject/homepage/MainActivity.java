@@ -13,30 +13,24 @@ import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.StatusBarFragment;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.util.LocalShared;
-import com.example.module_control_volume.VolumeControlFloatwindow;
-import com.gcml.common.data.UserSpHelper;
-import com.gcml.old.auth.entity.UserInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
 import com.example.lenovo.rto.accesstoken.AccessToken;
 import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
-import com.gcml.lib_utils.data.DataUtils;
+import com.example.module_control_volume.VolumeControlFloatwindow;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.google.gson.Gson;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
@@ -158,34 +152,6 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         VolumeControlFloatwindow.init(this.getApplicationContext());
         setEnableListeningLoop(false);
         super.onResume();
-//        NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {
-//            @Override
-//            public void onSuccess(ArrayList<ClueInfoBean> response) {
-//                if (response == null || response.size() == 0) {
-//                    return;
-//                }
-//                List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
-//                //DataSupport.deleteAll(AlarmModel.class);
-//                for (ClueInfoBean itemBean : response) {
-//                    String[] timeString = itemBean.cluetime.split(":");
-//                    boolean isSetted = false;
-//                    for (AlarmModel itemModel : models) {
-//                        if (itemModel.getHourOfDay() == Integer.valueOf(timeString[0])
-//                                && itemModel.getMinute() == Integer.valueOf(timeString[1])
-//                                && itemModel.getContent() != null
-//                                && itemModel.getContent().equals(itemBean.medicine)) {
-//                            isSetted = true;
-//                            break;
-//                        }
-//                    }
-//                    if (!isSetted) {
-//                        AlarmHelper.setupAlarm(mContext, Integer.valueOf(timeString[0]),
-//                                Integer.valueOf(timeString[1]), itemBean.medicine);
-//                    }
-//                }
-//            }
-//        });
-
         getPersonInfo();
     }
 
@@ -194,39 +160,28 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         if ("123456".equals(UserSpHelper.getUserId())) {
             return;
         }
-        OkGo.<String>get(NetworkApi.Get_PersonInfo)
-                .params("bid", UserSpHelper.getUserId())
-                .execute(new StringCallback() {
+        Observable<UserEntity> rxUsers = CC.obtainBuilder("com.gcml.auth.getUser")
+                .build()
+                .call()
+                .getDataItem("data");
+        rxUsers.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
-                    public void onSuccess(Response<String> response) {
-                        Timber.e(response.body());
-                        try {
-                            JSONObject object = new JSONObject(response.body());
-                            if (object.optBoolean("tag")) {
-                                JSONObject data = object.optJSONObject("data");
-                                if (!DataUtils.isEmpty(data)) {
-                                    UserInfoBean userInfoBean = new Gson().fromJson(data.toString(), UserInfoBean.class);
-                                    if (userInfoBean != null) {
-                                        LocalShared.getInstance(MainActivity.this).setUserInfo(userInfoBean);
-                                        //保存惯用手到SP中
-                                        UserSpHelper.setUserHypertensionHand(userInfoBean.hypertensionHand);
-                                        String wyyxId = userInfoBean.wyyxId;
-                                        String wyyxPwd = userInfoBean.wyyxPwd;
-                                        if (TextUtils.isEmpty(wyyxId) || TextUtils.isEmpty(wyyxPwd)) {
-                                            Timber.e("获取网易账号信息出错");
-                                            return;
-                                        }
-                                        NimAccountHelper.getInstance().login(wyyxId, wyyxPwd, null);
-                                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                                                .addParam("userId", userInfoBean.bid)
-                                                .build()
-                                                .callAsync();
-                                    }
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    public void onNext(UserEntity user) {
+                        UserSpHelper.setUserHypertensionHand(user.hypertensionHand);
+                        String wyyxId = user.wyyxId;
+                        String wyyxPwd = user.wyyxPwd;
+                        if (TextUtils.isEmpty(wyyxId) || TextUtils.isEmpty(wyyxPwd)) {
+                            Timber.e("获取网易账号信息出错");
+                            return;
                         }
+                        NimAccountHelper.getInstance().login(wyyxId, wyyxPwd, null);
+                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                                .addParam("userId", user.id)
+                                .build()
+                                .callAsync();
                     }
                 });
     }

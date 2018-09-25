@@ -10,13 +10,10 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.health.measure.bloodpressure_habit.GetHypertensionHandActivity;
-import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.measure_abnormal.HealthMeasureAbnormalActivity;
-import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.HealthMeasureRepository;
-import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.health.measure.single_measure.ShowMeasureBloodpressureResultActivity;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -161,11 +158,11 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
                         DetectionResult result = detectionResults.get(0);
                         if (isMeasureTask) {
                             ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
-                                    result.getScore(), highPressure, lowPressure, result.getResult(), true);
+                                    result.getScore(), highPressure, lowPressure, result.getResult(), true, datas);
                             mActivity.finish();
                         } else {
                             ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
-                                    result.getScore(), highPressure, lowPressure, result.getResult());
+                                    result.getScore(), highPressure, lowPressure, result.getResult(), datas);
                         }
                     }
 

@@ -8,12 +8,9 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
-import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureRepository;
-import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
@@ -55,7 +52,7 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
             //得到身高和体重，再计算一下体质
             if (mTvTizhi != null) {
                 CCResult call = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-                Observable<UserEntity> user = (Observable<UserEntity>) call.getDataItem("user");
+                Observable<UserEntity> user =  call.getDataItem("data");
                 user.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .as(RxUtils.autoDisposeConverter(this))

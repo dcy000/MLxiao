@@ -19,7 +19,7 @@ import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.ecg.XinDianDetectActivity;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthDetectionIntelligentReportFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthFirstTipsFragment;
