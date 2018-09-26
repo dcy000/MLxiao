@@ -171,6 +171,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                     @Override
                     public void onNext(UserEntity user) {
                         UserSpHelper.setUserHypertensionHand(user.hypertensionHand);
+                        UserSpHelper.setUserId(user.id);
                         String wyyxId = user.wyyxId;
                         String wyyxPwd = user.wyyxPwd;
                         if (TextUtils.isEmpty(wyyxId) || TextUtils.isEmpty(wyyxPwd)) {

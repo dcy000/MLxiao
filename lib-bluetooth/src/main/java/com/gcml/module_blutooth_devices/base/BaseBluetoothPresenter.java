@@ -347,6 +347,8 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                         currenMillisecond = System.currentTimeMillis();
                         isConnected = false;
                         weakHandler.sendEmptyMessage(DEVICE_DISCONNECTED);
+                    } else {
+                        Logg.e(BaseBluetoothPresenter.class, "System.currentTimeMillis() - currenMillisecond < 2000");
                     }
                     break;
                 default:
@@ -519,6 +521,15 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
      */
     protected void connectFailed() {
         Logg.e(BaseBluetoothPresenter.class, "连接失败");
+        if (!TextUtils.isEmpty(targetAddress)) {
+            connectDevice(targetAddress);
+            return;
+        }
+        if (!TextUtils.isEmpty(targetName)) {
+            discoverType = DISCOVER_WITH_NAME;
+            request = setSearchRequest();
+            searchDevices();
+        }
     }
 
     /**
@@ -554,7 +565,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                         retryConnect();
                     }
                 }
-            }, 1000);
+            }, 2000);
         }
     }
 

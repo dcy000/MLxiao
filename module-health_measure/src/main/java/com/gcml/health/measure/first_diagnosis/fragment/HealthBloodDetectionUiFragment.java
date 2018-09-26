@@ -3,6 +3,7 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 import android.annotation.SuppressLint;
 import android.support.annotation.IntDef;
 import android.text.Html;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.View;
 
@@ -206,6 +207,7 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     }
 
     private void uploadHandData(final Data data) {
+        Timber.i("开始上传惯用手到服务器");
         OkGo.<String>post(HealthMeasureApi.DETECTION_BLOOD_HAND + UserSpHelper.getUserId() + "/")
                 .params("handState", data.right)
                 .execute(new StringCallback() {
@@ -218,6 +220,7 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                         String body = response.body();
                         //保存惯用手
                         UserSpHelper.setUserHypertensionHand(data.right + "");
+                        Timber.i("上传惯用手成功");
                         try {
                             ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
                             }.getType());

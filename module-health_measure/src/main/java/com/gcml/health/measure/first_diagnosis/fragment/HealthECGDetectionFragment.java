@@ -158,8 +158,10 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals(ReceiveService.ACTION_BLU_DISCONNECT)) {
-                Toast.makeText(context, R.string.connect_connect_off,
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "设备已断开", Toast.LENGTH_SHORT).show();
+                if (dealVoiceAndJump != null) {
+                    dealVoiceAndJump.updateVoice("设备已断开");
+                }
             }
         }
     };
@@ -230,15 +232,17 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             }
         }
     }
-    private void setBtnClickableState(boolean enableClick){
-        if (enableClick){
+
+    private void setBtnClickableState(boolean enableClick) {
+        if (enableClick) {
             mTvNext.setClickable(true);
             mTvNext.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
-        }else{
+        } else {
             mTvNext.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
             mTvNext.setClickable(false);
         }
     }
+
     /**
      * 跳转到MeasureVideoPlayActivity
      */
@@ -274,6 +278,9 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0x100) {
+            if (dealVoiceAndJump != null) {
+                dealVoiceAndJump.updateVoice("设备已连接");
+            }
             StaticReceive.setmHandler(mHandler);
         }
     }
@@ -435,7 +442,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showLong("数据上传失败:"+e.getMessage());
+                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
                     }
 
                     @Override
@@ -443,23 +450,6 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
                     }
                 });
-//
-//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-//            @Override
-//            public void onSuccess(String callbackString) {
-//                ToastUtils.showShort("数据上传成功");
-////                if (fragmentChanged != null) {
-////                    isJump2Next = true;
-////                    fragmentChanged.onFragmentChanged(HealthECGDetectionFragment.this, null);
-////                }
-//                setBtnClickableState(true);
-//            }
-//
-//            @Override
-//            public void onError() {
-//                ToastUtils.showLong("数据上传失败");
-//            }
-//        });
     }
 
     /**

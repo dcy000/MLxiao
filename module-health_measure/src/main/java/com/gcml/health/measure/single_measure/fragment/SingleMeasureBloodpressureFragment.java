@@ -51,7 +51,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     private int highPressure;
     private int lowPressure;
     private boolean isMeasureTask = false;
-
+    private boolean hasHypertensionHand=false;
     public SingleMeasureBloodpressureFragment() {
     }
 
@@ -71,6 +71,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
             //还没有录入惯用手，则跳转到惯用手录入activity
             GetHypertensionHandActivity.startActivityForResult(this, CODE_REQUEST_GETHYPERTENSIONHAND);
         } else {
+            hasHypertensionHand=true;
             if ("0".equals(userHypertensionHand)) {
                 showHypertensionHandDialog("左手");
             } else if ("1".equals(userHypertensionHand)) {
