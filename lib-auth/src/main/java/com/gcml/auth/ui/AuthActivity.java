@@ -72,7 +72,6 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
                     @Override
                     public void onResult(CC cc, CCResult result) {
                         if (result.isSuccess()) {
-                            UserSpHelper.setUserId(result.getDataItem("userId"));
                             CC.obtainBuilder("com.gcml.old.home")
                                     .build()
                                     .callAsync();

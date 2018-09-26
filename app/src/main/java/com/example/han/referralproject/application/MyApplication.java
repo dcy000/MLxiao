@@ -19,6 +19,7 @@ import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.gcml.common.app.lifecycle.App;
 import com.gcml.common.app.lifecycle.AppDelegate;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.repository.RepositoryApp;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.service.ProcessUtils;
 import com.gcml.lib_utils.ui.UiUtils;
@@ -91,7 +92,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         AppDelegate.INSTANCE.onCreate(this);
-        String curProcessName = ProcessUtils.getCurProcessName(this);
+//        String curProcessName = ProcessUtils.getCurProcessName(this);
         UtilsManager.init(this);
         UiUtils.init(this, 1920, 1200);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -133,22 +134,8 @@ public class MyApplication extends Application {
     }
 
     private void initOkGo() {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");
-        //log打印级别，决定了log显示的详细程度
-        loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY);
-        //log颜色级别，决定了log在控制台显示的颜色
-        loggingInterceptor.setColorLevel(Level.INFO);
-        builder.addInterceptor(loggingInterceptor);
-        Pandora pandora = Pandora.get();
-        if (pandora != null) {
-            OkHttpInterceptor interceptor = pandora.getInterceptor();
-            if (interceptor != null) {
-                builder.addInterceptor(interceptor);
-            }
-        }
         OkGo.getInstance().init(this)
-                .setOkHttpClient(builder.build());
+                .setOkHttpClient(RepositoryApp.INSTANCE.repositoryComponent().okHttpClient());
     }
 
     private void initVideoPlay() {

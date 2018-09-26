@@ -17,6 +17,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -43,32 +44,53 @@ public class UserRepository {
                 });
     }
 
+
     public Observable<UserEntity> signIn(
             String deviceId,
             String userName,
             String pwd) {
         return mUserService.signIn(deviceId, userName, pwd)
                 .compose(RxUtils.apiResultTransformer())
-                .doOnNext(new Consumer<UserToken>() {
-                    @Override
-                    public void accept(UserToken userToken) throws Exception {
-                        UserSpHelper.setUserId(userToken.getUserId());
-                        UserSpHelper.setToken(userToken.getToken());
-                        UserSpHelper.setRefreshToken(userToken.getRefreshToken());
-                    }
-                })
-                .flatMap(new Function<UserToken, ObservableSource<UserEntity>>() {
-                    @Override
-                    public ObservableSource<UserEntity> apply(UserToken userToken) throws Exception {
-                        return fetchUser(userToken.getUserId());
-                    }
-                }).doOnNext(new Consumer<UserEntity>() {
-                    @Override
-                    public void accept(UserEntity userEntity) throws Exception {
-                        UserSpHelper.setFaceId(userEntity.xfid);
-                    }
-                });
+                .compose(userTokenTransformer());
     }
+
+    private ObservableTransformer<UserToken, UserEntity> userTokenTransformer() {
+        return new ObservableTransformer<UserToken, UserEntity>() {
+            @Override
+            public ObservableSource<UserEntity> apply(Observable<UserToken> upstream) {
+                return upstream
+                        .doOnNext(new Consumer<UserToken>() {
+                            @Override
+                            public void accept(UserToken userToken) throws Exception {
+                                UserSpHelper.setUserId(userToken.getUserId());
+                                UserSpHelper.setToken(userToken.getToken());
+                                UserSpHelper.setRefreshToken(userToken.getRefreshToken());
+                            }
+                        })
+                        .flatMap(new Function<UserToken, ObservableSource<UserEntity>>() {
+                            @Override
+                            public ObservableSource<UserEntity> apply(UserToken userToken) throws Exception {
+                                return fetchUser(userToken.getUserId());
+                            }
+                        })
+                        .doOnNext(new Consumer<UserEntity>() {
+                            @Override
+                            public void accept(UserEntity userEntity) throws Exception {
+                                UserSpHelper.setFaceId(userEntity.xfid);
+                            }
+                        });
+            }
+        };
+    }
+
+    public Observable<UserEntity> refreshToken(
+            String deviceId,
+            String userId) {
+        return mUserService.refreshToken(deviceId, userId, UserSpHelper.getRefreshToken())
+                .compose(RxUtils.apiResultTransformer())
+                .compose(userTokenTransformer());
+    }
+
 
     public Observable<UserEntity> getUserSignIn() {
         return Observable.create(new ObservableOnSubscribe<String>() {
@@ -157,12 +179,31 @@ public class UserRepository {
     }
 
     /**
-     *
      * @return users
      */
     public Observable<List<UserEntity>> getUsers() {
         return mUserDao.findAll()
-                .toObservable();
+                .toObservable()
+                .flatMap(new Function<List<UserEntity>, ObservableSource<List<UserEntity>>>() {
+                    @Override
+                    public ObservableSource<List<UserEntity>> apply(List<UserEntity> users) throws Exception {
+                        StringBuilder userIdsBuilder = new StringBuilder();
+                        int size = users.size();
+                        for (int i = 0; i < size; i++) {
+                            UserEntity user = users.get(i);
+                            if (user == null || TextUtils.isEmpty(user.id)) {
+                                continue;
+                            }
+                            userIdsBuilder.append(user.id);
+                            if (i != size -1) {
+                                userIdsBuilder.append(",");
+                            }
+                        }
+                        return mUserService.getAllUsers(userIdsBuilder.toString())
+                                .compose(RxUtils.apiResultTransformer())
+                                .subscribeOn(Schedulers.io());
+                    }
+                });
     }
 
     public Observable<Object> isIdCardNotExit(String idCard) {

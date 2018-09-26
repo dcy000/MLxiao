@@ -16,7 +16,6 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
-import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
@@ -37,6 +36,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -317,28 +317,19 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.ll_date_and_week:
                 break;
             case R.id.iv_health_measure:
-//                Bundle bundle = new Bundle();
-//                bundle.putString("orderid", "0");
-//                bundle.putString("from", "Test");
-//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(getActivity(), bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
+                        .addParam("currentUser", false)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-//                                boolean currentUser = result.getDataItem("currentUser");
-                                String userId = result.getDataItem("userId");
-                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                    UserSpHelper.setUserId(userId);
-                                    if ("skip".equals(result.getErrorMessage())) {
+                                boolean skip = "skip".equals(result.getErrorMessage());
+                                if (result.isSuccess() || skip) {
+                                    if (skip) {
                                         CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
                                         return;
                                     }
-//                                    CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-//                                            .addParam("userId", userId)
-//                                            .build()
-//                                            .callAsync();
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());

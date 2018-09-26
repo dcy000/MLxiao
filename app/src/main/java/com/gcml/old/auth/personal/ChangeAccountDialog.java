@@ -11,6 +11,7 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimAccountHelper;
@@ -24,6 +25,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -86,6 +88,8 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                    LocalShared.getInstance(mContext).deleteAllAccount();
 //                }
                 LocalShared.getInstance(mContext).loginOut();
+                UserSpHelper.setUserId("");
+                UserSpHelper.setToken("");
                 CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();

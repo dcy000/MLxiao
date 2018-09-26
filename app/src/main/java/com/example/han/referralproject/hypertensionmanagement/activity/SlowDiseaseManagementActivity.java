@@ -10,6 +10,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
@@ -423,24 +424,21 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         //-->人脸-->测量血压
         CC.obtainBuilder("com.gcml.auth.face.signin")
                 .addParam("skip", true)
+                .addParam("currentUser", false)
                 .build()
                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
                     @Override
                     public void onResult(CC cc, CCResult result) {
-//                                boolean currentUser = result.getDataItem("currentUser");
-                        String userId = result.getDataItem("userId");
-                        if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                            UserSpHelper.setUserId(userId);
-                            if ("skip".equals(result.getErrorMessage())) {
+                        boolean skip = "skip".equals(result.getErrorMessage());
+                        if (result.isSuccess() || skip) {
+                            if (skip) {
                                 toBloodPressure();
-                                return;
                             }
                         } else {
                             ToastUtils.showShort(result.getErrorMessage());
                         }
                     }
                 });
-
     }
 
     private void toBloodPressure() {

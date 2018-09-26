@@ -15,6 +15,8 @@ import com.example.han.referralproject.application.MyApplication;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.imageloader.ImageLoader;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
@@ -23,6 +25,10 @@ import com.medlink.danbogh.call2.NimAccountHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdapter.MyHolder> {
     private LayoutInflater mInflater;
@@ -42,28 +48,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
 
     @Override
     public void onBindViewHolder(ChangeAccountAdapter.MyHolder holder, final int position) {
-        final UserEntity user = mUserData.get(position);
-        holder.mNameView.setText(user.name);
-        ImageLoader.with(holder.mHeaderIv)
-                .load(user.avatar)
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .into(holder.mHeaderIv);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String userId = user.id;
-                if (!TextUtils.isEmpty(userId)) {
-                    CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                            .addParam("userId", userId)
-                            .build()
-                            .callAsync();
-                }
-                NimAccountHelper.getInstance().logout();
-                UserSpHelper.setUserId(userId);
-                mContext.sendBroadcast(new Intent("change_account"));
-            }
-        });
+        holder.onBind(position);
     }
 
     @Override
@@ -71,15 +56,56 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
         return mUserData == null ? 0 : mUserData.size();
     }
 
-    public class MyHolder extends RecyclerView.ViewHolder {
+    public class MyHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
         public TextView mNameView;
         public CircleImageView mHeaderIv;
 
         public MyHolder(View view) {
             super(view);
+            itemView.setOnClickListener(this);
             mNameView = view.findViewById(R.id.tv_name);
             mHeaderIv = view.findViewById(R.id.iv_header);
         }
-    }
 
+        public void onBind(int position) {
+            final UserEntity user = mUserData.get(position);
+            mNameView.setText(user.name);
+            ImageLoader.with(mHeaderIv)
+                    .load(user.avatar)
+                    .placeholder(R.drawable.avatar_placeholder)
+                    .error(R.drawable.avatar_placeholder)
+                    .into(mHeaderIv);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            UserEntity user = mUserData.get(position);
+            String userId = user.id;
+            NimAccountHelper.getInstance().logout();
+            Observable<UserEntity> rxUser = CC.obtainBuilder("com.gcml.auth.refreshToken")
+                    .addParam("userId", userId)
+                    .build()
+                    .call()
+                    .getDataItem("data");
+            rxUser.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new DefaultObserver<UserEntity>() {
+                        @Override
+                        public void onNext(UserEntity user) {
+                            mContext.sendBroadcast(new Intent("change_account"));
+                            CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                                    .addParam("userId", user.id)
+                                    .build()
+                                    .callAsync();
+                        }
+
+                        @Override
+                        public void onError(Throwable throwable) {
+                            super.onError(throwable);
+                        }
+                    });
+        }
+    }
 }

@@ -138,7 +138,7 @@ public class MLVoiceSynthetize {
      */
     public static void startSynthesize(Context context, InitListener initListener, boolean isDefaultParam, SynthesizerListener synthesizerListener, String text) {
 
-        if (TextUtils.isEmpty(text)) {
+        if (context == null && TextUtils.isEmpty(text)) {
             return;
         }
         MLVoiceRecognize.stopListening();

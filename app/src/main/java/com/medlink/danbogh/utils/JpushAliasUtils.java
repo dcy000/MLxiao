@@ -2,9 +2,9 @@ package com.medlink.danbogh.utils;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.Set;
 
@@ -60,7 +60,14 @@ public class JpushAliasUtils {
     };
     private static final int MSG_SET_ALIAS = 1001;
 
-    private final Handler mHandler2 = new Handler(Looper.getMainLooper()) {
+    private static final HandlerThread J_PUSH_THREAD;
+
+    static {
+        J_PUSH_THREAD = new HandlerThread("JPush");
+        J_PUSH_THREAD.start();
+    }
+
+    private final Handler mHandler2 = new Handler(J_PUSH_THREAD.getLooper()) {
         @Override
         public void handleMessage(android.os.Message msg) {
             super.handleMessage(msg);

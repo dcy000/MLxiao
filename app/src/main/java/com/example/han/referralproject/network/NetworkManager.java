@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.common.repository.RepositoryApp;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -34,9 +35,9 @@ public class NetworkManager {
     }
 
     private NetworkManager() {
-        client = new OkHttpClient();
+        client = RepositoryApp.INSTANCE.repositoryComponent().okHttpClient();
         mGson = new Gson();
-        mContext = MyApplication.getInstance();
+        mContext = RepositoryApp.INSTANCE.app();
     }
 
     public interface SuccessCallback<T> {

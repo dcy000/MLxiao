@@ -26,9 +26,11 @@ public class RepositoryModule {
 
     @Singleton
     @Provides
-    IRepositoryHelper provideRepositoryHelper(Lazy<Retrofit> retrofit, Lazy<RxCache> rxCache,
-                                               Cache.Factory cacheFactory,
-                                               DbModule.RoomConfiguration roomConfiguration) {
+    IRepositoryHelper provideRepositoryHelper(
+            Lazy<Retrofit> retrofit,
+            Lazy<RxCache> rxCache,
+            Cache.Factory cacheFactory,
+            DbModule.RoomConfiguration roomConfiguration) {
         return new RepositoryHelper(mApplication, retrofit, rxCache, cacheFactory, roomConfiguration);
     }
 

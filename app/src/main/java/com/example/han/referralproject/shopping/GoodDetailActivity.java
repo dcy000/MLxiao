@@ -243,12 +243,12 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
     private void checkUser(String orderid) {
         CC.obtainBuilder("com.gcml.auth.face.signin")
+                .addParam("currentUser", true)
                 .build()
                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
                     @Override
                     public void onResult(CC cc, CCResult result) {
-                        boolean currentUser = result.getDataItem("currentUser");
-                        if (result.isSuccess() && currentUser) {
+                        if (result.isSuccess()) {
                             showPaySuccessDialog(GoodDetailActivity.this);
                             syncOrder(orderid);
                         } else {
