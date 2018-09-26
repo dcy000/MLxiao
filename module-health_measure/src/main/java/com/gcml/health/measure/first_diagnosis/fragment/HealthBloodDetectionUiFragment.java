@@ -206,43 +206,33 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                 }).show();
     }
 
+    @SuppressLint("CheckResult")
     private void uploadHandData(final Data data) {
         Timber.i("开始上传惯用手到服务器");
-        OkGo.<String>post(HealthMeasureApi.DETECTION_BLOOD_HAND + UserSpHelper.getUserId() + "/")
-                .params("handState", data.right)
-                .execute(new StringCallback() {
+
+        HealthMeasureRepository.postHypertensionHand(data.right)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Object>() {
                     @Override
-                    public void onSuccess(Response<String> response) {
-                        if (!response.isSuccessful()) {
-                            ToastUtils.showLong("数据上传失败");
-                            return;
-                        }
-                        String body = response.body();
-                        //保存惯用手
-                        UserSpHelper.setUserHypertensionHand(data.right + "");
+                    public void onNext(Object o) {
                         Timber.i("上传惯用手成功");
-                        try {
-                            ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
-                            }.getType());
-                            if (apiResponse.isSuccessful()) {
-                                uploadHandStateFinished();
-                                uploadData(data);
-                                return;
-                            }
-                        } catch (Throwable e) {
-                            e.printStackTrace();
-                        }
-                        ToastUtils.showLong("数据上传失败");
+                        UserSpHelper.setUserHypertensionHand(data.right + "");
+                        uploadHandStateFinished();
+                        uploadData(data);
                     }
 
                     @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        ToastUtils.showLong("数据上传失败");
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort("惯用手上传失败：" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
-
-
     }
 
     /**
