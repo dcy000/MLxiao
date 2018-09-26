@@ -10,6 +10,7 @@ import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -18,6 +19,7 @@ import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -92,9 +94,9 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .as(RxUtils.autoDisposeConverter(this))
-                    .subscribeWith(new DefaultObserver<Object>() {
+                    .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                         @Override
-                        public void onNext(Object o) {
+                        public void onNext(List<DetectionResult> o) {
                             ToastUtils.showLong("数据上传成功");
                             if (isMeasureTask && !mActivity.isFinishing()) {
                                 mActivity.finish();

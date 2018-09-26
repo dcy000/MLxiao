@@ -8,6 +8,7 @@ import android.view.View;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.measure_abnormal.HealthMeasureAbnormalActivity;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.UtilsManager;
@@ -18,6 +19,7 @@ import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
@@ -81,7 +83,9 @@ public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
 
                         @Override
                         public void onError(Throwable e) {
-                            HealthMeasureAbnormalActivity.startActivity(mActivity, IPresenter.MEASURE_BLOOD_SUGAR, CODE_REQUEST_ABNORMAL);
+                            HealthMeasureAbnormalActivity.startActivity(
+                                    SingleMeasureBloodsugarFragment.this,
+                                    IPresenter.MEASURE_BLOOD_SUGAR, CODE_REQUEST_ABNORMAL);
                         }
 
                         @Override
@@ -95,7 +99,7 @@ public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
 
     @SuppressLint("CheckResult")
     private void uploadData() {
-        if (datas==null){
+        if (datas == null) {
             Timber.e("SingleMeasureBloodpressureFragment：数据被回收，程序异常");
             return;
         }
@@ -104,15 +108,15 @@ public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribeWith(new DefaultObserver<Object>() {
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                     @Override
-                    public void onNext(Object o) {
+                    public void onNext(List<DetectionResult> o) {
                         ToastUtils.showShort("数据上传成功");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("数据上传失败:"+e.getMessage());
+                        ToastUtils.showShort("数据上传失败:" + e.getMessage());
                     }
 
                     @Override

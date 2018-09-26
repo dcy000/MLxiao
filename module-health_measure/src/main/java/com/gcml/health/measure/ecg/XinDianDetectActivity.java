@@ -29,6 +29,7 @@ import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
 import com.gcml.lib_utils.UtilsManager;
@@ -319,9 +320,9 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribeWith(new DefaultObserver<Object>() {
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                     @Override
-                    public void onNext(Object o) {
+                    public void onNext(List<DetectionResult> o) {
                         ToastUtils.showShort("数据上传成功");
                         Intent intent = new Intent();
                         intent.putExtra("ecg", ecg);

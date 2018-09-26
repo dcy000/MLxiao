@@ -3,6 +3,7 @@ package com.gcml.module_blutooth_devices.bloodpressure_devices;
 import android.util.Log;
 
 import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.lib_utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
@@ -34,7 +35,7 @@ public class Bloodpressure_YuWell_PresenterImp extends BaseBluetoothPresenter {
     }
 
     @Override
-    protected void connectSuccessed(String address, List<BluetoothServiceDetail> serviceDetails, boolean isReturnServiceAndCharacteristic) {
+    protected void connectSuccessed(final String address, List<BluetoothServiceDetail> serviceDetails, boolean isReturnServiceAndCharacteristic) {
         super.connectSuccessed(address, serviceDetails, isReturnServiceAndCharacteristic);
         baseView.updateState(baseView.getThisContext().getString(R.string.bluetooth_device_connected));
         baseView.updateData("0", "0", "0");

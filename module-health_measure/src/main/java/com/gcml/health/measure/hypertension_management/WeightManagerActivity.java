@@ -5,14 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.View;
-
-import com.billy.cc.core.component.CC;
 import com.gcml.common.data.AppManager;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
-import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
 import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;

@@ -28,12 +28,14 @@ import com.gcml.health.measure.ecg.ECGConnectActivity;
 import com.gcml.health.measure.ecg.ReceiveService;
 import com.gcml.health.measure.ecg.StaticReceive;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
@@ -424,9 +426,9 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribeWith(new DefaultObserver<Object>() {
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                     @Override
-                    public void onNext(Object o) {
+                    public void onNext(List<DetectionResult> o) {
                         ToastUtils.showShort("数据上传成功");
                         setBtnClickableState(true);
                     }

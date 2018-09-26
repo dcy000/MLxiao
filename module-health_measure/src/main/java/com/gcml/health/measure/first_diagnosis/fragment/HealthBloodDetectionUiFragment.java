@@ -12,6 +12,7 @@ import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.data.TimeCountDownUtils;
@@ -24,7 +25,10 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
@@ -32,7 +36,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
-//    private DialogSure dialogSure;
+    //    private DialogSure dialogSure;
     private String tips_first = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行<font color='#F56C6C'>2–3次</font>测量。请先测量左手！";
     private String tips_first_speak = "为了保证测量数据准确性，请根据小易提示对左右手血压各进行2–3次测量。请先测量左手！";
     private boolean isJump2Next = false;
@@ -53,7 +57,6 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
 
     @Override
     protected void onMeasureFinished(String... results) {
-        Timber.e(results.toString());
         if (results.length == 3) {
             highPressures.put(detectionStep, Integer.parseInt(results[0]));
             lowPressures.put(detectionStep, Integer.parseInt(results[1]));
@@ -242,9 +245,10 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     /**
      * 表示上传惯用手状态结束  供子类使用
      */
-    protected void uploadHandStateFinished(){
+    protected void uploadHandStateFinished() {
 
     }
+
     @SuppressLint("CheckResult")
     private void uploadData(Data data) {
         ArrayList<DetectionData> datas = new ArrayList<>();
@@ -266,18 +270,16 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribeWith(new DefaultObserver<Object>() {
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                     @Override
-                    public void onNext(Object o) {
-//                        ((FirstDiagnosisActivity) mActivity).putCacheData(pressureData);
-//                        ((FirstDiagnosisActivity) mActivity).putCacheData(pulseData);
+                    public void onNext(List<DetectionResult> o) {
                         isMeasureOver = true;
                         setBtnClickableState(true);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("上传数据失败："+e.getMessage());
+                        ToastUtils.showShort("上传数据失败：" + e.getMessage());
                     }
 
                     @Override
@@ -285,20 +287,8 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
 
                     }
                 });
-//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-//            @Override
-//            public void onSuccess(String callbackString) {
-//                ((FirstDiagnosisActivity) mActivity).putCacheData(pressureData);
-//                ((FirstDiagnosisActivity) mActivity).putCacheData(pulseData);
-//                isMeasureOver = true;
-//                setBtnClickableState(true);
-//            }
-//
-//            @Override
-//            public void onError() {
-//            }
-//        });
     }
+
     /**
      * @return prepareData = int[1], lowPressure = int[2], pulse = int[3], left = int[4] == 1
      */
@@ -385,10 +375,6 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
         } else {
             ToastUtils.showShort("测量次数不够");
         }
-//        if (fragmentChanged != null && !isJump2Next) {
-//            isJump2Next = true;
-//            fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
-//        }
     }
 
     public static class Data {

@@ -45,5 +45,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_commend_text"></android.support.v7.widget.RecyclerView>
-
 </android.support.constraint.ConstraintLayout>

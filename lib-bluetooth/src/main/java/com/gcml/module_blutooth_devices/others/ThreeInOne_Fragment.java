@@ -65,6 +65,7 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
      * &gt;6.1
      */
     protected TextView mTitle13;
+    protected TextView mTitle1;
 
     @Override
     protected int initLayout() {
@@ -82,6 +83,7 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
         mTvDiya = view.findViewById(R.id.tv_diya);
         mTvMaibo = view.findViewById(R.id.tv_maibo);
         this.bundle = bundle;
+        mTitle1 = (TextView) view.findViewById(R.id.title1);
         mTitle11 = (TextView) view.findViewById(R.id.title1_1);
         mTitle12 = (TextView) view.findViewById(R.id.title1_2);
         mTitle13 = (TextView) view.findViewById(R.id.title1_3);

@@ -531,5 +531,6 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     public void onChanged(int position) {
         threeInOnePosition.add(position);
     }
+
 }
 

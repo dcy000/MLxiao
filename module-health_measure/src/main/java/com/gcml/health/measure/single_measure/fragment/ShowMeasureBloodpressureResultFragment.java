@@ -358,7 +358,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
             }
 
         } else {
-            ToastUtils.showShort("网络繁忙");
+            ToastUtils.showShort("暂无推荐");
         }
 
 

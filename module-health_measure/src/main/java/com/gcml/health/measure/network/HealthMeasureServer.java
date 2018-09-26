@@ -2,6 +2,7 @@ package com.gcml.health.measure.network;
 
 import com.gcml.common.repository.http.ApiResult;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
@@ -44,6 +45,6 @@ public interface HealthMeasureServer {
     Observable<ApiResult<Object>> checkIsNormalData(@Path("userId") String userId, @Body List<DetectionData> datas);
 
     @POST("ZZB/api/healthMonitor/detection/{userId}/")
-    Observable<ApiResult<Object>> postMeasureData(@Path("userId") String userId, @Body ArrayList<DetectionData> datas);
+    Observable<ApiResult<List<DetectionResult>>> postMeasureData(@Path("userId") String userId, @Body ArrayList<DetectionData> datas);
 
 }

@@ -152,7 +152,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             }
 
         } else {
-            ToastUtils.showShort("网络繁忙");
+            ToastUtils.showShort("暂无推荐");
         }
     }
 

@@ -5,6 +5,7 @@ import com.gcml.common.repository.IRepositoryHelper;
 import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
@@ -82,7 +83,7 @@ public class HealthMeasureRepository {
     /**
      * 新的上传数据的接口
      */
-    public static Observable<Object> postMeasureData(ArrayList<DetectionData> datas){
+    public static Observable<List<DetectionResult>> postMeasureData(ArrayList<DetectionData> datas){
         return healthMeasureServer.postMeasureData(UserSpHelper.getUserId(),datas).compose(RxUtils.apiResultTransformer());
     }
 }
