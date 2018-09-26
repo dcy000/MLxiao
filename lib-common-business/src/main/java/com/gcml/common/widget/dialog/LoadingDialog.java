@@ -137,6 +137,7 @@ public class LoadingDialog extends Dialog {
          */
         public LoadingDialog create(boolean cancelable) {
             LoadingDialog dialog = new LoadingDialog(mContext);
+            dialog.setCanceledOnTouchOutside(true);
             dialog.setCancelable(cancelable);
             dialog.setContentView(R.layout.layout_loading_dialog);
             ViewGroup contentWrap = (ViewGroup) dialog.findViewById(R.id.contentWrap);
@@ -213,6 +214,7 @@ public class LoadingDialog extends Dialog {
         public LoadingDialog create() {
             LoadingDialog dialog = new LoadingDialog(mContext);
             dialog.setContentView(R.layout.layout_loading_dialog);
+            dialog.setCanceledOnTouchOutside(true);
             ViewGroup contentWrap = (ViewGroup) dialog.findViewById(R.id.contentWrap);
             LayoutInflater.from(mContext).inflate(mContentLayoutId, contentWrap, true);
             return dialog;

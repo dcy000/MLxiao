@@ -67,9 +67,6 @@ public class RxUtils {
                 } else {
                     int code = result.getCode();
                     String message = result.getMessage();
-                    if (code == 500) {
-                        message = "服务器繁忙";
-                    }
                     return Observable.error(new ApiException(message, code));
                 }
             }

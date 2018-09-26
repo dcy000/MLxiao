@@ -102,7 +102,7 @@ public class DialogActivity extends AppCompatActivity {
             public void run() {
                 tipDialog.dismiss();
             }
-        }, 1000);
+        }, 10000);
     }
 
     public void showLoadingDialog2(View view) {

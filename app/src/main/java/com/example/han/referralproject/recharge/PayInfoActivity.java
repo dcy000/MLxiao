@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
@@ -240,7 +238,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         });
                     }
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
 
                     }
@@ -264,20 +262,17 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
                                 BCQueryBillResult billStatus = (BCQueryBillResult) result;
 
-
                                 //表示支付成功
                                 if (billStatus.getResultCode() == 0 && billStatus.getBill().getPayResult()) {
-
                                     mHandler.sendEmptyMessage(0);
                                     sign1 = false;
-
                                 }
 
                             }
                         });
                     }
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
 
                     }
@@ -394,7 +389,6 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                 true,     //是否生成二维码的bitmap
                 480,       //二维码的尺寸, 以px为单位, 如果为null则默认为360
                 callback1);
-
 
         BCOfflinePay.PayParams payParam = new BCOfflinePay.PayParams();
         payParam.channelType = channelType;

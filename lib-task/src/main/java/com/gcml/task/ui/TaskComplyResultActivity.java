@@ -112,7 +112,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
             mLayoutSport.setVisibility(View.VISIBLE);
             sportContent1.setText("每周" + resultBean.sportRecommend.weekCount + "次");
             sportContent2.setText(resultBean.sportRecommend.timeCost + "min");
-            sportContent3.setText(resultBean.sportRecommend.weightTarget + "kg");
+            sportContent3.setText( String .format("%.2f", resultBean.sportRecommend.weightTarget) + "kg");
         } else {
             mLayoutSport.setVisibility(View.GONE);
         }
