@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -167,7 +168,6 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
     public void onStop() {
         super.onStop();
         if (baseBluetoothPresenter != null) {
-
             baseBluetoothPresenter.onDestroy();
         }
         if (helper != null) {

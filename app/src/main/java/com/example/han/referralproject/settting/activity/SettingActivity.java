@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,11 +17,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
-import com.gcml.common.update.ICheckAgent;
-import com.gcml.common.update.IUpdateChecker;
-import com.gcml.common.update.IUpdateParser;
-import com.gcml.common.update.UpdateInfo;
-import com.gcml.common.update.UpdateManager;
+import com.gcml.common.utils.VersionHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -170,7 +165,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onSuccess(VersionInfoBean response) {
                 tipDialog.dismiss();
-                if (response != null && response.vid > 0) {
+                if (response != null && response.vid > VersionHelper.getAppVersionCode(getApplicationContext())) {
                     checkUpdate(FILE_NAME, response.v_log, response.vid, response.vnumber, response.url, response.v_md5);
                 } else {
                     MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
@@ -187,29 +182,29 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void checkUpdate(final String checkUrl, final String updateLog, final int versionCode, final String versionName, final String updateUrl, final String updateMD5) {
-        UpdateManager.create(this).setChecker(new IUpdateChecker() {
-            @Override
-            public void check(ICheckAgent agent, String url) {
-                Log.e("ezy.update", "checking");
-                agent.setInfo("");
-            }
-        }).setUrl(checkUrl).setManual(true).setNotifyId(998).setParser(new IUpdateParser() {
-            @Override
-            public UpdateInfo parse(String source) throws Exception {
-                UpdateInfo info = new UpdateInfo();
-                info.hasUpdate = true;
-                info.updateContent = updateLog;
-                info.versionCode = versionCode;
-                info.versionName = versionName;
-                info.url = updateUrl;
-                info.md5 = updateMD5;
-                info.size = 10149314;
-                info.isForce = false;
-                info.isIgnorable = true;
-                info.isSilent = false;
-                return info;
-            }
-        }).check();
+//        UpdateManager.create(this).setChecker(new IUpdateChecker() {
+//            @Override
+//            public void check(ICheckAgent agent, String url) {
+//                Log.e("ezy.update", "checking");
+//                agent.setInfo("");
+//            }
+//        }).setUrl(checkUrl).setManual(true).setNotifyId(998).setParser(new IUpdateParser() {
+//            @Override
+//            public UpdateInfo parse(String source) throws Exception {
+//                UpdateInfo info = new UpdateInfo();
+//                info.hasUpdate = true;
+//                info.updateContent = updateLog;
+//                info.versionCode = versionCode;
+//                info.versionName = versionName;
+//                info.url = updateUrl;
+//                info.md5 = updateMD5;
+//                info.size = 10149314;
+//                info.isForce = false;
+//                info.isIgnorable = true;
+//                info.isSilent = false;
+//                return info;
+//            }
+//        }).check();
     }
 
     private void showClearCacheDialog() {

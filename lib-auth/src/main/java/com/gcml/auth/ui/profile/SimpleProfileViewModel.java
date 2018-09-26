@@ -16,7 +16,7 @@ public class SimpleProfileViewModel extends BaseViewModel {
         super(application);
     }
 
-    public Observable<Object> updateProfile(UserEntity user){
+    public Observable<UserEntity> updateProfile(UserEntity user){
         return mUserRepository.putProfile(user);
     }
 }

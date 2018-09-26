@@ -3,7 +3,9 @@ package com.gcml.module_blutooth_devices.others;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gcml.lib_utils.data.SPUtil;
@@ -51,6 +53,19 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
     private boolean isMeasureBloodsugarFinished;
     private boolean isMeasureBUAFinished;
     private boolean isMeasureCholesterolFinished;
+    /**
+     * &lt;3.9
+     */
+    protected TextView mTitle11;
+    /**
+     * 3.9~6.1
+     */
+    protected TextView mTitle12;
+    /**
+     * &gt;6.1
+     */
+    protected TextView mTitle13;
+    protected TextView mTitle1;
 
     @Override
     protected int initLayout() {
@@ -67,7 +82,11 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
         mTvGaoya = view.findViewById(R.id.tv_gaoya);
         mTvDiya = view.findViewById(R.id.tv_diya);
         mTvMaibo = view.findViewById(R.id.tv_maibo);
-        this.bundle=bundle;
+        this.bundle = bundle;
+        mTitle1 = (TextView) view.findViewById(R.id.title1);
+        mTitle11 = (TextView) view.findViewById(R.id.title1_1);
+        mTitle12 = (TextView) view.findViewById(R.id.title1_2);
+        mTitle13 = (TextView) view.findViewById(R.id.title1_3);
     }
 
     @Override
@@ -180,12 +199,14 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
             helper.destroy();
         }
     }
-    public interface MeasureItemChanged{
+
+    public interface MeasureItemChanged {
         void onChanged(int position);
     }
 
     protected MeasureItemChanged measureItemChanged;
-    public void setOnMeasureItemChanged(MeasureItemChanged measureItemChanged){
-        this.measureItemChanged=measureItemChanged;
+
+    public void setOnMeasureItemChanged(MeasureItemChanged measureItemChanged) {
+        this.measureItemChanged = measureItemChanged;
     }
 }

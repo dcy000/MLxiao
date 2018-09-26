@@ -1,8 +1,10 @@
 package com.example.han.referralproject.homepage;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,7 +16,11 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
+import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
 import com.gcml.lib_utils.data.LunarUtils;
@@ -22,12 +28,16 @@ import com.gcml.lib_utils.data.TimeUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.thread.ThreadUtils;
 import com.gcml.lib_widget.EclipseImageView;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.call2.NimCallActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -325,6 +335,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                         CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
                                         return;
                                     }
+//                                    CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+//                                            .addParam("userId", userId)
+//                                            .build()
+//                                            .callAsync();
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -335,18 +349,38 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.iv_health_dialy_task:
 //                startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));
 //                startActivity(new Intent(getContext(), OlderHealthManagementSerciveActivity.class));
-                CC.obtainBuilder("com.gcml.task.isTask")
-                        .build()
-                        .callAsync(new IComponentCallback() {
+                CCResult result;
+                Observable<UserEntity> rxUser;
+                result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+                rxUser = result.getDataItem("data");
+                rxUser.subscribeOn(Schedulers.io())
+                        .as(RxUtils.autoDisposeConverter(this))
+                        .subscribe(new DefaultObserver<UserEntity>() {
                             @Override
-                            public void onResult(CC cc, CCResult result) {
-                                if (result.isSuccess()) {
-                                    CC.obtainBuilder("app.component.task").build().callAsync();
+                            public void onNext(UserEntity user) {
+                                if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
+                                    ToastUtils.showShort("请先去个人中心完善体重和身高信息");
+                                    MLVoiceSynthetize.startSynthesize(
+                                            getActivity().getApplicationContext(),
+                                            "请先去个人中心完善体重和身高信息");
                                 } else {
-                                    CC.obtainBuilder("app.component.task.comply").build().callAsync();
+                                    CC.obtainBuilder("com.gcml.task.isTask")
+                                            .build()
+                                            .callAsync(new IComponentCallback() {
+                                                @Override
+                                                public void onResult(CC cc, CCResult result) {
+                                                    if (result.isSuccess()) {
+                                                        CC.obtainBuilder("app.component.task").build().callAsync();
+                                                    } else {
+                                                        CC.obtainBuilder("app.component.task.comply").build().callAsync();
+                                                    }
+                                                }
+                                            });
                                 }
                             }
                         });
+
+
                 break;
             case R.id.iv_health_call_family:
                 NimCallActivity.launchNoCheck(getContext(), MyApplication.getInstance().eqid);

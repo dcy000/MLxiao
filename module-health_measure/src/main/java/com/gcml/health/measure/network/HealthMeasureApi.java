@@ -3,7 +3,7 @@ package com.gcml.health.measure.network;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
@@ -83,6 +83,15 @@ public class HealthMeasureApi {
         OkGo.<String>post(POST_ORIGIN_HYPERTENTION + userId + "/")
                 .params("userId", userId)
                 .params("hypertensionPrimaryState", hypertensionPrimaryState)
+                .execute(callback);
+    }
+
+    /**
+     * 获取诊断信息-->重新生成方案
+     */
+    public static void getDiagnoseInfoNew(String userId, StringCallback callback) {
+        OkGo.<String>get(GET_DIAGNOSE_INFO + userId + "/new/")
+                .params("userId", userId)
                 .execute(callback);
     }
 }

@@ -19,7 +19,7 @@ public class GetUserComponent implements IComponent {
         //暂时是本地的 User
         UserRepository repository = new UserRepository();
         Observable<UserEntity> rxUser = repository.getUserSignIn();
-        CC.sendCCResult(cc.getCallId(), CCResult.success("user", rxUser));
+        CC.sendCCResult(cc.getCallId(), CCResult.success("data", rxUser));
         return false;
     }
 }

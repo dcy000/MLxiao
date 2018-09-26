@@ -2,20 +2,29 @@ package com.example.han.referralproject.homepage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
-import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.base.RecycleBaseFragment;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
-import com.gcml.old.auth.profile.PersonDetailActivity;
+import com.gcml.old.auth.personal.PersonDetailActivity;
+import com.iflytek.synthetize.MLVoiceSynthetize;
+
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -58,6 +67,8 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        CCResult result;
+        Observable<UserEntity> rxUser;
         switch (v.getId()) {
             default:
                 break;
@@ -66,8 +77,24 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 break;
             case R.id.iv_health_course:
                 //健康管理
-                Intent intent = new Intent(getActivity(), SlowDiseaseManagementActivity.class);
-                startActivity(intent);
+                result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+                rxUser = result.getDataItem("data");
+                rxUser.subscribeOn(Schedulers.io())
+                        .as(RxUtils.autoDisposeConverter(this))
+                        .subscribe(new DefaultObserver<UserEntity>() {
+                            @Override
+                            public void onNext(UserEntity user) {
+                                if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
+                                    ToastUtils.showShort("请先去个人中心完善体重和身高信息");
+                                    MLVoiceSynthetize.startSynthesize(
+                                            getActivity().getApplicationContext(),
+                                            "请先去个人中心完善体重和身高信息");
+                                } else {
+                                    Intent intent = new Intent(getActivity(), SlowDiseaseManagementActivity.class);
+                                    startActivity(intent);
+                                }
+                            }
+                        });
 //                startActivity(new Intent(getActivity(), VideoListActivity.class));
 //                CCHealthMeasureActions.jump2HealthIntelligentDetectionActivity();
 //                CCHealthMeasureActions.jump2FirstDiagnosisActivity();
@@ -83,7 +110,24 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 startActivity(new Intent(getContext(), SpeechSynthesisActivity.class));
                 break;
             case R.id.iv_check_self:
-                startActivity(new Intent(getContext(), SymptomCheckActivity.class));
+                result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+                rxUser = result.getDataItem("data");
+                rxUser.subscribeOn(Schedulers.io())
+                        .as(RxUtils.autoDisposeConverter(this))
+                        .subscribe(new DefaultObserver<UserEntity>() {
+                            @Override
+                            public void onNext(UserEntity user) {
+                                if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
+                                    ToastUtils.showShort("请先去个人中心完善体重和身高信息");
+                                    MLVoiceSynthetize.startSynthesize(
+                                            getActivity().getApplicationContext(),
+                                            "请先去个人中心完善体重和身高信息");
+                                } else {
+                                    Intent intent = new Intent(getActivity(), SymptomCheckActivity.class);
+                                    startActivity(intent);
+                                }
+                            }
+                        });
                 break;
             case R.id.iv_shopping_mall:
                 startActivity(new Intent(getContext(), MarketActivity.class));

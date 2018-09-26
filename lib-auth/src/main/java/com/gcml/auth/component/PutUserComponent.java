@@ -18,7 +18,7 @@ public class PutUserComponent implements IComponent {
     public boolean onCall(CC cc) {
         UserEntity user = cc.getParamItem("user");
         UserRepository userRepository = new UserRepository();
-        Observable<Object> rxPutProfile = userRepository.putProfile(user);
+        Observable<UserEntity> rxPutProfile = userRepository.putProfile(user);
         CC.sendCCResult(cc.getCallId(), CCResult.success("data", rxPutProfile));
         return false;
     }

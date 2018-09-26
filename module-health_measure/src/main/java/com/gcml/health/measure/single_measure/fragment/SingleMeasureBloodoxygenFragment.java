@@ -1,14 +1,20 @@
 package com.gcml.health.measure.single_measure.fragment;
 
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
-import com.gcml.health.measure.network.HealthMeasureApi;
-import com.gcml.health.measure.network.NetworkCallback;
+import android.annotation.SuppressLint;
+
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -18,6 +24,7 @@ import java.util.ArrayList;
  * description:单次血氧测量
  */
 public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
+    @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 2) {
@@ -35,17 +42,39 @@ public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
             dataPulse.setPulse(Integer.parseInt(results[1]));
             datas.add(pressureData);
             datas.add(dataPulse);
-            HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-                @Override
-                public void onSuccess(String callbackString) {
-                    ToastUtils.showShort("上传数据成功");
-                }
 
-                @Override
-                public void onError() {
-                    ToastUtils.showShort("上传数据失败");
-                }
-            });
+            HealthMeasureRepository.postMeasureData(datas)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribeWith(new DefaultObserver<Object>() {
+                        @Override
+                        public void onNext(Object o) {
+                            ToastUtils.showShort("上传数据成功");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            ToastUtils.showShort("上传数据失败:"+e.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+//            HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
+//                @Override
+//                public void onSuccess(String callbackString) {
+//                    ToastUtils.showShort("上传数据成功");
+//                }
+//
+//                @Override
+//                public void onError() {
+//                    ToastUtils.showShort("上传数据失败");
+//                }
+//            });
         }
     }
 

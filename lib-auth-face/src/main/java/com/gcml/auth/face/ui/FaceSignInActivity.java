@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
@@ -27,6 +28,8 @@ import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -56,10 +59,17 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
         return BR.viewModel;
     }
 
+    private ArrayList<UserEntity> users = new ArrayList<>();
+
     @Override
     protected void init(Bundle savedInstanceState) {
         callId = getIntent().getStringExtra("callId");
         skip = getIntent().getBooleanExtra("skip", false);
+        users = getIntent().getParcelableArrayListExtra("users");
+        if (users == null || users.isEmpty()) {
+            finish();
+            return;
+        }
         binding.setPresenter(this);
         binding.tvSkip.setVisibility(skip ? View.VISIBLE : View.GONE);
         mPreviewHelper = new PreviewHelper(this);
@@ -82,6 +92,11 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                 ));
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         mPreviewHelper.rxStatus()
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -219,14 +234,9 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     private void processFaceIdAndScore(String faceId, float score) {
         if (score < 30) {
             // 验证不通过
-//            int count = retryCount.getAndIncrement();
-//            if (count == 5) {
-//                finish();
-//            } else {
             start("请把脸对准框内",
                     "请把脸对准框内",
                     0);
-//            }
         } else if (score < 80) {
             // 重新验证
             start("请把人脸靠近一点",
@@ -234,65 +244,31 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                     0);
         } else {
             // 当前组存在人脸
-            viewModel.getLocalUsers()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this))
-                    .subscribe(new DefaultObserver<List<UserEntity>>() {
-                        @Override
-                        public void onNext(List<UserEntity> users) {
-                            Timber.i("faceId: %s", faceId);
-                            Timber.i("%s", users);
-                            if (users.isEmpty()) {
-                                int count = retryCount.getAndIncrement();
-                                if (count == 5) {
-                                    finish();
-                                } else {
-                                    start("请把脸对准框内",
-                                            "请把脸对准框内",
-                                            0);
-                                }
-                                return;
-                            }
-                            for (UserEntity user : users) {
-                                if (user == null) {
-                                    continue;
-                                }
-                                if (!TextUtils.isEmpty(user.xfid)
-                                        && user.xfid.equals(faceId)) {
-                                    theFaceId = faceId;
-                                    theUserId = user.id;
-                                    currentUser = theFaceId.equals(UserSpHelper.getFaceId());
-                                    error = false;
-                                    finish();
-                                    return;
-                                }
-                            }
-                            int count = retryCount.getAndIncrement();
-                            if (count == 5) {
-                                finish();
-                            } else {
-                                start("请把脸对准框内",
-                                        "请把脸对准框内",
-                                        0);
-                            }
-                        }
-
-                        @Override
-                        public void onError(Throwable throwable) {
-                            super.onError(throwable);
-                            int count = retryCount.getAndIncrement();
-                            if (count == 5) {
-                                finish();
-                            } else {
-                                start("请把脸对准框内",
-                                        "请把脸对准框内",
-                                        0);
-                            }
-                        }
-                    });
+            Timber.i("faceId: %s", faceId);
+            Timber.i("users: %s", users);
+            for (UserEntity user : users) {
+                if (user == null) {
+                    continue;
+                }
+                if (!TextUtils.isEmpty(user.xfid)
+                        && user.xfid.equals(faceId)) {
+                    theFaceId = faceId;
+                    theUserId = user.id;
+                    currentUser = theFaceId.equals(UserSpHelper.getFaceId());
+                    error = false;
+                    finish();
+                    return;
+                }
+            }
+            int count = retryCount.getAndIncrement();
+            if (count >= 5) {
+                finish();
+            } else {
+                start("请把脸对准框内",
+                        "请把脸对准框内",
+                        0);
+            }
         }
-
     }
 
     public void goBack() {

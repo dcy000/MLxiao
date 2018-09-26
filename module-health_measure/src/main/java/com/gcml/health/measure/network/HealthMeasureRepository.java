@@ -1,12 +1,12 @@
 package com.gcml.health.measure.network;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.IRepositoryHelper;
 import com.gcml.common.repository.RepositoryApp;
-import com.gcml.common.repository.http.ApiResult;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;
-import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
@@ -78,5 +78,12 @@ public class HealthMeasureRepository {
      */
     public static Observable<Object> checkIsNormalData(String userId, ArrayList<DetectionData> datas){
         return healthMeasureServer.checkIsNormalData(userId,datas).compose(RxUtils.apiResultTransformer());
+    }
+
+    /**
+     * 新的上传数据的接口
+     */
+    public static Observable<List<DetectionResult>> postMeasureData(ArrayList<DetectionData> datas){
+        return healthMeasureServer.postMeasureData(UserSpHelper.getUserId(),datas).compose(RxUtils.apiResultTransformer());
     }
 }

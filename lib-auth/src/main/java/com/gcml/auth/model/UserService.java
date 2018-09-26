@@ -2,6 +2,9 @@ package com.gcml.auth.model;
 
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.user.UserToken;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -18,7 +21,7 @@ public interface UserService {
 
     @FormUrlEncoded()
     @POST("ZZB/login/applogin")
-    Observable<ApiResult<UserEntity>> signIn(
+    Observable<ApiResult<UserToken>> signIn(
             @Header("equipmentId") String deviceId,
             @Field("username") String account,
             @Field("password") String pwd
@@ -55,8 +58,18 @@ public interface UserService {
             @Body UserEntity user
     );
 
+    @GET("ZZB/br/selOneUserEverything")
+    Observable<ApiResult<UserEntity>> getProfile(
+            @Query("bid") String userId
+    );
+
     @GET("ZZB/api/user/info/idCard/{idCard}/")
-    Observable<ApiResult<Object>> hasIdCard(
+    Observable<ApiResult<Object>> isIdCardNotExit(
             @Path("idCard") String idCard
+    );
+
+    @GET("ZZB/br/selMoreUser")
+    Observable<ApiResult<List<UserEntity>>> getAllUsers(
+            @Query("p") String usersIds
     );
 }

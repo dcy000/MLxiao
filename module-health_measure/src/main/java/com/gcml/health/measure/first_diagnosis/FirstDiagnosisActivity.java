@@ -19,7 +19,7 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.FirstDiagnosisBean;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
@@ -74,6 +74,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private String userId;
     private String userHypertensionHand;
     private Bundle bundle;
+    private boolean isShowSelectBloodsugarMeasureTime = false;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, FirstDiagnosisActivity.class);
@@ -179,7 +180,9 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             case "HealthSelectSugarDetectionTimeFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("选择测量时间");
+                mRightView.setImageResource(R.drawable.common_icon_home);
                 fragment = new HealthSelectSugarDetectionTimeFragment();
+                isShowSelectBloodsugarMeasureTime = true;
                 break;
             case "HealthSugarDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -193,6 +196,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mTitleText.setText("三 合 一 测 量");
                 fragment = new HealthThreeInOneDetectionUiFragment();
                 measureType = IPresenter.MEASURE_OTHERS;
+                fragment.setArguments(bundle);
                 break;
             case "HealthWeightDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
@@ -265,6 +269,9 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         this.bundle = bundle;
+        if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
+            isShowSelectBloodsugarMeasureTime = false;
+        }
         //最后一个Fragment点击了下一步应该跳转到HealthReportFormActivity
         if (fragment.getClass().getSimpleName().equals(finalFragment)) {
             HealthReportFormActivity.startActivity(this);
@@ -302,14 +309,13 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                     break;
                 case 5:
                     //血糖
-
+                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
                     FirstDiagnosisBean selectSugarTime = new FirstDiagnosisBean(
-                            HealthSelectSugarDetectionTimeFragment.class.getSimpleName(), null, null);
+                            HealthSelectSugarDetectionTimeFragment.class.getSimpleName(), uri, "测量血糖演示视频");
                     firstDiagnosisBeans.add(selectSugarTime);
 
-                    uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
                     FirstDiagnosisBean bloodsugar = new FirstDiagnosisBean(
-                            HealthSugarDetectionUiFragment.class.getSimpleName(), uri, "测量血糖演示视频");
+                            HealthSugarDetectionUiFragment.class.getSimpleName(), null, null);
                     firstDiagnosisBeans.add(bloodsugar);
                     break;
                 case 3:
@@ -337,8 +343,13 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 case 6:
                     //三合一
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
+                    FirstDiagnosisBean selectSugarTime1 = new FirstDiagnosisBean(
+                            HealthSelectSugarDetectionTimeFragment.class.getSimpleName(), uri, "三合一测量演示视频");
+                    firstDiagnosisBeans.add(selectSugarTime1);
+
+
                     FirstDiagnosisBean threeinone = new FirstDiagnosisBean(
-                            HealthThreeInOneDetectionUiFragment.class.getSimpleName(), uri, "三合一测量演示视频");
+                            HealthThreeInOneDetectionUiFragment.class.getSimpleName(), null, null);
                     firstDiagnosisBeans.add(threeinone);
                     break;
                 case 7:
@@ -400,6 +411,10 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             CCAppActions.jump2MainActivity();
             return;
         }
+        if (isShowSelectBloodsugarMeasureTime) {
+            CCAppActions.jump2MainActivity();
+            return;
+        }
         showRefreshBluetoothDialog();
     }
 
@@ -407,17 +422,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
      * 展示刷新
      */
     private void showRefreshBluetoothDialog() {
-//        DialogSureCancel sureCancel = new DialogSureCancel(this);
-//        sureCancel.setContent("您确定解绑之前的设备，重新连接新设备吗？");
-//        sureCancel.show();
-//        sureCancel.setOnClickCancelListener(null);
-//        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
-//            @Override
-//            public void clickSure(BaseDialog dialog) {
-//                sureCancel.dismiss();
-//                untieDevice();
-//            }
-//        });
         new AlertDialog(this)
                 .builder()
                 .setMsg("您确定解绑之前的设备，重新连接新设备吗？")

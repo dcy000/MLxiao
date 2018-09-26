@@ -15,7 +15,6 @@ import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoB
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDialog;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.recommend.RecommendActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.AppManager;
 import com.gcml.common.data.UserSpHelper;
@@ -100,7 +99,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 break;
             case R.id.iv_blood_sugar_manage:
 //                ToastUtils.showShort("敬请期待");
-                startActivity(new Intent(this, RecommendActivity.class));
                 break;
         }
     }
@@ -154,7 +152,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             }
 
         } else {
-            ToastUtils.showShort("网络繁忙");
+            ToastUtils.showShort("暂无推荐");
         }
     }
 

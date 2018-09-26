@@ -15,7 +15,6 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
-import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
 import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;

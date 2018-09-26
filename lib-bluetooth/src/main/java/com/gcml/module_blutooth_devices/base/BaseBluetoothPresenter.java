@@ -60,6 +60,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
     private static boolean isConnected = false;
     protected static android.bluetooth.BluetoothDevice lockedDevice;
     private WeakHandler weakHandler;
+    private WeakHandler weakHandler2;
     private static final int SEARCH_MAC2NAME = 1;
     private static final int DEVICE_DISCONNECTED = 2;
     private boolean isSetConnectListenter = false;
@@ -71,15 +72,18 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
-                case SEARCH_MAC2NAME://搜索不到mac转搜name
+                case SEARCH_MAC2NAME:
+                    //搜索不到mac转搜name
                     Logg.e(BaseBluetoothPresenter.class, "物理地址转名字搜索handleMessage: ");
                     discoverType = DISCOVER_WITH_NAME;
-//                    BluetoothClientManager.getClient().refreshCache(discoverSetting.getTargetMac());
                     request = setSearchRequest();
                     searchDevices();
                     break;
-                case DEVICE_DISCONNECTED://蓝牙断开连接
+                case DEVICE_DISCONNECTED:
+                    //蓝牙断开连接
                     disConnected();
+                    break;
+                default:
                     break;
             }
             return false;
@@ -93,6 +97,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
         this.baseContext = fragment.getThisContext();
         BaseBluetoothPresenter.discoverSetting = discoverSetting;
         weakHandler = new WeakHandler(weakRunnable);
+        weakHandler2 = new WeakHandler();
         //如果物理地址连接8秒之后还没有连接成功 则改为以蓝牙名称匹配
         timeCount = new TimeCount(8000, 1000, weakHandler);
         discoverType = discoverSetting.getDiscoverType();
@@ -149,6 +154,8 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                     request = setSearchRequest();
                     searchDevices();
                     break;
+                default:
+                    break;
             }
 
         }
@@ -157,7 +164,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
     @Override
     public void searchDevices() {
         if (request == null) {
-            Logg.e(BaseBluetoothPresenter.class, "请配置搜索参数 ");
+            Logg.e(BaseBluetoothPresenter.class, "请配置搜索参数:request==null ");
             return;
         }
         BluetoothClientManager.getClient().search(request, new SearchResponse() {
@@ -175,42 +182,38 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 }
                 String name = searchResult.getName();
                 String address = searchResult.getAddress();
-                if (discoverSetting != null) {
-                    switch (discoverType) {
-                        case DISCOVER_WITH_NAME:
-                            if (TextUtils.isEmpty(targetName)) {
-                                throw new NullPointerException("连接的设备为NULL");
-                            }
-                            if (!TextUtils.isEmpty(name) && name.startsWith(targetName)) {
+                switch (discoverType) {
+                    case DISCOVER_WITH_NAME:
+                        if (TextUtils.isEmpty(targetName)) {
+                            throw new NullPointerException("连接的设备为NULL");
+                        }
+                        if (!TextUtils.isEmpty(name) && name.startsWith(targetName)) {
+                            BluetoothClientManager.getClient().stopSearch();
+                            isOnSearching = false;
+//                                lockedDevice = new BluetoothDevice(DEVICE_INITIAL, searchResult);
+                            isReturnServiceAndCharacteristic = discoveredTargetDevice(searchResult);
+                        }
+                        break;
+                    case DISCOVER_WITH_MIX:
+                        if (TextUtils.isEmpty(targetAddress) && TextUtils.isEmpty(targetName)) {
+                            throw new NullPointerException("混合扫描需要配置mac和name");
+                        }
+                        if (!TextUtils.isEmpty(name)) {
+                            if (address.equals(targetAddress)) {
                                 BluetoothClientManager.getClient().stopSearch();
                                 isOnSearching = false;
-//                                lockedDevice = new BluetoothDevice(DEVICE_INITIAL, searchResult);
-                                isReturnServiceAndCharacteristic = discoveredTargetDevice(searchResult);
-                            }
-                            break;
-                        case DISCOVER_WITH_MIX:
-                            if (TextUtils.isEmpty(targetAddress) && TextUtils.isEmpty(targetName)) {
-                                throw new NullPointerException("混合扫描需要配置mac和name");
-                            }
-                            if (!TextUtils.isEmpty(name)) {
-                                if (address.equals(targetAddress)) {
-                                    BluetoothClientManager.getClient().stopSearch();
-                                    isOnSearching = false;
 //                                    lockedDevice = new BluetoothDevice(DEVICE_INITIAL, searchResult);
-                                    discoveredTargetDevice(searchResult);
-                                    return;
-                                }
-                                if (name.startsWith(targetName)) {
-                                    discoverNewDevices(searchResult);
-                                }
+                                discoveredTargetDevice(searchResult);
+                                return;
                             }
+                            if (name.startsWith(targetName)) {
+                                discoverNewDevices(searchResult);
+                            }
+                        }
 
-                            break;
-                        default:
-                            break;
-                    }
-                } else {
-                    Logg.e(BaseBluetoothPresenter.class, "请配置搜索参数");
+                        break;
+                    default:
+                        break;
                 }
             }
 
@@ -231,6 +234,8 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                         } else {
                             unDiscoveredTargetDevice();
                         }
+                        break;
+                    default:
                         break;
                 }
                 isOnSearching = false;
@@ -342,7 +347,11 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                         currenMillisecond = System.currentTimeMillis();
                         isConnected = false;
                         weakHandler.sendEmptyMessage(DEVICE_DISCONNECTED);
+                    } else {
+                        Logg.e(BaseBluetoothPresenter.class, "System.currentTimeMillis() - currenMillisecond < 2000");
                     }
+                    break;
+                default:
                     break;
 
             }
@@ -382,6 +391,12 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
         Log.e("重连设备物理地址：", "retryConnect: " + address);
         if (!TextUtils.isEmpty(address)) {
             connectDevice(address);
+        } else {
+            if (!TextUtils.isEmpty(targetName)) {
+                discoverType = DISCOVER_WITH_NAME;
+                request = setSearchRequest();
+                searchDevices();
+            }
         }
     }
 
@@ -416,9 +431,11 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
         if (weakHandler != null) {
             weakHandler.removeCallbacksAndMessages(null);
             weakHandler = null;
-            Logg.e(BaseBluetoothPresenter.class, "onDestroy+weakHandler=null");
         }
-
+        if (weakHandler2 != null) {
+            weakHandler2.removeCallbacksAndMessages(null);
+            weakHandler2 = null;
+        }
         if (timeCount != null) {
             timeCount.cancel();
             timeCount = null;
@@ -494,7 +511,8 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
      *
      * @param serviceDetails
      */
-    protected void connectSuccessed(String address, List<BluetoothServiceDetail> serviceDetails, boolean isReturnServiceAndCharacteristic) {
+    protected void connectSuccessed(String address, List<BluetoothServiceDetail> serviceDetails,
+                                    boolean isReturnServiceAndCharacteristic) {
 
     }
 
@@ -503,6 +521,15 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
      */
     protected void connectFailed() {
         Logg.e(BaseBluetoothPresenter.class, "连接失败");
+        if (!TextUtils.isEmpty(targetAddress)) {
+            connectDevice(targetAddress);
+            return;
+        }
+        if (!TextUtils.isEmpty(targetName)) {
+            discoverType = DISCOVER_WITH_NAME;
+            request = setSearchRequest();
+            searchDevices();
+        }
     }
 
     /**
@@ -529,10 +556,16 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 baseView.updateState(baseContext.getString(R.string.bluetooth_device_disconnected));
             }
         }
-
-        //尝试重连
-        if (!isDestroy) {
-            retryConnect();
+        if (weakHandler2 != null) {
+            weakHandler2.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //尝试重连
+                    if (!isDestroy) {
+                        retryConnect();
+                    }
+                }
+            }, 2000);
         }
     }
 

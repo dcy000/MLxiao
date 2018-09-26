@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,22 +15,20 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.imageview.CircleImageView;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
-import com.gcml.lib_utils.data.StringUtil;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.repository.imageloader.ImageLoader;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.ui.UiUtils;
 import com.gcml.old.auth.entity.HealthInfo;
-import com.gcml.old.auth.entity.UserInfoBean;
-import com.gcml.old.auth.profile.otherinfo.AlertAgeActivity;
-import com.gcml.old.auth.profile.otherinfo.AlertBloodTypeActivity;
-import com.gcml.old.auth.profile.otherinfo.AlertIDCardActivity;
-import com.gcml.old.auth.profile.otherinfo.AlertNameActivity;
-import com.gcml.old.auth.profile.otherinfo.AlertSexActivity;
-import com.gcml.old.auth.profile.otherinfo.dialog.SMSVerificationDialog;
 import com.medlink.danbogh.utils.Utils;
-import com.squareup.picasso.Picasso;
+
+import java.util.Locale;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by gzq on 2017/11/24.
@@ -89,7 +86,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     private TextView mEating;
     private TextView mDrinking;
     private LinearLayout llHeight, llWeight, llExercise, llSmoke, llEating, llDrinking;
-    private UserInfoBean response;
+    private UserEntity mUser;
     private static String TAG = "MyBaseDataActivity";
     private LinearLayout mLlHeight;
     private LinearLayout mLlWeight;
@@ -122,57 +119,69 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     }
 
     private void getData() {
-        NetworkApi.getMyBaseData(new NetworkManager.SuccessCallback<UserInfoBean>() {
-            @Override
-            public void onSuccess(UserInfoBean response) {
-                Log.e(TAG, response.toString());
-                MyBaseDataActivity.this.response = response;
-                Picasso.with(MyBaseDataActivity.this)
-                        .load(response.userPhoto)
-                        .placeholder(R.drawable.avatar_placeholder)
-                        .error(R.drawable.avatar_placeholder)
-                        .tag(this)
-                        .fit()
-                        .into(mHead);
-                mName.setText(response.bname);
-                idCardCode = response.sfz;
-                phone = response.tel;
-                if (TextUtils.isEmpty(response.sfz)) {
-                    mAge.setText((TextUtils.isEmpty(response.age) ? "0" : response.age) + "岁");
-                } else {
-                    mAge.setText(Utils.age(response.sfz) + "岁");
-                }
-                mSex.setText(TextUtils.isEmpty(response.sex) ? "尚未填写" : response.sex);
-                mHeight.setText(TextUtils.isEmpty(response.height) ? "尚未填写" : response.height + "cm");
-                mWeight.setText(TextUtils.isEmpty(response.weight) ? "尚未填写" : response.weight + "Kg");
-                mBlood.setText(TextUtils.isEmpty(response.bloodType) ? "尚未填写" : response.bloodType + "型");
-                mPhone.setText(TextUtils.isEmpty(response.tel) ? "尚未填写" : response.tel);
-                mNumber.setText(response.eqid);
-                String sports = HealthInfo.SPORTS_MAP.get(response.exerciseHabits);
-                mMotion.setText(TextUtils.isEmpty(sports) ? "尚未填写" : sports);
-                String smoke = HealthInfo.SMOKE_MAP.get(response.smoke);
-                mSmoke.setText(TextUtils.isEmpty(smoke) ? "尚未填写" : smoke);
-                String eat = HealthInfo.EAT_MAP.get(response.eatingHabits);
-                mEating.setText(TextUtils.isEmpty(eat) ? "尚未填写" : eat);
-                String drink = HealthInfo.DRINK_MAP.get(response.drink);
-                mDrinking.setText(TextUtils.isEmpty(drink) ? "尚未填写" : drink);
-                mAddress.setText(TextUtils.isEmpty(response.dz) ? "尚未填写" : response.dz);
-                String deseaseHistory = HealthInfo.getDeseaseHistory(response.mh);
-                mHistory.setText(TextUtils.isEmpty(deseaseHistory) ? "无" : deseaseHistory.replaceAll(",", "/"));
+        Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.getUser")
+                .build()
+                .call()
+                .getDataItem("data");
+        data.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        showUser(user);
+                    }
 
-                if (!TextUtils.isEmpty(response.sfz) && response.sfz.length() == 18) {
-                    String shenfen = response.sfz.substring(0, 6) + "********" + response.sfz.substring(response.sfz.length() - 4, response.sfz.length());
-                    mIdcard.setText(shenfen);
-                } else {
-                    mIdcard.setText("尚未填写");
-                }
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort("网络繁忙");
-            }
-        });
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
+                });
+    }
+
+    private void showUser(UserEntity user) {
+        MyBaseDataActivity.this.mUser = user;
+        ImageLoader.with(MyBaseDataActivity.this)
+                .load(mUser.avatar)
+                .placeholder(R.drawable.avatar_placeholder)
+                .error(R.drawable.avatar_placeholder)
+                .into(mHead);
+        mName.setText(TextUtils.isEmpty(user.name) ? "暂未填写" : user.name);
+        idCardCode = user.idCard;
+        phone = user.phone;
+        if (TextUtils.isEmpty(user.idCard)
+                || user.idCard.length() != 18) {
+            mAge.setText(TextUtils.isEmpty(user.age) ? "暂未填写" : user.age + "岁");
+        } else {
+            mAge.setText(String.format(Locale.getDefault(),"%d岁", Utils.age(user.idCard)));
+        }
+        mSex.setText(TextUtils.isEmpty(user.sex) ? "暂未填写" : user.sex);
+        mHeight.setText(TextUtils.isEmpty(user.height) ? "暂未填写" : user.height + "cm");
+        mWeight.setText(TextUtils.isEmpty(user.weight) ? "暂未填写" : user.weight + "Kg");
+        mBlood.setText(TextUtils.isEmpty(user.bloodType) ? "暂未填写" : user.bloodType + "型");
+        mPhone.setText(TextUtils.isEmpty(user.phone) ? "暂未填写" : user.phone);
+        mNumber.setText(user.deviceId);
+        String sports = HealthInfo.SPORTS_MAP.get(user.sportsHabits);
+        mMotion.setText(TextUtils.isEmpty(sports) ? "暂未填写" : sports);
+        String smoke = HealthInfo.SMOKE_MAP.get(user.smokeHabits);
+        mSmoke.setText(TextUtils.isEmpty(smoke) ? "暂未填写" : smoke);
+        String eat = HealthInfo.EAT_MAP.get(user.eatingHabits);
+        mEating.setText(TextUtils.isEmpty(eat) ? "暂未填写" : eat);
+        String drink = HealthInfo.DRINK_MAP.get(user.drinkHabits);
+        mDrinking.setText(TextUtils.isEmpty(drink) ? "暂未填写" : drink);
+        mAddress.setText(TextUtils.isEmpty(user.address) ? "暂未填写" : user.address);
+        String deseaseHistory = HealthInfo.getDeseaseHistory(user.deseaseHistory);
+        mHistory.setText(TextUtils.isEmpty(deseaseHistory)
+                ? "无" : deseaseHistory.replaceAll(",", "/"));
+
+        if (!TextUtils.isEmpty(user.idCard) && user.idCard.length() == 18) {
+            String shenfen = user.idCard.substring(0, 6)
+                    + "********"
+                    + user.idCard.substring(user.idCard.length() - 4, user.idCard.length());
+            mIdcard.setText(shenfen);
+        } else {
+            mIdcard.setText("暂未填写");
+        }
     }
 
     private void initView() {
@@ -231,7 +240,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (response == null) {
+        if (mUser == null) {
             ToastUtils.showShort("请重新登陆");
             return;
         }
@@ -242,28 +251,28 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.ll_height:
-                startActivity(new Intent(this, AlertHeightActivity.class).putExtra("data", response));
+                startActivity(new Intent(this, AlertHeightActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_weight:
-                startActivity(new Intent(this, AlertWeightActivity.class).putExtra("data", response));
+                startActivity(new Intent(this, AlertWeightActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_exercise:
-                startActivity(new Intent(this, AlertSportActivity.class).putExtra("data", response));
+                startActivity(new Intent(this, AlertSportActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_smoke:
-                startActivity(new Intent(this, AlertSmokeActivity.class).putExtra("data", response));
+                startActivity(new Intent(this, AlertSmokeActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_eating:
-                startActivity(new Intent(this, AlertEatingActivity.class).putExtra("data", response));
+                startActivity(new Intent(this, AlertEatingActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_drinking:
-                startActivity(new Intent(this, AlertDrinkingActivity.class).putExtra("data", response));
+                startActivity(new Intent(this, AlertDrinkingActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_history:
-                startActivity(new Intent(this, AlertMHActivity.class).putExtra("data", response));
+                startActivity(new Intent(this, AlertMHActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_address_onfo:
-                startActivity(new Intent(this, AlertAddressActivity.class).putExtra("data", response));
+                startActivity(new Intent(this, AlertAddressActivity.class).putExtra("data", mUser));
                 break;
             case R.id.tv_reset:
                 LocalShared.getInstance(mContext).reset();
@@ -290,10 +299,10 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
 
             case R.id.ll_age_info:
                 //修改年龄
-                if (mIdcard.getText().toString().equals("尚未填写")) {
+                if (mIdcard.getText().toString().equals("暂未填写")) {
                     startActivity(new Intent(this, AlertAgeActivity.class));
                 } else {
-                    ToastUtils.showShort("年龄与身份证号关联,不可更改~");
+                    ToastUtils.showShort("年龄与身份证号关联,不可更改");
                 }
                 break;
             case R.id.ll_sex_info:

@@ -1,5 +1,6 @@
 package com.gcml.health.measure.first_diagnosis.bean;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.google.gson.annotations.SerializedName;
 
 public class DetectionResult {

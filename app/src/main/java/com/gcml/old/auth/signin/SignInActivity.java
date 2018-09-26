@@ -28,9 +28,11 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.settting.activity.FactoryTestActivity;
-import com.gcml.old.auth.profile.AgreementActivity;
+import com.gcml.common.data.UserSpHelper;
+import com.gcml.old.auth.register.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.cc.CCFaceRecognitionActions;
@@ -46,7 +48,6 @@ import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
-import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.Utils;
 
 import org.json.JSONException;
@@ -266,7 +267,10 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onSuccess(UserInfoBean response) {
                 checkGroup(response.xfid);
-                new JpushAliasUtils(SignInActivity.this).setAlias("user_" + response.bid);
+                CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                        .addParam("userId", UserSpHelper.getUserId())
+                        .build()
+                        .callAsync();
                 LocalShared.getInstance(mContext).setUserInfo(response);
                 LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
                 LocalShared.getInstance(mContext).setSex(response.sex);

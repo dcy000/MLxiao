@@ -1,6 +1,5 @@
 package com.gcml.auth.model;
 
-import android.annotation.SuppressLint;
 import android.arch.persistence.room.EmptyResultSetException;
 import android.content.Context;
 import android.text.TextUtils;
@@ -9,7 +8,10 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.IRepositoryHelper;
 import com.gcml.common.repository.RepositoryApp;
+import com.gcml.common.user.UserToken;
 import com.gcml.common.utils.RxUtils;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -32,13 +34,6 @@ public class UserRepository {
     public Observable<UserEntity> signUp(String deviceId, String account, String pwd) {
         return mUserService.signUp(deviceId, account, pwd)
                 .compose(RxUtils.apiResultTransformer())
-                .doOnNext(new Consumer<UserEntity>() {
-                    @SuppressLint("ApplySharedPref")
-                    @Override
-                    public void accept(UserEntity user) throws Exception {
-                        mUserDao.addAll(user);
-                    }
-                })
                 .flatMap(new Function<UserEntity, ObservableSource<UserEntity>>() {
                     @Override
                     public ObservableSource<UserEntity> apply(UserEntity user) throws Exception {
@@ -54,14 +49,23 @@ public class UserRepository {
             String pwd) {
         return mUserService.signIn(deviceId, userName, pwd)
                 .compose(RxUtils.apiResultTransformer())
-                .doOnNext(new Consumer<UserEntity>() {
-                    @SuppressLint("ApplySharedPref")
+                .doOnNext(new Consumer<UserToken>() {
                     @Override
-                    public void accept(UserEntity user) throws Exception {
-                        mUserDao.addAll(user);
-                        UserSpHelper.setUserId(user.id);
-                        UserSpHelper.setFaceId(user.xfid);
-                        UserSpHelper.addAccount(user.id, user.xfid);
+                    public void accept(UserToken userToken) throws Exception {
+                        UserSpHelper.setUserId(userToken.getUserId());
+                        UserSpHelper.setToken(userToken.getToken());
+                        UserSpHelper.setRefreshToken(userToken.getRefreshToken());
+                    }
+                })
+                .flatMap(new Function<UserToken, ObservableSource<UserEntity>>() {
+                    @Override
+                    public ObservableSource<UserEntity> apply(UserToken userToken) throws Exception {
+                        return fetchUser(userToken.getUserId());
+                    }
+                }).doOnNext(new Consumer<UserEntity>() {
+                    @Override
+                    public void accept(UserEntity userEntity) throws Exception {
+                        UserSpHelper.setFaceId(userEntity.xfid);
                     }
                 });
     }
@@ -123,7 +127,7 @@ public class UserRepository {
                 .compose(RxUtils.apiResultTransformer());
     }
 
-    public Observable<Object> putProfile(UserEntity user) {
+    public Observable<UserEntity> putProfile(UserEntity user) {
         String userId = UserSpHelper.getUserId();
 
         if (TextUtils.isEmpty(userId)) {
@@ -131,11 +135,38 @@ public class UserRepository {
         }
         user.id = userId;
         return mUserService.putProfile(userId, user)
-                .compose(RxUtils.apiResultTransformer());
+                .compose(RxUtils.apiResultTransformer())
+                .flatMap(new Function<Object, ObservableSource<UserEntity>>() {
+                    @Override
+                    public ObservableSource<UserEntity> apply(Object o) throws Exception {
+                        return fetchUser(userId)
+                                .subscribeOn(Schedulers.io());
+                    }
+                });
     }
 
-    public Observable<Object> hasIdCard(String idCard) {
-        return mUserService.hasIdCard(idCard)
+    public Observable<UserEntity> fetchUser(String userId) {
+        return mUserService.getProfile(userId)
+                .compose(RxUtils.apiResultTransformer())
+                .doOnNext(new Consumer<UserEntity>() {
+                    @Override
+                    public void accept(UserEntity userEntity) throws Exception {
+                        mUserDao.addAll(userEntity);
+                    }
+                });
+    }
+
+    /**
+     *
+     * @return users
+     */
+    public Observable<List<UserEntity>> getUsers() {
+        return mUserDao.findAll()
+                .toObservable();
+    }
+
+    public Observable<Object> isIdCardNotExit(String idCard) {
+        return mUserService.isIdCardNotExit(idCard)
                 .compose(RxUtils.apiResultTransformer());
     }
 }

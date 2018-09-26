@@ -1,24 +1,17 @@
 package com.gcml.health.measure.cc;
 
 import android.content.Context;
-import android.view.View;
-
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
 import com.gcml.health.measure.ecg.XinDianDetectActivity;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
-import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
-import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
 import com.gcml.health.measure.health_inquiry.HealthInquiryActivity;
 import com.gcml.health.measure.hypertension_management.BloodpressureManagerActivity;
 import com.gcml.health.measure.hypertension_management.BloodsugarManagerActivity;
 import com.gcml.health.measure.hypertension_management.WeightManagerActivity;
 import com.gcml.health.measure.single_measure.AllMeasureActivity;
 import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
-import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
-import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodsugarFragment;
-import com.gcml.module_blutooth_devices.base.IPresenter;
-
 import timber.log.Timber;
 
 /**
@@ -140,6 +133,8 @@ public class HealthMeasureCC implements IComponent {
                 Timber.e("未匹配到任何操作Action");
                 break;
         }
+        //发送组件调用的结果（返回信息）
+        CC.sendCCResult(cc.getCallId(), CCResult.success());
         return false;
     }
 }

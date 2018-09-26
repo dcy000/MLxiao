@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
-
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
@@ -14,7 +12,6 @@ import com.gcml.common.data.AppManager;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.cc.CCVideoActions;
-import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodsugarFragment;
 import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.base.IPresenter;

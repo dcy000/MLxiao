@@ -2,6 +2,7 @@ package com.gcml.health.measure.single_measure.no_upload_data;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -12,6 +13,8 @@ import com.gcml.lib_utils.UtilsManager;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
  * version:V1.2.5
@@ -19,20 +22,25 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
  * created by:gzq
  * description:不需要上传测量数据的单测
  */
-public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_Fragment{
+public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
+    private static final int CODE_REQUEST_GETHYPERTENSIONHAND = 10002;
+
     @Override
-    public void onResume() {
-        super.onResume();
+    protected void initView(View view, Bundle bundle) {
+        super.initView(view, bundle);
         getHypertensionHand();
     }
+
 
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+                    "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
         }
     }
+
     /**
      * 获取惯用手
      */
@@ -40,7 +48,7 @@ public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_F
         String userHypertensionHand = UserSpHelper.getUserHypertensionHand();
         if (TextUtils.isEmpty(userHypertensionHand)) {
             //还没有录入惯用手，则跳转到惯用手录入activity
-            mContext.startActivity(new Intent(mContext, GetHypertensionHandActivity.class));
+            GetHypertensionHandActivity.startActivityForResult(this, CODE_REQUEST_GETHYPERTENSIONHAND);
         } else {
             if ("0".equals(userHypertensionHand)) {
                 showHypertensionHandDialog("左手");
@@ -62,5 +70,18 @@ public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_F
 
                     }
                 }).show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CODE_REQUEST_GETHYPERTENSIONHAND) {
+            if (resultCode == RESULT_OK) {
+                mActivity.finish();
+            } else {
+                getHypertensionHand();
+                dealLogic();
+            }
+        }
     }
 }

@@ -100,7 +100,7 @@ public class BaseActivity extends AppCompatActivity {
     private static SharedPreferences mTtsSharedPreferences;
     private SpeechRecognizer mIat;
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
-    private boolean enableListeningLoop = true;
+    private boolean enableListeningLoop = false;
     private boolean enableListeningLoopCache = enableListeningLoop;
     private LinearLayout rootView;
     private View mTitleView;

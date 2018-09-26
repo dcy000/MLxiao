@@ -1,6 +1,5 @@
 package com.gcml.old.auth.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,31 +9,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.homepage.MainActivity;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
-import com.gcml.old.auth.entity.UserInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.old.auth.profile.otherinfo.bean.PUTUserBean;
 import com.gcml.old.auth.register.EatAdapter;
 import com.gcml.old.auth.register.EatModel;
-import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +38,7 @@ public class AlertSmokeActivity extends AppCompatActivity {
     TextView tvSignUpGoForward;
     private EatAdapter mAdapter;
     private List<EatModel> mModels;
-    private UserInfoBean data;
+    private UserEntity data;
     private String eat = "", smoke = "", drink = "", exercise = "";
     private StringBuffer buffer;
 
@@ -78,12 +62,14 @@ public class AlertSmokeActivity extends AppCompatActivity {
 
                     @Override
                     public void onRightClick() {
-                        startActivity(new Intent(AlertSmokeActivity.this, MainActivity.class));
+                        CC.obtainBuilder("com.gcml.old.home")
+                                .build()
+                                .callAsync();
                         finish();
                     }
                 });
 
-        data = (UserInfoBean) getIntent().getSerializableExtra("data");
+        data = getIntent().getParcelableExtra("data");
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
         tvSignUpGoBack.setOnClickListener(new View.OnClickListener() {
@@ -123,8 +109,8 @@ public class AlertSmokeActivity extends AppCompatActivity {
                     break;
             }
         }
-        if (!TextUtils.isEmpty(data.smoke)) {
-            switch (data.smoke) {
+        if (!TextUtils.isEmpty(data.smokeHabits)) {
+            switch (data.smokeHabits) {
                 case "经常吸烟":
                     smoke = "1";
                     break;
@@ -136,8 +122,8 @@ public class AlertSmokeActivity extends AppCompatActivity {
                     break;
             }
         }
-        if (!TextUtils.isEmpty(data.drink)) {
-            switch (data.drink) {
+        if (!TextUtils.isEmpty(data.drinkHabits)) {
+            switch (data.drinkHabits) {
                 case "经常喝酒":
                     smoke = "1";
                     break;
@@ -150,8 +136,8 @@ public class AlertSmokeActivity extends AppCompatActivity {
             }
         }
 
-        if (!TextUtils.isEmpty(data.exerciseHabits)) {
-            switch (data.exerciseHabits) {
+        if (!TextUtils.isEmpty(data.sportsHabits)) {
+            switch (data.sportsHabits) {
                 case "每天一次":
                     exercise = "1";
                     break;
@@ -166,10 +152,10 @@ public class AlertSmokeActivity extends AppCompatActivity {
                     break;
             }
         }
-        if ("尚未填写".equals(data.mh)) {
+        if ("暂未填写".equals(data.deseaseHistory)) {
             buffer = null;
         } else {
-            String[] mhs = data.mh.split("\\s+");
+            String[] mhs = data.deseaseHistory.split("\\s+");
             for (int i = 0; i < mhs.length; i++) {
                 if (mhs[i].equals("高血压"))
                     buffer.append(1 + ",");
@@ -248,78 +234,29 @@ public class AlertSmokeActivity extends AppCompatActivity {
             ToastUtils.showShort("请选择其中一个");
             return;
         }
-//        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, positionSelected + 1 + "", drink, exercise,
-//                TextUtils.isEmpty(buffer) ? "" : buffer.substring(0, buffer.length() - 1), data.dz, new NetworkManager.SuccessCallback<Object>() {
-//                    @Override
-//                    public void onSuccess(Object response) {
-//                        ToastUtils.showShort("修改成功");
-//                        switch (positionSelected + 1) {
-//                            case 1:
-//                                speak("主人，您的吸烟情况已经修改为" + "经常吸烟");
-//                                break;
-//                            case 2:
-//                                speak("主人，您的吸烟情况已经修改为" + "偶尔吸烟");
-//                                break;
-//                            case 3:
-//                                speak("主人，您的吸烟情况已经修改为" + "从不吸烟");
-//                                break;
-//                        }
-//                        finish();
-//                    }
-//                }, new NetworkManager.FailedCallback() {
-//                    @Override
-//                    public void onFailed(String message) {
-//
-//                    }
-//                });
-
-        PUTUserBean bean = new PUTUserBean();
-        bean.bid = Integer.parseInt(UserSpHelper.getUserId());
-        bean.smoke = positionSelected + 1 + "";
-
-        NetworkApi.putUserInfo(bean.bid, new Gson().toJson(bean), new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                String body = response.body();
-                try {
-                    JSONObject json = new JSONObject(body);
-                    boolean tag = json.getBoolean("tag");
-                    if (tag) {
-                        runOnUiThread(() -> speak("修改成功"));
+        UserEntity user = new UserEntity();
+        user.smokeHabits = positionSelected + 1 + "";
+        Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.putUser")
+                .addParam("user", user)
+                .build()
+                .call()
+                .getDataItem("data");
+        data.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity o) {
+                        speak("修改成功");
                         finish();
-                    } else {
-                        runOnUiThread(() -> speak("修改失败"));
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-            }
-        });
-
-//        UserEntity user = new UserEntity();
-//        user.smokeHabits = positionSelected + 1 + "";
-//        CCResult result = CC.obtainBuilder("com.gcml.auth.putUser")
-//                .addParam("user", user)
-//                .build()
-//                .call();
-//        Observable<Object> data = result.getDataItem("data");
-//        data.subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .as(RxUtils.autoDisposeConverter(this))
-//                .subscribe(new DefaultObserver<Object>() {
-//                    @Override
-//                    public void onNext(Object o) {
-//                        super.onNext(o);
-//                        runOnUiThread(() -> speak("修改成功"));
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//                        super.onError(throwable);
-//                        runOnUiThread(() -> speak("修改失败"));
-//                    }
-//                });
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        speak("修改失败");
+                    }
+                });
     }
 
     private void speak(String text) {

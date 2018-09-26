@@ -159,11 +159,6 @@ public class FaceRepository {
                         }
                         return uploadAvatar(faceData, userId, faceId);
                     }
-                }).doOnNext(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        UserSpHelper.addAccount(UserSpHelper.getUserId(), faceId);
-                    }
                 });
     }
 
@@ -277,6 +272,7 @@ public class FaceRepository {
     }
 
     public Observable<List<UserEntity>> getLocalUsers() {
+
         String[] accounts = UserSpHelper.getAccounts();
         if (accounts == null) {
             return Observable.just(new ArrayList<>());
