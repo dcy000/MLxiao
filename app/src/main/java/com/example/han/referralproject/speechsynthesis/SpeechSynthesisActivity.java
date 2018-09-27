@@ -38,6 +38,7 @@ import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.children.ChildEduHomeActivity;
+import com.example.han.referralproject.children.entertainment.ChildEduJokesActivity;
 import com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity;
 import com.example.han.referralproject.children.study.ChildEduPoemListActivity;
 import com.example.han.referralproject.constant.ConstantData;
@@ -729,7 +730,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(zuogetijian|jianchashenti|zuotijian).*")) {
+            if (inSpell.matches(".*(zuogejiancha|jianchashenti|zuotijian).*")) {
 
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
@@ -963,6 +964,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
+            if (inSpell.matches(".*(jianggexiaohua|xiaohua|youqudehua).*")) {
+                startActivity(ChildEduJokesActivity.class);
+                return;
+            }
+
 
             if (result.matches(".*听故事|故事.*")) {
                 startActivity(ChildEduPoemListActivity.class);
@@ -985,11 +991,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(riqichaxun|jidianle|chaxunriqi|jintianxingqiji|jidianle|jintianshenmerizhi).*")) {
+            if (inSpell.matches(".*(riqichaxun|jidianle|chaxunriqi|jintianxingqiji|jidianle|jintianshenmerizi).*")) {
                 CC.obtainBuilder("app.component.recreation.tool").setActionName("dateInquiry").build().call();
                 return;
             }
-            if (inSpell.matches(".*(caipu|shaocai|zuocai|tuijiancai).*")) {
+            if (inSpell.matches(".*(caipu|shaocai|zuocai|chishenme|chishengme|tuijiancai).*")) {
                 CC.obtainBuilder("app.component.recreation.tool").setActionName("cookBook").build().call();
                 return;
             }
@@ -1015,7 +1021,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
 
-            if (inSpell.matches(".*yinyue.*")) {
+            if (inSpell.matches(".*(yinyue|yinle).*")) {
                 OldRouter.routeToOldMusicActivity(this);
                 return;
             }
@@ -1033,18 +1039,18 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(qiehuan|qiehuanzhanghao|chongxindenglu|tianjiazhanghao).*")) {
+            if (inSpell.matches(".*(qiehuan|qiehuanzhanghao|chongxindenglu|zhongxindenglu|tianjiazhanghao).*")) {
                 startActivity(PersonDetailActivity.class);
                 return;
             }
 
-            if (inSpell.matches(".*(shezhi|jiqirenshezhi|wifilianjie|tiaojieyinliang|yiliangdaxiao).*")) {
+            if (inSpell.matches(".*(shezhi|jiqirenshezhi|wifilianjie|tiaojieyinliang|diaojieyinliang|yiliangdaxiao).*")) {
                 startActivity(SettingActivity.class);
                 return;
             }
 
 
-            if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo|celiangshuju|jiankangshuju|jiankangdangan|jianchajieguo).*")) {
+            if (inSpell.matches(".*(danganxiazai|lishishuju|lishijilu|jiancejieguo|celiangshuju|jiankangshuju|jiankangdangan|jianchajieguo).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
                 return;
             }
@@ -1081,13 +1087,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(taijiaoyinyue|taijiao).*")) {
+            if (inSpell.matches(".*(taijiaoyinyue|taijiao|taijiaoyinle).*")) {
                 startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "胎教音乐");
                 return;
             }
 
 
-            if (inSpell.matches(".*(tingyinyue|tingge|fangge|yinyueguan).*")) {
+            if (inSpell.matches(".*(tingyinyue|tingge|fangge|yinyueguan|yinleguan|tingyinle).*")) {
                 startActivity(TheOldMusicActivity.class);
                 return;
             }
@@ -1136,7 +1142,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             if (inSpell.matches(".*(jiankangzhishi|jiankangketang|jiangkangxuanchuan" +
                     "|tingke|xuexi|yiqishiyong|shebeishiyong|shiyongjiaocheng|shiyongfangfa" +
-                    "|shebeijianjie|yiqijieshao).*")) {
+                    "|shebeijianjie|yiqijieshao|jiankangjiaoyu|jiankangxuanjiao).*")) {
                 VideoListActivity.launch(SpeechSynthesisActivity.this, 0);
                 return;
             }
@@ -1199,11 +1205,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         .putExtra("type", "肝硬化"));
                 return;
             }
-            if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
-                        .putExtra("type", "糖尿病"));
-                return;
-            }
+//            if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
+//                startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
+//                        .putExtra("type", "糖尿病"));
+//                return;
+//            }
             if (inSpell.matches(".*(tongfeng).*")) {
                 startActivity(new Intent(SpeechSynthesisActivity.this, DiseaseDetailsActivity.class)
                         .putExtra("type", "痛风"));
@@ -1469,7 +1475,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*tigao.*shengyin.*")
                     || inSpell.matches(".*shengyin.*tigao.*")
                     || inSpell.matches(".*yinliang.*shenggao.*")
-                    || inSpell.matches(".*shenggao.*yinliang.*")) {
+                    || inSpell.matches(".*shenggao.*yinliang.*")
+                    || inSpell.matches(".*shengyin.*xiangyidian.*")
+                    || inSpell.matches(".*shengyin.*zhongyidian.*")
+
+                    ) {
                 addVoice();
             } else if (inSpell.matches(".*xiaoshengyin.*")
                     || inSpell.matches(".*xiaoyinliang.*")
@@ -1480,7 +1490,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*yinliang.*jiangdi.*")
                     || inSpell.matches(".*jiangdi.*yinliang.*")
                     || inSpell.matches(".*jiangdi.*shengyin.*")
-                    || inSpell.matches(".*shengyin.*jiangdi.*")) {
+                    || inSpell.matches(".*shengyin.*jiangdi.*")
+                    || inSpell.matches(".*shengyin.*qingyidian.*")
+
+                    ) {
 
                 deleteVoice();
 
