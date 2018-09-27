@@ -11,6 +11,7 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimAccountHelper;
@@ -85,10 +86,12 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                if (LocalShared.getInstance(mContext).isAccountOverflow()) {
 //                    LocalShared.getInstance(mContext).deleteAllAccount();
 //                }
-                LocalShared.getInstance(mContext).loginOut();
+                UserSpHelper.setUserId("");
                 CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();
+                break;
+            default:
                 break;
         }
     }

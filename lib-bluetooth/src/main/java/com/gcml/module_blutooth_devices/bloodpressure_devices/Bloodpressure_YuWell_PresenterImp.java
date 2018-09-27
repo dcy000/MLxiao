@@ -37,7 +37,7 @@ public class Bloodpressure_YuWell_PresenterImp extends BaseBluetoothPresenter {
     @Override
     protected void connectSuccessed(final String address, List<BluetoothServiceDetail> serviceDetails, boolean isReturnServiceAndCharacteristic) {
         super.connectSuccessed(address, serviceDetails, isReturnServiceAndCharacteristic);
-        baseView.updateState(baseView.getThisContext().getString(R.string.bluetooth_device_connected));
+        baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
         baseView.updateData("0", "0", "0");
         SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, targetName + "," + address);
         if (!isReturnServiceAndCharacteristic) {
@@ -45,7 +45,7 @@ public class Bloodpressure_YuWell_PresenterImp extends BaseBluetoothPresenter {
                     UUID.fromString(targetCharacteristicUUidForNotify), new BleNotifyResponse() {
                         @Override
                         public void onNotify(UUID service, UUID character, byte[] value) {
-                            if (value.length==19){
+                            if (value.length == 19) {
                                 baseView.updateData((value[1] & 0xff) + "");
                             }
                         }
@@ -60,7 +60,7 @@ public class Bloodpressure_YuWell_PresenterImp extends BaseBluetoothPresenter {
                     new BleNotifyResponse() {
                         @Override
                         public void onNotify(UUID service, UUID character, byte[] value) {
-                            Log.e(TAG, "indicate: " + value.length);
+                            Log.i(TAG, "indicate: " + value.length);
                             if (value.length == 19) {
                                 baseView.updateData((value[1] & 0xff) + "", (value[3] & 0xff) + "", (value[14] & 0xff) + "");
                             }

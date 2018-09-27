@@ -52,6 +52,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     private int lowPressure;
     private boolean isMeasureTask = false;
     private boolean hasHypertensionHand=false;
+    private boolean isOnPause=false;
     public SingleMeasureBloodpressureFragment() {
     }
 
@@ -67,6 +68,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
      */
     private void getHypertensionHand() {
         String userHypertensionHand = UserSpHelper.getUserHypertensionHand();
+        Timber.i("SingleMeasureBloodpressureFragment惯用手："+userHypertensionHand);
         if (TextUtils.isEmpty(userHypertensionHand)) {
             //还没有录入惯用手，则跳转到惯用手录入activity
             GetHypertensionHandActivity.startActivityForResult(this, CODE_REQUEST_GETHYPERTENSIONHAND);
@@ -96,7 +98,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
-        if (results.length == 3) {
+        if (results.length == 3&&!isOnPause) {
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
 
             datas = new ArrayList<>();
@@ -193,6 +195,18 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
                     }
                 });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isOnPause=false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isOnPause=true;
     }
 
     @Override

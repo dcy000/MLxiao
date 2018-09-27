@@ -239,7 +239,7 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.tv_more:
                 mData.clear();
-                if (isMore && cacheDatas.size() > 5) {
+                if (isMore && cacheDatas!=null&&cacheDatas.size() > 5) {
                     isMore = false;
                     for (int i = 0; i < 5; i++) {
                         mData.add(cacheDatas.get(i));
@@ -247,8 +247,10 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
                     tvMore.setText("更多");
                 } else {
                     isMore = true;
-                    mData.addAll(cacheDatas);
-                    tvMore.setText("收起");
+                    if (cacheDatas!=null){
+                        mData.addAll(cacheDatas);
+                        tvMore.setText("收起");
+                    }
                 }
                 adapter.notifyDataSetChanged();
                 break;

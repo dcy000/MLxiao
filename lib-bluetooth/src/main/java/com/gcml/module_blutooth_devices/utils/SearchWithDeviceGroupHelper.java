@@ -109,12 +109,12 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private final PermissionsResultAction permissionsResultAction = new PermissionsResultAction() {
         @Override
         public void onGranted() {
-            Logg.e(BaseBluetoothPresenter.class, "用户同意权限请求");
+            Log.i(TAG, "onGranted: 用户同意权限请求");
         }
 
         @Override
         public void onDenied(String permission) {
-            Logg.e(BaseBluetoothPresenter.class, "拒绝了用户请求");
+            Log.e(TAG, "onDenied: 拒绝了用户请求");
         }
     };
 
@@ -156,14 +156,14 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchStarted() {
             isSearching = true;
-            Log.e(TAG, "onSearchStarted: ");
+            Log.i(TAG, "onSearchStarted: ");
         }
 
         @Override
         public void onDeviceFounded(SearchResult searchResult) {
             String name = searchResult.getName();
             String address = searchResult.getAddress();
-            Log.e(TAG, "》》》" + name + "》》》" + address);
+            Log.i(TAG, "》》》" + name + "》》》" + address);
             if (!TextUtils.isEmpty(name)) {
                 for (String s : brands) {
                     if (name.startsWith(s) && !devices.contains(searchResult)) {
@@ -193,7 +193,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchCanceled() {
             isSearching = false;
-            Log.e(TAG, "onSearchCanceled: ");
+            Log.i(TAG, "onSearchCanceled: ");
         }
     }
 

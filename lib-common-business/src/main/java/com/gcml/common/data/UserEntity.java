@@ -173,4 +173,42 @@ public class UserEntity implements Parcelable {
             return new UserEntity[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id='" + id + '\'' +
+                ", categoryId='" + categoryId + '\'' +
+                ", doctorId='" + doctorId + '\'' +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", address='" + address + '\'' +
+                ", age='" + age + '\'' +
+                ", idCard='" + idCard + '\'' +
+                ", phone='" + phone + '\'' +
+                ", deseaseHistory='" + deseaseHistory + '\'' +
+                ", deviceId='" + deviceId + '\'' +
+                ", state='" + state + '\'' +
+                ", height='" + height + '\'' +
+                ", weight='" + weight + '\'' +
+                ", bloodType='" + bloodType + '\'' +
+                ", eatingHabits='" + eatingHabits + '\'' +
+                ", smokeHabits='" + smokeHabits + '\'' +
+                ", drinkHabits='" + drinkHabits + '\'' +
+                ", sportsHabits='" + sportsHabits + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", xfid='" + xfid + '\'' +
+                ", xfUserId='" + xfUserId + '\'' +
+                ", allergy='" + allergy + '\'' +
+                ", fetation='" + fetation + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", hypertensionHand='" + hypertensionHand + '\'' +
+                ", hypertensionPrimaryState='" + hypertensionPrimaryState + '\'' +
+                ", hypertensionLevel='" + hypertensionLevel + '\'' +
+                ", hypertensionTarget='" + hypertensionTarget + '\'' +
+                ", wyyxId='" + wyyxId + '\'' +
+                ", wyyxPwd='" + wyyxPwd + '\'' +
+                ", vipState='" + vipState + '\'' +
+                '}';
+    }
 }
