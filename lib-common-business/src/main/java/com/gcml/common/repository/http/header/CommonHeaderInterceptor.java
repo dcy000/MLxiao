@@ -13,7 +13,7 @@ public class CommonHeaderInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request newRequest = chain.request().newBuilder()
-                .addHeader("version", "2.0")
+                .addHeader("version", "1.0")
                 .addHeader("Authorization", UserSpHelper.getToken())
                 .build();
         return chain.proceed(newRequest);

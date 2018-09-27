@@ -75,8 +75,8 @@ public interface UserService {
             @Path("idCard") String idCard
     );
 
-    @GET("ZZB/br/selMoreUser")
+    @GET("ZZB/api/user/info/users/")
     Observable<ApiResult<List<UserEntity>>> getAllUsers(
-            @Query("p") String usersIds
+            @Query("users") String usersIds
     );
 }

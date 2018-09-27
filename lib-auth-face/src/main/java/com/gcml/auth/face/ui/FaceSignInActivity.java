@@ -1,5 +1,6 @@
 package com.gcml.auth.face.ui;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -11,6 +12,7 @@ import android.view.animation.AnimationUtils;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.face.BR;
 import com.gcml.auth.face.R;
 import com.gcml.auth.face.databinding.AuthActivityFaceSignInBinding;
@@ -321,36 +323,46 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
             } else {
                 result = CCResult.success();
                 if (!currentUser && !currentUserId.equals(theUserId)) {
-                    Observable<UserEntity> rxUser = CC.obtainBuilder("com.gcml.auth.refreshToken")
+
+                    // Token 1.0
+                    UserSpHelper.setUserId(theUserId);
+                    CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
                             .addParam("userId", theUserId)
                             .build()
-                            .call()
-                            .getDataItem("data");
-                    rxUser.subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .as(RxUtils.autoDisposeConverter(this))
-                            .subscribe(new DefaultObserver<UserEntity>() {
-                                @Override
-                                public void onNext(UserEntity user) {
-                                    CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                                            .addParam("userId", user.id)
-                                            .build()
-                                            .callAsync();
-                                    CC.sendCCResult(callId, result);
-                                    FaceSignInActivity.super.finish();
-                                }
+                            .callAsync();
 
-                                @Override
-                                public void onError(Throwable throwable) {
-                                    super.onError(throwable);
-                                    ToastUtils.showShort(throwable.getMessage());
-                                    CC.sendCCResult(callId, CCResult.error(throwable.getMessage()));
-                                    FaceSignInActivity.super.finish();
-                                }
-                            });
-                    return;
+                    //Token 2.0
+//                    Observable<UserEntity> rxUser = CC.obtainBuilder("com.gcml.auth.refreshToken")
+//                            .addParam("userId", theUserId)
+//                            .build()
+//                            .call()
+//                            .getDataItem("data");
+//                    rxUser.subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .as(RxUtils.autoDisposeConverter(this))
+//                            .subscribe(new DefaultObserver<UserEntity>() {
+//                                @Override
+//                                public void onNext(UserEntity user) {
+//                                    CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+//                                            .addParam("userId", user.id)
+//                                            .build()
+//                                            .callAsync();
+//                                    CC.sendCCResult(callId, result);
+//                                    FaceSignInActivity.super.finish();
+//                                }
+//
+//                                @Override
+//                                public void onError(Throwable throwable) {
+//                                    super.onError(throwable);
+//                                    ToastUtils.showShort(throwable.getMessage());
+//                                    CC.sendCCResult(callId, CCResult.error(throwable.getMessage()));
+//                                    FaceSignInActivity.super.finish();
+//                                }
+//                            });
+//                    return;
                 }
             }
+
             //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
             CC.sendCCResult(callId, result);
         }

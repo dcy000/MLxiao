@@ -109,6 +109,7 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
 
     private void checkIdCard(final String idCard) {
         Observable<Object> data = CC.obtainBuilder("com.gcml.auth.isIdCardNotExit")
+                .addParam("idCard", idCard)
                 .build()
                 .call()
                 .getDataItem("data");
@@ -124,14 +125,14 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        ToastUtils.showShort("您输入的身份证号码已注册");
+                        ToastUtils.showShort(throwable.getMessage());
                     }
                 });
     }
 
     private void putUserInfo(String idCard) {
         UserEntity user = new UserEntity();
-        user.age = idCard;
+        user.idCard = idCard;
         Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.putUser")
                 .addParam("user", user)
                 .build()

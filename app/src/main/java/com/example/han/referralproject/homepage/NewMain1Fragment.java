@@ -1,6 +1,5 @@
 package com.example.han.referralproject.homepage;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,7 +16,6 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.UtilsManager;
@@ -36,7 +34,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**

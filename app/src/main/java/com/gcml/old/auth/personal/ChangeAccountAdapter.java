@@ -3,7 +3,6 @@ package com.gcml.old.auth.personal;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +10,12 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.imageview.CircleImageView;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.imageloader.ImageLoader;
 import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
-import com.gcml.old.auth.entity.UserInfoBean;
-import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.imageview.CircleImageView;
-import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimAccountHelper;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -84,28 +77,38 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
             UserEntity user = mUserData.get(position);
             String userId = user.id;
             NimAccountHelper.getInstance().logout();
-            Observable<UserEntity> rxUser = CC.obtainBuilder("com.gcml.auth.refreshToken")
-                    .addParam("userId", userId)
-                    .build()
-                    .call()
-                    .getDataItem("data");
-            rxUser.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new DefaultObserver<UserEntity>() {
-                        @Override
-                        public void onNext(UserEntity user) {
-                            mContext.sendBroadcast(new Intent("change_account"));
-                            CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                                    .addParam("userId", user.id)
-                                    .build()
-                                    .callAsync();
-                        }
 
-                        @Override
-                        public void onError(Throwable throwable) {
-                            super.onError(throwable);
-                        }
-                    });
+            // Token 1.0
+            UserSpHelper.setUserId(userId);
+            mContext.sendBroadcast(new Intent("change_account"));
+            CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                    .addParam("userId", user.id)
+                    .build()
+                    .callAsync();
+
+            // Token 2.0
+//            Observable<UserEntity> rxUser = CC.obtainBuilder("com.gcml.auth.refreshToken")
+//                    .addParam("userId", userId)
+//                    .build()
+//                    .call()
+//                    .getDataItem("data");
+//            rxUser.subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new DefaultObserver<UserEntity>() {
+//                        @Override
+//                        public void onNext(UserEntity user) {
+//                            mContext.sendBroadcast(new Intent("change_account"));
+//                            CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+//                                    .addParam("userId", user.id)
+//                                    .build()
+//                                    .callAsync();
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable throwable) {
+//                            super.onError(throwable);
+//                        }
+//                    });
         }
     }
 }

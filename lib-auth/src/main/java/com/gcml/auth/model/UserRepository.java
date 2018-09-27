@@ -1,6 +1,5 @@
 package com.gcml.auth.model;
 
-import android.arch.persistence.room.EmptyResultSetException;
 import android.content.Context;
 import android.text.TextUtils;
 
@@ -14,8 +13,6 @@ import com.gcml.common.utils.RxUtils;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Consumer;
@@ -93,24 +90,7 @@ public class UserRepository {
 
 
     public Observable<UserEntity> getUserSignIn() {
-        return Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                String userId = UserSpHelper.getUserId();
-                if (TextUtils.isEmpty(userId)) {
-                    if (!emitter.isDisposed()) {
-                        emitter.onError(new EmptyResultSetException("user not sign in"));
-                    }
-                    return;
-                }
-                emitter.onNext(userId);
-            }
-        }).flatMap(new Function<String, ObservableSource<? extends UserEntity>>() {
-            @Override
-            public ObservableSource<? extends UserEntity> apply(String userId) throws Exception {
-                return mUserDao.findOneById(userId).toObservable();
-            }
-        });
+        return fetchUser(UserSpHelper.getUserId());
     }
 
     public Observable<Boolean> hasAccount(String account) {
