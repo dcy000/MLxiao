@@ -584,13 +584,13 @@ public class DataDealHelper {
             startActivity(DiseaseDetailsActivity.class, "type", "癫痫");
             return;
         }
-//        boolean dealKeyWord = keyWordDeal(inSpell);
-//        if (dealKeyWord) {
-//            if (listener != null) {
-//                listener.onEnd();
-//            }
-//            return;
-//        }
+        boolean dealKeyWord = keyWordDeal(inSpell);
+        if (dealKeyWord) {
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
         if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
