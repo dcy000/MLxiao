@@ -103,7 +103,10 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                             HealthInquiryActivity.this.healthInquiryBean = healthInquiryBeans;
                             //如果已经做过风险评估则不需要引导页
                             if (UserSpHelper.getRiskAssessmentState()) {
-                                replaceFragment(healthInquiryBean.getQuestionList().get(pageIndex), pageIndex++);
+                                List<HealthInquiryBean.QuestionListBean> questionList = healthInquiryBean.getQuestionList();
+                                if (questionList != null && questionList.size() > pageIndex) {
+                                    replaceFragment(questionList.get(pageIndex), pageIndex++);
+                                }
                             } else {
                                 addFirstTipFragment();
                             }
