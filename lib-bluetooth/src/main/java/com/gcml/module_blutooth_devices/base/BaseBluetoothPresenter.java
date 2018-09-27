@@ -356,7 +356,9 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                     break;
                 case Constants.STATUS_DISCONNECTED:
                     isConnected = false;
-                    weakHandler.sendEmptyMessage(DEVICE_DISCONNECTED);
+                    if (weakHandler!=null){
+                        weakHandler.sendEmptyMessage(DEVICE_DISCONNECTED);
+                    }
                     Logg.e(BaseBluetoothPresenter.class, "onConnectStatusChanged:" + i);
                     break;
                 default:
