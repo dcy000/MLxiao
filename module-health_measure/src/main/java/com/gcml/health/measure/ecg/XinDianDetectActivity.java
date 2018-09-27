@@ -28,19 +28,15 @@ import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
-import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
-import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
-import com.gcml.health.measure.utils.ECGUtil;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
-import java.io.File;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -324,9 +320,9 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribeWith(new DefaultObserver<Object>() {
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                     @Override
-                    public void onNext(Object o) {
+                    public void onNext(List<DetectionResult> o) {
                         ToastUtils.showShort("数据上传成功");
                         Intent intent = new Intent();
                         intent.putExtra("ecg", ecg);

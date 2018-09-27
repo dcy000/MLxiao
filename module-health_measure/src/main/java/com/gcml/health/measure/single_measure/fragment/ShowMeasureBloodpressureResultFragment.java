@@ -1,5 +1,6 @@
 package com.gcml.health.measure.single_measure.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,11 +14,13 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.single_measure.bean.DiagnoseInfoBean;
 import com.gcml.health.measure.single_measure.bean.NewWeeklyOrMonthlyBean;
 import com.gcml.lib_utils.UtilsManager;
@@ -37,6 +40,10 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lenovo on 2018/9/20.
@@ -223,40 +230,31 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         }
     }
 
+    @SuppressLint("CheckResult")
     private void getData() {
 
         Calendar curr = Calendar.getInstance();
         long weekAgoTime = curr.getTimeInMillis();
-        OkGo.<String>get(HealthMeasureApi.WeeklyOrMonthlyReport)
-                .params("userId", UserSpHelper.getUserId())
-                .params("endTimeStamp", weekAgoTime)
-                .params("num", "1")
-                .execute(new StringCallback() {
+        HealthMeasureRepository.getWeeklyOrMonthlyReport(weekAgoTime, "1")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<NewWeeklyOrMonthlyBean>() {
                     @Override
-                    public void onSuccess(Response<String> response) {
-                        Log.e("请求成功", "onSuccess: " + response.body());
-                        try {
-                            JSONObject object = new JSONObject(response.body());
-                            if (object.optInt("code") == 200) {
-                                JSONObject data = object.optJSONObject("data");
-                                NewWeeklyOrMonthlyBean weeklyOrMonthlyReport = new Gson().
-                                        fromJson(data.toString(), NewWeeklyOrMonthlyBean.class);
-                                dealData(weeklyOrMonthlyReport);
-
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            ToastUtils.showShort("暂无周报告");
-                        }
+                    public void onNext(NewWeeklyOrMonthlyBean newWeeklyOrMonthlyBean) {
+                        dealData(newWeeklyOrMonthlyBean);
                     }
 
                     @Override
-                    public void onError(Response<String> response) {
-                        Log.e("请求失败", "onError: " + response.message());
-                        ToastUtils.showShort("暂无周报告");
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort("暂无周报告:" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
-
     }
 
     private void dealData(NewWeeklyOrMonthlyBean weeklyOrMonthlyReport) {
@@ -358,7 +356,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
             }
 
         } else {
-            ToastUtils.showShort("网络繁忙");
+            ToastUtils.showShort("暂无推荐");
         }
 
 

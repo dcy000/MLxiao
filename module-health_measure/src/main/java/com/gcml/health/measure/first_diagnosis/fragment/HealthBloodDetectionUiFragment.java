@@ -3,6 +3,7 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 import android.annotation.SuppressLint;
 import android.support.annotation.IntDef;
 import android.text.Html;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.View;
 
@@ -10,12 +11,11 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.HealthMeasureRepository;
-import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.data.TimeCountDownUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
@@ -26,7 +26,10 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
@@ -34,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
-//    private DialogSure dialogSure;
+    //    private DialogSure dialogSure;
     private String tips_first = "为了保证测量数据准确性，请根据小E提示对左右手血压各进行<font color='#F56C6C'>2–3次</font>测量。请先测量左手！";
     private String tips_first_speak = "为了保证测量数据准确性，请根据小易提示对左右手血压各进行2–3次测量。请先测量左手！";
     private boolean isJump2Next = false;
@@ -55,7 +58,6 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
 
     @Override
     protected void onMeasureFinished(String... results) {
-        Timber.e(results.toString());
         if (results.length == 3) {
             highPressures.put(detectionStep, Integer.parseInt(results[0]));
             lowPressures.put(detectionStep, Integer.parseInt(results[1]));
@@ -204,49 +206,42 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                 }).show();
     }
 
+    @SuppressLint("CheckResult")
     private void uploadHandData(final Data data) {
-        OkGo.<String>post(HealthMeasureApi.DETECTION_BLOOD_HAND + UserSpHelper.getUserId() + "/")
-                .params("handState", data.right)
-                .execute(new StringCallback() {
+        Timber.i("开始上传惯用手到服务器");
+
+        HealthMeasureRepository.postHypertensionHand(data.right)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<Object>() {
                     @Override
-                    public void onSuccess(Response<String> response) {
-                        if (!response.isSuccessful()) {
-                            ToastUtils.showLong("数据上传失败");
-                            return;
-                        }
-                        String body = response.body();
-                        //保存惯用手
+                    public void onNext(Object o) {
+                        Timber.i("上传惯用手成功");
                         UserSpHelper.setUserHypertensionHand(data.right + "");
-                        try {
-                            ApiResponse<Object> apiResponse = new Gson().fromJson(body, new TypeToken<ApiResponse<Object>>() {
-                            }.getType());
-                            if (apiResponse.isSuccessful()) {
-                                uploadHandStateFinished();
-                                uploadData(data);
-                                return;
-                            }
-                        } catch (Throwable e) {
-                            e.printStackTrace();
-                        }
-                        ToastUtils.showLong("数据上传失败");
+                        uploadHandStateFinished();
+                        uploadData(data);
                     }
 
                     @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        ToastUtils.showLong("数据上传失败");
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort("惯用手上传失败：" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
-
-
     }
 
     /**
      * 表示上传惯用手状态结束  供子类使用
      */
-    protected void uploadHandStateFinished(){
+    protected void uploadHandStateFinished() {
 
     }
+
     @SuppressLint("CheckResult")
     private void uploadData(Data data) {
         ArrayList<DetectionData> datas = new ArrayList<>();
@@ -268,18 +263,16 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribeWith(new DefaultObserver<Object>() {
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                     @Override
-                    public void onNext(Object o) {
-//                        ((FirstDiagnosisActivity) mActivity).putCacheData(pressureData);
-//                        ((FirstDiagnosisActivity) mActivity).putCacheData(pulseData);
+                    public void onNext(List<DetectionResult> o) {
                         isMeasureOver = true;
                         setBtnClickableState(true);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("上传数据失败："+e.getMessage());
+                        ToastUtils.showShort("上传数据失败：" + e.getMessage());
                     }
 
                     @Override
@@ -287,20 +280,8 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
 
                     }
                 });
-//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-//            @Override
-//            public void onSuccess(String callbackString) {
-//                ((FirstDiagnosisActivity) mActivity).putCacheData(pressureData);
-//                ((FirstDiagnosisActivity) mActivity).putCacheData(pulseData);
-//                isMeasureOver = true;
-//                setBtnClickableState(true);
-//            }
-//
-//            @Override
-//            public void onError() {
-//            }
-//        });
     }
+
     /**
      * @return prepareData = int[1], lowPressure = int[2], pulse = int[3], left = int[4] == 1
      */
@@ -387,10 +368,6 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
         } else {
             ToastUtils.showShort("测量次数不够");
         }
-//        if (fragmentChanged != null && !isJump2Next) {
-//            isJump2Next = true;
-//            fragmentChanged.onFragmentChanged(HealthBloodDetectionUiFragment.this, null);
-//        }
     }
 
     public static class Data {

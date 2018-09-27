@@ -167,6 +167,8 @@ public class Bloodoxygen_Kangtai_PresenterImp extends BaseBluetoothPresenter {
                     Logg.e(Bloodoxygen_Kangtai_PresenterImp.class, "call: STATE_CAN_READ_WRITE");
                     classicBluetoothService.write(DeviceCommand.deviceConfirmCommand());
                     break;
+                default:
+                    break;
             }
         }
 

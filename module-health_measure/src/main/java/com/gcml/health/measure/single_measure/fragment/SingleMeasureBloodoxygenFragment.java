@@ -3,10 +3,8 @@ package com.gcml.health.measure.single_measure.fragment;
 import android.annotation.SuppressLint;
 
 import com.gcml.common.utils.RxUtils;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
-import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureRepository;
-import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;

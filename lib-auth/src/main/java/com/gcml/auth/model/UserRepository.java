@@ -88,7 +88,6 @@ public class UserRepository {
                 .compose(userTokenTransformer());
     }
 
-
     public Observable<UserEntity> getUserSignIn() {
         return fetchUser(UserSpHelper.getUserId());
     }

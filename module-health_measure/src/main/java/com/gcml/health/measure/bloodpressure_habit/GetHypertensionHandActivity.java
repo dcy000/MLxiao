@@ -1,6 +1,8 @@
 package com.gcml.health.measure.bloodpressure_habit;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -38,6 +40,16 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
     private FrameLayout mFrameLayout;
     private GetHypertensionHandFragment fragment;
 
+    public static void startActivityForResult(Object host, int requestCode) {
+        if (host instanceof Activity) {
+            Intent intent = new Intent(((Activity) host), GetHypertensionHandActivity.class);
+            ((Activity) host).startActivityForResult(intent, requestCode);
+        } else if (host instanceof Fragment) {
+            Intent intent = new Intent(((Fragment) host).getContext(), GetHypertensionHandActivity.class);
+            ((Fragment) host).startActivityForResult(intent, requestCode);
+        }
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +65,12 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
         fragment.setOnDealVoiceAndJumpListener(this);
         fragment.setOnFragmentChangedListener(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
+    }
+
+    @Override
+    protected void backLastActivity() {
+        setResult(RESULT_OK);
+        super.backLastActivity();
     }
 
     @Override

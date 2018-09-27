@@ -1,14 +1,14 @@
 package com.gcml.health.measure.network;
 
-import com.gcml.common.repository.Api;
 import com.gcml.common.repository.http.ApiResult;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;
-import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryPostBean;
+import com.gcml.health.measure.single_measure.bean.NewWeeklyOrMonthlyBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -46,6 +47,15 @@ public interface HealthMeasureServer {
     Observable<ApiResult<Object>> checkIsNormalData(@Path("userId") String userId, @Body List<DetectionData> datas);
 
     @POST("ZZB/api/healthMonitor/detection/{userId}/")
-    Observable<ApiResult<Object>> postMeasureData(@Path("userId") String userId, @Body ArrayList<DetectionData> datas);
+    Observable<ApiResult<List<DetectionResult>>> postMeasureData(@Path("userId") String userId, @Body ArrayList<DetectionData> datas);
+
+    @POST("ZZB/api/healthMonitor/detection/hypertension/hand/{userId}/")
+    Observable<ApiResult<Object>> postHypertensionHand(@Path("userId") String userId, @Query("handState") int hand);
+
+    @GET("ZZB/api/healthMonitor/report/hypertension/week/")
+    Observable<ApiResult<NewWeeklyOrMonthlyBean>> getWeeklyOrMonthlyReport(
+            @Query("userId") String userId,
+            @Query("endTimeStamp") long endTimeStamp,
+            @Query("num") String page);
 
 }

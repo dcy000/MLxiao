@@ -5,22 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.gcml.common.utils.RxUtils;
-import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
-import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
-import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -46,21 +44,25 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
         switch (selectMeasureSugarTime) {
             case 0:
                 //空腹
+                mTitle1.setText("血糖(空腹)");
                 mTitle12.setText("3.9~6.1");
                 mTitle13.setText(">6.1");
                 break;
             case 1:
                 //饭后1小时
+                mTitle1.setText("血糖(饭后1小时)");
                 mTitle12.setText("3.9~7.8");
                 mTitle13.setText(">7.8");
                 break;
             case 2:
                 //饭后2小时
+                mTitle1.setText("血糖(饭后2小时)");
                 mTitle12.setText("3.9~7.8");
                 mTitle13.setText(">7.8");
                 break;
             case 3:
                 //其他时间
+                mTitle1.setText("血糖(其他时间)");
                 mTitle12.setText("3.9~11.1");
                 mTitle13.setText(">11.1");
                 break;
@@ -120,9 +122,9 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribeWith(new DefaultObserver<Object>() {
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                     @Override
-                    public void onNext(Object o) {
+                    public void onNext(List<DetectionResult> o) {
                         ToastUtils.showLong("数据上传成功");
                         datas.clear();
                     }

@@ -3,7 +3,6 @@ package com.gcml.health.measure.single_measure.no_upload_data;
 import android.os.Bundle;
 import android.view.View;
 
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -28,21 +27,25 @@ public class NonUploadSingleMeasureThreeInOneFragment extends ThreeInOne_Fragmen
         switch (selectMeasureSugarTime) {
             case 0:
                 //空腹
+                mTitle1.setText("血糖(空腹)");
                 mTitle12.setText("3.9~6.1");
                 mTitle13.setText(">6.1");
                 break;
             case 1:
                 //饭后1小时
+                mTitle1.setText("血糖(饭后1小时)");
                 mTitle12.setText("3.9~7.8");
                 mTitle13.setText(">7.8");
                 break;
             case 2:
                 //饭后2小时
+                mTitle1.setText("血糖(饭后2小时)");
                 mTitle12.setText("3.9~7.8");
                 mTitle13.setText(">7.8");
                 break;
             case 3:
                 //其他时间
+                mTitle1.setText("血糖(其他时间)");
                 mTitle12.setText("3.9~11.1");
                 mTitle13.setText(">11.1");
                 break;

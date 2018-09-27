@@ -6,17 +6,15 @@ import android.view.View;
 
 import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
-import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
-import com.gcml.health.measure.network.HealthMeasureApi;
+import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
-import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
@@ -73,9 +71,9 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .as(RxUtils.autoDisposeConverter(this))
-                    .subscribeWith(new DefaultObserver<Object>() {
+                    .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                         @Override
-                        public void onNext(Object o) {
+                        public void onNext(List<DetectionResult> o) {
                             setBtnClickableState(true);
                         }
 

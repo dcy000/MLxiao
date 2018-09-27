@@ -20,7 +20,7 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.HealthIntelligentDetectionActivity;
 import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.lib_utils.display.ToastUtils;

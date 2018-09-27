@@ -9,13 +9,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.gcml.common.recommend.fragment.RencommendFragment;
+import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.recommend.fragment.RencommendForSingleDetecteFragment;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.single_measure.fragment.ShowMeasureBloodpressureResultFragment;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,25 +43,28 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
      * @param suggest     健康建议
      */
     public static void startActivity(Context context, String state, int score, int currentHigh,
-                                     int currentLow, String suggest) {
-        context.startActivity(new Intent(context, ShowMeasureBloodpressureResultActivity.class)
-                .putExtra("health_state", state)
-                .putExtra("health_score", score)
-                .putExtra("high_bloodpressure", currentHigh)
-                .putExtra("low_bloodpressure", currentLow)
-                .putExtra("suggest", suggest));
-    }
-
-    public static void startActivity(Context context, String state, int score, int currentHigh,
-                                     int currentLow, String suggest, boolean isTask) {
+                                     int currentLow, String suggest, List<DetectionData> detections) {
         context.startActivity(new Intent(context, ShowMeasureBloodpressureResultActivity.class)
                 .putExtra("health_state", state)
                 .putExtra("health_score", score)
                 .putExtra("high_bloodpressure", currentHigh)
                 .putExtra("low_bloodpressure", currentLow)
                 .putExtra("suggest", suggest)
-                .putExtra("isTask", isTask));
+                .putExtra("detections", (Serializable) detections));
     }
+
+    public static void startActivity(Context context, String state, int score, int currentHigh,
+                                     int currentLow, String suggest, boolean isTask, List<DetectionData> detections) {
+        context.startActivity(new Intent(context, ShowMeasureBloodpressureResultActivity.class)
+                .putExtra("health_state", state)
+                .putExtra("health_score", score)
+                .putExtra("high_bloodpressure", currentHigh)
+                .putExtra("low_bloodpressure", currentLow)
+                .putExtra("suggest", suggest)
+                .putExtra("isTask", isTask)
+                .putExtra("detections", (Serializable) detections));
+    }
+
 
     @Override
     protected void backMainActivity() {
@@ -100,11 +105,13 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
             bundle.putInt("high_bloodpressure", intent.getIntExtra("high_bloodpressure", 120));
             bundle.putInt("low_bloodpressure", intent.getIntExtra("low_bloodpressure", 80));
             bundle.putString("suggest", intent.getStringExtra("suggest"));
-            bundle.putBoolean("isTask",intent.getBooleanExtra("isTask",false));
+            bundle.putBoolean("isTask", intent.getBooleanExtra("isTask", false));
             resultFragment.setArguments(bundle);
         }
 
-        RencommendFragment rencommendFragment = new RencommendFragment();
+        RencommendForSingleDetecteFragment rencommendFragment = RencommendForSingleDetecteFragment.newInstance(
+                (List<DetectionData>) getIntent().getSerializableExtra("detections"), "param2");
+
         fragments.add(resultFragment);
         fragments.add(rencommendFragment);
     }

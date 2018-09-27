@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 
 import com.gcml.health.measure.R;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+
+import java.sql.Time;
 
 import timber.log.Timber;
 
@@ -26,10 +29,19 @@ public class HealthMeasureAbnormalActivity extends ToolbarBaseActivity implement
     private int measureType;
     private HealthMeasureAbnormalBaseFragment baseFragment;
     public static final String KEY_HAS_ABNIRMAL_REASULT="has_abnormal_reasult";
-    public static void startActivity(Activity context, int measureType,int requestCode) {
-        Intent intent = new Intent(context, HealthMeasureAbnormalActivity.class);
-        intent.putExtra(KEY_MEASURE_TYPE, measureType);
-        context.startActivityForResult(intent,requestCode);
+    public static void startActivity(Object host, int measureType,int requestCode) {
+        if (host instanceof Activity){
+            Intent intent = new Intent(((Activity) host), HealthMeasureAbnormalActivity.class);
+            intent.putExtra(KEY_MEASURE_TYPE, measureType);
+            ((Activity) host).startActivityForResult(intent,requestCode);
+            Timber.e("HealthMeasureAbnormalActivity：activity");
+        }else if (host instanceof Fragment){
+            Intent intent = new Intent(((Fragment) host).getContext(), HealthMeasureAbnormalActivity.class);
+            intent.putExtra(KEY_MEASURE_TYPE, measureType);
+            ((Fragment) host).startActivityForResult(intent,requestCode);
+            Timber.e("HealthMeasureAbnormalActivity：Fragment");
+        }
+
     }
 
     @Override

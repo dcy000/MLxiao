@@ -8,15 +8,13 @@ import android.view.View;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.dialog.SingleDialog;
 import com.gcml.health.measure.bloodpressure_habit.GetHypertensionHandActivity;
-import com.gcml.health.measure.first_diagnosis.bean.ApiResponse;
-import com.gcml.health.measure.first_diagnosis.bean.DetectionData;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.measure_abnormal.HealthMeasureAbnormalActivity;
-import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.HealthMeasureRepository;
-import com.gcml.health.measure.network.NetworkCallback;
 import com.gcml.health.measure.single_measure.ShowMeasureBloodpressureResultActivity;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.display.ToastUtils;
@@ -30,6 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -45,11 +46,13 @@ import static android.app.Activity.RESULT_OK;
  */
 public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     private static final int CODE_REQUEST_ABNORMAL = 10001;
+    private static final int CODE_REQUEST_GETHYPERTENSIONHAND = 10002;
     private ArrayList<DetectionData> datas;
     private int highPressure;
     private int lowPressure;
     private boolean isMeasureTask = false;
-
+    private boolean hasHypertensionHand=false;
+    private boolean isOnPause=false;
     public SingleMeasureBloodpressureFragment() {
     }
 
@@ -57,11 +60,6 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
         isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         getHypertensionHand();
     }
 
@@ -70,10 +68,12 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
      */
     private void getHypertensionHand() {
         String userHypertensionHand = UserSpHelper.getUserHypertensionHand();
+        Timber.i("SingleMeasureBloodpressureFragment惯用手："+userHypertensionHand);
         if (TextUtils.isEmpty(userHypertensionHand)) {
             //还没有录入惯用手，则跳转到惯用手录入activity
-            mContext.startActivity(new Intent(mContext, GetHypertensionHandActivity.class));
+            GetHypertensionHandActivity.startActivityForResult(this, CODE_REQUEST_GETHYPERTENSIONHAND);
         } else {
+            hasHypertensionHand=true;
             if ("0".equals(userHypertensionHand)) {
                 showHypertensionHandDialog("左手");
             } else if ("1".equals(userHypertensionHand)) {
@@ -98,7 +98,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
-        if (results.length == 3) {
+        if (results.length == 3&&!isOnPause) {
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
 
             datas = new ArrayList<>();
@@ -127,7 +127,9 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
 
                         @Override
                         public void onError(Throwable e) {
-                            HealthMeasureAbnormalActivity.startActivity(mActivity, IPresenter.MEASURE_BLOOD_PRESSURE, CODE_REQUEST_ABNORMAL);
+                            HealthMeasureAbnormalActivity.startActivity(
+                                    SingleMeasureBloodpressureFragment.this,
+                                    IPresenter.MEASURE_BLOOD_PRESSURE, CODE_REQUEST_ABNORMAL);
                         }
 
                         @Override
@@ -145,27 +147,40 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
             Timber.e("SingleMeasureBloodpressureFragment：数据被回收，程序异常");
             return;
         }
-        //TODO:测试重新解析返回来的数据
+        LoadingDialog dialog = new LoadingDialog.Builder(mContext)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord("正在加载")
+                .create();
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribeWith(new DefaultObserver<Object>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void onNext(Object o) {
-                        Timber.e("单测返回来的数据：" + o);
-                        List<DetectionResult> detectionResults = new Gson().fromJson(o.toString(), new TypeToken<List<DetectionResult>>() {
-                        }.getType());
+                    public void accept(Disposable disposable) throws Exception {
+                        dialog.show();
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dialog.dismiss();
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                    @Override
+                    public void onNext(List<DetectionResult> o) {
 
+                        Timber.e("单测返回来的数据：" + o);
                         ToastUtils.showLong("上传数据成功");
-                        DetectionResult result = detectionResults.get(0);
+                        DetectionResult result = o.get(0);
                         if (isMeasureTask) {
                             ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
-                                    result.getScore(), highPressure, lowPressure, result.getResult(), true);
+                                    result.getScore(), highPressure, lowPressure, result.getResult(), true, datas);
                             mActivity.finish();
                         } else {
                             ShowMeasureBloodpressureResultActivity.startActivity(getContext(), result.getDiagnose(),
-                                    result.getScore(), highPressure, lowPressure, result.getResult());
+                                    result.getScore(), highPressure, lowPressure, result.getResult(), datas);
                         }
                     }
 
@@ -183,10 +198,22 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        isOnPause=false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isOnPause=true;
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == CODE_REQUEST_ABNORMAL) {
+        Timber.e("SingleMeasureBloodpressureFragment:" + requestCode + "++" + resultCode);
+        if (requestCode == CODE_REQUEST_ABNORMAL) {
+            if (resultCode == RESULT_OK) {
                 if (data != null) {
                     boolean booleanExtra = data.getBooleanExtra(HealthMeasureAbnormalActivity.KEY_HAS_ABNIRMAL_REASULT, false);
                     if (booleanExtra) {
@@ -198,7 +225,15 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
 
                 }
             }
+        } else if (requestCode == CODE_REQUEST_GETHYPERTENSIONHAND) {
+            if (resultCode == RESULT_OK) {
+                mActivity.finish();
+            } else {
+                getHypertensionHand();
+                dealLogic();
+            }
         }
+
     }
 
     @Override

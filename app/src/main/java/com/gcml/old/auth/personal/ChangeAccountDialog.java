@@ -87,12 +87,15 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                if (LocalShared.getInstance(mContext).isAccountOverflow()) {
 //                    LocalShared.getInstance(mContext).deleteAllAccount();
 //                }
-                LocalShared.getInstance(mContext).loginOut();
+
                 UserSpHelper.setUserId("");
                 UserSpHelper.setToken("");
+
                 CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();
+                break;
+            default:
                 break;
         }
     }
