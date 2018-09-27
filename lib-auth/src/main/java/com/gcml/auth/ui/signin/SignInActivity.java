@@ -224,16 +224,12 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
 
     public void goSignInByFace() {
         CC.obtainBuilder("com.gcml.auth.face.signin")
+                .addParam("currentUser", false)
                 .build()
                 .callAsync(new IComponentCallback() {
                     @Override
                     public void onResult(CC cc, CCResult result) {
                         if (result.isSuccess()) {
-                            UserSpHelper.setUserId(result.getDataItem("userId"));
-                            CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                                    .addParam("userId", UserSpHelper.getUserId())
-                                    .build()
-                                    .callAsync();
                             CC.obtainBuilder("com.gcml.old.home")
                                     .build()
                                     .callAsync();

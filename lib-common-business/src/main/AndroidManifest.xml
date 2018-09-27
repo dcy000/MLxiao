@@ -5,5 +5,8 @@
         <meta-data
             android:name="com.gcml.common.CommonApp"
             android:value="AppLifecycleCallbacks" />
+        <meta-data
+            android:name="com.gcml.common.CommonRepositoryConfig"
+            android:value="RepositoryConfig" />
     </application>
 </manifest>

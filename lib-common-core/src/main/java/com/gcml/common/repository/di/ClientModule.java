@@ -4,9 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
+import com.gcml.common.repository.http.HttpLogInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.gcml.common.repository.http.HttpLogInterceptor;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +25,6 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -78,8 +77,8 @@ public class ClientModule {
             });
         }
         if (interceptors != null) {
-            for (Interceptor interceptor1 : interceptors) {
-                builder.addInterceptor(interceptor1);
+            for (Interceptor theInterceptor : interceptors) {
+                builder.addInterceptor(theInterceptor);
             }
         }
         if (configuration != null) {

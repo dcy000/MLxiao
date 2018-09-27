@@ -134,6 +134,7 @@ ext {
             "MPAndroidChart"               : "com.github.PhilJay:MPAndroidChart:v3.0.2",
             "lombok"                       : "org.projectlombok:lombok:1.18.0",
             "litepal"                      : "org.litepal.android:core:1.5.1",
+            "ultra-ptr"                    : "in.srain.cube:ultra-ptr:1.0.11",
 
             //test
             "junit"                        : "junit:junit:4.12",

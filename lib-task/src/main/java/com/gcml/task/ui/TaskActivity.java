@@ -37,6 +37,7 @@ public class TaskActivity extends FragmentActivity {
     TranslucentToolBar mToolBar;
     TaskRepository mTaskRepository = new TaskRepository();
     Handler mHandler = new Handler();
+    String startType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class TaskActivity extends FragmentActivity {
         getWindow().getDecorView().setFocusable(true);
         getWindow().getDecorView().setFocusableInTouchMode(true);
         getWindow().getDecorView().requestFocus();
+        startType = getIntent().getStringExtra("startType");
 
         bindView();
         bindData();
@@ -60,8 +62,12 @@ public class TaskActivity extends FragmentActivity {
         mToolBar.setData("每 日 任 务", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
-                finish();
+                if (startType.equals("MLMain")) {
+                    CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                    finish();
+                } else if (startType.equals("MLSpeech")) {
+                    finish();
+                }
             }
 
             @Override

@@ -1,10 +1,10 @@
 package com.gcml.auth.face.ui;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.face.BR;
 import com.gcml.auth.face.R;
 import com.gcml.auth.face.databinding.AuthActivityFaceSignInBinding;
@@ -29,8 +30,6 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import io.reactivex.Observable;
@@ -48,6 +47,8 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     private PreviewHelper mPreviewHelper;
     private Animation mAnimation;
     private boolean skip;
+    private boolean currentUser;
+    private String currentUserId;
 
     @Override
     protected int layoutId() {
@@ -65,6 +66,9 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     protected void init(Bundle savedInstanceState) {
         callId = getIntent().getStringExtra("callId");
         skip = getIntent().getBooleanExtra("skip", false);
+        currentUser = getIntent().getBooleanExtra("currentUser", false);
+        currentUserId = UserSpHelper.getUserId();
+        currentUserId = TextUtils.isEmpty(currentUserId) ? "" : currentUserId;
         users = getIntent().getParcelableArrayListExtra("users");
         if (users == null || users.isEmpty()) {
             finish();
@@ -253,9 +257,18 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                 Timber.i("%s", user);
                 if (!TextUtils.isEmpty(user.xfid)
                         && user.xfid.equals(faceId)) {
-                    theFaceId = faceId;
-                    theUserId = user.id;
-                    currentUser = theFaceId.equals(UserSpHelper.getFaceId());
+                    theUserId = user.xfid;
+
+                    if (currentUser) {
+                        if (currentUserId.equals(user.id)) {
+                            error = false;
+                            finish();
+                            return;
+                        } else {
+                            continue;
+                        }
+                    }
+
                     error = false;
                     finish();
                     return;
@@ -305,15 +318,52 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
             if (error) {
                 if (hasSkip) {
                     result = CCResult.error("skip");
-                    result.addData("userId", UserSpHelper.getUserId());
                 } else {
                     result = CCResult.error("人脸验证未通过");
                 }
             } else {
-                result = CCResult.success("faceId", theFaceId);
-                result.addData("currentUser", currentUser);
-                result.addData("userId", theUserId);
+                result = CCResult.success();
+                if (!currentUser && !currentUserId.equals(theUserId)) {
+
+                    // Token 1.0
+                    UserSpHelper.setUserId(theUserId);
+                    CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                            .addParam("userId", theUserId)
+                            .build()
+                            .callAsync();
+
+                    //Token 2.0
+//                    Observable<UserEntity> rxUser = CC.obtainBuilder("com.gcml.auth.refreshToken")
+//                            .addParam("userId", theUserId)
+//                            .build()
+//                            .call()
+//                            .getDataItem("data");
+//                    rxUser.subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .as(RxUtils.autoDisposeConverter(this))
+//                            .subscribe(new DefaultObserver<UserEntity>() {
+//                                @Override
+//                                public void onNext(UserEntity user) {
+//                                    CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+//                                            .addParam("userId", user.id)
+//                                            .build()
+//                                            .callAsync();
+//                                    CC.sendCCResult(callId, result);
+//                                    FaceSignInActivity.super.finish();
+//                                }
+//
+//                                @Override
+//                                public void onError(Throwable throwable) {
+//                                    super.onError(throwable);
+//                                    ToastUtils.showShort(throwable.getMessage());
+//                                    CC.sendCCResult(callId, CCResult.error(throwable.getMessage()));
+//                                    FaceSignInActivity.super.finish();
+//                                }
+//                            });
+//                    return;
+                }
             }
+
             //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
             CC.sendCCResult(callId, result);
         }
@@ -323,7 +373,5 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     private String callId;
     private volatile boolean error = true;
 
-    private String theFaceId = "";
     private String theUserId = "";
-    private boolean currentUser;
 }

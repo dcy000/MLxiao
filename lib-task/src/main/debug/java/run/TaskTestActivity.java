@@ -65,6 +65,7 @@ public class TaskTestActivity extends AppCompatActivity implements View.OnClickL
                     public void onNext(Object body) {
                         super.onNext(body);
                         CC.obtainBuilder("app.component.task")
+                                .addParam("startType", "MLTest")
                                 .setContext(TaskTestActivity.this)
                                 .build()
                                 .callAsync();
@@ -74,7 +75,7 @@ public class TaskTestActivity extends AppCompatActivity implements View.OnClickL
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         if (throwable instanceof NullPointerException) {
-                            CC.obtainBuilder("app.component.task").build().callAsync();
+                            CC.obtainBuilder("app.component.task").addParam("startType", "MLTest").build().callAsync();
                         } else {
                             CC.obtainBuilder("app.component.task.comply").build().callAsync();
                         }

@@ -1,16 +1,23 @@
 @baseUrl = http://47.96.98.60:8080/ZZB/
-@token = 13154564531
-
+@apiVersion = 2.0
+@refreshToken = 51b4033c-cf8a-47c6-ba59-0454c63dc0c1
+@token = 8373815a-bffa-4b91-8abd-2fd430203943
+@equipmentId = c55771e6a9a33a43
+@userId = 130288
+@username = 18667161873
+@password = 123456
 
 ### 
-POST {{baseUrl}}login/applogin
-content-type : application/x-www-form-urlencoded
-equipmentId : 197a113b2d9eb455
+
+POST {{baseUrl}}login/applogin?username={{username}}&password={{password}}
+content-type : application/json
+version: {{apiVersion}}
+equipmentId : {{equipmentId}}
+
+###
+
+POST {{baseUrl}}login/refresh/?userId={{userId}}&refreshToken={{refreshToken}}
+content-type : application/json
+version: {{apiVersion}}
 Authorization: {{token}}
-
-{
-    "username" : "18702515218",
-    "password" : "123456"
-}
-
-
+equipmentId : {{equipmentId}}
