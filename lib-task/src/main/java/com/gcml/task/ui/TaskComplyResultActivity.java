@@ -132,7 +132,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
             CC.obtainBuilder("app.component.task.comply.choice").addParam("isFirst", true).setContext(TaskComplyResultActivity.this).build().callAsync();
             finish();
         } else if (v.getId() == R.id.tv_task_result_affirm) {
-            CC.obtainBuilder("app.component.task").build().callAsync();
+            CC.obtainBuilder("app.component.task").addParam("startType", "MLTask").build().callAsync();
         }
     }
 

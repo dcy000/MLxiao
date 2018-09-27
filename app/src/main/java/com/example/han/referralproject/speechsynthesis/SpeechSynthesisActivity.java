@@ -725,7 +725,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*((meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
-                CC.obtainBuilder("app.component.task").build().callAsync();
+                CC.obtainBuilder("app.component.task").addParam("startType", "MLSpeech").build().callAsync();
                 return;
             }
 

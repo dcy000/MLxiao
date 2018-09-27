@@ -370,7 +370,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                                 @Override
                                                 public void onResult(CC cc, CCResult result) {
                                                     if (result.isSuccess()) {
-                                                        CC.obtainBuilder("app.component.task").build().callAsync();
+                                                        CC.obtainBuilder("app.component.task").addParam("startType", "MLMain").build().callAsync();
                                                     } else {
                                                         CC.obtainBuilder("app.component.task.comply").build().callAsync();
                                                     }
