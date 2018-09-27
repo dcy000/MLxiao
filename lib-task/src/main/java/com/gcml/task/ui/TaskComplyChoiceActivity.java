@@ -88,7 +88,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
                 MLVoiceSynthetize.stop();
                 MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                        "主人" + mList.get(mViewPager.getCurrentItem() + 1).questionName,
+                        "主人" + mList.get(mViewPager.getCurrentItem() - 1).questionName,
                         false);
             }
 

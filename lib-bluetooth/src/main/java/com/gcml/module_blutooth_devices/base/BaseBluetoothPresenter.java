@@ -98,8 +98,8 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
         BaseBluetoothPresenter.discoverSetting = discoverSetting;
         weakHandler = new WeakHandler(weakRunnable);
         weakHandler2 = new WeakHandler();
-        //如果物理地址连接8秒之后还没有连接成功 则改为以蓝牙名称匹配
-        timeCount = new TimeCount(8000, 1000, weakHandler);
+        //如果物理地址连接15秒之后还没有连接成功 则改为以蓝牙名称匹配
+        timeCount = new TimeCount(15000, 1000, weakHandler);
         discoverType = discoverSetting.getDiscoverType();
         targetAddress = discoverSetting.getTargetMac();
         targetName = discoverSetting.getTargetName();
@@ -219,7 +219,6 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
 
             @Override
             public void onSearchStopped() {
-                Logg.e(BaseBluetoothPresenter.class, "耗时：" + (System.currentTimeMillis() - currenMillisecond));
                 switch (discoverType) {
                     case IPresenter.DISCOVER_WITH_MAC:
                     case IPresenter.DISCOVER_WITH_NAME:
@@ -343,13 +342,14 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 case Constants.STATUS_CONNECTED:
                     break;
                 case Constants.STATUS_DISCONNECTED:
-                    if (System.currentTimeMillis() - currenMillisecond > 2000) {
-                        currenMillisecond = System.currentTimeMillis();
-                        isConnected = false;
-                        weakHandler.sendEmptyMessage(DEVICE_DISCONNECTED);
-                    } else {
-                        Logg.e(BaseBluetoothPresenter.class, "System.currentTimeMillis() - currenMillisecond < 2000");
-                    }
+//                    if (System.currentTimeMillis() - currenMillisecond > 2000) {
+//                        currenMillisecond = System.currentTimeMillis();
+                    isConnected = false;
+                    weakHandler.sendEmptyMessage(DEVICE_DISCONNECTED);
+//                    } else {
+//                        Logg.e(BaseBluetoothPresenter.class, "System.currentTimeMillis() - currenMillisecond < 2000");
+//                    }
+                    Logg.e(BaseBluetoothPresenter.class,"onConnectStatusChanged:"+i);
                     break;
                 default:
                     break;
@@ -525,11 +525,6 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
             connectDevice(targetAddress);
             return;
         }
-        if (!TextUtils.isEmpty(targetName)) {
-            discoverType = DISCOVER_WITH_NAME;
-            request = setSearchRequest();
-            searchDevices();
-        }
     }
 
     /**
@@ -565,7 +560,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                         retryConnect();
                     }
                 }
-            }, 2000);
+            }, 3000);
         }
     }
 

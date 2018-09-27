@@ -42,7 +42,7 @@ public class Bloodpressure_Self_PresenterImp extends BaseBluetoothPresenter {
     @Override
     protected void connectSuccessed(String address, List<BluetoothServiceDetail> serviceDetails, boolean isReturn) {
         super.connectSuccessed(address, serviceDetails, isReturn);
-        baseView.updateState(baseView.getThisContext().getString(R.string.bluetooth_device_connected));
+        baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
         baseView.updateData("0", "0", "0");
         SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, targetName + "," + address);
         if (!isReturn) {
@@ -54,7 +54,7 @@ public class Bloodpressure_Self_PresenterImp extends BaseBluetoothPresenter {
                             int length = bytes.length;
                             switch (length) {
                                 case 2:
-                                    isGetResult=false;
+                                    isGetResult = false;
                                     baseView.updateData((bytes[1] & 0xff) + "");
                                     break;
                                 case 12:
@@ -62,6 +62,8 @@ public class Bloodpressure_Self_PresenterImp extends BaseBluetoothPresenter {
                                         isGetResult = true;
                                         baseView.updateData((bytes[2] & 0xff) + "", (bytes[4] & 0xff) + "", (bytes[8] & 0xff) + "");
                                     }
+                                    break;
+                                default:
                                     break;
                             }
                         }

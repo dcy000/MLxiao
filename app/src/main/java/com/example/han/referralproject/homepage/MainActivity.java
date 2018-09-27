@@ -170,6 +170,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity user) {
+                        Timber.i(user.toString());
                         UserSpHelper.setUserHypertensionHand(user.hypertensionHand);
                         UserSpHelper.setUserId(user.id);
                         String wyyxId = user.wyyxId;

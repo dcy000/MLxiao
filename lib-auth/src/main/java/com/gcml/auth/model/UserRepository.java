@@ -71,24 +71,7 @@ public class UserRepository {
     }
 
     public Observable<UserEntity> getUserSignIn() {
-        return Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                String userId = UserSpHelper.getUserId();
-                if (TextUtils.isEmpty(userId)) {
-                    if (!emitter.isDisposed()) {
-                        emitter.onError(new EmptyResultSetException("user not sign in"));
-                    }
-                    return;
-                }
-                emitter.onNext(userId);
-            }
-        }).flatMap(new Function<String, ObservableSource<? extends UserEntity>>() {
-            @Override
-            public ObservableSource<? extends UserEntity> apply(String userId) throws Exception {
-                return mUserDao.findOneById(userId).toObservable();
-            }
-        });
+        return fetchUser(UserSpHelper.getUserId());
     }
 
     public Observable<Boolean> hasAccount(String account) {
@@ -157,12 +140,31 @@ public class UserRepository {
     }
 
     /**
-     *
      * @return users
      */
     public Observable<List<UserEntity>> getUsers() {
         return mUserDao.findAll()
-                .toObservable();
+                .toObservable()
+                .flatMap(new Function<List<UserEntity>, ObservableSource<List<UserEntity>>>() {
+                    @Override
+                    public ObservableSource<List<UserEntity>> apply(List<UserEntity> users) throws Exception {
+                        StringBuilder userIdsBuilder = new StringBuilder();
+                        int size = users.size();
+                        for (int i = 0; i < size; i++) {
+                            UserEntity user = users.get(i);
+                            if (user == null || TextUtils.isEmpty(user.id)) {
+                                continue;
+                            }
+                            userIdsBuilder.append(user.id);
+                            if (i != size - 1) {
+                                userIdsBuilder.append(",");
+                            }
+                        }
+                        return mUserService.getAllUsers(userIdsBuilder.toString())
+                                .compose(RxUtils.apiResultTransformer())
+                                .subscribeOn(Schedulers.io());
+                    }
+                });
     }
 
     public Observable<Object> isIdCardNotExit(String idCard) {
