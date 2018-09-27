@@ -25,6 +25,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -86,7 +87,10 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 //                if (LocalShared.getInstance(mContext).isAccountOverflow()) {
 //                    LocalShared.getInstance(mContext).deleteAllAccount();
 //                }
+
                 UserSpHelper.setUserId("");
+                UserSpHelper.setToken("");
+
                 CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();

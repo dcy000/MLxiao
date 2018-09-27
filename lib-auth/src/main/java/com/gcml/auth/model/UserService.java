@@ -27,6 +27,13 @@ public interface UserService {
             @Field("password") String pwd
     );
 
+    @POST("ZZB/login/refresh/")
+    Observable<ApiResult<UserToken>> refreshToken(
+            @Header("equipmentId") String deviceId,
+            @Query("userId") String userId,
+            @Query("refreshToken") String refreshToken
+    );
+
     @FormUrlEncoded()
     @POST("ZZB/acc/sel_account")
     Observable<ApiResult<Object>> hasAccount(

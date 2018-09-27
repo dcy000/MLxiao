@@ -16,6 +16,7 @@ import com.gcml.common.repository.di.RepositoryConfigModule;
 import com.gcml.common.repository.di.RepositoryModule;
 import com.gcml.common.repository.http.HttpLogInterceptor;
 import com.gcml.common.repository.utils.Preconditions;
+import com.gcml.common.utils.ManifestParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +28,15 @@ import okhttp3.Response;
 //import tech.linjiang.pandora.Pandora;
 
 public enum RepositoryApp implements IRepositoryApp {
-
     INSTANCE;
 
     private Application mApplication;
-    private final List<RepositoryConfigModule.Configuration> mConfigurations = new ArrayList<>();
     private RepositoryComponent mRepositoryComponent;
     private RepositoryModule mRepositoryModule;
+
+    private static final String REPOSITORY_CONFIGURATION = "RepositoryConfig";
+    private ManifestParser<RepositoryConfigModule.Configuration> mConfigurationManifestParser;
+    private final List<RepositoryConfigModule.Configuration> mConfigurations = new ArrayList<>();
 
     RepositoryApp() {
         mConfigurations.add(new Configuration());
@@ -50,6 +53,12 @@ public enum RepositoryApp implements IRepositoryApp {
     public void onCreate(Application application) {
         Stetho.initializeWithDefaults(application);
         this.mApplication = application;
+        if (mConfigurationManifestParser == null) {
+            mConfigurationManifestParser = new ManifestParser<>(mApplication, REPOSITORY_CONFIGURATION);
+            List<RepositoryConfigModule.Configuration> configurations = mConfigurationManifestParser.parse();
+            this.mConfigurations.addAll(configurations);
+        }
+
         if (mRepositoryModule == null) {
             mRepositoryModule = new RepositoryModule(mApplication);
         }

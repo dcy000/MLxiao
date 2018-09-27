@@ -1,7 +1,6 @@
 package com.example.han.referralproject.video;
 
 
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,15 +18,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.cc.CCVideoActions;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.gcml.common.repository.imageloader.ImageLoader;
 import com.gcml.lib_utils.data.DataUtils;
-import com.gcml.lib_utils.data.StringUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -306,13 +303,15 @@ public class VideoListFragment extends Fragment {
             holder.tvTitle.setText(entity.getTitle());
             String imageurl = entity.getImageurl();
             if (imageurl == null) {
-                holder.ivThumbnail.setImageResource(R.drawable.ic_thumbnail_placeholder);
-                return;
+                ImageLoader.with(holder.ivThumbnail)
+                        .load(R.drawable.ic_thumbnail_placeholder)
+                        .into(holder.ivThumbnail);
+            } else {
+                ImageLoader.with(holder.ivThumbnail)
+                        .load(imageurl)
+                        .placeholder(R.drawable.ic_thumbnail_placeholder)
+                        .into(holder.ivThumbnail);
             }
-            Glide.with(holder.ivThumbnail.getContext())
-                    .load(imageurl)
-                    .apply(RequestOptions.placeholderOf(R.drawable.ic_thumbnail_placeholder))
-                    .into(holder.ivThumbnail);
         }
 
         @Override

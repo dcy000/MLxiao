@@ -150,8 +150,7 @@ public class QualityAppLifecycleCallbacks implements AppLifecycleCallbacks {
 
         @Override
         public boolean displayNotification() {
-            return false;
-//            return super.displayNotification();
+            return super.displayNotification();
         }
 
         @Override

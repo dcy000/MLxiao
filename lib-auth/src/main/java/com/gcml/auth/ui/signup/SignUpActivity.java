@@ -191,8 +191,8 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
 
         if (!binding.cbAgreeProtocol.isChecked()) {
             binding.tvNext.setEnabled(true);
-            ToastUtils.showShort("登录需要勾选同意用户协议");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "登录需要勾选同意用户协议");
+            ToastUtils.showShort("注册需要勾选同意用户协议");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "注册需要勾选同意用户协议");
             return;
         }
 
@@ -247,7 +247,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     }
 
     private void doSignUp(String phone, String password) {
-        String deviceId = Utils.getDeviceId(getContentResolver());
+        String deviceId = Utils.getDeviceId(getApplicationContext().getContentResolver());
         viewModel.signUp(deviceId, phone, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
