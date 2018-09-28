@@ -16,12 +16,10 @@ import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
-import com.gcml.common.app.lifecycle.App;
 import com.gcml.common.app.lifecycle.AppDelegate;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.RepositoryApp;
 import com.gcml.lib_utils.UtilsManager;
-import com.gcml.lib_utils.service.ProcessUtils;
 import com.gcml.lib_utils.ui.UiUtils;
 import com.gcml.lib_video_ksyplayer.KSYPlayer;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
@@ -29,20 +27,16 @@ import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
 
 import org.litepal.LitePal;
 
-import java.util.logging.Level;
-
 import cn.beecloud.BeeCloud;
 import cn.jpush.android.api.JPushInterface;
-import okhttp3.OkHttpClient;
-import tech.linjiang.pandora.Pandora;
-import tech.linjiang.pandora.network.OkHttpInterceptor;
+
+//import tech.linjiang.pandora.Pandora;
 
 
 public class MyApplication extends Application {

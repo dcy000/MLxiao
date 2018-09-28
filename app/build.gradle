@@ -106,7 +106,7 @@ dependencies {
     //cc
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.android.support:support-v4:27.1.1'
-    addComponent 'module-face_recognition'
+//    addComponent 'module-face_recognition'
     addComponent 'lib-recreation'
     addComponent 'module-health_measure'
     addComponent 'lib-auth'

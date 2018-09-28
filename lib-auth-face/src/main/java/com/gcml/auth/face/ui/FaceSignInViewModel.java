@@ -18,7 +18,7 @@ public class FaceSignInViewModel extends BaseViewModel {
         super(application);
     }
 
-    public Observable<String> signIn(byte[] faceData, String faceId) {
-        return mFaceRepository.signIn(faceData, faceId);
+    public Observable<String> signIn(byte[] faceData, String groupId) {
+        return mFaceRepository.signIn(faceData, groupId);
     }
 }
