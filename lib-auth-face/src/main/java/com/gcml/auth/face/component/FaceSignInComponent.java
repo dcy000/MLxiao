@@ -51,7 +51,9 @@ public class FaceSignInComponent implements IComponent {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
         boolean skip = cc.getParamItem("skip", false);
+        boolean currentUser = cc.getParamItem("currentUser", false);
         intent.putExtra("skip", skip);
+        intent.putExtra("currentUser", currentUser);
         intent.putExtra("callId", cc.getCallId());
         intent.putParcelableArrayListExtra("users", new ArrayList<>(users));
         context.startActivity(intent);

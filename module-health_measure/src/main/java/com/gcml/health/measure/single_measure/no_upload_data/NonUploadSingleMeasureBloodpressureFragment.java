@@ -24,7 +24,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     private static final int CODE_REQUEST_GETHYPERTENSIONHAND = 10002;
-
+    private boolean isOnPause=false;
     @Override
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
@@ -35,7 +35,7 @@ public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_F
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
-        if (results.length == 3) {
+        if (results.length == 3&&!isOnPause) {
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
                     "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
         }
@@ -70,6 +70,18 @@ public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_F
 
                     }
                 }).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isOnPause=false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isOnPause=true;
     }
 
     @Override

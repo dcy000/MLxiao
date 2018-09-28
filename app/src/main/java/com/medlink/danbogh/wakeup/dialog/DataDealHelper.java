@@ -284,7 +284,7 @@ public class DataDealHelper {
         }
         /*******************************************************/
         if (inSpell.matches(".*((meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
-            CC.obtainBuilder("app.component.task").build().callAsync();
+            CC.obtainBuilder("app.component.task").addParam("startType", "MLSpeech").build().callAsync();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -630,20 +630,23 @@ public class DataDealHelper {
         if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
+                    .addParam("currentUser", false)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-                            String userId = result.getDataItem("userId");
-                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                UserSpHelper.setUserId(userId);
+                            boolean skip = "skip".equals(result.getErrorMessage());
+                            if (result.isSuccess() || skip) {
+                                if (skip) {
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                    return;
+                                }
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
                         }
                     });
-
             if (listener != null) {
                 listener.onEnd();
             }
@@ -652,17 +655,19 @@ public class DataDealHelper {
                 || inSpell.matches(".*xueyang.*")
                 || inSpell.matches(".*liang.*xueyang.*")
                 || inSpell.matches(".*ce.*baohedu.*")) {
-
             CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
+                    .addParam("currentUser", false)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-//                            boolean currentUser = result.getDataItem("currentUser");
-                            String userId = result.getDataItem("userId");
-                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                UserSpHelper.setUserId(userId);
+                            boolean skip = "skip".equals(result.getErrorMessage());
+                            if (result.isSuccess() || skip) {
+                                if (skip) {
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                    return;
+                                }
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -678,17 +683,19 @@ public class DataDealHelper {
                 || inSpell.matches(".*liang.*xuetang.*")
                 || inSpell.matches(".*xuetangyi.*")
                 ) {
-
             CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
+                    .addParam("currentUser", false)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-//                            boolean currentUser = result.getDataItem("currentUser");
-                            String userId = result.getDataItem("userId");
-                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                UserSpHelper.setUserId(userId);
+                            boolean skip = "skip".equals(result.getErrorMessage());
+                            if (result.isSuccess() || skip) {
+                                if (skip) {
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                    return;
+                                }
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -703,19 +710,21 @@ public class DataDealHelper {
         } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
+                    .addParam("currentUser", false)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-//                            boolean currentUser = result.getDataItem("currentUser");
-                            String userId = result.getDataItem("userId");
-                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                UserSpHelper.setUserId(userId);
+                            boolean skip = "skip".equals(result.getErrorMessage());
+                            if (result.isSuccess() || skip) {
+                                if (skip) {
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                    return;
+                                }
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
-
                         }
                     });
             if (listener != null) {
@@ -726,15 +735,18 @@ public class DataDealHelper {
                 || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
+                    .addParam("currentUser", false)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-//                            boolean currentUser = result.getDataItem("currentUser");
-                            String userId = result.getDataItem("userId");
-                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                UserSpHelper.setUserId(userId);
-                                CCHealthMeasureActions.jump2XinDianDetectActivity();
+                            boolean skip = "skip".equals(result.getErrorMessage());
+                            if (result.isSuccess() || skip) {
+                                if (skip) {
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                    return;
+                                }
+                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
@@ -748,14 +760,17 @@ public class DataDealHelper {
         } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
+                    .addParam("currentUser", false)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-//                            boolean currentUser = result.getDataItem("currentUser");
-                            String userId = result.getDataItem("userId");
-                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                UserSpHelper.setUserId(userId);
+                            boolean skip = "skip".equals(result.getErrorMessage());
+                            if (result.isSuccess() || skip) {
+                                if (skip) {
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                    return;
+                                }
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -769,14 +784,17 @@ public class DataDealHelper {
         } else if (inSpell.matches(".*ce.*tizhong.*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
+                    .addParam("currentUser", false)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-//                            boolean currentUser = result.getDataItem("currentUser");
-                            String userId = result.getDataItem("userId");
-                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                UserSpHelper.setUserId(userId);
+                            boolean skip = "skip".equals(result.getErrorMessage());
+                            if (result.isSuccess() || skip) {
+                                if (skip) {
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                    return;
+                                }
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -1231,21 +1249,19 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-
-//                Bundle bundle = new Bundle();
-//                bundle.putString("from", "Test");
-//                bundle.putString("fromType", "xueya");
-//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
+                        .addParam("currentUser", false)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-//                                boolean currentUser = result.getDataItem("currentUser");
-                                String userId = result.getDataItem("userId");
-                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                    UserSpHelper.setUserId(userId);
+                                boolean skip = "skip".equals(result.getErrorMessage());
+                                if (result.isSuccess() || skip) {
+                                    if (skip) {
+                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                        return;
+                                    }
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1264,20 +1280,19 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("from", "Test");
-//                bundle.putString("fromType", "xueyang");
-//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
+                        .addParam("currentUser", false)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-//                                boolean currentUser = result.getDataItem("currentUser");
-                                String userId = result.getDataItem("userId");
-                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                    UserSpHelper.setUserId(userId);
+                                boolean skip = "skip".equals(result.getErrorMessage());
+                                if (result.isSuccess() || skip) {
+                                    if (skip) {
+                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                        return;
+                                    }
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1297,20 +1312,19 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("from", "Test");
-//                bundle.putString("fromType", "wendu");
-//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
+                        .addParam("currentUser", false)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-//                                boolean currentUser = result.getDataItem("currentUser");
-                                String userId = result.getDataItem("userId");
-                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                    UserSpHelper.setUserId(userId);
+                                boolean skip = "skip".equals(result.getErrorMessage());
+                                if (result.isSuccess() || skip) {
+                                    if (skip) {
+                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                        return;
+                                    }
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1330,20 +1344,19 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("from", "Test");
-//                bundle.putString("fromType", "xuetang");
-//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
+                        .addParam("currentUser", false)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-//                                boolean currentUser = result.getDataItem("currentUser");
-                                String userId = result.getDataItem("userId");
-                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                    UserSpHelper.setUserId(userId);
+                                boolean skip = "skip".equals(result.getErrorMessage());
+                                if (result.isSuccess() || skip) {
+                                    if (skip) {
+                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                        return;
+                                    }
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1362,21 +1375,20 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("from", "Test");
-//                bundle.putString("fromType", "xindian");
-//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
+                        .addParam("currentUser", false)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-//                                boolean currentUser = result.getDataItem("currentUser");
-                                String userId = result.getDataItem("userId");
-                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                    UserSpHelper.setUserId(userId);
-                                    CCHealthMeasureActions.jump2XinDianDetectActivity();
+                                boolean skip = "skip".equals(result.getErrorMessage());
+                                if (result.isSuccess() || skip) {
+                                    if (skip) {
+                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                        return;
+                                    }
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
@@ -1394,20 +1406,19 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("from", "Test");
-//                bundle.putString("fromType", "tizhong");
-//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
+                        .addParam("currentUser", false)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-//                                boolean currentUser = result.getDataItem("currentUser");
-                                String userId = result.getDataItem("userId");
-                                if (result.isSuccess()) {
-                                    UserSpHelper.setUserId(userId);
+                                boolean skip = "skip".equals(result.getErrorMessage());
+                                if (result.isSuccess() || skip) {
+                                    if (skip) {
+                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                        return;
+                                    }
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
@@ -1427,27 +1438,25 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("from", "Test");
-//                bundle.putString("fromType", "sanheyi");
-//                CCFaceRecognitionActions.jump2FaceRecognitionActivity(this, bundle);
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
+                        .addParam("currentUser", false)
                         .build()
                         .callAsyncCallbackOnMainThread(new IComponentCallback() {
                             @Override
                             public void onResult(CC cc, CCResult result) {
-//                                boolean currentUser = result.getDataItem("currentUser");
-                                String userId = result.getDataItem("userId");
-                                if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                    UserSpHelper.setUserId(userId);
+                                boolean skip = "skip".equals(result.getErrorMessage());
+                                if (result.isSuccess() || skip) {
+                                    if (skip) {
+                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                        return;
+                                    }
                                     CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                                 } else {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
                             }
                         });
-
                 return true;
             }
         }

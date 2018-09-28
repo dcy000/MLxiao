@@ -34,16 +34,20 @@ public class OnlineDoctorListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFlag = getIntent().getStringExtra("flag");
         setContentView(R.layout.activity_online_doctor_list);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("在线医生");
+        if ("contract".equals(mFlag)) {
+            mTitleText.setText("签约医生");
+        } else {
+            mTitleText.setText("在线医生");
+        }
         initView();
 
         sharedPreferences = getSharedPreferences(ConstantData.ONLINE_TIME, Context.MODE_PRIVATE);
 
         sharedPreference = getSharedPreferences(ConstantData.ONLINE_ID, Context.MODE_PRIVATE);
 
-        mFlag = getIntent().getStringExtra("flag");
         if ("contract".equals(mFlag)) {
             NetworkApi.doctor_list(0, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
                 @Override

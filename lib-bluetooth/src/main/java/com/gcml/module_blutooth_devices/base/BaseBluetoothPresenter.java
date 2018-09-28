@@ -7,7 +7,6 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -30,7 +29,9 @@ import com.inuker.bluetooth.library.search.response.SearchResponse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<SearchResult> {
@@ -57,17 +58,16 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
     protected boolean isDestroy = false;
     private boolean isReturnServiceAndCharacteristic = false;
     private boolean isSearchedTargetDevice = false;
-    private static boolean isConnected = false;
+    private boolean isConnected = false;
     protected static android.bluetooth.BluetoothDevice lockedDevice;
     private WeakHandler weakHandler;
     private WeakHandler weakHandler2;
     private static final int SEARCH_MAC2NAME = 1;
     private static final int DEVICE_DISCONNECTED = 2;
-    private boolean isSetConnectListenter = false;
+    private MyConnectStateListener connectStateListener;
+    private MySearchListener searchListener;
     private MyConnectListener connectListener;
-    private static long currenMillisecond = 0;
-
-
+    private Map<String, BleConnectStatusListener> connectAddress = new HashMap<>();
     private final Handler.Callback weakRunnable = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -98,8 +98,8 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
         BaseBluetoothPresenter.discoverSetting = discoverSetting;
         weakHandler = new WeakHandler(weakRunnable);
         weakHandler2 = new WeakHandler();
-        //如果物理地址连接8秒之后还没有连接成功 则改为以蓝牙名称匹配
-        timeCount = new TimeCount(8000, 1000, weakHandler);
+        //如果物理地址连接15秒之后还没有连接成功 则改为以蓝牙名称匹配
+        timeCount = new TimeCount(15000, 1000, weakHandler);
         discoverType = discoverSetting.getDiscoverType();
         targetAddress = discoverSetting.getTargetMac();
         targetName = discoverSetting.getTargetName();
@@ -167,87 +167,90 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
             Logg.e(BaseBluetoothPresenter.class, "请配置搜索参数:request==null ");
             return;
         }
-        BluetoothClientManager.getClient().search(request, new SearchResponse() {
-            @Override
-            public void onSearchStarted() {
-                currenMillisecond = System.currentTimeMillis();
-                isOnSearching = true;
-                startDiscoverDevices();
-            }
+        if (searchListener == null) {
+            Logg.e(BaseBluetoothPresenter.class, searchListener+"");
+            searchListener = new MySearchListener();
+        }
+        BluetoothClientManager.getClient().search(request, searchListener);
+    }
 
-            @Override
-            public void onDeviceFounded(SearchResult searchResult) {
-                if (searchResult == null) {
-                    return;
-                }
-                String name = searchResult.getName();
-                String address = searchResult.getAddress();
-                switch (discoverType) {
-                    case DISCOVER_WITH_NAME:
-                        if (TextUtils.isEmpty(targetName)) {
-                            throw new NullPointerException("连接的设备为NULL");
-                        }
-                        if (!TextUtils.isEmpty(name) && name.startsWith(targetName)) {
+
+    class MySearchListener implements SearchResponse {
+
+        @Override
+        public void onSearchStarted() {
+            isOnSearching = true;
+            startDiscoverDevices();
+        }
+
+        @Override
+        public void onDeviceFounded(SearchResult searchResult) {
+            if (searchResult == null) {
+                return;
+            }
+            String name = searchResult.getName();
+            String address = searchResult.getAddress();
+            switch (discoverType) {
+                case DISCOVER_WITH_NAME:
+                    if (TextUtils.isEmpty(targetName)) {
+                        throw new NullPointerException("连接的设备为NULL");
+                    }
+                    if (!TextUtils.isEmpty(name) && name.startsWith(targetName)) {
+                        BluetoothClientManager.getClient().stopSearch();
+                        isOnSearching = false;
+                        isReturnServiceAndCharacteristic = discoveredTargetDevice(searchResult);
+                    }
+                    break;
+                case DISCOVER_WITH_MIX:
+                    if (TextUtils.isEmpty(targetAddress) && TextUtils.isEmpty(targetName)) {
+                        throw new NullPointerException("混合扫描需要配置mac和name");
+                    }
+                    if (!TextUtils.isEmpty(name)) {
+                        if (address.equals(targetAddress)) {
                             BluetoothClientManager.getClient().stopSearch();
                             isOnSearching = false;
-//                                lockedDevice = new BluetoothDevice(DEVICE_INITIAL, searchResult);
-                            isReturnServiceAndCharacteristic = discoveredTargetDevice(searchResult);
+                            discoveredTargetDevice(searchResult);
+                            return;
                         }
-                        break;
-                    case DISCOVER_WITH_MIX:
-                        if (TextUtils.isEmpty(targetAddress) && TextUtils.isEmpty(targetName)) {
-                            throw new NullPointerException("混合扫描需要配置mac和name");
+                        if (name.startsWith(targetName)) {
+                            discoverNewDevices(searchResult);
                         }
-                        if (!TextUtils.isEmpty(name)) {
-                            if (address.equals(targetAddress)) {
-                                BluetoothClientManager.getClient().stopSearch();
-                                isOnSearching = false;
-//                                    lockedDevice = new BluetoothDevice(DEVICE_INITIAL, searchResult);
-                                discoveredTargetDevice(searchResult);
-                                return;
-                            }
-                            if (name.startsWith(targetName)) {
-                                discoverNewDevices(searchResult);
-                            }
-                        }
+                    }
 
-                        break;
-                    default:
-                        break;
-                }
+                    break;
+                default:
+                    break;
             }
+        }
 
-            @Override
-            public void onSearchStopped() {
-                Logg.e(BaseBluetoothPresenter.class, "耗时：" + (System.currentTimeMillis() - currenMillisecond));
-                switch (discoverType) {
-                    case IPresenter.DISCOVER_WITH_MAC:
-                    case IPresenter.DISCOVER_WITH_NAME:
-                        if (!isSearchedTargetDevice) {
-                            unDiscoveredTargetDevice();
-                        }
-                        break;
-                    case IPresenter.DISCOVER_WITH_MIX:
-                        if (!isSearchedTargetDevice && devices.size() > 0) {
-                            Collections.sort(devices, BaseBluetoothPresenter.this);
-                            discoveredTargetDevice(devices.get(0));
-                        } else {
-                            unDiscoveredTargetDevice();
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                isOnSearching = false;
-                stopDiscoverDevices();
+        @Override
+        public void onSearchStopped() {
+            switch (discoverType) {
+                case IPresenter.DISCOVER_WITH_MAC:
+                case IPresenter.DISCOVER_WITH_NAME:
+                    if (!isSearchedTargetDevice) {
+                        unDiscoveredTargetDevice();
+                    }
+                    break;
+                case IPresenter.DISCOVER_WITH_MIX:
+                    if (!isSearchedTargetDevice && devices.size() > 0) {
+                        Collections.sort(devices, BaseBluetoothPresenter.this);
+                        discoveredTargetDevice(devices.get(0));
+                    } else {
+                        unDiscoveredTargetDevice();
+                    }
+                    break;
+                default:
+                    break;
             }
+            isOnSearching = false;
+            stopDiscoverDevices();
+        }
 
-            @Override
-            public void onSearchCanceled() {
+        @Override
+        public void onSearchCanceled() {
 
-            }
-        });
-
+        }
     }
 
     @Override
@@ -261,81 +264,90 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
         if (discoverType == DISCOVER_WITH_MAC && timeCount != null) {
             timeCount.start();
         }
-        BluetoothClientManager.getClient().connect(macAddress, options, new BleConnectResponse() {
-            @Override
-            public void onResponse(int code, BleGattProfile profile) {
-                if (code == Constants.REQUEST_SUCCESS) {
-                    if (discoverType == DISCOVER_WITH_MAC && timeCount != null) {
-                        timeCount.cancel();
-                    }
-                    isConnected = true;
-                    if (!isReturnServiceAndCharacteristic) {
-                        connectSuccessed(macAddress, null, false);
-                        return;
-                    }
-                    List<BleGattService> services = profile.getServices();
-                    if (services != null && services.size() > 0) {
-                        List<BluetoothServiceDetail> details = new ArrayList<>();
-                        for (BleGattService service : services) {
-                            BluetoothServiceDetail detail = new BluetoothServiceDetail();
-                            detail.setService(service.getUUID());
-                            detail.setMacAddress(macAddress);
-                            List<BleGattCharacter> characters = service.getCharacters();
-                            if (characters != null && characters.size() > 0) {
-                                List<BluetoothServiceDetail.CharacteristicBean> characteristicBeans = new ArrayList<>();
-                                for (BleGattCharacter character : characters) {
-                                    BluetoothServiceDetail.CharacteristicBean characteristicBean = new BluetoothServiceDetail.CharacteristicBean();
-                                    characteristicBean.setUuid(character.getUuid());
-                                    int charaProp = character.getProperty();
-                                    List<Integer> types = new ArrayList<>();
-                                    if ((charaProp & BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
-                                        types.add(BluetoothServiceDetail.READ);
-                                    }
-                                    if ((charaProp & BluetoothGattCharacteristic.PROPERTY_WRITE) > 0) {
-                                        types.add(BluetoothServiceDetail.WRITE);
-                                    }
-                                    if ((charaProp & BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE) > 0) {
-                                        types.add(BluetoothServiceDetail.WRITE_NO_RESPONSE);
-                                    }
-                                    if ((charaProp & BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
-                                        types.add(BluetoothServiceDetail.NOTIFY);
-                                    }
-                                    if ((charaProp & BluetoothGattCharacteristic.PROPERTY_INDICATE) > 0) {
-                                        types.add(BluetoothServiceDetail.INDICATE);
-                                    }
-                                    characteristicBean.setType(types);
-                                    characteristicBeans.add(characteristicBean);
-                                }
-                                detail.setCharacteristics(characteristicBeans);
-                            } else {
-                                Logg.e(BaseBluetoothPresenter.class, "该服务下未发现特征");
-                            }
-                            details.add(detail);
-                        }
-                        connectSuccessed(macAddress, details, isReturnServiceAndCharacteristic);
-                    } else {
-                        Logg.e(BaseBluetoothPresenter.class, "获取服务失败");
-                    }
-
-                } else {
-                    connectFailed();
-                }
-            }
-        });
-        //因为此方法会重复调用，多次调用会注册多个广播，故设置isSetConnectListenter进行控制
-        if (!isSetConnectListenter) {
-            isSetConnectListenter = true;
-            connectListener = new MyConnectListener(weakHandler);
-            BluetoothClientManager.getClient().registerConnectStatusListener(macAddress, connectListener);
+        if (connectListener == null) {
+            Logg.e(BaseBluetoothPresenter.class, connectListener+"");
+            connectListener = new MyConnectListener(macAddress);
+        }
+        BluetoothClientManager.getClient().connect(macAddress, options, connectListener);
+        if (connectStateListener == null) {
+            Logg.e(BaseBluetoothPresenter.class, connectStateListener+"");
+            connectStateListener = new MyConnectStateListener();
+        }
+        if (!TextUtils.isEmpty(macAddress)) {
+            connectAddress.put(macAddress, connectStateListener);
+            BluetoothClientManager.getClient().registerConnectStatusListener(macAddress, connectStateListener);
         }
     }
 
-    static class MyConnectListener extends BleConnectStatusListener {
-        private WeakHandler weakHandler;
+    class MyConnectListener implements BleConnectResponse {
+        private String macAddress;
 
-        public MyConnectListener(WeakHandler weakHandler) {
-            this.weakHandler = weakHandler;
+        public MyConnectListener(String macAddress) {
+            this.macAddress = macAddress;
         }
+
+        @Override
+        public void onResponse(int code, BleGattProfile profile) {
+            if (code == Constants.REQUEST_SUCCESS) {
+                if (discoverType == DISCOVER_WITH_MAC && timeCount != null) {
+                    timeCount.cancel();
+                }
+                isConnected = true;
+                if (!isReturnServiceAndCharacteristic) {
+                    connectSuccessed(macAddress, null, false);
+                    return;
+                }
+                List<BleGattService> services = profile.getServices();
+                if (services != null && services.size() > 0) {
+                    List<BluetoothServiceDetail> details = new ArrayList<>();
+                    for (BleGattService service : services) {
+                        BluetoothServiceDetail detail = new BluetoothServiceDetail();
+                        detail.setService(service.getUUID());
+                        detail.setMacAddress(macAddress);
+                        List<BleGattCharacter> characters = service.getCharacters();
+                        if (characters != null && characters.size() > 0) {
+                            List<BluetoothServiceDetail.CharacteristicBean> characteristicBeans = new ArrayList<>();
+                            for (BleGattCharacter character : characters) {
+                                BluetoothServiceDetail.CharacteristicBean characteristicBean = new BluetoothServiceDetail.CharacteristicBean();
+                                characteristicBean.setUuid(character.getUuid());
+                                int charaProp = character.getProperty();
+                                List<Integer> types = new ArrayList<>();
+                                if ((charaProp & BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
+                                    types.add(BluetoothServiceDetail.READ);
+                                }
+                                if ((charaProp & BluetoothGattCharacteristic.PROPERTY_WRITE) > 0) {
+                                    types.add(BluetoothServiceDetail.WRITE);
+                                }
+                                if ((charaProp & BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE) > 0) {
+                                    types.add(BluetoothServiceDetail.WRITE_NO_RESPONSE);
+                                }
+                                if ((charaProp & BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
+                                    types.add(BluetoothServiceDetail.NOTIFY);
+                                }
+                                if ((charaProp & BluetoothGattCharacteristic.PROPERTY_INDICATE) > 0) {
+                                    types.add(BluetoothServiceDetail.INDICATE);
+                                }
+                                characteristicBean.setType(types);
+                                characteristicBeans.add(characteristicBean);
+                            }
+                            detail.setCharacteristics(characteristicBeans);
+                        } else {
+                            Logg.e(BaseBluetoothPresenter.class, "该服务下未发现特征");
+                        }
+                        details.add(detail);
+                    }
+                    connectSuccessed(macAddress, details, isReturnServiceAndCharacteristic);
+                } else {
+                    Logg.e(BaseBluetoothPresenter.class, "获取服务失败");
+                }
+
+            } else {
+                connectFailed();
+            }
+        }
+    }
+
+    class MyConnectStateListener extends BleConnectStatusListener {
 
         @Override
         public void onConnectStatusChanged(String s, int i) {
@@ -343,13 +355,11 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 case Constants.STATUS_CONNECTED:
                     break;
                 case Constants.STATUS_DISCONNECTED:
-                    if (System.currentTimeMillis() - currenMillisecond > 2000) {
-                        currenMillisecond = System.currentTimeMillis();
-                        isConnected = false;
+                    isConnected = false;
+                    if (weakHandler!=null){
                         weakHandler.sendEmptyMessage(DEVICE_DISCONNECTED);
-                    } else {
-                        Logg.e(BaseBluetoothPresenter.class, "System.currentTimeMillis() - currenMillisecond < 2000");
                     }
+                    Logg.e(BaseBluetoothPresenter.class, "onConnectStatusChanged:" + i);
                     break;
                 default:
                     break;
@@ -400,7 +410,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
         }
     }
 
-    static class TimeCount extends CountDownTimer {
+    class TimeCount extends CountDownTimer {
         private WeakHandler weakHandler;
 
         TimeCount(long millisInFuture, long countDownInterval, WeakHandler weakHandler) {
@@ -411,7 +421,6 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
         @Override
         public void onFinish() {// 计时完毕时触发
             if (!isConnected) {
-                Logg.e(BaseBluetoothPresenter.class, "onFinish: 计时器执行结束");
                 weakHandler.sendEmptyMessage(SEARCH_MAC2NAME);
             }
         }
@@ -440,8 +449,6 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
             timeCount.cancel();
             timeCount = null;
         }
-
-
         if (isOnSearching) {
             BluetoothClientManager.getClient().stopSearch();
         }
@@ -455,14 +462,25 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 address = lockedDevice.getAddress();
             }
         }
-        Logg.e(BaseBluetoothPresenter.class, "被注销的mac地址" + address);
-        if (!TextUtils.isEmpty(address) && connectListener != null) {
-            BluetoothClientManager.getClient().unregisterConnectStatusListener(address, connectListener);
-            connectListener = null;
+        if (isConnected) {
             BluetoothClientManager.getClient().disconnect(address);
-            Logg.e(BaseBluetoothPresenter.class, "connectListener=null");
         }
-        currenMillisecond = 0;
+        Logg.e(BaseBluetoothPresenter.class, "被注销的mac地址" + address);
+        if (!TextUtils.isEmpty(address) && connectStateListener != null) {
+            BluetoothClientManager.getClient().unregisterConnectStatusListener(address, connectStateListener);
+            if (connectAddress.size() > 0) {
+                for (String key : connectAddress.keySet()) {
+                    BleConnectStatusListener bleConnectStatusListener = connectAddress.get(key);
+                    if (bleConnectStatusListener!=null){
+                        BluetoothClientManager.getClient().unregisterConnectStatusListener(key,bleConnectStatusListener);
+                    }
+                }
+                connectAddress.clear();
+            }
+            connectStateListener = null;
+        }
+        searchListener = null;
+        connectListener = null;
         lockedDevice = null;
         isConnected = false;
         isDestroy = true;
@@ -525,11 +543,6 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
             connectDevice(targetAddress);
             return;
         }
-        if (!TextUtils.isEmpty(targetName)) {
-            discoverType = DISCOVER_WITH_NAME;
-            request = setSearchRequest();
-            searchDevices();
-        }
     }
 
     /**
@@ -565,7 +578,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                         retryConnect();
                     }
                 }
-            }, 2000);
+            }, 3000);
         }
     }
 

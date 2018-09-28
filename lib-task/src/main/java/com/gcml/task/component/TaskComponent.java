@@ -26,6 +26,8 @@ public class TaskComponent implements IComponent {
     public boolean onCall(CC cc) {
         Context context = cc.getContext();
         Intent intent = new Intent(context, TaskActivity.class);
+        String startType = cc.getParamItem("startType");
+        intent.putExtra("startType", startType);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }

@@ -27,6 +27,13 @@ public interface UserService {
             @Field("password") String pwd
     );
 
+    @POST("ZZB/login/refresh/")
+    Observable<ApiResult<UserToken>> refreshToken(
+            @Header("equipmentId") String deviceId,
+            @Query("userId") String userId,
+            @Query("refreshToken") String refreshToken
+    );
+
     @FormUrlEncoded()
     @POST("ZZB/acc/sel_account")
     Observable<ApiResult<Object>> hasAccount(
@@ -68,8 +75,8 @@ public interface UserService {
             @Path("idCard") String idCard
     );
 
-    @GET("ZZB/br/selMoreUser")
+    @GET("ZZB/api/user/info/users/")
     Observable<ApiResult<List<UserEntity>>> getAllUsers(
-            @Query("p") String usersIds
+            @Query("users") String usersIds
     );
 }

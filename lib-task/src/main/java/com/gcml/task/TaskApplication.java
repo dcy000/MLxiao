@@ -17,18 +17,12 @@ public class TaskApplication implements AppLifecycleCallbacks {
 
     @Override
     public void attachBaseContext(Application app, Context base) {
-//        MultiDex.install(base);
+
     }
 
     @Override
     public void onCreate(Application app) {
         application = app;
-        StringBuilder builder = new StringBuilder();
-        builder.append("appid=")
-                .append("59196d96")
-                .append(",")
-                .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
-        SpeechUtility.createUtility(app, builder.toString());
     }
 
     @Override
