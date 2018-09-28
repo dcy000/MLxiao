@@ -2,15 +2,18 @@ package com.medlink.danbogh.wakeup;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.hypertensionmanagement.activity.DetecteTipActivity;
+import com.example.han.referralproject.recyclerview.CheckContractActivity;
+import com.example.han.referralproject.recyclerview.DoctorMesActivity;
+import com.gcml.common.app.lifecycle.TopActivityHelper;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.old.auth.register.ConfirmContractActivity;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.VoiceWakeuper;
@@ -18,6 +21,7 @@ import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
 import com.iflytek.cloud.util.ResourceUtil;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.wakeup.dialog.VoiceDialog;
 
 import org.json.JSONException;
@@ -131,6 +135,7 @@ public class WakeupHelper {
 
     private WakeuperListener listener;
 
+
     private WakeuperListener wakeuperlistener() {
         if (listener == null) {
             listener = new AbsWakeuperListener() {
@@ -149,6 +154,22 @@ public class WakeupHelper {
                                 MLVoiceSynthetize.startSynthesize(sContext, "如需使用唤醒功能,请先登录");
                                 return;
                             }
+
+                            if (TopActivityHelper.topActivity != null) {
+                                if (TopActivityHelper.topActivity instanceof DoctorMesActivity
+                                        || TopActivityHelper.topActivity instanceof DoctorMesActivity
+                                        || TopActivityHelper.topActivity instanceof ConfirmContractActivity
+                                        || TopActivityHelper.topActivity instanceof CheckContractActivity
+                                        || TopActivityHelper.topActivity instanceof NimCallActivity
+                                        || TopActivityHelper.topActivity instanceof DetecteTipActivity
+//                                        || TopActivityHelper.topActivity instanceof TaskComplyActivity
+//                                        || TopActivityHelper.topActivity instanceof TaskComplyChoiceActivity
+                                        )
+
+                                    return;
+                            }
+
+
                             if (voiceDialog == null) {
                                 voiceDialog = new VoiceDialog(sContext, R.style.XDialog);
                                 voiceDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);

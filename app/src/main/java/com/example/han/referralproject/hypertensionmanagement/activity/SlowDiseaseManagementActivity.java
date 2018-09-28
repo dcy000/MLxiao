@@ -343,7 +343,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     // TODO: 2018/9/19
     private void ContinueOrNotDialog() {
-        TwoChoiceDialog dialog = new TwoChoiceDialog("是否继续？", "是", "否");
+        TwoChoiceDialog dialog = new TwoChoiceDialog("您之前的流程还未完成，是否要继续？", "是", "否");
         dialog.setListener(new TwoChoiceDialog.OnDialogClickListener() {
             @Override
             public void onClickConfirm(String content) {
@@ -356,7 +356,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             }
         });
         dialog.show(getFragmentManager(), "yuanfa");
-        mlSpeak("是否继续？");
+        mlSpeak("您之前的流程还未完成，是否要继续？");
     }
 
     @Override
