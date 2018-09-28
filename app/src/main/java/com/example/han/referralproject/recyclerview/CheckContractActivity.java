@@ -7,16 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.qianyue.QianYueRepository;
+import com.example.han.referralproject.qianyue.bean.DoctorInfoBean;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
@@ -29,6 +28,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class CheckContractActivity extends BaseActivity {
@@ -47,40 +49,19 @@ public class CheckContractActivity extends BaseActivity {
     TextView tvCancelContract;
     private Unbinder mUnbinder;
     private QianYueRepository qianYueRepository;
+    private TextView tvDoctorLevel;
+    private TextView tvPrice;
+    private TextView tvGoodAtNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_contract);
+        initView();
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("签  约  医  生");
         qianYueRepository = new QianYueRepository();
-
-        NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
-            @Override
-            public void onSuccess(Doctor response) {
-                if (!TextUtils.isEmpty(response.getDocter_photo())) {
-                    Picasso.with(CheckContractActivity.this)
-                            .load(response.getDocter_photo())
-                            .placeholder(R.drawable.avatar_placeholder)
-                            .error(R.drawable.avatar_placeholder)
-                            .tag(this)
-                            .fit()
-                            .into(ivDoctorAvatar);
-                }
-                tvDoctorName.setText(String.format(getString(R.string.doctor_name), response.getDoctername()));
-                tvProfessionalRank.setText(String.format(getString(R.string.doctor_zhiji), response.getDuty()));
-                tvGoodAt.setText(String.format(getString(R.string.doctor_shanchang), response.getDepartment()));
-                tvService.setText(String.format(getString(R.string.doctor_shoufei), response.getService_amount()));
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort(message);
-            }
-        });
     }
 
 
@@ -132,20 +113,44 @@ public class CheckContractActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-//        CCResult result;
-//        Observable<UserEntity> rxUser;
-//        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-//        rxUser = result.getDataItem("data");
-//        rxUser.subscribeOn(Schedulers.io())
-//                .as(RxUtils.autoDisposeConverter(this))
-//                .subscribe(new DefaultObserver<UserEntity>() {
-//                    @Override
-//                    public void onNext(UserEntity user) {
-//                        String doctorId = user.doctorId;
-//
-//
-//                    }
-//                });
+        Observable<UserEntity> rxUser
+                = CC.obtainBuilder("com.gcml.auth.getUser")
+                .build().call().getDataItem("data");
 
+        rxUser.subscribeOn(Schedulers.io())
+                .flatMap(new Function<UserEntity, ObservableSource<DoctorInfoBean>>() {
+                    @Override
+                    public ObservableSource<DoctorInfoBean> apply(UserEntity userEntity) throws Exception {
+                        return qianYueRepository.getDoctorInfo(userEntity.doctorId);
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<DoctorInfoBean>() {
+                    @Override
+                    public void onNext(DoctorInfoBean response) {
+                        if (!TextUtils.isEmpty(response.docter_photo)) {
+                            Picasso.with(CheckContractActivity.this)
+                                    .load(response.docter_photo)
+                                    .placeholder(R.drawable.avatar_placeholder)
+                                    .error(R.drawable.avatar_placeholder)
+                                    .tag(this)
+                                    .fit()
+                                    .into(ivDoctorAvatar);
+                        }
+                        tvDoctorName.setText(String.format(getString(R.string.doctor_name), response.doctername));
+                        tvDoctorLevel.setText(response.duty);
+                        tvGoodAtNew.setText(response.gat);
+                        tvPrice.setText(String.valueOf(response.service_amount) + "元/分");
+                    }
+                });
+
+    }
+
+    private void initView() {
+        tvDoctorLevel = (TextView) findViewById(R.id.tv_doctor_level);
+        tvGoodAtNew = (TextView) findViewById(R.id.tv_good_at);
+        tvPrice = (TextView) findViewById(R.id.tv_price);
     }
 }
