@@ -6,16 +6,21 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.qianyue.QianYueRepository;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.squareup.picasso.Picasso;
 
@@ -23,6 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 public class CheckContractActivity extends BaseActivity {
 
@@ -39,6 +46,7 @@ public class CheckContractActivity extends BaseActivity {
     @BindView(R.id.tv_cancel_contract)
     TextView tvCancelContract;
     private Unbinder mUnbinder;
+    private QianYueRepository qianYueRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,7 @@ public class CheckContractActivity extends BaseActivity {
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("签  约  医  生");
+        qianYueRepository = new QianYueRepository();
 
         NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
             @Override
@@ -74,6 +83,7 @@ public class CheckContractActivity extends BaseActivity {
         });
     }
 
+
     @OnClick(R.id.tv_cancel_contract)
     public void onTvCancelContractClicked() {
         NDialog1 dialog = new NDialog1(this);
@@ -96,17 +106,17 @@ public class CheckContractActivity extends BaseActivity {
 
     private void onCancelContract() {
         NetworkApi.cancelContract(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object response) {
-                        ToastUtils.showShort("取消成功");
-                        finish();
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        ToastUtils.showShort(message);
-                    }
-                });
+            @Override
+            public void onSuccess(Object response) {
+                ToastUtils.showShort("取消成功");
+                finish();
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ToastUtils.showShort(message);
+            }
+        });
     }
 
     @Override
@@ -115,5 +125,27 @@ public class CheckContractActivity extends BaseActivity {
             mUnbinder.unbind();
         }
         super.onDestroy();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+//        CCResult result;
+//        Observable<UserEntity> rxUser;
+//        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+//        rxUser = result.getDataItem("data");
+//        rxUser.subscribeOn(Schedulers.io())
+//                .as(RxUtils.autoDisposeConverter(this))
+//                .subscribe(new DefaultObserver<UserEntity>() {
+//                    @Override
+//                    public void onNext(UserEntity user) {
+//                        String doctorId = user.doctorId;
+//
+//
+//                    }
+//                });
+
     }
 }

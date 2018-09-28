@@ -19,8 +19,9 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.AppManager;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.widget.dialog.SingleDialog;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -99,7 +100,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 onclickHypertensionManage();
                 break;
             case R.id.iv_blood_sugar_manage:
-//                ToastUtils.showShort("敬请期待");
+                ToastUtils.showShort("敬请期待");
                 break;
         }
     }
@@ -141,10 +142,20 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                     showOriginHypertensionDialog();
                 }
             } else {
-                new SingleDialog(this)
+
+                new AlertDialog(this)
                         .builder()
                         .setMsg("您在7天内已生成过健康方案，点击健康方案可直接查看。")
-                        .setPositiveButton("健康方案", new View.OnClickListener() {
+                        .setNegativeButton("重新测量", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                CC.obtainBuilder("health_measure")
+                                        .setActionName("ToAllMeasureActivity")
+                                        .addParam("measure_type", IPresenter.MEASURE_BLOOD_PRESSURE)
+                                        .build().call();
+                            }
+                        })
+                        .setPositiveButton("将康方案", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));
@@ -333,7 +344,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     // TODO: 2018/9/19
     private void ContinueOrNotDialog() {
-        TwoChoiceDialog dialog = new TwoChoiceDialog("是否继续？", "是", "否");
+        TwoChoiceDialog dialog = new TwoChoiceDialog("您之前的流程还未完成，是否要继续？", "是", "否");
         dialog.setListener(new TwoChoiceDialog.OnDialogClickListener() {
             @Override
             public void onClickConfirm(String content) {
@@ -346,7 +357,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             }
         });
         dialog.show(getFragmentManager(), "yuanfa");
-        mlSpeak("是否继续？");
+        mlSpeak("您之前的流程还未完成，是否要继续？");
     }
 
     @Override

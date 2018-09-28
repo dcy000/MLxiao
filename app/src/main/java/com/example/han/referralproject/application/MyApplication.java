@@ -36,9 +36,6 @@ import org.litepal.LitePal;
 import cn.beecloud.BeeCloud;
 import cn.jpush.android.api.JPushInterface;
 
-//import tech.linjiang.pandora.Pandora;
-
-
 public class MyApplication extends Application {
     private static MyApplication mInstance;
 
