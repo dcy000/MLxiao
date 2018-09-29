@@ -1,117 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.han.referralproject.activity.MarketActivity">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_goods"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/main_bg"
-        android:orientation="vertical"
-        android:overScrollMode="never"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/rg_health_goods"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+    <!--<com.gcml.common.widget.toolbar.TranslucentToolBar-->
+        <!--android:id="@+id/tb_market_recomend"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"></com.gcml.common.widget.toolbar.TranslucentToolBar>-->
 
-    <RadioGroup
-        android:id="@+id/rg_health_goods"
-        android:layout_width="220dp"
-        android:layout_height="0dp"
-        android:background="@color/main_bg"
-        android:orientation="vertical"
-        android:paddingRight="22dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/vp_goods"
-        app:layout_constraintTop_toTopOf="parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <RadioButton
-            android:id="@+id/rb_shanshi"
+        <ScrollView
+            android:layout_width="400pt"
+            android:layout_height="match_parent">
+
+            <RadioGroup
+                android:id="@+id/rg_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </RadioGroup>
+        </ScrollView>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_goods"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/bg_rb_history_record"
-            android:button="@null"
-            android:gravity="center"
-            android:drawableLeft="@drawable/bg_rb_history_record_shape"
-            android:text="小E推荐"
-            android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp" />
+            android:layout_height="match_parent"
+            android:background="@color/main_bg"
+            android:orientation="vertical"
+            android:overScrollMode="never" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line"
-            android:visibility="gone" />
-
-        <RadioButton
-            android:drawableLeft="@drawable/bg_rb_history_record_shape"
-            android:id="@+id/rb_yaopin"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/bg_rb_history_record"
-            android:button="@null"
-            android:gravity="center"
-            android:text="中西药品"
-            android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line"
-            android:visibility="gone" />
-
-        <RadioButton
-            android:drawableLeft="@drawable/bg_rb_history_record_shape"
-            android:id="@+id/rb_yiliaoshebei"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/bg_rb_history_record"
-            android:button="@null"
-            android:gravity="center"
-            android:text="监测器材"
-            android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line" />
-
-        <RadioButton
-            android:drawableLeft="@drawable/bg_rb_history_record_shape"
-            android:id="@+id/rb_baojianpin"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/bg_rb_history_record"
-            android:button="@null"
-            android:gravity="center"
-            android:text="营养保健"
-            android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line"
-            android:visibility="gone" />
-
-        <RadioButton
-            android:drawableLeft="@drawable/bg_rb_history_record_shape"
-            android:id="@+id/rb_liliao"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@drawable/bg_rb_history_record"
-            android:button="@null"
-            android:gravity="center"
-            android:text="理疗康复"
-            android:textColor="@drawable/bg_rb_history_record"
-            android:textSize="28sp" />
-    </RadioGroup>
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</LinearLayout>

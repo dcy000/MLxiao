@@ -66,7 +66,7 @@ public class Goods implements Serializable {
 
     @Override
     public String toString() {
-        return "Goods{" +
+        return "GoodsRepository{" +
                 "goodsid='" + goodsid + '\'' +
                 ", goodsname='" + goodsname + '\'' +
                 ", goodsimage='" + goodsimage + '\'' +
