@@ -1,6 +1,8 @@
 package com.gcml.module_blutooth_devices.base;
 
 import android.app.Activity;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,22 +14,25 @@ import android.view.ViewGroup;
 
 import com.gcml.lib_utils.click.ClickEventListener;
 
+import java.util.List;
+
 public abstract class BluetoothBaseFragment extends Fragment {
-    protected View view=null;
-    protected boolean isMeasureFinishedOfThisTime =false;
+    protected View view = null;
+    protected boolean isMeasureFinishedOfThisTime = false;
     protected Context mContext;
     protected Activity mActivity;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         //全局控制上下文 子类统一使用该应用，避免异步任务结束后getActivity引起的空指针异常，但同时这种做法有内存泄漏的风险
-        this.mActivity=activity;
+        this.mActivity = activity;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.mContext=context;
+        this.mContext = context;
     }
 
     @Nullable
@@ -44,12 +49,20 @@ public abstract class BluetoothBaseFragment extends Fragment {
 
     protected abstract void initView(View view, Bundle bundle);
 
+    protected List<LifecycleObserver> lifecycle(Lifecycle lifecycle) {
+        return null;
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (view != null) {
             ((ViewGroup) view.getParent()).removeView(view);
+            view = null;
         }
+        isMeasureFinishedOfThisTime = false;
+        dealVoiceAndJump = null;
+        fragmentChanged = null;
     }
 
     /**
@@ -67,11 +80,19 @@ public abstract class BluetoothBaseFragment extends Fragment {
     public void setOnDealVoiceAndJumpListener(DealVoiceAndJump dealVoiceAndJump) {
         this.dealVoiceAndJump = dealVoiceAndJump;
     }
+
     protected FragmentChanged fragmentChanged;
-    public void setOnFragmentChangedListener(FragmentChanged fragmentChanged){
-        this.fragmentChanged=fragmentChanged;
+
+    public void setOnFragmentChangedListener(FragmentChanged fragmentChanged) {
+        this.fragmentChanged = fragmentChanged;
     }
-    protected void clickHealthHistory(View view){}
-    protected void clickVideoDemo(View view){}
-    protected void onMeasureFinished(String...results){}
+
+    protected void clickHealthHistory(View view) {
+    }
+
+    protected void clickVideoDemo(View view) {
+    }
+
+    protected void onMeasureFinished(String... results) {
+    }
 }

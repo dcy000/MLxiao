@@ -125,7 +125,9 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
      * @param brands
      */
     private void search(final String[] brands) {
-        mySearchResponse = new MySearchResponse(brands);
+        if (mySearchResponse == null) {
+            mySearchResponse = new MySearchResponse(brands);
+        }
         if (!PermissionsManager.getInstance().hasPermission(view.getThisContext(), DANGET_PERMISSION)) {
             if (view instanceof Activity) {
                 PermissionsManager.getInstance()
@@ -360,6 +362,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         }
         if (baseBluetoothPresenter != null) {
             baseBluetoothPresenter.onDestroy();
+            baseBluetoothPresenter=null;
         }
         mySearchResponse = null;
     }

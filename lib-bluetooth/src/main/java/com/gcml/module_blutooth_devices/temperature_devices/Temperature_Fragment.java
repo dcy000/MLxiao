@@ -21,7 +21,6 @@ import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 
 
-
 public class Temperature_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
@@ -78,9 +77,16 @@ public class Temperature_Fragment extends BluetoothBaseFragment implements IView
 
     private void chooseConnectType(String address, String brand) {
         if (TextUtils.isEmpty(address)) {
-            helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_TEMPERATURE);
+            if (helper == null) {
+                helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_TEMPERATURE);
+            }
             helper.start();
         } else {
+            if (bluetoothPresenter!=null){
+                bluetoothPresenter.checkBlueboothOpened();
+                return;
+            }
+
             switch (brand) {
                 case "AET-WD":
                     bluetoothPresenter = new Temperature_Ailikang_PresenterImp(this,
@@ -98,6 +104,8 @@ public class Temperature_Fragment extends BluetoothBaseFragment implements IView
                 case "FSRKB-EWQ01":
                     bluetoothPresenter = new Temperature_Zhiziyun_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "FSRKB-EWQ01"));
+                    break;
+                default:
                     break;
             }
         }
@@ -121,13 +129,13 @@ public class Temperature_Fragment extends BluetoothBaseFragment implements IView
 
     @Override
     public void updateData(String... datas) {
-        if (datas.length==2){
+        if (datas.length == 2) {
             mTvResult.setText("0.00");
             isMeasureFinishedOfThisTime = false;
-        }else if (datas.length == 1) {
+        } else if (datas.length == 1) {
             mTvResult.setText(datas[0]);
             float aFloat = Float.parseFloat(datas[0]);
-            if (!isMeasureFinishedOfThisTime &&aFloat>30) {
+            if (!isMeasureFinishedOfThisTime && aFloat > 30) {
                 isMeasureFinishedOfThisTime = true;
                 onMeasureFinished(datas[0]);
             }
@@ -152,11 +160,12 @@ public class Temperature_Fragment extends BluetoothBaseFragment implements IView
     public void onStop() {
         super.onStop();
         if (bluetoothPresenter != null) {
-            Logg.e(Temperature_Fragment.class, "presenter有没有走");
             bluetoothPresenter.onDestroy();
+            bluetoothPresenter=null;
         }
         if (helper != null) {
             helper.destroy();
+            helper=null;
         }
     }
 }

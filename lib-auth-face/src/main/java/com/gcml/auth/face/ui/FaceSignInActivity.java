@@ -257,7 +257,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                 Timber.i("%s", user);
                 if (!TextUtils.isEmpty(user.xfid)
                         && user.xfid.equals(faceId)) {
-                    theUserId = user.xfid;
+                    theUserId = user.id;
 
                     if (currentUser) {
                         if (!currentUserId.equals(user.id)) {
