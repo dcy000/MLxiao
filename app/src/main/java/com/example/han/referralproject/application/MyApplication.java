@@ -40,10 +40,6 @@ import java.util.logging.Level;
 
 import cn.beecloud.BeeCloud;
 import cn.jpush.android.api.JPushInterface;
-import okhttp3.OkHttpClient;
-import tech.linjiang.pandora.Pandora;
-import tech.linjiang.pandora.network.OkHttpInterceptor;
-
 
 public class MyApplication extends Application {
     private static MyApplication mInstance;
