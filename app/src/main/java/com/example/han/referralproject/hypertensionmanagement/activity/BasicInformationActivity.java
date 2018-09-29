@@ -1,6 +1,7 @@
 package com.example.han.referralproject.hypertensionmanagement.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -132,11 +133,23 @@ public class BasicInformationActivity extends BaseActivity {
                 String height = (String) getHeightItems().get(options1);
 
                 UserEntity user = new UserEntity();
-                user.height = height.replace("cm","");
+                user.height = height.replace("cm", "");
                 updateUserInfo(user);
 
             }
-        }).build();
+        })
+                .setLineSpacingMultiplier(3f)
+                .setSubCalSize(30)
+                .setContentTextSize(45)
+                .setSubmitColor(Color.parseColor("#FF108EE9"))
+                .setCancelColor(Color.parseColor("#FF999999"))
+                .setTextColorOut(Color.parseColor("#FF999999"))
+                .setTextColorCenter(Color.parseColor("#FF333333"))
+                .setLineSpacingMultiplier(Color.WHITE)
+                .setDividerColor(Color.WHITE)
+                .setBgColor(Color.WHITE)
+                .setTitleBgColor(Color.WHITE)
+                .build();
 
         pvOptions.setPicker(getHeightItems());
         pvOptions.setSelectOptions(125);
@@ -163,7 +176,19 @@ public class BasicInformationActivity extends BaseActivity {
                 updateUserInfo(user);
 
             }
-        }).build();
+        })
+                .setLineSpacingMultiplier(3f)
+                .setSubCalSize(30)
+                .setContentTextSize(40)
+                .setSubmitColor(Color.parseColor("#FF108EE9"))
+                .setCancelColor(Color.parseColor("#FF999999"))
+                .setTextColorOut(Color.parseColor("#FF999999"))
+                .setTextColorCenter(Color.parseColor("#FF333333"))
+                .setLineSpacingMultiplier(Color.WHITE)
+                .setDividerColor(Color.WHITE)
+                .setBgColor(Color.WHITE)
+                .setTitleBgColor(Color.WHITE)
+                .build();
         time.show();
     }
 
@@ -179,7 +204,7 @@ public class BasicInformationActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity o) {
-                        tvHeightInfo.setText(o.height+"cm");
+                        tvHeightInfo.setText(o.height + "cm");
                         tvBirthInfo.setText(o.birthday);
                         MLVoiceSynthetize.startSynthesize(getApplicationContext(), "修改成功");
                     }
