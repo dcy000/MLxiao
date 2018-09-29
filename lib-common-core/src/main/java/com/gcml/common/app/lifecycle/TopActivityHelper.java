@@ -18,22 +18,21 @@ public class TopActivityHelper implements Application.ActivityLifecycleCallbacks
 
     @Override
     public void onActivityStarted(Activity activity) {
-        topActivity = activity;
+
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-
+        topActivity = activity;
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-
+        topActivity = null;
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
-        topActivity = null;
     }
 
     @Override

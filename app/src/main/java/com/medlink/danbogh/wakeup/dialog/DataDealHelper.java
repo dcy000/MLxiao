@@ -22,6 +22,7 @@ import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.children.ChildEduHomeActivity;
+import com.example.han.referralproject.children.entertainment.ChildEduJokesActivity;
 import com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity;
 import com.example.han.referralproject.children.study.ChildEduPoemListActivity;
 import com.example.han.referralproject.constant.ConstantData;
@@ -290,6 +291,35 @@ public class DataDealHelper {
             return;
         }
 
+        if (inSpell.matches(".*(zuogejiancha|jianchashenti|zuotijian).*")) {
+
+            CC.obtainBuilder("com.gcml.auth.face.signin")
+                    .addParam("skip", true)
+                    .build()
+                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+                            String userId = result.getDataItem("userId");
+                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
+                                UserSpHelper.setUserId(userId);
+                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                            } else {
+                                ToastUtils.showShort(result.getErrorMessage());
+                            }
+                        }
+                    });
+
+            if (listener != null) {
+                listener.onEnd();
+            }
+
+//                CC.obtainBuilder("health_measure")
+//                        .setActionName("SingleMeasure").build()
+//                        .call();
+            return;
+        }
+
+
         if (inSpell.matches(".*(geren|xiugai)xinxi.*")
                 || inSpell.matches(".*huantouxiang.*")) {
             startActivity(MyBaseDataActivity.class);
@@ -302,7 +332,7 @@ public class DataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(lishishuju|lishijilu|jiancejieguo|celiangshuju|jiankangshuju|jiankangdangan|jianchajieguo).*")) {
+        if (inSpell.matches(".*(danganxiazai|lishishuju|lishijilu|jiancejieguo|celiangshuju|jiankangshuju|jiankangdangan|jianchajieguo).*")) {
             startActivity(HealthRecordActivity.class);
             return;
         }
@@ -320,13 +350,13 @@ public class DataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(qiehuan|qiehuanzhanghao|chongxindenglu|tianjiazhanghao).*")) {
+        if (inSpell.matches(".*(qiehuan|qiehuanzhanghao|chongxindenglu|zhongxindenglu|tianjiazhanghao).*")) {
             startActivity(PersonDetailActivity.class);
             return;
         }
 
 
-        if (inSpell.matches(".*(shezhi|jiqirenshezhi|wifilianjie|tiaojieyinliang|yiliangdaxiao).*")) {
+        if (inSpell.matches(".*(shezhi|jiqirenshezhi|wifilianjie|diaojieyinliang|tiaojieyinliang|yiliangdaxiao).*")) {
             startActivity(SettingActivity.class);
             return;
         }
@@ -364,7 +394,7 @@ public class DataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(taijiaoyinyue|taijiao).*")) {
+        if (inSpell.matches(".*(taijiaoyinyue|taijiaoyinle|taijiao|tingyinle).*")) {
             startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "胎教音乐");
             return;
         }
@@ -385,14 +415,14 @@ public class DataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(riqichaxun|jidianle|chaxunriqi|jintianxingqiji|jidianle|jintianshenmerizhi).*")) {
+        if (inSpell.matches(".*(riqichaxun|jidianle|chaxunriqi|jintianxingqiji|jidianle|jintianshenmerizi).*")) {
             CC.obtainBuilder("app.component.recreation.tool").setActionName("dateInquiry").build().call();
             if (listener != null) {
                 listener.onEnd();
             }
             return;
         }
-        if (inSpell.matches(".*(caipu|shaocai|zuocai|tuijiancai).*")) {
+        if (inSpell.matches(".*(caipu|shaocai|chishenme|chishengme|zuocai|tuijiancai).*")) {
             CC.obtainBuilder("app.component.recreation.tool").setActionName("cookBook").build().call();
             if (listener != null) {
                 listener.onEnd();
@@ -431,7 +461,7 @@ public class DataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(tingyinyue|tingge|fangge|yinyueguan).*")) {
+        if (inSpell.matches(".*(tingyinyue|tingge|fangge|yinyueguan|yinleguan).*")) {
             startActivity(TheOldMusicActivity.class);
             return;
         }
@@ -440,6 +470,12 @@ public class DataDealHelper {
             startActivity(ChildEduPoemListActivity.class);
             return;
         }
+
+        if (inSpell.matches(".*(jianggexiaohua|xiaohua|youqudehua).*")) {
+            startActivity(ChildEduJokesActivity.class);
+            return;
+        }
+
 
         if (result.matches(".*听故事|故事.*")) {
             startActivity(ChildEduPoemListActivity.class);
@@ -499,7 +535,7 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(jiankangzhishi|jiankangketang|jiangkangxuanchuan" +
                 "|tingke|xuexi|yiqishiyong|shebeishiyong|shiyongjiaocheng|shiyongfangfa" +
-                "|shebeijianjie|yiqijieshao).*")) {
+                "|shebeijianjie|yiqijieshao|jiankangjiaoyu|jiankangxuanjiao).*")) {
             startActivity(VideoListActivity.class, "position", 0);
             return;
         }
@@ -540,10 +576,10 @@ public class DataDealHelper {
             startActivity(DiseaseDetailsActivity.class, "type", "肝硬化");
             return;
         }
-        if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
-            startActivity(DiseaseDetailsActivity.class, "type", "糖尿病");
-            return;
-        }
+//        if (inSpell.matches(".*(tang(niao|liao)(bin|bing)).*")) {
+//            startActivity(DiseaseDetailsActivity.class, "type", "糖尿病");
+//            return;
+//        }
         if (inSpell.matches(".*(tongfeng).*")) {
             startActivity(DiseaseDetailsActivity.class, "type", "痛风");
             return;
@@ -584,13 +620,13 @@ public class DataDealHelper {
             startActivity(DiseaseDetailsActivity.class, "type", "癫痫");
             return;
         }
-//        boolean dealKeyWord = keyWordDeal(inSpell);
-//        if (dealKeyWord) {
-//            if (listener != null) {
-//                listener.onEnd();
-//            }
-//            return;
-//        }
+        boolean dealKeyWord = keyWordDeal(inSpell);
+        if (dealKeyWord) {
+            if (listener != null) {
+                listener.onEnd();
+            }
+            return;
+        }
         if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
             CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
@@ -791,7 +827,11 @@ public class DataDealHelper {
                 || inSpell.matches(".*tigao.*shengyin.*")
                 || inSpell.matches(".*shengyin.*tigao.*")
                 || inSpell.matches(".*yinliang.*shenggao.*")
-                || inSpell.matches(".*shenggao.*yinliang.*")) {
+                || inSpell.matches(".*shenggao.*yinliang.*")
+                || inSpell.matches(".*shengyin.*xiangyidian.*")
+                || inSpell.matches(".*shengyin.*zhongyidian.*")
+
+                ) {
             addVoice();
         } else if (inSpell.matches(".*xiaoshengyin.*")
                 || inSpell.matches(".*xiaoyinliang.*")
@@ -802,7 +842,10 @@ public class DataDealHelper {
                 || inSpell.matches(".*yinliang.*jiangdi.*")
                 || inSpell.matches(".*jiangdi.*yinliang.*")
                 || inSpell.matches(".*jiangdi.*shengyin.*")
-                || inSpell.matches(".*shengyin.*jiangdi.*")) {
+                || inSpell.matches(".*shengyin.*jiangdi.*")
+                || inSpell.matches(".*shengyin.*qingyidian.*")
+
+                ) {
 
             deleteVoice();
 
@@ -1575,7 +1618,7 @@ public class DataDealHelper {
         List<KeyWordDefinevBean> yinyue = getDefineData("yinyue");
         for (int i = 0; i < yinyue.size(); i++) {
             if (yuyin.contains(yinyue.get(i).pinyin)) {
-                startActivityWithOutCallback( TheOldMusicActivity.class);
+                startActivityWithOutCallback(TheOldMusicActivity.class);
                 return true;
             }
         }
@@ -1594,7 +1637,7 @@ public class DataDealHelper {
         List<KeyWordDefinevBean> zaixianyisheng = getDefineData("zaixianyisheng");
         for (int i = 0; i < zaixianyisheng.size(); i++) {
             if (yuyin.contains(zaixianyisheng.get(i).pinyin)) {
-                startActivityWithOutCallback( OnlineDoctorListActivity.class);
+                startActivityWithOutCallback(OnlineDoctorListActivity.class);
                 return true;
             }
         }

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
@@ -232,6 +233,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                     public void onClick(View v) {
                         //恢复出厂设置
                         LocalShared.getInstance(SettingActivity.this).reset();
+                        CC.obtainBuilder("com.gcml.auth.face.deleteGroup")
+                                .build()
+                                .callAsync();
                         Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
