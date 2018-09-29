@@ -202,4 +202,5 @@ dependencies {
     implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
     //Picasso图片加载
     implementation rootProject.ext.dependencies["picasso"]
+    implementation rootProject.ext.dependencies["pickerView"]
 }
