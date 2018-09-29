@@ -104,27 +104,49 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         long currentTime = Calendar.getInstance().getTimeInMillis();
         if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
             lastClickTime = currentTime;
+
+            final Intent intent = new Intent();
             switch (v.getId()) {
                 case R.id.ll_xueya:
-                    showDialogAndOder("血压", "血压检测", "1", "");
+//                    showDialogAndOder("血压", "血压检测", "1", "");
+                    intent.setClass(mContext, SingleDetectActivity.class);
+                    intent.putExtra("type", "xueya");
+                    startActivity(intent);
                     break;
                 case R.id.ll_xueyang:
-                    showDialogAndOder("血氧", "血氧检测", "5", "");
+//                    showDialogAndOder("血氧", "血氧检测", "5", "");
+                    intent.setClass(getApplicationContext(), DetectActivity.class);
+                    intent.putExtra("type", "xueyang");
+                    startActivity(intent);
                     break;
                 case R.id.ll_tiwen:
-                    showDialogAndOder("生化综合2", "生化综合检测2", "69", "");
+//                    showDialogAndOder("生化综合2", "生化综合检测2", "69", "");
+                    intent.setClass(mContext, DetectActivity.class);
+                    intent.putExtra("type", "wendu");
+                    startActivity(intent);
                     break;
                 case R.id.ll_xuetang:
-                    showDialogAndOder("血糖", "血糖检测", "3", "");
+//                    showDialogAndOder("血糖", "血糖检测", "3", "");
+                    intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
+                    intent.putExtra("type", "xuetang");
+                    startActivity(intent);
                     break;
                 case R.id.ll_xindian:
-                    showDialogAndOder("心电", "心电检测", "10", "");
+//                    showDialogAndOder("心电", "心电检测", "10", "");
+                    intent.setClass(mContext, XinDianDetectActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.ll_san:
-                    showDialogAndOder("生化综合1", "生化综合检测1", "69", "");
+//                    showDialogAndOder("生化综合1", "生化综合检测1", "69", "");
+                    intent.setClass(mContext, SelectXuetangTimeActivity.class);
+                    intent.putExtra("type", "sanheyi");
+                    startActivity(intent);
                     break;
                 case R.id.ll_tizhong://体重
-                    showDialogAndOder("体重", "体重检测", "1", "");
+//                    showDialogAndOder("体重", "体重检测", "1", "");
+                    intent.setClass(mContext, DetectActivity.class);
+                    intent.putExtra("type", "tizhong");
+                    startActivity(intent);
                     break;
                 case R.id.ll_more://敬请期待
                     ToastTool.showShort("敬请期待");
