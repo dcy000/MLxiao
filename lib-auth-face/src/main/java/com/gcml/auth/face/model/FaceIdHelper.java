@@ -2,7 +2,9 @@ package com.gcml.auth.face.model;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.gcml.common.data.UserSpHelper;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityListener;
 import com.iflytek.cloud.IdentityResult;
@@ -18,6 +20,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -49,6 +52,7 @@ import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_JOIN_GROUP_UNKNOW
  * @see this#signIn(Context context, byte[] faceData, String groupId), 1:N 人脸检索
  * @see this#createGroup(Context context, String faceId), 1:N 创建组
  * @see this#joinGroup(Context context, String groupId, String faceId), 1:N 加组
+ * @see this#deleteGroup(Context context, String groupId, String faceId), 1:N 删组
  */
 public class FaceIdHelper {
 
@@ -393,4 +397,67 @@ public class FaceIdHelper {
             }
         });
     }
+
+    public Observable<Object> deleteGroup(Context context, String groupId, String faceId) {
+        return obtainEngine(context)
+                .flatMap(new Function<IdentityVerifier, ObservableSource<Object>>() {
+                    @Override
+                    public ObservableSource<Object> apply(IdentityVerifier verifier) throws Exception {
+                        return deleteGroupInternal(verifier, groupId, faceId);
+                    }
+                });
+    }
+
+    private Observable<Object> deleteGroupInternal(IdentityVerifier verifier, String groupId, String faceId) {
+        return Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
+                // sst=add，auth_id=eqhe，group_id=123456，scope=person
+                verifier.setParameter(SpeechConstant.PARAMS, null);
+                // 设置会话场景
+                verifier.setParameter(SpeechConstant.MFV_SCENES, "ipt");
+                // 用户id
+                verifier.setParameter(SpeechConstant.AUTH_ID, faceId);
+                // 设置模型参数，若无可以传空字符传
+                String params2 = "scope=group,group_id=" + groupId;
+                // 执行模型操作
+                verifier.execute("ipt", "delete", params2, new IdentityListener() {
+                    @Override
+                    public void onResult(IdentityResult result, boolean b) {
+                        Timber.i("deleteGroup: %s", result.getResultString());
+                        try {
+                            JSONObject resObj = new JSONObject(result.getResultString());
+                            int ret = resObj.optInt("ret");
+                            if (0 != ret) {
+                                onError(new SpeechError(ret));
+                                return;
+                            }
+                            if (!emitter.isDisposed()) {
+                                emitter.onNext(new Object());
+                            }
+                        } catch (JSONException e) {
+                            if (!emitter.isDisposed()) {
+                                emitter.onError(e);
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(SpeechError e) {
+                        if (!emitter.isDisposed()) {
+                            emitter.onError(e);
+                        }
+                    }
+
+                    @Override
+                    public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+                    }
+                });
+
+            }
+        });
+    }
+
 }

@@ -66,11 +66,12 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
         private IView fragment;
         private String bluetoothName;
         private String bluetoothMac;
-        public MyHandler(IView fragment,String name,String mac) {
+
+        public MyHandler(IView fragment, String name, String mac) {
             feature_group = new ArrayList<>();
             this.fragment = fragment;
-            this.bluetoothName=name;
-            this.bluetoothMac=mac;
+            this.bluetoothName = name;
+            this.bluetoothMac = mac;
         }
 
         public void setGfpInterface(GfpInterface gfpInterface) {
@@ -112,7 +113,7 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
                     if (intBTStatus == 3) {//成功连接蓝牙设备
                         isConnected = true;
                         fragment.updateState("连接成功");
-                        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT,bluetoothName+","+bluetoothMac);
+                        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT, bluetoothName + "," + bluetoothMac);
                         if (!TextUtils.isEmpty(action)) {
                             sendEmptyMessage(RESOLVE_ACTION);
                         }
@@ -223,7 +224,11 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
                         case ACTION_VALIDATE_FINGERPRINT://指纹验证
                             gfpInterface.fpiGetDevFTR(TIMEOUT);//0xB4
                             break;
+                        default:
+                            break;
                     }
+                    break;
+                default:
                     break;
             }
         }
@@ -235,10 +240,11 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
         }
         byte bmpData[] = new byte[fpDataLen + BMP_HEADER_LEN];
         byte[] byteBmpArry;
-        if (fpDataLen == FPC1020_TOTAL_PIXELS)
+        if (fpDataLen == FPC1020_TOTAL_PIXELS) {
             byteBmpArry = gfpInterface.CGfpArithApp.CDataTrans.hexStringToBytes(gfpInterface.CGfpArithApp.mGfpVerifyIntf.FPGetBmpHeader(3));//
-        else
+        } else {
             byteBmpArry = gfpInterface.CGfpArithApp.CDataTrans.hexStringToBytes(gfpInterface.CGfpArithApp.mGfpVerifyIntf.FPGetBmpHeader(0));//
+        }
 
         System.arraycopy(byteBmpArry, 0, bmpData, 0, BMP_HEADER_LEN);  //copy bitmap header
         System.arraycopy(arryData, 0, bmpData, BMP_HEADER_LEN, fpDataLen); //copy sensor data
@@ -248,7 +254,7 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
 
     public Fingerprint_WeiEr_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting) {
         super(fragment, discoverSetting);
-        myHandler = new MyHandler(baseView,targetName,targetAddress);
+        myHandler = new MyHandler(baseView, targetName, targetAddress);
         Logg.e(Fingerprint_WeiEr_PresenterImp.class, "初始化");
         gfpInterface = new GfpInterface(fragment.getThisContext(), myHandler);
         myHandler.setGfpInterface(gfpInterface);
@@ -284,7 +290,7 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
             if (gfpInterface.sysCheckBTConnected()) {
                 gfpInterface.fpiDisconnectBT();
             } else {
-                Logg.e(Fingerprint_WeiEr_PresenterImp.class,"关闭相关东西");
+                Logg.e(Fingerprint_WeiEr_PresenterImp.class, "关闭相关东西");
                 gfpInterface.sysExit();
             }
             //利用反射将jar包中未注销的广播进行注销
@@ -303,7 +309,7 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
                 Logg.e(Fingerprint_WeiEr_PresenterImp.class, e.getMessage());
             }
         }
-        isConnected=false;
+        isConnected = false;
         action = null;
     }
 

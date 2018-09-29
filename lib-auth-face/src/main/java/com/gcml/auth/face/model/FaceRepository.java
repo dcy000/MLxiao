@@ -249,6 +249,18 @@ public class FaceRepository {
                 .subscribeOn(Schedulers.io());
     }
 
+    public Observable<Object> deleteGroup() {
+        return mFaceIdHelper.deleteGroup(mContext, UserSpHelper.getGroupId(), UserSpHelper.getGroupFirstFaceId())
+                .onErrorResumeNext(Observable.just(new Object()))
+                .doOnNext(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        UserSpHelper.setGroupId("");
+                        UserSpHelper.setGroupFirstFaceId("");
+                    }
+                });
+    }
+
     /**
      * @param faceData 人脸数据
      * @param groupId  组 Id
@@ -262,17 +274,9 @@ public class FaceRepository {
                         Timber.i("Face SignIn : groupId = %s ", groupId);
                     }
                 });
-//                .doOnNext(new Consumer<String>() {
-//                    @Override
-//                    public void accept(String faceIdWithScore) throws Exception {
-//                        String[] strings = faceIdWithScore.split(":");
-//                        UserSpHelper.addAccount(UserSpHelper.getUserId(), strings[0]);
-//                    }
-//                });
     }
 
     public Observable<List<UserEntity>> getLocalUsers() {
-
         String[] accounts = UserSpHelper.getAccounts();
         if (accounts == null) {
             return Observable.just(new ArrayList<>());
@@ -288,76 +292,4 @@ public class FaceRepository {
                 .onErrorResumeNext(Observable.just(new ArrayList<>()));
     }
 
-    /**
-     * 职责：
-     * 1. 人脸注册
-     * 2. 1:N 人脸加组
-     * 3. 上传头像
-     *
-     * @param faceData 人脸字节数据
-     * @param faceId   人脸 id
-     * @return 头像外链地址
-     */
-    public Observable<String> signUpNew(@NonNull byte[] faceData, @NonNull String faceId) {
-
-        return mFaceIdHelper.signUp(mContext, faceData, faceId)
-                .flatMap(new Function<String, ObservableSource<String>>() {
-                    @Override
-                    public ObservableSource<String> apply(String faceId) throws Exception {
-                        Observable<List<FaceGroup>> rxGroups = mFaceService.getGroups()
-                                .compose(RxUtils.apiResultTransformer())
-                                .subscribeOn(Schedulers.io())
-                                .share();
-                        List<FaceGroup> faceGroups = rxGroups
-                                .blockingFirst();
-                        if (faceGroups.isEmpty()) {
-                            return mFaceIdHelper.createGroup(mContext, faceId)
-                                    .flatMap(new Function<String, ObservableSource<String>>() {
-                                        @Override
-                                        public ObservableSource<String> apply(String groupId) throws Exception {
-                                            return mFaceIdHelper.joinGroup(mContext, groupId, faceId);
-                                        }
-                                    })
-                                    .flatMap(new Function<String, ObservableSource<List<FaceInfo>>>() {
-                                        @Override
-                                        public ObservableSource<List<FaceInfo>> apply(String groupId) throws Exception {
-                                            String userId = UserSpHelper.getUserId();
-                                            FaceInfo faceInfo = new FaceInfo();
-                                            faceInfo.faceId = faceId;
-                                            faceInfo.groupId = groupId;
-                                            faceInfo.userId = userId;
-                                            return mFaceService.updateFaceInfo(userId, faceInfo)
-                                                    .compose(RxUtils.apiResultTransformer());
-
-                                        }
-                                    })
-                                    .flatMap(new Function<List<FaceInfo>, ObservableSource<List<FaceGroup>>>() {
-                                        @Override
-                                        public ObservableSource<List<FaceGroup>> apply(List<FaceInfo> faceInfos) throws Exception {
-                                            return mFaceService.getGroups()
-                                                    .compose(RxUtils.apiResultTransformer())
-                                                    .doOnNext(new Consumer<List<FaceGroup>>() {
-                                                        @Override
-                                                        public void accept(List<FaceGroup> faceGroups) throws Exception {
-                                                            mFaceGroupDao.addAll(faceGroups);
-                                                        }
-                                                    })
-                                                    .subscribeOn(Schedulers.io());
-                                        }
-                                    }).map(new Function<List<FaceGroup>, String>() {
-                                        @Override
-                                        public String apply(List<FaceGroup> faceGroups) throws Exception {
-                                            return null;
-                                        }
-                                    });
-
-                        }
-                        Observable<String> rxFaceId = mFaceService.getFaceId(UserSpHelper.getUserId())
-                                .compose(RxUtils.apiResultTransformer())
-                                .subscribeOn(Schedulers.io());
-                        return null;
-                    }
-                });
-
-    }
 }

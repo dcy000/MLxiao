@@ -196,6 +196,9 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                         }
                     });
         } else {
+            CC.obtainBuilder("com.gcml.auth.face.joingroup")
+                    .build()
+                    .callAsync();
             checkProfile(user);
         }
     }

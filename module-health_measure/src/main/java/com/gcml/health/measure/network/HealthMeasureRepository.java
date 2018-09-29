@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
+import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -91,7 +92,9 @@ public class HealthMeasureRepository {
      * 新的上传数据的接口
      */
     public static Observable<List<DetectionResult>> postMeasureData(ArrayList<DetectionData> datas) {
-        return healthMeasureServer.postMeasureData(UserSpHelper.getUserId(), datas).compose(RxUtils.apiResultTransformer());
+        String userId = UserSpHelper.getUserId();
+        Timber.i("上传测量数据：userID="+userId);
+        return healthMeasureServer.postMeasureData(userId, datas).compose(RxUtils.apiResultTransformer());
     }
 
     /**
