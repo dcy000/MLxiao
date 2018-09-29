@@ -7,8 +7,8 @@ android {
         applicationId "com.example.han.referralproject"
         minSdkVersion gradle.minSdkVersion
         targetSdkVersion gradle.targetSdkVersion
-        versionCode 19
-        versionName "1.2.3"
+        versionCode 20
+        versionName "1.2.4"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -38,6 +38,7 @@ android {
             zipAlignEnabled true
             shrinkResources false
             buildConfigField "boolean", "LOGGING", gradle.logging
+            signingConfig signingConfigs.debug
         }
 
         debug {

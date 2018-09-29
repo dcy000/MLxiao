@@ -78,7 +78,7 @@ public class VideoListActivity extends BaseActivity {
 
             }
         });
-        vpVideo.setOffscreenPageLimit(3);
+        vpVideo.setOffscreenPageLimit(1);
         mFragments = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             mFragments.add(VideoListFragment.newInstance(i));

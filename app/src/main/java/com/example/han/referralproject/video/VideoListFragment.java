@@ -29,18 +29,19 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.example.han.referralproject.util.LocalShared;
-import com.medlink.danbogh.cache.CacheUtils;
 import com.ml.videoplayer.MlVideoPlayer;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class VideoListFragment extends Fragment {
 
 
     private String mNetless;
+    private Bundle mSavedInstanceState;
 
     public static void addOrShow(FragmentManager fm, int id, int position) {
         Fragment fragment = fm.findFragmentByTag(VideoListFragment.class.getSimpleName());
@@ -91,6 +92,7 @@ public class VideoListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mSavedInstanceState = savedInstanceState;
         rvVideos = (RecyclerView) view.findViewById(R.id.rv_videos);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         rvVideos.setHasFixedSize(true);
@@ -98,16 +100,38 @@ public class VideoListFragment extends Fragment {
         rvVideos.setLayoutManager(layoutManager);
         rvVideos.addItemDecoration(new GridViewDividerItemDecoration(30, 52));
         rvVideos.setAdapter(adapter);
+        if (getUserVisibleHint()) {
+            onShow(savedInstanceState);
+        }
+    }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getView() != null && isVisibleToUser) {
+            onShow(mSavedInstanceState);
+            return;
+        }
+
+        if (getView() != null && !isVisibleToUser) {
+            onHide();
+        }
+    }
+
+
+    private AtomicInteger init = new AtomicInteger(0);
+
+    private void onShow(Bundle savedInstanceState) {
         //fetchVideos(position);
-
-        mNetless = LocalShared.getInstance(getActivity()).getString("netless");
-        String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
-        if (!TextUtils.isEmpty(noNetless) || TextUtils.isEmpty(mNetless)) {
-            loadMore();
-            getVideos();
-        } else {
-            showVideos(getVideoEntities(getType(position)));
+        if (init.compareAndSet(0, 1)) {
+            mNetless = LocalShared.getInstance(getActivity()).getString("netless");
+            String noNetless = LocalShared.getInstance(MyApplication.getInstance()).getString("noNetless");
+            if (!TextUtils.isEmpty(noNetless) || TextUtils.isEmpty(mNetless)) {
+                loadMore();
+                getVideos();
+            } else {
+                showVideos(getVideoEntities(getType(position)));
+            }
         }
 //
 
@@ -115,7 +139,16 @@ public class VideoListFragment extends Fragment {
         // 动画片2个
         // 设备简介1个
         // 公司简介1个
+    }
 
+    private void onHide() {
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        init.set(0);
     }
 
     private String getType(int position) {
@@ -147,28 +180,30 @@ public class VideoListFragment extends Fragment {
     }
 
     private void loadMore() {
-        rvVideos.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                GridLayoutManager manager = (GridLayoutManager) recyclerView.getLayoutManager();
-
-                int totalItemCount = recyclerView.getAdapter().getItemCount();
-                int lastVisibleItemPosition = manager.findLastVisibleItemPosition();
-                int visibleItemCount = recyclerView.getChildCount();
-                // 屏幕滑动后停止（空闲状态）
-                if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItemPosition >= totalItemCount - 1
-                        && visibleItemCount > 0) {
-                    page++;
-                    getVideos();
-                }
-            }
-        });
+        rvVideos.addOnScrollListener(loadMoreOnScrollListener);
     }
+
+    private RecyclerView.OnScrollListener loadMoreOnScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        }
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            GridLayoutManager manager = (GridLayoutManager) recyclerView.getLayoutManager();
+
+            int totalItemCount = recyclerView.getAdapter().getItemCount();
+            int lastVisibleItemPosition = manager.findLastVisibleItemPosition();
+            int visibleItemCount = recyclerView.getChildCount();
+            // 屏幕滑动后停止（空闲状态）
+            if (newState == RecyclerView.SCROLL_STATE_IDLE
+                    && lastVisibleItemPosition >= totalItemCount - 1
+                    && visibleItemCount > 0) {
+                page++;
+                getVideos();
+            }
+        }
+    };
 
     private void getVideos() {
         if (position + 1 == 7) {
@@ -177,7 +212,8 @@ public class VideoListFragment extends Fragment {
             }
             return;
         }
-        String version = position == 4 || position == 5 ? "2" : "1";
+
+        String version = position == 5 ? "2" : "1";
         NetworkApi.getVideoList(
                 position + 1, version, "1", page, pageSize,
                 new NetworkManager.SuccessCallback<List<VideoEntity>>() {
@@ -192,14 +228,26 @@ public class VideoListFragment extends Fragment {
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-
+                        if (position == 5) {
+                            if (first.compareAndSet(0, 1)) {
+                                ArrayList<VideoEntity> entities = getVideoEntities(getType(position));
+                                if (videos == null) {
+                                    videos = new ArrayList<>();
+                                }
+                                videos.addAll(entities);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
                     }
                 }
         );
     }
 
+    private AtomicInteger first = new AtomicInteger(0);
+
     private int page = 1;
     private int pageSize = 9;
+
 
     private void fetchVideos(int position) {
         switch (position) {
