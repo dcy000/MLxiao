@@ -16,7 +16,7 @@ import com.example.han.referralproject.children.model.PoemModel;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 public class ChildEduPoemDetailsActivity extends BaseActivity {
@@ -87,11 +87,13 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         if (poemModel != null) {
             tvPoemTitle.setText(poemModel.getTitle());
             tvAuthorAndDynasty.setText(String.format("%s·%s", poemModel.getAuthor(), poemModel.getDynasty()));
-            String content = poemModel.getContent();
+            String content = poemModel.getContent().replaceAll(" ","");
             String[] sentences = content.split("[、，。；？！,.;?!]");
             mSentences.clear();
-            Collections.addAll(mSentences, sentences);
-            mAdapter.notifyDataSetChanged();
+//            Collections.addAll(mSentences, sentences);
+//            mAdapter.notifyDataSetChanged();
+            mAdapter.setmModels(Arrays.asList(sentences));
+            mSentences.addAll(Arrays.asList(sentences));
         }
     }
 
@@ -148,8 +150,8 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
             return;
         }
         isPlaying = true;
+//        mAdapter.notifyDataSetChanged();
         mAdapter.setPositionSelected(0);
-        mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(0);
         speak(mPoemModel.getTitle() + "," + mPoemModel.getAuthor() + "," + mPoemModel.getDynasty() + "," + mSentences.get(0));
 
@@ -173,11 +175,17 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
     }
 
     private static class Adapter extends RecyclerView.Adapter<VH> {
+        public void setmModels(List<String> mModels) {
+            this.mModels = mModels;
+            notifyDataSetChanged();
+        }
+
         private List<String> mModels;
 
         public Adapter(List<String> models) {
             mModels = models;
         }
+
 
         private volatile int positionSelected = 0;
 
