@@ -173,6 +173,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                         Timber.i(user.toString());
                         UserSpHelper.setUserHypertensionHand(user.hypertensionHand);
                         UserSpHelper.setUserId(user.id);
+                        UserSpHelper.setEqId(user.deviceId);
                         String wyyxId = user.wyyxId;
                         String wyyxPwd = user.wyyxPwd;
                         if (TextUtils.isEmpty(wyyxId) || TextUtils.isEmpty(wyyxPwd)) {

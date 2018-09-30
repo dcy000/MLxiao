@@ -130,7 +130,7 @@ public class CameraUtils {
             camera.startPreview();
         } catch (IOException e) {
             isPreviewing = false;
-            Timber.e(e, "FaceError while START preview for camera");
+            Timber.e(e, "Error while START preview for camera");
         }
     }
 

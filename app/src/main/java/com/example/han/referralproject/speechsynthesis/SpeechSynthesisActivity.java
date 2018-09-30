@@ -275,7 +275,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
         // 初始化听`写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
-        mIatDialog = new MlRecognizerDialog(this, mInitListener);
+//        mIatDialog = new MlRecognizerDialog(this, mInitListener);
 
         mIatPreferences = getSharedPreferences(IatSettings.PREFER_NAME, Activity.MODE_PRIVATE);
         mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
@@ -895,7 +895,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
-                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
+                NimCallActivity.launchNoCheck(this, UserSpHelper.getEqId());
 //                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
 //                    @Override
 //                    public void onSuccess(UserInfo response) {

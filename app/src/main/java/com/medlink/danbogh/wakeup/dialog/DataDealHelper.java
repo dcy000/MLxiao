@@ -260,7 +260,7 @@ public class DataDealHelper {
         }
 
         if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
-            NimCallActivity.launchNoCheck(context, MyApplication.getInstance().eqid);
+            NimCallActivity.launchNoCheck(context, UserSpHelper.getEqId());
 
             if (listener != null) {
                 listener.onEnd();

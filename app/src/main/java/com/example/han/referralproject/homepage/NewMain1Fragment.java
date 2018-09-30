@@ -16,6 +16,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.UtilsManager;
@@ -371,7 +372,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
                 break;
             case R.id.iv_health_call_family:
-                NimCallActivity.launchNoCheck(getContext(), MyApplication.getInstance().eqid);
+                NimCallActivity.launchNoCheck(getContext(), UserSpHelper.getEqId());
                 break;
         }
     }
