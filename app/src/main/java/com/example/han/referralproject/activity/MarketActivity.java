@@ -21,7 +21,6 @@ import com.example.han.referralproject.market.network.bean.GoodsTypeBean;
 import com.example.han.referralproject.searchmaket.activity.SearchGoodsActivity;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
-import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.ui.UiUtils;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class MarketActivity extends BaseActivity  implements RadioGroup.OnCheckedChangeListener {
+public class MarketActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     private List<Fragment> fragments;
     private RadioGroup mRgMenu;
@@ -137,8 +136,12 @@ public class MarketActivity extends BaseActivity  implements RadioGroup.OnChecke
             RadioButton childAt = (RadioButton) group.getChildAt(i);
             if (childAt.getId() == checkedId) {
                 mVpGoods.setCurrentItem(i);
+                childAt.setTextSize(32);
+            }else {
+                childAt.setTextSize(28);
             }
         }
+
 
     }
 }
