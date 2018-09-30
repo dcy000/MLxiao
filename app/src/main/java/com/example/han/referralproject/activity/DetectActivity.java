@@ -48,6 +48,7 @@ import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.example.han.referralproject.health.DetectHealthSymptomsActivity;
 import com.example.han.referralproject.health.DetectResultActivity;
+import com.example.han.referralproject.health.model.DetectResult;
 import com.example.han.referralproject.measure.fragment.MeasureXuetangFragment;
 import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragment;
 import com.example.han.referralproject.network.NetworkApi;
@@ -61,6 +62,9 @@ import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.example.han.referralproject.yiyuan.fragment.BloodPressureNoticeDialog;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.google.gson.Gson;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SynthesizerListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -265,6 +269,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private BloodPressureNoticeDialog dialog1;
     private int pulse;
     private String cholesterol;
+    private String format;
 
 
     /**
@@ -553,8 +558,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 xueyaResult = mXueyaResults[2];
                             }
 
-                            speak(String.format(getString(R.string.tips_result_xueya),
-                                    notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult));
+                            format = String.format(getString(R.string.tips_result_xueya),
+                                    notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult);
+                            speak(format);
                             uploadXueyaResult(notifyData[1] & 0xff, notifyData[3] & 0xff, notifyData[14] & 0xff, xueyaResult, true, null);
                             if (getIntent().getBooleanExtra("inquiry", false)) {
                                 LocalShared.getInstance(DetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
@@ -595,8 +601,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     xueyaResult = mXueyaResults[2];
                                 }
                                 //上传数据到我们的服务器
-                                speak(String.format(getString(R.string.tips_result_xueya),
-                                        (notifyData[2] & 0xff), notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult));
+                                format = String.format(getString(R.string.tips_result_xueya),
+                                        (notifyData[2] & 0xff), notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult);
+                                speak(format);
                                 uploadXueyaResult(notifyData[2] & 0xff, notifyData[4] & 0xff, notifyData[8] & 0xff, xueyaResult, true, null);
                                 if (getIntent().getBooleanExtra("inquiry", false)) {
                                     LocalShared.getInstance(DetectActivity.this).setXueYa(mHighPressTv.getText().toString() + "," + mLowPressTv.getText().toString());
@@ -962,26 +969,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     if (mVideoView.isPlaying()) {
                         mVideoView.pause();
                     }
-                    switch (detectType) {
-                        case Type_Wendu:
-                            LocalShared.getInstance(DetectActivity.this).setMeasureTiwenFirst(false);
-                            break;
-                        case Type_XinDian:
-                            LocalShared.getInstance(DetectActivity.this).setMeasureXindianFirst(false);
-                            break;
-                        case Type_Xueya:
-                            LocalShared.getInstance(DetectActivity.this).setMeasureXueyaFirst(false);
-                            break;
-                        case Type_XueTang:
-                            LocalShared.getInstance(DetectActivity.this).setMeasureXuetangFirst(false);
-                            break;
-                        case Type_SanHeYi:
-                            LocalShared.getInstance(DetectActivity.this).setMeasureSanheyiFirst(false);
-                            break;
-                        case Type_XueYang:
-                            LocalShared.getInstance(DetectActivity.this).setMeasureXueyangFirst(false);
-                            break;
-                    }
+                    setFirstUse();
                 }
                 break;
             case R.id.sanheyi_video:
@@ -994,6 +982,29 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             String uri = "android.resource://" + getPackageName() + "/" + resourceId;
             mVideoView.setVideoURI(Uri.parse(uri));
             mVideoView.start();
+        }
+    }
+
+    private void setFirstUse() {
+        switch (detectType) {
+            case Type_Wendu:
+                LocalShared.getInstance(DetectActivity.this).setMeasureTiwenFirst(false);
+                break;
+            case Type_XinDian:
+                LocalShared.getInstance(DetectActivity.this).setMeasureXindianFirst(false);
+                break;
+            case Type_Xueya:
+                LocalShared.getInstance(DetectActivity.this).setMeasureXueyaFirst(false);
+                break;
+            case Type_XueTang:
+                LocalShared.getInstance(DetectActivity.this).setMeasureXuetangFirst(false);
+                break;
+            case Type_SanHeYi:
+                LocalShared.getInstance(DetectActivity.this).setMeasureSanheyiFirst(false);
+                break;
+            case Type_XueYang:
+                LocalShared.getInstance(DetectActivity.this).setMeasureXueyangFirst(false);
+                break;
         }
     }
 
@@ -1512,6 +1523,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             TextView xueYaTitle = findViewById(R.id.tv_xueya_title);
             if ("detectHealth".equals(detectCategory)) {
                 if (intent.getBooleanExtra("is_right", false)) {
+
                     xueYaTitle.setText(R.string.test_xueya_right);
                 } else {
                     xueYaTitle.setText(R.string.test_xueya_left);
@@ -1829,6 +1841,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         public void onCompletion(MediaPlayer mp) {
             mVideoView.setVisibility(View.GONE);
             mOverView.setVisibility(View.GONE);
+            setFirstUse();
         }
     };
 
@@ -2146,7 +2159,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     };
 
 
-    private void postWenZhenData(boolean testXueYa) {
+    private void postWenZhenData(final boolean testXueYa) {
         WenZhenBean bean = new WenZhenBean();
         bean.address = LocalShared.getInstance(this).getSignUpAddress();
         bean.allergicHistory = LocalShared.getInstance(this).getGuoMin();
@@ -2199,9 +2212,51 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     public void onFinish() {
                         super.onFinish();
                         hideLoadingDialog();
-                        InquiryAndFileEndActivity.startMe(DetectActivity.this, "问诊");
-                        finish();
-                        ActivityHelper.finishAll();
+                        if (testXueYa) {
+                            MLVoiceSynthetize.startSynthesize(DetectActivity.this.getApplicationContext(), format, new SynthesizerListener() {
+                                @Override
+                                public void onSpeakBegin() {
+
+                                }
+
+                                @Override
+                                public void onBufferProgress(int i, int i1, int i2, String s) {
+
+                                }
+
+                                @Override
+                                public void onSpeakPaused() {
+
+                                }
+
+                                @Override
+                                public void onSpeakResumed() {
+
+                                }
+
+                                @Override
+                                public void onSpeakProgress(int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void onCompleted(SpeechError speechError) {
+                                    InquiryAndFileEndActivity.startMe(DetectActivity.this, "问诊");
+                                    finish();
+                                    ActivityHelper.finishAll();
+                                }
+
+                                @Override
+                                public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+                                }
+                            }, false);
+                        }else {
+                            InquiryAndFileEndActivity.startMe(DetectActivity.this, "问诊");
+                            finish();
+                            ActivityHelper.finishAll();
+                        }
+
                     }
 
                     @Override

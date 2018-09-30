@@ -345,7 +345,7 @@ public class DetectResultActivity extends BaseActivity {
                         PersonInfoResultBean.DataBean data = bean.data;
                         if (data != null) {
                             mDetectTvNameInfo.setText(data.bname + "");
-                            mDetectTvAgeInfo.setText(data.age + "");
+                            mDetectTvAgeInfo.setText(data.age + "岁");
                             mDetectTvGenderInfo.setText(data.sex + "");
                             //接口数据接口更改 身高体重使用外层数据
                             mDetectTvHeightInfo.setText(data.height+" cm");
