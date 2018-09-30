@@ -138,7 +138,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 } else if ("1".equals(diagnoseInfo.hypertensionPrimaryState)) {
                     onOriginClickYes();
                 } else if ("0".equals(diagnoseInfo.hypertensionPrimaryState)) {
-//                onOriginClickNo();
+//                    onOriginClickNo();
                     showOriginHypertensionDialog();
                 }
             } else {

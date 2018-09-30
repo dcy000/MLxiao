@@ -164,6 +164,8 @@ public class WakeupHelper {
                                         || TopActivityHelper.topActivity instanceof DetecteTipActivity
 //                                        || TopActivityHelper.topActivity instanceof TaskComplyActivity
 //                                        || TopActivityHelper.topActivity instanceof TaskComplyChoiceActivity
+                                        || TopActivityHelper.topActivity.getClass().getName().contains("TaskComplyActivity")
+                                        || TopActivityHelper.topActivity.getClass().getName().contains("TaskComplyChoiceActivity")
                                         )
 
                                     return;

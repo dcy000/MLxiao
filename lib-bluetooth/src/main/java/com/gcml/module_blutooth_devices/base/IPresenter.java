@@ -1,5 +1,9 @@
 package com.gcml.module_blutooth_devices.base;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.OnLifecycleEvent;
+
 public interface IPresenter {
     /**
      * 品牌
@@ -8,7 +12,7 @@ public interface IPresenter {
     /**
      * 设备物理地址
      */
-    String DEVICE_BLUETOOTH_ADDRESS="device_bluetooth_address";
+    String DEVICE_BLUETOOTH_ADDRESS = "device_bluetooth_address";
     /**
      * 表示当前所处的状态 该状态和BluetoothKit的Constants中的变量是相对应的
      */
@@ -104,11 +108,12 @@ public interface IPresenter {
     /**
      * 指纹操作
      */
-    int CONTROL_FINGERPRINT=29;
+    int CONTROL_FINGERPRINT = 29;
     /**
      * 测量呼吸家的肺活量仪器
      */
-    int MEASURE_BREATH_HOME=31;
+    int MEASURE_BREATH_HOME = 31;
+
     /**
      * 检查蓝牙是否已开
      */

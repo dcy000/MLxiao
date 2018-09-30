@@ -87,9 +87,17 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
 
     private void chooseConnectType(String address, String brand) {
         if (TextUtils.isEmpty(address)) {
-            helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_PRESSURE);
+            if (helper == null) {
+                Logg.e(Bloodpressure_Fragment.class,"helper==null");
+                helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_PRESSURE);
+            }
             helper.start();
         } else {
+            if (baseBluetoothPresenter != null) {
+                Logg.e(Bloodpressure_Fragment.class,"baseBluetoothPresenter!=null");
+                baseBluetoothPresenter.checkBlueboothOpened();
+                return;
+            }
             switch (brand) {
                 case "eBlood-Pressure":
                     baseBluetoothPresenter = new Bloodpressure_Self_PresenterImp(this,
@@ -137,7 +145,6 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
     @Override
     public void updateState(String state) {
         ToastUtils.showShort(state);
-//        ((AllMeasureActivity) getActivity()).speak(state);
         if (dealVoiceAndJump != null) {
             dealVoiceAndJump.updateVoice(state);
         }
@@ -167,11 +174,14 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
     @Override
     public void onStop() {
         super.onStop();
+        Logg.e(Bloodpressure_Fragment.class,"onStop()");
         if (baseBluetoothPresenter != null) {
             baseBluetoothPresenter.onDestroy();
+            baseBluetoothPresenter = null;
         }
         if (helper != null) {
             helper.destroy();
+            helper = null;
         }
     }
 

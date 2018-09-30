@@ -2,6 +2,7 @@ package com.gcml.module_blutooth_devices.base;
 
 import android.Manifest;
 import android.app.Activity;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.content.Context;
 import android.os.CountDownTimer;
@@ -67,7 +68,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
     private MyConnectStateListener connectStateListener;
     private MySearchListener searchListener;
     private MyConnectListener connectListener;
-    private Map<String, BleConnectStatusListener> connectAddress = new HashMap<>();
+    private long reConnectTimeTag = 0;
     private final Handler.Callback weakRunnable = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -81,7 +82,9 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                     break;
                 case DEVICE_DISCONNECTED:
                     //蓝牙断开连接
-                    disConnected();
+                    if (!isDestroy) {
+                        disConnected();
+                    }
                     break;
                 default:
                     break;
@@ -168,7 +171,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
             return;
         }
         if (searchListener == null) {
-            Logg.e(BaseBluetoothPresenter.class, searchListener+"");
+            Logg.e(BaseBluetoothPresenter.class, "searchListener==" + searchListener);
             searchListener = new MySearchListener();
         }
         BluetoothClientManager.getClient().search(request, searchListener);
@@ -265,16 +268,16 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
             timeCount.start();
         }
         if (connectListener == null) {
-            Logg.e(BaseBluetoothPresenter.class, connectListener+"");
+            Logg.e(BaseBluetoothPresenter.class, "connectListener==" + connectListener);
             connectListener = new MyConnectListener(macAddress);
         }
         BluetoothClientManager.getClient().connect(macAddress, options, connectListener);
         if (connectStateListener == null) {
-            Logg.e(BaseBluetoothPresenter.class, connectStateListener+"");
             connectStateListener = new MyConnectStateListener();
         }
+        Logg.e(BaseBluetoothPresenter.class, "connectStateListener==" + connectStateListener);
+
         if (!TextUtils.isEmpty(macAddress)) {
-            connectAddress.put(macAddress, connectStateListener);
             BluetoothClientManager.getClient().registerConnectStatusListener(macAddress, connectStateListener);
         }
     }
@@ -356,7 +359,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                     break;
                 case Constants.STATUS_DISCONNECTED:
                     isConnected = false;
-                    if (weakHandler!=null){
+                    if (weakHandler != null) {
                         weakHandler.sendEmptyMessage(DEVICE_DISCONNECTED);
                     }
                     Logg.e(BaseBluetoothPresenter.class, "onConnectStatusChanged:" + i);
@@ -433,10 +436,12 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
 
     @Override
     public void onResume() {
+
     }
 
     @Override
     public void onDestroy() {
+        isDestroy = true;
         if (weakHandler != null) {
             weakHandler.removeCallbacksAndMessages(null);
             weakHandler = null;
@@ -462,28 +467,18 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
                 address = lockedDevice.getAddress();
             }
         }
-        if (isConnected) {
+        if (isConnected && !TextUtils.isEmpty(address)) {
             BluetoothClientManager.getClient().disconnect(address);
         }
         Logg.e(BaseBluetoothPresenter.class, "被注销的mac地址" + address);
         if (!TextUtils.isEmpty(address) && connectStateListener != null) {
             BluetoothClientManager.getClient().unregisterConnectStatusListener(address, connectStateListener);
-            if (connectAddress.size() > 0) {
-                for (String key : connectAddress.keySet()) {
-                    BleConnectStatusListener bleConnectStatusListener = connectAddress.get(key);
-                    if (bleConnectStatusListener!=null){
-                        BluetoothClientManager.getClient().unregisterConnectStatusListener(key,bleConnectStatusListener);
-                    }
-                }
-                connectAddress.clear();
-            }
             connectStateListener = null;
         }
         searchListener = null;
         connectListener = null;
         lockedDevice = null;
         isConnected = false;
-        isDestroy = true;
         discoverSetting = null;
     }
 
@@ -570,6 +565,11 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
             }
         }
         if (weakHandler2 != null) {
+            if (System.currentTimeMillis() - reConnectTimeTag < 3000) {
+                reConnectTimeTag = System.currentTimeMillis();
+                //解决蓝牙连接状态的监听有时候会回调两次的bug
+                return;
+            }
             weakHandler2.postDelayed(new Runnable() {
                 @Override
                 public void run() {

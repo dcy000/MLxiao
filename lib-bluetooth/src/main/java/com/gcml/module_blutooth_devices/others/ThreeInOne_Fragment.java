@@ -119,9 +119,15 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
 
     private void chooseConnectType(String address, String brand) {
         if (TextUtils.isEmpty(address)) {
-            helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_OTHERS);
+            if (helper==null){
+                helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_OTHERS);
+            }
             helper.start();
         } else {
+            if (bluetoothPresenter!=null){
+                bluetoothPresenter.checkBlueboothOpened();
+                return;
+            }
             switch (brand) {
                 case "BeneCheck GL-0F8B0C":
                     bluetoothPresenter = new ThreeInOne_Self_PresenterImp(this,

@@ -73,9 +73,15 @@ public class Bloodsugar_Fragment extends BluetoothBaseFragment implements IView,
 
     private void chooseConnectType(String address, String brand) {
         if (TextUtils.isEmpty(address)) {
-            helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_SUGAR);
+            if (helper == null) {
+                helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_SUGAR);
+            }
             helper.start();
         } else {
+            if (bluetoothPresenter!=null){
+                bluetoothPresenter.checkBlueboothOpened();
+                return;
+            }
             switch (brand) {
                 case "BLE-Glucowell":
                     bluetoothPresenter = new Bloodsugar_GlucWell_PresenterImp(this,
@@ -143,9 +149,11 @@ public class Bloodsugar_Fragment extends BluetoothBaseFragment implements IView,
         super.onStop();
         if (bluetoothPresenter != null) {
             bluetoothPresenter.onDestroy();
+            bluetoothPresenter=null;
         }
         if (helper != null) {
             helper.destroy();
+            helper=null;
         }
     }
 }

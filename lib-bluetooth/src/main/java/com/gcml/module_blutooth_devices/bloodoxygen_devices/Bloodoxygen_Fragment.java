@@ -1,5 +1,7 @@
 package com.gcml.module_blutooth_devices.bloodoxygen_devices;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -18,6 +20,8 @@ import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
+
+import java.util.List;
 
 public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
     protected TextView mBtnHealthHistory;
@@ -53,7 +57,7 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
         String address = null;
         String brand = null;
         String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, "");
-        Logg.d(Bloodoxygen_Fragment.class,sp_bloodoxygen);
+        Logg.d(Bloodoxygen_Fragment.class, sp_bloodoxygen);
         if (!TextUtils.isEmpty(sp_bloodoxygen)) {
             String[] split = sp_bloodoxygen.split(",");
             if (split.length == 2) {
@@ -74,11 +78,17 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
     }
 
     private void chooseConnectType(String address, String brand) {
-        Logg.d(Bloodoxygen_Fragment.class,""+address+brand);
+        Logg.d(Bloodoxygen_Fragment.class, "" + address + brand);
         if (TextUtils.isEmpty(address)) {
-            helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_OXYGEN);
+            if (helper == null) {
+                helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_OXYGEN);
+            }
             helper.start();
         } else {
+            if (bluetoothPresenter != null) {
+                bluetoothPresenter.checkBlueboothOpened();
+                return;
+            }
             switch (brand) {
                 case "iChoice":
                     bluetoothPresenter = new Bloodoxygen_Chaosi_PresenterImp(this,
@@ -102,11 +112,11 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
     public void updateData(String... datas) {
         if (datas.length == 3) {
             mTvResult.setText("0");
-            isMeasureFinishedOfThisTime=false;
+            isMeasureFinishedOfThisTime = false;
         } else if (datas.length == 2) {
             mTvResult.setText(datas[0]);
-            if (!isMeasureFinishedOfThisTime&&Float.parseFloat(datas[0])!=0){
-                isMeasureFinishedOfThisTime=true;
+            if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[0]) != 0) {
+                isMeasureFinishedOfThisTime = true;
                 onMeasureFinished(datas[0], datas[1]);
             }
         }
@@ -130,9 +140,11 @@ public class Bloodoxygen_Fragment extends BluetoothBaseFragment implements IView
         super.onStop();
         if (bluetoothPresenter != null) {
             bluetoothPresenter.onDestroy();
+            bluetoothPresenter=null;
         }
         if (helper != null) {
             helper.destroy();
+            helper=null;
         }
     }
 

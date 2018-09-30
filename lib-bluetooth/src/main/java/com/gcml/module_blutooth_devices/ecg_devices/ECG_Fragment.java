@@ -150,9 +150,11 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView {
         super.onStop();
         if (baseBluetoothPresenter != null) {
             baseBluetoothPresenter.onDestroy();
+            baseBluetoothPresenter=null;
         }
         if (helper != null) {
             helper.destroy();
+            helper=null;
         }
     }
 

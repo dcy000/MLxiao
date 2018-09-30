@@ -209,9 +209,11 @@ public class BreathHome_Fragment extends BluetoothBaseFragment implements IView,
         super.onStop();
         if (bluetoothPresenter != null) {
             bluetoothPresenter.onDestroy();
+            bluetoothPresenter=null;
         }
         if (helper != null) {
             helper.destroy();
+            helper=null;
         }
     }
 }
