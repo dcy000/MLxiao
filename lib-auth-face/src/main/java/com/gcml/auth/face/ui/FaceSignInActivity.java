@@ -1,6 +1,5 @@
 package com.gcml.auth.face.ui;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -12,7 +11,6 @@ import android.view.animation.AnimationUtils;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.face.BR;
 import com.gcml.auth.face.R;
 import com.gcml.auth.face.databinding.AuthActivityFaceSignInBinding;
@@ -257,7 +255,8 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
                 Timber.i("%s", user);
                 if (!TextUtils.isEmpty(user.xfid)
                         && user.xfid.equals(faceId)) {
-                    theUserId = user.xfid;
+                    theUserId = user.id;
+                    theDeviceId = user.deviceId;
 
                     if (currentUser) {
                         if (!currentUserId.equals(user.id)) {
@@ -326,6 +325,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
 
                     // Token 1.0
                     UserSpHelper.setUserId(theUserId);
+                    UserSpHelper.setEqId(theDeviceId);
                     CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
                             .addParam("userId", theUserId)
                             .build()
@@ -373,4 +373,5 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
     private volatile boolean error = true;
 
     private String theUserId = "";
+    private String theDeviceId = "";
 }
