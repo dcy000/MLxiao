@@ -1,15 +1,13 @@
 package com.example.han.referralproject.activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -21,31 +19,22 @@ import com.example.han.referralproject.market.GoodsFragment;
 import com.example.han.referralproject.market.network.GoodsRepository;
 import com.example.han.referralproject.market.network.bean.GoodsTypeBean;
 import com.example.han.referralproject.searchmaket.activity.SearchGoodsActivity;
-import com.gcml.common.recommend.adapter.RecommendAdapter;
-import com.gcml.common.recommend.bean.get.GoodBean;
-import com.gcml.common.repository.http.ApiResult;
-import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
-import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.ui.UiUtils;
-import com.linheimx.app.library.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
-public class MarketActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+public class MarketActivity extends BaseActivity  implements RadioGroup.OnCheckedChangeListener {
 
     private List<Fragment> fragments;
-    private TranslucentToolBar mTbMarket;
     private RadioGroup mRgMenu;
     private ViewPager mVpGoods;
     private LoadingDialog dialog;
@@ -71,18 +60,6 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
         });
         mRgMenu = (RadioGroup) findViewById(R.id.rg_menu);
         mVpGoods = (ViewPager) findViewById(R.id.vp_goods);
-//        mTbMarket.setData("健 康 商 城", R.drawable.common_icon_back, "返回", R.drawable.common_search_good, null, new ToolBarClickListener() {
-//            @Override
-//            public void onLeftClick() {
-//                finish();
-//            }
-//
-//            @Override
-//            public void onRightClick() {
-//                startActivity(new Intent(MarketActivity.this, SearchGoodsActivity.class));
-//            }
-//        });
-
         mRgMenu.setOnCheckedChangeListener(this);
         mVpGoods.setOffscreenPageLimit(1);
         setEnableListeningLoop(false);
@@ -103,7 +80,7 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
                     initRadioGroup(listApiResult);
                     //初始化fragment
                     initFragments(listApiResult);
-                });
+                }, Timber::e);
 
 
     }
@@ -141,7 +118,12 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
             button.setButtonDrawable(android.R.color.transparent);
             ViewCompat.setBackground(button, ResourcesCompat.getDrawable(getResources(), R.drawable.bg_rb_history_record, getTheme()));
             button.setTextColor(getResources().getColorStateList(R.color.good_menu_text_color));
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, UiUtils.pt(70f));
+
+            Drawable drawableLeft = getResources().getDrawable(
+                    R.drawable.bg_rb_history_record_shape);
+            button.setCompoundDrawablesWithIntrinsicBounds(drawableLeft,
+                    null, null, null);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, UiUtils.pt(160f));
             button.setGravity(Gravity.CENTER);
             mRgMenu.addView(button, lp);
         }

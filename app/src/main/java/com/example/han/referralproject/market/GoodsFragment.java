@@ -19,7 +19,6 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
 import com.example.han.referralproject.shopping.Goods;
-import com.example.han.referralproject.util.GridViewDividerItemDecoration;
 import com.gcml.lib_utils.display.ToastUtils;
 
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public class GoodsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_goods, container, false);
         rvGoods = view.findViewById(R.id.rv_goods);
         rvGoods.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        rvGoods.addItemDecoration(new GridViewDividerItemDecoration(0, 32));
+//        rvGoods.addItemDecoration(new GridViewDividerItemDecoration(0, 32));
         mData = new ArrayList<>();
         mAdapter = new Goods1Adapter(R.layout.goods_item, mData);
         rvGoods.setAdapter(mAdapter);
