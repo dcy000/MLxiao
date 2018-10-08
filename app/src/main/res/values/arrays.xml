@@ -58,4 +58,32 @@
         <item>周五</item>
         <item>周六</item>
     </string-array>
+    <!--心理调整 遵医行为123-->
+    <string-array name="xltz">
+        <item>良好</item>
+        <item>一般</item>
+        <item>差</item>
+    </string-array>
+
+    <!--药物服从-->
+    <string-array name="ywfc">
+        <item>规律</item>
+        <item>间断</item>
+        <item>不服从</item>
+    </string-array>
+
+    <!--低血糖反应-->
+    <string-array name="dxtfy">
+        <item>无</item>
+        <item>偶尔</item>
+        <item>频繁</item>
+    </string-array>
+
+    <!--药物不良-->
+    <string-array name="ywbl">
+        <item>无</item>
+        <item>有</item>
+    </string-array>
+
+
 </resources>

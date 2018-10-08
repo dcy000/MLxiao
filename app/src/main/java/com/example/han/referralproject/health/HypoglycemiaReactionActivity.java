@@ -44,7 +44,7 @@ public class HypoglycemiaReactionActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HypoglycemiaReactionActivity.this, DetectDrugEffectActivity.class);
                 intent.putExtras(getIntent());
-                intent.putExtra("dixuetang", "0");
+                intent.putExtra("dixuetang", "1");
                 startActivity(intent);
                 finish();
             }

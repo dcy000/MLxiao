@@ -380,69 +380,6 @@
                     app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_low_pressure"
                     tools:text="0.0" />
 
-                <TextView
-                    android:id="@+id/detect_tv_result_temperate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="60pt"
-                    android:layout_marginTop="40pt"
-                    android:text="体温： "
-                    android:textColor="#999999"
-                    android:textSize="66pt"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detect_tv_result_low_pressure" />
-
-                <TextView
-                    android:id="@+id/detect_tv_result_temperate_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333333"
-                    android:textSize="66pt"
-                    app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_temperate"
-                    app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_temperate" />
-
-                <TextView
-                    android:id="@+id/detect_tv_result_sugar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="60pt"
-                    android:layout_marginTop="40pt"
-                    android:text="血糖： "
-                    android:textColor="#999999"
-                    android:textSize="66pt"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detect_tv_result_temperate" />
-
-                <TextView
-                    android:id="@+id/detect_tv_result_sugar_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333333"
-                    android:textSize="66pt"
-                    app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_sugar"
-                    app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_sugar" />
-
-                <TextView
-                    android:id="@+id/detect_tv_result_ecg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="60pt"
-                    android:layout_marginTop="40pt"
-                    android:text="心电： "
-                    android:textColor="#999999"
-                    android:textSize="66pt"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detect_tv_result_sugar" />
-
-                <TextView
-                    android:id="@+id/detect_tv_result_ecg_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333333"
-                    android:textSize="66pt"
-                    app:layout_constraintBottom_toBottomOf="@+id/detect_tv_result_ecg"
-                    app:layout_constraintLeft_toRightOf="@+id/detect_tv_result_ecg" />
             </android.support.constraint.ConstraintLayout>
 
             <LinearLayout
@@ -450,12 +387,141 @@
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/detect_tv_result_temperate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="体温： "
+                        android:textColor="#999999"
+                        android:textSize="66pt" />
+
+                    <TextView
+                        android:id="@+id/detect_tv_result_temperate_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="66pt" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/detect_tv_result_sugar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="血糖： "
+                        android:textColor="#999999"
+                        android:textSize="66pt" />
+
+                    <TextView
+                        android:id="@+id/detect_tv_result_sugar_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="66pt" />
+
+                </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/detect_tv_result_ecg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="心电： "
+                        android:textColor="#999999"
+                        android:textSize="66pt" />
+
+                    <TextView
+                        android:id="@+id/detect_tv_result_ecg_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="66pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_ua"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="尿酸： "
+                        android:textColor="#999999"
+                        android:textSize="66pt" />
+
+                    <TextView
+                        android:id="@+id/tv_ua_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="66pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_cholesterin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="胆固醇： "
+                        android:textColor="#999999"
+                        android:textSize="66pt" />
+
+                    <TextView
+                        android:id="@+id/tv_cholesterin_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="66pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/ll_pressure_pulse"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
                     android:orientation="horizontal">
 
                     <TextView
@@ -469,6 +535,32 @@
 
                     <TextView
                         android:id="@+id/tv_pressure_pulse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="66pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_heart_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="心率： "
+                        android:textColor="#999999"
+                        android:textSize="66pt" />
+
+                    <TextView
+                        android:id="@+id/tv_heart_rate_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -637,7 +729,6 @@
                     android:id="@+id/ll_health_smoke"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="40pt"
                     android:layout_marginTop="40pt"
                     android:orientation="horizontal">
 
@@ -652,6 +743,162 @@
 
                     <TextView
                         android:id="@+id/detect_tv_result_health_smoke_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="66pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_xinli_tiaozheng"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="心理调整： "
+                        android:textColor="#999999"
+                        android:textSize="66pt" />
+
+                    <TextView
+                        android:id="@+id/tv_xinli_tiaozheng_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="66pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_yaowu_fucong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="药物服从： "
+                        android:textColor="#999999"
+                        android:textSize="66pt" />
+
+                    <TextView
+                        android:id="@+id/tv_yaowu_fucong_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="66pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_zunyi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="遵医行为： "
+                        android:textColor="#999999"
+                        android:textSize="66pt" />
+
+                    <TextView
+                        android:id="@+id/tv_zunyi_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="66pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_yaowu_buliang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="药物不良反应： "
+                        android:textColor="#999999"
+                        android:textSize="66pt" />
+
+                    <TextView
+                        android:id="@+id/tv_yaowu_buliang_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="66pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_dixuetang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="低血糖反应： "
+                        android:textColor="#999999"
+                        android:textSize="66pt" />
+
+                    <TextView
+                        android:id="@+id/tv_tixuetang_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#333333"
+                        android:textSize="66pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_zhushiliang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40pt"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60pt"
+                        android:text="主食量： "
+                        android:textColor="#999999"
+                        android:textSize="66pt" />
+
+                    <TextView
+                        android:id="@+id/tv_zhushiliang_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -693,4 +940,5 @@
             android:textSize="50pt"
             android:visibility="gone" />
     </LinearLayout>
+
 </FrameLayout>

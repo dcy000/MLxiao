@@ -96,6 +96,74 @@ public class DetectResultActivity extends BaseActivity {
     TextView detectTvResultSugarZzInfo;
     @BindView(R.id.ll_sugar_zz)
     LinearLayout llSugarZz;
+    @BindView(R.id.detect_tv_person_info)
+    TextView detectTvPersonInfo;
+    @BindView(R.id.detect_tv_name)
+    TextView detectTvName;
+    @BindView(R.id.detect_tv_age)
+    TextView detectTvAge;
+    @BindView(R.id.detect_tv_gender)
+    TextView detectTvGender;
+    @BindView(R.id.detect_tv_blood_type)
+    TextView detectTvBloodType;
+    @BindView(R.id.detect_tv_height)
+    TextView detectTvHeight;
+    @BindView(R.id.detect_tv_weight)
+    TextView detectTvWeight;
+    @BindView(R.id.detect_tv_result_weight)
+    TextView detectTvResultWeight;
+    @BindView(R.id.detect_tv_result_oxygen)
+    TextView detectTvResultOxygen;
+    @BindView(R.id.detect_tv_result_high_pressure)
+    TextView detectTvResultHighPressure;
+    @BindView(R.id.detect_tv_result_low_pressure)
+    TextView detectTvResultLowPressure;
+    @BindView(R.id.detect_tv_result_temperate)
+    LinearLayout detectTvResultTemperate;
+    @BindView(R.id.detect_tv_result_sugar)
+    LinearLayout detectTvResultSugar;
+    @BindView(R.id.detect_tv_result_ecg)
+    LinearLayout detectTvResultEcg;
+    @BindView(R.id.tv_ua_info)
+    TextView tvUaInfo;
+    @BindView(R.id.ll_ua)
+    LinearLayout llUa;
+    @BindView(R.id.tv_cholesterin_info)
+    TextView tvCholesterinInfo;
+    @BindView(R.id.ll_cholesterin)
+    LinearLayout llCholesterin;
+    @BindView(R.id.tv_heart_rate_info)
+    TextView tvHeartRateInfo;
+    @BindView(R.id.ll_heart_rate)
+    LinearLayout llHeartRate;
+    @BindView(R.id.tv_xinli_tiaozheng_info)
+    TextView tvXinliTiaozhengInfo;
+    @BindView(R.id.ll_xinli_tiaozheng)
+    LinearLayout llXinliTiaozheng;
+    @BindView(R.id.tv_yaowu_fucong_info)
+    TextView tvYaowuFucongInfo;
+    @BindView(R.id.ll_yaowu_fucong)
+    LinearLayout llYaowuFucong;
+    @BindView(R.id.tv_yaowu_buliang_info)
+    TextView tvYaowuBuliangInfo;
+    @BindView(R.id.ll_yaowu_buliang)
+    LinearLayout llYaowuBuliang;
+    @BindView(R.id.tv_tixuetang_info)
+    TextView tvTixuetangInfo;
+    @BindView(R.id.ll_dixuetang)
+    LinearLayout llDixuetang;
+    @BindView(R.id.tv_zhushiliang_info)
+    TextView tvZhushiliangInfo;
+    @BindView(R.id.ll_zhushiliang)
+    LinearLayout llZhushiliang;
+    @BindView(R.id.health_detect_iv_qrcode)
+    ImageView healthDetectIvQrcode;
+    @BindView(R.id.health_detect_ll_qrcode)
+    LinearLayout healthDetectLlQrcode;
+    @BindView(R.id.tv_zunyi_info)
+    TextView tvZunyiInfo;
+    @BindView(R.id.ll_zunyi)
+    LinearLayout llZunyi;
     private String detectCategory;
 
     private String text = NetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid="
@@ -271,8 +339,65 @@ public class DetectResultActivity extends BaseActivity {
         mDetectTvResultTemperateInfo.setText(tem + "℃");
         mDetectTvResultSugarInfo.setText(sugar + "  mmol/L");
         String[] stringArray = getResources().getStringArray(R.array.ecg_measureres);
-
         mDetectTvResultEcgInfo.setText(stringArray[Integer.parseInt(ecg)]);
+
+        tvHeartRateInfo.setText(detectResult.heartRate + "");
+        tvCholesterinInfo.setText(detectResult.cholesterol + "");
+        if (detectResult.psychologicalRecovery != null) {
+            tvXinliTiaozhengInfo.setText(getResources().getStringArray(R.array.xltz)[Integer.parseInt(detectResult.psychologicalRecovery) - 1]);
+        }
+        if (detectResult.drugCompliance != null) {
+            tvYaowuFucongInfo.setText(getResources().getStringArray(R.array.ywfc)[Integer.parseInt(detectResult.drugCompliance)]);
+        }
+        if (detectResult.drugAdverseReaction != null) {
+            tvYaowuBuliangInfo.setText(getResources().getStringArray(R.array.ywbl)[Integer.parseInt(detectResult.drugAdverseReaction)]);
+        }
+        if (detectResult.hypoglycemia != null) {
+            tvTixuetangInfo.setText(getResources().getStringArray(R.array.dxtfy)[Integer.parseInt(detectResult.hypoglycemia) - 1]);
+        }
+        String zunyi = getIntent().getStringExtra("zunyi");
+        if (TextUtils.isEmpty(zunyi)) {
+            tvZunyiInfo.setText(getResources().getStringArray(R.array.xltz)[Integer.parseInt(zunyi)]);
+        }
+        tvZhushiliangInfo.setText(stapleFood + "克");
+        switch (detectCategory) {
+            case "detectHealth":
+                llXinliTiaozheng.setVisibility(View.GONE);
+                llYaowuBuliang.setVisibility(View.GONE);
+                llDixuetang.setVisibility(View.GONE);
+                llZhushiliang.setVisibility(View.GONE);
+                llXinliTiaozheng.setVisibility(View.GONE);
+                llYaowuBuliang.setVisibility(View.GONE);
+                llZunyi.setVisibility(View.GONE);
+
+                llDixuetang.setVisibility(View.GONE);
+                llZhushiliang.setVisibility(View.GONE);
+                break;
+            case "detectPressure":
+                detectTvResultTemperate.setVisibility(View.GONE);
+                detectTvResultSugar.setVisibility(View.GONE);
+                detectTvResultEcg.setVisibility(View.GONE);
+                llHeartRate.setVisibility(View.GONE);
+
+                llUa.setVisibility(View.GONE);
+                llCholesterin.setVisibility(View.GONE);
+
+                llDixuetang.setVisibility(View.GONE);
+                llZhushiliang.setVisibility(View.GONE);
+
+                llDixuetang.setVisibility(View.GONE);
+                llZhushiliang.setVisibility(View.GONE);
+
+                break;
+            case "detectSugar":
+                detectTvResultTemperate.setVisibility(View.GONE);
+                llUa.setVisibility(View.GONE);
+                llCholesterin.setVisibility(View.GONE);
+                llHealthSalt.setVisibility(View.GONE);
+                break;
+        }
+
+
         initView();
     }
 
@@ -348,8 +473,8 @@ public class DetectResultActivity extends BaseActivity {
                             mDetectTvAgeInfo.setText(data.age + "岁");
                             mDetectTvGenderInfo.setText(data.sex + "");
                             //接口数据接口更改 身高体重使用外层数据
-                            mDetectTvHeightInfo.setText(data.height+" cm");
-                            mDetectTvWeightInfo.setText(data.weight+" kg");
+                            mDetectTvHeightInfo.setText(data.height + " cm");
+                            mDetectTvWeightInfo.setText(data.weight + " kg");
 
 
                             PersonInfoResultBean.DataBean.RecordBean record = data.record;

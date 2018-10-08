@@ -115,6 +115,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                         Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
                         intent1.putExtras(getIntent());
                         intent1.putExtra("type", "xueya");
+                        intent1.putExtra("heartRate", heartRate);
                         intent1.putExtra("ecg", "0");
                         startActivity(intent1);
                         finish();
