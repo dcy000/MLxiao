@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -110,6 +111,8 @@ public enum RepositoryApp implements IRepositoryApp {
                 builder.printHttpLogLevel(HttpLogInterceptor.Level.NONE);
             }
 
+            RetrofitUrlManager.getInstance().putDomain("seniverse", BuildConfig.API_SENIVERSE);
+
             String baseUrl = BuildConfig.SERVER_ADDRESS;
             builder.baseUrl(baseUrl)
                     // 这里提供一个全局处理 Http 请求和响应结果的处理类,可以比客户端提前一步拿到服务器返回的结果
@@ -130,6 +133,7 @@ public enum RepositoryApp implements IRepositoryApp {
                     .okhttpConfiguration((context1, okHttpBuilder) -> {
                         //支持 Https
                         //okHttpBuilder.sslSocketFactory()
+                        RetrofitUrlManager.getInstance().with(okHttpBuilder);
                         okHttpBuilder
                                 .addNetworkInterceptor(new StethoInterceptor())
                                 .writeTimeout(10, TimeUnit.SECONDS);
