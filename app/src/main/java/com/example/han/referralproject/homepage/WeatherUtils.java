@@ -69,8 +69,8 @@ public class WeatherUtils {
             String county = bdLocation.getDistrict();
             String street = bdLocation.getStreet();
             String streetNumber = bdLocation.getStreetNumber();
-            if (locationResult!=null){
-                locationResult.onResult(city,county);
+            if (locationResult != null) {
+                locationResult.onResult(city, county);
             }
         }
     };
@@ -86,6 +86,7 @@ public class WeatherUtils {
 
     public void requestWeatherData(String address) {
         OkGo.<String>get(TIANQI_NOW_WEATHER_URL)
+                .tag(WeatherUtils.this)
                 .params("key", TIANQI_API_SECRET_KEY)
                 .params("location", address)
                 .params("language", "zh-Hans")
@@ -104,7 +105,12 @@ public class WeatherUtils {
                     }
                 });
     }
-
+    public void destroy(){
+        startLocation();
+        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(), WeatherUtils.this);
+        locationResult=null;
+        weatherResult=null;
+    }
     private WeatherResult weatherResult;
 
     public void setOnWeatherResultListener(WeatherResult weatherResult) {
@@ -116,11 +122,14 @@ public class WeatherUtils {
 
         void onError();
     }
+
     private LocationResult locationResult;
-    public void setOnLocationResultListener(LocationResult locationResult){
-        this.locationResult=locationResult;
+
+    public void setOnLocationResultListener(LocationResult locationResult) {
+        this.locationResult = locationResult;
     }
-    public interface LocationResult{
-        void onResult(String city,String county);
+
+    public interface LocationResult {
+        void onResult(String city, String county);
     }
 }
