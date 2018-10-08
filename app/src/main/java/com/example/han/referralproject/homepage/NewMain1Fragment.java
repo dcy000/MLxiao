@@ -1,6 +1,9 @@
 package com.example.han.referralproject.homepage;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
@@ -19,6 +23,7 @@ import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.network.AppRepository;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.location.BdLocationHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.UtilsManager;
@@ -81,7 +86,6 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
     private EclipseImageView mIvHealthMeasure;
     private EclipseImageView mIvHealthDialyTask;
     private EclipseImageView mIvHealthCallFamily;
-
     @Override
     protected int initLayout() {
         return R.layout.fragment_newmain1;
@@ -113,49 +117,28 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
         mIvHealthDialyTask.setOnClickListener(this);
         mIvHealthCallFamily = view.findViewById(R.id.iv_health_call_family);
         mIvHealthCallFamily.setOnClickListener(this);
-        synchroSystemTime();
-        getLocation();
+        observeTimeAndWeather();
     }
 
-    private void getLocation() {
-        //TODO:打正式包的时候打开该注释
-        WeatherUtils.getInstance().initLocation(UtilsManager.getApplication());
-        WeatherUtils.getInstance().setOnLocationResultListener(new WeatherUtils.LocationResult() {
+    private void observeTimeAndWeather() {
+        MyApplication.getInstance().timeData.observe(this, new Observer<String[]>() {
             @Override
-            public void onResult(String city, String county) {
-                getWeather(city);
+            public void onChanged(@Nullable String[] result) {
+                if (isAdded()&&result.length==4) {
+                    mClock.setText(result[0]);
+                    mGregorianCalendar.setText(result[1]);
+                    mLunarCalendar.setText(result[2]);
+                    mWeekToday.setText(result[3]);
+                }
             }
         });
-//        getWeather("杭州");
-    }
 
-    private void getWeather(String address) {
-        Observable.interval(0, 1, TimeUnit.HOURS)
-                .flatMap(new Function<Long, ObservableSource<HomepageWeatherBean>>() {
-                    @Override
-                    public ObservableSource<HomepageWeatherBean> apply(Long aLong) throws Exception {
-                        return AppRepository.getWeather(address);
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new io.reactivex.observers.DefaultObserver<HomepageWeatherBean>() {
-                    @Override
-                    public void onNext(HomepageWeatherBean homepageWeatherBean) {
-                        handleWeatherResult(homepageWeatherBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort("获取天气失败："+e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+        MyApplication.getInstance().weatherData.observe(this, new Observer<HomepageWeatherBean>() {
+            @Override
+            public void onChanged(@Nullable HomepageWeatherBean homepageWeatherBean) {
+                handleWeatherResult(homepageWeatherBean);
+            }
+        });
     }
 
     private void handleWeatherResult(HomepageWeatherBean homepageWeatherBean) {
@@ -276,50 +259,6 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 }
             }
         }
-    }
-
-    private void synchroSystemTime() {
-
-        Observable.interval(0, 10, TimeUnit.SECONDS)
-                .map(new Function<Long, String[]>() {
-                    @Override
-                    public String[] apply(Long aLong) throws Exception {
-                        String[] results = new String[4];
-                        Calendar instance = Calendar.getInstance();
-                        results[0] = TimeUtils.date2String(instance.getTime(), new SimpleDateFormat("HH:mm"));
-                        int month = instance.get(Calendar.MONTH) + 1;
-                        int day = instance.get(Calendar.DATE);
-                        results[1] = month + "月" + day + "日";
-                        LunarUtils lunarUtils = new LunarUtils(instance);
-                        results[2] = lunarUtils.toString();
-                        results[3] = TimeUtils.getChineseWeek(instance.getTime());
-                        return results;
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new io.reactivex.observers.DefaultObserver<String[]>() {
-                    @Override
-                    public void onNext(String[] result) {
-                        if (isAdded()) {
-                            mClock.setText(result[0]);
-                            mGregorianCalendar.setText(result[1]);
-                            mLunarCalendar.setText(result[2]);
-                            mWeekToday.setText(result[3]);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 
     @Override

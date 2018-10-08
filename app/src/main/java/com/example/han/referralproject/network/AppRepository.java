@@ -24,6 +24,7 @@ public class AppRepository {
     private static IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
     private static AppServer healthMeasureServer = mRepositoryHelper.retrofitService(AppServer.class);
     public static Observable<HomepageWeatherBean>  getWeather(String city){
+        Timber.i("天气接口被调用");
         return healthMeasureServer
                 .getWeather(TIANQI_API_SECRET_KEY,city,"zh-Hans","c");
     }

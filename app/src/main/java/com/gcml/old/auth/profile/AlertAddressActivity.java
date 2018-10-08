@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.baidu.location.BDLocation;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.location.BdLocationHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
@@ -56,8 +57,6 @@ public class AlertAddressActivity extends AppCompatActivity {
     private StringBuffer buffer;
     protected String eat = "", smoke = "", drink = "", exercise = "";
     private ConstraintLayout clRoot;
-
-    private BdLocationHelper mLocationHelper = new BdLocationHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,7 +199,7 @@ public class AlertAddressActivity extends AppCompatActivity {
                     buffer.append(9 + ",");
             }
         }
-        mLocationHelper.startLocation(this)
+        MyApplication.getInstance().bdLocation.startLocation(this)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
