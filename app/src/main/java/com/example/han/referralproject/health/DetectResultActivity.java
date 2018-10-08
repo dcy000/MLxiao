@@ -341,8 +341,8 @@ public class DetectResultActivity extends BaseActivity {
         String[] stringArray = getResources().getStringArray(R.array.ecg_measureres);
         mDetectTvResultEcgInfo.setText(stringArray[Integer.parseInt(ecg)]);
 
-        tvHeartRateInfo.setText(detectResult.heartRate + "");
-        tvCholesterinInfo.setText(detectResult.cholesterol + "");
+        tvHeartRateInfo.setText(detectResult.heartRate + "次/分");
+        tvCholesterinInfo.setText(detectResult.cholesterol + "mmol/L");
         if (detectResult.psychologicalRecovery != null) {
             tvXinliTiaozhengInfo.setText(getResources().getStringArray(R.array.xltz)[Integer.parseInt(detectResult.psychologicalRecovery) - 1]);
         }
@@ -356,9 +356,11 @@ public class DetectResultActivity extends BaseActivity {
             tvTixuetangInfo.setText(getResources().getStringArray(R.array.dxtfy)[Integer.parseInt(detectResult.hypoglycemia) - 1]);
         }
         String zunyi = getIntent().getStringExtra("zunyi");
-        if (TextUtils.isEmpty(zunyi)) {
+        if (!TextUtils.isEmpty(zunyi)) {
             tvZunyiInfo.setText(getResources().getStringArray(R.array.xltz)[Integer.parseInt(zunyi)]);
         }
+        tvUaInfo.setText(getIntent().getStringExtra("niaosuan")+"mmol/L");
+
         tvZhushiliangInfo.setText(stapleFood + "克");
         switch (detectCategory) {
             case "detectHealth":
@@ -422,7 +424,7 @@ public class DetectResultActivity extends BaseActivity {
             llPressureulse.setVisibility(View.GONE);
         } else {
             llPressureulse.setVisibility(View.VISIBLE);
-            tvPulse.setText(data.pulse + "");
+            tvPulse.setText(data.pulse + "次/分");
         }
 
         //糖尿病体检症状

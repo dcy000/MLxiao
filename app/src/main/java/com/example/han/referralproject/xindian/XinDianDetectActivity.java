@@ -162,6 +162,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                         intent1.putExtra("type", "xuetang");
 //                        String ecg = tv_MSG == null ? "0" : tv_MSG.getText().toString();
                         intent1.putExtra("ecg", ecg);
+                        intent1.putExtra("heartRate", heartRate);
                         startActivity(intent1);
                         finish();
                         return;

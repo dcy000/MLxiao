@@ -270,6 +270,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private int pulse;
     private String cholesterol;
     private String format;
+    private String formatString;
 
 
     /**
@@ -758,7 +759,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             speak(String.format(getString(R.string.tips_result_xuetang), String.valueOf(afterResult), speakFlag));
 
         } else if (notifyData[1] == 81) {//尿酸
-            String formatString = String.format("%.2f", afterResult);
+            formatString = String.format("%.2f", afterResult);
             info.uric_acid = String.valueOf(Float.parseFloat(formatString) * 1000);
             mSanHeYiTwoTv.setText(formatString);
             if ("男".equals(sex)) {
@@ -1388,6 +1389,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 Intent intent2 = new Intent(DetectActivity.this, DetectActivity.class);
                                 intent2.putExtras(getIntent());
                                 intent2.putExtra("cholesterol", cholesterol);
+                                intent2.putExtra("niaosuan", formatString);
                                 intent2.putExtra("type", "tizhong");
                                 startActivity(intent2);
                                 break;
@@ -1582,6 +1584,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         Intent intent3 = new Intent(DetectActivity.this, DetectActivity.class);
                         intent3.putExtras(getIntent());
                         intent3.putExtra("cholesterol", "0");
+                        intent3.putExtra("niaosuan", "0");
                         intent3.putExtra("type", "xuetang");
                         startActivity(intent3);
                         break;
