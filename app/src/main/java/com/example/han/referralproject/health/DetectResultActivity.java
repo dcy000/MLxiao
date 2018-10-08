@@ -359,7 +359,8 @@ public class DetectResultActivity extends BaseActivity {
         if (!TextUtils.isEmpty(zunyi)) {
             tvZunyiInfo.setText(getResources().getStringArray(R.array.xltz)[Integer.parseInt(zunyi)]);
         }
-        tvUaInfo.setText(getIntent().getStringExtra("niaosuan")+"mmol/L");
+        String niaosuan = getIntent().getStringExtra("niaosuan");
+        tvUaInfo.setText(niaosuan.replaceAll("null","0.0")+"mmol/L");
 
         tvZhushiliangInfo.setText(stapleFood + "克");
         switch (detectCategory) {
