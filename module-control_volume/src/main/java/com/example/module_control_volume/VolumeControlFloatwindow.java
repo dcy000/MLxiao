@@ -213,14 +213,22 @@ public class VolumeControlFloatwindow {
     }
 
     public static void setVolumSB(int progress) {
-        tvVolume.setText((int) ((progress / (float) maxVolume) * 100) + "%");
-        seekBar.setProgress(progress);
-        if (progress == 0) {
-            icon_voice.setImageResource(R.drawable.volume_control_icon_voice_mute);
-            return;
+        if (tvVolume!=null){
+            tvVolume.setText((int) ((progress / (float) maxVolume) * 100) + "%");
         }
-        icon_voice.setImageResource(R.drawable.volume_control_icon_voice);
-        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, AudioManager.FLAG_PLAY_SOUND);
+        if (seekBar!=null){
+            seekBar.setProgress(progress);
+        }
+        if (icon_voice!=null){
+            if (progress == 0) {
+                icon_voice.setImageResource(R.drawable.volume_control_icon_voice_mute);
+                return;
+            }
+            icon_voice.setImageResource(R.drawable.volume_control_icon_voice);
+        }
+        if (mAudioManager!=null){
+            mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, AudioManager.FLAG_PLAY_SOUND);
+        }
     }
 
 }
