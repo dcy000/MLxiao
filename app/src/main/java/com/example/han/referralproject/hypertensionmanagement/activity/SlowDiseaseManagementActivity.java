@@ -86,11 +86,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("健 康 管 理");
+        mTitleText.setText("健 康 方 案");
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(SlowDiseaseManagementActivity.this, WifiConnectActivity.class)));
-        mlSpeak("主人，欢迎来到健康管理");
+        mlSpeak("主人，欢迎来到健康方案");
     }
 
     @OnClick({R.id.iv_Hypertension_manage, R.id.iv_blood_sugar_manage})
@@ -155,7 +155,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                                         .build().call();
                             }
                         })
-                        .setPositiveButton("将康方案", new View.OnClickListener() {
+                        .setPositiveButton("健康方案", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 startActivity(new Intent(SlowDiseaseManagementActivity.this, TreatmentPlanActivity.class));

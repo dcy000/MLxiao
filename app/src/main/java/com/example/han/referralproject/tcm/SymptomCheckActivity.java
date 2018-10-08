@@ -46,7 +46,7 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
         mIvRisk = (ImageView) findViewById(R.id.iv_risk_assessment);
         mIvRisk.setOnClickListener(this);
 
-        mTbTitle.setData("症 状 自 查", R.drawable.common_icon_back, "返回", R.drawable.icon_home, null, new ToolBarClickListener() {
+        mTbTitle.setData("健 康 自 查", R.drawable.common_icon_back, "返回", R.drawable.icon_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();
@@ -58,7 +58,7 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,欢迎来到症状自查");
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,欢迎来到健康自查");
     }
 
     @Override

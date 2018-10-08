@@ -86,6 +86,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
     private EclipseImageView mIvHealthMeasure;
     private EclipseImageView mIvHealthDialyTask;
     private EclipseImageView mIvHealthCallFamily;
+
     @Override
     protected int initLayout() {
         return R.layout.fragment_newmain1;
@@ -124,7 +125,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
         MyApplication.getInstance().timeData.observe(this, new Observer<String[]>() {
             @Override
             public void onChanged(@Nullable String[] result) {
-                if (isAdded()&&result.length==4) {
+                if (isAdded() && result.length == 4) {
                     mClock.setText(result[0]);
                     mGregorianCalendar.setText(result[1]);
                     mLunarCalendar.setText(result[2]);
@@ -263,6 +264,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        CCResult result;
+        Observable<UserEntity> rxUser;
+        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+        rxUser = result.getDataItem("data");
         switch (v.getId()) {
             default:
                 break;
@@ -283,31 +288,42 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.ll_date_and_week:
                 break;
             case R.id.iv_health_measure:
-                CC.obtainBuilder("com.gcml.auth.face.signin")
-                        .addParam("skip", true)
-                        .addParam("currentUser", false)
-                        .build()
-                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                rxUser.subscribeOn(Schedulers.io())
+                        .as(RxUtils.autoDisposeConverter(this))
+                        .subscribe(new DefaultObserver<UserEntity>() {
                             @Override
-                            public void onResult(CC cc, CCResult result) {
-                                boolean skip = "skip".equals(result.getErrorMessage());
-                                if (result.isSuccess() || skip) {
-                                    if (skip) {
-                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                        return;
-                                    }
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                            public void onNext(UserEntity userEntity) {
+                                if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.age)) {
+                                    ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+                                    MLVoiceSynthetize.startSynthesize(
+                                            getActivity().getApplicationContext(),
+                                            "请先去个人中心完善性别和年龄信息");
                                 } else {
-                                    ToastUtils.showShort(result.getErrorMessage());
+                                    CC.obtainBuilder("com.gcml.auth.face.signin")
+                                            .addParam("skip", true)
+                                            .addParam("currentUser", false)
+                                            .build()
+                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                                @Override
+                                                public void onResult(CC cc, CCResult result) {
+                                                    boolean skip = "skip".equals(result.getErrorMessage());
+                                                    if (result.isSuccess() || skip) {
+                                                        if (skip) {
+                                                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                                            return;
+                                                        }
+                                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                                    } else {
+                                                        ToastUtils.showShort(result.getErrorMessage());
+                                                    }
+                                                }
+                                            });
                                 }
                             }
                         });
+
                 break;
             case R.id.iv_health_dialy_task:
-                CCResult result;
-                Observable<UserEntity> rxUser;
-                result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-                rxUser = result.getDataItem("data");
                 rxUser.subscribeOn(Schedulers.io())
                         .as(RxUtils.autoDisposeConverter(this))
                         .subscribe(new DefaultObserver<UserEntity>() {
