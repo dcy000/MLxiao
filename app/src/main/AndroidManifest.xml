@@ -368,15 +368,6 @@
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
 
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="MDMGtSWAjuIlCSQE7lkYbAHzKos6PNIG" />
-
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
-
         <activity
             android:name="com.medlink.danbogh.alarm.ReminderActivity"
             android:screenOrientation="landscape" />

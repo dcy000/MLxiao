@@ -12,12 +12,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.location.BdLocationHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -28,13 +26,13 @@ import com.gcml.old.auth.entity.Province;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -58,6 +56,8 @@ public class AlertAddressActivity extends AppCompatActivity {
     private StringBuffer buffer;
     protected String eat = "", smoke = "", drink = "", exercise = "";
     private ConstraintLayout clRoot;
+
+    private BdLocationHelper mLocationHelper = new BdLocationHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,116 +200,81 @@ public class AlertAddressActivity extends AppCompatActivity {
                     buffer.append(9 + ",");
             }
         }
-        mLocationClient = new LocationClient(getApplicationContext());
-        LocationClientOption locOption = new LocationClientOption();
-        locOption.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-        locOption.setCoorType("bd09ll");
-        locOption.setIsNeedAddress(true);
-        locOption.setOpenGps(true);
-        locOption.setScanSpan(3000);
-        mLocationClient.setLocOption(locOption);
+        mLocationHelper.startLocation(this)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<BDLocation>() {
+                    @Override
+                    public void onNext(BDLocation bdLocation) {
+                        onLocation(bdLocation);
+                    }
+                });
     }
-
-    private LocationClient mLocationClient;
 
     private int finalI = -1;
     private int finalJ = -1;
     private int finalK = -1;
     private String finalDetailAddress = "";
 
-    private BDLocationListener mListener = new BDLocationListener() {
-        @Override
-        public void onReceiveLocation(BDLocation bdLocation) {
-            stopLocation();
-
-            String province = bdLocation.getProvince();
-            String city = bdLocation.getCity();
-            String county = bdLocation.getDistrict();
-            String street = bdLocation.getStreet();
-            String streetNumber = bdLocation.getStreetNumber();
-            finalDetailAddress = street + streetNumber;
-            if (mProvinceNames != null) {
-                int size = mProvinceNames.size();
-                for (int i = 0; i < size; i++) {
-                    String provinceName = mProvinceNames.get(i);
-                    if (province.contains(provinceName)
-                            || provinceName.contains(province)) {
-                        finalI = i;
-                        List<String> cityNames = mCityNameMap.get(provinceName);
-                        if (cityNames != null) {
-                            mCityNames = cityNames;
-                            int size1 = mCityNames.size();
-                            for (int j = 0; j < size1; j++) {
-                                String cityName = mCityNames.get(j);
-                                if (cityName.contains(city)
-                                        || city.contains(cityName)) {
-                                    finalJ = j;
-                                    List<String> countyNames = mCountyNameMap.get(cityName);
-                                    if (countyNames != null) {
-                                        mCountyNames = countyNames;
-                                        int size2 = mCountyNames.size();
-                                        for (int k = 0; k < size2; k++) {
-                                            String countyName = mCountyNames.get(k);
-                                            if (countyName.contains(county)
-                                                    || county.contains(countyName)) {
-                                                finalK = k;
-                                                break;
-                                            }
+    private void onLocation(BDLocation bdLocation) {
+        String province = bdLocation.getProvince();
+        String city = bdLocation.getCity();
+        String county = bdLocation.getDistrict();
+        String street = bdLocation.getStreet();
+        String streetNumber = bdLocation.getStreetNumber();
+        finalDetailAddress = street + streetNumber;
+        if (mProvinceNames != null) {
+            int size = mProvinceNames.size();
+            for (int i = 0; i < size; i++) {
+                String provinceName = mProvinceNames.get(i);
+                if (province.contains(provinceName)
+                        || provinceName.contains(province)) {
+                    finalI = i;
+                    List<String> cityNames = mCityNameMap.get(provinceName);
+                    if (cityNames != null) {
+                        mCityNames = cityNames;
+                        int size1 = mCityNames.size();
+                        for (int j = 0; j < size1; j++) {
+                            String cityName = mCityNames.get(j);
+                            if (cityName.contains(city)
+                                    || city.contains(cityName)) {
+                                finalJ = j;
+                                List<String> countyNames = mCountyNameMap.get(cityName);
+                                if (countyNames != null) {
+                                    mCountyNames = countyNames;
+                                    int size2 = mCountyNames.size();
+                                    for (int k = 0; k < size2; k++) {
+                                        String countyName = mCountyNames.get(k);
+                                        if (countyName.contains(county)
+                                                || county.contains(countyName)) {
+                                            finalK = k;
+                                            break;
                                         }
                                     }
-                                    break;
                                 }
+                                break;
                             }
                         }
-                        break;
                     }
-                }
-
-                if (finalI >= 0 && finalI < mProvinceNames.size() &&
-                        finalJ >= 0 && finalJ < mCityNames.size() &&
-                        finalK >= 0 && finalK < mCountyNames.size()) {
-                    spProvince.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            spProvince.setSelection(finalI);
-                            spCounty.setSelection(finalJ);
-                            spCounty.setSelection(finalK);
-                            etAddress.setText(finalDetailAddress);
-                            etAddress.setSelection(finalDetailAddress.length());
-                        }
-                    });
+                    break;
                 }
             }
-        }
-    };
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        startLocation();
-    }
-
-    private void startLocation() {
-        if (mListener != null && mLocationClient != null) {
-            mLocationClient.registerLocationListener(mListener);
-        }
-        if (mLocationClient != null && !mLocationClient.isStarted()) {
-            mLocationClient.start();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        stopLocation();
-        super.onPause();
-    }
-
-    private void stopLocation() {
-        if (mLocationClient != null && mLocationClient.isStarted()) {
-            mLocationClient.stop();
-        }
-        if (mListener != null && mLocationClient != null) {
-            mLocationClient.unRegisterLocationListener(mListener);
+            if (finalI >= 0 && finalI < mProvinceNames.size() &&
+                    finalJ >= 0 && finalJ < mCityNames.size() &&
+                    finalK >= 0 && finalK < mCountyNames.size()) {
+                spProvince.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        spProvince.setSelection(finalI);
+                        spCounty.setSelection(finalJ);
+                        spCounty.setSelection(finalK);
+                        etAddress.setText(finalDetailAddress);
+                        etAddress.setSelection(finalDetailAddress.length());
+                    }
+                });
+            }
         }
     }
 
@@ -333,7 +298,7 @@ public class AlertAddressActivity extends AppCompatActivity {
         }
 
         UserEntity user = new UserEntity();
-        user.address = address;
+        user.address = getAddress();
         Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.putUser")
                 .addParam("user", user)
                 .build()
@@ -445,19 +410,21 @@ public class AlertAddressActivity extends AppCompatActivity {
             }
         });
 
-        Handlers.bg().post(new Runnable() {
 
+        Observable.fromCallable(new Callable<Object>() {
             @Override
-            public void run() {
+            public Object call() throws Exception {
                 mProvinces = loadCities();
-                Handlers.runOnUiThread(new Runnable() {
+                return new Object();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<Object>() {
                     @Override
-                    public void run() {
+                    public void onNext(Object o) {
                         showCities();
                     }
                 });
-            }
-        });
     }
 
     private List<Province> loadCities() {
