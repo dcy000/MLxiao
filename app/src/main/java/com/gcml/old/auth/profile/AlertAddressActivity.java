@@ -227,8 +227,9 @@ public class AlertAddressActivity extends AppCompatActivity {
             int size = mProvinceNames.size();
             for (int i = 0; i < size; i++) {
                 String provinceName = mProvinceNames.get(i);
-                if (province.contains(provinceName)
-                        || provinceName.contains(province)) {
+                if (!TextUtils.isEmpty(province)
+                        && !TextUtils.isEmpty(provinceName)
+                        && (province.contains(provinceName) || provinceName.contains(province))) {
                     finalI = i;
                     List<String> cityNames = mCityNameMap.get(provinceName);
                     if (cityNames != null) {
@@ -236,8 +237,9 @@ public class AlertAddressActivity extends AppCompatActivity {
                         int size1 = mCityNames.size();
                         for (int j = 0; j < size1; j++) {
                             String cityName = mCityNames.get(j);
-                            if (cityName.contains(city)
-                                    || city.contains(cityName)) {
+                            if (!TextUtils.isEmpty(city)
+                                    && !TextUtils.isEmpty(cityName)
+                                    && (cityName.contains(city) || city.contains(cityName))) {
                                 finalJ = j;
                                 List<String> countyNames = mCountyNameMap.get(cityName);
                                 if (countyNames != null) {
@@ -245,8 +247,9 @@ public class AlertAddressActivity extends AppCompatActivity {
                                     int size2 = mCountyNames.size();
                                     for (int k = 0; k < size2; k++) {
                                         String countyName = mCountyNames.get(k);
-                                        if (countyName.contains(county)
-                                                || county.contains(countyName)) {
+                                        if (!TextUtils.isEmpty(county)
+                                                && !TextUtils.isEmpty(countyName)
+                                                && (countyName.contains(county) || county.contains(countyName))) {
                                             finalK = k;
                                             break;
                                         }
