@@ -23,7 +23,7 @@ public class UiUtils {
         sContext = context.getApplicationContext();
         sDesignWidth = designWidth;
         sDesignHeight = designHeight;
-        compat(context,designWidth);
+        compat(context, designWidth);
     }
 
 
@@ -31,8 +31,10 @@ public class UiUtils {
         WindowManager windowManager =
                 (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Point size = new Point();
-        windowManager.getDefaultDisplay().getSize(size);
-        context.getResources().getDisplayMetrics().xdpi = 72.0f * size.x / designWidth;
+        if (windowManager != null) {
+            windowManager.getDefaultDisplay().getSize(size);
+            context.getResources().getDisplayMetrics().xdpi = 72.0f * size.x / designWidth;
+        }
     }
 
     public static void compatWithOrientation(Configuration config) {

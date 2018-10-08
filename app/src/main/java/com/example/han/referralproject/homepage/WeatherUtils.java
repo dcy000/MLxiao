@@ -1,15 +1,29 @@
 package com.example.han.referralproject.homepage;
 
+import android.annotation.SuppressLint;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.example.han.referralproject.network.AppRepository;
+import com.gcml.common.utils.RxUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -83,44 +97,10 @@ public class WeatherUtils {
             mLocationClient.unRegisterLocationListener(mListener);
         }
     }
-
-    public void requestWeatherData(String address) {
-        OkGo.<String>get(TIANQI_NOW_WEATHER_URL)
-                .tag(WeatherUtils.this)
-                .params("key", TIANQI_API_SECRET_KEY)
-                .params("location", address)
-                .params("language", "zh-Hans")
-                .params("unit", "c")
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        HomepageWeatherBean homepageWeatherBean = new Gson().fromJson(response.body(), HomepageWeatherBean.class);
-                        if (weatherResult != null) {
-                            if (homepageWeatherBean != null) {
-                                weatherResult.onResult(homepageWeatherBean);
-                            } else {
-                                weatherResult.onError();
-                            }
-                        }
-                    }
-                });
-    }
-    public void destroy(){
+    public void destroy() {
         startLocation();
         OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(), WeatherUtils.this);
-        locationResult=null;
-        weatherResult=null;
-    }
-    private WeatherResult weatherResult;
-
-    public void setOnWeatherResultListener(WeatherResult weatherResult) {
-        this.weatherResult = weatherResult;
-    }
-
-    public interface WeatherResult {
-        void onResult(HomepageWeatherBean homepageWeatherBean);
-
-        void onError();
+        locationResult = null;
     }
 
     private LocationResult locationResult;

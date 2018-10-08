@@ -175,10 +175,10 @@ public class LocalShared {
             return;
         }
         UserSpHelper.setUserId(infoBean.bid);
-        MyApplication.getInstance().telphoneNum = infoBean.tel;
+//        MyApplication.getInstance().telphoneNum = infoBean.tel;
         MyApplication.getInstance().userName = infoBean.bname;
-        MyApplication.getInstance().eqid = infoBean.eqid;
-        MyApplication.getInstance().xfid = infoBean.xfid;
+//        MyApplication.getInstance().eqid = infoBean.eqid;
+//        MyApplication.getInstance().xfid = infoBean.xfid;
         MyApplication.getInstance().hypertensionHand = infoBean.hypertensionHand;
         mShared.edit()
                 .putString(UserId, infoBean.bid)

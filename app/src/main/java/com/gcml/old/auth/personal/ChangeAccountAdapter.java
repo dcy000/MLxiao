@@ -80,6 +80,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
 
             // Token 1.0
             UserSpHelper.setUserId(userId);
+            UserSpHelper.setEqId(user.deviceId);
             mContext.sendBroadcast(new Intent("change_account"));
             CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
                     .addParam("userId", user.id)

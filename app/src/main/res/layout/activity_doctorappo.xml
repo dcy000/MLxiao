@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff5f5f5"
     tools:context="com.example.han.referralproject.recyclerview.DoctorappoActivity">
 
     <!--<LinearLayout
         android:id="@+id/linearlayou"
         android:layout_width="wrap_content"
-        android:layout_height="69dp"
+        android:layout_height="69pt"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -43,8 +44,8 @@
 
     <LinearLayout
         android:id="@+id/linearlayou1"
-        android:layout_width="400dp"
-        android:layout_height="570dp"
+        android:layout_width="608pt"
+        android:layout_height="1008pt"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"
         android:background="#FFFFFF"
@@ -107,7 +108,8 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_width="1216pt"
         android:layout_height="570dp"
         android:layout_below="@+id/linearlayou"
         android:layout_marginLeft="10dp"
@@ -194,10 +196,10 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/yuyue_selector"
+                android:background="@null"
                 android:gravity="center"
                 android:text="取消预约"
-                android:textColor="@android:color/white"
+                android:textColor="#FFFF9A5D"
                 android:textSize="25sp" />
 
         </LinearLayout>
@@ -245,10 +247,10 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/yuyue_selector"
+                android:background="@null"
                 android:gravity="center"
                 android:text="取消预约"
-                android:textColor="@android:color/white"
+                android:textColor="#FFFF9A5D"
                 android:textSize="25sp" />
 
 
@@ -297,10 +299,10 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/yuyue_selector"
+                android:background="@null"
                 android:gravity="center"
                 android:text="取消预约"
-                android:textColor="@android:color/white"
+                android:textColor="#FFFF9A5D"
                 android:textSize="25sp" />
 
 
@@ -312,32 +314,32 @@
 
     <Button
         android:id="@+id/video_doctor"
-        android:layout_width="250dp"
-        android:layout_height="70dp"
+        android:layout_width="320pt"
+        android:layout_height="120pt"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="50dp"
-        android:layout_marginRight="400dp"
+        android:layout_marginRight="695pt"
         android:background="@drawable/video_selector"
         android:gravity="center"
         android:text="视频医生"
         android:textColor="#FFFFFF"
-        android:textSize="40sp" />
+        android:textSize="56pt" />
 
 
     <Button
         android:id="@+id/add_yuyue"
-        android:layout_width="250dp"
-        android:layout_height="70dp"
+        android:layout_width="320pt"
+        android:layout_height="120pt"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginRight="199pt"
         android:background="@drawable/add_yuyues_set"
         android:gravity="center"
         android:text="添加预约"
         android:textColor="#FFFFFF"
-        android:textSize="40sp" />
+        android:textSize="56pt" />
 
 
 </RelativeLayout>

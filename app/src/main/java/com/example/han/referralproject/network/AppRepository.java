@@ -3,11 +3,8 @@ package com.example.han.referralproject.network;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
 import com.gcml.common.repository.IRepositoryHelper;
 import com.gcml.common.repository.RepositoryApp;
-import com.gcml.common.repository.http.ApiResult;
-import com.gcml.common.utils.RxUtils;
-
 import io.reactivex.Observable;
-import retrofit2.http.GET;
+import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -17,15 +14,17 @@ import retrofit2.http.GET;
  * description:TODO
  */
 public class AppRepository {
+    /**
+     * 天气Api
+     */
     private static String TIANQI_NOW_WEATHER_URL = "https://api.seniverse.com/v3/weather/now.json";
 
     private static String TIANQI_API_SECRET_KEY = "rodu3msnpwbpzosf";
 
     private static IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
     private static AppServer healthMeasureServer = mRepositoryHelper.retrofitService(AppServer.class);
-//    public static Observable<HomepageWeatherBean>  getWeather(String city){
-//        return healthMeasureServer
-//                .getWeather(TIANQI_NOW_WEATHER_URL,TIANQI_API_SECRET_KEY,city,"zh-Hans","c")
-//                .compose(RxUtils.apiResultTransformer())
-//    }
+    public static Observable<HomepageWeatherBean>  getWeather(String city){
+        return healthMeasureServer
+                .getWeather(TIANQI_API_SECRET_KEY,city,"zh-Hans","c");
+    }
 }

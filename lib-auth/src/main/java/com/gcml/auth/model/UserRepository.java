@@ -72,8 +72,9 @@ public class UserRepository {
                         })
                         .doOnNext(new Consumer<UserEntity>() {
                             @Override
-                            public void accept(UserEntity userEntity) throws Exception {
-                                UserSpHelper.setFaceId(userEntity.xfid);
+                            public void accept(UserEntity user) throws Exception {
+                                UserSpHelper.setFaceId(user.xfid);
+                                UserSpHelper.setEqId(user.deviceId);
                             }
                         });
             }

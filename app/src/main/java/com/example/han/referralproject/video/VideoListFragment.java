@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +28,9 @@ import com.gcml.lib_utils.data.DataUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import timber.log.Timber;
 
 public class VideoListFragment extends Fragment {
 
@@ -114,8 +116,32 @@ public class VideoListFragment extends Fragment {
             }
         });
 
-        getVideos();
+        if (getUserVisibleHint()) {
+            initLazy(savedInstanceState);
+        }
+    }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getView() != null && isVisibleToUser) {
+            initLazy(null);
+        } else if (getView() != null && !isVisibleToUser) {
+            onHide();
+        }
+    }
+
+    private void onHide() {
+
+    }
+
+    private AtomicInteger init = new AtomicInteger(0);
+
+    private void initLazy(Bundle savedInstanceState) {
+        Timber.i("initLazy");
+        if (init.compareAndSet(0, 1)) {
+            getVideos();
+        }
     }
 
     private void getVideos() {
@@ -335,7 +361,7 @@ public class VideoListFragment extends Fragment {
                     int position = getAdapterPosition();
                     VideoEntity entity = videos.get(position);
                     String replaceSpace = DataUtils.replaceSpace(entity.getVideourl());
-                    CCVideoActions.jump2NormalVideoPlayActivity(replaceSpace,entity.getTitle());
+                    CCVideoActions.jump2NormalVideoPlayActivity(replaceSpace, entity.getTitle());
                 }
             });
         }
@@ -349,5 +375,4 @@ public class VideoListFragment extends Fragment {
         }
         super.onResume();
     }
-
 }

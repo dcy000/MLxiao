@@ -29,6 +29,7 @@ public class UserSpHelper {
      * 用户id的key
      */
     private static final String KEY_USER_ID = "user_id";
+    private static final String KEY_EQ_ID = "eq_id";
     private static final String KEY_TOKEN = "token";
     private static final String KEY_REFRESH_TOKEN = "refreshToken";
     /**
@@ -68,6 +69,17 @@ public class UserSpHelper {
      */
     public static String getUserId() {
         return (String) SPUtil.get(KEY_USER_ID, "");
+    }
+
+    public static void setEqId(String eqId) {
+        if (TextUtils.isEmpty(eqId)) {
+            eqId = "";
+        }
+        SPUtil.put(KEY_EQ_ID, eqId);
+    }
+
+    public static String getEqId() {
+        return (String) SPUtil.get(KEY_EQ_ID, "");
     }
 
     public static void setUserId(String userId) {

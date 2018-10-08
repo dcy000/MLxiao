@@ -108,9 +108,9 @@ public class MyApplication extends Application {
         LitePal.initialize(this);
         mInstance = this;
         LocalShared mShared = LocalShared.getInstance(this);
-        xfid = mShared.getXunfeiId();
-        telphoneNum = mShared.getPhoneNum();
-        eqid = mShared.getEqID();
+//        xfid = mShared.getXunfeiId();
+//        telphoneNum = mShared.getPhoneNum();
+//        eqid = mShared.getEqID();
 
         WakeupHelper.init(this);
 

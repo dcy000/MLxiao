@@ -90,7 +90,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
 
                 UserSpHelper.setUserId("");
                 UserSpHelper.setToken("");
-
+                UserSpHelper.setEqId("");
                 CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
 //                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();

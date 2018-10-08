@@ -1,5 +1,6 @@
 package com.example.han.referralproject.homepage;
 
+import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +16,9 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
+import com.example.han.referralproject.network.AppRepository;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.UtilsManager;
@@ -34,7 +37,14 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -120,176 +130,196 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
     }
 
     private void getWeather(String address) {
-        WeatherUtils.getInstance().setOnWeatherResultListener(new WeatherUtils.WeatherResult() {
-            @Override
-            public void onResult(HomepageWeatherBean homepageWeatherBean) {
-                List<HomepageWeatherBean.ResultsBean> results = homepageWeatherBean.getResults();
-                if (results != null && results.size() != 0) {
-                    HomepageWeatherBean.ResultsBean resultsBean = results.get(0);
-                    if (resultsBean != null) {
-                        HomepageWeatherBean.ResultsBean.NowBean now = resultsBean.getNow();
-                        if (now != null) {
-                            String temperature = now.getTemperature();
-                            String text = now.getText();
-                            mTemperature.setText(temperature + "℃");
-                            mWeather.setText(text);
-                            switch (text) {
-                                case "晴":
-                                    mImageWeather.setImageResource(R.drawable.weather_sunny_light);
-                                    break;
-                                case "多云":
-                                    mImageWeather.setImageResource(R.drawable.weather_cloudy);
-                                    break;
-                                case "晴间多云":
-                                    mImageWeather.setImageResource(R.drawable.weather_partly_cloudy_light);
-                                    break;
-                                case "大部多云":
-                                    mImageWeather.setImageResource(R.drawable.weather_mostly_cloudy_light);
-                                    break;
-                                case "阴":
-                                    mImageWeather.setImageResource(R.drawable.weather_overcast);
-                                    break;
-                                case "阵雨":
-                                    mImageWeather.setImageResource(R.drawable.weather_shower);
-                                    break;
-                                case "雷阵雨":
-                                    mImageWeather.setImageResource(R.drawable.weather_thundershower);
-                                    break;
-                                case "雷阵雨伴有冰雹":
-                                    mImageWeather.setImageResource(R.drawable.weather_thundershower_with_hail);
-                                    break;
-                                case "小雨":
-                                    mImageWeather.setImageResource(R.drawable.weather_light_rain);
-                                    break;
-                                case "中雨":
-                                    mImageWeather.setImageResource(R.drawable.weather_moderate_rain);
-                                    break;
-                                case "大雨":
-                                    mImageWeather.setImageResource(R.drawable.weather_heavy_rain);
-                                    break;
-                                case "暴雨":
-                                    mImageWeather.setImageResource(R.drawable.weather_storm);
-                                    break;
-                                case "大暴雨":
-                                    mImageWeather.setImageResource(R.drawable.weather_heavy_storm);
-                                    break;
-                                case "特大暴雨":
-                                    mImageWeather.setImageResource(R.drawable.weather_severe_storm);
-                                    break;
-                                case "冻雨":
-                                    mImageWeather.setImageResource(R.drawable.weather_ice_rain);
-                                    break;
-                                case "雨夹雪":
-                                    mImageWeather.setImageResource(R.drawable.weather_sleet);
-                                    break;
-                                case "阵雪":
-                                    mImageWeather.setImageResource(R.drawable.weather_snow_flurry);
-                                    break;
-                                case "小雪":
-                                    mImageWeather.setImageResource(R.drawable.weather_light_snow);
-                                    break;
-                                case "中雪":
-                                    mImageWeather.setImageResource(R.drawable.weather_moderate_snow);
-                                    break;
-                                case "大雪":
-                                    mImageWeather.setImageResource(R.drawable.weather_heavy_snow);
-                                    break;
-                                case "暴雪":
-                                    mImageWeather.setImageResource(R.drawable.weather_snowstorm);
-                                    break;
-                                case "浮尘":
-                                    mImageWeather.setImageResource(R.drawable.weather_dust);
-                                    break;
-                                case "扬沙":
-                                    mImageWeather.setImageResource(R.drawable.weather_sand);
-                                    break;
-                                case "沙尘暴":
-                                    mImageWeather.setImageResource(R.drawable.weather_duststorm);
-                                    break;
-                                case "强沙尘暴":
-                                    mImageWeather.setImageResource(R.drawable.weather_sandstorm);
-                                    break;
-                                case "雾":
-                                    mImageWeather.setImageResource(R.drawable.weather_foggy);
-                                    break;
-                                case "霾":
-                                    mImageWeather.setImageResource(R.drawable.weather_haze);
-                                    break;
-                                case "风":
-                                    mImageWeather.setImageResource(R.drawable.weather_windy);
-                                    break;
-                                case "大风":
-                                    mImageWeather.setImageResource(R.drawable.weather_blustery);
-                                    break;
-                                case "飓风":
-                                    mImageWeather.setImageResource(R.drawable.weather_hurricane);
-                                    break;
-                                case "热带风暴":
-                                    mImageWeather.setImageResource(R.drawable.weather_tropical_storm);
-                                    break;
-                                case "龙卷风":
-                                    mImageWeather.setImageResource(R.drawable.weather_tornado);
-                                    break;
-                                case "未知":
-                                    mImageWeather.setImageResource(R.drawable.weather_unknow);
-                                    break;
-                                default:
-                                    break;
+        Observable.interval(0, 1, TimeUnit.HOURS)
+                .flatMap(new Function<Long, ObservableSource<HomepageWeatherBean>>() {
+                    @Override
+                    public ObservableSource<HomepageWeatherBean> apply(Long aLong) throws Exception {
+                        return AppRepository.getWeather(address);
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new io.reactivex.observers.DefaultObserver<HomepageWeatherBean>() {
+                    @Override
+                    public void onNext(HomepageWeatherBean homepageWeatherBean) {
+                        handleWeatherResult(homepageWeatherBean);
+                    }
 
-                            }
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort("获取天气失败："+e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void handleWeatherResult(HomepageWeatherBean homepageWeatherBean) {
+        List<HomepageWeatherBean.ResultsBean> results = homepageWeatherBean.getResults();
+        if (results != null && results.size() != 0) {
+            HomepageWeatherBean.ResultsBean resultsBean = results.get(0);
+            if (resultsBean != null) {
+                HomepageWeatherBean.ResultsBean.NowBean now = resultsBean.getNow();
+                if (now != null) {
+                    String temperature = now.getTemperature();
+                    String text = now.getText();
+                    mTemperature.setText(temperature + "℃");
+                    mWeather.setText(text);
+                    switch (text) {
+                        case "晴":
+                            mImageWeather.setImageResource(R.drawable.weather_sunny_light);
+                            break;
+                        case "多云":
+                            mImageWeather.setImageResource(R.drawable.weather_cloudy);
+                            break;
+                        case "晴间多云":
+                            mImageWeather.setImageResource(R.drawable.weather_partly_cloudy_light);
+                            break;
+                        case "大部多云":
+                            mImageWeather.setImageResource(R.drawable.weather_mostly_cloudy_light);
+                            break;
+                        case "阴":
+                            mImageWeather.setImageResource(R.drawable.weather_overcast);
+                            break;
+                        case "阵雨":
+                            mImageWeather.setImageResource(R.drawable.weather_shower);
+                            break;
+                        case "雷阵雨":
+                            mImageWeather.setImageResource(R.drawable.weather_thundershower);
+                            break;
+                        case "雷阵雨伴有冰雹":
+                            mImageWeather.setImageResource(R.drawable.weather_thundershower_with_hail);
+                            break;
+                        case "小雨":
+                            mImageWeather.setImageResource(R.drawable.weather_light_rain);
+                            break;
+                        case "中雨":
+                            mImageWeather.setImageResource(R.drawable.weather_moderate_rain);
+                            break;
+                        case "大雨":
+                            mImageWeather.setImageResource(R.drawable.weather_heavy_rain);
+                            break;
+                        case "暴雨":
+                            mImageWeather.setImageResource(R.drawable.weather_storm);
+                            break;
+                        case "大暴雨":
+                            mImageWeather.setImageResource(R.drawable.weather_heavy_storm);
+                            break;
+                        case "特大暴雨":
+                            mImageWeather.setImageResource(R.drawable.weather_severe_storm);
+                            break;
+                        case "冻雨":
+                            mImageWeather.setImageResource(R.drawable.weather_ice_rain);
+                            break;
+                        case "雨夹雪":
+                            mImageWeather.setImageResource(R.drawable.weather_sleet);
+                            break;
+                        case "阵雪":
+                            mImageWeather.setImageResource(R.drawable.weather_snow_flurry);
+                            break;
+                        case "小雪":
+                            mImageWeather.setImageResource(R.drawable.weather_light_snow);
+                            break;
+                        case "中雪":
+                            mImageWeather.setImageResource(R.drawable.weather_moderate_snow);
+                            break;
+                        case "大雪":
+                            mImageWeather.setImageResource(R.drawable.weather_heavy_snow);
+                            break;
+                        case "暴雪":
+                            mImageWeather.setImageResource(R.drawable.weather_snowstorm);
+                            break;
+                        case "浮尘":
+                            mImageWeather.setImageResource(R.drawable.weather_dust);
+                            break;
+                        case "扬沙":
+                            mImageWeather.setImageResource(R.drawable.weather_sand);
+                            break;
+                        case "沙尘暴":
+                            mImageWeather.setImageResource(R.drawable.weather_duststorm);
+                            break;
+                        case "强沙尘暴":
+                            mImageWeather.setImageResource(R.drawable.weather_sandstorm);
+                            break;
+                        case "雾":
+                            mImageWeather.setImageResource(R.drawable.weather_foggy);
+                            break;
+                        case "霾":
+                            mImageWeather.setImageResource(R.drawable.weather_haze);
+                            break;
+                        case "风":
+                            mImageWeather.setImageResource(R.drawable.weather_windy);
+                            break;
+                        case "大风":
+                            mImageWeather.setImageResource(R.drawable.weather_blustery);
+                            break;
+                        case "飓风":
+                            mImageWeather.setImageResource(R.drawable.weather_hurricane);
+                            break;
+                        case "热带风暴":
+                            mImageWeather.setImageResource(R.drawable.weather_tropical_storm);
+                            break;
+                        case "龙卷风":
+                            mImageWeather.setImageResource(R.drawable.weather_tornado);
+                            break;
+                        case "未知":
+                            mImageWeather.setImageResource(R.drawable.weather_unknow);
+                            break;
+                        default:
+                            break;
+
                     }
                 }
             }
-
-            @Override
-            public void onError() {
-
-            }
-        });
-        ThreadUtils.executeByCachedAtFixRate(new ThreadUtils.SimpleTask<Void>() {
-            @Nullable
-            @Override
-            public Void doInBackground() {
-                WeatherUtils.getInstance().requestWeatherData(address);
-                return null;
-            }
-
-            @Override
-            public void onSuccess(@Nullable Void result) {
-
-            }
-        }, 1, TimeUnit.HOURS);
+        }
     }
 
     private void synchroSystemTime() {
-        String[] results = new String[4];
-        ThreadUtils.executeByCachedAtFixRate(new ThreadUtils.SimpleTask<String[]>() {
-            @Nullable
-            @Override
-            public String[] doInBackground() {
 
-                Calendar instance = Calendar.getInstance();
-                results[0] = TimeUtils.date2String(instance.getTime(), new SimpleDateFormat("HH:mm"));
-                int month = instance.get(Calendar.MONTH) + 1;
-                int day = instance.get(Calendar.DATE);
-                results[1] = month + "月" + day + "日";
-                LunarUtils lunarUtils = new LunarUtils(instance);
-                results[2] = lunarUtils.toString();
-                results[3] = TimeUtils.getChineseWeek(instance.getTime());
-                return results;
-            }
+        Observable.interval(0, 10, TimeUnit.SECONDS)
+                .map(new Function<Long, String[]>() {
+                    @Override
+                    public String[] apply(Long aLong) throws Exception {
+                        String[] results = new String[4];
+                        Calendar instance = Calendar.getInstance();
+                        results[0] = TimeUtils.date2String(instance.getTime(), new SimpleDateFormat("HH:mm"));
+                        int month = instance.get(Calendar.MONTH) + 1;
+                        int day = instance.get(Calendar.DATE);
+                        results[1] = month + "月" + day + "日";
+                        LunarUtils lunarUtils = new LunarUtils(instance);
+                        results[2] = lunarUtils.toString();
+                        results[3] = TimeUtils.getChineseWeek(instance.getTime());
+                        return results;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new io.reactivex.observers.DefaultObserver<String[]>() {
+                    @Override
+                    public void onNext(String[] result) {
+                        if (isAdded()) {
+                            mClock.setText(result[0]);
+                            mGregorianCalendar.setText(result[1]);
+                            mLunarCalendar.setText(result[2]);
+                            mWeekToday.setText(result[3]);
+                        }
+                    }
 
-            @Override
-            public void onSuccess(@Nullable String[] result) {
-                if (isAdded()) {
-                    mClock.setText(result[0]);
-                    mGregorianCalendar.setText(result[1]);
-                    mLunarCalendar.setText(result[2]);
-                    mWeekToday.setText(result[3]);
-                }
-            }
-        }, 10000, TimeUnit.MILLISECONDS);
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
@@ -335,8 +365,6 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                         });
                 break;
             case R.id.iv_health_dialy_task:
-//                startActivity(new Intent(getContext(), SlowDiseaseManagementActivity.class));
-//                startActivity(new Intent(getContext(), OlderHealthManagementSerciveActivity.class));
                 CCResult result;
                 Observable<UserEntity> rxUser;
                 result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
@@ -371,7 +399,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
                 break;
             case R.id.iv_health_call_family:
-                NimCallActivity.launchNoCheck(getContext(), MyApplication.getInstance().eqid);
+                NimCallActivity.launchNoCheck(getContext(), UserSpHelper.getEqId());
                 break;
         }
     }
