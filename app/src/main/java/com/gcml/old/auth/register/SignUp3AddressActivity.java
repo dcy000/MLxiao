@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.baidu.location.BDLocation;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.location.BdLocationHelper;
@@ -95,11 +96,8 @@ public class SignUp3AddressActivity extends BaseActivity {
         initData();
         initLocation();
     }
-
-    private BdLocationHelper mLocationHelper = new BdLocationHelper();
-
     private void initLocation() {
-        mLocationHelper.startLocation(this)
+        MyApplication.getInstance().bdLocation.startLocation(this)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))

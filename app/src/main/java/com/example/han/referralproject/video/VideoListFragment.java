@@ -360,7 +360,6 @@ public class VideoListFragment extends Fragment {
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     VideoEntity entity = videos.get(position);
-                    Timber.i("%s%s", entity.getVideourl(), entity.getTitle());
                     String replaceSpace = DataUtils.replaceSpace(entity.getVideourl());
                     CCVideoActions.jump2NormalVideoPlayActivity(replaceSpace, entity.getTitle());
                 }
