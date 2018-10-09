@@ -295,13 +295,17 @@ public class DataDealHelper {
 
             CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
+                    .addParam("currentUser", false)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-                            String userId = result.getDataItem("userId");
-                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                UserSpHelper.setUserId(userId);
+                            boolean skip = "skip".equals(result.getErrorMessage());
+                            if (result.isSuccess() || skip) {
+                                if (skip) {
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                    return;
+                                }
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
