@@ -11,14 +11,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.example.han.referralproject.R;
 import com.medlink.danbogh.utils.Utils;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -106,7 +101,7 @@ public class PhoneVerificationCodeView extends LinearLayout {
             return;
         }
 
-        String phone = tvPhone.getText().toString();
+        String phone = tvPhone.getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
             return;
         }
@@ -148,7 +143,7 @@ public class PhoneVerificationCodeView extends LinearLayout {
     private OnSendClickListener listener;
 
     public String getPhone() {
-        return tvPhone.getText().toString();
+        return tvPhone.getText().toString().trim();
     }
 
 

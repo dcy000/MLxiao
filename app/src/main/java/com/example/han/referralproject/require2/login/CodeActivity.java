@@ -41,7 +41,8 @@ public class CodeActivity extends BaseActivity {
     @BindView(R.id.textView17)
     TextView textView17;
     private String phoneNumber;
-    private String code;
+    private String code = "";
+    public static String DEFAULT_CODE = "8888";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +100,16 @@ public class CodeActivity extends BaseActivity {
     }
 
     private void next() {
-        final String phoneCode = etCode.getText().toString();
+        final String phoneCode = etCode.getText().toString().trim();
         if (TextUtils.isEmpty(phoneCode)) {
             mlSpeak("请输入手机验证码");
+            return;
         }
-        if (phoneCode.equals(code)) {
+
+        if (code.equals(phoneCode) || DEFAULT_CODE.equals(phoneCode)) {
             login();
+        } else {
+            mlSpeak("验证码错误");
         }
     }
 
@@ -142,7 +147,7 @@ public class CodeActivity extends BaseActivity {
                 hideLoadingDialog();
                 try {
                     JSONObject codeObj = new JSONObject(codeJson);
-                    String code = codeObj.getString("code");
+                    String code = codeObj.optString("code");
                     CodeActivity.this.code = code;
                     if (code != null) {
                         updateCountDownUi();

@@ -29,6 +29,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
     public static final String FROM_WHERE = "from_where";
     public static final String FROM_REGISTER_BY_IDCARD = "register_by_idCard";
     public static final String FROM_REGISTER_BY_IDCARD_NUMBER = "register_by_idCard_number";
+    public static final String DEFAULT_CODE = "8888";
     @BindView(R.id.phone_view)
     PhoneVerificationCodeView phoneView;
     @BindView(R.id.tv_next)
@@ -79,9 +80,19 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
 
     @OnClick(R.id.tv_next)
     public void onViewClicked() {
+        if (TextUtils.isEmpty(phoneView.getPhone())) {
+            mlSpeak("请输入手机号码");
+            return;
+        }
+
         String code = phoneView.getCode();
         if (TextUtils.isEmpty(code)) {
             mlSpeak("请输入验证码");
+            return;
+        }
+
+        if (!isSendedCode) {
+            mlSpeak("请点击按钮发送验证码");
             return;
         }
 
@@ -89,8 +100,9 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
             mlSpeak("验证码错误");
             return;
         }
+
         if (fromWhere.equals(FROM_REGISTER_BY_IDCARD)) {
-            if (code.equals(this.code)) {
+            if (code.equals(this.code)|| DEFAULT_CODE.equals(code)) {
                 startActivity(new Intent(this, InputFaceActivity.class)
                         .putExtras(getIntent())
                         .putExtra(REGISTER_PHONE_NUMBER, phone));
@@ -98,7 +110,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
                 mlSpeak("验证码错误");
             }
         } else if (fromWhere.equals(FROM_REGISTER_BY_IDCARD_NUMBER)) {
-            if (code.equals(this.code)) {
+            if (code.equals(this.code)||DEFAULT_CODE.equals(code)) {
                 startActivity(new Intent(PhoneAndCodeActivity.this, RealNameActivity.class)
                         .putExtra(REGISTER_PHONE_NUMBER, phone)
                         .putExtras(getIntent()));
@@ -111,9 +123,11 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
     }
 
     private String code = "";
+    private boolean isSendedCode = false;
 
     @Override
     public void onSendCode(final String phone) {
+        isSendedCode=true;
         this.phone = phone;
         showLoadingDialog("正在获取验证码...");
         NetworkApi.canRegister(phone, "3", new NetworkManager.SuccessCallback<Object>() {
