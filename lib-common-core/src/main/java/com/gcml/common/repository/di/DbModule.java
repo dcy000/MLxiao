@@ -13,13 +13,14 @@ public class DbModule {
          * 提供接口，自定义配置 RoomDatabase
          *
          * @param context Context
+         * @param dbName dbName
          * @param builder RoomDatabase.Builder
          */
-        void configRoom(Context context, RoomDatabase.Builder<DB> builder);
+        void configRoom(Context context, String dbName, RoomDatabase.Builder<DB> builder);
 
         RoomConfiguration EMPTY = new RoomConfiguration() {
             @Override
-            public void configRoom(Context context, RoomDatabase.Builder builder) {
+            public void configRoom(Context context,String dbName, RoomDatabase.Builder builder) {
 
             }
         };

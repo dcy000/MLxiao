@@ -19,7 +19,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:inputType="textPassword"
-        android:background="@drawable/shape_rect_gray"
+        android:background="@drawable/common_bg_input_gray"
         android:hint="请输入密码"
         android:maxLines="1"
         android:paddingLeft="10dp"

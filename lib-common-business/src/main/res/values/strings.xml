@@ -1,4 +1,42 @@
 <resources>
     <string name="app_name">lib-common-business</string>
     <string name="common_copy_right">\&#064;杭州国辰迈联机器人科技有限公司</string>
+
+    <string name="common_sign_up_height_tip">主人,请输入您的身高</string>
+    <string name="common_sign_up_weight_tip">主人,请输入您的体重</string>
+    <string name="common_sign_up3_address_tip">主人,请输入您的住址</string>
+
+    <string name="common_everyday_sports">每天一次</string>
+    <string name="common_few_times_per_week_sports">每周几次</string>
+    <string name="common_sometimes_sports">偶尔运动</string>
+    <string name="common_never_sports">从不运动</string>
+
+    <string name="common_always_smoke">经常吸烟</string>
+    <string name="common_sometimes_smoke">偶尔吸烟</string>
+    <string name="common_never_smoke">从不吸烟</string>
+
+    <string name="common_meat_collocation">荤素搭配</string>
+    <string name="common_meat_preference">偏好吃荤</string>
+    <string name="common_vegetatian_preference">偏好吃素</string>
+    <string name="common_salty_preference">偏好吃咸</string>
+    <string name="common_greasy_preferece">偏好油腻</string>
+    <string name="common_sweet_preferemce">偏好甜食</string>
+
+    <string name="common_always_drink">经常喝酒</string>
+    <string name="common_sometimes_drink">偶尔喝酒</string>
+    <string name="common_never_drink">从不喝酒</string>
+
+    <string-array name="common_disease_type">
+        <item>高血压</item>
+        <item>糖尿病</item>
+        <item>冠心病</item>
+        <item>慢阻肺</item>
+        <item>孕产妇</item>
+        <item>痛风</item>
+        <item>甲亢</item>
+        <item>高血脂</item>
+        <item>其他</item>
+        <item>无</item>
+    </string-array>
+
 </resources>

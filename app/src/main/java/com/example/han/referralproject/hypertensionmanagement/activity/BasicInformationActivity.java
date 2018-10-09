@@ -21,12 +21,10 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.old.auth.profile.AlertHeightActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 

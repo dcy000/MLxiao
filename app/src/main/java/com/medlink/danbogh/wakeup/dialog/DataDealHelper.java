@@ -322,7 +322,7 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(geren|xiugai)xinxi.*")
                 || inSpell.matches(".*huantouxiang.*")) {
-            startActivity(MyBaseDataActivity.class);
+            CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
             return;
         }
 
@@ -889,10 +889,7 @@ public class DataDealHelper {
             String currentUser = new Gson().toJson(diseaseUser);
             startActivity(com.witspring.unitbody.ChooseMemberActivity.class, "currentUser", currentUser);
         } else if (inSpell.matches(".*(dangan).*")) {
-            CC.obtainBuilder("com.gcml.old.user.profile").build().callAsync();
-//                startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
-
-
+            CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
             if (listener != null) {
                 listener.onEnd();
             }

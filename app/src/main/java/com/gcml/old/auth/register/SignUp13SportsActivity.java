@@ -12,13 +12,14 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.gcml.common.data.EatAdapter;
+import com.gcml.common.data.EatModel;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,27 +102,27 @@ public class SignUp13SportsActivity extends BaseActivity {
 
     private List<EatModel> eatModals() {
         mModels = new ArrayList<>(4);
-        mModels.add(new EatModel(getString(R.string.everyday_sports),
-                R.drawable.ic_everyday_sports,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference));
-        mModels.add(new EatModel(getString(R.string.few_times_per_week_sports),
-                R.drawable.ic_few_times_per_week_sports,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference));
-        EatModel e = new EatModel(getString(R.string.sometimes_sports),
-                R.drawable.ic_sometimes_sports,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference);
+        mModels.add(new EatModel(getString(R.string.common_everyday_sports),
+                R.drawable.common_ic_everyday_sports,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference));
+        mModels.add(new EatModel(getString(R.string.common_few_times_per_week_sports),
+                R.drawable.common_ic_few_times_per_week_sports,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference));
+        EatModel e = new EatModel(getString(R.string.common_sometimes_sports),
+                R.drawable.common_ic_sometimes_sports,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference);
         mModels.add(e);
-        mModels.add(new EatModel(getString(R.string.never_sports),
-                R.drawable.ic_never_sports,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference));
+        mModels.add(new EatModel(getString(R.string.common_never_sports),
+                R.drawable.common_ic_never_sports,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference));
         return mModels;
     }
 

@@ -13,10 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
@@ -24,8 +21,8 @@ import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.location.BdLocationHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.old.auth.entity.City;
-import com.gcml.old.auth.entity.Province;
+import com.gcml.common.data.City;
+import com.gcml.common.data.Province;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -184,7 +181,7 @@ public class SignUp3AddressActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.sign_up3_address_tip);
+        speak(R.string.common_sign_up3_address_tip);
     }
 
     public void onClRootClicked() {
@@ -201,8 +198,8 @@ public class SignUp3AddressActivity extends BaseActivity {
     public void onTvGoForwardClicked() {
         String address = etAddress.getText().toString().trim();
         if (TextUtils.isEmpty(address)) {
-            ToastUtils.showShort(R.string.sign_up3_address_tip);
-            speak(R.string.sign_up3_address_tip);
+            ToastUtils.showShort(R.string.common_sign_up3_address_tip);
+            speak(R.string.common_sign_up3_address_tip);
             return;
         }
 
@@ -226,16 +223,16 @@ public class SignUp3AddressActivity extends BaseActivity {
     private ArrayAdapter<String> mCountyAdapter;
 
     private void showCities() {
-        provinceAdapter = new ArrayAdapter<>(this, R.layout.item_spinner_layout);
+        provinceAdapter = new ArrayAdapter<>(this, R.layout.common_item_spinner_layout);
         spProvince.setAdapter(provinceAdapter);
         provinceAdapter.clear();
         provinceAdapter.addAll(mProvinceNames);
-        mCityAdapter = new ArrayAdapter<>(this, R.layout.item_spinner_layout);
+        mCityAdapter = new ArrayAdapter<>(this, R.layout.common_item_spinner_layout);
         spCity.setAdapter(mCityAdapter);
         mCityNames = mCityNameMap.get(mProvinceNames.get(0));
         mCityAdapter.clear();
         mCityAdapter.addAll(mCityNames);
-        mCountyAdapter = new ArrayAdapter<>(this, R.layout.item_spinner_layout);
+        mCountyAdapter = new ArrayAdapter<>(this, R.layout.common_item_spinner_layout);
         spCounty.setAdapter(mCountyAdapter);
         mCountyNames = mCountyNameMap.get(mCityNames.get(0));
         mCountyAdapter.clear();

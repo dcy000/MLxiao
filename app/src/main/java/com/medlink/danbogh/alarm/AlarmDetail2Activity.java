@@ -82,7 +82,7 @@ public class AlarmDetail2Activity extends BaseActivity {
     }
 
     private void initView() {
-        spRepeat.setAdapter(new ArrayAdapter<>(this, R.layout.item_spinner_layout, getResources().getStringArray(R.array.repeats)));
+        spRepeat.setAdapter(new ArrayAdapter<>(this, R.layout.common_item_spinner_layout, getResources().getStringArray(R.array.repeats)));
         wrvHour.setData(provideHours());
         wrvMinute.setData(provideMinutes());
     }

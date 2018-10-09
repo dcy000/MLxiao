@@ -32,5 +32,5 @@
 
     <include layout="@layout/include_sign_up_tab"/>
 
-    <include layout="@layout/include_sign_up_nav"/>
+    <include layout="@layout/common_include_sign_up_nav"/>
 </android.support.constraint.ConstraintLayout>

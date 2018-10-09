@@ -164,7 +164,7 @@
                 android:layout_width="310pt"
                 android:layout_height="120pt"
                 android:layout_marginLeft="50pt"
-                android:background="@drawable/common_bg_spinner"
+                android:background="@drawable/common_bg_spinner_normal"
                 android:textSize="50pt"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_height"
                 app:layout_constraintLeft_toRightOf="@+id/tv_height"

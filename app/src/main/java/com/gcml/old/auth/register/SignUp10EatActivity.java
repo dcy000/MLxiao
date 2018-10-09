@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.EatAdapter;
+import com.gcml.common.data.EatModel;
 import com.gcml.lib_utils.display.ToastUtils;
 
 import java.util.ArrayList;
@@ -105,36 +107,36 @@ public class SignUp10EatActivity extends BaseActivity {
 
     private List<EatModel> eatModals() {
         mModels = new ArrayList<>(6);
-        mModels.add(new EatModel(getString(R.string.meat_collocation),
-                R.drawable.ic_meat_collocation,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference));
-        mModels.add(new EatModel(getString(R.string.meat_preference),
-                R.drawable.ic_meat_preference,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference));
-        mModels.add(new EatModel(getString(R.string.vegetatian_preference),
-                R.drawable.ic_vegetarian_preference,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference));
-        mModels.add(new EatModel(getString(R.string.salty_preference),
-                R.drawable.ic_salty_preference,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference));
-        mModels.add(new EatModel(getString(R.string.greasy_preferece),
-                R.drawable.ic_greasy_preference,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference));
-        mModels.add(new EatModel(getString(R.string.sweet_preferemce),
-                R.drawable.ic_sweet_preference,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference));
+        mModels.add(new EatModel(getString(R.string.common_meat_collocation),
+                R.drawable.common_ic_meat_collocation,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference));
+        mModels.add(new EatModel(getString(R.string.common_meat_preference),
+                R.drawable.common_ic_meat_preference,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference));
+        mModels.add(new EatModel(getString(R.string.common_vegetatian_preference),
+                R.drawable.common_ic_vegetarian_preference,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference));
+        mModels.add(new EatModel(getString(R.string.common_salty_preference),
+                R.drawable.common_ic_salty_preference,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference));
+        mModels.add(new EatModel(getString(R.string.common_greasy_preferece),
+                R.drawable.common_ic_greasy_preference,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference));
+        mModels.add(new EatModel(getString(R.string.common_sweet_preferemce),
+                R.drawable.common_ic_sweet_preference,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference));
         return mModels;
     }
 
