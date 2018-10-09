@@ -9,7 +9,22 @@
         <activity android:name=".ui.findpassword.FindPasswordActivity" />
         <activity android:name=".ui.findpassword.SetPasswordActivity" />
         <activity android:name=".ui.profile.SimpleProfileActivity" />
-        <activity android:name=".ui.profile.Profile2Activity"></activity>
+        <activity android:name=".ui.profile.Profile2Activity" />
+        <activity android:name=".ui.profile.ProfileInfoActivity"/>
+
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertNameActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertAgeActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertSexActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertHeightActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertWeightActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertBloodTypeActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertAddressActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertIDCardActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertSportActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertSmokeActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertEatingActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertDrinkingActivity" />
+        <activity android:name="com.gcml.auth.ui.profile.update.AlertMHActivity" />
     </application>
 
 </manifest>

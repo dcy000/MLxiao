@@ -22,7 +22,7 @@
             android:id="@+id/sp_province"
             android:layout_width="81dp"
             android:layout_height="40dp"
-            android:background="@drawable/shape_rect_gray"
+            android:background="@drawable/common_bg_input_gray"
             android:gravity="center"
             android:visibility="gone" />
 
@@ -40,7 +40,7 @@
             android:layout_width="81dp"
             android:layout_height="50dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/shape_rect_gray"
+            android:background="@drawable/common_bg_input_gray"
             android:gravity="center" />
 
         <TextView
@@ -56,7 +56,7 @@
             android:layout_width="151dp"
             android:layout_height="50dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/shape_rect_gray"
+            android:background="@drawable/common_bg_input_gray"
             android:gravity="center" />
 
         <TextView
@@ -72,7 +72,7 @@
             android:layout_width="151dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/shape_rect_gray"
+            android:background="@drawable/common_bg_input_gray"
             android:gravity="center" />
 
 
@@ -163,7 +163,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="40dp"
             android:layout_marginLeft="35dp"
-            android:background="@drawable/bg_btn_go_back"
+            android:background="@drawable/common_bg_btn_go_back"
             android:gravity="center"
             android:text="上一步"
             android:textColor="#3F85FC"
@@ -177,7 +177,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="40dp"
             android:layout_marginRight="35dp"
-            android:background="@drawable/bg_btn_go_forward"
+            android:background="@drawable/common_bg_btn_go_forward"
             android:gravity="center"
             android:text="线下签约"
             android:textColor="@android:color/white"

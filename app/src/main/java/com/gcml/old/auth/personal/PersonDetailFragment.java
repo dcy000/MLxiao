@@ -283,7 +283,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 mChangeAccountDialog.show();
                 break;
             case R.id.per_image:
-                CC.obtainBuilder("com.gcml.old.user.profile").build().callAsync();
+                CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
                 break;
             case R.id.iv_record:
                 startActivity(new Intent(getActivity(), HealthRecordActivity.class));

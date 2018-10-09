@@ -1,7 +1,6 @@
 package com.example.han.referralproject.activity;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -26,7 +25,7 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
         setContentView(R.layout.activity_previous_history);
         mToolbar.setVisibility(View.VISIBLE);
         mLeftText.setText("既往病史");
-        diseaseArray = getResources().getStringArray(R.array.disease_type);
+        diseaseArray = getResources().getStringArray(R.array.common_disease_type);
         mGridView = findViewById(R.id.gv_content);
         mAdapter = new DiseaseShowAdapter(mContext);
         mGridView.setAdapter(mAdapter);
