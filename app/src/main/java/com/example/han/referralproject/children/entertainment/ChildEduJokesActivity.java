@@ -174,7 +174,7 @@ public class ChildEduJokesActivity extends BaseActivity {
         if (model != null) {
             tvPoemTitle.setText("");
             tvAuthorAndDynasty.setText("");
-            String content = model.getContent();
+            String content = model.getContent().replaceAll(" ","");
             String[] sentences = content.split("[、，。：:；？！,.;?!]");
             mSentences.clear();
             Collections.addAll(mSentences, sentences);

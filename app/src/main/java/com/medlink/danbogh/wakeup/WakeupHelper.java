@@ -129,7 +129,7 @@ public class WakeupHelper {
         if (enable) {
             startWakeuprListening(wakeuperlistener());
         } else {
-            stopWakeuprListening();
+//            stopWakeuprListening();
         }
     }
 
@@ -156,16 +156,9 @@ public class WakeupHelper {
                             }
 
                             if (TopActivityHelper.topActivity != null) {
-                                if (TopActivityHelper.topActivity instanceof DoctorMesActivity
-                                        || TopActivityHelper.topActivity instanceof DoctorMesActivity
-                                        || TopActivityHelper.topActivity instanceof ConfirmContractActivity
-                                        || TopActivityHelper.topActivity instanceof CheckContractActivity
-                                        || TopActivityHelper.topActivity instanceof NimCallActivity
-                                        || TopActivityHelper.topActivity instanceof DetecteTipActivity
-//                                        || TopActivityHelper.topActivity instanceof TaskComplyActivity
-//                                        || TopActivityHelper.topActivity instanceof TaskComplyChoiceActivity
-                                        || TopActivityHelper.topActivity.getClass().getName().contains("TaskComplyActivity")
+                                if (TopActivityHelper.topActivity.getClass().getName().contains("TaskComplyActivity")
                                         || TopActivityHelper.topActivity.getClass().getName().contains("TaskComplyChoiceActivity")
+                                        || TopActivityHelper.topActivity instanceof NimCallActivity
                                         )
 
                                     return;

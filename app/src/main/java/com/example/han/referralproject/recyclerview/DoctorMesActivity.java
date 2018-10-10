@@ -267,7 +267,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         setEnableListeningLoop(false);
-        setDisableGlobalListen(true);
+        setDisableGlobalListen(false);
         if ("1".equals(sign)) {
             speak(R.string.online_info);
 

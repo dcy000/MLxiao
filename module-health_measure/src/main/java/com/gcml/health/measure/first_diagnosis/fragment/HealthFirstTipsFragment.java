@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.R;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.data.TimeCountDownUtils;
@@ -13,6 +15,13 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import timber.log.Timber;
 
 /**
@@ -44,14 +53,13 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
             String title = bundle.getString("title");
             ((TextView) view.findViewById(R.id.tv_tips)).setText(title);
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                    "初次见面，我是小易！为了更好地了解您的身体，先来做一个全套体检吧", onSynthesizerListener,false);
-        }else{
+                    "初次见面，我是小易！为了更好地了解您的身体，先来做一个全套体检吧", onSynthesizerListener, false);
+        } else {
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
                     "恭喜您完成问卷，下面让我们进行身体指标检测吧", onSynthesizerListener, false);
         }
         ivGrayBack = view.findViewById(R.id.ivGrayBack);
         ivGrayBack.setOnClickListener(this);
-
 
 
     }
@@ -60,11 +68,17 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
     @Override
     public void onResume() {
         super.onResume();
-
-//        timeCountListener = new ITimeCountListener();
-//        TimeCountDownUtils.getInstance().create(3000, 1000,
-//                timeCountListener);
-//        TimeCountDownUtils.getInstance().start();
+        Observable
+                .timer(12, TimeUnit.SECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(aLong -> {
+                    if (fragmentChanged != null) {
+                        fragmentChanged.onFragmentChanged(
+                                HealthFirstTipsFragment.this, null);
+                    }
+                });
     }
 
     class OnSynthesizerListener implements SynthesizerListener {
@@ -97,10 +111,10 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
         @Override
         public void onCompleted(SpeechError speechError) {
             Timber.e("语音耗时：" + (System.currentTimeMillis() - time));
-            if (fragmentChanged != null) {
-                fragmentChanged.onFragmentChanged(
-                        HealthFirstTipsFragment.this, null);
-            }
+//            if (fragmentChanged != null) {
+//                fragmentChanged.onFragmentChanged(
+//                        HealthFirstTipsFragment.this, null);
+//            }
         }
 
         @Override
