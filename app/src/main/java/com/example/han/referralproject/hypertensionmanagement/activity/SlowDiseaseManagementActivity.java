@@ -10,7 +10,6 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
 import com.example.han.referralproject.hypertensionmanagement.bean.DiagnoseInfoBean;
 import com.example.han.referralproject.hypertensionmanagement.dialog.FllowUpTimesDialog;
@@ -18,7 +17,6 @@ import com.example.han.referralproject.hypertensionmanagement.dialog.TwoChoiceDi
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.AppManager;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
@@ -110,6 +108,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
      */
     private void onclickHypertensionManage() {
         if (diagnoseInfo != null) {
+            if (diagnoseInfo.result != null) {
+                clickWithoutContinueJudge();
+                return;
+            }
+
             if (!(diagnoseInfo.risk == null
                     && diagnoseInfo.primary == null
                     && diagnoseInfo.lowPressure == null
@@ -117,8 +120,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                     && diagnoseInfo.hypertensionPrimaryState == null
                     && diagnoseInfo.heart == null
                     && diagnoseInfo.hypertensionTarget == null
-                    && diagnoseInfo.result != null
             )) {
+
                 ContinueOrNotDialog();
             }
         }

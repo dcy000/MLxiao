@@ -5,11 +5,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.health.measure.R;
 import com.gcml.lib_utils.UtilsManager;
-import com.gcml.lib_utils.data.TimeCountDownUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
@@ -18,10 +16,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import timber.log.Timber;
 
 /**
@@ -131,19 +126,4 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
         }
     }
 
-    class ITimeCountListener implements TimeCountDownUtils.TimeCountListener {
-
-        @Override
-        public void onTick(long millisUntilFinished, String tag) {
-
-        }
-
-        @Override
-        public void onFinish(String tag) {
-            if (fragmentChanged != null) {
-                fragmentChanged.onFragmentChanged(
-                        HealthFirstTipsFragment.this, null);
-            }
-        }
-    }
 }
