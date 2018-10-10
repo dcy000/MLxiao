@@ -148,6 +148,7 @@ public class BasicInformationActivity extends BaseActivity {
                 .setTextColorCenter(Color.parseColor("#FF333333"))
                 .setBgColor(Color.WHITE)
                 .setTitleBgColor(Color.WHITE)
+                .setDividerColor(Color.WHITE)
                 .isCenterLabel(false)
                 .setOutSideCancelable(true)
                 .build();
