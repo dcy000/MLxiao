@@ -730,7 +730,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(zuogetijian|jianchashenti|zuotijian).*")) {
+            if (inSpell.matches(".*(zuogejiancha|jianchashenti|zuotijian).*")) {
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
