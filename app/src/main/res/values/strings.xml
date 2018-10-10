@@ -298,9 +298,7 @@
     <string name="header_last_time">上次更新时间：</string>
     <string name="footer_hint_normal">查看更多</string>
     <string name="footer_hint_ready">松开载入更多</string>
-    <string name="register_province">省</string>
-    <string name="register_city">市</string>
-    <string name="register_county">县/区</string>
+
     <string name="wifi_connect">WiFi连接</string>
     <string name="wlan">WLAN</string>
     <string name="wifi_choose">选取网络</string>

@@ -26,6 +26,10 @@
     <string name="common_sometimes_drink">偶尔喝酒</string>
     <string name="common_never_drink">从不喝酒</string>
 
+    <string name="common_province">省</string>
+    <string name="common_city">市</string>
+    <string name="common_county">县/区</string>
+
     <string-array name="common_disease_type">
         <item>高血压</item>
         <item>糖尿病</item>
