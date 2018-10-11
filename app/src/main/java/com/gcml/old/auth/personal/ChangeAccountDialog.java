@@ -13,7 +13,6 @@ import com.example.han.referralproject.R;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
-import com.example.han.referralproject.util.LocalShared;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.umeng.analytics.MobclickAgent;
 
@@ -25,7 +24,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -75,8 +73,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
                 .callAsync();
         switch (v.getId()) {
             case R.id.view_login://添加账号
-                CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
-//                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
+                CC.obtainBuilder("com.gcml.auth").build().callAsync();
                 ((Activity) mContext).finish();
                 break;
             case R.id.btn_logout:
@@ -91,8 +88,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
                 UserSpHelper.setUserId("");
                 UserSpHelper.setToken("");
                 UserSpHelper.setEqId("");
-                CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
-//                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
+                CC.obtainBuilder("com.gcml.auth").build().callAsync();
                 ((Activity) mContext).finish();
                 break;
             default:

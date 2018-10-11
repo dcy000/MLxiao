@@ -44,18 +44,18 @@
                 android:text="你的身高"
                 android:textColor="@color/config_color_base_3"
                 android:textSize="50pt"
-                app:layout_constraintBottom_toBottomOf="@+id/et_height"
+                app:layout_constraintBottom_toBottomOf="@+id/sp_height"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/et_height"
-                app:layout_constraintTop_toTopOf="@+id/et_height" />
+                app:layout_constraintRight_toLeftOf="@+id/sp_height"
+                app:layout_constraintTop_toTopOf="@+id/sp_height" />
 
-            <EditText
-                android:id="@+id/et_height"
+            <Spinner
+                android:id="@+id/sp_height"
                 android:layout_width="600pt"
                 android:layout_height="120pt"
                 android:layout_marginTop="100pt"
-                android:background="@drawable/auth_sign_in_bg_et"
+                android:background="@drawable/common_bg_spinner"
                 android:gravity="center"
                 android:hint="160cm"
                 android:inputType="text"
@@ -76,18 +76,18 @@
                 android:text="你的腰围"
                 android:textColor="@color/config_color_base_3"
                 android:textSize="50pt"
-                app:layout_constraintBottom_toBottomOf="@+id/et_wc"
+                app:layout_constraintBottom_toBottomOf="@+id/sp_wc"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/et_wc"
-                app:layout_constraintTop_toTopOf="@+id/et_wc" />
+                app:layout_constraintRight_toLeftOf="@+id/sp_wc"
+                app:layout_constraintTop_toTopOf="@+id/sp_wc" />
 
-            <EditText
-                android:id="@+id/et_wc"
+            <Spinner
+                android:id="@+id/sp_wc"
                 android:layout_width="600pt"
                 android:layout_height="120pt"
                 android:layout_marginTop="44pt"
-                android:background="@drawable/auth_sign_in_bg_et"
+                android:background="@drawable/common_bg_spinner"
                 android:digits="0123456789xX"
                 android:gravity="center"
                 android:hint="2.2尺"
@@ -101,7 +101,7 @@
                 android:textSize="50pt"
                 app:layout_constraintLeft_toRightOf="@+id/tv_wc"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_height" />
+                app:layout_constraintTop_toBottomOf="@+id/sp_height" />
 
             <TextView
                 android:id="@+id/tv_weight"
@@ -114,15 +114,15 @@
                 android:textSize="50pt"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/et_weight"
+                app:layout_constraintRight_toLeftOf="@+id/sp_weight"
                 app:layout_constraintTop_toBottomOf="@+id/tv_wc" />
 
-            <EditText
-                android:id="@+id/et_weight"
+            <Spinner
+                android:id="@+id/sp_weight"
                 android:layout_width="600pt"
                 android:layout_height="120pt"
                 android:layout_marginTop="44pt"
-                android:background="@drawable/auth_sign_in_bg_et"
+                android:background="@drawable/common_bg_spinner"
                 android:digits="0123456789xX"
                 android:gravity="center"
                 android:hint="50Kg"
@@ -136,7 +136,7 @@
                 android:textSize="50pt"
                 app:layout_constraintLeft_toRightOf="@+id/tv_weight"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_wc" />
+                app:layout_constraintTop_toBottomOf="@+id/sp_wc" />
 
             <TextView
                 android:id="@+id/tv_next"
@@ -151,7 +151,7 @@
                 android:textSize="50pt"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_weight" />
+                app:layout_constraintTop_toBottomOf="@+id/sp_weight" />
 
         </android.support.constraint.ConstraintLayout>
 

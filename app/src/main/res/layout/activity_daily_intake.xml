@@ -18,7 +18,7 @@
         <EditText
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:textColor="@color/colorSaltyPreference"
+            android:textColor="@color/commonColorSaltyPreference"
             android:textSize="28sp"
             android:inputType="number"/>
     </LinearLayout>
@@ -38,7 +38,7 @@
         <EditText
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:textColor="@color/colorSaltyPreference"
+            android:textColor="@color/commonColorSaltyPreference"
             android:textSize="28sp"
             android:inputType="number"/>
     </LinearLayout>
@@ -59,7 +59,7 @@
         <EditText
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:textColor="@color/colorSaltyPreference"
+            android:textColor="@color/commonColorSaltyPreference"
             android:textSize="28sp"
             android:inputType="number"/>
     </LinearLayout>
@@ -79,7 +79,7 @@
         <EditText
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:textColor="@color/colorSaltyPreference"
+            android:textColor="@color/commonColorSaltyPreference"
             android:textSize="28sp"
             android:inputType="number"/>
     </LinearLayout>

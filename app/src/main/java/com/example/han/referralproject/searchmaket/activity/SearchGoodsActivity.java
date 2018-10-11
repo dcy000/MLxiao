@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,6 +57,16 @@ public class SearchGoodsActivity extends AppCompatActivity implements View.OnCli
         mIvSearchGoods = (ImageView) findViewById(R.id.iv_search_goods);
         mIvSearchGoods.setOnClickListener(this);
         mEtGoodName = (EditText) findViewById(R.id.et_good_name);
+        mEtGoodName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    initData();
+                }
+                return false;
+            }
+        });
+
         mTvCancle = (TextView) findViewById(R.id.tv_cancle);
         mTvCancle.setOnClickListener(this);
         mRvGoods = (RecyclerView) findViewById(R.id.rv_goods);

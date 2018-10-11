@@ -32,6 +32,9 @@
                 android:scaleType="centerCrop" />
 
             <EditText
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
                 android:id="@+id/et_good_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

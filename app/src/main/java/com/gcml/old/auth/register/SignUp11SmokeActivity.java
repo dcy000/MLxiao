@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.EatAdapter;
+import com.gcml.common.data.EatModel;
 import com.gcml.lib_utils.display.ToastUtils;
 
 import java.util.ArrayList;
@@ -95,21 +97,21 @@ public class SignUp11SmokeActivity extends BaseActivity {
 
     private List<EatModel> eatModals() {
         mModels = new ArrayList<>(3);
-        mModels.add(new EatModel(getString(R.string.always_smoke),
-                R.drawable.ic_always_smoke,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference));
-        mModels.add(new EatModel(getString(R.string.sometimes_smoke),
-                R.drawable.ic_sometimes_smoke,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference));
-        EatModel e = new EatModel(getString(R.string.never_smoke),
-                R.drawable.ic_never_smoke,
-                R.color.colorSaltyPreference,
-                R.drawable.bg_tv_salty_preference_selected,
-                R.drawable.bg_tv_salty_preference);
+        mModels.add(new EatModel(getString(R.string.common_always_smoke),
+                R.drawable.common_ic_always_smoke,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference));
+        mModels.add(new EatModel(getString(R.string.common_sometimes_smoke),
+                R.drawable.common_ic_sometimes_smoke,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference));
+        EatModel e = new EatModel(getString(R.string.common_never_smoke),
+                R.drawable.common_ic_never_smoke,
+                R.color.commonColorSaltyPreference,
+                R.drawable.common_bg_tv_salty_preference_selected,
+                R.drawable.common_bg_tv_salty_preference);
         mModels.add(e);
         return mModels;
     }

@@ -94,7 +94,7 @@ public class RepositoryHelper implements IRepositoryHelper {
                 RoomDatabase.Builder builder = Room.databaseBuilder(mApplication, database, dbName);
                 //自定义 Room 配置
                 if (mRoomConfiguration != null) {
-                    mRoomConfiguration.configRoom(mApplication, builder);
+                    mRoomConfiguration.configRoom(mApplication, dbName, builder);
                 }
                 roomDatabase = (DB) builder.build();
                 mRoomDbCache.put(database.getName(), roomDatabase);

@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 
 public interface QianYueService {
 
-    @GET("/ZZB//docter/chaDocter")
+    @GET("/ZZB/docter/sel_one_doctor_con")
     Observable<ApiResult<DoctorInfoBean>> getDoctInfo(@Query ("docterid") String doctorId);
 
 }

@@ -124,10 +124,12 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
 
         binding.ivTips.setText(tips);
         mPreviewHelper.addBuffer(2000);
+
         /**
          * @see FaceSignInActivity#onPreviewStatusChanged(PreviewHelper.Status status)
          * @see PreviewHelper.Status.EVENT_CROPPED
          */
+
         MLVoiceSynthetize.startSynthesize(
                 getApplicationContext(),
                 voiceTips,

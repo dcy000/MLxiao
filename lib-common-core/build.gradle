@@ -41,6 +41,7 @@ android {
             buildConfigField "boolean", "USE_CANARY", "true"
             buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
+            buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -50,6 +51,7 @@ android {
             buildConfigField "boolean", "USE_CANARY", "false"
             buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
+            buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
             minifyEnabled false
             shrinkResources false
             zipAlignEnabled true
@@ -83,6 +85,7 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
 
     api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["retrofit-url-manager"]
     api rootProject.ext.dependencies["retrofit-converter-gson"]
     api rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
 

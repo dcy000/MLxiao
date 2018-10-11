@@ -5,7 +5,7 @@
     android:id="@+id/cl_sign_up_root_address"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/alert_bg">
+    android:background="@drawable/common_bg_update_profile">
 
     <TextView
         android:id="@+id/tv_sign_up_address"
@@ -26,7 +26,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="70dp"
-        android:background="@drawable/selector_bg_spinner"
+        android:background="@drawable/common_bg_spinner"
         android:gravity="center"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:text="@string/register_province"
+        android:text="@string/common_province"
         android:textColor="#939393"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@+id/sp_province"
@@ -50,7 +50,7 @@
         android:layout_width="130dp"
         android:layout_height="50dp"
         android:layout_marginLeft="5dp"
-        android:background="@drawable/selector_bg_spinner"
+        android:background="@drawable/common_bg_spinner"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/sp_province"
         app:layout_constraintLeft_toRightOf="@+id/tv_sign_up_province"
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:text="@string/register_city"
+        android:text="@string/common_city"
         android:textColor="#939393"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@+id/sp_province"
@@ -73,7 +73,7 @@
         android:layout_width="130dp"
         android:layout_height="50dp"
         android:layout_marginLeft="5dp"
-        android:background="@drawable/selector_bg_spinner"
+        android:background="@drawable/common_bg_spinner"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/sp_province"
         app:layout_constraintLeft_toRightOf="@+id/tv_sign_up_city"
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:text="@string/register_county"
+        android:text="@string/common_county"
         android:textColor="#939393"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@id/sp_province"
@@ -96,7 +96,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/shape_rect_gray"
+        android:background="@drawable/common_bg_input_gray"
         android:hint="请输入详细地址"
         android:maxLength="50"
         android:maxLines="1"
@@ -110,6 +110,5 @@
         app:layout_constraintRight_toRightOf="@+id/tv_sign_up_county"
         app:layout_constraintTop_toBottomOf="@+id/sp_province"/>
 
-
-    <include layout="@layout/include_sign_up_nav"/>
+    <include layout="@layout/common_include_sign_up_nav"/>
 </android.support.constraint.ConstraintLayout>

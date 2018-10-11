@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/alert_bg"
+    android:background="@drawable/common_bg_update_profile"
     tools:context="com.example.han.referralproject.com.gcml.old.auth.profile.AlertHeightActivity">
     <TextView
         android:id="@+id/tv_sign_up_height"
@@ -40,5 +40,5 @@
         app:layout_constraintLeft_toRightOf="@+id/rv_sign_up_content"
         app:layout_constraintTop_toTopOf="@+id/rv_sign_up_content"/>
 
-    <include layout="@layout/include_sign_up_nav"/>
+    <include layout="@layout/common_include_sign_up_nav"/>
 </android.support.constraint.ConstraintLayout>

@@ -124,7 +124,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="100dp"
-        android:background="@drawable/selector_bg_spinner"
+        android:background="@drawable/common_bg_spinner"
         app:layout_constraintBottom_toBottomOf="@id/alarm_detail_tv_repeat"
         app:layout_constraintLeft_toRightOf="@id/alarm_detail_tv_repeat"
         app:layout_constraintRight_toRightOf="parent"/>

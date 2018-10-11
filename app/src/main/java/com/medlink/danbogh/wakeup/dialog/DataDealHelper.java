@@ -16,7 +16,6 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
@@ -62,7 +61,6 @@ import com.example.lenovo.rto.unit.UnitModel;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
-import com.gcml.old.auth.profile.MyBaseDataActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -295,13 +293,17 @@ public class DataDealHelper {
 
             CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
+                    .addParam("currentUser", false)
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
                         public void onResult(CC cc, CCResult result) {
-                            String userId = result.getDataItem("userId");
-                            if (result.isSuccess() || "skip".equals(result.getErrorMessage())) {
-                                UserSpHelper.setUserId(userId);
+                            boolean skip = "skip".equals(result.getErrorMessage());
+                            if (result.isSuccess() || skip) {
+                                if (skip) {
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                    return;
+                                }
                                 CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
                             } else {
                                 ToastUtils.showShort(result.getErrorMessage());
@@ -322,7 +324,7 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(geren|xiugai)xinxi.*")
                 || inSpell.matches(".*huantouxiang.*")) {
-            startActivity(MyBaseDataActivity.class);
+            CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
             return;
         }
 
@@ -889,10 +891,7 @@ public class DataDealHelper {
             String currentUser = new Gson().toJson(diseaseUser);
             startActivity(com.witspring.unitbody.ChooseMemberActivity.class, "currentUser", currentUser);
         } else if (inSpell.matches(".*(dangan).*")) {
-            CC.obtainBuilder("com.gcml.old.user.profile").build().callAsync();
-//                startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
-
-
+            CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
             if (listener != null) {
                 listener.onEnd();
             }

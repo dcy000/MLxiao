@@ -47,6 +47,7 @@ dependencies {
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["constraint-layout"]
     implementation rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["pickerView"]
 
     implementation rootProject.ext.dependencies["room-runtime"]
     implementation rootProject.ext.dependencies["room-rxjava2"]

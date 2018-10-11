@@ -194,9 +194,9 @@ public class BaseActivity extends AppCompatActivity {
     private void checkIsLogin() {
         if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
             ToastUtils.showShort("请登录");
-            CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
-//            ChooseLoginTypeActivity.startActivity(this, ChooseLoginTypeActivity.class, this.getClass());
-//            finish();
+            CC.obtainBuilder("com.gcml.auth")
+                    .build()
+                    .callAsync();
         }
     }
 

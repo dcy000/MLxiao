@@ -32,10 +32,9 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_ask_guide);
 
-        speak(getString(R.string.doctor_choice));
-
         setEnableListeningLoop(false);
         mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("咨 询 医 生");
         speak("主人，请点击选择签约医生或在线医生");
         initView();
     }

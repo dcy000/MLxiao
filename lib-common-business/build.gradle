@@ -60,7 +60,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
 
     if (project.ext.runAsApp) {
         implementation project(":lib-common-app")
@@ -71,6 +71,9 @@ dependencies {
     api project(':lib-widget')
 
     api 'com.qiniu:qiniu-android-sdk:7.3.12'
+    api('github.hellocsl:GalleryLayoutManager:1.0.6') {
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
 
     implementation rootProject.ext.dependencies["room-runtime"]
     annotationProcessor rootProject.ext.dependencies["room-compiler"]
