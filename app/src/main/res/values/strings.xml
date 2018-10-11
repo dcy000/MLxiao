@@ -11,7 +11,7 @@
     <string name="confirm">请再次输入密码</string>
     <string name="input_mobile">请输入手机号码</string>
     <string name="i_agree">我同意</string>
-    <string name="agreement">用户协议</string>
+
     <string name="change_account">账号切换</string>
     <string name="add_account">添加账号</string>
     <string name="empty_account">输入账号不能为空</string>
@@ -25,10 +25,7 @@
     <string name="do_login">正在登录</string>
     <string name="do_uploading">正在上传</string>
     <string name="do_loading">正在加载</string>
-    <string name="content_agreement">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;智能健康管家为杭州国辰迈联机器人科技有限公司名下家庭健康管理产品内置APP。\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;本服务协议内容包括协议正文及所有国辰迈联已经发布的或将来可能发布的各类规则。所有规则为协议不可分割的一部分，与协议正文具有同等法律效力。\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;用户在使用国辰迈联提供的各项服务的同时，承诺接受并遵守各项相关规则的规定。国辰迈联有权根据需要不时地制定、修改本协议或各类规则，
-        如本协议有任何变更，国辰迈联将在网站上刊载公告，通知本站用户。如用户不同意相关变更，必须停止使用“服务”。经修订的协议一经在国辰迈联网站公布后，立即自动生效。
-        各类规则会在发布后生效，亦成为本协议的一部分。登录或继续使用“服务”将表示用户接受经修订的协议。
-        除另行明确声明外，任何使“服务”范围扩大或功能增强的新内容均受本协议约束。</string>
+
     <string name="register_info">注册信息</string>
     <string name="name">姓名</string>
     <string name="sex">性别</string>

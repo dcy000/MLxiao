@@ -2,24 +2,29 @@ package com.gcml.mall.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gcml.mall.R;
+import com.gcml.mall.bean.CategoryBean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MallMenuAdapter extends RecyclerView.Adapter<MallMenuAdapter.MallMenuHolder> {
 
     private Context mContext;
     private int selectItem = 0;
-    private ArrayList<String> menuList;
+    private List<CategoryBean> menuList;
     private OnMenuClickListener onMenuClickListener;
 
-    public MallMenuAdapter(Context context, ArrayList<String> list){
+    public MallMenuAdapter(Context context, List<CategoryBean> list){
         menuList = list;
         mContext = context;
     }
@@ -35,16 +40,17 @@ public class MallMenuAdapter extends RecyclerView.Adapter<MallMenuAdapter.MallMe
 
     @Override
     public void onBindViewHolder(MallMenuAdapter.MallMenuHolder holder, int position) {
-        String menu = menuList.get(position);
-        holder.menuText.setText(menu);
+        holder.menuText.setText(menuList.get(position).name);
         if (position == selectItem) {
             holder.menuMark.setVisibility(View.VISIBLE);
-            holder.menuText.setBackgroundColor(Color.WHITE);
+            holder.menuContent.setBackgroundColor(Color.WHITE);
             holder.menuText.setTextColor(mContext.getResources().getColor(R.color.config_color_primary));
+            holder.menuText.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
         } else {
             holder.menuMark.setVisibility(View.GONE);
-            holder.menuText.setBackgroundColor(mContext.getResources().getColor(R.color.color_background));
+            holder.menuContent.setBackgroundColor(mContext.getResources().getColor(R.color.color_background));
             holder.menuText.setTextColor(mContext.getResources().getColor(R.color.color_text_gray));
+            holder.menuText.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));//加粗
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,11 +68,13 @@ public class MallMenuAdapter extends RecyclerView.Adapter<MallMenuAdapter.MallMe
     }
 
     class MallMenuHolder extends RecyclerView.ViewHolder {
+        RelativeLayout menuContent;
         TextView menuMark;
         TextView menuText;
 
         public MallMenuHolder(View view){
             super(view);
+            menuContent = view.findViewById(R.id.ll_menu_content);
             menuMark = view.findViewById(R.id.tv_menu_mark);
             menuText = view.findViewById(R.id.tv_menu_name);
         }

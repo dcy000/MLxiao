@@ -73,8 +73,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
                 .callAsync();
         switch (v.getId()) {
             case R.id.view_login://添加账号
-                CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
-//                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
+                CC.obtainBuilder("com.gcml.auth").build().callAsync();
                 ((Activity) mContext).finish();
                 break;
             case R.id.btn_logout:
@@ -89,8 +88,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
                 UserSpHelper.setUserId("");
                 UserSpHelper.setToken("");
                 UserSpHelper.setEqId("");
-                CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
-//                mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
+                CC.obtainBuilder("com.gcml.auth").build().callAsync();
                 ((Activity) mContext).finish();
                 break;
             default:

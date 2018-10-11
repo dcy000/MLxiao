@@ -211,13 +211,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void showClearCacheDialog() {
         new AlertDialog(SettingActivity.this).builder()
                 .setMsg("确认清除本地缓存吗？")
-                .setNegativeButton("确认", new View.OnClickListener() {
+                .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                     }
                 })
-                .setPositiveButton("取消", new View.OnClickListener() {
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -228,7 +228,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void showResetDialog() {
         new AlertDialog(SettingActivity.this).builder()
                 .setMsg("确认恢复出厂设置吗？")
-                .setNegativeButton("确认", new View.OnClickListener() {
+                .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //恢复出厂设置
@@ -241,7 +241,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                         startActivity(intent);
                     }
                 })
-                .setPositiveButton("取消", new View.OnClickListener() {
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 

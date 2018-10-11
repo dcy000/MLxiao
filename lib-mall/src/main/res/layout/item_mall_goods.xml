@@ -29,7 +29,7 @@
     <TextView
         android:id="@+id/tv_goods_price"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:textSize="28sp"
         android:textColor="#FF2D2D"
         android:layout_marginRight="16dp"

@@ -78,7 +78,6 @@ public class GoodForNameFragment extends Fragment {
         return view;
     }
 
-
     private void bindView(View view) {
         tvCommendText = (TextView) view.findViewById(R.id.tv_commend_text);
         tvLookMore = (TextView) view.findViewById(R.id.tv_look_more);

@@ -2,7 +2,7 @@ package com.gcml.mall.bean;
 
 import java.io.Serializable;
 
-public class GoodsBean implements Serializable {
+public class GoodsDetailBean implements Serializable {
 
     public String goodsid;
     public String goodsname;
@@ -10,12 +10,7 @@ public class GoodsBean implements Serializable {
     public String goodsprice;
     public String goodstate;
 
-    public GoodsBean() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-    public GoodsBean(String goodsid, String goodsname, String goodsimage, String goodsprice, String goodstate) {
+    public GoodsDetailBean(String goodsid, String goodsname, String goodsimage, String goodsprice, String goodstate) {
         this.goodsid = goodsid;
         this.goodsname = goodsname;
         this.goodsimage = goodsimage;
@@ -25,7 +20,7 @@ public class GoodsBean implements Serializable {
 
     @Override
     public String toString() {
-        return "GoodsBean{" +
+        return "GoodsDetailBean{" +
                 "goodsid='" + goodsid + '\'' +
                 ", goodsname='" + goodsname + '\'' +
                 ", goodsimage='" + goodsimage + '\'' +

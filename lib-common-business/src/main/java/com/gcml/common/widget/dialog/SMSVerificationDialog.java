@@ -219,6 +219,7 @@ public class SMSVerificationDialog extends DialogFragment implements View.OnClic
         super.onDismiss(dialog);
         fetchCodeDisposable.dispose();
         countDownDisposable.dispose();
+        listener = null;
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.settting.activity.SettingActivity;
@@ -82,8 +83,8 @@ public class PersonDetail2Fragment extends Fragment {
                 startActivity(new Intent(getActivity(), OrderListActivity.class));
                 break;
             case R.id.iv_pay:
-                startActivity(new Intent(getActivity(), PayActivity.class));
-//                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
+//                startActivity(new Intent(getActivity(), PayActivity.class));
+                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
                 break;
             case R.id.iv_shezhi:
                 startActivity(new Intent(getActivity(), SettingActivity.class));

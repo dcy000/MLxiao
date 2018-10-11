@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_menu_content"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:layout_height="wrap_content">
     
     <TextView
         android:id="@+id/tv_menu_mark"
         android:layout_width="8dp"
         android:layout_height="28dp"
-        android:layout_gravity="center_vertical"
+        android:layout_centerVertical="true"
         android:background="@color/config_color_primary"/>
 
     <TextView
@@ -20,4 +20,4 @@
         android:textSize="28sp"
         android:textColor="@color/color_text_gray"/>
 
-</LinearLayout>
+</RelativeLayout>

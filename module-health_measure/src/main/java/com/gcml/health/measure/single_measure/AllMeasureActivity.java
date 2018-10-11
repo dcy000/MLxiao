@@ -384,16 +384,16 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         new AlertDialog(AllMeasureActivity.this)
                 .builder()
                 .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
-                .setNegativeButton("确认", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        untieDevice();
-                    }
-                })
-                .setPositiveButton("取消", new View.OnClickListener() {
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
+                    }
+                })
+                .setPositiveButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        untieDevice();
                     }
                 }).show();
     }

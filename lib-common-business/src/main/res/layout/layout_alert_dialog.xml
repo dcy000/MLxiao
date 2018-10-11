@@ -45,7 +45,7 @@
             android:layout_weight="1"
             android:background="@drawable/alert_left_selector"
             android:gravity="center"
-            android:textColor="@color/config_color_alert_btn"
+            android:textColor="@color/config_color_base_9"
             android:textSize="34sp" />
 
         <ImageView
@@ -61,7 +61,7 @@
             android:layout_weight="1"
             android:background="@drawable/alert_right_selector"
             android:gravity="center"
-            android:textColor="@color/config_color_base_9"
+            android:textColor="@color/config_color_alert_btn"
             android:textSize="34sp" />
 
     </LinearLayout>

@@ -457,7 +457,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         new AlertDialog(mContext)
                 .builder()
                 .setMsg("您是否诊断过原发性高血压且正在进行高血压规范治疗？(您的选择将影响您的健康方案，且一旦选择不可更改，请谨慎回答)")
-                .setNegativeButton("是", new View.OnClickListener() {
+                .setPositiveButton("是", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         postOriginPertensionState("1");
@@ -467,7 +467,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
                                 .call();
                     }
                 })
-                .setPositiveButton("否", new View.OnClickListener() {
+                .setNegativeButton("否", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 

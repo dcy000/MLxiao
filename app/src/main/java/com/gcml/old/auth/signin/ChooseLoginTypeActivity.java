@@ -15,15 +15,15 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.gcml.old.auth.register.AgreementActivity;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.old.auth.register.SignUp1NameActivity;
 import com.gcml.old.auth.register.simple.SignUp01NameActivity;
-import com.gcml.lib_utils.display.ToastUtils;
 
 public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClickListener {
 
@@ -88,7 +88,9 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     private ClickableSpan agreeClickableSpan = new ClickableSpan() {
         @Override
         public void onClick(View widget) {
-            startActivity(new Intent(ChooseLoginTypeActivity.this, AgreementActivity.class));
+            CC.obtainBuilder("com.gcml.auth.user.protocol")
+                    .build()
+                    .callAsync();
         }
     };
 

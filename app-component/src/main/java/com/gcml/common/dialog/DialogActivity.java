@@ -23,13 +23,13 @@ public class DialogActivity extends AppCompatActivity {
     public void showAlertDialog(View view) {
         new AlertDialog(DialogActivity.this).builder()
                 .setMsg("AlertDialog默认样式")
-                .setNegativeButton("确认", new View.OnClickListener() {
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                     }
                 })
-                .setPositiveButton("取消", new View.OnClickListener() {
+                .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -40,12 +40,12 @@ public class DialogActivity extends AppCompatActivity {
     public void showIconDialog(View view) {
         new IconDialog(DialogActivity.this).builder()
                 .setIcon(R.drawable.common_ic_robot)
-                .setPositiveButton("取消", new View.OnClickListener() {
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                     }
-                }).setNegativeButton("确定", new View.OnClickListener() {
+                }).setPositiveButton("确定", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 

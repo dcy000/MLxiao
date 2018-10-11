@@ -5,11 +5,11 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.gcml.mall.bean.GoodsBean;
 import com.gcml.mall.R;
+import com.gcml.mall.bean.GoodsBean;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by gzq on 2018/1/5.
@@ -17,16 +17,16 @@ import java.util.ArrayList;
 
 public class MallGoodsAdapter extends BaseQuickAdapter<GoodsBean,BaseViewHolder> {
 
-    public MallGoodsAdapter(int layoutResId, @Nullable ArrayList<GoodsBean> data) {
+    public MallGoodsAdapter(int layoutResId, @Nullable List<GoodsBean> data) {
         super(layoutResId, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsBean item) {
-        helper.setText(R.id.tv_goods_name,item.name);
-        helper.setText(R.id.tv_goods_price,"¥"+item.price);
+        helper.setText(R.id.tv_goods_name,item.goodsname);
+        helper.setText(R.id.tv_goods_price,"¥" + item.goodsprice);
         Picasso.with(mContext)
-                .load(item.img)
+                .load(item.goodsimage)
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .tag(mContext)
