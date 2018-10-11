@@ -117,17 +117,18 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
         new AlertDialog(this)
                 .builder()
                 .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
-                .setNegativeButton("确认", new View.OnClickListener() {
+                .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         untieDevice();
                     }
-                }).setPositiveButton("取消", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                })
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-            }
-        }).show();
+                    }
+                }).show();
     }
 
     private void untieDevice() {

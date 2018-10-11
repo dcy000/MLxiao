@@ -56,52 +56,18 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(RechargeActivity.this, RechargeQrcodeActivity.class);
         int i = view.getId();
         if (i == R.id.btn_recharge_50) {
-//            intent.putExtra("billMoney", 5000);
-//            startActivity(intent);
-            FriendInvitePopup popup = new FriendInvitePopup(RechargeActivity.this);
-            popup.showPopupWindow();
+            intent.putExtra("billMoney", 5000);
+            startActivity(intent);
         } else if (i == R.id.btn_recharge_100) {
-//            intent.putExtra("billMoney", 10000);
-//            startActivity(intent);
-            new InputDialog(RechargeActivity.this)
-                    .builder()
-                    .setPositiveButton("连接", new InputDialog.OnInputChangeListener() {
-                        @Override
-                        public void onInput(String s) {
-                            ToastUtils.showShort(s);
-                        }
-                    })
-                    .setNegativeButton("取消", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    }).show();
+            intent.putExtra("billMoney", 10000);
+            startActivity(intent);
         } else if (i == R.id.btn_recharge_200) {
-//            intent.putExtra("billMoney", 20000);
-//            startActivity(intent);
-            new SingleDialog(RechargeActivity.this)
-                    .builder()
-                    .setMsg("附近的说法就是减肥路")
-                    .setPositiveButton("确定", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    }).show();
+            intent.putExtra("billMoney", 20000);
+            startActivity(intent);
         } else if (i == R.id.btn_recharge_500) {
-//            intent.putExtra("billMoney", 50000);
-//            startActivity(intent);
-//            startActivity(intent);
-            new SingleDialog(RechargeActivity.this)
-                    .builder()
-                    .setMsg("附近的说法就是减肥路附近的说法就是减肥路附近的说法就是减肥路附近的说法就是减肥路附近的说法就是减肥路")
-                    .setPositiveButton("确定", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    }).show();
+            intent.putExtra("billMoney", 50000);
+            startActivity(intent);
+            startActivity(intent);
         } else if (i == R.id.btn_recharge_1000) {
             intent.putExtra("billMoney", 100000);
             startActivity(intent);

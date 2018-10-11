@@ -48,14 +48,14 @@ public class AlertDialog {
                 R.layout.layout_alert_dialog, null);
 
         // 获取自定义Dialog布局中的控件
-        lLayout_bg = (LinearLayout) view.findViewById(R.id.lLayout_bg);
-        txt_msg = (TextView) view.findViewById(R.id.txt_msg);
+        lLayout_bg = view.findViewById(R.id.lLayout_bg);
+        txt_msg = view.findViewById(R.id.txt_msg);
         txt_msg.setVisibility(View.GONE);
-        btn_neg = (Button) view.findViewById(R.id.btn_neg);
+        btn_neg = view.findViewById(R.id.btn_neg);
         btn_neg.setVisibility(View.GONE);
-        btn_pos = (Button) view.findViewById(R.id.btn_pos);
+        btn_pos = view.findViewById(R.id.btn_pos);
         btn_pos.setVisibility(View.GONE);
-        img_line = (ImageView) view.findViewById(R.id.img_line);
+        img_line = view.findViewById(R.id.img_line);
         img_line.setVisibility(View.GONE);
 
         // 定义Dialog布局和参数

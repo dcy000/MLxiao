@@ -262,8 +262,8 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), OrderListActivity.class));
                 break;
             case R.id.iv_pay:
-                startActivity(new Intent(getActivity(), PayActivity.class));
-//                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
+//                startActivity(new Intent(getActivity(), PayActivity.class));
+                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
                 break;
             case R.id.iv_message:
                 startActivity(new Intent(getActivity(), MessageActivity.class));

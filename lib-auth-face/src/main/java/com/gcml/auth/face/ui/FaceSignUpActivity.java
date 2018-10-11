@@ -174,13 +174,13 @@ public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBindi
         iconDialog = new IconDialog(this).builder()
                 .setCancelable(false)
                 .setIcon(faceBitmap)
-                .setPositiveButton("重拍", new View.OnClickListener() {
+                .setNegativeButton("重拍", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         start(0);
                     }
                 })
-                .setNegativeButton("确认头像", new View.OnClickListener() {
+                .setPositiveButton("确认头像", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         signUpFace(faceBitmap);

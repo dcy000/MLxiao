@@ -83,13 +83,13 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
         public void onRightClick() {
             new AlertDialog(SimpleProfileActivity.this).builder()
                     .setMsg("您正在完善信息，是否要离开当前页面？")
-                    .setNegativeButton("完善信息", new View.OnClickListener() {
+                    .setPositiveButton("完善信息", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
                         }
                     })
-                    .setPositiveButton("确认离开", new View.OnClickListener() {
+                    .setNegativeButton("确认离开", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();

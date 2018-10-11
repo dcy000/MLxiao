@@ -5,7 +5,6 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -118,8 +117,7 @@ public class AccountDialog {
         return this;
     }
 
-    public AccountDialog setNegativeButton(String text,
-                                         final View.OnClickListener listener) {
+    public AccountDialog setNegativeButton(String text, final View.OnClickListener listener) {
         showNegBtn = true;
         if ("".equals(text)) {
             btn_neg.setText("取消");
