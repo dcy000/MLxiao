@@ -386,13 +386,13 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
                 .setNegativeButton("是", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getDiagnoseInfoNew();
+                        clickWithoutContinueJudge();
                     }
                 })
                 .setPositiveButton("否", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        clickWithoutContinueJudge();
+                        getDiagnoseInfoNew();
                     }
                 }).show();
 

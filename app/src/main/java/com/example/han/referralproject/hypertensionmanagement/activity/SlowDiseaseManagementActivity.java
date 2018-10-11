@@ -351,12 +351,12 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         dialog.setListener(new TwoChoiceDialog.OnDialogClickListener() {
             @Override
             public void onClickConfirm(String content) {
-                getDiagnoseInfoNew();
+                clickWithoutContinueJudge();
             }
 
             @Override
             public void onClickCancel() {
-                clickWithoutContinueJudge();
+                getDiagnoseInfoNew();
             }
         });
         dialog.show(getFragmentManager(), "yuanfa");
