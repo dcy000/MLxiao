@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,6 +41,30 @@ public class Utils {
     public static String getMacAddress(Context context) {
         WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         return wm.getConnectionInfo().getMacAddress();
+    }
+
+    public static int ageByBirthday(String birthday) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        int age;
+        try {
+            Date date = format.parse(birthday);
+            Calendar now = Calendar.getInstance();
+            now.setTime(new Date());
+            Calendar birth = Calendar.getInstance();
+            birth.setTime(date);
+            if (birth.after(now)) {
+                age = 0;
+            } else {
+                age = now.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+                if (now.get(Calendar.DAY_OF_YEAR) > birth.get(Calendar.DAY_OF_YEAR)) {
+                    age += 1;
+                }
+            }
+            return age;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     public static int age(String idCard) {

@@ -1,10 +1,16 @@
 package com.gcml.auth.ui.profile;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnDismissListener;
+import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.gcml.auth.BR;
@@ -22,12 +28,14 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, Profile2ViewModel> {
 
@@ -50,24 +58,46 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
                 0, null,
                 R.drawable.common_icon_home, null,
                 barClickListener);
-        binding.spHeight.setAdapter(new ArrayAdapter<String>(
-                this,
-                R.layout.common_item_spinner,
-                getHeights()
-        ));
-        binding.spHeight.setSelection(148);
-        binding.spWc.setAdapter(new ArrayAdapter<String>(
-                this,
-                R.layout.common_item_spinner,
-                getWaists()
-        ));
-        binding.spWc.setSelection(10);
-        binding.spWeight.setAdapter(new ArrayAdapter<String>(
-                this,
-                R.layout.common_item_spinner,
-                getWeights()
-        ));
-        binding.spWeight.setSelection(50);
+//        binding.spHeight.setAdapter(new ArrayAdapter<String>(
+//                this,
+//                R.layout.common_item_spinner,
+//                getHeights()
+//        ));
+//        binding.spHeight.setSelection(148);
+//        binding.spWc.setAdapter(new ArrayAdapter<String>(
+//                this,
+//                R.layout.common_item_spinner,
+//                getWaists()
+//        ));
+//        binding.spWc.setSelection(10);
+//        binding.spWeight.setAdapter(new ArrayAdapter<String>(
+//                this,
+//                R.layout.common_item_spinner,
+//                getWeights()
+//        ));
+//        binding.spWeight.setSelection(50);
+
+        binding.spHeight.setText(getHeights().get(0));
+        binding.spHeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectHeight();
+            }
+        });
+        binding.spWc.setText(getWaists().get(0));
+        binding.spWc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectWaist();
+            }
+        });
+        binding.spWeight.setText(getWeights().get(0));
+        binding.spWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectWeight();
+            }
+        });
     }
 
     private ToolBarClickListener barClickListener = new ToolBarClickListener() {
@@ -96,13 +126,114 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
         }
     };
 
+    private void selectHeight() {
+        OnOptionsSelectListener listener = new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                Timber.i("options1=%s, options2=%s, options3=%s, view =%s", options1, options2, options3, v);
+                UserEntity user = new UserEntity();
+                String item = getHeights().get(options1);
+                binding.spHeight.setText(item);
+                user.height = item.replace("cm", "");
+
+            }
+
+        };
+        selectItems(getHeights(), listener);
+    }
+
+    private void selectWeight() {
+        OnOptionsSelectListener listener = new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                Timber.i("options1=%s, options2=%s, options3=%s, view =%s", options1, options2, options3, v);
+                String item = getWeights().get(options1);
+                binding.spWeight.setText(item);
+            }
+
+        };
+        selectItems(getWeights(), listener);
+    }
+
+    private void selectItems(List<String> items, OnOptionsSelectListener listener) {
+        OptionsPickerView<String> pickerView = new OptionsPickerBuilder(this, listener)
+                .setCancelText("取消")
+                .setSubmitText("确认")
+                .setLineSpacingMultiplier(1.5f)
+                .setSubCalSize(30)
+                .setContentTextSize(40)
+                .setSubmitColor(Color.parseColor("#FF108EE9"))
+                .setCancelColor(Color.parseColor("#FF999999"))
+                .setTextColorOut(Color.parseColor("#FF999999"))
+                .setTextColorCenter(Color.parseColor("#FF333333"))
+                .setBgColor(Color.WHITE)
+                .setTitleBgColor(Color.parseColor("#F5F5F5"))
+                .setDividerColor(Color.TRANSPARENT)
+                .isCenterLabel(false)
+                .setOutSideCancelable(false)
+                .build();
+        pickerView.setPicker(items);
+        pickerView.show();
+    }
+
+    private OptionsPickerView<String> mWaistPickerView;
+
+    private void selectWaist() {
+        OnOptionsSelectListener listener = new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                Timber.i("options1=%s, options2=%s, options3=%s, view =%s", options1, options2, options3, v);
+                binding.spWc.setText(getWaists().get(options1));
+            }
+
+        };
+        OnDismissListener onDismissListener = new OnDismissListener() {
+            @Override
+            public void onDismiss(Object o) {
+                mWaistPickerView = null;
+            }
+        };
+        OnOptionsSelectChangeListener onSelectChangelistener = new OnOptionsSelectChangeListener() {
+            @Override
+            public void onOptionsSelectChanged(int options1, int options2, int options3) {
+                if (mWaistPickerView != null) {
+                    String item = getWaists().get(options1).replace("尺", "");
+                    String waist = String.valueOf(Math.floor(Float.valueOf(item) * 33.33f + 0.5f));
+                    mWaistPickerView.setTitleText(String.format("约等于%scm", waist));
+                }
+            }
+        };
+        mWaistPickerView = new OptionsPickerBuilder(this, listener)
+                .setOptionsSelectChangeListener(onSelectChangelistener)
+                .setCancelText("取消")
+                .setSubmitText("确认")
+                .setLineSpacingMultiplier(1.5f)
+                .setSubCalSize(30)
+                .setContentTextSize(40)
+                .setSubmitColor(Color.parseColor("#FF108EE9"))
+                .setCancelColor(Color.parseColor("#FF999999"))
+                .setTextColorOut(Color.parseColor("#FF999999"))
+                .setTextColorCenter(Color.parseColor("#FF333333"))
+                .setBgColor(Color.WHITE)
+                .setTitleSize(30)
+                .setTitleColor(Color.parseColor("#FF333333"))
+                .setTitleBgColor(Color.parseColor("#F5F5F5"))
+                .setDividerColor(Color.TRANSPARENT)
+                .isCenterLabel(false)
+                .setOutSideCancelable(false)
+                .build();
+        mWaistPickerView.setPicker(getWaists());
+        mWaistPickerView.setOnDismissListener(onDismissListener);
+        mWaistPickerView.show();
+    }
+
     private List<String> heights = new ArrayList<>();
     private List<String> waists = new ArrayList<>();
     private List<String> weights = new ArrayList<>();
 
     public List<String> getHeights() {
         if (heights.isEmpty()) {
-            for (int i = 30; i < 260; i++) {
+            for (int i = 60; i < 260; i++) {
                 heights.add(i + "cm");
             }
         }
@@ -111,8 +242,8 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
 
     public List<String> getWaists() {
         if (waists.isEmpty()) {
-            for (int i = 0; i < 200; i++) {
-                waists.add(i + "cm");
+            for (float i = 0.1f; i < 5.0f; i = i + 0.1f) {
+                waists.add(String.format(Locale.getDefault(), "%.1f", i) + "尺");
             }
         }
         return waists;
@@ -120,8 +251,8 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
 
     public List<String> getWeights() {
         if (weights.isEmpty()) {
-            for (int i = 10; i < 200; i++) {
-                weights.add(i + "Kg");
+            for (int i = 30; i < 150; i++) {
+                weights.add(i + "kg");
             }
         }
         return weights;
@@ -129,23 +260,29 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
 
     public void goNext() {
 
-        int index = binding.spHeight.getSelectedItemPosition();
-        String height = getHeights().get(index);
-        if (!TextUtils.isEmpty(height)) {
-            height = height.replaceAll("cm", "");
-        }
+//        int index = binding.spHeight.getSelectedItemPosition();
+//        String height = getHeights().get(index);
+//        if (!TextUtils.isEmpty(height)) {
+//            height = height.replaceAll("cm", "");
+//        }
+//
+//        index = binding.spWc.getSelectedItemPosition();
+//        String waist = getWaists().get(index);
+//        if (!TextUtils.isEmpty(waist)) {
+//            waist = waist.replaceAll("cm", "");
+//        }
+//
+//        index = binding.spWeight.getSelectedItemPosition();
+//        String weight = getWeights().get(index);
+//        if (!TextUtils.isEmpty(weight)) {
+//            weight = weight.replaceAll("kg", "");
+//        }
 
-        index = binding.spWc.getSelectedItemPosition();
-        String waist = getWaists().get(index);
-        if (!TextUtils.isEmpty(waist)) {
-            waist = waist.replaceAll("cm", "");
-        }
+        String height = binding.spHeight.getText().toString().replace("cm", "");
+        String weight = binding.spWeight.getText().toString().replace("kg", "");
 
-        index = binding.spWeight.getSelectedItemPosition();
-        String weight = getWeights().get(index);
-        if (!TextUtils.isEmpty(weight)) {
-            weight = weight.replaceAll("Kg", "");
-        }
+        String item = binding.spWc.getText().toString().replace("尺", "");
+        String waist = String.valueOf(Math.floor(Float.valueOf(item) * 33.33f + 0.5f));
 
         UserEntity user = new UserEntity();
         user.height = height;
