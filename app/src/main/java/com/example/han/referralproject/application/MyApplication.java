@@ -229,7 +229,7 @@ public class MyApplication extends Application {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("获取天气失败：" + e.getMessage());
+
                     }
 
                     @Override
