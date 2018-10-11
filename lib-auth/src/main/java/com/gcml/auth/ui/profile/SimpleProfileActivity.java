@@ -3,7 +3,6 @@ package com.gcml.auth.ui.profile;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -48,18 +47,18 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
         callId = getIntent().getStringExtra("callId");
         binding.setPresenter(this);
         binding.tbSimpleProfile.setData(
-                "完 善 信 息",
+                "完 善 信 息（1／2）",
                 0, null,
                 R.drawable.common_icon_home, null,
                 barClickListener);
         binding.tvMan.setSelected(manSelected);
         binding.tvWomen.setSelected(!manSelected);
-        binding.spHeight.setAdapter(new ArrayAdapter<String>(
-                this,
-                R.layout.common_item_spinner,
-                getHeights()
-        ));
-        binding.spHeight.setSelection(148);
+//        binding.spHeight.setAdapter(new ArrayAdapter<String>(
+//                this,
+//                R.layout.common_item_spinner,
+//                getHeights()
+//        ));
+//        binding.spHeight.setSelection(148);
     }
 
     private List<String> heights = new ArrayList<>();
@@ -150,17 +149,17 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
 
         String sex = manSelected ? "男" : "女";
 
-        int index = binding.spHeight.getSelectedItemPosition();
-        String height = getHeights().get(index);
-        if (!TextUtils.isEmpty(height)) {
-            height = height.replaceAll("cm", "");
-        }
+//        int index = binding.spHeight.getSelectedItemPosition();
+//        String height = getHeights().get(index);
+//        if (!TextUtils.isEmpty(height)) {
+//            height = height.replaceAll("cm", "");
+//        }
 
         UserEntity user = new UserEntity();
         user.name = name;
         user.idCard = idCard;
         user.sex = sex;
-        user.height = height;
+//        user.height = height;
 
         viewModel.updateProfile(user)
                 .subscribeOn(Schedulers.io())

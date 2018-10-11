@@ -1,10 +1,13 @@
 package com.gcml.auth.ui.profile;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
@@ -109,7 +112,8 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
         binding.clItemSex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileInfoActivity.this, AlertSexActivity.class));
+                selectSex();
+//                startActivity(new Intent(ProfileInfoActivity.this, AlertSexActivity.class));
             }
         });
         binding.clItemHeight.setOnClickListener(new View.OnClickListener() {
@@ -188,6 +192,28 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                         .putExtra("data", mUser));
             }
         });
+    }
+
+    private void selectSex() {
+        OnOptionsSelectListener listener = new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+
+            }
+        };
+        new OptionsPickerBuilder(this, listener)
+                .setLineSpacingMultiplier(3f)
+                .setSubCalSize(30)
+                .setContentTextSize(40)
+                .setSubmitColor(Color.parseColor("#FF108EE9"))
+                .setCancelColor(Color.parseColor("#FF999999"))
+                .setTextColorOut(Color.parseColor("#FF999999"))
+                .setTextColorCenter(Color.parseColor("#FF333333"))
+                .setLineSpacingMultiplier(Color.WHITE)
+                .setDividerColor(Color.WHITE)
+                .setBgColor(Color.WHITE)
+                .setTitleBgColor(Color.WHITE)
+                .build();
     }
 
     private void modifyHead() {

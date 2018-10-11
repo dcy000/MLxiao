@@ -83,9 +83,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
                                     if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                                        CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
-//                                        Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
-//                                        startActivity(intent);
+                                        CC.obtainBuilder("com.gcml.auth").build().callAsync();
                                     } else {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
@@ -115,9 +113,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
                             if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                                CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
-//                                Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
-//                                startActivity(intent);
+                                CC.obtainBuilder("com.gcml.auth").build().callAsync();
                             } else {
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);

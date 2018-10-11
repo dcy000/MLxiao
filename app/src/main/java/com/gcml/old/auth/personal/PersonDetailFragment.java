@@ -161,26 +161,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         } else {
             getApiData();
         }
-
-//        new way
-//        CC.obtainBuilder("com.gcml.auth.getUser")
-//                .build()
-//                .callAsync(new IComponentCallback() {
-//                    @Override
-//                    public void onResult(CC cc, CCResult result) {
-//                        if (result.isSuccess()) {
-//                            UserEntity user = result.getDataItem("user");
-//                            MyApplication.getInstance().userId = String.valueOf(user.getId());
-//                            getApiData();
-//                        } else {
-//                            String message = result.getErrorMessage();
-//                            ToastUtils.showShort(message);
-//                            CC.obtainBuilder("com.gcml.old.user.auth")
-//                                    .build()
-//                                    .callAsync();
-//                        }
-//                    }
-//                });
     }
 
     private void getApiData() {

@@ -142,9 +142,9 @@
         <activity
             android:name=".activity.WifiConnectActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.register.AgreementActivity"
-            android:screenOrientation="landscape" />
+        <!--<activity-->
+            <!--android:name="com.gcml.auth.ui.signup.UserProtocolActivity"-->
+            <!--android:screenOrientation="landscape" />-->
         <activity
             android:name=".activity.PreviousHistoryActivity"
             android:screenOrientation="landscape" />
@@ -419,11 +419,6 @@
         <activity
             android:name="com.gcml.old.auth.register.ConfirmContractActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.profile.MyBaseDataActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
-
         <activity
             android:name="com.gcml.old.auth.personal.PersonDetailActivity"
             android:screenOrientation="landscape" />
