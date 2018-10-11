@@ -5,7 +5,7 @@ import android.arch.persistence.room.RoomDatabase;
 
 import com.gcml.common.data.UserEntity;
 
-@Database(entities = {UserEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {UserEntity.class}, version = 2, exportSchema = false)
 public abstract class UserDb extends RoomDatabase {
     public abstract UserDao userDao();
 }

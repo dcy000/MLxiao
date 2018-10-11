@@ -13,6 +13,9 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.common.data.DiseaseHistoryAdapter;
+import com.gcml.common.data.DiseaseHistoryModel;
+import com.gcml.common.data.DiseaseHolder;
 import com.gcml.lib_utils.display.ToastUtils;
 
 import java.util.ArrayList;
@@ -72,15 +75,15 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
 
     private List<DiseaseHistoryModel> modals() {
         mModels = new ArrayList<>(9);
-        String[] diseaseTypes = getResources().getStringArray(R.array.disease_type);
+        String[] diseaseTypes = getResources().getStringArray(R.array.common_disease_type);
         for (String diseaseType : diseaseTypes) {
             DiseaseHistoryModel model = new DiseaseHistoryModel(
                     diseaseType,
                     false,
-                    R.color.textColorDiseaseSelected,
-                    R.color.textColorDiseaseUnselected,
-                    R.drawable.bg_tv_disease_selected,
-                    R.drawable.bg_tv_disease
+                    R.color.commonTextColorDiseaseSelected,
+                    R.color.commonTextColorDiseaseUnselected,
+                    R.drawable.common_bg_tv_disease_selected,
+                    R.drawable.common_bg_tv_disease_unselected
             );
             mModels.add(model);
         }

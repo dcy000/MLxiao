@@ -11,7 +11,6 @@ import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignUpBinding;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -274,20 +273,29 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                                     @Override
                                     public void onResult(CC cc, CCResult result) {
                                         if (result.isSuccess()) {
-                                            CC.obtainBuilder("com.gcml.auth.updateSimpleProfile")
+                                            CC.obtainBuilder("com.gcml.auth.updateProfile1")
                                                     .build()
                                                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                                                         @Override
                                                         public void onResult(CC cc, CCResult result) {
                                                             if (result.isSuccess()) {
-                                                                ToastUtils.showShort(result.getErrorMessage());
-                                                                CC.obtainBuilder("health_measure")
+                                                                CC.obtainBuilder("com.gcml.auth.updateProfile2")
                                                                         .build()
-                                                                        .callAsync();
-                                                                CC.obtainBuilder("health_measure")
-                                                                        .setActionName("To_HealthInquiryActivity")
-                                                                        .build()
-                                                                        .call();
+                                                                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                                                            @Override
+                                                                            public void onResult(CC cc, CCResult result) {
+                                                                                if (result.isSuccess()) {
+                                                                                    ToastUtils.showShort(result.getErrorMessage());
+                                                                                    CC.obtainBuilder("health_measure")
+                                                                                            .build()
+                                                                                            .callAsync();
+                                                                                    CC.obtainBuilder("health_measure")
+                                                                                            .setActionName("To_HealthInquiryActivity")
+                                                                                            .build()
+                                                                                            .call();
+                                                                                }
+                                                                            }
+                                                                        });
                                                             }
                                                         }
                                                     });
@@ -309,8 +317,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     }
 
     public void goUserProtocol() {
-        CC.obtainBuilder("com.gcml.old.user.auth")
-                .setActionName("protocol")
+        CC.obtainBuilder("com.gcml.auth.user.protocol")
                 .build()
                 .callAsync();
     }

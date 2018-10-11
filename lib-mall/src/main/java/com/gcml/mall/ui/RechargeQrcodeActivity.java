@@ -3,12 +3,12 @@ package com.gcml.mall.ui;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,13 +17,12 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.mall.R;
 import com.gcml.mall.network.MallRepository;
-import com.gcml.mall.thread.Callback;
-import com.gcml.mall.thread.EasyThread;
 import com.gcml.mall.utils.BillUtils;
 
 import java.util.Date;
@@ -39,9 +38,6 @@ import cn.beecloud.entity.BCQRCodeResult;
 import cn.beecloud.entity.BCQueryBillResult;
 import cn.beecloud.entity.BCReqParams;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class RechargeQrcodeActivity extends AppCompatActivity {
@@ -57,7 +53,6 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
     Date billDate;
     String errorMsg;
     MallRepository mMallRepository = new MallRepository();
-    EasyThread executor = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,27 +74,45 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
         mToolBar.setData("账 户 充 值", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
-                CC.obtainBuilder("com.gcml.mall.recharge").setContext(RechargeQrcodeActivity.this).build().callAsync();
-                finish();
+                new AlertDialog(RechargeQrcodeActivity.this).builder()
+                        .setMsg("您是否已支付成功?")
+                        .setNegativeButton("取消", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        })
+                        .setPositiveButton("确认", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                CC.obtainBuilder("com.gcml.mall.recharge").setContext(RechargeQrcodeActivity.this).build().callAsync();
+                                finish();
+                            }
+                        }).show();
             }
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
-                finish();
+                new AlertDialog(RechargeQrcodeActivity.this).builder()
+                        .setMsg("您是否已支付成功?")
+                        .setNegativeButton("取消", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        })
+                        .setPositiveButton("确认", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                                finish();
+                            }
+                        }).show();
             }
         });
 
         billTitle = "杭州国辰迈联机器人科技有限公司";
         billDate = new Date();
-
-        // 创建一个独立的实例进行使用
-        executor = EasyThread.Builder
-                .createFixed(4)
-                .setPriority(Thread.MAX_PRIORITY)
-                .setCallback(new ToastCallback())
-                .build();
-
         getRechargeQrcode();
     }
 
@@ -113,40 +126,18 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
                     break;
                 case 1:
                     // 支付宝扫码充值
-//                    NetworkApi.PayInfo(Utils.getDeviceId(), String.valueOf(billMoney / 100), billDate.getTime() + "", UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<String>() {
-//                        @Override
-//                        public void onSuccess(String response) {
-//                            Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-//                            speak(getString(R.string.pay_success));
-//                        }
-//                    }, new NetworkManager.FailedCallback() {
-//                        @Override
-//                        public void onFailed(String message) {
-//                            sign = false;
-//                            Log.e("支付成功同步到我们的后台", "onFailed: "+message);
-//                        }
-//                    });
+//                    Toast.makeText(RechargeQrcodeActivity.this, "支付成功", Toast.LENGTH_LONG).show();
                     mMallRepository.rechargeForApi(Utils.getDeviceId(getContentResolver()), String.valueOf(billMoney / 100), billDate.getTime() + "", UserSpHelper.getUserId())
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .doOnSubscribe(new Consumer<Disposable>() {
-                                @Override
-                                public void accept(Disposable disposable) {
-
-                                }
-                            })
-                            .doOnTerminate(new Action() {
-                                @Override
-                                public void run() {
-
-                                }
-                            })
                             .as(RxUtils.autoDisposeConverter(RechargeQrcodeActivity.this))
-                            .subscribeWith(new DefaultObserver<String>() {
+                            .subscribeWith(new DefaultObserver<Object>() {
                                 @Override
-                                public void onNext(String body) {
+                                public void onNext(Object body) {
                                     super.onNext(body);
                                     Toast.makeText(RechargeQrcodeActivity.this, "支付成功", Toast.LENGTH_LONG).show();
+                                    CC.obtainBuilder("com.gcml.mall.recharge").setContext(RechargeQrcodeActivity.this).build().callAsync();
+                                    finish();
                                 }
 
                                 @Override
@@ -158,41 +149,18 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
                 break;
                 case 2:
                     // 微信扫码充值
-                    Toast.makeText(RechargeQrcodeActivity.this, "支付成功", Toast.LENGTH_LONG).show();
-//                    NetworkApi.PayInfo(Utils.getDeviceId(), number1 + "", date.getTime() + "", MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<String>() {
-//                        @Override
-//                        public void onSuccess(String response) {
-//                            Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-//                            speak(getString(R.string.pay_success));
-//                        }
-//                    }, new NetworkManager.FailedCallback() {
-//                        @Override
-//                        public void onFailed(String message) {
-//                            sign1 = false;
-//
-//                        }
-//                    });
+//                    Toast.makeText(RechargeQrcodeActivity.this, "支付成功", Toast.LENGTH_LONG).show();
                     mMallRepository.rechargeForApi(Utils.getDeviceId(getContentResolver()), String.valueOf(billMoney / 100), billDate.getTime() + "", UserSpHelper.getUserId())
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .doOnSubscribe(new Consumer<Disposable>() {
-                                @Override
-                                public void accept(Disposable disposable) {
-
-                                }
-                            })
-                            .doOnTerminate(new Action() {
-                                @Override
-                                public void run() {
-
-                                }
-                            })
                             .as(RxUtils.autoDisposeConverter(RechargeQrcodeActivity.this))
-                            .subscribeWith(new DefaultObserver<String>() {
+                            .subscribeWith(new DefaultObserver<Object>() {
                                 @Override
-                                public void onNext(String body) {
+                                public void onNext(Object body) {
                                     super.onNext(body);
                                     Toast.makeText(RechargeQrcodeActivity.this, "支付成功", Toast.LENGTH_LONG).show();
+                                    CC.obtainBuilder("com.gcml.mall.recharge").setContext(RechargeQrcodeActivity.this).build().callAsync();
+                                    finish();
                                 }
 
                                 @Override
@@ -215,138 +183,59 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
         }
     });
 
-    /**
-     * 返回上一页
-     */
-//    protected void backLastActivity() {
-//        NDialog1 dialog = new NDialog1(this);
-//        dialog.setMessageCenter(true)
-//                .setMessage("您是否已支付成功?")
-//                .setMessageSize(35)
-//                .setCancleable(false)
-//                .setButtonCenter(true)
-//                .setPositiveTextColor(getResources().getColor(R.color.toolbar_bg))
-//                .setNegativeTextColor(Color.parseColor("#999999"))
-//                .setButtonSize(40)
-//                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
-//                    @Override
-//                    public void onClick(int which) {
-//                        if (which == 1) {
-//                            finish();
-//                        }
-//                    }
-//                }).create(NDialog1.CONFIRM).show();
-//    }
-
-    /**
-     * 返回到主页面
-     */
-//    protected void backMainActivity() {
-//        NDialog1 dialog = new NDialog1(this);
-//        dialog.setMessageCenter(true)
-//                .setMessage("您是否已支付成功?")
-//                .setMessageSize(35)
-//                .setCancleable(false)
-//                .setButtonCenter(true)
-//                .setPositiveTextColor(Color.parseColor("#FFA200"))
-//                .setButtonSize(40)
-//                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
-//                    @Override
-//                    public void onClick(int which) {
-//                        if (which == 1) {
-//                            startActivity(new Intent(mContext, MainActivity.class));
-//                            finish();
-//                        }
-//                    }
-//                }).create(NDialog1.CONFIRM).show();
-//    }
-
-
     public void queryAlipayResult() {
-        mHandler.postDelayed(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 while (isAlipaySign) {
-                    // BC的渠道通过id查询结果
                     BCQuery.getInstance().queryBillByIDAsync(alpayBillId, new BCCallback() {
                         @Override
                         public void done(BCResult result) {
                             BCQueryBillResult billStatus = (BCQueryBillResult) result;
                             //表示支付成功
                             if (billStatus.getResultCode() == 0 && billStatus.getBill().getPayResult()) {
+                                Log.e("xxxxxxxxxxxxxx", "支付成功");
                                 mHandler.sendEmptyMessage(1);
                                 isAlipaySign = false;
-                            } else {
-                                errorMsg = "支付失败";
-                                mHandler.sendEmptyMessage(0);
                             }
                         }
                     });
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }, 1000);
+        }).start();
     }
 
     public void queryWxpayResult() {
         Log.e("xxxxxxxxxxxxxx", "支付");
-        executor.setName("alipay_catch_task")
-                .execute(new WxpayCatchTask());
-//        mHandler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.e("xxxxxxxxxxxxxx", "0");
-//                while (isWxpaySign) {
-//                    Log.e("xxxxxxxxxxxxxx", "1");
-//                    // BC的渠道通过id查询结果
-//                    BCQuery.getInstance().queryBillByIDAsync(wxpayBillId, new BCCallback() {
-//                        @Override
-//                        public void done(BCResult result) {
-//                            Log.e("xxxxxxxxxxxxxx", "2");
-//                            BCQueryBillResult billStatus = (BCQueryBillResult) result;
-//                            //表示支付成功
-//                            if (billStatus.getResultCode() == 0 && billStatus.getBill().getPayResult()) {
-//                                Log.e("xxxxxxxxxxxxxx", "支付成功");
-//                                mHandler.sendEmptyMessage(2);
-//                                isWxpaySign = false;
-//                            } else {
-//                                Log.e("xxxxxxxxxxxxxx", "支付失败");
-//                                errorMsg = "支付失败";
-//                                mHandler.sendEmptyMessage(0);
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        }, 1000);
-
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while (isWxpaySign) {
-//                    BCQuery.getInstance().queryBillByIDAsync(wxpayBillId, new BCCallback() {
-//                        @Override
-//                        public void done(BCResult result) {
-//                            BCQueryBillResult billStatus = (BCQueryBillResult) result;
-//                            //表示支付成功
-//                            if (billStatus.getResultCode() == 0 && billStatus.getBill().getPayResult()) {
-//                                Log.e("xxxxxxxxxxxxxx", "支付成功");
-//                                mHandler.sendEmptyMessage(0);
-//                                isWxpaySign = false;
-//                            } else {
-//                                Log.e("xxxxxxxxxxxxxx", "支付失败");
-//                                errorMsg = "支付失败";
-//                                mHandler.sendEmptyMessage(0);
-//                            }
-//                        }
-//                    });
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//
-//                    }
-//                }
-//            }
-//        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (isWxpaySign) {
+                    BCQuery.getInstance().queryBillByIDAsync(wxpayBillId, new BCCallback() {
+                        @Override
+                        public void done(BCResult result) {
+                            BCQueryBillResult billStatus = (BCQueryBillResult) result;
+                            //表示支付成功
+                            if (billStatus.getResultCode() == 0 && billStatus.getBill().getPayResult()) {
+                                Log.e("xxxxxxxxxxxxxx", "支付成功");
+                                mHandler.sendEmptyMessage(2);
+                                isWxpaySign = false;
+                            }
+                        }
+                    });
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
     void getRechargeQrcode() {
@@ -427,72 +316,11 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
                 wxpayCallback);
     }
 
-    private class WxpayCatchTask implements Runnable {
-
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     @Override
     protected void onStop() {
         super.onStop();
         isAlipaySign = false;
         isWxpaySign = false;
-    }
-
-    private class LogCallback implements Callback {
-
-        private final String TAG = "LogCallback";
-
-        @Override
-        public void onError(String name, Throwable t) {
-            Log.e(TAG, String.format("[任务线程%s]/[回调线程%s]执行失败: %s", name, Thread.currentThread(), t.getMessage()), t);
-        }
-
-        @Override
-        public void onCompleted(String name) {
-            Log.d(TAG, String.format("[任务线程%s]/[回调线程%s]执行完毕：", name, Thread.currentThread()));
-        }
-
-        @Override
-        public void onStart(String name) {
-            Log.d(TAG, String.format("[任务线程%s]/[回调线程%s]执行开始：", name, Thread.currentThread()));
-        }
-    }
-
-    private class ToastCallback extends LogCallback {
-
-        @Override
-        public void onError(String name, Throwable t) {
-            super.onError(name, t);
-            toast("线程%s运行出现异常，异常信息为：%s", name, t.getMessage());
-        }
-
-        @Override
-        public void onCompleted(String name) {
-            super.onCompleted(name);
-            toast("线程%s运行完毕", name);
-        }
-    }
-
-    private void toast(final String message, final Object... args) {
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            Toast.makeText(this, String.format(message, args), Toast.LENGTH_SHORT).show();
-        } else {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(RechargeQrcodeActivity.this, String.format(message, args), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
     }
 
 }

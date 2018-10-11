@@ -84,11 +84,12 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                         .subscribe(new DefaultObserver<UserEntity>() {
                             @Override
                             public void onNext(UserEntity user) {
-                                if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
-                                    ToastUtils.showShort("请先去个人中心完善体重和身高信息");
+                                if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)
+                                        || TextUtils.isEmpty(user.sex)|| TextUtils.isEmpty(user.age)) {
+                                    ToastUtils.showShort("请先去个人中心完善体重,身高,性别,年龄信息");
                                     MLVoiceSynthetize.startSynthesize(
                                             getActivity().getApplicationContext(),
-                                            "请先去个人中心完善体重和身高信息");
+                                            "请先去个人中心完善体重,身高,性别,年龄信息");
                                 } else {
                                     Intent intent = new Intent(getActivity(), SlowDiseaseManagementActivity.class);
                                     startActivity(intent);

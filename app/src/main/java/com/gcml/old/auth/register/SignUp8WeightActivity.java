@@ -41,7 +41,7 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
 
     @Override
     protected int geTip() {
-        return R.string.sign_up_weight_tip;
+        return R.string.common_sign_up_weight_tip;
     }
 
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";

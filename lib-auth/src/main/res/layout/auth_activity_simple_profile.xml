@@ -55,7 +55,7 @@
                 android:id="@+id/et_name"
                 android:layout_width="800pt"
                 android:layout_height="120pt"
-                android:layout_marginTop="48pt"
+                android:layout_marginTop="100pt"
                 android:background="@drawable/auth_sign_in_bg_et"
                 android:gravity="center_vertical"
                 android:hint="输入你的真实姓名"
@@ -154,6 +154,7 @@
                 android:text="你的身高"
                 android:textColor="@color/config_color_base_3"
                 android:textSize="50pt"
+                android:visibility="gone"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_sex"
                 app:layout_constraintRight_toRightOf="@+id/tv_sex"
                 app:layout_constraintTop_toBottomOf="@+id/tv_sex" />
@@ -166,6 +167,7 @@
                 android:layout_marginLeft="50pt"
                 android:background="@drawable/common_bg_spinner"
                 android:textSize="50pt"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_height"
                 app:layout_constraintLeft_toRightOf="@+id/tv_height"
                 app:layout_constraintTop_toTopOf="@+id/tv_height" />
@@ -183,7 +185,7 @@
                 android:textSize="50pt"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_height" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_sex" />
 
         </android.support.constraint.ConstraintLayout>
 

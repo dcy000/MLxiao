@@ -21,6 +21,7 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.health.measure.single_measure.AllMeasureActivity;
 import com.gcml.health.measure.single_measure.bean.DiagnoseInfoBean;
 import com.gcml.health.measure.single_measure.bean.NewWeeklyOrMonthlyBean;
 import com.gcml.lib_utils.UtilsManager;
@@ -195,6 +196,37 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
                         + currentLowBloodpressure + ",健康分数" + healthScore + "分。" + currentSuggest);
         initViewColor();
         getData();
+        getDiagnoseInfo();
+    }
+
+    /**
+     * 获取诊断的相关信息
+     */
+    private void getDiagnoseInfo() {
+        showLoadingDialog("");
+        HealthMeasureApi.getDiagnoseInfo(UserSpHelper.getUserId(), new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
+                        if (bean != null && bean.tag && bean.data != null) {
+                            diagnoseInfo = bean.data;
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        hideLoadingDialog();
+                        super.onFinish();
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        hideLoadingDialog();
+                    }
+                }
+        );
+
     }
 
     private void initViewColor() {
@@ -323,7 +355,76 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
      * 点击高血压管理 按钮
      */
     private void onclickHypertensionManage() {
+        if (diagnoseInfo != null) {
+            if (diagnoseInfo.result != null) {
+                clickWithoutContinueJudge();
+                return;
+            }
 
+            if (!(diagnoseInfo.risk == null
+                    && diagnoseInfo.primary == null
+                    && diagnoseInfo.lowPressure == null
+                    && diagnoseInfo.hypertensionLevel == null
+                    && diagnoseInfo.hypertensionPrimaryState == null
+                    && diagnoseInfo.heart == null
+                    && diagnoseInfo.hypertensionTarget == null
+            )) {
+
+                ContinueOrNotDialog();
+            }
+        }
+
+
+        clickWithoutContinueJudge();
+    }
+
+    private void ContinueOrNotDialog() {
+
+        new AlertDialog(getContext())
+                .builder()
+                .setMsg("您之前的流程还未完成，是否要继续？")
+                .setNegativeButton("是", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getDiagnoseInfoNew();
+                    }
+                })
+                .setPositiveButton("否", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickWithoutContinueJudge();
+                    }
+                }).show();
+
+        mlSpeak("您之前的流程还未完成，是否要继续？");
+    }
+
+    private void getDiagnoseInfoNew() {
+        showLoadingDialog("");
+        HealthMeasureApi.getDiagnoseInfoNew(UserSpHelper.getUserId(), new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
+                        if (bean != null && bean.tag && bean.data != null) {
+                            diagnoseInfo = bean.data;
+                            clickWithoutContinueJudge();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        hideLoadingDialog();
+                    }
+                }
+        );
+    }
+
+    public void mlSpeak(String text) {
+        MLVoiceSynthetize.startSynthesize(getContext().getApplicationContext(), text, false);
+    }
+
+    private void clickWithoutContinueJudge() {
         if (diagnoseInfo != null) {
             if (diagnoseInfo.result == null) {
                 if (diagnoseInfo.hypertensionPrimaryState == null) {
@@ -336,14 +437,6 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
                     showOriginHypertensionDialog();
                 }
             } else {
-//                DialogSure sure = new DialogSure(this);
-//                sure.setContent("您在7天内已生成过健康方案，点击健康方案可直接查看。");
-//                sure.setSure("健康方案");
-//                sure.show();
-//                sure.setOnClickSureListener(dialog1 -> {
-//                    dialog1.dismiss();
-//                    toSulotion();
-//                });
                 new SingleDialog(mContext)
                         .builder()
                         .setMsg("您在7天内已生成过健康方案，点击健康方案可直接查看。")
@@ -358,30 +451,13 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         } else {
             ToastUtils.showShort("暂无推荐");
         }
-
-
     }
 
     private void showOriginHypertensionDialog() {
-//        DialogSureCancel dialogSureCancel = new DialogSureCancel(this);
-//        dialogSureCancel.setContent("您是否诊断过原发性高血压且正在进行高血压规范治疗？(您的选择将影响您的健康方案，且一旦选择不可更改，请谨慎回答)");
-//        dialogSureCancel.getCancelView().setText("否");
-//        dialogSureCancel.getSureView().setText("是");
-//        dialogSureCancel.setOnClickCancelListener(null);
-//        dialogSureCancel.setOnClickSureListener(new DialogClickSureListener() {
-//            @Override
-//            public void clickSure(BaseDialog dialog) {
-//                postOriginPertensionState("1");
-//                CC.obtainBuilder("app")
-//                        .setActionName("To_SlowDiseaseManagementTipActivity")
-//                        .build()
-//                        .call();
-//            }
-//        });
         new AlertDialog(mContext)
                 .builder()
                 .setMsg("您是否诊断过原发性高血压且正在进行高血压规范治疗？(您的选择将影响您的健康方案，且一旦选择不可更改，请谨慎回答)")
-                .setNegativeButton("是", new View.OnClickListener() {
+                .setPositiveButton("是", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         postOriginPertensionState("1");
@@ -391,7 +467,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
                                 .call();
                     }
                 })
-                .setPositiveButton("否", new View.OnClickListener() {
+                .setNegativeButton("否", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 

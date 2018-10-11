@@ -18,7 +18,7 @@ public class DiseaseShowAdapter extends BaseAdapter {
 
     public DiseaseShowAdapter(Context context){
         mInflater = LayoutInflater.from(context);
-        diseaseArray = context.getResources().getStringArray(R.array.disease_type);
+        diseaseArray = context.getResources().getStringArray(R.array.common_disease_type);
     }
 
     public String getMh(){

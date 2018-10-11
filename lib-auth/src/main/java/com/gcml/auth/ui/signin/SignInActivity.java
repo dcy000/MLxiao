@@ -14,7 +14,6 @@ import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignInBinding;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -192,23 +191,39 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                                         .build()
                                         .callAsync();
                             }
-                            checkProfile(user);
+                            checkProfile1(user);
                         }
                     });
         } else {
             CC.obtainBuilder("com.gcml.auth.face.joingroup")
                     .build()
                     .callAsync();
-            checkProfile(user);
+            checkProfile1(user);
         }
     }
 
-    private void checkProfile(UserEntity user) {
+    private void checkProfile1(UserEntity user) {
         if (TextUtils.isEmpty(user.idCard)
                 && TextUtils.isEmpty(user.name)
-                && TextUtils.isEmpty(user.height)
                 && TextUtils.isEmpty(user.sex)) {
-            CC.obtainBuilder("com.gcml.auth.updateSimpleProfile")
+            CC.obtainBuilder("com.gcml.auth.updateProfile1")
+                    .build()
+                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+                            checkProfile2(user);
+                        }
+                    });
+        } else {
+            checkProfile2(user);
+        }
+    }
+
+    private void checkProfile2(UserEntity user) {
+        if (TextUtils.isEmpty(user.height)
+                && TextUtils.isEmpty(user.waist)
+                && TextUtils.isEmpty(user.weight)) {
+            CC.obtainBuilder("com.gcml.auth.updateProfile2")
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
@@ -254,8 +269,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
 
 
     public void goUserProtocol() {
-        CC.obtainBuilder("com.gcml.old.user.auth")
-                .setActionName("protocol")
+        CC.obtainBuilder("com.gcml.auth.user.protocol")
                 .build()
                 .callAsync();
     }

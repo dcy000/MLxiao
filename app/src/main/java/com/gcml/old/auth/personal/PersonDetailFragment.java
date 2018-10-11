@@ -161,26 +161,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         } else {
             getApiData();
         }
-
-//        new way
-//        CC.obtainBuilder("com.gcml.auth.getUser")
-//                .build()
-//                .callAsync(new IComponentCallback() {
-//                    @Override
-//                    public void onResult(CC cc, CCResult result) {
-//                        if (result.isSuccess()) {
-//                            UserEntity user = result.getDataItem("user");
-//                            MyApplication.getInstance().userId = String.valueOf(user.getId());
-//                            getApiData();
-//                        } else {
-//                            String message = result.getErrorMessage();
-//                            ToastUtils.showShort(message);
-//                            CC.obtainBuilder("com.gcml.old.user.auth")
-//                                    .build()
-//                                    .callAsync();
-//                        }
-//                    }
-//                });
     }
 
     private void getApiData() {
@@ -262,8 +242,8 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), OrderListActivity.class));
                 break;
             case R.id.iv_pay:
-                startActivity(new Intent(getActivity(), PayActivity.class));
-//                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
+//                startActivity(new Intent(getActivity(), PayActivity.class));
+                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
                 break;
             case R.id.iv_message:
                 startActivity(new Intent(getActivity(), MessageActivity.class));
@@ -283,7 +263,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 mChangeAccountDialog.show();
                 break;
             case R.id.per_image:
-                CC.obtainBuilder("com.gcml.old.user.profile").build().callAsync();
+                CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
                 break;
             case R.id.iv_record:
                 startActivity(new Intent(getActivity(), HealthRecordActivity.class));

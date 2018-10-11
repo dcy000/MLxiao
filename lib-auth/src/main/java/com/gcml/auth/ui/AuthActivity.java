@@ -52,14 +52,9 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
         CC.obtainBuilder("com.gcml.auth.signup")
                 .build()
                 .callAsync();
-//        CC.obtainBuilder("com.gcml.old.user.auth")
-//                .setActionName("signup")
-//                .build()
-//                .callAsync();
     }
 
     public void goSignInByPhone() {
-//        CC.obtainBuilder("com.gcml.old.user.auth").setActionName("signin").build().callAsync();
         CC.obtainBuilder("com.gcml.auth.signin")
                 .build()
                 .callAsync();
@@ -89,8 +84,7 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     }
 
     public void goUserProtocol() {
-        CC.obtainBuilder("com.gcml.old.user.auth")
-                .setActionName("protocol")
+        CC.obtainBuilder("com.gcml.auth.user.protocol")
                 .build()
                 .callAsync();
     }

@@ -30,7 +30,6 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
@@ -80,7 +79,6 @@ import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
-import com.gcml.old.auth.profile.MyBaseDataActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -98,7 +96,6 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.TheOldHomeActivity;
 import com.ml.edu.old.music.TheOldMusicActivity;
@@ -730,7 +727,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(zuogetijian|jianchashenti|zuotijian).*")) {
+            if (inSpell.matches(".*(zuogejiancha|jianchashenti|zuotijian).*")) {
                 CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
@@ -1085,7 +1082,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             if (inSpell.matches(".*(geren|xiugai)xinxi.*")
                     || inSpell.matches(".*huantouxiang.*")) {
-                startActivity(new Intent(this, MyBaseDataActivity.class));
+                CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
                 return;
             }
 
@@ -1506,8 +1503,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
             } else if (inSpell.matches(".*(dangan).*")) {
-                CC.obtainBuilder("com.gcml.old.user.profile").build().callAsync();
-//                startActivity(new Intent(SpeechSynthesisActivity.this, MyBaseDataActivity.class));
+                CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
             } else {
                 new SpeechTask().execute();
             }

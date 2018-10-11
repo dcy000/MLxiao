@@ -142,9 +142,9 @@
         <activity
             android:name=".activity.WifiConnectActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.register.AgreementActivity"
-            android:screenOrientation="landscape" />
+        <!--<activity-->
+            <!--android:name="com.gcml.auth.ui.signup.UserProtocolActivity"-->
+            <!--android:screenOrientation="landscape" />-->
         <activity
             android:name=".activity.PreviousHistoryActivity"
             android:screenOrientation="landscape" />
@@ -420,34 +420,6 @@
             android:name="com.gcml.old.auth.register.ConfirmContractActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.gcml.old.auth.profile.MyBaseDataActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
-        <activity
-            android:name="com.gcml.old.auth.profile.AlertHeightActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.profile.AlertWeightActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.profile.AlertSportActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.profile.AlertSmokeActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.profile.AlertEatingActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.profile.AlertDrinkingActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.profile.AlertMHActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.gcml.old.auth.profile.AlertAddressActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name="com.gcml.old.auth.personal.PersonDetailActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -684,15 +656,10 @@
         <activity android:name=".tcm.activity.HealthManagementResultActivity" />
         <activity android:name=".tcm.activity.OlderHealthManagementSerciveActivity" />
         <activity android:name=".tcm.SymptomCheckActivity" />
-        <activity android:name="com.gcml.old.auth.profile.AlertNameActivity" />
-        <activity android:name="com.gcml.old.auth.profile.AlertAgeActivity" />
-        <activity android:name="com.gcml.old.auth.profile.AlertIDCardActivity" />
-        <activity android:name="com.gcml.old.auth.profile.AlertSexActivity" />
-        <activity android:name="com.gcml.old.auth.profile.AlertBloodTypeActivity" />
         <activity android:name=".settting.activity.CameraActivity" />
         <activity android:name=".hypertensionmanagement.activity.DetecteTipActivity" />
-        <activity android:name=".recommend.RecommendActivity" />
-        <activity android:name=".searchmaket.activity.SearchGoodsActivity"></activity>
+        <!--<activity android:name=".recommend.RecommendActivity" />-->
+        <activity android:name=".searchmaket.activity.SearchGoodsActivity" />
     </application>
 
 </manifest>

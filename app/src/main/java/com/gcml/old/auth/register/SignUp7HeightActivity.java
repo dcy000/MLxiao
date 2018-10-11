@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.widget.picker.SelectAdapter;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.utils.Utils;
 
@@ -77,7 +78,7 @@ public class SignUp7HeightActivity extends BaseActivity {
     }
 
     protected int geTip() {
-        return R.string.sign_up_height_tip;
+        return R.string.common_sign_up_height_tip;
     }
 
     protected int selectedPosition = 20;

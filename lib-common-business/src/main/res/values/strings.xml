@@ -1,4 +1,52 @@
 <resources>
     <string name="app_name">lib-common-business</string>
     <string name="common_copy_right">\&#064;杭州国辰迈联机器人科技有限公司</string>
+
+    <string name="common_user_protocol">用户协议</string>
+    <string name="common_user_protocol_content">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;智能健康管家为杭州国辰迈联机器人科技有限公司名下家庭健康管理产品内置APP。\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;本服务协议内容包括协议正文及所有国辰迈联已经发布的或将来可能发布的各类规则。所有规则为协议不可分割的一部分，与协议正文具有同等法律效力。\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;用户在使用国辰迈联提供的各项服务的同时，承诺接受并遵守各项相关规则的规定。国辰迈联有权根据需要不时地制定、修改本协议或各类规则，
+        如本协议有任何变更，国辰迈联将在网站上刊载公告，通知本站用户。如用户不同意相关变更，必须停止使用“服务”。经修订的协议一经在国辰迈联网站公布后，立即自动生效。
+        各类规则会在发布后生效，亦成为本协议的一部分。登录或继续使用“服务”将表示用户接受经修订的协议。
+        除另行明确声明外，任何使“服务”范围扩大或功能增强的新内容均受本协议约束。</string>
+
+    <string name="common_sign_up_height_tip">主人,请输入您的身高</string>
+    <string name="common_sign_up_weight_tip">主人,请输入您的体重</string>
+    <string name="common_sign_up3_address_tip">主人,请输入您的住址</string>
+
+    <string name="common_everyday_sports">每天一次</string>
+    <string name="common_few_times_per_week_sports">每周几次</string>
+    <string name="common_sometimes_sports">偶尔运动</string>
+    <string name="common_never_sports">从不运动</string>
+
+    <string name="common_always_smoke">经常吸烟</string>
+    <string name="common_sometimes_smoke">偶尔吸烟</string>
+    <string name="common_never_smoke">从不吸烟</string>
+
+    <string name="common_meat_collocation">荤素搭配</string>
+    <string name="common_meat_preference">偏好吃荤</string>
+    <string name="common_vegetatian_preference">偏好吃素</string>
+    <string name="common_salty_preference">偏好吃咸</string>
+    <string name="common_greasy_preferece">偏好油腻</string>
+    <string name="common_sweet_preferemce">偏好甜食</string>
+
+    <string name="common_always_drink">经常喝酒</string>
+    <string name="common_sometimes_drink">偶尔喝酒</string>
+    <string name="common_never_drink">从不喝酒</string>
+
+    <string name="common_province">省</string>
+    <string name="common_city">市</string>
+    <string name="common_county">县/区</string>
+
+    <string-array name="common_disease_type">
+        <item>高血压</item>
+        <item>糖尿病</item>
+        <item>冠心病</item>
+        <item>慢阻肺</item>
+        <item>孕产妇</item>
+        <item>痛风</item>
+        <item>甲亢</item>
+        <item>高血脂</item>
+        <item>其他</item>
+        <item>无</item>
+    </string-array>
+
 </resources>

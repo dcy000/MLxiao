@@ -100,8 +100,7 @@ public class UpdateAppManager {
                     @Override
                     public void run() {
                         if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                            CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
-//                            context.startActivity(new Intent(context, ChooseLoginTypeActivity.class));
+                            CC.obtainBuilder("com.gcml.auth").build().callAsync();
                         } else {
                             Intent intent = new Intent(context, MainActivity.class);
                             context.startActivity(intent);

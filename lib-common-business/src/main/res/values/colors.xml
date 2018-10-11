@@ -59,4 +59,8 @@
     <color name="config_color_alert_btn_normal">#3f86fc</color>
     <color name="config_color_alert_btn_pressed">#993f86fc</color>
 
+    <color name="commonColorSaltyPreference">#34b87f</color>
+
+    <color name="commonTextColorDiseaseUnselected">#929292</color>
+    <color name="commonTextColorDiseaseSelected">@android:color/white</color>
 </resources>

@@ -46,6 +46,8 @@ public class UserEntity implements Parcelable {
     public String weight;
     @SerializedName("bloodType")
     public String bloodType;
+    @SerializedName("waist")
+    public String waist;
     @SerializedName("eatingHabits")
     public String eatingHabits;
     @SerializedName("smoke")
@@ -103,6 +105,7 @@ public class UserEntity implements Parcelable {
 //        dest.writeString(this.qyzt);
         dest.writeString(this.height);
         dest.writeString(this.weight);
+        dest.writeString(this.waist);
         dest.writeString(this.bloodType);
         dest.writeString(this.eatingHabits);
         dest.writeString(this.smokeHabits);
@@ -142,6 +145,7 @@ public class UserEntity implements Parcelable {
 //        this.qyzt = in.readString();
         this.height = in.readString();
         this.weight = in.readString();
+        this.waist = in.readString();
         this.bloodType = in.readString();
         this.eatingHabits = in.readString();
         this.smokeHabits = in.readString();
@@ -191,6 +195,7 @@ public class UserEntity implements Parcelable {
                 ", state='" + state + '\'' +
                 ", height='" + height + '\'' +
                 ", weight='" + weight + '\'' +
+                ", waist='" + waist + '\'' +
                 ", bloodType='" + bloodType + '\'' +
                 ", eatingHabits='" + eatingHabits + '\'' +
                 ", smokeHabits='" + smokeHabits + '\'' +

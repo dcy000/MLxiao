@@ -5,13 +5,19 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
 import android.text.TextUtils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +40,54 @@ public class Utils {
     public static String getMacAddress(Context context) {
         WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         return wm.getConnectionInfo().getMacAddress();
+    }
+
+    public static int age(String idCard) {
+        if (TextUtils.isEmpty(idCard)
+                || idCard.length() != 18) {
+            return 0;
+        }
+        try {
+            int birthYear = Integer.valueOf(idCard.substring(6, 10));
+            Calendar calendar = Calendar.getInstance();
+            int currentYear = calendar.get(Calendar.YEAR);
+            if (birthYear > currentYear) {
+                return 0;
+            }
+            return currentYear - birthYear;
+        } catch (Throwable e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static String readText(InputStream in) {
+        if (in == null) {
+            return "";
+        }
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            StringBuilder builder = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                builder.append(line);
+            }
+            return builder.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public static String readTextFromAssetFile(Context context, String fileName) {
+        AssetManager manager = context.getAssets();
+        InputStream in = null;
+        try {
+            in = manager.open(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return readText(in);
     }
 
     public static String getLocalVersionName(Context context) {

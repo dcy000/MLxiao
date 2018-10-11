@@ -40,11 +40,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.MallActivity" />
+
         <activity android:name=".ui.RechargeActivity" />
 
         <activity android:name=".ui.RechargeDefineActivity" />
 
         <activity android:name=".ui.RechargeQrcodeActivity" />
+        <activity android:name=".ui.GoodsDetailActivity" />
+        <activity android:name=".ui.OrderListActivity" />
 
         <!--<meta-data-->
             <!--android:name=".MallAppLifecycleCallbacks"-->

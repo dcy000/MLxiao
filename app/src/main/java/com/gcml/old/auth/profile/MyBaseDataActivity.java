@@ -20,8 +20,9 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.repository.imageloader.ImageLoader;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.widget.dialog.SMSVerificationDialog;
 import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.old.auth.entity.HealthInfo;
+import com.gcml.common.data.HealthInfo;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.Locale;
@@ -34,6 +35,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by gzq on 2017/11/24.
  */
 
+@Deprecated
 public class MyBaseDataActivity extends BaseActivity implements View.OnClickListener {
     private CircleImageView mHead;
     /**
@@ -251,28 +253,28 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.ll_height:
-                startActivity(new Intent(this, AlertHeightActivity.class).putExtra("data", mUser));
+//                startActivity(new Intent(this, AlertHeightActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_weight:
-                startActivity(new Intent(this, AlertWeightActivity.class).putExtra("data", mUser));
+//                startActivity(new Intent(this, AlertWeightActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_exercise:
-                startActivity(new Intent(this, AlertSportActivity.class).putExtra("data", mUser));
+//                startActivity(new Intent(this, AlertSportActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_smoke:
-                startActivity(new Intent(this, AlertSmokeActivity.class).putExtra("data", mUser));
+//                startActivity(new Intent(this, AlertSmokeActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_eating:
-                startActivity(new Intent(this, AlertEatingActivity.class).putExtra("data", mUser));
+//                startActivity(new Intent(this, AlertEatingActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_drinking:
-                startActivity(new Intent(this, AlertDrinkingActivity.class).putExtra("data", mUser));
+//                startActivity(new Intent(this, AlertDrinkingActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_history:
-                startActivity(new Intent(this, AlertMHActivity.class).putExtra("data", mUser));
+//                startActivity(new Intent(this, AlertMHActivity.class).putExtra("data", mUser));
                 break;
             case R.id.ll_address_onfo:
-                startActivity(new Intent(this, AlertAddressActivity.class).putExtra("data", mUser));
+//                startActivity(new Intent(this, AlertAddressActivity.class).putExtra("data", mUser));
                 break;
             case R.id.tv_reset:
                 LocalShared.getInstance(mContext).reset();
@@ -300,26 +302,26 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
             case R.id.ll_age_info:
                 //修改年龄
                 if (mIdcard.getText().toString().equals("暂未填写")) {
-                    startActivity(new Intent(this, AlertAgeActivity.class));
+//                    startActivity(new Intent(this, AlertAgeActivity.class));
                 } else {
                     ToastUtils.showShort("年龄与身份证号关联,不可更改");
                 }
                 break;
             case R.id.ll_sex_info:
-                startActivity(new Intent(this, AlertSexActivity.class));
+//                startActivity(new Intent(this, AlertSexActivity.class));
                 //修改性别
                 break;
             case R.id.ll_blood_info:
                 //修改血型
-                startActivity(new Intent(this, AlertBloodTypeActivity.class));
+//                startActivity(new Intent(this, AlertBloodTypeActivity.class));
                 break;
             case R.id.ll_name_info:
                 //修改姓名
-                startActivity(new Intent(this, AlertNameActivity.class));
+//                startActivity(new Intent(this, AlertNameActivity.class));
                 break;
             case R.id.ll_idcard_info:
                 //修改身份证号码
-                startActivity(new Intent(this, AlertIDCardActivity.class));
+//                startActivity(new Intent(this, AlertIDCardActivity.class));
                 break;
         }
     }

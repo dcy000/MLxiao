@@ -39,7 +39,6 @@
             app:cp_arcColors="@array/circle_progress_blue"
             app:cp_arcWidth="40pt"
             app:cp_bgArcColor="#eeeeee"
-
             app:cp_bgArcWidth="40pt"
             app:cp_maxValue="100"
             app:cp_smallUnit="%"

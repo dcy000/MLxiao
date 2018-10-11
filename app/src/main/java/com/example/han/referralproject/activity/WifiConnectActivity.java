@@ -224,7 +224,9 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                     if (networkInfo != null && networkInfo.isConnected()){
                         if (isFirstWifi){
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                CC.obtainBuilder("com.gcml.old.user.auth").build().callAsync();
+                                CC.obtainBuilder("com.gcml.auth")
+                                        .build()
+                                        .callAsync();
                             } else {
                                 startActivity(new Intent(mContext, MainActivity.class));
                             }

@@ -1,8 +1,11 @@
 package com.gcml.common.repository;
 
 import android.app.Application;
+import android.arch.persistence.db.SupportSQLiteDatabase;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.support.annotation.NonNull;
 
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -145,14 +148,15 @@ public enum RepositoryApp implements IRepositoryApp {
                         return null;
                     })
                     //这里可以自定义配置 RoomDatabase，比如数据库迁移升级
-                    .roomConfiguration((context1, roomBuilder) -> {
-/*                    roomBuilder.addMigrations(new Migration(2, 3) {
-                        @Override
-                        public void migrate(SupportSQLiteDatabase database) {
-
-                            // Since we didn't alter the table, there's nothing else to do here.
+                    .roomConfiguration((context1, dbName, roomBuilder) -> {
+                        if ("com.gcml.auth.model.UserDb".equals(dbName)) {
+                            roomBuilder.addMigrations(new Migration(1, 2) {
+                                @Override
+                                public void migrate(@NonNull SupportSQLiteDatabase database) {
+                                    database.execSQL("ALTER TABLE UserOld ADD COLUMN waist TEXT");
+                                }
+                            });
                         }
-                    });*/
                     })
                     //可根据当前项目的情况以及环境为框架某些部件提供自定义的缓存策略,具有强大的扩展性
                     .cacheFactory(type -> {
