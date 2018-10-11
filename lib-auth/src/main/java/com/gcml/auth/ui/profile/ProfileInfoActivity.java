@@ -112,8 +112,8 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
         binding.clItemSex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectSex();
-//                startActivity(new Intent(ProfileInfoActivity.this, AlertSexActivity.class));
+//                selectSex();
+                startActivity(new Intent(ProfileInfoActivity.this, AlertSexActivity.class));
             }
         });
         binding.clItemHeight.setOnClickListener(new View.OnClickListener() {
