@@ -96,13 +96,13 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
             public void onRightClick() {
                 new AlertDialog(TaskComplyChoiceActivity.this).builder()
                         .setMsg("您已经开始做题，是否要离开当前页面？")
-                        .setNegativeButton("继续做题", new View.OnClickListener() {
+                        .setPositiveButton("继续做题", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
                             }
                         })
-                        .setPositiveButton("确认离开", new View.OnClickListener() {
+                        .setNegativeButton("确认离开", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
