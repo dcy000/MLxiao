@@ -25,6 +25,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -136,17 +137,20 @@ public class BasicInformationActivity extends BaseActivity {
 
             }
         })
-                .setLineSpacingMultiplier(3f)
+                .setCancelText("取消")
+                .setSubmitText("确认")
+                .setLineSpacingMultiplier(1.5f)
                 .setSubCalSize(30)
-                .setContentTextSize(45)
+                .setContentTextSize(40)
                 .setSubmitColor(Color.parseColor("#FF108EE9"))
                 .setCancelColor(Color.parseColor("#FF999999"))
                 .setTextColorOut(Color.parseColor("#FF999999"))
                 .setTextColorCenter(Color.parseColor("#FF333333"))
-                .setLineSpacingMultiplier(Color.WHITE)
-                .setDividerColor(Color.WHITE)
                 .setBgColor(Color.WHITE)
                 .setTitleBgColor(Color.WHITE)
+                .setDividerColor(Color.WHITE)
+                .isCenterLabel(false)
+                .setOutSideCancelable(true)
                 .build();
 
         pvOptions.setPicker(getHeightItems());
@@ -163,7 +167,13 @@ public class BasicInformationActivity extends BaseActivity {
     }
 
     private void updateBirth() {
-        TimePickerView time = new TimePickerBuilder(this, new OnTimeSelectListener() {
+        Calendar selectedDate = Calendar.getInstance();
+        Calendar startDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
+        startDate.set(1900, 0, 1);
+        endDate.set(2099, 11, 31);
+
+        TimePickerView pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
                 SimpleDateFormat birth = new SimpleDateFormat("yyyy-MM-dd");
@@ -172,23 +182,33 @@ public class BasicInformationActivity extends BaseActivity {
                 UserEntity user = new UserEntity();
                 user.birthday = birthString;
                 updateUserInfo(user);
-
             }
         })
-                .setLineSpacingMultiplier(3f)
+                .setType(new boolean[]{true, true, true, false, false, false})// 默认全部显示
+                .setCancelText("取消")
+                .setSubmitText("确认")
+                .setLineSpacingMultiplier(1.5f)
                 .setSubCalSize(30)
                 .setContentTextSize(40)
-                .setSubmitColor(Color.parseColor("#FF108EE9"))
-                .setCancelColor(Color.parseColor("#FF999999"))
                 .setTextColorOut(Color.parseColor("#FF999999"))
                 .setTextColorCenter(Color.parseColor("#FF333333"))
-                .setLineSpacingMultiplier(Color.WHITE)
+                .setSubmitText("确认")
+                .setOutSideCancelable(false)
                 .setDividerColor(Color.WHITE)
-                .setBgColor(Color.WHITE)
+                .isCyclic(true)
+                .setSubmitColor(Color.parseColor("#FF108EE9"))
+                .setCancelColor(Color.parseColor("#FF999999"))
                 .setTitleBgColor(Color.WHITE)
+                .setBgColor(Color.WHITE)
+                .setDate(selectedDate)
+                .setRangDate(startDate, endDate)
+                .setLabel("年", "月", "日", "时", "分", "秒")//默认设置为年月日时分秒
+                .isCenterLabel(false)
                 .build();
-        time.show();
+
+        pvTime.show();
     }
+
 
     private void updateUserInfo(UserEntity user) {
         Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.putUser")

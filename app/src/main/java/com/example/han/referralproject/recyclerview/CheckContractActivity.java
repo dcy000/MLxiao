@@ -128,23 +128,31 @@ public class CheckContractActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<DoctorInfoBean>() {
-                    @Override
-                    public void onNext(DoctorInfoBean response) {
-                        if (!TextUtils.isEmpty(response.docter_photo)) {
-                            Picasso.with(CheckContractActivity.this)
-                                    .load(response.docter_photo)
-                                    .placeholder(R.drawable.avatar_placeholder)
-                                    .error(R.drawable.avatar_placeholder)
-                                    .tag(this)
-                                    .fit()
-                                    .into(ivDoctorAvatar);
-                        }
-                        tvDoctorName.setText(String.format(getString(R.string.doctor_name), response.doctername));
-                        tvDoctorLevel.setText(response.duty);
-                        tvGoodAtNew.setText(response.gat);
-                        tvPrice.setText(String.valueOf(response.service_amount) + "元/分");
-                    }
-                });
+                               @Override
+                               public void onNext(DoctorInfoBean response) {
+                                   if (!TextUtils.isEmpty(response.docter_photo)) {
+                                       Picasso.with(CheckContractActivity.this)
+                                               .load(response.docter_photo)
+                                               .placeholder(R.drawable.avatar_placeholder)
+                                               .error(R.drawable.avatar_placeholder)
+                                               .tag(this)
+                                               .fit()
+                                               .into(ivDoctorAvatar);
+                                   }
+                                   tvDoctorName.setText(String.format(getString(R.string.doctor_name), response.doctername));
+                                   tvDoctorLevel.setText(response.duty);
+                                   tvGoodAtNew.setText(response.gat);
+                                   tvPrice.setText(String.valueOf(response.service_amount) + "元/分");
+                               }
+
+                               @Override
+                               public void onError(Throwable throwable) {
+                                   super.onError(throwable);
+                               }
+                           }
+
+
+                );
 
     }
 

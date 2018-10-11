@@ -3,6 +3,7 @@ package com.example.han.referralproject.tcm;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,10 +16,17 @@ import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.physicalexamination.activity.ChineseMedicineMonitorActivity;
 import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.gcml.lib_utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 public class SymptomCheckActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -72,7 +80,23 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
                 toChineseConsititution();
                 break;
             case R.id.iv_risk_assessment:
-                toRisk();
+                CCResult result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+                Observable<UserEntity> rxUser = result.getDataItem("data");
+                rxUser.subscribeOn(Schedulers.io())
+                        .as(RxUtils.autoDisposeConverter(this))
+                        .subscribe(new DefaultObserver<UserEntity>() {
+                            @Override
+                            public void onNext(UserEntity user) {
+                                if (TextUtils.isEmpty(user.sex) || TextUtils.isEmpty(user.age)) {
+                                    ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+                                    MLVoiceSynthetize.startSynthesize(
+                                            getApplicationContext(),
+                                            "请先去个人中心完善性别和年龄信息");
+                                } else {
+                                    toRisk();
+                                }
+                            }
+                        });
                 break;
         }
     }
