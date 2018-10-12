@@ -19,6 +19,8 @@ import com.example.han.referralproject.market.GoodsFragment;
 import com.example.han.referralproject.market.network.GoodsRepository;
 import com.example.han.referralproject.market.network.bean.GoodsTypeBean;
 import com.example.han.referralproject.searchmaket.activity.SearchGoodsActivity;
+import com.gcml.common.recommend.fragment.RencommendForMarketFragment;
+import com.gcml.common.recommend.fragment.RencommendForUserFragment;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.lib_utils.ui.UiUtils;
@@ -86,6 +88,7 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
 
     private void initFragments(List<GoodsTypeBean> data) {
         fragments = new ArrayList<>();
+        fragments.add(new RencommendForMarketFragment());
         int size = data.size();
         for (int i = 0; i < size; i++) {
             fragments.add(GoodsFragment.newInstance(data.get(i).mallProductTypeId));
@@ -110,6 +113,7 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
      * @param data
      */
     private void initRadioGroup(List<GoodsTypeBean> data) {
+        initFirstRadioButton();
         for (int i = 0; i < data.size(); i++) {
             RadioButton button = new RadioButton(this);
             button.setTextSize(28);
@@ -127,6 +131,23 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
             mRgMenu.addView(button, lp);
         }
         mRgMenu.check(mRgMenu.getChildAt(0).getId());
+    }
+
+    private void initFirstRadioButton() {
+        RadioButton button = new RadioButton(this);
+        button.setTextSize(28);
+        button.setText("小E推荐");
+        button.setButtonDrawable(android.R.color.transparent);
+        ViewCompat.setBackground(button, ResourcesCompat.getDrawable(getResources(), R.drawable.bg_rb_history_record, getTheme()));
+        button.setTextColor(getResources().getColorStateList(R.color.good_menu_text_color));
+
+        Drawable drawableLeft = getResources().getDrawable(
+                R.drawable.bg_rb_history_record_shape);
+        button.setCompoundDrawablesWithIntrinsicBounds(drawableLeft,
+                null, null, null);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, UiUtils.pt(160f));
+        button.setGravity(Gravity.CENTER);
+        mRgMenu.addView(button, lp);
     }
 
 

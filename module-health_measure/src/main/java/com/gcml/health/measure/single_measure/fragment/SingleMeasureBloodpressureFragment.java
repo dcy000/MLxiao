@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.gcml.common.data.UserSpHelper;
@@ -186,7 +187,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("上传数据失败:" + e.getMessage());
+                        Log.e(TAG, "onError: "+e.getMessage() );
                     }
 
                     @Override
@@ -197,6 +198,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
 
     }
 
+    private static final String TAG = "SingleMeasureBloodpress";
     @Override
     public void onResume() {
         super.onResume();

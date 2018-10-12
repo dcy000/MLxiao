@@ -11,27 +11,26 @@
         android:layout_height="match_parent">
 
         <ScrollView
-            android:background="#fff5f5f5"
             android:layout_width="400pt"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#fff5f5f5">
 
             <RadioGroup
                 android:id="@+id/rg_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
             </RadioGroup>
         </ScrollView>
 
         <com.example.han.referralproject.hypertensionmanagement.wrap.MLViewPager
-            android:paddingLeft="68pt"
-            android:paddingRight="68pt"
             android:id="@+id/vp_goods"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
             android:orientation="vertical"
-            android:overScrollMode="never" />
+            android:overScrollMode="never"
+            android:paddingLeft="68pt"
+            android:paddingRight="68pt" />
 
     </LinearLayout>
 </LinearLayout>

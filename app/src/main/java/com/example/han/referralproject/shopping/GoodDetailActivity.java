@@ -123,7 +123,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
                 i++;
                 mTextView2.setText(i + "");
-                int sumPrice = Integer.parseInt(mTextView1.getText().toString()) * i;
+                float sumPrice = Float.parseFloat(mTextView1.getText().toString()) * i;
                 mTextView3.setText(String.format(getString(R.string.shop_sum_price), sumPrice + ""));
                 break;
 
@@ -134,7 +134,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 if (i >= 1) {
 
                     mTextView2.setText(i + "");
-                    int sumPrice1 = Integer.parseInt(mTextView1.getText().toString()) * i;
+                    float sumPrice1 = Float.parseFloat(mTextView1.getText().toString()) * i;
                     mTextView3.setText(String.format(getString(R.string.shop_sum_price), sumPrice1 + ""));
 
 
@@ -164,7 +164,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 });*/
 
 
-                NetworkApi.preparingPay(UserSpHelper.getUserId(), Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Integer.parseInt(mTextView2.getText().toString()) * Integer.parseInt(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<String>() {
+                NetworkApi.preparingPay(UserSpHelper.getUserId(), Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Float.parseFloat(mTextView2.getText().toString()) * Float.parseFloat(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<String>() {
 
                     @Override
                     public void onSuccess(String data) {

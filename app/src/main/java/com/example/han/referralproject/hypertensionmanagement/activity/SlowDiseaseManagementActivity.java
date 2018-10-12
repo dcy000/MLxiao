@@ -117,12 +117,14 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                     && diagnoseInfo.primary == null
                     && diagnoseInfo.lowPressure == null
                     && diagnoseInfo.hypertensionLevel == null
-                    && diagnoseInfo.hypertensionPrimaryState == null
+                    && (diagnoseInfo.hypertensionPrimaryState == null || diagnoseInfo.hypertensionPrimaryState.equals("0"))
                     && diagnoseInfo.heart == null
                     && diagnoseInfo.hypertensionTarget == null
             )) {
 
                 ContinueOrNotDialog();
+            }else{
+                clickWithoutContinueJudge();
             }
         }
 

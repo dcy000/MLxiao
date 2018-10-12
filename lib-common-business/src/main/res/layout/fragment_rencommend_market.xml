@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.gcml.common.widget.toolbar.TranslucentToolBar
         android:id="@+id/tb_recommend_title"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content"></com.gcml.common.widget.toolbar.TranslucentToolBar>
+        android:layout_height="0pt"
+        android:visibility="gone"></com.gcml.common.widget.toolbar.TranslucentToolBar>
 
     <TextView
         android:id="@+id/tv_commend_text"
         android:layout_width="1492pt"
         android:layout_height="wrap_content"
         android:layout_marginStart="68pt"
-        android:layout_marginTop="80pt"
+        android:layout_marginTop="40pt"
         android:text="小E给您推荐以下商品"
         android:textColor="#ff999999"
         android:textSize="56pt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_recommend_title" />
+        />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_look_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,13 +37,9 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_commend_goods"
-        android:layout_width="0pt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="60pt"
-        android:layout_marginStart="60pt"
-        android:layout_marginTop="80pt"
+        android:layout_marginTop="10pt"
         android:overScrollMode="never"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_commend_text"></android.support.v7.widget.RecyclerView>
-</android.support.constraint.ConstraintLayout>
+      ></android.support.v7.widget.RecyclerView>
+</LinearLayout>

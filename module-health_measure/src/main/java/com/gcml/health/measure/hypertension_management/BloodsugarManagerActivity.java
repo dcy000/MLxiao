@@ -57,6 +57,7 @@ public class BloodsugarManagerActivity extends BaseManagementActivity {
     @Override
     protected void untieDevice() {
         super.untieDevice();
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         //血糖
         String nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
         SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR);

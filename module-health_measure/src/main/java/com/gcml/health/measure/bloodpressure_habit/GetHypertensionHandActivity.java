@@ -132,6 +132,7 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
     }
 
     private void untieDevice() {
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         unpairDevice();
         String nameAddress = null;
         nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
