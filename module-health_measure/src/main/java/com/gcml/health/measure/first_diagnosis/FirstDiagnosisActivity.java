@@ -441,6 +441,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     }
 
     private void untieDevice() {
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         unpairDevice();
         String nameAddress = null;
         switch (measureType) {
@@ -460,6 +461,11 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                         ((HealthBloodDetectionOnlyOneFragment) fragment).dealLogic();
                     }
                 }
+                break;
+            case IPresenter.MEASURE_ECG:
+//                nameAddress= (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG,"");
+//                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
+//                ((HealthECGDetectionFragment) fragment).showConnectAnimation();
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");

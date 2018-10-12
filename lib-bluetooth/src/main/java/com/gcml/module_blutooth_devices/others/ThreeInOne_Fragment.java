@@ -156,9 +156,9 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
     @Override
     public void updateData(String... datas) {
         if (datas.length == 1) {
-            mTvGaoya.setText("0.00");
-            mTvDiya.setText("0.00");
-            mTvMaibo.setText("0.00");
+//            mTvGaoya.setText("0.00");
+//            mTvDiya.setText("0.00");
+//            mTvMaibo.setText("0.00");
             isMeasureBloodsugarFinished = false;
             isMeasureBUAFinished = false;
             isMeasureCholesterolFinished = false;

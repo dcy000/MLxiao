@@ -149,6 +149,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
     }
 
     private void untieDevice() {
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         unpairDevice();
         String nameAddress = null;
         switch (measureType) {

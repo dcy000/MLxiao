@@ -44,6 +44,7 @@ public class WeightManagerActivity extends BaseManagementActivity {
     @Override
     protected void untieDevice() {
         super.untieDevice();
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         //体重
         String nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
         SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_WEIGHT);
