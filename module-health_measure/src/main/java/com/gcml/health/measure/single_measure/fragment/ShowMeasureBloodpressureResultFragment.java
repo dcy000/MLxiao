@@ -355,24 +355,24 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
      * 点击高血压管理 按钮
      */
     private void onclickHypertensionManage() {
-        if (diagnoseInfo != null) {
-            if (diagnoseInfo.result != null) {
-                clickWithoutContinueJudge();
-                return;
-            }
-
-            if (!(diagnoseInfo.risk == null
-                    && diagnoseInfo.primary == null
-                    && diagnoseInfo.lowPressure == null
-                    && diagnoseInfo.hypertensionLevel == null
-                    && diagnoseInfo.hypertensionPrimaryState == null
-                    && diagnoseInfo.heart == null
-                    && diagnoseInfo.hypertensionTarget == null
-            )) {
-
-                ContinueOrNotDialog();
-            }
-        }
+//        if (diagnoseInfo != null) {
+//            if (diagnoseInfo.result != null) {
+//                clickWithoutContinueJudge();
+//                return;
+//            }
+//
+//            if (!(diagnoseInfo.risk == null
+//                    && diagnoseInfo.primary == null
+//                    && diagnoseInfo.lowPressure == null
+//                    && diagnoseInfo.hypertensionLevel == null
+//                    && diagnoseInfo.hypertensionPrimaryState == null
+//                    && diagnoseInfo.heart == null
+//                    && diagnoseInfo.hypertensionTarget == null
+//            )) {
+//
+//                ContinueOrNotDialog();
+//            }
+//        }
 
 
         clickWithoutContinueJudge();
