@@ -29,7 +29,11 @@ public abstract class RecycleBaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         if (view != null) {
-            ((ViewGroup) view.getParent()).removeView(view);
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent == null) {
+                return;
+            }
+            parent.removeView(view);
         }
     }
 }
