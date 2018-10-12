@@ -49,4 +49,44 @@
         <item>无</item>
     </string-array>
 
+    <string-array name="common_sexes">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+
+    <string-array name="common_blood_types">
+        <item>AB</item>
+        <item>A</item>
+        <item>B</item>
+        <item>O</item>
+    </string-array>
+
+    <string-array name="common_sports">
+        <item>每天一次</item>
+        <item>每周几次</item>
+        <item>偶尔运动</item>
+        <item>从不运动</item>
+    </string-array>
+
+    <string-array name="common_smokes">
+        <item>经常吸烟</item>
+        <item>偶尔吸烟</item>
+        <item>从不吸烟</item>
+    </string-array>
+
+    <string-array name="common_eats">
+        <item>荤素搭配</item>
+        <item>偏好吃荤</item>
+        <item>偏好吃素</item>
+        <item>偏好吃咸</item>
+        <item>偏好吃咸</item>
+        <item>偏好甜食</item>
+    </string-array>
+
+    <string-array name="common_drinks">
+        <item>经常喝酒</item>
+        <item>偶尔喝酒</item>
+        <item>从不喝酒</item>
+    </string-array>
+
 </resources>

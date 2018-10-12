@@ -50,7 +50,7 @@
                 app:layout_constraintRight_toLeftOf="@+id/sp_height"
                 app:layout_constraintTop_toTopOf="@+id/sp_height" />
 
-            <Spinner
+            <TextView
                 android:id="@+id/sp_height"
                 android:layout_width="600pt"
                 android:layout_height="120pt"
@@ -82,7 +82,7 @@
                 app:layout_constraintRight_toLeftOf="@+id/sp_wc"
                 app:layout_constraintTop_toTopOf="@+id/sp_wc" />
 
-            <Spinner
+            <TextView
                 android:id="@+id/sp_wc"
                 android:layout_width="600pt"
                 android:layout_height="120pt"
@@ -117,7 +117,7 @@
                 app:layout_constraintRight_toLeftOf="@+id/sp_weight"
                 app:layout_constraintTop_toBottomOf="@+id/tv_wc" />
 
-            <Spinner
+            <TextView
                 android:id="@+id/sp_weight"
                 android:layout_width="600pt"
                 android:layout_height="120pt"
@@ -125,7 +125,7 @@
                 android:background="@drawable/common_bg_spinner"
                 android:digits="0123456789xX"
                 android:gravity="center"
-                android:hint="50Kg"
+                android:hint="50kg"
                 android:maxLength="18"
                 android:maxLines="1"
                 android:paddingLeft="36pt"
