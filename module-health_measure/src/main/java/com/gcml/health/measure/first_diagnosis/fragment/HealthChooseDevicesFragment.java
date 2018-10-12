@@ -235,7 +235,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("上传数据失败" + e.getMessage());
+                        ToastUtils.showShort("同步拥有的设备信息失败：" + e.getMessage());
                     }
 
                     @Override

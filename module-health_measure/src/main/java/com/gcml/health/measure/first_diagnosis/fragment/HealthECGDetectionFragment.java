@@ -142,7 +142,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         initOther();
     }
 
-    private void initOther() {
+    public void initOther() {
         measureResult = getResources().getStringArray(R.array.ecg_measureres);
         mMainPc80BViewDraw.setmHandler(mHandler);
         IntentFilter filter = new IntentFilter();
@@ -208,7 +208,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
     }
 
 
-    private void showConnectAnimation() {
+    public void showConnectAnimation() {
         Intent i = new Intent(context, ECGConnectActivity.class);
         i.putExtra("device", 3);
         startActivityForResult(i, 0x100);

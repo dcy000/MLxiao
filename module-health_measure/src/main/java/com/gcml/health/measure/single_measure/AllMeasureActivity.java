@@ -399,6 +399,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     }
 
     private void untieDevice() {
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         //先清除已经绑定的设备
         unpairDevice();
         String nameAddress = null;

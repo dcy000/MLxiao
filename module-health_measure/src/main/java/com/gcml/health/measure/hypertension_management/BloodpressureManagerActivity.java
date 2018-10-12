@@ -56,6 +56,7 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
     @Override
     protected void untieDevice() {
         super.untieDevice();
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         //血压
         String nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
         SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
