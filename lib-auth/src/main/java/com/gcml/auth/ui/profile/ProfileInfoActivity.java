@@ -220,7 +220,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
         OnTimeSelectListener listener = new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                SimpleDateFormat birth = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                SimpleDateFormat birth = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
                 String birthString = birth.format(date);
                 UserEntity user = new UserEntity();
                 user.birthday = birthString;
