@@ -51,7 +51,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     public TextView mTextView;
     public TextView mTextView1;
     public TextView mTextView2;
-    public Button mButton1;
+    public Button mbtnAddYuyue;
     public ImageView circleImageView;
 
     public TextView mTextView3;
@@ -77,7 +77,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     //  public ImageView ImageView2;
     List<AlarmModel> models = new ArrayList<AlarmModel>();
 
-    public Button mButtons;
+    public Button mBtnCallDoctor;
 
 
     private Handler mHandler = new Handler(new Handler.Callback() {
@@ -94,26 +94,26 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                     models = DataSupport.findAll(AlarmModel.class);
 
 
-                    if (list.size() == 3) {
+                    if (mYuYueInfoList.size() == 3) {
                         mLinearLayout1.setVisibility(View.VISIBLE);
                         mLinearLayout2.setVisibility(View.VISIBLE);
                         mLinearLayout3.setVisibility(View.VISIBLE);
 
 
-                        if ("已接受".equals(list.get(0).getState())) {
+                        if ("已接受".equals(mYuYueInfoList.get(0).getState())) {
                             mButton2.setText("已预约");
                             mButton2.setSelected(true);
                             mButton2.setEnabled(false);
 
 
-                            mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
-                            mTextView1.setText(StringUtils.substringBeforeLast(list.get(0).getEnd_time(), ":"));
+                            mTextView.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(0).getStart_time(), ":"));
+                            mTextView1.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(0).getEnd_time(), ":"));
 
 
-                            if (!"".equals(list.get(0).getStart_time())) {
+                            if (!"".equals(mYuYueInfoList.get(0).getStart_time())) {
                                 long time = 0;
                                 try {
-                                    time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                    time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -150,8 +150,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             long time1 = 0;
 
                             try {
-                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                                time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+                                time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
+                                time1 = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getEnd_time()));
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -160,15 +160,15 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             enableVideo(time1, time - 60000);
 
 
-                        } else if ("已过期".equals(list.get(0).getState()) ||
-                                "已拒绝".equals(list.get(0).getState())) {
+                        } else if ("已过期".equals(mYuYueInfoList.get(0).getState()) ||
+                                "已拒绝".equals(mYuYueInfoList.get(0).getState())) {
 
-                            NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.YuYue_cancel(mYuYueInfoList.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
                                     long time = 0;
                                     try {
-                                        time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                        time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
@@ -179,8 +179,10 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                     if (models.size() != 0) {
 
                                         for (int i = 0; i < models.size(); i++) {
-                                            if (times.equals(models.get(i).getTimestamp() + "")) {
-                                                models.get(i).delete();
+                                            AlarmModel alarm = models.get(i);
+                                            if (times.equals(alarm.getTimestamp() + "")) {
+                                                AlarmHelper.cancelAlarm(getApplicationContext(), alarm);
+                                                updateBtnCallVideoState();
                                                 break;
                                             }
                                         }
@@ -200,14 +202,14 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                         } else {
 
-                            mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
-                            mTextView1.setText(StringUtils.substringBeforeLast(list.get(0).getEnd_time(), ":"));
+                            mTextView.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(0).getStart_time(), ":"));
+                            mTextView1.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(0).getEnd_time(), ":"));
 
 
-                            if (!"".equals(list.get(0).getStart_time())) {
+                            if (!"".equals(mYuYueInfoList.get(0).getStart_time())) {
                                 long time = 0;
                                 try {
-                                    time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                    time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -244,8 +246,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             long time1 = 0;
 
                             try {
-                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                                time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+                                time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
+                                time1 = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getEnd_time()));
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -257,19 +259,19 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         }
 
 
-                        if ("已接受".equals(list.get(1).getState())) {
+                        if ("已接受".equals(mYuYueInfoList.get(1).getState())) {
                             mButton3.setText("已预约");
                             mButton3.setSelected(true);
                             mButton3.setEnabled(false);
 
 
-                            mTextView2.setText(StringUtils.substringBeforeLast(list.get(1).getStart_time(), ":"));
-                            mTextView6.setText(StringUtils.substringBeforeLast(list.get(1).getEnd_time(), ":"));
+                            mTextView2.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(1).getStart_time(), ":"));
+                            mTextView6.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(1).getEnd_time(), ":"));
 
-                            if (!"".equals(list.get(1).getStart_time())) {
+                            if (!"".equals(mYuYueInfoList.get(1).getStart_time())) {
                                 long time = 0;
                                 try {
-                                    time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                    time = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getStart_time()));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -306,8 +308,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             long time3 = 0;
 
                             try {
-                                time2 = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
-                                time3 = Long.parseLong(dateToStamp(list.get(1).getEnd_time()));
+                                time2 = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getStart_time()));
+                                time3 = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getEnd_time()));
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -316,16 +318,16 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             enableVideo(time3, time2 - 60000);
 
 
-                        } else if ("已过期".equals(list.get(1).getState())
+                        } else if ("已过期".equals(mYuYueInfoList.get(1).getState())
 
-                                || "已拒绝".equals(list.get(1).getState())) {
+                                || "已拒绝".equals(mYuYueInfoList.get(1).getState())) {
 
-                            NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.YuYue_cancel(mYuYueInfoList.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
                                     long time = 0;
                                     try {
-                                        time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                        time = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getStart_time()));
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
@@ -356,13 +358,13 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                         } else {
 
-                            mTextView2.setText(StringUtils.substringBeforeLast(list.get(1).getStart_time(), ":"));
-                            mTextView6.setText(StringUtils.substringBeforeLast(list.get(1).getEnd_time(), ":"));
+                            mTextView2.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(1).getStart_time(), ":"));
+                            mTextView6.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(1).getEnd_time(), ":"));
 
-                            if (!"".equals(list.get(1).getStart_time())) {
+                            if (!"".equals(mYuYueInfoList.get(1).getStart_time())) {
                                 long time = 0;
                                 try {
-                                    time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                    time = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getStart_time()));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -399,8 +401,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             long time3 = 0;
 
                             try {
-                                time2 = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
-                                time3 = Long.parseLong(dateToStamp(list.get(1).getEnd_time()));
+                                time2 = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getStart_time()));
+                                time3 = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getEnd_time()));
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -412,18 +414,18 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         }
 
 
-                        if ("已接受".equals(list.get(2).getState())) {
+                        if ("已接受".equals(mYuYueInfoList.get(2).getState())) {
                             mButton4.setText("已预约");
                             mButton4.setSelected(true);
                             mButton4.setEnabled(false);
 
-                            mTextView7.setText(StringUtils.substringBeforeLast(list.get(2).getStart_time(), ":"));
-                            mTextView8.setText(StringUtils.substringBeforeLast(list.get(2).getEnd_time(), ":"));
+                            mTextView7.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(2).getStart_time(), ":"));
+                            mTextView8.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(2).getEnd_time(), ":"));
 
-                            if (!"".equals(list.get(2).getStart_time())) {
+                            if (!"".equals(mYuYueInfoList.get(2).getStart_time())) {
                                 long time = 0;
                                 try {
-                                    time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                                    time = Long.parseLong(dateToStamp(mYuYueInfoList.get(2).getStart_time()));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -460,8 +462,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             long time5 = 0;
 
                             try {
-                                time4 = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
-                                time5 = Long.parseLong(dateToStamp(list.get(2).getEnd_time()));
+                                time4 = Long.parseLong(dateToStamp(mYuYueInfoList.get(2).getStart_time()));
+                                time5 = Long.parseLong(dateToStamp(mYuYueInfoList.get(2).getEnd_time()));
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -472,16 +474,16 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             models = DataSupport.findAll(AlarmModel.class);
 
 
-                        } else if ("已过期".equals(list.get(2).getState())
-                                || "已拒绝".equals(list.get(2).getState())) {
+                        } else if ("已过期".equals(mYuYueInfoList.get(2).getState())
+                                || "已拒绝".equals(mYuYueInfoList.get(2).getState())) {
 
 
-                            NetworkApi.YuYue_cancel(list.get(2).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.YuYue_cancel(mYuYueInfoList.get(2).getRid() + "", new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
                                     long time = 0;
                                     try {
-                                        time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                                        time = Long.parseLong(dateToStamp(mYuYueInfoList.get(2).getStart_time()));
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
@@ -513,13 +515,13 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                         } else {
 
-                            mTextView7.setText(StringUtils.substringBeforeLast(list.get(2).getStart_time(), ":"));
-                            mTextView8.setText(StringUtils.substringBeforeLast(list.get(2).getEnd_time(), ":"));
+                            mTextView7.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(2).getStart_time(), ":"));
+                            mTextView8.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(2).getEnd_time(), ":"));
 
-                            if (!"".equals(list.get(2).getStart_time())) {
+                            if (!"".equals(mYuYueInfoList.get(2).getStart_time())) {
                                 long time = 0;
                                 try {
-                                    time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                                    time = Long.parseLong(dateToStamp(mYuYueInfoList.get(2).getStart_time()));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -556,8 +558,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             long time5 = 0;
 
                             try {
-                                time4 = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
-                                time5 = Long.parseLong(dateToStamp(list.get(2).getEnd_time()));
+                                time4 = Long.parseLong(dateToStamp(mYuYueInfoList.get(2).getStart_time()));
+                                time5 = Long.parseLong(dateToStamp(mYuYueInfoList.get(2).getEnd_time()));
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -571,29 +573,29 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         }
 
 
-                    } else if (list.size() == 2) {
+                    } else if (mYuYueInfoList.size() == 2) {
 
                         mLinearLayout1.setVisibility(View.VISIBLE);
                         mLinearLayout2.setVisibility(View.VISIBLE);
                         mLinearLayout3.setVisibility(View.GONE);
 
 
-                        if ("已接受".equals(list.get(0).getState())) {
+                        if ("已接受".equals(mYuYueInfoList.get(0).getState())) {
                             mButton2.setText("已预约");
                             mButton2.setSelected(true);
                             mButton2.setEnabled(false);
 
 
-                            mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
-                            mTextView1.setText(StringUtils.substringBeforeLast(list.get(0).getEnd_time(), ":"));
+                            mTextView.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(0).getStart_time(), ":"));
+                            mTextView1.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(0).getEnd_time(), ":"));
 
 
                             models = DataSupport.findAll(AlarmModel.class);
 
-                            if (!"".equals(list.get(0).getStart_time())) {
+                            if (!"".equals(mYuYueInfoList.get(0).getStart_time())) {
                                 long time = 0;
                                 try {
-                                    time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                    time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -629,8 +631,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             long time1 = 0;
 
                             try {
-                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                                time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+                                time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
+                                time1 = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getEnd_time()));
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -639,15 +641,15 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             enableVideo(time1, time - 60000);
 
 
-                        } else if ("已过期".equals(list.get(0).getState())
-                                || "已拒绝".equals(list.get(0).getState())) {
+                        } else if ("已过期".equals(mYuYueInfoList.get(0).getState())
+                                || "已拒绝".equals(mYuYueInfoList.get(0).getState())) {
 
-                            NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.YuYue_cancel(mYuYueInfoList.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
                                     long time = 0;
                                     try {
-                                        time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                        time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
@@ -677,17 +679,17 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             });
 
                         } else {
-                            mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
-                            mTextView1.setText(StringUtils.substringBeforeLast(list.get(0).getEnd_time(), ":"));
+                            mTextView.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(0).getStart_time(), ":"));
+                            mTextView1.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(0).getEnd_time(), ":"));
 
 
                             models = DataSupport.findAll(AlarmModel.class);
 
                             //   setAlarmClock(0);
-                            if (!"".equals(list.get(0).getStart_time())) {
+                            if (!"".equals(mYuYueInfoList.get(0).getStart_time())) {
                                 long time = 0;
                                 try {
-                                    time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                    time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -723,8 +725,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             long time1 = 0;
 
                             try {
-                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                                time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+                                time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
+                                time1 = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getEnd_time()));
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -736,23 +738,23 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         }
 
 
-                        if ("已接受".equals(list.get(1).getState())) {
+                        if ("已接受".equals(mYuYueInfoList.get(1).getState())) {
                             mButton3.setText("已预约");
                             mButton3.setSelected(true);
                             mButton3.setEnabled(false);
 
 
-                            mTextView2.setText(StringUtils.substringBeforeLast(list.get(1).getStart_time(), ":"));
-                            mTextView6.setText(StringUtils.substringBeforeLast(list.get(1).getEnd_time(), ":"));
+                            mTextView2.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(1).getStart_time(), ":"));
+                            mTextView6.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(1).getEnd_time(), ":"));
 
 
                             //  setAlarmClock(1);
 
 
-                            if (!"".equals(list.get(1).getStart_time())) {
+                            if (!"".equals(mYuYueInfoList.get(1).getStart_time())) {
                                 long time = 0;
                                 try {
-                                    time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                    time = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getStart_time()));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -789,8 +791,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             long time3 = 0;
 
                             try {
-                                time2 = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
-                                time3 = Long.parseLong(dateToStamp(list.get(1).getEnd_time()));
+                                time2 = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getStart_time()));
+                                time3 = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getEnd_time()));
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -801,16 +803,16 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             models = DataSupport.findAll(AlarmModel.class);
 
 
-                        } else if ("已过期".equals(list.get(1).getState())
-                                || "已拒绝".equals(list.get(1).getState())) {
+                        } else if ("已过期".equals(mYuYueInfoList.get(1).getState())
+                                || "已拒绝".equals(mYuYueInfoList.get(1).getState())) {
 
 
-                            NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.YuYue_cancel(mYuYueInfoList.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
                                     long time = 0;
                                     try {
-                                        time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                        time = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getStart_time()));
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
@@ -842,17 +844,17 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                         } else {
 
-                            mTextView2.setText(StringUtils.substringBeforeLast(list.get(1).getStart_time(), ":"));
-                            mTextView6.setText(StringUtils.substringBeforeLast(list.get(1).getEnd_time(), ":"));
+                            mTextView2.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(1).getStart_time(), ":"));
+                            mTextView6.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(1).getEnd_time(), ":"));
 
 
                             //  setAlarmClock(1);
 
 
-                            if (!"".equals(list.get(1).getStart_time())) {
+                            if (!"".equals(mYuYueInfoList.get(1).getStart_time())) {
                                 long time = 0;
                                 try {
-                                    time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                    time = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getStart_time()));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -889,8 +891,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             long time3 = 0;
 
                             try {
-                                time2 = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
-                                time3 = Long.parseLong(dateToStamp(list.get(1).getEnd_time()));
+                                time2 = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getStart_time()));
+                                time3 = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getEnd_time()));
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -902,21 +904,21 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                         }
 
-                    } else if (list.size() == 1) {
+                    } else if (mYuYueInfoList.size() == 1) {
 
                         mLinearLayout1.setVisibility(View.VISIBLE);
                         mLinearLayout2.setVisibility(View.GONE);
                         mLinearLayout3.setVisibility(View.GONE);
 
 
-                        if ("已接受".equals(list.get(0).getState())) {
+                        if ("已接受".equals(mYuYueInfoList.get(0).getState())) {
                             mButton2.setText("已预约");
                             mButton2.setSelected(true);
                             mButton2.setEnabled(false);
 
 
-                            mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
-                            mTextView1.setText(StringUtils.substringBeforeLast(list.get(0).getEnd_time(), ":"));
+                            mTextView.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(0).getStart_time(), ":"));
+                            mTextView1.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(0).getEnd_time(), ":"));
 
 
                             models = DataSupport.findAll(AlarmModel.class);
@@ -924,11 +926,11 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                             long time = 0;
                             long time1 = 0;
-                            if (!"".equals(list.get(0).getStart_time())) {
+                            if (!"".equals(mYuYueInfoList.get(0).getStart_time())) {
 
                                 try {
-                                    time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                                    time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+                                    time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
+                                    time1 = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getEnd_time()));
 
                                 } catch (ParseException e) {
                                     e.printStackTrace();
@@ -969,16 +971,16 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             models = DataSupport.findAll(AlarmModel.class);
 
 
-                        } else if ("已过期".equals(list.get(0).getState())
-                                || "已拒绝".equals(list.get(0).getState())) {
+                        } else if ("已过期".equals(mYuYueInfoList.get(0).getState())
+                                || "已拒绝".equals(mYuYueInfoList.get(0).getState())) {
 
 
-                            NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                            NetworkApi.YuYue_cancel(mYuYueInfoList.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
                                 @Override
                                 public void onSuccess(String response) {
                                     long time = 0;
                                     try {
-                                        time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                        time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
@@ -1010,8 +1012,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                         } else {
 
-                            mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
-                            mTextView1.setText(StringUtils.substringBeforeLast(list.get(0).getEnd_time(), ":"));
+                            mTextView.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(0).getStart_time(), ":"));
+                            mTextView1.setText(StringUtils.substringBeforeLast(mYuYueInfoList.get(0).getEnd_time(), ":"));
 
 
                             models = DataSupport.findAll(AlarmModel.class);
@@ -1019,11 +1021,11 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                             long time = 0;
                             long time1 = 0;
-                            if (!"".equals(list.get(0).getStart_time())) {
+                            if (!"".equals(mYuYueInfoList.get(0).getStart_time())) {
 
                                 try {
-                                    time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                                    time1 = Long.parseLong(dateToStamp(list.get(0).getEnd_time()));
+                                    time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
+                                    time1 = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getEnd_time()));
 
                                 } catch (ParseException e) {
                                     e.printStackTrace();
@@ -1085,19 +1087,41 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             return true;
         }
     });
+
+    private void updateBtnCallVideoState() {
+
+    }
+
     static ArrayList allReservationHistory = new ArrayList();
 
 
     public void enableVideo(long time, long time1) {
+        if (mYuYueInfoList == null || mYuYueInfoList.isEmpty()) {
+            mBtnCallDoctor.setEnabled(false);
+            mBtnCallDoctor.setSelected(false);
+            return;
+        }
 
+        boolean allowed = false;
+        for (YuYueInfo yuYueInfo : mYuYueInfoList) {
+            if ("已接受".equals(yuYueInfo.getState())) {
+                allowed = true;
+                break;
+            }
+        }
+        if (!allowed) {
+            mBtnCallDoctor.setEnabled(false);
+            mBtnCallDoctor.setSelected(false);
+            return;
+        }
 
         if (System.currentTimeMillis() < time && System.currentTimeMillis() >= time1) {
-            mButtons.setEnabled(true);
-            mButtons.setSelected(true);
+            mBtnCallDoctor.setEnabled(true);
+            mBtnCallDoctor.setSelected(true);
 
         } else {
-            mButtons.setEnabled(false);
-            mButtons.setSelected(false);
+            mBtnCallDoctor.setEnabled(false);
+            mBtnCallDoctor.setSelected(false);
         }
 
     }
@@ -1155,37 +1179,13 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         dialog1 = new NDialog2(DoctorappoActivity.this);
 
-        mButtons = findViewById(R.id.video_doctor);
-        mButtons.setEnabled(false);
-        mButtons.setSelected(false);
-        mButtons.setOnClickListener(new View.OnClickListener() {
+        mBtnCallDoctor = findViewById(R.id.call_doctor);
+        mBtnCallDoctor.setEnabled(false);
+        mBtnCallDoctor.setSelected(false);
+        mBtnCallDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NimCallActivity.launch(DoctorappoActivity.this, "docter_" + doctorId);
-//                NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
-//                    @Override
-//                    public void onSuccess(Doctor response) {
-//                        if (isFinishing() || isDestroyed()) {
-//                            return;
-//                        }
-//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                            @Override
-//                            public void onSuccess(Object response) {
-//
-//                            }
-//                        }, new NetworkManager.FailedCallback() {
-//                            @Override
-//                            public void onFailed(String message) {
-//
-//                            }
-//                        });
-//                    }
-//                }, new NetworkManager.FailedCallback() {
-//                    @Override
-//                    public void onFailed(String message) {
-//
-//                    }
-//                });
             }
         });
 
@@ -1230,49 +1230,14 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 //        mTextView5.setText(String.format(getString(R.string.doctor_shanchang), sharedPreferences1.getString("feature", "")));
 //        mTextView12.setText(String.format(getString(R.string.doctor_shoufei), sharedPreferences1.getString("service_amount", "")));
 
+        mbtnAddYuyue = findViewById(R.id.add_yuyue);
 
-        circleImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "docter_" + doctorId);
-
-//                NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
-//                    @Override
-//                    public void onSuccess(Doctor response) {
-//                        if (isFinishing() || isDestroyed()) {
-//                            return;
-//                        }
-//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                            @Override
-//                            public void onSuccess(Object response) {
-//
-//                            }
-//                        }, new NetworkManager.FailedCallback() {
-//                            @Override
-//                            public void onFailed(String message) {
-//
-//                            }
-//                        });
-//                    }
-//                }, new NetworkManager.FailedCallback() {
-//                    @Override
-//                    public void onFailed(String message) {
-//
-//                    }
-//                });
-
-                finish();
-            }
-        });
-
-        mButton1 = findViewById(R.id.add_yuyue);
-
-        mButton1.setOnClickListener(new View.OnClickListener() {
+        mbtnAddYuyue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //    Logg.e("==============", list.toString());
-                if (list.size() < 3) {
+                //    Logg.e("==============", mYuYueInfoList.toString());
+                if (mYuYueInfoList.size() < 3) {
                     Intent intent = new Intent(getApplicationContext(), AddAppoActivity.class).putExtra("doctorId", doctorId);
                     startActivity(intent);
                     finish();
@@ -1334,7 +1299,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     }
 
 
-    List<YuYueInfo> list = new ArrayList<YuYueInfo>();
+    List<YuYueInfo> mYuYueInfoList = new ArrayList<YuYueInfo>();
 
     private String doctorId;
 
@@ -1357,10 +1322,10 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             public void onSuccess(ArrayList<YuYueInfo> response) {
                 allReservationHistory.clear();
                 allReservationHistory.addAll(response);
-                list.clear();
+                mYuYueInfoList.clear();
                 for (int i = 0; i < response.size(); i++) {
                     if ("未接受".equals(response.get(i).getState())) {
-                        list.add(response.get(i));
+                        mYuYueInfoList.add(response.get(i));
                     }
                 }
 
@@ -1465,13 +1430,13 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             if (sign == 1) {
 
 
-                                NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                                NetworkApi.YuYue_cancel(mYuYueInfoList.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
                                     @Override
                                     public void onSuccess(String response) {
 
                                         long time = 0;
                                         try {
-                                            time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                            time = Long.parseLong(dateToStamp(mYuYueInfoList.get(0).getStart_time()));
                                         } catch (ParseException e) {
                                             e.printStackTrace();
                                         }
@@ -1519,13 +1484,13 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             } else if (sign == 2) {
 
 
-                                NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                                NetworkApi.YuYue_cancel(mYuYueInfoList.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
                                     @Override
                                     public void onSuccess(String response) {
 
                                         long time = 0;
                                         try {
-                                            time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                            time = Long.parseLong(dateToStamp(mYuYueInfoList.get(1).getStart_time()));
                                         } catch (ParseException e) {
                                             e.printStackTrace();
                                         }
@@ -1568,13 +1533,13 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             } else if (sign == 3) {
 
 
-                                NetworkApi.YuYue_cancel(list.get(2).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                                NetworkApi.YuYue_cancel(mYuYueInfoList.get(2).getRid() + "", new NetworkManager.SuccessCallback<String>() {
                                     @Override
                                     public void onSuccess(String response) {
 
                                         long time = 0;
                                         try {
-                                            time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                                            time = Long.parseLong(dateToStamp(mYuYueInfoList.get(2).getStart_time()));
                                         } catch (ParseException e) {
                                             e.printStackTrace();
                                         }

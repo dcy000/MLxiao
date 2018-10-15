@@ -293,7 +293,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                         .subscribe(new DefaultObserver<UserEntity>() {
                             @Override
                             public void onNext(UserEntity userEntity) {
-                                if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.age)) {
+                                if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
                                     ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
                                     MLVoiceSynthetize.startSynthesize(
                                             getActivity().getApplicationContext(),

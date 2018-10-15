@@ -313,7 +313,7 @@
 
 
     <Button
-        android:id="@+id/video_doctor"
+        android:id="@+id/call_doctor"
         android:layout_width="320pt"
         android:layout_height="120pt"
         android:layout_alignParentBottom="true"
