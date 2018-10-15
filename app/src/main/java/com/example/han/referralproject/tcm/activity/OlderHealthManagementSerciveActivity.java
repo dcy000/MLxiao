@@ -168,7 +168,7 @@ public class OlderHealthManagementSerciveActivity extends BaseActivity {
 
             for (int i = 0; i < questionList.size(); i++) {
                 HealthManagementAnwserBean.AnswerListBean anwser = new HealthManagementAnwserBean.AnswerListBean();
-                anwser.answerScore = questionList.get(i).answerScore;
+                anwser.score = questionList.get(i).answerScore;
                 anwser.hmAnswerId = questionList.get(i).hmAnswerId;
                 anwser.hmQuestionId = questionList.get(i).hmQuestionId;
                 anwser.questionSeq = questionList.get(i).questionSeq;
