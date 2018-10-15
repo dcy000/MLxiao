@@ -44,7 +44,7 @@ public class Utils {
     }
 
     public static int ageByBirthday(String birthday) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
 
         int age;
         try {
