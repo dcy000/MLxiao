@@ -33,7 +33,7 @@ public class HealthManagementAnwserBean implements Serializable {
          * questionSeq : 0
          */
 
-        public int answerScore;
+        public int score;
         public String hmAnswerId;
         public String hmQuestionId;
         public int questionSeq;
