@@ -142,7 +142,7 @@ public class CheckContractActivity extends BaseActivity {
                                    tvDoctorName.setText(String.format(getString(R.string.doctor_name), response.doctername));
                                    tvDoctorLevel.setText(response.duty);
                                    tvGoodAtNew.setText(response.gat);
-                                   tvPrice.setText(String.valueOf(response.service_amount) + "元/分");
+                                   tvPrice.setText(String.format("%s元/分", String.valueOf(response.service_amount)));
                                }
 
                                @Override
