@@ -16,10 +16,10 @@ ext {
     //TODO:各自开发的模块中还未统一IP的请尽早统一，避免不必要的风险。
     //TODO:开发时只更改开发引用即可，下方的生产引用不要轻易更改。
     //开发使用的IP地址
-    developUrl = api.testUrl
+    developUrl = api.produceUrl
 
     //线上正式运行的IP地址
-    produceUrl = api.testUrl
+    produceUrl = api.produceUrl
 
     android = [
             compileSdkVersion: 27,
@@ -27,7 +27,7 @@ ext {
             minSdkVersion    : 19,
             targetSdkVersion : 27,
             versionCode      : 17,
-            versionName      : "Robot.1.3.0.1012.beta"
+            versionName      : "Robot.1.3.0.1016.beta"
     ]
 
     version = [

@@ -16,6 +16,8 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.cc.CCVideoActions;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.lib_utils.permission.PermissionsManager;
+import com.gcml.lib_utils.permission.PermissionsResultAction;
 import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
@@ -43,6 +45,17 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onDenied(String permission) {
+
+            }
+        });
         initContentView();
     }
 

@@ -51,6 +51,7 @@ android {
         }
 
         debug {
+            signingConfig signingConfigs.debug
             debuggable true
             //TODO:老地址下面这行代码是固定代码，请不要注释，不要更改，如需更换地址请到config.gradle中进行更改。重要！重要！重要！
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)

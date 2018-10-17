@@ -3,9 +3,12 @@ package com.gcml.health.measure.single_measure;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -148,11 +151,26 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     }
 
     private void aferVideo() {
-        if (measureType == IPresenter.MEASURE_ECG) {
-            XinDianDetectActivity.startActivity(this,
-                    MeasureChooseDeviceActivity.class.getSimpleName(),getIntent().getBooleanExtra(IS_FACE_SKIP,false));
-            return;
+        ApplicationInfo appInfo = null;
+        String channel = null;
+        try {
+            appInfo = this.getPackageManager()
+                    .getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            channel=appInfo.metaData.getString("com.gcml.version");
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
+        if (!TextUtils.isEmpty(channel)){
+            if (!"gcml_version_normal".equals(channel)){
+                if (measureType == IPresenter.MEASURE_ECG) {
+                    XinDianDetectActivity.startActivity(this,
+                            MeasureChooseDeviceActivity.class.getSimpleName(),getIntent().getBooleanExtra(IS_FACE_SKIP,false));
+                    return;
+                }
+            }
+        }
+
         Intent intent = new Intent();
         intent.setClass(this, AllMeasureActivity.class);
         intent.putExtra(IPresenter.MEASURE_TYPE, measureType);

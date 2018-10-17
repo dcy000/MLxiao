@@ -389,6 +389,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                 .enqueue(new HttpCallback<BorsamResponse<UploadFileResult>>() {
                     @Override
                     public void onSuccess(BorsamResponse<UploadFileResult> uploadFileResultBorsamResponse) {
+                        Log.i(TAG, "onSuccess: "+uploadFileResultBorsamResponse.toString());
                         String file_no = uploadFileResultBorsamResponse.getEntity().getFile_no();
                         addRecord(file_no, (int) (System.currentTimeMillis() / 1000), 1, "测试");
                     }
@@ -412,7 +413,8 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                     @Override
                     public void onSuccess(BorsamResponse<AddRecordResult> addRecordResultBorsamResponse) {
                         AddRecordResult entity = addRecordResultBorsamResponse.getEntity();
-//                        Timber.e("分析数据：" + entity.getExt());
+                        Log.i(TAG, "onSuccess: 分析数据"+entity.getExt()+"\n----Report:"
+                                +entity.getFile_report()+"\n-----Url:"+entity.getFile_url() );
                         LoadingProgressUtils.dismissView();
                         baseView.updateData(fileNo, entity.getFile_url(), entity.getFile_report());
                     }

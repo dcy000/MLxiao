@@ -50,7 +50,7 @@ public class DoctorInfoBean implements Serializable {
     public int number;
     public int evaluation;
     public int apply_amount;
-    public int service_amount;
+    public float service_amount;
     public String docter_photo;
     public RBean r;
     public String hosname;

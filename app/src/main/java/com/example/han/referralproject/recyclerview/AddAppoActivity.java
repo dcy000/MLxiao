@@ -394,6 +394,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
 
                 for (int i = 0; i < list.size(); i++) {
+
                     if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:00:00"))
                             || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:00:00"))
                             ) {
