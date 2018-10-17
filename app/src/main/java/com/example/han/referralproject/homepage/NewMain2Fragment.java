@@ -132,6 +132,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 break;
             case R.id.iv_shopping_mall:
                 startActivity(new Intent(getContext(), MarketActivity.class));
+//                CC.obtainBuilder("com.gcml.mall.mall").build().callAsync();
                 break;
             case R.id.iv_ask_doctor:
                 startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));

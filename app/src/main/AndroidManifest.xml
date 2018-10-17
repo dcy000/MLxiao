@@ -150,7 +150,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.MessageActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" />-
         <activity
             android:name=".activity.DetectActivity"
             android:screenOrientation="landscape" />

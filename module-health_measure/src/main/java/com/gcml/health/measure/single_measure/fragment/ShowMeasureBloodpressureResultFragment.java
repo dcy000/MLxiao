@@ -276,7 +276,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShort("暂无周报告:" + e.getMessage());
+//                        ToastUtils.showShort("暂无周报告:" + e.getMessage());
                     }
 
                     @Override

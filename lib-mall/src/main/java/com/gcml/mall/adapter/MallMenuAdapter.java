@@ -46,11 +46,13 @@ public class MallMenuAdapter extends RecyclerView.Adapter<MallMenuAdapter.MallMe
             holder.menuContent.setBackgroundColor(Color.WHITE);
             holder.menuText.setTextColor(mContext.getResources().getColor(R.color.config_color_primary));
             holder.menuText.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//加粗
+            holder.menuText.setTextSize(28);
         } else {
             holder.menuMark.setVisibility(View.GONE);
             holder.menuContent.setBackgroundColor(mContext.getResources().getColor(R.color.color_background));
             holder.menuText.setTextColor(mContext.getResources().getColor(R.color.color_text_gray));
             holder.menuText.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));//加粗
+            holder.menuText.setTextSize(24);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

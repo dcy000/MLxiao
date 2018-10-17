@@ -40,6 +40,7 @@
 
         <activity android:name=".ui.RechargeQrcodeActivity"
             android:launchMode="singleTask" />
+        <activity android:name=".ui.GoodsDetailActivity" />
 
         <meta-data
             android:name="com.gcml.mall.MallAppLifecycleCallbacks"
