@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
@@ -31,7 +30,6 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
-import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.squareup.picasso.Picasso;
 
@@ -52,7 +50,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     public TextView mTextView1;
     public TextView mTextView2;
     public Button mbtnAddYuyue;
-    public ImageView circleImageView;
+    public ImageView ivAvatar;
 
     public TextView mTextView3;
     public TextView mTextView4;
@@ -1096,29 +1094,29 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
 
     public void enableVideo(long time, long time1) {
-        if (mYuYueInfoList == null || mYuYueInfoList.isEmpty()) {
-            mBtnCallDoctor.setEnabled(false);
-            mBtnCallDoctor.setSelected(false);
-            return;
-        }
+//        if (mYuYueInfoList == null || mYuYueInfoList.isEmpty()) {
+//            mBtnCallDoctor.setEnabled(false);
+//            mBtnCallDoctor.setSelected(false);
+//            return;
+//        }
+//
+//        boolean allowed = false;
+//        for (YuYueInfo yuYueInfo : mYuYueInfoList) {
+//            if ("已接受".equals(yuYueInfo.getState())) {
+//                allowed = true;
+//                break;
+//            }
+//        }
+//        if (!allowed) {
+//            mBtnCallDoctor.setEnabled(false);
+//            mBtnCallDoctor.setSelected(false);
+//            return;
+//        }
 
-        boolean allowed = false;
-        for (YuYueInfo yuYueInfo : mYuYueInfoList) {
-            if ("已接受".equals(yuYueInfo.getState())) {
-                allowed = true;
-                break;
-            }
-        }
-        if (!allowed) {
-            mBtnCallDoctor.setEnabled(false);
-            mBtnCallDoctor.setSelected(false);
-            return;
-        }
 
         if (System.currentTimeMillis() < time && System.currentTimeMillis() >= time1) {
             mBtnCallDoctor.setEnabled(true);
             mBtnCallDoctor.setSelected(true);
-
         } else {
             mBtnCallDoctor.setEnabled(false);
             mBtnCallDoctor.setSelected(false);
@@ -1146,8 +1144,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String nimUserId = MyApplication.getInstance().nimUserId();
-        NimAccountHelper.getInstance().login(nimUserId, "123456", null);
+//        String nimUserId = MyApplication.getInstance().nimUserId();
+//        NimAccountHelper.getInstance().login(nimUserId, "123456", null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
 
@@ -1213,7 +1211,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         //   mTextView12.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
 
 
-        circleImageView = findViewById(R.id.circleImageView1);
+        ivAvatar = findViewById(R.id.circleImageView1);
 
 //        if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
 //            Picasso.with(this)
@@ -1222,7 +1220,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 //                    .error(R.drawable.avatar_placeholder)
 //                    .tag(this)
 //                    .fit()
-//                    .into(circleImageView);
+//                    .into(ivAvatar);
 //        }
 //
 //        mTextView3.setText(String.format(getString(R.string.doctor_name), sharedPreferences1.getString("name", "")));
@@ -1357,7 +1355,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                             .error(R.drawable.avatar_placeholder)
                             .tag(this)
                             .fit()
-                            .into(circleImageView);
+                            .into(ivAvatar);
                 }
                 mTextView3.setText(String.format(getString(R.string.doctor_name), response.getDoctername()));
                 mTextView4.setText(String.format(getString(R.string.doctor_zhiji), response.getDuty()));
