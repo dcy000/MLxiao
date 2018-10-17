@@ -10,6 +10,7 @@ import com.gcml.task.bean.get.TaskReportBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -54,6 +55,14 @@ public interface TaskService {
     @POST("/ZZB/api/healthMonitor/questionnaire/hypertension/compliance/{userId}/")
     Observable<ApiResult<TaskSchemaResultBean>> taskHealthUpload(
             @Body() TaskSchemaBean tModel,
+            @Path("userId") String userId
+    );
+
+    /**
+     * 删除用户Wheel选择答案.
+     */
+    @DELETE("/ZZB/api/healthMonitor/questionnaire/hypertension/compliance/{userId}/")
+    Observable<ApiResult<Object>> taskHealthDelete(
             @Path("userId") String userId
     );
 

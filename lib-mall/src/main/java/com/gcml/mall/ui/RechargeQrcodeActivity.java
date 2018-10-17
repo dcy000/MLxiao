@@ -53,6 +53,9 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
     Date billDate;
     String errorMsg;
     MallRepository mMallRepository = new MallRepository();
+    boolean isAliPaySuccess = false;
+    boolean isWxPaySuccess = false;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,13 +124,14 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
         public boolean handleMessage(final Message msg) {
             switch (msg.what) {
                 case 0:
-                    // 支付失败
-                    Toast.makeText(RechargeQrcodeActivity.this, errorMsg, Toast.LENGTH_LONG).show();
+                    if (isAliPaySuccess && isWxPaySuccess) {
+                        loadingDialog.dismiss();
+                    }
                     break;
                 case 1:
                     // 支付宝扫码充值
-//                    Toast.makeText(RechargeQrcodeActivity.this, "支付成功", Toast.LENGTH_LONG).show();
-                    mMallRepository.rechargeForApi(Utils.getDeviceId(getContentResolver()), String.valueOf(billMoney / 100), billDate.getTime() + "", UserSpHelper.getUserId())
+                    Double alibba = Double.parseDouble(billMoney + "") / 100;
+                    mMallRepository.rechargeForApi(Utils.getDeviceId(getContentResolver()), String.valueOf(alibba), billDate.getTime() + "", UserSpHelper.getUserId())
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .as(RxUtils.autoDisposeConverter(RechargeQrcodeActivity.this))
@@ -150,7 +154,8 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
                 case 2:
                     // 微信扫码充值
 //                    Toast.makeText(RechargeQrcodeActivity.this, "支付成功", Toast.LENGTH_LONG).show();
-                    mMallRepository.rechargeForApi(Utils.getDeviceId(getContentResolver()), String.valueOf(billMoney / 100), billDate.getTime() + "", UserSpHelper.getUserId())
+                    Double wxbba = Double.parseDouble(billMoney + "") / 100;
+                    mMallRepository.rechargeForApi(Utils.getDeviceId(getContentResolver()), String.valueOf(wxbba), billDate.getTime() + "", UserSpHelper.getUserId())
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .as(RxUtils.autoDisposeConverter(RechargeQrcodeActivity.this))
@@ -173,10 +178,14 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
                 case 3:
                     // 支付宝二维码
                     alipayQrcode.setImageBitmap(alipayQrcodeBitmap);
+                    isAliPaySuccess = true;
+                    mHandler.sendEmptyMessage(0);
                     break;
                 case 4:
                     // 微信二维码
                     wxpayQrcode.setImageBitmap(wxpayQrcodeBitmap);
+                    isWxPaySuccess = true;
+                    mHandler.sendEmptyMessage(0);
                     break;
             }
             return true;
@@ -239,7 +248,7 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
     }
 
     void getRechargeQrcode() {
-        LoadingDialog loadingDialog = new LoadingDialog.Builder(RechargeQrcodeActivity.this)
+        loadingDialog = new LoadingDialog.Builder(RechargeQrcodeActivity.this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
@@ -287,7 +296,6 @@ public class RechargeQrcodeActivity extends AppCompatActivity {
             @Override
             public void done(BCResult bcResult) {
                 //此处关闭loading界面
-                loadingDialog.dismiss();
                 final BCQRCodeResult bcqrCodeResult = (BCQRCodeResult) bcResult;
                 Message msg = mHandler.obtainMessage();
                 if (bcqrCodeResult.getResultCode() == 0) {

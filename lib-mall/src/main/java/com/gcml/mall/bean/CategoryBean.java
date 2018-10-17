@@ -8,6 +8,12 @@ public class CategoryBean {
      * showStatus : 0
      */
 
+    public CategoryBean(int typeId, String name, int showStatus) {
+        this.mallProductTypeId = typeId;
+        this.name = name;
+        this.showStatus = showStatus;
+    }
+
     public int mallProductTypeId;
     public String name;
     public int showStatus;

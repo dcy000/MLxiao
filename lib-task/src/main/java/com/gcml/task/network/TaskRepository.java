@@ -47,6 +47,12 @@ public class TaskRepository {
                 .compose(RxUtils.apiResultTransformer());
     }
 
+    public Observable<Object> taskHealthDeleteForApi(
+            String userId) {
+        return mTaskService.taskHealthDelete(userId)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
     public Observable<Object> taskWheelListForApi(
             TaskWheelBean factor,
             String userId) {
