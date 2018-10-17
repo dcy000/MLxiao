@@ -35,7 +35,8 @@ public class HistoryActivity extends BaseActivity {
         ArrayList<YuYueInfo> allReservationHistory = DoctorappoActivity.allReservationHistory;
         for (int i = 0; i < allReservationHistory.size(); i++) {
             if ("已完成".equals(allReservationHistory.get(i).getState())
-                    || "已拒绝".equals(allReservationHistory.get(i).getState())) {
+                    || "已拒绝".equals(allReservationHistory.get(i).getState())
+                    || "已接受".equals(allReservationHistory.get(i).getState())) {
                 data.add(allReservationHistory.get(i));
 
             }

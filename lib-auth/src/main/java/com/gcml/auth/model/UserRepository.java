@@ -17,6 +17,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 public class UserRepository {
@@ -167,6 +168,9 @@ public class UserRepository {
                 .flatMap(new Function<List<UserEntity>, ObservableSource<List<UserEntity>>>() {
                     @Override
                     public ObservableSource<List<UserEntity>> apply(List<UserEntity> users) throws Exception {
+                        if (users.isEmpty()) {
+                            return Observable.just(users);
+                        }
                         StringBuilder userIdsBuilder = new StringBuilder();
                         int size = users.size();
                         for (int i = 0; i < size; i++) {
@@ -184,6 +188,10 @@ public class UserRepository {
                                 .subscribeOn(Schedulers.io());
                     }
                 });
+    }
+
+    public void deleteUsers() {
+        mUserDao.deleteAll();
     }
 
     public Observable<Object> isIdCardNotExit(String idCard) {

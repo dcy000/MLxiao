@@ -18,6 +18,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.VersionHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
@@ -232,8 +233,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void onClick(View v) {
                         //恢复出厂设置
-                        LocalShared.getInstance(SettingActivity.this).reset();
+                        UserSpHelper.clear(getApplicationContext());
                         CC.obtainBuilder("com.gcml.auth.face.deleteGroup")
+                                .build()
+                                .callAsync();
+                        CC.obtainBuilder("com.gcml.auth.deleteUsers")
                                 .build()
                                 .callAsync();
                         Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);

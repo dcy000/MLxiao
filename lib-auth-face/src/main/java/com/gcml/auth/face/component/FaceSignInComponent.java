@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class FaceSignInComponent implements IComponent {
@@ -30,7 +31,14 @@ public class FaceSignInComponent implements IComponent {
                 .build()
                 .call()
                 .getDataItem("data");
-        List<UserEntity> users = rxUsers.onErrorResumeNext(Observable.just(Collections.emptyList()))
+        List<UserEntity> users = rxUsers
+                .onErrorResumeNext(Observable.empty())
+                .doOnNext(new Consumer<List<UserEntity>>() {
+                    @Override
+                    public void accept(List<UserEntity> userEntities) throws Exception {
+
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .blockingFirst();
         boolean hasFace = false;
