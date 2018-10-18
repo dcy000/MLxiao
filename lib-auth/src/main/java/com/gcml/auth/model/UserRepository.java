@@ -10,6 +10,7 @@ import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.user.UserToken;
 import com.gcml.common.utils.RxUtils;
 
+import java.util.Iterator;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -132,7 +133,6 @@ public class UserRepository {
 
     public Observable<UserEntity> putProfile(UserEntity user) {
         String userId = UserSpHelper.getUserId();
-
         if (TextUtils.isEmpty(userId)) {
             return Observable.error(new IllegalStateException("user not sign in"));
         }
@@ -186,6 +186,19 @@ public class UserRepository {
                         return mUserService.getAllUsers(userIdsBuilder.toString())
                                 .compose(RxUtils.apiResultTransformer())
                                 .subscribeOn(Schedulers.io());
+                    }
+                })
+                .map(new Function<List<UserEntity>, List<UserEntity>>() {
+                    @Override
+                    public List<UserEntity> apply(List<UserEntity> userEntities) throws Exception {
+                        Iterator<UserEntity> iterator = userEntities.iterator();
+                        while (iterator.hasNext()) {
+                            UserEntity entity = iterator.next();
+                            if (entity == null) {
+                                iterator.remove();
+                            }
+                        }
+                        return userEntities;
                     }
                 });
     }

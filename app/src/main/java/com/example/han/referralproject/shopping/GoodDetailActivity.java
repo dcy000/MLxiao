@@ -174,7 +174,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        ShowNormal("余额不足请及时充值");
+                        ShowNormal(message);
                     }
                 });
 
