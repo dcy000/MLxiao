@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -75,7 +76,7 @@ public class RencommendForUserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rencommend, container, false);
+        View view = inflater.inflate(R.layout.fragment_rencommend_risk, container, false);
         bindView(view);
         return view;
     }
@@ -85,7 +86,7 @@ public class RencommendForUserFragment extends Fragment {
         tvCommendText = (TextView) view.findViewById(R.id.tv_commend_text);
         tvLookMore = (TextView) view.findViewById(R.id.tv_look_more);
         rvCommendGoods = (RecyclerView) view.findViewById(R.id.rv_commend_goods);
-        noDataView = (RelativeLayout) view.findViewById(R.id.view_no_data);
+        noDataView = view.findViewById(R.id.rl_error_zzh_2018);
         noDataView.setVisibility(View.GONE);
         tvLookMore.setOnClickListener(v -> {
             CC.obtainBuilder("com.gcml.market").build().call();

@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="60pt"
-        android:layout_marginTop="136pt"
+        android:layout_marginTop="80pt"
         android:text="查看更多"
         android:textColor="#ff3f86fc"
         android:textSize="56pt"
@@ -55,7 +55,7 @@
     <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <RelativeLayout
-        android:id="@+id/view_no_data"
+        android:id="@+id/rl_error_zzh_2018"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

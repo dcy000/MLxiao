@@ -85,7 +85,7 @@ public class RencommendForMarketFragment extends Fragment {
         tvLookMore = (TextView) view.findViewById(R.id.tv_look_more);
         rvCommendGoods = (RecyclerView) view.findViewById(R.id.rv_commend_goods);
 
-        noDataView = (RelativeLayout) view.findViewById(R.id.view_no_data);
+        noDataView = (RelativeLayout) view.findViewById(R.id.view_market_no_data);
         noDataView.setVisibility(View.GONE);
         tvLookMore.setOnClickListener(v -> {
             CC.obtainBuilder("com.gcml.market").build().call();
