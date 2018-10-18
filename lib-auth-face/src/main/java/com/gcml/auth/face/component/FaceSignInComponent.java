@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class FaceSignInComponent implements IComponent {
@@ -30,7 +31,8 @@ public class FaceSignInComponent implements IComponent {
                 .build()
                 .call()
                 .getDataItem("data");
-        List<UserEntity> users = rxUsers.onErrorResumeNext(Observable.just(Collections.emptyList()))
+        List<UserEntity> users = rxUsers
+                .onErrorResumeNext(Observable.empty())
                 .subscribeOn(Schedulers.io())
                 .blockingFirst();
         boolean hasFace = false;
@@ -40,7 +42,7 @@ public class FaceSignInComponent implements IComponent {
             }
         }
         if (!hasFace) {
-            CC.sendCCResult(cc.getCallId(), CCResult.error("您尚未在当前设备注册过人脸，本次请先用手机号登录。"));
+            CC.sendCCResult(cc.getCallId(), CCResult.error("您尚未在当前设备登录，请先注册或用账号密码登录。"));
             return false;
         }
 
