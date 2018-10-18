@@ -29,7 +29,7 @@ public class TimeFormatter implements IAxisValueFormatter {
             return TimeUtils.milliseconds2String(times.get(0),
                     format);
         }
-        if (v > times.size()) {
+        if (v >= times.size()) {
             return "";
         }
         return TimeUtils.milliseconds2String(times.get((int) v),

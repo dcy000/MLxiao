@@ -503,7 +503,7 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
         FrameLayout contentView = findViewById(android.R.id.content);
         voiceLineView = new VoiceLineView(this);
         voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
-        voiceLineView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.popshow_anim));
+        voiceLineView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.common_popshow_anim));
 
         int width = provideWaveViewWidth();
         int height = provideWaveViewHeight();

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,32 +19,22 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
 import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.facerecognition.HeadiconActivity;
 import com.example.han.referralproject.homepage.MainActivity;
-import com.example.han.referralproject.jipush.MyReceiver;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.gcml.common.data.UserSpHelper;
-import com.gcml.lib_utils.data.TimeUtils;
-import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.lib_utils.handler.WeakHandler;
 import com.gcml.lib_utils.ui.ScreenUtils;
-import com.github.mmin18.widget.RealtimeBlurView;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -56,22 +45,6 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.gcml.old.auth.register.SignUp10EatActivity;
-import com.gcml.old.auth.register.SignUp11SmokeActivity;
-import com.gcml.old.auth.register.SignUp12DrinkActivity;
-import com.gcml.old.auth.register.SignUp13SportsActivity;
-import com.gcml.old.auth.register.SignUp14DiseaseHistoryActivity;
-import com.gcml.old.auth.register.SignUp1NameActivity;
-import com.gcml.old.auth.register.SignUp2GenderActivity;
-import com.gcml.old.auth.register.SignUp3AddressActivity;
-import com.gcml.old.auth.register.SignUp4IdCardActivity;
-import com.gcml.old.auth.register.SignUp5MobileVerificationActivity;
-import com.gcml.old.auth.register.SignUp6PasswordActivity;
-import com.gcml.old.auth.register.SignUp7HeightActivity;
-import com.gcml.old.auth.register.SignUp8WeightActivity;
-import com.gcml.old.auth.register.SignUp9BloodTypeActivity;
-import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
-import com.gcml.old.auth.signin.SignInActivity;
 import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
 
@@ -79,11 +52,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class BaseActivity extends AppCompatActivity {
     private static UpdateVolumeRunnable updateVolumeRunnable;
@@ -126,28 +98,7 @@ public class BaseActivity extends AppCompatActivity {
     protected VoiceLineView voiceLineView;
     protected FrameLayout mContentParent;
     protected WeakHandler weakHandler;//该对象在子类中也可以使用
-    private static List<Class> needIgnoreCheckUseridActivities = new ArrayList<>();
-
-    static {
-        needIgnoreCheckUseridActivities.add(WifiConnectActivity.class);
-        needIgnoreCheckUseridActivities.add(ChooseLoginTypeActivity.class);
-        needIgnoreCheckUseridActivities.add(SignInActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp1NameActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp2GenderActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp3AddressActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp4IdCardActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp5MobileVerificationActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp6PasswordActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp7HeightActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp8WeightActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp9BloodTypeActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp10EatActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp11SmokeActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp12DrinkActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp13SportsActivity.class);
-        needIgnoreCheckUseridActivities.add(SignUp14DiseaseHistoryActivity.class);
-        needIgnoreCheckUseridActivities.add(HeadiconActivity.class);
-    }
+    private CompositeDisposable compositeDisposable;
 
     public void setEnableListeningLoop(boolean enable) {
         enableListeningLoop = enable;
@@ -180,26 +131,6 @@ public class BaseActivity extends AppCompatActivity {
         weakHandler = new WeakHandler();
     }
 
-    private boolean checkIgnoreActivity() {
-        for (Class clzz : needIgnoreCheckUseridActivities) {
-            if (this.getClass() == clzz) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    //在此处检查有没有登录，如果还没有登录先跳转到登录页面去，等登录成功以后再跳转回该页面
-    //因为有的页面没有在onResume中刷新页面，所有先finish掉当前页面，登录成功后再创建新的
-    private void checkIsLogin() {
-        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-            ToastUtils.showShort("请登录");
-            CC.obtainBuilder("com.gcml.auth")
-                    .build()
-                    .callAsync();
-        }
-    }
-
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
@@ -216,83 +147,6 @@ public class BaseActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    //收到推送消息后显示Popwindow
-    static class JPushReceive implements MyReceiver.JPushLitener {
-        private WeakReference<Activity> weakContext;
-
-        public JPushReceive(Activity context) {
-            weakContext = new WeakReference<>(context);
-        }
-
-        @Override
-        public void onReceive(String title, String message) {
-//            ToastUtil.showShort(BaseActivity.this,message);
-            // 利用layoutInflater获得View
-            LayoutInflater inflater = (LayoutInflater) weakContext.get().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.jpush_popwin, null);
-            PopupWindow window = new PopupWindow(view,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT);
-            // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
-            window.setFocusable(true);
-
-            // 实例化一个ColorDrawable颜色为半透明
-            ColorDrawable dw = new ColorDrawable(0x00000000);
-            window.setBackgroundDrawable(dw);
-            backgroundAlpha(weakContext.get(), 1f);
-            // 设置popWindow的显示和消失动画
-            window.setAnimationStyle(R.style.mypopwindow_anim_style);
-//            // 在底部显示
-
-            window.showAtLocation(weakContext.get().getWindow().getDecorView(),
-                    Gravity.TOP, 0, 148);
-
-            //popWindow消失监听方法
-            window.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                @Override
-                public void onDismiss() {
-                    backgroundAlpha(weakContext.get(), 1f);
-                }
-            });
-            TextView jpushText = view.findViewById(R.id.jpush_text);
-            TextView jpushTitle = view.findViewById(R.id.jpush_title);
-            TextView jpushTime = view.findViewById(R.id.jpush_time);
-            if (!TextUtils.isEmpty(title)) {
-                jpushTitle.setVisibility(View.VISIBLE);
-                jpushTitle.setText(title);
-            }
-            jpushText.setText(message);
-            jpushTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy.MM.dd HH:mm")));
-            final LinearLayout jpushLl = view.findViewById(R.id.jpush_ll);
-            final RealtimeBlurView jpushRbv = view.findViewById(R.id.jpush_rbv);
-            ViewTreeObserver vto = jpushLl.getViewTreeObserver();
-            final ViewGroup.LayoutParams lp = jpushRbv.getLayoutParams();
-            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    jpushLl.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                    int width=jpushLl.getMeasuredWidth();
-                    int height = jpushLl.getMinimumHeight();
-                    lp.height = height;
-                    jpushRbv.setLayoutParams(lp);
-                }
-            });
-            ((BaseActivity) weakContext.get()).speak("主人，新消息。" + message);
-        }
-    }
-
-    /**
-     * 调节屏幕透明度
-     *
-     * @param context
-     * @param bgAlpha
-     */
-    protected static void backgroundAlpha(Activity context, float bgAlpha) {
-        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
-        lp.alpha = bgAlpha;
-        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        context.getWindow().setAttributes(lp);
-    }
 
     private void initToolbar() {
         mllBack = mTitleView.findViewById(R.id.ll_back);
@@ -347,7 +201,7 @@ public class BaseActivity extends AppCompatActivity {
             mContentParent = findViewById(android.R.id.content);
             voiceLineView = new VoiceLineView(this);
             voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
-            voiceLineView.setAnimation(AnimationUtils.loadAnimation(BaseActivity.this, R.anim.popshow_anim));
+            voiceLineView.setAnimation(AnimationUtils.loadAnimation(BaseActivity.this, R.anim.common_popshow_anim));
             int width = provideWaveViewWidth();
             int height = provideWaveViewHeight();
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
@@ -750,8 +604,6 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onResume(this);
-        MyReceiver.jPushLitener = new JPushReceive(this);
         enableListeningLoop = enableListeningLoopCache;
         setDisableGlobalListen(disableGlobalListen);
         if (enableListeningLoop) {
@@ -786,10 +638,6 @@ public class BaseActivity extends AppCompatActivity {
         //释放通知消息的资源
         if (weakHandler != null) {
             weakHandler.removeCallbacksAndMessages(null);
-        }
-        if (MyReceiver.jPushLitener != null) {
-            MyReceiver.jPushLitener = null;
-
         }
         MobclickAgent.onPause(this);
         super.onPause();
