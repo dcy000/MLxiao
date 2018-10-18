@@ -33,12 +33,6 @@ public class FaceSignInComponent implements IComponent {
                 .getDataItem("data");
         List<UserEntity> users = rxUsers
                 .onErrorResumeNext(Observable.empty())
-                .doOnNext(new Consumer<List<UserEntity>>() {
-                    @Override
-                    public void accept(List<UserEntity> userEntities) throws Exception {
-
-                    }
-                })
                 .subscribeOn(Schedulers.io())
                 .blockingFirst();
         boolean hasFace = false;
@@ -48,7 +42,7 @@ public class FaceSignInComponent implements IComponent {
             }
         }
         if (!hasFace) {
-            CC.sendCCResult(cc.getCallId(), CCResult.error("您尚未在当前设备注册过人脸，本次请先用手机号登录。"));
+            CC.sendCCResult(cc.getCallId(), CCResult.error("您尚未在当前设备登录，请先注册或用账号密码登录。"));
             return false;
         }
 

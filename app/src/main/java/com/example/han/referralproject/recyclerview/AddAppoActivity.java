@@ -1919,7 +1919,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 mTextView1.setTextColor(Color.parseColor("#3F86FC"));
 
 
-                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:20:00"))) {
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:00:00"))) {
 
                     mTextView1.setText(getString(R.string.space) + "预约");
                     mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1928,7 +1928,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 }
 
-                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:40:00"))) {
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:20:00"))) {
 
                     mTextView8.setText(getString(R.string.space) + "预约");
                     mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1937,7 +1937,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 }
 
-                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:00:00"))) {
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:40:00"))) {
 
                     mTextView15.setText(getString(R.string.space) + "预约");
                     mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1945,7 +1945,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 }
 
-                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:20:00"))) {
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:00:00"))) {
 
                     mTextView22.setText(getString(R.string.space) + "预约");
                     mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1953,7 +1953,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 }
 
-                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:40:00"))) {
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:20:00"))) {
 
                     mTextView29.setText(getString(R.string.space) + "预约");
                     mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1961,7 +1961,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
                 }
 
-                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "17:00:00"))) {
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:40:00"))) {
 
                     mTextView36.setText(getString(R.string.space) + "预约");
                     mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1980,7 +1980,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     public void judge() {
 
 
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:20:00"))) {
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:00:00"))) {
 
             mTextView1.setText(getString(R.string.space) + "预约");
             mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1989,7 +1989,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         }
 
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:40:00"))) {
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:20:00"))) {
 
             mTextView8.setText(getString(R.string.space) + "预约");
             mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
@@ -1997,7 +1997,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         }
 
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:00:00"))) {
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:40:00"))) {
 
 
             mTextView15.setText(getString(R.string.space) + "预约");
@@ -2008,7 +2008,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         }
 
 
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:20:00"))) {
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:00:00"))) {
 
 
             mTextView22.setText(getString(R.string.space) + "预约");
@@ -2019,7 +2019,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         }
 
 
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:40:00"))) {
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:20:00"))) {
 
 
             mTextView29.setText(getString(R.string.space) + "预约");
@@ -2029,7 +2029,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         }
 
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "11:00:00"))) {
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:40:00"))) {
 
 
             mTextView36.setText(getString(R.string.space) + "预约");
