@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60pt"
         android:layout_marginTop="80pt"
-        android:text="根据结果​​显示，您的血糖，血压偏高，小E给您推荐以下商品"
+        android:text="小E给您推荐以下商品"
         android:textColor="#ff999999"
         android:textSize="56pt"
         android:visibility="gone"

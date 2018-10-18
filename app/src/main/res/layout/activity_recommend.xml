@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.han.referralproject.recommend.RecommendActivity">
+    android:layout_height="match_parent">
 
     <com.gcml.common.widget.toolbar.TranslucentToolBar
         android:id="@+id/tb_recommend_title"
@@ -17,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60pt"
         android:layout_marginTop="80pt"
-        android:text="根据结果​​显示，您的血糖，血压偏高，小E给您推荐以下商品"
+        android:text="小E给您推荐以下商品"
         android:textColor="#ff999999"
         android:textSize="56pt"
         app:layout_constraintStart_toStartOf="parent"
