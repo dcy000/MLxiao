@@ -51,6 +51,7 @@ android {
         }
 
         debug {
+            signingConfig signingConfigs.debug
             debuggable true
             //TODO:老地址下面这行代码是固定代码，请不要注释，不要更改，如需更换地址请到config.gradle中进行更改。重要！重要！重要！
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
@@ -179,7 +180,6 @@ dependencies {
     implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
     //极光推送
     implementation 'cn.jiguang.sdk:jpush:3.1.1'
-    // 此处以JPush 3.1.1 版本为例。
     implementation 'cn.jiguang.sdk:jcore:1.1.9'
     implementation 'com.umeng.analytics:analytics:6.1.2'
     implementation 'me.songning.CircleView:library:1.0.0'
@@ -191,8 +191,6 @@ dependencies {
     implementation rootProject.ext.dependencies["rxpermissions2"]
     //gson
     implementation rootProject.ext.dependencies["gson"]
-    //高斯模糊
-    implementation 'com.github.mmin18:realtimeblurview:1.1.0'
     //图表库
     implementation rootProject.ext.dependencies["MPAndroidChart"]
     //黄油刀

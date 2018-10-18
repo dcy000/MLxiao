@@ -5,17 +5,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.mall.adapter.MallGoodsAdapter;
@@ -31,11 +33,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MallActivity extends AppCompatActivity implements MallMenuAdapter.OnMenuClickListener {
 
     Context mContext;
+    TextView goodsTextTip;
     RecyclerView menuRecycler, goodsRecycler;
     TranslucentToolBar mToolBar;
     MallMenuAdapter menuAdapter;
@@ -58,6 +64,7 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
 
     private void bindView() {
         mToolBar = findViewById(R.id.tb_mall);
+        goodsTextTip = findViewById(R.id.tv_mall_goods);
         menuRecycler = findViewById(R.id.rv_mall_menu);
         goodsRecycler = findViewById(R.id.rv_mall_goods);
     }
@@ -79,18 +86,17 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
 
         mallRepository = new MallRepository();
         getCategory();
-        getMallGoods("1");
+        getMallGoods("-1");
         goodsAdapter = new MallGoodsAdapter(R.layout.item_mall_goods, goodsList);
         goodsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 GoodsBean goods = goodsList.get(position);
-//                CC.obtainBuilder("com.gcml.mall.mall.goods").addParam("goods", goods).build().callAsync();
-                CC.obtainBuilder("com.gcml.mall.mall.order").build().callAsync();
+                CC.obtainBuilder("com.gcml.mall.mall.goods").addParam("goods", goods).build().callAsync();
             }
         });
         goodsRecycler.setLayoutManager(new GridLayoutManager(mContext, 3));
-        goodsRecycler.addItemDecoration(new GridDividerItemDecoration(16, 16));
+        goodsRecycler.addItemDecoration(new GridDividerItemDecoration(8, 8));
         goodsRecycler.setAdapter(goodsAdapter);
     }
 
@@ -102,6 +108,7 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
 
     @SuppressLint("CheckResult")
     private void getCategory() {
+        menuList.add(new CategoryBean(-1, "小E推荐", -1));
         mallRepository.categoryFromApi()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -110,7 +117,7 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
                     @Override
                     public void onNext(List<CategoryBean> body) {
                         super.onNext(body);
-                        menuList = body;
+                        menuList.addAll(body);
                         menuAdapter = new MallMenuAdapter(mContext, menuList);
                         menuAdapter.setOnMenuClickListener(onMenuClickListener);
                         menuRecycler.setLayoutManager(new LinearLayoutManager(mContext));
@@ -127,25 +134,82 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
 
     @SuppressLint("CheckResult")
     private void getMallGoods(String state) {
-        mallRepository.goodsFromApi(state)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribeWith(new DefaultObserver<List<GoodsBean>>() {
-                    @Override
-                    public void onNext(List<GoodsBean> body) {
-                        super.onNext(body);
-                        goodsList.clear();
-                        goodsList.addAll(body);
-                        goodsAdapter.notifyDataSetChanged();
-                    }
+        LoadingDialog dialog = new LoadingDialog.Builder(mContext)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord("正在加载")
+                .create();
+        if (state.equals("-1")) {
+            mallRepository.recommendFromApi(UserSpHelper.getUserId())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(new Consumer<Disposable>() {
+                        @Override
+                        public void accept(Disposable disposable) throws Exception {
+                            dialog.show();
+                        }
+                    })
+                    .doOnTerminate(new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            dialog.dismiss();
+                        }
+                    })
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new DefaultObserver<List<GoodsBean>>() {
+                        @Override
+                        public void onNext(List<GoodsBean> body) {
+                            goodsList.clear();
+                            goodsList.addAll(body);
+//                            goodsTextTip.setVisibility(View.VISIBLE);
+                            goodsAdapter.notifyDataSetChanged();
+                        }
 
-                    @Override
-                    public void onError(Throwable throwable) {
-                        super.onError(throwable);
-                        Toast.makeText(mContext, "请求失败", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onError(Throwable throwable) {
+                            super.onError(throwable);
+                            if (throwable.getMessage().equals("暂无记录")) {
+                                goodsList.clear();
+//                                goodsTextTip.setVisibility(View.VISIBLE);
+                                goodsAdapter.notifyDataSetChanged();
+                            } else {
+                                Toast.makeText(mContext, "请求失败", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        } else {
+            mallRepository.goodsFromApi(state)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(new Consumer<Disposable>() {
+                        @Override
+                        public void accept(Disposable disposable) throws Exception {
+                            dialog.show();
+                        }
+                    })
+                    .doOnTerminate(new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            dialog.dismiss();
+                        }
+                    })
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribeWith(new DefaultObserver<List<GoodsBean>>() {
+                        @Override
+                        public void onNext(List<GoodsBean> body) {
+                            super.onNext(body);
+                            goodsList.clear();
+                            goodsList.addAll(body);
+//                            goodsTextTip.setVisibility(View.GONE);
+                            goodsAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onError(Throwable throwable) {
+                            super.onError(throwable);
+                            Toast.makeText(mContext, "请求失败", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 
     @Override

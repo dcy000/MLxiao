@@ -1,5 +1,6 @@
 package com.gcml.mall.network;
 
+import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.repository.IRepositoryHelper;
 import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.utils.RxUtils;
@@ -28,6 +29,10 @@ public class MallRepository {
 
     public Observable<List<OrderBean>> orderFromApi(String pay_state, String delivery_state, String display_state, String bname, String page, String limit) {
         return mTaskService.order(pay_state, delivery_state, display_state, bname, page, limit).compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<List<GoodsBean>> recommendFromApi(String userId) {
+        return mTaskService.recommend(userId).compose(RxUtils.apiResultTransformer());
     }
 
     public Observable<String> shoppingForApi(String userid, String eqid, String articles, String number, String price, String photo, String time) {

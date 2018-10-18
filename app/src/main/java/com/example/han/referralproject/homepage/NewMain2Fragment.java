@@ -85,7 +85,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                             @Override
                             public void onNext(UserEntity user) {
                                 if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)
-                                        || TextUtils.isEmpty(user.sex)|| TextUtils.isEmpty(user.age)) {
+                                        || TextUtils.isEmpty(user.sex)|| TextUtils.isEmpty(user.birthday)) {
                                     ToastUtils.showShort("请先去个人中心完善体重,身高,性别,年龄信息");
                                     MLVoiceSynthetize.startSynthesize(
                                             getActivity().getApplicationContext(),
@@ -132,6 +132,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 break;
             case R.id.iv_shopping_mall:
                 startActivity(new Intent(getContext(), MarketActivity.class));
+//                CC.obtainBuilder("com.gcml.mall.mall").build().callAsync();
                 break;
             case R.id.iv_ask_doctor:
                 startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));

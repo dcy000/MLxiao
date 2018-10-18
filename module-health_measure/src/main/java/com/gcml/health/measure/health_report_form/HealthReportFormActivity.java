@@ -131,12 +131,14 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
             String illnessStatus = reportListBean.getIllnessStatus();
             Bundle bundle = new Bundle();
             if ("0".equals(illnessStatus)) {
+                //未确诊
                 HealthReportFormFragment2 fragment2 = new HealthReportFormFragment2();
                 bundle.putParcelable(KEY_DATA, firstReportBean);
                 bundle.putString(KEY_TYPE, reportListBean.getIllnessName());
                 fragment2.setArguments(bundle);
                 fragments.add(fragment2);
             } else if ("1".equals(illnessStatus)) {
+                //已确诊
                 HealthReportFormFragment3 fragment3 = new HealthReportFormFragment3();
                 bundle.putParcelable(KEY_DATA, firstReportBean);
                 bundle.putString(KEY_TYPE, reportListBean.getIllnessName());

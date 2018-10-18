@@ -92,6 +92,26 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
                 return fragments.size();
             }
         });
+        mViewpage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    mTitleText.setText("血 压 结 果 分 析");
+                } else if (position == 1) {
+                    mTitleText.setText("智 能 推 荐");
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void initFragment() {

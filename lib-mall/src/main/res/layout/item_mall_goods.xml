@@ -9,9 +9,11 @@
     <ImageView
         android:id="@+id/iv_goods_icon"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="260dp"
         android:src="@drawable/common_ic_robot"
-        android:layout_margin="26dp"/>
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"/>
 
     <TextView
         android:id="@+id/tv_goods_name"

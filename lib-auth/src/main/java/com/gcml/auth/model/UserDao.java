@@ -15,7 +15,7 @@ import io.reactivex.Single;
 @Dao
 public interface UserDao {
     @Query("SELECT * FROM UserOld")
-    Flowable<List<UserEntity>> findAll();
+    Single<List<UserEntity>> findAll();
 
     @Query("SELECT * FROM UserOld WHERE id = :userId")
     Single<UserEntity> findOneById(String userId);

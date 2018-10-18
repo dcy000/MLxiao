@@ -49,15 +49,6 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
-
-    <style name="mypopwindow_anim_style">
-        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
-        <!-- 指定显示的动画xml -->
-
-        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
-        <!-- 指定消失的动画xml -->
-    </style>
-
     <style name="jiaohu">
         <item name="android:textColor">#b6b2b2</item>
         <item name="android:textSize">25dp</item>

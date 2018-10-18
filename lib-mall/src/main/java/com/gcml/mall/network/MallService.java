@@ -1,5 +1,6 @@
 package com.gcml.mall.network;
 
+import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.repository.http.ApiResult;
 import com.gcml.mall.bean.CategoryBean;
 import com.gcml.mall.bean.GoodsBean;
@@ -41,6 +42,11 @@ public interface MallService {
             @Query("bname") String bname,
             @Query("page") String page,
             @Query("limit") String limit
+    );
+
+    @GET("/ZZB/api/mall/recommend/{userId}/")
+    Observable<ApiResult<List<GoodsBean>>> recommend(
+            @Path("userId") String userId
     );
 
     /**

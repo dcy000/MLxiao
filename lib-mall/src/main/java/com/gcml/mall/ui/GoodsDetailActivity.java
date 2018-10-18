@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.lib_utils.display.ToastUtils;
 import com.gcml.mall.R;
 import com.gcml.mall.bean.GoodsBean;
+import com.gcml.mall.bean.PayingOrderBean;
 import com.gcml.mall.network.MallRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.squareup.picasso.Picasso;
@@ -39,6 +41,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
     GoodsBean goods;
     MallRepository mallRepository;
     int mQunatity = 1;
+    PayingOrderBean payingOrder = new PayingOrderBean();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,27 +101,62 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.iv_goods_increase) {
             mQunatity++;
+            if (mQunatity == 1) {
+                Picasso.with(this)
+                        .load(R.drawable.img_goods_decrease)
+                        .placeholder(R.drawable.img_goods_decrease)
+                        .error(R.drawable.img_goods_decrease)
+                        .tag(this)
+                        .fit()
+                        .into(goodsDecrease);
+            } else {
+                Picasso.with(this)
+                        .load(R.drawable.img_goods_decrease_2)
+                        .placeholder(R.drawable.img_goods_decrease)
+                        .error(R.drawable.img_goods_decrease)
+                        .tag(this)
+                        .fit()
+                        .into(goodsDecrease);
+            }
             goodsQuantity.setText(mQunatity + "");
             double amount1 = Double.parseDouble(goods.goodsprice) * mQunatity;
             goodsAmount.setText("总价：¥" + String.format("%.2f", amount1));
-
         } else if (i == R.id.iv_goods_decrease) {
             mQunatity--;
-            if (mQunatity >= 1) {
-                goodsQuantity.setText(mQunatity + "");
-                double amount2 = Double.parseDouble(goods.goodsprice) * mQunatity;
-                goodsAmount.setText("总价：¥" + String.format("%.2f", amount2));
+            if (mQunatity > 1) {
+                Picasso.with(this)
+                        .load(R.drawable.img_goods_decrease_2)
+                        .placeholder(R.drawable.img_goods_decrease_2)
+                        .error(R.drawable.img_goods_decrease_2)
+                        .tag(this)
+                        .fit()
+                        .into(goodsDecrease);
             } else {
                 mQunatity = 1;
+                Picasso.with(this)
+                        .load(R.drawable.img_goods_decrease)
+                        .placeholder(R.drawable.img_goods_decrease_2)
+                        .error(R.drawable.img_goods_decrease_2)
+                        .tag(this)
+                        .fit()
+                        .into(goodsDecrease);
             }
-
+            goodsQuantity.setText(mQunatity + "");
+            double amount2 = Double.parseDouble(goods.goodsprice) * mQunatity;
+            goodsAmount.setText("总价：¥" + String.format("%.2f", amount2));
         } else if (i == R.id.tv_goods_shopping) {
-            mallRepository.shoppingForApi(UserSpHelper.getUserId(), Utils.getDeviceId(getContentResolver()), goods.goodsname, goodsQuantity.getText().toString(), (Integer.parseInt(goodsQuantity.getText().toString()) * Integer.parseInt(goods.goodsprice)) + "", goods.goodsimage, System.currentTimeMillis() + "")
+            Log.e("xxxx", UserSpHelper.getUserId() + ":" + Utils.getDeviceId(getContentResolver()) + ":" + goods.goodsname + ":" + goodsQuantity.getText().toString() + ":" +
+                    (Float.parseFloat(goodsQuantity.getText().toString()) * Float.parseFloat(goods.goodsprice)) + ":" + goods.goodsimage + ":" + System.currentTimeMillis());
+            mallRepository.shoppingForApi(UserSpHelper.getUserId(), Utils.getDeviceId(getContentResolver()),
+                    goods.goodsname, goodsQuantity.getText().toString(),
+                    (Float.parseFloat(goodsQuantity.getText().toString()) * Float.parseFloat(goods.goodsprice)) + "",
+                    goods.goodsimage, System.currentTimeMillis() + "")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .as(RxUtils.autoDisposeConverter(this))
@@ -132,7 +170,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
                         @Override
                         public void onError(Throwable throwable) {
                             super.onError(throwable);
-                            ShowLackNormal("余额不足请及时充值");
+                            ShowLackNormal(throwable.getMessage());
                         }
                     });
         }
