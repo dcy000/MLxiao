@@ -74,9 +74,9 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
         if (countDown != null) {
             Handlers.ui().removeCallbacks(countDown);
         }
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
+//        if (mUnbinder != null) {
+//            mUnbinder.unbind();
+//        }
         super.onDestroy();
     }
 
