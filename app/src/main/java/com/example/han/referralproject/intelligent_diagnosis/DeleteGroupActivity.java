@@ -38,6 +38,8 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
     TextView tvResult;
     @BindView(R.id.btn_delete2)
     Button btnDelete2;
+    @BindView(R.id.btn_delete3)
+    Button btnDelete47;
     private List<XfGroupInfo> lists;
     private int deleteSum = 0;
 
@@ -49,9 +51,8 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
         btnDelete.setOnClickListener(this);
         btnStop.setOnClickListener(this);
         btnDelete2.setOnClickListener(this);
+        btnDelete47.setOnClickListener(this);
         lists = new ArrayList<>();
-
-
     }
 
     int i = 0;
@@ -83,6 +84,18 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
                 });
 
                 break;
+            case R.id.btn_delete3:
+                NetworkApi.getXfGroupInfo("47", "0", "0", new NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>>() {
+                    @Override
+                    public void onSuccess(ArrayList<XfGroupInfo> response) {
+                        lists.addAll(response);
+                        text.append("获取完成。总共需要检验数据：" + response.size());
+                        FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).deleteGroup(lists.get(i).gid, lists.get(i).xfid);
+                        FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).setOnDeleteGroupListener(DeleteGroupActivity.this);
+                    }
+                });
+
+                break;
             case R.id.btn_stop:
                 FaceAuthenticationUtils.getInstance(this).cancelIdentityVerifier();
                 break;
@@ -100,12 +113,12 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
                 if (i < 1000) {
                     FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).deleteGroup(lists.get(i).gid, lists.get(i).xfid);
                     FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).setOnDeleteGroupListener(DeleteGroupActivity.this);
-                }else{
+                } else {
                     Handlers.bg().removeCallbacksAndMessages(null);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            tvResult.setText("总共删除"+deleteSum);
+                            tvResult.setText("总共删除" + deleteSum);
                         }
                     });
                 }
@@ -129,12 +142,12 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
                 if (i < 1000) {
                     FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).deleteGroup(lists.get(i).gid, lists.get(i).xfid);
                     FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).setOnDeleteGroupListener(DeleteGroupActivity.this);
-                }else{
+                } else {
                     Handlers.bg().removeCallbacksAndMessages(null);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            tvResult.setText("总共删除"+deleteSum);
+                            tvResult.setText("总共删除" + deleteSum);
                         }
                     });
                 }

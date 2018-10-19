@@ -428,6 +428,7 @@ public class FaceAuthenticationUtils {
 
             @Override
             public void onError(SpeechError speechError) {
+                Log.e(TAG, "onError deleteGroup: groupId = " + groupId);
                 if (deleteGroupListener != null)
                     deleteGroupListener.onError(speechError);
                 if (context != null) {

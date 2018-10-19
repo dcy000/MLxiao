@@ -210,3 +210,6 @@ Content-Type: application/json
     "start":0,
     "length":100
 }
+
+###
+GET http://47.96.98.60:8080/ZZB/xf/select_group_record?userid=0&&state=0
