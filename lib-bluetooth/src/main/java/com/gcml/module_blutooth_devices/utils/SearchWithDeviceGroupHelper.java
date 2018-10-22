@@ -21,6 +21,7 @@ import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Self_Pre
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Chaosi_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_KN550_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Self_PresenterImp;
+import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Xien_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_YuWell_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_GlucWell_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Sannuo_PresenterImp;
@@ -50,7 +51,7 @@ import java.util.List;
 
 public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private static final String[] BLOODOXYGEN_BRANDS = {"POD", "iChoice", "SpO2080971"};
-    private static final String[] BLOODPRESSURE_BRANDS = {"eBlood-Pressure", "Yuwell", "iChoice", "KN-550BT 110"};
+    private static final String[] BLOODPRESSURE_BRANDS = {"eBlood-Pressure", "Yuwell", "Dual-SPP", "iChoice", "KN-550BT 110"};
     private static final String[] BLOODSUGAR_BRANDS = {"Bioland-BGM", "BLE-Glucowell", "BDE_WEIXIN_TTM"};
     private static final String[] TEMPERATURE_BRANDS = {"AET-WD", "ClinkBlood", "MEDXING-IRT", "FSRKB-EWQ01"};
     private static final String[] WEIGHT_BRANDS = {"VScale", "SHHC-60F1", "iChoice", "SENSSUN_CLOUD", "000FatScale01"};
@@ -240,7 +241,11 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                     baseBluetoothPresenter = new Bloodpressure_KN550_PresenterImp(view,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "KN-550BT 110"));
 
+                } else if ("Dual-SPP".equals(brand)) {
+                    baseBluetoothPresenter = new Bloodpressure_Xien_PresenterImp(view,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Dual-SPP"));
                 } else {
+
                 }
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
@@ -362,7 +367,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         }
         if (baseBluetoothPresenter != null) {
             baseBluetoothPresenter.onDestroy();
-            baseBluetoothPresenter=null;
+            baseBluetoothPresenter = null;
         }
         mySearchResponse = null;
     }

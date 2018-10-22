@@ -19,7 +19,7 @@ ext {
     developUrl = api.testUrl
 
     //线上正式运行的IP地址
-    produceUrl = api.produceUrl
+    produceUrl = api.spareUrl
 
     android = [
             compileSdkVersion: 27,
