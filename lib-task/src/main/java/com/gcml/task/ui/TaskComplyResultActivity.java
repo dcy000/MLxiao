@@ -173,7 +173,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
                     }).show();
 
         } else if (v.getId() == R.id.tv_task_result_affirm) {
-            CC.obtainBuilder("app.component.task").addParam("startType", "MLTask").build().callAsync();
+            CC.obtainBuilder("app.component.task").addParam("startType", "MLMain").build().callAsync();
         }
     }
 
