@@ -16,13 +16,14 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.utils.ChannelManagementUtil;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.BuildConfig;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
+import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodpressureXienFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodoxygenFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodpressureFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodoxygenFragment;
@@ -31,6 +32,7 @@ import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodsugarFr
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureTemperatureFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureThreeInOneFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureWeightFragment;
+import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodpressureXienFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodsugarFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureTemperatureFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureThreeInOneFragment;
@@ -50,6 +52,7 @@ import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
+import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Xien_Fragment;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_PDF_Fragment;
@@ -76,7 +79,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private Uri uri;
     private boolean isFaceSkip;
     private boolean isShowBloodsugarSelectTime = false;
-    private ArrayList<Integer> threeInOnePosition=new ArrayList<>();
+    private ArrayList<Integer> threeInOnePosition = new ArrayList<>();
+
     public static void startActivity(Context context, int measure_type) {
         Intent intent = new Intent(context, AllMeasureActivity.class);
         if (context instanceof Application) {
@@ -131,12 +135,21 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 if (baseFragment == null) {
                     mTitleText.setText("血 压 测 量");
                     if (isFaceSkip) {
-                        //因为血压相比于其他检测项多出来一个惯用手判断 所以需要单独处理
-                        baseFragment = new NonUploadSingleMeasureBloodpressureFragment();
+                        if (ChannelManagementUtil.isXien()) {
+                            baseFragment = new NonUploadSingleMeasureBloodpressureXienFragment();
+                        } else {
+                            //因为血压相比于其他检测项多出来一个惯用手判断 所以需要单独处理
+                            baseFragment = new NonUploadSingleMeasureBloodpressureFragment();
+                        }
+
                     } else {
                         Bundle bloodBundle = new Bundle();
                         bloodBundle.getBoolean(IPresenter.IS_MEASURE_TASK, isMeasureTask);
-                        baseFragment = new SingleMeasureBloodpressureFragment();
+                        if (ChannelManagementUtil.isXien()) {
+                            baseFragment = new SingleMeasureBloodpressureXienFragment();
+                        } else {
+                            baseFragment = new SingleMeasureBloodpressureFragment();
+                        }
                         baseFragment.setArguments(bloodBundle);
                     }
                 }
@@ -274,10 +287,10 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     break;
                 case IPresenter.MEASURE_OTHERS:
                     //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
-                    if (threeInOnePosition.size()==0){
+                    if (threeInOnePosition.size() == 0) {
                         CCHealthRecordActions.jump2HealthRecordActivity(6);
-                    }else {
-                        CCHealthRecordActions.jump2HealthRecordActivity(threeInOnePosition.get(threeInOnePosition.size()-1));
+                    } else {
+                        CCHealthRecordActions.jump2HealthRecordActivity(threeInOnePosition.get(threeInOnePosition.size() - 1));
                     }
                     break;
                 default:
@@ -415,8 +428,14 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 //血压
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
-                ((Bloodpressure_Fragment) baseFragment).onStop();
-                ((Bloodpressure_Fragment) baseFragment).dealLogic();
+                if (ChannelManagementUtil.isXien()){
+                    ((Bloodpressure_Xien_Fragment) baseFragment).onStop();
+                    ((Bloodpressure_Xien_Fragment) baseFragment).dealLogic();
+                }else{
+                    ((Bloodpressure_Fragment) baseFragment).onStop();
+                    ((Bloodpressure_Fragment) baseFragment).dealLogic();
+                }
+
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
                 //血糖
@@ -502,14 +521,14 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             if (bundle != null) {
-                if (measure_type==IPresenter.MEASURE_BLOOD_SUGAR){
+                if (measure_type == IPresenter.MEASURE_BLOOD_SUGAR) {
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureBloodsugarFragment();
                     } else {
                         baseFragment = new SingleMeasureBloodsugarFragment();
                         baseFragment.setArguments(bundle);
                     }
-                }else if (measure_type==IPresenter.MEASURE_OTHERS){
+                } else if (measure_type == IPresenter.MEASURE_OTHERS) {
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureThreeInOneFragment();
                     } else {

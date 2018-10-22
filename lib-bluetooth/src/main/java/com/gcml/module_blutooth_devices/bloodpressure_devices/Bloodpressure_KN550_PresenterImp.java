@@ -131,7 +131,7 @@ public class Bloodpressure_KN550_PresenterImp extends BaseBluetoothPresenter {
                         int gaoya = jsonObject.optInt("sys");
                         int diya = jsonObject.optInt("dia");
                         int heartRate = jsonObject.optInt("heartRate");
-                        Logg.e(Bloodpressure_KN550_PresenterImp.class, "onDeviceNotify: 收缩压：" + gaoya + ";舒张压：" + diya + "心率：" + heartRate);
+                        Logg.e(Bloodpressure_KN550_PresenterImp.class, "onDeviceNotify: 高压：" + gaoya + ";低压：" + diya + "心率：" + heartRate);
                         baseView.updateData(gaoya + "", diya + "", heartRate + "");
                     }
                 } catch (JSONException e) {

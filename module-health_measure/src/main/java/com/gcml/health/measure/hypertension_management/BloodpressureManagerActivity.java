@@ -4,17 +4,17 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.AppManager;
+import com.gcml.common.utils.ChannelManagementUtil;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
+import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneXienFragment;
 import com.gcml.lib_utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
@@ -46,7 +46,11 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
     private void initFragment() {
         mTitleText.setText("血 压 测 量");
         measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
-        baseFragment = new HealthBloodDetectionOnlyOneFragment();
+        if (ChannelManagementUtil.isXien()){
+            baseFragment=new HealthBloodDetectionOnlyOneXienFragment();
+        }else{
+            baseFragment = new HealthBloodDetectionOnlyOneFragment();
+        }
         baseFragment.setOnDealVoiceAndJumpListener(this);
         baseFragment.setOnDealVoiceAndJumpListener(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, baseFragment).commitAllowingStateLoss();

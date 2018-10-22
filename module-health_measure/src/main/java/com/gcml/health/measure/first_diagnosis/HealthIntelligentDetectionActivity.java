@@ -15,12 +15,14 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.utils.ChannelManagementUtil;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.ecg.XinDianDetectActivity;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
+import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiXienFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthDetectionIntelligentReportFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthFirstTipsFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
@@ -156,8 +158,14 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
             case IPresenter.MEASURE_BLOOD_PRESSURE:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
-                ((HealthBloodDetectionUiFragment) baseFragment).onStop();
-                ((HealthBloodDetectionUiFragment) baseFragment).dealLogic();
+                if (ChannelManagementUtil.isXien()){
+                    ((HealthBloodDetectionUiXienFragment) baseFragment).onStop();
+                    ((HealthBloodDetectionUiXienFragment) baseFragment).dealLogic();
+                }else{
+                    ((HealthBloodDetectionUiFragment) baseFragment).onStop();
+                    ((HealthBloodDetectionUiFragment) baseFragment).dealLogic();
+                }
+
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
@@ -230,7 +238,8 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
             requestPlayVideoCode = BLOODPRESSURE_VIDEO;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
             jump2MeasureVideoPlayActivity(uri, "血压测量演示视频");
-        } else if (fragment instanceof HealthBloodDetectionUiFragment) {
+        } else if (fragment instanceof HealthBloodDetectionUiFragment
+                ||fragment instanceof HealthBloodDetectionUiXienFragment) {
             move2Weight();
         } else if (fragment instanceof HealthWeightDetectionUiFragment) {
             requestPlayVideoCode = BLOODSUGAR_VIDEO;
@@ -412,7 +421,11 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
         FragmentManager fm = getSupportFragmentManager();
         if (fm != null) {
             FragmentTransaction transaction = fm.beginTransaction();
-            baseFragment = new HealthBloodDetectionUiFragment();
+            if (ChannelManagementUtil.isXien()){
+                baseFragment=new HealthBloodDetectionUiXienFragment();
+            }else{
+                baseFragment = new HealthBloodDetectionUiFragment();
+            }
             baseFragment.setOnFragmentChangedListener(this);
             baseFragment.setOnDealVoiceAndJumpListener(this);
             transaction.replace(R.id.fl_container, baseFragment);

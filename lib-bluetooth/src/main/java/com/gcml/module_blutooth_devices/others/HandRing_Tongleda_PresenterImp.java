@@ -92,7 +92,7 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
             if (bloodPressureOneDayInfo != null && bloodPressureOneDayInfo.size() > 0) {
                 int hightBloodPressure = bloodPressureOneDayInfo.get(bloodPressureOneDayInfo.size() - 1).getHightBloodPressure();
                 int lowBloodPressure = bloodPressureOneDayInfo.get(bloodPressureOneDayInfo.size() - 1).getLowBloodPressure();
-                ToastUtils.showShort("收缩压：" + hightBloodPressure + ",舒张压：" + lowBloodPressure);
+                ToastUtils.showShort("高压：" + hightBloodPressure + ",低压：" + lowBloodPressure);
 
             }
         }

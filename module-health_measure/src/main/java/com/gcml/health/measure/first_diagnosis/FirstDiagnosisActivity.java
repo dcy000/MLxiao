@@ -16,13 +16,16 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.ChannelManagementUtil;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.FirstDiagnosisBean;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
+import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneXienFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
+import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiXienFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodOxygenDetectionFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthChooseDevicesFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthECGDetectionFragment;
@@ -66,7 +69,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private int measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
     private int showPosition = 0;
     private Uri uri;
-    private static HealthBloodDetectionUiFragment.Data bloodpressureCacheData;
     private static List<DetectionData> cacheDatas = new ArrayList<>();
     private BluetoothBaseFragment fragment;
     private boolean isShowHealthChooseDevicesFragment = false;
@@ -82,14 +84,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
-    }
-
-    public void putBloodpressureCacheData(HealthBloodDetectionUiFragment.Data data) {
-        bloodpressureCacheData = data;
-    }
-
-    public HealthBloodDetectionUiFragment.Data getBloodpressureCacheData() {
-        return bloodpressureCacheData;
     }
 
     /**
@@ -148,13 +142,26 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 userHypertensionHand = UserSpHelper.getUserHypertensionHand();
                 if (TextUtils.isEmpty(userId)) {
                     //首先判断userId,如果为空，则说明走的是注册流程到达这里的
-                    fragment = new HealthBloodDetectionUiFragment();
+                    if (ChannelManagementUtil.isXien()){
+                        fragment=new HealthBloodDetectionUiXienFragment();
+                    }else{
+                        fragment = new HealthBloodDetectionUiFragment();
+                    }
                 } else {
                     //如果本地缓存的有惯用手数据则只需测量一次，如果没有则需要惯用手判断
                     if (TextUtils.isEmpty(userHypertensionHand)) {
-                        fragment = new HealthBloodDetectionUiFragment();
+                        if (ChannelManagementUtil.isXien()){
+                            fragment=new HealthBloodDetectionUiXienFragment();
+                        }else{
+                            fragment = new HealthBloodDetectionUiFragment();
+                        }
+
                     } else {
-                        fragment = new HealthBloodDetectionOnlyOneFragment();
+                        if (ChannelManagementUtil.isXien()){
+                            fragment=new HealthBloodDetectionOnlyOneXienFragment();
+                        }else{
+                            fragment = new HealthBloodDetectionOnlyOneFragment();
+                        }
                     }
                 }
                 measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
@@ -449,16 +456,32 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
                 if (TextUtils.isEmpty(userId)) {
-                    ((HealthBloodDetectionUiFragment) fragment).onStop();
-                    ((HealthBloodDetectionUiFragment) fragment).dealLogic();
+                    if (ChannelManagementUtil.isXien()){
+                        ((HealthBloodDetectionUiXienFragment) fragment).onStop();
+                        ((HealthBloodDetectionUiXienFragment) fragment).dealLogic();
+                    }else{
+                        ((HealthBloodDetectionUiFragment) fragment).onStop();
+                        ((HealthBloodDetectionUiFragment) fragment).dealLogic();
+                    }
+
                 } else {
                     //如果本地缓存的有惯用手数据则只需测量一次，如果没有则需要惯用手判断
                     if (TextUtils.isEmpty(userHypertensionHand)) {
-                        ((HealthBloodDetectionUiFragment) fragment).onStop();
-                        ((HealthBloodDetectionUiFragment) fragment).dealLogic();
+                        if (ChannelManagementUtil.isXien()){
+                            ((HealthBloodDetectionUiXienFragment) fragment).onStop();
+                            ((HealthBloodDetectionUiXienFragment) fragment).dealLogic();
+                        }else{
+                            ((HealthBloodDetectionUiFragment) fragment).onStop();
+                            ((HealthBloodDetectionUiFragment) fragment).dealLogic();
+                        }
                     } else {
-                        ((HealthBloodDetectionOnlyOneFragment) fragment).onStop();
-                        ((HealthBloodDetectionOnlyOneFragment) fragment).dealLogic();
+                        if (ChannelManagementUtil.isXien()){
+                            ((HealthBloodDetectionOnlyOneXienFragment) fragment).onStop();
+                            ((HealthBloodDetectionOnlyOneXienFragment) fragment).dealLogic();
+                        }else{
+                            ((HealthBloodDetectionOnlyOneFragment) fragment).onStop();
+                            ((HealthBloodDetectionOnlyOneFragment) fragment).dealLogic();
+                        }
                     }
                 }
                 break;
@@ -524,10 +547,4 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         MLVoiceSynthetize.stop();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bloodpressureCacheData = null;
-
-    }
 }

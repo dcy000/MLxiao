@@ -3,18 +3,15 @@ package com.gcml.health.measure.single_measure;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.utils.ChannelManagementUtil;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
@@ -36,10 +33,11 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     private LinearLayout llTizhong;
     private LinearLayout llSan;
     private LinearLayout llMore;
-    public static final String IS_FACE_SKIP="isFaceSkip";
-    public static void startActivity(Context context,boolean isFaceSkip) {
+    public static final String IS_FACE_SKIP = "isFaceSkip";
+
+    public static void startActivity(Context context, boolean isFaceSkip) {
         Intent intent = new Intent(context, MeasureChooseDeviceActivity.class);
-        intent.putExtra(IS_FACE_SKIP,isFaceSkip);
+        intent.putExtra(IS_FACE_SKIP, isFaceSkip);
         if (context instanceof Application) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -151,30 +149,18 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     }
 
     private void aferVideo() {
-        ApplicationInfo appInfo = null;
-        String channel = null;
-        try {
-            appInfo = this.getPackageManager()
-                    .getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-            channel=appInfo.metaData.getString("com.gcml.version");
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (!TextUtils.isEmpty(channel)){
-            if (!"gcml_version_normal".equals(channel)){
-                if (measureType == IPresenter.MEASURE_ECG) {
-                    XinDianDetectActivity.startActivity(this,
-                            MeasureChooseDeviceActivity.class.getSimpleName(),getIntent().getBooleanExtra(IS_FACE_SKIP,false));
-                    return;
-                }
+        //不是我们自己的版本统统用公用心电测量页面
+        if (!ChannelManagementUtil.isBase()) {
+            if (measureType == IPresenter.MEASURE_ECG) {
+                XinDianDetectActivity.startActivity(this,
+                        MeasureChooseDeviceActivity.class.getSimpleName(), getIntent().getBooleanExtra(IS_FACE_SKIP, false));
+                return;
             }
         }
-
         Intent intent = new Intent();
         intent.setClass(this, AllMeasureActivity.class);
         intent.putExtra(IPresenter.MEASURE_TYPE, measureType);
-        intent.putExtra(IS_FACE_SKIP,getIntent().getBooleanExtra(IS_FACE_SKIP,false));
+        intent.putExtra(IS_FACE_SKIP, getIntent().getBooleanExtra(IS_FACE_SKIP, false));
         startActivity(intent);
     }
 

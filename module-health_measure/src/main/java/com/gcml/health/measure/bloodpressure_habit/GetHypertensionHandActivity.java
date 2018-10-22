@@ -10,12 +10,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.gcml.common.utils.ChannelManagementUtil;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.bloodpressure_habit.fragment.GetHypertensionHandFragment;
+import com.gcml.health.measure.bloodpressure_habit.fragment.GetHypertensionHandXienFragment;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.base.ToolbarBaseActivity;
 import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
@@ -38,7 +41,7 @@ import timber.log.Timber;
  */
 public class GetHypertensionHandActivity extends ToolbarBaseActivity implements DealVoiceAndJump, FragmentChanged {
     private FrameLayout mFrameLayout;
-    private GetHypertensionHandFragment fragment;
+    private BluetoothBaseFragment fragment;
 
     public static void startActivityForResult(Object host, int requestCode) {
         if (host instanceof Activity) {
@@ -61,7 +64,11 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
     }
 
     private void initFragment() {
-        fragment = new GetHypertensionHandFragment();
+        if (ChannelManagementUtil.isXien()){
+            fragment=new GetHypertensionHandXienFragment();
+        }else{
+            fragment = new GetHypertensionHandFragment();
+        }
         fragment.setOnDealVoiceAndJumpListener(this);
         fragment.setOnFragmentChangedListener(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
