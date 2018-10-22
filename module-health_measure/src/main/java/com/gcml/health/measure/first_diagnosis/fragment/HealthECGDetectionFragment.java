@@ -138,7 +138,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         mTvNext = (TextView) view.findViewById(R.id.tv_next);
         mTvNext.setOnClickListener(this);
         setBtnClickableState(false);
-        MLVoiceSynthetize.startSynthesize(context, "主人，请打开设备开关，准备测量", false);
+        MLVoiceSynthetize.startSynthesize(context, "您好，请打开设备开关，准备测量", false);
         initOther();
     }
 

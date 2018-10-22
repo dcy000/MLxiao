@@ -37,7 +37,7 @@ public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_F
     protected void onMeasureFinished(String... results) {
         if (results.length == 3&&!isOnPause) {
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                    "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
+                    "您好，您本次测量收缩压" + results[0] + ",舒张压" + results[1] + ",脉搏" + results[2], false);
         }
     }
 
@@ -60,7 +60,7 @@ public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_F
 
 
     private void showHypertensionHandDialog(String hand) {
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请使用" + hand + "测量");
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，请使用" + hand + "测量");
         new SingleDialog(mContext)
                 .builder()
                 .setMsg("请使用" + hand + "测量")

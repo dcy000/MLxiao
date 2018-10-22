@@ -46,9 +46,9 @@ public class PrimaryBloodPressureRiskResultsActivity extends BaseActivity implem
                 }
             }
             if (!TextUtils.isEmpty(target)&&target.length()>1){
-                stringSpeak="主人，根据您的评估结果，您有可能是原发性高血压，并有可能存在对"+target.substring(0,target.length()-1)+"等靶器官的损害。";
+                stringSpeak="您好，根据您的评估结果，您有可能是原发性高血压，并有可能存在对"+target.substring(0,target.length()-1)+"等靶器官的损害。";
             }else{
-                stringSpeak="主人，根据您的评估结果，您有可能是原发性高血压。";
+                stringSpeak="您好，根据您的评估结果，您有可能是原发性高血压。";
             }
             List<String> illnessFactor = data.getPrimary().getIllnessFactor();
             if (illnessFactor !=null&&illnessFactor.size()>0){

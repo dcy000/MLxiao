@@ -26,7 +26,7 @@ public class BloodPressureMeasureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blood_pressure_measure);
         ButterKnife.bind(this);
         initView();
-        MLVoiceSynthetize.startSynthesize(this,"主人，开始测量血压。",false);
+        MLVoiceSynthetize.startSynthesize(this,"您好，开始测量血压。",false);
         AppManager.getAppManager().addActivity(this);
     }
 

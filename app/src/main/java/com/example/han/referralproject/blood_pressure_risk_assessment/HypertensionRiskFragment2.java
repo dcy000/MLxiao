@@ -89,8 +89,8 @@ public class HypertensionRiskFragment2 extends Fragment implements View.OnClickL
             case R.id.tv_next:
                 for (QuestionChoosed question:mData){
                     if (question.isChoosed()==-1){
-                        ToastUtils.showShort("主人，您还有未回答的题目");
-                        ((HypertensionRiskActivity) getActivity()).speak("主人，您还有未回答的题目");
+                        ToastUtils.showShort("您好，您还有未回答的题目");
+                        ((HypertensionRiskActivity) getActivity()).speak("您好，您还有未回答的题目");
                         return;
                     }
                 }

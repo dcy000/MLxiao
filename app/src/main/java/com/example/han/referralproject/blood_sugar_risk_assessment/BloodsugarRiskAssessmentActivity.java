@@ -46,7 +46,7 @@ public class BloodsugarRiskAssessmentActivity extends BaseActivity implements Vi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_sugar_risk_assessment);
-        speak("主人，为了您的健康。小依为您准备了八道血糖相关的题目，请您耐心填写");
+        speak("您好，为了您的健康。小依为您准备了八道血糖相关的题目，请您耐心填写");
         initView();
         setAdapter();
         getData();
@@ -129,8 +129,8 @@ public class BloodsugarRiskAssessmentActivity extends BaseActivity implements Vi
             case R.id.blood_sugar_submit:
                 for (BloodSugarRisk bloodSugarRisk : mData) {
                     if (!bloodSugarRisk.isChoosed()) {
-                        ToastUtils.showShort("主人，您还有未回答的题目");
-                        speak("主人，您还有未回答的题目");
+                        ToastUtils.showShort("您好，您还有未回答的题目");
+                        speak("您好，您还有未回答的题目");
                         return;
                     }
                 }

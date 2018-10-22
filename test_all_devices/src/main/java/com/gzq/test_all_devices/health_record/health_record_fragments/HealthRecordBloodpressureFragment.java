@@ -63,9 +63,9 @@ public class HealthRecordBloodpressureFragment extends BluetoothBaseFragment {
         mRgXuetangTime.setVisibility(View.GONE);
         //指示器的颜色
         mColor1.setBackgroundColor(getResources().getColor(R.color.node_color));
-        mIndicator1.setText("高压(mmHg)");
+        mIndicator1.setText("收缩压(mmHg)");
         mColor2.setBackgroundColor(getResources().getColor(R.color.node2_color));
-        mIndicator2.setText("低压(mmHg)");
+        mIndicator2.setText("舒张压(mmHg)");
         mLlSecond.setVisibility(View.VISIBLE);
         initChart();
     }

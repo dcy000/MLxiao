@@ -11,8 +11,7 @@
     <!--</item>-->
 
     <item >
-        <bitmap android:src="@drawable/welcome"
-            android:gravity="center"/>
+        <bitmap android:src="@drawable/xien_welcome_splash"/>
     </item>
 
 </layer-list>

@@ -30,7 +30,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8pt"
                 android:gravity="center"
-                android:text="主人,您请说"
+                android:text="您好,您请说"
                 android:textColor="#FF333333"
                 android:textSize="28sp"
                 android:visibility="gone" />

@@ -72,7 +72,7 @@ public class JieMengActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,欢迎来到周公姐梦!", false);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好,欢迎来到周公姐梦!", false);
 
     }
 
@@ -195,7 +195,7 @@ public class JieMengActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onMLError(SpeechError error) {
-                MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,我没有听清,你能再说一遍吗?", false);
+                MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好,我没有听清,你能再说一遍吗?", false);
             }
         });
     }
@@ -205,7 +205,7 @@ public class JieMengActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
                 if (!"dream".equals(service)) {
-                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,这个梦我还不会解了", false);
+                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好,这个梦我还不会解了", false);
                     return;
                 }
                 try {
@@ -213,7 +213,7 @@ public class JieMengActivity extends AppCompatActivity implements View.OnClickLi
                     data.addAll((List<DreamBean>) anwser);
                     JieMengRetultActivity.startMe(JieMengActivity.this, data, result, anwserText);
                 } catch (Exception e) {
-                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,这个梦我还不会解了", false);
+                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好,这个梦我还不会解了", false);
                 }
             }
         });

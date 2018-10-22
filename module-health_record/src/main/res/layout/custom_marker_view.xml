@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/health_record_mark_text"
             android:textSize="18sp"
-            android:text="高压"
+            android:text="收缩压"
             android:layout_marginLeft="8dp"
             />
         <TextView
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/health_record_mark_text"
             android:textSize="18sp"
-            android:text="低压"
+            android:text="舒张压"
             android:layout_marginLeft="8dp"
             />
         <TextView

@@ -226,7 +226,7 @@ public class DataDealHelper {
                     am.equals("shangwu") ? Integer.valueOf(hourOfDay) : Integer.valueOf(hourOfDay) + 12,
                     Integer.valueOf(minute));
             String tip = String.format(Locale.CHINA,
-                    "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
+                    "您好，小易将在%s:%s提醒您吃药", hourOfDay, minute);
             speak(tip);
             return;
         }

@@ -74,7 +74,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         initView();
         mToolbar.setVisibility(View.VISIBLE);
         isTest = getIntent().getBooleanExtra("isTest", false);
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请选择你需要测量的项目", false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，请选择你需要测量的项目", false);
     }
 
     @Override

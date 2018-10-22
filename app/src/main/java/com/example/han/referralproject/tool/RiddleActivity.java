@@ -65,7 +65,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         setContentView(R.layout.activity_riddle);
         ButterKnife.bind(this);
         initData();
-        speak("主人,欢迎来到猜谜");
+        speak("您好,欢迎来到猜谜");
         initEvent();
     }
 
@@ -98,7 +98,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                             tvQuestion.setText(title);
                             MLVoiceSynthetize.startSynthesize(getBaseContext(), title, false);
                         } else {
-                            MLVoiceSynthetize.startSynthesize(getBaseContext(), "主人,我暂时还没想到什么谜语", false);
+                            MLVoiceSynthetize.startSynthesize(getBaseContext(), "您好,我暂时还没想到什么谜语", false);
                         }
                     }
                 });
@@ -127,7 +127,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
     private void showAnswer() {
         if (data == null || data.size() == 0) {
-//            ToastUtil.showShort(this, "主人,网络异常,请稍后重试");
+//            ToastUtil.showShort(this, "您好,网络异常,请稍后重试");
             return;
         }
         RiddleDialog riddleDialog = new RiddleDialog();
@@ -207,7 +207,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
             @Override
             public void onMLError(SpeechError error) {
-                speak("主人,我没听清,您能再说一遍吗");
+                speak("您好,我没听清,您能再说一遍吗");
             }
         });
     }
@@ -219,7 +219,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         }
 
         if (TextUtils.isEmpty(result)) {
-            speak("主人,我没听清,您能再说一遍吗");
+            speak("您好,我没听清,您能再说一遍吗");
             return;
         }
 
@@ -253,16 +253,16 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
             anwserPinyin = PinYinUtils.converterToSpell(answer);
 
             if (anwserPinyin.equals(resultPinYin) || anwserPinyin.contains(resultPinYin)) {
-                speak("恭喜主人答对了");
+                speak("恭喜你答对了");
                 return;
             }
 
             if (answer.equals(result) || answer.contains(result)) {
-                speak("恭喜主人答对了");
+                speak("恭喜你答对了");
                 return;
             }
 
-            speak("主人,您再猜一下!");
+            speak("您好,您再猜一下!");
 
 
         } catch (Exception e) {
@@ -280,10 +280,10 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
 
             if (answer.equals(result) || answer.contains(result)) {
-                speak("恭喜主人答对了");
+                speak("恭喜你答对了");
                 return;
             }
-            speak("主人,您再猜一下!");
+            speak("您好,您再猜一下!");
 
         }
     }
@@ -310,7 +310,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
             }
 
             if (TextUtils.isEmpty(result)) {
-                speak("主人,我没听清,您能再说一遍吗");
+                speak("您好,我没听清,您能再说一遍吗");
                 return;
             }
 
@@ -344,16 +344,16 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 anwserPinyin = PinYinUtils.converterToSpell(answer);
 
                 if (anwserPinyin.equals(resultPinYin) || anwserPinyin.contains(resultPinYin)) {
-                    speak("恭喜主人答对了");
+                    speak("恭喜你答对了");
                     return;
                 }
 
                 if (answer.equals(result) || answer.contains(result)) {
-                    speak("恭喜主人答对了");
+                    speak("恭喜您好答对了");
                     return;
                 }
 
-                speak("主人,您再猜一下!");
+                speak("您好,您再猜一下!");
 
 
             } catch (Exception e) {
@@ -371,10 +371,10 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
 
                 if (answer.equals(result) || answer.contains(result)) {
-                    speak("恭喜主人答对了");
+                    speak("恭喜您好答对了");
                     return;
                 }
-                speak("主人,您再猜一下!");
+                speak("您好,您再猜一下!");
 
             }
         }

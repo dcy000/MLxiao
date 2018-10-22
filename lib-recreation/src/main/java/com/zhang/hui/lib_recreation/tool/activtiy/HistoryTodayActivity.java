@@ -45,7 +45,7 @@ public class HistoryTodayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_today);
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,欢迎来到历史的今天", false);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好,欢迎来到历史的今天", false);
         initView();
         initEvent();
         initData();
@@ -66,7 +66,7 @@ public class HistoryTodayActivity extends AppCompatActivity {
                             adapter.notifyDataSetChanged();
                             MLVoiceSynthetize.startSynthesize(getApplicationContext(), data.get(0).title + "," + data.get(0).description, false);
                         } else {
-                            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,我还不知道历史上的今天发生了什么事,我得去学习一下", false);
+                            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好,我还不知道历史上的今天发生了什么事,我得去学习一下", false);
                         }
                     }
                 });

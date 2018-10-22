@@ -146,7 +146,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_recoed_activity_health_record);
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请查看您的健康数据", false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，请查看您的健康数据", false);
         initView();
         initDialog();
     }

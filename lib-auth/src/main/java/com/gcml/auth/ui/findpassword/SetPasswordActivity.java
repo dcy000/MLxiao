@@ -94,7 +94,7 @@ public class SetPasswordActivity extends BaseActivity<AuthActivitySetPasswordBin
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入新的6位数字密码", false);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好，请输入新的6位数字密码", false);
     }
 
     @Override

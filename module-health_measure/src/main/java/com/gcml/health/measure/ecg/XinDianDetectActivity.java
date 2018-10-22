@@ -261,7 +261,7 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
                             if (!getIntent().getBooleanExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP, false)) {
                                 uploadEcg(mEcg, mHeartRate);
                             }
-                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您的心率为" + mHeartRate + "," + measureResult[mEcg]);
+                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，您的心率为" + mHeartRate + "," + measureResult[mEcg]);
 
                         }
                         break;

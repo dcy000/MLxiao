@@ -253,7 +253,7 @@ public class RegisterHead2XunfeiActivity extends AppCompatActivity implements Vi
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，让我给你拍个照。三，二，一，茄子", new SynthesizerListener() {
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，让我给你拍个照。三，二，一，茄子", new SynthesizerListener() {
             @Override
             public void onSpeakBegin() {
 

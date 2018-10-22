@@ -1,4 +1,7 @@
-include ':app', ':lib-auth-face', ':module-video',
+include ':app',
+        ':lib-common-xien',
+        ':lib-auth-face',
+        ':module-video',
         ':lib-recreation',
         ':lib-pay-beecloud',
         ':module-edu',

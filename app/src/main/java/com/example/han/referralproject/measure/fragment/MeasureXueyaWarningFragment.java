@@ -58,8 +58,8 @@ public class MeasureXueyaWarningFragment extends Fragment {
     private View view;
 
     private ArrayList<Integer> reasons;
-    private String firstTitle = "主人，您的测量数据与标准值相差较大，您是否存在以下情况：";
-    private String titleString = "主人，您最新的测量数据与历史数据存在较大差异，您是否存在以下情况：";
+    private String firstTitle = "您好，您的测量数据与标准值相差较大，您是否存在以下情况：";
+    private String titleString = "您好，您最新的测量数据与历史数据存在较大差异，您是否存在以下情况：";
     private MeasureExceptionAdapter adapter;
 
     @Override

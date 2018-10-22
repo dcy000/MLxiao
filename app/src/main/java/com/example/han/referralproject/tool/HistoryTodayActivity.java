@@ -41,7 +41,7 @@ public class HistoryTodayActivity extends BaseActivity {
         setContentView(R.layout.activity_history_today);
         ButterKnife.bind(this);
         initView();
-        speak("主人,欢迎来到历史的今天");
+        speak("您好,欢迎来到历史的今天");
         initData();
         initEvent();
     }
@@ -71,7 +71,7 @@ public class HistoryTodayActivity extends BaseActivity {
                             adapter.notifyDataSetChanged();
                             speak(data.get(0).title+","+data.get(0).description);
                         } else {
-                            speak("主人,我还不知道历史上的今天发生了什么事,我得去学习一下");
+                            speak("您好,我还不知道历史上的今天发生了什么事,我得去学习一下");
                         }
                     }
                 });

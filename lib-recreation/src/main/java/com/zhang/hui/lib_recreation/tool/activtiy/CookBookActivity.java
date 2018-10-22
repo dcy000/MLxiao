@@ -68,7 +68,7 @@ public class CookBookActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,欢迎来到菜谱", false);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好,欢迎来到菜谱", false);
     }
 
     private void initView() {
@@ -172,7 +172,7 @@ public class CookBookActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onMLError(SpeechError error) {
-                MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,我不会算了", false);
+                MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好,我不会算了", false);
             }
         });
     }
@@ -182,13 +182,13 @@ public class CookBookActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
                 if (!"cookbook".equals(service)) {
-                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,没有找到该菜谱", false);
+                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好,没有找到该菜谱", false);
                     return;
                 }
                 try {
                     CookBookResultActivity.StartMe(CookBookActivity.this, (List<CookbookBean>) anwser, result);
                 } catch (Exception e) {
-                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,没有找到该菜谱", false);
+                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好,没有找到该菜谱", false);
                 }
             }
         });

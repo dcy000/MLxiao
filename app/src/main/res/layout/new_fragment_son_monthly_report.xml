@@ -42,7 +42,7 @@
                 android:layout_width="462pt"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="高压(mmHg)"
+                android:text="收缩压(mmHg)"
                 android:textColor="#333"
                 android:textSize="48pt" />
 
@@ -55,7 +55,7 @@
                 android:layout_width="462pt"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="低压(mmHg)"
+                android:text="舒张压(mmHg)"
                 android:textColor="#333"
                 android:textSize="48pt" />
 

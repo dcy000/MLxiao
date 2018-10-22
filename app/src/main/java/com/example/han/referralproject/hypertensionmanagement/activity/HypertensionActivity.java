@@ -62,7 +62,7 @@ public class HypertensionActivity extends BaseActivity implements MultipleChoice
                 if (bean != null && bean.tag && bean.data != null) {
                     questionList = bean.data.questionList;
                     if (questionList != null && questionList.size() != 0) {
-                        mlSpeak("主人,您"+questionList.get(0).questionName);
+                        mlSpeak("您好,您"+questionList.get(0).questionName);
                         //给提交的数据赋值===开始
                         postBean.equipmentId = Utils.getDeviceId();
                         postBean.hmQuestionnaireId = bean.data.hmQuestionnaireId;

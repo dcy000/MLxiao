@@ -154,7 +154,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
         mToolbar.setVisibility(View.VISIBLE);
         //播报语音
         Timber.d(questionListBean.getQuestionName());
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，" + questionListBean.getQuestionName(), false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，" + questionListBean.getQuestionName(), false);
     }
 
     private void initView() {

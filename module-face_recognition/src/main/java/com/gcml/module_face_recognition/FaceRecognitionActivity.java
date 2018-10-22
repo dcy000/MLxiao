@@ -338,7 +338,7 @@ public class FaceRecognitionActivity extends AppCompatActivity implements View.O
     protected void onResume() {
         super.onResume();
         voiceListener = new VoiceListener();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请对准摄像头",
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，请对准摄像头",
                 voiceListener, false);
 
     }

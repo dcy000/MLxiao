@@ -42,7 +42,7 @@ public class HypertensionRiskActivity extends BaseActivity implements IFragmentC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_risk);
-        speak("主人，为了您的健康。小依为您准备了十三道血压相关的题目，请您耐心填写");
+        speak("您好，为了您的健康。小依为您准备了十三道血压相关的题目，请您耐心填写");
         initView();
         getData();
     }

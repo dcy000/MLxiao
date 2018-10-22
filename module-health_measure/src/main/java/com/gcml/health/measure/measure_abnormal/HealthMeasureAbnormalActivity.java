@@ -24,7 +24,7 @@ import timber.log.Timber;
  * description:TODO
  */
 public class HealthMeasureAbnormalActivity extends ToolbarBaseActivity implements HealthMeasureChooseAbnormalReason {
-    private String firstTitle = "主人，您的测量数据与标准值相差较大，您是否存在以下情况：";
+    private String firstTitle = "您好，您的测量数据与标准值相差较大，您是否存在以下情况：";
     public static final String KEY_MEASURE_TYPE = "measureType";
     private int measureType;
     private HealthMeasureAbnormalBaseFragment baseFragment;

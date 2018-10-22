@@ -88,7 +88,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
                 if (mViewPager.getCurrentItem() >= 0) {
                     MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                            "主人" + mList.get(mViewPager.getCurrentItem()).questionName,
+                            "您好" + mList.get(mViewPager.getCurrentItem()).questionName,
                             false);
                 }
             }
@@ -170,7 +170,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
 
                         mViewPager.setAdapter(new MyFragmentAdapter(getSupportFragmentManager(), fragments));
                         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                               "主人" + mList.get(0).questionName,
+                               "您好" + mList.get(0).questionName,
                                 false);
                     }
 
@@ -200,7 +200,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
             return;
         } else {
             MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                    "主人" + mList.get(mViewPager.getCurrentItem() + 1).questionName,
+                    "您好" + mList.get(mViewPager.getCurrentItem() + 1).questionName,
                     false);
         }
         mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);

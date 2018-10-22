@@ -56,7 +56,7 @@ public class BaiKeActivtiy extends ToolBaseActivity {
     protected void initView() {
         setContentView(R.layout.activity_bai_ke_activtiy);
         ButterKnife.bind(this);
-        speak("主人,欢迎来到百科");
+        speak("您好,欢迎来到百科");
         initEvent();
     }
 
@@ -149,7 +149,7 @@ public class BaiKeActivtiy extends ToolBaseActivity {
 
             @Override
             public void onError(SpeechError speechError) {
-                speak("主人,我没有听清,你能再说一遍吗?");
+                speak("您好,我没有听清,你能再说一遍吗?");
             }
 
             @Override
@@ -179,14 +179,14 @@ public class BaiKeActivtiy extends ToolBaseActivity {
             @Override
             public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
                 if (!"baike".equals(service)) {
-                    speak("主人,没有找到" + result);
+                    speak("您好,没有找到" + result);
                     return;
                 }
                 try {
                     List<BaiKeBean> data = (List<BaiKeBean>) anwser;
                     BaikeResultActivity.startMe(BaiKeActivtiy.this, data, result);
                 } catch (Exception e) {
-                    speak("主人,没有找到" + result);
+                    speak("您好,没有找到" + result);
                 }
             }
         });

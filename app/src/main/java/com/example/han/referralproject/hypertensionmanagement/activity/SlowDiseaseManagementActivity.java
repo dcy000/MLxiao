@@ -88,7 +88,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(SlowDiseaseManagementActivity.this, WifiConnectActivity.class)));
-        mlSpeak("主人，欢迎来到健康方案");
+        mlSpeak("您好，欢迎来到健康方案");
     }
 
     @OnClick({R.id.iv_Hypertension_manage, R.id.iv_blood_sugar_manage})
@@ -210,8 +210,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         }
 //        高血压 high>=140 或 low>=90
 //        正常高值 140>high>=120 或 90>low>=80
-//        正常 90<=高压<120且60<=低压<80
-//        偏低 高压<90 或 低压<60
+//        正常 90<=收缩压<120且60<=舒张压<80
+//        偏低 收缩压<90 或 舒张压<60
         if (high >= 140 || low >= 90) {
             onHigh();
         } else if ((high < 140 && high >= 120) || (low < 90 && low >= 80)) {
@@ -344,7 +344,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         TwoChoiceDialog dialog = new TwoChoiceDialog("您是否诊断过原发性高血压，且正在进行高血压规范治疗？", "是", "否");
         dialog.setListener(this);
         dialog.show(getFragmentManager(), "yuanfa");
-        mlSpeak("主人，您是否已确诊高血压且在治疗？");
+        mlSpeak("您好，您是否已确诊高血压且在治疗？");
     }
 
     // TODO: 2018/9/19

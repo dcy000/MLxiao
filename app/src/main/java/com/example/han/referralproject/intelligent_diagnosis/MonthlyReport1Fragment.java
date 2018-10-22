@@ -80,7 +80,7 @@ public class MonthlyReport1Fragment extends Fragment implements OnChartValueSele
         tvYundongPercent.setText(bf_yundong * 100 + "%");
         tvYanPercent.setText(bf_yan * 100 + "%");
         tvTizhongPercent.setText(bf_tizhong * 100 + "%");
-        tvSuggest.setText(tips = "主人，根据您这一个月的健康日记和测量数据，为您统计出影响血压的主要因素：\n1."
+        tvSuggest.setText(tips = "您好，根据您这一个月的健康日记和测量数据，为您统计出影响血压的主要因素：\n1."
                 + healthCompares.get(0).tips + "\n2." + healthCompares.get(1).tips + "\n3." + healthCompares.get(2).tips
                 + "\n4." + healthCompares.get(3).tips);
         setChart(weeklyReport);

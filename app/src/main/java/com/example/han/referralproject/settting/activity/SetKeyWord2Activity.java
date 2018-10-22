@@ -60,16 +60,16 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
     public void getData(String s) {
 
         if (TextUtils.isEmpty(s)) {
-            speak("主人,我没有听清你能再说一遍吗?");
+            speak("您好,我没有听清你能再说一遍吗?");
             return;
         }
         if (containKeyWord(s, data)) {
-            speak("主人,你已添加了这个关键词");
+            speak("您好,你已添加了这个关键词");
             return;
         }
         saveData(s);
         SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
-        ToastUtils.showShort("主人,保存关键词:" + s + "成功");
+        ToastUtils.showShort("您好,保存关键词:" + s + "成功");
     }
 
     private void saveData(String s) {
@@ -137,7 +137,7 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
         mRightView.setVisibility(View.GONE);
         mRightText.setOnClickListener(this);
         imageView.setOnClickListener(this);
-        speak("主人,请录入您的关键词");
+        speak("您好,请录入您的关键词");
     }
 
     @Override
@@ -178,7 +178,7 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
 
             @Override
             public void onError(SpeechError speechError) {
-                speak("主人,我没听清,你能再说一遍吗");
+                speak("您好,我没听清,你能再说一遍吗");
             }
 
             @Override

@@ -69,6 +69,7 @@ dependencies {
     api project(':lib-voice')
     api project(':lib-utils')
     api project(':lib-widget')
+    api project(':lib-common-xien')
 
     api 'com.qiniu:qiniu-android-sdk:7.3.12'
     api('github.hellocsl:GalleryLayoutManager:1.0.6') {
