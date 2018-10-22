@@ -269,7 +269,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="敬请期待"
+                android:text="肺功能检测"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"

@@ -57,6 +57,7 @@ import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_PDF_Fragment;
 import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerpint_Fragment;
+import com.gcml.module_blutooth_devices.others.BreathHome_Fragment;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
@@ -208,6 +209,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             case IPresenter.CONTROL_FINGERPRINT:
                 if (baseFragment == null) {
                     baseFragment = new Fingerpint_Fragment();
+                }
+                break;
+            case IPresenter.MEASURE_BREATH_HOME:
+                if (baseFragment == null) {
+                    mTitleText.setText("肺 功 能 测 量");
+                    baseFragment = new BreathHome_Fragment();
                 }
                 break;
             default:
