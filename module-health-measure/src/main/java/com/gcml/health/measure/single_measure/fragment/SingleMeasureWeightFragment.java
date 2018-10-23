@@ -14,6 +14,7 @@ import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -54,10 +55,10 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
             //得到身高和体重，再计算一下体质
             if (mTvTizhi != null) {
                 CCResult call = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-                Observable<UserEntity> user =  call.getDataItem("data");
+                Observable<UserEntity> user = call.getDataItem("data");
                 user.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .as(RxUtils.autoDisposeConverter(this))
+                        .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                         .subscribe(new Consumer<UserEntity>() {
                             @Override
                             public void accept(UserEntity userEntity) throws Exception {
@@ -82,7 +83,7 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
                         });
 
             }
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量体重" + results[0] + "公斤",false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量体重" + results[0] + "公斤", false);
             ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData data = new DetectionData();
             //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
@@ -93,7 +94,7 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
             HealthMeasureRepository.postMeasureData(datas)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this))
+                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                     .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                         @Override
                         public void onNext(List<DetectionResult> o) {
@@ -105,7 +106,7 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showLong("数据上传失败:"+e.getMessage());
+                            ToastUtils.showLong("数据上传失败:" + e.getMessage());
                         }
 
                         @Override
@@ -114,20 +115,6 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
                         }
                     });
 
-//            HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-//                @Override
-//                public void onSuccess(String callbackString) {
-//                    ToastUtils.showLong("数据上传成功");
-//                    if (isMeasureTask && !mActivity.isFinishing()) {
-//                        mActivity.finish();
-//                    }
-//                }
-//
-//                @Override
-//                public void onError() {
-//                    ToastUtils.showLong("数据上传失败");
-//                }
-//            });
         }
     }
 

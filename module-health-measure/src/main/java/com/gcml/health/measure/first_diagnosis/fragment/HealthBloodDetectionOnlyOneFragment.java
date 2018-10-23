@@ -1,6 +1,7 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.Lifecycle;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,6 +19,7 @@ import com.gcml.health.measure.bloodpressure_habit.GetHypertensionHandActivity;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -79,7 +81,7 @@ public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment 
             HealthMeasureRepository.postMeasureData(datas)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this))
+                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                     .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                         @Override
                         public void onNext(List<DetectionResult> o) {

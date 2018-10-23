@@ -9,6 +9,7 @@ import com.gcml.health.measure.R;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -66,7 +67,7 @@ public class HealthTemperatureDetectionFragment extends Temperature_Fragment {
             HealthMeasureRepository.postMeasureData(datas)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this))
+                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                     .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                         @Override
                         public void onNext(List<DetectionResult> o) {
@@ -85,22 +86,6 @@ public class HealthTemperatureDetectionFragment extends Temperature_Fragment {
                         }
                     });
 
-//            HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-//                @Override
-//                public void onSuccess(String callbackString) {
-////                    if (fragmentChanged != null && !isJump2Next) {
-////                        isJump2Next = true;
-////                        fragmentChanged.onFragmentChanged(HealthTemperatureDetectionFragment.this, null);
-////                    }
-//                    setBtnClickableState(true);
-//                    ((FirstDiagnosisActivity) mActivity).putCacheData(data);
-//                }
-//
-//                @Override
-//                public void onError() {
-//                    ToastUtils.showShort("上传数据失败");
-//                }
-//            });
         }
     }
 

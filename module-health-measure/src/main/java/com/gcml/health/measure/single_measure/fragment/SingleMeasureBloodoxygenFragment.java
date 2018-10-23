@@ -7,6 +7,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -46,7 +47,7 @@ public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
             HealthMeasureRepository.postMeasureData(datas)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this))
+                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                     .subscribeWith(new DefaultObserver<Object>() {
                         @Override
                         public void onNext(Object o) {
@@ -55,7 +56,7 @@ public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showShort("上传数据失败:"+e.getMessage());
+                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
                         }
 
                         @Override
@@ -64,17 +65,6 @@ public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
                         }
                     });
 
-//            HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-//                @Override
-//                public void onSuccess(String callbackString) {
-//                    ToastUtils.showShort("上传数据成功");
-//                }
-//
-//                @Override
-//                public void onError() {
-//                    ToastUtils.showShort("上传数据失败");
-//                }
-//            });
         }
     }
 

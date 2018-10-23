@@ -39,8 +39,10 @@ public class HealthRecordECGFragment extends RecycleBaseFragment implements View
     public void refreshData(List<ECGHistory> response, String temp) {
         view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
         mXindiantu.setLayoutManager(new LinearLayoutManager(getContext()));
-        mXindiantu.setAdapter(new XindianAdapter(R.layout.health_record_item_message, response,
-                getResources().getStringArray(R.array.ecg_measureres)));
+        if (isAdded()){
+            mXindiantu.setAdapter(new XindianAdapter(R.layout.health_record_item_message, response,
+                    getResources().getStringArray(R.array.ecg_measureres)));
+        }
     }
 
     public void refreshErrorData(String message) {
@@ -53,7 +55,6 @@ public class HealthRecordECGFragment extends RecycleBaseFragment implements View
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            //TODO:跳转到测量界面
             CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_ECG);
         } else {
         }

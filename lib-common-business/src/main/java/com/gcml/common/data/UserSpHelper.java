@@ -305,4 +305,12 @@ public class UserSpHelper {
                     .edit().clear().apply();
         }
     }
+
+    /**
+     * 只清除用户id和惯用手信息
+     */
+    public static void clearPartData(){
+        SPUtil.remove(KEY_USER_ID);
+        SPUtil.remove(KEY_USER_HYPERTENSIONHAND);
+    }
 }

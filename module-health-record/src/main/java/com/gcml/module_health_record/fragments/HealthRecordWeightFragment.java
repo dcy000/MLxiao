@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -66,7 +67,8 @@ public class HealthRecordWeightFragment extends RecycleBaseFragment implements V
         mChart = view.findViewById(R.id.chart);
         mRgXuetangTime.setVisibility(View.GONE);
         //指示器的颜色
-        mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
+//        mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
+        mColor1.setBackgroundColor(ContextCompat.getColor(UtilsManager.getApplication(), R.color.health_record_node_color));
         mIndicator1.setText("体重(Kg)");
         mLlSecond.setVisibility(View.GONE);
 
@@ -155,7 +157,8 @@ public class HealthRecordWeightFragment extends RecycleBaseFragment implements V
 //                    if (response.get(i).temper_ature > 37.2 || response.get(i).temper_ature < 36.0) {//超出正常范围的数据用红色表明
 //                        colors.add(Color.RED);
 //                    } else {
-            colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
+//            colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
+            colors.add(ContextCompat.getColor(UtilsManager.getApplication(), R.color.health_record_node_text_color));//正常字体的颜色
 //                    }
             values.add(new Entry(i, response.get(i).weight));
             times.add(response.get(i).time);
@@ -194,9 +197,11 @@ public class HealthRecordWeightFragment extends RecycleBaseFragment implements V
                 //走势线的样式
 //            set1.enableDashedLine(10f, 0f, 0f);
                 //走势线的颜色
-                set1.setColor(getResources().getColor(R.color.health_record_line_color));
+//                set1.setColor(getResources().getColor(R.color.health_record_line_color));
+                set1.setColor(ContextCompat.getColor(UtilsManager.getApplication(), R.color.health_record_line_color));
                 //节点圆圈的颜色
-                set1.setCircleColor(getResources().getColor(R.color.health_record_node_color));
+//                set1.setCircleColor(getResources().getColor(R.color.health_record_node_color));
+                set1.setCircleColor(ContextCompat.getColor(UtilsManager.getApplication(), R.color.health_record_node_color));
 
                 //走势线的粗细
                 set1.setLineWidth(6f);
@@ -249,7 +254,6 @@ public class HealthRecordWeightFragment extends RecycleBaseFragment implements V
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            //TODO:跳转到测量界面
             CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_WEIGHT);
         } else {
         }
