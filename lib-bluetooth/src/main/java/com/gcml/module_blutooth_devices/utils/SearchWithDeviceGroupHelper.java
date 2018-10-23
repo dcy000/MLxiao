@@ -6,16 +6,14 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.gcml.lib_utils.permission.PermissionsManager;
-import com.gcml.lib_utils.permission.PermissionsResultAction;
+import com.gcml.common.utils.permission.PermissionsManager;
+import com.gcml.common.utils.permission.PermissionsResultAction;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
-import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Chaosi_PresenterImp;
-import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Kangtai_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Self_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Chaosi_PresenterImp;

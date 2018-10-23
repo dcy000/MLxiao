@@ -2,7 +2,7 @@ package com.gcml.common.data;
 
 import android.text.TextUtils;
 
-import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.common.utils.data.SPUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

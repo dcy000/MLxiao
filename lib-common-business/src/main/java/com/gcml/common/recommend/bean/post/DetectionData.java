@@ -1,7 +1,6 @@
 package com.gcml.common.recommend.bean.post;
 
-import com.gcml.common.utils.Utils;
-import com.gcml.lib_utils.device.DeviceUtils;
+import com.gcml.common.utils.device.DeviceUtils;
 
 import java.io.Serializable;
 

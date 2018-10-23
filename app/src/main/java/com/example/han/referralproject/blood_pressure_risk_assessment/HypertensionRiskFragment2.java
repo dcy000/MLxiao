@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.HypertensionDetection;
 import com.example.han.referralproject.bean.QuestionChoosed;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;

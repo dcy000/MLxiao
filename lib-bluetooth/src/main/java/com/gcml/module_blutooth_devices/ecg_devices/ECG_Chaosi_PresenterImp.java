@@ -1,12 +1,10 @@
 package com.gcml.module_blutooth_devices.ecg_devices;
 
-import android.app.Activity;
 import android.os.CountDownTimer;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 
-import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.handler.WeakHandler;
+import com.gcml.common.utils.data.SPUtil;
+import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;

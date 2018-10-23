@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gcml.lib_utils.click.ClickEventListener;
+import com.gcml.common.utils.click.ClickEventListener;
 
 import java.util.List;
 

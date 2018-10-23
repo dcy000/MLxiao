@@ -11,6 +11,8 @@ import com.gcml.common.widget.dialog.IconDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.dialog.SheetDialog;
 
+import timber.log.Timber;
+
 public class DialogActivity extends AppCompatActivity {
 
     @Override
@@ -21,17 +23,26 @@ public class DialogActivity extends AppCompatActivity {
     }
 
     public void showAlertDialog(View view) {
-        new AlertDialog(DialogActivity.this).builder()
-                .setMsg("AlertDialog默认样式")
-                .setNegativeButton("取消", new View.OnClickListener() {
+//        new AlertDialog(DialogActivity.this).builder()
+//                .setMsg("AlertDialog默认样式")
+//                .setNegativeButton("取消", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    }
+//                })
+//                .setPositiveButton("确认", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    }
+//                }).show();
+        new AlertDialog(this).builder()
+                .setMsg("主人，您已完成风险评估，为了更好的体验，您可以通过每日任务引导开启健康之旅。")
+                .setPositiveButton("开始体验", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                    }
-                })
-                .setPositiveButton("确认", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                        Timber.e("点击了主页面");
 
                     }
                 }).show();

@@ -40,7 +40,7 @@ import com.gcml.common.repository.imageloader.ImageLoader;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 

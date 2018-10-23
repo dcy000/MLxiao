@@ -63,4 +63,14 @@
 
     <color name="commonTextColorDiseaseUnselected">#929292</color>
     <color name="commonTextColorDiseaseSelected">@android:color/white</color>
+
+    <color name="primary_text">#de000000</color>
+    <color name="secondary_text">#8a000000</color>
+    <color name="hint_text">#61000000</color>
+    <color name="dividers">#1f000000</color>
+    <color name="white">#FFFFFF</color>
+    <!--导航栏的背景颜色-->
+    <color name="common_toolbar_bg">#3F86FC</color>
+    <color name="common_toolbar_pressed">#33000000</color>
+    <color name="common_toolbar_normal">#00000000</color>
 </resources>

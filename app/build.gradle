@@ -106,13 +106,12 @@ dependencies {
     //cc
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:support-v4:27.1.1'
-//    addComponent 'module-face_recognition'
-    addComponent 'lib-recreation'
-    addComponent 'module-health_measure'
-    addComponent 'lib-auth'
+    addComponent 'module-recreation'
+    addComponent 'module-health-measure'
+    addComponent 'module-auth'
     addComponent 'lib-auth-face'
-    addComponent 'lib-task'
-    addComponent 'lib-mall'
+    addComponent 'module-task'
+    addComponent 'module-mall'
     addComponent 'module-video'
 
     implementation project(":lib-common-business")
@@ -121,19 +120,14 @@ dependencies {
         implementation project(":lib-common-app")
     }
     //lib
-//    implementation project(':wkvideoplayer')
     implementation project(':lib-widget')
     implementation project(':module-edu')
-//    implementation project(':lib-video-player')
-    implementation project(':unit')
+    implementation project(':lib-baidu-unit')
     implementation(project(':lib-bluetooth')) { exclude group: "com.android.support" }
     implementation project(':lib-pay-beecloud')
     implementation project(':lib-progress-orb')
-    implementation project(':expand-textview-library')
-    implementation project(':circleindicator')
-    implementation project(':module-control_volume')
-    implementation project(':module-health_record')
-    implementation project(':lib-utils')
+    implementation project(':module-control-volume')
+    implementation project(':module-health-record')
     implementation project(':lib-music-player')
     implementation project(':lib-video')
     //aar

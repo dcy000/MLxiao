@@ -56,7 +56,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.XueyaUtils;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 

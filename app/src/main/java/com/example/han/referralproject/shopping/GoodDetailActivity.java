@@ -23,7 +23,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.squareup.picasso.Picasso;
 

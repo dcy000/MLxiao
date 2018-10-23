@@ -17,7 +17,7 @@ import com.example.han.referralproject.children.model.StoryModel;
 import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.speechsynthesis.QaApi;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.medlink.danbogh.utils.Handlers;
 
 import java.util.ArrayList;

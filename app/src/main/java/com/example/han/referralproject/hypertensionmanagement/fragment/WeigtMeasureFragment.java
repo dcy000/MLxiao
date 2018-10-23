@@ -1,27 +1,6 @@
 package com.example.han.referralproject.hypertensionmanagement.fragment;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.example.han.referralproject.R;
-import com.example.han.referralproject.health.intelligentdetection.DataCacheFragment;
 import com.example.han.referralproject.health.intelligentdetection.HealthWeightDetectionFragment;
-import com.example.han.referralproject.health.intelligentdetection.entity.DetectionData;
-import com.example.han.referralproject.health.model.DetailsModel;
-import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
-import com.gcml.common.data.AppManager;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkCallback;
-import com.gcml.lib_utils.display.ToastUtils;
-
-import java.util.ArrayList;
 
 /**
  * Created by lenovo on 2018/7/30.

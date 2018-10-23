@@ -9,7 +9,7 @@ import android.os.Build;
 import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 
-import com.gcml.lib_utils.ui.ScreenUtils;
+import com.gcml.common.utils.ui.ScreenUtils;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;

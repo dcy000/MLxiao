@@ -2,6 +2,7 @@ package com.gcml.common.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.Spanned;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -81,6 +82,16 @@ public class AlertDialog {
             } else {
                 txt_msg.setGravity(Gravity.CENTER_VERTICAL);
             }
+        }
+        return this;
+    }
+
+    public AlertDialog setMsg(Spanned spanned){
+        showMsg=true;
+        if (spanned==null){
+            txt_msg.setText("内容");
+        }else{
+            txt_msg.setText(spanned);
         }
         return this;
     }

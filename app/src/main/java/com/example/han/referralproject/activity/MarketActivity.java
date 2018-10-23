@@ -20,10 +20,9 @@ import com.example.han.referralproject.market.network.GoodsRepository;
 import com.example.han.referralproject.market.network.bean.GoodsTypeBean;
 import com.example.han.referralproject.searchmaket.activity.SearchGoodsActivity;
 import com.gcml.common.recommend.fragment.RencommendForMarketFragment;
-import com.gcml.common.recommend.fragment.RencommendForUserFragment;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
-import com.gcml.lib_utils.ui.UiUtils;
 
 import java.util.ArrayList;
 import java.util.List;

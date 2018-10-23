@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.contec.cms50dj_jar.DeviceCommand;
 import com.contec.cms50dj_jar.DevicePackManager;
-import com.gcml.lib_utils.thread.ThreadUtils;
+import com.gcml.common.utils.thread.ThreadUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;

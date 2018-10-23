@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.gcml.lib_utils.data.StringUtil;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.data.StringUtil;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.VoiceLineView;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;

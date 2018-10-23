@@ -4,8 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.gcml.common.app.lifecycle.AppLifecycleCallbacks;
-import com.gcml.lib_utils.UtilsManager;
-import com.gcml.lib_utils.ui.UiUtils;
+import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.ui.UiUtils;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 

@@ -21,7 +21,7 @@ import com.example.han.referralproject.children.model.SongModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicUtils;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;

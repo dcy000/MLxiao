@@ -16,9 +16,9 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.cc.CCVideoActions;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.lib_utils.permission.PermissionsManager;
-import com.gcml.lib_utils.permission.PermissionsResultAction;
-import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
+import com.gcml.common.utils.network.WiFiUtil;
+import com.gcml.common.utils.permission.PermissionsManager;
+import com.gcml.common.utils.permission.PermissionsResultAction;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
@@ -28,8 +28,6 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
-import com.example.module_control_volume.VolumeControlFloatwindow;
-import com.gcml.lib_utils.network.WiFiUtil;
 
 import java.util.ArrayList;
 

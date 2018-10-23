@@ -2,8 +2,7 @@ package com.gcml.module_blutooth_devices.bloodpressure_devices;
 
 import android.util.Log;
 
-import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.handler.WeakHandler;
+import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
@@ -12,7 +11,6 @@ import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
-import com.inuker.bluetooth.library.utils.ByteUtils;
 
 import java.util.List;
 import java.util.UUID;

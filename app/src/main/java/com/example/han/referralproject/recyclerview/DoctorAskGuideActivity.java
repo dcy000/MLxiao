@@ -14,7 +14,7 @@ import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.medlink.danbogh.utils.FastClickUtil;
 
 public class DoctorAskGuideActivity extends BaseActivity implements View.OnClickListener {

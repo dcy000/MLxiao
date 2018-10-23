@@ -24,7 +24,7 @@ import android.bluetooth.BluetoothSocket;
 import android.os.Build;
 import android.util.Log;
 
-import com.gcml.lib_utils.handler.WeakHandler;
+import com.gcml.common.utils.handler.WeakHandler;
 
 import java.io.IOException;
 import java.io.InputStream;

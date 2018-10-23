@@ -12,7 +12,7 @@ import com.example.han.referralproject.health.intelligentdetection.entity.Detect
 import com.example.han.referralproject.hypertensionmanagement.activity.WeightMeasureActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkCallback;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 
 import java.util.ArrayList;
 

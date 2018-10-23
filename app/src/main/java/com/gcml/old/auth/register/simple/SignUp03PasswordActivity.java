@@ -14,13 +14,12 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.gcml.lib_utils.display.ToastUtils;
-import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.regex.Matcher;

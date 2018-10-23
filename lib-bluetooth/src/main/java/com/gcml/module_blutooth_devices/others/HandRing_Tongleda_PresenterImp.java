@@ -1,13 +1,10 @@
 package com.gcml.module_blutooth_devices.others;
 
 import android.annotation.SuppressLint;
-import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
-import com.gcml.module_blutooth_devices.base.BluetoothServiceDetail;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.yc.pedometer.info.BPVOneDayInfo;

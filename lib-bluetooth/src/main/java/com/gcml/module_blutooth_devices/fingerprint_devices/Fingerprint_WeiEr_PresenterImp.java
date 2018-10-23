@@ -8,10 +8,9 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.display.ImageUtils;
+import com.gcml.common.utils.data.SPUtil;
+import com.gcml.common.utils.display.ImageUtils;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
-import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;

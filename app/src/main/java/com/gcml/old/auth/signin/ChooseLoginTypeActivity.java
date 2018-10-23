@@ -21,7 +21,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.old.auth.register.SignUp1NameActivity;
 import com.gcml.old.auth.register.simple.SignUp01NameActivity;
 
