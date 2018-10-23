@@ -162,7 +162,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             e.printStackTrace();
         }
         if (!TextUtils.isEmpty(channel)){
-            if (!"gcml_version_normal".equals(channel)){
+            if (channel.equals("gcml_version_normal")){
                 if (measureType == IPresenter.MEASURE_ECG) {
                     XinDianDetectActivity.startActivity(this,
                             MeasureChooseDeviceActivity.class.getSimpleName(),getIntent().getBooleanExtra(IS_FACE_SKIP,false));

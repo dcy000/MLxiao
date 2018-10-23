@@ -23,6 +23,7 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.hp.hpl.sparta.xpath.TrueExpr;
 import com.medlink.danbogh.call2.NimAccountHelper;
 
 import java.util.ArrayList;
@@ -64,6 +65,8 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         initFragments();
         initViewpage();
         initAToken();
+        //启动音量控制悬浮按钮
+        VolumeControlFloatwindow.init(this.getApplicationContext());
     }
 
     private void initAToken() {
@@ -148,8 +151,6 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
 
     @Override
     protected void onResume() {
-        //启动音量控制悬浮按钮
-        VolumeControlFloatwindow.init(this.getApplicationContext());
         setEnableListeningLoop(false);
         super.onResume();
         getPersonInfo();
