@@ -1,5 +1,6 @@
 package com.gcml.common.data;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.gcml.common.utils.data.SPUtil;
@@ -293,5 +294,15 @@ public class UserSpHelper {
             return false;
         }
         return (boolean) SPUtil.get(userId + KEY_IS_FIRST_RISK_ASSESSMENT, false);
+    }
+
+    public static void clear(Context context) {
+        SPUtil.clear();
+        if (context != null) {
+            context.getSharedPreferences("com.iflytek.setting", Context.MODE_PRIVATE)
+                    .edit().clear().apply();
+            context.getSharedPreferences("doctor_message", Context.MODE_PRIVATE)
+                    .edit().clear().apply();
+        }
     }
 }

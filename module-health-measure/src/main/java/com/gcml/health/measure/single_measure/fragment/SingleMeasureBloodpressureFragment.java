@@ -50,8 +50,9 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     private int highPressure;
     private int lowPressure;
     private boolean isMeasureTask = false;
-    private boolean hasHypertensionHand=false;
-    private boolean isOnPause=false;
+    private boolean hasHypertensionHand = false;
+    private boolean isOnPause = false;
+
     public SingleMeasureBloodpressureFragment() {
     }
 
@@ -67,12 +68,12 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
      */
     private void getHypertensionHand() {
         String userHypertensionHand = UserSpHelper.getUserHypertensionHand();
-        Timber.i("SingleMeasureBloodpressureFragment惯用手："+userHypertensionHand);
+        Timber.i("SingleMeasureBloodpressureFragment惯用手：" + userHypertensionHand);
         if (TextUtils.isEmpty(userHypertensionHand)) {
             //还没有录入惯用手，则跳转到惯用手录入activity
             GetHypertensionHandActivity.startActivityForResult(this, CODE_REQUEST_GETHYPERTENSIONHAND);
         } else {
-            hasHypertensionHand=true;
+            hasHypertensionHand = true;
             if ("0".equals(userHypertensionHand)) {
                 showHypertensionHandDialog("左手");
             } else if ("1".equals(userHypertensionHand)) {
@@ -96,7 +97,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
-        if (results.length == 3&&!isOnPause) {
+        if (results.length == 3 && !isOnPause) {
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
 
             datas = new ArrayList<>();
@@ -184,7 +185,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "onError: "+e.getMessage() );
+                        Log.e(TAG, "onError: " + e.getMessage());
                     }
 
                     @Override
@@ -196,16 +197,17 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     }
 
     private static final String TAG = "SingleMeasureBloodpress";
+
     @Override
     public void onResume() {
         super.onResume();
-        isOnPause=false;
+        isOnPause = false;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        isOnPause=true;
+        isOnPause = true;
     }
 
     @Override

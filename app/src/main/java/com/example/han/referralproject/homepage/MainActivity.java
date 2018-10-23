@@ -64,6 +64,8 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
         initFragments();
         initViewpage();
         initAToken();
+        //启动音量控制悬浮按钮
+        VolumeControlFloatwindow.init(this.getApplicationContext());
     }
 
     private void initAToken() {
@@ -148,8 +150,6 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
 
     @Override
     protected void onResume() {
-        //启动音量控制悬浮按钮
-        VolumeControlFloatwindow.init(this.getApplicationContext());
         setEnableListeningLoop(false);
         super.onResume();
         getPersonInfo();

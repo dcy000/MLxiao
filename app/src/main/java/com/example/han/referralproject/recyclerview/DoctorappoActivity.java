@@ -1322,7 +1322,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                 allReservationHistory.addAll(response);
                 mYuYueInfoList.clear();
                 for (int i = 0; i < response.size(); i++) {
-                    if ("未接受".equals(response.get(i).getState())) {
+                    if ("未接受".equals(response.get(i).getState())
+                            || "已接受".equals(response.get(i).getState())) {
                         mYuYueInfoList.add(response.get(i));
                     }
                 }

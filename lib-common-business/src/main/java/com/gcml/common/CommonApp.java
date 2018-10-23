@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.gcml.common.app.lifecycle.AppLifecycleCallbacks;
+import com.gcml.common.utils.JPushMessageHelper;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.ui.UiUtils;
 import com.iflytek.cloud.SpeechConstant;
@@ -28,6 +29,8 @@ public class CommonApp implements AppLifecycleCallbacks {
                 .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
 
         SpeechUtility.createUtility(app, builder.toString());
+
+        JPushMessageHelper.init();
     }
 
     @Override

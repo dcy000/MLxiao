@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.bus.RxBus;
+import com.gcml.common.data.MessageBean;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,26 +41,22 @@ public class MyReceiver extends BroadcastReceiver {
 
             } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
                 Timber.tag(TAG).d("[MyReceiver] 接收到推送下来的自定义消息: %s", bundle.getString(JPushInterface.EXTRA_MESSAGE));
-//				processCustomMessage(context, bundle);
-//				ToastUtil.showShort(MyApplication.getInstance().getApplicationContext(),bundle.getString(JPushInterface.EXTRA_MESSAGE));
-                jPushLitener.onReceive(bundle.getString(JPushInterface.EXTRA_TITLE), bundle.getString(JPushInterface.EXTRA_MESSAGE));
+
+                //发送消息到BaseActivity
+                RxBus.getDefault().post(new MessageBean(bundle.getString(JPushInterface.EXTRA_TITLE),
+                        bundle.getString(JPushInterface.EXTRA_MESSAGE)));
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
                 Timber.tag(TAG).d("[MyReceiver] 接收到推送下来的通知");
                 int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
                 Timber.tag(TAG).d("[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-
                 ToastUtils.showShort(bundle.getString(JPushInterface.EXTRA_ALERT));
-                jPushLitener.onReceive(bundle.getString(JPushInterface.EXTRA_TITLE), bundle.getString(JPushInterface.EXTRA_ALERT));
+
+                //发送消息到BaseActivity
+                RxBus.getDefault().post(new MessageBean(bundle.getString(JPushInterface.EXTRA_TITLE),
+                        bundle.getString(JPushInterface.EXTRA_ALERT)));
 
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
                 Timber.tag(TAG).d("[MyReceiver] 用户点击打开了通知");
-
-//				//打开自定义的Activity
-//				Intent i = new Intent(context, TestActivity.class);
-//				i.putExtras(bundle);
-//				//i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
-//				context.startActivityForResult(i);
 
             } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
                 Timber.tag(TAG).d("[MyReceiver] 用户收到到RICH PUSH CALLBACK: %s", bundle.getString(JPushInterface.EXTRA_EXTRA));
@@ -70,8 +68,9 @@ public class MyReceiver extends BroadcastReceiver {
             } else {
                 Timber.tag(TAG).d("[MyReceiver] Unhandled intent - %s", intent.getAction());
             }
-        } catch (Exception e) {
 
+        } catch (Exception e) {
+            Timber.tag(TAG).e("MyReceiver:" + e);
         }
 
     }

@@ -101,13 +101,16 @@ public class MLVoiceRecognize {
         speechRecognizer.setParameter(SpeechConstant.ASR_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/iat.wav");
 
         // 设置语音前端点:静音超时时间，即用户多长时间不说话则当做超时处理
-        speechRecognizer.setParameter(SpeechConstant.VAD_BOS, mTtsSharedPreferences.getString("iat_vadbos_preference", "5000"));
+//        speechRecognizer.setParameter(SpeechConstant.VAD_BOS, mTtsSharedPreferences.getString("iat_vadbos_preference", "5000"));
+        speechRecognizer.setParameter(SpeechConstant.VAD_BOS, "5000");
 
         // 设置语音后端点:后端点静音检测时间，即用户停止说话多长时间内即认为不再输入， 自动停止录音
-        speechRecognizer.setParameter(SpeechConstant.VAD_EOS, mTtsSharedPreferences.getString("iat_vadeos_preference", "500"));
+//        speechRecognizer.setParameter(SpeechConstant.VAD_EOS, mTtsSharedPreferences.getString("iat_vadeos_preference", "1500"));
+        speechRecognizer.setParameter(SpeechConstant.VAD_EOS, "1500");
 
         // 设置标点符号,设置为"0"返回结果无标点,设置为"1"返回结果有标点
-        speechRecognizer.setParameter(SpeechConstant.ASR_PTT, mTtsSharedPreferences.getString("iat_punc_preference", "0"));
+//        speechRecognizer.setParameter(SpeechConstant.ASR_PTT, mTtsSharedPreferences.getString("iat_punc_preference", "0"));
+        speechRecognizer.setParameter(SpeechConstant.ASR_PTT, "0");
 
         String language = mTtsSharedPreferences.getString("iat_language_preference", "mandarin");
 
@@ -217,6 +220,7 @@ public class MLVoiceRecognize {
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
         if (recognizer != null) {
             recognizer.stopListening();
+            recognizer.cancel();
         }
     }
 

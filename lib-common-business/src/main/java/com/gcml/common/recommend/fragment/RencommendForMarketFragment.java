@@ -9,12 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.business.R;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.recommend.adapter.RecommendAdapter;
 import com.gcml.common.recommend.adapter.RecommendRorMarketAdapter;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.recommend.network.RecommendRepository;
@@ -37,7 +37,7 @@ public class RencommendForMarketFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
-
+    private View noDataView;
     private TextView tvLookMore;
     private TextView tvCommendText;
     private RecyclerView rvCommendGoods;
@@ -85,6 +85,8 @@ public class RencommendForMarketFragment extends Fragment {
         tvLookMore = (TextView) view.findViewById(R.id.tv_look_more);
         rvCommendGoods = (RecyclerView) view.findViewById(R.id.rv_commend_goods);
 
+        noDataView = (RelativeLayout) view.findViewById(R.id.view_market_no_data);
+        noDataView.setVisibility(View.GONE);
         tvLookMore.setOnClickListener(v -> {
             CC.obtainBuilder("com.gcml.market").build().call();
         });
@@ -127,7 +129,20 @@ public class RencommendForMarketFragment extends Fragment {
                     @Override
                     public void onNext(List<GoodBean> goodBeans) {
                         rvCommendGoods.setAdapter(new RecommendRorMarketAdapter(R.layout.layout_recommend_market_item, goodBeans));
+
+                        if (goodBeans == null || goodBeans.size() == 0) {
+                            noDataView.setVisibility(View.VISIBLE);
+                        }
+
                     }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        noDataView.setVisibility(View.VISIBLE);
+                    }
+
+
                 });
 
     }
