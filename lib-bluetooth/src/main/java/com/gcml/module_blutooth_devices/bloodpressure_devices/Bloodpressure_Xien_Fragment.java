@@ -52,13 +52,14 @@ public class Bloodpressure_Xien_Fragment extends BluetoothBaseFragment implement
      */
     protected TextView mBtnVideoDemo;
     private Bundle bundle;
-    private BaseBluetoothPresenter baseBluetoothPresenter;
+    private Bloodpressure_Xien_PresenterImp baseBluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
     private int highId;
     private int lowId;
     private ConstraintSet highSet;
     private ConstraintSet lowSet;
     private ConstraintLayout clPressure;
+    protected boolean onResume=true;
 
     @Override
     protected int initLayout() {
@@ -83,7 +84,9 @@ public class Bloodpressure_Xien_Fragment extends BluetoothBaseFragment implement
     @Override
     public void onResume() {
         super.onResume();
-        dealLogic();
+        if (onResume){
+            dealLogic();
+        }
     }
 
     public void dealLogic() {

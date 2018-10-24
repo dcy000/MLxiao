@@ -23,6 +23,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
+import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Xien_Fragment;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
@@ -144,8 +145,14 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
         String nameAddress = null;
         nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
         SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
-        ((Bloodpressure_Fragment) fragment).onStop();
-        ((Bloodpressure_Fragment) fragment).dealLogic();
+        if (ChannelManagementUtil.isXien()){
+            ((Bloodpressure_Xien_Fragment) fragment).onStop();
+            ((Bloodpressure_Xien_Fragment) fragment).dealLogic();
+        }else{
+            ((Bloodpressure_Fragment) fragment).onStop();
+            ((Bloodpressure_Fragment) fragment).dealLogic();
+        }
+
 
         clearBluetoothCache(nameAddress);
     }
