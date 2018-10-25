@@ -32,14 +32,14 @@ import com.clj.fastble.callback.BleScanCallback;
 import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.clj.fastble.scan.BleScanRuleConfig;
-import com.gcml.lib_utils.data.DataUtils;
-import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.data.StreamUtils;
-import com.gcml.lib_utils.data.TimeUtils;
-import com.gcml.lib_utils.display.LoadingProgressUtils;
-import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.handler.WeakHandler;
-import com.gcml.lib_utils.thread.ThreadUtils;
+import com.gcml.common.utils.data.DataUtils;
+import com.gcml.common.utils.data.SPUtil;
+import com.gcml.common.utils.data.StreamUtils;
+import com.gcml.common.utils.data.TimeUtils;
+import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.handler.WeakHandler;
+import com.gcml.common.utils.thread.ThreadUtils;
+import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
@@ -68,13 +68,18 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
     private List<byte[]> bytesResult;
     private WeakHandler weakHandler;
     private static final int MESSAGE_DEAL_BYTERESULT = 1;
+    private LoadingDialog mLoadingDialog;
     private boolean isLoginBoShengSuccess=false;
     private final Handler.Callback weakRunnable = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case MESSAGE_DEAL_BYTERESULT:
-                    LoadingProgressUtils.showViewWithLabel(baseContext, LoadingProgressUtils.LABEL.ON_ANALYSIS_DATA);
+                    mLoadingDialog = new LoadingDialog.Builder(baseContext)
+                            .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                            .setTipWord("正在分析数据...")
+                            .create();
+                    mLoadingDialog.show();
                     ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<byte[]>() {
                         @Nullable
                         @Override
@@ -415,7 +420,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                         AddRecordResult entity = addRecordResultBorsamResponse.getEntity();
                         Log.i(TAG, "onSuccess: 分析数据"+entity.getExt()+"\n----Report:"
                                 +entity.getFile_report()+"\n-----Url:"+entity.getFile_url() );
-                        LoadingProgressUtils.dismissView();
+                        mLoadingDialog.dismiss();
                         baseView.updateData(fileNo, entity.getFile_url(), entity.getFile_report());
                     }
 

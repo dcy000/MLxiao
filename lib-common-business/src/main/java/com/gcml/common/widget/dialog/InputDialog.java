@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.common.business.R;
-import com.gcml.lib_utils.display.ToastUtils;
 
 /**
  * 作者：wecent
@@ -108,6 +107,25 @@ public class InputDialog {
             txt_msg.setText("内容");
         } else {
             txt_msg.setText(msg);
+        }
+        return this;
+    }
+
+    public InputDialog setMsgColor(int color) {
+        showMsg = true;
+        if (color != 0) {
+            txt_msg.setTextColor(color);
+        } else {
+            txt_msg.setTextColor(context.getResources().getColor(R.color.config_color_appthema));
+        }
+        return this;
+    }
+
+    public InputDialog setEditHint(String msg) {
+        if ("".equals(msg)) {
+            edit_input.setHint("请输入内容");
+        } else {
+            edit_input.setHint(msg);
         }
         return this;
     }

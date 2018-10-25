@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
-import com.gcml.lib_utils.network.NetUitls;
+import com.gcml.common.utils.network.NetUitls;
 
 
 /**

@@ -16,8 +16,8 @@ import com.billy.cc.core.component.CC;
 import com.gcml.common.business.R;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.lib_utils.display.KeyboardUtils;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.KeyboardUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Locale;

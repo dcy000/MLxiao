@@ -1,38 +1,34 @@
 include ':app',
-        ':lib-common-xien',
-        ':lib-auth-face',
-        ':module-video',
-        ':lib-recreation',
-        ':lib-pay-beecloud',
-        ':module-edu',
-        ':lib-music-player',
-        ':lib-progress-orb',
-//        ':wkvideoplayer',
-//        ':lib-rulerview',
-//        ':lib-video-player',
-        ':lib-voice',
-        ':lib-widget',
-        ':unit',
-        ':test_all_devices',
-        ':lib-utils',
-        ':module-control_volume',
-        ':module-health_record',
-        ':module-face_recognition'
-
-include ':expand-textview-library'
-include ':circleindicator'
-include ':lib-video'
-include ':lib-bluetooth'
-
-include ':lib-common-core',
+        ':app-component',
+        ':lib-common-core',
         ':lib-common-business',
         ':lib-common-app',
-        ':app-component',
-        ':component-cc',
-        ':lib-call',
-        ':lib-mall',
-        ':lib-task',
+        ':lib-common-xien',
+        ':component-cc'
+
+// 支持模块
+include ':lib-auth-face',
+        ':lib-baidu-unit',
         ':lib-mlvoice',
-        ':lib-auth',
-        ':module-health_measure'
+        ':lib-call',
+        ':lib-pay-beecloud',
+        ':lib-music-player',
+        ':lib-progress-orb',
+        ':lib-voice',
+        ':lib-widget',
+        ':lib-bluetooth',
+        ':lib-video'
+
+// 业务模块
+include ':module-video',
+        ':module-family',
+        ':module-mall',
+        ':module-task',
+        ':module-auth',
+        ':module-health-measure',
+        ':module-control-volume',
+        ':module-health-record',
+        ':module-edu',
+        ':module-recreation',
+        ':module-family'
 

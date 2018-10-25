@@ -8,9 +8,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.display.ImageUtils;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.data.SPUtil;
+import com.gcml.common.utils.display.ImageUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;

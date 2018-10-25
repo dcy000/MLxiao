@@ -1,13 +1,10 @@
 package com.gcml.module_blutooth_devices.others;
 
 import android.annotation.SuppressLint;
-import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
-import com.gcml.module_blutooth_devices.base.BluetoothServiceDetail;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.yc.pedometer.info.BPVOneDayInfo;
@@ -92,7 +89,7 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
             if (bloodPressureOneDayInfo != null && bloodPressureOneDayInfo.size() > 0) {
                 int hightBloodPressure = bloodPressureOneDayInfo.get(bloodPressureOneDayInfo.size() - 1).getHightBloodPressure();
                 int lowBloodPressure = bloodPressureOneDayInfo.get(bloodPressureOneDayInfo.size() - 1).getLowBloodPressure();
-                ToastUtils.showShort("高压：" + hightBloodPressure + ",低压：" + lowBloodPressure);
+                ToastUtils.showShort("收缩压：" + hightBloodPressure + ",舒张压：" + lowBloodPressure);
 
             }
         }

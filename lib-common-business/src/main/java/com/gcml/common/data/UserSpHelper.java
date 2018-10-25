@@ -3,7 +3,7 @@ package com.gcml.common.data;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.common.utils.data.SPUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -304,5 +304,13 @@ public class UserSpHelper {
             context.getSharedPreferences("doctor_message", Context.MODE_PRIVATE)
                     .edit().clear().apply();
         }
+    }
+
+    /**
+     * 只清除用户id和惯用手信息
+     */
+    public static void clearPartData(){
+        SPUtil.remove(KEY_USER_ID);
+        SPUtil.remove(KEY_USER_HYPERTENSIONHAND);
     }
 }

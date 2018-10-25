@@ -2,7 +2,6 @@ package com.gcml.module_blutooth_devices.base;
 
 import android.content.Context;
 
-import com.gcml.lib_utils.display.ToastUtils;
 import com.inuker.bluetooth.library.BluetoothClient;
 
 /**

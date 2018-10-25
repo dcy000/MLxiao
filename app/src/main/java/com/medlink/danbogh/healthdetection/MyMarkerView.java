@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.BloodPressureHistory;
-import com.gcml.lib_utils.data.TimeUtils;
+import com.gcml.common.utils.data.TimeUtils;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.Entry;

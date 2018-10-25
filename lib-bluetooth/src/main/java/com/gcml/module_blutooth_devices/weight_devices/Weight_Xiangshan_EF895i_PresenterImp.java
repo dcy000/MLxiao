@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
-import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;

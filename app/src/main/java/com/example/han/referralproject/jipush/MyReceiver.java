@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.bus.RxBus;
 import com.gcml.common.data.MessageBean;
-import com.gcml.lib_utils.display.ToastUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -107,5 +107,35 @@ public class MyReceiver extends BroadcastReceiver {
             }
         }
         return sb.toString();
+    }
+
+    //send msg to MainActivity
+//	private void processCustomMessage(Context context, Bundle bundle) {
+//		if (MainActivity.isForeground) {
+//			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+//			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+//			Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
+//			msgIntent.putExtra(MainActivity.KEY_MESSAGE, message);
+//			if (!ExampleUtil.isEmpty(extras)) {
+//				try {
+//					JSONObject extraJson = new JSONObject(extras);
+//					if (extraJson.length() > 0) {
+//						msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
+//					}
+//				} catch (JSONException e) {
+//
+//				}
+//
+//			}
+//			LocalBroadcastManager.getInstance(context).sendBroadcast(msgIntent);
+//		}
+//	}
+    public static JPushLitener jPushLitener;
+
+    //	public void setOnReceiveJPshListener(JPushLitener jPushLitener){
+//		this.jPushLitener=jPushLitener;
+//	}
+    public interface JPushLitener {
+        void onReceive(String title, String message);
     }
 }

@@ -43,7 +43,7 @@ import com.example.han.referralproject.settting.activity.FactoryTestActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
@@ -368,7 +368,7 @@ public class SignInActivity extends BaseActivity {
         //获取所有账号
         String[] accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts == null) {
-            com.gcml.lib_utils.display.ToastUtils.showLong("未检测到您的登录历史，请输入账号和密码登录");
+            ToastUtils.showLong("未检测到您的登录历史，请输入账号和密码登录");
         }else {
             Bundle bundle=new Bundle();
             bundle.putString("from","Welcome");

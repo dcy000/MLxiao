@@ -1,11 +1,9 @@
 package com.gcml.module_blutooth_devices.others;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.data.TimeUtils;
-import com.gcml.lib_utils.thread.ThreadUtils;
+import com.gcml.common.utils.data.SPUtil;
+import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
@@ -16,7 +14,6 @@ import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.google.gson.Gson;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
-import com.inuker.bluetooth.library.utils.ByteUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

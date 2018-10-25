@@ -69,11 +69,10 @@ dependencies {
     //core lib
     implementation project(":lib-common-business")
     implementation project(":lib-common-core")
-    implementation project(":lib-utils")
     //voice
     api files('libs/Msc.jar')
     implementation files('libs/Msc.jar')
-    implementation project(":unit")
+    implementation project(':lib-baidu-unit')
     //lottie
     implementation rootProject.ext.dependencies['lottie']
     implementation rootProject.ext.dependencies['gson']

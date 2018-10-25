@@ -4,7 +4,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
-import com.gcml.lib_utils.UtilsManager;
+
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司

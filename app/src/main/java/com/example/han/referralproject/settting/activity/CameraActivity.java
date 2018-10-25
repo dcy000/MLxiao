@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.gcml.lib_utils.camera.CameraUtils;
+import com.gcml.common.utils.camera.CameraUtils;
 
 public class CameraActivity extends BaseActivity {
 

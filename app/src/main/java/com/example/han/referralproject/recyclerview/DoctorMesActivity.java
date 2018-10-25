@@ -27,7 +27,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.gcml.old.auth.register.ConfirmContractActivity;
 import com.squareup.picasso.Picasso;

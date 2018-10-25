@@ -71,6 +71,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
         CC.obtainBuilder("com.gcml.zzb.common.push.deleteTag")
                 .build()
                 .callAsync();
+        UserSpHelper.clearPartData();
         switch (v.getId()) {
             case R.id.view_login://添加账号
                 CC.obtainBuilder("com.gcml.auth").build().callAsync();
@@ -79,13 +80,6 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
             case R.id.btn_logout:
                 MobclickAgent.onProfileSignOff();
                 NimAccountHelper.getInstance().logout();//退出网易IM
-                //LocalShared.getInstance(mContext).deleteAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);//删除当前这个人的账号
-//                //为了解决人脸识别加组缓慢的解决方式，这样做是不规范的
-//                if (LocalShared.getInstance(mContext).isAccountOverflow()) {
-//                    LocalShared.getInstance(mContext).deleteAllAccount();
-//                }
-
-                UserSpHelper.setUserId("");
                 UserSpHelper.setToken("");
                 UserSpHelper.setEqId("");
                 CC.obtainBuilder("com.gcml.auth").build().callAsync();

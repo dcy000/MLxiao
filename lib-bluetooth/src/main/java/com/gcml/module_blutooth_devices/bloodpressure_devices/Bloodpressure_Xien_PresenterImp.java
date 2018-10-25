@@ -6,10 +6,10 @@ import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
-import com.gcml.lib_utils.handler.WeakHandler;
-import com.gcml.lib_utils.thread.ThreadUtils;
+import com.gcml.common.utils.handler.WeakHandler;
+import com.gcml.common.utils.thread.ThreadUtils;
+
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;

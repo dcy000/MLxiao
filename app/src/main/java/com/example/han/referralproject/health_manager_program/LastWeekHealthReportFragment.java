@@ -19,7 +19,7 @@ import com.example.han.referralproject.intelligent_diagnosis.LastWeekAllReport;
 import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.fragment.IChangToolbar;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
