@@ -18,7 +18,7 @@ import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.medlink.danbogh.XDialogFragment;
 
 public class ConfirmContractActivity extends AppCompatActivity {

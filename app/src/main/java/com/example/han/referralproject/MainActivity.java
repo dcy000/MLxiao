@@ -24,7 +24,7 @@ import com.example.lenovo.rto.accesstoken.AccessToken;
 import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;

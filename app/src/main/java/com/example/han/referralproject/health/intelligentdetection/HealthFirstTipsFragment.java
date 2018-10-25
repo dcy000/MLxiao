@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.gcml.lib_utils.data.TimeCountDownUtils;
+import com.gcml.common.utils.data.TimeCountDownUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 

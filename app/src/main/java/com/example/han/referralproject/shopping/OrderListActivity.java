@@ -17,7 +17,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

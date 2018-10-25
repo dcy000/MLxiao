@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
-import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
@@ -131,7 +131,7 @@ public class Bloodpressure_KN550_PresenterImp extends BaseBluetoothPresenter {
                         int gaoya = jsonObject.optInt("sys");
                         int diya = jsonObject.optInt("dia");
                         int heartRate = jsonObject.optInt("heartRate");
-                        Logg.e(Bloodpressure_KN550_PresenterImp.class, "onDeviceNotify: 高压：" + gaoya + ";低压：" + diya + "心率：" + heartRate);
+                        Logg.e(Bloodpressure_KN550_PresenterImp.class, "onDeviceNotify: 收缩压：" + gaoya + ";舒张压：" + diya + "心率：" + heartRate);
                         baseView.updateData(gaoya + "", diya + "", heartRate + "");
                     }
                 } catch (JSONException e) {

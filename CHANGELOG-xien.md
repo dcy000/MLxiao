@@ -1,5 +1,8 @@
 # Change Log
 
+## Robot.xien.2.0.2 (21)
+
+- 代码重构， 修复一些 bug ，更换 logo 及其他图标 
 - 蓝牙：添加西恩血压计和呼吸家
 
 ## Robot.xien.2.0.0 (21)
@@ -8,6 +11,6 @@
 > - Server:  http://47.99.160.53:8090/
 > - com.gcml.version:  gcml_version_xien
 
-- 文案： 迈联智慧 --> 西恩
-- LOGO： 迈联智慧 --> 西恩
+- 文案：“主人” --> “您好”， “高压” -->“收缩压” ， “低压” --> “舒张压”
+- LOGO：boot animation, splash , about page logo
 - lib-common-xien： 西恩的业务模块

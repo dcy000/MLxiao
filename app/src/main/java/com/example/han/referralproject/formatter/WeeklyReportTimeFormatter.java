@@ -1,6 +1,6 @@
 package com.example.han.referralproject.formatter;
 
-import com.gcml.lib_utils.data.TimeUtils;
+import com.gcml.common.utils.data.TimeUtils;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 

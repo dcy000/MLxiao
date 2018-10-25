@@ -8,9 +8,8 @@ import android.content.pm.PackageManager;
 import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.widget.Toast;
 
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 
 import java.util.List;
 

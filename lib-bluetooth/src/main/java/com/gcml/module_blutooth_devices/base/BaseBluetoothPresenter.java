@@ -12,9 +12,9 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.gcml.lib_utils.handler.WeakHandler;
-import com.gcml.lib_utils.permission.PermissionsManager;
-import com.gcml.lib_utils.permission.PermissionsResultAction;
+import com.gcml.common.utils.handler.WeakHandler;
+import com.gcml.common.utils.permission.PermissionsManager;
+import com.gcml.common.utils.permission.PermissionsResultAction;
 import com.gcml.module_blutooth_devices.R;
 import com.inuker.bluetooth.library.Constants;
 import com.inuker.bluetooth.library.connect.listener.BleConnectStatusListener;

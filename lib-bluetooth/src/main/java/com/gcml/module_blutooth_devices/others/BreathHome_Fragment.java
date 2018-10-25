@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.ui.dialog.DialogSure;
+import com.gcml.common.utils.data.SPUtil;
+import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.network.WiFiUtil;
+import com.gcml.common.widget.dialog.AlertDialog;
+import com.gcml.common.widget.dialog.InputDialog;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
@@ -54,7 +55,6 @@ public class BreathHome_Fragment extends BluetoothBaseFragment implements IView,
     private SearchWithDeviceGroupHelper helper;
     private BaseBluetoothPresenter bluetoothPresenter;
     private Bundle bundle;
-    private DialogSure dialogSure;
     /**
      * 0%
      */
@@ -124,35 +124,16 @@ public class BreathHome_Fragment extends BluetoothBaseFragment implements IView,
     }
 
     private void inputBluetoothNameDialog(final String address) {
-        if (dialogSure == null) {
-            View inflate = LayoutInflater.from(mContext).inflate(R.layout.bluetooth_dialog_input_bluetooth_name, null, false);
-            dialogSure = new DialogSure(mContext);
-            final EditText tvContent = inflate.findViewById(R.id.tv_content);
-            TextView btnSure = inflate.findViewById(R.id.tv_sure);
-            dialogSure.setContentView(inflate);
-            dialogSure.setCanceledOnTouchOutside(false);
-
-            btnSure.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String bluetoothName = tvContent.getText().toString().trim();
-                    if (TextUtils.isEmpty(bluetoothName)) {
-                        ToastUtils.showShort("请输入设备唯一识别码");
-                        return;
+        new InputDialog(getContext()).builder()
+                .setMsg("请输入仪器后背唯一识别码\n" + "字母请大写")
+                .setMsgColor(R.color.config_color_base_3)
+                .setEditHint("请输入设备唯一识别码")
+                .setPositiveButton("连接", new InputDialog.OnInputChangeListener() {
+                    @Override
+                    public void onInput(String s) {
+                        chooseConnectType(address, s.trim());
                     }
-                    dialogSure.dismiss();
-                    chooseConnectType(address, bluetoothName);
-                }
-            });
-        }
-        if (dialogSure != null) {
-            if (dialogSure.isShowing()) {
-                dialogSure.dismiss();
-                dialogSure = null;
-            } else {
-                dialogSure.show();
-            }
-        }
+                }).show();
     }
 
     private void chooseConnectType(String address, String brand) {

@@ -1,10 +1,8 @@
 package com.gcml.module_blutooth_devices.bloodpressure_devices;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.support.v4.app.Fragment;
 
-import com.gcml.lib_utils.data.SPUtil;
+import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
@@ -107,8 +105,8 @@ public class Bloodpressure_Chaosi_PresenterImp extends BaseBluetoothPresenter {
                 public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
                     Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify: " + bytes.length);
                     if (bytes.length == 12) {
-                        Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify: 高压：" + (bytes[4] + bytes[5]));
-                        Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify: 低压：" + (bytes[6] + bytes[7]));
+                        Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify: 收缩压：" + (bytes[4] + bytes[5]));
+                        Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify: 舒张压：" + (bytes[6] + bytes[7]));
                         Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify: 脉搏" + (bytes[8] + bytes[9]));
                         baseView.updateData((bytes[4] + bytes[5]) + "", (bytes[6] + bytes[7]) + "", (bytes[8] + bytes[9]) + "");
                     }

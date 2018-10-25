@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="health_record_unit">
-        <item>天</item>
-        <item>周</item>
-        <item>月</item>
-        <item>半年</item>
-    </string-array>
-</resources>

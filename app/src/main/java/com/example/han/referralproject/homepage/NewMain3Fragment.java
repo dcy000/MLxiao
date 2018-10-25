@@ -2,13 +2,11 @@ package com.example.han.referralproject.homepage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
-import com.gcml.lib_utils.base.RecycleBaseFragment;
+import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.lib_widget.EclipseImageView;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 

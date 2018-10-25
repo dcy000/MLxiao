@@ -13,6 +13,7 @@ import com.gcml.common.demo.R;
 import com.gcml.common.dialog.DialogActivity;
 import com.gcml.common.mvvm.MvvmActivity;
 import com.gcml.common.repository.RepositoryActivity;
+import com.gcml.common.utils.data.SPUtil;
 
 
 public class MainActivity extends AppCompatActivity {

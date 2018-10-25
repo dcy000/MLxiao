@@ -7,7 +7,7 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.gcml.lib_utils.ui.ScreenUtils;
+import com.gcml.common.utils.ui.ScreenUtils;
 
 /**
  * 播放页Indicator

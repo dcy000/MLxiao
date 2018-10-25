@@ -10,9 +10,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
-import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.handler.WeakHandler;
+import com.gcml.common.utils.data.SPUtil;
+import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;

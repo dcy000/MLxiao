@@ -27,7 +27,7 @@ import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
-import com.gcml.lib_utils.ui.ScreenUtils;
+import com.gcml.common.utils.ui.ScreenUtils;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;

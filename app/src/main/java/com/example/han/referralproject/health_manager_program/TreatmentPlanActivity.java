@@ -15,7 +15,7 @@ import com.gcml.common.recommend.fragment.RencommendForUserFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.relex.circleindicator.CircleIndicator;
+import com.gcml.common.widget.CircleIndicator;
 
 /**
  * Created by Administrator on 2018/5/15.

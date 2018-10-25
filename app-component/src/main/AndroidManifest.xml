@@ -25,16 +25,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.gcml.common.MainActivity">
+
+        </activity>
+        <activity android:name="com.gcml.common.repository.RepositoryActivity" />
+        <activity android:name="com.gcml.common.app.AppActivity" />
+        <activity android:name="com.gcml.common.mvvm.MvvmActivity"/>
+        <activity android:name="com.gcml.common.dialog.DialogActivity" />
+        <activity android:name="com.gcml.common.gzq.TestXienActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.gcml.common.repository.RepositoryActivity" />
-        <activity android:name="com.gcml.common.app.AppActivity" />
-        <activity android:name="com.gcml.common.mvvm.MvvmActivity"/>
-        <activity android:name="com.gcml.common.dialog.DialogActivity" />
     </application>
 
 </manifest>

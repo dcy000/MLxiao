@@ -16,7 +16,7 @@ import android.widget.PopupWindow;
 import android.widget.SeekBar;
 
 import com.example.han.referralproject.R;
-import com.gcml.lib_utils.ui.ScreenUtils;
+import com.gcml.common.utils.ui.ScreenUtils;
 
 public class MyService extends Service implements DragFloatActionButton.onClickListener, SeekBar.OnSeekBarChangeListener {
     public static Activity context;

@@ -13,43 +13,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.location.BDLocation;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
-import com.example.han.referralproject.network.AppRepository;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.location.BdLocationHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
-import com.gcml.lib_utils.UtilsManager;
-import com.gcml.lib_utils.base.RecycleBaseFragment;
-import com.gcml.lib_utils.data.LunarUtils;
-import com.gcml.lib_utils.data.TimeUtils;
-import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.thread.ThreadUtils;
+import com.gcml.common.utils.base.RecycleBaseFragment;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.call2.NimCallActivity;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司

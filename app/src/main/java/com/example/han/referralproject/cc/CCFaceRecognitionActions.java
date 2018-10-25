@@ -18,14 +18,13 @@ import com.example.han.referralproject.shopping.GoodDetailActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.old.auth.entity.UserInfoBean;
 import com.gcml.old.auth.register.SignUp14DiseaseHistoryActivity;
 import com.gcml.old.auth.register.simple.SignUp03PasswordActivity;
 import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
 import com.gcml.old.auth.signin.SignInActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

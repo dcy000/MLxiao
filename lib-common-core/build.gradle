@@ -96,7 +96,7 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["room-compiler"]
     implementation rootProject.ext.dependencies["room-rxjava2"]
 
-    implementation rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["glide"]
     api rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
 
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]

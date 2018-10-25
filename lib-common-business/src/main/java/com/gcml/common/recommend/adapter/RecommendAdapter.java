@@ -2,8 +2,10 @@ package com.gcml.common.recommend.adapter;
 
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.billy.cc.core.component.CC;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.business.R;
@@ -27,9 +29,13 @@ public class RecommendAdapter extends BaseQuickAdapter<GoodBean, BaseViewHolder>
         holder.setText(R.id.tv_good_name, bean.goodsname);
         holder.setText(R.id.tv_good_price, bean.goodsprice + "");
 
-        ImageLoader.Options options = ImageLoader.newOptionsBuilder(
-                holder.getView(R.id.iv_good_image), bean.goodsimage).build();
-        ImageLoader.instance().load(options);
+//        ImageLoader.Options options = ImageLoader.newOptionsBuilder(
+//                holder.getView(R.id.iv_good_image), bean.goodsimage).build();
+//        ImageLoader.instance().load(options);
+
+        Glide.with(mContext)
+                .load(bean.goodsimage)
+                .into(((ImageView) holder.getView(R.id.iv_good_image)));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.network.WiFiUtil;
 import com.gcml.common.widget.dialog.InputDialog;
-import com.gcml.lib_utils.network.WiFiUtil;
 
 import java.util.List;
 
@@ -62,6 +62,7 @@ public class WifiConnectRecyclerAdapter extends RecyclerView.Adapter<WifiConnect
                     new InputDialog(mContext)
                             .builder()
                             .setMsg(itemResult.SSID)
+                            .setMsgColor(R.color.config_color_appthema)
                             .setPositiveButton("连接", new InputDialog.OnInputChangeListener() {
                                 @Override
                                 public void onInput(String s) {

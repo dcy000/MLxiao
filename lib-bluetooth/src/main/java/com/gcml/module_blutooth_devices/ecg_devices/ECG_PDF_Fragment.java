@@ -6,11 +6,11 @@ import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.gcml.lib_utils.data.DataUtils;
-import com.gcml.lib_utils.data.FileUtils;
-import com.gcml.lib_utils.data.TimeUtils;
-import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.thread.ThreadUtils;
+import com.gcml.common.utils.data.DataUtils;
+import com.gcml.common.utils.data.FileUtils;
+import com.gcml.common.utils.data.TimeUtils;
+import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.thread.ThreadUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.github.barteksc.pdfviewer.PDFView;

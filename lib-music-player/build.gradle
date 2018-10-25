@@ -34,5 +34,5 @@ dependencies {
     implementation rootProject.ext.dependencies["gson"]
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation 'me.wcy:lrcview:1.4.2'
-    implementation project(':lib-utils')
+    implementation project(':lib-common-business')
 }

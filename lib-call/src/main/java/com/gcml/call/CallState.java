@@ -23,7 +23,6 @@ public enum  CallState {
     INCOMING_VIDEO_RECEIVE_FAILED(-10),
     INCOMING_VIDEO_RECEIVE_SUCCESS(26),
 
-
     AUDIO(1), //正在进行语音通话(发起者)
     OUTGOING_AUDIO_CALLING(3), //邀请好友语音通话
     INCOMING_AUDIO_CALLING(5), //来自好友的视频通话、语音通话邀请

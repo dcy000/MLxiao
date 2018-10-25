@@ -7,10 +7,9 @@ import android.support.constraint.ConstraintSet;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
-
-import com.gcml.lib_utils.data.SPUtil;
-import com.gcml.lib_utils.display.ToastUtils;
-import com.gcml.lib_utils.ui.UiUtils;
+import com.gcml.common.utils.data.SPUtil;
+import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
@@ -53,12 +52,14 @@ public class Bloodpressure_Xien_Fragment extends BluetoothBaseFragment implement
     protected TextView mBtnVideoDemo;
     private Bundle bundle;
     private Bloodpressure_Xien_PresenterImp baseBluetoothPresenter;
+
     private SearchWithDeviceGroupHelper helper;
     private int highId;
     private int lowId;
     private ConstraintSet highSet;
     private ConstraintSet lowSet;
     private ConstraintLayout clPressure;
+
     protected boolean onResume=true;
 
     @Override
@@ -87,6 +88,7 @@ public class Bloodpressure_Xien_Fragment extends BluetoothBaseFragment implement
         if (onResume){
             dealLogic();
         }
+
     }
 
     public void dealLogic() {
