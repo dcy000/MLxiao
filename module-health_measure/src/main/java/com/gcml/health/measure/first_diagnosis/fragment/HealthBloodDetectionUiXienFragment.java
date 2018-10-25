@@ -15,6 +15,7 @@ import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.lib_utils.data.TimeCountDownUtils;
 import com.gcml.lib_utils.display.ToastUtils;
+import com.gcml.lib_utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Xien_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -179,6 +180,16 @@ public class HealthBloodDetectionUiXienFragment extends Bloodpressure_Xien_Fragm
                     @Override
                     public void onClick(View v) {
                         MLVoiceSynthetize.stop();
+                        HealthBloodDetectionUiXienFragment.super.onStop();
+                        if (!hasRight3) {
+                            new WeakHandler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    HealthBloodDetectionUiXienFragment.super.dealLogic();
+                                }
+                            }, 3000);
+                        }
+
                     }
                 }).show();
     }
@@ -372,7 +383,7 @@ public class HealthBloodDetectionUiXienFragment extends Bloodpressure_Xien_Fragm
         public int rightPulse;
     }
 
-    private void setBtnClickableState(boolean enableClick) {
+    protected void setBtnClickableState(boolean enableClick) {
         if (enableClick) {
             mBtnHealthHistory.setVisibility(View.VISIBLE);
             mBtnHealthHistory.setClickable(true);

@@ -2,7 +2,7 @@ package com.gcml.health.measure.bloodpressure_habit.fragment;
 
 import android.view.View;
 
-import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
+import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiXienFragment;
 
 /**
@@ -16,7 +16,10 @@ public class GetHypertensionHandXienFragment extends HealthBloodDetectionUiXienF
     @Override
     public void onStart() {
         super.onStart();
-        mBtnHealthHistory.setVisibility(View.GONE);
+//        mBtnHealthHistory.setVisibility(View.GONE);
+        mBtnHealthHistory.setText("一键检测");
+        setBtnClickableState(true);
+        onResume=false;
     }
 
     @Override
@@ -24,5 +27,12 @@ public class GetHypertensionHandXienFragment extends HealthBloodDetectionUiXienF
         if (fragmentChanged != null) {
             fragmentChanged.onFragmentChanged(GetHypertensionHandXienFragment.this, null);
         }
+    }
+
+    @Override
+    protected void clickHealthHistory(View view) {
+        mBtnHealthHistory.setClickable(false);
+        mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+        super.dealLogic();
     }
 }
