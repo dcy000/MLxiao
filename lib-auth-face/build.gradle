@@ -16,6 +16,13 @@ android {
     defaultConfig {
         if (project.ext.runAsApp) {
             applicationId "com.gcml.auth.face"
+            multiDexEnabled true
+            renderscriptTargetApi 19
+            renderscriptSupportModeEnabled true    // Enable RS support
+            ndk {
+                //选择要添加的对应cpu类型的.so库。
+                abiFilters 'armeabi-v7a'/*, 'x86'*/
+            }
         }
 
         minSdkVersion rootProject.ext.android["minSdkVersion"]

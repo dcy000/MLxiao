@@ -7,17 +7,17 @@
 
         <variable
             name="presenter"
-            type="com.gcml.auth.face.ui.FaceSignInActivity" />
+            type="com.gcml.auth.face.debug.ui.FaceBdMainActivity" />
 
         <variable
             name="viewModel"
-            type="com.gcml.auth.face.ui.FaceSignInViewModel" />
+            type="com.gcml.auth.face.debug.ui.FaceBdMainViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.FaceSignInActivity">
+        tools:context=".debug.ui.FaceBdMainActivity">
 
         <SurfaceView
             android:id="@+id/sv_preview"
@@ -33,7 +33,7 @@
             android:id="@+id/preview_mask"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/auth_fg_face_mask"
+            android:background="@drawable/face_fg_mask"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -43,7 +43,7 @@
             android:id="@+id/iv_animation"
             android:layout_width="1000pt"
             android:layout_height="1000pt"
-            android:src="@drawable/auth_fg_face_animation"
+            android:src="@drawable/face_fg_animation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -54,7 +54,7 @@
             android:layout_width="830pt"
             android:layout_height="244pt"
             android:layout_marginTop="25pt"
-            android:background="@drawable/auth_bg_face_tips"
+            android:background="@drawable/face_bg_tips"
             android:gravity="center_horizontal|bottom"
             android:paddingBottom="60pt"
             android:textColor="@color/config_color_white"
@@ -78,16 +78,20 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_skip"
+        <ImageView
+            android:id="@+id/iv_wifi_state"
             android:layout_width="240pt"
             android:layout_height="200pt"
+            android:visibility="gone"
             android:background="@drawable/common_bg_btn_transparent"
-            android:gravity="center"
-            android:onClick="@{()->presenter.skip()}"
-            android:text="跳过"
-            android:textColor="@color/config_color_base_3"
-            android:textSize="50pt"
-            app:layout_constraintRight_toRightOf="parent" />
+            android:onClick="@{()->presenter.goWifi()}"
+            android:paddingBottom="40pt"
+            android:paddingLeft="60pt"
+            android:paddingRight="60pt"
+            android:paddingTop="40pt"
+            android:src="@drawable/common_ic_wifi_state"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
+
 </layout>

@@ -13,7 +13,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.gcml.auth.face.BR;
 import com.gcml.auth.face.R;
-import com.gcml.auth.face.databinding.AuthActivityFaceSignInBinding;
+import com.gcml.auth.face.databinding.FaceActivitySignInBinding;
 import com.gcml.auth.face.model.PreviewHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
@@ -40,7 +40,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBinding, FaceSignInViewModel> {
+public class FaceSignInActivity extends BaseActivity<FaceActivitySignInBinding, FaceSignInViewModel> {
 
     private PreviewHelper mPreviewHelper;
     private Animation mAnimation;
@@ -50,7 +50,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
 
     @Override
     protected int layoutId() {
-        return R.layout.auth_activity_face_sign_in;
+        return R.layout.face_activity_sign_in;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class FaceSignInActivity extends BaseActivity<AuthActivityFaceSignInBindi
         mPreviewHelper.setSurfaceHolder(binding.svPreview.getHolder());
         mPreviewHelper.setPreviewView(binding.svPreview);
         mAnimation = AnimationUtils.loadAnimation(
-                getApplicationContext(), R.anim.auth_anim_face_rotate);
+                getApplicationContext(), R.anim.face_anim_rotate);
         binding.ivAnimation.setAnimation(mAnimation);
         binding.ivAnimation.post(new Runnable() {
             @Override

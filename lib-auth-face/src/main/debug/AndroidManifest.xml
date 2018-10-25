@@ -19,13 +19,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.FaceSignUpActivity">
+
+        </activity>
+        <activity android:name=".ui.FaceSignInActivity" />
+
+        <activity android:name=".debug.ui.FaceBdMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.FaceSignInActivity"></activity>
     </application>
 
 </manifest>

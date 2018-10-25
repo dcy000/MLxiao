@@ -1,4 +1,4 @@
-package com.gcml.auth.face.ui;
+package com.gcml.auth.face.debug.ui;
 
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -7,12 +7,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
 import com.gcml.auth.face.BR;
 import com.gcml.auth.face.R;
-import com.gcml.auth.face.databinding.FaceActivitySignUpBinding;
+import com.gcml.auth.face.databinding.FaceActivityBdMainBinding;
 import com.gcml.auth.face.model.PreviewHelper;
+import com.gcml.auth.face.ui.FaceSignUpActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
@@ -37,14 +36,11 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class FaceSignUpActivity extends BaseActivity<FaceActivitySignUpBinding, FaceSignUpViewModel> {
-
-    private PreviewHelper mPreviewHelper;
-    private String faceId;
+public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, FaceBdMainViewModel> {
 
     @Override
     protected int layoutId() {
-        return R.layout.face_activity_sign_up;
+        return R.layout.face_activity_bd_main;
     }
 
     @Override
@@ -52,13 +48,11 @@ public class FaceSignUpActivity extends BaseActivity<FaceActivitySignUpBinding, 
         return BR.viewModel;
     }
 
+    private PreviewHelper mPreviewHelper;
+    private String faceId;
+
     @Override
     protected void init(Bundle savedInstanceState) {
-        faceId = getIntent().getStringExtra("faceId");
-        if (TextUtils.isEmpty(faceId)) {
-            faceId = UserSpHelper.produceFaceId();
-        }
-        callId = getIntent().getStringExtra("callId");
         binding.setPresenter(this);
         mPreviewHelper = new PreviewHelper(this);
         mPreviewHelper.setSurfaceHolder(binding.svPreview.getHolder());
@@ -105,40 +99,6 @@ public class FaceSignUpActivity extends BaseActivity<FaceActivitySignUpBinding, 
                         super.onError(throwable);
                     }
                 });
-        RxUtils.rxWifiLevel(getApplication(), 4)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer integer) throws Exception {
-                        binding.ivWifiState.setImageLevel(integer);
-                    }
-                });
-    }
-
-    private void start(int delayMillis) {
-        if (!NetUitls.isConnected()) {
-            binding.ivTips.setText("请连接Wifi!");
-            ToastUtils.showShort("请连接Wifi!");
-            return;
-        }
-        binding.ivTips.setText("请把脸对准框内");
-        MLVoiceSynthetize.startSynthesize(
-                getApplicationContext(),
-                "请把脸对准框内 。三，二，衣。茄子",
-                new MLSynthesizerListener() {
-                    @Override
-                    public void onCompleted(SpeechError speechError) {
-                        mPreviewHelper.addBuffer(delayMillis);
-                        /**
-                         * @see FaceSignUpActivity#onPreviewStatusChanged(PreviewHelper.Status status)
-                         * @see PreviewHelper.Status.EVENT_CROPPED
-                         */
-                    }
-                },
-                false
-        );
     }
 
     private void onPreviewStatusChanged(PreviewHelper.Status status) {
@@ -212,7 +172,7 @@ public class FaceSignUpActivity extends BaseActivity<FaceActivitySignUpBinding, 
                     @Override
                     public ObservableSource<String> apply(byte[] faceData) throws Exception {
 //                        String faceId = UserSpHelper.getFaceId();
-                        return viewModel.signUp(faceData, faceId)
+                        return viewModel.addFace(faceData, faceId)
                                 .subscribeOn(Schedulers.io());
                     }
                 })
@@ -236,7 +196,7 @@ public class FaceSignUpActivity extends BaseActivity<FaceActivitySignUpBinding, 
                     @Override
                     public void onNext(String s) {
                         binding.ivTips.setText("人脸录入成功");
-                        error = false;
+//                        error = false;
                         finish();
                     }
 
@@ -244,11 +204,35 @@ public class FaceSignUpActivity extends BaseActivity<FaceActivitySignUpBinding, 
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         faceId = UserSpHelper.produceFaceId();
-                        error = true;
+//                        error = true;
                         start(0);
                     }
                 });
 
+    }
+
+    private void start(int delayMillis) {
+        if (!NetUitls.isConnected()) {
+            binding.ivTips.setText("请连接Wifi!");
+            ToastUtils.showShort("请连接Wifi!");
+            return;
+        }
+        binding.ivTips.setText("请把脸对准框内");
+        MLVoiceSynthetize.startSynthesize(
+                getApplicationContext(),
+                "请把脸对准框内 。三，二，衣。茄子",
+                new MLSynthesizerListener() {
+                    @Override
+                    public void onCompleted(SpeechError speechError) {
+                        mPreviewHelper.addBuffer(delayMillis);
+                        /**
+                         * @see FaceSignUpActivity#onPreviewStatusChanged(PreviewHelper.Status status)
+                         * @see PreviewHelper.Status.EVENT_CROPPED
+                         */
+                    }
+                },
+                false
+        );
     }
 
     public void goBack() {
@@ -256,7 +240,7 @@ public class FaceSignUpActivity extends BaseActivity<FaceActivitySignUpBinding, 
     }
 
     public void goWifi() {
-        CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
+
     }
 
     @Override
@@ -301,23 +285,4 @@ public class FaceSignUpActivity extends BaseActivity<FaceActivitySignUpBinding, 
             loadingDialog.dismiss();
         }
     }
-
-
-    @Override
-    public void finish() {
-        if (!TextUtils.isEmpty(callId)) {
-            CCResult result;
-            if (error) {
-                result = CCResult.error("人脸录入失败");
-            } else {
-                result = CCResult.success("faceId", UserSpHelper.getFaceId());
-            }
-            //为确保不管登录成功与否都会调用CC.sendCCResult，在onDestroy方法中调用
-            CC.sendCCResult(callId, result);
-        }
-        super.finish();
-    }
-
-    private String callId;
-    private volatile boolean error = true;
 }

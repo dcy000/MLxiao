@@ -19,6 +19,13 @@ android {
     defaultConfig {
         if (project.ext.runAsApp) {
             applicationId "com.gcml.common.demo"
+            multiDexEnabled true
+            renderscriptTargetApi 19
+            renderscriptSupportModeEnabled true    // Enable RS support
+            ndk {
+                //选择要添加的对应cpu类型的.so库。
+                abiFilters 'armeabi-v7a'/*, 'x86'*/
+            }
         }
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
@@ -26,22 +33,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner rootProject.ext.android["AndroidJUnitRunner"]
-
-        multiDexEnabled true
-
-        packagingOptions{
-            pickFirst 'lib/arm64-v8a/librsjni.so'
-            pickFirst 'lib/armeabi-v7a/libRSSupport.so'
-            pickFirst 'lib/arm64-v8a/libRSSupport.so'
-            pickFirst 'lib/mips/libRSSupport.so'
-            pickFirst 'lib/x86/libRSSupport.so'
-            pickFirst 'lib/mips/librsjni.so'
-            pickFirst 'lib/x86_64/libRSSupport.so'
-            pickFirst 'lib/x86/librsjni.so'
-            pickFirst 'lib/x86_64/librsjni.so'
-            pickFirst 'lib/armeabi-v7a/librsjni.so'
-        }
-
     }
 
     buildTypes {
@@ -86,7 +77,7 @@ dependencies {
     //    addComponent 'demo_component_kt', project(':demo_component_kt') //module方式
     //    addComponent 'demo_component_b', 'com.billy.demo:demo_b:1.1.0'  //maven方式
     //    addComponent 'lib-mlvoice'
-    addComponent 'module-face_recognition'
+//    addComponent 'module-face_recognition'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     if (project.ext.runAsApp) {
         implementation project(":lib-common-app")
