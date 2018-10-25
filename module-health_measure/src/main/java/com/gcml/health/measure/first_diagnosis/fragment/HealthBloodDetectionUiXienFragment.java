@@ -176,6 +176,7 @@ public class HealthBloodDetectionUiXienFragment extends Bloodpressure_Xien_Fragm
         new SingleDialog(mContext)
                 .builder()
                 .setMsg(message)
+                .setCancelable(false)
                 .setPositiveButton("确定", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
