@@ -1,11 +1,15 @@
 package com.gcml.auth.face.debug.ui;
 
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
+import android.widget.EditText;
 
 import com.gcml.auth.face.BR;
 import com.gcml.auth.face.R;
@@ -19,6 +23,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.widget.dialog.IconDialog;
+import com.gcml.common.widget.dialog.InputDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLSynthesizerListener;
@@ -27,12 +32,17 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import java.io.ByteArrayOutputStream;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -116,9 +126,32 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
             }
             start(0);
         } else if (status.code == PreviewHelper.Status.EVENT_CROPPED) {
-            Bitmap faceBitmap = (Bitmap) status.payload;
-            showFace(faceBitmap);
+            Bitmap bitmap = (Bitmap) status.payload;
+            onBitmapPrepared(bitmap);
         }
+    }
+
+    private void onBitmapPrepared(Bitmap bitmap) {
+        if (!NetUitls.isConnected()) {
+            binding.ivTips.setText("请连接Wifi!");
+            ToastUtils.showShort("请连接Wifi!");
+            return;
+        }
+        addFace(bitmap);
+    }
+
+    public void bindUserId() {
+        final EditText etUserId = new EditText(this);
+        new AlertDialog.Builder(this)
+                .setTitle("请输入 uid")
+                .setView(etUserId)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ToastUtils.showShort(etUserId.getText().toString());
+                    }
+                }).setNegativeButton("取消", null)
+                .show();
     }
 
     private IconDialog iconDialog;
@@ -143,39 +176,81 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
                 .setPositiveButton("确认头像", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        signUpFace(faceBitmap);
+                        addFace(faceBitmap);
                     }
                 });
         iconDialog.show();
     }
 
-    private void signUpFace(Bitmap faceBitmap) {
-        String userId = UserSpHelper.getUserId();
-        if (TextUtils.isEmpty(userId)) {
-            ToastUtils.showShort("请先登录！");
-            finish();
-        }
-
-        Observable.just(faceBitmap)
-                .map(new Function<Bitmap, byte[]>() {
+    public Observable<String> userId() {
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                View.OnClickListener cancelOnClickListener = new View.OnClickListener() {
                     @Override
-                    public byte[] apply(Bitmap bitmap) throws Exception {
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        faceBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                        if (!faceBitmap.isRecycled()) {
-                            faceBitmap.recycle();
+                    public void onClick(View v) {
+                        if (emitter.isDisposed()) {
+                            emitter.onError(new RuntimeException("no user id"));
                         }
-                        return baos.toByteArray();
                     }
-                })
-                .flatMap(new Function<byte[], ObservableSource<String>>() {
+                };
+                InputDialog.OnInputChangeListener onInputChangeListener = new InputDialog.OnInputChangeListener() {
                     @Override
-                    public ObservableSource<String> apply(byte[] faceData) throws Exception {
-//                        String faceId = UserSpHelper.getFaceId();
-                        return viewModel.addFace(faceData, faceId)
-                                .subscribeOn(Schedulers.io());
+                    public void onInput(String s) {
+                        if (TextUtils.isEmpty(s)) {
+                            if (!emitter.isDisposed()) {
+                                emitter.onError(new RuntimeException("no user id"));
+                            }
+                            return;
+                        }
+                        if (!emitter.isDisposed()) {
+                            emitter.onNext(s);
+                        }
+                    }
+                };
+                new InputDialog(FaceBdMainActivity.this)
+                        .builder()
+                        .setMsg("输入 user id")
+                        .setCancelable(true)
+                        .setNegativeButton("取消", cancelOnClickListener)
+                        .setPositiveButton("确定", onInputChangeListener)
+                        .show();
+
+            }
+        }).subscribeOn(AndroidSchedulers.mainThread());
+    }
+
+    private void addFace(Bitmap bitmap) {
+
+
+        Observable.just(bitmap)
+                .map(new Function<Bitmap, String>() {
+                    @Override
+                    public String apply(Bitmap bitmap) throws Exception {
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                        if (!bitmap.isRecycled()) {
+                            bitmap.recycle();
+                        }
+                        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
                     }
                 })
+                .zipWith(userId(), new BiFunction<String, String, String>() {
+                    @Override
+                    public String apply(String image, String userId) throws Exception {
+                        return viewModel.addFace(image, userId)
+                                .subscribeOn(Schedulers.io())
+                                .blockingFirst();
+                    }
+                })
+//                .flatMap(new Function<String, ObservableSource<String>>() {
+//                    @Override
+//                    public ObservableSource<String> apply(String img) throws Exception {
+////                        String faceId = UserSpHelper.getFaceId();
+//                        return viewModel.addFace(img, faceId)
+//                                .subscribeOn(Schedulers.io());
+//                    }
+//                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -195,9 +270,11 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
                 .subscribe(new DefaultObserver<String>() {
                     @Override
                     public void onNext(String s) {
-                        binding.ivTips.setText("人脸录入成功");
+                        Timber.i(s);
+                        ToastUtils.showShort(s);
+//                        binding.ivTips.setText("人脸录入成功");
 //                        error = false;
-                        finish();
+//                        finish();
                     }
 
                     @Override
@@ -224,6 +301,31 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
                 new MLSynthesizerListener() {
                     @Override
                     public void onCompleted(SpeechError speechError) {
+                        mPreviewHelper.addBuffer(delayMillis);
+                        /**
+                         * @see FaceSignUpActivity#onPreviewStatusChanged(PreviewHelper.Status status)
+                         * @see PreviewHelper.Status.EVENT_CROPPED
+                         */
+                    }
+                },
+                false
+        );
+    }
+
+    private void twoBuffer(int delayMillis) {
+        if (!NetUitls.isConnected()) {
+            binding.ivTips.setText("请连接Wifi!");
+            ToastUtils.showShort("请连接Wifi!");
+            return;
+        }
+        binding.ivTips.setText("请把脸对准框内");
+        MLVoiceSynthetize.startSynthesize(
+                getApplicationContext(),
+                "请把脸对准框内 。三，二，衣。茄子",
+                new MLSynthesizerListener() {
+                    @Override
+                    public void onCompleted(SpeechError speechError) {
+                        mPreviewHelper.addBuffer(0);
                         mPreviewHelper.addBuffer(delayMillis);
                         /**
                          * @see FaceSignUpActivity#onPreviewStatusChanged(PreviewHelper.Status status)

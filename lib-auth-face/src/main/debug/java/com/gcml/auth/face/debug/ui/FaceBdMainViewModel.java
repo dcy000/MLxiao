@@ -15,7 +15,11 @@ public class FaceBdMainViewModel extends BaseViewModel {
         super(application);
     }
 
-    public Observable<String> addFace(byte[] faceData, String faceId) {
-        return mFaceBdRepository.addFace(faceData, faceId);
+    public Observable<String> addFace(String image, String userId) {
+        return mFaceBdRepository.addFace(image, userId, "");
+    }
+
+    public Observable<String> verifyLive(String image1, String image2) {
+        return mFaceBdRepository.verifyLive(image1, image2);
     }
 }

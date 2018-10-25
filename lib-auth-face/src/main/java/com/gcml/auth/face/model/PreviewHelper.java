@@ -29,6 +29,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
@@ -253,6 +254,28 @@ public class PreviewHelper
         } catch (Throwable e) {
             e.printStackTrace();
         }
+    }
+
+    public Observable<Bitmap> takeBuffer(int frames, int interval) {
+        for (int i = 0; i < frames; i++) {
+            if (i == 0) {
+                addBuffer(0);
+            } else {
+                addBuffer(interval);
+            }
+        }
+
+        return rxStatus.filter(new Predicate<Status>() {
+            @Override
+            public boolean test(Status status) throws Exception {
+                return status.code == Status.EVENT_CROPPED;
+            }
+        }).map(new Function<Status, Bitmap>() {
+            @Override
+            public Bitmap apply(Status status) throws Exception {
+                return (Bitmap) status.payload;
+            }
+        });
     }
 
     public void addBuffer(long delayMillis) {
