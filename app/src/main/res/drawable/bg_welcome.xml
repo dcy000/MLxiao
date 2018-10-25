@@ -11,7 +11,7 @@
     <!--</item>-->
 
     <item >
-        <bitmap android:src="@drawable/xien_welcome_splash"/>
+        <bitmap android:src="@drawable/xien_ic_splash"/>
     </item>
 
 </layer-list>
