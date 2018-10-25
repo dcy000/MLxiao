@@ -4,15 +4,11 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.utils.network.WiFiUtil;
-import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.InputDialog;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
