@@ -2,6 +2,7 @@ package com.gcml.common.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Display;
@@ -114,7 +115,7 @@ public class InputDialog {
     public InputDialog setMsgColor(int color) {
         showMsg = true;
         if (color != 0) {
-            txt_msg.setTextColor(color);
+            txt_msg.setTextColor(context.getResources().getColor(color));
         } else {
             txt_msg.setTextColor(context.getResources().getColor(R.color.config_color_appthema));
         }
