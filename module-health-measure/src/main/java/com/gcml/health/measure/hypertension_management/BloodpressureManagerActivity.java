@@ -21,6 +21,7 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnly
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneXienFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
+import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Xien_Fragment;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 
 /**
@@ -67,8 +68,14 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
         //血压
         String nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
         SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
-        ((Bloodpressure_Fragment) baseFragment).onStop();
-        ((Bloodpressure_Fragment) baseFragment).dealLogic();
+        if (ChannelManagementUtil.isXien()){
+            ((Bloodpressure_Xien_Fragment) baseFragment).onStop();
+            ((Bloodpressure_Xien_Fragment) baseFragment).dealLogic();
+        }else{
+            ((Bloodpressure_Fragment) baseFragment).onStop();
+            ((Bloodpressure_Fragment) baseFragment).dealLogic();
+        }
+
         clearBluetoothCache(nameAddress);
     }
 
