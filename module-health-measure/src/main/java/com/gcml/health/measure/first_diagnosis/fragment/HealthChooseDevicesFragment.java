@@ -91,6 +91,10 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                //TODO:默认体重必选，不能去掉
+                if (position==6){
+                    return;
+                }
                 if (position == 7) {
                     ToastUtils.showShort("敬请期待");
                     return;
@@ -189,6 +193,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
             this.deviceBeans.get(1).setChoosed(true);
             this.deviceBeans.get(2).setChoosed(true);
             this.deviceBeans.get(3).setChoosed(true);
+            this.deviceBeans.get(6).setChoosed(true);
         }
         adapter.notifyDataSetChanged();
 
