@@ -177,6 +177,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchStopped() {
             isSearching = false;
+            Log.i(TAG, "onSearchStopped: matched devices length=="+devices.size());
             if (devices.size() > 0) {
                 Collections.sort(devices, SearchWithDeviceGroupHelper.this);
                 initPresenter(devices.get(0).getName(), devices.get(0).getAddress());

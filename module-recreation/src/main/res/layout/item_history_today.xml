@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -44,14 +45,13 @@
             android:id="@+id/expandableTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:expandHint="点击展开"
-            app:foldHint="点击收回"
+            android:orientation="vertical"
             app:contentTextSize="28sp"
-            android:orientation="vertical"/>
+            app:expandHint="点击展开"
+            app:foldHint="点击收回" />
 
 
-
-        <com.example.han.referralproject.tool.wrapview.MixtureTextView
+        <com.gcml.lib_widget.MixtureTextView
             android:id="@+id/mt_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:scaleType="fitXY" />
-        </com.example.han.referralproject.tool.wrapview.MixtureTextView>
+        </com.gcml.lib_widget.MixtureTextView>
     </FrameLayout>
 
     <View
