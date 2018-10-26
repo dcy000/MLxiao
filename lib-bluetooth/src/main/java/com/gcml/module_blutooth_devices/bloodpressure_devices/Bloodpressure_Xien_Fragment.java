@@ -7,6 +7,7 @@ import android.support.constraint.ConstraintSet;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.ui.UiUtils;
@@ -51,7 +52,7 @@ public class Bloodpressure_Xien_Fragment extends BluetoothBaseFragment implement
      */
     protected TextView mBtnVideoDemo;
     private Bundle bundle;
-    private Bloodpressure_Xien_PresenterImp baseBluetoothPresenter;
+    private BaseBluetoothPresenter baseBluetoothPresenter;
 
     private SearchWithDeviceGroupHelper helper;
     private int highId;
@@ -60,7 +61,7 @@ public class Bloodpressure_Xien_Fragment extends BluetoothBaseFragment implement
     private ConstraintSet lowSet;
     private ConstraintLayout clPressure;
 
-    protected boolean onResume=true;
+    protected boolean onResume = true;
 
     @Override
     protected int initLayout() {
@@ -85,7 +86,7 @@ public class Bloodpressure_Xien_Fragment extends BluetoothBaseFragment implement
     @Override
     public void onResume() {
         super.onResume();
-        if (onResume){
+        if (onResume) {
             dealLogic();
         }
 
@@ -128,6 +129,10 @@ public class Bloodpressure_Xien_Fragment extends BluetoothBaseFragment implement
                 return;
             }
             switch (brand) {
+                case "LD":
+                    baseBluetoothPresenter=new Bloodpressure_Xien4_PresenterImp(this,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC,address,"LD"));
+                    break;
                 case "Dual-SPP":
                     baseBluetoothPresenter = new Bloodpressure_Xien_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Dual-SPP"));
