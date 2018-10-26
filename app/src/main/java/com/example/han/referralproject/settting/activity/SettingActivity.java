@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.UpdateAppManager;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.VersionHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
@@ -167,8 +169,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onSuccess(VersionInfoBean response) {
                 tipDialog.dismiss();
+                Log.e("xxx", VersionHelper.getAppVersionCode(getApplicationContext()) + "");
                 if (response != null && response.vid > VersionHelper.getAppVersionCode(getApplicationContext())) {
-                    checkUpdate(FILE_NAME, response.v_log, response.vid, response.vnumber, response.url, response.v_md5);
+                    new UpdateAppManager(SettingActivity.this).showNoticeDialog(response.url);
+//                    checkUpdate(FILE_NAME, response.v_log, response.vid, response.vnumber, response.url, response.v_md5);
                 } else {
                     MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
                 }
