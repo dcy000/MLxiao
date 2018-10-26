@@ -38,9 +38,9 @@ public class OnlineDoctorListActivity extends BaseActivity {
         setContentView(R.layout.activity_online_doctor_list);
         mToolbar.setVisibility(View.VISIBLE);
         if ("contract".equals(mFlag)) {
-            mTitleText.setText("签约医生");
+            mTitleText.setText("签 约 顾 问");
         } else {
-            mTitleText.setText("在线医生");
+            mTitleText.setText("在 线 顾 问");
         }
         initView();
 
@@ -239,7 +239,7 @@ public class OnlineDoctorListActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if ("contract".equals(mFlag)) {
-            speak("主人，请选择您最信任的医生签约");
+            speak("主人，请选择您最信任的顾问签约");
         }
     }
 

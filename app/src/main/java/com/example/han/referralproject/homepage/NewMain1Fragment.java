@@ -1,8 +1,5 @@
 package com.example.han.referralproject.homepage;
 
-import android.annotation.SuppressLint;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -24,7 +21,9 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
+import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.lib_widget.EclipseImageView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.call2.NimCallActivity;
@@ -70,6 +69,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
     private EclipseImageView mIvHealthMeasure;
     private EclipseImageView mIvHealthDialyTask;
     private EclipseImageView mIvHealthCallFamily;
+    private TextView mHealthMeasure, mHealthDialy, taskmCallFamily;
 
     @Override
     protected int initLayout() {
@@ -88,6 +88,9 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
         mLunarCalendar = view.findViewById(R.id.lunar_calendar);
         mWeekToday = view.findViewById(R.id.weekToday);
         mLlDateAndWeek = view.findViewById(R.id.ll_date_and_week);
+        mHealthMeasure = view.findViewById(R.id.tv_health_measure);
+        mHealthDialy = view.findViewById(R.id.tv_health_dialy_task);
+        taskmCallFamily = view.findViewById(R.id.tv_health_call_family);
         mClock.setOnClickListener(this);
         mImageWeather.setOnClickListener(this);
         mTemperature.setOnClickListener(this);
@@ -124,6 +127,24 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 handleWeatherResult(homepageWeatherBean);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (SPUtil.get("homeTextSize", "little").equals("little")) {
+            mHealthMeasure .setTextSize(UiUtils.pt(32));
+            mHealthDialy .setTextSize(UiUtils.pt(32));
+            taskmCallFamily .setTextSize(UiUtils.pt(32));
+        } else if (SPUtil.get("homeTextSize", "little").equals("middle")) {
+            mHealthMeasure .setTextSize(UiUtils.pt(36));
+            mHealthDialy .setTextSize(UiUtils.pt(36));
+            taskmCallFamily .setTextSize(UiUtils.pt(36));
+        } else {
+            mHealthMeasure .setTextSize(UiUtils.pt(40));
+            mHealthDialy .setTextSize(UiUtils.pt(40));
+            taskmCallFamily .setTextSize(UiUtils.pt(40));
+        }
     }
 
     private void handleWeatherResult(HomepageWeatherBean homepageWeatherBean) {
@@ -283,25 +304,26 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                             getActivity().getApplicationContext(),
                                             "请先去个人中心完善性别和年龄信息");
                                 } else {
-                                    CC.obtainBuilder("com.gcml.auth.face.signin")
-                                            .addParam("skip", true)
-                                            .addParam("currentUser", false)
-                                            .build()
-                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                                                @Override
-                                                public void onResult(CC cc, CCResult result) {
-                                                    boolean skip = "skip".equals(result.getErrorMessage());
-                                                    if (result.isSuccess() || skip) {
-                                                        if (skip) {
-                                                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                                            return;
-                                                        }
-                                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                                    } else {
-                                                        ToastUtils.showShort(result.getErrorMessage());
-                                                    }
-                                                }
-                                            });
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+//                                    CC.obtainBuilder("com.gcml.auth.face.signin")
+//                                            .addParam("skip", true)
+//                                            .addParam("currentUser", false)
+//                                            .build()
+//                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                                                @Override
+//                                                public void onResult(CC cc, CCResult result) {
+//                                                    boolean skip = "skip".equals(result.getErrorMessage());
+//                                                    if (result.isSuccess() || skip) {
+//                                                        if (skip) {
+//                                                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+//                                                            return;
+//                                                        }
+//                                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+//                                                    } else {
+//                                                        ToastUtils.showShort(result.getErrorMessage());
+//                                                    }
+//                                                }
+//                                            });
                                 }
                             }
                         });

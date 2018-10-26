@@ -120,6 +120,7 @@
                 android:clickable="true"/>
 
             <TextView
+                android:id="@+id/tv_health_measure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="健康检测"
@@ -148,6 +149,7 @@
                 android:clickable="true"/>
 
             <TextView
+                android:id="@+id/tv_health_dialy_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="每日任务"
@@ -176,6 +178,7 @@
                 android:clickable="true"/>
 
             <TextView
+                android:id="@+id/tv_health_call_family"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="呼叫家人"

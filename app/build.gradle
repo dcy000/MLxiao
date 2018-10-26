@@ -155,8 +155,6 @@ dependencies {
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation 'jp.wasabeef:glide-transformations:3.1.1'
     implementation 'me.wcy:lrcview:1.4.2'
-//    implementation 'com.tencent.bugly:crashreport_upgrade:1.2.5'
-//    implementation rootProject.ext.dependencies["bugly-crashreport_upgrade"]
     implementation 'com.netease.nimlib:basesdk:4.3.0'
     implementation 'com.netease.nimlib:avchat:4.3.0'
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]

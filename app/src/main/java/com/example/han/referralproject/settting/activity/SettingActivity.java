@@ -16,6 +16,7 @@ import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
+import com.example.han.referralproject.settting.dialog.TextSizeDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.UserSpHelper;
@@ -29,7 +30,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener{
 
     TranslucentToolBar mToolBar;
-    TextView mVoice, mWifi, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache;
+    TextView mVoice, mWifi, mText, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache;
     // 外存sdcard存放路径
     private static final String FILE_PATH = Environment.getExternalStorageDirectory() + "/autoupdate/";
     // 下载应用存放全路径
@@ -47,6 +48,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         mToolBar = findViewById(R.id.tb_setting);
         mVoice = findViewById(R.id.tv_setting_voice);
         mWifi = findViewById(R.id.tv_setting_wifi);
+        mText = findViewById(R.id.tv_setting_text);
         mKeyword = findViewById(R.id.tv_setting_keyword);
         mInformant = findViewById(R.id.tv_setting_informant);
         mTalktype = findViewById(R.id.tv_setting_talktype);
@@ -57,6 +59,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
         mVoice.setOnClickListener(this);
         mWifi.setOnClickListener(this);
+        mText.setOnClickListener(this);
         mKeyword.setOnClickListener(this);
         mInformant.setOnClickListener(this);
         mTalktype.setOnClickListener(this);
@@ -90,7 +93,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(new Intent(this, VoiceSettingActivity.class));
                 break;
             case R.id.tv_setting_wifi:
-                //设置页面
+                //wifi设置
                 startActivity(new Intent(this, WifiConnectActivity.class));
                 break;
             case R.id.tv_setting_clearcache:
@@ -117,6 +120,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 //设置发音人
                 showInformantDialog();
                 break;
+            case R.id.tv_setting_text:
+                //字体设置
+                showTextSizeDialog();
+                break;
             case R.id.tv_setting_talktype:
                 //设置聊天模式
                 showTalkTypeDialog();
@@ -132,6 +139,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void showInformantDialog() {
         VoicerSetDialog dialog = new VoicerSetDialog();
         dialog.show(getFragmentManager(), "voicedialog");
+    }
+
+    private void showTextSizeDialog() {
+        TextSizeDialog dialog = new TextSizeDialog();
+        dialog.show(getFragmentManager(), "textsize");
     }
 
 //    private void showSetVoiceNameDialog() {

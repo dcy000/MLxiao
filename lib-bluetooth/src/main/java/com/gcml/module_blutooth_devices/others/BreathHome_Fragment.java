@@ -126,7 +126,6 @@ public class BreathHome_Fragment extends BluetoothBaseFragment implements IView,
     private void inputBluetoothNameDialog(final String address) {
         new InputDialog(getContext()).builder()
                 .setMsg("请输入仪器后背唯一识别码\n" + "字母请大写")
-                .setMsgColor(R.color.config_color_base_3)
                 .setEditHint("请输入设备唯一识别码")
                 .setPositiveButton("连接", new InputDialog.OnInputChangeListener() {
                     @Override

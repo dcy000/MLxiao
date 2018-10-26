@@ -15,10 +15,13 @@ import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.repository.imageloader.ImageLoader;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
+import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.lib_widget.EclipseImageView;
 import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -63,6 +66,78 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
         mIvShoppingMall.setOnClickListener(this);
         mIvAskDoctor = view.findViewById(R.id.iv_ask_doctor);
         mIvAskDoctor.setOnClickListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (SPUtil.get("homeTextSize", "little").equals("little")) {
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_person_center)
+                    .into(mIvPersonCenter);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_health_manager)
+                    .into(mIvHealthCourse);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_health_course)
+                    .into(mEntertainmentCenter);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_communicate)
+                    .into(mIvCommunicate);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_check_self)
+                    .into(mIvCheckSelf);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_shopping_mall)
+                    .into(mIvShoppingMall);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_ask_doctor)
+                    .into(mIvAskDoctor);
+        } else if (SPUtil.get("homeTextSize", "little").equals("middle")) {
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_person_center2)
+                    .into(mIvPersonCenter);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_health_manager2)
+                    .into(mIvHealthCourse);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_health_course2)
+                    .into(mEntertainmentCenter);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_communicate2)
+                    .into(mIvCommunicate);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_check_self2)
+                    .into(mIvCheckSelf);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_shopping_mall2)
+                    .into(mIvShoppingMall);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_ask_doctor2)
+                    .into(mIvAskDoctor);
+        } else {
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_person_center3)
+                    .into(mIvPersonCenter);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_health_manager3)
+                    .into(mIvHealthCourse);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_health_course3)
+                    .into(mEntertainmentCenter);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_communicate3)
+                    .into(mIvCommunicate);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_check_self3)
+                    .into(mIvCheckSelf);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_shopping_mall3)
+                    .into(mIvShoppingMall);
+            ImageLoader.with(getContext())
+                    .load(R.drawable.newmain_ask_doctor3)
+                    .into(mIvAskDoctor);
+        }
     }
 
     @Override

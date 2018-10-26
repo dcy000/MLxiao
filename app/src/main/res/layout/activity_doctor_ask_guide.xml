@@ -7,7 +7,6 @@
     android:background="@color/main_bg"
     tools:context="com.example.han.referralproject.recyclerview.DoctorAskGuideActivity">
 
-
     <LinearLayout
         android:id="@+id/ll_qianyue"
         android:layout_width="wrap_content"
@@ -19,6 +18,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/ll_zaixian"
         android:layout_marginLeft="80dp">
+
         <ImageView
             android:id="@+id/doctor_yuyue"
             android:layout_width="wrap_content"
@@ -26,17 +26,17 @@
             android:gravity="center"
             android:textSize="40sp"
             android:clickable="true"
-            android:background="@drawable/qianyue_doc_set"
-            />
+            android:background="@drawable/qianyue_doc_set" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="36sp"
             android:textColor="#333333"
-            android:text="签约医生"
+            android:text="签约顾问"
             android:layout_marginTop="22dp"/>
-    </LinearLayout>
 
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_zaixian"
@@ -49,6 +49,7 @@
         app:layout_constraintLeft_toRightOf="@id/ll_qianyue"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="80dp">
+
         <ImageView
             android:id="@+id/doctor_zaixian"
             android:layout_width="wrap_content"
@@ -56,18 +57,16 @@
             android:gravity="center"
             android:textSize="40sp"
             android:clickable="true"
-            android:background="@drawable/online_doc_set"
-            />
+            android:background="@drawable/online_doc_set" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="36sp"
             android:textColor="#333333"
-            android:text="在线医生"
+            android:text="在线顾问"
             android:layout_marginTop="22dp"/>
+
     </LinearLayout>
-
-
-
 
 </android.support.constraint.ConstraintLayout>

@@ -14,6 +14,7 @@
         android:layout_marginTop="20pt"
         android:layout_marginLeft="45pt"
         android:clickable="true"/>
+
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_health_course"
         android:layout_width="594pt"
@@ -24,6 +25,7 @@
         android:layout_marginTop="24pt"
         android:layout_marginLeft="45pt"
         android:clickable="true"/>
+
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/entertainment_center"
         android:layout_width="594pt"
@@ -34,6 +36,7 @@
         android:layout_marginTop="24pt"
         android:layout_marginLeft="45pt"
         android:clickable="true"/>
+
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_communicate"
         android:layout_width="594pt"
@@ -43,6 +46,7 @@
         app:layout_constraintTop_toTopOf="@id/iv_person_center"
         android:layout_marginLeft="24pt"
         android:clickable="true"/>
+
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_check_self"
         android:layout_width="594pt"
@@ -51,8 +55,8 @@
         app:layout_constraintLeft_toLeftOf="@id/iv_communicate"
         app:layout_constraintTop_toBottomOf="@id/iv_communicate"
         android:layout_marginTop="24pt"
-        android:clickable="true"
-        />
+        android:clickable="true" />
+
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_shopping_mall"
         android:layout_width="594pt"
@@ -61,8 +65,8 @@
         app:layout_constraintTop_toTopOf="@id/iv_person_center"
         app:layout_constraintLeft_toRightOf="@id/iv_communicate"
         android:layout_marginLeft="24pt"
-        android:clickable="true"
-        />
+        android:clickable="true" />
+
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_ask_doctor"
         android:layout_width="594pt"
@@ -72,4 +76,5 @@
         app:layout_constraintTop_toBottomOf="@id/iv_shopping_mall"
         android:layout_marginTop="24pt"
         android:clickable="true"/>
+
 </android.support.constraint.ConstraintLayout>
