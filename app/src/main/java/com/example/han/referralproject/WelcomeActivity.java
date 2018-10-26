@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Chronometer;
 
 import com.billy.cc.core.component.CC;
@@ -19,6 +18,7 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.network.WiFiUtil;
 import com.gcml.common.utils.permission.PermissionsManager;
 import com.gcml.common.utils.permission.PermissionsResultAction;
+import com.gcml.common.utils.VersionHelper;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.VersionInfoBean;
@@ -78,7 +78,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onSuccess(VersionInfoBean response) {
                 try {
-                    if (response != null && response.vid > getPackageManager().getPackageInfo(WelcomeActivity.this.getPackageName(), 0).versionCode) {
+                    if (response != null && response.vid > VersionHelper.getAppVersionCode(getApplicationContext())) {
                         new UpdateAppManager(WelcomeActivity.this).showNoticeDialog(response.url);
                     } else {
                         ch = findViewById(R.id.chronometer);
