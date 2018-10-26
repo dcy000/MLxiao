@@ -16,6 +16,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.cc.CCVideoActions;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.VersionHelper;
 import com.gcml.lib_utils.permission.PermissionsManager;
 import com.gcml.lib_utils.permission.PermissionsResultAction;
 import com.gcml.old.auth.signin.ChooseLoginTypeActivity;
@@ -80,7 +81,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onSuccess(VersionInfoBean response) {
                 try {
-                    if (response != null && response.vid > getPackageManager().getPackageInfo(WelcomeActivity.this.getPackageName(), 0).versionCode) {
+                    if (response != null && response.vid > VersionHelper.getAppVersionCode(getApplicationContext())) {
                         new UpdateAppManager(WelcomeActivity.this).showNoticeDialog(response.url);
                     } else {
                         ch = findViewById(R.id.chronometer);
