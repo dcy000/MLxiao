@@ -5,83 +5,29 @@ import com.google.gson.annotations.SerializedName;
 public class FaceBdAddFace {
 
     /**
-     * image : {{imgData1}}
-     * image_type : BASE64
-     * group_id : {{groupId}}
-     * user_id : {{userId}}
-     * user_info : sss
-     * quality_control : LOW
-     * liveness_control : NONE
+     * face_token : 2fa64a88a9d5118916f9a303782a97d3
+     * location : {"left":117,"top":131,"width":172,"height":170,"rotation":4}
      */
 
-    @SerializedName("image")
-    private String image;
-    @SerializedName("image_type")
-    private String imageType;
-    @SerializedName("group_id")
-    private String groupId;
-    @SerializedName("user_id")
-    private String userId;
-    @SerializedName("user_info")
-    private String userInfo;
-    @SerializedName("quality_control")
-    private String qualityControl;
-    @SerializedName("liveness_control")
-    private String livenessControl;
+    @SerializedName("face_token")
+    private String faceToken;
+    @SerializedName("location")
+    private FaceBdLocation location;
 
-    public String getImage() {
-        return image;
+    public String getFaceToken() {
+        return faceToken;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setFaceToken(String faceToken) {
+        this.faceToken = faceToken;
     }
 
-    public String getImageType() {
-        return imageType;
+    public FaceBdLocation getLocation() {
+        return location;
     }
 
-    public void setImageType(String imageType) {
-        this.imageType = imageType;
+    public void setLocation(FaceBdLocation location) {
+        this.location = location;
     }
 
-    public String getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(String userInfo) {
-        this.userInfo = userInfo;
-    }
-
-    public String getQualityControl() {
-        return qualityControl;
-    }
-
-    public void setQualityControl(String qualityControl) {
-        this.qualityControl = qualityControl;
-    }
-
-    public String getLivenessControl() {
-        return livenessControl;
-    }
-
-    public void setLivenessControl(String livenessControl) {
-        this.livenessControl = livenessControl;
-    }
 }

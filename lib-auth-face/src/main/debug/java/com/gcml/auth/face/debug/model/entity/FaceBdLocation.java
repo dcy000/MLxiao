@@ -12,9 +12,9 @@ public class FaceBdLocation {
      */
 
     @SerializedName("left")
-    private int left;
+    private double left;
     @SerializedName("top")
-    private int top;
+    private double top;
     @SerializedName("width")
     private int width;
     @SerializedName("height")
@@ -22,19 +22,19 @@ public class FaceBdLocation {
     @SerializedName("rotation")
     private int rotation;
 
-    public int getLeft() {
+    public double getLeft() {
         return left;
     }
 
-    public void setLeft(int left) {
+    public void setLeft(double left) {
         this.left = left;
     }
 
-    public int getTop() {
+    public double getTop() {
         return top;
     }
 
-    public void setTop(int top) {
+    public void setTop(double top) {
         this.top = top;
     }
 

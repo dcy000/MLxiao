@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -30,6 +31,8 @@ import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -42,7 +45,6 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -109,7 +111,54 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
                         super.onError(throwable);
                     }
                 });
+
+        mPreviewHelper.rxFrame()
+                .buffer(1)
+                .map(bitmapToBase64Mapper())
+                .compose(viewModel.ensureLive())
+                .doOnNext(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        image = s;
+                    }
+                })
+                .compose(viewModel.ensureFaceAdded())
+                .compose(ensureAddFace())
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        image = "";
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        binding.ivTips.setText(s);
+                        ToastUtils.showShort(s);
+                    }
+                });
+
     }
+
+    private String image = "";
+
+    @NonNull
+    private Function<List<Bitmap>, List<String>> bitmapToBase64Mapper() {
+        return new Function<List<Bitmap>, List<String>>() {
+            @Override
+            public List<String> apply(List<Bitmap> bitmaps) throws Exception {
+                ArrayList<String> images = new ArrayList<>();
+                for (Bitmap bitmap : bitmaps) {
+                    images.add(PreviewHelper.bitmapToBase64(bitmap));
+                }
+                return images;
+            }
+        };
+    }
+
 
     private void onPreviewStatusChanged(PreviewHelper.Status status) {
         if (status.code == PreviewHelper.Status.ERROR_ON_OPEN_CAMERA) {
@@ -124,10 +173,11 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
                 iconDialog.dismiss();
                 iconDialog = null;
             }
-            start(0);
+//            start(0);
+            takeFrames();
         } else if (status.code == PreviewHelper.Status.EVENT_CROPPED) {
-            Bitmap bitmap = (Bitmap) status.payload;
-            onBitmapPrepared(bitmap);
+//            Bitmap bitmap = (Bitmap) status.payload;
+//            onBitmapPrepared(bitmap);
         }
     }
 
@@ -138,20 +188,6 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
             return;
         }
         addFace(bitmap);
-    }
-
-    public void bindUserId() {
-        final EditText etUserId = new EditText(this);
-        new AlertDialog.Builder(this)
-                .setTitle("请输入 uid")
-                .setView(etUserId)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ToastUtils.showShort(etUserId.getText().toString());
-                    }
-                }).setNegativeButton("取消", null)
-                .show();
     }
 
     private IconDialog iconDialog;
@@ -220,6 +256,29 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
         }).subscribeOn(AndroidSchedulers.mainThread());
     }
 
+    public ObservableTransformer<String, String> ensureAddFace() {
+        return new ObservableTransformer<String, String>() {
+            @Override
+            public ObservableSource<String> apply(Observable<String> upstream) {
+                return upstream
+                        .onErrorResumeNext(new Function<Throwable, ObservableSource<? extends String>>() {
+                            @Override
+                            public ObservableSource<? extends String> apply(Throwable throwable) throws Exception {
+                                return Observable.just(image);
+                            }
+                        })
+                        .zipWith(userId(), new BiFunction<String, String, String>() {
+                            @Override
+                            public String apply(String image, String userId) throws Exception {
+                                return viewModel.addFace(image, userId)
+                                        .subscribeOn(Schedulers.io())
+                                        .blockingFirst();
+                            }
+                        });
+            }
+        };
+    }
+
     private void addFace(Bitmap bitmap) {
 
 
@@ -282,7 +341,7 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
                         super.onError(throwable);
                         faceId = UserSpHelper.produceFaceId();
 //                        error = true;
-                        start(0);
+//                        start(0);
                     }
                 });
 
@@ -312,29 +371,16 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
         );
     }
 
-    private void twoBuffer(int delayMillis) {
+    private void takeFrames() {
         if (!NetUitls.isConnected()) {
             binding.ivTips.setText("请连接Wifi!");
             ToastUtils.showShort("请连接Wifi!");
             return;
         }
         binding.ivTips.setText("请把脸对准框内");
-        MLVoiceSynthetize.startSynthesize(
-                getApplicationContext(),
-                "请把脸对准框内 。三，二，衣。茄子",
-                new MLSynthesizerListener() {
-                    @Override
-                    public void onCompleted(SpeechError speechError) {
-                        mPreviewHelper.addBuffer(0);
-                        mPreviewHelper.addBuffer(delayMillis);
-                        /**
-                         * @see FaceSignUpActivity#onPreviewStatusChanged(PreviewHelper.Status status)
-                         * @see PreviewHelper.Status.EVENT_CROPPED
-                         */
-                    }
-                },
-                false
-        );
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请把脸对准框内。");
+
+        mPreviewHelper.takeFrames(1, 1000, 500);
     }
 
     public void goBack() {

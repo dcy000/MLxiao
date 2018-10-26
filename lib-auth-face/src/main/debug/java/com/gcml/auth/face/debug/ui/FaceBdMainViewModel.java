@@ -6,7 +6,10 @@ import android.support.annotation.NonNull;
 import com.gcml.auth.face.debug.model.FaceBdRepository;
 import com.gcml.common.mvvm.BaseViewModel;
 
+import java.util.List;
+
 import io.reactivex.Observable;
+import io.reactivex.ObservableTransformer;
 
 public class FaceBdMainViewModel extends BaseViewModel {
     private FaceBdRepository mFaceBdRepository = new FaceBdRepository();
@@ -19,7 +22,15 @@ public class FaceBdMainViewModel extends BaseViewModel {
         return mFaceBdRepository.addFace(image, userId, "");
     }
 
-    public Observable<String> verifyLive(String image1, String image2) {
-        return mFaceBdRepository.verifyLive(image1, image2);
+    public Observable<String> verifyLive(List<String> images) {
+        return mFaceBdRepository.verifyLive(images);
+    }
+
+    public ObservableTransformer<List<String>, String> ensureLive() {
+        return mFaceBdRepository.ensureLive();
+    }
+
+    public ObservableTransformer<String, String> ensureFaceAdded() {
+        return mFaceBdRepository.ensureFaceAdded();
     }
 }

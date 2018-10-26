@@ -3,16 +3,25 @@ package com.gcml.auth.face.debug.model;
 import android.text.TextUtils;
 
 import com.gcml.auth.face.debug.model.entity.FaceBdAccessToken;
+import com.gcml.auth.face.debug.model.entity.FaceBdAddFaceParam;
 import com.gcml.auth.face.debug.model.entity.FaceBdAddFace;
-import com.gcml.auth.face.debug.model.entity.FaceBdAddFaceResponse;
-import com.gcml.auth.face.debug.model.entity.FaceBdVerifyLive;
+import com.gcml.auth.face.debug.model.entity.FaceBdResult;
+import com.gcml.auth.face.debug.model.entity.FaceBdSearch;
+import com.gcml.auth.face.debug.model.entity.FaceBdSearchParam;
+import com.gcml.auth.face.debug.model.entity.FaceBdUser;
+import com.gcml.auth.face.debug.model.entity.FaceBdVerify;
+import com.gcml.auth.face.debug.model.entity.FaceBdVerifyParam;
 import com.gcml.common.repository.RepositoryApp;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 public class FaceBdRepository {
 
@@ -32,30 +41,65 @@ public class FaceBdRepository {
             public String apply(FaceBdAccessToken faceBdAccessToken) throws Exception {
                 return faceBdAccessToken.getAccessToken();
             }
-        });
+        }).subscribeOn(Schedulers.io());
     }
 
-    public Observable<String> verifyLive(
-            String image1,
-            String image2) {
+    public Observable<String> verifyLive(List<String> images) {
         return accessToken()
                 .flatMap(new Function<String, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(String token) throws Exception {
-                        ArrayList<FaceBdVerifyLive> imgs = new ArrayList<>();
-                        FaceBdVerifyLive img1 = new FaceBdVerifyLive();
-                        img1.setImage(image1);
-                        img1.setImageType("BASE64");
-                        img1.setFaceField("age,beauty,expression");
-                        imgs.add(img1);
-                        FaceBdVerifyLive img2 = new FaceBdVerifyLive();
-                        img1.setImage(image2);
-                        img1.setImageType("BASE64");
-                        img1.setFaceField("age,beauty,expression");
-                        imgs.add(img2);
-                        return mFaceBdService.verifyLive(token, imgs);
+                        ArrayList<FaceBdVerifyParam> imgs = new ArrayList<>();
+                        for (String image : images) {
+                            FaceBdVerifyParam img = new FaceBdVerifyParam();
+                            img.setImage(image);
+                            img.setImageType("BASE64");
+                            img.setFaceField("age,beauty,expression");
+                            imgs.add(img);
+                        }
+                        return mFaceBdService.verify(token, imgs)
+                                .compose(FaceBdResultUtils.faceBdResultTransformer())
+                                .map(new Function<FaceBdVerify, String>() {
+                                    @Override
+                                    public String apply(FaceBdVerify faceBdVerify) throws Exception {
+                                        return "";
+                                    }
+                                })
+                                .subscribeOn(Schedulers.io());
                     }
                 });
+    }
+
+    public ObservableTransformer<List<String>, String> ensureLive() {
+        return new ObservableTransformer<List<String>, String>() {
+            @Override
+            public ObservableSource<String> apply(Observable<List<String>> upstream) {
+                return upstream
+                        .zipWith(accessToken(), new BiFunction<List<String>, String, String>() {
+                            @Override
+                            public String apply(List<String> images, String token) throws Exception {
+                                ArrayList<FaceBdVerifyParam> imgs = new ArrayList<>();
+                                for (String image : images) {
+                                    FaceBdVerifyParam img = new FaceBdVerifyParam();
+                                    img.setImage(image);
+                                    img.setImageType("BASE64");
+                                    img.setFaceField("age,beauty,expression");
+                                    imgs.add(img);
+                                }
+                                return mFaceBdService.verify(token, imgs)
+                                        .compose(FaceBdResultUtils.faceBdResultTransformer())
+                                        .map(new Function<FaceBdVerify, String>() {
+                                            @Override
+                                            public String apply(FaceBdVerify result) throws Exception {
+                                                return result.image();
+                                            }
+                                        })
+                                        .subscribeOn(Schedulers.io())
+                                        .blockingFirst();
+                            }
+                        });
+            }
+        };
     }
 
     public Observable<String> addFace(
@@ -65,12 +109,13 @@ public class FaceBdRepository {
         if (TextUtils.isEmpty(groupId)) {
             groupId = "test_base";
         }
-        return addFace(image, "BASE64", userId, userId, groupId, "LOW", "NONE");
+        String[] imageData = image.split(",");
+        return addFace(imageData[0], imageData[1], userId, userId, groupId, null, null);
     }
 
     public Observable<String> addFace(
-            String image,
             String imageType,
+            String image,
             String userId,
             String userInfo,
             String groupId,
@@ -80,9 +125,9 @@ public class FaceBdRepository {
                 .flatMap(new Function<String, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(String token) throws Exception {
-                        FaceBdAddFace addFace = new FaceBdAddFace();
-                        addFace.setImage(image);
+                        FaceBdAddFaceParam addFace = new FaceBdAddFaceParam();
                         addFace.setImageType(imageType);
+                        addFace.setImage(image);
                         addFace.setUserId(userId);
                         addFace.setUserInfo(userInfo);
                         addFace.setGroupId(groupId);
@@ -90,15 +135,66 @@ public class FaceBdRepository {
                         addFace.setLivenessControl(livenessControl);
                         return mFaceBdService.addFace(token, addFace)
                                 .compose(FaceBdResultUtils.faceBdResultTransformer())
-                                .map(new Function<FaceBdAddFaceResponse, String>() {
+                                .map(new Function<FaceBdAddFace, String>() {
                                     @Override
-                                    public String apply(FaceBdAddFaceResponse response) throws Exception {
-                                        return response.getFaceToken();
+                                    public String apply(FaceBdAddFace result) throws Exception {
+                                        return "FACE_TOKEN," + result.getFaceToken();
                                     }
-                                });
+                                })
+                                .subscribeOn(Schedulers.io());
                     }
                 });
     }
 
+    public Observable<Object> searchVerify(String image) {
+        return accessToken()
+                .flatMap(new Function<String, ObservableSource<FaceBdSearch>>() {
+                    @Override
+                    public ObservableSource<FaceBdSearch> apply(String token) throws Exception {
+                        FaceBdSearchParam param = new FaceBdSearchParam();
+                        String[] imgData = image.split(",");
+                        param.setImageType(imgData[0]);
+                        param.setImage(imgData[1]);
+                        param.setGroupIdList("test_base");
+                        return mFaceBdService.search(token, param)
+                                .compose(FaceBdResultUtils.faceBdResultTransformer());
+                    }
+                })
+                .map(new Function<FaceBdSearch, Object>() {
+                    @Override
+                    public Object apply(FaceBdSearch faceBdSearch) throws Exception {
+                        return faceBdSearch;
+                    }
+                });
+    }
 
+    public ObservableTransformer<String, String> ensureFaceAdded() {
+        return new ObservableTransformer<String, String>() {
+            @Override
+            public ObservableSource<String> apply(Observable<String> upstream) {
+                return upstream
+                        .zipWith(accessToken(), new BiFunction<String, String, String>() {
+                            @Override
+                            public String apply(String image, String token) throws Exception {
+                                FaceBdSearchParam param = new FaceBdSearchParam();
+                                String[] imgData = image.split(",");
+                                param.setImageType(imgData[0]);
+                                param.setImage(imgData[1]);
+                                param.setGroupIdList("test_base");
+                                return mFaceBdService.search(token, param)
+                                        .compose(FaceBdResultUtils.faceBdResultTransformer())
+                                        .map(new Function<FaceBdSearch, String>() {
+                                            @Override
+                                            public String apply(FaceBdSearch faceBdSearch) throws Exception {
+                                                FaceBdUser faceBdUser = faceBdSearch.getUserList().get(0);
+                                                return faceBdUser.getUserId() + "," + faceBdUser.getScore() ;
+                                            }
+                                        })
+                                        .subscribeOn(Schedulers.io())
+                                        .blockingFirst();
+                            }
+                        });
+            }
+        };
+    }
 }

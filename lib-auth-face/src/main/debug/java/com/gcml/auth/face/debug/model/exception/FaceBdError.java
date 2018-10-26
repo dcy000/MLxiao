@@ -7,7 +7,6 @@ public class FaceBdError extends RuntimeException {
         super("服务器繁忙", throwable);
     }
 
-
     public FaceBdError(int code, String message) {
         super(message);
         this.code = code;

@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.Pools;
+import android.util.Base64;
 import android.view.SurfaceHolder;
 import android.view.View;
 
@@ -256,28 +257,6 @@ public class PreviewHelper
         }
     }
 
-    public Observable<Bitmap> takeBuffer(int frames, int interval) {
-        for (int i = 0; i < frames; i++) {
-            if (i == 0) {
-                addBuffer(0);
-            } else {
-                addBuffer(interval);
-            }
-        }
-
-        return rxStatus.filter(new Predicate<Status>() {
-            @Override
-            public boolean test(Status status) throws Exception {
-                return status.code == Status.EVENT_CROPPED;
-            }
-        }).map(new Function<Status, Bitmap>() {
-            @Override
-            public Bitmap apply(Status status) throws Exception {
-                return (Bitmap) status.payload;
-            }
-        });
-    }
-
     public void addBuffer(long delayMillis) {
         Timber.i("Face take Camera Data: Camera = %s", mCamera);
         if (mCamera != null) {
@@ -483,6 +462,70 @@ public class PreviewHelper
             src.recycle();
         }
         return rotated;
+    }
+
+    public static String bitmapToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        if (!bitmap.isRecycled()) {
+            bitmap.recycle();
+        }
+        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+    }
+
+    public void takeFrames(int count, int delayMillis, int interval) {
+        if (mCamera == null) {
+            return;
+        }
+        for (int i = 0; i < count; i++) {
+            if (i == 0) {
+                addBuffer(delayMillis);
+            } else {
+                addBuffer(interval * i + delayMillis);
+            }
+        }
+    }
+
+    public Observable<Object> rxCameraOpenError() {
+        return rxStatus.filter(new Predicate<Status>() {
+            @Override
+            public boolean test(Status status) throws Exception {
+                return status.code == Status.ERROR_ON_OPEN_CAMERA;
+            }
+        }).map(new Function<Status, Object>() {
+            @Override
+            public Object apply(Status status) throws Exception {
+                return status;
+            }
+        });
+    }
+
+    public Observable<Object> rxCameraOpened() {
+        return rxStatus.filter(new Predicate<Status>() {
+            @Override
+            public boolean test(Status status) throws Exception {
+                return status.code == Status.EVENT_CAMERA_OPENED;
+            }
+        }).map(new Function<Status, Object>() {
+            @Override
+            public Object apply(Status status) throws Exception {
+                return status;
+            }
+        });
+    }
+
+    public Observable<Bitmap> rxFrame() {
+        return rxStatus.filter(new Predicate<Status>() {
+            @Override
+            public boolean test(Status status) throws Exception {
+                return status.code == Status.EVENT_CROPPED;
+            }
+        }).map(new Function<Status, Bitmap>() {
+            @Override
+            public Bitmap apply(Status status) throws Exception {
+                return (Bitmap) status.payload;
+            }
+        });
     }
 
     public static class Status {
