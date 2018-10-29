@@ -40,10 +40,10 @@ public class MLVoiceWake {
     private static VoiceWakeuper setParams() {
         VoiceWakeuper voiceWakeuper = initVoiceWakeuper();
         voiceWakeuper.setParameter(SpeechConstant.PARAMS, null);
-        voiceWakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:10");
+        voiceWakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:1450");
         voiceWakeuper.setParameter(SpeechConstant.IVW_SST, "wakeup");
         voiceWakeuper.setParameter(SpeechConstant.KEEP_ALIVE, "1");
-        voiceWakeuper.setParameter(SpeechConstant.IVW_NET_MODE, "1");
+        voiceWakeuper.setParameter(SpeechConstant.IVW_NET_MODE, "0");
         voiceWakeuper.setParameter(SpeechConstant.IVW_RES_PATH, getResource());
         voiceWakeuper.setParameter(SpeechConstant.IVW_AUDIO_PATH,
                 Environment.getExternalStorageDirectory().getPath() + "/msc/ivw.wav");
@@ -71,7 +71,7 @@ public class MLVoiceWake {
             };
         }
         VoiceWakeuper wakeuper = VoiceWakeuper.getWakeuper();
-        if (wakeuper != null && wakeuper.isListening()) {
+        if (wakeuper != null) {
             voiceWakeuper.startListening(listener);
         }
     }
