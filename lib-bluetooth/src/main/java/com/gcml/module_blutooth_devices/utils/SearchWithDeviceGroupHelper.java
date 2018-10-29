@@ -65,6 +65,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private boolean isSearching = false;
     private MySearchResponse mySearchResponse;
     private static final String TAG = "SearchWithDeviceGroupHe";
+    private String phone, birth, name, sex;
     /**
      * 蓝牙连接的敏感权限
      */
@@ -75,6 +76,16 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         this.view = view;
         this.measureType = measureType;
         devices = new ArrayList<>();
+    }
+
+    public SearchWithDeviceGroupHelper(IView view, int measureType, String phone, String birth, String name, String sex) {
+        this.view = view;
+        this.measureType = measureType;
+        devices = new ArrayList<>();
+        this.phone = phone;
+        this.birth = birth;
+        this.name = name;
+        this.sex = sex;
     }
 
     public void start() {
@@ -175,14 +186,14 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchStarted() {
             isSearching = true;
-            Log.i(TAG, "onSearchStarted: "+ThreadUtils.isMainThread());
+            Log.i(TAG, "onSearchStarted: " + ThreadUtils.isMainThread());
         }
 
         @Override
         public void onDeviceFounded(SearchResult searchResult) {
             String name = searchResult.getName();
             String address = searchResult.getAddress();
-            Log.i(TAG, "》》》" + name + "》》》" + address+"is main thread:");
+            Log.i(TAG, "》》》" + name + "》》》" + address + "is main thread:");
             if (!TextUtils.isEmpty(name)) {
                 for (String s : brands) {
                     if (name.startsWith(s) && !devices.contains(searchResult)) {
@@ -331,7 +342,9 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 switch (brand) {
                     case "WeCardio STD":
                         baseBluetoothPresenter = new ECG_BoSheng_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "WeCardio STD"));
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "WeCardio STD"),
+                                phone, birth, name, sex
+                        );
                         break;
                     case "A12-B":
                         baseBluetoothPresenter = new ECG_Chaosi_PresenterImp(view,

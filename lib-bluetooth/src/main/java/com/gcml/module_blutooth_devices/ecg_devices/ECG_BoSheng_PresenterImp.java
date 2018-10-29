@@ -112,14 +112,14 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
         }
     };
 
-    public ECG_BoSheng_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting) {
+    public ECG_BoSheng_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting,String phone,String birth,String name,String sex) {
         super(fragment, discoverSetting);
         bytesResult = new ArrayList<>();
         points = new ArrayList<>();
         weakHandler = new WeakHandler(weakRunnable);
         timeCount = new TimeCount(30000, 1000, fragment, weakHandler);
         initNet();
-        getNetConfig();
+        getNetConfig(phone,birth,name,sex);
 
         BleManager.getInstance().init((Application) fragment.getThisContext().getApplicationContext());
         BleScanRuleConfig scanRuleConfig = new BleScanRuleConfig.Builder()
@@ -143,7 +143,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
 
     }
 
-    private void getNetConfig() {
+    private void getNetConfig(final String phone, final String birth, final String name, final String sex) {
         BorsamHttpUtil.getInstance().add(TAG, PatientApi.getConfig())
                 .enqueue(new HttpCallback<BorsamResponse<Config>>() {
                     @Override
@@ -152,8 +152,8 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                             //这里必须设置
                             PatientApi.config = configBorsamResponse.getEntity();
                             //注册
-                            registAccount(DataUtils.hideMobilePhone4("18376542345"),
-                                    Bluetooth_Constants.BoSheng.BoSheng_USER_PASSWORD);
+                            registAccount(DataUtils.hideMobilePhone4(phone),
+                                    Bluetooth_Constants.BoSheng.BoSheng_USER_PASSWORD,birth,name,sex);
                         } else {
                             Toast.makeText(baseContext, "get config error", Toast.LENGTH_SHORT).show();
                         }
@@ -171,7 +171,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                 });
     }
 
-    private void registAccount(final String username, final String password) {
+    private void registAccount(final String username, final String password, final String birth, final String name, final String sex) {
         if (DataUtils.isNullString(username) || DataUtils.isNullString(password)) {
             return;
         }
@@ -189,8 +189,14 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                             } else {
                                 //注册成功后进行两个操作：1.登录；2：修改个人信息
                                 login(username, password);
-                                int birthday = (int) (TimeUtils.date2Milliseconds(TimeUtils.string2Date("1993-01-02", new SimpleDateFormat("yyyy-MM-dd"))) / 1000);
-                                alertPersonInfo("GCML_", "张三", 1, birthday);
+                                int birthday = (int) (TimeUtils.date2Milliseconds(TimeUtils.string2Date(birth, new SimpleDateFormat("yyyyMMdd"))) / 1000);
+                                int sexInt=0;
+                                if (sex.equals("男")){
+                                    sexInt=2;
+                                }else if (sex.equals("女")){
+                                    sexInt=1;
+                                }
+                                alertPersonInfo("", name, sexInt, birthday);
                             }
                         }
 
