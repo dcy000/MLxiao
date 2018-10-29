@@ -2,12 +2,14 @@ package com.gcml.module_blutooth_devices.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.gcml.common.utils.permission.PermissionsManager;
 import com.gcml.common.utils.permission.PermissionsResultAction;
+import com.gcml.common.utils.thread.ThreadUtils;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
@@ -67,6 +69,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
      * 蓝牙连接的敏感权限
      */
     private static final String DANGET_PERMISSION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private ThreadUtils.SimpleTask<Void> searchTask;
 
     public SearchWithDeviceGroupHelper(IView view, int measureType) {
         this.view = view;
@@ -143,7 +146,22 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 .searchBluetoothLeDevice(8000, 1)
                 .build();
         if (mySearchResponse != null) {
-            BluetoothClientManager.getClient().search(searchRequest, mySearchResponse);
+            if (searchTask == null) {
+                searchTask = new ThreadUtils.SimpleTask<Void>() {
+                    @Nullable
+                    @Override
+                    public Void doInBackground() throws Throwable {
+                        BluetoothClientManager.getClient().search(searchRequest, mySearchResponse);
+                        return null;
+                    }
+
+                    @Override
+                    public void onSuccess(@Nullable Void result) {
+
+                    }
+                };
+            }
+            ThreadUtils.executeByIo(searchTask);
         }
     }
 
@@ -157,14 +175,14 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchStarted() {
             isSearching = true;
-            Log.i(TAG, "onSearchStarted: ");
+            Log.i(TAG, "onSearchStarted: "+ThreadUtils.isMainThread());
         }
 
         @Override
         public void onDeviceFounded(SearchResult searchResult) {
             String name = searchResult.getName();
             String address = searchResult.getAddress();
-            Log.i(TAG, "》》》" + name + "》》》" + address);
+            Log.i(TAG, "》》》" + name + "》》》" + address+"is main thread:");
             if (!TextUtils.isEmpty(name)) {
                 for (String s : brands) {
                     if (name.startsWith(s) && !devices.contains(searchResult)) {
@@ -177,7 +195,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchStopped() {
             isSearching = false;
-            Log.i(TAG, "onSearchStopped: matched devices length=="+devices.size());
+            Log.i(TAG, "onSearchStopped: matched devices length==" + devices.size());
             if (devices.size() > 0) {
                 Collections.sort(devices, SearchWithDeviceGroupHelper.this);
                 initPresenter(devices.get(0).getName(), devices.get(0).getAddress());
@@ -363,6 +381,10 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     public void destroy() {
         if (isSearching) {
             BluetoothClientManager.getClient().stopSearch();
+        }
+        if (searchTask != null) {
+            ThreadUtils.cancel(searchTask);
+            searchTask = null;
         }
         if (baseBluetoothPresenter != null) {
             baseBluetoothPresenter.onDestroy();
