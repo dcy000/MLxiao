@@ -34,6 +34,7 @@ android {
 dependencies {
     implementation rootProject.ext.dependencies["support-v4"]
     api files('libs/Msc.jar')
+    api files('libs/Sunflower.jar')
     implementation rootProject.ext.dependencies["rxandroid2"]
     implementation rootProject.ext.dependencies["rxjava2"]
 }

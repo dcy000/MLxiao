@@ -6,11 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.gcml.common.data.UserEntity;
-import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ToastUtils;
@@ -24,16 +19,12 @@ import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
-import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
-
 public class ECG_Fragment extends BluetoothBaseFragment implements IView {
     private ECGSingleGuideView mEcgView;
     private BaseBluetoothPresenter baseBluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
     private TextView mMeasureTip;
     private Bundle bundle;
-    private String phone,birth,name,sex;
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_ecg;
@@ -44,25 +35,6 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView {
         mEcgView = view.findViewById(R.id.ecgView);
         mMeasureTip = view.findViewById(R.id.measure_tip);
         this.bundle = bundle;
-        CCResult result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-        Observable<UserEntity> rxUser = result.getDataItem("data");
-        rxUser.subscribeOn(Schedulers.io())
-                .as(RxUtils.<UserEntity>autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<UserEntity>() {
-                    @Override
-                    public void onNext(UserEntity userEntity) {
-                        if (userEntity!=null){
-                            phone=userEntity.phone;
-                            birth=userEntity.birthday;
-                            name=userEntity.name;
-                            sex=userEntity.sex;
-
-                            if (TextUtils.isEmpty(birth)||TextUtils.isEmpty(name)||TextUtils.isEmpty(sex)){
-                                ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
-                            }
-                        }
-                    }
-                });
     }
 
     @Override
@@ -121,9 +93,7 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView {
             switch (brand) {
                 case "WeCardio STD":
                     baseBluetoothPresenter = new ECG_BoSheng_PresenterImp(this,
-                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "WeCardio STD"),
-                            phone,birth,name,sex
-                            );
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "WeCardio STD"));
                     break;
                 case "A12-B":
                     baseBluetoothPresenter = new ECG_Chaosi_PresenterImp(this,

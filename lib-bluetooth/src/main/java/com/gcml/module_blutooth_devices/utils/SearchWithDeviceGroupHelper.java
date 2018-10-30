@@ -65,7 +65,6 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private boolean isSearching = false;
     private MySearchResponse mySearchResponse;
     private static final String TAG = "SearchWithDeviceGroupHe";
-    private String phone, birth, name, sex;
     /**
      * 蓝牙连接的敏感权限
      */
@@ -78,15 +77,6 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         devices = new ArrayList<>();
     }
 
-    public SearchWithDeviceGroupHelper(IView view, int measureType, String phone, String birth, String name, String sex) {
-        this.view = view;
-        this.measureType = measureType;
-        devices = new ArrayList<>();
-        this.phone = phone;
-        this.birth = birth;
-        this.name = name;
-        this.sex = sex;
-    }
 
     public void start() {
         switch (measureType) {
@@ -342,9 +332,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 switch (brand) {
                     case "WeCardio STD":
                         baseBluetoothPresenter = new ECG_BoSheng_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "WeCardio STD"),
-                                phone, birth, name, sex
-                        );
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "WeCardio STD"));
                         break;
                     case "A12-B":
                         baseBluetoothPresenter = new ECG_Chaosi_PresenterImp(view,

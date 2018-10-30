@@ -86,7 +86,6 @@ dependencies {
     //    addComponent 'demo_component_kt', project(':demo_component_kt') //module方式
     //    addComponent 'demo_component_b', 'com.billy.demo:demo_b:1.1.0'  //maven方式
     //    addComponent 'lib-mlvoice'
-    addComponent 'module-face_recognition'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     if (project.ext.runAsApp) {
         implementation project(":lib-common-app")

@@ -48,7 +48,6 @@ public class ECGConnectActivity extends Activity implements OnClickListener{
 				ReceiveService.BLU_ACTION_STATE_CHANGE);
 		filter.addAction(ReceiveService.ACTION_BLUETOOH_OFF);
 		registerReceiver(receiver, filter);
-		// ��API11�Ժ����ֱ�ӵ��ø÷��� ������dialog��ʽ���ֵ�activity����ⲿʱ�Ƿ���ʧ
 		if (Build.VERSION.SDK_INT >= 11) {
 			setFinishOnTouchOutside(false);
 		}

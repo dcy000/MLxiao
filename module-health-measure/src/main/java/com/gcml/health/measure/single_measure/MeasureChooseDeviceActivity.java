@@ -151,25 +151,16 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     }
 
     private void aferVideo() {
-        ApplicationInfo appInfo = null;
-        String channel = null;
-        try {
-            appInfo = this.getPackageManager()
-                    .getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-            channel=appInfo.metaData.getString("com.gcml.version");
 
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (!TextUtils.isEmpty(channel)){
-            if (channel.equals("gcml_version_normal")){
-                if (measureType == IPresenter.MEASURE_ECG) {
-                    XinDianDetectActivity.startActivity(this,
-                            MeasureChooseDeviceActivity.class.getSimpleName(),getIntent().getBooleanExtra(IS_FACE_SKIP,false));
-                    return;
-                }
-            }
-        }
+//        if (!TextUtils.isEmpty(channel)){
+//            if (channel.equals("gcml_version_normal")){
+//                if (measureType == IPresenter.MEASURE_ECG) {
+//                    XinDianDetectActivity.startActivity(this,
+//                            MeasureChooseDeviceActivity.class.getSimpleName(),getIntent().getBooleanExtra(IS_FACE_SKIP,false));
+//                    return;
+//                }
+//            }
+//        }
 
         Intent intent = new Intent();
         intent.setClass(this, AllMeasureActivity.class);

@@ -31,6 +31,7 @@ import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
+import com.gcml.health.measure.single_measure.fragment.SelfECGDetectionFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodoxygenFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodpressureFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodoxygenFragment;
@@ -43,6 +44,7 @@ import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeas
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureTemperatureFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureThreeInOneFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureWeightFragment;
+import com.gcml.health.measure.utils.ChannelUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
@@ -76,7 +78,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private Uri uri;
     private boolean isFaceSkip;
     private boolean isShowBloodsugarSelectTime = false;
-    private ArrayList<Integer> threeInOnePosition=new ArrayList<>();
+    private ArrayList<Integer> threeInOnePosition = new ArrayList<>();
+
     public static void startActivity(Context context, int measure_type) {
         Intent intent = new Intent(context, AllMeasureActivity.class);
         if (context instanceof Application) {
@@ -179,7 +182,11 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             case IPresenter.MEASURE_ECG:
                 if (baseFragment == null) {
                     mTitleText.setText("心 电 测 量");
-                    baseFragment = new ECG_Fragment();
+                    if (ChannelUtils.isBase()) {
+                        baseFragment = new SelfECGDetectionFragment();
+                    } else {
+                        baseFragment = new ECG_Fragment();
+                    }
                 }
                 break;
             case IPresenter.MEASURE_OTHERS:
@@ -211,6 +218,10 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
 
 
         if (baseFragment != null && measure_type == IPresenter.MEASURE_ECG) {
+            //TODO:如果不是基础版本不用下面的操作
+            if (ChannelUtils.isBase()) {
+                return;
+            }
             ((ECG_Fragment) baseFragment).setOnAnalysisDataListener(new ECG_Fragment.AnalysisData() {
                 @Override
                 public void onSuccess(String fileNum, String fileAddress, String filePDF) {
@@ -274,10 +285,10 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     break;
                 case IPresenter.MEASURE_OTHERS:
                     //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
-                    if (threeInOnePosition.size()==0){
+                    if (threeInOnePosition.size() == 0) {
                         CCHealthRecordActions.jump2HealthRecordActivity(6);
-                    }else {
-                        CCHealthRecordActions.jump2HealthRecordActivity(threeInOnePosition.get(threeInOnePosition.size()-1));
+                    } else {
+                        CCHealthRecordActions.jump2HealthRecordActivity(threeInOnePosition.get(threeInOnePosition.size() - 1));
                     }
                     break;
                 default:
@@ -441,8 +452,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             case IPresenter.MEASURE_ECG:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
-                ((ECG_Fragment) baseFragment).onStop();
-                ((ECG_Fragment) baseFragment).dealLogic();
+                if (ChannelUtils.isBase()) {
+                    ((SelfECGDetectionFragment) baseFragment).startDiscovery();
+                } else {
+                    ((ECG_Fragment) baseFragment).onStop();
+                    ((ECG_Fragment) baseFragment).dealLogic();
+                }
                 break;
             case IPresenter.MEASURE_OTHERS:
                 //三合一
@@ -501,14 +516,14 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             if (bundle != null) {
-                if (measure_type==IPresenter.MEASURE_BLOOD_SUGAR){
+                if (measure_type == IPresenter.MEASURE_BLOOD_SUGAR) {
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureBloodsugarFragment();
                     } else {
                         baseFragment = new SingleMeasureBloodsugarFragment();
                         baseFragment.setArguments(bundle);
                     }
-                }else if (measure_type==IPresenter.MEASURE_OTHERS){
+                } else if (measure_type == IPresenter.MEASURE_OTHERS) {
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureThreeInOneFragment();
                     } else {
