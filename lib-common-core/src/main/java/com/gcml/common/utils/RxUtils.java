@@ -162,7 +162,7 @@ public class RxUtils {
                 }
                 return WifiManager.calculateSignalLevel(wifiInfo.getRssi(), numsLevel);
             }
-        }).distinct();
+        }).distinctUntilChanged();
     }
 
     public static Observable<Integer> rxWifiLevels(Context context, int numsLevel, ScanResult wifi) {

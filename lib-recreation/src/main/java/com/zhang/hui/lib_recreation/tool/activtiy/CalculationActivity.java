@@ -220,6 +220,9 @@ public class CalculationActivity extends AppCompatActivity implements View.OnCli
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
                         CalculationDialog calculationDialog = new CalculationDialog();
                         Bundle bundle = new Bundle();
                         bundle.putString("question", result);
