@@ -3,18 +3,19 @@ package com.gcml.auth.face.debug.model;
 import android.text.TextUtils;
 
 import com.gcml.auth.face.debug.model.entity.FaceBdAccessToken;
-import com.gcml.auth.face.debug.model.entity.FaceBdAddFaceParam;
 import com.gcml.auth.face.debug.model.entity.FaceBdAddFace;
-import com.gcml.auth.face.debug.model.entity.FaceBdResult;
+import com.gcml.auth.face.debug.model.entity.FaceBdAddFaceParam;
 import com.gcml.auth.face.debug.model.entity.FaceBdSearch;
 import com.gcml.auth.face.debug.model.entity.FaceBdSearchParam;
 import com.gcml.auth.face.debug.model.entity.FaceBdUser;
 import com.gcml.auth.face.debug.model.entity.FaceBdVerify;
 import com.gcml.auth.face.debug.model.entity.FaceBdVerifyParam;
+import com.gcml.auth.face.debug.model.exception.FaceBdError;
 import com.gcml.common.repository.RepositoryApp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -88,10 +89,15 @@ public class FaceBdRepository {
                                 }
                                 return mFaceBdService.verify(token, imgs)
                                         .compose(FaceBdResultUtils.faceBdResultTransformer())
-                                        .map(new Function<FaceBdVerify, String>() {
+                                        .flatMap(new Function<FaceBdVerify, ObservableSource<String>>() {
                                             @Override
-                                            public String apply(FaceBdVerify result) throws Exception {
-                                                return result.image();
+                                            public ObservableSource<String> apply(FaceBdVerify result) throws Exception {
+                                                double liveness = result.getFaceLiveness();
+                                                String image = result.image();
+                                                if (liveness > 0.995 && !TextUtils.isEmpty(image)) {
+                                                    return Observable.just(image);
+                                                }
+                                                return Observable.error(new FaceBdError(FaceBdErrorUtils.ERROR_FACE_LIVELESS, ""));
                                             }
                                         })
                                         .subscribeOn(Schedulers.io())
@@ -183,11 +189,17 @@ public class FaceBdRepository {
                                 param.setGroupIdList("test_base");
                                 return mFaceBdService.search(token, param)
                                         .compose(FaceBdResultUtils.faceBdResultTransformer())
-                                        .map(new Function<FaceBdSearch, String>() {
+                                        .flatMap(new Function<FaceBdSearch, ObservableSource<String>>() {
                                             @Override
-                                            public String apply(FaceBdSearch faceBdSearch) throws Exception {
+                                            public ObservableSource<String> apply(FaceBdSearch faceBdSearch) throws Exception {
                                                 FaceBdUser faceBdUser = faceBdSearch.getUserList().get(0);
-                                                return faceBdUser.getUserId() + "," + faceBdUser.getScore() ;
+                                                if (faceBdUser.getScore() < 80) {
+                                                    FaceBdError error = new FaceBdError(FaceBdErrorUtils.ERROR_USER_SCORE_LOW, "");
+                                                    return Observable.error(error);
+                                                }
+                                                String result = String.format(Locale.getDefault(),
+                                                        "%s %.2f", faceBdUser.getUserId(), faceBdUser.getScore());
+                                                return Observable.just(result);
                                             }
                                         })
                                         .subscribeOn(Schedulers.io())

@@ -1,20 +1,19 @@
 package com.gcml.auth.face.debug.ui;
 
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
-import android.widget.EditText;
 
 import com.gcml.auth.face.BR;
 import com.gcml.auth.face.R;
 import com.gcml.auth.face.databinding.FaceActivityBdMainBinding;
+import com.gcml.auth.face.debug.model.exception.FaceBdError;
+import com.gcml.auth.face.debug.model.FaceBdErrorUtils;
 import com.gcml.auth.face.model.PreviewHelper;
 import com.gcml.auth.face.ui.FaceSignUpActivity;
 import com.gcml.common.data.UserSpHelper;
@@ -83,6 +82,13 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
                 ));
             }
         });
+        binding.previewMask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                start();
+                takeFrames("");
+            }
+        });
     }
 
     @Override
@@ -111,7 +117,10 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
                         super.onError(throwable);
                     }
                 });
+        start();
+    }
 
+    private void start() {
         mPreviewHelper.rxFrame()
                 .buffer(1)
                 .map(bitmapToBase64Mapper())
@@ -132,15 +141,33 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Timber.w(throwable);
+                        FaceBdError wrapped = FaceBdErrorUtils.wrap(throwable);
+                        String msg = FaceBdErrorUtils.getMsg(wrapped.getCode());
+                        binding.ivTips.setText(msg);
+                        start();
+                        takeFrames(msg);
+                    }
+                })
+                .doOnComplete(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        binding.previewMask.setEnabled(true);
+                    }
+                })
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<String>() {
                     @Override
                     public void onNext(String s) {
-                        binding.ivTips.setText(s);
-                        ToastUtils.showShort(s);
+                        if (!s.startsWith("FACE_TOKEN")) {
+                            binding.ivTips.setText(s);
+                            ToastUtils.showShort(s);
+                        }
                     }
                 });
-
     }
 
     private String image = "";
@@ -174,13 +201,14 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
                 iconDialog = null;
             }
 //            start(0);
-            takeFrames();
+            takeFrames("");
         } else if (status.code == PreviewHelper.Status.EVENT_CROPPED) {
 //            Bitmap bitmap = (Bitmap) status.payload;
 //            onBitmapPrepared(bitmap);
         }
     }
 
+    @Deprecated
     private void onBitmapPrepared(Bitmap bitmap) {
         if (!NetUitls.isConnected()) {
             binding.ivTips.setText("请连接Wifi!");
@@ -192,6 +220,7 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
 
     private IconDialog iconDialog;
 
+    @Deprecated
     private void showFace(Bitmap faceBitmap) {
         if (!NetUitls.isConnected()) {
             binding.ivTips.setText("请连接Wifi!");
@@ -264,21 +293,23 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
                         .onErrorResumeNext(new Function<Throwable, ObservableSource<? extends String>>() {
                             @Override
                             public ObservableSource<? extends String> apply(Throwable throwable) throws Exception {
-                                return Observable.just(image);
-                            }
-                        })
-                        .zipWith(userId(), new BiFunction<String, String, String>() {
-                            @Override
-                            public String apply(String image, String userId) throws Exception {
-                                return viewModel.addFace(image, userId)
-                                        .subscribeOn(Schedulers.io())
-                                        .blockingFirst();
+                                if (throwable instanceof FaceBdError) {
+                                    FaceBdError error = (FaceBdError) throwable;
+                                    if (error.getCode() == FaceBdErrorUtils.ERROR_USER_NOT_EXIST
+                                            || error.getCode() == FaceBdErrorUtils.ERROR_USER_NOT_FOUND) {
+                                        String userId = userId().blockingFirst();
+                                        return viewModel.addFace(image, userId)
+                                                .subscribeOn(Schedulers.io());
+                                    }
+                                }
+                                return Observable.error(throwable);
                             }
                         });
             }
         };
     }
 
+    @Deprecated
     private void addFace(Bitmap bitmap) {
 
 
@@ -347,6 +378,7 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
 
     }
 
+    @Deprecated
     private void start(int delayMillis) {
         if (!NetUitls.isConnected()) {
             binding.ivTips.setText("请连接Wifi!");
@@ -371,14 +403,19 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
         );
     }
 
-    private void takeFrames() {
+    private void takeFrames(String msg) {
+        binding.previewMask.setEnabled(false);
         if (!NetUitls.isConnected()) {
+            binding.previewMask.setEnabled(true);
             binding.ivTips.setText("请连接Wifi!");
             ToastUtils.showShort("请连接Wifi!");
             return;
         }
-        binding.ivTips.setText("请把脸对准框内");
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请把脸对准框内。");
+        if (TextUtils.isEmpty(msg)) {
+            msg = "请把脸对准框内";
+        }
+        binding.ivTips.setText(msg);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), msg);
 
         mPreviewHelper.takeFrames(1, 1000, 500);
     }

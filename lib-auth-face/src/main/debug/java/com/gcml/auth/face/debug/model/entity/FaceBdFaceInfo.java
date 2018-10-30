@@ -17,7 +17,7 @@ public class FaceBdFaceInfo {
     @SerializedName("expression")
     private FaceBdExpression expression;
     @SerializedName("face_probability")
-    private int faceProbability;
+    private double faceProbability;
     @SerializedName("location")
     private FaceBdLocation location;
     @SerializedName("age")
@@ -39,11 +39,11 @@ public class FaceBdFaceInfo {
         this.expression = expression;
     }
 
-    public int getFaceProbability() {
+    public double getFaceProbability() {
         return faceProbability;
     }
 
-    public void setFaceProbability(int faceProbability) {
+    public void setFaceProbability(double faceProbability) {
         this.faceProbability = faceProbability;
     }
 
