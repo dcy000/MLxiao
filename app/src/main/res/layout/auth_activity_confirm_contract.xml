@@ -72,7 +72,7 @@
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="@+id/line_center_vertical"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="签约医生"/>
+        tools:text="签约顾问"/>
 
     <TextView
         android:id="@+id/tv_doctor_phone"
@@ -83,7 +83,7 @@
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="@+id/tv_contract_doctor"
         app:layout_constraintTop_toBottomOf="@+id/tv_contract_doctor"
-        tools:text="医生联系方式"/>
+        tools:text="顾问联系方式"/>
 
     <TextView
         android:id="@+id/tv_contract_organization"

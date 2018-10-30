@@ -11,33 +11,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/ll_yule"
-        android:layout_width="608pt"
-        android:layout_height="648pt"
-        android:layout_marginStart="36pt"
-        android:layout_marginTop="158pt"
-        android:background="@drawable/yule_new_set"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_title_fun" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-    <ImageView
-        android:id="@+id/ll_youjiao"
-        android:layout_width="608pt"
-        android:layout_height="648pt"
-        android:layout_marginStart="12pt"
-        android:layout_marginTop="158pt"
-        android:background="@drawable/youjiao_new_set"
-        app:layout_constraintStart_toEndOf="@+id/ll_yule"
-        app:layout_constraintTop_toBottomOf="@+id/tb_title_fun" />
+        <ImageView
+            android:id="@+id/ll_yule"
+            android:layout_width="608pt"
+            android:layout_height="648pt"
+            android:layout_marginStart="36pt"
+            android:layout_marginTop="158pt"
+            android:background="@drawable/yule_new_set"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tb_title_fun" />
 
-    <ImageView
-        android:id="@+id/ll_tools"
-        android:layout_width="608pt"
-        android:layout_height="648pt"
-        android:layout_marginStart="12pt"
-        android:layout_marginTop="158pt"
-        android:background="@drawable/tools_new_set"
-        app:layout_constraintStart_toEndOf="@+id/ll_youjiao"
-        app:layout_constraintTop_toBottomOf="@+id/tb_title_fun" />
+        <ImageView
+            android:id="@+id/ll_youjiao"
+            android:layout_width="608pt"
+            android:layout_height="648pt"
+            android:layout_marginStart="12pt"
+            android:layout_marginTop="158pt"
+            android:background="@drawable/youjiao_new_set"
+            app:layout_constraintStart_toEndOf="@+id/ll_yule"
+            app:layout_constraintTop_toBottomOf="@+id/tb_title_fun"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/ll_tools"
+            android:layout_width="608pt"
+            android:layout_height="648pt"
+            android:layout_marginStart="12pt"
+            android:layout_marginTop="158pt"
+            android:background="@drawable/tools_new_set"
+            app:layout_constraintStart_toEndOf="@+id/ll_youjiao"
+            app:layout_constraintTop_toBottomOf="@+id/tb_title_fun" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

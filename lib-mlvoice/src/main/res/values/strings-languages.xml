@@ -93,7 +93,7 @@
         <item>个人中心</item>
         <item>症状自查</item>
         <item>测量历史</item>
-        <item>医生建议</item>
+        <item>顾问建议</item>
         <item>吃药提醒</item>
         <item>账户充值</item>
         <item>我的订单</item>
@@ -103,9 +103,9 @@
         <item>音乐</item>
     </string-array>
     <string-array name="key_yisheng_ziuxn">
-        <item>医生咨询</item>
-        <item>签约医生</item>
-        <item>在线医生</item>
+        <item>顾问咨询</item>
+        <item>签约顾问</item>
+        <item>在线顾问</item>
     </string-array>
     <string-array name="key_jiankang_shangcheng">
         <item>健康商城</item>

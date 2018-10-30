@@ -30,7 +30,7 @@
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:gravity="center"
-        android:text="签约医生"
+        android:text="签约顾问"
         android:textColor="#34B87F"
         android:textSize="35sp"
         app:layout_constraintLeft_toRightOf="@id/tv_tab2_health_info"

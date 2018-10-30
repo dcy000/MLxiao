@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textColor="#333"
         android:textSize="64pt"
-        android:text="陈医生"
+        android:text="陈顾问"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="48pt"
@@ -44,6 +44,6 @@
         android:textSize="56pt"
         android:maxLines="2"
         android:ellipsize="end"
-        android:text="你好，你的情况目前建议你应该积极治疗，建议你遵循医生的意见，及时治疗，如需换肝，医生会跟你说明..."
+        android:text="你好，你的情况目前建议你应该积极治疗，建议你遵循顾问的意见，及时治疗，如需换肝，顾问会跟你说明..."
         />
 </android.support.constraint.ConstraintLayout>

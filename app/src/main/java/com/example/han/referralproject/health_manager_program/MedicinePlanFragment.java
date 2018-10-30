@@ -33,7 +33,7 @@ public class MedicinePlanFragment extends Fragment {
     private View view;
     private IChangToolbar iChangToolbar;
     /**
-     * 根据您的情况，可以选择一种药物治疗2-4周，如血压未明显降低可换 另外降压药。具体用药请咨询医生为准。
+     * 根据您的情况，可以选择一种药物治疗2-4周，如血压未明显降低可换 另外降压药。具体用药请咨询顾问为准。
      */
     private TextView mTvTitle;
     /**
@@ -118,7 +118,7 @@ public class MedicinePlanFragment extends Fragment {
             }
 
 //            ((TreatmentPlanActivity) getActivity()).speak("主人，根据您的情况，" +
-//                    "我们给你推荐了以下相关药物。具体用药请以专业医生为准。我们建议您健康饮食，" +
+//                    "我们给你推荐了以下相关药物。具体用药请以专业顾问为准。我们建议您健康饮食，" +
 //                    "合理运动，根据康复疗程进行生活干预。");
         }
     }

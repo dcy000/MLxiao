@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
@@ -18,19 +19,28 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
 import com.example.han.referralproject.settting.dialog.TextSizeDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
-import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.UpdateAppManager;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.VersionHelper;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.medlink.danbogh.call2.NimAccountHelper;
+import com.umeng.analytics.MobclickAgent;
+
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener{
 
     TranslucentToolBar mToolBar;
-    TextView mVoice, mWifi, mText, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache;
+    TextView mVoice, mWifi, mText, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache, mCancel;
     // 外存sdcard存放路径
     private static final String FILE_PATH = Environment.getExternalStorageDirectory() + "/autoupdate/";
     // 下载应用存放全路径
@@ -56,6 +66,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         mAbout = findViewById(R.id.tv_setting_about);
         mReset = findViewById(R.id.tv_setting_reset);
         mClearcache = findViewById(R.id.tv_setting_clearcache);
+        mCancel = findViewById(R.id.tv_setting_cancel);
 
         mVoice.setOnClickListener(this);
         mWifi.setOnClickListener(this);
@@ -67,6 +78,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         mAbout.setOnClickListener(this);
         mReset.setOnClickListener(this);
         mClearcache.setOnClickListener(this);
+        mCancel.setOnClickListener(this);
     }
 
     private void bindData() {
@@ -128,6 +140,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 //设置聊天模式
                 showTalkTypeDialog();
                 break;
+            case R.id.tv_setting_cancel:
+                //注销账号
+                showCancelAccountDialog();
+                break;
         }
     }
 
@@ -180,7 +196,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             public void onSuccess(VersionInfoBean response) {
                 tipDialog.dismiss();
                 if (response != null && response.vid > VersionHelper.getAppVersionCode(getApplicationContext())) {
-                    checkUpdate(FILE_NAME, response.v_log, response.vid, response.vnumber, response.url, response.v_md5);
+                    new UpdateAppManager(SettingActivity.this).showNoticeDialog(response.url);
+//                    checkUpdate(FILE_NAME, response.v_log, response.vid, response.vnumber, response.url, response.v_md5);
                 } else {
                     MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
                 }
@@ -193,6 +210,61 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+    }
+
+    private void showCancelAccountDialog() {
+        new AlertDialog(SettingActivity.this).builder()
+                .setMsg("注销账号？")
+                .setPositiveButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancelAccount();
+                    }
+                })
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                }).show();
+    }
+
+    private void cancelAccount() {
+        LoadingDialog tipDialog = new LoadingDialog.Builder(SettingActivity.this)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord("账号注销中")
+                .create();
+        tipDialog.show();
+        CCResult result;
+        Observable<UserEntity> rxUser;
+        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+        rxUser = result.getDataItem("data");
+        rxUser.subscribeOn(Schedulers.io())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        NetworkApi.cancelAccount(user.phone, 3, new NetworkManager.SuccessCallback<Object>() {
+                            @Override
+                            public void onSuccess(Object response) {
+                                tipDialog.dismiss();
+                                MobclickAgent.onProfileSignOff();
+                                NimAccountHelper.getInstance().logout();//退出网易IM
+                                UserSpHelper.setUserId("");
+                                UserSpHelper.setToken("");
+                                UserSpHelper.setEqId("");
+                                CC.obtainBuilder("com.gcml.auth").build().callAsync();
+                                finish();
+                            }
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+                                tipDialog.dismiss();
+                                ToastUtils.showShort(message);
+                            }
+                        });
+                    }
+                });
     }
 
     private void checkUpdate(final String checkUrl, final String updateLog, final int versionCode, final String versionName, final String updateUrl, final String updateMD5) {

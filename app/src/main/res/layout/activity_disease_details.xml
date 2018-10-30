@@ -38,7 +38,7 @@
             android:background="@drawable/bg_rb_health_record2"
             android:button="@null"
             android:gravity="center"
-            android:text="医生建议"
+            android:text="顾问建议"
             android:textColor="#999"
             android:textSize="29sp"/>
 

@@ -19,11 +19,11 @@ import com.medlink.danbogh.utils.FastClickUtil;
 
 public class DoctorAskGuideActivity extends BaseActivity implements View.OnClickListener {
     /**
-     * 预约医生
+     * 预约顾问
      */
     private ImageView mDoctorYuyue;
     /**
-     * 在线医生
+     * 在线顾问
      */
     private ImageView mDoctorZaixian;
 
@@ -35,7 +35,7 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
         setEnableListeningLoop(false);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("顾 问 咨 询");
-        speak("主人，请点击选择签约医生或在线医生");
+        speak("主人，请点击选择签约顾问或在线顾问");
         initView();
     }
 

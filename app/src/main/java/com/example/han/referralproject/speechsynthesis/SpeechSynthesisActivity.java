@@ -41,6 +41,7 @@ import com.example.han.referralproject.children.entertainment.ChildEduJokesActiv
 import com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity;
 import com.example.han.referralproject.children.study.ChildEduPoemListActivity;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.homepage.ChangeUserActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
@@ -728,25 +729,26 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*(zuogejiancha|jianchashenti|zuotijian).*")) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
-                        .addParam("skip", true)
-                        .addParam("currentUser", false)
-                        .build()
-                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                            @Override
-                            public void onResult(CC cc, CCResult result) {
-                                boolean skip = "skip".equals(result.getErrorMessage());
-                                if (result.isSuccess() || skip) {
-                                    if (skip) {
-                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                        return;
-                                    }
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                } else {
-                                    ToastUtils.showShort(result.getErrorMessage());
-                                }
-                            }
-                        });
+                startActivity(ChangeUserActivity.class);
+//                CC.obtainBuilder("com.gcml.auth.face.signin")
+//                        .addParam("skip", true)
+//                        .addParam("currentUser", false)
+//                        .build()
+//                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                            @Override
+//                            public void onResult(CC cc, CCResult result) {
+//                                boolean skip = "skip".equals(result.getErrorMessage());
+//                                if (result.isSuccess() || skip) {
+//                                    if (skip) {
+//                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+//                                        return;
+//                                    }
+//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+//                                } else {
+//                                    ToastUtils.showShort(result.getErrorMessage());
+//                                }
+//                            }
+//                        });
                 return;
             }
 
@@ -1091,7 +1093,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 gotoHomePage();
                 return;
             }
-            if (inSpell.matches("yishengjianyi|chakanxiaoxi")) {
+            if (inSpell.matches("guwenjianyi|chakanxiaoxi")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
                 startActivity(intent);
                 return;
@@ -1134,7 +1136,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 VideoListActivity.launch(SpeechSynthesisActivity.this, 3);
                 return;
             }
-            if (inSpell.matches(".*(qianyueyisheng).*")) {
+            if (inSpell.matches(".*(qianyueguwen).*")) {
                 gotoQianyueYiSheng();
                 return;
             }
@@ -1415,10 +1417,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 startActivity(intent);
 
 
-            } else if (inSpell.matches(".*yisheng.*zixun.*") || inSpell.matches("wenyisheng|yishengzixun|jiatingyisheng|yuyue")) {
+            } else if (inSpell.matches(".*guwen.*zixun.*") || inSpell.matches("wenguwen|guwenzixun|jiatingguwen|yuyue")) {
 
                 if ("".equals(sharedPreferences.getString("name", ""))) {
-                    ToastUtils.showShort("请先查看是否与签约医生签约成功");
+                    ToastUtils.showShort("请先查看是否与签约顾问签约成功");
                 } else {
                     Intent intent = new Intent();
                     intent.setClass(getApplicationContext(), DoctorappoActivity.class);
@@ -1889,8 +1891,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
         }
 
-        //医生建议
-        List<KeyWordDefinevBean> doctorJianyi = getDefineData("yishengjianyi");
+        //顾问建议
+        List<KeyWordDefinevBean> doctorJianyi = getDefineData("guwenjianyi");
         for (int i = 0; i < doctorJianyi.size(); i++) {
             pinyin = doctorJianyi.get(i).pinyin;
             if (TextUtils.isEmpty(pinyin)) {
@@ -1977,8 +1979,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
 
 
-        //医生咨询
-        List<KeyWordDefinevBean> zixunyisheng = getDefineData("yishengzixun");
+        //顾问咨询
+        List<KeyWordDefinevBean> zixunyisheng = getDefineData("guwenzixun");
         for (int i = 0; i < zixunyisheng.size(); i++) {
             if (yuyin.contains(zixunyisheng.get(i).pinyin)) {
                 startActivity(new Intent(getApplicationContext(), DoctorAskGuideActivity.class));
@@ -1986,8 +1988,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
         }
 
-        //在线医生
-        List<KeyWordDefinevBean> zaixianyisheng = getDefineData("zaixianyisheng");
+        //在线顾问
+        List<KeyWordDefinevBean> zaixianyisheng = getDefineData("zaixianguwen");
         for (int i = 0; i < zaixianyisheng.size(); i++) {
             if (yuyin.contains(zaixianyisheng.get(i).pinyin)) {
                 startActivity(new Intent(this, OnlineDoctorListActivity.class));
@@ -1995,8 +1997,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
         }
 
-        //签约医生
-        List<KeyWordDefinevBean> qianyueyisheng = getDefineData("qianyueyisheng");
+        //签约顾问
+        List<KeyWordDefinevBean> qianyueyisheng = getDefineData("qianyueguwen");
         for (int i = 0; i < qianyueyisheng.size(); i++) {
             if (yuyin.contains(qianyueyisheng.get(i).pinyin)) {
                 gotoQianyueYiSheng();

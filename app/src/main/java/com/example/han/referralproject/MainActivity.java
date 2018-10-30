@@ -120,7 +120,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 bundle.putString("from", "Test");
                 CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
                 break;
-            case R.id.doctor_ask://医生咨询
+            case R.id.doctor_ask://顾问咨询
                 intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
                 startActivity(intent);
                 break;
@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     public static final String REGEX_GO_PERSONAL_CENTER = ".*(gerenzhongxin|wodeshuju).*";
     public static final String REGEX_GO_CLASS = ".*(jiankangketang|shipin).*";
-    public static final String REGEX_SEE_DOCTOR = ".*(yisheng|zixun|kan|yuyue)(zixun|yisheng).*";
+    public static final String REGEX_SEE_DOCTOR = ".*(guwen|zixun|kan|yuyue)(zixun|guwen).*";
     public static final String REGEX_SET_ALARM = ".*(naozhong|tixingwochiyao).*";
 
     @Override

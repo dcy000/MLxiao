@@ -657,6 +657,8 @@
         <activity android:name=".hypertensionmanagement.activity.DetecteTipActivity" />
         <!--<activity android:name=".recommend.RecommendActivity" />-->
         <activity android:name=".searchmaket.activity.SearchGoodsActivity" />
+        <activity android:name=".homepage.ChangeUserActivity" />
+        <activity android:name=".market.YDSWMallActivity" />
     </application>
 
 </manifest>

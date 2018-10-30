@@ -1,6 +1,7 @@
 package com.example.han.referralproject.homepage;
 
 import android.arch.lifecycle.Observer;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -304,7 +305,8 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                             getActivity().getApplicationContext(),
                                             "请先去个人中心完善性别和年龄信息");
                                 } else {
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                    startActivity(new Intent(getActivity(), ChangeUserActivity.class));
 //                                    CC.obtainBuilder("com.gcml.auth.face.signin")
 //                                            .addParam("skip", true)
 //                                            .addParam("currentUser", false)

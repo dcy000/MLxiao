@@ -100,7 +100,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="签约医生"
+                android:text="签约顾问"
                 android:textColor="#999999"
                 android:textSize="30sp" />
 
@@ -225,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="医生建议"
+                    android:text="顾问建议"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 

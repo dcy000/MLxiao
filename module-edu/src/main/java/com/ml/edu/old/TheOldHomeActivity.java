@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +45,7 @@ public class TheOldHomeActivity extends AppCompatActivity {
         lm.setOnPageChangeListener(new OverFlyingLayoutManager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                tvIndicator.setText(indicatorTexts[position % 3]);
+                tvIndicator.setText(indicatorTexts[position % 2]);
             }
 
             @Override
@@ -67,15 +65,15 @@ public class TheOldHomeActivity extends AppCompatActivity {
         tvIndicator.setText(indicatorTexts[1]);
     }
 
-    private final String[] indicatorTexts = new String[]{"收\n音\n机", "视\n频\n播\n放", "音\n乐\n播\n放"};
+    private final String[] indicatorTexts = new String[]{"收\n音\n机", "视\n频\n播\n放"};
 
     private OnItemClickListener onItemClickListener = new OnItemClickListener() {
         @Override
         public void onItemClick(int position) {
-            if (position == 2) {
-                OldRouter.routeToOldMusicActivity(TheOldHomeActivity.this);
-                return;
-            }
+//            if (position == 2) {
+//                OldRouter.routeToOldMusicActivity(TheOldHomeActivity.this);
+//                return;
+//            }
 
             if (position == 1) {
                 try {
@@ -112,7 +110,7 @@ public class TheOldHomeActivity extends AppCompatActivity {
             imageResources = new ArrayList<>();
             imageResources.add(R.drawable.old_ic_home_radio);
             imageResources.add(R.drawable.old_ic_home_video);
-            imageResources.add(R.drawable.old_ic_home_music);
+//            imageResources.add(R.drawable.old_ic_home_music);
         }
 
         @Override

@@ -112,6 +112,7 @@ public class NetworkApi {
     public static final String GetYZUrl = BasicUrl + "ZZB/bl/selYzAndTime";
     public static final String GetVersionUrl = BasicUrl + "ZZB/vc/selone";
     public static final String UploadDataUrl = BasicUrl + "ZZB/bl/doaddbl";
+    public static final String CancelAccountUrl = BasicUrl + "ZZB/acc/zhuxiao";
     public static final String CHARGE_URL = BasicUrl + "ZZB/eq/koufei";
     public static final String PAY_URL = BasicUrl + "ZZB/br/chongzhi";
     public static final String DOCTOR_URL = BasicUrl + "ZZB/docter/search_OneDocter";
@@ -157,7 +158,7 @@ public class NetworkApi {
 
     public static final String Get_HealthRecord = BasicUrl + "ZZB/br/cl_data";//正式服务器
     //    public static final String Get_HealthRecord=BasicUrl+"/ZZB/br/cl";
-    //全部医生
+    //全部顾问
     public static final String Get_AllDotor = BasicUrl + "ZZB/docter/seldoctors";
     public static final String FIND_ACCOUNT = BasicUrl + "ZZB/acc/sel_account";
     public static final String SET_PASSWORD = BasicUrl + "ZZB/acc/update_account_pwd";
@@ -753,6 +754,14 @@ public class NetworkApi {
         NetworkManager.getInstance().getResultClass(GetVersionUrl, paramsMap, VersionInfoBean.class, callback, failedCallback);
     }
 
+    public static void cancelAccount(String bid, int cate, NetworkManager.SuccessCallback<Object> successCallback, NetworkManager.FailedCallback failedCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("account", bid);
+        params.put("cate", String.valueOf(cate));
+        NetworkManager.getInstance().postResultString(CancelAccountUrl, params, successCallback, failedCallback);
+//        NetworkManager.getInstance().postResultString(UploadDataUrl, info.getParamsMap(), successCallback);
+    }
+
     public static void postData(DataInfoBean info, NetworkManager.SuccessCallback<MeasureResult> successCallback, NetworkManager.FailedCallback failedCallback) {
         if (info == null) {
             return;
@@ -1011,7 +1020,7 @@ public class NetworkApi {
     }
 
     /**
-     * 获取所有医生
+     * 获取所有顾问
      *
      * @param successCallback
      */

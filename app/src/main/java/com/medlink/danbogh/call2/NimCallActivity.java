@@ -794,7 +794,7 @@ public class NimCallActivity extends AppCompatActivity {
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        ToastUtils.showShort("请签约医生");
+                        ToastUtils.showShort("请签约顾问");
                     }
                 });
             }

@@ -10,6 +10,7 @@ import com.billy.cc.core.component.CCResult;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
+import com.example.han.referralproject.market.YDSWMallActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
@@ -206,7 +207,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                         });
                 break;
             case R.id.iv_shopping_mall:
-                startActivity(new Intent(getContext(), MarketActivity.class));
+                startActivity(new Intent(getContext(), YDSWMallActivity.class));
 //                CC.obtainBuilder("com.gcml.mall.mall").build().callAsync();
                 break;
             case R.id.iv_ask_doctor:

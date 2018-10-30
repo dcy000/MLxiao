@@ -10,7 +10,7 @@
         android:textSize="64pt"
         android:textColor="#333"
         android:textStyle="bold"
-        android:text="医生"
+        android:text="顾问"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"

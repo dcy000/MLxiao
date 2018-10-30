@@ -70,7 +70,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
     public ImageView education;
 
-
     private ChangeAccountDialog mChangeAccountDialog;
 
     SharedPreferences sharedPreferences1;

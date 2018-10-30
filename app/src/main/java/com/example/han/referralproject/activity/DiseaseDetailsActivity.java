@@ -24,7 +24,7 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
      */
     private RadioButton mRbReason;
     /**
-     * 医生建议
+     * 顾问建议
      */
     private RadioButton mRbSuggest;
     /**

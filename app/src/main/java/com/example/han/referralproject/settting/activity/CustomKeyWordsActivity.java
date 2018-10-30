@@ -95,7 +95,7 @@ public class CustomKeyWordsActivity extends BaseActivity implements KeyWordRVAda
     private void initDoctorKey() {
         KeyWordBean health = new KeyWordBean();
         health.title = true;
-        health.itemName = "医生咨询";
+        health.itemName = "顾问咨询";
         data.add(health);
         for (int i = 0; i < this.doctor.length; i++) {
             KeyWordBean bean = new KeyWordBean();
@@ -149,8 +149,8 @@ public class CustomKeyWordsActivity extends BaseActivity implements KeyWordRVAda
 
     String[] health = {"血压", "血氧", "体温", "血糖", "心电", "体重", "三合一"};
     String[] jiben = {"调大声音", "调小声音", "回到主界面", "删除", "上一步", "下一步"};
-    String[] person = {"个人中心", "症状自查", "测量历史", "医生建议", "吃药提醒", "账户充值", "我的订单", "健康课堂", "娱乐", "收音机", "音乐"};
-    String[] doctor = {"医生咨询", "签约医生", "在线医生"};
+    String[] person = {"个人中心", "症状自查", "测量历史", "顾问建议", "吃药提醒", "账户充值", "我的订单", "健康课堂", "娱乐", "收音机", "音乐"};
+    String[] doctor = {"顾问咨询", "签约顾问", "在线顾问"};
     String[] shop = {"健康商城"};
 
     private void initTitle() {

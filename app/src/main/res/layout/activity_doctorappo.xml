@@ -322,7 +322,7 @@
         android:layout_marginRight="695pt"
         android:background="@drawable/video_selector"
         android:gravity="center"
-        android:text="视频医生"
+        android:text="视频顾问"
         android:textColor="#FFFFFF"
         android:textSize="56pt" />
 

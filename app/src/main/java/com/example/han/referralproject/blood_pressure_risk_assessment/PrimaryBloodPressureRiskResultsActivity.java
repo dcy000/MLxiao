@@ -57,7 +57,7 @@ public class PrimaryBloodPressureRiskResultsActivity extends BaseActivity implem
                     stringSpeak+=(i+1)+illnessFactor.get(i)+";";
                 }
             }
-            stringSpeak+="建议您健康饮食，合理运动，根据康复疗程进行生活干预，必要时请咨询医生";
+            stringSpeak+="建议您健康饮食，合理运动，根据康复疗程进行生活干预，必要时请咨询顾问";
             speak(stringSpeak);
 
             stringBuffer.append("根据您的评估结果，您有可能是<strong><font color='#333333'>原发性高血压</color></strong>。");

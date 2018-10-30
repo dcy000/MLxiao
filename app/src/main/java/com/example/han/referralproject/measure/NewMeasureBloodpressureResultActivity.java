@@ -106,7 +106,7 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
     private TextView mTvSuggestTitle;
     /**
      * 主人，您血糖偏低，并有下降趋势，低血糖出现饥饿、头昏眼花、面色苍白、心慌手颤、出冷汗、虚弱无力等症状，
-     * 低血糖还容易诱发心律失常，心绞痛、心肌梗死以及脑血管意外并发症，请持续测量，必要时及时联系医生。
+     * 低血糖还容易诱发心律失常，心绞痛、心肌梗死以及脑血管意外并发症，请持续测量，必要时及时联系顾问。
      */
     private TextView mTvSuggest;
     /**

@@ -51,7 +51,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
                 speak(R.string.no_yz);
                 findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
                 mBtnGo.setVisibility(View.GONE);
-                mTvEmptyDataTips.setText("啊哦!你还没有医生建议");
+                mTvEmptyDataTips.setText("啊哦!你还没有顾问建议");
                 return;
             }
             mDataList.addAll(response);
