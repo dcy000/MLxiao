@@ -57,7 +57,7 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
                 String body = response.body();
                 try {
                     JSONObject object = new JSONObject(body);
-                    if (!object.getBoolean("tag")) {
+                    if (!object.optBoolean("tag")) {
                         startActivity(new Intent(ChoiceLoginTypeActivity.this, BindHealthManageSystemActivity.class));
                     }
                 } catch (Exception e) {
@@ -117,6 +117,6 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
         super.onResume();
         setEnableListeningLoop(false);
         setDisableGlobalListen(true);
-        get3BindInfo();
+//        get3BindInfo();
     }
 }

@@ -7,8 +7,8 @@ android {
         applicationId "com.example.han.referralproject"
         minSdkVersion gradle.minSdkVersion
         targetSdkVersion gradle.targetSdkVersion
-        versionCode 23
-        versionName "hos.1.1.2"
+        versionCode 24
+        versionName "hos.1.1.3"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
