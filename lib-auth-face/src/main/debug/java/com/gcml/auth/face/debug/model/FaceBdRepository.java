@@ -33,6 +33,9 @@ public class FaceBdRepository {
                     .retrofitService(FaceBdService.class);
 
     private Observable<String> accessToken() {
+        if (!TextUtils.isEmpty(FaceBdErrorUtils.accessToken)) {
+            return Observable.just(FaceBdErrorUtils.accessToken);
+        }
         return mFaceBdService.refreshToken(
                 FaceBdService.GRANT_TYPE,
                 FaceBdService.API_KEY,
@@ -40,7 +43,9 @@ public class FaceBdRepository {
         ).map(new Function<FaceBdAccessToken, String>() {
             @Override
             public String apply(FaceBdAccessToken faceBdAccessToken) throws Exception {
-                return faceBdAccessToken.getAccessToken();
+                String accessToken = faceBdAccessToken.getAccessToken();
+                FaceBdErrorUtils.accessToken = accessToken;
+                return accessToken;
             }
         }).subscribeOn(Schedulers.io());
     }
@@ -92,9 +97,8 @@ public class FaceBdRepository {
                                         .flatMap(new Function<FaceBdVerify, ObservableSource<String>>() {
                                             @Override
                                             public ObservableSource<String> apply(FaceBdVerify result) throws Exception {
-                                                double liveness = result.getFaceLiveness();
-                                                String image = result.image();
-                                                if (liveness > 0.995 && !TextUtils.isEmpty(image)) {
+                                                String image = FaceBdErrorUtils.liveFace(result);
+                                                if (!TextUtils.isEmpty(image)) {
                                                     return Observable.just(image);
                                                 }
                                                 return Observable.error(new FaceBdError(FaceBdErrorUtils.ERROR_FACE_LIVELESS, ""));
@@ -191,15 +195,13 @@ public class FaceBdRepository {
                                         .compose(FaceBdResultUtils.faceBdResultTransformer())
                                         .flatMap(new Function<FaceBdSearch, ObservableSource<String>>() {
                                             @Override
-                                            public ObservableSource<String> apply(FaceBdSearch faceBdSearch) throws Exception {
-                                                FaceBdUser faceBdUser = faceBdSearch.getUserList().get(0);
-                                                if (faceBdUser.getScore() < 80) {
-                                                    FaceBdError error = new FaceBdError(FaceBdErrorUtils.ERROR_USER_SCORE_LOW, "");
-                                                    return Observable.error(error);
+                                            public ObservableSource<String> apply(FaceBdSearch search) throws Exception {
+                                                try {
+                                                    String score = FaceBdErrorUtils.checkSearch(search);
+                                                    return Observable.just(score);
+                                                } catch (Exception e) {
+                                                    return Observable.error(e);
                                                 }
-                                                String result = String.format(Locale.getDefault(),
-                                                        "%s %.2f", faceBdUser.getUserId(), faceBdUser.getScore());
-                                                return Observable.just(result);
                                             }
                                         })
                                         .subscribeOn(Schedulers.io())

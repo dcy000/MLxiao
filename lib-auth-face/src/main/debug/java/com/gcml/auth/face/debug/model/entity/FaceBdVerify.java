@@ -46,7 +46,7 @@ public class FaceBdVerify {
 
     public String image() {
         for (FaceBdFaceInfo info : faceList) {
-            if (faceLiveness == info.getLiveness().getLivemapscore()) {
+            if (Math.abs(faceLiveness - info.getLiveness().getLivemapscore()) < 0.001) {
                 return "FACE_TOKEN," + info.getFaceToken();
             }
         }

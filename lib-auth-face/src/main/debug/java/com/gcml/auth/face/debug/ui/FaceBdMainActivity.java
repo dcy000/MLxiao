@@ -417,7 +417,7 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMainBinding, 
         binding.ivTips.setText(msg);
         MLVoiceSynthetize.startSynthesize(getApplicationContext(), msg);
 
-        mPreviewHelper.takeFrames(1, 1000, 500);
+        mPreviewHelper.takeFrames(1, 1800, 500);
     }
 
     public void goBack() {

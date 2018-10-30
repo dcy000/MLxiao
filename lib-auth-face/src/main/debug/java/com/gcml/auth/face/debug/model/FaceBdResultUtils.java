@@ -30,6 +30,7 @@ public class FaceBdResultUtils {
                 if (result.isSuccess()) {
                     return Observable.just(result.getData());
                 }
+                FaceBdErrorUtils.clearTokenIfNeeded(result.getErrorCode());
                 return Observable.error(new FaceBdError(result.getErrorCode(), result.getErrorMsg()));
             }
         };
