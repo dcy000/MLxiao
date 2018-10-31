@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_checked="false" >
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <!-- 填充的颜色 -->
+            <solid
+                android:color="@color/config_color_white" />
+
+            <!-- 设置矩形的四个角为弧形 -->
+            <corners
+                android:topLeftRadius="36dp"
+                android:topRightRadius="0dp"
+                android:bottomLeftRadius="36dp"
+                android:bottomRightRadius="0dp"/>
+
+            <!-- 设置矩形的边框色 -->
+            <stroke
+                android:width="2dp"
+                android:color="@color/config_color_white" />
+
+        </shape>
+    </item>
+
+    <item android:state_checked="true" >
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <!-- 填充的颜色 -->
+            <solid
+                android:color="@color/config_color_appthema" />
+
+            <!-- 设置矩形的四个角为弧形 -->
+            <corners
+                android:topLeftRadius="36dp"
+                android:topRightRadius="0dp"
+                android:bottomLeftRadius="36dp"
+                android:bottomRightRadius="0dp"/>
+
+            <!-- 设置矩形的边框色 -->
+            <stroke
+                android:width="2dp"
+                android:color="@color/config_color_white" />
+
+        </shape>
+    </item>
+
+</selector>

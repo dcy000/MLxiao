@@ -1,24 +1,19 @@
 package com.gcml.family.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.TextView;
-
-import com.billy.cc.core.component.CC;
-import com.gcml.common.widget.toolbar.ToolBarClickListener;
-import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 
 import com.gcml.family.R;
+import com.gcml.family.widget.FamilyMenuPopup;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.gcml.family.adapter.FamilyMenuAdapter;
-import com.gcml.family.bean.FamilyBean;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * desc: 拨号中心任务页面 .
@@ -26,12 +21,15 @@ import java.util.List;
  * date: 2018/8/20 .
  */
 
-public class FamilyActivity extends AppCompatActivity {
+public class FamilyActivity extends BaseFragmentActivity implements View.OnClickListener {
 
-    TranslucentToolBar mToolBar;
-    RecyclerView mRecycler;
-    FamilyMenuAdapter mAdapter;
-    TextView mNewsText;
+    RelativeLayout mLeftLay, mRightLay;
+    RadioGroup mRadioGroup;
+    FragmentManager fragmentManager;
+    FamilyRelativeFragment relativeFragment;
+    FamilyFriendFragment friendFragment;
+    Fragment[] mFragments;
+    int mIndex;
     String startType;
 
     @Override
@@ -42,114 +40,98 @@ public class FamilyActivity extends AppCompatActivity {
 
         bindView();
         bindData();
+        bindFragment();
     }
 
     private void bindView() {
-        mToolBar = findViewById(R.id.tb_family);
-        mRecycler = findViewById(R.id.rv_family);
-        mNewsText = findViewById(R.id.tv_family);
+        mLeftLay = findViewById(R.id.rl_family_left);
+        mRightLay = findViewById(R.id.rl_family_right);
+        mRadioGroup = findViewById(R.id.rg_family);
+        mLeftLay.setOnClickListener(this);
+        mRightLay.setOnClickListener(this);
     }
 
     private void bindData() {
         MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，欢迎来到拨号中心。", false);
-        mToolBar.setData("拨 号", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onLeftClick() {
-                if (startType.equals("MLMain")) {
-                    CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
-                    finish();
-                } else if (startType.equals("MLSpeech")) {
-                    finish();
+            public void onCheckedChanged(RadioGroup group, int arg1) {
+                //遍历RadioGroup 里面所有的子控件。
+                for (int index = 0; index < group.getChildCount(); index++) {
+                    //获取到指定位置的RadioButton
+                    RadioButton rb = (RadioButton)group.getChildAt(index);
+                    //如果被选中
+                    if (rb.isChecked()) {
+                        setIndexSelected(index);
+                        break;
+                    }
                 }
-            }
 
-            @Override
-            public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
-                finish();
             }
         });
-        mRecycler.setLayoutManager(new GridLayoutManager(FamilyActivity.this, 2));
-        getFamilyNews();
-        getFamilyData();
     }
 
-    private void getFamilyNews() {
-        int num = 2;
-        if (num > 0) {
-            mNewsText.setVisibility(View.VISIBLE);
-            mNewsText.setText("您有" + num + "条未读消息");
-        } else {
-            mNewsText.setVisibility(View.GONE);
-        }
+    private void bindFragment() {
+        relativeFragment =new FamilyRelativeFragment();
+        friendFragment =new FamilyFriendFragment();
+        //添加到数组
+        mFragments = new Fragment[]{relativeFragment, friendFragment};
+        //开启事务
+        fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft= fragmentManager.beginTransaction();
+        //添加首页
+        ft.add(R.id.fl_family, relativeFragment).commit();
+        //默认设置为第0个
+        setIndexSelected(0);
     }
 
-    private void getFamilyData() {
-        List<FamilyBean> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            if (i < 5) {
-                list.add(new FamilyBean("郭志强", "孙子"));
-            } else {
-                list.add(new FamilyBean("曾庆森", "儿子"));
-            }
-        }
-        mAdapter = new FamilyMenuAdapter(R.layout.item_family_menu, list);
-        mRecycler.setAdapter(mAdapter);
+    private void setIndexSelected(int index) {
 
-//        LoadingDialog tipDialog = new LoadingDialog.Builder(FamilyActivity.this)
-//                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-//                .setTipWord("正在加载")
-//                .create();
-//        mTaskRepository.taskListFromApi(UserSpHelper.getUserId())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnSubscribe(new Consumer<Disposable>() {
-//                    @Override
-//                    public void accept(Disposable disposable) {
-//                        tipDialog.show();
-//                    }
-//                })
-//                .doOnTerminate(new Action() {
-//                    @Override
-//                    public void run() {
-//                        tipDialog.dismiss();
-//                    }
-//                })
-//                .as(RxUtils.autoDisposeConverter(this))
-//                .subscribeWith(new DefaultObserver<TaskBean>() {
-//                    @Override
-//                    public void onNext(TaskBean body) {
-//                        super.onNext(body);
-//                        if (body.complitionStatus) {
-//                            TaskFinishFragment instanceFinish = TaskFinishFragment.newInstance(body);
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.fl_task, instanceFinish).commit();
-//                        } else {
-//                            TaskNormalFragment instanceNoemal = TaskNormalFragment.newInstance(body);
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.fl_task, instanceNoemal).commit();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//                        super.onError(throwable);
-//                        LoadingDialog errorDialog = new LoadingDialog.Builder(FamilyActivity.this)
-//                                .setIconType(LoadingDialog.Builder.ICON_TYPE_FAIL)
-//                                .setTipWord("请求失败")
-//                                .create();
-//                        errorDialog.show();
-//                        mHandler.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                errorDialog.dismiss();
-//                            }
-//                        }, 500);
-//                    }
-//                });
+        if(mIndex == index){
+            return;
+        }
+        fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+
+        //隐藏
+        fragmentTransaction.hide(mFragments[mIndex]);
+        //判断是否添加
+        if(!mFragments[index].isAdded()){
+            fragmentTransaction.add(R.id.fl_family, mFragments[index]).show(mFragments[index]);
+        }else {
+            fragmentTransaction.show(mFragments[index]);
+        }
+
+        fragmentTransaction.commit();
+        //再次赋值
+        mIndex = index;
+
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onClick(View v) {
+        if (v.getId() == R.id.rl_family_left) {
+//            if (startType.equals("MLMain")) {
+//                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+//                finish();
+//            } else if (startType.equals("MLSpeech")) {
+                finish();
+//            }
+        } else if (v.getId() == R.id.rl_family_right) {
+            FamilyMenuPopup familyMenu = new FamilyMenuPopup(FamilyActivity.this);
+            familyMenu.showPopupWindow();
+            familyMenu.setPopupText("添加家人", "消息中心");
+            familyMenu.setOnSelectListener(new FamilyMenuPopup.OnSelectListener() {
+                @Override
+                public void onSelected(int position) {
+                    if (position == 0) {
+
+                    } else if (position == 1) {
+
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -163,5 +145,4 @@ public class FamilyActivity extends AppCompatActivity {
         super.onDestroy();
         MLVoiceSynthetize.destory();
     }
-
 }

@@ -40,6 +40,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.FamilyActivity" />
+        <activity android:name=".ui.FamilyDetailActivity" />
 
         <meta-data
             android:name="com.gcml.family.FamilyApplication"

@@ -10,9 +10,9 @@ import com.gcml.family.bean.FamilyBean;
 
 import java.util.List;
 
-public class FamilyMenuAdapter extends BaseQuickAdapter<FamilyBean, BaseViewHolder> {
+public class FamilyRelativeAdapter extends BaseQuickAdapter<FamilyBean, BaseViewHolder> {
 
-    public FamilyMenuAdapter(int layoutResId, @Nullable List<FamilyBean> data) {
+    public FamilyRelativeAdapter(int layoutResId, @Nullable List<FamilyBean> data) {
         super(layoutResId, data);
     }
 
