@@ -72,7 +72,7 @@ public class FaceBdErrorUtils {
         return new FaceBdError(throwable);
     }
 
-    static volatile String accessToken = "ssfdsfsfsdf";
+    static volatile String accessToken = "";
 
     public static void clearTokenIfNeeded(int code) {
         boolean b = code == ERROR_INVALID_TOKEN;
