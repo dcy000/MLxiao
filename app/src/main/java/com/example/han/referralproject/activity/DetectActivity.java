@@ -1998,19 +1998,23 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onPause() {
         super.onPause();
-        mVideoView.pause();
-        threadDisable = false;
-        unregisterReceiver(mGattUpdateReceiver);
-        unregisterReceiver(searchDevices);
-        stopSearch();
-        if (mBluetoothLeService != null) {
-            unbindService(mServiceConnection);
-        }
-        mBluetoothLeService = null;
-        XueyaUtils.stopThread();
-        if (mBluetoothGatt != null) {
-            mBluetoothGatt.disconnect();
-            mBluetoothGatt.close();
+        try {
+            mVideoView.pause();
+            threadDisable = false;
+            unregisterReceiver(mGattUpdateReceiver);
+            unregisterReceiver(searchDevices);
+            stopSearch();
+            if (mBluetoothLeService != null) {
+                unbindService(mServiceConnection);
+            }
+            mBluetoothLeService = null;
+            XueyaUtils.stopThread();
+            if (mBluetoothGatt != null) {
+                mBluetoothGatt.disconnect();
+                mBluetoothGatt.close();
+            }
+        } catch (Exception e) {
+
         }
 
     }
@@ -2254,7 +2258,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                                 }
                             }, false);
-                        }else {
+                        } else {
                             InquiryAndFileEndActivity.startMe(DetectActivity.this, "问诊");
                             finish();
                             ActivityHelper.finishAll();

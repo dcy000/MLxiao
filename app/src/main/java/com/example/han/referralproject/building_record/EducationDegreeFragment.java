@@ -45,7 +45,7 @@ public class EducationDegreeFragment extends Fragment implements View.OnClickLis
     private String[] education = new String[]{"研究生", "大学本科", "大学专科和专科学校", "中等专业学校", "技工学校", "高中", "初中", "小学", "文盲或者半文盲", "不详"};
     private List<TextView> textViews;
     private String result = "";
-    private String[] index=new String[]{"0","1","2","3","4","5","6","7","8","9"};
+    private String[] index=new String[]{"1","2","3","4","5","6","7","8","9","10"};
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -127,7 +127,7 @@ public class SignUp7HeightActivity extends BaseActivity {
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         String height = mStrings.get(selectedPosition);
-        LocalShared.getInstance(this.getApplicationContext()).setSignUpHeight(Float.valueOf(height));
+        LocalShared.getInstance(this.getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
         Intent intent = new Intent(this, SignUp8WeightActivity.class);
         startActivity(intent);
     }

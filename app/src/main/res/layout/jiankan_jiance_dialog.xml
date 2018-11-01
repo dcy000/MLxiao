@@ -29,7 +29,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="213pt"
-                android:text="收费项目"
+                android:text="单项体检"
                 android:textColor="#ff333333"
                 android:textSize="64pt" />
 
@@ -60,6 +60,7 @@
                 android:textSize="64pt" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -95,6 +96,7 @@
                 android:textSize="64pt" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -134,6 +136,7 @@
                 android:textSize="64pt" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

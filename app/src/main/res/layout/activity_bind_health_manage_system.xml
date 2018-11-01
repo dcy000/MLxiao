@@ -45,16 +45,16 @@
         android:id="@+id/tv_next"
         android:layout_width="320pt"
         android:layout_height="100pt"
+        android:layout_marginBottom="348pt"
+        android:layout_marginLeft="59pt"
         android:background="@drawable/shape_rectangle_next_btn"
         android:enabled="false"
         android:gravity="center"
         android:text="下一步"
-        android:layout_marginLeft="59pt"
         android:textColor="#fff"
         android:textSize="56pt"
-        android:layout_marginBottom="348pt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -65,7 +65,6 @@
         app:srcCompat="@drawable/ic_pages_right_bg" />
 
     <EditText
-        android:inputType="textPassword"
         android:id="@+id/et_pass_word"
         android:layout_width="880pt"
         android:layout_height="132pt"
@@ -73,6 +72,7 @@
         android:layout_marginTop="17pt"
         android:background="@null"
         android:hint="请输入您的公共卫生服务管理密码"
+        android:inputType="textPassword"
         android:textSize="56pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ccet_phone" />

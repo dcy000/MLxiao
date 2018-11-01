@@ -336,20 +336,20 @@ public class LocalShared {
         return mShared.getString(SIGN_UP_PASSWORD, "");
     }
 
-    public void setSignUpHeight(float height) {
-        mShared.edit().putFloat(SIGN_UP_HEIGHT, height).apply();
+    public void setSignUpHeight(int height) {
+        mShared.edit().putInt(SIGN_UP_HEIGHT, height).apply();
     }
 
     public float getSignUpHeight() {
-        return mShared.getFloat(SIGN_UP_HEIGHT, 180f);
+        return mShared.getInt(SIGN_UP_HEIGHT, 175);
     }
 
-    public void setSignUpWeight(float weight) {
-        mShared.edit().putFloat(SIGN_UP_WEIGHT, weight).apply();
+    public void setSignUpWeight(int weight) {
+        mShared.edit().putInt(SIGN_UP_WEIGHT, weight).apply();
     }
 
     public float getSignUpWeight() {
-        return mShared.getFloat(SIGN_UP_WEIGHT, 65f);
+        return mShared.getInt(SIGN_UP_WEIGHT, 65);
     }
 
     public void setSignUpBloodType(String bloodType) {

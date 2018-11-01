@@ -147,16 +147,31 @@ public class AddressActivity extends BaseActivity {
                 cityPicker.showCityPicker();
                 break;
             case R.id.tv_next:
-                String detailAddress = canClearEditText.getPhone();
-                if (TextUtils.isEmpty(detailAddress)) {
-                    mlSpeak("请输入详细地址");
+                if (TextUtils.isEmpty(tvProvinceInfo.getText().toString().trim())) {
+                    mlSpeak("请输入您的户籍地址 ");
                     return;
                 }
-                String address = tvProvinceInfo.getText().toString() + tvCity.getText().toString() + tvBlockInfo.getText().toString() + detailAddress;
-                startActivity(new Intent(this, InputFaceActivity.class)
-                        .putExtras(getIntent())
-                        .putExtra(REGISTER_ADDRESS, address));
-                break;
+
+                if (TextUtils.isEmpty(tvCityInfo.getText().toString().trim())) {
+                    mlSpeak("请输入您的户籍地址 ");
+                    return;
+                }
+                if (TextUtils.isEmpty(tvBlockInfo.getText().toString().trim())) {
+                    mlSpeak("请输入您的户籍地址 ");
+                    return;
+                }
+
+
+            String detailAddress = canClearEditText.getPhone();
+            if (TextUtils.isEmpty(detailAddress)) {
+                mlSpeak("请输入详细地址");
+                return;
+            }
+            String address = tvProvinceInfo.getText().toString() + tvCity.getText().toString() + tvBlockInfo.getText().toString() + detailAddress;
+            startActivity(new Intent(this, InputFaceActivity.class)
+                    .putExtras(getIntent())
+                    .putExtra(REGISTER_ADDRESS, address));
+            break;
         }
     }
 }
