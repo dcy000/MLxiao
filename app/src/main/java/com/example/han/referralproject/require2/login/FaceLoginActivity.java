@@ -103,6 +103,7 @@ public class FaceLoginActivity extends BaseActivity {
     private boolean openOrcloseAnimation = true;
     private boolean isOnPause = false;
     private SurfaceHolder holder;
+    private EquipmentXFInfoBean bean;
 
     class MyHandler extends Handler {
         private WeakReference<FaceLoginActivity> weakReference;
@@ -116,15 +117,37 @@ public class FaceLoginActivity extends BaseActivity {
             switch (msg.what) {
                 case TO_FACE_AUTHENTICATION://开始验证头像
                     findViewById(R.id.iv_circle).startAnimation(rotateAnim);
+                    if (bean != null) {
+                        if (bean.tag) {
+                            if (bean.data == null || bean.data.size() == 0) {
+                                T.show("您不是VIP用户");
+                                finishActivity();
+                                return;
+                            } else {
+                                int size = bean.data.size();
+                                for (int i = 0; i < size; i++) {
+                                    FaceRecognition(bean.data.get(i).groupId);
+                                }
+                            }
+                        } else {
+                            T.show("网络服务繁忙");
+                        }
+
+                        return;
+                    }
+
+
                     NetworkApi.getEquipmentXunFeiInfo(Utils.getDeviceId(), new StringCallback() {
+
                         @Override
                         public void onSuccess(Response<String> response) {
                             String body = response.body();
-                            EquipmentXFInfoBean bean = new Gson().fromJson(body, EquipmentXFInfoBean.class);
+                            bean = new Gson().fromJson(body, EquipmentXFInfoBean.class);
                             if (bean != null) {
                                 if (bean.tag) {
                                     if (bean.data == null || bean.data.size() == 0) {
                                         T.show("您不是VIP用户");
+                                        finishActivity();
                                         return;
                                     } else {
                                         int size = bean.data.size();
@@ -135,6 +158,8 @@ public class FaceLoginActivity extends BaseActivity {
                                 } else {
                                     T.show("网络服务繁忙");
                                 }
+
+                                return;
                             }
                         }
 

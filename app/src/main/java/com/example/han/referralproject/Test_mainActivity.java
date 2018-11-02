@@ -83,6 +83,9 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_test_main2);
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setVisibility(View.VISIBLE);
+        mTitleText.setText("单项体检");
+
         isTest = getIntent().getBooleanExtra("isTest", false);
 
         llXueya.setOnClickListener(this);
