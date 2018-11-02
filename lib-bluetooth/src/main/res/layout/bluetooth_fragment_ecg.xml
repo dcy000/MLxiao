@@ -32,4 +32,48 @@
         android:textSize="56pt"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tv_device_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="检测设备：博声心电仪"
+        android:textColor="@color/bluetooth_white"
+        android:textSize="56pt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="60pt"
+        android:layout_marginLeft="60pt"/>
+    <TextView
+        android:id="@+id/tv_change_device"
+        android:layout_width="260pt"
+        android:layout_height="100pt"
+        android:textSize="56pt"
+        android:textColor="@color/bluetooth_white"
+        android:text="切换"
+        app:layout_constraintLeft_toRightOf="@id/tv_device_name"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="60pt"
+        android:layout_marginTop="40pt"
+        android:gravity="center"
+        android:background="@drawable/health_measure_change_ecg_device"/>
+
+    <include
+        android:id="@+id/bottom_btn"
+        layout="@layout/bluetooth_layout_two_button"
+        />
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="320pt"
+        android:layout_height="120pt"
+        android:layout_marginBottom="100pt"
+        android:layout_marginRight="100pt"
+        android:background="@drawable/bluetooth_btn_health_history_set"
+        android:gravity="center"
+        android:visibility="visible"
+        android:text="下一步"
+        android:textColor="#FFFFFF"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 </android.support.constraint.ConstraintLayout>

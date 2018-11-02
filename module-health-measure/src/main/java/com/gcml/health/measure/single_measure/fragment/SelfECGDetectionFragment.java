@@ -59,12 +59,6 @@ import timber.log.Timber;
  */
 public class SelfECGDetectionFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private Context context;
-    private TextView mMainPc80BTitleGain;
-    private TextView mMainPc80BTitleHr;
-    private ImageView mMainPc80BTitleBattery;
-    private ImageView mMainPc80BTitleSmooth;
-    private ImageView mMainPc80BTitlePulse;
-    private ImageView mIconBack;
     private BackGround mMainPc80BViewBg;
     private TextView mMainPc80BMSG;
     private DrawThreadPC80B mMainPc80BViewDraw;
@@ -79,7 +73,6 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
     private int mEcg;
     private int mHeartRate;
     private Thread drawThread;
-    private boolean isJump2Next = false;
     private boolean isServiceBind = false;
     private boolean isRegistReceiver = false;
 
@@ -97,13 +90,6 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
     @Override
     protected void initView(View view, Bundle bundle) {
 
-        mMainPc80BTitleGain = (TextView) view.findViewById(R.id.main_pc80B_title_gain);
-        mMainPc80BTitleHr = (TextView) view.findViewById(R.id.main_pc80B_title_hr);
-        mMainPc80BTitleBattery = (ImageView) view.findViewById(R.id.main_pc80B_title_battery);
-        mMainPc80BTitleSmooth = (ImageView) view.findViewById(R.id.main_pc80B_title_smooth);
-        mMainPc80BTitlePulse = (ImageView) view.findViewById(R.id.main_pc80B_title_pulse);
-        mIconBack = (ImageView) view.findViewById(R.id.icon_back);
-        mIconBack.setOnClickListener(this);
         mMainPc80BViewBg = (BackGround) view.findViewById(R.id.main_pc80B_view_bg);
         mMainPc80BMSG = (TextView) view.findViewById(R.id.main_pc80B_MSG);
         mMainPc80BViewDraw = (DrawThreadPC80B) view.findViewById(R.id.main_pc80B_view_draw);
@@ -114,6 +100,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         mTvNext = (TextView) view.findViewById(R.id.tv_next);
         mTvNext.setVisibility(View.GONE);
         mTvNext.setOnClickListener(this);
+        view.findViewById(R.id.tv_change_device).setOnClickListener(this);
         setBtnClickableState(false);
         MLVoiceSynthetize.startSynthesize(context, "主人，请打开设备开关，准备测量", false);
         initOther();
@@ -194,12 +181,6 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
     };
 
     @Override
-    public void onStart() {
-        super.onStart();
-        isJump2Next = false;
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         if (drawThread == null) {
@@ -244,7 +225,6 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         int i = v.getId();
         if (i == R.id.tv_next) {
             if (fragmentChanged != null) {
-                isJump2Next = true;
                 fragmentChanged.onFragmentChanged(this, null);
             }
         }
@@ -258,6 +238,10 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                 dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_ECG);
             }
             clickHealthHistory(v);
+        } else if (i == R.id.tv_change_device) {
+            if (fragmentChanged != null) {
+                fragmentChanged.onFragmentChanged(this, null);
+            }
         }
     }
 
@@ -284,11 +268,6 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                 break;
                 case BATTERY_ZERO: {
                     // 电池电量为0时的消息  battery 0 level
-                    if (mMainPc80BTitleBattery.isShown()) {
-                        mMainPc80BTitleBattery.setVisibility(View.INVISIBLE);
-                    } else {
-                        mMainPc80BTitleBattery.setVisibility(View.VISIBLE);
-                    }
                     mHandler.sendEmptyMessageDelayed(BATTERY_ZERO, 500);
                 }
                 break;
@@ -322,7 +301,6 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             } else {
                                 setMSG(" ");
                             }
-                            setGain(data.getInt("nGain"));
                         }
                         break;
                         case 5: {
@@ -337,8 +315,6 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                                 setMSG(" ");
                             }
                             data.getInt("nTransMode");
-                            setHR(data.getInt("nHR"));
-                            setGain(data.getInt("nGain"));
                         }
                         break;
                         case 6: {
@@ -354,10 +330,6 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             }
                             mMainPc80BViewDraw.cleanWaveData();
                             mMainPc80BViewDraw.Pause();
-                            setGain(0);
-                            setHR(data.getInt("nHR"));
-                            setSmooth(false);
-
                             mEcg = data.getInt("nResult");
                             mHeartRate = data.getInt("nHR");
                             uploadEcg(mEcg, mHeartRate);
@@ -373,7 +345,6 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                                 setMSG(getResources().getString(R.string.measure_ecg_file_ing));
                             } else if (nTransMode == StatusMsg.TRANSMIT_MODE_CONTINUOUS) {
                                 setMSG("");
-                                setSmooth(nSmoothingMode == StatusMsg.SMOOTHMODE_ENHANCE);
                             }
                         }
                         break;
@@ -382,14 +353,10 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                     }
                 }
                 break;
-                case StaticReceive.MSG_DATA_PULSE: {
-                    showPulse(true);
-                }
-                break;
-                case RECEIVEMSG_PULSE_OFF: {
-                    showPulse(false);
-                }
-                break;
+                case StaticReceive.MSG_DATA_PULSE:
+                    break;
+                case RECEIVEMSG_PULSE_OFF:
+                    break;
                 case StaticReceive.MSG_TERMINAL_OFFLINE: {
                     context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
                 }
@@ -439,94 +406,27 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                 });
     }
 
-    /**
-     * 设置滤波模式
-     *
-     * @param isVisible
-     */
-    private void setSmooth(boolean isVisible) {
-        setImgVisible(mMainPc80BTitleSmooth, isVisible);
-    }
-
-    private void setImgVisible(ImageView img, boolean isVisible) {
-        if (isVisible) {
-            img.setVisibility(View.VISIBLE);
-        } else {
-            img.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    /**
-     * 设置搏动标记
-     * set pulse flag
-     */
-    private void showPulse(boolean isShow) {
-        if (isShow) {
-            mMainPc80BTitlePulse.setVisibility(View.VISIBLE);
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    mHandler.sendEmptyMessage(RECEIVEMSG_PULSE_OFF);
-                }
-            }.start();
-        } else {
-            mMainPc80BTitlePulse.setVisibility(View.INVISIBLE);
-        }
-    }
-
     private void setMSG(String msg) {
-        setTVtext(mMainPc80BMSG, msg);
-    }
-
-    private void setGain(int gain) {
-        System.out.println("setGain=" + gain);
-        gain = gain <= 0 ? 2 : gain;
-        setTVtext(mMainPc80BTitleGain, "x" + gain);
-        mMainPc80BViewDraw.setGain(gain);
-        mMainPc80BViewBg.setGain(gain);
-    }
-
-    private void setHR(int hr) {
-        if (hr != 0) {
-            setTVtext(mMainPc80BTitleHr, "HR=" + hr);
-        } else {
-            setTVtext(mMainPc80BTitleHr, "HR=--");
-        }
-    }
-
-    /**
-     * 设置TextView显示的内容
-     */
-    private void setTVtext(TextView tv, String msg) {
-        if (tv != null) {
-            if (!tv.isShown()) {
-                tv.setVisibility(View.VISIBLE);
+        if (mMainPc80BMSG != null) {
+            if (!mMainPc80BMSG.isShown()) {
+                mMainPc80BMSG.setVisibility(View.VISIBLE);
             }
             if (msg != null && !msg.equals("")) {
                 if (msg.equals("0")) {
-                    tv.setText(getResources().getString(
+                    mMainPc80BMSG.setText(getResources().getString(
                             R.string.const_data_nodata));
                 } else {
-                    tv.setText(msg);
+                    mMainPc80BMSG.setText(msg);
                 }
             }
         }
     }
-
     private void setBattery(int battery) {
-        //setImgResource(img_Battery, batteryRes[battery]);
         if (battery == 0) {
             if (!mHandler.hasMessages(BATTERY_ZERO)) {
                 mHandler.sendEmptyMessage(BATTERY_ZERO);
             }
         } else {
-            mMainPc80BTitleBattery.setVisibility(View.VISIBLE);
             mHandler.removeMessages(BATTERY_ZERO);
         }
     }

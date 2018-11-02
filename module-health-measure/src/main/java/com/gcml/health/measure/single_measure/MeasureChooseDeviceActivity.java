@@ -151,17 +151,6 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     }
 
     private void aferVideo() {
-
-//        if (!TextUtils.isEmpty(channel)){
-//            if (channel.equals("gcml_version_normal")){
-//                if (measureType == IPresenter.MEASURE_ECG) {
-//                    XinDianDetectActivity.startActivity(this,
-//                            MeasureChooseDeviceActivity.class.getSimpleName(),getIntent().getBooleanExtra(IS_FACE_SKIP,false));
-//                    return;
-//                }
-//            }
-//        }
-
         Intent intent = new Intent();
         intent.setClass(this, AllMeasureActivity.class);
         intent.putExtra(IPresenter.MEASURE_TYPE, measureType);

@@ -62,8 +62,7 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
      */
     private Thread drawThread;
 
-    private TextView tv_Gain, tv_HR, tv_MSG;
-    private ImageView img_Battery, img_Smooth, img_Pulse;
+    private TextView   tv_MSG;
     private Button btn_Conn, btn_Replay;
 
     /**
@@ -139,12 +138,6 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
         ivBack = findViewById(R.id.icon_back);
         ivBack.setOnClickListener(this);
         tv_MSG = findViewById(R.id.main_pc80B_MSG);
-        tv_Gain = findViewById(R.id.main_pc80B_title_gain);
-        tv_HR = findViewById(R.id.main_pc80B_title_hr);
-
-        img_Battery = findViewById(R.id.main_pc80B_title_battery);
-        img_Smooth = findViewById(R.id.main_pc80B_title_smooth);
-        img_Pulse = findViewById(R.id.main_pc80B_title_pulse);
         tvNext = findViewById(R.id.tv_next);
         tvNext.setOnClickListener(this);
         drawRunable = findViewById(R.id.main_pc80B_view_draw);
@@ -179,11 +172,6 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
                 }
                 break;
                 case BATTERY_ZERO: {// 电池电量为0时的消息  battery 0 level
-                    if (img_Battery.isShown()) {
-                        img_Battery.setVisibility(View.INVISIBLE);
-                    } else {
-                        img_Battery.setVisibility(View.VISIBLE);
-                    }
                     mHandler.sendEmptyMessageDelayed(BATTERY_ZERO, 500);
                 }
                 break;
@@ -367,7 +355,7 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
      */
     private void showPulse(boolean isShow) {
         if (isShow) {
-            img_Pulse.setVisibility(View.VISIBLE);
+//            img_Pulse.setVisibility(View.VISIBLE);
             new Thread() {
                 @Override
                 public void run() {
@@ -381,7 +369,7 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
                 }
             }.start();
         } else {
-            img_Pulse.setVisibility(View.INVISIBLE);
+//            img_Pulse.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -435,7 +423,7 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
                 mHandler.sendEmptyMessage(BATTERY_ZERO);
             }
         } else {
-            img_Battery.setVisibility(View.VISIBLE);
+//            img_Battery.setVisibility(View.VISIBLE);
             mHandler.removeMessages(BATTERY_ZERO);
         }
     }
@@ -506,7 +494,7 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
      * @param isVisible
      */
     private void setSmooth(boolean isVisible) {
-        setImgVisible(img_Smooth, isVisible);
+//        setImgVisible(img_Smooth, isVisible);
     }
 
     private void setImgVisible(ImageView img, boolean isVisible) {
@@ -520,17 +508,17 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
     private void setGain(int gain) {
         System.out.println("setGain=" + gain);
         gain = gain <= 0 ? 2 : gain;
-        setTVtext(tv_Gain, "x" + gain);
+//        setTVtext(tv_Gain, "x" + gain);
         drawRunable.setGain(gain);
         drawBG.setGain(gain);
     }
 
     private void setHR(int hr) {
-        if (hr != 0) {
-            setTVtext(tv_HR, "HR=" + hr);
-        } else {
-            setTVtext(tv_HR, "HR=--");
-        }
+//        if (hr != 0) {
+//            setTVtext(tv_HR, "HR=" + hr);
+//        } else {
+//            setTVtext(tv_HR, "HR=--");
+//        }
     }
 
     private void setMSG(String msg) {

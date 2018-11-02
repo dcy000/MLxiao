@@ -28,6 +28,7 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnly
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodOxygenDetectionFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthChooseDevicesFragment;
+import com.gcml.health.measure.first_diagnosis.fragment.HealthECGBoShengFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthECGDetectionFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthFirstTipsFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
@@ -37,11 +38,14 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthThreeInOneDetectio
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
 import com.gcml.health.measure.health_report_form.HealthReportFormActivity;
 import com.gcml.health.measure.R;
+import com.gcml.health.measure.single_measure.fragment.ChooseECGDeviceFragment;
+import com.gcml.health.measure.single_measure.fragment.SelfECGDetectionFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
@@ -67,7 +71,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private int showPosition = 0;
     private Uri uri;
     private static HealthBloodDetectionUiFragment.Data bloodpressureCacheData;
-    private static List<DetectionData> cacheDatas = new ArrayList<>();
     private BluetoothBaseFragment fragment;
     private boolean isShowHealthChooseDevicesFragment = false;
     private String finalFragment;
@@ -75,6 +78,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private String userHypertensionHand;
     private Bundle bundle;
     private boolean isShowSelectBloodsugarMeasureTime = false;
+    private boolean isShowSelectECGDevice=false;
+    private int ecgDevice=1;//默认科瑞康
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, FirstDiagnosisActivity.class);
@@ -90,22 +95,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
 
     public HealthBloodDetectionUiFragment.Data getBloodpressureCacheData() {
         return bloodpressureCacheData;
-    }
-
-    /**
-     * 在activity中管理其容器中使用到的数据
-     *
-     * @param detectionData
-     */
-    public void putCacheData(DetectionData detectionData) {
-        if (detectionData == null) {
-            return;
-        }
-        cacheDatas.add(detectionData);
-    }
-
-    public List<DetectionData> getCacheDatas() {
-        return cacheDatas;
     }
 
     @Override
@@ -171,15 +160,26 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 fragment = new HealthTemperatureDetectionFragment();
                 measureType = IPresenter.MEASURE_TEMPERATURE;
                 break;
-            case "HealthECGDetectionFragment":
+            case "ChooseECGDeviceFragment":
+                mToolbar.setVisibility(View.VISIBLE);
+                mTitleText.setText("心 电 设 备 选 择");
+                fragment = new ChooseECGDeviceFragment();
+                mRightView.setImageResource(R.drawable.common_icon_home);
+                isShowSelectECGDevice=true;
+                break;
+            case "ECG_Fragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("心 电 测 量");
-                fragment = new HealthECGDetectionFragment();
+                if (ecgDevice==1){
+                    fragment = new HealthECGDetectionFragment();
+                }else{
+                    fragment=new HealthECGBoShengFragment();
+                }
                 measureType = IPresenter.MEASURE_ECG;
                 break;
             case "HealthSelectSugarDetectionTimeFragment":
                 mToolbar.setVisibility(View.VISIBLE);
-                mTitleText.setText("选择测量时间");
+                mTitleText.setText("选 择 测 量 时 间");
                 mRightView.setImageResource(R.drawable.common_icon_home);
                 fragment = new HealthSelectSugarDetectionTimeFragment();
                 isShowSelectBloodsugarMeasureTime = true;
@@ -269,6 +269,12 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         this.bundle = bundle;
+        if (fragment instanceof ChooseECGDeviceFragment){
+            isShowSelectECGDevice=false;
+            if (bundle!=null){
+                ecgDevice = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 1);
+            }
+        }
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             isShowSelectBloodsugarMeasureTime = false;
         }
@@ -336,8 +342,12 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                     //心电
 
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
+
+                    FirstDiagnosisBean ecgSelectDevice = new FirstDiagnosisBean(
+                            ChooseECGDeviceFragment.class.getSimpleName(), uri, "测量心电演示视频");
+                    firstDiagnosisBeans.add(ecgSelectDevice);
                     FirstDiagnosisBean ecg = new FirstDiagnosisBean(
-                            HealthECGDetectionFragment.class.getSimpleName(), uri, "测量心电演示视频");
+                            ECG_Fragment.class.getSimpleName(), null, null);
                     firstDiagnosisBeans.add(ecg);
                     break;
                 case 6:
@@ -411,7 +421,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             CCAppActions.jump2MainActivity();
             return;
         }
-        if (isShowSelectBloodsugarMeasureTime) {
+        if (isShowSelectBloodsugarMeasureTime||isShowSelectECGDevice) {
             CCAppActions.jump2MainActivity();
             return;
         }
@@ -463,9 +473,14 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 }
                 break;
             case IPresenter.MEASURE_ECG:
-//                nameAddress= (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG,"");
-//                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
-//                ((HealthECGDetectionFragment) fragment).showConnectAnimation();
+                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
+                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
+                if (fragment instanceof SelfECGDetectionFragment) {
+                    ((HealthECGDetectionFragment) fragment).startDiscovery();
+                } else if (fragment instanceof ECG_Fragment) {
+                    ((HealthECGBoShengFragment) fragment).onStop();
+                    ((ECG_Fragment) fragment).dealLogic();
+                }
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");

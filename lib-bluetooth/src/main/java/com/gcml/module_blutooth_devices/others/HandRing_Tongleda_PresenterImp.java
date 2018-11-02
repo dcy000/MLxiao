@@ -33,7 +33,10 @@ import java.util.logging.Handler;
  * mac:78:02:B7:27:8A:74
  */
 @SuppressLint("LongLogTag")
-public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter implements StepChangeListener, BloodPressureChangeListener, RateChangeListener, SleepChangeListener, ServiceStatusCallback, ICallback {
+public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter
+        implements StepChangeListener, BloodPressureChangeListener,
+        RateChangeListener, SleepChangeListener,
+        ServiceStatusCallback, ICallback {
     private static final String TAG = "HandRing_Tongleda_PresenterImp";
     private final BLEServiceOperate mBLEServiceOperate;
     private final DataProcessing mDataProcessing;
@@ -72,7 +75,7 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
      */
     @Override
     public void onStepChange(StepOneDayAllInfo stepOneDayAllInfo) {
-        Log.e(TAG, "onStepChange: "+stepOneDayAllInfo.toString());
+        Log.e(TAG, "onStepChange: " + stepOneDayAllInfo.toString());
     }
 
     /**
@@ -153,7 +156,7 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
                 Log.d(TAG, "OnResult: 蓝牙断开连接");
                 break;
             case ICallbackStatus.CONNECTED_STATUS:
-                Log.d(TAG, "OnResult: 蓝牙连接成功:"+Thread.currentThread().getName());
+                Log.d(TAG, "OnResult: 蓝牙连接成功:" + Thread.currentThread().getName());
                 break;
             case ICallbackStatus.DISCOVERY_DEVICE_SHAKE:
                 Log.d(TAG, "摇一摇拍照");
@@ -256,6 +259,7 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
     public void onControlDialCallback(boolean b, int i, int i1) {
 
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -323,25 +327,27 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
         /**
          * 同步步数
          */
-        public static void synStep(){
+        public static void synStep() {
             mWriteCommand.syncAllStepData();
         }
 
         /**
          * 同步睡眠
          */
-        public static void synSleep(){
+        public static void synSleep() {
             mWriteCommand.syncAllSleepData();
         }
 
         /**
          * 同步血压
          */
-        public static void synBloodpressure(){
+        public static void synBloodpressure() {
             mWriteCommand.syncAllBloodPressureData();
         }
+
         /**
          * 测量血压
+         *
          * @param isStart true:开始测量，false:停止测量
          */
         public static void startBloodpressure(boolean isStart) {
@@ -354,12 +360,13 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
 
         /**
          * 测量心率
+         *
          * @param isStart
          */
-        public static void startHeartRate(boolean isStart){
-            if (isStart){
+        public static void startHeartRate(boolean isStart) {
+            if (isStart) {
                 mWriteCommand.sendRateTestCommand(GlobalVariable.RATE_TEST_START);
-            }else{
+            } else {
                 mWriteCommand.sendRateTestCommand(GlobalVariable.RATE_TEST_STOP);
             }
         }
@@ -367,16 +374,17 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
         /**
          * 获取蓝牙版本号
          */
-        public static void getBleVersion(){
+        public static void getBleVersion() {
             mWriteCommand.sendToReadBLEVersion();
         }
 
         /**
          * 消息推送
+         *
          * @param message
-         * @param type {@link GlobalVariable#TYPE_QQ}
+         * @param type    {@link GlobalVariable#TYPE_QQ}
          */
-        public static void pushMessage(String message, int type){
+        public static void pushMessage(String message, int type) {
             mWriteCommand.sendTextToBle(message, type);
         }
     }

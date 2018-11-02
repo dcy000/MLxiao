@@ -55,6 +55,7 @@ import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.google.gson.Gson;
 import com.inuker.bluetooth.library.utils.ByteUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -84,8 +85,8 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
     private WeakHandler weakHandler;
     private static final int MESSAGE_DEAL_BYTERESULT = 1;
     private LoadingDialog mLoadingDialog;
-    private boolean isLoginBoShengSuccess=false;
-    private String phone,birth,name,sex;
+    private boolean isLoginBoShengSuccess = false;
+    private String phone, birth, name, sex;
     private final Handler.Callback weakRunnable = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -95,7 +96,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                             .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                             .setTipWord("正在分析数据...")
                             .create();
-                    if (mLoadingDialog!=null){
+                    if (mLoadingDialog != null) {
                         mLoadingDialog.show();
                     }
                     ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<byte[]>() {
@@ -158,29 +159,29 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                 .subscribe(new Observer<UserEntity>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        disposable=d;
+                        disposable = d;
                     }
 
                     @Override
                     public void onNext(UserEntity userEntity) {
-                        Logg.e(ECG_BoSheng_PresenterImp.class,"get user success ");
-                        if (userEntity!=null){
-                            phone=userEntity.phone;
-                            birth=userEntity.birthday;
-                            name=userEntity.name;
-                            sex=userEntity.sex;
+                        Logg.e(ECG_BoSheng_PresenterImp.class, "get user success ");
+                        if (userEntity != null) {
+                            phone = userEntity.phone;
+                            birth = userEntity.birthday;
+                            name = userEntity.name;
+                            sex = userEntity.sex;
 
-                            if (TextUtils.isEmpty(birth)||TextUtils.isEmpty(name)||TextUtils.isEmpty(sex)){
+                            if (TextUtils.isEmpty(birth) || TextUtils.isEmpty(name) || TextUtils.isEmpty(sex)) {
                                 ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
                                 return;
                             }
-                            getNetConfig(phone,birth,name,sex);
+                            getNetConfig(phone, birth, name, sex);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "onError: "+e.getMessage() );
+                        Log.e(TAG, "onError: " + e.getMessage());
                     }
 
                     @Override
@@ -213,7 +214,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                             PatientApi.config = configBorsamResponse.getEntity();
                             //注册
                             registAccount(DataUtils.hideMobilePhone4(phone),
-                                    Bluetooth_Constants.BoSheng.BoSheng_USER_PASSWORD,birth,name,sex);
+                                    Bluetooth_Constants.BoSheng.BoSheng_USER_PASSWORD, birth, name, sex);
                         } else {
                             Toast.makeText(baseContext, "get config error", Toast.LENGTH_SHORT).show();
                         }
@@ -226,13 +227,13 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
 
                     @Override
                     public void onFailure(int responseCode, String responseMessage) {
-                        Log.e(TAG, "onFailure: "+responseMessage );
+                        Log.e(TAG, "onFailure: " + responseMessage);
                     }
                 });
     }
 
     private void registAccount(final String username, final String password, final String birth, final String name, final String sex) {
-        Logg.e(ECG_BoSheng_PresenterImp.class,username+"--"+password);
+        Logg.e(ECG_BoSheng_PresenterImp.class, username + "--" + password);
         if (DataUtils.isNullString(username) || DataUtils.isNullString(password)) {
             return;
         }
@@ -242,7 +243,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                     @Override
                     public void onSuccess(BorsamResponse<RegisterResult> registerResultBorsamResponse) {
                         if (registerResultBorsamResponse == null) {
-                            Logg.e(ECG_BoSheng_PresenterImp.class,"registerResultBorsamResponse==null");
+                            Logg.e(ECG_BoSheng_PresenterImp.class, "registerResultBorsamResponse==null");
                         } else {
                             RegisterResult entity = registerResultBorsamResponse.getEntity();
                             if (entity == null) {
@@ -251,14 +252,14 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                             } else {
                                 //注册成功后进行两个操作：1.登录；2：修改个人信息
                                 login(username, password);
-                                int birthday = (int) (TimeUtils.string2Milliseconds(birth,new SimpleDateFormat("yyyyMMdd"))/1000);
-                                int sexInt=0;
-                                if (sex.equals("男")){
-                                    sexInt=2;
-                                }else if (sex.equals("女")){
-                                    sexInt=1;
+                                int birthday = (int) (TimeUtils.string2Milliseconds(birth, new SimpleDateFormat("yyyyMMdd")) / 1000);
+                                int sexInt = 0;
+                                if (sex.equals("男")) {
+                                    sexInt = 2;
+                                } else if (sex.equals("女")) {
+                                    sexInt = 1;
                                 }
-                                Logg.e(ECG_BoSheng_PresenterImp.class,birthday+"--"+name+"---"+sexInt);
+                                Logg.e(ECG_BoSheng_PresenterImp.class, birthday + "--" + name + "---" + sexInt);
                                 alertPersonInfo(name, "", sexInt, birthday);
                             }
 //                            login(username, password);
@@ -277,15 +278,16 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
 
                     @Override
                     public void onError(Exception e) {
-                        Log.e(TAG, "onError: "+e );
+                        Log.e(TAG, "onError: " + e);
                     }
 
                     @Override
                     public void onFailure(int responseCode, String responseMessage) {
-                        Log.e(TAG, "onFailure: "+responseMessage );
+                        Log.e(TAG, "onFailure: " + responseMessage);
                     }
                 });
     }
+
     //博声上传头像
     private void uploadHead() {
         BorsamHttpUtil.getInstance()
@@ -305,6 +307,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                     }
                 });
     }
+
     //博声登录
     private void login(String username, String password) {
         if (DataUtils.isNullString(username) || DataUtils.isNullString(password)) {
@@ -315,28 +318,29 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                 new HttpCallback<BorsamResponse<LoginResult>>() {
                     @Override
                     public void onSuccess(BorsamResponse<LoginResult> loginResultBorsamResponse) {
-                        Logg.e(ECG_BoSheng_PresenterImp.class,"login success");
+                        Logg.e(ECG_BoSheng_PresenterImp.class, "login success");
                         if (loginResultBorsamResponse.getCode() != 0) {
                             Toast.makeText(baseContext, loginResultBorsamResponse.getMsg(),
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             PatientApi.userId = loginResultBorsamResponse.getEntity().getUser().getId();
                             PatientApi.token = loginResultBorsamResponse.getEntity().getToken();
-                            isLoginBoShengSuccess=true;
+                            isLoginBoShengSuccess = true;
                         }
                     }
 
                     @Override
                     public void onError(Exception e) {
-                        Log.e(TAG, "onError: "+e.getMessage()+":"+e.getLocalizedMessage() );
+                        Log.e(TAG, "onError: " + e.getMessage() + ":" + e.getLocalizedMessage());
                     }
 
                     @Override
                     public void onFailure(int responseCode, String responseMessage) {
-                        Log.e(TAG, "onFailure: "+responseMessage );
+                        Log.e(TAG, "onFailure: " + responseMessage);
                     }
                 });
     }
+
     //修改个人信息 （性别 0:未设置 1:女 2:男 3:其他）
     private void alertPersonInfo(String firstName, String sencondName, int sex, int birthday) {
         BorsamHttpUtil.getInstance()
@@ -344,17 +348,17 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                 .enqueue(new HttpCallback<BorsamResponse>() {
                     @Override
                     public void onSuccess(BorsamResponse borsamResponse) {
-                        Logg.e(ECG_BoSheng_PresenterImp.class,"alertPersonInfo success");
+                        Logg.e(ECG_BoSheng_PresenterImp.class, "alertPersonInfo success");
                     }
 
                     @Override
                     public void onError(Exception e) {
-                        Log.e(TAG, "onError: "+e.getMessage() );
+                        Log.e(TAG, "onError: " + e.getMessage());
                     }
 
                     @Override
                     public void onFailure(int i, String s) {
-                        Log.e(TAG, "onFailure: "+s );
+                        Log.e(TAG, "onFailure: " + s);
                     }
                 });
 
@@ -471,7 +475,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
 
     //上传数据到博声后台
     private void uploadDatas(byte[] stream) {
-        if (!isLoginBoShengSuccess){
+        if (!isLoginBoShengSuccess) {
             ToastUtils.showShort("分析数据失败");
             return;
         }
@@ -479,7 +483,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                 .enqueue(new HttpCallback<BorsamResponse<UploadFileResult>>() {
                     @Override
                     public void onSuccess(BorsamResponse<UploadFileResult> uploadFileResultBorsamResponse) {
-                        Log.i(TAG, "onSuccess: "+uploadFileResultBorsamResponse.toString());
+                        Log.i(TAG, "onSuccess: " + uploadFileResultBorsamResponse.toString());
                         String file_no = uploadFileResultBorsamResponse.getEntity().getFile_no();
                         addRecord(file_no, (int) (System.currentTimeMillis() / 1000), 1, "测试");
                     }
@@ -491,7 +495,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
 
                     @Override
                     public void onFailure(int i, String s) {
-                        if (mLoadingDialog!=null){
+                        if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
                         }
                         ToastUtils.showShort("分析数据失败");
@@ -506,12 +510,12 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                     @Override
                     public void onSuccess(BorsamResponse<AddRecordResult> addRecordResultBorsamResponse) {
                         AddRecordResult entity = addRecordResultBorsamResponse.getEntity();
-                        Log.i(TAG, "onSuccess: 分析数据"+entity.getExt()+"\n----Report:"
-                                +entity.getFile_report()+"\n-----Url:"+entity.getFile_url() );
-                        if (mLoadingDialog!=null){
+                        Log.i(TAG, "onSuccess: 分析数据" + entity.getExt() + "\n----Report:"
+                                + entity.getFile_report() + "\n-----Url:" + entity.getFile_url());
+                        if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
                         }
-                        baseView.updateData(fileNo, entity.getFile_url(), entity.getFile_report());
+                        baseView.updateData(fileNo, entity.getExt(), entity.getFile_report());
                     }
 
                     @Override
@@ -565,14 +569,14 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
             weakHandler.removeCallbacksAndMessages(null);
             weakHandler = null;
         }
-        if (mLoadingDialog!=null){
+        if (mLoadingDialog != null) {
             mLoadingDialog.dismiss();
         }
-        mLoadingDialog=null;
-        if (disposable!=null){
+        mLoadingDialog = null;
+        if (disposable != null) {
             disposable.dispose();
         }
-        disposable=null;
+        disposable = null;
         super.onDestroy();
     }
 }
