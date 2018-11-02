@@ -75,7 +75,7 @@ public class CheckContractActivity extends BaseActivity {
                     if (bean != null) {
                         PersonInfoResultBean.DataBean data = bean.data;
                         if (data != null) {
-                            getDoctorInfoByDocId(data.categoryid);
+                            getDoctorInfoByDocId(data.doid);
                         }
                     }
                 }
@@ -131,9 +131,14 @@ public class CheckContractActivity extends BaseActivity {
                 }
 
                 tvDoctorName.setText(String.format(getString(R.string.doctor_name), data.doctername));
+
                 tvProfessionalRank.setText(String.format(getString(R.string.doctor_zhiji), data.duty));
                 tvGoodAt.setText(String.format(getString(R.string.doctor_shanchang), data.department));
                 tvService.setText(String.format(getString(R.string.doctor_shoufei), data.service_amount + ""));
+
+//                tvDoctorLevel.setText(data.duty);
+//                tvGoodAtNew.setText(data.department);
+//                tvPrice.setText(data.service_amount + "");
             }
 
             @Override
@@ -149,7 +154,6 @@ public class CheckContractActivity extends BaseActivity {
             }
         });
     }
-
 
 
     @OnClick(R.id.tv_cancel_contract)

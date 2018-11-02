@@ -102,7 +102,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
         }
 
         if (fromWhere.equals(FROM_REGISTER_BY_IDCARD)) {
-            if (code.equals(this.code)|| DEFAULT_CODE.equals(code)) {
+            if (code.equals(this.code)/*|| DEFAULT_CODE.equals(code)*/) {
                 startActivity(new Intent(this, InputFaceActivity.class)
                         .putExtras(getIntent())
                         .putExtra(REGISTER_PHONE_NUMBER, phone));
@@ -110,7 +110,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
                 mlSpeak("验证码错误");
             }
         } else if (fromWhere.equals(FROM_REGISTER_BY_IDCARD_NUMBER)) {
-            if (code.equals(this.code)||DEFAULT_CODE.equals(code)) {
+            if (code.equals(this.code)/*||DEFAULT_CODE.equals(code)*/) {
                 startActivity(new Intent(PhoneAndCodeActivity.this, RealNameActivity.class)
                         .putExtra(REGISTER_PHONE_NUMBER, phone)
                         .putExtras(getIntent()));

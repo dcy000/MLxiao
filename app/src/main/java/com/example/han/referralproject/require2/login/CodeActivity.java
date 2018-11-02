@@ -106,7 +106,7 @@ public class CodeActivity extends BaseActivity {
             return;
         }
 
-        if (code.equals(phoneCode) || DEFAULT_CODE.equals(phoneCode)) {
+        if (code.equals(phoneCode) /*|| DEFAULT_CODE.equals(phoneCode)*/) {
             login();
         } else {
             mlSpeak("验证码错误");
