@@ -28,9 +28,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 public class CheckContractActivity extends BaseActivity {
-
     @BindView(R.id.iv_doctor_avatar)
     CircleImageView ivDoctorAvatar;
     @BindView(R.id.tv_doctor_name)
@@ -44,14 +47,23 @@ public class CheckContractActivity extends BaseActivity {
     @BindView(R.id.tv_cancel_contract)
     TextView tvCancelContract;
     private Unbinder mUnbinder;
+    private TextView tvDoctorLevel;
+    private TextView tvPrice;
+    private TextView tvGoodAtNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_contract);
+        initView();
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("签  约  医  生");
+
+        initData();
+    }
+
+    private void initData() {
         showLoadingDialog("正在加载中...");
         NetworkApi.getPersonalInfo(this, new StringCallback() {
             @Override
@@ -83,8 +95,8 @@ public class CheckContractActivity extends BaseActivity {
             }
         });
 
-
     }
+
 
     private void getDoctorInfoByDocId(int categoryid) {
         showLoadingDialog("正在加载中...");
@@ -121,7 +133,7 @@ public class CheckContractActivity extends BaseActivity {
                 tvDoctorName.setText(String.format(getString(R.string.doctor_name), data.doctername));
                 tvProfessionalRank.setText(String.format(getString(R.string.doctor_zhiji), data.duty));
                 tvGoodAt.setText(String.format(getString(R.string.doctor_shanchang), data.department));
-                tvService.setText(String.format(getString(R.string.doctor_shoufei), data.service_amount+""));
+                tvService.setText(String.format(getString(R.string.doctor_shoufei), data.service_amount + ""));
             }
 
             @Override
@@ -137,6 +149,8 @@ public class CheckContractActivity extends BaseActivity {
             }
         });
     }
+
+
 
     @OnClick(R.id.tv_cancel_contract)
     public void onTvCancelContractClicked() {
@@ -179,6 +193,19 @@ public class CheckContractActivity extends BaseActivity {
             mUnbinder.unbind();
         }
         super.onDestroy();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    private void initView() {
+        tvDoctorLevel = (TextView) findViewById(R.id.tv_doctor_level);
+        tvGoodAtNew = (TextView) findViewById(R.id.tv_good_at);
+        tvPrice = (TextView) findViewById(R.id.tv_price);
     }
 
 
