@@ -103,7 +103,6 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     public TextView mTextView40;
     public TextView mTextView41;
     public TextView mTextView42;
-    private String doctorId;
 
 
     public void showNormal(final TextView mTextView, String str1, String str2, String str3) {
@@ -162,6 +161,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 })
                 .create(NDialog.CONFIRM).show();
     }
+
+    private String doctorId;
 
     public void ShowNormals(String str) {
         dialog1.setMessageCenter(true)
@@ -252,7 +253,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appo);
-        doctorId = getIntent().getStringExtra("doctorId");
+        doctorId=getIntent().getStringExtra("doctorId");
+
 
         mToolbar.setVisibility(View.VISIBLE);
 
@@ -280,7 +282,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         date1 = new Date();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date1);
-        calendar.add(calendar.DATE, 1);//把日期往后增加一天.整数往后推,负数往前移动
+        calendar.add(Calendar.DATE, 1);//把日期往后增加一天.整数往后推,负数往前移动
         date1 = calendar.getTime(); //这个时间就是日期往后推一天的结果
         formatter = new SimpleDateFormat("y/M/d");
         formatter1 = new SimpleDateFormat("EEE");
@@ -294,7 +296,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         date2 = new Date();
         Calendar calendar1 = new GregorianCalendar();
         calendar1.setTime(date2);
-        calendar1.add(calendar1.DATE, 2);//把日期往后增加一天.整数往后推,负数往前移动
+        calendar1.add(Calendar.DATE, 2);//把日期往后增加一天.整数往后推,负数往前移动
         date2 = calendar1.getTime(); //这个时间就是日期往后推一天的结果
         formatte2 = new SimpleDateFormat("y/M/d");
         formatter3 = new SimpleDateFormat("EEE");
@@ -308,7 +310,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         date3 = new Date();
         Calendar calendar2 = new GregorianCalendar();
         calendar2.setTime(date3);
-        calendar2.add(calendar2.DATE, 3);//把日期往后增加一天.整数往后推,负数往前移动
+        calendar2.add(Calendar.DATE, 3);//把日期往后增加一天.整数往后推,负数往前移动
         date3 = calendar2.getTime(); //这个时间就是日期往后推一天的结果
         formatter4 = new SimpleDateFormat("y/M/d");
         formatter5 = new SimpleDateFormat("EEE");
@@ -323,7 +325,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         date4 = new Date();
         Calendar calendar3 = new GregorianCalendar();
         calendar3.setTime(date4);
-        calendar3.add(calendar3.DATE, 4);//把日期往后增加一天.整数往后推,负数往前移动
+        calendar3.add(Calendar.DATE, 4);//把日期往后增加一天.整数往后推,负数往前移动
         date4 = calendar3.getTime(); //这个时间就是日期往后推一天的结果
         formatter6 = new SimpleDateFormat("y/M/d");
         formatter7 = new SimpleDateFormat("EEE");
@@ -338,7 +340,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         date5 = new Date();
         Calendar calendar4 = new GregorianCalendar();
         calendar4.setTime(date5);
-        calendar4.add(calendar4.DATE, 5);//把日期往后增加一天.整数往后推,负数往前移动
+        calendar4.add(Calendar.DATE, 5);//把日期往后增加一天.整数往后推,负数往前移动
         date5 = calendar4.getTime(); //这个时间就是日期往后推一天的结果
         formatter8 = new SimpleDateFormat("y/M/d");
         formatter9 = new SimpleDateFormat("EEE");
@@ -352,7 +354,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         date6 = new Date();
         Calendar calendar5 = new GregorianCalendar();
         calendar2.setTime(date6);
-        calendar2.add(calendar5.DATE, 6);//把日期往后增加一天.整数往后推,负数往前移动
+        calendar2.add(Calendar.DATE, 6);//把日期往后增加一天.整数往后推,负数往前移动
         date6 = calendar2.getTime(); //这个时间就是日期往后推一天的结果
         formatter10 = new SimpleDateFormat("y/M/d");
         formatter11 = new SimpleDateFormat("EEE");
@@ -391,6 +393,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
 
                 for (int i = 0; i < list.size(); i++) {
+
                     if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:00:00"))
                             || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:00:00"))
                             ) {
@@ -1729,72 +1732,72 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
 
     public void initView() {
-        mTextView1 = (TextView) findViewById(R.id.yuyue_1);
-        mTextView2 = (TextView) findViewById(R.id.yuyue_2);
-        mTextView3 = (TextView) findViewById(R.id.yuyue_3);
-        mTextView4 = (TextView) findViewById(R.id.yuyue_4);
-        mTextView5 = (TextView) findViewById(R.id.yuyue_5);
-        mTextView6 = (TextView) findViewById(R.id.yuyue_6);
-        mTextView7 = (TextView) findViewById(R.id.yuyue_7);
-        mTextView8 = (TextView) findViewById(R.id.yuyue_8);
-        mTextView9 = (TextView) findViewById(R.id.yuyue_9);
-        mTextView10 = (TextView) findViewById(R.id.yuyue_10);
-        mTextView11 = (TextView) findViewById(R.id.yuyue_11);
-        mTextView12 = (TextView) findViewById(R.id.yuyue_12);
-        mTextView13 = (TextView) findViewById(R.id.yuyue_13);
-        mTextView14 = (TextView) findViewById(R.id.yuyue_14);
-        mTextView15 = (TextView) findViewById(R.id.yuyue_15);
-        mTextView16 = (TextView) findViewById(R.id.yuyue_16);
-        mTextView17 = (TextView) findViewById(R.id.yuyue_17);
-        mTextView18 = (TextView) findViewById(R.id.yuyue_18);
-        mTextView19 = (TextView) findViewById(R.id.yuyue_19);
-        mTextView20 = (TextView) findViewById(R.id.yuyue_20);
-        mTextView21 = (TextView) findViewById(R.id.yuyue_21);
-        mTextView22 = (TextView) findViewById(R.id.yuyue_22);
-        mTextView23 = (TextView) findViewById(R.id.yuyue_23);
-        mTextView24 = (TextView) findViewById(R.id.yuyue_24);
-        mTextView25 = (TextView) findViewById(R.id.yuyue_25);
-        mTextView26 = (TextView) findViewById(R.id.yuyue_26);
-        mTextView27 = (TextView) findViewById(R.id.yuyue_27);
-        mTextView28 = (TextView) findViewById(R.id.yuyue_28);
-        mTextView29 = (TextView) findViewById(R.id.yuyue_29);
-        mTextView30 = (TextView) findViewById(R.id.yuyue_30);
-        mTextView31 = (TextView) findViewById(R.id.yuyue_31);
-        mTextView32 = (TextView) findViewById(R.id.yuyue_32);
-        mTextView33 = (TextView) findViewById(R.id.yuyue_33);
-        mTextView34 = (TextView) findViewById(R.id.yuyue_34);
-        mTextView35 = (TextView) findViewById(R.id.yuyue_35);
-        mTextView36 = (TextView) findViewById(R.id.yuyue_36);
-        mTextView37 = (TextView) findViewById(R.id.yuyue_37);
-        mTextView38 = (TextView) findViewById(R.id.yuyue_38);
-        mTextView39 = (TextView) findViewById(R.id.yuyue_39);
-        mTextView40 = (TextView) findViewById(R.id.yuyue_40);
-        mTextView41 = (TextView) findViewById(R.id.yuyue_41);
-        mTextView42 = (TextView) findViewById(R.id.yuyue_42);
-        mMonth = (TextView) findViewById(R.id.yuyue_month);
-        mWeek1 = (TextView) findViewById(R.id.yuyue_week1);
-        mWeek2 = (TextView) findViewById(R.id.yuyue_week2);
-        mWeek3 = (TextView) findViewById(R.id.yuyue_week3);
-        mWeek4 = (TextView) findViewById(R.id.yuyue_week4);
-        mWeek5 = (TextView) findViewById(R.id.yuyue_week5);
-        mWeek6 = (TextView) findViewById(R.id.yuyue_week6);
-        mWeek7 = (TextView) findViewById(R.id.yuyue_week7);
-        mDay1 = (TextView) findViewById(R.id.yuyue_day1);
-        mDay2 = (TextView) findViewById(R.id.yuyue_day2);
-        mDay3 = (TextView) findViewById(R.id.yuyue_day3);
-        mDay4 = (TextView) findViewById(R.id.yuyue_day4);
-        mDay5 = (TextView) findViewById(R.id.yuyue_day5);
-        mDay6 = (TextView) findViewById(R.id.yuyue_day6);
-        mDay7 = (TextView) findViewById(R.id.yuyue_day7);
+        mTextView1 = findViewById(R.id.yuyue_1);
+        mTextView2 = findViewById(R.id.yuyue_2);
+        mTextView3 = findViewById(R.id.yuyue_3);
+        mTextView4 = findViewById(R.id.yuyue_4);
+        mTextView5 = findViewById(R.id.yuyue_5);
+        mTextView6 = findViewById(R.id.yuyue_6);
+        mTextView7 = findViewById(R.id.yuyue_7);
+        mTextView8 = findViewById(R.id.yuyue_8);
+        mTextView9 = findViewById(R.id.yuyue_9);
+        mTextView10 = findViewById(R.id.yuyue_10);
+        mTextView11 = findViewById(R.id.yuyue_11);
+        mTextView12 = findViewById(R.id.yuyue_12);
+        mTextView13 = findViewById(R.id.yuyue_13);
+        mTextView14 = findViewById(R.id.yuyue_14);
+        mTextView15 = findViewById(R.id.yuyue_15);
+        mTextView16 = findViewById(R.id.yuyue_16);
+        mTextView17 = findViewById(R.id.yuyue_17);
+        mTextView18 = findViewById(R.id.yuyue_18);
+        mTextView19 = findViewById(R.id.yuyue_19);
+        mTextView20 = findViewById(R.id.yuyue_20);
+        mTextView21 = findViewById(R.id.yuyue_21);
+        mTextView22 = findViewById(R.id.yuyue_22);
+        mTextView23 = findViewById(R.id.yuyue_23);
+        mTextView24 = findViewById(R.id.yuyue_24);
+        mTextView25 = findViewById(R.id.yuyue_25);
+        mTextView26 = findViewById(R.id.yuyue_26);
+        mTextView27 = findViewById(R.id.yuyue_27);
+        mTextView28 = findViewById(R.id.yuyue_28);
+        mTextView29 = findViewById(R.id.yuyue_29);
+        mTextView30 = findViewById(R.id.yuyue_30);
+        mTextView31 = findViewById(R.id.yuyue_31);
+        mTextView32 = findViewById(R.id.yuyue_32);
+        mTextView33 = findViewById(R.id.yuyue_33);
+        mTextView34 = findViewById(R.id.yuyue_34);
+        mTextView35 = findViewById(R.id.yuyue_35);
+        mTextView36 = findViewById(R.id.yuyue_36);
+        mTextView37 = findViewById(R.id.yuyue_37);
+        mTextView38 = findViewById(R.id.yuyue_38);
+        mTextView39 = findViewById(R.id.yuyue_39);
+        mTextView40 = findViewById(R.id.yuyue_40);
+        mTextView41 = findViewById(R.id.yuyue_41);
+        mTextView42 = findViewById(R.id.yuyue_42);
+        mMonth = findViewById(R.id.yuyue_month);
+        mWeek1 = findViewById(R.id.yuyue_week1);
+        mWeek2 = findViewById(R.id.yuyue_week2);
+        mWeek3 = findViewById(R.id.yuyue_week3);
+        mWeek4 = findViewById(R.id.yuyue_week4);
+        mWeek5 = findViewById(R.id.yuyue_week5);
+        mWeek6 = findViewById(R.id.yuyue_week6);
+        mWeek7 = findViewById(R.id.yuyue_week7);
+        mDay1 = findViewById(R.id.yuyue_day1);
+        mDay2 = findViewById(R.id.yuyue_day2);
+        mDay3 = findViewById(R.id.yuyue_day3);
+        mDay4 = findViewById(R.id.yuyue_day4);
+        mDay5 = findViewById(R.id.yuyue_day5);
+        mDay6 = findViewById(R.id.yuyue_day6);
+        mDay7 = findViewById(R.id.yuyue_day7);
 
 
-        mMornings = (TextView) findViewById(R.id.mornings);
-        mAfternoons = (TextView) findViewById(R.id.afternoons);
+        mMornings = findViewById(R.id.mornings);
+        mAfternoons = findViewById(R.id.afternoons);
 
-        LinearLayout1 = (LinearLayout) findViewById(R.id.morning1);
-        LinearLayout2 = (LinearLayout) findViewById(R.id.morning2);
-        LinearLayout3 = (LinearLayout) findViewById(R.id.afternoon1);
-        LinearLayout4 = (LinearLayout) findViewById(R.id.afternoon2);
+        LinearLayout1 = findViewById(R.id.morning1);
+        LinearLayout2 = findViewById(R.id.morning2);
+        LinearLayout3 = findViewById(R.id.afternoon1);
+        LinearLayout4 = findViewById(R.id.afternoon2);
 
 
         mTextView1.setOnClickListener(this);
@@ -1915,51 +1918,51 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                 mTextView1.setTextColor(Color.parseColor("#3F86FC"));
 
 
-                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:20:00"))) {
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:00:00"))) {
 
-                    mTextView1.setText(getString(R.string.space)+"预约");
+                    mTextView1.setText(getString(R.string.space) + "预约");
                     mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
                     mTextView1.setEnabled(false);
 
 
                 }
 
-                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:40:00"))) {
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:20:00"))) {
 
-                    mTextView8.setText(getString(R.string.space)+"预约");
+                    mTextView8.setText(getString(R.string.space) + "预约");
                     mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
                     mTextView8.setEnabled(false);
 
 
                 }
 
-                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:00:00"))) {
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "15:40:00"))) {
 
-                    mTextView15.setText(getString(R.string.space)+"预约");
+                    mTextView15.setText(getString(R.string.space) + "预约");
                     mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
                     mTextView15.setEnabled(false);
 
                 }
 
-                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:20:00"))) {
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:00:00"))) {
 
-                    mTextView22.setText(getString(R.string.space)+"预约");
+                    mTextView22.setText(getString(R.string.space) + "预约");
                     mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
                     mTextView22.setEnabled(false);
 
                 }
 
-                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:40:00"))) {
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:20:00"))) {
 
-                    mTextView29.setText(getString(R.string.space)+"预约");
+                    mTextView29.setText(getString(R.string.space) + "预约");
                     mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
                     mTextView29.setEnabled(false);
 
                 }
 
-                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "17:00:00"))) {
+                if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "16:40:00"))) {
 
-                    mTextView36.setText(getString(R.string.space)+"预约");
+                    mTextView36.setText(getString(R.string.space) + "预约");
                     mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
                     mTextView36.setEnabled(false);
 
@@ -1976,29 +1979,40 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     public void judge() {
 
 
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:20:00"))) {
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:00:00"))) {
 
-            mTextView1.setText(getString(R.string.space)+"预约");
+            mTextView1.setText(getString(R.string.space) + "预约");
             mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
             mTextView1.setEnabled(false);
 
 
         }
 
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:40:00"))) {
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:20:00"))) {
 
-            mTextView8.setText(getString(R.string.space)+"预约");
+            mTextView8.setText(getString(R.string.space) + "预约");
             mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
             mTextView8.setEnabled(false);
 
         }
 
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "09:40:00"))) {
+
+
+            mTextView15.setText(getString(R.string.space) + "预约");
+            mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
+            mTextView15.setEnabled(false);
+
+
+        }
+
+
         if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:00:00"))) {
 
 
-            mTextView15.setText(getString(R.string.space)+"预约");
-            mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView15.setEnabled(false);
+            mTextView22.setText(getString(R.string.space) + "预约");
+            mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
+            mTextView22.setEnabled(false);
 
 
         }
@@ -2007,28 +2021,17 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:20:00"))) {
 
 
-            mTextView22.setText(getString(R.string.space)+"预约");
-            mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
-            mTextView22.setEnabled(false);
-
-
-        }
-
-
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:40:00"))) {
-
-
-            mTextView29.setText(getString(R.string.space)+"预约");
+            mTextView29.setText(getString(R.string.space) + "预约");
             mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
             mTextView29.setEnabled(false);
 
 
         }
 
-        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "11:00:00"))) {
+        if (System.currentTimeMillis() > Long.parseLong(changeTime(simple.format(date) + "", "10:40:00"))) {
 
 
-            mTextView36.setText(getString(R.string.space)+"预约");
+            mTextView36.setText(getString(R.string.space) + "预约");
             mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
             mTextView36.setEnabled(false);
 
