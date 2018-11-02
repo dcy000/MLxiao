@@ -43,7 +43,7 @@ public class DetectDrugEffectActivity extends BaseActivity {
         tvGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetectDrugEffectActivity.this, DetectPsychologicalRecoveryActivity.class);
+                Intent intent = new Intent(DetectDrugEffectActivity.this, DetectDrugComplianceActivity.class);
                 intent.putExtras(getIntent());
                 intent.putExtra("yaowubuliang", "1");
                 startActivity(intent);

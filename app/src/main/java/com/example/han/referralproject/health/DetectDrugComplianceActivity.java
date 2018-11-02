@@ -47,7 +47,7 @@ public class DetectDrugComplianceActivity extends BaseActivity {
                 if ("detectHealth".equals(detectCategory)) {
                     intent.setClass(DetectDrugComplianceActivity.this, DetectHealthSmokeActivity.class);
                 } else {
-                    intent.setClass(DetectDrugComplianceActivity.this, DetectPsychologicalRecoveryActivity.class);
+                    intent.setClass(DetectDrugComplianceActivity.this, DetectFollowDoctorActivity.class);
                 }
 
                 intent.putExtras(getIntent());

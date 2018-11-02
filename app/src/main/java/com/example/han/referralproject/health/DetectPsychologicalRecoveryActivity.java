@@ -43,6 +43,9 @@ public class DetectPsychologicalRecoveryActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetectPsychologicalRecoveryActivity.this, DetectPressureDrinkActivity.class);
+                if ("detectSugar".equals(detectCategory)){
+                    intent.setClass(DetectPsychologicalRecoveryActivity.this,DetectHealthSmokeActivity.class);
+                }
                 intent.putExtras(getIntent());
                 intent.putExtra("xinli", "1");
                 startActivity(intent);
