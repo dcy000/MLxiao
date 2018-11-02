@@ -117,6 +117,6 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
         super.onResume();
         setEnableListeningLoop(false);
         setDisableGlobalListen(true);
-//        get3BindInfo();
+        get3BindInfo();
     }
 }

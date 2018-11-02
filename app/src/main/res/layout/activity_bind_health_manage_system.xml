@@ -26,7 +26,6 @@
         android:text="(身份证号将与您的居民健康档案绑定，请确认是否填写正确)"
         android:textColor="#ff999999"
         android:textSize="48pt"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
