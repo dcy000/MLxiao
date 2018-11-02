@@ -15,7 +15,6 @@ import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -57,7 +56,8 @@ public class RegisterByIdCardActivity extends BaseActivity implements SomeCommon
         client = BtReadClient.getInstance();
         client.setBluetoothListener(onBluetoothListener);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        bluetoothAdapter.enable();
+        if (bluetoothAdapter != null)
+            bluetoothAdapter.enable();
         onTurnOn();
         ActivityHelper.addActivity(this);
     }
@@ -75,22 +75,22 @@ public class RegisterByIdCardActivity extends BaseActivity implements SomeCommon
 
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);
-        mRightView.setImageResource(R.drawable.white_wifi_3);
+        mRightView.setImageResource(R.drawable.ic_blooth_beack);
         mRightView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterByIdCardActivity.this, WifiConnectActivity.class));
+                backMainActivity();
             }
         });
     }
 
-    @Override
+
     protected void backMainActivity() {
         LocalShared.getInstance(this).setString(FILTER, "");
-        targetDevice = null;
-        initializing = false;
-        removeBounds();
-        btHandler().post(oneShutRunnable);
+//        targetDevice = null;
+//        initializing = false;
+//        removeBounds();
+//        btHandler().post(oneShutRunnable);
     }
 
     private void removeBounds() {
@@ -363,12 +363,23 @@ public class RegisterByIdCardActivity extends BaseActivity implements SomeCommon
         @Override
         public void connectResult(boolean success) {
             Log.d(TAG, "connectResult: " + success);
-
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mRightView.setImageResource(R.drawable.ic_blooth_connect);
+                }
+            });
         }
 
         @Override
         public void connectionLost() {
             Log.d(TAG, "connectionLost: ");
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mRightView.setImageResource(R.drawable.ic_blooth_beack);
+                }
+            });
         }
     };
 

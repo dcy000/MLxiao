@@ -319,7 +319,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="22dp"
-                        android:text=""
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </LinearLayout>
@@ -339,12 +338,14 @@
                         android:textSize="28sp" />
 
                     <TextView
-                        android:layout_toRightOf="@id/tv_origin_address_notice"
-                        android:layout_marginLeft="22dp"
                         android:id="@+id/origin_address"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="22dp"
                         android:layout_marginRight="22dp"
+                        android:layout_toRightOf="@id/tv_origin_address_notice"
+                        android:gravity="right"
                         android:textColor="#333333"
                         android:textSize="28sp" />
                 </RelativeLayout>
@@ -365,14 +366,15 @@
                         android:textSize="28sp" />
 
                     <TextView
-                        android:layout_toRightOf="@id/tv_now_address_notice"
-                        android:layout_marginLeft="22dp"
                         android:id="@+id/address"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="22dp"
+                        android:layout_toRightOf="@id/tv_now_address_notice"
                         android:drawablePadding="5dp"
+                        android:gravity="right"
                         android:maxLines="2"
-                        android:paddingLeft="40dp"
+                        android:paddingLeft="22dp"
                         android:paddingRight="22dp"
                         android:textColor="#333333"
                         android:textSize="28sp" />
@@ -531,7 +533,6 @@
                     android:id="@+id/ll_history"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
                     android:layout_marginTop="18dp"
                     android:background="@drawable/toolbar_set"
                     android:orientation="horizontal">
