@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_shadow">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_family_icon"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/tv_family_action"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tv_family_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="跨世纪的考拉上建档立卡刷机大师开始了解的垃圾时打开啦定时达大大声的"
+            android:textSize="32sp"
+            android:textColor="@color/config_color_base_3" />
+
+        <TextView
+            android:id="@+id/tv_family_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_family_msg"
+            android:layout_marginTop="12dp"
+            android:layout_centerVertical="true"
+            android:text="2018.11.01"
+            android:textSize="24sp"
+            android:textColor="@color/config_color_base_9"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_family_action"
+        android:layout_width="100dp"
+        android:layout_height="54dp"
+        android:layout_marginRight="24dp"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/common_bg_next_btn"
+        android:text="添加"
+        android:textSize="28sp"
+        android:textColor="@color/config_color_white"/>
+
+</RelativeLayout>

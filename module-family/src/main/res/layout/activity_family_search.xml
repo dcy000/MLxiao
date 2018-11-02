@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/config_color_white"
+    android:orientation="vertical">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_family_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_family_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tb_family_search"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_marginTop="30dp">
+
+        <com.gcml.family.widget.ClearEditText
+            android:id="@+id/et_family_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F5F5F5"
+            android:layout_toLeftOf="@+id/tv_family_search"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="30dp"
+            android:inputType="number"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:hint="请输入对方手机号"
+            android:textSize="28sp"
+            android:textColorHint="@color/config_color_base_9"
+            android:textColor="@color/config_color_base_3"/>
+
+        <TextView
+            android:id="@+id/tv_family_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/common_bg_next_btn"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingLeft="36dp"
+            android:paddingRight="36dp"
+            android:text="搜索"
+            android:textSize="28sp"
+            android:textColor="@color/config_color_white"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_search_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/rl_family_search">
+
+        <LinearLayout
+            android:id="@+id/ll_search_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_search_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp"
+                android:text="本机注册过的人："
+                android:textSize="28sp"
+                android:textColor="@color/config_color_base_3"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_search_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_family_search_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_shadow"
+        android:layout_below="@+id/rl_family_search"
+        android:drawableLeft="@drawable/ic_family_search"
+        android:layout_marginTop="-6dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="170dp"
+        android:drawablePadding="20dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="36dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="20dp"
+        android:textSize="32sp"
+        android:textColor="@color/config_color_base_3"
+        android:visibility="gone"/>
+
+</RelativeLayout>
+

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_privacy_permission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/config_color_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="24dp"
+            android:text="全部家人"
+            android:textColor="#333333"
+            android:textSize="28sp" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/sb_privacy_permission"
+            android:layout_width="68dp"
+            android:layout_height="38dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            app:sb_checked_color="#00CD79"
+            app:sb_show_indicator="false"
+            app:sb_uncheck_color="#C4C6C8"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_privacy_permission_family"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/config_color_white"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/config_color_white"
+            android:padding="24dp"
+            android:text="指定家人"
+            android:textColor="#333333"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/tv_privacy_permission_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@color/config_color_white"
+            android:padding="24dp"
+            android:text="添加"
+            android:textColor="@color/config_color_appthema"
+            android:textSize="28sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_privacy_permission"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_below="@+id/tv_privacy_permission_add">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+

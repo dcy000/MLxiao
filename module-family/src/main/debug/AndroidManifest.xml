@@ -41,6 +41,9 @@
         </activity>
         <activity android:name=".ui.FamilyActivity" />
         <activity android:name=".ui.FamilyDetailActivity" />
+        <activity android:name=".ui.FamilyContactActivity" />
+        <activity android:name=".ui.FamilySearchActivity" />
+        <activity android:name=".ui.FamilyPrivacyActivity" />
 
         <meta-data
             android:name="com.gcml.family.FamilyApplication"

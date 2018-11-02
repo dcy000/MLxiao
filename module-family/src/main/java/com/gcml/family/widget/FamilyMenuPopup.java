@@ -14,7 +14,7 @@ import com.gcml.family.R;
 /**
  * 作者：wecent
  * 时间：2017/10/24
- * 描述：商品下拉列表弹出框
+ * 描述：下拉菜单弹框
  */
 
 public class FamilyMenuPopup extends BasePopupWindow {

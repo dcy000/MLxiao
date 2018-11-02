@@ -27,7 +27,8 @@ public class TestFamilyActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_family_action:
-                CC.obtainBuilder("app.component.family").addParam("startType", "MLSpeech").build().callAsync();
+//                CC.obtainBuilder("app.component.family").addParam("startType", "MLSpeech").build().callAsync();
+                CC.obtainBuilder("app.component.family.search").build().callAsync();
         }
     }
 }
