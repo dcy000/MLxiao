@@ -63,7 +63,7 @@ public class NetworkApi {
     /**
      * 医疗版生产
      */
-    public static final String BasicUrl = "http://118.31.73.176:8080";
+//    public static final String BasicUrl = "http://118.31.73.176:8080";
     /**
      * 林本地
      */
@@ -73,7 +73,7 @@ public class NetworkApi {
     /**
      * 测试
      */
-//    public static final String BasicUrl = "http://47.96.98.60:8070";
+    public static final String BasicUrl = "http://47.96.98.60:8070";
 
     public static final String PASSWORD = "123456";
     //上传建档信息
@@ -1435,5 +1435,15 @@ public class NetworkApi {
                 .params("groupId", groupId)
                 .execute(callback);
     }
+
+    public static final String GET_DOCINFO_BY_DOCID = BasicUrl + "/ZZB/docter/sel_one_doctor_con";
+
+    public static void getDocInfoByDocId(String docterid, StringCallback callback) {
+        OkGo.<String>get(GET_DOCINFO_BY_DOCID)
+                .headers("equipmentId", Utils.getDeviceId())
+                .params("docterid", docterid)
+                .execute(callback);
+    }
+
 
 }

@@ -208,4 +208,15 @@ public class AlarmHelper {
         i.putExtra(TAG, tag == null ? "" : tag);
         return i;
     }
+
+
+    public static void cancelAlarm(Context context, AlarmModel model) {
+        int delete = model.delete();
+        AlarmManager manager =
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (model.isEnabled()) {
+            PendingIntent pi = newPendingIntent(context, model);
+            manager.cancel(pi);
+        }
+    }
 }

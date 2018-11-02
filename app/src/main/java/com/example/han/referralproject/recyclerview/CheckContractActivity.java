@@ -8,13 +8,19 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.DocInfoBean;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.yiyuan.bean.PersonInfoResultBean;
+import com.google.gson.Gson;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
@@ -46,29 +52,88 @@ public class CheckContractActivity extends BaseActivity {
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("签  约  医  生");
-
-        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+        showLoadingDialog("正在加载中...");
+        NetworkApi.getPersonalInfo(this, new StringCallback() {
             @Override
-            public void onSuccess(Doctor response) {
-                if (!TextUtils.isEmpty(response.getDocter_photo())) {
+            public void onSuccess(Response<String> response) {
+                hideLoadingDialog();
+                if (response != null) {
+                    Gson gson = new Gson();
+                    PersonInfoResultBean bean = gson.fromJson(response.body(), PersonInfoResultBean.class);
+                    if (bean != null) {
+                        PersonInfoResultBean.DataBean data = bean.data;
+                        if (data != null) {
+                            getDoctorInfoByDocId(data.categoryid);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                T.show("网络繁忙");
+                hideLoadingDialog();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoadingDialog();
+            }
+        });
+
+
+    }
+
+    private void getDoctorInfoByDocId(int categoryid) {
+        showLoadingDialog("正在加载中...");
+        NetworkApi.getDocInfoByDocId(categoryid + "", new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                hideLoadingDialog();
+
+                if (isDestroyed() || isFinishing()) {
+                    return;
+                }
+                if (response == null) {
+                    return;
+                }
+                DocInfoBean docInfoBean = new Gson().fromJson(response.body(), DocInfoBean.class);
+                if (docInfoBean == null || !docInfoBean.tag) {
+                    return;
+                }
+                DocInfoBean.DataBean data = docInfoBean.data;
+                if (data == null) {
+                    return;
+                }
+                String docter_photo = data.docter_photo;
+                if (!TextUtils.isEmpty(docter_photo)) {
                     Picasso.with(CheckContractActivity.this)
-                            .load(response.getDocter_photo())
+                            .load(docter_photo)
                             .placeholder(R.drawable.avatar_placeholder)
                             .error(R.drawable.avatar_placeholder)
                             .tag(this)
                             .fit()
                             .into(ivDoctorAvatar);
                 }
-                tvDoctorName.setText(String.format(getString(R.string.doctor_name), response.getDoctername()));
-                tvProfessionalRank.setText(String.format(getString(R.string.doctor_zhiji), response.getDuty()));
-                tvGoodAt.setText(String.format(getString(R.string.doctor_shanchang), response.getDepartment()));
-                tvService.setText(String.format(getString(R.string.doctor_shoufei), response.getService_amount()));
+
+                tvDoctorName.setText(String.format(getString(R.string.doctor_name), data.doctername));
+                tvProfessionalRank.setText(String.format(getString(R.string.doctor_zhiji), data.duty));
+                tvGoodAt.setText(String.format(getString(R.string.doctor_shanchang), data.department));
+                tvService.setText(String.format(getString(R.string.doctor_shoufei), data.service_amount+""));
             }
 
-        }, new NetworkManager.FailedCallback() {
             @Override
-            public void onFailed(String message) {
-                T.show(message);
+            public void onError(Response<String> response) {
+                super.onError(response);
+                hideLoadingDialog();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoadingDialog();
             }
         });
     }
@@ -95,17 +160,17 @@ public class CheckContractActivity extends BaseActivity {
 
     private void onCancelContract() {
         NetworkApi.cancelContract(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object response) {
-                        T.show("取消成功");
-                        finish();
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        T.show(message);
-                    }
-                });
+            @Override
+            public void onSuccess(Object response) {
+                T.show("取消成功");
+                finish();
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show(message);
+            }
+        });
     }
 
     @Override
@@ -115,4 +180,6 @@ public class CheckContractActivity extends BaseActivity {
         }
         super.onDestroy();
     }
+
+
 }

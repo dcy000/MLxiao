@@ -340,7 +340,7 @@ public class LocalShared {
         mShared.edit().putInt(SIGN_UP_HEIGHT, height).apply();
     }
 
-    public float getSignUpHeight() {
+    public int getSignUpHeight() {
         return mShared.getInt(SIGN_UP_HEIGHT, 175);
     }
 
@@ -348,7 +348,7 @@ public class LocalShared {
         mShared.edit().putInt(SIGN_UP_WEIGHT, weight).apply();
     }
 
-    public float getSignUpWeight() {
+    public int getSignUpWeight() {
         return mShared.getInt(SIGN_UP_WEIGHT, 65);
     }
 

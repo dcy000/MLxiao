@@ -75,7 +75,7 @@ public class WakeupHelper {
 
     private void setParameter(VoiceWakeuper wakeuper) {
         wakeuper.setParameter(SpeechConstant.PARAMS, null);
-        wakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:10");
+        wakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:1045");
         wakeuper.setParameter(SpeechConstant.IVW_SST, "wakeup");
         wakeuper.setParameter(SpeechConstant.KEEP_ALIVE, "1");
         wakeuper.setParameter(SpeechConstant.IVW_NET_MODE, "1");
