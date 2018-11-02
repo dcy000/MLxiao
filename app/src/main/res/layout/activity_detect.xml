@@ -439,6 +439,7 @@
             android:id="@+id/video_xuetang2"
             android:layout_width="550dp"
             android:layout_height="180dp"
+            android:visibility="gone"
             android:layout_alignStart="@+id/video_xuetang1"
             android:layout_below="@+id/video_xuetang1"
             android:layout_marginRight="10dp"
@@ -1137,6 +1138,7 @@
             android:layout_marginTop="100dp"
             android:layout_marginRight="10dp">
             <ImageView
+                android:id="@+id/ic_sanheyi_xuetang"
                 android:layout_width="550dp"
                 android:layout_height="180dp"
                 android:src="@drawable/xxtang"

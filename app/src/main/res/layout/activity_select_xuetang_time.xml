@@ -6,76 +6,85 @@
     android:layout_height="match_parent"
     android:background="@color/main_bg"
     tools:context="com.example.han.referralproject.activity.SelectXuetangTimeActivity">
+
     <LinearLayout
         android:id="@+id/kongfu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginLeft="30dp"
         android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/one_hour"
-        android:layout_marginLeft="30dp">
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/kongfu_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/kongfu_set"/>
+            android:background="@drawable/kongfu_set" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="空腹"
             android:textColor="#666666"
-            android:textSize="36sp"
-            android:layout_marginTop="20dp"/>
+            android:textSize="36sp" />
     </LinearLayout>
+
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/one_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/kongfu"
-        app:layout_constraintRight_toLeftOf="@+id/two_hour">
+        app:layout_constraintRight_toLeftOf="@+id/two_hour"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/onehour_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/onehour_set"/>
+            android:background="@drawable/onehour_set" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="饭后一小时"
+            android:layout_marginTop="20dp"
+            android:text="餐后两小时"
             android:textColor="#666666"
-            android:textSize="36sp"
-            android:layout_marginTop="20dp"/>
+            android:textSize="36sp" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/two_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginRight="30dp"
         android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/one_hour"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="30dp">
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/twohour_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/twohour_set"/>
+            android:background="@drawable/twohour_set" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="饭后两小时"
+            android:layout_marginTop="20dp"
+            android:text="餐后两小时"
             android:textColor="#666666"
-            android:textSize="36sp"
-            android:layout_marginTop="20dp"/>
+            android:textSize="36sp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -1016,6 +1016,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     public Button mButton1;
     public Button mButton2;
     public Button mButton3;
+    public ImageView ivXutang;
 
     private int xuetangTimeFlag;
     private AVLoadingIndicatorView onDetect;
@@ -1036,6 +1037,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
         mShared = LocalShared.getInstance(mContext);
         xuetangTimeFlag = getIntent().getIntExtra("time", 0);
+        if (xuetangTimeFlag == 2) {
+            ivXutang= findViewById(R.id.ic_sanheyi_xuetang);
+            ivXutang.setImageResource(R.drawable.video_xueyass);
+        }
         mToolbar.setVisibility(View.GONE);
         mButton = (Button) findViewById(R.id.history);//体温
         mButton1 = (Button) findViewById(R.id.history1);//血压
