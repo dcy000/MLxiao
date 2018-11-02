@@ -10,10 +10,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.Looper;
 import android.os.Process;
 import android.os.StrictMode;
 import android.support.multidex.MultiDex;
+import android.text.TextUtils;
 
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.bean.UserInfoBean;
@@ -23,11 +23,12 @@ import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
-import com.example.han.referralproject.yiyuan.idle.YiYuanIdleHandler;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
+
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call2.NimInitHelper;
+import com.medlink.danbogh.utils.JPushMessageHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.wakeup.WakeupHelper;
@@ -35,10 +36,14 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
 import org.litepal.LitePal;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -67,6 +72,35 @@ public class MyApplication extends Application {
         MultiDex.install(this);
     }
 
+    /**
+     * 获取进程号对应的进程名
+     *
+     * @param pid 进程号
+     * @return 进程名
+     */
+    private static String getProcessName(int pid) {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));
+            String processName = reader.readLine();
+            if (!TextUtils.isEmpty(processName)) {
+                processName = processName.trim();
+            }
+            return processName;
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public void onCreate() {
@@ -75,6 +109,8 @@ public class MyApplication extends Application {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
+
+        initBugly();
 //        LeakCanary.install(this);
         LibMusicPlayer.init(this);
         Preferences.init(this);
@@ -119,6 +155,7 @@ public class MyApplication extends Application {
         //初始化极光
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
         JPushInterface.init(this);
+        JPushMessageHelper.init();
         //初始化日志库
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
                 .showThreadInfo(true)  // (Optional) Whether to show thread info or not. Default true
@@ -137,6 +174,15 @@ public class MyApplication extends Application {
 
     }
 
+    private void initBugly() {
+//        Context context = getApplicationContext();
+//        String packageName = context.getPackageName();
+//        String processName = getProcessName(Process.myPid());
+//        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
+//        strategy.setUploadProcess(processName == null || processName.equals(packageName));
+        CrashReport.initCrashReport(getApplicationContext(), "082d769382", true);
+    }
+
     public static Activity getCurrentActivity() {
         return currentActivity;
     }
@@ -152,17 +198,16 @@ public class MyApplication extends Application {
 
         @Override
         public void onActivityStarted(Activity activity) {
-
         }
 
         @Override
         public void onActivityResumed(Activity activity) {
 
+
         }
 
         @Override
         public void onActivityPaused(Activity activity) {
-
         }
 
         @Override

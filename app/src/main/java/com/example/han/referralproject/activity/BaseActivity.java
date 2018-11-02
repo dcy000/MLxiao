@@ -146,71 +146,6 @@ public class BaseActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    private PopupWindow window;
-
-
-    //收到推送消息后显示Popwindow
-    class JPushReceive implements MyReceiver.JPushLitener {
-
-        @Override
-        public void onReceive(String title, String message) {
-//            ToastUtil.showShort(BaseActivity.this,message);
-            // 利用layoutInflater获得View
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.jpush_popwin, null);
-            window = new PopupWindow(view,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT);
-            // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
-            window.setFocusable(true);
-
-            // 实例化一个ColorDrawable颜色为半透明
-            ColorDrawable dw = new ColorDrawable(0x00000000);
-            window.setBackgroundDrawable(dw);
-            Utils.backgroundAlpha(BaseActivity.this, 1f);
-
-            // 设置popWindow的显示和消失动画
-            window.setAnimationStyle(R.style.mypopwindow_anim_style);
-//            // 在底部显示
-
-            window.showAtLocation(getWindow().getDecorView(),
-                    Gravity.TOP, 0, 148);
-
-            //popWindow消失监听方法
-            window.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                @Override
-                public void onDismiss() {
-                    Utils.backgroundAlpha(BaseActivity.this, 1f);
-                }
-            });
-            TextView jpushText = view.findViewById(R.id.jpush_text);
-            TextView jpushTitle = view.findViewById(R.id.jpush_title);
-            TextView jpushTime = view.findViewById(R.id.jpush_time);
-            if (!TextUtils.isEmpty(title)) {
-                jpushTitle.setVisibility(View.VISIBLE);
-                jpushTitle.setText(title);
-            }
-            jpushText.setText(message);
-            jpushTime.setText(Utils.stampToDate2(System.currentTimeMillis()));
-
-            final LinearLayout jpushLl = view.findViewById(R.id.jpush_ll);
-            final RealtimeBlurView jpushRbv = view.findViewById(R.id.jpush_rbv);
-            ViewTreeObserver vto = jpushLl.getViewTreeObserver();
-            final ViewGroup.LayoutParams lp = jpushRbv.getLayoutParams();
-            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    jpushLl.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                    int width=jpushLl.getMeasuredWidth();
-                    int height = jpushLl.getMinimumHeight();
-                    lp.height = height;
-                    jpushRbv.setLayoutParams(lp);
-                }
-            });
-
-            speak("主人，新消息。" + message);
-        }
-    }
 
     private void initToolbar() {
         mllBack = (LinearLayout) mTitleView.findViewById(R.id.ll_back);
@@ -660,7 +595,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        MyReceiver.jPushLitener = new JPushReceive();
         enableListeningLoop = enableListeningLoopCache;
         setDisableGlobalListen(disableGlobalListen);
         if (enableListeningLoop) {
@@ -688,12 +622,6 @@ public class BaseActivity extends AppCompatActivity {
         }
         //释放通知消息的资源
         Handlers.ui().removeCallbacks(updateVolumeAction);
-        if (MyReceiver.jPushLitener != null) {
-            MyReceiver.jPushLitener = null;
-            if (window != null) {
-                window = null;
-            }
-        }
         MobclickAgent.onPause(this);
         super.onPause();
     }
