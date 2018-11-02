@@ -47,6 +47,7 @@ import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.register.SignUp7HeightActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.witspring.unitbody.ChooseMemberActivity;
 
@@ -288,6 +289,8 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 if (response != null && response.age != null) {
                     if (Integer.parseInt(response.age) >= 65) {
                         startActivity(new Intent(getActivity(), InputFaceActivity.class).putExtra(OVERHEAD_INFORMATION, "zhongYiTiZhi"));
+                    } else {
+                        startActivity(new Intent(getActivity(), OlderHealthManagementSerciveActivity.class));
                     }
                 }
             }
@@ -300,7 +303,6 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         });
 
 
-        startActivity(new Intent(getActivity(), OlderHealthManagementSerciveActivity.class));
     }
 
     private void gotoPersonInfo() {
@@ -435,7 +437,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 //                            }
 
                             T.show("您已建档完毕");
-                            MLVoiceSynthetize.startSynthesize(getActivity(),"您已经建档完毕",false);
+                            MLVoiceSynthetize.startSynthesize(getActivity(), "您已经建档完毕", false);
                         } else {
 //                            ShowToFiledDialog(isBindDoctor);
                             startActivity(new Intent(getActivity(), BuildingRecordActivity.class).putExtra("bind", isBindDoctor));
