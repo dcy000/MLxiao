@@ -48,7 +48,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="run.DoctorSignInActivity">
+        <activity android:name="com.gcml.call.debug.DoctorSignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

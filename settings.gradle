@@ -21,6 +21,7 @@ include ':lib-auth-face',
 
 // 业务模块
 include ':module-video',
+        ':module:call',
         ':module-family',
         ':module-mall',
         ':module-task',

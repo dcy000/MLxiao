@@ -13,6 +13,7 @@ android {
     defaultConfig {
         if (project.ext.runAsApp) {
             applicationId "com.gcml.call"
+            multiDexEnabled true
         }
 
         minSdkVersion rootProject.ext.android["minSdkVersion"]
@@ -26,8 +27,6 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-            buildConfigField "boolean", "USE_CANARY", "true"
             buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
             minifyEnabled false
@@ -35,8 +34,6 @@ android {
         }
 
         release {
-            buildConfigField "boolean", "LOG_DEBUG", "false"
-            buildConfigField "boolean", "USE_CANARY", "false"
             buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
             minifyEnabled false

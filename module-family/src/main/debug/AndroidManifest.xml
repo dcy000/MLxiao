@@ -32,7 +32,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="run.TestFamilyActivity">
+        <activity android:name="debug.TestFamilyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
