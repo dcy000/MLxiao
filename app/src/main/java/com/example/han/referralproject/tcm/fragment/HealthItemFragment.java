@@ -73,7 +73,7 @@ public class HealthItemFragment extends Fragment {
                 setRadioButtonParams(button);
                 button.setText(answerList.get(i).answerInfo);
 //                //返回上一步显示=========开始  由于viewpager缓存步长限制
-//                if (data.isSelected&&data.hmAnswerId.equals(answerList.get(i).hmAnswerId)){
+//                if (data.getSelected&&data.hmAnswerId.equals(answerList.get(i).hmAnswerId)){
 //                    button.setChecked(true);
 //                }else{
 //                    button.setChecked(false);

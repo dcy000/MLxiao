@@ -35,6 +35,7 @@ import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
 import com.gcml.health.measure.single_measure.fragment.ChooseECGDeviceFragment;
 import com.gcml.health.measure.single_measure.fragment.SelfECGDetectionFragment;
+import com.gcml.health.measure.single_measure.fragment.SingleMeasureHandRingFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodoxygenFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodpressureFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodoxygenFragment;
@@ -59,6 +60,7 @@ import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_PDF_Fragment;
 import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerpint_Fragment;
+import com.gcml.module_blutooth_devices.others.HandRing_Fragment;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
@@ -209,6 +211,13 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             case IPresenter.CONTROL_FINGERPRINT:
                 if (baseFragment == null) {
                     baseFragment = new Fingerpint_Fragment();
+                }
+                break;
+            case IPresenter.MEASURE_HAND_RING:
+                //手环
+                if (baseFragment==null){
+                    mTitleText.setText("活 动 监 测");
+                    baseFragment=new SingleMeasureHandRingFragment();
                 }
                 break;
             default:
@@ -458,6 +467,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT);
                 ((Fingerpint_Fragment) baseFragment).onStop();
                 ((Fingerpint_Fragment) baseFragment).dealLogic();
+                break;
+            case IPresenter.MEASURE_HAND_RING:
+                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_HAND_RING, "");
+                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_HAND_RING);
+                ((SingleMeasureHandRingFragment) baseFragment).onStop();
+                ((SingleMeasureHandRingFragment) baseFragment).dealLogic();
                 break;
             default:
                 break;

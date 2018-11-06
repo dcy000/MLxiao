@@ -1,7 +1,6 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.Lifecycle;
 import android.support.annotation.IntDef;
 import android.text.Html;
 import android.util.SparseIntArray;
@@ -9,6 +8,7 @@ import android.view.View;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.data.TimeCountDownUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
@@ -146,21 +146,21 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
                 showFirstDialog(tips_first, tips_first_speak);
                 break;
             case DetectionStep.LEFT_2:
-                showDialog(getString(R.string.health_measure_tips_left_2));
+                showDialog(UtilsManager.getApplication().getString(R.string.health_measure_tips_left_2));
                 break;
             case DetectionStep.LEFT_3:
                 hasLeft3 = true;
-                showDialog(getString(R.string.health_measure_tips_left_3));
+                showDialog(UtilsManager.getApplication().getString(R.string.health_measure_tips_left_3));
                 break;
             case DetectionStep.RIGHT_1:
-                showDialog(getString(R.string.health_measure_tips_right_1));
+                showDialog(UtilsManager.getApplication().getString(R.string.health_measure_tips_right_1));
                 break;
             case DetectionStep.RIGHT_2:
-                showDialog(getString(R.string.health_measure_tips_right_2));
+                showDialog(UtilsManager.getApplication().getString(R.string.health_measure_tips_right_2));
                 break;
             case DetectionStep.RIGHT_3:
                 hasRight3 = true;
-                showDialog(getString(R.string.health_measure_tips_right_3));
+                showDialog(UtilsManager.getApplication().getString(R.string.health_measure_tips_right_3));
                 break;
             case DetectionStep.DONE:
                 uploadHandData(prepareData());

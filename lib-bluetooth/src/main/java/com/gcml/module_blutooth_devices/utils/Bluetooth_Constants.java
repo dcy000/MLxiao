@@ -14,6 +14,7 @@ public class Bluetooth_Constants {
         String SP_SAVE_WEIGHT = "sp_save_weight";
         String SP_SAVE_THREE_IN_ONE="sp_save_three_in_one";
         String SP_SAVE_BREATH_HOME="sp_save_breath_home";
+        String SP_SAVE_HAND_RING="sp_save_hand_ring";
 
         /**
          * 选择心电的类型

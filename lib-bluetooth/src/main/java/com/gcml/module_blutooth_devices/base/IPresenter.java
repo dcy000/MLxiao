@@ -113,6 +113,10 @@ public interface IPresenter {
      * 测量呼吸家的肺活量仪器
      */
     int MEASURE_BREATH_HOME = 31;
+    /**
+     * 手环数据同步
+     */
+    int MEASURE_HAND_RING=32;
 
     /**
      * 检查蓝牙是否已开

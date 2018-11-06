@@ -29,6 +29,7 @@ import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Self_Prese
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_BoSheng_PresenterImp;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Chaosi_PresenterImp;
 import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerprint_WeiEr_PresenterImp;
+import com.gcml.module_blutooth_devices.others.HandRing_Tongleda_PresenterImp;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Self_PresenterImp;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Ailikang_PresenterImp;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fudakang_PresenterImp;
@@ -58,6 +59,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private static final String[] ECG_BRANDS = {"WeCardio STD", "A12-B"};
     private static final String[] FINGERPRINT_BRANDS = {"zjwellcom"};
     private static final String[] OTHERS_BRANDS = {"BeneCheck GL"};
+    private static final String[] HAND_RING = {"RB09_Heart"};
     private List<SearchResult> devices;
     private int measureType;
     private BaseBluetoothPresenter baseBluetoothPresenter;
@@ -103,6 +105,9 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 break;
             case IPresenter.MEASURE_OTHERS:
                 search(OTHERS_BRANDS);
+                break;
+            case IPresenter.MEASURE_HAND_RING:
+                search(HAND_RING);
                 break;
             default:
                 break;
@@ -357,6 +362,16 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                     case "BeneCheck GL-0F8B0C":
                         baseBluetoothPresenter = new ThreeInOne_Self_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BeneCheck GL-0F8B0C"));
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case IPresenter.MEASURE_HAND_RING:
+                switch (brand) {
+                    case "RB09_Heart":
+                        baseBluetoothPresenter=new HandRing_Tongleda_PresenterImp(view,
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC,address,"RB09_Heart"));
                         break;
                     default:
                         break;
