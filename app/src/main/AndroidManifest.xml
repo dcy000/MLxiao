@@ -86,7 +86,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:label,android:theme">
-        <service android:name=".new_music.MusicService" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

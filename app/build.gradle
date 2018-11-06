@@ -1,19 +1,25 @@
 apply plugin: 'com.android.application'
 android {
-    buildToolsVersion gradle.buildToolsVersion
-    compileSdkVersion gradle.compileSdkVersion
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
 
     defaultConfig {
         applicationId "com.example.han.referralproject"
-        minSdkVersion gradle.minSdkVersion
-        targetSdkVersion gradle.targetSdkVersion
-        versionCode 24
-        versionName "hos.1.1.3.dev"
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+        flavorDimensions "versionCode"
         useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true    // Enable RS support
+
+
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a'/*, 'x86'*/
         }
@@ -24,16 +30,17 @@ android {
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
+    compileOptions {
+        encoding "UTF-8"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     dataBinding {
         enabled = true
     }
     productFlavors {
-        // Define separate dev and prod product flavors.
         dev {
-            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
-            // to pre-dex each module and produce an APK that can be tested on
-            // Android Lollipop without time consuming dex merging processes.
             minSdkVersion 19
         }
         prod {
@@ -48,12 +55,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources false
-            buildConfigField "boolean", "LOGGING", gradle.logging
+
+            //TODO:老地址下面这行代码是固定代码，请不要注释，不要更改，如需更换地址请到config.gradle中进行更改。重要！重要！重要！
+            buildConfigField "String", "SERVER_ADDRESS", rootProject.ext.produceUrl
         }
 
         debug {
             debuggable true
-            buildConfigField "boolean", "LOGGING", gradle.logging
+            //TODO:老地址下面这行代码是固定代码，请不要注释，不要更改，如需更换地址请到config.gradle中进行更改。重要！重要！重要！
+            buildConfigField "String", "SERVER_ADDRESS", rootProject.ext.developUrl
         }
     }
 
@@ -69,6 +79,7 @@ android {
     }
 
     lintOptions {
+        checkReleaseBuilds false
         abortOnError false
     }
 
@@ -91,105 +102,108 @@ android {
 
 repositories {
     flatDir {
-        dirs 'libs'
+        dirs 'libs','../lib-bluetooth/libs'
     }
 
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/Sunflower.jar')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation rootProject.ext.dependencies["support-v4"]
+    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
+    implementation rootProject.ext.dependencies["rxjava2"]
+    implementation rootProject.ext.dependencies["rxandroid2"]
+    implementation files('libs/Sunflower.jar')
     //    compile files('libs/pinyin4j-2.5.0.jar')
-    compile files('libs/commons-lang-2.3.jar')
-    compile('github.hellocsl:GalleryLayoutManager:1.0.6') {
+    implementation files('libs/commons-lang-2.3.jar')
+    implementation('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     //    compile 'com.hyphenate:hyphenate-sdk:3.3.2'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'org.litepal.android:core:1.6.0'
-    compile 'com.github.zcweng:switch-button:0.0.3@aar'
-    compile 'com.zhy:okhttputils:2.6.2'
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    implementation 'org.litepal.android:core:1.6.0'
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+    implementation 'com.zhy:okhttputils:2.6.2'
     //    compile 'com.github.bumptech.glide:glide:3.8.0'
-    compile 'jp.wasabeef:glide-transformations:3.1.1'
-    compile 'me.wcy:lrcview:1.4.2'
+    implementation 'jp.wasabeef:glide-transformations:3.1.1'
+    implementation 'me.wcy:lrcview:1.4.2'
     //    compile 'com.tencent.bugly:crashreport_upgrade:1.2.5'
-    compile 'com.netease.nimlib:basesdk:4.3.0'
-    compile 'com.netease.nimlib:avchat:4.3.0'
-    compile 'com.qiniu:qiniu-android-sdk:7.3.+'
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
-    compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.netease.nimlib:basesdk:4.3.0'
+    implementation 'com.netease.nimlib:avchat:4.3.0'
+    implementation 'com.qiniu:qiniu-android-sdk:7.3.+'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    implementation 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
+    testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-    compile 'com.wang.avi:library:2.1.3'
-    compile('com.airbnb.android:lottie:2.2.5', {
+    implementation 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    implementation 'com.wang.avi:library:2.1.3'
+    implementation('com.airbnb.android:lottie:2.2.5', {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     })
-    compile "com.android.support:support-v4:${gradle.supportVersion}"
-    compile "com.android.support:recyclerview-v7:${gradle.supportVersion}"
-    compile "com.android.support:cardview-v7:${gradle.supportVersion}"
-    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
-    compile "com.android.support:design:${gradle.supportVersion}"
-    compile 'com.lzy.net:okgo:3.0.4'
-    compile 'com.facebook.fresco:fresco:1.7.1'
-    compile 'com.afollestad.material-dialogs:core:0.9.5.0'
-    compile 'com.nex3z:flow-layout:1.1.0'
-    compile 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
-    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
-    compile name: 'mlrobot-release', ext: 'aar'
-    compile name: 'FaceppIDCardUI', ext: 'aar'
-    compile name: 'lib-crash', ext: 'aar'
-    compile name: 'lib-wheelrecyclerview', ext: 'aar'
-    compile name: 'library', ext: 'aar'
-    compile name: 'vmtools', ext: 'aar'
-    compile name: 'voicelibrary', ext: 'aar'
+    implementation 'com.lzy.net:okgo:3.0.4'
+    implementation 'com.facebook.fresco:fresco:1.7.1'
+    implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
+    implementation 'com.nex3z:flow-layout:1.1.0'
+    implementation 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
+    implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
+    implementation name: 'mlrobot-release', ext: 'aar'
+    implementation name: 'FaceppIDCardUI', ext: 'aar'
+    implementation name: 'lib-crash', ext: 'aar'
+    implementation name: 'lib-wheelrecyclerview', ext: 'aar'
+    implementation name: 'library', ext: 'aar'
+    implementation name: 'vmtools', ext: 'aar'
+    implementation name: 'voicelibrary', ext: 'aar'
     //    compile name: 'wkvideoplayer', ext: 'aar'
-    compile project(':wkvideoplayer')
-    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
-    compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
-    compile project(':module-edu')
-    compile project(':lib-video-player')
-    compile project(':lib-zxing')
+    implementation project(':wkvideoplayer')
+    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
+    implementation project(':module-edu')
+    implementation project(':lib-video-player')
+    implementation project(':lib-zxing')
     //    compile name: 'sdk', ext: 'aar'
     //    compile name: 'sdk', ext: 'aar'
     //极光推送
-    compile 'cn.jiguang.sdk:jpush:3.1.1'
+    implementation 'cn.jiguang.sdk:jpush:3.1.1'
     // 此处以JPush 3.1.1 版本为例。
-    compile 'cn.jiguang.sdk:jcore:1.1.9'
+    implementation 'cn.jiguang.sdk:jcore:1.1.9'
     // 此处以JCore 1.1.9 版本为例。
-    compile 'com.github.mmin18:realtimeblurview:1.1.0'
-    compile project(':sdk')
-    compile 'com.umeng.analytics:analytics:6.1.2'
-    compile 'me.songning.CircleView:library:1.0.0'
-    compile project(':expand-textview-library')
-    compile project(':lib-rulerview')
+    implementation 'com.github.mmin18:realtimeblurview:1.1.0'
+    implementation project(':sdk')
+    implementation 'com.umeng.analytics:analytics:6.1.2'
+    implementation 'me.songning.CircleView:library:1.0.0'
+    implementation project(':expand-textview-library')
+    implementation project(':lib-rulerview')
     //日志库
-    compile 'com.orhanobut:logger:2.1.1'
+    implementation 'com.orhanobut:logger:2.1.1'
     //    compile 'me.relex:circleindicator:1.2.2@aar'
-    compile project(':circleindicator')
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
-    compile project(':lib-idcard-reader')
-    compile project(':circleprogress')
-    compile('cn.qqtheme.framework:WheelPicker:1.5.5') {
+    implementation project(':circleindicator')
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.3'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
+    implementation project(':lib-idcard-reader')
+    implementation project(':circleprogress')
+    implementation('cn.qqtheme.framework:WheelPicker:1.5.5') {
         exclude group: 'com.android.support'
     }
-    compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
-    compile('liji.library.dev:citypickerview:3.1.5') {
+    implementation 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+    implementation('liji.library.dev:citypickerview:3.1.5') {
         exclude group: 'pinyin4j-2.5.0'
     }
-    compile project(':unit')
-    //bugly
-    compile 'com.tencent.bugly:crashreport:latest.release'
-    compile 'com.tencent.bugly:nativecrashreport:latest.release'
-    compile project(':lib-voice')
+    implementation project(':unit')
+    //implementation
+    implementation 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+    implementation project(':lib-voice')
+    implementation project(':lib-bluetooth')
 }

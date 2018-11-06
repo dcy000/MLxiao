@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
+import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.AlreadyYuyue;
@@ -73,7 +74,7 @@ public class NetworkApi {
     /**
      * 测试
      */
-    public static final String BasicUrl = "http://47.96.98.60:8070";
+    public static final String BasicUrl = BuildConfig.SERVER_ADDRESS;
 
     public static final String PASSWORD = "123456";
     //上传建档信息

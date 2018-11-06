@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    buildToolsVersion gradle.buildToolsVersion
-    compileSdkVersion gradle.compileSdkVersion
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
 
     defaultConfig {
-        minSdkVersion gradle.minSdkVersion
-        targetSdkVersion gradle.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -35,17 +35,15 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
-    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.google.code.gson:gson:2.8.2'
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
+    implementation rootProject.ext.dependencies["gson"]
     //第三方库：BluetoothKit
-    compile 'com.inuker.bluetooth:library:1.4.0'
+    implementation 'com.inuker.bluetooth:library:1.4.0'
     //好糖血糖仪的库
-    compile(name: 'vivachek-ble-sdk-1.0.0', ext: 'aar')
+    implementation(name: 'vivachek-ble-sdk-1.0.0', ext: 'aar')
     //预览PDF的库
-    compile 'com.github.barteksc:android-pdf-viewer:3.1.0-beta.1'
-//    implementation project(path: ':lib-common-business')
-//    implementation project(':lib-common-core')
+    implementation 'com.github.barteksc:android-pdf-viewer:3.1.0-beta.1'
 }

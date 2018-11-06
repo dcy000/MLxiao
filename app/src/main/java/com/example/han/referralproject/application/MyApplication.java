@@ -164,7 +164,7 @@ public class MyApplication extends Application {
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
             @Override
             public boolean isLoggable(int priority, String tag) {
-                return BuildConfig.LOGGING;
+                return BuildConfig.DEBUG;
             }
         });
 
