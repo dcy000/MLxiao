@@ -72,7 +72,6 @@ dependencies {
 
     implementation project(":lib-common-business")
     implementation project(":lib-common-core")
-    implementation project(':lib-pay-beecloud')
 
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["recyclerview-v7"]
@@ -81,7 +80,7 @@ dependencies {
     implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
     implementation rootProject.ext.dependencies["timber"]
     implementation rootProject.ext.dependencies["picasso"]
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.1.6'
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
 
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["runner"]

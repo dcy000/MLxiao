@@ -7,28 +7,25 @@ import android.content.Intent;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
-import com.gcml.family.ui.FamilyActivity;
-import com.gcml.family.ui.FamilySearchActivity;
+import com.gcml.family.ui.FamilyNewsActivity;
 
 /**
- * desc: FamilyComponent .
+ * desc: FamilyPrivacyComponent .
  * author: wecent .
  * date: 2018/8/21 .
  */
 
-public class FamilySearchComponent implements IComponent {
+public class FamilyNewsComponent implements IComponent {
 
     @Override
     public String getName() {
-        return "app.component.family.search";
+        return "app.component.family.news";
     }
 
     @Override
     public boolean onCall(CC cc) {
         Context context = cc.getContext();
-        Intent intent = new Intent(context, FamilySearchActivity.class);
-        int startType = cc.getParamItem("startType");
-        intent.putExtra("startType", startType);
+        Intent intent = new Intent(context, FamilyNewsActivity.class);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }

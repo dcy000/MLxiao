@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import com.billy.cc.core.component.CC;
 import com.gcml.family.R;
 import com.gcml.family.widget.FamilyMenuPopup;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -119,14 +120,18 @@ public class FamilyActivity extends BaseFragmentActivity implements View.OnClick
         } else if (v.getId() == R.id.rl_family_right) {
             FamilyMenuPopup familyMenu = new FamilyMenuPopup(FamilyActivity.this);
             familyMenu.showPopupWindow();
-            familyMenu.setPopupText("添加家人", "消息中心");
+            if (mIndex == 0) {
+                familyMenu.setPopupText("添加家人", "消息中心");
+            } else {
+                familyMenu.setPopupText("添加好友", "消息中心");
+            }
             familyMenu.setOnSelectListener(new FamilyMenuPopup.OnSelectListener() {
                 @Override
                 public void onSelected(int position) {
                     if (position == 0) {
-
+                        CC.obtainBuilder("app.component.family.search").addParam("startType", position).build().callAsync();
                     } else if (position == 1) {
-
+                        CC.obtainBuilder("app.component.family.news").build().callAsync();
                     }
                 }
             });

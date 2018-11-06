@@ -35,6 +35,8 @@ public class FamilySearchActivity extends AppCompatActivity implements View.OnCl
     TextView mSearchText, mSrarchHint;
     RelativeLayout mFamilyContent;
     LinearLayout mSearchContent;
+    int startType = 0;
+    List<FamilyBean> mList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,18 +58,33 @@ public class FamilySearchActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void bindData() {
-        mToolBar.setData("添 加 联 系 人", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
-            @Override
-            public void onLeftClick() {
-                finish();
-            }
+        if (startType == 0) {
+            mToolBar.setData("添 加 家 人", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+                @Override
+                public void onLeftClick() {
+                    finish();
+                }
 
-            @Override
-            public void onRightClick() {
-                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
-                finish();
-            }
-        });
+                @Override
+                public void onRightClick() {
+                    CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                    finish();
+                }
+            });
+        } else {
+            mToolBar.setData("添 加 好 友", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+                @Override
+                public void onLeftClick() {
+                    finish();
+                }
+
+                @Override
+                public void onRightClick() {
+                    CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                    finish();
+                }
+            });
+        }
         mSearchEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -118,26 +135,36 @@ public class FamilySearchActivity extends AppCompatActivity implements View.OnCl
                     }
                     mSrarchHint.setVisibility(View.GONE);
                     KeyboardUtils.hideSoftInput(FamilySearchActivity.this);
+                    getFamilySearch();
                 }
             }
         });
         mRecycler.setLayoutManager(new GridLayoutManager(FamilySearchActivity.this, 2));
-        mAdapter = new FamilyFriendAdapter(R.layout.item_family_search, getFamilyList());
+        mAdapter = new FamilyFriendAdapter(R.layout.item_family_search, mList);
         mRecycler.setAdapter(mAdapter);
         mSearchText.setOnClickListener(this);
         mSrarchHint.setOnClickListener(this);
+        getFamilyAll();
     }
 
-    private List<FamilyBean> getFamilyList() {
-        List<FamilyBean> list = new ArrayList<>();
+    private void getFamilyAll() {
+        mList.clear();
         for (int i = 0; i < 10; i++) {
             if (i < 5) {
-                list.add(new FamilyBean("郭志强", "添加"));
+                mList.add(new FamilyBean("郭志强", "添加"));
             } else {
-                list.add(new FamilyBean("曾庆森", "添加"));
+                mList.add(new FamilyBean("曾庆森", "添加"));
             }
         }
-        return list;
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void getFamilySearch() {
+        mList.clear();
+        for (int i = 0; i < 1; i++) {
+            mList.add(new FamilyBean("汪真才", "添加"));
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
