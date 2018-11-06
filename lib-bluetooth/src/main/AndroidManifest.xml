@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gcml.module_blutooth_devices">
+
+    <!--<uses-permission android:name="android.permission.BLUETOOTH" />-->
+    <!--<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />-->
+    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+    <!--<uses-permission android:name="android.permission.INTERNET" />-->
+    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
+    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+    <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+    <!--<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />-->
+    <!--<uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />-->
+    <!--<uses-permission android:name="android.permission.RECORD_AUDIO" />-->
+    <!--<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />-->
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <application>
+        <service
+            android:name="com.sinocare.bluetoothle.SN_BluetoothLeService"
+            android:enabled="true">
+            <meta-data
+                android:name="AccessKey"
+                android:value="ak692c5e54836146d0b5c76cdb8886ae61"></meta-data>
+            <meta-data
+                android:name="SecretKey"
+                android:value="saksvhflsjxywxu"></meta-data>
+        </service>
+
+
+        <!--同乐达手环-->
+        <service
+            android:name="com.yc.pedometer.sdk.BluetoothLeService"
+            android:enabled="true" />
+        <service android:name="com.realsil.android.blehub.dfu.DfuService" />
+        <meta-data
+            android:name="YCAPPKEY"
+            android:value="f0b520cdb42c7103f6683977793ae81c" />
+    </application>
+
+</manifest>
