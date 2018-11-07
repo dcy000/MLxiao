@@ -41,7 +41,7 @@ dependencies {
     implementation rootProject.ext.dependencies["constraint-layout"]
     implementation rootProject.ext.dependencies["gson"]
     //第三方库：BluetoothKit
-    implementation 'com.inuker.bluetooth:library:1.4.0'
+    api 'com.inuker.bluetooth:library:1.4.0'
     //好糖血糖仪的库
     implementation(name: 'vivachek-ble-sdk-1.0.0', ext: 'aar')
     //预览PDF的库

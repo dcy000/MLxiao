@@ -24,9 +24,12 @@ import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
-
+import com.gcml.lib_video_ksyplayer.KSYPlayer;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.kk.taurus.playerbase.config.PlayerConfig;
+import com.kk.taurus.playerbase.config.PlayerLibrary;
+import com.kk.taurus.playerbase.entity.DecoderPlan;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.JPushMessageHelper;
 import com.medlink.danbogh.utils.T;
@@ -65,6 +68,10 @@ public class MyApplication extends Application {
     }
 
     public String eqid;
+    /**
+     * 内核金山云
+     */
+    public static final int PLAN_ID_KSY = 1;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -170,10 +177,15 @@ public class MyApplication extends Application {
 
         registerActivityLifecycleCallbacks(callback);
         EHSharedPreferences.initUNITContext(this);
-
+        initVideoPlay(this);
 
     }
-
+    private void initVideoPlay(Application app) {
+        PlayerConfig.addDecoderPlan(new DecoderPlan(PLAN_ID_KSY, KSYPlayer.class.getName(), "Ksyplayer"));
+        PlayerConfig.setDefaultPlanId(PLAN_ID_KSY);
+        PlayerConfig.setUseDefaultNetworkEventProducer(true);
+        PlayerLibrary.init(app);
+    }
     private void initBugly() {
 //        Context context = getApplicationContext();
 //        String packageName = context.getPackageName();

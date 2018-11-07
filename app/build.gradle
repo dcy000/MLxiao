@@ -206,4 +206,5 @@ dependencies {
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
     implementation project(':lib-voice')
     implementation project(':lib-bluetooth')
+    implementation project(':module-video')
 }

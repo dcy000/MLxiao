@@ -871,6 +871,10 @@
             android:name=".health.StapleFoodActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".health.TypeOfDrinkActivity"></activity>
+        <activity android:name=".AllMeasureActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".MeasureChooseDeviceActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MeasureChooseDeviceActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -90,7 +91,8 @@ public class HealthDetecteActivity extends BaseActivity {
     }
 
     private void gotoDanXianTiJian() {
-        startActivity(new Intent(this, Test_mainActivity.class));
+//        startActivity(new Intent(this, Test_mainActivity.class));
+        MeasureChooseDeviceActivity.startActivity(this,false);
     }
 
     private void gotoFiled(final int id) {
