@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
@@ -62,6 +63,9 @@ public class InquiryAndFileActivity extends BaseActivity {
     ImageView ivInquireFileExit;
     @BindView(R.id.tv_file_done)
     TextView tvFileDone;
+    @BindView(R.id.tv_wen_jian_skip)
+    TextView tvWenJianSkip;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -372,11 +376,17 @@ public class InquiryAndFileActivity extends BaseActivity {
 
 
     public void tuiChu() {
-
         MobclickAgent.onProfileSignOff();
         NimAccountHelper.getInstance().logout();
         LocalShared.getInstance(this).loginOut();
         startActivity(new Intent(this, ChoiceLoginTypeActivity.class));
         finish();
     }
+
+
+    @OnClick(R.id.tv_wen_jian_skip)
+    public void onViewClicked() {
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
 }
