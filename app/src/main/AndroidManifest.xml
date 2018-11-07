@@ -871,7 +871,8 @@
         <activity
             android:name=".health.StapleFoodActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".health.TypeOfDrinkActivity"></activity>
+        <activity android:name=".health.TypeOfDrinkActivity" />
+        <activity android:name=".require3.ScanCodeActivity"></activity>
     </application>
 
 </manifest>

@@ -359,8 +359,9 @@ public class DetectResultActivity extends BaseActivity {
         if (!TextUtils.isEmpty(zunyi)) {
             tvZunyiInfo.setText(getResources().getStringArray(R.array.xltz)[Integer.parseInt(zunyi)]);
         }
-        String niaosuan = getIntent().getStringExtra("niaosuan")+"";
-        tvUaInfo.setText(niaosuan.replaceAll("null","0.0")+"mmol/L");
+        String niaosuan = getIntent().getStringExtra("niaosuan") + "";
+        String aNull = niaosuan.replaceAll("null", "0.0");
+        tvUaInfo.setText(aNull + "mmol/L");
 
         tvZhushiliangInfo.setText(stapleFood + "克");
         switch (detectCategory) {
@@ -398,6 +399,46 @@ public class DetectResultActivity extends BaseActivity {
                 llCholesterin.setVisibility(View.GONE);
                 llHealthSalt.setVisibility(View.GONE);
                 break;
+        }
+        // TODO: 2018/11/6  隐藏没检测的项目结果页
+
+        if ("0.0".equals(weight)) {
+            findViewById(R.id.detect_tv_result_weight).setVisibility(View.GONE);
+            findViewById(R.id.detect_tv_result_weight_info).setVisibility(View.GONE);
+        }
+
+        if ("0".equals(highPressure) && "0".equals(highPressureRight)) {
+            findViewById(R.id.detect_tv_result_high_pressure).setVisibility(View.GONE);
+            findViewById(R.id.detect_tv_result_high_pressure_info).setVisibility(View.GONE);
+        }
+
+        if ("0".equals(lowPressure) && "0".equals(lowPressureRight)) {
+            findViewById(R.id.detect_tv_result_low_pressure).setVisibility(View.GONE);
+            findViewById(R.id.detect_tv_result_low_pressure_info).setVisibility(View.GONE);
+        }
+
+        if ("0.0".equals(tem) || "0".equals(tem)) {
+            findViewById(R.id.tv_detect_result_tiwen).setVisibility(View.GONE);
+            findViewById(R.id.detect_tv_result_temperate_info).setVisibility(View.GONE);
+        }
+
+        if ("0".equals(sugar) || "0.0".equals(sugar)) {
+            findViewById(R.id.detect_tv_result_sugar).setVisibility(View.GONE);
+        }
+
+        if ("0.0".equals(aNull)) {
+            findViewById(R.id.ll_ua).setVisibility(View.GONE);
+        }
+        if (cholesterol == null || "0".equals(cholesterol)) {
+            findViewById(R.id.ll_cholesterin).setVisibility(View.GONE);
+        }
+
+        if (0 == detectResult.pulse) {
+            findViewById(R.id.ll_pressure_pulse).setVisibility(View.GONE);
+        }
+
+        if (0 == detectResult.heartRate) {
+            findViewById(R.id.ll_heart_rate).setVisibility(View.GONE);
         }
 
 

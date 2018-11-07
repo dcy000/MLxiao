@@ -27,9 +27,9 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.olderhealthmanagement.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.require2.bean.GetUserXFInfoBean;
 import com.example.han.referralproject.require2.dialog.AffirmHeadDialog;
+import com.example.han.referralproject.require3.ScanCodeActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
-import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.google.gson.Gson;
 import com.iflytek.cloud.FaceRequest;
@@ -476,8 +476,11 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                         LocalShared.getInstance(mContext).setUserAge(response.age);
                         LocalShared.getInstance(mContext).setUserHeight(response.height);
                         new JpushAliasUtils(InputFaceActivity.this).setAlias("user_" + response.bid);
-                        startActivity(new Intent(InputFaceActivity.this, InquiryAndFileActivity.class)
+
+                        startActivity(new Intent(InputFaceActivity.this, ScanCodeActivity.class)
                                 .putExtra("isRegister", true));
+//                        startActivity(new Intent(InputFaceActivity.this, InquiryAndFileActivity.class)
+//                                .putExtra("isRegister", true));
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override

@@ -12,9 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.util.Utils;
 import com.medlink.danbogh.utils.UiUtils;
 
 import butterknife.BindView;
