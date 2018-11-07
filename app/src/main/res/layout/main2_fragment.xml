@@ -7,11 +7,12 @@
 
 
     <ImageView
-        android:background="@drawable/main_wodedingdan_set"
         android:id="@+id/shangcheng"
         android:layout_width="594pt"
         android:layout_height="504pt"
         android:layout_marginStart="24pt"
+        android:background="@drawable/main_wodedingdan_set"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/jiankangketang"
         app:layout_constraintTop_toTopOf="@+id/jiankangketang" />
 
@@ -19,20 +20,21 @@
         android:id="@+id/zhanghuchongzhi"
         android:layout_width="594pt"
         android:layout_height="504pt"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="7pt"
         android:background="@drawable/main_zhanghuchongzhi_set"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/jiankangketang"
         app:layout_constraintEnd_toEndOf="@+id/shangcheng"
         app:layout_constraintTop_toBottomOf="@+id/shangcheng" />
 
     <ImageView
-        android:visibility="gone"
         android:id="@+id/wodedingdan"
         android:layout_width="594pt"
         android:layout_height="504pt"
         android:src="@drawable/main_wodedingdan"
-        tools:layout_editor_absoluteX="13dp"
-        tools:layout_editor_absoluteY="181dp" />
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="13pt"
+        tools:layout_editor_absoluteY="181pt" />
 
     <ImageView
         android:id="@+id/jiankangketang"
@@ -41,39 +43,36 @@
         android:layout_marginStart="45pt"
         android:layout_marginTop="100pt"
         android:background="@drawable/main2_jiangkang_shangcheng_set"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:background="@drawable/main_shezhi_set"
         android:id="@+id/shezhi"
         android:layout_width="594pt"
         android:layout_height="328pt"
-        android:layout_marginStart="24pt"
         android:layout_marginTop="24pt"
+        android:background="@drawable/main_shezhi_set"
         app:layout_constraintEnd_toEndOf="@+id/tuichu"
-        app:layout_constraintStart_toEndOf="@+id/shangcheng"
         app:layout_constraintTop_toBottomOf="@+id/tuichu" />
 
     <ImageView
-        android:background="@drawable/main_liaotian_set"
         android:id="@+id/tuichu"
         android:layout_width="594pt"
         android:layout_height="328pt"
-        android:layout_marginStart="24pt"
-        app:layout_constraintStart_toEndOf="@+id/shangcheng"
-        app:layout_constraintTop_toTopOf="@+id/shangcheng" />
+        android:layout_marginStart="45pt"
+        android:layout_marginTop="100pt"
+        android:background="@drawable/main_liaotian_set"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/liaotian"
         android:layout_width="594pt"
         android:layout_height="328pt"
-        android:layout_marginStart="24pt"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="24pt"
         android:background="@drawable/main_tuichu_set"
-        app:layout_constraintBottom_toBottomOf="@+id/zhanghuchongzhi"
         app:layout_constraintEnd_toEndOf="@+id/shezhi"
-        app:layout_constraintStart_toEndOf="@+id/zhanghuchongzhi"
         app:layout_constraintTop_toBottomOf="@+id/shezhi" />
 
 </android.support.constraint.ConstraintLayout>
