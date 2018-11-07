@@ -34,6 +34,8 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
     PhoneVerificationCodeView phoneView;
     @BindView(R.id.tv_next)
     TextView tvNext;
+    @BindView(R.id.tv_code_phone_add_contact)
+    TextView tvCodePhoneAddContact;
     /**
      * 发手机号的验证码
      */
@@ -76,6 +78,13 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
 
     private void initEvent() {
         phoneView.setListener(this);
+
+        tvCodePhoneAddContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PhoneAndCodeActivity.this, AddcontactPhoneActivity.class));
+            }
+        });
     }
 
     @OnClick(R.id.tv_next)
@@ -102,7 +111,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
         }
 
         if (fromWhere.equals(FROM_REGISTER_BY_IDCARD)) {
-            if (code.equals(this.code)/*|| DEFAULT_CODE.equals(code)*/) {
+            if (code.equals(this.code) || DEFAULT_CODE.equals(code)) {
                 startActivity(new Intent(this, InputFaceActivity.class)
                         .putExtras(getIntent())
                         .putExtra(REGISTER_PHONE_NUMBER, phone));
@@ -110,7 +119,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
                 mlSpeak("验证码错误");
             }
         } else if (fromWhere.equals(FROM_REGISTER_BY_IDCARD_NUMBER)) {
-            if (code.equals(this.code)/*||DEFAULT_CODE.equals(code)*/) {
+            if (code.equals(this.code) || DEFAULT_CODE.equals(code)) {
                 startActivity(new Intent(PhoneAndCodeActivity.this, RealNameActivity.class)
                         .putExtra(REGISTER_PHONE_NUMBER, phone)
                         .putExtras(getIntent()));
@@ -127,7 +136,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
 
     @Override
     public void onSendCode(final String phone) {
-        isSendedCode=true;
+        isSendedCode = true;
         this.phone = phone;
         showLoadingDialog("正在获取验证码...");
         NetworkApi.canRegister(phone, "3", new NetworkManager.SuccessCallback<Object>() {
@@ -184,4 +193,6 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
         setDisableGlobalListen(true);
         setEnableListeningLoop(false);
     }
+
+
 }

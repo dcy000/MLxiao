@@ -24,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddcontactPhoneActivity extends BaseActivity implements  CanClearEditText.OnTextChangeListener {
+public class AddcontactPhoneActivity extends BaseActivity implements CanClearEditText.OnTextChangeListener {
 
     @BindView(R.id.tv_phone_number_notice)
     CanClearEditText ccetIdNumber;
@@ -73,7 +73,7 @@ public class AddcontactPhoneActivity extends BaseActivity implements  CanClearEd
         switch (view.getId()) {
             case R.id.tv_next:
                 String IdCardNumber = ccetIdNumber.getPhone();
-                if (!Utils.checkIdCard1(IdCardNumber)) {
+                if (!Utils.isValidPhone(IdCardNumber)) {
                     mlSpeak("请输入紧急联系人手机号");
                     return;
                 }
