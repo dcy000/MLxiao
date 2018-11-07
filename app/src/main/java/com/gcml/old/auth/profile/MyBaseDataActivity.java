@@ -145,8 +145,8 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         MyBaseDataActivity.this.mUser = user;
         ImageLoader.with(MyBaseDataActivity.this)
                 .load(mUser.avatar)
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
+                .placeholder(R.drawable.common_ic_avatar_placeholder)
+                .error(R.drawable.common_ic_avatar_placeholder)
                 .into(mHead);
         mName.setText(TextUtils.isEmpty(user.name) ? "暂未填写" : user.name);
         idCardCode = user.idCard;

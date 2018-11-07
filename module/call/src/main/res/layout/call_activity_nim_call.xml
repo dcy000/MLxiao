@@ -2,14 +2,14 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/call_cl_root"
+    android:id="@+id/cl_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/call_include_call_surface"/>
+    <include layout="@layout/call_include_renderer"/>
 
     <TextView
-        android:id="@+id/call_tv_time"
+        android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -20,9 +20,9 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <include layout="@layout/call_include_call_top_panel"/>
+    <include layout="@layout/call_include_peer_top_panel"/>
 
-    <include layout="@layout/call_include_call_bottom_panel"/>
+    <include layout="@layout/call_include_bottom_panel"/>
 
     <include layout="@layout/call_include_call_refuse_receive_panel"/>
 </android.support.constraint.ConstraintLayout>

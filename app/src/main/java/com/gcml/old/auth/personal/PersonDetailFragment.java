@@ -183,8 +183,8 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                         tvUserName.setText(user.name);
                         ImageLoader.with(activity)
                                 .load(user.avatar)
-                                .placeholder(R.drawable.avatar_placeholder)
-                                .error(R.drawable.avatar_placeholder)
+                                .placeholder(R.drawable.common_ic_avatar_placeholder)
+                                .error(R.drawable.common_ic_avatar_placeholder)
                                 .into(headImg);
                         if ("1".equals(user.state)) {
                             isSignDoctor.setText("已签约");

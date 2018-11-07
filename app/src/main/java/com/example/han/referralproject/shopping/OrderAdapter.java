@@ -40,12 +40,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderVH> {
         holder.mPosition = position;
         Picasso.with(context)
                 .load(mList.get(position).getPhoto())
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
+                .placeholder(R.drawable.common_ic_avatar_placeholder)
+                .error(R.drawable.common_ic_avatar_placeholder)
                 .tag(context)
                 .fit()
                 .into(holder.mImageView);
-        //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
+        //    holder.mImagine.setImageResource(R.drawable.common_ic_avatar_placeholder);
 
         String date = Utils.getDateToString(Long.parseLong(mList.get(position).getTime()), "yyyy-MM-dd");
         holder.mTextView1.setText(date);

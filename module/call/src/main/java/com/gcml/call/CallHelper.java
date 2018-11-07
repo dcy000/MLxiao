@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 
-import com.gcml.call.smallwindow.CallFloatViewHelper;
+import com.gcml.call.floatwindow.CallFloatViewHelper;
 
 import com.gcml.common.utils.display.ToastUtils;
 import com.netease.nimlib.sdk.NIMClient;
@@ -125,6 +125,9 @@ public enum CallHelper {
 
     public void addOnCallStateChangeListener(OnCallStateChangeListener listener) {
         mOnCallStateChangeListeners.add(listener);
+        if (callingState != null) {
+            notifyCallStateChanged(callingState);
+        }
     }
 
     public void removeOnCallStateChangeListener(OnCallStateChangeListener listener) {
@@ -354,7 +357,7 @@ public enum CallHelper {
     }
 
     private void initSmallRenderer(String account) {
-        if (flLargeContainer == null || TextUtils.isEmpty(account)) {
+        if (flSmallContainer == null || TextUtils.isEmpty(account)) {
             return;
         }
         smallAccount = account;
@@ -555,6 +558,8 @@ public enum CallHelper {
         CallSoundPlayer.instance().stop();
     }
 
+    private volatile boolean closing;
+
     public void closeSessions(int exitCode) {
         if (closing) {
             return;
@@ -684,7 +689,6 @@ public enum CallHelper {
 
     public void call(String remoteAccount, final AVChatType chatType) {
         CallSoundPlayer.instance().play(CallSoundPlayer.RingerType.CONNECTING);
-//        mOuterCallback = callback;
         this.remoteAccount = remoteAccount;
         AVChatManager chatManager = AVChatManager.getInstance();
         closing = false;
@@ -696,8 +700,8 @@ public enum CallHelper {
 //        chatManager.setParameter(AVChatParameters.KEY_VIDEO_FRAME_FILTER, true);
         if (videoCapturer == null) {
             videoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
-            chatManager.setupVideoCapturer(videoCapturer);
         }
+        chatManager.setupVideoCapturer(videoCapturer);
         if (chatType == AVChatType.VIDEO) {
             chatManager.enableVideo();
             chatManager.startVideoPreview();
@@ -837,8 +841,8 @@ public enum CallHelper {
 //        chatManager.setParameter(AVChatParameters.KEY_VIDEO_FRAME_FILTER, true);
         if (videoCapturer == null) {
             videoCapturer = AVChatVideoCapturerFactory.createCameraCapturer();
-            chatManager.setupVideoCapturer(videoCapturer);
         }
+        chatManager.setupVideoCapturer(videoCapturer);
         if (chatType == AVChatType.VIDEO) {
             chatManager.enableVideo();
             chatManager.startVideoPreview();
@@ -894,8 +898,6 @@ public enum CallHelper {
             hangUp(CallExitCode.CANCEL);
         }
     }
-
-    private volatile boolean closing;
 
     public void hangUp(final int code) {
         if (destroyRTC) {
@@ -969,23 +971,28 @@ public enum CallHelper {
     private CallFloatViewHelper callFloatViewHelper;
 
     public void enterFloatWindow() {
-        if (callFloatViewHelper == null) {
-            callFloatViewHelper = new CallFloatViewHelper(context);
-        }
-        callFloatViewHelper.setFullScreenOnClickListener(new View.OnClickListener() {
+        uiHandler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-                exitFloatWindow();
-                CallHelper.enterFullScreen(context);
+            public void run() {
+                if (callFloatViewHelper == null) {
+                    callFloatViewHelper = new CallFloatViewHelper(context);
+                }
+                callFloatViewHelper.setFullScreenOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        exitFloatWindow();
+                        CallHelper.enterFullScreen(context);
+                    }
+                });
+                callFloatViewHelper.setCloseOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        hangUp();
+                    }
+                });
+                callFloatViewHelper.show();
             }
-        });
-        callFloatViewHelper.setCloseOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        callFloatViewHelper.show();
+        },300);
     }
 
     public void exitFloatWindow() {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-       xmlns:app="http://schemas.android.com/apk/res-auto"
-       xmlns:tools="http://schemas.android.com/tools"
-       tools:showIn="@layout/call_activity_call">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/call_activity_call">
 
     <ImageView
         android:id="@+id/call_ic_switch_camera"
@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/call_iv_toggle_camera"/>
+        app:layout_constraintRight_toLeftOf="@+id/call_iv_toggle_camera" />
 
 
     <ImageView
@@ -26,11 +26,11 @@
         android:layout_marginBottom="30dp"
         android:padding="10dp"
         android:scaleType="centerInside"
-        android:src="@drawable/call_ic_close_camera"
+        android:src="@drawable/call_ic_mute_vedio"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/call_ic_switch_camera"
-        app:layout_constraintRight_toLeftOf="@+id/call_iv_toggle_mute"/>
+        app:layout_constraintRight_toLeftOf="@+id/call_iv_toggle_mute" />
 
     <ImageView
         android:id="@+id/call_iv_toggle_mute"
@@ -39,11 +39,11 @@
         android:layout_marginBottom="30dp"
         android:padding="10dp"
         android:scaleType="centerInside"
-        android:src="@drawable/call_ic_mute"
+        android:src="@drawable/call_ic_mute_audio"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/call_iv_toggle_camera"
-        app:layout_constraintRight_toLeftOf="@+id/call_iv_hang_up"/>
+        app:layout_constraintRight_toLeftOf="@+id/call_iv_hang_up" />
 
     <ImageView
         android:id="@+id/call_iv_hang_up"
@@ -57,5 +57,5 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/call_iv_toggle_mute"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 </merge>

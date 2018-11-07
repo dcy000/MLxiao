@@ -1,4 +1,4 @@
-package com.gcml.call.smallwindow;
+package com.gcml.call.floatwindow;
 
 import android.annotation.TargetApi;
 import android.content.Context;

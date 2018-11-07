@@ -133,8 +133,8 @@ public class CheckContractActivity extends BaseActivity {
                                    if (!TextUtils.isEmpty(response.docter_photo)) {
                                        Picasso.with(CheckContractActivity.this)
                                                .load(response.docter_photo)
-                                               .placeholder(R.drawable.avatar_placeholder)
-                                               .error(R.drawable.avatar_placeholder)
+                                               .placeholder(R.drawable.common_ic_avatar_placeholder)
+                                               .error(R.drawable.common_ic_avatar_placeholder)
                                                .tag(this)
                                                .fit()
                                                .into(ivDoctorAvatar);

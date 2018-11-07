@@ -1,4 +1,4 @@
-package com.gcml.call.smallwindow;
+package com.gcml.call.floatwindow;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.gcml.call.CallHelper;
 import com.gcml.call.CallState;
 import com.gcml.call.R;
-
 
 /**
  * Created by afirez on 2018/6/1.
@@ -31,8 +30,9 @@ public class CallFloatViewHelper extends FloatViewHelper
     private Button mBtnFullScreen;
     private Button mBtnClose;
 
-    public CallFloatViewHelper(Context context) {
+    public CallFloatViewHelper(Context context, OnSurfaceContainerPreparedListener onSurfaceContainerPreparedListener) {
         super(context);
+        mOnSurfaceContainerPreparedListener = onSurfaceContainerPreparedListener;
         initView();
     }
 
@@ -47,19 +47,22 @@ public class CallFloatViewHelper extends FloatViewHelper
 //        mBtnClose = (Button) findViewById(R.id.call_btn_close);
         mBtnFullScreen.setOnClickListener(this);
 //        mBtnClose.setOnClickListener(this);
-        mFlLargeContainer = (FrameLayout) findViewById(R.id.call_fl_large_container);
-        mFlSmallContainer = (FrameLayout) findViewById(R.id.call_fl_small_container);
-        mIvSmallCover = (ImageView) findViewById(R.id.call_iv_small_cover);
+        mFlLargeContainer = (FrameLayout) findViewById(R.id.call_fl_call_large_container);
+        mFlSmallContainer = (FrameLayout) findViewById(R.id.call_fl_call_small_container);
+        mIvSmallCover = (ImageView) findViewById(R.id.call_iv_call_small_cover);
+        if (mOnSurfaceContainerPreparedListener != null) {
+            mOnSurfaceContainerPreparedListener.onSurfaceContainerPrepared(mFlSmallContainer, mFlLargeContainer);
+        }
     }
 
-    public interface OnRendererContainerPreparedListener {
-        void onRendererContainerPrepared(FrameLayout smallContainer, FrameLayout largeContainer);
+    public interface OnSurfaceContainerPreparedListener {
+        void onSurfaceContainerPrepared(FrameLayout smallContainer, FrameLayout largeContainer);
     }
 
-    private OnRendererContainerPreparedListener mOnRendererContainerPreparedListener;
+    private OnSurfaceContainerPreparedListener mOnSurfaceContainerPreparedListener;
 
-    public OnRendererContainerPreparedListener getOnRendererContainerPreparedListener() {
-        return mOnRendererContainerPreparedListener;
+    public OnSurfaceContainerPreparedListener getOnSurfaceContainerPreparedListener() {
+        return mOnSurfaceContainerPreparedListener;
     }
 
     public void setFullScreenOnClickListener(View.OnClickListener onClickListener) {
@@ -97,25 +100,5 @@ public class CallFloatViewHelper extends FloatViewHelper
     @Override
     public void onCloseSession() {
         dismiss();
-    }
-
-    @Override
-    public void show() {
-        CallHelper.INSTANCE.setSmallContainer(mFlSmallContainer);
-        CallHelper.INSTANCE.setLargeContainer(mFlLargeContainer);
-        CallHelper.INSTANCE.addOnCallStateChangeListener(this);
-        CallHelper.INSTANCE.setCallTimeCallback(this);
-        CallHelper.INSTANCE.setOnCloseSessionListener(this);
-        super.show();
-    }
-
-    @Override
-    public void dismiss() {
-        CallHelper.INSTANCE.removeOnCallStateChangeListener(this);
-        CallHelper.INSTANCE.setCallTimeCallback(null);
-        CallHelper.INSTANCE.setOnCloseSessionListener(null);
-        CallHelper.INSTANCE.setSmallContainer(null);
-        CallHelper.INSTANCE.setLargeContainer(null);
-        super.dismiss();
     }
 }

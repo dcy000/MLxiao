@@ -611,8 +611,8 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
         ImageLoader.with(this)
                 .load(mUser.avatar)
                 .circle()
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
+                .placeholder(R.drawable.common_ic_avatar_placeholder)
+                .error(R.drawable.common_ic_avatar_placeholder)
                 .into(binding.ivAvatar);
         binding.tvName.setText(TextUtils.isEmpty(user.name) ? "暂未填写" : user.name);
         if (!TextUtils.isEmpty(user.birthday)) {

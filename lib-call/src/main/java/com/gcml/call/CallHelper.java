@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 
-import com.gcml.call.smallwindow.CallFloatViewHelper;
+import com.gcml.call.floatwindow.CallFloatViewHelper;
 import com.gcml.call.utils.T;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;

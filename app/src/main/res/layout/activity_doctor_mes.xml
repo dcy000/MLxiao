@@ -56,7 +56,7 @@
         android:layout_marginRight="40dp"
         android:layout_marginTop="26dp"
         android:layout_toLeftOf="@+id/linearlayout"
-        android:src="@drawable/avatar_placeholder" />
+        android:src="@drawable/common_ic_avatar_placeholder" />
 
     <LinearLayout
         android:id="@+id/linearlayout"

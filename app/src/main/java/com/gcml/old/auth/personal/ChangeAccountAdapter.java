@@ -61,8 +61,8 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
             mNameView.setText(user.name);
             ImageLoader.with(mHeaderIv)
                     .load(user.avatar)
-                    .placeholder(R.drawable.avatar_placeholder)
-                    .error(R.drawable.avatar_placeholder)
+                    .placeholder(R.drawable.common_ic_avatar_placeholder)
+                    .error(R.drawable.common_ic_avatar_placeholder)
                     .into(mHeaderIv);
         }
 

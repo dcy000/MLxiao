@@ -1,4 +1,4 @@
-package com.gcml.call.smallwindow;
+package com.gcml.call.floatwindow;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -131,9 +131,11 @@ public class FloatWindowHelper {
 
     private void initWindow() {
         if (Build.VERSION.SDK_INT >= 26) {
-            wParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-        } else {
+            wParams.type = WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY;
+        } else if (Build.VERSION.SDK_INT >= 25) {
             wParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        } else {
+            wParams.type = WindowManager.LayoutParams.TYPE_TOAST;
         }
 
         wParams.format = PixelFormat.RGBA_8888;

@@ -1,4 +1,4 @@
-package com.gcml.call.smallwindow;
+package com.gcml.call.floatwindow;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -28,7 +28,7 @@ public class FloatWindowHelper {
     private Context context;
     private WindowManager wm;
     private WindowManager.LayoutParams wParams;
-    private MyFrameLayout contentParent;
+    private FrameLayout contentParent;
     private View contentView;
     private int width;
     private int height;
@@ -41,7 +41,7 @@ public class FloatWindowHelper {
         this.context = context;
         wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         wParams = new WindowManager.LayoutParams();
-        contentParent = new MyFrameLayout(context);
+        contentParent = new FrameLayout(context);
         contentParent.setOnTouchListener(onTouchListener);
         lastRotation = getDisplayRotation();
         orientationEventListener = new OrientationEventListener(context, SensorManager.SENSOR_DELAY_NORMAL) {
@@ -63,6 +63,8 @@ public class FloatWindowHelper {
     public void setContentView(@LayoutRes int layoutId) {
         LayoutInflater inflater = LayoutInflater.from(context);
         contentView = inflater.inflate(layoutId, contentParent, false);
+        contentView.setVisibility(View.GONE);
+        contentParent.addView(contentView);
     }
 
     public void setContentView(View contentView) {
@@ -77,7 +79,6 @@ public class FloatWindowHelper {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            Timber.tag(TAG).d("onTouchListener -> onTouch: view=%s event=%s", v, event);
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mTouchStartX = event.getRawX();
@@ -86,7 +87,6 @@ public class FloatWindowHelper {
                         mOriginX = wParams.x;
                         mOriginY = wParams.y;
                     }
-                    v.performClick();
                     break;
                 case MotionEvent.ACTION_MOVE:
                     updateViewPosition(event.getRawX(), event.getRawY());
@@ -108,7 +108,7 @@ public class FloatWindowHelper {
     private void updateViewPosition(float x, float y) {
         if (wParams != null) {
             float offsetX = x - mTouchStartX;
-            float offsetY = y - mTouchStartY;
+            float offsetY = -(y - mTouchStartY);
             if ((wParams.gravity & Gravity.RIGHT) != 0) {
                 offsetX = -offsetX;
             }
@@ -117,6 +117,7 @@ public class FloatWindowHelper {
             }
             wParams.x = (int) (mOriginX + offsetX);
             wParams.y = (int) (mOriginY + offsetY);
+            Timber.tag(TAG).d("onTouchListener -> onTouch: x=%s y=%s", wParams.x, wParams.y);
             wm.updateViewLayout(contentParent, wParams);
         }
     }
@@ -131,11 +132,9 @@ public class FloatWindowHelper {
 
     private void initWindow() {
         if (Build.VERSION.SDK_INT >= 26) {
-            wParams.type = WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY;
-        } else if (Build.VERSION.SDK_INT >= 25) {
-            wParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+            wParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         } else {
-            wParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+            wParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
         }
 
         wParams.format = PixelFormat.RGBA_8888;
@@ -221,6 +220,7 @@ public class FloatWindowHelper {
     }
 
     private void onShow() {
+        contentView.setVisibility(View.VISIBLE);
         if (mOnShowListener != null) {
             mOnShowListener.onShow();
         }

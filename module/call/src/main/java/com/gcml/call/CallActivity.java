@@ -8,14 +8,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.model.AVChatCameraCapturer;
 
 public class CallActivity extends AppCompatActivity {
-
-    private static final String TAG = "CallActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,6 @@ public class CallActivity extends AppCompatActivity {
         }
     };
 
-    private boolean shouldEnableToggle = false;
     private boolean canSwitchCamera;
 
     public CallHelper.OnCallStateChangeListener mCallListener = new CallHelper.OnCallStateChangeListener() {
@@ -71,32 +69,51 @@ public class CallActivity extends AppCompatActivity {
             if (CallState.isVideoMode(state))
                 switch (state) {
                     case OUTGOING_VIDEO_CALLING:
+                        ivLargeCover.setVisibility(View.GONE);
                         showPeerProfile(true);
                         showStatus(R.string.call_wait_recieve);
                         showTime(false);
-                        showRefuseReceive(false);
-                        shouldEnableToggle = true;
-                        enableCameraToggle();
-                        showBottomPanel(true);
+                        showReceive(false);
+                        showFloatWindow(false);
+                        showSwitchCamera(true);
+                        showHangUp(true);
+                        showMuteAudio(false);
+                        showMuteVideo(false);
                         break;
                     case INCOMING_VIDEO_CALLING:
+                        ivLargeCover.setVisibility(View.VISIBLE);
                         showPeerProfile(true);
                         showStatus(R.string.call_video_call_request);
                         showTime(false);
-                        showRefuseReceive(true);
-                        showBottomPanel(false);
+                        showReceive(true);
+                        showFloatWindow(false);
+                        showSwitchCamera(false);
+                        showHangUp(true);
+                        showMuteAudio(false);
+                        showMuteVideo(false);
                         break;
                     case VIDEO_CONNECTING:
+                        showPeerProfile(true);
                         showStatus(R.string.call_connecting);
-                        shouldEnableToggle = true;
+                        showTime(false);
+                        showReceive(false);
+                        showFloatWindow(false);
+                        showSwitchCamera(false);
+                        showHangUp(true);
+                        showMuteAudio(false);
+                        showMuteVideo(false);
                         break;
                     case VIDEO:
-                        canSwitchCamera = true;
+                        ivLargeCover.setVisibility(View.GONE);
                         showPeerProfile(false);
                         hideStatus();
                         showTime(true);
-                        showRefuseReceive(false);
-                        showBottomPanel(true);
+                        showReceive(false);
+                        showFloatWindow(true);
+                        showSwitchCamera(true);
+                        showHangUp(true);
+                        showMuteAudio(true);
+                        showMuteVideo(false);
                         break;
                     case OUTGOING_AUDIO_TO_VIDEO:
                         break;
@@ -115,36 +132,58 @@ public class CallActivity extends AppCompatActivity {
         tvStatus.setVisibility(View.GONE);
     }
 
-    private void showBottomPanel(boolean show) {
-        ivSwitchCamera.setVisibility(show ? View.VISIBLE : View.GONE);
-        ivToggleCamera.setVisibility(show ? View.VISIBLE : View.GONE);
-        ivToggleMute.setVisibility(show ? View.VISIBLE : View.GONE);
-        ivHangUp.setVisibility(show ? View.VISIBLE : View.GONE);
+    private void showHangUp(boolean show) {
+        llHangup.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (show) {
+            boolean established = CallHelper.INSTANCE.isCallEstablished();
+            String text = established
+                    ? "挂断"
+                    : CallHelper.INSTANCE.isIncomingCall() ? "拒绝" : "取消";
+            tvHangup.setText(text);
+        }
+    }
+
+    private void showMuteVideo(boolean show) {
+        show = show && CallHelper.INSTANCE.isCallEstablished();
+        llMuteVideo.setVisibility(show ? View.VISIBLE : View.GONE);
+        if(show) {
+            boolean muted = AVChatManager.getInstance().isLocalVideoMuted();
+            muteVideo(muted);
+        }
+    }
+
+    private void showMuteAudio(boolean show) {
+        show = show && CallHelper.INSTANCE.isCallEstablished();
+        llMuteAudio.setVisibility(show ? View.VISIBLE : View.GONE);
+        if(show) {
+            boolean muted = AVChatManager.getInstance().isLocalAudioMuted();
+            muteAudio(muted);
+        }
     }
 
     private void showTime(boolean show) {
         tvCallTime.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    private void enableCameraToggle() {
-        if (shouldEnableToggle) {
-            if (canSwitchCamera && AVChatCameraCapturer.hasMultipleCameras())
-                ivSwitchCamera.setEnabled(true);
-        }
+    private void showFloatWindow(boolean show) {
+        llFloatWindow.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    private void showRefuseReceive(boolean show) {
-        tvRefuse.setVisibility(show ? View.VISIBLE : View.GONE);
-        tvReceive.setVisibility(show ? View.VISIBLE : View.GONE);
+    private void showSwitchCamera(boolean enable) {
+        canSwitchCamera = enable && AVChatCameraCapturer.hasMultipleCameras();
+        llSwitchCamera.setVisibility(canSwitchCamera ? View.VISIBLE : View.GONE);
     }
 
+    private void showReceive(boolean show) {
+        llReceive.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
 
     private void showPeerProfile(boolean show) {
         //show avatar
         ivPeerAvatar.setVisibility(show ? View.VISIBLE : View.GONE);
-        tvNickname.setVisibility(show ? View.VISIBLE : View.GONE);
+        tvPeerNickname.setVisibility(show ? View.VISIBLE : View.GONE);
         String peerAccount = CallHelper.INSTANCE.getRemoteAccount();
-        tvNickname.setText(peerAccount);
+        tvPeerNickname.setText(peerAccount);
     }
 
     @Override
@@ -152,112 +191,140 @@ public class CallActivity extends AppCompatActivity {
         //no back pressed
     }
 
+    ImageView ivLargeCover;
     ImageView ivSmallCover;
     FrameLayout flSmallContainer;
     FrameLayout flLargeContainer;
-    TextView tvCallTime;
     ImageView ivPeerAvatar;
-    TextView tvNickname;
+    TextView tvPeerNickname;
     TextView tvStatus;
+    TextView tvCallTime;
+    LinearLayout llFloatWindow;
+    ImageView ivFloatWindow;
+    TextView tvFloatWindow;
+    LinearLayout llSwitchCamera;
     ImageView ivSwitchCamera;
-    ImageView ivToggleCamera;
-    ImageView ivToggleMute;
-    ImageView ivHangUp;
+    TextView tvSwitchCamera;
+    LinearLayout llMuteVideo;
+    ImageView ivMuteVideo;
+    TextView tvMuteVideo;
+    LinearLayout llMuteAudio;
+    ImageView ivMuteAudio;
+    TextView tvMuteAudio;
+    LinearLayout llHangup;
+    ImageView ivHangup;
+    TextView tvHangup;
+    LinearLayout llReceive;
+    ImageView ivReceive;
     TextView tvReceive;
-    TextView tvRefuse;
     ConstraintLayout clRoot;
 
     public void initView() {
-        ivSmallCover = (ImageView) findViewById(R.id.call_iv_small_cover);
-        flSmallContainer = (FrameLayout) findViewById(R.id.call_fl_small_container);
-        flLargeContainer = (FrameLayout) findViewById(R.id.call_fl_large_container);
-        tvCallTime = (TextView) findViewById(R.id.call_tv_time);
-        ivPeerAvatar = (ImageView) findViewById(R.id.call_iv_peer_avatar);
-        tvNickname = (TextView) findViewById(R.id.call_tv_nickname);
-        tvStatus = (TextView) findViewById(R.id.call_tv_status);
-        ivSwitchCamera = (ImageView) findViewById(R.id.call_ic_switch_camera);
-        ivSwitchCamera.setOnClickListener(new View.OnClickListener() {
+        clRoot = (ConstraintLayout) findViewById(R.id.cl_root);
+        ivLargeCover = (ImageView) findViewById(R.id.iv_large_cover);
+        ivSmallCover = (ImageView) findViewById(R.id.iv_small_cover);
+        flSmallContainer = (FrameLayout) findViewById(R.id.fl_small_container);
+        flLargeContainer = (FrameLayout) findViewById(R.id.fl_large_container);
+        ivPeerAvatar = (ImageView) findViewById(R.id.iv_peer_avatar);
+        tvPeerNickname = (TextView) findViewById(R.id.tv_peer_nickname);
+        tvStatus = (TextView) findViewById(R.id.tv_status);
+        tvCallTime = (TextView) findViewById(R.id.tv_time);
+        llFloatWindow = (LinearLayout) findViewById(R.id.ll_float_window);
+        ivFloatWindow = (ImageView) findViewById(R.id.iv_float_window);
+        tvFloatWindow = (TextView) findViewById(R.id.tv_float_window);
+        llSwitchCamera = (LinearLayout) findViewById(R.id.ll_switch_camera);
+        ivSwitchCamera = (ImageView) findViewById(R.id.iv_switch_camera);
+        tvSwitchCamera = (TextView) findViewById(R.id.tv_switch_camera);
+        llMuteVideo = (LinearLayout) findViewById(R.id.ll_mute_video);
+        ivMuteVideo = (ImageView) findViewById(R.id.iv_mute_video);
+        tvMuteVideo = (TextView) findViewById(R.id.tv_mute_video);
+        llMuteAudio = (LinearLayout) findViewById(R.id.ll_mute_audio);
+        ivMuteAudio = (ImageView) findViewById(R.id.iv_mute_audio);
+        tvMuteAudio = (TextView) findViewById(R.id.tv_mute_audio);
+        llHangup = (LinearLayout) findViewById(R.id.ll_hangup);
+        ivHangup = (ImageView) findViewById(R.id.iv_hangup);
+        tvHangup = (TextView) findViewById(R.id.tv_hangup);
+        llReceive = (LinearLayout) findViewById(R.id.ll_receive);
+        ivReceive = (ImageView) findViewById(R.id.iv_receive);
+        tvReceive = (TextView) findViewById(R.id.tv_receive);
+
+        llFloatWindow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onIvSwitchCameraClicked();
+                finish();
+                CallHelper.INSTANCE.enterFloatWindow();
             }
         });
-        ivToggleCamera = (ImageView) findViewById(R.id.call_iv_toggle_camera);
-        ivToggleCamera.setOnClickListener(new View.OnClickListener() {
+
+        llSwitchCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onIvToggleCameraClicked();
+                onLlSwitchCameraClicked();
             }
         });
-        ivToggleMute = (ImageView) findViewById(R.id.call_iv_toggle_mute);
-        ivToggleMute.setOnClickListener(new View.OnClickListener() {
+        llMuteVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onIvToggleMuteClicked();
+                onLlMuteVideoClicked();
             }
         });
-        ivHangUp = (ImageView) findViewById(R.id.call_iv_hang_up);
-        ivHangUp.setOnClickListener(new View.OnClickListener() {
+        llMuteAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onIvHangUpClicked();
+                onLlMuteAudioClicked();
             }
         });
-        tvReceive = (TextView) findViewById(R.id.call_tv_receive);
-        tvReceive.setOnClickListener(new View.OnClickListener() {
+        llHangup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onTvReceiveClicked();
+                onLlHangUpClicked();
             }
         });
-        tvRefuse = (TextView) findViewById(R.id.call_tv_refuse);
-        tvRefuse.setOnClickListener(new View.OnClickListener() {
+        llReceive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onTvRefuseClicked();
+                onLlReceiveClicked();
             }
         });
-        clRoot = (ConstraintLayout) findViewById(R.id.call_cl_root);
     }
 
-    private void onTvRefuseClicked() {
-        CallHelper.INSTANCE.refuse();
-    }
-
-    private void onTvReceiveClicked() {
+    private void onLlReceiveClicked() {
         CallHelper.INSTANCE.receive();
     }
 
-    private void onIvHangUpClicked() {
+    private void onLlHangUpClicked() {
         CallHelper.INSTANCE.hangUp();
     }
 
-    private void onIvToggleMuteClicked() {
+    private void onLlMuteAudioClicked() {
+        boolean muted = !AVChatManager.getInstance().isLocalAudioMuted();
+        muteAudio(muted);
+    }
+
+    private void muteAudio(boolean muted) {
         boolean established = CallHelper.INSTANCE.isCallEstablished();
         if (established) { // 连接已经建立
-            boolean muted = AVChatManager.getInstance().isLocalAudioMuted();
-            AVChatManager.getInstance().muteLocalAudio(!muted);
-            ivToggleMute.setSelected(!muted);
+            AVChatManager.getInstance().muteLocalAudio(muted);
+            ivMuteAudio.setSelected(muted);
+            tvMuteAudio.setText(muted ? "取消静音" : "静音");
         }
     }
 
-    private void onIvToggleCameraClicked() {
-        CallHelper.INSTANCE.removeOnCallStateChangeListener(mCallListener);
-        CallHelper.INSTANCE.setCallTimeCallback(null);
-        CallHelper.INSTANCE.setOnCloseSessionListener(null);
-        CallHelper.INSTANCE.setSmallContainer(null);
-        CallHelper.INSTANCE.setLargeContainer(null);
-        CallHelper.INSTANCE.enterFloatWindow();
-        finish();
-
-//        boolean selected = ivToggleCamera.isSelected();
-//        AVChatManager.getInstance().muteLocalVideo(!selected);
-//        ivToggleCamera.setSelected(!selected);
-//        ivSmallCover.setVisibility(!selected ? View.GONE : View.VISIBLE);
-
+    private void onLlMuteVideoClicked() {
+        boolean muted = !AVChatManager.getInstance().isLocalVideoMuted();
+        muteVideo(muted);
     }
 
-    private void onIvSwitchCameraClicked() {
+    private void muteVideo(boolean muted) {
+        boolean established = CallHelper.INSTANCE.isCallEstablished();
+        if (established) { // 连接已经建立
+            AVChatManager.getInstance().muteLocalVideo(muted);
+            ivMuteVideo.setSelected(muted);
+            tvMuteVideo.setText(muted ? "打开视频" : "关闭视频");
+        }
+    }
+
+    private void onLlSwitchCameraClicked() {
         CallHelper.INSTANCE.switchCamera();
     }
 }
