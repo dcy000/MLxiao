@@ -387,6 +387,7 @@ public class InquiryAndFileActivity extends BaseActivity {
     @OnClick(R.id.tv_wen_jian_skip)
     public void onViewClicked() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
 }
