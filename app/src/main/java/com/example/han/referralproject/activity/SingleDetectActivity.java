@@ -654,7 +654,7 @@ public class SingleDetectActivity extends BaseActivity implements View.OnClickLi
                                 isGetResustFirst = false;
                                 float result = ((float) (notifyData[2] << 8) + (float) (notifyData[3] & 0xff)) / 10;
                                 mResultTv.setText(String.valueOf(result));
-                                String height_s = LocalShared.getInstance(SingleDetectActivity.this).getUserHeight();
+                                String height_s = LocalShared.getInstance(SingleDetectActivity.this).getSignUpHeight()+"";
                                 float height = TextUtils.isEmpty(height_s) ? 0 : Float.parseFloat(height_s) / 100;
                                 float tizhi = result / (height * height);
                                 if (height != 0) {
