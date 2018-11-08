@@ -28,11 +28,10 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -49,15 +48,11 @@ import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.example.han.referralproject.health.DetectHealthSymptomsActivity;
 import com.example.han.referralproject.health.DetectResultActivity;
-import com.example.han.referralproject.measure.MeasureChooseReason;
-import com.example.han.referralproject.measure.MeasureXuetangResultActivity;
-import com.example.han.referralproject.measure.MeasureXueyaResultActivity;
 import com.example.han.referralproject.measure.fragment.MeasureXuetangFragment;
 import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragment;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.XueyaUtils;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileEndActivity;
@@ -74,8 +69,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
 import java.util.UUID;
-
-import android.support.v4.content.ContextCompat;
 
 public class SingleDetectActivity extends BaseActivity implements View.OnClickListener {
 
@@ -996,8 +989,39 @@ public class SingleDetectActivity extends BaseActivity implements View.OnClickLi
             String uri = "android.resource://" + getPackageName() + "/" + resourceId;
             mVideoView.setVideoURI(Uri.parse(uri));
             mVideoView.start();
+            mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mVideoView.setVisibility(View.GONE);
+                    mOverView.setVisibility(View.GONE);
+                }
+            });
         }
     }
+
+    private void setFirstUse() {
+        switch (detectType) {
+            case Type_Wendu:
+                LocalShared.getInstance(SingleDetectActivity.this).setMeasureTiwenFirst(false);
+                break;
+            case Type_XinDian:
+                LocalShared.getInstance(SingleDetectActivity.this).setMeasureXindianFirst(false);
+                break;
+            case Type_Xueya:
+                LocalShared.getInstance(SingleDetectActivity.this).setMeasureXueyaFirst(false);
+                break;
+            case Type_XueTang:
+                LocalShared.getInstance(SingleDetectActivity.this).setMeasureXuetangFirst(false);
+                break;
+            case Type_SanHeYi:
+                LocalShared.getInstance(SingleDetectActivity.this).setMeasureSanheyiFirst(false);
+                break;
+            case Type_XueYang:
+                LocalShared.getInstance(SingleDetectActivity.this).setMeasureXueyangFirst(false);
+                break;
+        }
+    }
+
 
     public ImageView mImageView1;
     public ImageView mImageView2;

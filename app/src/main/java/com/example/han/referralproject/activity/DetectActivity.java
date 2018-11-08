@@ -48,7 +48,6 @@ import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.example.han.referralproject.health.DetectHealthSymptomsActivity;
 import com.example.han.referralproject.health.DetectResultActivity;
-import com.example.han.referralproject.health.model.DetectResult;
 import com.example.han.referralproject.measure.fragment.MeasureXuetangFragment;
 import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragment;
 import com.example.han.referralproject.network.NetworkApi;
@@ -983,6 +982,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             String uri = "android.resource://" + getPackageName() + "/" + resourceId;
             mVideoView.setVideoURI(Uri.parse(uri));
             mVideoView.start();
+            mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mVideoView.setVisibility(View.GONE);
+                    mOverView.setVisibility(View.GONE);
+                    setFirstUse();
+                }
+            });
         }
     }
 
