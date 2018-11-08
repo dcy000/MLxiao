@@ -33,13 +33,15 @@
         <activity android:name="com.gcml.common.dialog.DialogActivity" />
         <activity android:name="com.gcml.common.gzq.TestXienActivity"
             android:screenOrientation="landscape">
-        </activity>
-        <activity android:name="com.gcml.module_health_record.HealthRecordActivity2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name="com.gcml.module_health_record.HealthRecordActivity2">
+
         </activity>
     </application>
 

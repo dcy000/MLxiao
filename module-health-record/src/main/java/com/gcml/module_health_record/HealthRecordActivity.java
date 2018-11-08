@@ -286,6 +286,8 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         mTvTimeEnd.setOnClickListener(this);
         mLlSelectTime = findViewById(R.id.ll_select_time);
         mHealthRecordFl = findViewById(R.id.health_record_fl);
+
+
         mDialoHealthRecordUnitView = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.dialog_health_record_unit, null);
         mUnitDayDialoHealthRecordUnitView = mDialoHealthRecordUnitView

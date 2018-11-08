@@ -17,6 +17,7 @@ import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Xien_PresenterImp;
 import com.gcml.module_blutooth_devices.others.HandRing_Fragment;
 import com.gcml.module_blutooth_devices.others.HandRing_Tongleda_PresenterImp;
+import com.gcml.module_blutooth_devices.weight_devices.Weight_Simaide_PresenterImp;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -25,13 +26,30 @@ import com.gcml.module_blutooth_devices.others.HandRing_Tongleda_PresenterImp;
  * created by: gzq
  * description: TODO
  */
-public class TestXienActivity extends AppCompatActivity {
+public class TestXienActivity extends AppCompatActivity implements IView{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_xien);
         BluetoothClientManager.init(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame,new HandRing_Fragment()).commit();
+
+
+        new Weight_Simaide_PresenterImp(this,
+                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC,"ED:67:27:64:6A:20","dr01"));
     }
 
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
+    }
+
+    @Override
+    public Context getThisContext() {
+        return this.getBaseContext();
+    }
 }
