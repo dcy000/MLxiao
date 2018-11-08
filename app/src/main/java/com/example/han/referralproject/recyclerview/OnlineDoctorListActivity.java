@@ -264,6 +264,9 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
         mIconBack.setOnClickListener(this);
         mIconHome = (ImageView) findViewById(R.id.icon_home);
         mIconHome.setOnClickListener(this);
+        mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("签约医生");
+
 
     }
 
