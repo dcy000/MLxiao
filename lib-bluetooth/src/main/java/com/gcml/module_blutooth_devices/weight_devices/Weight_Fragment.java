@@ -83,6 +83,8 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
             helper.start();
         } else {
             switch (brand) {
+                default:
+                    break;
                 case "VScale":
                     bluetoothPresenter = new Weight_Bodivis_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "VScale"));
@@ -102,6 +104,10 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
                 case "000FatScale01":
                     bluetoothPresenter = new Weight_Self_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "000FatScale01"));
+                    break;
+                case "dr01":
+                    bluetoothPresenter = new Weight_Simaide_PresenterImp(this,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "dr01"));
                     break;
             }
         }

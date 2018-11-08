@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,30 +27,38 @@ import com.gcml.module_blutooth_devices.weight_devices.Weight_Simaide_PresenterI
  * created by: gzq
  * description: TODO
  */
-public class TestXienActivity extends AppCompatActivity implements IView{
+public class TestXienActivity extends AppCompatActivity implements IView {
+
+    private Weight_Simaide_PresenterImp dr01;
+    private static final String TAG = "TestXienActivity";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_xien);
         BluetoothClientManager.init(this);
 
-
-        new Weight_Simaide_PresenterImp(this,
-                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC,"ED:67:27:64:6A:20","dr01"));
+        dr01 = new Weight_Simaide_PresenterImp(this,
+                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, "ED:67:27:64:6A:20", "dr01"));
     }
 
     @Override
     public void updateData(String... datas) {
-
+        Log.e(TAG, "updateData: "+datas[0] );
     }
 
     @Override
     public void updateState(String state) {
-
+        Log.e(TAG, "updateState: "+state );
     }
 
     @Override
     public Context getThisContext() {
-        return this.getBaseContext();
+        return this;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dr01.onDestroy();
     }
 }

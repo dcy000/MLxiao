@@ -1,11 +1,17 @@
 package com.gcml.module_blutooth_devices.weight_devices;
 
+import android.bluetooth.BluetoothDevice;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.data.SPUtil;
+import com.gcml.common.utils.handler.WeakHandler;
+import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.google.gson.Gson;
 import com.vtrump.vtble.VTDevice;
 import com.vtrump.vtble.VTDeviceManager;
@@ -21,18 +27,22 @@ import java.util.ArrayList;
  * created on 2018/11/7 17:55
  * created by: gzq
  * description: TODO
+ * name:dr01
+ * mac:ED:67:27:64:6A:20
  */
 public class Weight_Simaide_PresenterImp extends BaseBluetoothPresenter {
-    private static final String TAG = "Weight_Simaide_Presente";
+    private static final String TAG = "Weight_Simaide";
     /**
      * 我司专属的KEY,由厂家直接提供
      */
     private static final String KEY = "TU1JA3D0ZI078UCC";
     private VTDeviceManager manager;
-    private ArrayList<VTModelIdentifier> devices;
+    private VTDeviceScale device;
+
 
     public Weight_Simaide_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting) {
         super(fragment, discoverSetting);
+
     }
 
 
@@ -45,78 +55,106 @@ public class Weight_Simaide_PresenterImp extends BaseBluetoothPresenter {
     @Override
     public void checkBlueboothOpened() {
         super.checkBlueboothOpened();
-        searchDevices();
+
+
+        manager = VTDeviceManager.getInstance();
+        manager.setKey(KEY);
+        manager.startBle(baseContext);
+
+        new WeakHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                manager.setDeviceManagerListener(deviceManagerListener);
+            }
+        },1000);
+
+        new WeakHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                searchDevices();
+            }
+        }, 1000);
     }
 
     @Override
     public void searchDevices() {
-        devices = new ArrayList<>();
-        manager = VTDeviceManager.getInstance();
-        manager.setKey(KEY);
-        manager.startBle(baseContext);
-        manager.startScan(20, devices);
 
-        manager.setDeviceManagerListener(deviceManagerListener);
+        ArrayList<VTModelIdentifier> list = new ArrayList<>();
+        list.add(new VTModelIdentifier(
+                VTModelIdentifier.VT_PROTOCOL_VERSION_STANDARD,
+                VTModelIdentifier.VT_DEVICE_TYPE_VSCALE,
+                VTModelIdentifier.VT_VSCALE_FAT6,
+                (byte) -1));
+        manager.startScan(30, list);
 
-        //停止扫描
-        manager.stopScan();
     }
 
-    private VTDeviceScale mDevice;
+
     //VTDeviceManager 监听器
     VTDeviceManager.VTDeviceManagerListener deviceManagerListener = new VTDeviceManager.VTDeviceManagerListener() {
         @Override
         public void onInited() {
-
+            Log.e(TAG, "onInited: ");
         }
 
         @Override
         public void onDeviceDiscovered(VTDevice vtDevice) {
-            Log.i(TAG, "onDeviceDiscovered: ");
+            Log.e(TAG, "onDeviceDiscovered: ");
         }
 
         @Override
         public void onDeviceConnected(VTDevice vtDevice) {
-            Log.i(TAG, "onDeviceConnected: ");
+            Log.e(TAG, "onDeviceConnected: ");
+            baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
+            baseView.updateData("initialization", "0.00");
+            BluetoothDevice btDevice = vtDevice.getBtDevice();
+            SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
         }
 
         @Override
         public void onDeviceDisconnected(VTDevice vtDevice) {
-            Log.i(TAG, "onDeviceDisconnected: ");
+            Log.e(TAG, "onDeviceDisconnected: ");
         }
 
         @Override
         public void onDeviceServiceDiscovered(VTDevice vtDevice) {
-            Log.i(TAG, "onDeviceServiceDiscovered: ");
+            Log.e(TAG, "onDeviceServiceDiscovered: ");
+            Weight_Simaide_PresenterImp.this.device = (VTDeviceScale) device;
+            Weight_Simaide_PresenterImp.this.device.setScaleDataListener(mDataListener);
         }
 
         @Override
         public void onDevicePaired(VTDevice vtDevice) {
-            Log.i(TAG, "onDevicePaired: ");
+            Log.e(TAG, "onDevicePaired: ");
         }
 
         @Override
         public void onScanStop() {
-            Log.i(TAG, "onScanStop: ");
+            Log.e(TAG, "onScanStop: ");
         }
 
         @Override
         public void onDeviceAdvDiscovered(VTDevice device) {
-            Log.i(TAG, "onDeviceAdvDiscovered: ");
+            Log.e(TAG, "onDeviceAdvDiscovered: ");
+            baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
+            baseView.updateData("initialization", "0.00");
+            BluetoothDevice btDevice = device.getBtDevice();
+            SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
             //连接成功 然后 给广播称设置数据监听
-            ((VTDeviceScale) device).setScaleDataListener(mDataListener);
-            mDevice = (VTDeviceScale) device;
+            Weight_Simaide_PresenterImp.this.device = (VTDeviceScale) device;
+            Weight_Simaide_PresenterImp.this.device.setScaleDataListener(mDataListener);
         }
 
         @Override
         public void onDeviceAdvDisappeared(VTDevice device) {
             //广播称断开链接
-            Log.i(TAG, "onDeviceAdvDisappeared: ");
+            Log.e(TAG, "onDeviceAdvDisappeared: ");
+            baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_disconnected));
         }
     };
 
     //广播称数据监听器
-    VTDeviceScale.VTDeviceScaleListener mDataListener = new VTDeviceScale.VTDeviceScaleListener() {
+    private VTDeviceScale.VTDeviceScaleListener mDataListener = new VTDeviceScale.VTDeviceScaleListener() {
         /**
          * 这个方法 onDataAvailable() 会有两个地方调用
          *
@@ -137,15 +175,11 @@ public class Weight_Simaide_PresenterImp extends BaseBluetoothPresenter {
         public void onDataAvailable(String response) {
             Log.e(TAG, "onDataAvailable: " + response);
             if (!TextUtils.isEmpty(response)) {
-                Gson gson = new Gson();
-//                scaleData = gson.fromJson(response, ScaleData.class);
-//                if (scaleData != null) {
-//                    details = scaleData.getDetails();
-//                    if (scaleData.getCode() == 200) {
-//                        // 设置用户信息
-//                        device.setScaleUserInfo(userObject);
-//                    }
-//                }
+                SimaideBodyInfo scaleInfo = new Gson().fromJson(response, SimaideBodyInfo.class);
+                if (scaleInfo.getCode() == 200) {
+                    float weight = scaleInfo.getDetails().getWeight();
+                    baseView.updateData(String.format("%.2f", weight));
+                }
             }
         }
 
