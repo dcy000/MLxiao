@@ -359,8 +359,8 @@ public class DetectResultActivity extends BaseActivity {
         if (!TextUtils.isEmpty(zunyi)) {
             tvZunyiInfo.setText(getResources().getStringArray(R.array.xltz)[Integer.parseInt(zunyi)]);
         }
-        String niaosuan = getIntent().getStringExtra("niaosuan")+"";
-        tvUaInfo.setText(niaosuan.replaceAll("null","0.0")+"mmol/L");
+        String niaosuan = getIntent().getStringExtra("niaosuan") + "";
+        tvUaInfo.setText(niaosuan.replaceAll("null", "0.0") + "mmol/L");
 
         tvZhushiliangInfo.setText(stapleFood + "克");
         switch (detectCategory) {
@@ -485,7 +485,12 @@ public class DetectResultActivity extends BaseActivity {
                                 if (TextUtils.isEmpty(record.bloodType)) {
                                     record.bloodType = "暂未填写";
                                 }
-                                mDetectTvBloodTypeInfo.setText(record.bloodType + "型");
+                                String text = record.bloodType + "型";
+                                if (text.contains("不详")) {
+                                    mDetectTvBloodTypeInfo.setText(text.replace("型", ""));
+                                } else {
+                                    mDetectTvBloodTypeInfo.setText(text);
+                                }
 //                                mDetectTvHeightInfo.setText(record.height);
 //                                mDetectTvWeightInfo.setText(record.weight);
                             }

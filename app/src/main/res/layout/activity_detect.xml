@@ -939,7 +939,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:text="体脂"
+                android:text="体质"
                 android:textSize="45sp" />
 
             <TextView
