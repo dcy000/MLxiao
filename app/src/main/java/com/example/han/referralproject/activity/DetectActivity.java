@@ -789,7 +789,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 speakFlag = "正常";
             speak(String.format(getString(R.string.tips_result_danguchun), String.format("%.2f", afterResult), speakFlag));
         }
-
+        info.upload_state = true;
         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
             @Override
             public void onSuccess(MeasureResult response) {
@@ -1045,7 +1045,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mShared = LocalShared.getInstance(mContext);
         xuetangTimeFlag = getIntent().getIntExtra("time", 0);
         if (xuetangTimeFlag == 2) {
-            ivXutang= findViewById(R.id.ic_sanheyi_xuetang);
+            ivXutang = findViewById(R.id.ic_sanheyi_xuetang);
             ivXutang.setImageResource(R.drawable.video_xueyass);
         }
         mToolbar.setVisibility(View.GONE);

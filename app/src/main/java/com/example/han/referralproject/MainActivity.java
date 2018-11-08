@@ -23,7 +23,6 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.adpater.MainFragmentAdapter;
 import com.example.han.referralproject.yiyuan.fragment.CountdownDialog;
 import com.example.han.referralproject.yiyuan.fragment.Main1Fragment;
-import com.example.han.referralproject.yiyuan.fragment.Main2Fragment;
 import com.example.lenovo.rto.accesstoken.AccessToken;
 import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
@@ -105,7 +104,7 @@ public class MainActivity extends BaseActivity implements CountdownDialog.Ontouc
 
     private void initView() {
         fragments.add(new Main1Fragment());
-        fragments.add(new Main2Fragment());
+//        fragments.add(new Main2Fragment());
         vp.setAdapter(new MainFragmentAdapter(getSupportFragmentManager(), fragments));
         circleIndicator.setViewPager(vp);
     }

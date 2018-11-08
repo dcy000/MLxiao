@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/toolbar"
@@ -15,10 +15,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/toolbar_set"
+            android:clickable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingRight="40dp"
-            android:clickable="true">
+            android:paddingRight="40dp">
 
             <ImageView
                 android:id="@+id/iv_top_left"
@@ -47,13 +47,23 @@
             android:layout_width="534dp"
             android:layout_height="45dp"
             android:layout_centerInParent="true"
-            android:drawableLeft="@drawable/ic_search"
             android:background="@drawable/edit_bg"
-            android:paddingLeft="44pt"
+            android:drawableLeft="@drawable/ic_search"
             android:hint="请输入医生名、医院名、城市、分类"
-            android:textSize="23sp"
+            android:paddingLeft="44pt"
             android:textColor="#333"
-            />
+            android:textSize="23sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:gravity="center"
+            android:text="签约医生"
+            android:layout_width="534dp"
+            android:layout_height="45dp"
+            android:layout_centerInParent="true"
+            android:paddingLeft="44pt"
+            android:textColor="#fff"
+            android:textSize="34sp"  />
 
         <TextView
             android:id="@+id/tv_top_right"
@@ -76,17 +86,19 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@drawable/toolbar_set"
+            android:clickable="true"
             android:paddingLeft="60dp"
             android:paddingRight="30dp"
             android:scaleType="centerInside"
             android:src="@drawable/icon_home"
-            android:visibility="gone"
-            android:clickable="true"/>
+            android:visibility="gone" />
     </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/sign_doctors"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
-    <include layout="@layout/include_sign_up_nav"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <include layout="@layout/include_sign_up_nav" />
 </android.support.constraint.ConstraintLayout>

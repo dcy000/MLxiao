@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
@@ -33,6 +32,7 @@ import com.example.han.referralproject.require2.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.require2.register.activtiy.InputFaceActivity;
+import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.example.han.referralproject.yiyuan.bean.HealthDetectQualificationBean;
@@ -47,7 +47,6 @@ import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.register.SignUp7HeightActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.witspring.unitbody.ChooseMemberActivity;
 
@@ -139,6 +138,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 gotoQianyueYiSheng();
                 break;
             case R.id.iv_qianyue:
+                startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
             case R.id.celianglishi:
 //                showDialog(data = getZiChaData());

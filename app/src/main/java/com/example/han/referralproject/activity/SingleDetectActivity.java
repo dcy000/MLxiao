@@ -777,7 +777,7 @@ public class SingleDetectActivity extends BaseActivity implements View.OnClickLi
                 speakFlag = "正常";
             speak(String.format(getString(R.string.tips_result_danguchun), String.format("%.2f", afterResult), speakFlag));
         }
-
+        info.upload_state = true;
         NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
             @Override
             public void onSuccess(MeasureResult response) {
