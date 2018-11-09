@@ -114,7 +114,7 @@ public enum RepositoryApp implements IRepositoryApp {
                 builder.printHttpLogLevel(HttpLogInterceptor.Level.NONE);
             }
 
-            RetrofitUrlManager.getInstance().putDomain("seniverse", BuildConfig.API_SENIVERSE);
+//            RetrofitUrlManager.getInstance().putDomain("seniverse", BuildConfig.API_SENIVERSE);
 
             String baseUrl = BuildConfig.SERVER_ADDRESS;
             builder.baseUrl(baseUrl)

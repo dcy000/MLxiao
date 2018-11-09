@@ -19,5 +19,6 @@ public class AppActivityLifecycleCallbacks implements Application.ActivityLifecy
     public void onActivitySaveInstanceState(Activity activity, Bundle outState) { }
     @Override
     public void onActivityDestroyed(Activity activity) {
+        LeakCanaryHelper.INSTANCE.watcher().watch(activity);
     }
 }

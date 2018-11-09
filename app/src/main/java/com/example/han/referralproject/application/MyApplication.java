@@ -24,6 +24,7 @@ import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
+import com.gcml.common.repository.RepositoryApp;
 import com.gcml.lib_video_ksyplayer.KSYPlayer;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
@@ -179,13 +180,17 @@ public class MyApplication extends Application {
         EHSharedPreferences.initUNITContext(this);
         initVideoPlay(this);
 
+
+        RepositoryApp.INSTANCE.onCreate(this);
     }
+
     private void initVideoPlay(Application app) {
         PlayerConfig.addDecoderPlan(new DecoderPlan(PLAN_ID_KSY, KSYPlayer.class.getName(), "Ksyplayer"));
         PlayerConfig.setDefaultPlanId(PLAN_ID_KSY);
         PlayerConfig.setUseDefaultNetworkEventProducer(true);
         PlayerLibrary.init(app);
     }
+
     private void initBugly() {
 //        Context context = getApplicationContext();
 //        String packageName = context.getPackageName();
