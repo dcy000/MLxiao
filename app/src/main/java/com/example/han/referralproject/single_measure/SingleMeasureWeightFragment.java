@@ -6,13 +6,22 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.example.han.referralproject.single_measure.bean.DetectionData;
+import com.example.han.referralproject.single_measure.bean.DetectionResult;
+import com.example.han.referralproject.single_measure.network.HealthMeasureRepository;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.utils.ToastUtils;
 import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -55,30 +64,29 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
             data.setDetectionType("3");
             data.setWeight(Float.parseFloat(results[0]));
             datas.add(data);
-            //TODO======================
-//            HealthMeasureRepository.postMeasureData(datas)
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-//                    .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
-//                        @Override
-//                        public void onNext(List<DetectionResult> o) {
-//                            ToastUtils.showLong("数据上传成功");
-//                            if (isMeasureTask && !mActivity.isFinishing()) {
-//                                mActivity.finish();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable e) {
-//                            ToastUtils.showLong("数据上传失败:" + e.getMessage());
-//                        }
-//
-//                        @Override
-//                        public void onComplete() {
-//
-//                        }
-//                    });
+            HealthMeasureRepository.postMeasureData(datas)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                        @Override
+                        public void onNext(List<DetectionResult> o) {
+                            ToastUtils.showLong("数据上传成功");
+                            if (isMeasureTask && !mActivity.isFinishing()) {
+                                mActivity.finish();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
 
         }
     }

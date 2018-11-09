@@ -3,11 +3,18 @@ package com.example.han.referralproject.single_measure;
 import android.annotation.SuppressLint;
 
 import com.example.han.referralproject.single_measure.bean.DetectionData;
+import com.example.han.referralproject.single_measure.network.HealthMeasureRepository;
+import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -44,28 +51,25 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
             datas.add(pressureData);
             datas.add(dataPulse);
 
-//            HealthMeasureRepository.checkIsNormalData(UserSpHelper.getUserId(), datas)
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-//                    .subscribeWith(new DefaultObserver<Object>() {
-//                        @Override
-//                        public void onNext(Object o) {
-//                            uploadData();
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable e) {
-//                            HealthMeasureAbnormalActivity.startActivity(
-//                                    SingleMeasureBloodpressureFragment.this,
-//                                    IPresenter.MEASURE_BLOOD_PRESSURE, CODE_REQUEST_ABNORMAL);
-//                        }
-//
-//                        @Override
-//                        public void onComplete() {
-//
-//                        }
-//                    });
+            HealthMeasureRepository.checkIsNormalData(LocalShared.getInstance(getActivity()).getUserId(), datas)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribeWith(new DefaultObserver<Object>() {
+                        @Override
+                        public void onNext(Object o) {
+                            uploadData();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
             uploadData();
 
         }

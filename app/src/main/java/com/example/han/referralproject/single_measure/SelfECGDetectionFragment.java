@@ -19,11 +19,15 @@ import android.widget.Toast;
 import com.creative.ecg.StatusMsg;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.single_measure.bean.DetectionData;
+import com.example.han.referralproject.single_measure.bean.DetectionResult;
 import com.example.han.referralproject.single_measure.ecg.BackGround;
 import com.example.han.referralproject.single_measure.ecg.DrawThreadPC80B;
 import com.example.han.referralproject.single_measure.ecg.ECGBluetooth;
 import com.example.han.referralproject.single_measure.ecg.ReceiveService;
 import com.example.han.referralproject.single_measure.ecg.StaticReceive;
+import com.example.han.referralproject.single_measure.network.HealthMeasureRepository;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.utils.ToastUtils;
@@ -31,6 +35,10 @@ import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -365,27 +373,27 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         datas.add(ecgData);
 
         //TODO:=================
-//        HealthMeasureRepository.postMeasureData(datas)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-//                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
-//                    @Override
-//                    public void onNext(List<DetectionResult> o) {
-//                        ToastUtils.showShort("数据上传成功");
-//                        setBtnClickableState(true);
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
+        HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                    @Override
+                    public void onNext(List<DetectionResult> o) {
+                        ToastUtils.showShort("数据上传成功");
+                        setBtnClickableState(true);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void setMSG(String msg) {

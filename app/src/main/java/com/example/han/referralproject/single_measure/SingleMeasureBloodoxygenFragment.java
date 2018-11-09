@@ -4,10 +4,17 @@ import android.annotation.SuppressLint;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.single_measure.bean.DetectionData;
+import com.example.han.referralproject.single_measure.network.HealthMeasureRepository;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
+import com.gcml.module_blutooth_devices.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -35,27 +42,26 @@ public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
             dataPulse.setPulse(Integer.parseInt(results[1]));
             datas.add(pressureData);
             datas.add(dataPulse);
-//TODO:=================
-//            HealthMeasureRepository.postMeasureData(datas)
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-//                    .subscribeWith(new DefaultObserver<Object>() {
-//                        @Override
-//                        public void onNext(Object o) {
-//                            ToastUtils.showShort("上传数据成功");
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable e) {
-//                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
-//                        }
-//
-//                        @Override
-//                        public void onComplete() {
-//
-//                        }
-//                    });
+            HealthMeasureRepository.postMeasureData(datas)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribeWith(new DefaultObserver<Object>() {
+                        @Override
+                        public void onNext(Object o) {
+                            ToastUtils.showShort("上传数据成功");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
 
         }
     }
