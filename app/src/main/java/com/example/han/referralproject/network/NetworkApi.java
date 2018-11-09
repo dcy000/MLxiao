@@ -71,8 +71,8 @@ public class NetworkApi {
     /**
      * 测试
      */
-//    public static final String BasicUrl = "http://47.96.98.60:8070";
-    public static final String BasicUrl = "http://116.62.36.12:8070";
+    public static final String BasicUrl = "http://47.96.98.60:8070";
+//    public static final String BasicUrl = "http://116.62.36.12:8070";
 
     public static final String PASSWORD = "123456";
     //上传建档信息
