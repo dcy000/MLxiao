@@ -26,6 +26,7 @@ import com.example.han.referralproject.util.ToastTool;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.gcml.common.repository.RepositoryApp;
 import com.gcml.lib_video_ksyplayer.KSYPlayer;
+import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.kk.taurus.playerbase.config.PlayerConfig;
@@ -180,7 +181,7 @@ public class MyApplication extends Application {
         EHSharedPreferences.initUNITContext(this);
         initVideoPlay(this);
 
-
+        BluetoothClientManager.init(this);
         RepositoryApp.INSTANCE.onCreate(this);
     }
 
