@@ -9,10 +9,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.util.LocalShared;
-
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +29,7 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
     TextView qita;
     @BindView(R.id.ll_1)
     LinearLayout ll1;
-    @BindView(R.id.wu1)
+    @BindView(R.id.wu11)
     TextView wu1;
     @BindView(R.id.title2)
     TextView title2;
@@ -74,7 +71,7 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.title1, R.id.qingmeisu, R.id.toubao, R.id.huanganlei, R.id.qita, R.id.ll_1, R.id.wu1, R.id.title2, R.id.gaouxeya, R.id.tangniaobing, R.id.shexian, R.id.xiaochuan, R.id.ll_2, R.id.tv_sign_up_go_back, R.id.tv_sign_up_go_forward, R.id.qita2, R.id.wu2})
+    @OnClick({R.id.title1, R.id.qingmeisu, R.id.toubao, R.id.huanganlei, R.id.qita, R.id.ll_1, R.id.wu11, R.id.title2, R.id.gaouxeya, R.id.tangniaobing, R.id.shexian, R.id.xiaochuan, R.id.ll_2, R.id.tv_sign_up_go_back, R.id.tv_sign_up_go_forward, R.id.qita2, R.id.wu2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.qingmeisu:
@@ -93,7 +90,7 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
                 qita.setSelected(!qita.isSelected());
                 wu1.setSelected(false);
                 break;
-            case R.id.wu1:
+            case R.id.wu11:
                 wu1.setSelected(!wu1.isSelected());
                 qingmeisu.setSelected(false);
                 toubao.setSelected(false);
@@ -145,22 +142,24 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
 
     private void nextStep() {
 
-        if (TextUtils.isEmpty(getGuoMin())){
+        if (TextUtils.isEmpty(getGuoMin())) {
             speak("主人,您是否有过敏史");
             return;
         }
 
-        if (TextUtils.isEmpty(getJiBing())){
+        if (TextUtils.isEmpty(getJiBing())) {
             speak("主人,您是否有疾病史");
             return;
         }
 
-        Intent intent = new Intent();
+    /*    Intent intent = new Intent();
         intent.putExtra("from", "Test");
         intent.putExtra("fromType", "xueya");
         intent.putExtra("inquiry", true);
         intent.setClass(this, DetectActivity.class);
-        startActivity(intent);
+        startActivity(intent);*/
+
+        startActivity(new Intent(this, WZPressureMeasureActivity.class));
     }
 
 
@@ -192,7 +191,7 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
         return guomin;
     }
 
-    private String  getJiBing() {
+    private String getJiBing() {
         String jibing = "";
         if (wu2.isSelected()) {
             jibing = "0";

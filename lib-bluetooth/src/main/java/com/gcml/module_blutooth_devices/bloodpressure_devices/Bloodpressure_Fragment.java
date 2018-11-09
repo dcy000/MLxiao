@@ -30,7 +30,7 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
     private TextView mTvMaibo;
     private BaseBluetoothPresenter baseBluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
-    private Bundle bundle;
+    protected Bundle bundle;
 
     @Override
     protected int initLayout() {
@@ -53,6 +53,9 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
         mTvMaibo.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         this.bundle = bundle;
 
+        if ("WZ".equals(bundle.get("PressureFlag"))) {
+            mBtnHealthHistory.setText("下一步");
+        }
     }
 
     @Override
@@ -87,13 +90,13 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
     private void chooseConnectType(String address, String brand) {
         if (TextUtils.isEmpty(address)) {
             if (helper == null) {
-                Logg.e(Bloodpressure_Fragment.class,"helper==null");
+                Logg.e(Bloodpressure_Fragment.class, "helper==null");
                 helper = new SearchWithDeviceGroupHelper(this, IPresenter.MEASURE_BLOOD_PRESSURE);
             }
             helper.start();
         } else {
             if (baseBluetoothPresenter != null) {
-                Logg.e(Bloodpressure_Fragment.class,"baseBluetoothPresenter!=null");
+                Logg.e(Bloodpressure_Fragment.class, "baseBluetoothPresenter!=null");
                 baseBluetoothPresenter.checkBlueboothOpened();
                 return;
             }
@@ -173,7 +176,7 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
     @Override
     public void onStop() {
         super.onStop();
-        Logg.e(Bloodpressure_Fragment.class,"onStop()");
+        Logg.e(Bloodpressure_Fragment.class, "onStop()");
         if (baseBluetoothPresenter != null) {
             baseBluetoothPresenter.onDestroy();
             baseBluetoothPresenter = null;

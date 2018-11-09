@@ -86,7 +86,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:label,android:theme">
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -870,11 +869,14 @@
         <activity
             android:name=".health.StapleFoodActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".health.TypeOfDrinkActivity"></activity>
-        <activity android:name=".AllMeasureActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".MeasureChooseDeviceActivity"
-            android:screenOrientation="landscape"/>
+        <activity android:name=".health.TypeOfDrinkActivity" />
+        <activity
+            android:name=".AllMeasureActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MeasureChooseDeviceActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".yiyuan.activity.WZPressureMeasureActivity"></activity>
     </application>
 
 </manifest>

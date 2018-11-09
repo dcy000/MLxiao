@@ -1,20 +1,21 @@
 package com.example.han.referralproject.single_measure;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.View;
 
+import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.bean.MeasureResult;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.single_measure.bean.DetectionData;
-import com.example.han.referralproject.single_measure.network.HealthMeasureRepository;
 import com.example.han.referralproject.util.LocalShared;
-import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -26,6 +27,9 @@ import io.reactivex.schedulers.Schedulers;
 public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     private static final int CODE_REQUEST_ABNORMAL = 10001;
     private static final int CODE_REQUEST_GETHYPERTENSIONHAND = 10002;
+
+    public static final String PRESS_FALG_WZ = "WZ";
+    public static final String PRESS_FALG = "PressureFlag";
     private ArrayList<DetectionData> datas;
     private int highPressure;
     private int lowPressure;
@@ -47,81 +51,70 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
             lowPressure = Integer.parseInt(results[1]);
             pressureData.setLowPressure(lowPressure);
             dataPulse.setDetectionType("9");
-            dataPulse.setPulse(Integer.parseInt(results[2]));
+            int pulse = Integer.parseInt(results[2]);
+            dataPulse.setPulse(pulse);
             datas.add(pressureData);
             datas.add(dataPulse);
-
-            HealthMeasureRepository.checkIsNormalData(LocalShared.getInstance(getActivity()).getUserId(), datas)
+            LocalShared.getInstance(getActivity()).setXueYa(highPressure + "," + lowPressure);
+            uploadXueyaResult(highPressure, lowPressure, pulse, true, null);
+          /* 新的提交接口 HealthMeasureRepository.checkIsNormalData(LocalShared.getInstance(getActivity()).getUserId(), datas)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .as(RxUtils.autoDisposeConverter(this))
                     .subscribeWith(new DefaultObserver<Object>() {
                         @Override
                         public void onNext(Object o) {
-                            uploadData();
+                            if (listener != null) {
+                                listener.onNext(o, bundle);
+                            }
                         }
 
                         @Override
                         public void onError(Throwable e) {
+                            if (listener != null) {
+                                listener.onError(e, bundle);
+                            }
                         }
 
                         @Override
                         public void onComplete() {
+                            if (listener != null) {
+                                listener.onComplete(bundle);
+                            }
 
                         }
-                    });
-            uploadData();
+                    });*/
+
 
         }
     }
 
-    @SuppressLint("CheckResult")
-    private void uploadData() {
-        //TODO:=================
-//        if (datas == null) {
-//            Timber.e("SingleMeasureBloodpressureFragment：数据被回收，程序异常");
-//            return;
-//        }
-//        LoadingDialog dialog = new LoadingDialog.Builder(mContext)
-//                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-//                .setTipWord("正在加载")
-//                .create();
-//        HealthMeasureRepository.postMeasureData(datas)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnSubscribe(new Consumer<Disposable>() {
-//                    @Override
-//                    public void accept(Disposable disposable) throws Exception {
-//                        dialog.show();
-//                    }
-//                })
-//                .doOnTerminate(new Action() {
-//                    @Override
-//                    public void run() throws Exception {
-//                        dialog.dismiss();
-//                    }
-//                })
-//                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-//                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
-//                    @Override
-//                    public void onNext(List<DetectionResult> o) {
-//
-//                        Timber.e("单测返回来的数据：" + o);
-//                        ToastUtils.showLong("上传数据成功");
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        Log.e(TAG, "onError: " + e.getMessage());
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
+    /**
+     * 上传血压的测量结果
+     */
+    private void uploadXueyaResult(final int getNew, final int down, final int maibo, final boolean status, final Fragment fragment) {
+        DataInfoBean info = new DataInfoBean();
+        info.high_pressure = getNew;
+        info.low_pressure = down;
+        info.pulse = maibo;
+        if (status) {
+            info.upload_state = true;
+        }
+        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+            @Override
+            public void onSuccess(MeasureResult response) {
+                if (listener != null) {
+                    listener.onNext(response, bundle);
+                }
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+//                  if (listener != null) {
+                listener.onError(message, bundle);
+            }
 
+        });
     }
 
     private static final String TAG = "SingleMeasureBloodpress";
@@ -142,5 +135,31 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         MLVoiceSynthetize.destory();
+    }
+
+    public interface PostResultListener {
+        void onNext(Object data, Bundle args);
+
+        void onError(Object e, Bundle args);
+
+        void onComplete(Bundle args);
+
+        void clickLiftView(Bundle args);
+    }
+
+    PostResultListener listener;
+
+    public void setListener(PostResultListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    protected void clickHealthHistory(View view) {
+        super.clickHealthHistory(view);
+
+        if (listener != null) {
+            listener.clickLiftView(bundle);
+        }
+
     }
 }
