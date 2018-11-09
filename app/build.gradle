@@ -189,8 +189,8 @@ dependencies {
     implementation 'com.orhanobut:logger:2.1.1'
     //    compile 'me.relex:circleindicator:1.2.2@aar'
     implementation project(':circleindicator')
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.3'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.3'
+//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
     implementation project(':lib-idcard-reader')
     implementation project(':circleprogress')
     implementation('cn.qqtheme.framework:WheelPicker:1.5.5') {
@@ -207,4 +207,5 @@ dependencies {
     implementation project(':lib-voice')
     implementation project(':lib-bluetooth')
     implementation project(':module-video')
+    implementation project(':lib-common-core')
 }

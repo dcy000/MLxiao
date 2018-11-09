@@ -12,6 +12,6 @@ include ':app',
         ':expand-textview-library',
         ':circleindicator',
         ':circleprogress',
-        'lib-bluetooth', ':lib-video', ':module-video'
+        'lib-bluetooth', ':lib-video', ':module-video', ':lib-common-core'
 
 
