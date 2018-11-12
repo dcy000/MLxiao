@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/normal_bg"
-    android:visibility="gone"
+    android:visibility="visible"
     tools:showIn="@layout/activity_detect">
 
     <TextView
@@ -17,16 +17,6 @@
         android:text="@string/test_temperature"
         android:textColor="@color/white"
         android:textSize="40sp"/>
-
-    <!--  <ImageView
-              android:id="@+id/temperature_video"
-              android:layout_width="400dp"
-              android:layout_height="300dp"
-              android:layout_alignParentRight="true"
-              android:layout_marginRight="50dp"
-              android:layout_marginTop="200dp"
-              android:background="@drawable/temperature_video"
-              android:clickable="true" />-->
 
     <ImageView
         android:id="@+id/video_temperature"
@@ -120,16 +110,6 @@
             android:textSize="50sp"/>
 
     </RelativeLayout>
-
-
-    <!--  <TextView
-              android:id="@+id/tv_result"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="300dp"
-              android:layout_marginTop="300dp"
-              android:text="00.0"
-              android:textSize="50sp" />-->
 
     <ImageView
         android:id="@+id/test_2"

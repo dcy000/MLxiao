@@ -1,35 +1,22 @@
-apply from: "config.gradle"
-
-if (canRunAlone) {
-    apply plugin: 'com.android.application'
-} else {
-    apply plugin: 'com.android.library'
-}
+apply plugin: 'com.android.library'
 
 
 android {
-    compileSdkVersion versions["compileSdkVersion"]
-    buildToolsVersion versions["buildToolsVersion"]
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        if (canRunAlone) {
-            applicationId "com.ml.edu"
-        }
-        minSdkVersion versions["minSdkVersion"]
-        targetSdkVersion versions["targetSdkVersion"]
-        versionCode versions["versionCode"]
-        versionName versions["versionName"]
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     sourceSets {
         main {
-            if (canRunAlone.toBoolean()) {
-                manifest.srcFile androidManifests["canRunAlone"]
-            } else {
-                manifest.srcFile androidManifests["cannotRunAlone"]
-            }
+            "src/main/LibAndroidManifest.xml"
         }
     }
 
@@ -38,15 +25,17 @@ android {
     buildTypes {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
-            buildConfigField "String", "OLD_BASE_URL", baseUrls["debug"]
             minifyEnabled false
+
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
         }
 
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
-            buildConfigField "String", "OLD_BASE_URL", baseUrls["release"]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
         }
     }
 
@@ -64,43 +53,37 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile "com.android.support:appcompat-v7:${gradle.supportVersion}"
-    compile "com.android.support:recyclerview-v7:${gradle.supportVersion}"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
+    implementation rootProject.ext.dependencies["support-v4"]
 
 //    compile 'com.jakewharton.timber:timber:4.6.0'
     //dagger2
-    compile 'com.google.dagger:dagger:2.14.1'
-    compile "com.android.support:support-v4:${gradle.supportVersion}"
+    implementation 'com.google.dagger:dagger:2.14.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
-    compile 'com.google.dagger:dagger-android:2.14.1'
-    compile 'com.google.dagger:dagger-android-support:2.14.1'
+    implementation 'com.google.dagger:dagger-android:2.14.1'
+    implementation 'com.google.dagger:dagger-android-support:2.14.1'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.14.1'
 
-    compile 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'com.github.bumptech.glide:glide:3.8.0'
 
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
 
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 
 
 //    compile name:'lib-music-player-debug', ext:'aar'
-    compile project(':lib-music-player')
+    api project(':lib-music-player')
 
-    compile 'com.zhy:okhttputils:2.6.2'
-    compile 'me.wcy:lrcview:1.4.2'
-
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-
+    implementation 'com.zhy:okhttputils:2.6.2'
+    implementation 'me.wcy:lrcview:1.4.2'
 }

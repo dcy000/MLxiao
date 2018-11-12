@@ -19,6 +19,7 @@ import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
+import com.gzq.lib_bluetooth.BluetoothStore;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.medlink.danbogh.call2.NimInitHelper;
@@ -120,9 +121,12 @@ public class MyApplication extends Application {
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
             @Override
             public boolean isLoggable(int priority, String tag) {
-                return BuildConfig.LOGGING;
+                return BuildConfig.DEBUG;
+
             }
         });
+        //初始化蓝牙库
+        BluetoothStore.getInstance().init(this);
     }
 
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/normal_bg">
+    <!--温度检测-->
+    <include layout="@layout/ml_device_include_tem"/>
+    <!--视频播放界面-->
+    <include layout="@layout/ml_device_include_video_tips"/>
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="110dp"
+        android:layout_height="85dp"
+        android:background="@drawable/toolbar_set"
+        android:padding="10dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_back"
+        android:clickable="true"/>
+
+    <ImageView
+        android:id="@+id/icon_home"
+        android:layout_width="110dp"
+        android:layout_height="85dp"
+        android:background="@drawable/toolbar_set"
+        android:clickable="true"
+        android:padding="10dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_refresh"
+        app:layout_constraintRight_toRightOf="parent"/>
+</android.support.constraint.ConstraintLayout>

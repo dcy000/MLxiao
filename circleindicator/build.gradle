@@ -3,14 +3,14 @@ apply plugin: 'com.android.library'
 version = "1.2.2"
 
 android {
-    compileSdkVersion gradle.compileSdkVersion
-    buildToolsVersion gradle.buildToolsVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion gradle.minSdkVersion
-        targetSdkVersion gradle.targetSdkVersion
-        versionCode 122
-        versionName version
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
     }
 
     buildTypes {
@@ -19,12 +19,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    compile "com.android.support:support-annotations:${gradle.supportVersion}"
-    compile "com.android.support:support-core-ui:${gradle.supportVersion}"
-    provided "com.android.support:design:${gradle.supportVersion}"
+    implementation rootProject.ext.dependencies["annotations"]
+    implementation rootProject.ext.dependencies["support-core-ui"]
+    compileOnly rootProject.ext.dependencies["design"]
 }
 
 //apply from: "upload-jcenter.gradle"
