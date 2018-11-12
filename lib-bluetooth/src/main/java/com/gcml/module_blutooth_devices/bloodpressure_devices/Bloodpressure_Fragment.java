@@ -52,9 +52,11 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
         mTvDiya.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         mTvMaibo.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "font/DINEngschrift-Alternate.otf"));
         this.bundle = bundle;
+        if (bundle!=null) {
+            if ("WZ".equals(bundle.get("PressureFlag"))) {
+                mBtnHealthHistory.setText("下一步");
+            }
 
-        if ("WZ".equals(bundle.get("PressureFlag"))) {
-            mBtnHealthHistory.setText("下一步");
         }
     }
 

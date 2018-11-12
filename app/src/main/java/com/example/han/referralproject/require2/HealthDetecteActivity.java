@@ -24,6 +24,8 @@ import com.example.han.referralproject.require2.register.activtiy.InputFaceActiv
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.bean.HealthDetectQualificationBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
+import com.example.han.referralproject.yiyuan.newdetect.HypertensionFollowUpActivity;
+import com.example.han.referralproject.yiyuan.newdetect.SugarFollowUpActivity;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -145,20 +147,24 @@ public class HealthDetecteActivity extends BaseActivity {
                                 case R.id.im_pressure_fllow_up:
                                     //血压随访
 //                                    JianKangJianCe("1");
-                                    Intent intent = new Intent(HealthDetecteActivity.this, DetectActivity.class);
+                                   /* Intent intent = new Intent(HealthDetecteActivity.this, DetectActivity.class);
                                     intent.putExtra("type", "xueya");
                                     intent.putExtra("isDetect", true);
                                     intent.putExtra("detectCategory", "detectPressure");
-                                    startActivity(intent);
+                                    startActivity(intent);*/
+
+                                    startActivity(new Intent(HealthDetecteActivity.this, HypertensionFollowUpActivity.class));
                                     break;
                                 //血糖随访
                                 case R.id.im_sugar_fllow_up:
 //                                    JianKangJianCe("2");
-                                    Intent intent1 = new Intent(HealthDetecteActivity.this, DetectActivity.class);
+                                   /* Intent intent1 = new Intent(HealthDetecteActivity.this, DetectActivity.class);
                                     intent1.putExtra("type", "xueya");
                                     intent1.putExtra("isDetect", true);
                                     intent1.putExtra("detectCategory", "detectSugar");
-                                    startActivity(intent1);
+                                    startActivity(intent1);*/
+
+                                    startActivity(new Intent(HealthDetecteActivity.this, SugarFollowUpActivity.class));
                                     break;
 
                             }

@@ -31,8 +31,6 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     public static final String PRESS_FALG_WZ = "WZ";
     public static final String PRESS_FALG = "PressureFlag";
     private ArrayList<DetectionData> datas;
-    private int highPressure;
-    private int lowPressure;
     private boolean isOnPause = false;
 
     @SuppressLint("CheckResult")
@@ -41,20 +39,24 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
         if (results.length == 3 && !isOnPause) {
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
 
-            datas = new ArrayList<>();
-            DetectionData pressureData = new DetectionData();
-            DetectionData dataPulse = new DetectionData();
-            //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-            pressureData.setDetectionType("0");
-            highPressure = Integer.parseInt(results[0]);
-            pressureData.setHighPressure(highPressure);
-            lowPressure = Integer.parseInt(results[1]);
-            pressureData.setLowPressure(lowPressure);
-            dataPulse.setDetectionType("9");
+//            datas = new ArrayList<>();
+//            DetectionData pressureData = new DetectionData();
+//            DetectionData dataPulse = new DetectionData();
+//            //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+//            pressureData.setDetectionType("0");
+//            highPressure = Integer.parseInt(results[0]);
+//            pressureData.setHighPressure(highPressure);
+//            lowPressure = Integer.parseInt(results[1]);
+//            pressureData.setLowPressure(lowPressure);
+//            dataPulse.setDetectionType("9");
+//            int pulse = Integer.parseInt(results[2]);
+//            dataPulse.setPulse(pulse);
+//            datas.add(pressureData);
+//            datas.add(dataPulse);
+
+            int highPressure = Integer.parseInt(results[0]);
+            int lowPressure = Integer.parseInt(results[1]);
             int pulse = Integer.parseInt(results[2]);
-            dataPulse.setPulse(pulse);
-            datas.add(pressureData);
-            datas.add(dataPulse);
             LocalShared.getInstance(getActivity()).setXueYa(highPressure + "," + lowPressure);
             uploadXueyaResult(highPressure, lowPressure, pulse, true, null);
           /* 新的提交接口 HealthMeasureRepository.checkIsNormalData(LocalShared.getInstance(getActivity()).getUserId(), datas)

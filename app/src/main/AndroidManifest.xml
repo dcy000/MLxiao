@@ -876,7 +876,11 @@
         <activity
             android:name=".MeasureChooseDeviceActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".yiyuan.activity.WZPressureMeasureActivity"></activity>
+        <activity android:name=".yiyuan.activity.WZPressureMeasureActivity" />
+        <activity
+            android:name=".yiyuan.newdetect.HypertensionFollowUpActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".yiyuan.newdetect.SugarFollowUpActivity"></activity>
     </application>
 
 </manifest>
