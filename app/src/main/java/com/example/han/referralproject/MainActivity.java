@@ -68,7 +68,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private BatteryBroadCastReceiver mBatteryReceiver;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +101,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageView3.setOnClickListener(this);
         mImageView4.setOnClickListener(this);
         mImageView5.setOnClickListener(this);
-        mImageView6.setOnClickListener(this);
+        if (mImageView6 != null) {
+            mImageView6.setOnClickListener(this);
+        }
         mBatteryIv = (ImageView) findViewById(R.id.iv_battery);
 
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
