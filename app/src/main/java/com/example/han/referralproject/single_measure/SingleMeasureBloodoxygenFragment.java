@@ -3,18 +3,11 @@ package com.example.han.referralproject.single_measure;
 import android.annotation.SuppressLint;
 
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.single_measure.bean.DetectionData;
-import com.example.han.referralproject.single_measure.network.HealthMeasureRepository;
-import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
+import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
-import com.gcml.module_blutooth_devices.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-
-import java.util.ArrayList;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import com.medlink.danbogh.utils.T;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -32,7 +25,7 @@ public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
                     "主人，您本次测量血氧" + results[0] + "%", false);
 
 
-            ArrayList<DetectionData> datas = new ArrayList<>();
+           /* ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData pressureData = new DetectionData();
             DetectionData dataPulse = new DetectionData();
             //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
@@ -62,6 +55,16 @@ public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
 
                         }
                     });
+*/
+            DataInfoBean info = new DataInfoBean();
+            info.blood_oxygen = results[0];
+            info.pulse = Integer.parseInt(results[1]);
+
+            NetworkApi.postData(info, response -> {
+                T.show("数据上传成功");
+            }, message -> {
+                T.show("数据上传失败");
+            });
 
         }
     }

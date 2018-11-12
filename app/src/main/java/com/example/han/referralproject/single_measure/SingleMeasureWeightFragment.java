@@ -5,23 +5,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.example.han.referralproject.single_measure.bean.DetectionData;
-import com.example.han.referralproject.single_measure.bean.DetectionResult;
-import com.example.han.referralproject.single_measure.network.HealthMeasureRepository;
+import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
-import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.utils.ToastUtils;
 import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import com.medlink.danbogh.utils.T;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -58,7 +49,7 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
                 }
             }
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量体重" + results[0] + "公斤", false);
-            ArrayList<DetectionData> datas = new ArrayList<>();
+            /*ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData data = new DetectionData();
             //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
             data.setDetectionType("3");
@@ -87,6 +78,16 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
 
                         }
                     });
+
+
+*/
+            DataInfoBean info = new DataInfoBean();
+            info.weight = Float.parseFloat(results[0]);
+            NetworkApi.postData(info, response -> {
+                T.show("数据上传成功");
+            }, message -> {
+                T.show("数据上传失败");
+            });
 
         }
     }

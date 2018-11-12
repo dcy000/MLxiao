@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.single_measure.bean.DetectionData;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 
@@ -66,7 +69,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 2) {
-            if (results[0].equals("bloodsugar")) {
+           /* if (results[0].equals("bloodsugar")) {
                 sugarData = new DetectionData();
                 sugarData.setDetectionType("1");
                 sugarData.setSugarTime(selectMeasureSugarTime);
@@ -102,35 +105,58 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
                 if (measureItemChanged != null) {
                     measureItemChanged.onChanged(6);
                 }
+            }*/
+            DataInfoBean info = new DataInfoBean();
+            if (results[0].equals("bloodsugar")) {
+                info.blood_sugar = results[1];
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + results[1]);
             }
+            if (results[0].equals("cholesterol")) {
+                info.cholesterol = results[1];
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量胆固醇" + results[1]);
+            }
+
+            if (results[0].equals("bua")) {
+                info.uric_acid = results[1];
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + results[1]);
+            }
+
+            NetworkApi.postData(info, response -> {
+                T.show("数据上传成功");
+            }, message -> {
+                T.show("数据上传失败");
+            });
+
+
         }
     }
 
     @SuppressLint("CheckResult")
     private void uploadData(ArrayList<DetectionData> datas) {
-//TODO:=================
-//        HealthMeasureRepository.postMeasureData(datas)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
-//                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
-//                    @Override
-//                    public void onNext(List<DetectionResult> o) {
-//                        ToastUtils.showLong("数据上传成功");
-//                        datas.clear();
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
-//                        datas.clear();
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
+     /*   HealthMeasureRepository.postMeasureData(datas)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
+                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                    @Override
+                    public void onNext(List<DetectionResult> o) {
+                        ToastUtils.showLong("数据上传成功");
+                        datas.clear();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                        datas.clear();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });*/
+
+
     }
 
     @Override

@@ -4,11 +4,14 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.single_measure.bean.DetectionData;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.gcml.module_blutooth_devices.utils.DataUtils;
 import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 
@@ -42,25 +45,37 @@ public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
         if (results.length == 1) {
             String roundUp = DataUtils.getRoundUp(results[0], 1);
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + roundUp, false);
-
-            datas = new ArrayList<>();
-            DetectionData data = new DetectionData();
-            //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-            data.setDetectionType("1");
+//
+//            datas = new ArrayList<>();
+//            DetectionData data = new DetectionData();
+//            //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+//            data.setDetectionType("1");
+//            if (bundle != null) {
+//                data.setSugarTime(bundle.getInt("selectMeasureSugarTime"));
+//            } else {
+//                data.setSugarTime(0);
+//            }
+//            data.setBloodSugar(Float.parseFloat(roundUp));
+//            datas.add(data);
+//            uploadData();
+            DataInfoBean info = new DataInfoBean();
+            info.blood_sugar = roundUp;
+            info.upload_state = true;
             if (bundle != null) {
-                data.setSugarTime(bundle.getInt("selectMeasureSugarTime"));
+                info.sugar_time = bundle.getInt("selectMeasureSugarTime") + "";
             } else {
-                data.setSugarTime(0);
+                info.sugar_time = 0 + "";
             }
-            data.setBloodSugar(Float.parseFloat(roundUp));
-            datas.add(data);
-            uploadData();
+            NetworkApi.postData(info,
+                    response -> T.show("数据上传成功"),
+                    message -> T.show("数据上传失败"));
+
+
         }
     }
 
     @SuppressLint("CheckResult")
     private void uploadData() {
-        //TODO:=================
 //        if (datas == null) {
 //            Timber.e("SingleMeasureBloodpressureFragment：数据被回收，程序异常");
 //            return;

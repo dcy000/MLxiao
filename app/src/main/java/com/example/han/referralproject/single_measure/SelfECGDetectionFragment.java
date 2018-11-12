@@ -18,27 +18,19 @@ import android.widget.Toast;
 
 import com.creative.ecg.StatusMsg;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.single_measure.bean.DetectionData;
-import com.example.han.referralproject.single_measure.bean.DetectionResult;
+import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.single_measure.ecg.BackGround;
 import com.example.han.referralproject.single_measure.ecg.DrawThreadPC80B;
 import com.example.han.referralproject.single_measure.ecg.ECGBluetooth;
 import com.example.han.referralproject.single_measure.ecg.ReceiveService;
 import com.example.han.referralproject.single_measure.ecg.StaticReceive;
-import com.example.han.referralproject.single_measure.network.HealthMeasureRepository;
-import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.utils.ToastUtils;
 import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import com.medlink.danbogh.utils.T;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -364,7 +356,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
 
     @SuppressLint("CheckResult")
     private void uploadEcg(final int ecg, final int heartRate) {
-        ArrayList<DetectionData> datas = new ArrayList<>();
+       /* ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData ecgData = new DetectionData();
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
         ecgData.setDetectionType("2");
@@ -372,7 +364,6 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         ecgData.setHeartRate(heartRate);
         datas.add(ecgData);
 
-        //TODO:=================
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -393,7 +384,17 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                     public void onComplete() {
 
                     }
-                });
+                });*/
+
+        DataInfoBean ecgInfo = new DataInfoBean();
+        ecgInfo.ecg =ecg ;
+        ecgInfo.heart_rate = heartRate;
+
+        NetworkApi.postData(ecgInfo, response -> {
+            T.show("");
+        }, message -> {
+
+        });
     }
 
     private void setMSG(String msg) {

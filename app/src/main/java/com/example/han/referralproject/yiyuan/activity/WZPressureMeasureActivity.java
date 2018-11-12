@@ -51,6 +51,8 @@ public class WZPressureMeasureActivity extends BaseActivity implements SingleMea
     private void initToobar() {
         mToolbar.setVisibility(View.VISIBLE);
 //        mRightView.
+        mTitleText.setText("血压测量");
+        mRightView. setImageResource(R.drawable.ic_blooth_beack);
     }
 
     @Override
