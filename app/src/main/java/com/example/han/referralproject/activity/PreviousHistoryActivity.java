@@ -14,7 +14,7 @@ import com.example.han.referralproject.adapter.DiseaseShowAdapter;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.gzq.administrator.lib_common.utils.PinYinUtils;
 
 public class PreviousHistoryActivity extends BaseActivity implements View.OnClickListener {
     private DiseaseShowAdapter mAdapter;

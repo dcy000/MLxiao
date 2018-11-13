@@ -4,6 +4,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
+import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.AlreadyYuyue;
@@ -56,14 +57,13 @@ import java.util.Map;
 
 public class NetworkApi {
 //    public static final String BasicUrl = "http://116.62.36.12:8080";
-    public static final String BasicUrl = "http://118.31.238.207:8080";
 //    public static final String BasicUrl = "http://192.168.200.103:8080";//孙高峰
 
     //  public static final String BasicUrl="http://192.168.200.111:8080";//韩琦本地
 
 //    public static final String BasicUrl = "http://192.168.200.157:8080";//文博本地
 
-
+    public static final String BasicUrl = BuildConfig.SERVER_ADDRESS;
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";

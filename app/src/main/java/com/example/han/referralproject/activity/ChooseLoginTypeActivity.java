@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
-import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
+import com.gzq.administrator.lib_common.utils.PinYinUtils;
 import com.medlink.danbogh.register.SignUp1NameActivity;
 import com.medlink.danbogh.register.simple.SignUp01NameActivity;
 import com.medlink.danbogh.signin.SignInActivity;

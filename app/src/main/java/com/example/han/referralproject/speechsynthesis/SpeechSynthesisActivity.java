@@ -63,6 +63,7 @@ import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gzq.administrator.lib_common.utils.PinYinUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
