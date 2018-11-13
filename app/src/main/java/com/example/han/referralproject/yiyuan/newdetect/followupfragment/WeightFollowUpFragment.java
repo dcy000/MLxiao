@@ -30,13 +30,13 @@ public class WeightFollowUpFragment extends Weight_Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        isOnResume = true;
+        isOnResume = false;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        isOnResume = false;
+        isOnResume = true;
     }
 
     @Override

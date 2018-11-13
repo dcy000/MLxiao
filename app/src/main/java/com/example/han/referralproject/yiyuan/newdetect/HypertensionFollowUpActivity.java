@@ -96,10 +96,12 @@ public class HypertensionFollowUpActivity extends BaseActivity implements Fragme
             case "HypertensionFollowUpFragment":
                 mTitleText.setText("血 压 测 量");
                 posiontFragment = new HypertensionFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
             case "WeightFollowUpFragment":
                 mTitleText.setText("体 重 测 量");
                 posiontFragment = new WeightFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
             default:
                 break;

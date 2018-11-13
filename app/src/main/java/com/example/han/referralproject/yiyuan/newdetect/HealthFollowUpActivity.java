@@ -181,22 +181,26 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
             case "WeightFollowUpFragment":
                 mTitleText.setText("体 重 测 量");
                 posiontFragment = new WeightFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
 
             case "ChooseECGDeviceFragment":
                 mTitleText.setText("心 电 测 量");
                 posiontFragment = new ChooseECGDeviceFragment();
+                mRightView.setImageResource(R.drawable.icon_home);
                 break;
 
 
             case "ECG_Fragment":
                 mTitleText.setText("心 电 测 量");
                 posiontFragment = new ECGFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
 
             case "SelfECGDetectionFragment":
                 mTitleText.setText("心 电 测 量");
                 posiontFragment = new SelfECGFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
             default:
                 break;

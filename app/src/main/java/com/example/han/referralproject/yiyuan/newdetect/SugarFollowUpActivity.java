@@ -119,30 +119,36 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
             case "HypertensionFollowUpFragment":
                 mTitleText.setText("血 压 测 量");
                 posiontFragment = new HypertensionFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
             case "SugarFollowUpFragment":
                 mTitleText.setText("血 糖 测 量");
                 posiontFragment = new SugarFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
             case "HealthSelectSugarDetectionTimeFragment":
                 mTitleText.setText("血 糖 测 量");
                 posiontFragment = new HealthSelectSugarDetectionTimeFragment();
+                mRightView.setImageResource(R.drawable.icon_home);
                 break;
 
             case "WeightFollowUpFragment":
                 mTitleText.setText("体 重 测 量");
                 posiontFragment = new WeightFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
 
             case "ChooseECGDeviceFragment":
                 mTitleText.setText("心 电 测 量");
                 posiontFragment = new ChooseECGDeviceFragment();
+                mRightView.setImageResource(R.drawable.icon_home);
                 break;
 
 
             case "ECG_Fragment":
                 mTitleText.setText("心 电 测 量");
                 posiontFragment = new ECGFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
 
 
