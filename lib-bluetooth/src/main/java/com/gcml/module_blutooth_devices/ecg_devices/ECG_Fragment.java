@@ -1,6 +1,5 @@
 package com.gcml.module_blutooth_devices.ecg_devices;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -31,14 +30,9 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView, View.O
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
     protected TextView mTvNext;
-    private BoShengUserBean userBean;
+    protected BoShengUserBean userBean;
     public ECG_Fragment() {
 
-    }
-    @SuppressLint("ValidFragment")
-    public ECG_Fragment(BoShengUserBean userBean){
-        super();
-        this.userBean=userBean;
     }
     @Override
     protected int initLayout() {

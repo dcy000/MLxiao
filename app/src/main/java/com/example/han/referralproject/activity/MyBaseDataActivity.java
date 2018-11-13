@@ -2,6 +2,7 @@ package com.example.han.referralproject.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,7 +11,6 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.bean.PersonInfoResultBean;
 import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
@@ -137,7 +137,7 @@ public class MyBaseDataActivity extends BaseActivity {
 
 
                             Picasso.with(MyBaseDataActivity.this)
-                                    .load(data.user_photo)
+                                    .load(TextUtils.isEmpty(data.user_photo) ? data.userPhoto : data.user_photo)
                                     .placeholder(R.drawable.avatar_placeholder)
                                     .error(R.drawable.avatar_placeholder)
                                     .tag(this)

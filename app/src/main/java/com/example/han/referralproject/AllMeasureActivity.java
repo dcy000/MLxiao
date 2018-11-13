@@ -20,6 +20,7 @@ import com.example.han.referralproject.single_measure.SelfECGDetectionFragment;
 import com.example.han.referralproject.single_measure.SingleMeasureBloodoxygenFragment;
 import com.example.han.referralproject.single_measure.SingleMeasureBloodpressureFragment;
 import com.example.han.referralproject.single_measure.SingleMeasureBloodsugarFragment;
+import com.example.han.referralproject.single_measure.SingleMeasureECGFragment;
 import com.example.han.referralproject.single_measure.SingleMeasureHandRingFragment;
 import com.example.han.referralproject.single_measure.SingleMeasureTemperatureFragment;
 import com.example.han.referralproject.single_measure.SingleMeasureThreeInOneFragment;
@@ -148,7 +149,7 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged,
                 if (device == 1) {
                     baseFragment = new SelfECGDetectionFragment();
                 } else if (device == 2) {
-                    baseFragment = new ECG_Fragment();
+                    baseFragment = new SingleMeasureECGFragment();
                 } else {
                     mTitleText.setText("心 电 设 备 选 择");
                     baseFragment = new ChooseECGDeviceFragment();

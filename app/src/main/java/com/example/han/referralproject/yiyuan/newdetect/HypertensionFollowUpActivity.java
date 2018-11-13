@@ -142,6 +142,7 @@ public class HypertensionFollowUpActivity extends BaseActivity implements Fragme
                 switch (result) {
                     case MeasureVideoPlayActivity.SendResultActionNames.PRESSED_BUTTON_BACK:
                         //点击了返回按钮
+                       backLastActivity();
                         break;
                     case MeasureVideoPlayActivity.SendResultActionNames.PRESSED_BUTTON_SKIP:
                         //点击了跳过按钮

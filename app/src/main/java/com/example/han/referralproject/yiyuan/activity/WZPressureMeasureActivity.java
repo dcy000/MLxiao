@@ -17,6 +17,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.bean.WenZhenBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
+import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SPUtil;
 import com.google.gson.Gson;
@@ -38,6 +39,7 @@ public class WZPressureMeasureActivity extends BaseActivity implements SingleMea
     public static final String PRESS_FALG = "PressureFlag";
     @BindView(R.id.container)
     FrameLayout container;
+    private SingleMeasureBloodpressureFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class WZPressureMeasureActivity extends BaseActivity implements SingleMea
         mToolbar.setVisibility(View.VISIBLE);
 //        mRightView.
         mTitleText.setText("血压测量");
-        mRightView. setImageResource(R.drawable.ic_blooth_beack);
+        mRightView.setImageResource(R.drawable.ic_blooth_beack);
     }
 
     @Override
@@ -76,16 +78,36 @@ public class WZPressureMeasureActivity extends BaseActivity implements SingleMea
 
     private void untieDevice() {
         mRightView.setImageResource(R.drawable.ic_blooth_beack);
+        //先清除已经绑定的设备
         unpairDevice();
-        String nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
+        String nameAddress = null;
+        //血压
+        nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
         SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
+        fragment.onStop();
+        fragment.dealLogic();
+
+        clearBluetoothCache(nameAddress);
     }
 
+    private void clearBluetoothCache(String nameAddress) {
+        if (!TextUtils.isEmpty(nameAddress)) {
+            String[] split = nameAddress.split(",");
+            if (split.length == 2 && !TextUtils.isEmpty(split[1])) {
+                BluetoothClientManager.getClient().refreshCache(split[1]);
+            }
+        }
+    }
+
+    /**
+     * 解除已配对设备
+     */
     private void unpairDevice() {
         List<BluetoothDevice> devices = BluetoothUtils.getBondedBluetoothClassicDevices();
         for (BluetoothDevice device : devices) {
             try {
-                Method m = device.getClass().getMethod("removeBond", (Class[]) null);
+                Method m = device.getClass()
+                        .getMethod("removeBond", (Class[]) null);
                 m.invoke(device, (Object[]) null);
             } catch (Exception e) {
 
@@ -96,7 +118,7 @@ public class WZPressureMeasureActivity extends BaseActivity implements SingleMea
 
 
     private void fillFragment() {
-        SingleMeasureBloodpressureFragment fragment = new SingleMeasureBloodpressureFragment();
+        fragment = new SingleMeasureBloodpressureFragment();
 
         Bundle args = new Bundle();
         args.putString(PRESS_FALG, PRESS_FALG_WZ);

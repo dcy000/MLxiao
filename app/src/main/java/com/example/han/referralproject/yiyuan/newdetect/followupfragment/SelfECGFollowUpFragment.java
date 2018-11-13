@@ -17,6 +17,7 @@ public class SelfECGFollowUpFragment extends SelfECGDetectionFragment {
     public void onStart() {
         super.onStart();
         mBtnVideoDemo.setVisibility(View.GONE);
+        changeDevice.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
     }
 

@@ -39,7 +39,9 @@
     <com.example.han.referralproject.single_measure.ecg.DrawThreadPC80B
         android:id="@+id/main_pc80B_view_draw"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 
     <include
         android:id="@+id/bottom_btn"

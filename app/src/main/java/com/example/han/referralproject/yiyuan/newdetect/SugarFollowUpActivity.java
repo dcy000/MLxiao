@@ -14,6 +14,7 @@ import com.example.han.referralproject.health.DetectHealthSymptomsActivity;
 import com.example.han.referralproject.require2.dialog.AlertDialog;
 import com.example.han.referralproject.single_measure.ChooseECGDeviceFragment;
 import com.example.han.referralproject.single_measure.HealthSelectSugarDetectionTimeFragment;
+import com.example.han.referralproject.single_measure.SelfECGDetectionFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.ECGFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.HypertensionFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SelfECGFollowUpFragment;
@@ -25,6 +26,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
+import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SPUtil;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
@@ -155,6 +157,7 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
             case "SelfECGDetectionFragment":
                 mTitleText.setText("心 电 测 量");
                 posiontFragment = new SelfECGFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
             default:
                 break;
@@ -211,6 +214,7 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
                 switch (result) {
                     case MeasureVideoPlayActivity.SendResultActionNames.PRESSED_BUTTON_BACK:
                         //点击了返回按钮
+                        backLastActivity();
                         break;
                     case MeasureVideoPlayActivity.SendResultActionNames.PRESSED_BUTTON_SKIP:
                         //点击了跳过按钮
@@ -279,6 +283,21 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
                 ((Weight_Fragment) posiontFragment).dealLogic();
                 break;
 
+            case "ECG_Fragment":
+                //心电
+                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
+                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
+                ((ECG_Fragment) posiontFragment).onStop();
+                ((ECG_Fragment) posiontFragment).dealLogic();
+                break;
+
+            case "SelfECGDetectionFragment":
+                //心电
+                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
+                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
+                ((SelfECGDetectionFragment) posiontFragment).startDiscovery();
+                break;
+
             default:
                 break;
         }
@@ -315,11 +334,11 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
     public void updateVoice(String voice) {
         T.show(voice);
         String connect = getString(R.string.bluetooth_device_connected);
-        String disconnect=getString(R.string.bluetooth_device_disconnected);
-        if (TextUtils.equals(voice,connect)){
+        String disconnect = getString(R.string.bluetooth_device_disconnected);
+        if (TextUtils.equals(voice, connect)) {
             mRightView.setImageResource(R.drawable.ic_blooth_connect);
         }
-        if (TextUtils.equals(voice,disconnect)){
+        if (TextUtils.equals(voice, disconnect)) {
             mRightView.setImageResource(R.drawable.ic_blooth_beack);
         }
     }

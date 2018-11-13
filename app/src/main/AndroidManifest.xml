@@ -114,7 +114,9 @@
                 <category android:name="com.example.han.referralproject" />
             </intent-filter>
         </receiver>
-
+        <service
+            android:name=".single_measure.ecg.ReceiveService"
+            android:enabled="true" />
         <!-- <activity -->
         <!-- android:name="com.mob.tools.MobUIShell" -->
         <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->

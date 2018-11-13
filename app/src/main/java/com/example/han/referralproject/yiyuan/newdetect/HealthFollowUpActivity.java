@@ -255,6 +255,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
                 switch (result) {
                     case MeasureVideoPlayActivity.SendResultActionNames.PRESSED_BUTTON_BACK:
                         //点击了返回按钮
+                        backLastActivity();
                         break;
                     case MeasureVideoPlayActivity.SendResultActionNames.PRESSED_BUTTON_SKIP:
                         //点击了跳过按钮
@@ -341,7 +342,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
                 //心电
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
-                ((SelfECGDetectionFragment) posiontFragment).onStop();
+                ((SelfECGDetectionFragment) posiontFragment).startDiscovery();
                 break;
 
 

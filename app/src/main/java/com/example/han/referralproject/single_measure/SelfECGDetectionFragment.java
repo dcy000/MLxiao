@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.creative.ecg.StatusMsg;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.single_measure.ecg.BackGround;
@@ -57,6 +58,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
     private Thread drawThread;
     private boolean isServiceBind = false;
     private boolean isRegistReceiver = false;
+    protected TextView changeDevice;
 
     @Override
     public void onAttach(Context context) {
@@ -82,7 +84,8 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         mTvNext = (TextView) view.findViewById(R.id.tv_next);
         mTvNext.setVisibility(View.GONE);
         mTvNext.setOnClickListener(this);
-        view.findViewById(R.id.tv_change_device).setOnClickListener(this);
+        changeDevice = view.findViewById(R.id.tv_change_device);
+        changeDevice.setOnClickListener(this);
         setBtnClickableState(false);
         MLVoiceSynthetize.startSynthesize(context, "主人，请打开设备开关，准备测量", false);
         initOther();
@@ -292,7 +295,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             }
                             Bundle data = msg.getData();
                             if (data.getBoolean("bLeadoff")) {
-                                setMSG(getResources().getString(R.string.measure_lead_off));
+                                setMSG(MyApplication.getInstance().getResources().getString(R.string.measure_lead_off));
                             } else {
                                 setMSG(" ");
                             }
