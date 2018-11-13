@@ -117,7 +117,7 @@ public class HypertensionFollowUpActivity extends BaseActivity implements Fragme
         //因为每一个Fragment中都有可能视频播放，所以应该先检查该Fragment中是否有视频播放
         if (showPosition>process.size()-1){
             Intent intent = new Intent(this, DetectHealthSymptomsActivity.class);
-            intent.putExtra("detectCategory","detectPressure");
+            intent.putExtras(getIntent());
             startActivity(intent);
             return;
         }

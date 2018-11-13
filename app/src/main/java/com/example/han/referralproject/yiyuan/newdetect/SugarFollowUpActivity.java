@@ -174,7 +174,7 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
 
         if (position > followInfo.size() - 1) {
             Intent intent = new Intent(this, DetectHealthSymptomsActivity.class);
-            intent.putExtra("detectCategory", "detectSugar");
+            intent.putExtras(getIntent());
             startActivity(intent);
             return;
         }

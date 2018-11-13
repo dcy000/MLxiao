@@ -94,7 +94,7 @@ public class HealthDetecteActivity extends BaseActivity {
 
     private void gotoDanXianTiJian() {
 //        startActivity(new Intent(this, Test_mainActivity.class));
-        MeasureChooseDeviceActivity.startActivity(this,false);
+        MeasureChooseDeviceActivity.startActivity(this, false);
     }
 
     private void gotoFiled(final int id) {
@@ -143,7 +143,8 @@ public class HealthDetecteActivity extends BaseActivity {
                                     intent3.putExtra("isDetect", true);
                                     intent3.putExtra("detectCategory", "detectHealth");
                                     startActivity(intent3);*/
-                                    startActivity(new Intent(HealthDetecteActivity.this, HealthFollowUpActivity.class));
+                                    startActivity(new Intent(HealthDetecteActivity.this,
+                                            HealthFollowUpActivity.class).putExtra("detectCategory", "detectHealth"));
 
                                     break;
                                 case R.id.im_pressure_fllow_up:
@@ -155,7 +156,8 @@ public class HealthDetecteActivity extends BaseActivity {
                                     intent.putExtra("detectCategory", "detectPressure");
                                     startActivity(intent);*/
 
-                                    startActivity(new Intent(HealthDetecteActivity.this, HypertensionFollowUpActivity.class));
+                                    startActivity(new Intent(HealthDetecteActivity.this,
+                                            HypertensionFollowUpActivity.class).putExtra("detectCategory", "detectPressure"));
                                     break;
                                 //血糖随访
                                 case R.id.im_sugar_fllow_up:
@@ -166,7 +168,8 @@ public class HealthDetecteActivity extends BaseActivity {
                                     intent1.putExtra("detectCategory", "detectSugar");
                                     startActivity(intent1);*/
 
-                                    startActivity(new Intent(HealthDetecteActivity.this, SugarFollowUpActivity.class));
+                                    startActivity(new Intent(HealthDetecteActivity.this,
+                                            SugarFollowUpActivity.class).putExtra("detectCategory", "detectSugar"));
                                     break;
 
                             }

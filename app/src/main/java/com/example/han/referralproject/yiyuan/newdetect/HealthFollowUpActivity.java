@@ -17,6 +17,7 @@ import com.example.han.referralproject.single_measure.HealthSelectSugarDetection
 import com.example.han.referralproject.single_measure.SelfECGDetectionFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.ECGFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.HypertensionFollowUpFragment;
+import com.example.han.referralproject.yiyuan.newdetect.followupfragment.HypertensionYouFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SelfECGFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SugarFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.TemperatureFollowUpFragment;
@@ -145,7 +146,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
 
             case "HypertensionFollowUpFragmentYou":
                 mTitleText.setText("右 臂 血 压 测 量");
-                posiontFragment = new HypertensionFollowUpFragment();
+                posiontFragment = new HypertensionYouFollowUpFragment();
                 break;
             case "SugarFollowUpFragment":
                 mTitleText.setText("血 糖 测 量");
@@ -214,7 +215,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
 
         if (position > followInfo.size() - 1) {
             Intent intent = new Intent(this, DetectHealthSymptomsActivity.class);
-            intent.putExtra("detectCategory", "detectHealth");
+            intent.putExtras(getIntent());
             startActivity(intent);
             return;
         }
