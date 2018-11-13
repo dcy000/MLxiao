@@ -61,7 +61,6 @@ public class HypertensionFollowUpActivity extends BaseActivity implements Fragme
 
     @Override
     protected void backLastActivity() {
-        super.backLastActivity();
         showPosition--;
         if (showPosition > 0) {
             showFragment(showPosition);
@@ -141,6 +140,7 @@ public class HypertensionFollowUpActivity extends BaseActivity implements Fragme
                         break;
                     case MeasureVideoPlayActivity.SendResultActionNames.VIDEO_PLAY_END:
                         //视屏播放结束
+                        showFragment(showPosition);
                         break;
                     default:
                         break;

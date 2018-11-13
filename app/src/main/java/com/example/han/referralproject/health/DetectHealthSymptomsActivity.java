@@ -6,16 +6,13 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.Checkable;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -43,11 +40,11 @@ public class DetectHealthSymptomsActivity extends BaseActivity {
         tvGoback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetectHealthSymptomsActivity.this, DetectActivity.class);
-                intent.putExtras(getIntent());
-                intent.putExtra("symptoms", new long[]{});
-                intent.putExtra("type", "tizhong");
-                startActivity(intent);
+//                Intent intent = new Intent(DetectHealthSymptomsActivity.this, DetectActivity.class);
+//                intent.putExtras(getIntent());
+//                intent.putExtra("symptoms", new long[]{});
+//                intent.putExtra("type", "tizhong");
+//                startActivity(intent);
                 finish();
             }
         });

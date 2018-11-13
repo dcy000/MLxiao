@@ -47,8 +47,8 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
     private static final int BATTERY_ZERO = 0x302;
     public static final int RECEIVEMSG_PULSE_OFF = 0x115;
     private static final int MSG_NO_EXIST_ECGFILE = 46;
-    private TextView mBtnHealthHistory;
-    private TextView mBtnVideoDemo;
+    protected TextView mBtnHealthHistory;
+    protected TextView mBtnVideoDemo;
     private TextView mTvNext;
     private int nTransMode = 0;
     private String[] measureResult;

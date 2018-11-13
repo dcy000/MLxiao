@@ -880,7 +880,8 @@
         <activity
             android:name=".yiyuan.newdetect.HypertensionFollowUpActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".yiyuan.newdetect.SugarFollowUpActivity"></activity>
+        <activity android:name=".yiyuan.newdetect.SugarFollowUpActivity" />
+        <activity android:name=".yiyuan.newdetect.HealthFollowUpActivity"></activity>
     </application>
 
 </manifest>

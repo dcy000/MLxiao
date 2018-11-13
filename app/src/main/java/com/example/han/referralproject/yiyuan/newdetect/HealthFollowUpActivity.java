@@ -14,15 +14,18 @@ import com.example.han.referralproject.health.DetectHealthSymptomsActivity;
 import com.example.han.referralproject.require2.dialog.AlertDialog;
 import com.example.han.referralproject.single_measure.ChooseECGDeviceFragment;
 import com.example.han.referralproject.single_measure.HealthSelectSugarDetectionTimeFragment;
+import com.example.han.referralproject.single_measure.SelfECGDetectionFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.ECGFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.HypertensionFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SelfECGFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SugarFollowUpFragment;
+import com.example.han.referralproject.yiyuan.newdetect.followupfragment.TemperatureFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.WeightFollowUpFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
+import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SPUtil;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
@@ -33,7 +36,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SugarFollowUpActivity extends BaseActivity implements FragmentChanged {
+public class HealthFollowUpActivity extends BaseActivity implements FragmentChanged {
+
     private int position = 0;
     private List<SurveyBean> followInfo = new ArrayList<>();
     private BluetoothBaseFragment posiontFragment;
@@ -41,27 +45,39 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sugar_follow_up);
+        setContentView(R.layout.activity_health_follow_up);
         mToolbar.setVisibility(View.VISIBLE);
         initFollowDeviceInfo();
         showFragmentOrVideo(position);
     }
 
     private void initFollowDeviceInfo() {
+        SurveyBean tiwen = new SurveyBean("TemperatureFollowUpFragment",
+                Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu),
+                "耳温测量演示视频"
+        );
+        followInfo.add(tiwen);
+
         SurveyBean xueya = new SurveyBean("HypertensionFollowUpFragment",
                 Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya),
                 "血压测量演示视频"
         );
         followInfo.add(xueya);
 
+        SurveyBean xueyaYou = new SurveyBean("HypertensionFollowUpFragmentYou",
+                Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya),
+                "血压测量演示视频"
+        );
+        followInfo.add(xueyaYou);
+
         SurveyBean choseXindian = new SurveyBean("ChooseECGDeviceFragment",
-                Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian),
-                "心电测量演示视频"
+                null, null
         );
         followInfo.add(choseXindian);
 
         SurveyBean xindian = new SurveyBean("ECG_Fragment",
-                null, null);
+                Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian),
+                "心电测量演示视频");
         followInfo.add(xindian);
 
         SurveyBean xuanZheTime = new SurveyBean("HealthSelectSugarDetectionTimeFragment", null, null);
@@ -72,6 +88,16 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
                 "血糖测量演示视频"
         );
         followInfo.add(xuetang);
+
+        SurveyBean xuanZheTime2 = new SurveyBean("HealthSelectSugarDetectionTimeFragment2", null, null);
+        followInfo.add(xuanZheTime2);
+
+        SurveyBean sanheyi = new SurveyBean("SugarFollowUpFragment",
+                Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi),
+                "三合一测量演示视频"
+        );
+        followInfo.add(sanheyi);
+
 
         SurveyBean weight = new SurveyBean("WeightFollowUpFragment", null, null);
         followInfo.add(weight);
@@ -107,8 +133,18 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
     private void showFragment(int position) {
         String fragmentTag = followInfo.get(position).getFragmentTag();
         switch (fragmentTag) {
+            case "TemperatureFollowUpFragment":
+                mTitleText.setText("体 温 测 量");
+                posiontFragment = new TemperatureFollowUpFragment();
+                break;
+
             case "HypertensionFollowUpFragment":
-                mTitleText.setText("血 压 测 量");
+                mTitleText.setText("左 臂 血 压 测 量");
+                posiontFragment = new HypertensionFollowUpFragment();
+                break;
+
+            case "HypertensionFollowUpFragmentYou":
+                mTitleText.setText("右 臂 血 压 测 量");
                 posiontFragment = new HypertensionFollowUpFragment();
                 break;
             case "SugarFollowUpFragment":
@@ -117,6 +153,11 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
                 break;
             case "HealthSelectSugarDetectionTimeFragment":
                 mTitleText.setText("血 糖 测 量");
+                posiontFragment = new HealthSelectSugarDetectionTimeFragment();
+                break;
+
+            case "HealthSelectSugarDetectionTimeFragment2":
+                mTitleText.setText("三 合 一 测 量");
                 posiontFragment = new HealthSelectSugarDetectionTimeFragment();
                 break;
 
@@ -136,7 +177,6 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
                 posiontFragment = new ECGFollowUpFragment();
                 break;
 
-
             case "SelfECGDetectionFragment":
                 mTitleText.setText("心 电 测 量");
                 posiontFragment = new SelfECGFollowUpFragment();
@@ -147,7 +187,7 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
 
         if (posiontFragment != null) {
             posiontFragment.setOnFragmentChangedListener(this);
-            getSupportFragmentManager().beginTransaction().replace(R.id.sugar_follow_up_container, posiontFragment).commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().replace(R.id.health_follow_up_container, posiontFragment).commitAllowingStateLoss();
         } else {
             throw new IllegalArgumentException();
         }
@@ -174,7 +214,7 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
 
         if (position > followInfo.size() - 1) {
             Intent intent = new Intent(this, DetectHealthSymptomsActivity.class);
-            intent.putExtra("detectCategory", "detectSugar");
+            intent.putExtra("detectCategory", "detectHealth");
             startActivity(intent);
             return;
         }
@@ -243,14 +283,12 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
                 ((Bloodpressure_Fragment) posiontFragment).dealLogic();
                 break;
             case "SugarFollowUpFragment":
-                //体重
+                //血糖
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR);
                 ((SugarFollowUpFragment) posiontFragment).onStop();
                 ((SugarFollowUpFragment) posiontFragment).dealLogic();
                 break;
-
-
             case "WeightFollowUpFragment":
                 //体重
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
@@ -258,6 +296,30 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
                 ((Weight_Fragment) posiontFragment).onStop();
                 ((Weight_Fragment) posiontFragment).dealLogic();
                 break;
+
+            case "TemperatureFollowUpFragment":
+                //体温
+                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE, "");
+                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE);
+                ((TemperatureFollowUpFragment) posiontFragment).onStop();
+                ((TemperatureFollowUpFragment) posiontFragment).dealLogic();
+                break;
+
+            case "ECG_Fragment":
+                //心电
+                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
+                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
+                ((ECG_Fragment) posiontFragment).onStop();
+                ((ECG_Fragment) posiontFragment).dealLogic();
+                break;
+
+            case "SelfECGDetectionFragment":
+                //心电
+                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
+                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
+                ((SelfECGDetectionFragment) posiontFragment).onStop();
+                break;
+
 
             default:
                 break;
@@ -290,4 +352,5 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
         }
 
     }
+
 }

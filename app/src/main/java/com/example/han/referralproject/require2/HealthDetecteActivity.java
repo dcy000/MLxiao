@@ -11,7 +11,6 @@ import com.example.han.referralproject.MeasureChooseDeviceActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.building_record.BuildingRecordActivity;
@@ -24,6 +23,7 @@ import com.example.han.referralproject.require2.register.activtiy.InputFaceActiv
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.bean.HealthDetectQualificationBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
+import com.example.han.referralproject.yiyuan.newdetect.HealthFollowUpActivity;
 import com.example.han.referralproject.yiyuan.newdetect.HypertensionFollowUpActivity;
 import com.example.han.referralproject.yiyuan.newdetect.SugarFollowUpActivity;
 import com.google.gson.Gson;
@@ -138,11 +138,13 @@ public class HealthDetecteActivity extends BaseActivity {
                                 case R.id.im_health_detecte:
                                     //健康体检
 //                                    JianKangJianCe("0");
-                                    Intent intent3 = new Intent(HealthDetecteActivity.this, DetectActivity.class);
+                                /*    Intent intent3 = new Intent(HealthDetecteActivity.this, DetectActivity.class);
                                     intent3.putExtra("type", "wendu");
                                     intent3.putExtra("isDetect", true);
                                     intent3.putExtra("detectCategory", "detectHealth");
-                                    startActivity(intent3);
+                                    startActivity(intent3);*/
+                                    startActivity(new Intent(HealthDetecteActivity.this, HealthFollowUpActivity.class));
+
                                     break;
                                 case R.id.im_pressure_fllow_up:
                                     //血压随访
