@@ -18,6 +18,7 @@ import com.example.han.referralproject.yiyuan.newdetect.followupfragment.WeightF
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
+import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
@@ -25,6 +26,7 @@ import com.gcml.module_blutooth_devices.utils.SPUtil;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.gcml.module_video.measure.MeasureVideoPlayActivity;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
+import com.medlink.danbogh.utils.T;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ import java.util.List;
  * Created by lenovo on 2018/11/12.
  */
 
-public class HypertensionFollowUpActivity extends BaseActivity implements FragmentChanged {
+public class HypertensionFollowUpActivity extends BaseActivity implements FragmentChanged, DealVoiceAndJump {
     private BluetoothBaseFragment posiontFragment;
     private List<SurveyBean> process = new ArrayList<>();
     private int showPosition = 0;
@@ -105,6 +107,7 @@ public class HypertensionFollowUpActivity extends BaseActivity implements Fragme
 
         if (posiontFragment != null) {
             posiontFragment.setOnFragmentChangedListener(this);
+            posiontFragment.setOnDealVoiceAndJumpListener(this);
             getSupportFragmentManager().beginTransaction().replace(R.id.frame, posiontFragment).commitAllowingStateLoss();
         } else {
             throw new IllegalArgumentException();
@@ -224,6 +227,29 @@ public class HypertensionFollowUpActivity extends BaseActivity implements Fragme
 
             }
         }
+
+    }
+
+    @Override
+    public void updateVoice(String voice) {
+        T.show(voice);
+        String connect = getString(R.string.bluetooth_device_connected);
+        String disconnect=getString(R.string.bluetooth_device_disconnected);
+        if (TextUtils.equals(voice,connect)){
+            mRightView.setImageResource(R.drawable.ic_blooth_connect);
+        }
+        if (TextUtils.equals(voice,disconnect)){
+            mRightView.setImageResource(R.drawable.ic_blooth_beack);
+        }
+    }
+
+    @Override
+    public void jump2HealthHistory(int measureType) {
+
+    }
+
+    @Override
+    public void jump2DemoVideo(int measureType) {
 
     }
 }
