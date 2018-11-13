@@ -213,4 +213,14 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView, View.O
 
         void onError();
     }
+
+    @Override
+    protected void clickVideoDemo(View view) {
+        super.clickVideoDemo(view);
+    }
+
+    @Override
+    protected void clickHealthHistory(View view) {
+        super.clickHealthHistory(view);
+    }
 }

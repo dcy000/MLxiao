@@ -1,5 +1,6 @@
 package com.example.han.referralproject.yiyuan.newdetect.followupfragment;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.example.han.referralproject.single_measure.SelfECGDetectionFragment;
@@ -8,7 +9,10 @@ import com.example.han.referralproject.single_measure.SelfECGDetectionFragment;
  * Created by lenovo on 2018/11/13.
  */
 
-public class SelfECGFollowUpFragment extends SelfECGDetectionFragment{
+public class SelfECGFollowUpFragment extends SelfECGDetectionFragment {
+
+    private Bundle data = new Bundle();
+
     @Override
     public void onStart() {
         super.onStart();
@@ -18,15 +22,17 @@ public class SelfECGFollowUpFragment extends SelfECGDetectionFragment{
 
 
     @Override
-    protected void onMeasureFinished(String... results) {
-        super.onMeasureFinished(results);
-    }
-
-    @Override
     protected void clickHealthHistory(View view) {
         super.clickHealthHistory(view);
         if (fragmentChanged != null) {
-            fragmentChanged.onFragmentChanged(this, null);
+            fragmentChanged.onFragmentChanged(this, data);
         }
+    }
+
+    @Override
+    public void uploadEcg(int ecg, int heartRate) {
+        data.putString("ecg", ecg + "");
+        data.putString("heartRate", heartRate + "");
+        super.uploadEcg(ecg, heartRate);
     }
 }

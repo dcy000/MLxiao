@@ -1,5 +1,6 @@
 package com.example.han.referralproject.yiyuan.newdetect.followupfragment;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.example.han.referralproject.bean.DataInfoBean;
@@ -16,6 +17,7 @@ import com.medlink.danbogh.utils.T;
 public class TemperatureFollowUpFragment extends Temperature_Fragment {
 
     private boolean isOnPause;
+    private String[] results;
 
     @Override
     public void onStart() {
@@ -40,6 +42,8 @@ public class TemperatureFollowUpFragment extends Temperature_Fragment {
     protected void onMeasureFinished(String... results) {
         super.onMeasureFinished(results);
         if (results.length == 1 && !isOnPause) {
+            this.results = results;
+
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量耳温" + results[0] + "摄氏度", false);
             DataInfoBean info = new DataInfoBean();
             info.temper_ature = results[0];
@@ -47,13 +51,19 @@ public class TemperatureFollowUpFragment extends Temperature_Fragment {
                     message -> T.show("数据上传失败"));
 
         }
+
     }
+
+    Bundle data = new Bundle();
 
     @Override
     protected void clickHealthHistory(View view) {
         super.clickHealthHistory(view);
         if (fragmentChanged != null) {
-            fragmentChanged.onFragmentChanged(this, null);
+            if (results != null && results.length >= 1) {
+                data.putString("tem", results[0]);
+            }
+            fragmentChanged.onFragmentChanged(this, data);
         }
     }
 }

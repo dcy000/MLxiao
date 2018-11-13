@@ -354,8 +354,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
 
     };
 
-    @SuppressLint("CheckResult")
-    private void uploadEcg(final int ecg, final int heartRate) {
+    protected void uploadEcg(final int ecg, final int heartRate) {
        /* ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData ecgData = new DetectionData();
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
@@ -391,9 +390,9 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         ecgInfo.heart_rate = heartRate;
 
         NetworkApi.postData(ecgInfo, response -> {
-            T.show("");
+            T.show("数据上传成功");
         }, message -> {
-
+            T.show("数据上传失败");
         });
     }
 
@@ -422,4 +421,13 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         }
     }
 
+    @Override
+    protected void clickHealthHistory(View view) {
+        super.clickHealthHistory(view);
+    }
+
+    @Override
+    protected void clickVideoDemo(View view) {
+        super.clickVideoDemo(view);
+    }
 }

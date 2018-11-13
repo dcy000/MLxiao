@@ -1,5 +1,6 @@
 package com.example.han.referralproject.yiyuan.newdetect.followupfragment;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -25,6 +26,7 @@ public class HypertensionYouFollowUpFragment extends Bloodpressure_Fragment {
         mBtnVideoDemo.setVisibility(View.GONE);
         mBtnHealthHistory.setText("下一步");
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -37,6 +39,8 @@ public class HypertensionYouFollowUpFragment extends Bloodpressure_Fragment {
         isOnPause = true;
     }
 
+    Bundle data = new Bundle();
+
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3 && !isOnPause) {
@@ -45,6 +49,11 @@ public class HypertensionYouFollowUpFragment extends Bloodpressure_Fragment {
             int highPressure = Integer.parseInt(results[0]);
             int lowPressure = Integer.parseInt(results[1]);
             int pulse = Integer.parseInt(results[2]);
+
+            data.putString("highPressure_right", highPressure + "");
+            data.putString("lowPressure_right", lowPressure + "");
+            data.putString("pulse", pulse + "");
+
             LocalShared.getInstance(getActivity()).setXueYa(highPressure + "," + lowPressure);
             uploadXueyaResult(highPressure, lowPressure, pulse, true, null);
         }
@@ -72,7 +81,7 @@ public class HypertensionYouFollowUpFragment extends Bloodpressure_Fragment {
     protected void clickHealthHistory(View view) {
         super.clickHealthHistory(view);
         if (fragmentChanged != null) {
-            fragmentChanged.onFragmentChanged(this, null);
+            fragmentChanged.onFragmentChanged(this, data);
         }
     }
 }

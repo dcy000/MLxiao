@@ -69,6 +69,8 @@ public class SanHeYiFollowUpFragment extends ThreeInOne_Fragment {
         isOnResume = false;
     }
 
+    Bundle data = new Bundle();
+
     @Override
     protected void onMeasureFinished(String... results) {
         super.onMeasureFinished(results);
@@ -80,11 +82,13 @@ public class SanHeYiFollowUpFragment extends ThreeInOne_Fragment {
             }
             if (results[0].equals("cholesterol")) {
                 info.cholesterol = results[1];
+                data.putString("cholesterol", results[1]);
                 MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量胆固醇" + results[1]);
             }
 
             if (results[0].equals("bua")) {
                 info.uric_acid = results[1];
+                data.putString("niaosuan", results[1]);
                 MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + results[1]);
             }
 
@@ -93,6 +97,8 @@ public class SanHeYiFollowUpFragment extends ThreeInOne_Fragment {
             }, message -> {
                 T.show("数据上传失败");
             });
+
+
         }
     }
 
@@ -100,7 +106,7 @@ public class SanHeYiFollowUpFragment extends ThreeInOne_Fragment {
     protected void clickHealthHistory(View view) {
         super.clickHealthHistory(view);
         if (fragmentChanged != null) {
-            fragmentChanged.onFragmentChanged(this, null);
+            fragmentChanged.onFragmentChanged(this, data);
         }
     }
 }

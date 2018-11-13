@@ -1,5 +1,6 @@
 package com.example.han.referralproject.yiyuan.newdetect.followupfragment;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -42,6 +43,7 @@ public class WeightFollowUpFragment extends Weight_Fragment {
     protected void onMeasureFinished(String... results) {
         super.onMeasureFinished(results);
         if (results.length == 1 && isOnResume) {
+
             //得到身高和体重，再计算一下体质
             if (mTvTizhi != null) {
                 String height = LocalShared.getInstance(mContext).getUserHeight();
@@ -53,6 +55,7 @@ public class WeightFollowUpFragment extends Weight_Fragment {
                     }
                 }
             }
+            data.putString("weight", results[0]);
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量体重" + results[0] + "公斤", false);
             DataInfoBean info = new DataInfoBean();
             info.weight = Float.parseFloat(results[0]);
@@ -65,11 +68,13 @@ public class WeightFollowUpFragment extends Weight_Fragment {
         }
     }
 
+    Bundle data = new Bundle();
+
     @Override
     protected void clickHealthHistory(View view) {
         super.clickHealthHistory(view);
         if (fragmentChanged != null) {
-            fragmentChanged.onFragmentChanged(this, null);
+            fragmentChanged.onFragmentChanged(this, data);
         }
     }
 }

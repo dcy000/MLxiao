@@ -23,7 +23,7 @@ public class SugarFollowUpFragment extends Bloodsugar_Fragment {
     @Override
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
-        this.bundle=bundle;
+        this.bundle = bundle;
     }
 
     @Override
@@ -48,6 +48,7 @@ public class SugarFollowUpFragment extends Bloodsugar_Fragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 1 && !isOnPause) {
+            data.putString("sugar", results[0]);
             String roundUp = DataUtils.getRoundUp(results[0], 1);
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + roundUp, false);
             DataInfoBean info = new DataInfoBean();
@@ -65,11 +66,13 @@ public class SugarFollowUpFragment extends Bloodsugar_Fragment {
         }
     }
 
+    Bundle data = new Bundle();
+
     @Override
     protected void clickHealthHistory(View view) {
         super.clickHealthHistory(view);
         if (fragmentChanged != null) {
-            fragmentChanged.onFragmentChanged(this, null);
+            fragmentChanged.onFragmentChanged(this, data);
         }
     }
 }

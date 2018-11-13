@@ -37,6 +37,7 @@ public class HypertensionFollowUpActivity extends BaseActivity implements Fragme
     private BluetoothBaseFragment posiontFragment;
     private List<SurveyBean> process = new ArrayList<>();
     private int showPosition = 0;
+    private Bundle data=new Bundle();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,11 +114,13 @@ public class HypertensionFollowUpActivity extends BaseActivity implements Fragme
 
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
+        data.putAll(bundle);
         showPosition++;
         //因为每一个Fragment中都有可能视频播放，所以应该先检查该Fragment中是否有视频播放
-        if (showPosition>process.size()-1){
+        if (showPosition > process.size() - 1) {
             Intent intent = new Intent(this, DetectHealthSymptomsActivity.class);
             intent.putExtras(getIntent());
+            intent.putExtras(data);
             startActivity(intent);
             return;
         }

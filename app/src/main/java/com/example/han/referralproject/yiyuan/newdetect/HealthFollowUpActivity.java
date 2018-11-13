@@ -42,6 +42,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
     private int position = 0;
     private List<SurveyBean> followInfo = new ArrayList<>();
     private BluetoothBaseFragment posiontFragment;
+    private Bundle data=new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,6 +199,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
 
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
+        data.putAll(bundle);
         if (fragment instanceof ChooseECGDeviceFragment) {
             if (bundle != null) {
                 int anInt = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 1);
@@ -216,6 +218,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
         if (position > followInfo.size() - 1) {
             Intent intent = new Intent(this, DetectHealthSymptomsActivity.class);
             intent.putExtras(getIntent());
+            intent.putExtras(data);
             startActivity(intent);
             return;
         }
