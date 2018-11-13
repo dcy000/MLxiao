@@ -58,9 +58,6 @@ public class BluetoothConnectHelper {
                     isConnected = true;
                     connectListener.success(mac);
                 } else if (status == 32) {
-                    isConnected = true;
-                    connectListener.success(mac);
-                } else if (status == 32) {
                     isConnected = false;
                     connectListener.disConnect();
                 }

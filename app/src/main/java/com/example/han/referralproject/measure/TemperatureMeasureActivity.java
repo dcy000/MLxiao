@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -19,7 +20,12 @@ import android.widget.VideoView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.bean.MeasureResult;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
 public class TemperatureMeasureActivity extends AppCompatActivity implements View.OnClickListener {
@@ -50,6 +56,9 @@ public class TemperatureMeasureActivity extends AppCompatActivity implements Vie
     private TemperaturePresenter temperaturePresenter;
     private ImageView mIvBack;
     private ImageView mIconHome;
+    private String[] mWenduResults;
+    private static final String TAG = "TemperatureMeasureActiv";
+    private boolean isPostData = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,7 +94,38 @@ public class TemperatureMeasureActivity extends AppCompatActivity implements Vie
             mTvResult.setText("0.00");
         } else if (datas.length == 1) {
             mTvResult.setText(datas[0]);
+
+            float v = Float.parseFloat(datas[0]);
+            String wenduResult;
+            if (v < 36) {
+                wenduResult = mWenduResults[3];
+            } else if (v < 38) {
+                wenduResult = mWenduResults[0];
+            } else if (v < 40) {
+                wenduResult = mWenduResults[1];
+            } else {
+                wenduResult = mWenduResults[2];
+            }
+            MLVoiceSynthetize.startSynthesize(this, String.format(getString(R.string.tips_result_wendu), datas[0], wenduResult), false);
+            if (!isPostData) {
+                isPostData = true;
+                //上传数据
+                DataInfoBean info = new DataInfoBean();
+                info.temper_ature = datas[0];
+                NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+                    @Override
+                    public void onSuccess(MeasureResult response) {
+                        Log.i(TAG, "onSuccess: ");
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
+                        Log.i(TAG, "onFailed: " + message);
+                    }
+                });
+            }
         }
+
     }
 
     private void initView() {
@@ -114,6 +154,8 @@ public class TemperatureMeasureActivity extends AppCompatActivity implements Vie
         mIvBack.setOnClickListener(this);
         mIconHome = (ImageView) findViewById(R.id.icon_home);
         mIconHome.setOnClickListener(this);
+
+        mWenduResults = getResources().getStringArray(R.array.result_wendu);
     }
 
     @Override

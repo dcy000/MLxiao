@@ -24,7 +24,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public abstract class BaseBluetooth implements LifecycleObserver {
     private boolean isOnSearching = true;
-    private boolean isOnDestroy = false;
+    protected boolean isOnDestroy = false;
     private Activity activity;
     private LifecycleOwner owner;
     private ConnectListener connectListener;

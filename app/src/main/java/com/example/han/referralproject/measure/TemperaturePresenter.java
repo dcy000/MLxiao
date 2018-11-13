@@ -2,6 +2,7 @@ package com.example.han.referralproject.measure;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.bluetooth.BluetoothDevice;
+import android.os.Handler;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.util.LocalShared;
@@ -18,7 +19,8 @@ import java.util.UUID;
 
 public class TemperaturePresenter extends BaseBluetooth {
 
-    private final TemperatureMeasureActivity context;
+    private TemperatureMeasureActivity context;
+    private Handler handler;
 
     public TemperaturePresenter(LifecycleOwner owner) {
         super(owner);
@@ -102,8 +104,27 @@ public class TemperaturePresenter extends BaseBluetooth {
 
     @Override
     protected void disConnected() {
+        handler = new Handler();
         if (context != null) {
             MLVoiceSynthetize.startSynthesize(context, "设备已断开", false);
         }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!isOnDestroy) {
+                    connect(LocalShared.getInstance(context).getWenduMac());
+                }
+            }
+        }, 1000);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+        handler = null;
+        context = null;
     }
 }

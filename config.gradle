@@ -33,8 +33,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
-            versionCode      : 24,
-            versionName      : "Robot-Xien.1.2.4"
+            versionCode      : 21,
+            versionName      : "Robot-Xien.1.2.5"
     ]
 
     version = [
