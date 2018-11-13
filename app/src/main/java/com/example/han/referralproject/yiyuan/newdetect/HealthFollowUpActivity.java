@@ -22,6 +22,7 @@ import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SelfECG
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SugarFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.TemperatureFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.WeightFollowUpFragment;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
@@ -42,7 +43,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
     private int position = 0;
     private List<SurveyBean> followInfo = new ArrayList<>();
     private BluetoothBaseFragment posiontFragment;
-    private Bundle data=new Bundle();
+    private Bundle data = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
         mToolbar.setVisibility(View.VISIBLE);
         initFollowDeviceInfo();
         showFragmentOrVideo(position);
+        ActivityHelper.addActivity(this);
     }
 
     private void initFollowDeviceInfo() {
@@ -118,8 +120,13 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
 
     @Override
     protected void backMainActivity() {
-        super.backMainActivity();
-        showRefreshBluetoothDialog();
+        if (posiontFragment instanceof HealthSelectSugarDetectionTimeFragment
+                || posiontFragment instanceof ChooseECGDeviceFragment
+                ) {
+            super.backMainActivity();
+        } else {
+            showRefreshBluetoothDialog();
+        }
     }
 
     private void showFragmentOrVideo(int position) {
@@ -138,29 +145,35 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
             case "TemperatureFollowUpFragment":
                 mTitleText.setText("体 温 测 量");
                 posiontFragment = new TemperatureFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
 
             case "HypertensionFollowUpFragment":
                 mTitleText.setText("左 臂 血 压 测 量");
                 posiontFragment = new HypertensionFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
 
             case "HypertensionFollowUpFragmentYou":
                 mTitleText.setText("右 臂 血 压 测 量");
                 posiontFragment = new HypertensionYouFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
             case "SugarFollowUpFragment":
                 mTitleText.setText("血 糖 测 量");
                 posiontFragment = new SugarFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
             case "HealthSelectSugarDetectionTimeFragment":
                 mTitleText.setText("血 糖 测 量");
                 posiontFragment = new HealthSelectSugarDetectionTimeFragment();
+                mRightView.setImageResource(R.drawable.icon_home);
                 break;
 
             case "HealthSelectSugarDetectionTimeFragment2":
                 mTitleText.setText("三 合 一 测 量");
                 posiontFragment = new HealthSelectSugarDetectionTimeFragment();
+                mRightView.setImageResource(R.drawable.icon_home);
                 break;
 
             case "WeightFollowUpFragment":

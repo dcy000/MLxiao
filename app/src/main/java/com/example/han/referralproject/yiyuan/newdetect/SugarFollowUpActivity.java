@@ -19,6 +19,7 @@ import com.example.han.referralproject.yiyuan.newdetect.followupfragment.Hyperte
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SelfECGFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SugarFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.WeightFollowUpFragment;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
@@ -45,6 +46,7 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
         mToolbar.setVisibility(View.VISIBLE);
         initFollowDeviceInfo();
         showFragmentOrVideo(position);
+        ActivityHelper.addActivity(this);
     }
 
     private void initFollowDeviceInfo() {
@@ -90,8 +92,13 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
 
     @Override
     protected void backMainActivity() {
-        super.backMainActivity();
-        showRefreshBluetoothDialog();
+        if (posiontFragment instanceof HealthSelectSugarDetectionTimeFragment
+                || posiontFragment instanceof ChooseECGDeviceFragment
+                ) {
+            super.backMainActivity();
+        } else {
+            showRefreshBluetoothDialog();
+        }
     }
 
     private void showFragmentOrVideo(int position) {
@@ -155,7 +162,7 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
 
     }
 
-    private Bundle data=new Bundle();
+    private Bundle data = new Bundle();
 
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {

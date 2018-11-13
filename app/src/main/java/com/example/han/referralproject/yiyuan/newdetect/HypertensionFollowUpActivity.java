@@ -15,6 +15,7 @@ import com.example.han.referralproject.health.DetectHealthSymptomsActivity;
 import com.example.han.referralproject.require2.dialog.AlertDialog;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.HypertensionFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.WeightFollowUpFragment;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
@@ -46,6 +47,7 @@ public class HypertensionFollowUpActivity extends BaseActivity implements Fragme
         mToolbar.setVisibility(View.VISIBLE);
         initProcess();
         checkVideo(showPosition);
+        ActivityHelper.addActivity(this);
     }
 
     private void initProcess() {
@@ -73,7 +75,6 @@ public class HypertensionFollowUpActivity extends BaseActivity implements Fragme
 
     @Override
     protected void backMainActivity() {
-        super.backMainActivity();
         showRefreshBluetoothDialog();
     }
 

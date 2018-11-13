@@ -18,6 +18,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.bean.ExaminationReportBean;
 import com.example.han.referralproject.yiyuan.bean.PersonInfoResultBean;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -172,6 +173,7 @@ public class DetectResultActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ActivityHelper.finishAll();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detect_activity_result);
         ButterKnife.bind(this);
@@ -359,8 +361,8 @@ public class DetectResultActivity extends BaseActivity {
         if (!TextUtils.isEmpty(zunyi)) {
             tvZunyiInfo.setText(getResources().getStringArray(R.array.xltz)[Integer.parseInt(zunyi)]);
         }
-        String niaosuan = getIntent().getStringExtra("niaosuan")+"";
-        tvUaInfo.setText(niaosuan.replaceAll("null","0.0")+"mmol/L");
+        String niaosuan = getIntent().getStringExtra("niaosuan") + "";
+        tvUaInfo.setText(niaosuan.replaceAll("null", "0.0") + "mmol/L");
 
         tvZhushiliangInfo.setText(stapleFood + "克");
         switch (detectCategory) {
