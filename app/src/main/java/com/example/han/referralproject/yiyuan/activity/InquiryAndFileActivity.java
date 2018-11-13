@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.building_record.BuildingRecordActivity;
@@ -62,6 +63,8 @@ public class InquiryAndFileActivity extends BaseActivity {
     ImageView ivInquireFileExit;
     @BindView(R.id.tv_file_done)
     TextView tvFileDone;
+    @BindView(R.id.tv_wen_jian_skip)
+    TextView tvWenJianSkip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -266,8 +269,7 @@ public class InquiryAndFileActivity extends BaseActivity {
         mRightView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(InquiryAndFileActivity.this, WifiConnectActivity.class));
-                startActivity(new Intent(InquiryAndFileActivity.this, MainActivity.class));
+                startActivity(new Intent(InquiryAndFileActivity.this, WifiConnectActivity.class));
             }
         });
 
@@ -380,4 +382,11 @@ public class InquiryAndFileActivity extends BaseActivity {
         startActivity(new Intent(this, ChoiceLoginTypeActivity.class));
         finish();
     }
+
+    @OnClick(R.id.tv_wen_jian_skip)
+    public void onViewClicked() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
 }

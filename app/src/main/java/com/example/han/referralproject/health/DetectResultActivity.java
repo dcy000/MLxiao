@@ -487,7 +487,13 @@ public class DetectResultActivity extends BaseActivity {
                                 if (TextUtils.isEmpty(record.bloodType)) {
                                     record.bloodType = "暂未填写";
                                 }
-                                mDetectTvBloodTypeInfo.setText(record.bloodType + "型");
+                                String text = record.bloodType + "型";
+                                if (text.contains("不详")) {
+                                    mDetectTvBloodTypeInfo.setText(text.replaceAll("型", ""));
+                                } else {
+                                    mDetectTvBloodTypeInfo.setText(text);
+
+                                }
 //                                mDetectTvHeightInfo.setText(record.height);
 //                                mDetectTvWeightInfo.setText(record.weight);
                             }
