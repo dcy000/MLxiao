@@ -47,6 +47,8 @@ public class DetectionData implements Serializable {
     private Float weight;
     private String yz;
     private Integer zid;
+    private String result;
+    private String resultUrl;
 
     public DetectionData() {
 
@@ -210,5 +212,21 @@ public class DetectionData implements Serializable {
 
     public void setZid(Integer zid) {
         this.zid = zid;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getResultUrl() {
+        return resultUrl;
+    }
+
+    public void setResultUrl(String resultUrl) {
+        this.resultUrl = resultUrl;
     }
 }

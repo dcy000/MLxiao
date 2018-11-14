@@ -515,7 +515,8 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                         if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
                         }
-                        baseView.updateData(fileNo, entity.getExt(), entity.getFile_report());
+                        BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
+                        baseView.updateData(fileNo, entity.getFile_report(),boShengResultBean.getStop_light()+"",boShengResultBean.getFindings(),boShengResultBean.getAvgbeats().get(0).getHR()+"");
                     }
 
                     @Override

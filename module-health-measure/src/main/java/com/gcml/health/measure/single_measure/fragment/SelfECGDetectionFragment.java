@@ -22,6 +22,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.creative.ecg.StatusMsg;
+import com.gcml.common.app.lifecycle.App;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
@@ -380,6 +381,8 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         ecgData.setDetectionType("2");
         ecgData.setEcg(String.valueOf(ecg));
         ecgData.setHeartRate(heartRate);
+        String s = UtilsManager.getApplication().getResources().getStringArray(R.array.ecg_measureres)[ecg];
+        ecgData.setResult(s);
         datas.add(ecgData);
 
 

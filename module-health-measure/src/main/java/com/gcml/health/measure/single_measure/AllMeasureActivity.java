@@ -1,5 +1,6 @@
 package com.gcml.health.measure.single_measure;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
@@ -18,6 +19,8 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.creative.ecg.ECG;
 import com.creative.filemanage.PC700FileOperation;
+import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.data.DataUtils;
@@ -32,7 +35,9 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.cc.CCVideoActions;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.single_measure.fragment.ChooseECGDeviceFragment;
 import com.gcml.health.measure.single_measure.fragment.SelfECGDetectionFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureHandRingFragment;
@@ -49,6 +54,7 @@ import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeas
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureThreeInOneFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureWeightFragment;
 import com.gcml.health.measure.utils.ChannelUtils;
+import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
@@ -74,6 +80,9 @@ import java.util.List;
 
 import javax.microedition.khronos.egl.EGL;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentChanged, ThreeInOne_Fragment.MeasureItemChanged {
@@ -215,9 +224,9 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 break;
             case IPresenter.MEASURE_HAND_RING:
                 //手环
-                if (baseFragment==null){
+                if (baseFragment == null) {
                     mTitleText.setText("活 动 监 测");
-                    baseFragment=new SingleMeasureHandRingFragment();
+                    baseFragment = new SingleMeasureHandRingFragment();
                 }
                 break;
             default:
@@ -568,17 +577,49 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private void setECGListener() {
         if (baseFragment != null && measure_type == IPresenter.MEASURE_ECG && baseFragment instanceof ECG_Fragment) {
             ((ECG_Fragment) baseFragment).setOnAnalysisDataListener(new ECG_Fragment.AnalysisData() {
+                @SuppressLint("CheckResult")
                 @Override
-                public void onSuccess(String fileNum, String fileAddress, String filePDF) {
-                    pdfUrl = filePDF;
+                public void onSuccess(String fileNum, String fileAddress, String flag, String result, String heartRate) {
+                    ArrayList<DetectionData> datas = new ArrayList<>();
+                    DetectionData ecgData = new DetectionData();
+                    //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+                    ecgData.setDetectionType("2");
+                    ecgData.setEcg(TextUtils.equals(flag, "2") ? "1" : flag);
+                    ecgData.setResult(result);
+                    ecgData.setHeartRate(Integer.parseInt(heartRate));
+                    ecgData.setResultUrl(fileAddress);
+                    datas.add(ecgData);
+                    HealthMeasureRepository.postMeasureData(datas)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .as(RxUtils.autoDisposeConverter(AllMeasureActivity.this, LifecycleUtils.LIFE))
+                            .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                                @Override
+                                public void onNext(List<DetectionResult> o) {
+                                    ToastUtils.showShort("数据上传成功");
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
+
+                    pdfUrl = fileAddress;
                     ECG_PDF_Fragment pdf_fragment = new ECG_PDF_Fragment();
                     Bundle pdfBundle = new Bundle();
-                    pdfBundle.putString(ECG_PDF_Fragment.KEY_BUNDLE_PDF_URL, filePDF);
+                    pdfBundle.putString(ECG_PDF_Fragment.KEY_BUNDLE_PDF_URL, fileAddress);
                     pdf_fragment.setArguments(pdfBundle);
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame, pdf_fragment).commit();
                     isMeasure = false;
                     mRightView.setImageResource(R.drawable.health_measure_icon_qrcode);
                 }
+
 
                 @Override
                 public void onError() {

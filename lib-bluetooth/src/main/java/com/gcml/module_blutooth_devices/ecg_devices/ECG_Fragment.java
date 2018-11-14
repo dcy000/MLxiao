@@ -29,6 +29,7 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView, View.O
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
     protected TextView mTvNext;
+
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_ecg;
@@ -44,7 +45,7 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView, View.O
         mBtnHealthHistory.setOnClickListener(this);
         mBtnVideoDemo = view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
-        mTvNext=view.findViewById(R.id.tv_next);
+        mTvNext = view.findViewById(R.id.tv_next);
         mTvNext.setOnClickListener(this);
         this.bundle = bundle;
     }
@@ -131,13 +132,14 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView, View.O
             });
         } else if (datas.length == 2) {
             mMeasureTip.setText(datas[1]);
-        } else if (datas.length == 3) {
-            onMeasureFinished(datas[0],datas[1],datas[2]);
+        } else if (datas.length == 4) {
+            //pdf编号，pdf地址，异常标识，结论,心率
+            onMeasureFinished(datas[0], datas[1], datas[2], datas[3],datas[4]);
             if (analysisData != null) {
                 if (DataUtils.isNullString(datas[1]) || DataUtils.isNullString(datas[2])) {
                     analysisData.onError();
                 } else {
-                    analysisData.onSuccess(datas[0], datas[1], datas[2]);
+                    analysisData.onSuccess(datas[0], datas[1], datas[2],datas[3],datas[4]);
                 }
             }
         }
@@ -192,13 +194,16 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView, View.O
                 dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_ECG);
             }
             clickVideoDemo(v);
-        }else if (i==R.id.tv_next){
+        } else if (i == R.id.tv_next) {
             clickBtnNext();
         }
     }
-    protected void clickBtnNext(){}
+
+    protected void clickBtnNext() {
+    }
+
     public interface AnalysisData {
-        void onSuccess(String fileNum, String fileAddress, String filePDF);
+        void onSuccess(String fileNum, String fileAddress, String flag,String result,String heartRate);
 
         void onError();
     }
