@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.LocalShared;
+import com.gzq.lib_core.base.Box;
 import com.medlink.danbogh.utils.Utils;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.NIMClient;
@@ -22,7 +23,8 @@ import com.netease.nimlib.sdk.auth.constant.LoginSyncStatus;
 
 public class NimAccountHelper {
 
-    private NimAccountHelper() {}
+    private NimAccountHelper() {
+    }
 
     public static NimAccountHelper getInstance() {
         return Holder.INSTANCE;
@@ -63,7 +65,7 @@ public class NimAccountHelper {
         future.setCallback(new RequestCallback<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo param) {
-                if (param == null){
+                if (param == null) {
                     return;
                 }
                 setAccount(param.getAccount());
@@ -113,25 +115,25 @@ public class NimAccountHelper {
     }
 
     public String getAccount() {
-        return LocalShared.getInstance(MyApplication.getInstance()).getNimAccount();
+        return LocalShared.getInstance(Box.getApp()).getNimAccount();
     }
 
     public String getToken() {
-        return LocalShared.getInstance(MyApplication.getInstance()).getNimToken();
+        return LocalShared.getInstance(Box.getApp()).getNimToken();
     }
 
     public void setAccount(String account) {
         mAccount = account;
-        LocalShared.getInstance(MyApplication.getInstance()).setNimAccount(account);
+        LocalShared.getInstance(Box.getApp()).setNimAccount(account);
     }
 
     public void setToken(String token) {
         mToken = token;
-        LocalShared.getInstance(MyApplication.getInstance()).setNimToken(token);
+        LocalShared.getInstance(Box.getApp()).setNimToken(token);
     }
 
     public static void removeUserInfo() {
-        LocalShared.getInstance(MyApplication.getInstance()).setNimAccount(null);
-        LocalShared.getInstance(MyApplication.getInstance()).setNimToken(null);
+        LocalShared.getInstance(Box.getApp()).setNimAccount(null);
+        LocalShared.getInstance(Box.getApp()).setNimToken(null);
     }
 }

@@ -28,6 +28,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -40,28 +41,32 @@ import android.widget.VideoView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.bean.DetectionData;
+import com.example.han.referralproject.bean.DetectionResult;
 import com.example.han.referralproject.bean.MeasureResult;
 import com.example.han.referralproject.bean.NDialog;
+import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
-import com.example.han.referralproject.measure.MeasureChooseReason;
-import com.example.han.referralproject.measure.MeasureXuetangResultActivity;
-import com.example.han.referralproject.measure.MeasureXueyaResultActivity;
 import com.example.han.referralproject.measure.fragment.MeasureXuetangFragment;
 import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragment;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.XueyaUtils;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import android.support.v4.content.ContextCompat;
 
 public class DetectActivity extends BaseActivity implements View.OnClickListener {
 
@@ -258,82 +263,131 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     /**
      * 上传血压的测量结果
      */
+    @SuppressLint("CheckResult")
     private void uploadXueyaResult(final int getNew, final int down, final int maibo, final String xueyaResult, final boolean status, final Fragment fragment) {
-        DataInfoBean info = new DataInfoBean();
-        info.high_pressure = getNew;
-        info.low_pressure = down;
-        info.pulse = maibo;
-        if (status) {
-            info.upload_state = true;
-        }
-        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
-            @Override
-            public void onSuccess(MeasureResult response) {
-                startActivity(new Intent(DetectActivity.this, MeasureXueyaResultActivity.class)
-                        .putExtra("measure_sum", response.zonggong)
-                        .putExtra("current_gaoya", getNew + "")
-                        .putExtra("current_diya", down + "")
-                        .putExtra("suggest", response.message)
-                        .putExtra("week_avg_gaoya", response.Recently_avg_high)
-                        .putExtra("week_avg_diya", response.Recently_avg_low)
-                        .putExtra("fenshu", response.exponent)
-                        .putExtra("mb_gaoya", response.Psst)
-                        .putExtra("mb_diya", response.Pdst));
-                if (status && fragment != null) {
-                    errorStatus = true;
-                }
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                if (!TextUtils.isEmpty(message)) {
-                    if (message.startsWith("血压超标")) {
-                        warningXueyaFragment = new MeasureXueyaWarningFragment();
-                        getSupportFragmentManager().beginTransaction().add(R.id.container, warningXueyaFragment).commit();
+//        DataInfoBean info = new DataInfoBean();
+//        info.high_pressure = getNew;
+//        info.low_pressure = down;
+//        info.pulse = maibo;
+//        if (status) {
+//            info.upload_state = true;
+//        }
 
-                        warningXueyaFragment.setOnChooseReason(new MeasureChooseReason() {
-                            @Override
-                            public void hasReason(int reason) {
-                                removeFragment(warningXueyaFragment);
-                                switch (reason) {
-                                    case -1://其他原因
-                                        break;
-                                    case 0://服用了降压药
-                                        break;
-                                    case 1://臂带佩戴不正确
-                                        break;
-                                    case 2://坐姿不正确
-                                        break;
-                                    case 3://测量过程说话了
-                                        break;
-                                    case 4://饮酒、咖啡之后
-                                        break;
-                                    case 5://沐浴之后
-                                        break;
-                                    case 6://运动之后
-                                        break;
-                                    case 7://饭后一小时
-                                        break;
-                                }
-                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
-                            }
 
-                            @Override
-                            public void noReason() {//强制插入异常数据
-                                uploadXueyaResult(getNew, down, maibo, xueyaResult, true, warningXueyaFragment);
-                            }
-                        });
-                    } else {
-                        ToastTool.showShort(message);
+        ArrayList<DetectionData> datas = new ArrayList<>();
+        DetectionData pressureData = new DetectionData();
+        DetectionData dataPulse = new DetectionData();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        pressureData.setDetectionType("0");
+        pressureData.setHighPressure(getNew);
+        pressureData.setLowPressure(down);
+        dataPulse.setDetectionType("9");
+        dataPulse.setPulse(maibo);
+        datas.add(pressureData);
+        datas.add(dataPulse);
+        uploadData(datas);
+
+
+//        Box.getRetrofit(API.class)
+//                .checkIsNormalData(userId,datas)
+//                .compose(RxUtils.httpResponseTransformer())
+//                .as(RxUtils.autoDisposeConverter(this))
+//                .subscribe(new CommonObserver<Object>() {
+//                    @Override
+//                    public void onNext(Object o) {
+//
+//                    }
+//                });
+
+
+//        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+//            @Override
+//            public void onSuccess(MeasureResult response) {
+//                startActivity(new Intent(DetectActivity.this, MeasureXueyaResultActivity.class)
+//                        .putExtra("measure_sum", response.zonggong)
+//                        .putExtra("current_gaoya", getNew + "")
+//                        .putExtra("current_diya", down + "")
+//                        .putExtra("suggest", response.message)
+//                        .putExtra("week_avg_gaoya", response.Recently_avg_high)
+//                        .putExtra("week_avg_diya", response.Recently_avg_low)
+//                        .putExtra("fenshu", response.exponent)
+//                        .putExtra("mb_gaoya", response.Psst)
+//                        .putExtra("mb_diya", response.Pdst));
+//                if (status && fragment != null) {
+//                    errorStatus = true;
+//                }
+//            }
+//        }, new NetworkManager.FailedCallback() {
+//            @Override
+//            public void onFailed(String message) {
+//                if (!TextUtils.isEmpty(message)) {
+//                    if (message.startsWith("血压超标")) {
+//                        warningXueyaFragment = new MeasureXueyaWarningFragment();
+//                        getSupportFragmentManager().beginTransaction().add(R.id.container, warningXueyaFragment).commit();
+//
+//                        warningXueyaFragment.setOnChooseReason(new MeasureChooseReason() {
+//                            @Override
+//                            public void hasReason(int reason) {
+//                                removeFragment(warningXueyaFragment);
+//                                switch (reason) {
+//                                    case -1://其他原因
+//                                        break;
+//                                    case 0://服用了降压药
+//                                        break;
+//                                    case 1://臂带佩戴不正确
+//                                        break;
+//                                    case 2://坐姿不正确
+//                                        break;
+//                                    case 3://测量过程说话了
+//                                        break;
+//                                    case 4://饮酒、咖啡之后
+//                                        break;
+//                                    case 5://沐浴之后
+//                                        break;
+//                                    case 6://运动之后
+//                                        break;
+//                                    case 7://饭后一小时
+//                                        break;
+//                                }
+//                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+//                            }
+//
+//                            @Override
+//                            public void noReason() {//强制插入异常数据
+//                                uploadXueyaResult(getNew, down, maibo, xueyaResult, true, warningXueyaFragment);
+//                            }
+//                        });
+//                    } else {
+//                        ToastTool.showShort(message);
+//                    }
+//                } else {
+//                    ToastTool.showShort("网络异常");
+//                    if (fragment != null) {
+//                        removeFragment(fragment);
+//                    }
+//                }
+//            }
+//        });
+    }
+
+    private void uploadData(ArrayList<DetectionData> datas) {
+        String userId = ((UserInfoBean) Box.getSessionManager().getUser()).bid;
+        Box.getRetrofit(API.class)
+                .postMeasureData(userId, datas)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<DetectionResult>>() {
+                    @Override
+                    public void onNext(List<DetectionResult> detectionResults) {
+                        ToastUtils.showShort("上传数据成功");
                     }
-                } else {
-                    ToastTool.showShort("网络异常");
-                    if (fragment != null) {
-                        removeFragment(fragment);
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        super.onError(ex);
+                        ToastUtils.showShort(ex.message);
                     }
-                }
-            }
-        });
+                });
     }
 
     private void removeFragment(Fragment fragment) {
@@ -347,78 +401,89 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
      * @param xuetangResut
      */
     private void uploadXuetangResult(final float xuetangResut, final boolean status, final Fragment fragment) {
-        DataInfoBean info = new DataInfoBean();
-        info.blood_sugar = String.format("%.1f", xuetangResut);
-        info.sugar_time = xuetangTimeFlag + "";
-        if (status) {
-            info.upload_state = true;
-        }
-        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
-            @Override
-            public void onSuccess(MeasureResult response) {
-                startActivity(new Intent(DetectActivity.this, MeasureXuetangResultActivity.class)
-                        .putExtra("measure_piangao_num", response.high)
-                        .putExtra("measure_zhengchang_num", response.regular)
-                        .putExtra("measure_piandi_num", response.low)
-                        .putExtra("measure_sum", response.zonggong)
-                        .putExtra("result", xuetangResut + "")
-                        .putExtra("suggest", response.message)
-                        .putExtra("week_avg_one", response.oneHour_stomach)
-                        .putExtra("week_avg_two", response.twoHour_stomach)
-                        .putExtra("week_avg_empty", response.empty_stomach)
-                        .putExtra("fenshu", response.exponent));
-                if (status && fragment != null) {
-                    errorStatus = true;
-                }
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                if (!TextUtils.isEmpty(message)) {//血糖暂时没有数据异常处理
-                    if (message.startsWith("血糖超标")) {
-                        measureXuetangFragment = new MeasureXuetangFragment();
-                        getSupportFragmentManager().beginTransaction().add(R.id.container, measureXuetangFragment).commit();
+//        DataInfoBean info = new DataInfoBean();
+//        info.blood_sugar = String.format("%.1f", xuetangResut);
+//        info.sugar_time = xuetangTimeFlag + "";
+//        if (status) {
+//            info.upload_state = true;
+//        }
 
-                        measureXuetangFragment.setOnChooseReason(new MeasureChooseReason() {
-                            @Override
-                            public void hasReason(int reason) {
-                                removeFragment(measureXuetangFragment);
-                                switch (reason) {
-                                    case -1://其他原因
-                                        break;
-                                    case 0://选择时间错误
-                                        break;
-                                    case 1://未擦掉第一滴血
-                                        break;
-                                    case 2://试纸过期
-                                        break;
-                                    case 3://血液暴露时间太久
-                                        break;
-                                    case 4://彩雪方法不对
-                                        break;
-                                    case 5://血糖仪未清洁
-                                        break;
-                                }
-                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
-                            }
+        ArrayList<DetectionData> datas = new ArrayList<>();
+        DetectionData data = new DetectionData();
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        data.setDetectionType("1");
+        data.setSugarTime(xuetangTimeFlag);
+        data.setBloodSugar(Float.parseFloat(String.format("%.1f", xuetangResut)));
+        datas.add(data);
+        uploadData(datas);
 
-                            @Override
-                            public void noReason() {
-                                uploadXuetangResult(xuetangResut, true, measureXuetangFragment);
-                            }
-                        });
 
-                    } else {
-                        ToastTool.showShort(message);
-                    }
-                } else {
-                    ToastTool.showShort("网络异常");
-                    if (fragment != null) {
-                        removeFragment(fragment);
-                    }
-                }
-            }
-        });
+//        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+//            @Override
+//            public void onSuccess(MeasureResult response) {
+//                startActivity(new Intent(DetectActivity.this, MeasureXuetangResultActivity.class)
+//                        .putExtra("measure_piangao_num", response.high)
+//                        .putExtra("measure_zhengchang_num", response.regular)
+//                        .putExtra("measure_piandi_num", response.low)
+//                        .putExtra("measure_sum", response.zonggong)
+//                        .putExtra("result", xuetangResut + "")
+//                        .putExtra("suggest", response.message)
+//                        .putExtra("week_avg_one", response.oneHour_stomach)
+//                        .putExtra("week_avg_two", response.twoHour_stomach)
+//                        .putExtra("week_avg_empty", response.empty_stomach)
+//                        .putExtra("fenshu", response.exponent));
+//                if (status && fragment != null) {
+//                    errorStatus = true;
+//                }
+//            }
+//        }, new NetworkManager.FailedCallback() {
+//            @Override
+//            public void onFailed(String message) {
+//                if (!TextUtils.isEmpty(message)) {//血糖暂时没有数据异常处理
+//                    if (message.startsWith("血糖超标")) {
+//                        measureXuetangFragment = new MeasureXuetangFragment();
+//                        getSupportFragmentManager().beginTransaction().add(R.id.container, measureXuetangFragment).commit();
+//
+//                        measureXuetangFragment.setOnChooseReason(new MeasureChooseReason() {
+//                            @Override
+//                            public void hasReason(int reason) {
+//                                removeFragment(measureXuetangFragment);
+//                                switch (reason) {
+//                                    case -1://其他原因
+//                                        break;
+//                                    case 0://选择时间错误
+//                                        break;
+//                                    case 1://未擦掉第一滴血
+//                                        break;
+//                                    case 2://试纸过期
+//                                        break;
+//                                    case 3://血液暴露时间太久
+//                                        break;
+//                                    case 4://彩雪方法不对
+//                                        break;
+//                                    case 5://血糖仪未清洁
+//                                        break;
+//                                }
+//                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+//                            }
+//
+//                            @Override
+//                            public void noReason() {
+//                                uploadXuetangResult(xuetangResut, true, measureXuetangFragment);
+//                            }
+//                        });
+//
+//                    } else {
+//                        ToastTool.showShort(message);
+//                    }
+//                } else {
+//                    ToastTool.showShort("网络异常");
+//                    if (fragment != null) {
+//                        removeFragment(fragment);
+//                    }
+//                }
+//            }
+//        });
 
     }
 
@@ -510,19 +575,27 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             isGetResustFirst = false;
                             mResultTv.setText(String.valueOf(wenduValue));
                             mHandler.sendEmptyMessageDelayed(2, 5000);
-                            DataInfoBean info = new DataInfoBean();
-                            info.temper_ature = String.valueOf(wenduValue);
-                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
-                                @Override
-                                public void onSuccess(MeasureResult response) {
-                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
-                                }
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
+//                            DataInfoBean info = new DataInfoBean();
+//                            info.temper_ature = String.valueOf(wenduValue);
 
-                                }
-                            });
+                            ArrayList<DetectionData> datas = new ArrayList<>();
+                            DetectionData temperatureData = new DetectionData();
+                            //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+                            temperatureData.setDetectionType("4");
+                            temperatureData.setTemperAture(wenduValue);
+                            datas.add(temperatureData);
+                            uploadData(datas);
+//                            NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+//                                @Override
+//                                public void onSuccess(MeasureResult response) {
+//                                    //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }, new NetworkManager.FailedCallback() {
+//                                @Override
+//                                public void onFailed(String message) {
+//
+//                                }
+//                            });
                         }
                         speak(String.format(getString(R.string.tips_result_wendu), String.valueOf(wenduValue), wenduResult));
                         break;
@@ -599,6 +672,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             if (isGetResustFirst) {
                                 isGetResustFirst = false;
                                 mHandler.sendEmptyMessageDelayed(2, 30000);
+
+
                                 DataInfoBean info = new DataInfoBean();
                                 info.blood_oxygen = String.format(String.valueOf(notifyData[5]));
                                 info.pulse = (int) notifyData[6];
@@ -608,18 +683,33 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 } else {
                                     xueyangResult = mXueYangResults[1];
                                 }
-                                speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen,xueyangResult));
-                                NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
-                                    @Override
-                                    public void onSuccess(MeasureResult response) {
-                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
-                                    }
-                                }, new NetworkManager.FailedCallback() {
-                                    @Override
-                                    public void onFailed(String message) {
+                                speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen, xueyangResult));
 
-                                    }
-                                });
+
+                                ArrayList<DetectionData> datas = new ArrayList<>();
+                                DetectionData pressureData = new DetectionData();
+                                DetectionData dataPulse = new DetectionData();
+                                //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+                                pressureData.setDetectionType("6");
+                                pressureData.setBloodOxygen(Float.parseFloat(String.format(String.valueOf(notifyData[5]))));
+                                dataPulse.setDetectionType("9");
+                                dataPulse.setPulse((int) notifyData[6]);
+                                datas.add(pressureData);
+                                datas.add(dataPulse);
+
+                                uploadData(datas);
+
+//                                NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+//                                    @Override
+//                                    public void onSuccess(MeasureResult response) {
+//                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }, new NetworkManager.FailedCallback() {
+//                                    @Override
+//                                    public void onFailed(String message) {
+//
+//                                    }
+//                                });
                             }
                         }
                         break;
@@ -643,19 +733,28 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     speak("主人，您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。正常");
                                 }
 
-                                DataInfoBean info = new DataInfoBean();
-                                info.weight = result;
-                                NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
-                                    @Override
-                                    public void onSuccess(MeasureResult response) {
-                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
-                                    }
-                                }, new NetworkManager.FailedCallback() {
-                                    @Override
-                                    public void onFailed(String message) {
+//                                DataInfoBean info = new DataInfoBean();
+//                                info.weight = result;
 
-                                    }
-                                });
+
+                                ArrayList<DetectionData> datas = new ArrayList<>();
+                                DetectionData data = new DetectionData();
+                                //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+                                data.setDetectionType("3");
+                                data.setWeight(result);
+                                datas.add(data);
+                                uploadData(datas);
+//                                NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+//                                    @Override
+//                                    public void onSuccess(MeasureResult response) {
+//                                        //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }, new NetworkManager.FailedCallback() {
+//                                    @Override
+//                                    public void onFailed(String message) {
+//
+//                                    }
+//                                });
                             }
                         }
                         break;
@@ -665,20 +764,34 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         //onDetectView.setVisibility(View.GONE);
                         ((TextView) findViewById(R.id.tv_xindian)).setText(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
-                        DataInfoBean ecgInfo = new DataInfoBean();
-                        ecgInfo.ecg = notifyData[17];
-                        ecgInfo.heart_rate = notifyData[16] & 0xff;
-                        NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
-                            @Override
-                            public void onSuccess(MeasureResult response) {
-                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
-                            }
-                        }, new NetworkManager.FailedCallback() {
-                            @Override
-                            public void onFailed(String message) {
 
-                            }
-                        });
+
+//                        DataInfoBean ecgInfo = new DataInfoBean();
+//                        ecgInfo.ecg = notifyData[17];
+//                        ecgInfo.heart_rate = notifyData[16] & 0xff;
+
+                        ArrayList<DetectionData> datas = new ArrayList<>();
+                        DetectionData ecgData = new DetectionData();
+                        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+                        ecgData.setDetectionType("2");
+                        ecgData.setEcg(String.valueOf(notifyData[17]));
+                        ecgData.setResult(mEcgResults[notifyData[17]]);
+                        ecgData.setHeartRate(notifyData[16] & 0xff);
+                        datas.add(ecgData);
+                        uploadData(datas);
+
+
+//                        NetworkApi.postData(ecgInfo, new NetworkManager.SuccessCallback<MeasureResult>() {
+//                            @Override
+//                            public void onSuccess(MeasureResult response) {
+//                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }, new NetworkManager.FailedCallback() {
+//                            @Override
+//                            public void onFailed(String message) {
+//
+//                            }
+//                        });
                         speak(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
                         break;
                     case Type_SanHeYi:
@@ -710,6 +823,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         DataInfoBean info = new DataInfoBean();
         String sex = LocalShared.getInstance(this).getSex();
         String speakFlag;
+
         if (notifyData[1] == 65) {//血糖
             info.blood_sugar = String.valueOf(afterResult);
             info.sugar_time = xuetangTimeFlag + "";
@@ -722,6 +836,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             else
                 speakFlag = "正常";
             speak(String.format(getString(R.string.tips_result_xuetang), String.valueOf(afterResult), speakFlag));
+
+            ArrayList<DetectionData> datas=new ArrayList<>();
+            DetectionData sugarData = new DetectionData();
+            sugarData.setDetectionType("1");
+            sugarData.setSugarTime(xuetangTimeFlag);
+            sugarData.setBloodSugar((float) afterResult);
+            datas.add(sugarData);
+            uploadData(datas);
 
         } else if (notifyData[1] == 81) {//尿酸
             String formatString = String.format("%.2f", afterResult);
@@ -743,6 +865,14 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     speakFlag = "正常";
             }
             speak(String.format(getString(R.string.tips_result_niaosuan), formatString, speakFlag));
+
+
+            ArrayList<DetectionData> datas=new ArrayList<>();
+            DetectionData lithicAcidData = new DetectionData();
+            lithicAcidData.setDetectionType("8");
+            lithicAcidData.setUricAcid(Float.parseFloat(String.valueOf(Float.parseFloat(formatString) * 1000)));
+            uploadData(datas);
+
         } else if (notifyData[1] == 97) {//胆固醇
             info.cholesterol = String.format("%.2f", afterResult);
             mSanHeYiThreeTv.setText(String.format("%.2f", afterResult));
@@ -753,19 +883,26 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             else
                 speakFlag = "正常";
             speak(String.format(getString(R.string.tips_result_danguchun), String.format("%.2f", afterResult), speakFlag));
+
+            ArrayList<DetectionData> datas=new ArrayList<>();
+            DetectionData cholesterolData = new DetectionData();
+            cholesterolData.setDetectionType("7");
+            cholesterolData.setCholesterol(Float.parseFloat(String.format("%.2f", afterResult)));
+            datas.add(cholesterolData);
+            uploadData(datas);
         }
 
-        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
-            @Override
-            public void onSuccess(MeasureResult response) {
-
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-
-            }
-        });
+//        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+//            @Override
+//            public void onSuccess(MeasureResult response) {
+//
+//            }
+//        }, new NetworkManager.FailedCallback() {
+//            @Override
+//            public void onFailed(String message) {
+//
+//            }
+//        });
     }
 
     public ImageView ivBack;

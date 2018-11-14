@@ -11,7 +11,6 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.medlink.danbogh.register.SelectAdapter;
@@ -61,8 +60,8 @@ public class AlertHeightActivity extends BaseActivity {
     }
 
     protected void initView() {
-        if (!TextUtils.isEmpty(data.eating_habits)) {
-            switch (data.eating_habits) {
+        if (!TextUtils.isEmpty(data.eatingHabits)) {
+            switch (data.eatingHabits) {
                 case "荤素搭配":
                     eat = "1";
                     break;
@@ -106,8 +105,8 @@ public class AlertHeightActivity extends BaseActivity {
                     break;
             }
         }
-        if (!TextUtils.isEmpty(data.exercise_habits)) {
-            switch (data.exercise_habits) {
+        if (!TextUtils.isEmpty(data.exerciseHabits)) {
+            switch (data.exerciseHabits) {
                 case "每天一次":
                     exercise = "1";
                     break;

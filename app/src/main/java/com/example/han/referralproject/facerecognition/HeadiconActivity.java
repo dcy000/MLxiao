@@ -21,10 +21,9 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.gzq.administrator.lib_common.utils.PinYinUtils;
+import com.example.han.referralproject.util.PinYinUtils;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
-import com.orhanobut.logger.Logger;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
@@ -124,7 +123,6 @@ public class HeadiconActivity extends BaseActivity {
         //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
         String groupId = LocalShared.getInstance(mContext).getGroupId();
         String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
-        Logger.e("组id" + groupId);
         if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
             Log.e("组信息", "checkGroup: 该机器组已近存在");
             joinGroup(userid, groupId, xfid);
@@ -192,7 +190,6 @@ public class HeadiconActivity extends BaseActivity {
         FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
-                Logger.e("创建组成功" + result);
                 try {
                     JSONObject resObj = new JSONObject(result.getResultString());
                     String groupId = resObj.getString("group_id");
@@ -215,9 +212,8 @@ public class HeadiconActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError error) {
-                Logger.e(error, "创建组失败");
 //                if (error.getErrorCode() == 10144) {//创建组的数量达到上限
-//                    ToastTool.showShort("出现技术故障，请致电客服咨询");
+//                    ToastUtils.showShort("出现技术故障，请致电客服咨询");
 //                }
                 //如果在此处创建组失败就跳过创建
                 uploadHeadToSelf(userid, xfid);
@@ -242,7 +238,6 @@ public class HeadiconActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError error) {
-                Logger.e(error, "添加成员出现异常");
                 if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
                     createGroup(userid, xfid);
                 } else {

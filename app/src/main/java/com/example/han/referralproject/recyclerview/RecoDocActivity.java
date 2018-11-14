@@ -21,8 +21,8 @@ import com.example.han.referralproject.activity.OfflineActivity;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.PinYinUtils;
 import com.example.han.referralproject.util.ToastTool;
-import com.gzq.administrator.lib_common.utils.PinYinUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;

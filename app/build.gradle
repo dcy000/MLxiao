@@ -17,7 +17,7 @@ android {
         renderscriptSupportModeEnabled true    // Enable RS support
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86'
+            abiFilters 'armeabi-v7a'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
 
@@ -26,22 +26,34 @@ android {
                 JPUSH_APPKEY : "81695cca09ae6e2afffe15f4", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
+
+        packagingOptions{
+//            pickFirst 'lib/arm64-v8a/librsjni.so'
+//            pickFirst 'lib/armeabi-v7a/libRSSupport.so'
+//            pickFirst 'lib/arm64-v8a/libRSSupport.so'
+//            pickFirst 'lib/mips/libRSSupport.so'
+//            pickFirst 'lib/x86/libRSSupport.so'
+//            pickFirst 'lib/mips/librsjni.so'
+//            pickFirst 'lib/x86_64/libRSSupport.so'
+//            pickFirst 'lib/x86/librsjni.so'
+//            pickFirst 'lib/x86_64/librsjni.so'
+//            pickFirst 'lib/armeabi-v7a/librsjni.so'
+            pickFirst 'lib/x86/libc++_shared.so'
+            pickFirst 'lib/arm64-v8a/libc++_shared.so'
+            pickFirst 'lib/x86_64/libc++_shared.so'
+            pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        }
     }
 
     dataBinding {
         enabled = true
     }
     productFlavors {
-        // Define separate dev and prod product flavors.
         dev {
-            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
-            // to pre-dex each module and produce an APK that can be tested on
-            // Android Lollipop without time consuming dex merging processes.
             minSdkVersion 19
         }
         prod {
-            // The actual minSdkVersion for the application.
-            minSdkVersion 14
+            minSdkVersion 19
         }
     }
 
@@ -53,6 +65,8 @@ android {
             shrinkResources false
             //TODO:老地址下面这行代码是固定代码，请不要注释，不要更改，如需更换地址请到config.gradle中进行更改。重要！重要！重要！
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
+
+            signingConfig signingConfigs.debug
         }
 
         debug {
@@ -60,6 +74,8 @@ android {
 
             //TODO:老地址下面这行代码是固定代码，请不要注释，不要更改，如需更换地址请到config.gradle中进行更改。重要！重要！重要！
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
+
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -72,6 +88,7 @@ android {
 
     dexOptions {
         javaMaxHeapSize '4g'
+        jumboMode = true
     }
 
     lintOptions {
@@ -115,11 +132,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
     implementation 'com.android.support:multidex:1.0.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.8.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     //    compile 'com.hyphenate:hyphenate-sdk:3.3.2'
     implementation 'com.jakewharton:butterknife:8.4.0'
     implementation 'org.litepal.android:core:1.6.0'
@@ -182,13 +196,8 @@ dependencies {
     implementation project(':circleprogress')
     implementation project(':expand-textview-library')
     implementation project(':lib-rulerview')
-    //日志库
-    implementation 'com.orhanobut:logger:2.1.1'
-    //    compile 'me.relex:circleindicator:1.2.2@aar'
     implementation project(':circleindicator')
     implementation project(':voice')
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.3'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
     implementation project(':lib-ecg')
-    implementation project(':lib-common')
+    implementation project(':lib-core')
 }

@@ -21,18 +21,25 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
+import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 
 import java.util.ArrayList;
 
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 
 public class WelcomeActivity extends BaseActivity {
 
@@ -45,8 +52,8 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            initContentView();
+        super.onCreate(savedInstanceState);
+        initContentView();
     }
 
     private void initContentView() {
@@ -68,6 +75,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void checkVersion() {
+        final String userId = MyApplication.getInstance().userId;
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override
             public void onSuccess(VersionInfoBean response) {
@@ -87,14 +95,14 @@ public class WelcomeActivity extends BaseActivity {
                                 // 如果从开始计时到现在超过了60s
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
-                                    if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+                                    if (TextUtils.isEmpty(userId)) {
                                         Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
                                         startActivity(intent);
+                                        finish();
                                     } else {
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(intent);
+                                        queryUserInfo(userId);
                                     }
-                                    finish();
+
                                 }
                             }
                         });
@@ -118,14 +126,14 @@ public class WelcomeActivity extends BaseActivity {
                         // 如果从开始计时到现在超过了60s
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
-                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+                            if (TextUtils.isEmpty(userId)) {
                                 Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
                                 startActivity(intent);
+                                finish();
                             } else {
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
+                                queryUserInfo(userId);
                             }
-                            finish();
+
                         }
                     }
                 });
@@ -133,9 +141,31 @@ public class WelcomeActivity extends BaseActivity {
         });
     }
 
+    private void queryUserInfo(String userId) {
+        Box.getRetrofit(API.class)
+                .queryUserInfo(userId)
+                .compose(RxUtils.httpResponseTransformer(false))
+                .doOnNext(new Consumer<UserInfoBean>() {
+                    @Override
+                    public void accept(UserInfoBean userInfoBean) throws Exception {
+                        Box.getSessionManager().setUser(userInfoBean);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<UserInfoBean>() {
+                    @Override
+                    public void onNext(UserInfoBean userInfoBean) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+    }
+
     //判断服务是否已经启动
     private boolean isWorked(String className) {
-        ActivityManager myManager = (ActivityManager) MyApplication.getInstance().getSystemService(
+        ActivityManager myManager = (ActivityManager) Box.getApp().getSystemService(
                 Context.ACTIVITY_SERVICE);
         ArrayList<ActivityManager.RunningServiceInfo> runningService = (ArrayList<ActivityManager.RunningServiceInfo>) myManager
                 .getRunningServices(200);

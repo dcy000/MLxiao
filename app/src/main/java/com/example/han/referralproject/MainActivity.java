@@ -26,7 +26,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
-import com.gzq.administrator.lib_common.utils.PinYinUtils;
+import com.example.han.referralproject.util.PinYinUtils;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;

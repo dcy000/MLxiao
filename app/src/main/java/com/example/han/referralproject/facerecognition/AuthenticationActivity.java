@@ -18,7 +18,6 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PreviewCallback;
-import android.media.FaceDetector;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,7 +33,6 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
@@ -59,7 +57,6 @@ import com.iflytek.cloud.SpeechError;
 import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
-import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -124,9 +121,7 @@ public class AuthenticationActivity extends BaseActivity {
                                 JSONObject resultJson = new JSONObject(resultStr);
                                 if (ErrorCode.SUCCESS == resultJson.getInt("ret")) {//此处检验百分比
                                     JSONArray scoreList = resultJson.getJSONObject("ifv_result").getJSONArray("candidates");
-                                    Logger.e(scoreList.toString());
                                     String scoreFirstXfid = scoreList.getJSONObject(0).optString("user");
-                                    Logger.e("最高分数的讯飞id" + scoreFirstXfid);
                                     final double firstScore = scoreList.getJSONObject(0).optDouble("score");
                                     if (firstScore > 80) {
                                         if ("Test".equals(fromString) || "Welcome".equals(fromString)) {
@@ -154,7 +149,6 @@ public class AuthenticationActivity extends BaseActivity {
                                     finishActivity();
                                 }
                             } catch (JSONException e) {
-                                Logger.e(e, "验证失败");
                             }
                         }
 
@@ -165,7 +159,6 @@ public class AuthenticationActivity extends BaseActivity {
 
                         @Override
                         public void onError(SpeechError error) {
-                            Logger.e(error, "验证出错");
                             if (authenticationNum < 5) {
                                 authenticationNum++;
                                 ToastTool.showShort("第" + Utils.getChineseNumber(authenticationNum) + "次验证失败");
@@ -221,11 +214,10 @@ public class AuthenticationActivity extends BaseActivity {
             for (int i = 0; i < mDataList.size(); i++) {
                 UserInfoBean user = mDataList.get(i);
                 if (user.xfid.equals(scoreFirstXfid)) {
-                    Logger.e("识别到的讯飞id" + user.xfid + "++++识别到的人" + user.bname);
                     new JpushAliasUtils(AuthenticationActivity.this).setAlias("user_" + user.bid);
                     LocalShared.getInstance(mContext).setUserInfo(user);
                     LocalShared.getInstance(mContext).setSex(user.sex);
-                    LocalShared.getInstance(mContext).setUserPhoto(user.user_photo);
+                    LocalShared.getInstance(mContext).setUserPhoto(user.userPhoto);
                     LocalShared.getInstance(mContext).setUserAge(user.age);
                     LocalShared.getInstance(mContext).setUserHeight(user.height);
                     isInclude_PassPerson = true;
@@ -335,7 +327,6 @@ public class AuthenticationActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError error) {
-                Logger.e(error, "添加成员出现异常");
                 if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
                     createGroup(currentXfid);
                 } else {
@@ -370,7 +361,6 @@ public class AuthenticationActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError error) {
-                Logger.e(error, "创建组失败");
             }
         });
     }
@@ -450,7 +440,6 @@ public class AuthenticationActivity extends BaseActivity {
     private Callback callback = new Callback() {
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-            Logger.e("getHolder().addCallback所在线程");
             Handlers.bg().post(new Runnable() {
                 @Override
                 public void run() {
@@ -546,7 +535,6 @@ public class AuthenticationActivity extends BaseActivity {
                     myHandler.sendEmptyMessage(TO_CAMERA_PRE_RESOLVE);
                     openOrcloseAnimation = false;
                 }
-                Logger.e("动画结束");
             }
 
             @Override
@@ -683,7 +671,6 @@ public class AuthenticationActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Logger.e("onDestroy");
         Handlers.bg().removeCallbacksAndMessages(null);
         if (lottAnimation != null)
             lottAnimation.cancelAnimation();

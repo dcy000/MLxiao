@@ -9,9 +9,10 @@ include ':app',
         ':lib-video-player',
         ':lib-zxing',
         ':voice',
-        ':lib-common',
+//        ':lib-common',
         ':lib-ecg',
         ':expand-textview-library',
-        ':circleindicator'
+        ':circleindicator',
+        'lib-core'
 
 

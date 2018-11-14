@@ -208,7 +208,7 @@ public class UserInfo {
     public String toString() {
         return "UserInfo [doctername=" + doctername + ", sfz=" + sfz + ", sex=" + sex + ", eqid=" + eqid + ", bname="
                 + bname + ", dz=" + dz + ", tel=" + tel + ", categoryname=" + categoryname + ", mh=" + mh + ", state="
-                + state + ", bid=" + bid + ", age=" + age + ", categoryid=" + categoryid + ", user_photo=" + user_photo + ", amount=" + amount + ", xfid=" + xfid + "]";
+                + state + ", bid=" + bid + ", age=" + age + ", categoryid=" + categoryid + ", userPhoto=" + user_photo + ", amount=" + amount + ", xfid=" + xfid + "]";
     }
 
 

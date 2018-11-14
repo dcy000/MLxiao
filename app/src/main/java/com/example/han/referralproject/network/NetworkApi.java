@@ -48,6 +48,7 @@ import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
 import com.google.gson.reflect.TypeToken;
+import com.gzq.lib_core.base.Box;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -575,11 +576,11 @@ public class NetworkApi {
         paramsMap.put("sfz", sfz);
         paramsMap.put("height", String.valueOf(height));
         paramsMap.put("weight", String.valueOf(weight));
-        paramsMap.put("blood_type", bloodType);
-        paramsMap.put("eating_habits", eat);
+        paramsMap.put("bloodType", bloodType);
+        paramsMap.put("eatingHabits", eat);
         paramsMap.put("smoke", smoke);
         paramsMap.put("drink", drink);
-        paramsMap.put("exercise_habits", sports);
+        paramsMap.put("exerciseHabits", sports);
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, listener, failedCallback);
     }
 
@@ -650,8 +651,8 @@ public class NetworkApi {
         ApplicationInfo appInfo = null;
         String msg = "";
         try {
-            appInfo = MyApplication.getInstance().getPackageManager()
-                    .getApplicationInfo(MyApplication.getInstance().getPackageName(), PackageManager.GET_META_DATA);
+            appInfo = Box.getApp().getPackageManager()
+                    .getApplicationInfo(Box.getApp().getPackageName(), PackageManager.GET_META_DATA);
             msg = appInfo.metaData.getString("com.gcml.version");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -979,10 +980,10 @@ public class NetworkApi {
         params.put("bid", bid);
         params.put("height", height);
         params.put("weight", weight);
-        params.put("eating_habits", eating_habits);
+        params.put("eatingHabits", eating_habits);
         params.put("smoke", smoke);
         params.put("drink", drink);
-        params.put("exercise_habits", exercise_habits);
+        params.put("exerciseHabits", exercise_habits);
         params.put("mh", mh);
         params.put("dz", dz);
         NetworkManager.getInstance().postResultClass(Alert_Basedata, params, Object.class, successCallback, failedCallback);

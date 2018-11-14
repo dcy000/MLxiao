@@ -31,22 +31,26 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.example.han.referralproject.bean.SessionBean;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.facerecognition.CreateGroupListener;
 import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
 import com.example.han.referralproject.facerecognition.JoinGroupListener;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.PinYinUtils;
 import com.example.han.referralproject.util.ToastTool;
-import com.gzq.administrator.lib_common.utils.PinYinUtils;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
-import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,6 +62,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 public class SignInActivity extends BaseActivity {
 
@@ -94,10 +103,11 @@ public class SignInActivity extends BaseActivity {
         ((TextView) findViewById(R.id.tv_version)).setText(getLocalVersionName());
         registerReceiver(wifiChangedReceiver, new IntentFilter(WifiManager.RSSI_CHANGED_ACTION));
     }
+
     private BroadcastReceiver wifiChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e("网络强度发生变化", "onReceive: " );
+            Log.e("网络强度发生变化", "onReceive: ");
             int level = obtainWifiInfo();
             if (level <= 0 && level >= -50) {
                 mRightView.setImageResource(R.drawable.dark_wifi_3);
@@ -108,6 +118,7 @@ public class SignInActivity extends BaseActivity {
             }
         }
     };
+
     private int obtainWifiInfo() {
         // Wifi的连接速度及信号强度：
         int strength = 0;
@@ -125,6 +136,7 @@ public class SignInActivity extends BaseActivity {
         }
         return strength;
     }
+
     private CompoundButton.OnCheckedChangeListener onCheckedChangeListener =
             new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -206,43 +218,73 @@ public class SignInActivity extends BaseActivity {
             return;
         }
         showLoadingDialog(getString(R.string.do_login));
-        NetworkApi.login(etPhone.getText().toString(), etPassword.getText().toString(), new NetworkManager.SuccessCallback<UserInfoBean>() {
-            @Override
-            public void onSuccess(UserInfoBean response) {
-                checkGroup(response.xfid);
-                new JpushAliasUtils(SignInActivity.this).setAlias("user_" + response.bid);
-                LocalShared.getInstance(mContext).setUserInfo(response);
-                LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
-                LocalShared.getInstance(mContext).setSex(response.sex);
-                LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
-                LocalShared.getInstance(mContext).setUserAge(response.age);
-                LocalShared.getInstance(mContext).setUserHeight(response.height);
-                hideLoadingDialog();
-                startActivity(new Intent(mContext, MainActivity.class));
-                finish();
-                Logger.e("本次登录人的userid"+response.bid);
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                hideLoadingDialog();
-                T.show("手机号或密码错误");
-            }
-        });
+
+        Box.getRetrofit(API.class)
+                .login(etPhone.getText().toString(), etPassword.getText().toString())
+                .compose(RxUtils.httpResponseTransformer(false))
+                .compose(userTokenTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<UserInfoBean>() {
+                    @Override
+                    public void onNext(UserInfoBean response) {
+                        checkGroup(response.xfid);
+                        new JpushAliasUtils(SignInActivity.this).setAlias("user_" + response.bid);
+                        LocalShared.getInstance(mContext).setUserInfo(response);
+                        LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
+                        LocalShared.getInstance(mContext).setSex(response.sex);
+                        LocalShared.getInstance(mContext).setUserPhoto(response.userPhoto);
+                        LocalShared.getInstance(mContext).setUserAge(response.age);
+                        LocalShared.getInstance(mContext).setUserHeight(response.height);
+
+                        hideLoadingDialog();
+                        startActivity(new Intent(mContext, MainActivity.class));
+                        finish();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        super.onError(ex);
+                        hideLoadingDialog();
+                        ToastUtils.showShort(ex.getMessage());
+                    }
+                });
     }
 
-    private void checkGroup( final String xfid) {
+    private ObservableTransformer<SessionBean, UserInfoBean> userTokenTransformer() {
+        return new ObservableTransformer<SessionBean, UserInfoBean>() {
+            @Override
+            public ObservableSource<UserInfoBean> apply(Observable<SessionBean> upstream) {
+                return upstream
+                        .flatMap(new Function<SessionBean, ObservableSource<UserInfoBean>>() {
+                            @Override
+                            public ObservableSource<UserInfoBean> apply(SessionBean userToken) throws Exception {
+                                return Box.getRetrofit(API.class)
+                                        .queryUserInfo(userToken.getUserId() + "")
+                                        .compose(RxUtils.httpResponseTransformer());
+                            }
+                        })
+                        .doOnNext(new Consumer<UserInfoBean>() {
+                            @Override
+                            public void accept(UserInfoBean user) throws Exception {
+                                Box.getSessionManager().setUser(user);
+                            }
+                        });
+            }
+        };
+    }
+
+    private void checkGroup(final String xfid) {
         //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
         String groupId = LocalShared.getInstance(mContext).getGroupId();
         String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
-        Logger.e("组id"+groupId);
         if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
-            Log.e("组信息", "checkGroup: 该机器组已近存在" );
-            joinGroup(groupId,xfid);
-        }else{
+            Log.e("组信息", "checkGroup: 该机器组已近存在");
+            joinGroup(groupId, xfid);
+        } else {
             createGroup(xfid);
         }
     }
+
     private void joinGroup(String groupid, final String xfid) {
         FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, xfid);
         FaceAuthenticationUtils.getInstance(SignInActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
@@ -257,7 +299,6 @@ public class SignInActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError error) {
-                Logger.e(error, "添加成员出现异常");
                 if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
                     createGroup(xfid);
                 }
@@ -277,7 +318,7 @@ public class SignInActivity extends BaseActivity {
                     LocalShared.getInstance(SignInActivity.this).setGroupId(groupId);
                     LocalShared.getInstance(SignInActivity.this).setGroupFirstXfid(xfid);
                     //组创建好以后把自己加入到组中去
-                    joinGroup(groupId,xfid);
+                    joinGroup(groupId, xfid);
                     FaceAuthenticationUtils.getInstance(SignInActivity.this).updateGroupInformation(groupId, xfid);
 
                 } catch (JSONException e) {
@@ -292,18 +333,18 @@ public class SignInActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError error) {
-                Logger.e(error, "创建组失败");
-//                ToastTool.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
+//                ToastUtils.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
             }
         });
     }
+
     @OnClick(R.id.tv_sign_in_sign_up)
     public void onTvSignUpClicked() {
         //获取所有账号
         String[] accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts == null) {
             ToastTool.showLong("未检测到您的登录历史，请输入账号和密码登录");
-        }else {
+        } else {
             startActivity(new Intent(SignInActivity.this, AuthenticationActivity.class).putExtra("from", "Welcome"));
         }
 //        startActivity(new Intent(SignInActivity.this, SignUp1NameActivity.class));

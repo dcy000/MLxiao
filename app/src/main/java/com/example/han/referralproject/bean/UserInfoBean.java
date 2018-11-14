@@ -19,12 +19,13 @@ public class UserInfoBean implements Serializable{
     public String qyzt;
     public String height;
     public String weight;
-    public String blood_type;
-    public String eating_habits;
+    public String bloodType;
+    public String eatingHabits;
     public String smoke;
     public String drink;
-    public String exercise_habits;
-    public String user_photo;
+    public String exerciseHabits;
+    public String userPhoto;
     public String xfid;
-
+    public String hypertensionPrimaryState;
+    public String wyyxId;
 }

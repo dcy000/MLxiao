@@ -18,10 +18,10 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.util.PinYinUtils;
 import com.example.han.referralproject.util.ToastTool;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.gzq.administrator.lib_common.utils.PinYinUtils;
 import com.medlink.danbogh.register.entity.City;
 import com.medlink.danbogh.register.entity.Province;
 import com.medlink.danbogh.utils.Handlers;
@@ -72,8 +72,8 @@ public class AlertAddressActivity extends BaseActivity {
     }
 
     private void initLocation() {
-        if (!TextUtils.isEmpty(data.eating_habits)) {
-            switch (data.eating_habits) {
+        if (!TextUtils.isEmpty(data.eatingHabits)) {
+            switch (data.eatingHabits) {
                 case "荤素搭配":
                     eat = "1";
                     break;
@@ -117,8 +117,8 @@ public class AlertAddressActivity extends BaseActivity {
                     break;
             }
         }
-        if (!TextUtils.isEmpty(data.exercise_habits)) {
-            switch (data.exercise_habits) {
+        if (!TextUtils.isEmpty(data.exerciseHabits)) {
+            switch (data.exerciseHabits) {
                 case "每天一次":
                     exercise = "1";
                     break;

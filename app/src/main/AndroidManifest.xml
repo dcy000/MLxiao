@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.han.referralproject"
     tools:overrideLibrary="com.witspring.mlrobot">
+
     <uses-sdk tools:overrideLibrary="tv.danmaku.ijk.media.player_arm64" />
 
     <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
@@ -77,7 +78,6 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
-        android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -85,6 +85,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:label,android:theme">
+
+        <meta-data
+            android:name="com.example.han.referralproject.application.GlobalConfiguration"
+            android:value="GlobalConfig" />
+        <meta-data
+            android:name="com.example.han.referralproject.application.MyApplication"
+            android:value="AppLifecycle" />
+
+
+
         <service android:name=".new_music.MusicService" />
 
         <provider
@@ -472,9 +482,7 @@
             android:name=".floatingball.AssistiveTouchService"
             android:process=":serviceY" />
 
-        <service
-            android:name=".floatball.MyService"
-            />
+        <service android:name=".floatball.MyService" />
 
 
         <activity
@@ -521,12 +529,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.ChooseLoginTypeActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".measure.InstructionsActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".measure.OnMeasureActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".measure.MeasureXueyaResultActivity"
@@ -611,7 +613,7 @@
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp01NameActivity"
             android:taskAffinity="com.medlink.fastsignup"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity"
             android:taskAffinity="com.medlink.fastsignup" />
@@ -684,6 +686,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".settting.activity.KeyWordEdit2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ecg.ECGCompatActivity"
             android:screenOrientation="landscape" />
     </application>
 

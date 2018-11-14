@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.gzq.lib_core.base.Box;
 
 /**
  * Created by lenovo on 2017/10/26.
@@ -24,9 +25,9 @@ public class CallSoundPlayer {
         NO_RESPONSE,
         PEER_BUSY,
         PEER_REJECT,
-        RING,
-        ;
+        RING,;
     }
+
     private Context context;
 
     private SoundPool soundPool;
@@ -43,9 +44,9 @@ public class CallSoundPlayer {
     private RingModeChangeReceiver ringModeChangeReceiver;
 
     public static CallSoundPlayer instance() {
-        if(instance == null) {
+        if (instance == null) {
             synchronized (CallSoundPlayer.class) {
-                if(instance == null) {
+                if (instance == null) {
                     instance = new CallSoundPlayer();
                 }
             }
@@ -54,7 +55,7 @@ public class CallSoundPlayer {
     }
 
     public CallSoundPlayer() {
-        this.context = MyApplication.getInstance();
+        this.context = Box.getApp();
     }
 
     public synchronized void play(RingerType type) {
@@ -84,7 +85,7 @@ public class CallSoundPlayer {
                 break;
         }
 
-        if(ringId != 0) {
+        if (ringId != 0) {
             play(ringId);
         }
 
@@ -138,16 +139,16 @@ public class CallSoundPlayer {
         }
     };
 
-    private void registerVolumeReceiver(boolean register){
+    private void registerVolumeReceiver(boolean register) {
         if (ringModeChangeReceiver == null) {
-            ringModeChangeReceiver = new RingModeChangeReceiver() ;
+            ringModeChangeReceiver = new RingModeChangeReceiver();
         }
 
         if (register) {
             isRingModeRegister = true;
-            IntentFilter filter = new IntentFilter() ;
-            filter.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION) ;
-            context.registerReceiver(ringModeChangeReceiver, filter) ;
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
+            context.registerReceiver(ringModeChangeReceiver, filter);
         } else {
             context.unregisterReceiver(ringModeChangeReceiver);
             isRingModeRegister = false;

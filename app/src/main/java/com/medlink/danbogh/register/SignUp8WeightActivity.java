@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.util.LocalShared;
-import com.gzq.administrator.lib_common.utils.PinYinUtils;
+import com.example.han.referralproject.util.PinYinUtils;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 

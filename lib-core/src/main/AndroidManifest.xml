@@ -1,0 +1,31 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gzq.lib_core">
+    <!-- 网络连接 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 网络状态权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application android:name="com.gzq.lib_core.base.App">
+        <activity
+            android:name=".crash.DefaultErrorActivity"
+            android:process=":error_activity" />
+        <provider
+            android:name=".crash.CaocInitProvider"
+            android:authorities="${applicationId}.customactivityoncrashinitprovider"
+            android:exported="false"
+            android:initOrder="101" />
+
+        <meta-data
+            android:name="com.gzq.lib_core.base.Box"
+            android:value="AppLifecycle" />
+        <meta-data
+            android:name="com.gzq.lib_core.base.quality.QualityActivity"
+            android:value="ActivityLifecycle" />
+        <meta-data
+            android:name="com.gzq.lib_core.base.quality.QualityFragment"
+            android:value="FragmentLifecycle" />
+        <!--<meta-data-->
+            <!--android:name="com.gzq.lib_core.base.quality.QualityBlockCanary"-->
+            <!--android:value="AppLifecycle" />-->
+    </application>
+</manifest>

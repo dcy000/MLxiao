@@ -14,9 +14,7 @@ import com.example.han.referralproject.bean.WeeklyReport;
 import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.ToastTool;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +89,6 @@ public class WeeklyReportActivity extends BaseActivity {
                     fragment1.notifyData(response.lastWeek);
                     fragment2.notifyData(response.lastWeek);
                     fragment3.notifyData(response.lastWeek);
-                    Logger.e("返回测量数据成功" + response);
                 } else {
                     ToastTool.showShort("暂无周报告");
                     speak("主人，您的测量数据太少，我们还不能为您生成本周的报告。请您坚持每天测量，我们将在每周一为您生成新报告");
@@ -100,7 +97,6 @@ public class WeeklyReportActivity extends BaseActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                Logger.e("返回测量数据失败" + message);
                 ToastTool.showShort("暂无周报告");
                 speak("主人，您的测量数据太少，我们还不能为您生成本周的报告。请您坚持每天测量，我们将在每周一为您生成新报告");
             }

@@ -3,30 +3,21 @@ package com.example.han.referralproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
 import com.medlink.danbogh.utils.Utils;
 import com.squareup.picasso.Picasso;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by gzq on 2017/11/24.
@@ -115,7 +106,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 Log.e(TAG, response.toString());
                 MyBaseDataActivity.this.response = response;
                 Picasso.with(MyBaseDataActivity.this)
-                        .load(response.user_photo)
+                        .load(response.userPhoto)
                         .placeholder(R.drawable.avatar_placeholder)
                         .error(R.drawable.avatar_placeholder)
                         .tag(this)
@@ -127,12 +118,12 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 mSex.setText(response.sex);
                 mHeight.setText(response.height + "cm");
                 mWeight.setText(response.weight + "Kg");
-                mBlood.setText(response.blood_type + "型");
+                mBlood.setText(response.bloodType + "型");
                 mPhone.setText(response.tel);
                 mNumber.setText(response.eqid);
-                mMotion.setText(response.exercise_habits);
+                mMotion.setText(response.exerciseHabits);
                 mSmoke.setText(response.smoke);
-                mEating.setText(response.eating_habits);
+                mEating.setText(response.eatingHabits);
                 mDrinking.setText(response.drink);
                 mAddress.setText(response.dz);
                 mHistory.setText(response.mh.trim());

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
+import com.example.han.referralproject.ecg.ECGCompatActivity;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 
@@ -42,11 +43,12 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
     private long lastClickTime = 0;
 
     private boolean isTest;
+
     /**
      * 返回上一页
      */
     protected void backLastActivity() {
-        if (isTest){
+        if (isTest) {
             backMainActivity();
         }
         finish();
@@ -67,7 +69,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_test_main2);
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
-        isTest=getIntent().getBooleanExtra("isTest",false);
+        isTest = getIntent().getBooleanExtra("isTest", false);
 
         llXueya.setOnClickListener(this);
         llXueyang.setOnClickListener(this);
@@ -117,8 +119,9 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
                     startActivity(intent);
                     break;
                 case R.id.ll_xindian:
-                    intent.setClass(mContext, XinDianDetectActivity.class);
-                    startActivity(intent);
+//                    intent.setClass(mContext, XinDianDetectActivity.class);
+//                    startActivity(intent);
+                    ECGCompatActivity.startActivity(this);
                     break;
                 case R.id.ll_san:
 //                    intent.setClass(mContext, DetectActivity.class);

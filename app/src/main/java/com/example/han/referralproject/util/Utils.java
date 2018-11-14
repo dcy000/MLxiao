@@ -11,6 +11,7 @@ import android.provider.Settings;
 import android.view.WindowManager;
 
 import com.example.han.referralproject.application.MyApplication;
+import com.gzq.lib_core.base.Box;
 
 import java.text.SimpleDateFormat;
 
@@ -23,12 +24,12 @@ public class Utils {
 //        TelephonyManager TelephonyMgr = (TelephonyManager) MyApplication.getInstance().getSystemService(TELEPHONY_SERVICE);
 //        return TelephonyMgr.getDeviceId();
 
-        return Settings.System.getString(MyApplication.getInstance().getContentResolver(), Settings.System.ANDROID_ID);
+        return Settings.System.getString(Box.getApp().getContentResolver(), Settings.System.ANDROID_ID);
     }
 
     @SuppressLint("MissingPermission")
     public static String getMacAddress(){
-        WifiManager wm = (WifiManager)MyApplication.getInstance().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiManager wm = (WifiManager)Box.getApp().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         return wm.getConnectionInfo().getMacAddress();
     }
 

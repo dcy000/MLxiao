@@ -1,0 +1,96 @@
+/*
+ * Copyright (c) 2017.
+ */
+
+package com.gzq.lib_core.session;
+
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
+import com.google.gson.Gson;
+import com.gzq.lib_core.constant.Constants;
+
+/**
+ * 默认使用{@link SharedPreferences}进行用户信息的保存
+ * Created by ChenRui on 2017/5/2 0002 18:37.
+ */
+public class PreferencesSessionManager extends SessionManager {
+
+    private Gson mGson;
+    private SharedPreferences mSharedPreferences;
+
+    // 用户信息获取比较频繁，作为一个字段去维护
+    private Object mUserInfo;
+
+    public PreferencesSessionManager(Context context) {
+        Context mContext=context.getApplicationContext();
+        if (mContext == null)
+            throw new NullPointerException("请初始化SessionManger");
+        mSharedPreferences = mContext.getSharedPreferences(mContext.getPackageName() + ".session", Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public boolean isLogin() {
+        return getUser() != null;
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+        mUserInfo = null; // 清除本地缓存字段
+        mSharedPreferences.edit().clear().apply();
+    }
+
+    @Override
+    @Nullable
+    public <T> T getUser() {
+        if (sConfig.getUserClass() == null) return null;
+        try {
+            if (mUserInfo != null) {
+                return (T) mUserInfo;
+            }
+            String json = mSharedPreferences.getString(Constants.KEY_SESSION_USER, null);
+            if (TextUtils.isEmpty(json)) return null;
+            return (T) mGson.fromJson(json, sConfig.getUserClass());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public <T> void setUser(T user) {
+        if (user == null) return;
+        if (mGson == null) mGson = new Gson();
+        String json = mGson.toJson(user);
+        mSharedPreferences.edit().putString(Constants.KEY_SESSION_USER, json).apply();
+        mUserInfo = user;
+        notifyUserInfoChanged();
+    }
+
+    @Override
+    public <T> void setUserToken(T token) {
+        if (token == null) return;
+        if (mGson == null) mGson = new Gson();
+        String json = mGson.toJson(token);
+        mSharedPreferences.edit().putString(Constants.KEY_SESSION_TOKEN, json).apply();
+        notifyTokenChanged();
+    }
+
+    @Override
+    @Nullable
+    public <T> T getUserToken() {
+        if (sConfig.getUserTokenClass() == null) return null;
+        try {
+            String json = mSharedPreferences.getString(Constants.KEY_SESSION_TOKEN, null);
+            if (TextUtils.isEmpty(json)) return null;
+            return (T) mGson.fromJson(json, sConfig.getUserTokenClass());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
