@@ -20,6 +20,13 @@ public class SanHeYiFollowUpFragment extends ThreeInOne_Fragment {
     private boolean isOnResume;
 
     @Override
+    public void onStart() {
+        super.onStart();
+        mBtnVideoDemo.setVisibility(View.GONE);
+        mBtnHealthHistory.setText("下一步");
+    }
+
+    @Override
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
         this.bundle = bundle;
