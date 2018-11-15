@@ -25,6 +25,10 @@ public class TemperaturePresenter extends BaseBluetooth {
     public TemperaturePresenter(LifecycleOwner owner) {
         super(owner);
         context = ((TemperatureMeasureActivity) owner);
+        startDiscover();
+    }
+
+    public void startDiscover() {
         String wenduMac = LocalShared.getInstance(context).getWenduMac();
         start(BluetoothType.BLUETOOTH_TYPE_BLE, wenduMac, "FSRKB-EWQ01", "MEDXING-IRT");
     }

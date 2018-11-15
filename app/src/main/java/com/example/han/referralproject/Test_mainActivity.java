@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
+import com.example.han.referralproject.measure.BreathHomeActivity;
 import com.example.han.referralproject.measure.TemperatureMeasureActivity;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
@@ -138,7 +139,8 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
 //                    ToastUtil.showShort(this,"暂未开通");
                     break;
                 case R.id.ll_more://敬请期待
-                    ToastTool.showShort("敬请期待");
+//                    ToastTool.showShort("敬请期待");
+                    startActivity(new Intent(this, BreathHomeActivity.class));
                     break;
             }
         }

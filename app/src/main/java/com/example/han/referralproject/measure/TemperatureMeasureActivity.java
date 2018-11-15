@@ -25,6 +25,7 @@ import com.example.han.referralproject.bean.MeasureResult;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.WeakHandler;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
@@ -191,8 +192,13 @@ public class TemperatureMeasureActivity extends AppCompatActivity implements Vie
                                 LocalShared.getInstance(TemperatureMeasureActivity.this).setWenduMac("");
                                 if (temperaturePresenter != null) {
                                     temperaturePresenter.onDestroy();
+                                    new WeakHandler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            temperaturePresenter = new TemperaturePresenter(TemperatureMeasureActivity.this);
+                                        }
+                                    }, 1000);
                                 }
-                                temperaturePresenter = new TemperaturePresenter(TemperatureMeasureActivity.this);
                             }
                         }).show();
 

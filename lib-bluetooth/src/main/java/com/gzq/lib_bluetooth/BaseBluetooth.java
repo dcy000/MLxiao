@@ -82,7 +82,7 @@ public abstract class BaseBluetooth implements LifecycleObserver {
 
                         }
                     });
-        }else{
+        } else {
             doAccept(type, mac, names);
         }
 
@@ -101,8 +101,8 @@ public abstract class BaseBluetooth implements LifecycleObserver {
     private void doAccept(BluetoothType type, String mac, String[] names) {
         if (!BluetoothUtils.isBluetoothEnabled()) {
             BluetoothUtils.openBluetooth();
+            SystemClock.sleep(2000);
         }
-        SystemClock.sleep(2000);
         if (!BluetoothUtils.isBluetoothEnabled()) {
             activity.runOnUiThread(new Runnable() {
                 @Override
@@ -157,10 +157,13 @@ public abstract class BaseBluetooth implements LifecycleObserver {
         @Override
         public void obtainDevice(BluetoothDevice device) {
             this.device = device;
+            targetDevice(this.device);
             if (searchHelper != null) {
                 searchHelper.clear();
             }
-            connect(this.device.getAddress());
+            if (!isSelfConnect()) {
+                connect(this.device.getAddress());
+            }
         }
 
         @Override
@@ -241,4 +244,15 @@ public abstract class BaseBluetooth implements LifecycleObserver {
     protected abstract void connectFailed();
 
     protected abstract void disConnected();
+
+    protected void targetDevice(BluetoothDevice device) {
+    }
+
+    /**
+     * 只保留搜索功能，连接功能使用SDK自带的
+     * @return
+     */
+    protected boolean isSelfConnect() {
+        return false;
+    }
 }

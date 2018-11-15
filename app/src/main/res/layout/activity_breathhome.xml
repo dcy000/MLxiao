@@ -4,11 +4,24 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/normal_bg">
-    <!--温度检测-->
-    <include layout="@layout/ml_device_include_tem"/>
-    <!--视频播放界面-->
-    <include layout="@layout/ml_device_include_video_tips" />
+    <include layout="@layout/bluetooth_fragment_breath_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="64dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="肺功能检测"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="110dp"
@@ -29,4 +42,5 @@
         android:scaleType="centerInside"
         android:src="@drawable/icon_refresh"
         app:layout_constraintRight_toRightOf="parent"/>
+    
 </android.support.constraint.ConstraintLayout>

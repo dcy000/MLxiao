@@ -114,6 +114,10 @@
             </intent-filter>
         </receiver>
 
+        <meta-data
+            android:name="YCAPPKEY"
+            android:value="f0b520cdb42c7103f6683977793ae81c" />
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
@@ -671,6 +675,10 @@
         <activity
             android:name=".measure.TemperatureMeasureActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".measure.BreathHomeActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".measure.BloodsugarMeasureActivity"
+            android:screenOrientation="landscape"/>
 
     </application>
 

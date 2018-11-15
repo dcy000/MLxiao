@@ -59,4 +59,9 @@
     <color name="round_corner_progress_bar_secondary_progress_default">@android:color/transparent
     </color>
     <color name="line3">#BBBBBB</color>
+
+    <color name="config_color_base_9">#999999</color>
+    <color name="config_color_alert_btn">#3f86fc</color>
+    <color name="config_color_appthema">#3f86fc</color>
+    <color name="config_color_base_3">#333333</color>
 </resources>

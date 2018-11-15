@@ -36,6 +36,7 @@ public class LocalShared {
     private final String MAC_Sanheyi = "mac_sanheyi";
     private final String MAC_Xuetang = "mac_xuetang";
     private final String MAC_Tizhong = "mac_tizhong";
+    private final String MAC_BreathHome = "mac_breathhome";
     private final String Guide_Add_Click = "guide_add_click";
     private final String Guide_Create_Text = "guide_create_text";
     private final String Guide_Sign_In = "guide_sign_in_two";
@@ -73,7 +74,6 @@ public class LocalShared {
     }
 
     /**
-     *
      * @param bid
      * @param xfid
      */
@@ -94,18 +94,20 @@ public class LocalShared {
 
     /**
      * 本地缓存的账号是否满了5个
+     *
      * @return
      */
-    public boolean isAccountOverflow(){
+    public boolean isAccountOverflow() {
         String[] accountsArray = getAccounts();
         if (accountsArray == null) {
             return false;
         }
-        if (accountsArray.length>5)
+        if (accountsArray.length > 5)
             return true;
         else
             return false;
     }
+
     public void deleteAccount(String bid, String xfid) {
         String[] accountsArray = getAccounts();
         if (accountsArray == null || TextUtils.isEmpty(bid) || TextUtils.isEmpty(xfid)) {
@@ -133,13 +135,14 @@ public class LocalShared {
     /**
      * 删除本机上所有缓存的账户
      */
-    public void deleteAllAccount(){
+    public void deleteAllAccount() {
         String[] accountsArray = getAccounts();
         if (accountsArray == null) {
             return;
         }
-        mShared.edit().putString(UserAccounts_new,"").commit();
+        mShared.edit().putString(UserAccounts_new, "").commit();
     }
+
     public String[] getAccounts() {
         String accountsString = mShared.getString(UserAccounts_new, "");
 
@@ -462,6 +465,14 @@ public class LocalShared {
         mShared.edit().putString(MAC_Xueyang, xueyangMac).commit();
     }
 
+    public String getBreathHomeMac() {
+        return mShared.getString(MAC_BreathHome, "");
+    }
+
+    public void setBreathHomeMac(String breathHomeMac) {
+        mShared.edit().putString(MAC_BreathHome, breathHomeMac).commit();
+    }
+
     public String getXinDianMac() {
         return mShared.getString(MAC_Xindian, "");
     }
@@ -504,6 +515,7 @@ public class LocalShared {
 
     /**
      * 讯飞组id
+     *
      * @param groupid
      */
 
@@ -517,6 +529,7 @@ public class LocalShared {
 
     /**
      * 讯飞组创建时候传入的xfid
+     *
      * @param xfid
      */
     public void setGroupFirstXfid(String xfid) {
@@ -528,10 +541,11 @@ public class LocalShared {
     }
 
     public void setHealthScore(int fenshuNum) {
-        mShared.edit().putInt("health_score",fenshuNum).commit();
+        mShared.edit().putInt("health_score", fenshuNum).commit();
     }
-    public int getHealthScore(){
-        return mShared.getInt("health_score",0);
+
+    public int getHealthScore() {
+        return mShared.getInt("health_score", 0);
     }
 
     public void setMeasureXueyaFirst(boolean isFirst) {
@@ -541,6 +555,7 @@ public class LocalShared {
     public boolean getMeasureXueyaFirst() {
         return mShared.getBoolean("measure_xueya_first", true);
     }
+
     public void setMeasureTiwenFirst(boolean isFirst) {
         mShared.edit().putBoolean("measure_tiwen_first", isFirst).commit();
     }
@@ -548,6 +563,7 @@ public class LocalShared {
     public boolean getMeasureTiwenFirst() {
         return mShared.getBoolean("measure_tiwen_first", true);
     }
+
     public void setMeasureXuetangFirst(boolean isFirst) {
         mShared.edit().putBoolean("measure_xuetang_first", isFirst).commit();
     }
@@ -555,6 +571,7 @@ public class LocalShared {
     public boolean getMeasureXuetangFirst() {
         return mShared.getBoolean("measure_xuetang_first", true);
     }
+
     public void setMeasureXueyangFirst(boolean isFirst) {
         mShared.edit().putBoolean("measure_xueyang_first", isFirst).commit();
     }
