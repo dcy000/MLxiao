@@ -83,7 +83,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
 
     private void bindData() {
         MLVoiceSynthetize.startSynthesize(getApplicationContext(), resultBean.result, false);
-        mToolBar.setData("健 康 报 告", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+        mToolBar.setData("健 康 报 告", 0, "", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();

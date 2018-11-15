@@ -276,6 +276,7 @@ public class TaskComplyChoiceActivity extends AppCompatActivity implements TaskC
                                 .addParam("resultBean", body)
                                 .build()
                                 .callAsync();
+                        finish();
                     }
 
                     @Override
