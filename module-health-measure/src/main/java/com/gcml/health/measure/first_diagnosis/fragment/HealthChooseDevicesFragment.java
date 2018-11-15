@@ -47,7 +47,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
     private List<ChooseDeviceBean> deviceBeans;
     private BaseQuickAdapter<ChooseDeviceBean, BaseViewHolder> adapter;
     public static final String KEY_DEVICE_NUM = "key_device_num";
-    private String userId="100206";
+    private String userId = "100206";
 
     @Override
     protected int initLayout() {
@@ -67,7 +67,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getContext(),"请选择您拥有的仪器，小易默认给您做了选择，如果没有该设备请再次点击该设备取消",false);
+        MLVoiceSynthetize.startSynthesize(getContext(), "请选择您拥有的仪器，小易默认给您做了选择，如果没有该设备请再次点击该设备取消", false);
     }
 
     private void initRecycleview() {
@@ -90,6 +90,10 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                //TODO:默认体重必选，不能去掉
+                if (position == 6) {
+                    return;
+                }
                 if (position == 7) {
                     ToastUtils.showShort("敬请期待");
                     return;
@@ -117,7 +121,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         HealthMeasureRepository.getUserHasedDevices(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(getActivity()))
+                .as(RxUtils.autoDisposeConverter(this))
                 .subscribeWith(new DefaultObserver<List<DeviceBean>>() {
                     @Override
                     public void onNext(List<DeviceBean> deviceBeans) {
@@ -188,6 +192,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
             this.deviceBeans.get(1).setChoosed(true);
             this.deviceBeans.get(2).setChoosed(true);
             this.deviceBeans.get(3).setChoosed(true);
+            this.deviceBeans.get(6).setChoosed(true);
         }
         adapter.notifyDataSetChanged();
 
@@ -222,7 +227,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         HealthMeasureRepository.postUserHasedDevices(userId, postDeviceBeans)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(getActivity()))
+                .as(RxUtils.autoDisposeConverter(this))
                 .subscribeWith(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
@@ -253,7 +258,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
             }
         }
         //TODO:默认体重必选,如果需要去掉，只需把下面代码去掉即可，其他地方不用修改
-        if (!deviceNum.contains(7)){
+        if (!deviceNum.contains(7)) {
             deviceNum.add(7);
         }
         return deviceNum;

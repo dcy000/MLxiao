@@ -76,7 +76,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private Uri uri;
     private boolean isFaceSkip;
     private boolean isShowBloodsugarSelectTime = false;
-    private ArrayList<Integer> threeInOnePosition=new ArrayList<>();
+    private ArrayList<Integer> threeInOnePosition = new ArrayList<>();
+
     public static void startActivity(Context context, int measure_type) {
         Intent intent = new Intent(context, AllMeasureActivity.class);
         if (context instanceof Application) {
@@ -226,7 +227,6 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
 
                 @Override
                 public void onError() {
-
                 }
             });
         }
@@ -274,10 +274,10 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     break;
                 case IPresenter.MEASURE_OTHERS:
                     //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
-                    if (threeInOnePosition.size()==0){
+                    if (threeInOnePosition.size() == 0) {
                         CCHealthRecordActions.jump2HealthRecordActivity(6);
-                    }else {
-                        CCHealthRecordActions.jump2HealthRecordActivity(threeInOnePosition.get(threeInOnePosition.size()-1));
+                    } else {
+                        CCHealthRecordActions.jump2HealthRecordActivity(threeInOnePosition.get(threeInOnePosition.size() - 1));
                     }
                     break;
                 default:
@@ -360,6 +360,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
 
     @Override
     protected void backMainActivity() {
+        if (baseFragment instanceof HealthSelectSugarDetectionTimeFragment) {
+            CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+            finish();
+            return;
+        }
+
         if (isMeasure) {
             showRefreshBluetoothDialog();
         } else {
@@ -501,14 +507,14 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             if (bundle != null) {
-                if (measure_type==IPresenter.MEASURE_BLOOD_SUGAR){
+                if (measure_type == IPresenter.MEASURE_BLOOD_SUGAR) {
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureBloodsugarFragment();
                     } else {
                         baseFragment = new SingleMeasureBloodsugarFragment();
                         baseFragment.setArguments(bundle);
                     }
-                }else if (measure_type==IPresenter.MEASURE_OTHERS){
+                } else if (measure_type == IPresenter.MEASURE_OTHERS) {
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureThreeInOneFragment();
                     } else {
