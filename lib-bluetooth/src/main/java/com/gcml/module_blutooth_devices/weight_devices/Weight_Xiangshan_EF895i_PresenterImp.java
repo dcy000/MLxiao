@@ -155,9 +155,9 @@ public class Weight_Xiangshan_EF895i_PresenterImp extends BaseBluetoothPresenter
         if (isConnected) {
             bleCloudProtocolUtils.Disconnect();
         }
-//        if (bleCloudProtocolUtils != null && context != null) {
-//            bleCloudProtocolUtils.stopSDK(context);
-//        }
+        if (bleCloudProtocolUtils != null && baseContext != null) {
+            bleCloudProtocolUtils.stopSDK(baseContext);
+        }
         super.onDestroy();
     }
 }

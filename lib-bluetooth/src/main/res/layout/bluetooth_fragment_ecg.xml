@@ -47,6 +47,7 @@
         android:id="@+id/tv_change_device"
         android:layout_width="260pt"
         android:layout_height="100pt"
+        android:visibility="gone"
         android:textSize="56pt"
         android:textColor="@color/bluetooth_white"
         android:text="切换"

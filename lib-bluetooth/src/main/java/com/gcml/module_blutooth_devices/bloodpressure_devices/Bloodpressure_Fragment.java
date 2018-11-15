@@ -55,6 +55,7 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
         if (bundle!=null) {
             if ("WZ".equals(bundle.get("PressureFlag"))) {
                 mBtnHealthHistory.setText("下一步");
+                mBtnVideoDemo.setVisibility(View.GONE);
             }
 
         }

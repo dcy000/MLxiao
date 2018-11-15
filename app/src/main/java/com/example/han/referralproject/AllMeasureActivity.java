@@ -13,6 +13,8 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.bean.DataInfoBean;
+import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.require2.dialog.AlertDialog;
 import com.example.han.referralproject.single_measure.ChooseECGDeviceFragment;
 import com.example.han.referralproject.single_measure.HealthSelectSugarDetectionTimeFragment;
@@ -25,6 +27,7 @@ import com.example.han.referralproject.single_measure.SingleMeasureHandRingFragm
 import com.example.han.referralproject.single_measure.SingleMeasureTemperatureFragment;
 import com.example.han.referralproject.single_measure.SingleMeasureThreeInOneFragment;
 import com.example.han.referralproject.single_measure.SingleMeasureWeightFragment;
+import com.example.han.referralproject.single_measure.bean.BoShengResultBean;
 import com.example.han.referralproject.view.MyDialogFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
@@ -46,9 +49,11 @@ import com.gcml.module_blutooth_devices.utils.ToastUtils;
 import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.gcml.module_video.measure.MeasureVideoPlayActivity;
+import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.medlink.danbogh.utils.T;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -144,7 +149,7 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged,
                 break;
             case IPresenter.MEASURE_ECG:
                 //心电
-                int device = (int) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 0);
+                int device = (int) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 2);
                 mTitleText.setText("心 电 测 量");
                 if (device == 1) {
                     baseFragment = new SelfECGDetectionFragment();
@@ -485,11 +490,11 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged,
 
         } else if (fragment instanceof ChooseECGDeviceFragment) {
             if (bundle != null) {
-                int bundleInt = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 1);
+                int bundleInt = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 2);
                 if (bundleInt == 1) {
                     baseFragment = new SelfECGDetectionFragment();
                 } else if (bundleInt == 2) {
-                    baseFragment = new ECG_Fragment();
+                    baseFragment = new SingleMeasureECGFragment();
                 }
                 mTitleText.setText("心 电 测 量");
                 mRightView.setImageResource(R.drawable.ic_blooth_beack);
@@ -513,8 +518,46 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged,
         if (baseFragment != null && measure_type == IPresenter.MEASURE_ECG && baseFragment instanceof ECG_Fragment) {
             ((ECG_Fragment) baseFragment).setOnAnalysisDataListener(new ECG_Fragment.AnalysisData() {
                 @Override
-                public void onSuccess(String fileNum, String fileAddress, String filePDF) {
+                public void onSuccess(String fileNum, String fileJson, String filePDF) {
                     pdfUrl = filePDF;
+                    BoShengResultBean resultBean = new Gson().fromJson(fileJson, BoShengResultBean.class);
+
+//                    ArrayList<DetectionData> datas = new ArrayList<>();
+//                    DetectionData ecgData = new DetectionData();
+////detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+//                    ecgData.setDetectionType("2");
+//                    ecgData.setEcg(resultBean.getStop_light() + "");
+//                    ecgData.setResult(resultBean.getFindings());
+//                    ecgData.setHeartRate(resultBean.getAvgbeats().get(0).getHR());
+//                    datas.add(ecgData);
+//                    String userId = ((UserInfoBean) Box.getSessionManager().getUser()).bid;
+//                    Box.getRetrofit(API.class)
+//                            .postMeasureData(userId, datas)
+//                            .compose(RxUtils.httpResponseTransformer())
+//                            .as(RxUtils.autoDisposeConverter(this))
+//                            .subscribe(new CommonObserver<List<DetectionResult>>() {
+//                                @Override
+//                                public void onNext(List<DetectionResult> detectionResults) {
+//                                    ToastUtils.showShort("上传数据成功");
+//                                }
+//
+//                                @Override
+//                                protected void onError(ApiException ex) {
+//                                    super.onError(ex);
+//                                    ToastUtils.showShort(ex.message);
+//                                }
+//                            });
+
+                    DataInfoBean ecgInfo = new DataInfoBean();
+                    ecgInfo.ecg =resultBean.getStop_light() ;
+                    ecgInfo.heart_rate = resultBean.getAvgbeats().get(0).getHR();
+
+                    NetworkApi.postData(ecgInfo, response -> {
+                        T.show("数据上传成功");
+                    }, message -> {
+                        T.show("数据上传失败");
+                    });
+
                     ECG_PDF_Fragment pdf_fragment = new ECG_PDF_Fragment();
                     Bundle pdfBundle = new Bundle();
                     pdfBundle.putString(ECG_PDF_Fragment.KEY_BUNDLE_PDF_URL, filePDF);

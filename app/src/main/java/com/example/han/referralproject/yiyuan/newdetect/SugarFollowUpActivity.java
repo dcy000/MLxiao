@@ -10,11 +10,14 @@ import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.health.DetectHealthSymptomsActivity;
+import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.require2.dialog.AlertDialog;
 import com.example.han.referralproject.single_measure.ChooseECGDeviceFragment;
 import com.example.han.referralproject.single_measure.HealthSelectSugarDetectionTimeFragment;
 import com.example.han.referralproject.single_measure.SelfECGDetectionFragment;
+import com.example.han.referralproject.single_measure.bean.BoShengResultBean;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.ECGFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.HypertensionFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SelfECGFollowUpFragment;
@@ -31,6 +34,7 @@ import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SPUtil;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.gcml.module_video.measure.MeasureVideoPlayActivity;
+import com.google.gson.Gson;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
 import com.medlink.danbogh.utils.T;
 
@@ -38,7 +42,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SugarFollowUpActivity extends BaseActivity implements FragmentChanged, DealVoiceAndJump {
+public class SugarFollowUpActivity extends BaseActivity implements FragmentChanged, DealVoiceAndJump, ECG_Fragment.AnalysisData {
     private int position = 0;
     private List<SurveyBean> followInfo = new ArrayList<>();
     private BluetoothBaseFragment posiontFragment;
@@ -150,6 +154,7 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
             case "ECG_Fragment":
                 mTitleText.setText("心 电 测 量");
                 posiontFragment = new ECGFollowUpFragment();
+                ((ECG_Fragment) posiontFragment).setOnAnalysisDataListener(this);
                 mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
 
@@ -181,7 +186,7 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
         data.putAll(bundle);
         if (fragment instanceof ChooseECGDeviceFragment) {
             if (bundle != null) {
-                int anInt = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 1);
+                int anInt = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 2);
                 if (anInt == 1) {
                     for (SurveyBean surveyBean : followInfo) {
                         String fragmentTag = surveyBean.getFragmentTag();
@@ -350,6 +355,25 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
 
     @Override
     public void jump2DemoVideo(int measureType) {
+
+    }
+
+    @Override
+    public void onSuccess(String fileNum, String fileJson, String filePDF) {
+        BoShengResultBean resultBean = new Gson().fromJson(fileJson, BoShengResultBean.class);
+        DataInfoBean ecgInfo = new DataInfoBean();
+        ecgInfo.ecg =resultBean.getStop_light() ;
+        ecgInfo.heart_rate = resultBean.getAvgbeats().get(0).getHR();
+
+        NetworkApi.postData(ecgInfo, response -> {
+            T.show("数据上传成功");
+        }, message -> {
+            T.show("数据上传失败");
+        });
+    }
+
+    @Override
+    public void onError() {
 
     }
 }

@@ -1,10 +1,12 @@
 package com.gcml.module_blutooth_devices.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by lenovo on 2018/11/6.
  */
 
-public class BoShengUserBean {
+public class BoShengUserBean implements Serializable{
     private String name;
     //格式:201801012
     private String birthday;

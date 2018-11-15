@@ -164,4 +164,10 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
         }
 
     }
+
+    @Override
+    protected void clickVideoDemo(View view) {
+        super.clickVideoDemo(view);
+
+    }
 }

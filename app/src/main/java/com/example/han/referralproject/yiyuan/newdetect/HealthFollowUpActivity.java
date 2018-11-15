@@ -10,14 +10,18 @@ import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.health.DetectHealthSymptomsActivity;
+import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.require2.dialog.AlertDialog;
 import com.example.han.referralproject.single_measure.ChooseECGDeviceFragment;
 import com.example.han.referralproject.single_measure.HealthSelectSugarDetectionTimeFragment;
 import com.example.han.referralproject.single_measure.SelfECGDetectionFragment;
+import com.example.han.referralproject.single_measure.bean.BoShengResultBean;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.ECGFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.HypertensionFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.HypertensionYouFollowUpFragment;
+import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SanHeYiFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SelfECGFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.SugarFollowUpFragment;
 import com.example.han.referralproject.yiyuan.newdetect.followupfragment.TemperatureFollowUpFragment;
@@ -33,6 +37,7 @@ import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SPUtil;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.gcml.module_video.measure.MeasureVideoPlayActivity;
+import com.google.gson.Gson;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
 import com.medlink.danbogh.utils.T;
 
@@ -40,7 +45,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HealthFollowUpActivity extends BaseActivity implements FragmentChanged, DealVoiceAndJump {
+public class HealthFollowUpActivity extends BaseActivity implements FragmentChanged, DealVoiceAndJump, ECG_Fragment.AnalysisData {
 
     private int position = 0;
     private List<SurveyBean> followInfo = new ArrayList<>();
@@ -75,11 +80,11 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
                 "血压测量演示视频"
         );
         followInfo.add(xueyaYou);
-
-        SurveyBean choseXindian = new SurveyBean("ChooseECGDeviceFragment",
-                null, null
-        );
-        followInfo.add(choseXindian);
+//
+//        SurveyBean choseXindian = new SurveyBean("ChooseECGDeviceFragment",
+//                null, null
+//        );
+//        followInfo.add(choseXindian);
 
         SurveyBean xindian = new SurveyBean("ECG_Fragment",
                 Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian),
@@ -98,7 +103,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
         SurveyBean xuanZheTime2 = new SurveyBean("HealthSelectSugarDetectionTimeFragment2", null, null);
         followInfo.add(xuanZheTime2);
 
-        SurveyBean sanheyi = new SurveyBean("SugarFollowUpFragment",
+        SurveyBean sanheyi = new SurveyBean("SanHeYiFollowUpFragment",
                 Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi),
                 "三合一测量演示视频"
         );
@@ -194,6 +199,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
             case "ECG_Fragment":
                 mTitleText.setText("心 电 测 量");
                 posiontFragment = new ECGFollowUpFragment();
+                ((ECG_Fragment) posiontFragment).setOnAnalysisDataListener(this);
                 mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
 
@@ -202,6 +208,14 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
                 posiontFragment = new SelfECGFollowUpFragment();
                 mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
+
+
+            case "SanHeYiFollowUpFragment":
+                mTitleText.setText("三 合 一 测 量");
+                posiontFragment = new SanHeYiFollowUpFragment();
+                mRightView.setImageResource(R.drawable.ic_blooth_beack);
+                break;
+
             default:
                 break;
         }
@@ -222,7 +236,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
         data.putAll(bundle);
         if (fragment instanceof ChooseECGDeviceFragment) {
             if (bundle != null) {
-                int anInt = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 1);
+                int anInt = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 2);
                 if (anInt == 1) {
                     for (SurveyBean surveyBean : followInfo) {
                         String fragmentTag = surveyBean.getFragmentTag();
@@ -344,6 +358,12 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
                 ((SelfECGDetectionFragment) posiontFragment).startDiscovery();
                 break;
+            case "SanHeYiFollowUpFragment":
+                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, "");
+                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE);
+                ((SanHeYiFollowUpFragment) posiontFragment).dealLogic();
+                ((SanHeYiFollowUpFragment) posiontFragment).onStop();
+                break;
 
 
             default:
@@ -382,11 +402,11 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
     public void updateVoice(String voice) {
         T.show(voice);
         String connect = getString(R.string.bluetooth_device_connected);
-        String disconnect=getString(R.string.bluetooth_device_disconnected);
-        if (TextUtils.equals(voice,connect)){
+        String disconnect = getString(R.string.bluetooth_device_disconnected);
+        if (TextUtils.equals(voice, connect)) {
             mRightView.setImageResource(R.drawable.ic_blooth_connect);
         }
-        if (TextUtils.equals(voice,disconnect)){
+        if (TextUtils.equals(voice, disconnect)) {
             mRightView.setImageResource(R.drawable.ic_blooth_beack);
         }
     }
@@ -398,6 +418,25 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
 
     @Override
     public void jump2DemoVideo(int measureType) {
+
+    }
+
+    @Override
+    public void onSuccess(String fileNum, String fileJson, String filePDF) {
+        BoShengResultBean resultBean = new Gson().fromJson(fileJson, BoShengResultBean.class);
+        DataInfoBean ecgInfo = new DataInfoBean();
+        ecgInfo.ecg = resultBean.getStop_light();
+        ecgInfo.heart_rate = resultBean.getAvgbeats().get(0).getHR();
+
+        NetworkApi.postData(ecgInfo, response -> {
+            T.show("数据上传成功");
+        }, message -> {
+            T.show("数据上传失败");
+        });
+    }
+
+    @Override
+    public void onError() {
 
     }
 }

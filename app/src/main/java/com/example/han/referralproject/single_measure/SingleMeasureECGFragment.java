@@ -19,6 +19,12 @@ public class SingleMeasureECGFragment extends ECG_Fragment {
         userBean.setSex(LocalShared.getInstance(mContext).getSex());
     }
 
+//    @Override
+//    public void onResume() {
+//        userBean= (BoShengUserBean) getArguments().getSerializable("user");
+//        super.onResume();
+//    }
+
     @Override
     protected void onMeasureFinished(String... results) {
         super.onMeasureFinished(results);

@@ -2,6 +2,8 @@ package com.example.han.referralproject.single_measure.bean;
 
 import com.example.han.referralproject.util.Utils;
 
+import java.io.Serializable;
+
 //    TDate {
 //        bloodOxygen (number, optional): 血氧（%） ,
 //        bloodSugar (number, optional): 血糖 ,
@@ -24,7 +26,7 @@ import com.example.han.referralproject.util.Utils;
 //        yz (string, optional): 医嘱 ,
 //        zid (integer, optional): 数据信息id
 //    }
-public class DetectionData {
+public class DetectionData implements Serializable {
     private Float bloodOxygen;
     private Float bloodSugar;
     private Float cholesterol;
@@ -45,6 +47,8 @@ public class DetectionData {
     private Float weight;
     private String yz;
     private Integer zid;
+    private String result;
+    private String resultUrl;
 
     public DetectionData() {
 
@@ -208,5 +212,21 @@ public class DetectionData {
 
     public void setZid(Integer zid) {
         this.zid = zid;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getResultUrl() {
+        return resultUrl;
+    }
+
+    public void setResultUrl(String resultUrl) {
+        this.resultUrl = resultUrl;
     }
 }
