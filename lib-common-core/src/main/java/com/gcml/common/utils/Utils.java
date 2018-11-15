@@ -34,7 +34,7 @@ public class Utils {
         if (TextUtils.isEmpty(phone)) {
             return false;
         }
-        return phone.matches("[1][34578]\\d{9}");
+        return phone.matches("[1][345789]\\d{9}");
     }
 
     @SuppressLint("MissingPermission")

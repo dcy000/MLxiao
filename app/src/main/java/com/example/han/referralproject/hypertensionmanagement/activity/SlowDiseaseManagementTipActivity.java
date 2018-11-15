@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
+import com.example.han.referralproject.market.YDSWMallActivity;
 import com.gcml.common.data.AppManager;
 
 import butterknife.BindView;
@@ -52,7 +53,7 @@ public class SlowDiseaseManagementTipActivity extends BaseActivity {
                         .putExtra("fromWhere", "tipHealthManage"));
                 break;
             case R.id.tv_to_mall:
-                startActivity(new Intent(this, MarketActivity.class));
+                startActivity(new Intent(this, YDSWMallActivity.class));
                 break;
         }
     }

@@ -308,6 +308,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 if ("未签约".equals(isSignDoctor.getText().toString())) {
                     Intent intentStatus = new Intent(getActivity(), OnlineDoctorListActivity.class);
                     intentStatus.putExtra("flag", "contract");
+                    intentStatus.putExtra("fromWhere", "personInfo");
                     startActivity(intentStatus);
                     return;
                 }

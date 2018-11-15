@@ -74,7 +74,7 @@
                 android:textSize="56pt"
                 app:layout_constraintStart_toEndOf="@+id/tv_professional_rank"
                 app:layout_constraintTop_toBottomOf="@+id/tv_doctor_name"
-                tools:text="主治医师" />
+                tools:text="主治顾问" />
 
             <TextView
                 android:id="@+id/tv_good"

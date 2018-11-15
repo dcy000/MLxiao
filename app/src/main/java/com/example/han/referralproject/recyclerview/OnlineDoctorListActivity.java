@@ -117,6 +117,7 @@ public class OnlineDoctorListActivity extends BaseActivity {
                 if ("contract".equals(mFlag)) {
                     Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
                     intent.putExtra("docMsg", mlist.get(postion));
+                    intent.putExtras(getIntent());
                     startActivity(intent);
                     return;
                 }

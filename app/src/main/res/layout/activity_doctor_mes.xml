@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="副主任医师"
+                android:text="副主任顾问"
                 android:textColor="#212121"
                 android:textSize="30sp" />
 

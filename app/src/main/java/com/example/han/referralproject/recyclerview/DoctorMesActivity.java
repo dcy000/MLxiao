@@ -337,13 +337,13 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                                     String applyAmount = doctor.getApply_amount();
                                     if (response.count != 0) {
                                         if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
-                                            ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                            ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid(),getIntent());
                                             finish();
                                         } else {
                                             onLackOfAmount();
                                         }
                                     } else {
-                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
+                                        ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid(),getIntent());
                                         finish();
                                     }
 

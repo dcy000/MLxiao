@@ -19,12 +19,14 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.medlink.danbogh.XDialogFragment;
 
 public class ConfirmContractActivity extends AppCompatActivity {
 
-    public static void start(Context context, String doctorId) {
+    public static void start(Context context, String doctorId,Intent data) {
         Intent intent = new Intent(context, ConfirmContractActivity.class);
+        intent.putExtras(data);
         intent.putExtra("doctorId", doctorId);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -138,7 +140,7 @@ public class ConfirmContractActivity extends AppCompatActivity {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         finish();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), PersonDetailActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
