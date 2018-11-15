@@ -2,6 +2,7 @@ package com.example.han.referralproject.yiyuan.activity;
 
 import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
@@ -18,6 +19,8 @@ import com.example.han.referralproject.yiyuan.bean.WenZhenBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
+import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
+import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SPUtil;
 import com.google.gson.Gson;
@@ -33,7 +36,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WZPressureMeasureActivity extends BaseActivity implements SingleMeasureBloodpressureFragment.PostResultListener {
+public class WZPressureMeasureActivity extends BaseActivity implements SingleMeasureBloodpressureFragment.PostResultListener, FragmentChanged, DealVoiceAndJump {
 
     public static final String PRESS_FALG_WZ = "WZ";
     public static final String PRESS_FALG = "PressureFlag";
@@ -119,6 +122,8 @@ public class WZPressureMeasureActivity extends BaseActivity implements SingleMea
 
     private void fillFragment() {
         fragment = new SingleMeasureBloodpressureFragment();
+        fragment.setOnFragmentChangedListener(this);
+        fragment.setOnDealVoiceAndJumpListener(this);
 
         Bundle args = new Bundle();
         args.putString(PRESS_FALG, PRESS_FALG_WZ);
@@ -219,4 +224,31 @@ public class WZPressureMeasureActivity extends BaseActivity implements SingleMea
                 });
     }
 
+    @Override
+    public void onFragmentChanged(Fragment fragment, Bundle bundle) {
+
+    }
+
+    @Override
+    public void updateVoice(String voice) {
+        T.show(voice);
+        String connect = getString(R.string.bluetooth_device_connected);
+        String disconnect = getString(R.string.bluetooth_device_disconnected);
+        if (TextUtils.equals(voice, connect)) {
+            mRightView.setImageResource(R.drawable.ic_blooth_connect);
+        }
+        if (TextUtils.equals(voice, disconnect)) {
+            mRightView.setImageResource(R.drawable.ic_blooth_beack);
+        }
+    }
+
+    @Override
+    public void jump2HealthHistory(int measureType) {
+
+    }
+
+    @Override
+    public void jump2DemoVideo(int measureType) {
+
+    }
 }

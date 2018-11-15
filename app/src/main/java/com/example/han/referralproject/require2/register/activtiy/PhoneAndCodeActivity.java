@@ -34,6 +34,8 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
     PhoneVerificationCodeView phoneView;
     @BindView(R.id.tv_next)
     TextView tvNext;
+
+    boolean receiveCodeFirst = false;
     /**
      * 发手机号的验证码
      */
@@ -101,6 +103,12 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
             return;
         }
 
+        if (phoneView.tvSendCode.isEnabled() && receiveCodeFirst) {
+            mlSpeak("验证码已过期请重新获取");
+            return;
+        }
+
+
         if (fromWhere.equals(FROM_REGISTER_BY_IDCARD)) {
             if (code.equals(this.code)/*|| DEFAULT_CODE.equals(code)*/) {
                 startActivity(new Intent(this, InputFaceActivity.class)
@@ -127,7 +135,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
 
     @Override
     public void onSendCode(final String phone) {
-        isSendedCode=true;
+        isSendedCode = true;
         this.phone = phone;
         showLoadingDialog("正在获取验证码...");
         NetworkApi.canRegister(phone, "3", new NetworkManager.SuccessCallback<Object>() {
@@ -139,6 +147,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
                     @Override
                     public void onSuccess(String codeJson) {
                         try {
+                            receiveCodeFirst = true;
                             JSONObject codeObj = new JSONObject(codeJson);
                             String code = codeObj.getString("code");
                             if (code != null) {

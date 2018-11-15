@@ -31,7 +31,7 @@ public class PhoneVerificationCodeView extends LinearLayout {
     @BindView(R.id.et_code)
     EditText etCode;
     @BindView(R.id.tv_send_code)
-    TextView tvSendCode;
+    public TextView tvSendCode;
     private Context context;
 
     public PhoneVerificationCodeView(Context context) {
@@ -159,4 +159,6 @@ public class PhoneVerificationCodeView extends LinearLayout {
     public void setListener(OnSendClickListener listener) {
         this.listener = listener;
     }
+
+
 }

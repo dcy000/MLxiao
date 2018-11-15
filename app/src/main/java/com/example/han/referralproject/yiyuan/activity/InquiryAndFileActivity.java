@@ -223,7 +223,7 @@ public class InquiryAndFileActivity extends BaseActivity {
         boolean isRegister = getIntent().getBooleanExtra("isRegister", false);
         if (isRegister) {
             tvRegisterDone.setVisibility(View.VISIBLE);
-            mlSpeak("恭喜您已完成注册，您可选择问诊或建档，完成后即可进入主页");
+            mlSpeak("恭喜您已完成注册");
         } else {
             T.showLong("验证通过，欢迎回来");
             tvRegisterDone.setVisibility(View.INVISIBLE);

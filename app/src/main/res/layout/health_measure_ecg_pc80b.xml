@@ -13,6 +13,7 @@
         android:layout_marginTop="60pt"
         android:layout_marginLeft="60pt"/>
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_change_device"
         android:layout_width="260pt"
         android:layout_height="100pt"

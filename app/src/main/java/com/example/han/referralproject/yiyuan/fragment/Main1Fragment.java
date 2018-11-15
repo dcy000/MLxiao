@@ -37,8 +37,6 @@ import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.example.han.referralproject.yiyuan.bean.HealthDetectQualificationBean;
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
-import com.example.han.referralproject.yiyuan.newdetect.HypertensionFollowUpActivity;
-import com.example.han.referralproject.yiyuan.newdetect.SugarFollowUpActivity;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
@@ -139,8 +137,6 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 gotoQianyueYiSheng();
                 break;
             case R.id.iv_qianyue:
-                startActivity(new Intent(getActivity(), HypertensionFollowUpActivity.class));
-                startActivity(new Intent(getActivity(), SugarFollowUpActivity.class));
                 break;
             case R.id.celianglishi:
 //                showDialog(data = getZiChaData());

@@ -44,6 +44,7 @@
         </LinearLayout>
 
         <EditText
+            android:visibility="gone"
             android:layout_width="534dp"
             android:layout_height="45dp"
             android:layout_centerInParent="true"
@@ -56,17 +57,16 @@
             />
 
         <TextView
+            android:text="签约医生"
+            android:layout_centerHorizontal="true"
             android:id="@+id/tv_top_right"
             android:layout_width="wrap_content"
             android:layout_height="64dp"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@drawable/toolbar_set"
             android:gravity="center"
-            android:paddingLeft="60dp"
-            android:paddingRight="30dp"
             android:textColor="@color/white"
-            android:textSize="28sp" />
+            android:textSize="34sp" />
 
         <ImageView
 
