@@ -76,7 +76,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     public void fetchCode() {
         binding.tvCode.setEnabled(false);
         String phone = binding.etPhone.getText().toString().trim();
-        if (TextUtils.isEmpty(phone) || phone.length() != 11) {
+        if (TextUtils.isEmpty(phone) || !Utils.isValidPhone(phone) || phone.length() != 11) {
             binding.tvCode.setEnabled(true);
             ToastUtils.showShort("请输入正确的手机号");
             MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入正确的手机号", false);
@@ -181,10 +181,17 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     public void goNext() {
         String phone = binding.etPhone.getText().toString().trim();
         binding.tvNext.setEnabled(false);
-        if (TextUtils.isEmpty(phone) || phone.length() != 11) {
+        if (TextUtils.isEmpty(phone) || phone.length() != 11||!Utils.isValidPhone(phone)) {
             binding.tvNext.setEnabled(true);
             ToastUtils.showShort("请输入正确的手机号");
             MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入正确的手机号");
+            return;
+        }
+
+        if (binding.tvCode.isEnabled()) {
+            ToastUtils.showShort("验证码已失效,请重新获取");
+            binding.tvNext.setEnabled(true);
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "验证码已失效,请重新获取", false);
             return;
         }
 
@@ -208,6 +215,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                     @Override
                     public void run() throws Exception {
                         dismissLoading();
+                        binding.tvNext.setEnabled(true);
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))

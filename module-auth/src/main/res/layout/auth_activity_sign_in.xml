@@ -32,6 +32,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <EditText
+                android:maxLength="11"
                 android:id="@+id/et_phone"
                 android:layout_width="800pt"
                 android:layout_height="120pt"

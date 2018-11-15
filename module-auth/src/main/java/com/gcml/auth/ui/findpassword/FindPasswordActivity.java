@@ -192,6 +192,13 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
             return;
         }
 
+        if (binding.tvCode.isEnabled()) {
+            ToastUtils.showShort("验证码已失效,请重新获取");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "验证码已失效,请重新获取", false);
+            return;
+        }
+
+
         CC.obtainBuilder("com.gcml.auth.setpassword")
                 .addParam("phone", phone)
                 .setContext(FindPasswordActivity.this)
