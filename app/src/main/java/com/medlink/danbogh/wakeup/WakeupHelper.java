@@ -8,12 +8,8 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.hypertensionmanagement.activity.DetecteTipActivity;
-import com.example.han.referralproject.recyclerview.CheckContractActivity;
-import com.example.han.referralproject.recyclerview.DoctorMesActivity;
 import com.gcml.common.app.lifecycle.TopActivityHelper;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.old.auth.register.ConfirmContractActivity;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.VoiceWakeuper;
@@ -88,7 +84,7 @@ public class WakeupHelper {
 
     private void setParameter(VoiceWakeuper wakeuper) {
         wakeuper.setParameter(SpeechConstant.PARAMS, null);
-        wakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:10");
+        wakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:1045");
         wakeuper.setParameter(SpeechConstant.IVW_SST, "wakeup");
         wakeuper.setParameter(SpeechConstant.KEEP_ALIVE, "1");
         wakeuper.setParameter(SpeechConstant.IVW_NET_MODE, "1");
