@@ -313,6 +313,9 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
     public static final String OVERHEAD_INFORMATION = "overHeadInformation";
 
     private void initData() {
+        if (getIntent() == null) {
+            return;
+        }
         registerIdCardNumber = getIntent().getStringExtra(REGISTER_IDCARD_NUMBER);
         registerPhoneNumber = getIntent().getStringExtra(REGISTER_PHONE_NUMBER);
         registeRrealName = getIntent().getStringExtra(REGISTER_REAL_NAME);
@@ -450,8 +453,51 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
     }
 
     private void signUp(String url) {
-        showLoadingDialog(getString(R.string.do_register));
         final LocalShared shared = LocalShared.getInstance(this);
+        showLoadingDialog(getString(R.string.do_register));
+        if (TextUtils.isEmpty(registerPhoneNumber)) {
+            NetworkApi.registerWithNoNumber(
+                    registeRrealName,
+                    registerSex,
+                    registerAddress,
+                    registerIdCardNumber,
+                    url,
+                    new NetworkManager.SuccessCallback<UserInfoBean>() {
+                        @Override
+                        public void onSuccess(UserInfoBean response) {
+                            if (isFinishing() || isDestroyed()) {
+                                return;
+                            }
+                            hideLoadingDialog();
+                            try {
+                                initXFInfo(response.bid, faceData);
+                            } catch (Exception e) {
+                            }
+                            shared.setUserInfo(response);
+                            LocalShared.getInstance(mContext).setSex(response.sex);
+                            LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
+                            LocalShared.getInstance(mContext).setUserAge(response.age);
+                            LocalShared.getInstance(mContext).setUserHeight(response.height);
+                            new JpushAliasUtils(InputFaceActivity.this).setAlias("user_" + response.bid);
+
+                            startActivity(new Intent(InputFaceActivity.this, ScanCodeActivity.class)
+                                    .putExtra("isRegister", true));
+                        }
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+                            if (isFinishing() || isDestroyed()) {
+                                return;
+                            }
+                            hideLoadingDialog();
+                            T.show(message);
+                            finish();
+                        }
+                    }
+            );
+            return;
+        }
+
         NetworkApi.register(
                 registeRrealName,
                 registerSex,
@@ -490,7 +536,6 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
                         }
                         hideLoadingDialog();
                         T.show(message);
-                        mlSpeak("主人," + message);
                         finish();
                     }
                 }

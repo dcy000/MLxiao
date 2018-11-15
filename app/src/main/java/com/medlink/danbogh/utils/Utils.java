@@ -7,15 +7,11 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.os.Build;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-
-import com.example.han.referralproject.util.LocalShared;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,13 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * Created by lenovo on 2017/10/16.
@@ -51,7 +42,7 @@ public class Utils {
         if (TextUtils.isEmpty(phone)) {
             return false;
         }
-        return phone.matches("[1][34578]\\d{9}");
+        return phone.matches("[1][345789]\\d{9}");
     }
 
     public static boolean checkIdCard1(String idCard) {

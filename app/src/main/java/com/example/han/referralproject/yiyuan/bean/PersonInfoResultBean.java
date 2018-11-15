@@ -67,6 +67,7 @@ public class PersonInfoResultBean  implements Serializable{
         public int bid;
         public String exerciseHabitsCode;
         public String user_photo;
+        public String userPhoto;
         public int age;
         public int categoryid;
         public String address;

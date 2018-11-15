@@ -3,6 +3,7 @@ package com.example.han.referralproject.require2.wrap;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -26,7 +27,7 @@ public class CanClearEditText extends LinearLayout {
     @BindView(R.id.iv_delete)
     ImageView ivDelete;
     @BindView(R.id.tv_phone)
-    EditText tvPhone;
+    public EditText tvPhone;
     private Context context;
     private boolean isChinese = false;
 
@@ -41,6 +42,11 @@ public class CanClearEditText extends LinearLayout {
 
     public void setHintText(String hint) {
         tvPhone.setHint(hint);
+    }
+
+
+    public void setMaxLength(int length){
+        tvPhone.setFilters(new InputFilter.LengthFilter[length]);
     }
 
     public CanClearEditText(Context context) {

@@ -82,7 +82,8 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
         tvCodePhoneAddContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PhoneAndCodeActivity.this, AddcontactPhoneActivity.class));
+                startActivity(new Intent(PhoneAndCodeActivity.this,
+                        AddcontactPhoneActivity.class).putExtras(getIntent()));
             }
         });
     }

@@ -737,6 +737,15 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultString(BindDocUrl, paramsMap, callback);
     }
 
+    public static void bindDoctorWithEmergentContact(String bid, int doctorId, String user_sign, NetworkManager.SuccessCallback<String> callback) {
+
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("bid", bid);
+        paramsMap.put("doid", String.valueOf(doctorId));
+        paramsMap.put("user_sign", user_sign);
+        NetworkManager.getInstance().postResultString(BindDocUrl, paramsMap, callback);
+    }
+
     public static void getVersionInfo(NetworkManager.SuccessCallback<VersionInfoBean> callback, NetworkManager.FailedCallback failedCallback) {
         ApplicationInfo appInfo = null;
         String msg = "";
@@ -1348,6 +1357,25 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, successCallback, failedCallback);
     }
 
+    public static void registerWithNoNumber(String registeRrealName,
+                                String registerSex,
+                                String registerAddress,
+                                String registerIdCardNumber,
+                                String user_photo,
+                                NetworkManager.SuccessCallback<UserInfoBean> successCallback,
+                                NetworkManager.FailedCallback failedCallback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("bname", registeRrealName);
+        paramsMap.put("sex", registerSex);
+        paramsMap.put("eqid", Utils.getDeviceId());
+        paramsMap.put("dz", registerAddress);
+        paramsMap.put("sfz", registerIdCardNumber);
+        paramsMap.put("user_photo", user_photo);
+        paramsMap.put("pwd", PASSWORD);
+        NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, successCallback, failedCallback);
+    }
+
+
     /**
      * 获取用户体检随访的资格
      */
@@ -1442,6 +1470,19 @@ public class NetworkApi {
         OkGo.<String>get(GET_DOCINFO_BY_DOCID)
                 .headers("equipmentId", Utils.getDeviceId())
                 .params("docterid", docterid)
+                .execute(callback);
+    }
+
+
+    /**
+     * 添加紧急联系人
+     */
+    public static final String PUT_CONTACT = BasicUrl + "/ZZB//api/user/emergent/saveEmergentUser";
+
+    public static void putEmergentContact(String json, StringCallback callback) {
+        OkGo.<String>post(PUT_CONTACT)
+                .headers("equipmentId", Utils.getDeviceId())
+                .upJson(json)
                 .execute(callback);
     }
 
