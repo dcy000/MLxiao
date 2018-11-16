@@ -200,6 +200,7 @@ public class WZPressureMeasureActivity extends BaseActivity implements SingleMea
                             WenZhenReultBean reultBean = gson.fromJson(result, WenZhenReultBean.class);
                             if (reultBean.tag) {
                                 T.show("提交成功");
+                                LocalShared.getInstance(mContext).setUserHeight(bean.height);
                             } else {
                                 T.show("提交失败");
                             }

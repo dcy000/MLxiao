@@ -506,7 +506,7 @@ public class LocalShared {
     }
 
     public String getUserHeight() {
-        return mShared.getString("user_height", "");
+        return mShared.getString("user_height", "170");
     }
 
     /**

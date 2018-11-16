@@ -30,31 +30,31 @@ public class BuildingRecordBean {
      * weight : string
      */
 
-    private String address;
-    private String bloodType;
-    private String disabilitySituation;
-    private String diseasesHistory;
-    private String diseasesKinsfolk;
-    private String doctorId;
-    private String educationalLevel;
-    private String equipmentId;
-    private String exposureHistory;
-    private String geneticHistory;
-    private String height;
-    private String hiHealthRecordId;
-    private String kinsfolkDiseasesType;
-    private String kitchenExhaust;
-    private String kitchenFuel;
-    private String livestockBar;
-    private String maritalStatus;
-    private String medicalPayments;
-    private String medicationAllergy;
-    private String professionType;
-    private String rhBlood;
-    private String toiletPosition;
-    private String userId;
-    private String waterEnvironment;
-    private String weight;
+    public String address;
+    public String bloodType;
+    public String disabilitySituation;
+    public String diseasesHistory;
+    public String diseasesKinsfolk;
+    public String doctorId;
+    public String educationalLevel;
+    public String equipmentId;
+    public String exposureHistory;
+    public String geneticHistory;
+    public String height;
+    public String hiHealthRecordId;
+    public String kinsfolkDiseasesType;
+    public String kitchenExhaust;
+    public String kitchenFuel;
+    public String livestockBar;
+    public String maritalStatus;
+    public String medicalPayments;
+    public String medicationAllergy;
+    public String professionType;
+    public String rhBlood;
+    public String toiletPosition;
+    public String userId;
+    public String waterEnvironment;
+    public String weight;
 
     public String getAddress() {
         return address;
