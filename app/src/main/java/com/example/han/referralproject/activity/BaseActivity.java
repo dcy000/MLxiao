@@ -620,14 +620,18 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void showLoadingDialog(String message) {
-        if (mDialog == null) {
-            mDialog = new ProgressDialog(mContext);
+        try{
+            if (mDialog == null) {
+                mDialog = new ProgressDialog(mContext);
 //            mDialog.setCanceledOnTouchOutside(false);
-            mDialog.setCanceledOnTouchOutside(true);
-            mDialog.setIndeterminate(true);
-            mDialog.setMessage(message);
+                mDialog.setCanceledOnTouchOutside(true);
+                mDialog.setIndeterminate(true);
+                mDialog.setMessage(message);
+            }
+            mDialog.show();
+        }catch (Exception e){
+
         }
-        mDialog.show();
     }
 
 
