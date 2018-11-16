@@ -102,7 +102,8 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
                         .setPositiveButton("确认", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                                finish();
                             }
                         }).show();
             }

@@ -28,7 +28,7 @@ public class MonitorResultActivity extends BaseActivity {
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("中医体质检测");
+        mTitleText.setText("中医体质自查");
     }
 
     private void initData() {
