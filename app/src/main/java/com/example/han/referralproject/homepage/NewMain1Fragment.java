@@ -294,42 +294,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.ll_date_and_week:
                 break;
             case R.id.iv_health_measure:
-                rxUser.subscribeOn(Schedulers.io())
-                        .as(RxUtils.autoDisposeConverter(this))
-                        .subscribe(new DefaultObserver<UserEntity>() {
-                            @Override
-                            public void onNext(UserEntity userEntity) {
-                                if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
-                                    ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
-                                    MLVoiceSynthetize.startSynthesize(
-                                            getActivity().getApplicationContext(),
-                                            "请先去个人中心完善性别和年龄信息");
-                                } else {
-//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                    startActivity(new Intent(getActivity(), ChangeUserActivity.class));
-//                                    CC.obtainBuilder("com.gcml.auth.face.signin")
-//                                            .addParam("skip", true)
-//                                            .addParam("currentUser", false)
-//                                            .build()
-//                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
-//                                                @Override
-//                                                public void onResult(CC cc, CCResult result) {
-//                                                    boolean skip = "skip".equals(result.getErrorMessage());
-//                                                    if (result.isSuccess() || skip) {
-//                                                        if (skip) {
-//                                                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-//                                                            return;
-//                                                        }
-//                                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-//                                                    } else {
-//                                                        ToastUtils.showShort(result.getErrorMessage());
-//                                                    }
-//                                                }
-//                                            });
-                                }
-                            }
-                        });
-
+                toDetect(rxUser);
                 break;
             case R.id.iv_health_dialy_task:
                 rxUser.subscribeOn(Schedulers.io())
@@ -365,5 +330,43 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 NimCallActivity.launchNoCheck(getContext(), UserSpHelper.getEqId());
                 break;
         }
+    }
+
+    private void toDetect(Observable<UserEntity> rxUser) {
+        rxUser.subscribeOn(Schedulers.io())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity userEntity) {
+                        if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
+                            ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+                            MLVoiceSynthetize.startSynthesize(
+                                    getActivity().getApplicationContext(),
+                                    "请先去个人中心完善性别和年龄信息");
+                        } else {
+//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                            startActivity(new Intent(getActivity(), ChangeUserActivity.class));
+//                                    CC.obtainBuilder("com.gcml.auth.face.signin")
+//                                            .addParam("skip", true)
+//                                            .addParam("currentUser", false)
+//                                            .build()
+//                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                                                @Override
+//                                                public void onResult(CC cc, CCResult result) {
+//                                                    boolean skip = "skip".equals(result.getErrorMessage());
+//                                                    if (result.isSuccess() || skip) {
+//                                                        if (skip) {
+//                                                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+//                                                            return;
+//                                                        }
+//                                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+//                                                    } else {
+//                                                        ToastUtils.showShort(result.getErrorMessage());
+//                                                    }
+//                                                }
+//                                            });
+                        }
+                    }
+                });
     }
 }
