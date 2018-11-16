@@ -56,7 +56,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private static final String[] BLOODPRESSURE_BRANDS = {"eBlood-Pressure", "Yuwell", "Dual-SPP", "iChoice", "KN-550BT 110"};
     private static final String[] BLOODSUGAR_BRANDS = {"Bioland-BGM", "BLE-Glucowell", "BDE_WEIXIN_TTM"};
     private static final String[] TEMPERATURE_BRANDS = {"AET-WD", "ClinkBlood", "MEDXING-IRT", "FSRKB-EWQ01"};
-    private static final String[] WEIGHT_BRANDS = {"dr01", "VScale", "SHHC-60F1", "iChoice", "SENSSUN_CLOUD", "000FatScale01"};
+    private static final String[] WEIGHT_BRANDS = {"IF_B2A", "dr01", "VScale", "SHHC-60F1", "iChoice", "SENSSUN", "000FatScale01"};
     private static final String[] ECG_BRANDS = {"WeCardio STD", "A12-B"};
     private static final String[] FINGERPRINT_BRANDS = {"zjwellcom"};
     private static final String[] OTHERS_BRANDS = {"BeneCheck GL"};
@@ -333,6 +333,10 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                     case "dr01":
                         baseBluetoothPresenter = new Weight_Simaide_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "dr01"));
+                        break;
+                    case "IF_B2A":
+                        baseBluetoothPresenter = new Weight_Xiangshan_EF895i_PresenterImp(view,
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "IF_B2A"));
                         break;
                     default:
                         break;

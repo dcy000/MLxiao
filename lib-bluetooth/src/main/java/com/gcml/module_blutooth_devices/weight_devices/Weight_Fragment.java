@@ -85,6 +85,10 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
             switch (brand) {
                 default:
                     break;
+                case "IF_B2A":
+                    bluetoothPresenter = new Weight_Xiangshan_EF895i_PresenterImp(this,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "IF_B2A"));
+                    break;
                 case "VScale":
                     bluetoothPresenter = new Weight_Bodivis_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "VScale"));
@@ -137,10 +141,7 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
             }
             isMeasureFinishedOfThisTime = false;
         } else if (datas.length == 1) {
-            if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[0]) != 0) {
-                isMeasureFinishedOfThisTime = true;
-                onMeasureFinished(datas[0]);
-            }
+
             if (mTvTizhong != null) {
                 mTvTizhong.setText(datas[0]);
             }
@@ -165,13 +166,20 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
 //                    mTvTizhi.setText(String.format("%.2f", weight / (parseFloat * parseFloat / 10000)));
 //                }
 //            }
+        } else if (datas.length == 3) {
+            if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[2]) != 0) {
+                isMeasureFinishedOfThisTime = true;
+                onMeasureFinished(datas[2]);
+            }
+            if (mTvTizhong != null) {
+                mTvTizhong.setText(datas[2]);
+            }
         }
     }
 
     @Override
     public void updateState(String state) {
         ToastUtils.showShort(state);
-//        ((AllMeasureActivity) getActivity()).speak(state);
         if (dealVoiceAndJump != null) {
             dealVoiceAndJump.updateVoice(state);
         }

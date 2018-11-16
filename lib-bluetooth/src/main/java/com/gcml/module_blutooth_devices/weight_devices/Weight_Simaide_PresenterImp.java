@@ -178,7 +178,7 @@ public class Weight_Simaide_PresenterImp extends BaseBluetoothPresenter {
                 SimaideBodyInfo scaleInfo = new Gson().fromJson(response, SimaideBodyInfo.class);
                 if (scaleInfo.getCode() == 200) {
                     float weight = scaleInfo.getDetails().getWeight();
-                    baseView.updateData(String.format("%.2f", weight));
+                    baseView.updateData("result","result",String.format("%.2f", weight));
                 }
             }
         }
