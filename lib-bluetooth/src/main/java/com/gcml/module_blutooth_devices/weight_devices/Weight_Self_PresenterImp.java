@@ -43,7 +43,7 @@ public class Weight_Self_PresenterImp extends BaseBluetoothPresenter {
                     public void onNotify(UUID service, UUID character, byte[] bytes) {
                         if (bytes.length == 14 && (bytes[1] & 0xff) == 221) {
                             float weight = ((float) (bytes[2] << 8) + (float) (bytes[3] & 0xff)) / 10;
-                            baseView.updateData(String.format("%.2f", weight));
+                            baseView.updateData("result","result",String.format("%.2f", weight));
                         }
                     }
 

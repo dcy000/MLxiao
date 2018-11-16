@@ -56,8 +56,8 @@ public class Weight_Xiangshan_EF895i_PresenterImp extends BaseBluetoothPresenter
                     isConnected = true;
                     Logg.e(Weight_Xiangshan_EF895i_PresenterImp.class, "OnState: 连接成功");
                     baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-                    baseView.updateData("initialization","0.00");
-                    SPUtil.put( Bluetooth_Constants.SP.SP_SAVE_WEIGHT, targetName + "," + targetAddress);
+                    baseView.updateData("initialization", "0.00");
+                    SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, targetName + "," + targetAddress);
                 } else {
                     if (!isDestroy) {
                         connectDevice(targetAddress);
@@ -96,7 +96,7 @@ public class Weight_Xiangshan_EF895i_PresenterImp extends BaseBluetoothPresenter
                                 } else {
                                     String tmpNum = strdata[7] + strdata[8];
                                     Logg.e(Weight_Xiangshan_EF895i_PresenterImp.class, "OnDATA:稳定体重 " + String.format("%.1f", Integer.valueOf(tmpNum, 16) / 10f) + "KG");
-                                    baseView.updateData(String.format("%.2f", Integer.valueOf(tmpNum, 16) / 10f));
+                                    baseView.updateData("result", "result", String.format("%.2f", Integer.valueOf(tmpNum, 16) / 10f));
                                 }
                                 break;
                             case "82":
@@ -155,8 +155,12 @@ public class Weight_Xiangshan_EF895i_PresenterImp extends BaseBluetoothPresenter
         if (isConnected) {
             bleCloudProtocolUtils.Disconnect();
         }
-        if (bleCloudProtocolUtils != null && baseContext != null) {
-            bleCloudProtocolUtils.stopSDK(baseContext);
+        try {
+            if (bleCloudProtocolUtils != null && baseContext != null) {
+                bleCloudProtocolUtils.stopSDK(baseContext);
+            }
+        } catch (Exception e) {
+
         }
         super.onDestroy();
     }

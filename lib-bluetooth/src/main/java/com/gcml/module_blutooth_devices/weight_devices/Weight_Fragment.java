@@ -19,8 +19,6 @@ import com.gcml.module_blutooth_devices.utils.SPUtil;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 import com.gcml.module_blutooth_devices.utils.ToastUtils;
 
-//import com.gcml.common.utils.data.SPUtil;
-
 public class Weight_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
@@ -85,6 +83,8 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
             helper.start();
         } else {
             switch (brand) {
+                default:
+                    break;
                 case "VScale":
                     bluetoothPresenter = new Weight_Bodivis_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "VScale"));
@@ -105,6 +105,10 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
                     bluetoothPresenter = new Weight_Self_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "000FatScale01"));
                     break;
+//                case "dr01":
+//                    bluetoothPresenter = new Weight_Simaide_PresenterImp(this,
+//                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "dr01"));
+//                    break;
             }
         }
     }
@@ -133,10 +137,7 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
             }
             isMeasureFinishedOfThisTime = false;
         } else if (datas.length == 1) {
-            if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[0]) != 0) {
-                isMeasureFinishedOfThisTime = true;
-                onMeasureFinished(datas[0]);
-            }
+
             if (mTvTizhong != null) {
                 mTvTizhong.setText(datas[0]);
             }
@@ -161,13 +162,20 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
 //                    mTvTizhi.setText(String.format("%.2f", weight / (parseFloat * parseFloat / 10000)));
 //                }
 //            }
+        } else if (datas.length == 3) {
+            if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[2]) != 0) {
+                isMeasureFinishedOfThisTime = true;
+                onMeasureFinished(datas[2]);
+            }
+            if (mTvTizhong != null) {
+                mTvTizhong.setText(datas[2]);
+            }
         }
     }
 
     @Override
     public void updateState(String state) {
         ToastUtils.showShort(state);
-//        ((AllMeasureActivity) getActivity()).speak(state);
         if (dealVoiceAndJump != null) {
             dealVoiceAndJump.updateVoice(state);
         }
