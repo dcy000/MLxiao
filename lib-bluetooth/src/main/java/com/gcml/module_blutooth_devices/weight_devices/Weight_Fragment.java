@@ -85,6 +85,10 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
             switch (brand) {
                 default:
                     break;
+                case "IF_B2A":
+                    bluetoothPresenter = new Weight_Xiangshan_EF895i_PresenterImp(this,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "IF_B2A"));
+                    break;
                 case "VScale":
                     bluetoothPresenter = new Weight_Bodivis_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "VScale"));
