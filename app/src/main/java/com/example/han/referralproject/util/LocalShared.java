@@ -25,6 +25,7 @@ public class LocalShared {
     private static final String USER_ID_CARD = "user_id_card";
     private final String UserImg = "user_img";
     private final String XunfeiId = "Xunfei_Id";
+    private final String ID_CARD = "idCard";
     private final String UserPhoneNum = "user_phone_num";
     private final String MAC_Xueya = "mac_xueya";
     private final String MAC_Wendu = "mac_wendu";
@@ -190,12 +191,17 @@ public class LocalShared {
                 .putString(UserPhoneNum, infoBean.tel)
                 .putString(USER_NAME, infoBean.bname)
                 .putString(XunfeiId, infoBean.xfid)
+                .putString(ID_CARD, infoBean.sfz)
                 .commit();
         MobclickAgent.onProfileSignIn(infoBean.bid);
     }
 
     public String getUserName() {
         return mShared.getString(USER_NAME, "");
+    }
+
+    public String getIdCard() {
+        return mShared.getString(ID_CARD, "");
     }
 
     public void setUserImg(String imgUrl) {

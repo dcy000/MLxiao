@@ -205,22 +205,8 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                             Logg.e(ECG_BoSheng_PresenterImp.class, "registerResultBorsamResponse==null");
                         } else {
                             RegisterResult entity = registerResultBorsamResponse.getEntity();
-                            if (entity == null) {
-                                //该账号已经注册过
-                                login(username, password);
-                            } else {
-                                //注册成功后进行两个操作：1.登录；2：修改个人信息
-                                login(username, password);
-                                int birthday = (int) (TimeUtils.string2Milliseconds(birth, new SimpleDateFormat("yyyyMMdd")) / 1000);
-                                int sexInt = 0;
-                                if (sex.equals("男")) {
-                                    sexInt = 2;
-                                } else if (sex.equals("女")) {
-                                    sexInt = 1;
-                                }
-                                Logg.e(ECG_BoSheng_PresenterImp.class, birthday + "--" + name + "---" + sexInt);
-                                alertPersonInfo(name, "", sexInt, birthday);
-                            }
+                            //注册成功后进行两个操作：1.登录；2：修改个人信息
+                            login(username, password);
                         }
 
                     }
@@ -276,6 +262,16 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
                             PatientApi.token = loginResultBorsamResponse.getEntity().getToken();
                             isLoginBoShengSuccess = true;
                         }
+
+                        int birthday = (int) (TimeUtils.string2Milliseconds(birth, new SimpleDateFormat("yyyyMMdd")) / 1000);
+                        int sexInt = 0;
+                        if (sex.equals("男")) {
+                            sexInt = 2;
+                        } else if (sex.equals("女")) {
+                            sexInt = 1;
+                        }
+                        Logg.e(ECG_BoSheng_PresenterImp.class, birthday + "--" + name + "---" + sexInt);
+                        alertPersonInfo(name, "", sexInt, birthday);
                     }
 
                     @Override

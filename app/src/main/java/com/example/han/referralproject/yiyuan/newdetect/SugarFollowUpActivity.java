@@ -64,14 +64,9 @@ public class SugarFollowUpActivity extends BaseActivity implements FragmentChang
         );
         followInfo.add(xueya);
 
-        SurveyBean choseXindian = new SurveyBean("ChooseECGDeviceFragment",
-                Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian),
-                "心电测量演示视频"
-        );
-        followInfo.add(choseXindian);
-
         SurveyBean xindian = new SurveyBean("ECG_Fragment",
-                null, null);
+                Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian),
+                "心电测量演示视频");
         followInfo.add(xindian);
 
         SurveyBean xuanZheTime = new SurveyBean("HealthSelectSugarDetectionTimeFragment", null, null);

@@ -1,6 +1,7 @@
 package com.example.han.referralproject.yiyuan.newdetect.followupfragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.example.han.referralproject.bean.DataInfoBean;
@@ -9,8 +10,11 @@ import com.example.han.referralproject.single_measure.bean.BoShengResultBean;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.module_blutooth_devices.bean.BoShengUserBean;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
+import com.gcml.module_blutooth_devices.utils.TimeUtils;
 import com.google.gson.Gson;
 import com.medlink.danbogh.utils.T;
+
+import java.text.SimpleDateFormat;
 
 /**
  * Created by lenovo on 2018/11/13.
@@ -21,7 +25,7 @@ public class ECGFollowUpFragment extends ECG_Fragment {
     public void onStart() {
         super.onStart();
         userBean = new BoShengUserBean();
-        userBean.setBirthday(LocalShared.getInstance(mContext).getUserAge());
+        userBean.setBirthday(getBirth(LocalShared.getInstance(mContext).getIdCard()));
         userBean.setName(LocalShared.getInstance(mContext).getUserName());
         userBean.setPhone(LocalShared.getInstance(mContext).getPhoneNum());
         userBean.setSex(LocalShared.getInstance(mContext).getSex());
@@ -61,5 +65,12 @@ public class ECGFollowUpFragment extends ECG_Fragment {
         if (fragmentChanged != null) {
             fragmentChanged.onFragmentChanged(this, data);
         }
+    }
+
+    private String getBirth(String idCard) {
+        if (TextUtils.isEmpty(idCard)) {
+            return TimeUtils.getCurTimeString(new SimpleDateFormat("yyyyMMdd"));
+        }
+        return idCard.substring(6, 14);
     }
 }
