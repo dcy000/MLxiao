@@ -59,7 +59,9 @@ import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
@@ -85,6 +87,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static android.content.Context.AUDIO_SERVICE;
@@ -208,6 +212,11 @@ public class DataDealHelper {
 
 
     public void onDataAction(Context context, String result) {
+        CCResult ccResult;
+        Observable<UserEntity> rxUser;
+        ccResult= CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+        rxUser = ccResult.getDataItem("data");
+
         this.result = result;
         this.context = context;
         String inSpell = PinYinUtils.converterToSpell(result);
@@ -312,6 +321,7 @@ public class DataDealHelper {
 //                            }
 //                        }
 //                    });
+            toDetect(rxUser);
 
             if (listener != null) {
                 listener.onEnd();
@@ -632,7 +642,7 @@ public class DataDealHelper {
             return;
         }
         if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+           /* CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -650,7 +660,8 @@ public class DataDealHelper {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
                         }
-                    });
+                    });*/
+            toDetect(rxUser);
             if (listener != null) {
                 listener.onEnd();
             }
@@ -659,7 +670,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*xueyang.*")
                 || inSpell.matches(".*liang.*xueyang.*")
                 || inSpell.matches(".*ce.*baohedu.*")) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+           /* CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -677,7 +688,8 @@ public class DataDealHelper {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
                         }
-                    });
+                    });*/
+            toDetect(rxUser);
             if (listener != null) {
                 listener.onEnd();
             }
@@ -687,7 +699,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*liang.*xuetang.*")
                 || inSpell.matches(".*xuetangyi.*")
                 ) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+           /* CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -705,14 +717,15 @@ public class DataDealHelper {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
                         }
-                    });
+                    });*/
+            toDetect(rxUser);
             if (listener != null) {
                 listener.onEnd();
             }
 
 
         } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+           /* CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -730,14 +743,15 @@ public class DataDealHelper {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
                         }
-                    });
+                    });*/
+            toDetect(rxUser);
             if (listener != null) {
                 listener.onEnd();
             }
 
         } else if (inSpell.matches(".*ce.*xindian.*")
                 || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+          /*  CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -755,14 +769,15 @@ public class DataDealHelper {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
                         }
-                    });
+                    });*/
+            toDetect(rxUser);
             if (listener != null) {
                 listener.onEnd();
             }
 
 
         } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+           /* CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -780,13 +795,14 @@ public class DataDealHelper {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
                         }
-                    });
+                    });*/
+            toDetect(rxUser);
             if (listener != null) {
                 listener.onEnd();
             }
 
         } else if (inSpell.matches(".*ce.*tizhong.*")) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+           /* CC.obtainBuilder("com.gcml.auth.face.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -804,7 +820,9 @@ public class DataDealHelper {
                                 ToastUtils.showShort(result.getErrorMessage());
                             }
                         }
-                    });
+                    });*/
+
+            toDetect(rxUser);
             if (listener != null) {
                 listener.onEnd();
             }
@@ -1235,6 +1253,11 @@ public class DataDealHelper {
         if (TextUtils.isEmpty(yuyin)) {
             return false;
         }
+
+        CCResult result;
+        Observable<UserEntity> rxUser;
+        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+        rxUser = result.getDataItem("data");
         //血压
 //        jiance.addAll(getDefineData("xueyang"));
 //        jiance.addAll(getDefineData("tiwen"));
@@ -1250,7 +1273,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+              /*  CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1268,7 +1291,8 @@ public class DataDealHelper {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
                             }
-                        });
+                        });*/
+                toDetect(rxUser);
                 return true;
             }
         }
@@ -1281,7 +1305,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+               /* CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1299,7 +1323,8 @@ public class DataDealHelper {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
                             }
-                        });
+                        });*/
+                toDetect(rxUser);
 
                 return true;
             }
@@ -1313,7 +1338,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+               /* CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1331,7 +1356,8 @@ public class DataDealHelper {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
                             }
-                        });
+                        });*/
+                toDetect(rxUser);
                 return true;
             }
         }
@@ -1345,7 +1371,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+              /*  CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1363,7 +1389,8 @@ public class DataDealHelper {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
                             }
-                        });
+                        });*/
+                toDetect(rxUser);
                 return true;
             }
         }
@@ -1376,7 +1403,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+              /*  CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1394,7 +1421,8 @@ public class DataDealHelper {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
                             }
-                        });
+                        });*/
+                toDetect(rxUser);
                 return true;
             }
         }
@@ -1407,7 +1435,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+               /* CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1425,7 +1453,8 @@ public class DataDealHelper {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
                             }
-                        });
+                        });*/
+                toDetect(rxUser);
                 return true;
             }
         }
@@ -1439,7 +1468,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+              /*  CC.obtainBuilder("com.gcml.auth.face.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1457,7 +1486,9 @@ public class DataDealHelper {
                                     ToastUtils.showShort(result.getErrorMessage());
                                 }
                             }
-                        });
+                        });*/
+
+                toDetect(rxUser);
                 return true;
             }
         }
@@ -1673,6 +1704,43 @@ public class DataDealHelper {
         }
 //        intent.putExtra(key, value);
         context.startActivity(intent);
+    }
+
+    private void toDetect(Observable<UserEntity> rxUser) {
+        rxUser.subscribeOn(Schedulers.io())
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity userEntity) {
+                        if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
+                            ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+                            MLVoiceSynthetize.startSynthesize(
+                                    context.getApplicationContext(),
+                                    "请先去个人中心完善性别和年龄信息");
+                        } else {
+//                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                            startActivity(ChangeUserActivity.class);
+//                                    CC.obtainBuilder("com.gcml.auth.face.signin")
+//                                            .addParam("skip", true)
+//                                            .addParam("currentUser", false)
+//                                            .build()
+//                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                                                @Override
+//                                                public void onResult(CC cc, CCResult result) {
+//                                                    boolean skip = "skip".equals(result.getErrorMessage());
+//                                                    if (result.isSuccess() || skip) {
+//                                                        if (skip) {
+//                                                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+//                                                            return;
+//                                                        }
+//                                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+//                                                    } else {
+//                                                        ToastUtils.showShort(result.getErrorMessage());
+//                                                    }
+//                                                }
+//                                            });
+                        }
+                    }
+                });
     }
 
 }
