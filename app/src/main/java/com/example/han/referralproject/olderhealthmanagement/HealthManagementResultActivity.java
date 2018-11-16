@@ -52,7 +52,7 @@ public class HealthManagementResultActivity extends BaseActivity {
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("中医体质检测报告");
+        mTitleText.setText("中医体质自查报告");
         mLeftText.setVisibility(View.GONE);
         mLeftView.setVisibility(View.GONE);
     }
