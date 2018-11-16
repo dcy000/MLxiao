@@ -8,18 +8,26 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ReminderActivity extends BaseActivity {
 
@@ -100,40 +108,46 @@ public class ReminderActivity extends BaseActivity {
 
     @OnClick(R.id.tv_btn_ignore)
     public void onTvBtnIgnoreClicked() {
-        String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
-        NetworkApi.addEatMedicalRecord(
-                LocalShared.getInstance(this).getUserName()
-                , content,
-                "0",
-                new NetworkManager.SuccessCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object response) {
-                        finish();
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        finish();
-                    }
-                });
+        clickBtn("0");
     }
 
     @OnClick(R.id.tv_btn_confirm)
     public void onTvBtnConfirmClicked() {
-        String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
-        NetworkApi.addEatMedicalRecord(
-                LocalShared.getInstance(this).getUserName(),
-                content, "1",
-                new NetworkManager.SuccessCallback<Object>() {
+        clickBtn("1");
+    }
+
+    private void clickBtn(String state) {
+        Observable<UserEntity> data = CC.obtainBuilder("com.gcml.auth.getUser")
+                .build()
+                .call()
+                .getDataItem("data");
+        data.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
-                    public void onSuccess(Object response) {
-                        finish();
+                    public void onNext(UserEntity o) {
+                        String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
+                        NetworkApi.addEatMedicalRecord(
+                                o.name,
+                                content, state,
+                                new NetworkManager.SuccessCallback<Object>() {
+                                    @Override
+                                    public void onSuccess(Object response) {
+                                        finish();
+                                    }
+                                }, new NetworkManager.FailedCallback() {
+                                    @Override
+                                    public void onFailed(String message) {
+                                        ToastUtils.showShort(message);
+                                        finish();
+                                    }
+                                });
                     }
-                }, new NetworkManager.FailedCallback() {
+
                     @Override
-                    public void onFailed(String message) {
-                        ToastUtils.showShort(message);
-                        finish();
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
                     }
                 });
     }

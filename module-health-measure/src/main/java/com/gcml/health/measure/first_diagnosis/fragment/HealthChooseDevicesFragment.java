@@ -78,7 +78,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
             @Override
             protected void convert(BaseViewHolder helper, ChooseDeviceBean item) {
                 if (helper.getAdapterPosition() == 7) {
-                    helper.getView(R.id.device_is_selected).setVisibility(View.GONE);
+                    helper.getView(R.id.device_is_selected).setSelected(true);
                 }
                 helper.getView(R.id.device_is_selected).setSelected(item.getChoosed());
                 helper.setImageResource(R.id.device_image, item.getImageNormal());
@@ -155,7 +155,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         //三合一
         this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_threeinone, false, "三合一", 6));
         //体重秤
-        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_weight, false, "体重秤", 7));
+        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_weight, true, "体重秤", 7));
         //更多
 //        this.deviceBeans.add(new ChooseDeviceBean(R.drawable.health_measure_image_more, false, "敬请期待", 0));
         if (deviceBeans != null) {
