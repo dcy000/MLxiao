@@ -35,7 +35,7 @@ public class ProfessionalFragment extends Fragment implements View.OnClickListen
         this.iFragmentChange = iFragmentChange;
     }
     private boolean[] switch_profress=new boolean[9];
-    private String[] profress=new String[]{"国家机关","军人","办事人员和有关人员","专业技术人员","商业、服务业人员","农、林、牧、渔、水利业生产人员","生产、运输设备操作人员及有关人员","不便分类的其他从业人员","无职业"};
+    private String[] profress=new String[]{"国家机关、组织、企业人","军人","办事人员和有关人员","专业技术人员","商业、服务业人员","农、林、牧、渔、水利业生产人员","生产、运输设备操作人员及有关人员","不便分类的其他从业人员","无职业"};
     private List<TextView> textViews;
     private String[] index=new String[]{"0","1","2","3","4","5","6","7","8"};
     @Nullable

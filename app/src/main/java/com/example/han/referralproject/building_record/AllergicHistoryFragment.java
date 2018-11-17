@@ -42,11 +42,11 @@ public class AllergicHistoryFragment extends Fragment implements View.OnClickLis
         this.iFragmentChange = iFragmentChange;
     }
 
-    private String[] anaphylaxis = new String[]{"青霉素", "头孢", "磺胺类", "其他", "无"};
+    private String[] anaphylaxis = new String[]{"青霉素", "链霉素", "磺胺", "其他", "无"};
     private boolean[] switch_anaphylaxis = new boolean[5];
     private String[] radiations = new String[]{"化学品", "毒物", "射线", "无"};
     private boolean[] switch_radiations = new boolean[4];
-    private String[] index1 = new String[]{"2", "3", "4", "5", "1"};
+    private String[] index1 = new String[]{"2", "4", "3", "5", "1"};
     private String[] index2 = new String[]{"2", "3", "4", "1"};
 
     @Nullable

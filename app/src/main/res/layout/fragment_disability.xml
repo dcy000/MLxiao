@@ -144,7 +144,7 @@
             android:gravity="center"
             android:paddingBottom="40pt"
             android:paddingTop="40pt"
-            android:text="其他"
+            android:text="其他残疾"
             android:textColor="#666"
             android:textSize="72pt" />
 
@@ -159,7 +159,7 @@
             android:gravity="center"
             android:paddingBottom="40pt"
             android:paddingTop="40pt"
-            android:text="无"
+            android:text="无残疾"
             android:textColor="#666"
             android:textSize="72pt" />
 

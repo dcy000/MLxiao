@@ -33,7 +33,7 @@ public class DisabilityFragment extends Fragment implements View.OnClickListener
         this.iFragmentChange = iFragmentChange;
     }
 
-    private String[] disability = new String[]{"视力残疾", "听力残疾", "言语残疾", "肢体残疾", "智力残疾", "精神残疾", "其他", "无"};
+    private String[] disability = new String[]{"视力残疾", "听力残疾", "言语残疾", "肢体残疾", "智力残疾", "精神残疾", "其他残疾", "无残疾"};
     private boolean[] switch_disability = new boolean[8];
     private String[] index = new String[]{"2", "3", "4", "5", "6", "7", "8", "1"};
 
