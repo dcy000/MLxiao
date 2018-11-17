@@ -36,17 +36,29 @@ public class ProfessionalFragment extends Fragment implements View.OnClickListen
     }
 
     private boolean[] switch_profress = new boolean[9];
-    private String[] profress = new String[]{"国家机关、组织、企业人",//0
-            "专业技术人员", //1
-            "办事人员和有关人员",//2
-            "商业、服务业人员", //3
-            "农、林、牧、渔、水利业生产人员",//4
-            "生产、运输设备操作人员及有关人员",//5
-            "军人", //6
-            "不便分类的其他从业人员",//7
-            "无职业"};//8
+//    private String[] profress = new String[]{"国家机关",//0
+//            "专业技术人员", //1
+//            "办事人员和有关人员",//2
+//            "商业、服务业人员", //3
+//            "农、林、牧、渔、水利业生产人员",//4
+//            "生产、运输设备操作人员及有关人员",//5
+//            "军人", //6
+//            "不便分类的其他从业人员",//7
+//            "无职业"};//8
+
+
+    private String[] profress = new String[]{
+            "国家机关",
+            "军人",
+            "办事人员和有关人员",
+            "专业技术人员",
+            "商业、服务业人员",
+            "农、林、牧、渔、水利业生产人员",
+            "生产、运输设备操作人员及有关人员",
+            "不便分类的其他从业人员",
+            "无职业"};
     private List<TextView> textViews;
-    private String[] index = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8"};
+    private String[] index = new String[]{"0", "6", "2", "1", "3", "4", "5", "7", "8"};
 
     @Nullable
     @Override
@@ -110,22 +122,22 @@ public class ProfessionalFragment extends Fragment implements View.OnClickListen
                 result = MyArraysUtils.resetSwitch(switch_profress, profress, textViews, 0);
                 break;
             case R.id.junren:
-                result = MyArraysUtils.resetSwitch(switch_profress, profress, textViews, 6);
+                result = MyArraysUtils.resetSwitch(switch_profress, profress, textViews, 1);
                 break;
             case R.id.daxuezhuanke:
                 result = MyArraysUtils.resetSwitch(switch_profress, profress, textViews, 2);
                 break;
             case R.id.zhuanyejishu:
-                result = MyArraysUtils.resetSwitch(switch_profress, profress, textViews, 1);
-                break;
-            case R.id.shangyefuwu:
                 result = MyArraysUtils.resetSwitch(switch_profress, profress, textViews, 3);
                 break;
-            case R.id.nonglinmuyu:
+            case R.id.shangyefuwu:
                 result = MyArraysUtils.resetSwitch(switch_profress, profress, textViews, 4);
                 break;
-            case R.id.shebeicaozuo:
+            case R.id.nonglinmuyu:
                 result = MyArraysUtils.resetSwitch(switch_profress, profress, textViews, 5);
+                break;
+            case R.id.shebeicaozuo:
+                result = MyArraysUtils.resetSwitch(switch_profress, profress, textViews, 6);
                 break;
             case R.id.qita:
                 result = MyArraysUtils.resetSwitch(switch_profress, profress, textViews, 7);

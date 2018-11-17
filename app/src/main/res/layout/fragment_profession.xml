@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/radiobutton_textview_set"
-            android:text="国家机关、组织、企业人"
+            android:text="国家机关"
             android:drawablePadding="24pt"
             android:textSize="72pt"
             android:textColor="#666"

@@ -132,9 +132,9 @@ public class MyBaseDataActivity extends BaseActivity {
                             //身高体重地址
                             address.setText(data.address);
                             String cm = data.height + "cm";
-                            height.setText(cm.replaceAll("null", ""));
+                            height.setText(cm.replaceAll("nullcm", ""));
                             String kg = data.weight + "kg";
-                            weight.setText(kg.replaceAll("null", ""));
+                            weight.setText(kg.replaceAll("nullkg", ""));
                             originAddress.setText(data.dz);
 
 
