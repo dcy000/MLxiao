@@ -70,7 +70,7 @@ public class JieMengActivity extends ToolBaseActivity {
     protected void initView() {
         setContentView(R.layout.activity_jiemeng);
         ButterKnife.bind(this);
-        speak("主人,欢迎来到周公姐梦!");
+        MLVoiceSynthetize.startSynthesize("主人,欢迎来到周公姐梦!");
         initEvent();
     }
 
@@ -85,7 +85,7 @@ public class JieMengActivity extends ToolBaseActivity {
 
 
     private void startListener() {
-        SpeechRecognizer speechRecognizer = MLVoiceRecognize.initSpeechRecognizer(this);
+        SpeechRecognizer speechRecognizer = MLVoiceRecognize.initSpeechRecognizer();
         speechRecognizer.startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
@@ -110,7 +110,7 @@ public class JieMengActivity extends ToolBaseActivity {
 
             @Override
             public void onError(SpeechError speechError) {
-                speak("主人,我没有听清,你能再说一遍吗?");
+                MLVoiceSynthetize.startSynthesize("主人,我没有听清,你能再说一遍吗?");
             }
 
             @Override
@@ -145,7 +145,7 @@ public class JieMengActivity extends ToolBaseActivity {
             @Override
             public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
                 if (!"dream".equals(service)) {
-                    speak("主人,这个梦我还不会解了");
+                    MLVoiceSynthetize.startSynthesize("主人,这个梦我还不会解了");
                     return;
                 }
                 try {
@@ -153,7 +153,7 @@ public class JieMengActivity extends ToolBaseActivity {
                     data.addAll((List<DreamBean>) anwser);
                     JieMengRetultActivity.startMe(JieMengActivity.this, data, result, anwserText);
                 } catch (Exception e) {
-                    speak("主人,这个梦我还不会解了");
+                    MLVoiceSynthetize.startSynthesize("主人,这个梦我还不会解了");
                 }
             }
         });

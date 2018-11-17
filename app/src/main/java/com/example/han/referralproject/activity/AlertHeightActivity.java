@@ -13,6 +13,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.SelectAdapter;
 import com.medlink.danbogh.utils.T;
 
@@ -199,7 +200,7 @@ public class AlertHeightActivity extends BaseActivity {
                     public void onSuccess(Object response) {
                         LocalShared.getInstance(AlertHeightActivity.this).setUserHeight(height);
                         ToastTool.showShort("修改成功");
-                        speak("主人，您的身高已经修改为" + height + "厘米");
+                        MLVoiceSynthetize.startSynthesize("主人，您的身高已经修改为" + height + "厘米");
 
                     }
                 }, new NetworkManager.FailedCallback() {

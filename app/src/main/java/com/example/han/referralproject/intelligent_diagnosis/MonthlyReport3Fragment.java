@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.MonthlyReport;
 import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -132,7 +133,7 @@ public class MonthlyReport3Fragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser){
-            ((MonthlyReportActivity) getActivity()).speak(tips);
+            MLVoiceSynthetize.startSynthesize(tips);
         }
     }
 

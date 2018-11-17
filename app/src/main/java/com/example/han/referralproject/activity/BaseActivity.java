@@ -50,6 +50,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
@@ -204,7 +205,7 @@ public class BaseActivity extends AppCompatActivity {
                 }
             });
 
-            speak("主人，新消息。" + message);
+            MLVoiceSynthetize.startSynthesize("主人，新消息。" + message);
         }
     }
 
@@ -311,36 +312,36 @@ public class BaseActivity extends AppCompatActivity {
         }
     };
 
-    public void speak(String text) {
-        if (TextUtils.isEmpty(text)) {
-            return;
-        }
-        stopListening();
-        synthesizer = SpeechSynthesizer.getSynthesizer();
-        if (synthesizer == null) {
-            synthesizer = SpeechSynthesizer.createSynthesizer(this, new SynthesizerInitListener(text));
-            return;
-        }
-        setSynthesizerParams();
-        synthesizer.startSpeaking(text, mTtsListener);
-    }
-
-    protected void speak(String text, boolean isDefaultParam) {
-        if (TextUtils.isEmpty(text)) {
-            return;
-        }
-        stopListening();
-        synthesizer = SpeechSynthesizer.getSynthesizer();
-        if (synthesizer == null) {
-            synthesizer = SpeechSynthesizer.createSynthesizer(this, new SynthesizerInitListener(text));
-            return;
-        }
-        if (isDefaultParam) {
-            setSynthesizerParams();
-        }
-
-        synthesizer.startSpeaking(text, mTtsListener);
-    }
+//    public void speak(String text) {
+//        if (TextUtils.isEmpty(text)) {
+//            return;
+//        }
+//        stopListening();
+//        synthesizer = SpeechSynthesizer.getSynthesizer();
+//        if (synthesizer == null) {
+//            synthesizer = SpeechSynthesizer.createSynthesizer(this, new SynthesizerInitListener(text));
+//            return;
+//        }
+//        setSynthesizerParams();
+//        synthesizer.startSpeaking(text, mTtsListener);
+//    }
+//
+//    protected void speak(String text, boolean isDefaultParam) {
+//        if (TextUtils.isEmpty(text)) {
+//            return;
+//        }
+//        stopListening();
+//        synthesizer = SpeechSynthesizer.getSynthesizer();
+//        if (synthesizer == null) {
+//            synthesizer = SpeechSynthesizer.createSynthesizer(this, new SynthesizerInitListener(text));
+//            return;
+//        }
+//        if (isDefaultParam) {
+//            setSynthesizerParams();
+//        }
+//
+//        synthesizer.startSpeaking(text, mTtsListener);
+//    }
 
     private class SynthesizerInitListener implements InitListener {
         private String mText;
@@ -373,9 +374,9 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    protected void speak(int resId) {
-        speak(getString(resId));
-    }
+//    protected void speak(int resId) {
+//        speak(getString(resId));
+//    }
 
     protected void startListening() {
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();

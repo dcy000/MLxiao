@@ -54,6 +54,7 @@ import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
@@ -276,7 +277,7 @@ public class AuthenticationActivity extends BaseActivity {
         NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
             @Override
             public void onSuccess(String response) {
-                speak(getString(R.string.shop_yanzheng));
+                MLVoiceSynthetize.startSynthesize(R.string.shop_yanzheng);
                 ToastTool.showShort("验证不通过");
                 finish();
 

@@ -22,6 +22,8 @@ import com.example.han.referralproject.util.PinYinUtils;
 import com.example.han.referralproject.util.ToastTool;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gzq.lib_core.base.Box;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.entity.City;
 import com.medlink.danbogh.register.entity.Province;
 import com.medlink.danbogh.utils.Handlers;
@@ -289,7 +291,7 @@ public class AlertAddressActivity extends BaseActivity {
         String address = etAddress.getText().toString().trim();
         if (TextUtils.isEmpty(address)) {
             T.show(R.string.sign_up3_address_tip);
-            speak(R.string.sign_up3_address_tip);
+            MLVoiceSynthetize.startSynthesize(Box.getString(R.string.sign_up3_address_tip));
             return;
         }
         NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, eat, smoke, drink, exercise,
@@ -297,7 +299,7 @@ public class AlertAddressActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Object response) {
                         ToastTool.showShort("修改成功");
-                        speak("主人，您的地址已经修改成功");
+                        MLVoiceSynthetize.startSynthesize("主人，您的地址已经修改成功");
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override

@@ -48,7 +48,7 @@ public class CalculationDialog extends DialogFragment {
             tvAnwser.setText(bundle.getString("answer").substring(2));
         }
         MLVoiceSynthetize.stop();
-        MLVoiceSynthetize.startSynthesize(getContext(), bundle.getString("answer"),false);
+        MLVoiceSynthetize.startSynthesize(bundle.getString("answer"));
         return view;
     }
 

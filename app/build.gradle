@@ -63,6 +63,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources false
+
+            multiDexKeepFile file('multidex-config.txt')
+
             //TODO:老地址下面这行代码是固定代码，请不要注释，不要更改，如需更换地址请到config.gradle中进行更改。重要！重要！重要！
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
 
@@ -75,7 +78,11 @@ android {
             //TODO:老地址下面这行代码是固定代码，请不要注释，不要更改，如需更换地址请到config.gradle中进行更改。重要！重要！重要！
             buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
 
+            multiDexKeepFile file('multidex-config.txt')
+
+
             signingConfig signingConfigs.debug
+
         }
     }
 
@@ -197,7 +204,7 @@ dependencies {
     implementation project(':expand-textview-library')
     implementation project(':lib-rulerview')
     implementation project(':circleindicator')
-    implementation project(':voice')
+    implementation project(':lib-voice')
     implementation project(':lib-ecg')
     implementation project(':lib-core')
 }

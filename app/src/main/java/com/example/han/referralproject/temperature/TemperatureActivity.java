@@ -32,6 +32,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.SampleGattAttributes;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.megvii.faceppidcardui.util.ConstantData;
 
 import java.io.BufferedReader;
@@ -92,7 +93,7 @@ public class TemperatureActivity extends BaseActivity {
                         if ("OK".equals(str)) {
                             sign_connect = false;
                             dialog.create(NDialog.CONFIRM).dismiss();
-                            speak(R.string.tips_open_device);
+                            MLVoiceSynthetize.startSynthesize(R.string.tips_open_device);
                             return;
                         }
                         mTextView.setText(msg.obj + "");

@@ -23,6 +23,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.PinYinUtils;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -179,7 +180,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.tips_doctor);
+        MLVoiceSynthetize.startSynthesize(R.string.tips_doctor);
     }
 
     @Override

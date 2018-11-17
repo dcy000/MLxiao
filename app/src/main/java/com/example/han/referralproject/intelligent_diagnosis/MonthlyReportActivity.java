@@ -15,6 +15,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,14 +86,14 @@ public class MonthlyReportActivity extends BaseActivity {
                     fragment5.notifyData(response.mapq);
                 } else {
                     ToastTool.showShort("暂无月报告");
-                    speak("主人，您的测量数据太少，我们还不能为您生成本月的报告。请您坚持每天测量，我们将在每月一号为您生成新报告");
+                    MLVoiceSynthetize.startSynthesize("主人，您的测量数据太少，我们还不能为您生成本月的报告。请您坚持每天测量，我们将在每月一号为您生成新报告");
                 }
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
                 ToastTool.showShort("暂无月报告");
-                speak("主人，您的测量数据太少，我们还不能为您生成本月的报告。请您坚持每天测量，我们将在每月一号为您生成新报告");
+                MLVoiceSynthetize.startSynthesize("主人，您的测量数据太少，我们还不能为您生成本月的报告。请您坚持每天测量，我们将在每月一号为您生成新报告");
             }
         });
     }

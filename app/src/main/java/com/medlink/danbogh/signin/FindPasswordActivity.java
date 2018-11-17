@@ -11,6 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
@@ -65,7 +66,7 @@ public class FindPasswordActivity extends BaseActivity {
     public void onTvNextClicked() {
         final String phone = etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
-            speak("主人，请输入正确的手机号码");
+            MLVoiceSynthetize.startSynthesize("主人，请输入正确的手机号码");
             T.show("主人，请输入正确的手机号码");
             return;
         }
@@ -93,7 +94,7 @@ public class FindPasswordActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak("主人，请输入您的手机号码");
+        MLVoiceSynthetize.startSynthesize("主人，请输入您的手机号码");
     }
 
     @Override

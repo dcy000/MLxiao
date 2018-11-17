@@ -29,6 +29,7 @@ import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
@@ -1144,7 +1145,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             }
         });
 
-        speak(R.string.qianyue_doctor);
+        MLVoiceSynthetize.startSynthesize(R.string.qianyue_doctor);
 
         mToolbar.setVisibility(View.VISIBLE);
 
@@ -1278,7 +1279,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                     finish();
 
                 } else {
-                    speak(getString(R.string.yuyue_limit));
+                    MLVoiceSynthetize.startSynthesize(R.string.yuyue_limit);
 
                     Toast.makeText(getApplicationContext(), "主人，您预约已达到最大次数", Toast.LENGTH_SHORT).show();
                 }
@@ -1390,7 +1391,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                 dialog = new NDialog1(DoctorappoActivity.this);
 
-                speak(getString(R.string.cancel_yuyue));
+                MLVoiceSynthetize.startSynthesize(R.string.cancel_yuyue);
 
                 showNormal(1);
 
@@ -1399,7 +1400,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             case R.id.cancel_yuyue1:
 
                 dialog = new NDialog1(DoctorappoActivity.this);
-                speak(getString(R.string.cancel_yuyue));
+                MLVoiceSynthetize.startSynthesize(R.string.cancel_yuyue);
 
                 showNormal(2);
                 break;
@@ -1407,8 +1408,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             case R.id.cancel_yuyue2:
 
                 dialog = new NDialog1(DoctorappoActivity.this);
-
-                speak(getString(R.string.cancel_yuyue));
+                MLVoiceSynthetize.startSynthesize(R.string.cancel_yuyue);
 
                 showNormal(3);
                 break;
@@ -1467,7 +1467,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                         yuYueDoctor();
 
                                         ShowNormals("取消成功");
-                                        speak(getString(R.string.cancel_success));
+                                        MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
 
 
                                     }
@@ -1517,7 +1517,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                                         ShowNormals("取消成功");
 
-                                        speak(getString(R.string.cancel_success));
+                                        MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
 
                                     }
 
@@ -1566,7 +1566,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                                         ShowNormals("取消成功");
 
-                                        speak(getString(R.string.cancel_success));
+                                        MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
 
                                        /* DataSupport.deleteAllAsync(AlarmModel.class, "timestamp=?", times)
                                                 .listen(new UpdateOrDeleteCallback() {

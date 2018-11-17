@@ -13,6 +13,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.EatAdapter;
 import com.medlink.danbogh.register.EatModel;
 
@@ -219,22 +220,22 @@ public class AlertEatingActivity extends BaseActivity {
                 ToastTool.showShort("修改成功");
                 switch (positionSelected+1){
                     case 1:
-                        speak("主人，您的饮食情况已经修改为"+"荤素搭配");
+                        MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为"+"荤素搭配");
                         break;
                     case 2:
-                        speak("主人，您的饮食情况已经修改为"+"偏好吃荤");
+                        MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为"+"偏好吃荤");
                         break;
                     case 3:
-                        speak("主人，您的饮食情况已经修改为"+"偏好吃素");
+                        MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为"+"偏好吃素");
                         break;
                     case 4:
-                        speak("主人，您的饮食情况已经修改为"+"偏好吃咸");
+                        MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为"+"偏好吃咸");
                         break;
                     case 5:
-                        speak("主人，您的饮食情况已经修改为"+"偏好油腻");
+                        MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为"+"偏好油腻");
                         break;
                     case 6:
-                        speak("主人，您的饮食情况已经修改为"+"偏好甜食");
+                        MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为"+"偏好甜食");
                         break;
                 }
             }

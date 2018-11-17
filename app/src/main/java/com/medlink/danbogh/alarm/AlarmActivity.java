@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Locale;
 
@@ -50,7 +51,7 @@ public class AlarmActivity extends BaseActivity {
             mHandler.removeCallbacks(this);
             mAlarmCount++;
             if (mAlarmCount <= 5) {
-                speak(mContent);
+                MLVoiceSynthetize.startSynthesize(mContent);
                 mHandler.postDelayed(this, 3000);
             } else {
                 mAlarmCount = 0;

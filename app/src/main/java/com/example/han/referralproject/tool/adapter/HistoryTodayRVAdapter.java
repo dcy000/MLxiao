@@ -74,7 +74,7 @@ public class HistoryTodayRVAdapter extends BaseQuickAdapter<HistoryTodayBean, Ba
                     position = holder.getPosition();
                     HistoryTodayBean bean = getData().get(position);
                     MLVoiceSynthetize.stop();
-                    MLVoiceSynthetize.startSynthesize(expandTextView.getContext(),bean.title+","+ bean.description,false);
+                    MLVoiceSynthetize.startSynthesize(bean.title+","+ bean.description);
                 }
                 getData().get(holder.getPosition()).flag = true;
             }

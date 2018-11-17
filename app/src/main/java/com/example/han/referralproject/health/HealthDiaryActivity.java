@@ -14,6 +14,7 @@ import com.example.han.referralproject.health.model.DetailsModel;
 import com.example.han.referralproject.health.model.ItemsModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -173,7 +174,7 @@ public class HealthDiaryActivity extends BaseActivity
                                 return;
                             }
                             T.show(message);
-                            speak(message);
+                            MLVoiceSynthetize.startSynthesize(message);
                         }
                     }
             );

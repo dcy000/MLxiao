@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class VideoListActivity extends BaseActivity {
         setDisableGlobalListen(true);
         setEnableListeningLoop(false);
         super.onResume();
-        speak("主人，欢迎观看健康课堂");
+        MLVoiceSynthetize.startSynthesize("主人，欢迎观看健康课堂");
     }
 
     private List<VideoListFragment> mFragments;

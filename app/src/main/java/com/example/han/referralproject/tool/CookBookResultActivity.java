@@ -42,7 +42,7 @@ public class CookBookResultActivity extends AppCompatActivity {
         data = (List<CookbookBean>) getIntent().getSerializableExtra("data");
         question = getIntent().getStringExtra("question");
         initView();
-        MLVoiceSynthetize.startSynthesize(this, question + "," + data.get(0).title + "," + data.get(0).steps,false);
+        MLVoiceSynthetize.startSynthesize(question + "," + data.get(0).title + "," + data.get(0).steps);
     }
 
     public static void StartMe(Context context, List<CookbookBean> data, String question) {

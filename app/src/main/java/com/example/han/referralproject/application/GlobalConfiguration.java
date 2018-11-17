@@ -87,7 +87,7 @@ public class GlobalConfiguration implements GlobalModule {
                     public void crash(Context context, CaocConfig.Builder builder) {
 
                         //关闭崩溃全局监听
-//                        builder.enabled(false);
+                        builder.enabled(BuildConfig.DEBUG);
                     }
                 });
 

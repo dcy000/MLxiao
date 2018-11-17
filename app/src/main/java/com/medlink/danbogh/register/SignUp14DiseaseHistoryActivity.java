@@ -14,6 +14,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.sign_up_disease_history_tip);
+        MLVoiceSynthetize.startSynthesize(R.string.sign_up_disease_history_tip);
     }
 
     @OnClick(R.id.tv_sign_up_go_back)

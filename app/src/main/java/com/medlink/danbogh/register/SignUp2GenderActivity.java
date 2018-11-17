@@ -12,6 +12,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
@@ -84,7 +85,7 @@ public class SignUp2GenderActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.sign_up2_gender_tip);
+        MLVoiceSynthetize.startSynthesize(R.string.sign_up2_gender_tip);
     }
 
     @OnClick(R.id.tv_sign_up_go_back)
@@ -96,7 +97,7 @@ public class SignUp2GenderActivity extends BaseActivity {
     public void onTvGoForwardClicked() {
         if (!mIvRbMan.isSelected() && !mIvRbWoman.isSelected()) {
             T.show(R.string.sign_up2_gender_tip);
-            speak(R.string.sign_up2_gender_tip);
+            MLVoiceSynthetize.startSynthesize(R.string.sign_up2_gender_tip);
             return;
         }
 

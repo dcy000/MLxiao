@@ -42,7 +42,7 @@ public class BaikeResultActivity extends BaseActivity {
         ButterKnife.bind(this);
         data = (List<BaiKeBean>) getIntent().getSerializableExtra("data");
         initView();
-        speak(data.get(0).summary);
+        MLVoiceSynthetize.startSynthesize(data.get(0).summary);
     }
 
     private void initView() {

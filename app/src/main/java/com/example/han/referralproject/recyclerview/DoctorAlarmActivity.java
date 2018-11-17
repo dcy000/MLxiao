@@ -16,6 +16,7 @@ import com.example.han.referralproject.bean.AlreadyYuyue;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimCallActivity;
@@ -63,7 +64,7 @@ public class DoctorAlarmActivity extends BaseActivity {
 
         mTitleText.setText(getString(R.string.yuyue_video));
 
-        speak(getString(R.string.yuyue_tim));
+        MLVoiceSynthetize.startSynthesize(R.string.yuyue_tim);
 
 
         mButton1.setOnClickListener(new View.OnClickListener() {

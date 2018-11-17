@@ -80,7 +80,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         mTvNext.setOnClickListener(this);
         view.findViewById(R.id.tv_change_device).setOnClickListener(this);
         setBtnClickableState(false);
-        MLVoiceSynthetize.startSynthesize(context, "主人，请打开设备开关，准备测量", false);
+        MLVoiceSynthetize.startSynthesize("主人，请打开设备开关，准备测量");
         initOther();
     }
 
@@ -137,7 +137,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                     if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
                         String message = "连接失败，点击右上角按钮重连";
                         ToastUtils.showShort(message);
-                        MLVoiceSynthetize.startSynthesize(Box.getApp(), message, false);
+                        MLVoiceSynthetize.startSynthesize(message);
                     }
                 }
             } else if (action.equals(ReceiveService.ACTION_BLUETOOH_OFF)) {

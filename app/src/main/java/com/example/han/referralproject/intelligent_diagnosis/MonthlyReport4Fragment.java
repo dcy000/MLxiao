@@ -26,6 +26,7 @@ import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 
@@ -183,7 +184,7 @@ public class MonthlyReport4Fragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser){
-            ((MonthlyReportActivity) getActivity()).speak(tips);
+            MLVoiceSynthetize.startSynthesize(tips);
         }
     }
 

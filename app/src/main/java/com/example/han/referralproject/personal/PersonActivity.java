@@ -40,6 +40,7 @@ import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.squareup.picasso.Picasso;
@@ -97,7 +98,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
 
-        speak(getString(R.string.person_info));
+        MLVoiceSynthetize.startSynthesize(R.string.person_info);
         mToolbar.setVisibility(View.VISIBLE);
 
         userId = MyApplication.getInstance().userId;
@@ -363,7 +364,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                             if (response != null && response.vid > getPackageManager().getPackageInfo(PersonActivity.this.getPackageName(), 0).versionCode) {
                                 new UpdateAppManager(PersonActivity.this).showNoticeDialog(response.url);
                             } else {
-                                speak("当前已经是最新版本了");
+                                MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
                                 Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
@@ -374,7 +375,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void onFailed(String message) {
                         hideLoadingDialog();
-                        speak("当前已经是最新版本了");
+                        MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
                         Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
                     }
                 });

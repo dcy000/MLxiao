@@ -3,8 +3,11 @@ package com.iflytek.synthetize;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
+import com.gzq.lib_core.base.App;
+import com.gzq.lib_core.base.Box;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechSynthesizer;
@@ -18,7 +21,7 @@ import java.util.Random;
  * Created by lenovo on 2018/3/29.
  */
 
-public class MLVoiceSynthetize {
+public final class MLVoiceSynthetize {
 
     private MLVoiceSynthetize() {
     }
@@ -40,21 +43,21 @@ public class MLVoiceSynthetize {
     /**
      * 初始化语音合成对象
      */
-    public static SpeechSynthesizer initSpeechSynthesizer(Context context) {
-        return initSpeechSynthesizer(context, null);
+    private static SpeechSynthesizer initSpeechSynthesizer() {
+        return initSpeechSynthesizer(null);
     }
 
     /**
      * 初始化语音合成对象  默认设置一次参数
      */
-    public static SpeechSynthesizer initSpeechSynthesizer(Context context, InitListener initListener) {
-        return initSpeechSynthesizer(context, initListener, false);
+    private static SpeechSynthesizer initSpeechSynthesizer(InitListener initListener) {
+        return initSpeechSynthesizer(initListener, false);
     }
 
     /**
      * 初始化语音合成对象 是否采用默认参数
      */
-    public static SpeechSynthesizer initSpeechSynthesizer(Context context, InitListener initListener, boolean whine) {
+    private static SpeechSynthesizer initSpeechSynthesizer(InitListener initListener, boolean whine) {
 
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer == null) {
@@ -66,11 +69,11 @@ public class MLVoiceSynthetize {
                     }
                 };
             }
-            synthesizer = SpeechSynthesizer.createSynthesizer(context, initListener);
+            synthesizer = SpeechSynthesizer.createSynthesizer(App.getApp(), initListener);
         }
         if (!whine) {
-            setParam(context, synthesizer);
-        }else{
+            setParam(synthesizer);
+        } else {
             setRandomParam();
         }
         return synthesizer;
@@ -80,65 +83,60 @@ public class MLVoiceSynthetize {
     /**
      * 设置参数
      */
-    public static void setParam(Context context) {
+    private static void setParam() {
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
-        setParam(context, synthesizer);
+        setParam(synthesizer);
 
     }
 
     /**
      * 设置参数
      */
-    public static void setParam(Context context, SpeechSynthesizer synthesizer) {
+    private static void setParam(SpeechSynthesizer synthesizer) {
         //语音选项设置
-        SharedPreferences sharedPreferences = context.getSharedPreferences(TtsSettings.PREFER_NAME, context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = App.getApp().getSharedPreferences(TtsSettings.PREFER_NAME, App.getApp().MODE_PRIVATE);
         initDefaultParam(synthesizer, sharedPreferences);
     }
 
     /**
+     * 默认不变声
+     *
+     * @param text
+     */
+    public static void startSynthesize(String text) {
+        startSynthesize(text, false);
+    }
+    public static void startSynthesize(@StringRes int id) {
+        startSynthesize(Box.getString(id), false);
+    }
+    /**
      * 开始合成
      */
-    public static void startSynthesize(Context context, String text,boolean whine) {
-        startSynthesize(context, whine, text);
+    public static void startSynthesize(String text, boolean whine) {
+        startSynthesize(text,whine,null);
     }
 
     /**
      * 开始合成
      */
-    public static void startSynthesize(Context context, String text,SynthesizerListener synthesizerListener,boolean whine) {
-        startSynthesize(context, whine, synthesizerListener, text);
+    public static void startSynthesize(String text,boolean whine, SynthesizerListener synthesizerListener) {
+        startSynthesize(text,whine,null, synthesizerListener);
     }
-
-    /**
-     * 开始合成
-     */
-    public static void startSynthesize(Context context, boolean isDefaultParam, String text) {
-        startSynthesize(context, isDefaultParam, null, text);
-    }
-
 
 
     /**
      * 开始合成
      */
-    public static void startSynthesize(Context context, boolean isDefaultParam, SynthesizerListener synthesizerListener, String text) {
-        startSynthesize(context, null, isDefaultParam, synthesizerListener, text);
-    }
-
-    /**
-     * 开始合成
-     */
-    public static void startSynthesize(Context context, InitListener initListener, boolean isDefaultParam, SynthesizerListener synthesizerListener, String text) {
+    public static void startSynthesize( String text, boolean isDefaultParam,InitListener initListener, SynthesizerListener synthesizerListener) {
 
         if (TextUtils.isEmpty(text)) {
             return;
         }
         MLVoiceRecognize.stopListening();
-        SpeechSynthesizer synthesizer = initSpeechSynthesizer(context, initListener, isDefaultParam);
+        SpeechSynthesizer synthesizer = initSpeechSynthesizer(initListener, isDefaultParam);
 
         if (synthesizerListener == null) {
             synthesizerListener = new MLSynthesizerListener();
-
         }
         synthesizer.startSpeaking(text, synthesizerListener);
     }
@@ -147,7 +145,7 @@ public class MLVoiceSynthetize {
     /**
      * 清空参数
      */
-    public static SpeechSynthesizer setNoParam(SpeechSynthesizer synthesizer) {
+    private static SpeechSynthesizer setNoParam(SpeechSynthesizer synthesizer) {
         synthesizer.setParameter(SpeechConstant.SPEED, null);
         return synthesizer;
     }
@@ -156,56 +154,56 @@ public class MLVoiceSynthetize {
      * 设置引擎类型
      */
 
-    public static SpeechSynthesizer setEngineType(SpeechSynthesizer synthesizer, String engineType) {
+    private static SpeechSynthesizer setEngineType(SpeechSynthesizer synthesizer, String engineType) {
         synthesizer.setParameter(SpeechConstant.ENGINE_TYPE, engineType);
         return synthesizer;
     }
 
-    public static SpeechSynthesizer setFormat(SpeechSynthesizer synthesizer, String format) {
+    private static SpeechSynthesizer setFormat(SpeechSynthesizer synthesizer, String format) {
         synthesizer.setParameter(SpeechConstant.AUDIO_FORMAT, format);
         return synthesizer;
     }
 
 
-    public static SpeechSynthesizer setPath(SpeechSynthesizer synthesizer, String path) {
+    private static SpeechSynthesizer setPath(SpeechSynthesizer synthesizer, String path) {
         synthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, path);
         return synthesizer;
     }
 
 
     //设置合成语速
-    public static SpeechSynthesizer setSpeed(SpeechSynthesizer synthesizer, String speed) {
+    private static SpeechSynthesizer setSpeed(SpeechSynthesizer synthesizer, String speed) {
         synthesizer.setParameter(SpeechConstant.SPEED, speed);
         return synthesizer;
     }
 
     //设置合成语速
-    public static SpeechSynthesizer setPitch(SpeechSynthesizer synthesizer, String pitch) {
+    private static SpeechSynthesizer setPitch(SpeechSynthesizer synthesizer, String pitch) {
         synthesizer.setParameter(SpeechConstant.PITCH, pitch);
         return synthesizer;
     }
 
     //设置合成音量
-    public static SpeechSynthesizer setVolume(SpeechSynthesizer synthesizer, String volume) {
+    private static SpeechSynthesizer setVolume(SpeechSynthesizer synthesizer, String volume) {
         synthesizer.setParameter(SpeechConstant.VOLUME, volume);
         return synthesizer;
     }
 
     //设置播放器音频流类型
-    public static SpeechSynthesizer setStreamType(SpeechSynthesizer synthesizer, String streamType) {
+    private static SpeechSynthesizer setStreamType(SpeechSynthesizer synthesizer, String streamType) {
         synthesizer.setParameter(SpeechConstant.STREAM_TYPE, streamType);
         return synthesizer;
     }
 
 
     //设置采样率
-    public static SpeechSynthesizer setRate(SpeechSynthesizer synthesizer, String rate) {
+    private static SpeechSynthesizer setRate(SpeechSynthesizer synthesizer, String rate) {
         synthesizer.setParameter(SpeechConstant.SAMPLE_RATE, rate);
         return synthesizer;
     }
 
     //设置在线合成发音人
-    public static SpeechSynthesizer setVoiceName(SpeechSynthesizer synthesizer, String voiceName) {
+    private static SpeechSynthesizer setVoiceName(SpeechSynthesizer synthesizer, String voiceName) {
         synthesizer.setParameter(SpeechConstant.VOICE_NAME, voiceName);
         return synthesizer;
     }
@@ -244,7 +242,6 @@ public class MLVoiceSynthetize {
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer != null) {
             synthesizer.stopSpeaking();
-            synthesizer.destroy();
         }
     }
 
@@ -278,7 +275,7 @@ public class MLVoiceSynthetize {
     /**
      * 设置默认参数
      */
-    public static void setDefaultParam() {
+    private static void setDefaultParam() {
         //设置发音人 采样率 语速 语速 语调
         SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
         if (synthesizer != null) {

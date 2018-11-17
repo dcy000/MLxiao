@@ -18,6 +18,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
         mTitleText.setText(getString(R.string.healthy_shopping));
 
 
-        speak(getString(R.string.shop_good));
+        MLVoiceSynthetize.startSynthesize(R.string.shop_good);
 
         mLinearLayout1 = (LinearLayout) findViewById(R.id.linearlayout1);
         mLinearLayout2 = (LinearLayout) findViewById(R.id.linearlayout2);

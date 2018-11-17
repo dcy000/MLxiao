@@ -13,6 +13,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 
@@ -82,7 +83,7 @@ public class ReminderActivity extends BaseActivity {
         public void run() {
             if (mAlarmCount < 5) {
                 mAlarmCount++;
-                speak(mContent);
+                MLVoiceSynthetize.startSynthesize(mContent);
             } else {
                 mAlarmCount = 0;
             }

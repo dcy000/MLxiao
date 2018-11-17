@@ -64,7 +64,7 @@ public class RiddleDialog extends DialogFragment {
             tvAnwser.setText(answer);
         }
         MLVoiceSynthetize.stop();
-        MLVoiceSynthetize.startSynthesize(getContext(),"答案是"+answer,false);
+        MLVoiceSynthetize.startSynthesize("答案是" + answer);
         return view;
     }
 

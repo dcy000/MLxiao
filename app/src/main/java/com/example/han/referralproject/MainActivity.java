@@ -27,6 +27,7 @@ import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
@@ -105,7 +106,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void run() {
                 //speak(getString(R.string.facc_register));
-                speak(R.string.tips_splash);
+                MLVoiceSynthetize.startSynthesize(R.string.tips_splash);
                 // speak(R.string.head_verify);
 
             }

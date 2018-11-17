@@ -22,6 +22,7 @@ import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.Utils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -96,7 +97,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         @Override
                         public void onSuccess(String response) {
                             Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-                            speak(getString(R.string.pay_success));
+                            MLVoiceSynthetize.startSynthesize(R.string.pay_success);
 
                         }
                     }, new NetworkManager.FailedCallback() {
@@ -117,7 +118,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         public void onSuccess(String response) {
                             Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
 
-                            speak(getString(R.string.pay_success));
+                            MLVoiceSynthetize.startSynthesize(R.string.pay_success);
 
 
                         }
@@ -154,7 +155,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
         mTitleText.setText(getString(R.string.pay));
 
-        speak(getString(R.string.zhanghu_chongzhi));
+        MLVoiceSynthetize.startSynthesize(R.string.zhanghu_chongzhi);
 
     /*    mImageView1 = (ImageView) findViewById(R.id.icon_back);
         mImageView2 = (ImageView) findViewById(R.id.icon_home);

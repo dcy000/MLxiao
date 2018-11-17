@@ -51,6 +51,7 @@ import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -254,6 +255,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
 
 
     }
+
     private RequestListener mRequestListener = new RequestListener() {
         @Override
         public void onEvent(int eventType, Bundle params) {
@@ -343,6 +345,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
         }
         return null;
     }
+
     private void closeCamera() {
         if (null != mCamera) {
             mCamera.setPreviewCallback(null);
@@ -368,7 +371,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(getString(R.string.facc_register));
+        MLVoiceSynthetize.startSynthesize(R.string.facc_register);
     }
 
 

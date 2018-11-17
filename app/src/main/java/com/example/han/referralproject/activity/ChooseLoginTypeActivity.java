@@ -18,6 +18,7 @@ import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.SignUp1NameActivity;
 import com.medlink.danbogh.register.simple.SignUp01NameActivity;
 import com.medlink.danbogh.signin.SignInActivity;
@@ -51,7 +52,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_login_type);
         ButterKnife.bind(this);
-        speak("主人，想要登录，请说人脸登录或者手机登录。如果您还没有账号，请说我要注册。");
+        MLVoiceSynthetize.startSynthesize("主人，想要登录，请说人脸登录或者手机登录。如果您还没有账号，请说我要注册。");
         tvPhoneSignIn.setOnClickListener(this);
         tvFaceSignIn.setOnClickListener(this);
         accountTip.setOnClickListener(this);

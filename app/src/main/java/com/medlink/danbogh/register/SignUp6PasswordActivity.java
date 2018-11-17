@@ -13,6 +13,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
@@ -65,7 +66,7 @@ public class SignUp6PasswordActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.sign_up_password_tip);
+        MLVoiceSynthetize.startSynthesize(R.string.sign_up_password_tip);
     }
 
     @OnClick(R.id.cl_sign_up_root_password)
@@ -88,7 +89,7 @@ public class SignUp6PasswordActivity extends BaseActivity {
                 || !TextUtils.isDigitsOnly(password)
                 || password.length() != 6) {
             T.show(R.string.sign_up_password_tip);
-            speak(R.string.sign_up_password_tip);
+            MLVoiceSynthetize.startSynthesize(R.string.sign_up_password_tip);
             return;
         }
 

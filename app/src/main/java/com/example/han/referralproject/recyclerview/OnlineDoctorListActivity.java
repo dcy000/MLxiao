@@ -15,6 +15,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -246,7 +247,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
     protected void onResume() {
         super.onResume();
         if ("contract".equals(mFlag)) {
-            speak("主人，请选择您最信任的医生签约");
+            MLVoiceSynthetize.startSynthesize("主人，请选择您最信任的医生签约");
         }
     }
 

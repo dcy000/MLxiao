@@ -24,6 +24,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
@@ -111,7 +112,7 @@ public class HeadiconActivity extends BaseActivity {
             mCircleImageView.setImageBitmap(bitmap);
         }
 
-        speak(R.string.head_icon);
+        MLVoiceSynthetize.startSynthesize(R.string.head_icon);
 
         Intent intent = getIntent();
         isFast = intent.getBooleanExtra("isFast", false);

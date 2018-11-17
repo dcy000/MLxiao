@@ -11,6 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
@@ -63,13 +64,13 @@ public class SetPasswordActivity extends BaseActivity {
             public void onSuccess(String code) {
                 SetPasswordActivity.this.code = code;
                 T.show("获取验证码成功");
-                speak("获取验证码成功");
+                MLVoiceSynthetize.startSynthesize("获取验证码成功");
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
                 T.show("获取验证码失败");
-                speak("获取验证码失败");
+                MLVoiceSynthetize.startSynthesize("获取验证码失败");
             }
         });
         i = 60;
@@ -104,7 +105,7 @@ public class SetPasswordActivity extends BaseActivity {
     public void onEtNextClicked() {
         String code = etCode.getText().toString().trim();
         if (TextUtils.isEmpty(code)) {
-            speak(R.string.sign_up_code_tip);
+            MLVoiceSynthetize.startSynthesize(R.string.sign_up_code_tip);
             return;
         }
 
@@ -112,7 +113,7 @@ public class SetPasswordActivity extends BaseActivity {
             onValidPhone();
         } else {
             T.show("验证码错误");
-            speak("验证码错误");
+            MLVoiceSynthetize.startSynthesize("验证码错误");
         }
     }
 
@@ -121,7 +122,7 @@ public class SetPasswordActivity extends BaseActivity {
         String pwd = etPassword.getText().toString().trim();
         if (TextUtils.isEmpty(pwd) || pwd.length() != 6) {
             T.show("请输入6位数字密码");
-            speak("请输入6位数字密码");
+            MLVoiceSynthetize.startSynthesize("请输入6位数字密码");
             hideLoadingDialog();
             return;
         }
@@ -146,7 +147,7 @@ public class SetPasswordActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak("主人，请输入验证码及新的6位数字密码");
+        MLVoiceSynthetize.startSynthesize("主人，请输入验证码及新的6位数字密码");
     }
 
     @Override

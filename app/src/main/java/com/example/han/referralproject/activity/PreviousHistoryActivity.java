@@ -15,6 +15,7 @@ import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public class PreviousHistoryActivity extends BaseActivity implements View.OnClickListener {
     private DiseaseShowAdapter mAdapter;
@@ -36,7 +37,7 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
-        speak(R.string.tips_disease);
+        MLVoiceSynthetize.startSynthesize(R.string.tips_disease);
     }
 
     private String[] diseaseArray;

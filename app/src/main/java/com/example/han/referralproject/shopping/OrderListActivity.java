@@ -18,6 +18,7 @@ import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +46,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
         mTitleText.setText(getString(R.string.orders_detail));
 
 
-        speak(getString(R.string.order));
+        MLVoiceSynthetize.startSynthesize(R.string.order);
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.order_list);

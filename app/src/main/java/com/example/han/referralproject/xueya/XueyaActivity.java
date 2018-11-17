@@ -33,6 +33,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.SampleGattAttributes;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.linheimx.app.library.charts.LineChart;
 import com.megvii.faceppidcardui.util.ConstantData;
 
@@ -324,7 +325,7 @@ public class XueyaActivity extends BaseActivity {
                         //    mHandler.sendEmptyMessage(0);
                         threadDisable = false;
                         dialog.create(NDialog.CONFIRM).dismiss();
-                        speak(R.string.tips_open_device);
+                        MLVoiceSynthetize.startSynthesize(R.string.tips_open_device);
                     }
                     try {
                         Thread.sleep(3000);

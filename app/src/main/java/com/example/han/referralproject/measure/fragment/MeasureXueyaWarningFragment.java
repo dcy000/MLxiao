@@ -23,6 +23,7 @@ import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.measure.MeasureChooseReason;
 import com.example.han.referralproject.measure.MeasureExceptionAdapter;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 
@@ -71,7 +72,7 @@ public class MeasureXueyaWarningFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         tvTopTitle.setText("测量异常");
         title.setText(titleString);
-        ((DetectActivity)getActivity()).speak(titleString);
+        MLVoiceSynthetize.startSynthesize(titleString);
         reasons = new ArrayList<>();
         initData();
         list.setLayoutManager(new GridLayoutManager(getActivity(), 4));

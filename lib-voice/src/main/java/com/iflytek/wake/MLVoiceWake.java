@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.widget.Toast;
 
+import com.gzq.lib_core.base.App;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.VoiceWakeuper;
 import com.iflytek.cloud.WakeuperListener;
@@ -15,16 +17,10 @@ import com.iflytek.cloud.util.ResourceUtil;
 
 public class MLVoiceWake {
 
-    private static Context context;
-
-    public static void initGlobalContext(Context context) {
-        MLVoiceWake.context = context;
-    }
-
     private static VoiceWakeuper initVoiceWakeuper() {
         VoiceWakeuper wakeuper = VoiceWakeuper.getWakeuper();
         if (wakeuper == null) {
-            wakeuper = VoiceWakeuper.createWakeuper(context, null);
+            wakeuper = VoiceWakeuper.createWakeuper(App.getApp(), null);
         }
         if (wakeuper == null) {
             try {
@@ -52,7 +48,7 @@ public class MLVoiceWake {
     }
 
     private static String getResource() {
-        return ResourceUtil.generateResourcePath(context, ResourceUtil.RESOURCE_TYPE.assets, "ivw/59196d96.jet");
+        return ResourceUtil.generateResourcePath(App.getApp(), ResourceUtil.RESOURCE_TYPE.assets, "ivw/59196d96.jet");
     }
 
     public static void startWakeUp(WakeuperListener listener) {
@@ -66,7 +62,7 @@ public class MLVoiceWake {
 
                 @Override
                 public void onMLResult() {
-                    Toast.makeText(context, "小E被唤醒", Toast.LENGTH_LONG).show();
+                    ToastUtils.showShort("小E被唤醒");
                 }
             };
         }

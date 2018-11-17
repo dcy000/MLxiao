@@ -43,7 +43,6 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.DetectionData;
 import com.example.han.referralproject.bean.DetectionResult;
-import com.example.han.referralproject.bean.MeasureResult;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
@@ -51,8 +50,6 @@ import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.example.han.referralproject.measure.fragment.MeasureXuetangFragment;
 import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragment;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.XueyaUtils;
@@ -61,6 +58,7 @@ import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -131,22 +129,22 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 // 设备超时
                 case 3:
                     //getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.shebeilianjieyichangqingchongxinlianjie));
-                    speak("设备超时");
+                    MLVoiceSynthetize.startSynthesize("设备超时");
                     break;
                 // 充不上气
                 case 4:
                     //getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.chongbushangqi));
-                    speak("设备充不上气");
+                    MLVoiceSynthetize.startSynthesize("设备充不上气");
                     break;
                 // 测量中发生错误
                 case 5:
                     //getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.celiangzhongfashengcuowu));
-                    speak("设备检测发生错误");
+                    MLVoiceSynthetize.startSynthesize("设备检测发生错误");
                     break;
                 // 血压计低电量
                 case 6:
                     //getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.xueyajididianliang));
-                    speak("设备低电量");
+                    MLVoiceSynthetize.startSynthesize("设备低电量");
                     break;
                 case 7:
                     //getTimeOut(XueYaCeLiangActivity.this.getResources().getString(R.string.quxiaocaozuo));
@@ -532,7 +530,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.i("mylog", "gata servicesConnect 3333333333333333");
-                speak(R.string.tips_blue_connect);
+                MLVoiceSynthetize.startSynthesize(Box.getString(R.string.tips_blue_connect));
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
                 switch (detectType) {
                     case Type_XueTang:
@@ -555,7 +553,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }
                         int tempData = notifyData[6] & 0xff;
                         if (tempData < 44) {
-                            speak(R.string.tips_error_temp);
+                            MLVoiceSynthetize.startSynthesize(Box.getString(R.string.tips_error_temp));
                             return;
                         }
                         StringBuilder mTempResult = new StringBuilder();
@@ -597,7 +595,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                                }
 //                            });
                         }
-                        speak(String.format(getString(R.string.tips_result_wendu), String.valueOf(wenduValue), wenduResult));
+                        MLVoiceSynthetize.startSynthesize(String.format(getString(R.string.tips_result_wendu), String.valueOf(wenduValue), wenduResult));
                         break;
                     case Type_Xueya:
                         if (isYuyue && notifyData.length == 19) {
@@ -683,8 +681,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 } else {
                                     xueyangResult = mXueYangResults[1];
                                 }
-                                speak(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen, xueyangResult));
-
+                                MLVoiceSynthetize.startSynthesize(String.format(getString(R.string.tips_result_xueyang), info.blood_oxygen, xueyangResult));
 
                                 ArrayList<DetectionData> datas = new ArrayList<>();
                                 DetectionData pressureData = new DetectionData();
@@ -726,11 +723,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     ((TextView) findViewById(R.id.tv_tizhi)).setText(String.format("%1$.2f", tizhi));
                                 }
                                 if (tizhi < 18.5) {
-                                    speak("主人，您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。偏瘦");
+                                    MLVoiceSynthetize.startSynthesize("主人，您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。偏瘦");
                                 } else if (tizhi > 23.9) {
-                                    speak("主人，您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。偏胖");
+                                    MLVoiceSynthetize.startSynthesize("主人，您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。偏胖");
                                 } else {
-                                    speak("主人，您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。正常");
+                                    MLVoiceSynthetize.startSynthesize("主人，您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。正常");
                                 }
 
 //                                DataInfoBean info = new DataInfoBean();
@@ -792,7 +789,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //
 //                            }
 //                        });
-                        speak(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
+                        MLVoiceSynthetize.startSynthesize(String.format(getString(R.string.tips_result_xindian), notifyData[16] & 0xff, mEcgResults[notifyData[17]]));
                         break;
                     case Type_SanHeYi:
                         if (notifyData == null || notifyData.length < 13) {
@@ -835,9 +832,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 speakFlag = "偏高";
             else
                 speakFlag = "正常";
-            speak(String.format(getString(R.string.tips_result_xuetang), String.valueOf(afterResult), speakFlag));
+            MLVoiceSynthetize.startSynthesize(String.format(getString(R.string.tips_result_xuetang), String.valueOf(afterResult), speakFlag));
 
-            ArrayList<DetectionData> datas=new ArrayList<>();
+            ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData sugarData = new DetectionData();
             sugarData.setDetectionType("1");
             sugarData.setSugarTime(xuetangTimeFlag);
@@ -864,10 +861,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 else
                     speakFlag = "正常";
             }
-            speak(String.format(getString(R.string.tips_result_niaosuan), formatString, speakFlag));
+            MLVoiceSynthetize.startSynthesize(String.format(getString(R.string.tips_result_niaosuan), formatString, speakFlag));
 
-
-            ArrayList<DetectionData> datas=new ArrayList<>();
+            ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData lithicAcidData = new DetectionData();
             lithicAcidData.setDetectionType("8");
             lithicAcidData.setUricAcid(Float.parseFloat(String.valueOf(Float.parseFloat(formatString) * 1000)));
@@ -882,9 +878,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 speakFlag = "偏高";
             else
                 speakFlag = "正常";
-            speak(String.format(getString(R.string.tips_result_danguchun), String.format("%.2f", afterResult), speakFlag));
+            MLVoiceSynthetize.startSynthesize(String.format(getString(R.string.tips_result_danguchun), String.format("%.2f", afterResult), speakFlag));
 
-            ArrayList<DetectionData> datas=new ArrayList<>();
+            ArrayList<DetectionData> datas = new ArrayList<>();
             DetectionData cholesterolData = new DetectionData();
             cholesterolData.setDetectionType("7");
             cholesterolData.setCholesterol(Float.parseFloat(String.format("%.2f", afterResult)));

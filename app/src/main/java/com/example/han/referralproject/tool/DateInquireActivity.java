@@ -55,7 +55,7 @@ public class DateInquireActivity extends ToolBaseActivity {
     protected void initView() {
         setContentView(R.layout.activity_date_inquire);
         ButterKnife.bind(this);
-        speak("主人,欢迎来到日期查询");
+        MLVoiceSynthetize.startSynthesize("主人,欢迎来到日期查询");
         initEvent();
         getDateData(tvDemo1.getText().toString().trim());
     }
@@ -95,7 +95,7 @@ public class DateInquireActivity extends ToolBaseActivity {
     private Handler mainHandler = new Handler();
 
     private void startListener() {
-        MLVoiceRecognize.initSpeechRecognizer(this).startListening(new RecognizerListener() {
+        MLVoiceRecognize.initSpeechRecognizer().startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
                 vlWave.waveH = i / 6 + 2;
@@ -120,7 +120,7 @@ public class DateInquireActivity extends ToolBaseActivity {
 
             @Override
             public void onError(SpeechError speechError) {
-                speak("主人,我没有听清,你能再说一遍吗?");
+                MLVoiceSynthetize.startSynthesize("主人,我没有听清,你能再说一遍吗?");
             }
 
             @Override
@@ -176,7 +176,7 @@ public class DateInquireActivity extends ToolBaseActivity {
             @Override
             public void onSuccess(Object anwser, final String briefly, String service, String question) {
                 if (!"datetime".equals(service)) {
-                    speak("主人,没有查到该日期");
+                    MLVoiceSynthetize.startSynthesize("主人,没有查到该日期");
                     return;
                 }
                 runOnUiThread(new Runnable() {

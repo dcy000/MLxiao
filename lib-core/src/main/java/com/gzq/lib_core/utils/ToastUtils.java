@@ -1,6 +1,7 @@
 package com.gzq.lib_core.utils;
 
-import android.content.Context;
+import android.os.Looper;
+import android.support.annotation.StringRes;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,31 +23,44 @@ public class ToastUtils {
      *
      * @param message
      */
-    public static void showShort(CharSequence message) {
-        if (mToast == null) {
-            mToast = Toast.makeText(Box.getApp(), message, Toast.LENGTH_SHORT);
-            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
-            v.setTextSize(28);
-        } else {
-            mToast.setText(message);
-        }
-        mToast.show();
+    public static void showShort(final CharSequence message) {
+        new WeakHandler(Looper.getMainLooper())
+                .post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mToast == null) {
+                            mToast = Toast.makeText(Box.getApp(), message, Toast.LENGTH_SHORT);
+                            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
+                            v.setTextSize(28);
+                        } else {
+                            mToast.setText(message);
+                        }
+                        mToast.show();
+                    }
+                });
     }
 
     /**
      * 短时间显示Toast
      *
-     * @param resId   资源ID:getResources().getString(R.string.xxxxxx);
+     * @param resId 资源ID:getResources().getString(R.string.xxxxxx);
      */
-    public static void showShort( int resId) {
-        if (mToast == null) {
-            mToast = Toast.makeText(Box.getApp(), resId, Toast.LENGTH_SHORT);
-            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
-            v.setTextSize(28);
-        } else {
-            mToast.setText(resId);
-        }
-        mToast.show();
+    public static void showShort(@StringRes final int resId) {
+        new WeakHandler(Looper.getMainLooper())
+                .post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mToast == null) {
+                            mToast = Toast.makeText(Box.getApp(), resId, Toast.LENGTH_SHORT);
+                            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
+                            v.setTextSize(28);
+                        } else {
+                            mToast.setText(resId);
+                        }
+                        mToast.show();
+                    }
+                });
+
     }
 
     /**
@@ -54,30 +68,42 @@ public class ToastUtils {
      *
      * @param message
      */
-    public static void showLong( CharSequence message) {
-        if (mToast == null) {
-            mToast = Toast.makeText(Box.getApp(), message, Toast.LENGTH_LONG);
-            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
-            v.setTextSize(28);
-        } else {
-            mToast.setText(message);
-        }
-        mToast.show();
+    public static void showLong(final CharSequence message) {
+        new WeakHandler(Looper.getMainLooper())
+                .post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mToast == null) {
+                            mToast = Toast.makeText(Box.getApp(), message, Toast.LENGTH_LONG);
+                            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
+                            v.setTextSize(28);
+                        } else {
+                            mToast.setText(message);
+                        }
+                        mToast.show();
+                    }
+                });
     }
 
     /**
      * 长时间显示Toast
      *
-     * @param resId   资源ID:getResources().getString(R.string.xxxxxx);
+     * @param resId 资源ID:getResources().getString(R.string.xxxxxx);
      */
-    public static void showLong(int resId) {
-        if (mToast == null) {
-            mToast = Toast.makeText(Box.getApp(), resId, Toast.LENGTH_LONG);
-            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
-            v.setTextSize(28);
-        } else {
-            mToast.setText(resId);
-        }
-        mToast.show();
+    public static void showLong(@StringRes final int resId) {
+        new WeakHandler(Looper.getMainLooper())
+                .post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mToast == null) {
+                            mToast = Toast.makeText(Box.getApp(), resId, Toast.LENGTH_LONG);
+                            TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
+                            v.setTextSize(28);
+                        } else {
+                            mToast.setText(resId);
+                        }
+                        mToast.show();
+                    }
+                });
     }
 }

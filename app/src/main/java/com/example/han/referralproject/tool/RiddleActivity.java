@@ -65,7 +65,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         setContentView(R.layout.activity_riddle);
         ButterKnife.bind(this);
         initData();
-        speak("主人,欢迎来到猜谜");
+        MLVoiceSynthetize.startSynthesize("主人,欢迎来到猜谜");
         initEvent();
     }
 
@@ -96,9 +96,9 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                             size = data.size();
                             String title = data.get(0).title;
                             tvQuestion.setText(title);
-                            MLVoiceSynthetize.startSynthesize(getBaseContext(), title, false);
+                            MLVoiceSynthetize.startSynthesize(title);
                         } else {
-                            MLVoiceSynthetize.startSynthesize(getBaseContext(), "主人,我暂时还没想到什么谜语", false);
+                            MLVoiceSynthetize.startSynthesize("主人,我暂时还没想到什么谜语");
                         }
                     }
                 });
@@ -146,7 +146,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         String title = data.get(index % size).title;
         tvQuestion.setText(title);
         MLVoiceSynthetize.stop();
-        MLVoiceSynthetize.startSynthesize(this, title,false);
+        MLVoiceSynthetize.startSynthesize( title);
 
     }
 
@@ -215,7 +215,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 //            }
 //        });
 
-        MLVoiceRecognize.startRecognize(this, new MLRecognizerListener() {
+        MLVoiceRecognize.startRecognize(new MLRecognizerListener() {
             @Override
             public void onMLVolumeChanged(int i, byte[] bytes) {
                 vlWave.waveH = i / 6 + 2;
@@ -240,7 +240,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
             @Override
             public void onMLError(SpeechError error) {
-                speak("主人,我没听清,您能再说一遍吗");
+                MLVoiceSynthetize.startSynthesize("主人,我没听清,您能再说一遍吗");
             }
         });
     }
@@ -252,7 +252,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
         }
 
         if (TextUtils.isEmpty(result)) {
-            speak("主人,我没听清,您能再说一遍吗");
+            MLVoiceSynthetize.startSynthesize("主人,我没听清,您能再说一遍吗");
             return;
         }
 
@@ -286,16 +286,16 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
             anwserPinyin = PinYinUtils.converterToSpell(answer);
 
             if (anwserPinyin.equals(resultPinYin) || anwserPinyin.contains(resultPinYin)) {
-                speak("恭喜主人答对了");
+                MLVoiceSynthetize.startSynthesize("恭喜主人答对了");
                 return;
             }
 
             if (answer.equals(result) || answer.contains(result)) {
-                speak("恭喜主人答对了");
+                MLVoiceSynthetize.startSynthesize("恭喜主人答对了");
                 return;
             }
 
-            speak("主人,您再猜一下!");
+            MLVoiceSynthetize.startSynthesize("主人,您再猜一下!");
 
 
         } catch (Exception e) {
@@ -313,10 +313,10 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
 
             if (answer.equals(result) || answer.contains(result)) {
-                speak("恭喜主人答对了");
+                MLVoiceSynthetize.startSynthesize("恭喜主人答对了");
                 return;
             }
-            speak("主人,您再猜一下!");
+            MLVoiceSynthetize.startSynthesize("主人,您再猜一下!");
 
         }
     }
@@ -343,7 +343,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
             }
 
             if (TextUtils.isEmpty(result)) {
-                speak("主人,我没听清,您能再说一遍吗");
+                MLVoiceSynthetize.startSynthesize("主人,我没听清,您能再说一遍吗");
                 return;
             }
 
@@ -377,16 +377,16 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
                 anwserPinyin = PinYinUtils.converterToSpell(answer);
 
                 if (anwserPinyin.equals(resultPinYin) || anwserPinyin.contains(resultPinYin)) {
-                    speak("恭喜主人答对了");
+                    MLVoiceSynthetize.startSynthesize("恭喜主人答对了");
                     return;
                 }
 
                 if (answer.equals(result) || answer.contains(result)) {
-                    speak("恭喜主人答对了");
+                    MLVoiceSynthetize.startSynthesize("恭喜主人答对了");
                     return;
                 }
 
-                speak("主人,您再猜一下!");
+                MLVoiceSynthetize.startSynthesize("主人,您再猜一下!");
 
 
             } catch (Exception e) {
@@ -404,10 +404,10 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
 
                 if (answer.equals(result) || answer.contains(result)) {
-                    speak("恭喜主人答对了");
+                    MLVoiceSynthetize.startSynthesize("恭喜主人答对了");
                     return;
                 }
-                speak("主人,您再猜一下!");
+                MLVoiceSynthetize.startSynthesize("主人,您再猜一下!");
 
             }
         }

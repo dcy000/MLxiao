@@ -15,6 +15,7 @@ import com.example.han.referralproject.market.KangfuFragment;
 import com.example.han.referralproject.market.ShanshiFragment;
 import com.example.han.referralproject.market.YaopinFragment;
 import com.example.han.referralproject.market.YiliaoshebeiFragment;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("健康商城");
-        speak("主人，欢迎来到健康商城");
+        MLVoiceSynthetize.startSynthesize("主人，欢迎来到健康商城");
 
         rgHealthGoods.setOnCheckedChangeListener(this);
         vpGoods.addOnPageChangeListener(this);

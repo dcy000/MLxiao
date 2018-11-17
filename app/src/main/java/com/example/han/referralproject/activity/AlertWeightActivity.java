@@ -8,6 +8,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class AlertWeightActivity extends AlertHeightActivity {
             @Override
             public void onSuccess(Object response) {
                 ToastTool.showShort("修改成功");
-                speak("主人，您的体重已经修改为"+weight+"千克");
+                MLVoiceSynthetize.startSynthesize("主人，您的体重已经修改为"+weight+"千克");
             }
         }, new NetworkManager.FailedCallback() {
             @Override

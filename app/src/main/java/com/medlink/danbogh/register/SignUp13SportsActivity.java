@@ -15,6 +15,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 
@@ -125,7 +126,7 @@ public class SignUp13SportsActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.sign_up_sports_tip);
+        MLVoiceSynthetize.startSynthesize(R.string.sign_up_sports_tip);
     }
 
     @OnClick(R.id.tv_sign_up_go_back)
@@ -144,7 +145,7 @@ public class SignUp13SportsActivity extends BaseActivity {
                 return;
             }
         }
-        speak(R.string.sign_up_sports_tip);
+        MLVoiceSynthetize.startSynthesize(R.string.sign_up_sports_tip);
     }
 
     private void navToNext() {
@@ -185,7 +186,7 @@ public class SignUp13SportsActivity extends BaseActivity {
                 new NetworkManager.SuccessCallback<UserInfoBean>() {
                     @Override
                     public void onSuccess(UserInfoBean response) {
-                        speak("主人，您已注册成功。请点下一步完善相关内容，即可愉快使用！");
+                        MLVoiceSynthetize.startSynthesize("主人，您已注册成功。请点下一步完善相关内容，即可愉快使用！");
                         tvGoBack.setVisibility(View.INVISIBLE);
                         hideLoadingDialog();
                         shared.setUserInfo(response);
@@ -201,7 +202,7 @@ public class SignUp13SportsActivity extends BaseActivity {
                     public void onFailed(String message) {
                         hideLoadingDialog();
                         T.show(message);
-                        speak("主人," + message);
+                        MLVoiceSynthetize.startSynthesize("主人," + message);
                     }
                 }
         );

@@ -41,7 +41,7 @@ public class DateInquireResultActivity extends BaseActivity {
         intent = getIntent();
         initView();
         initEvent();
-        speak(intent.getStringExtra("anwser"));
+        MLVoiceSynthetize.startSynthesize(intent.getStringExtra("anwser"));
     }
 
     private void initEvent() {

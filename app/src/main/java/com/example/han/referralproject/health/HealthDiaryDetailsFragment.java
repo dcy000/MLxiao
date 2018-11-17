@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.health.model.DetailsModel;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.ml.edu.common.widget.recycleyview.CenterScrollListener;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
 import com.ml.rulerview.RulerView;
@@ -109,7 +110,7 @@ public class HealthDiaryDetailsFragment extends Fragment {
         tvAction = (TextView) findViewById(R.id.health_diary_tv_action);
         FragmentActivity activity = getActivity();
         if (activity != null && activity instanceof BaseActivity) {
-            ((BaseActivity) activity).speak("主人，请" + mModel.getTitle());
+            MLVoiceSynthetize.startSynthesize("主人，请" + mModel.getTitle());
         }
         tvTitle.setText(mModel.getTitle());
         tvCount.setText(getCount(

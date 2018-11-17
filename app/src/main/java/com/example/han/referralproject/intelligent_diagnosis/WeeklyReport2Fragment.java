@@ -15,6 +15,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.WeeklyReport;
 import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -129,7 +130,7 @@ public class WeeklyReport2Fragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser && isSpeak) {
             isSpeak = false;
-            ((WeeklyReportActivity) getActivity()).speak(tips);
+            MLVoiceSynthetize.startSynthesize(tips);
         }
     }
 

@@ -48,6 +48,7 @@ import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
@@ -365,7 +366,7 @@ public class SignInActivity extends BaseActivity {
     protected void onResume() {
         setDisableGlobalListen(true);
         super.onResume();
-        speak(R.string.tips_login);
+        MLVoiceSynthetize.startSynthesize(R.string.tips_login);
     }
 
     @Override
@@ -418,13 +419,13 @@ public class SignInActivity extends BaseActivity {
         if (inSpell.matches(REGEX_IN_PHONE) && !inPhone) {
             inPhone = true;
             etPhone.requestFocus();
-            speak(R.string.sign_up_phone_tip);
+            MLVoiceSynthetize.startSynthesize(R.string.sign_up_phone_tip);
             return;
         }
 
         if (inSpell.matches(REGEX_IN_PASSWORD) && inPhone) {
             inPhone = false;
-            speak("请输入密码");
+            MLVoiceSynthetize.startSynthesize("请输入密码");
             etPassword.requestFocus();
             return;
         }

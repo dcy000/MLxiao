@@ -21,6 +21,7 @@ import com.example.han.referralproject.settting.dialog.UpDateDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +54,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
-        speak("主人欢迎来到设置页面");
+        MLVoiceSynthetize.startSynthesize("主人欢迎来到设置页面");
         initTitle();
     }
 
@@ -174,8 +175,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
                         upDateDialog.show(getFragmentManager(), "updatedialog");
 
                     } else {
-                        speak("当前已经是最新版本了");
-//                        ToastUtil.showShort(mContext, "当前已经是最新版本了");
+                        MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -185,7 +185,7 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
             @Override
             public void onFailed(String message) {
                 hideLoadingDialog();
-                speak("当前已经是最新版本了");
+                MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
 //                ToastUtil.showShort(mContext, "当前已经是最新版本了");
             }
         });

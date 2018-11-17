@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 
+import com.gzq.lib_core.base.App;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -15,7 +16,7 @@ import com.iflytek.constant.TtsSettings;
  * Created by lenovo on 2018/3/29.
  */
 
-public class MLVoiceRecognize {
+public final class MLVoiceRecognize {
     // 引擎类型
     private static final String engineType = SpeechConstant.TYPE_CLOUD;
 
@@ -26,22 +27,22 @@ public class MLVoiceRecognize {
     /**
      * 初始化语音识别对象
      */
-    public static SpeechRecognizer initSpeechRecognizer(Context context) {
-        return initSpeechRecognizer(context, null);
+    public static SpeechRecognizer initSpeechRecognizer() {
+        return initSpeechRecognizer(null);
     }
 
     /**
      * 初始化语音识别对象
      */
-    public static SpeechRecognizer initSpeechRecognizer(Context context, InitListener initListener) {
-        return initSpeechRecognizer(context, initListener, false);
+    private static SpeechRecognizer initSpeechRecognizer(InitListener initListener) {
+        return initSpeechRecognizer(initListener, false);
     }
 
 
     /**
      * 初始化语音识别对象
      */
-    public static SpeechRecognizer initSpeechRecognizer(Context context, InitListener initListener, boolean defaultParam) {
+    private static SpeechRecognizer initSpeechRecognizer(InitListener initListener, boolean defaultParam) {
         SpeechRecognizer speechRecognizer = SpeechRecognizer.getRecognizer();
         if (speechRecognizer == null) {
             if (initListener == null) {
@@ -52,10 +53,10 @@ public class MLVoiceRecognize {
                     }
                 };
             }
-            speechRecognizer = SpeechRecognizer.createRecognizer(context, initListener);
+            speechRecognizer = SpeechRecognizer.createRecognizer(App.getApp(), initListener);
         }
         if (!defaultParam) {
-            setParam(context, speechRecognizer);
+            setParam(speechRecognizer);
         }
         return speechRecognizer;
     }
@@ -64,17 +65,17 @@ public class MLVoiceRecognize {
     /**
      * 设置参数
      */
-    public static void setParam(Context context) {
+    private static void setParam() {
         SpeechRecognizer speechRecognizer = SpeechRecognizer.getRecognizer();
-        setParam(context, speechRecognizer);
+        setParam(speechRecognizer);
     }
 
 
     /**
      * 设置参数
      */
-    public static void setParam(Context context, SpeechRecognizer speechRecognizer) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(TtsSettings.PREFER_NAME, context.MODE_PRIVATE);
+    private static void setParam(SpeechRecognizer speechRecognizer) {
+        SharedPreferences sharedPreferences = App.getApp().getSharedPreferences(TtsSettings.PREFER_NAME, App.getApp().MODE_PRIVATE);
         initDefaulParam(speechRecognizer, sharedPreferences);
     }
 
@@ -119,46 +120,46 @@ public class MLVoiceRecognize {
     /**
      * 开始识别
      */
-    public void startRecognize(Context context) {
-        startRecognize(context, (InitListener) null);
+    public void startRecognize() {
+        startRecognize((InitListener) null);
     }
 
     /**
      * 开始识别
      */
-    public void startRecognize(Context context, InitListener initListener) {
-        startRecognize(context, initListener, false);
-    }
-
-
-    /**
-     * 开始识别
-     */
-    public void startRecognize(Context context, InitListener initListener, boolean defaultParam) {
-        startRecognize(context, initListener, defaultParam, null);
-    }
-
-    /**
-     * 开始识别
-     */
-    public static void startRecognize(Context context, RecognizerListener recognizerListener) {
-        startRecognize(context, null, recognizerListener);
-    }
-
-    /**
-     * 开始识别
-     */
-    public static void startRecognize(Context context, InitListener initListener, RecognizerListener recognizerListener) {
-        startRecognize(context, initListener, false, recognizerListener);
+    public void startRecognize(InitListener initListener) {
+        startRecognize(initListener, false);
     }
 
 
     /**
      * 开始识别
      */
-    public static void startRecognize(Context context, InitListener initListener, boolean defaultParam, RecognizerListener recognizerListener) {
+    public void startRecognize(InitListener initListener, boolean defaultParam) {
+        startRecognize(defaultParam, initListener, null);
+    }
 
-        SpeechRecognizer speechRecognizer = initSpeechRecognizer(context, initListener, defaultParam);
+    /**
+     * 开始识别
+     */
+    public static void startRecognize(RecognizerListener recognizerListener) {
+        startRecognize(null, recognizerListener);
+    }
+
+    /**
+     * 开始识别
+     */
+    public static void startRecognize(InitListener initListener, RecognizerListener recognizerListener) {
+        startRecognize(false, initListener, recognizerListener);
+    }
+
+
+    /**
+     * 开始识别
+     */
+    public static void startRecognize(boolean defaultParam, InitListener initListener, RecognizerListener recognizerListener) {
+
+        SpeechRecognizer speechRecognizer = initSpeechRecognizer(initListener, defaultParam);
 
         if (speechRecognizer != null && !speechRecognizer.isListening() && speechRecognizer != null) {
             if (recognizerListener == null) {
@@ -222,6 +223,5 @@ public class MLVoiceRecognize {
             recognizer.cancel();
             recognizer.destroy();
         }
-
     }
 }

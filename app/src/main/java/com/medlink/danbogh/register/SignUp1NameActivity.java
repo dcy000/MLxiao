@@ -13,6 +13,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
@@ -72,7 +73,7 @@ public class SignUp1NameActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.sign_up1_name_tip);
+        MLVoiceSynthetize.startSynthesize(R.string.sign_up1_name_tip);
     }
 
     @OnClick(R.id.cl_sign_up_root_name)
@@ -94,7 +95,7 @@ public class SignUp1NameActivity extends BaseActivity {
         String name = mEtName.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
             T.show(R.string.empty_name);
-            speak(R.string.empty_name);
+            MLVoiceSynthetize.startSynthesize(R.string.empty_name);
             return;
         }
 

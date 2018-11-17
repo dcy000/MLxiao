@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public class OfflineActivity extends BaseActivity{
 
@@ -36,7 +37,7 @@ public class OfflineActivity extends BaseActivity{
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(getString(R.string.user_help));
+        MLVoiceSynthetize.startSynthesize(getString(R.string.user_help));
     }
 
 

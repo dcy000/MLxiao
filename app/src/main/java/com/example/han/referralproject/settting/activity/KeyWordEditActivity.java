@@ -15,6 +15,7 @@ import com.example.han.referralproject.settting.adapter.KeyWordDifineRVAdapter;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
 import com.google.gson.Gson;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class KeyWordEditActivity extends BaseActivity implements KeyWordDifineRV
         initTitle();
         initData();
         initRV();
-        speak("主人,你可以编辑的名义的关键字");
+        MLVoiceSynthetize.startSynthesize("主人,你可以编辑的名义的关键字");
     }
 
     private void initData() {

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.ButterKnife;
 
@@ -34,7 +35,7 @@ public class BodychartActivity extends BaseActivity implements View.OnClickListe
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText(R.string.body_guide);
         initView();
-        speak(getResources().getString(R.string.bodyguide));
+        MLVoiceSynthetize.startSynthesize(getString(R.string.bodyguide));
     }
 
     private void initView() {

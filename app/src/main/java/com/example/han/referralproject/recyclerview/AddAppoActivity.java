@@ -21,6 +21,7 @@ import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -114,7 +115,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         final String start_time = str[0] + "-" + str[1] + "-" + str[2] + " " + strs[0];
         final String end_time = str[0] + "-" + str[1] + "-" + str[2] + " " + strs[1];
 
-        speak(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")));
+        MLVoiceSynthetize.startSynthesize(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")));
 
         dialog = new NDialog1(AddAppoActivity.this);
 
@@ -260,7 +261,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         initView();
 
-        speak(getString(R.string.yuyue_times));
+        MLVoiceSynthetize.startSynthesize(R.string.yuyue_times);
 
         dialog1 = new NDialog2(AddAppoActivity.this);
 

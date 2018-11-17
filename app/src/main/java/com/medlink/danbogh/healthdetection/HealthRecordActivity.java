@@ -1,29 +1,14 @@
 package com.medlink.danbogh.healthdetection;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -45,8 +30,6 @@ import com.example.han.referralproject.bean.TemperatureHistory;
 import com.example.han.referralproject.bean.WeightHistory;
 import com.example.han.referralproject.formatter.MyFloatNumFormatter;
 import com.example.han.referralproject.formatter.TimeFormatter;
-import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
-import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.MyDialogFragment;
@@ -60,8 +43,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
-import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.UiUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.ml.zxing.QrCodeUtils;
 
 import java.util.ArrayList;
@@ -162,7 +144,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         mToolbar.setVisibility(View.VISIBLE);
         mUnbinder = ButterKnife.bind(this);
         radioGroupPosition = getIntent().getIntExtra("position", 0);
-        speak("主人，请查看历史记录");
+        MLVoiceSynthetize.startSynthesize("主人，请查看历史记录");
 //        tvTitle.setText("健康档案");
 
         mTitleText.setText(R.string.history_celiang);

@@ -20,6 +20,7 @@ import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.Utils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.squareup.picasso.Picasso;
 
 public class GoodDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -48,7 +49,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_good_detail);
 
-        speak(getString(R.string.shop_mount));
+        MLVoiceSynthetize.startSynthesize(R.string.shop_mount);
 
         mToolbar.setVisibility(View.VISIBLE);
 
@@ -246,7 +247,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
     }
     public void showPaySuccessDialog() {
-        speak(getString(R.string.shop_success));
+        MLVoiceSynthetize.startSynthesize(R.string.shop_success);
         dialog2.setMessageCenter(true)
                 .setMessage("支付成功")
                 .setMessageSize(50)

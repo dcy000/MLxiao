@@ -17,10 +17,12 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
+import java.nio.file.NotLinkException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,7 +72,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.sign_up_password_tip);
+        MLVoiceSynthetize.startSynthesize(R.string.sign_up_password_tip);
     }
 
     @OnClick(R.id.cl_sign_up_root_password)
@@ -93,7 +95,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
                 || !TextUtils.isDigitsOnly(password)
                 || password.length() != 6) {
             T.show(R.string.sign_up_password_tip);
-            speak(R.string.sign_up_password_tip);
+            MLVoiceSynthetize.startSynthesize(R.string.sign_up_password_tip);
             return;
         }
         signUp(password);
@@ -170,7 +172,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
                         }
                         hideLoadingDialog();
                         T.show(message);
-                        speak("主人," + message);
+                        MLVoiceSynthetize.startSynthesize("主人," + message);
                     }
                 }
         );

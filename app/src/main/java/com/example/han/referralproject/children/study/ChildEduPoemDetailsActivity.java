@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.children.model.PoemModel;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
 
 import java.util.ArrayList;
@@ -121,7 +122,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         mAdapter.setPositionSelected(positionSelected);
         mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(positionSelected);
-        speak(mSentences.get(positionSelected));
+        MLVoiceSynthetize.startSynthesize(mSentences.get(positionSelected));
     }
 
     private void lastSentence() {
@@ -138,7 +139,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         mAdapter.setPositionSelected(positionSelected);
         mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(positionSelected);
-        speak(mSentences.get(positionSelected));
+        MLVoiceSynthetize.startSynthesize(mSentences.get(positionSelected));
     }
 
     private void replay() {
@@ -151,7 +152,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         mAdapter.setPositionSelected(0);
         mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(0);
-        speak(mPoemModel.getTitle() + "," + mPoemModel.getAuthor() + "," + mPoemModel.getDynasty() + "," + mSentences.get(0));
+        MLVoiceSynthetize.startSynthesize(mPoemModel.getTitle() + "," + mPoemModel.getAuthor() + "," + mPoemModel.getDynasty() + "," + mSentences.get(0));
 
     }
 

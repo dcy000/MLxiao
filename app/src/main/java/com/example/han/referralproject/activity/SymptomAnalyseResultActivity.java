@@ -10,6 +10,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.SymptomResultAdapter;
 import com.example.han.referralproject.bean.SymptomResultBean;
 import com.example.han.referralproject.recyclerview.LinearLayoutDividerItemDecoration;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class SymptomAnalyseResultActivity extends BaseActivity {
             for (SymptomResultBean.bqs itemBean : mDataList) {
                 mBuilder.append(itemBean.getBname()).append("、");
             }
-            speak(String.format(getString(R.string.tips_symptom_result), mBuilder.toString()));
+            MLVoiceSynthetize.startSynthesize(String.format(getString(R.string.tips_symptom_result), mBuilder.toString()));
         }
     }
 

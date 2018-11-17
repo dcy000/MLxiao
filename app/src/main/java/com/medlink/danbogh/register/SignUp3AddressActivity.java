@@ -22,6 +22,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.entity.City;
 import com.medlink.danbogh.register.entity.Province;
 import com.medlink.danbogh.utils.Handlers;
@@ -169,7 +170,7 @@ public class SignUp3AddressActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.sign_up3_address_tip);
+        MLVoiceSynthetize.startSynthesize(R.string.sign_up3_address_tip);
         startLocation();
     }
 
@@ -215,7 +216,7 @@ public class SignUp3AddressActivity extends BaseActivity {
         String address = etAddress.getText().toString().trim();
         if (TextUtils.isEmpty(address)) {
             T.show(R.string.sign_up3_address_tip);
-            speak(R.string.sign_up3_address_tip);
+            MLVoiceSynthetize.startSynthesize(R.string.sign_up3_address_tip);
             return;
         }
 

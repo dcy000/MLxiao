@@ -55,7 +55,7 @@ public class JieMengRetultActivity extends BaseActivity {
         data = (List<DreamBean>) intent.getSerializableExtra("data");
         question = intent.getStringExtra("question");
         answer = intent.getStringExtra("anwser");
-        speak(question + "," + answer);
+        MLVoiceSynthetize.startSynthesize(question + "," + answer);
         initView();
         initEvent();
     }
@@ -79,7 +79,7 @@ public class JieMengRetultActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 MLVoiceSynthetize.stop();
-                MLVoiceSynthetize.startSynthesize(view.getContext(), "梦见" + data.get(i).name + "," + data.get(i).content,false);
+                MLVoiceSynthetize.startSynthesize("梦见" + data.get(i).name + "," + data.get(i).content);
             }
         });
 

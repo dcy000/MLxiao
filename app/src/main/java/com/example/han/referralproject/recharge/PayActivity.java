@@ -8,6 +8,7 @@ import android.widget.Button;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public class PayActivity extends BaseActivity implements View.OnClickListener {
 
@@ -27,7 +28,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
 
-        speak(getString(R.string.chongzhi));
+        MLVoiceSynthetize.startSynthesize(R.string.chongzhi);
 
         mToolbar.setVisibility(View.VISIBLE);
 

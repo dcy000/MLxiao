@@ -16,6 +16,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
@@ -82,7 +83,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
+        MLVoiceSynthetize.startSynthesize(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
         EditText editText = inPhone ? etPhone : etCode;
         editText.requestFocus();
         Utils.hideKeyBroad(editText);
@@ -104,10 +105,10 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
     public void onTvFetchCodeClicked() {
         inPhone = false;
         etCode.requestFocus();
-        speak(R.string.sign_up_fetch_code_tip);
+        MLVoiceSynthetize.startSynthesize(R.string.sign_up_fetch_code_tip);
         final String phone = etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
-            speak("主人，手机号码输入有误，请重新输入");
+            MLVoiceSynthetize.startSynthesize("主人，手机号码输入有误，请重新输入");
             inPhone = true;
             etPhone.setText("");
             etPhone.requestFocus();
@@ -123,13 +124,13 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
                     public void onSuccess(String code) {
                         mCode = code;
                          T.show("获取验证码成功");
-                        speak("获取验证码成功");
+                        MLVoiceSynthetize.startSynthesize("获取验证码成功");
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
                         T.show("获取验证码失败");
-                        speak("获取验证码失败");
+                        MLVoiceSynthetize.startSynthesize("获取验证码失败");
                     }
                 });
 
@@ -139,7 +140,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                speak("主人，手机号码已注册");
+                MLVoiceSynthetize.startSynthesize("主人，手机号码已注册");
                 inPhone = true;
                 etPhone.setText("");
                 etPhone.requestFocus();
@@ -174,7 +175,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         String code = etCode.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();
         if (TextUtils.isEmpty(code) || !Utils.isValidPhone(phone)) {
-            speak(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
+            MLVoiceSynthetize.startSynthesize(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
             return;
         }
 
@@ -183,7 +184,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             navToNext();
         } else {
             T.show("验证码错误");
-            speak("验证码错误");
+            MLVoiceSynthetize.startSynthesize("验证码错误");
         }
 
         LocalShared.getInstance(this.getApplicationContext()).setSignUpPhone(phone);
@@ -236,7 +237,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
         if (inSpell.matches(REGEX_IN_PHONE) && !inPhone) {
             inPhone = true;
             etPhone.requestFocus();
-            speak(R.string.sign_up_phone_tip);
+            MLVoiceSynthetize.startSynthesize(R.string.sign_up_phone_tip);
             return;
         }
 
@@ -247,7 +248,7 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
 
         if (inSpell.matches(REGEX_IN_CODE) && inPhone) {
             inPhone = false;
-            speak(R.string.sign_up_code_tip);
+            MLVoiceSynthetize.startSynthesize(R.string.sign_up_code_tip);
             etCode.requestFocus();
             return;
         }

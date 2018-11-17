@@ -13,6 +13,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.EatAdapter;
 import com.medlink.danbogh.register.EatModel;
 
@@ -204,13 +205,13 @@ public class AlertDrinkingActivity extends BaseActivity {
                 ToastTool.showShort("修改成功");
                 switch (positionSelected+1){
                     case 1:
-                        speak("主人，您的饮酒情况已经修改为"+"经常喝酒");
+                        MLVoiceSynthetize.startSynthesize("主人，您的饮酒情况已经修改为"+"经常喝酒");
                         break;
                     case 2:
-                        speak("主人，您的饮酒情况已经修改为"+"偶尔喝酒");
+                        MLVoiceSynthetize.startSynthesize("主人，您的饮酒情况已经修改为"+"偶尔喝酒");
                         break;
                     case 3:
-                        speak("主人，您的饮酒情况已经修改为"+"从不喝酒");
+                        MLVoiceSynthetize.startSynthesize("主人，您的饮酒情况已经修改为"+"从不喝酒");
                         break;
 
                 }

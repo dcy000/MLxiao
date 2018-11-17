@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public class DefineActivity extends BaseActivity {
 
@@ -32,7 +33,7 @@ public class DefineActivity extends BaseActivity {
 
         mTitleText.setText(getString(R.string.pay));
 
-        speak(getString(R.string.chongzhi_define));
+        MLVoiceSynthetize.startSynthesize(R.string.chongzhi_define);
 
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);

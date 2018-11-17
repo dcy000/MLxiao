@@ -13,6 +13,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.EatAdapter;
 import com.medlink.danbogh.register.EatModel;
 
@@ -203,13 +204,13 @@ public class AlertSmokeActivity extends BaseActivity {
                 ToastTool.showShort("修改成功");
                 switch (positionSelected+1){
                     case 1:
-                        speak("主人，您的吸烟情况已经修改为"+"经常吸烟");
+                        MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为"+"经常吸烟");
                         break;
                     case 2:
-                        speak("主人，您的吸烟情况已经修改为"+"偶尔吸烟");
+                        MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为"+"偶尔吸烟");
                         break;
                     case 3:
-                        speak("主人，您的吸烟情况已经修改为"+"从不吸烟");
+                        MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为"+"从不吸烟");
                         break;
                 }
             }

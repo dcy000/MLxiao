@@ -16,6 +16,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public class DiseaseDetailsActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
@@ -77,7 +78,7 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
                     mData.setGl("0");
 
                     mContent.setText(mData.getReview());
-                    speak(response.review + "。" + response.getSuggest() + "。" + response.getSports());
+                    MLVoiceSynthetize.startSynthesize(response.review + "。" + response.getSuggest() + "。" + response.getSports());
                 }
             }, new NetworkManager.FailedCallback() {
                 @Override
@@ -87,7 +88,7 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
             });
         } else {
             mContent.setText(mData.getReview());
-            speak(mData.getReview() + "。" + mData.getSuggest() + "。" + mData.getSports());
+            MLVoiceSynthetize.startSynthesize(mData.getReview() + "。" + mData.getSuggest() + "。" + mData.getSports());
         }
 
     }

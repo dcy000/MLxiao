@@ -13,6 +13,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.FastClickUtil;
 import com.medlink.danbogh.utils.T;
 
@@ -31,11 +32,9 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_ask_guide);
 
-        speak(getString(R.string.doctor_choice));
-
         setEnableListeningLoop(false);
         mToolbar.setVisibility(View.VISIBLE);
-        speak("主人，请点击选择签约医生或在线医生");
+        MLVoiceSynthetize.startSynthesize("主人，请点击选择签约医生或在线医生");
         initView();
     }
 
@@ -73,7 +72,7 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.doctor_zaixian:
                 if (FastClickUtil.isFastClick()) {
-                    Log.d("============","click");
+                    Log.d("============", "click");
                     startActivity(new Intent(this, OnlineDoctorListActivity.class));
                 }
                 break;

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class SignUp10EatActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(R.string.sign_up_eat_tip);
+        MLVoiceSynthetize.startSynthesize(R.string.sign_up_eat_tip);
     }
 
     private void initView() {
@@ -152,7 +153,7 @@ public class SignUp10EatActivity extends BaseActivity {
                 return;
             }
         }
-        speak(R.string.sign_up_eat_tip);
+        MLVoiceSynthetize.startSynthesize(R.string.sign_up_eat_tip);
     }
 
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";

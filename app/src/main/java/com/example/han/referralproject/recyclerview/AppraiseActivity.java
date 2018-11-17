@@ -22,6 +22,7 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.squareup.picasso.Picasso;
 
 public class AppraiseActivity extends BaseActivity implements View.OnClickListener {
@@ -63,7 +64,7 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appraise);
 
-        speak(getString(R.string.doctor_appraises));
+        MLVoiceSynthetize.startSynthesize(R.string.doctor_appraises);
 
 
         mToolbar.setVisibility(View.VISIBLE);
@@ -286,7 +287,7 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
             case R.id.niming_appraise:
 
 
-                speak(getString(R.string.true_appraise));
+                MLVoiceSynthetize.startSynthesize(R.string.true_appraise);
 
                 showNormal();
 

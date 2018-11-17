@@ -13,6 +13,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.children.model.JokeModel;
 import com.example.han.referralproject.speechsynthesis.QaApi;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
 
@@ -99,7 +100,7 @@ public class ChildEduJokesActivity extends BaseActivity {
         mAdapter.setPositionSelected(positionSelected);
         mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(positionSelected);
-        speak(mSentences.get(positionSelected));
+        MLVoiceSynthetize.startSynthesize(mSentences.get(positionSelected));
     }
 
     private void replay() {
@@ -111,7 +112,7 @@ public class ChildEduJokesActivity extends BaseActivity {
         mAdapter.setPositionSelected(0);
         mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(0);
-        speak(mSentences.get(0));
+        MLVoiceSynthetize.startSynthesize(mSentences.get(0));
     }
 
     private void fetchJokes() {
@@ -130,13 +131,13 @@ public class ChildEduJokesActivity extends BaseActivity {
                 return;
             }
             if (results == null) {
-                speak("没有笑话了， 让我再想想");
+                MLVoiceSynthetize.startSynthesize("没有笑话了， 让我再想想");
                 return;
             }
             String jokesJson = results.get("resultJson");
             List<JokeModel> models = JokeModel.parseJokes(jokesJson);
             if (models == null || models.isEmpty()) {
-                speak("没有笑话了， 让我再想想");
+                MLVoiceSynthetize.startSynthesize("没有笑话了， 让我再想想");
                 return;
             }
             if (random == null) {

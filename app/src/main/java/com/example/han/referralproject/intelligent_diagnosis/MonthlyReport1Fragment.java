@@ -21,6 +21,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -83,7 +84,7 @@ public class MonthlyReport1Fragment extends Fragment implements OnChartValueSele
                 + healthCompares.get(0).tips + "\n2." + healthCompares.get(1).tips + "\n3." + healthCompares.get(2).tips
                 + "\n4." + healthCompares.get(3).tips);
         setChart(weeklyReport);
-        ((MonthlyReportActivity) getActivity()).speak(tips);
+        MLVoiceSynthetize.startSynthesize(tips);
     }
 
     private void setChart(MonthlyReport.MAPQ weeklyReport) {

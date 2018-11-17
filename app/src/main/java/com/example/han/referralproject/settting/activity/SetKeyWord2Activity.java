@@ -60,11 +60,11 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
     public void getData(String s) {
 
         if (TextUtils.isEmpty(s)) {
-            speak("主人,我没有听清你能再说一遍吗?");
+            MLVoiceSynthetize.startSynthesize("主人,我没有听清你能再说一遍吗?");
             return;
         }
         if (containKeyWord(s, data)) {
-            speak("主人,你已添加了这个关键词");
+            MLVoiceSynthetize.startSynthesize("主人,你已添加了这个关键词");
             return;
         }
         saveData(s);
@@ -137,7 +137,7 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
         mRightView.setVisibility(View.GONE);
         mRightText.setOnClickListener(this);
         imageView.setOnClickListener(this);
-        speak("主人,请录入您的关键词");
+        MLVoiceSynthetize.startSynthesize("主人,请录入您的关键词");
     }
 
     @Override
@@ -154,7 +154,7 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
 
     private void startListener() {
         //开始识别
-        MLVoiceRecognize.initSpeechRecognizer(this).startListening(new RecognizerListener() {
+        MLVoiceRecognize.initSpeechRecognizer().startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
                 vlWave.waveH = i / 6 + 2;
@@ -178,7 +178,7 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
 
             @Override
             public void onError(SpeechError speechError) {
-                speak("主人,我没听清,你能再说一遍吗");
+                MLVoiceSynthetize.startSynthesize("主人,我没听清,你能再说一遍吗");
             }
 
             @Override

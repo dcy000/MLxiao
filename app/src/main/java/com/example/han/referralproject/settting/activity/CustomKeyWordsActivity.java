@@ -10,6 +10,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.settting.adapter.KeyWordRVAdapter;
 import com.example.han.referralproject.settting.bean.KeyWordBean;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class CustomKeyWordsActivity extends BaseActivity implements KeyWordRVAda
         initData();
         initTitle();
         initRV();
-        speak("主人,请选择要定义的关键词");
+        MLVoiceSynthetize.startSynthesize("主人,请选择要定义的关键词");
     }
 
     private int setSpanSize(int position, List<KeyWordBean> data) {

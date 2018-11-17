@@ -65,7 +65,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         initTitle();
         initData();
         initRV();
-        speak("主人,你可以自定义" + title + "关键词");
+        MLVoiceSynthetize.startSynthesize("主人,你可以自定义" + title + "关键词");
     }
 
     private void initTitle() {
@@ -76,7 +76,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         mRightText.setText("编辑");
         mRightView.setVisibility(View.GONE);
         mRightText.setOnClickListener(this);
-        speak("主人,请录入您的关键词");
+        MLVoiceSynthetize.startSynthesize("主人,请录入您的关键词");
     }
 
     private List<KeyWordDefinevBean> initData() {
@@ -145,7 +145,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
 
     private void startListener() {
         //开始识别
-        MLVoiceRecognize.initSpeechRecognizer(this).startListening(new RecognizerListener() {
+        MLVoiceRecognize.initSpeechRecognizer().startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
                 vlWave.waveH = i / 6 + 2;
@@ -169,7 +169,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
 
             @Override
             public void onError(SpeechError speechError) {
-                speak("主人,我没听清,你能再说一遍吗");
+                MLVoiceSynthetize.startSynthesize("主人,我没听清,你能再说一遍吗");
             }
 
             @Override
@@ -209,7 +209,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         adapter.notifyDataSetChanged();
         SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
         ToastUtils.show( "保存:" + recognizerResult + "成功");
-        speak("保存:" + recognizerResult + "关键词成功");
+        MLVoiceSynthetize.startSynthesize("保存:" + recognizerResult + "关键词成功");
 
 //        flag = (Boolean) SharedPreferencesUtils.getParam(SetKeyWordActivity.this, "yuyin", false);
 //        if (flag) {

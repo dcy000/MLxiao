@@ -22,6 +22,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.QaApi;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
 
@@ -209,7 +210,7 @@ public class RadioActivity extends BaseActivity implements
                     }
                 });
             } else {
-                speak("主人，未搜索到该频道，请更换频道再试");
+                MLVoiceSynthetize.startSynthesize("主人，未搜索到该频道，请更换频道再试");
             }
 
         }

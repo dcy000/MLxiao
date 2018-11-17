@@ -26,6 +26,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.medlink.danbogh.utils.T;
@@ -268,10 +269,10 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
         setEnableListeningLoop(false);
         setDisableGlobalListen(true);
         if ("1".equals(sign)) {
-            speak(R.string.online_info);
+            MLVoiceSynthetize.startSynthesize(R.string.online_info);
 
         } else {
-            speak(R.string.tips_info);
+            MLVoiceSynthetize.startSynthesize(R.string.tips_info);
 
         }
 
@@ -394,7 +395,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                 editors.putString("online_id", doctor.getDocterid());
                 editors.commit();
 
-                speak(getString(R.string.doctor_online));
+                MLVoiceSynthetize.startSynthesize(R.string.doctor_online);
 
             }
 

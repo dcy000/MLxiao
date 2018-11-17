@@ -16,6 +16,7 @@ import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.view.progress.RxRoundProgressBar;
 import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.littlejie.circleprogress.WaveProgress;
 
 import butterknife.BindView;
@@ -140,7 +141,7 @@ public class WeeklyReport1Fragment extends Fragment {
                 tips = "主人，您的血压仍偏高。本周计划完成"
                         + (int) progress_percent + "%，未完成目标计划，请继续根据机器人的指导保持良好的生活习惯，积极锻炼。查看详细的报告，请向左滑动页面！";
             }
-            ((WeeklyReportActivity) getActivity()).speak(tips);
+            MLVoiceSynthetize.startSynthesize(tips);
         }
     }
 

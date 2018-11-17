@@ -15,6 +15,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.children.model.JokeModel;
 import com.example.han.referralproject.speechsynthesis.QaApi;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 
 import java.util.ArrayList;
@@ -105,26 +106,26 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
                 return;
             }
             if (results == null) {
-                speak("没有笑话了， 让我再想想");
+                MLVoiceSynthetize.startSynthesize("没有笑话了， 让我再想想");
                 return;
             }
             String jokesJson = results.get("resultJson");
             List<JokeModel> models = JokeModel.parseJokes(jokesJson);
             if (models == null || models.isEmpty()) {
-                speak("没有笑话了， 让我再想想");
+                MLVoiceSynthetize.startSynthesize("没有笑话了， 让我再想想");
                 return;
             }
 
             int size = models.size();
             if (size == 1) {
-                speak(models.get(0).getContent());
+                MLVoiceSynthetize.startSynthesize(models.get(0).getContent());
                 return;
             }
             if (random == null) {
                 random = new Random();
             }
             int i = random.nextInt(size);
-            speak(models.get(i % size).getContent());
+            MLVoiceSynthetize.startSynthesize(models.get(i % size).getContent());
         }
     };
 

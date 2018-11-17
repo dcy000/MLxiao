@@ -20,6 +20,7 @@ import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import org.litepal.crud.DataSupport;
 
@@ -84,7 +85,7 @@ public class AlarmList2Activity extends BaseActivity {
                 for (ClueInfoBean itemBean : response) {
                     mBuilder.append(response.get(0).doctername).append("提醒您").append(itemBean.cluetime).append("吃").append(itemBean.medicine);
                 }
-                speak(mBuilder.toString());
+                MLVoiceSynthetize.startSynthesize(mBuilder.toString());
             }
         });
     }
@@ -92,7 +93,7 @@ public class AlarmList2Activity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        speak("主人，请设置吃药提醒");
+        MLVoiceSynthetize.startSynthesize("主人，请设置吃药提醒");
     }
 
     private void refresh() {

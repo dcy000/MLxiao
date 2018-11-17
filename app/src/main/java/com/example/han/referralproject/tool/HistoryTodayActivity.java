@@ -41,7 +41,7 @@ public class HistoryTodayActivity extends BaseActivity {
         setContentView(R.layout.activity_history_today);
         ButterKnife.bind(this);
         initView();
-        speak("主人,欢迎来到历史的今天");
+        MLVoiceSynthetize.startSynthesize("主人,欢迎来到历史的今天");
         initData();
         initEvent();
     }
@@ -69,9 +69,9 @@ public class HistoryTodayActivity extends BaseActivity {
                         if (resultData != null && resultData.size() != 0) {
                             data.addAll(resultData);
                             adapter.notifyDataSetChanged();
-                            speak(data.get(0).title+","+data.get(0).description);
+                            MLVoiceSynthetize.startSynthesize(data.get(0).title+","+data.get(0).description);
                         } else {
-                            speak("主人,我还不知道历史上的今天发生了什么事,我得去学习一下");
+                            MLVoiceSynthetize.startSynthesize("主人,我还不知道历史上的今天发生了什么事,我得去学习一下");
                         }
                     }
                 });
@@ -115,7 +115,7 @@ public class HistoryTodayActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 MLVoiceSynthetize.stop();
-                MLVoiceSynthetize.startSynthesize(view.getContext(),  data.get(i).title + "," + data.get(i).description,false);
+                MLVoiceSynthetize.startSynthesize(  data.get(i).title + "," + data.get(i).description);
             }
         });
         rvHistoryEvent.setAdapter(adapter);

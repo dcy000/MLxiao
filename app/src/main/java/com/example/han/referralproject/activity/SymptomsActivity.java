@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.SymptomAdapter;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class SymptomsActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_symptoms);
         mToolbar.setVisibility(View.VISIBLE);
         initView();
-        speak(getString(R.string.symptoms));
+        MLVoiceSynthetize.startSynthesize(getString(R.string.symptoms));
         setAdapter();
     }
 
@@ -52,37 +53,37 @@ public class SymptomsActivity extends BaseActivity implements View.OnClickListen
             public void onItemClick(View view, int position) {
                 switch (mData.get(position)){
                     case "头晕":
-                        speak(getString(R.string.gaoxueya));
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.gaoxueya));
                         break;
                     case "头痛":
-                        speak(getString(R.string.gaoxueya));
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.gaoxueya));
                         break;
                     case "烦躁":
-                        speak(getString(R.string.gaoxueya));
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.gaoxueya));
                         break;
                     case "肢体麻木":
-                        speak(getString(R.string.gaoxueya));
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.gaoxueya));
                         break;
                     case "注意力不集中，记忆力减退":
-                        speak(getString(R.string.gaoxueya));
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.gaoxueya));
                         break;
                     case "口干、口渴":
-                        speak(getString(R.string.tangniaobing));
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.tangniaobing));
                         break;
                     case "体重减轻":
-                        speak(getString(R.string.tangniaobing));
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.tangniaobing));
                         break;
                     case "肢端麻木":
-                        speak(getString(R.string.tangniaobing));
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.tangniaobing));
                         break;
                     case "焦躁":
-                        speak(getString(R.string.dixuetang));
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.tangniaobing));
                         break;
                     case "焦虑":
-                        speak(getString(R.string.dixuetang));
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.tangniaobing));
                         break;
                     case "冒冷汗":
-                        speak(getString(R.string.dixuetang));
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.tangniaobing));
                         break;
 
                 }

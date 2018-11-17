@@ -13,6 +13,7 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.DiseaseHistoryAdapter;
 import com.medlink.danbogh.register.DiseaseHistoryModel;
 
@@ -186,7 +187,7 @@ public class AlertMHActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Object response) {
                         ToastTool.showShort("修改成功");
-                        speak("主人，您的病史已经修改成功");
+                        MLVoiceSynthetize.startSynthesize("主人，您的病史已经修改成功");
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override

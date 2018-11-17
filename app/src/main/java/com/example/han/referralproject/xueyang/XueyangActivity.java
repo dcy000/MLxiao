@@ -31,6 +31,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.SampleGattAttributes;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.megvii.faceppidcardui.util.ConstantData;
 
 import java.io.BufferedReader;
@@ -84,7 +85,7 @@ public class XueyangActivity extends BaseActivity {
                     if (str != null) {
                         if ("OK".equals(str)) {
                             dialog.create(NDialog.CONFIRM).dismiss();
-                            speak(R.string.tips_open_device);
+                            MLVoiceSynthetize.startSynthesize(R.string.tips_open_device);
                             return;
                         }
                         final String[] strs = str.split(",");

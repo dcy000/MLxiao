@@ -22,6 +22,7 @@ import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.MeasureResult;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.File;
 import java.util.List;
@@ -215,7 +216,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
 
 								}
 							});
-							speak(String.format(getString(R.string.tips_result_xindian), ecgInfo.heart_rate, measureResult[ecgInfo.ecg]));
+							MLVoiceSynthetize.startSynthesize(String.format(getString(R.string.tips_result_xindian), ecgInfo.heart_rate, measureResult[ecgInfo.ecg]));
 
 						}
 						break;

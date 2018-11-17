@@ -44,7 +44,7 @@ public class CookBookRVAdapter extends BaseQuickAdapter<CookbookBean, BaseViewHo
                     view.setVisibility(View.VISIBLE);
                     MLVoiceSynthetize.stop();
                     CookbookBean bean = getData().get(baseViewHolder.getPosition());
-                    MLVoiceSynthetize.startSynthesize(v.getContext(), bean.title + "," + bean.steps,false);
+                    MLVoiceSynthetize.startSynthesize(bean.title + "," + bean.steps);
                 }
             }
         });

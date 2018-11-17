@@ -84,14 +84,14 @@ public class MyApplication implements AppLifecycle {
         telphoneNum = mShared.getPhoneNum();
         eqid = mShared.getEqID();
 
-        WakeupHelper.init(application);
-        StringBuilder builder = new StringBuilder();
-        builder.append("appid=")
-                .append("59196d96")
-                .append(",")
-                .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
-
-        SpeechUtility.createUtility(application, builder.toString());
+//        WakeupHelper.init(application);
+//        StringBuilder builder = new StringBuilder();
+//        builder.append("appid=")
+//                .append("59196d96")
+//                .append(",")
+//                .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
+//
+//        SpeechUtility.createUtility(application, builder.toString());
 
 
         NimInitHelper.getInstance().init(application, true);

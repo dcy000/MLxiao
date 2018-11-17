@@ -193,7 +193,7 @@ public class ECGCompatActivity extends ToolbarBaseActivity implements FragmentCh
     @Override
     public void updateVoice(String voice) {
         ToastUtils.showShort(voice);
-        MLVoiceSynthetize.startSynthesize(Box.getApp(), voice, false);
+        MLVoiceSynthetize.startSynthesize( voice);
         String connect = getString(R.string.bluetooth_device_connected);
         String disconnect = getString(R.string.bluetooth_device_disconnected);
         if (TextUtils.equals(voice, connect)) {

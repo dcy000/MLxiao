@@ -22,9 +22,8 @@ import android.widget.ImageView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.gzq.lib_core.utils.UiUtils;
 import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.UiUtils;
 import com.ml.zxing.QrCodeUtils;
 
 public class MyDialogFragment extends DialogFragment {

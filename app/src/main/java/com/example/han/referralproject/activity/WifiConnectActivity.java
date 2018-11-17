@@ -28,6 +28,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.WiFiUtil;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.signin.SignInActivity;
 
 import java.util.ArrayList;
@@ -57,10 +58,10 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
         if(iswifiConnected){
 //            mediaPlayer=MediaPlayer.create(this,R.raw.wifi_connected);
-            speak("主人,您的wifi已连接,如果需要更换,请点击对应wifi名称");
+            MLVoiceSynthetize.startSynthesize("主人,您的wifi已连接,如果需要更换,请点击对应wifi名称");
         }else{
 //            mediaPlayer = MediaPlayer.create(this, R.raw.wifi_connect);
-            speak("主人,请连接wifi,如果未找到,请点击右上角的刷新按钮");
+            MLVoiceSynthetize.startSynthesize("主人,请连接wifi,如果未找到,请点击右上角的刷新按钮");
         }
 
 //        mediaPlayer.start();//播放音乐

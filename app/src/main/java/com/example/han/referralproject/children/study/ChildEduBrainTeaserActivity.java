@@ -27,13 +27,13 @@ import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gzq.lib_core.utils.UiUtils;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.T;
-import com.medlink.danbogh.utils.UiUtils;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.HashMap;
@@ -150,12 +150,12 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
         @Override
         public void onMLError(SpeechError error) {
             endOfSpeech();
-            speak("主人,我没听清,您能再说一遍吗");
+            MLVoiceSynthetize.startSynthesize("主人,我没听清,您能再说一遍吗");
         }
     };
 
     private void startListener() {
-        MLVoiceRecognize.startRecognize(this, recognizerListener);
+        MLVoiceRecognize.startRecognize(recognizerListener);
     }
 
     private void doData(String result) {
@@ -183,9 +183,9 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
         if (answer.equals(result)
                 || answer.contains(result)
                 || result.contains(answer)) {
-            speak("恭喜主人答对了");
+            MLVoiceSynthetize.startSynthesize("恭喜主人答对了");
         } else {
-            speak("主人,回答错误，您再猜一下!");
+            MLVoiceSynthetize.startSynthesize("主人,回答错误，您再猜一下!");
         }
     }
 
@@ -255,7 +255,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                speak(finalQuestion);
+                MLVoiceSynthetize.startSynthesize(finalQuestion);
                 tvContent.setText(finalQuestion);
             }
         });

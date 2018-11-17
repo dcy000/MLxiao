@@ -62,7 +62,7 @@ public class CalculationActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculation);
         ButterKnife.bind(this);
-        speak("主人,欢迎来到计算");
+        MLVoiceSynthetize.startSynthesize("主人,欢迎来到计算");
         initEvent();
     }
 
@@ -125,7 +125,7 @@ public class CalculationActivity extends BaseActivity {
             public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
                 if (!"calc".equals(service)) {
 //                    ToastUtil.showShort(CalculationActivity.this, "主人,我不会算" + question);
-                    speak("主人,我不会算了");
+                    MLVoiceSynthetize.startSynthesize("主人,我不会算了");
                     return;
                 }
                 runOnUiThread(new Runnable() {
@@ -175,7 +175,7 @@ public class CalculationActivity extends BaseActivity {
     }
 
     private void startListener() {
-        SpeechRecognizer speechRecognizer = MLVoiceRecognize.initSpeechRecognizer(this);
+        SpeechRecognizer speechRecognizer = MLVoiceRecognize.initSpeechRecognizer();
         speechRecognizer.startListening(new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
@@ -200,7 +200,7 @@ public class CalculationActivity extends BaseActivity {
 
             @Override
             public void onError(SpeechError speechError) {
-                speak("主人,我没有听清,你能再说一遍吗?");
+                MLVoiceSynthetize.startSynthesize("主人,我没有听清,你能再说一遍吗?");
             }
 
             @Override

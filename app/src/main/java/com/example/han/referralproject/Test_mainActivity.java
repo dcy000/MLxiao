@@ -12,6 +12,7 @@ import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
 import com.example.han.referralproject.ecg.ECGCompatActivity;
 import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Calendar;
 
@@ -81,7 +82,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         llMore.setOnClickListener(this);
         setEnableListeningLoop(false);
 
-        speak(R.string.tips_test);
+        MLVoiceSynthetize.startSynthesize(R.string.tips_test);
 
     }
 

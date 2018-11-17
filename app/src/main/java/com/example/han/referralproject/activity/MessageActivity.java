@@ -12,6 +12,7 @@ import com.example.han.referralproject.adapter.MessageShowAdapter;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 
@@ -38,12 +39,12 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         @Override
         public void onSuccess(ArrayList<YzInfoBean> response) {
             if (response == null || response.size() == 0){
-                speak(R.string.no_yz);
+                MLVoiceSynthetize.startSynthesize(R.string.no_yz);
                 return;
             }
             mDataList.addAll(response);
             messageShowAdapter.notifyDataSetChanged();
-            speak(response.get(0).yz);
+            MLVoiceSynthetize.startSynthesize(response.get(0).yz);
         }
     };
 

@@ -15,6 +15,7 @@ import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +33,7 @@ public class HistoryActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText(getString(R.string.yuyue_history));
 
-        speak(getString(R.string.yuye_history));
+        MLVoiceSynthetize.startSynthesize(R.string.yuye_history);
         mRecyclerView = (RecyclerView) findViewById(R.id.history_list);
         initData();
         initRV();

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
@@ -69,7 +70,7 @@ public class SignUp7HeightActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak(geTip());
+        MLVoiceSynthetize.startSynthesize(geTip());
     }
 
     protected int geTip() {
