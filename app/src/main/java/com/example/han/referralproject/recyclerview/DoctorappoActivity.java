@@ -1,6 +1,5 @@
 package com.example.han.referralproject.recyclerview;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
@@ -1095,24 +1093,24 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
 
     public void enableVideo(long time, long time1) {
-//        if (mYuYueInfoList == null || mYuYueInfoList.isEmpty()) {
-//            mBtnCallDoctor.setEnabled(false);
-//            mBtnCallDoctor.setSelected(false);
-//            return;
-//        }
-//
-//        boolean allowed = false;
-//        for (YuYueInfo yuYueInfo : mYuYueInfoList) {
-//            if ("已接受".equals(yuYueInfo.getState())) {
-//                allowed = true;
-//                break;
-//            }
-//        }
-//        if (!allowed) {
-//            mBtnCallDoctor.setEnabled(false);
-//            mBtnCallDoctor.setSelected(false);
-//            return;
-//        }
+        if (mYuYueInfoList == null || mYuYueInfoList.isEmpty()) {
+            mBtnCallDoctor.setEnabled(false);
+            mBtnCallDoctor.setSelected(false);
+            return;
+        }
+
+        boolean allowed = false;
+        for (YuYueInfo yuYueInfo : mYuYueInfoList) {
+            if ("已接受".equals(yuYueInfo.getState())) {
+                allowed = true;
+                break;
+            }
+        }
+        if (!allowed) {
+            mBtnCallDoctor.setEnabled(false);
+            mBtnCallDoctor.setSelected(false);
+            return;
+        }
 
 
         if (System.currentTimeMillis() < time && System.currentTimeMillis() >= time1) {

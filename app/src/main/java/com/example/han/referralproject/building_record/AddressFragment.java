@@ -96,7 +96,7 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         startLocation();
-        ((BuildingRecordActivity) getActivity()). setDisableGlobalListen(true);
+        ((BuildingRecordActivity) getActivity()).setDisableGlobalListen(true);
         ((BuildingRecordActivity) getActivity()).speak("主人,请输入您的住址");
     }
 
@@ -271,23 +271,27 @@ public class AddressFragment extends Fragment implements View.OnClickListener {
     }
 
     private void showCities() {
-        provinceAdapter = new ArrayAdapter<>(getActivity(), R.layout.item_spinner_layout);
-        spProvince.setAdapter(provinceAdapter);
-        provinceAdapter.clear();
-        provinceAdapter.addAll(mProvinceNames);
-        mCityAdapter = new ArrayAdapter<>(getActivity(), R.layout.item_spinner_layout);
-        spCity.setAdapter(mCityAdapter);
-        if (mProvinceNames.size() > 0 && mCityNameMap.size() > 0) {
-            mCityNames = mCityNameMap.get(mProvinceNames.get(0));
-        }
-        if (mCityNames != null) {
-            mCityAdapter.clear();
-            mCityAdapter.addAll(mCityNames);
-            mCountyAdapter = new ArrayAdapter<>(getActivity(), R.layout.item_spinner_layout);
-            spCounty.setAdapter(mCountyAdapter);
-            mCountyNames = mCountyNameMap.get(mCityNames.get(0));
-            mCountyAdapter.clear();
-            mCountyAdapter.addAll(mCityNames);
+        try {
+            provinceAdapter = new ArrayAdapter<>(getActivity(), R.layout.item_spinner_layout);
+            spProvince.setAdapter(provinceAdapter);
+            provinceAdapter.clear();
+            provinceAdapter.addAll(mProvinceNames);
+            mCityAdapter = new ArrayAdapter<>(getActivity(), R.layout.item_spinner_layout);
+            spCity.setAdapter(mCityAdapter);
+            if (mProvinceNames.size() > 0 && mCityNameMap.size() > 0) {
+                mCityNames = mCityNameMap.get(mProvinceNames.get(0));
+            }
+            if (mCityNames != null) {
+                mCityAdapter.clear();
+                mCityAdapter.addAll(mCityNames);
+                mCountyAdapter = new ArrayAdapter<>(getActivity(), R.layout.item_spinner_layout);
+                spCounty.setAdapter(mCountyAdapter);
+                mCountyNames = mCountyNameMap.get(mCityNames.get(0));
+                mCountyAdapter.clear();
+                mCountyAdapter.addAll(mCityNames);
+            }
+        } catch (Exception e) {
+
         }
 
     }
