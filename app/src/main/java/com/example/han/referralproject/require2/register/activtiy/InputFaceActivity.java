@@ -101,19 +101,23 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
     };
 
     private void showHeadDialog(byte[] data, Camera camera) {
-        Bitmap b3 = decodeToBitMap(data, camera);
-        if (b3 != null) {
-            stream.reset();
-            Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
-            //可根据流量及网络状况对图片进行压缩
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            byte[] bytes = stream.toByteArray();
-            faceData = bytes;
-        }
+        try{
+            Bitmap b3 = decodeToBitMap(data, camera);
+            if (b3 != null) {
+                stream.reset();
+                Bitmap bitmap = Utils.centerSquareScaleBitmap(b3, 300);
+                //可根据流量及网络状况对图片进行压缩
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] bytes = stream.toByteArray();
+                faceData = bytes;
+            }
 
-        AffirmHeadDialog dialog = new AffirmHeadDialog(faceData);
-        dialog.setListener(this);
-        dialog.show(getFragmentManager(), "headDialog");
+            AffirmHeadDialog dialog = new AffirmHeadDialog(faceData);
+            dialog.setListener(this);
+            dialog.show(getFragmentManager(), "headDialog");
+        }catch (Exception e){
+
+        }
     }
 
     @Override
@@ -291,14 +295,20 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
         Handlers.bg().post(new Runnable() {
             @Override
             public void run() {
-                if (null != mCamera) {
-                    mCamera.setPreviewCallback(null);
-                    mCamera.stopPreview();
-                    mCamera.release();
-                    mCamera = null;
-                    if (holder != null) {
-                        holder.removeCallback(callback);
+
+                try {
+                    if (null != mCamera) {
+                        mCamera.setPreviewCallback(null);
+                        mCamera.stopPreview();
+                        mCamera.release();
+                        mCamera = null;
+                        if (holder != null) {
+                            holder.removeCallback(callback);
+                        }
                     }
+
+                }catch (Exception e){
+
                 }
             }
         });
@@ -342,8 +352,12 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
     @Override
     protected void onResume() {
         super.onResume();
-        holder = surfaceView.getHolder();
-        holder.addCallback(callback);
+        try{
+            holder = surfaceView.getHolder();
+            holder.addCallback(callback);
+        }catch (Exception e){
+
+        }
 
         Handlers.ui().postDelayed(new Runnable() {
             @Override
@@ -376,11 +390,14 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
     @Override
     protected void onPause() {
         super.onPause();
+        try{
+            mCamera.setPreviewCallback(null);
+            mCamera.stopPreview();
+            mCamera.release();
+            mCamera = null;
+        }catch (Exception e) {
 
-        mCamera.setPreviewCallback(null);
-        mCamera.stopPreview();
-        mCamera.release();
-        mCamera = null;
+        }
     }
 
 

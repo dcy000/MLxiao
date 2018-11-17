@@ -112,8 +112,9 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-//                  if (listener != null) {
-                listener.onError(message, bundle);
+                if (listener != null) {
+                    listener.onError(message, bundle);
+                }
             }
 
         });
