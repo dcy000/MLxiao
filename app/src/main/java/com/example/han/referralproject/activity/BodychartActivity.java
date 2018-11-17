@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.recognition.MLRecognizerListener;
+import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.ButterKnife;
@@ -36,6 +39,58 @@ public class BodychartActivity extends BaseActivity implements View.OnClickListe
         mTitleText.setText(R.string.body_guide);
         initView();
         MLVoiceSynthetize.startSynthesize(getString(R.string.bodyguide));
+        listener();
+    }
+
+    private void listener() {
+        MLVoiceRecognize.startRecognize(new MLRecognizerListener() {
+            @Override
+            public void onMLVolumeChanged(int i, byte[] bytes) {
+
+            }
+
+            @Override
+            public void onMLBeginOfSpeech() {
+
+            }
+
+            @Override
+            public void onMLEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onMLResult(String result) {
+                if (!TextUtils.isEmpty(result)) {
+                    if (result.matches(".*(头|头部|脑袋).*")) {
+                        startActivity(new Intent(BodychartActivity.this, SymptomAnalyseActivity.class)
+                                .putExtra("title", "头部"));
+                        return;
+                    }
+                    if (result.matches(".*(胸部|胸|胸膛).*")) {
+                        startActivity(new Intent(BodychartActivity.this, SymptomAnalyseActivity.class)
+                                .putExtra("title", "胸部"));
+                        return;
+                    }
+                    if (result.matches(".*(腹部|肚子).*")) {
+                        startActivity(new Intent(BodychartActivity.this, SymptomAnalyseActivity.class)
+                                .putExtra("title", "腹部"));
+                        return;
+                    }
+                    if (result.matches(".*(四肢|手|脚|腿|胳膊|躯干).*")) {
+
+                        startActivity(new Intent(BodychartActivity.this, SymptomAnalyseActivity.class)
+                                .putExtra("title", "四肢"));
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void onMLError(SpeechError error) {
+
+            }
+        });
     }
 
     private void initView() {
@@ -67,6 +122,7 @@ public class BodychartActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
             case R.id.head:
                 startActivity(new Intent(this, SymptomAnalyseActivity.class)
@@ -124,32 +180,5 @@ public class BodychartActivity extends BaseActivity implements View.OnClickListe
         mImgAbdomen.setImageDrawable(getResources().getDrawable(R.drawable.img_abdomen));
         mImgChest.setImageDrawable(getResources().getDrawable(R.drawable.img_chest));
         mImgLegs.setImageDrawable(getResources().getDrawable(R.drawable.img_all_fours));
-    }
-
-    @Override
-    protected void onSpeakListenerResult(String result) {
-        if (!TextUtils.isEmpty(result)) {
-            if (result.matches(".*(头|头部|脑袋).*")) {
-                startActivity(new Intent(this, SymptomAnalyseActivity.class)
-                        .putExtra("title", "头部"));
-                return;
-            }
-            if (result.matches(".*(胸部|胸|胸膛).*")) {
-                startActivity(new Intent(this, SymptomAnalyseActivity.class)
-                        .putExtra("title", "胸部"));
-                return;
-            }
-            if (result.matches(".*(腹部|肚子).*")) {
-                startActivity(new Intent(this, SymptomAnalyseActivity.class)
-                        .putExtra("title", "腹部"));
-                return;
-            }
-            if (result.matches(".*(四肢|手|脚|腿|胳膊|躯干).*")) {
-
-                startActivity(new Intent(this, SymptomAnalyseActivity.class)
-                        .putExtra("title", "四肢"));
-                return;
-            }
-        }
     }
 }

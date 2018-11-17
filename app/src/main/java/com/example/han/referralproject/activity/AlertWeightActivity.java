@@ -23,6 +23,7 @@ public class AlertWeightActivity extends AlertHeightActivity {
         tvSignUpHeight.setText("您的体重");
         tvSignUpUnit.setText("kg");
     }
+
     @Override
     protected List<String> getStrings() {
         mStrings = new ArrayList<>();
@@ -36,19 +37,20 @@ public class AlertWeightActivity extends AlertHeightActivity {
     public void onTvGoForwardClicked() {
         final String weight = mStrings.get(selectedPosition);
         NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, weight, eat, smoke, drink, exercise,
-                buffer==null?"":buffer.substring(0,buffer.length()-1),data.dz,new NetworkManager.SuccessCallback<Object>() {
-            @Override
-            public void onSuccess(Object response) {
-                ToastTool.showShort("修改成功");
-                MLVoiceSynthetize.startSynthesize("主人，您的体重已经修改为"+weight+"千克");
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
+                buffer == null ? "" : buffer.substring(0, buffer.length() - 1), data.dz, new NetworkManager.SuccessCallback<Object>() {
+                    @Override
+                    public void onSuccess(Object response) {
+                        ToastTool.showShort("修改成功");
+                        MLVoiceSynthetize.startSynthesize("主人，您的体重已经修改为" + weight + "千克");
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
 
-            }
-        });
+                    }
+                });
     }
+
     @Override
     protected int geTip() {
         return R.string.sign_up_weight_tip;

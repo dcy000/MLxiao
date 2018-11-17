@@ -15,6 +15,10 @@ import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gzq.lib_core.utils.ToastUtils;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.recognition.MLRecognizerListener;
+import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public class PreviousHistoryActivity extends BaseActivity implements View.OnClickListener {
@@ -32,6 +36,49 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
         mAdapter = new DiseaseShowAdapter(mContext);
         mGridView.setAdapter(mAdapter);
         findViewById(R.id.tv_next).setOnClickListener(this);
+        listener();
+    }
+
+    private void listener() {
+        MLVoiceRecognize.startRecognize(new MLRecognizerListener() {
+            @Override
+            public void onMLVolumeChanged(int i, byte[] bytes) {
+
+            }
+
+            @Override
+            public void onMLBeginOfSpeech() {
+
+            }
+
+            @Override
+            public void onMLEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onMLResult(String result) {
+                ToastUtils.showShort(result);
+                String inSpell = PinYinUtils.converterToSpell(result);
+
+                for (int i = 0; i < diseaseArray.length; i++) {
+                    String spell = PinYinUtils.converterToSpell(diseaseArray[i]);
+                    if (inSpell.contains(spell)) {
+                        mGridView.getChildAt(i).performClick();
+                        return;
+                    }
+                }
+
+                if (inSpell.matches(REGEX_GO_NEXT)) {
+                    findViewById(R.id.tv_next).performClick();
+                }
+            }
+
+            @Override
+            public void onMLError(SpeechError error) {
+
+            }
+        });
     }
 
     @Override
@@ -44,27 +91,9 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
 
     public static final String REGEX_GO_NEXT = ".*xiayibu.*";
 
-
-    @Override
-    protected void onSpeakListenerResult(String result) {
-        Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
-        String inSpell = PinYinUtils.converterToSpell(result);
-
-        for (int i = 0; i < diseaseArray.length; i++) {
-            String spell = PinYinUtils.converterToSpell(diseaseArray[i]);
-            if (inSpell.contains(spell)) {
-                mGridView.getChildAt(i).performClick();
-                return;
-            }
-        }
-
-        if (inSpell.matches(REGEX_GO_NEXT)) {
-            findViewById(R.id.tv_next).performClick();
-        }
-    }
-
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_next:
                 if (TextUtils.isEmpty(mAdapter.getMh())) {
@@ -72,13 +101,12 @@ public class PreviousHistoryActivity extends BaseActivity implements View.OnClic
                 }
 
                 showLoadingDialog(getString(R.string.do_uploading));
+
                 NetworkApi.setUserMh(mAdapter.getMh(), new NetworkManager.SuccessCallback<String>() {
                     @Override
                     public void onSuccess(String response) {
                         hideLoadingDialog();
                         startActivity(new Intent(mContext, RegisterVideoActivity.class));
-//                        startActivity(new Intent(mContext, RecoDocActivity.class));
-//                        finish();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override

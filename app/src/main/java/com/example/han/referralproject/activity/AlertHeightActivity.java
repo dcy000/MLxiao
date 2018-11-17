@@ -13,6 +13,8 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.SelectAdapter;
 import com.medlink.danbogh.utils.T;
@@ -25,7 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
 
-public class AlertHeightActivity extends BaseActivity {
+public class AlertHeightActivity extends BaseActivity implements SynthesizerListener {
 
     @BindView(R.id.tv_sign_up_height)
     TextView tvSignUpHeight;
@@ -126,7 +128,7 @@ public class AlertHeightActivity extends BaseActivity {
             buffer = null;
         } else {
             String[] mhs = data.mh.split("\\s+");
-            for (int i = 0; i <mhs.length; i++) {
+            for (int i = 0; i < mhs.length; i++) {
                 if (mhs[i].equals("高血压"))
                     buffer.append(1 + ",");
                 else if (mhs[i].equals("糖尿病"))
@@ -200,7 +202,7 @@ public class AlertHeightActivity extends BaseActivity {
                     public void onSuccess(Object response) {
                         LocalShared.getInstance(AlertHeightActivity.this).setUserHeight(height);
                         ToastTool.showShort("修改成功");
-                        MLVoiceSynthetize.startSynthesize("主人，您的身高已经修改为" + height + "厘米");
+                        MLVoiceSynthetize.startSynthesize("主人，您的身高已经修改为" + height + "厘米", AlertHeightActivity.this);
 
                     }
                 }, new NetworkManager.FailedCallback() {
@@ -212,8 +214,39 @@ public class AlertHeightActivity extends BaseActivity {
                 });
     }
 
+
     @Override
-    protected void onActivitySpeakFinish() {
+    public void onSpeakBegin() {
+
+    }
+
+    @Override
+    public void onBufferProgress(int i, int i1, int i2, String s) {
+
+    }
+
+    @Override
+    public void onSpeakPaused() {
+
+    }
+
+    @Override
+    public void onSpeakResumed() {
+
+    }
+
+    @Override
+    public void onSpeakProgress(int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onCompleted(SpeechError speechError) {
         finish();
+    }
+
+    @Override
+    public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
     }
 }

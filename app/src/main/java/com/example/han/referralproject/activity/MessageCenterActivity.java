@@ -151,6 +151,7 @@ public class MessageCenterActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
             case R.id.yiZhu:
                 getYizhu();

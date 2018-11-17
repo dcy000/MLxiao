@@ -23,6 +23,9 @@ import com.example.han.referralproject.util.ToastTool;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gzq.lib_core.base.Box;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.recognition.MLRecognizerListener;
+import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.entity.City;
 import com.medlink.danbogh.register.entity.Province;
@@ -71,6 +74,103 @@ public class AlertAddressActivity extends BaseActivity {
         buffer = new StringBuffer();
         initData();
         initLocation();
+        listener();
+    }
+
+    private void listener() {
+        MLVoiceRecognize.startRecognize(new MLRecognizerListener() {
+            @Override
+            public void onMLVolumeChanged(int i, byte[] bytes) {
+
+            }
+
+            @Override
+            public void onMLBeginOfSpeech() {
+
+            }
+
+            @Override
+            public void onMLEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onMLResult(String result) {
+                T.show(result);
+
+                if (result.matches(REGEX_IN_GO_BACK)) {
+                    onTvGoBackClicked();
+                    return;
+                }
+
+                if (result.matches(REGEX_IN_GO_FORWARD)) {
+                    onTvGoForwardClicked();
+                    return;
+                }
+
+                String inSpell = PinYinUtils.converterToSpell(result);
+                if (inSpell.matches(REGEX_IN_DEL_ALL)) {
+                    etAddress.setText("");
+                    return;
+                }
+
+                String target = etAddress.getText().toString().trim();
+                if (inSpell.matches(REGEX_IN_DEL)) {
+                    if (!TextUtils.isEmpty(target)) {
+                        etAddress.setText(target.substring(0, target.length() - 1));
+                        etAddress.setSelection(target.length() - 1);
+                    }
+                    return;
+                }
+
+                if (mProvinceNames != null) {
+                    int size = mProvinceNames.size();
+                    for (int i = 0; i < size; i++) {
+                        String provinceName = mProvinceNames.get(i);
+                        String provinceSpell = PinYinUtils.converterToSpell(provinceName);
+                        if (inSpell.equals(provinceSpell)) {
+                            spProvince.setSelection(i);
+                            return;
+                        }
+                    }
+                }
+
+                if (mCityNames != null) {
+                    int size = mCityNames.size();
+                    for (int i = 0; i < size; i++) {
+                        String cityName = mCityNames.get(i);
+                        String citySpell = PinYinUtils.converterToSpell(cityName);
+                        if (inSpell.equals(citySpell)) {
+                            spCity.setSelection(i);
+                            return;
+                        }
+                    }
+                }
+
+                if (mCountyNames != null) {
+                    int size = mCountyNames.size();
+                    for (int i = 0; i < size; i++) {
+                        String countyName = mCountyNames.get(i);
+                        String countySpell = PinYinUtils.converterToSpell(countyName);
+                        if (inSpell.equals(countySpell)) {
+                            spCounty.setSelection(i);
+                            return;
+                        }
+                    }
+                }
+
+                String text = target + result;
+                if (text.length() < 30) {
+                    etAddress.setText(text);
+                    etAddress.setSelection(text.length());
+                }
+            }
+
+            @Override
+            public void onMLError(SpeechError error) {
+
+            }
+        });
     }
 
     private void initLocation() {
@@ -443,75 +543,4 @@ public class AlertAddressActivity extends BaseActivity {
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
     public static final String REGEX_IN_GO_FORWARD = ".*(下一步|下一部|确定|完成).*";
 
-    @Override
-    protected void onSpeakListenerResult(String result) {
-        T.show(result);
-
-        if (result.matches(REGEX_IN_GO_BACK)) {
-            onTvGoBackClicked();
-            return;
-        }
-
-        if (result.matches(REGEX_IN_GO_FORWARD)) {
-            onTvGoForwardClicked();
-            return;
-        }
-
-        String inSpell = PinYinUtils.converterToSpell(result);
-        if (inSpell.matches(REGEX_IN_DEL_ALL)) {
-            etAddress.setText("");
-            return;
-        }
-
-        String target = etAddress.getText().toString().trim();
-        if (inSpell.matches(REGEX_IN_DEL)) {
-            if (!TextUtils.isEmpty(target)) {
-                etAddress.setText(target.substring(0, target.length() - 1));
-                etAddress.setSelection(target.length() - 1);
-            }
-            return;
-        }
-
-        if (mProvinceNames != null) {
-            int size = mProvinceNames.size();
-            for (int i = 0; i < size; i++) {
-                String provinceName = mProvinceNames.get(i);
-                String provinceSpell = PinYinUtils.converterToSpell(provinceName);
-                if (inSpell.equals(provinceSpell)) {
-                    spProvince.setSelection(i);
-                    return;
-                }
-            }
-        }
-
-        if (mCityNames != null) {
-            int size = mCityNames.size();
-            for (int i = 0; i < size; i++) {
-                String cityName = mCityNames.get(i);
-                String citySpell = PinYinUtils.converterToSpell(cityName);
-                if (inSpell.equals(citySpell)) {
-                    spCity.setSelection(i);
-                    return;
-                }
-            }
-        }
-
-        if (mCountyNames != null) {
-            int size = mCountyNames.size();
-            for (int i = 0; i < size; i++) {
-                String countyName = mCountyNames.get(i);
-                String countySpell = PinYinUtils.converterToSpell(countyName);
-                if (inSpell.equals(countySpell)) {
-                    spCounty.setSelection(i);
-                    return;
-                }
-            }
-        }
-
-        String text = target + result;
-        if (text.length() < 30) {
-            etAddress.setText(text);
-            etAddress.setSelection(text.length());
-        }
-    }
 }

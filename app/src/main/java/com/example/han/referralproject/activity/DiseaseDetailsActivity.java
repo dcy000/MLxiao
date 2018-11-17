@@ -95,6 +95,7 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
             case R.id.iv_back:
                 finish();

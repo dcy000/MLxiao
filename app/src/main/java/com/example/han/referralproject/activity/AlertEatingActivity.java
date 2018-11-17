@@ -13,6 +13,8 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.EatAdapter;
 import com.medlink.danbogh.register.EatModel;
@@ -24,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AlertEatingActivity extends BaseActivity {
+public class AlertEatingActivity extends BaseActivity implements SynthesizerListener {
 
     @BindView(R.id.tv_sign_up_title)
     TextView tvSignUpTitle;
@@ -38,8 +40,9 @@ public class AlertEatingActivity extends BaseActivity {
     private GridLayoutManager mLayoutManager;
     public EatAdapter mAdapter;
     public List<EatModel> mModels;
-    private String eat = "",smoke="",drink="",exercise="";
+    private String eat = "", smoke = "", drink = "", exercise = "";
     private StringBuffer buffer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,22 +52,22 @@ public class AlertEatingActivity extends BaseActivity {
         mTitleText.setText("修改饮食情况");
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
-        data= (UserInfoBean) getIntent().getSerializableExtra("data");
-        buffer=new StringBuffer();
+        data = (UserInfoBean) getIntent().getSerializableExtra("data");
+        buffer = new StringBuffer();
         initView();
     }
 
     private void initView() {
-        if(!TextUtils.isEmpty(data.eatingHabits)){
-            switch (data.eatingHabits){
+        if (!TextUtils.isEmpty(data.eatingHabits)) {
+            switch (data.eatingHabits) {
                 case "荤素搭配":
-                    eat="1";
+                    eat = "1";
                     break;
                 case "偏好吃荤":
-                    eat="2";
+                    eat = "2";
                     break;
                 case "偏好吃素":
-                    eat="3";
+                    eat = "3";
                     break;
                 case "偏好吃咸":
                     break;
@@ -74,53 +77,53 @@ public class AlertEatingActivity extends BaseActivity {
                     break;
             }
         }
-        if(!TextUtils.isEmpty(data.smoke)){
-            switch (data.smoke){
+        if (!TextUtils.isEmpty(data.smoke)) {
+            switch (data.smoke) {
                 case "经常吸烟":
-                    smoke="1";
+                    smoke = "1";
                     break;
                 case "偶尔吸烟":
-                    smoke="2";
+                    smoke = "2";
                     break;
                 case "从不吸烟":
-                    smoke="3";
+                    smoke = "3";
                     break;
             }
         }
-        if(!TextUtils.isEmpty(data.drink)){
-            switch (data.drink){
+        if (!TextUtils.isEmpty(data.drink)) {
+            switch (data.drink) {
                 case "经常喝酒":
-                    smoke="1";
+                    smoke = "1";
                     break;
                 case "偶尔喝酒":
-                    smoke="2";
+                    smoke = "2";
                     break;
                 case "从不喝酒":
-                    smoke="3";
+                    smoke = "3";
                     break;
             }
         }
-        if(!TextUtils.isEmpty(data.exerciseHabits)){
-            switch (data.exerciseHabits){
+        if (!TextUtils.isEmpty(data.exerciseHabits)) {
+            switch (data.exerciseHabits) {
                 case "每天一次":
-                    exercise="1";
+                    exercise = "1";
                     break;
                 case "每周几次":
-                    exercise="2";
+                    exercise = "2";
                     break;
                 case "偶尔运动":
-                    exercise="3";
+                    exercise = "3";
                     break;
                 case "从不运动":
-                    exercise="4";
+                    exercise = "4";
                     break;
             }
         }
-        if("尚未填写".equals(data.mh)){
-            buffer=null;
-        }else{
-            String[] mhs=data.mh.split("\\s+");
-            for (int i=0;i<mhs.length;i++){
+        if ("尚未填写".equals(data.mh)) {
+            buffer = null;
+        } else {
+            String[] mhs = data.mh.split("\\s+");
+            for (int i = 0; i < mhs.length; i++) {
                 if (mhs[i].equals("高血压"))
                     buffer.append(1 + ",");
                 else if (mhs[i].equals("糖尿病"))
@@ -209,45 +212,76 @@ public class AlertEatingActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        if(positionSelected==-1){
+        if (positionSelected == -1) {
             ToastTool.showShort("请选择其中一个");
             return;
         }
-        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, positionSelected+1+"", smoke, drink, exercise,
-                buffer==null?"":buffer.substring(0,buffer.length()-1),data.dz,new NetworkManager.SuccessCallback<Object>() {
-            @Override
-            public void onSuccess(Object response) {
-                ToastTool.showShort("修改成功");
-                switch (positionSelected+1){
-                    case 1:
-                        MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为"+"荤素搭配");
-                        break;
-                    case 2:
-                        MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为"+"偏好吃荤");
-                        break;
-                    case 3:
-                        MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为"+"偏好吃素");
-                        break;
-                    case 4:
-                        MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为"+"偏好吃咸");
-                        break;
-                    case 5:
-                        MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为"+"偏好油腻");
-                        break;
-                    case 6:
-                        MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为"+"偏好甜食");
-                        break;
-                }
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
+        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, data.weight, positionSelected + 1 + "", smoke, drink, exercise,
+                buffer == null ? "" : buffer.substring(0, buffer.length() - 1), data.dz, new NetworkManager.SuccessCallback<Object>() {
+                    @Override
+                    public void onSuccess(Object response) {
+                        ToastTool.showShort("修改成功");
+                        switch (positionSelected + 1) {
+                            case 1:
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "荤素搭配", AlertEatingActivity.this);
+                                break;
+                            case 2:
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好吃荤", AlertEatingActivity.this);
+                                break;
+                            case 3:
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好吃素", AlertEatingActivity.this);
+                                break;
+                            case 4:
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好吃咸", AlertEatingActivity.this);
+                                break;
+                            case 5:
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好油腻", AlertEatingActivity.this);
+                                break;
+                            case 6:
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好甜食", AlertEatingActivity.this);
+                                break;
+                        }
+                    }
+                }, new NetworkManager.FailedCallback() {
+                    @Override
+                    public void onFailed(String message) {
 
-            }
-        });
+                    }
+                });
     }
+
     @Override
-    protected void onActivitySpeakFinish() {
+    public void onSpeakBegin() {
+
+    }
+
+    @Override
+    public void onBufferProgress(int i, int i1, int i2, String s) {
+
+    }
+
+    @Override
+    public void onSpeakPaused() {
+
+    }
+
+    @Override
+    public void onSpeakResumed() {
+
+    }
+
+    @Override
+    public void onSpeakProgress(int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onCompleted(SpeechError speechError) {
         finish();
+    }
+
+    @Override
+    public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
     }
 }

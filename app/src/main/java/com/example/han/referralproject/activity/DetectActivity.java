@@ -887,28 +887,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             datas.add(cholesterolData);
             uploadData(datas);
         }
-
-//        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
-//            @Override
-//            public void onSuccess(MeasureResult response) {
-//
-//            }
-//        }, new NetworkManager.FailedCallback() {
-//            @Override
-//            public void onFailed(String message) {
-//
-//            }
-//        });
     }
 
     public ImageView ivBack;
 
-    @Override
-    protected void onActivitySpeakFinish() {//语音播放完成后，如果血糖异常，则跳转到并发症页面
-        if (xuetangAbnormal) {
-//            startActivity(new Intent(this,SymptomsActivity.class));
-        }
-    }
 
     private void displayGattServices(List<BluetoothGattService> gattServices) {
         if (gattServices == null) return;
@@ -1043,6 +1025,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         int resourceId = 0;
         switch (v.getId()) {
             case R.id.temperature_video:
@@ -1117,7 +1100,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detect);
-        mShared = LocalShared.getInstance(mContext);
+        mShared = LocalShared.getInstance(this);
         xuetangTimeFlag = getIntent().getIntExtra("time", 0);
         mToolbar.setVisibility(View.GONE);
         mButton = (Button) findViewById(R.id.history);//体温
@@ -1125,7 +1108,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mButton2 = (Button) findViewById(R.id.history2);//血糖
         mButton3 = (Button) findViewById(R.id.history3);//血氧
         container = findViewById(R.id.container);
-        setEnableListeningLoop(false);
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1208,7 +1190,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(mContext).setMessage("是否匹配新设备").setNegativeButton("取消", null).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(DetectActivity.this).setMessage("是否匹配新设备").setNegativeButton("取消", null).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mDeviceAddress = "";
@@ -1366,10 +1348,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
         //mBluetoothAdapter.startDiscovery();
 
-        mXueyaResults = mResources.getStringArray(R.array.result_xueya);
-        mWenduResults = mResources.getStringArray(R.array.result_wendu);
-        mXueYangResults = mResources.getStringArray(R.array.result_xueyang);
-        mEcgResults = mResources.getStringArray(R.array.ecg_measureres);
+        mXueyaResults = Box.getStrings(R.array.result_xueya);
+        mWenduResults = Box.getStrings(R.array.result_wendu);
+        mXueYangResults = Box.getStrings(R.array.result_xueyang);
+        mEcgResults = Box.getStrings(R.array.ecg_measureres);
 
         //speak(R.string.tips_open_device);
         findViewById(R.id.temperature_video).setOnClickListener(this);
@@ -1466,7 +1448,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
         }
         if (mBluetoothLeService == null) {
-            Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
+            Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
             bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
         }
 //        Log.i("mylog2", "workSearchThread : " + workSearchThread + "   blueThreadDisable " + blueThreadDisable);
@@ -1595,7 +1577,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         && device.getName().startsWith("Yuwell")) {
                     mDeviceAddress = device.getAddress();
                     if (mBluetoothLeService == null) {
-                        Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
+                        Intent gattServiceIntent = new Intent(DetectActivity.this, BluetoothLeService.class);
                         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
                     } else {
                         if (mBluetoothLeService.connect(mDeviceAddress)) {
@@ -1613,7 +1595,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     }
                     mDeviceAddress = device.getAddress();
                     if (mBluetoothLeService == null) {
-                        Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
+                        Intent gattServiceIntent = new Intent(DetectActivity.this, BluetoothLeService.class);
                         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
                     } else {
                         if (mBluetoothLeService.connect(mDeviceAddress)) {
@@ -1761,7 +1743,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         if (deviceName.equals(device.getName())) {
                             //dialog.create(NDialog.CONFIRM).dismiss();
                             mDeviceAddress = device.getAddress();
-                            Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
+                            Intent gattServiceIntent = new Intent(DetectActivity.this, BluetoothLeService.class);
                             bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
                             mBluetoothAdapter.stopLeScan(mLeScanCallback);
                         }

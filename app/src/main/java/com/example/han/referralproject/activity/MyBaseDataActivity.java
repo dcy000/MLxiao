@@ -194,6 +194,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
             default:
                 break;
@@ -219,13 +220,13 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(this, AlertDrinkingActivity.class).putExtra("data", response));
                 break;
             case R.id.ll_history:
-                startActivity(new Intent(this,AlertMHActivity.class).putExtra("data",response));
+                startActivity(new Intent(this, AlertMHActivity.class).putExtra("data", response));
                 break;
             case R.id.address:
-                startActivity(new Intent(this,AlertAddressActivity.class).putExtra("data",response));
+                startActivity(new Intent(this, AlertAddressActivity.class).putExtra("data", response));
                 break;
             case R.id.tv_reset:
-                LocalShared.getInstance(mContext).reset();
+                LocalShared.getInstance(this).reset();
                 Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);

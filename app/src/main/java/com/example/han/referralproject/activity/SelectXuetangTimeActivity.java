@@ -43,6 +43,7 @@ public class SelectXuetangTimeActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
             case R.id.one_hour:
                 startActivity(new Intent(this, DetectActivity.class)

@@ -28,8 +28,8 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         setContentView(R.layout.activity_message);
         mToolbar.setVisibility(View.VISIBLE);
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.rv_message);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        messageShowAdapter = new MessageShowAdapter(mContext, mDataList);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        messageShowAdapter = new MessageShowAdapter(this, mDataList);
         mRecyclerView.setAdapter(messageShowAdapter);
         NetworkApi.getYzList(successCallback);
 
@@ -47,11 +47,4 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
             MLVoiceSynthetize.startSynthesize(response.get(0).yz);
         }
     };
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-
-        }
-    }
 }

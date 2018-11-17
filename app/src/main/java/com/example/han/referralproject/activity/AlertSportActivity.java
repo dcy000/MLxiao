@@ -13,6 +13,8 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.EatAdapter;
 import com.medlink.danbogh.register.EatModel;
@@ -24,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AlertSportActivity extends BaseActivity {
+public class AlertSportActivity extends BaseActivity implements SynthesizerListener {
 
     @BindView(R.id.tv_sign_up_title)
     TextView tvSignUpTitle;
@@ -214,16 +216,16 @@ public class AlertSportActivity extends BaseActivity {
                         ToastTool.showShort("修改成功");
                         switch (positionSelected + 1) {
                             case 1:
-                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "每天一次");
+                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "每天一次",AlertSportActivity.this);
                                 break;
                             case 2:
-                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "每周几次");
+                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "每周几次",AlertSportActivity.this);
                                 break;
                             case 3:
-                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "偶尔运动");
+                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "偶尔运动",AlertSportActivity.this);
                                 break;
                             case 4:
-                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "从不运动");
+                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "从不运动",AlertSportActivity.this);
                                 break;
                         }
                     }
@@ -236,7 +238,37 @@ public class AlertSportActivity extends BaseActivity {
     }
 
     @Override
-    protected void onActivitySpeakFinish() {
+    public void onSpeakBegin() {
+
+    }
+
+    @Override
+    public void onBufferProgress(int i, int i1, int i2, String s) {
+
+    }
+
+    @Override
+    public void onSpeakPaused() {
+
+    }
+
+    @Override
+    public void onSpeakResumed() {
+
+    }
+
+    @Override
+    public void onSpeakProgress(int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onCompleted(SpeechError speechError) {
         finish();
+    }
+
+    @Override
+    public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
     }
 }

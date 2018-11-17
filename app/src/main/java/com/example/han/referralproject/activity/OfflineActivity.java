@@ -10,9 +10,13 @@ import android.widget.Toast;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gzq.lib_core.utils.ToastUtils;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.recognition.MLRecognizerListener;
+import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
-public class OfflineActivity extends BaseActivity{
+public class OfflineActivity extends BaseActivity {
 
 
     @Override
@@ -31,25 +35,50 @@ public class OfflineActivity extends BaseActivity{
                 finish();
             }
         });
+        listener();
+    }
+
+    private void listener() {
+        MLVoiceRecognize.startRecognize(new MLRecognizerListener() {
+            @Override
+            public void onMLVolumeChanged(int i, byte[] bytes) {
+
+            }
+
+            @Override
+            public void onMLBeginOfSpeech() {
+
+            }
+
+            @Override
+            public void onMLEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onMLResult(String result) {
+                ToastUtils.showShort(result);
+                String inSpell = PinYinUtils.converterToSpell(result);
+
+                if (!TextUtils.isEmpty(inSpell) && inSpell.matches(REGEX_BACK)) {
+                    finish();
+                }
+            }
+
+            @Override
+            public void onMLError(SpeechError error) {
+
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
         MLVoiceSynthetize.startSynthesize(getString(R.string.user_help));
     }
 
 
     public static final String REGEX_BACK = ".*(fanhui|shangyibu).*";
 
-    @Override
-    protected void onSpeakListenerResult(String result) {
-        Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
-        String inSpell = PinYinUtils.converterToSpell(result);
-
-        if (!TextUtils.isEmpty(inSpell) && inSpell.matches(REGEX_BACK)) {
-            finish();
-        }
-    }
 }

@@ -18,6 +18,9 @@ import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
 import com.example.han.referralproject.util.ToastTool;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.recognition.MLRecognizerListener;
+import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.SignUp1NameActivity;
 import com.medlink.danbogh.register.simple.SignUp01NameActivity;
@@ -65,6 +68,50 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         agreeBuilder.setSpan(agreeClickableSpan, 3, 7, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         tvSignInAgree.setMovementMethod(LinkMovementMethod.getInstance());
         tvSignInAgree.setText(agreeBuilder);
+        listener();
+    }
+
+    private void listener() {
+        MLVoiceRecognize.startRecognize(new MLRecognizerListener() {
+            @Override
+            public void onMLVolumeChanged(int i, byte[] bytes) {
+
+            }
+
+            @Override
+            public void onMLBeginOfSpeech() {
+
+            }
+
+            @Override
+            public void onMLEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onMLResult(String result) {
+                String inSpell = PinYinUtils.converterToSpell(result);
+                ToastTool.showShort(result);
+                if (inSpell.matches(".*((shou|sou)ji).*")) {
+                    tvPhoneSignIn.performClick();
+                    return;
+                }
+                if (inSpell.matches(".*((ren|reng)lian).*")) {
+                    tvFaceSignIn.performClick();
+                    return;
+                }
+
+                if (inSpell.matches(".*((zu|zhu)ce).*")) {
+                    regist.performClick();
+                    return;
+                }
+            }
+
+            @Override
+            public void onMLError(SpeechError error) {
+
+            }
+        });
     }
 
     private ClickableSpan agreeClickableSpan = new ClickableSpan() {
@@ -76,6 +123,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_phone_sign_in:
                 startActivity(new Intent(this, SignInActivity.class));
@@ -104,31 +152,4 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                 break;
         }
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setDisableGlobalListen(true);
-
-    }
-
-    @Override
-    protected void onSpeakListenerResult(String result) {
-        String inSpell = PinYinUtils.converterToSpell(result);
-        ToastTool.showShort(result);
-        if (inSpell.matches(".*((shou|sou)ji).*")) {
-            tvPhoneSignIn.performClick();
-            return;
-        }
-        if (inSpell.matches(".*((ren|reng)lian).*")) {
-            tvFaceSignIn.performClick();
-            return;
-        }
-
-        if (inSpell.matches(".*((zu|zhu)ce).*")) {
-            regist.performClick();
-            return;
-        }
-    }
-
 }
