@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
 
-        <com.gcml.lib_widget.ExpandTextView
+        <com.gcml.common.widget.ExpandTextView
             android:id="@+id/expandableTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
