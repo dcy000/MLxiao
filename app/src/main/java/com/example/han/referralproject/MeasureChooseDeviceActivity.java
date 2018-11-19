@@ -13,6 +13,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_video.measure.MeasureVideoPlayActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.medlink.danbogh.utils.T;
 
 public class MeasureChooseDeviceActivity extends BaseActivity implements View.OnClickListener {
     private boolean isTest;
@@ -102,8 +103,9 @@ public class MeasureChooseDeviceActivity extends BaseActivity implements View.On
             AllMeasureActivity.startActivity(this, measureType);
 
         } else if (i == R.id.ll_more) {
-            measureType = IPresenter.MEASURE_HAND_RING;
-            AllMeasureActivity.startActivity(this, measureType);
+//            measureType = IPresenter.MEASURE_HAND_RING;
+//            AllMeasureActivity.startActiv(this, measureType);
+            T.show("敬请期待");
 
         } else {
         }

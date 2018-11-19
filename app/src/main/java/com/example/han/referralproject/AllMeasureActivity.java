@@ -331,6 +331,11 @@ public class AllMeasureActivity extends BaseActivity implements FragmentChanged,
             startActivity(new Intent(this,MainActivity.class));
             return;
         }
+
+        if (baseFragment != null && baseFragment instanceof HealthSelectSugarDetectionTimeFragment) {
+            startActivity(new Intent(this,MainActivity.class));
+            return;
+        }
         if (isMeasure) {
             showRefreshBluetoothDialog();
         } else {

@@ -30,7 +30,7 @@ public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragmen
 
     public static final int ACTION_EMPTY_STOMACH = 0;
     public static final int ACTION_TWO_HOURS = 2;
-    public static final int ACTION_OTHER_TIME = 3;
+    public static final int ACTION_OTHER_TIME = 1;
 
     @Override
     public void onResume() {
