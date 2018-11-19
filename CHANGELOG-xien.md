@@ -1,5 +1,14 @@
 # Change Log
 
+## Robot.xien.2.0.5 (24)
+
+- 修复每日任务结果页不能退出 bug，
+- 去掉每日任务结果页返回按钮
+- 清空部分人脸组
+- 11/18/2018
+- Server: 47.99.160.53:8090
+- apk: http://oyptcv2pb.bkt.clouddn.com/Robot-Xien.2.0.5.apk
+
 ## Robot.xien.2.0.3 (23)
 
 - 修复版本更新 bug 

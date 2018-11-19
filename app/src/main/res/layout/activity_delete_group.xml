@@ -8,22 +8,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />
+    <EditText
+        android:id="@+id/etIp"
+        android:text="47.96.98.60:8060"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/btn_delete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="删除组-118"/>
-    <Button
-        android:id="@+id/btn_delete2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="删除组-116"
-        android:layout_marginTop="10dp"/>
-    <Button
-        android:id="@+id/btn_delete3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="删除组-47"
+        android:text="删除组"
         android:layout_marginTop="10dp"/>
     <Button
         android:id="@+id/btn_stop"

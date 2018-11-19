@@ -8,6 +8,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.os.Debug;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
@@ -105,6 +106,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Debug.startMethodTracing("start");
         AppDelegate.INSTANCE.onCreate(this);
 //        String curProcessName = ProcessUtils.getCurProcessName(this);
         UtilsManager.init(this);
@@ -141,6 +143,7 @@ public class MyApplication extends Application {
         initVideoPlay();
         initOkGo();
         syncWeatherAndTime();
+        Debug.stopMethodTracing();
     }
 
     private void syncWeatherAndTime() {

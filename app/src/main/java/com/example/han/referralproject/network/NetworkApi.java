@@ -1158,6 +1158,25 @@ public class NetworkApi {
                     successCallback);
     }
 
+    public static void getGroupInfo(
+            String ip,
+            NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>> successCallback) {
+        HashMap<String, String> params = new HashMap<>();
+        String url = "http://" + ip + "/ZZB/xf/select_group_record";
+        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
+            return;
+        }
+        params.put("userid", UserSpHelper.getUserId());
+//        params.put("gid", gid);
+//        params.put("xfid", xfid);
+        params.put("state", "0");
+
+        NetworkManager.getInstance().getResultClass(url, params, new TypeToken<ArrayList<XfGroupInfo>>() {
+                }.getType(),
+                successCallback);
+
+    }
+
     /**
      * 消息中心的消息
      */

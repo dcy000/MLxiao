@@ -31,6 +31,7 @@ import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.wifi.WifiUtils;
 import com.gcml.common.wifi.wifiScan.ScanResultsListener;
 import com.suke.widget.SwitchButton;
@@ -211,8 +212,10 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                         boolean isConnected = state == NetworkInfo.State.CONNECTED;
                         Log.e("TAG", "isConnected:" + isConnected);
                         if (isConnected) {
+                            ToastUtils.showShort("连接成功");
                             mConnectedLayout.setVisibility(View.VISIBLE);
                         } else {
+                            ToastUtils.showShort("连接断开");
                             mConnectedLayout.setVisibility(View.GONE);
                         }
                     }
