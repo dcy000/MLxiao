@@ -98,7 +98,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_base_30_hos" />
+            android:value="gcml_version_lz" />
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
@@ -203,21 +203,21 @@
             <!-- </intent-filter> -->
 
         </activity>
-        <activity
-            android:name=".WelcomeActivity"
-            android:configChanges="screenSize|keyboardHidden|orientation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape">
+        <!--<activity-->
+            <!--android:name=".WelcomeActivity"-->
+            <!--android:configChanges="screenSize|keyboardHidden|orientation"-->
+            <!--android:launchMode="singleTask"-->
+            <!--android:screenOrientation="landscape">-->
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!--&lt;!&ndash; <intent-filter> &ndash;&gt;-->
+            <!--&lt;!&ndash; <action android:name="android.intent.action.MAIN" /> &ndash;&gt;-->
 
 
-            <!-- <category android:name="android.intent.category.HOME" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+            <!--&lt;!&ndash; <category android:name="android.intent.category.HOME" /> &ndash;&gt;-->
+            <!--&lt;!&ndash; <category android:name="android.intent.category.LAUNCHER" /> &ndash;&gt;-->
+            <!--&lt;!&ndash; <category android:name="android.intent.category.DEFAULT" /> &ndash;&gt;-->
+            <!--&lt;!&ndash; </intent-filter> &ndash;&gt;-->
+        <!--</activity>-->
         <activity
             android:name=".Test_mainActivity"
             android:screenOrientation="landscape" />
@@ -802,6 +802,19 @@
         <activity
             android:name=".require2.login.ChoiceLoginTypeActivity"
             android:screenOrientation="landscape">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.HOME" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity-alias
+            android:name="com.example.han.referralproject.WelcomeActivity"
+            android:label="健康管家"
+            android:targetActivity=".require2.login.ChoiceLoginTypeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -809,7 +822,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
+        </activity-alias>
+
+
         <activity
             android:name=".require2.register.activtiy.ChoiceIDCardRegisterTypeActivity"
             android:screenOrientation="landscape" />
