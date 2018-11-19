@@ -50,61 +50,64 @@ public class JPushMessageHelper {
     }
 
     private static void showJipushMessagePopwindow(String title, String message) {
-        Activity activity = null;
-        while (activity == null) {
-            activity = MyApplication.getCurrentActivity();
-        }
-        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.jpush_popwin, null);
-        PopupWindow window = new PopupWindow(view,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT);
-        // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
-        window.setFocusable(true);
+        try {
+            Activity activity = null;
+            while (activity == null) {
+                activity = MyApplication.getCurrentActivity();
+            }
+            LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.jpush_popwin, null);
+            PopupWindow window = new PopupWindow(view,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT);
+            // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
+            window.setFocusable(true);
 
-        // 实例化一个ColorDrawable颜色为半透明
-        ColorDrawable dw = new ColorDrawable(0x00000000);
-        window.setBackgroundDrawable(dw);
-        backgroundAlpha(activity, 1f);
-        // 设置popWindow的显示和消失动画
-        window.setAnimationStyle(R.style.mypopwindow_anim_style);
+            // 实例化一个ColorDrawable颜色为半透明
+            ColorDrawable dw = new ColorDrawable(0x00000000);
+            window.setBackgroundDrawable(dw);
+            backgroundAlpha(activity, 1f);
+            // 设置popWindow的显示和消失动画
+            window.setAnimationStyle(R.style.mypopwindow_anim_style);
 //            // 在底部显示
 
-        window.showAtLocation(activity.getWindow().getDecorView(),
-                Gravity.TOP, 0, 148);
+            window.showAtLocation(activity.getWindow().getDecorView(),
+                    Gravity.TOP, 0, 148);
 
-        //popWindow消失监听方法
-        final Activity finalActivity = activity;
-        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                backgroundAlpha(finalActivity, 1f);
+            //popWindow消失监听方法
+            final Activity finalActivity = activity;
+            window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    backgroundAlpha(finalActivity, 1f);
+                }
+            });
+            TextView jpushText = view.findViewById(R.id.jpush_text);
+            TextView jpushTitle = view.findViewById(R.id.jpush_title);
+            TextView jpushTime = view.findViewById(R.id.jpush_time);
+            if (!TextUtils.isEmpty(title)) {
+                jpushTitle.setVisibility(View.VISIBLE);
+                jpushTitle.setText(title);
             }
-        });
-        TextView jpushText = view.findViewById(R.id.jpush_text);
-        TextView jpushTitle = view.findViewById(R.id.jpush_title);
-        TextView jpushTime = view.findViewById(R.id.jpush_time);
-        if (!TextUtils.isEmpty(title)) {
-            jpushTitle.setVisibility(View.VISIBLE);
-            jpushTitle.setText(title);
-        }
-        jpushText.setText(message);
-        jpushTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy.MM.dd HH:mm")));
-        final LinearLayout jpushLl = view.findViewById(R.id.jpush_ll);
-        final RealtimeBlurView jpushRbv = view.findViewById(R.id.jpush_rbv);
-        ViewTreeObserver vto = jpushLl.getViewTreeObserver();
-        final ViewGroup.LayoutParams lp = jpushRbv.getLayoutParams();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                jpushLl.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            jpushText.setText(message);
+            jpushTime.setText(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyy.MM.dd HH:mm")));
+            final LinearLayout jpushLl = view.findViewById(R.id.jpush_ll);
+            final RealtimeBlurView jpushRbv = view.findViewById(R.id.jpush_rbv);
+            ViewTreeObserver vto = jpushLl.getViewTreeObserver();
+            final ViewGroup.LayoutParams lp = jpushRbv.getLayoutParams();
+            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    jpushLl.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 //                    int width=jpushLl.getMeasuredWidth();
-                int height = jpushLl.getMinimumHeight();
-                lp.height = height;
-                jpushRbv.setLayoutParams(lp);
-            }
-        });
-        MLVoiceSynthetize.startSynthesize(activity.getApplication(), "主人，新消息。" + message);
+                    int height = jpushLl.getMinimumHeight();
+                    lp.height = height;
+                    jpushRbv.setLayoutParams(lp);
+                }
+            });
+            MLVoiceSynthetize.startSynthesize(activity.getApplication(), "主人，新消息。" + message);
+        } catch (Exception e) {
+        }
     }
 
     /**
