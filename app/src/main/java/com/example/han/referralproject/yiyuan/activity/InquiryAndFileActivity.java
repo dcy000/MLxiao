@@ -355,8 +355,10 @@ public class InquiryAndFileActivity extends BaseActivity {
                         WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
                         if (reultBean.tag) {
                             T.show("您已建档完毕");
+                            tvWenJianSkip.setVisibility(View.VISIBLE);
                             MLVoiceSynthetize.startSynthesize(InquiryAndFileActivity.this, "您已建档完毕", false);
                         } else {
+                            tvWenJianSkip.setVisibility(View.GONE);
                             startActivity(new Intent(InquiryAndFileActivity.this, BuildingRecordActivity.class).putExtra("bind", isBindDoctor));
                         }
                     }

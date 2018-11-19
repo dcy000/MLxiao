@@ -44,7 +44,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
                 break;
             case 1:
                 //饭后1小时
-                mTitle1.setText("血糖(饭后1小时)");
+                mTitle1.setText("血糖(其他时间)");
                 mTitle12.setText("3.9~7.8");
                 mTitle13.setText(">7.8");
                 break;

@@ -51,6 +51,7 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
     private List<SurveyBean> followInfo = new ArrayList<>();
     private BluetoothBaseFragment posiontFragment;
     private Bundle data = new Bundle();
+    private Bundle time = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +128,9 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
 
     @Override
     protected void backMainActivity() {
+        if (posiontFragment == null) {
+            return;
+        }
         if (posiontFragment instanceof HealthSelectSugarDetectionTimeFragment
                 || posiontFragment instanceof ChooseECGDeviceFragment
                 ) {
@@ -169,6 +173,8 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
             case "SugarFollowUpFragment":
                 mTitleText.setText("血 糖 测 量");
                 posiontFragment = new SugarFollowUpFragment();
+                if (this.time != null)
+                    posiontFragment.setArguments(time);
                 mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
             case "HealthSelectSugarDetectionTimeFragment":
@@ -213,6 +219,8 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
             case "SanHeYiFollowUpFragment":
                 mTitleText.setText("三 合 一 测 量");
                 posiontFragment = new SanHeYiFollowUpFragment();
+                if (this.time != null)
+                    posiontFragment.setArguments(time);
                 mRightView.setImageResource(R.drawable.ic_blooth_beack);
                 break;
 
@@ -234,61 +242,67 @@ public class HealthFollowUpActivity extends BaseActivity implements FragmentChan
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         data.putAll(bundle);
-        if (fragment instanceof ChooseECGDeviceFragment) {
-            if (bundle != null) {
-                int anInt = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 2);
-                if (anInt == 1) {
-                    for (SurveyBean surveyBean : followInfo) {
-                        String fragmentTag = surveyBean.getFragmentTag();
-                        if (fragmentTag.equals("ECG_Fragment")) {
-                            surveyBean.setFragmentTag("SelfECGDetectionFragment");
+
+        if (posiontFragment instanceof HealthSelectSugarDetectionTimeFragment) {
+            this.time=bundle;
+        }
+
+            if (fragment instanceof ChooseECGDeviceFragment) {
+                if (bundle != null) {
+                    int anInt = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 2);
+                    if (anInt == 1) {
+                        for (SurveyBean surveyBean : followInfo) {
+                            String fragmentTag = surveyBean.getFragmentTag();
+                            if (fragmentTag.equals("ECG_Fragment")) {
+                                surveyBean.setFragmentTag("SelfECGDetectionFragment");
+                            }
                         }
                     }
                 }
             }
-        }
-        position++;
+            position++;
 
-        if (position > followInfo.size() - 1) {
-            Intent intent = new Intent(this, DetectHealthSymptomsActivity.class);
-            intent.putExtras(getIntent());
-            intent.putExtras(data);
-            startActivity(intent);
-            return;
+            if (position > followInfo.size() - 1) {
+                Intent intent = new Intent(this, DetectHealthSymptomsActivity.class);
+                intent.putExtras(getIntent());
+                intent.putExtras(data);
+                startActivity(intent);
+                return;
+            }
+            //因为每一个Fragment中都有可能视频播放，所以应该先检查该Fragment中是否有视频播放
+            showFragmentOrVideo(position);
         }
-        //因为每一个Fragment中都有可能视频播放，所以应该先检查该Fragment中是否有视频播放
-        showFragmentOrVideo(position);
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1001) {
-            if (data != null) {
-                String result = data.getStringExtra("result");
-                switch (result) {
-                    case MeasureVideoPlayActivity.SendResultActionNames.PRESSED_BUTTON_BACK:
-                        //点击了返回按钮
-                        backLastActivity();
-                        break;
-                    case MeasureVideoPlayActivity.SendResultActionNames.PRESSED_BUTTON_SKIP:
-                        //点击了跳过按钮
-                        showFragment(position);
-                        break;
-                    case MeasureVideoPlayActivity.SendResultActionNames.VIDEO_PLAY_END:
-                        //视屏播放结束
-                        showFragment(position);
-                        break;
-                    default:
-                        break;
+        @Override
+        protected void onActivityResult ( int requestCode, int resultCode, Intent data){
+            super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == 1001) {
+                if (data != null) {
+                    String result = data.getStringExtra("result");
+                    switch (result) {
+                        case MeasureVideoPlayActivity.SendResultActionNames.PRESSED_BUTTON_BACK:
+                            //点击了返回按钮
+                            backLastActivity();
+                            break;
+                        case MeasureVideoPlayActivity.SendResultActionNames.PRESSED_BUTTON_SKIP:
+                            //点击了跳过按钮
+                            showFragment(position);
+                            break;
+                        case MeasureVideoPlayActivity.SendResultActionNames.VIDEO_PLAY_END:
+                            //视屏播放结束
+                            showFragment(position);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
-    }
 
-    /**
-     * 展示刷新
-     */
+        /**
+         * 展示刷新
+         */
+
     private void showRefreshBluetoothDialog() {
         new AlertDialog(this)
                 .builder()

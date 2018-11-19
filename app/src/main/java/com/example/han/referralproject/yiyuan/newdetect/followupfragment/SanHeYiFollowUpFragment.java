@@ -41,20 +41,17 @@ public class SanHeYiFollowUpFragment extends ThreeInOne_Fragment {
                 mTitle12.setText("3.9~6.1");
                 mTitle13.setText(">6.1");
                 break;
-            case 1:
-                //饭后1小时
+            case 3:
                 mTitle1.setText("血糖(饭后1小时)");
                 mTitle12.setText("3.9~7.8");
                 mTitle13.setText(">7.8");
                 break;
             case 2:
-                //饭后2小时
                 mTitle1.setText("血糖(饭后2小时)");
                 mTitle12.setText("3.9~7.8");
                 mTitle13.setText(">7.8");
                 break;
-            case 3:
-                //其他时间
+            case 1:
                 mTitle1.setText("血糖(其他时间)");
                 mTitle12.setText("3.9~11.1");
                 mTitle13.setText(">11.1");
