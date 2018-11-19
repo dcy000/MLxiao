@@ -1,7 +1,6 @@
 package com.example.han.referralproject.yiyuan.newdetect.followupfragment;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.example.han.referralproject.bean.DataInfoBean;
@@ -47,12 +46,18 @@ public class WeightFollowUpFragment extends Weight_Fragment {
             //得到身高和体重，再计算一下体质
             if (mTvTizhi != null) {
                 String height = LocalShared.getInstance(mContext).getUserHeight();
-                if (!TextUtils.isEmpty(height)) {
+                try {
                     float parseFloat = Float.parseFloat(height);
-                    float weight = Float.parseFloat(results[0]);
-                    if (mTvTizhi != null) {
-                        mTvTizhi.setText(String.format("%.2f", weight / (parseFloat * parseFloat / 10000)));
+                    if (parseFloat > 0) {
+                        float weight = Float.parseFloat(results[0]);
+                        if (mTvTizhi != null) {
+                            height = String.format("%.2f", weight / (parseFloat * parseFloat / 10000));
+                            mTvTizhi.setText(height);
+                        }
+                    } else {
+                        mTvTizhi.setText("--");
                     }
+                } catch (Exception e) {
                 }
             }
             data.putString("weight", results[0]);

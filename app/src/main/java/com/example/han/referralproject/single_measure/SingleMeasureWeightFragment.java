@@ -8,10 +8,14 @@ import android.view.View;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.bean.PersonInfoResultBean;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
+import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.T;
 
 /**
@@ -31,6 +35,39 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
         if (bundle != null) {
             isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
         }
+//        getHeightInfo();
+    }
+
+    private void getHeightInfo() {
+        NetworkApi.getPersonalInfo(getActivity(), new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                if (response != null) {
+                    Gson gson = new Gson();
+                    PersonInfoResultBean bean = gson.fromJson(response.body(), PersonInfoResultBean.class);
+                    if (bean != null) {
+                        PersonInfoResultBean.DataBean data = bean.data;
+                        if (data != null) {
+                            String cm = data.height;
+                            String kg = data.weight;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                T.show("网络繁忙");
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+            }
+        });
+
+
     }
 
     @SuppressLint("CheckResult")
@@ -41,10 +78,18 @@ public class SingleMeasureWeightFragment extends Weight_Fragment {
             if (mTvTizhi != null) {
                 String height = LocalShared.getInstance(mContext).getUserHeight();
                 if (!TextUtils.isEmpty(height)) {
-                    float parseFloat = Float.parseFloat(height);
-                    float weight = Float.parseFloat(results[0]);
-                    if (mTvTizhi != null) {
-                        mTvTizhi.setText(String.format("%.2f", weight / (parseFloat * parseFloat / 10000)));
+                    try {
+                        float parseFloat = Float.parseFloat(height);
+                        if (parseFloat > 0) {
+                            float weight = Float.parseFloat(results[0]);
+                            if (mTvTizhi != null) {
+                                height = String.format("%.2f", weight / (parseFloat * parseFloat / 10000));
+                                mTvTizhi.setText(height);
+                            }
+                        } else {
+                            mTvTizhi.setText("--");
+                        }
+                    } catch (Exception e) {
                     }
                 }
             }
