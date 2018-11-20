@@ -15,7 +15,7 @@ import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.medlink.danbogh.utils.T;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -68,7 +68,7 @@ public class CheckContractActivity extends BaseActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show(message);
+                ToastUtils.showShort(message);
             }
         });
     }
@@ -97,13 +97,13 @@ public class CheckContractActivity extends BaseActivity {
         NetworkApi.cancelContract(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Object>() {
                     @Override
                     public void onSuccess(Object response) {
-                        T.show("取消成功");
+                        ToastUtils.showShort("取消成功");
                         finish();
                     }
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        T.show(message);
+                        ToastUtils.showShort(message);
                     }
                 });
     }

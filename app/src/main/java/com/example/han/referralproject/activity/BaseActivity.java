@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,13 +19,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,13 +30,10 @@ import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.jipush.MyReceiver;
 import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.example.han.referralproject.util.Utils;
-import com.github.mmin18.widget.RealtimeBlurView;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -49,10 +42,9 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
-import com.iflytek.cloud.SynthesizerListener;
-import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.iflytek.wake.MLVoiceWake;
+import com.iflytek.wake.MLWakeuperListener;
 import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
@@ -61,20 +53,16 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import timber.log.Timber;
+
 public class BaseActivity extends AppCompatActivity {
     protected Context mContext;
     protected Resources mResources;
     private ProgressDialog mDialog;
     protected LayoutInflater mInflater;
-    // 语音合成对象
-    private SpeechSynthesizer mTts;
-    // 默认发音人
-    private String voicer = "nannan";
     // 引擎类型
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
     private SharedPreferences mTtsSharedPreferences;
-    private SpeechRecognizer mIat;
-    private Handler mDelayHandler = new Handler();
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
     private boolean enableListeningLoop = true;
     private boolean enableListeningLoopCache = enableListeningLoop;
@@ -89,7 +77,6 @@ public class BaseActivity extends AppCompatActivity {
     protected LinearLayout mllBack;
     protected boolean isShowVoiceView = false;//是否显示声音录入图像
     private MediaRecorder mMediaRecorder;
-    private boolean isAlive = true;
     public SharedPreferences mIatPreferences;
 
 
@@ -113,12 +100,6 @@ public class BaseActivity extends AppCompatActivity {
 
         rootView.addView(mTitleView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (70 * mResources.getDisplayMetrics().density)));
         initToolbar();
-        SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
-        if (recognizer == null) {
-            mIat = SpeechRecognizer.createRecognizer(this, mTtsInitListener);
-        } else {
-            mIat = recognizer;
-        }
         mTtsSharedPreferences = getSharedPreferences(TtsSettings.PREFER_NAME, MODE_PRIVATE);
         mIatPreferences = getSharedPreferences(IatSettings.PREFER_NAME, MODE_PRIVATE);
     }
@@ -141,72 +122,6 @@ public class BaseActivity extends AppCompatActivity {
             lastTimeMillis = currentTimeMillis;
         }
         return super.dispatchTouchEvent(ev);
-    }
-
-    private PopupWindow window;
-
-
-    //收到推送消息后显示Popwindow
-    class JPushReceive implements MyReceiver.JPushLitener {
-
-        @Override
-        public void onReceive(String title, String message) {
-//            ToastUtil.showShort(BaseActivity.this,message);
-            // 利用layoutInflater获得View
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.jpush_popwin, null);
-            window = new PopupWindow(view,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT);
-            // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
-            window.setFocusable(true);
-
-            // 实例化一个ColorDrawable颜色为半透明
-            ColorDrawable dw = new ColorDrawable(0x00000000);
-            window.setBackgroundDrawable(dw);
-            Utils.backgroundAlpha(BaseActivity.this, 1f);
-
-            // 设置popWindow的显示和消失动画
-            window.setAnimationStyle(R.style.mypopwindow_anim_style);
-//            // 在底部显示
-
-            window.showAtLocation(getWindow().getDecorView(),
-                    Gravity.TOP, 0, 148);
-
-            //popWindow消失监听方法
-            window.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                @Override
-                public void onDismiss() {
-                    Utils.backgroundAlpha(BaseActivity.this, 1f);
-                }
-            });
-            TextView jpushText = view.findViewById(R.id.jpush_text);
-            TextView jpushTitle = view.findViewById(R.id.jpush_title);
-            TextView jpushTime = view.findViewById(R.id.jpush_time);
-            if (!TextUtils.isEmpty(title)) {
-                jpushTitle.setVisibility(View.VISIBLE);
-                jpushTitle.setText(title);
-            }
-            jpushText.setText(message);
-            jpushTime.setText(Utils.stampToDate2(System.currentTimeMillis()));
-
-            final LinearLayout jpushLl = view.findViewById(R.id.jpush_ll);
-            final RealtimeBlurView jpushRbv = view.findViewById(R.id.jpush_rbv);
-            ViewTreeObserver vto = jpushLl.getViewTreeObserver();
-            final ViewGroup.LayoutParams lp = jpushRbv.getLayoutParams();
-            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    jpushLl.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                    int width=jpushLl.getMeasuredWidth();
-                    int height = jpushLl.getMinimumHeight();
-                    lp.height = height;
-                    jpushRbv.setLayoutParams(lp);
-                }
-            });
-
-            MLVoiceSynthetize.startSynthesize("主人，新消息。" + message);
-        }
     }
 
     private void initToolbar() {
@@ -312,59 +227,6 @@ public class BaseActivity extends AppCompatActivity {
         }
     };
 
-//    public void speak(String text) {
-//        if (TextUtils.isEmpty(text)) {
-//            return;
-//        }
-//        stopListening();
-//        synthesizer = SpeechSynthesizer.getSynthesizer();
-//        if (synthesizer == null) {
-//            synthesizer = SpeechSynthesizer.createSynthesizer(this, new SynthesizerInitListener(text));
-//            return;
-//        }
-//        setSynthesizerParams();
-//        synthesizer.startSpeaking(text, mTtsListener);
-//    }
-//
-//    protected void speak(String text, boolean isDefaultParam) {
-//        if (TextUtils.isEmpty(text)) {
-//            return;
-//        }
-//        stopListening();
-//        synthesizer = SpeechSynthesizer.getSynthesizer();
-//        if (synthesizer == null) {
-//            synthesizer = SpeechSynthesizer.createSynthesizer(this, new SynthesizerInitListener(text));
-//            return;
-//        }
-//        if (isDefaultParam) {
-//            setSynthesizerParams();
-//        }
-//
-//        synthesizer.startSpeaking(text, mTtsListener);
-//    }
-
-    private class SynthesizerInitListener implements InitListener {
-        private String mText;
-
-        SynthesizerInitListener(String text) {
-            mText = text;
-        }
-
-        @Override
-        public void onInit(int code) {
-            if (code == ErrorCode.SUCCESS) {
-                setSynthesizerParams();
-                if (!TextUtils.isEmpty(mText)) {
-                    SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
-                    if (synthesizer != null) {
-                        synthesizer.startSpeaking(mText, mTtsListener);
-                    }
-                }
-            }
-        }
-    }
-
-
     public void stopSpeaking() {
 
         if (synthesizer != null) {
@@ -373,10 +235,6 @@ public class BaseActivity extends AppCompatActivity {
 
 
     }
-
-//    protected void speak(int resId) {
-//        speak(getString(resId));
-//    }
 
     protected void startListening() {
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
@@ -400,20 +258,28 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void onSpeakListenerResult(String result) {
-        //Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-//        T.show(result);
     }
 
     private boolean disableGlobalListen;
 
-    public boolean isDisableGlobalListen() {
-        return disableGlobalListen;
-    }
-
 
     public void setDisableGlobalListen(boolean disableGlobalListen) {
         this.disableGlobalListen = disableGlobalListen;
-        WakeupHelper.getInstance().enableWakeuperListening(!disableGlobalListen);
+        if (disableGlobalListen) {
+            MLVoiceWake.startWakeUp(new MLWakeuperListener() {
+                @Override
+                public void onMLError(int errorCode) {
+                    Timber.e("小E唤醒失败："+errorCode);
+                }
+
+                @Override
+                public void onMLResult() {
+                    Timber.i("小E唤醒成功");
+                }
+            });
+        } else {
+            MLVoiceWake.stopWakeUp();
+        }
     }
 
 
@@ -501,46 +367,6 @@ public class BaseActivity extends AppCompatActivity {
         isShowVoiceView = showVoiceView;
     }
 
-    private SynthesizerListener mTtsListener = new SynthesizerListener() {
-
-        @Override
-        public void onSpeakBegin() {
-            showWaveView(false);
-        }
-
-        @Override
-        public void onSpeakPaused() {
-
-        }
-
-        @Override
-        public void onSpeakResumed() {
-        }
-
-        @Override
-        public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
-        }
-
-        @Override
-        public void onSpeakProgress(int percent, int beginPos, int endPos) {
-        }
-
-        @Override
-        public void onCompleted(SpeechError error) {
-            if (isShowVoiceView) {
-                updateVolume();
-            }
-
-            onActivitySpeakFinish();
-            if (error == null) {
-            } else if (error != null) {
-            }
-        }
-
-        @Override
-        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-        }
-    };
 
     protected void onActivitySpeakFinish() {
 
@@ -595,53 +421,6 @@ public class BaseActivity extends AppCompatActivity {
         return voicers;
     }
 
-    /**
-     * 参数设置
-     */
-    private void setSynthesizerParams() {
-        SpeechSynthesizer synthesizer = SpeechSynthesizer.getSynthesizer();
-        if (synthesizer != null) {
-            // 清空参数
-            synthesizer.setParameter(SpeechConstant.PARAMS, null);
-            // 根据合成引擎设置相应参数
-            if (mEngineType.equals(SpeechConstant.TYPE_CLOUD)) {
-                synthesizer.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
-                // 设置在线合成发音人
-                String[] voicers = voicers();
-                int index = mIatPreferences.getInt("language_index", 0);
-                if (index >= voicers.length || index < 0) {
-                    mIatPreferences.edit().putInt("language_index", 0).apply();
-                    index = 0;
-                }
-                synthesizer.setParameter(SpeechConstant.VOICE_NAME, voicers[index]);
-                //设置合成语速
-                synthesizer.setParameter(SpeechConstant.SPEED, mTtsSharedPreferences.getString("speed_preference", "50"));
-                //设置合成音调
-                synthesizer.setParameter(SpeechConstant.PITCH, mTtsSharedPreferences.getString("pitch_preference", "50"));
-                //设置合成音量
-                synthesizer.setParameter(SpeechConstant.VOLUME, mTtsSharedPreferences.getString("volume_preference", "50"));
-                synthesizer.setParameter(SpeechConstant.SAMPLE_RATE, mTtsSharedPreferences.getString("rate_preference", "16000"));
-            } else {
-                synthesizer.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
-                // 设置本地合成发音人 voicer为空，默认通过语记界面指定发音人。
-                synthesizer.setParameter(SpeechConstant.VOICE_NAME, voicer);
-                /**
-                 * TODO 本地合成不设置语速、音调、音量，默认使用语记设置
-                 * 开发者如需自定义参数，请参考在线合成参数设置
-                 */
-            }
-            //设置播放器音频流类型
-            synthesizer.setParameter(SpeechConstant.STREAM_TYPE, mTtsSharedPreferences.getString("stream_preference", "3"));
-            // 设置播放合成音频打断音乐播放，默认为true
-            synthesizer.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
-
-            // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-            // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
-            synthesizer.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-            synthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.wav");
-        }
-    }
-
     Handler handler = MyApplication.getInstance().getBgHandler();
     public Runnable mListening = new Runnable() {
         @Override
@@ -657,7 +436,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        MyReceiver.jPushLitener = new JPushReceive();
         enableListeningLoop = enableListeningLoopCache;
         setDisableGlobalListen(disableGlobalListen);
         if (enableListeningLoop) {
@@ -679,18 +457,11 @@ public class BaseActivity extends AppCompatActivity {
             recognizer.stopListening();
         }
         if (mMediaRecorder != null) {
-            isAlive = false;
             mMediaRecorder.release();
             mMediaRecorder = null;
         }
         //释放通知消息的资源
         Handlers.ui().removeCallbacks(updateVolumeAction);
-        if (MyReceiver.jPushLitener != null) {
-            MyReceiver.jPushLitener = null;
-            if (window != null) {
-                window = null;
-            }
-        }
         MobclickAgent.onPause(this);
         super.onPause();
     }

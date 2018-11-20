@@ -17,7 +17,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
-import com.example.han.referralproject.util.ToastTool;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -72,7 +72,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort(message);
+                ToastUtils.showShort(message);
             }
         });
 

@@ -21,7 +21,7 @@ import com.example.han.referralproject.children.model.SongModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicUtils;
-import com.medlink.danbogh.utils.T;
+import com.gzq.lib_core.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -103,7 +103,7 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
                 }
                 hideLoadingDialog();
                 if (response == null || response.isEmpty()) {
-                    T.show("服务器繁忙");
+                    ToastUtils.showShort("服务器繁忙");
                     return;
                 }
                 Iterator<SheetModel> iterator = response.iterator();
@@ -123,7 +123,7 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
                     return;
                 }
                 hideLoadingDialog();
-                T.show("服务器繁忙");
+                ToastUtils.showShort("服务器繁忙");
             }
         });
     }
@@ -187,7 +187,7 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
                             mAutoLoadMoreHelper.setLoading(false);
                         }
                         hideLoadingDialog();
-                        T.show(message);
+                        ToastUtils.showShort(message);
                     }
                 }
         );

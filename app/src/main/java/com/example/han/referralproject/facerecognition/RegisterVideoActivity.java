@@ -37,15 +37,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.Utils;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.RequestListener;
@@ -109,7 +107,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    ToastTool.showShort("请调整您的姿态");
+                                                    ToastUtils.showShort("请调整您的姿态");
                                                 }
                                             });
 
@@ -220,7 +218,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
             return;
         }
         if (!checkCameraPermission()) {
-            ToastTool.showShort("摄像头权限未打开，请打开后再试");
+            ToastUtils.showShort("摄像头权限未打开，请打开后再试");
             //mStopTrack = true;
             return;
         }
@@ -274,7 +272,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                     int ret = obj.getInt("ret");
                     if (ret != 0) {
                         if (sign == true) {
-                            ToastTool.showShort("注册失败");
+                            ToastUtils.showShort("注册失败");
                             sign = false;
                             finish();
                             return;
@@ -292,7 +290,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
                         finish();
                     } else {
                         if (sign == true) {
-                            ToastTool.showShort("注册失败");
+                            ToastUtils.showShort("注册失败");
                             sign = false;
                             finish();
                         }
@@ -311,7 +309,7 @@ public class RegisterVideoActivity extends BaseActivity implements PreviewCallba
             if (error != null) {
                 switch (error.getErrorCode()) {
                     case ErrorCode.MSP_ERROR_ALREADY_EXIST:
-                        ToastTool.showShort("账号已经被注册，请更换后再试");
+                        ToastUtils.showShort("账号已经被注册，请更换后再试");
                         sign = false;
                         finish();
                         break;

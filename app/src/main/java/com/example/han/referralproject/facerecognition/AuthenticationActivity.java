@@ -48,9 +48,9 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
@@ -109,7 +109,7 @@ public class AuthenticationActivity extends BaseActivity {
                 case TO_FACE_AUTHENTICATION://开始验证头像
                     findViewById(R.id.iv_circle).startAnimation(rotateAnim);
                     FaceAuthenticationUtils.getInstance(weakReference.get()).verificationFace(mImageData, LocalShared.getInstance(weakReference.get()).getGroupId());
-                    FaceAuthenticationUtils.getInstance(weakReference.get()).setOnVertifyFaceListener(new VertifyFaceListener() {
+                    FaceAuthenticationUtils.getInstance(weakReference.get()).setOnVertifyFaceListener(new IVertifyFaceListener() {
                         @Override
                         public void onResult(IdentityResult result, boolean islast) {
                             if (null == result) {
@@ -138,15 +138,15 @@ public class AuthenticationActivity extends BaseActivity {
                                     } else {
                                         if (firstScore > 30) {
                                             authenticationNum = 0;
-                                            ToastTool.showShort("请将您的面孔靠近摄像头，再试一次");
+                                            ToastUtils.showShort("请将您的面孔靠近摄像头，再试一次");
                                             myHandler.sendEmptyMessageDelayed(TO_CAMERA_PRE_RESOLVE, 1000);
                                         } else {
-                                            ToastTool.showLong("匹配度" + String.format("%.2f", firstScore) + "%,验证不通过!");
+                                            ToastUtils.showLong("匹配度" + String.format("%.2f", firstScore) + "%,验证不通过!");
                                             finishActivity();
                                         }
                                     }
                                 } else {
-                                    ToastTool.showShort("识别失败");
+                                    ToastUtils.showShort("识别失败");
                                     finishActivity();
                                 }
                             } catch (JSONException e) {
@@ -162,7 +162,7 @@ public class AuthenticationActivity extends BaseActivity {
                         public void onError(SpeechError error) {
                             if (authenticationNum < 5) {
                                 authenticationNum++;
-                                ToastTool.showShort("第" + Utils.getChineseNumber(authenticationNum) + "次验证失败");
+                                ToastUtils.showShort("第" + Utils.getChineseNumber(authenticationNum) + "次验证失败");
 //                                    myHandler.sendEmptyMessage(2);
 //                                    myHandler.sendEmptyMessageDelayed(1, 2000);
                                 myHandler.sendEmptyMessageDelayed(TO_CAMERA_PRE_RESOLVE, 1000);
@@ -210,7 +210,7 @@ public class AuthenticationActivity extends BaseActivity {
      */
     private void authenticationSuccessForTest$Welcome(String scoreFirstXfid, WeakReference<AuthenticationActivity> weakReference) {
 
-        ToastTool.showShort("通过验证，欢迎回来！");
+        ToastUtils.showShort("通过验证，欢迎回来！");
         if (mDataList != null) {
             for (int i = 0; i < mDataList.size(); i++) {
                 UserInfoBean user = mDataList.get(i);
@@ -244,10 +244,10 @@ public class AuthenticationActivity extends BaseActivity {
                 }
             } else {
                 if ("Welcome".equals(fromString)) {
-                    ToastTool.showLong("该机器人没有此账号的人脸认证信息，请手动登录");
+                    ToastUtils.showLong("该机器人没有此账号的人脸认证信息，请手动登录");
                     startActivity(new Intent(weakReference.get(), SignInActivity.class));
                 } else if ("Test".equals(fromString)) {
-                    ToastTool.showLong("验证不通过!");
+                    ToastUtils.showLong("验证不通过!");
                 }
             }
             finishActivity();
@@ -278,7 +278,7 @@ public class AuthenticationActivity extends BaseActivity {
             @Override
             public void onSuccess(String response) {
                 MLVoiceSynthetize.startSynthesize(R.string.shop_yanzheng);
-                ToastTool.showShort("验证不通过");
+                ToastUtils.showShort("验证不通过");
                 finish();
 
             }
@@ -314,7 +314,7 @@ public class AuthenticationActivity extends BaseActivity {
         String firstXfid = LocalShared.getInstance(this).getGroupFirstXfid();
         final String currentXfid = LocalShared.getInstance(this).getXunfeiId();
         FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, currentXfid);
-        FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+        FaceAuthenticationUtils.getInstance(AuthenticationActivity.this).setOnJoinGroupListener(new IJoinGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
                 tvTips.setText("请将人脸对准识别框");
@@ -340,7 +340,7 @@ public class AuthenticationActivity extends BaseActivity {
 
     private void createGroup(final String xfid) {
         FaceAuthenticationUtils.getInstance(this).createGroup(xfid);
-        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new CreateGroupListener() {
+        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new ICreateGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
                 try {
@@ -438,6 +438,7 @@ public class AuthenticationActivity extends BaseActivity {
 
 
     }
+
     private Callback callback = new Callback() {
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
@@ -478,11 +479,12 @@ public class AuthenticationActivity extends BaseActivity {
             finish();
         }
     };
+
     private void runOnUiThreadWithOpenCameraFail() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ToastTool.showShort("启动相机失败");
+                ToastUtils.showShort("启动相机失败");
                 finishActivity();
             }
         });
@@ -638,7 +640,7 @@ public class AuthenticationActivity extends BaseActivity {
                     mCamera.stopPreview();
                     mCamera.release();
                     mCamera = null;
-                    if (holder != null){
+                    if (holder != null) {
                         holder.removeCallback(callback);
                     }
                 }
@@ -660,12 +662,14 @@ public class AuthenticationActivity extends BaseActivity {
         super.onResume();
         isOnPause = false;
     }
+
     private long currentTimeWithLong;
+
     @Override
     protected void onPause() {
         super.onPause();
         isOnPause = true;
-        currentTimeWithLong=System.currentTimeMillis();
+        currentTimeWithLong = System.currentTimeMillis();
         closeAnimation();
     }
 
@@ -675,6 +679,6 @@ public class AuthenticationActivity extends BaseActivity {
         Handlers.bg().removeCallbacksAndMessages(null);
         if (lottAnimation != null)
             lottAnimation.cancelAnimation();
-        Log.e("从onPause到onDestroy时间",System.currentTimeMillis()-currentTimeWithLong+"");
+        FaceAuthenticationUtils.getInstance(this).cancelIdentityVerifier();
     }
 }

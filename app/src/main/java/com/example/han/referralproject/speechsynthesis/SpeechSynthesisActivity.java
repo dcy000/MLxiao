@@ -64,6 +64,7 @@ import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -79,7 +80,6 @@ import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.music.TheOldMusicActivity;
@@ -168,7 +168,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private static final int TO_PING_SHU = 3;
     private TextView voiceNormal;
     private TextView voiceWhine;
-    private boolean isDefaultParam = true;
+    private boolean isDefaultParam = false;
     private HashMap<String, String> results;
     private ImageView yuyin;
     private VoiceLineView lineWave;
@@ -410,7 +410,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                     @Override
                     public void onExecuteFail(Exception e) {
-                        T.show(R.string.unable_to_play);
+                        ToastUtils.showShort(R.string.unable_to_play);
                     }
                 }.execute();
 
@@ -475,11 +475,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 }
                 break;
             case R.id.tv_normal:
-                isDefaultParam = true;
+                isDefaultParam = false;
                 break;
             case R.id.tv_whine:
                 MLVoiceSynthetize.setRandomParam();
-                isDefaultParam = false;
+                isDefaultParam = true;
                 break;
             case R.id.iv_yuyin:
                 onEndOfSpeech();
@@ -625,7 +625,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         printResult(results);
         if (isLast) {
             String result = resultBuffer.toString();
-            T.show(result);
+            ToastUtils.showShort(result);
             String inSpell = PinYinUtils.converterToSpell(result);
 
             Pattern patternWhenAlarm = Pattern.compile(REGEX_SET_ALARM_WHEN);
@@ -953,7 +953,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else if (result.matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
 
                 if ("".equals(sharedPreferences.getString("name", ""))) {
-                    T.show("请先查看是否与签约医生签约成功");
+                    ToastUtils.showShort("请先查看是否与签约医生签约成功");
                 } else {
                     Intent intent = new Intent();
                     intent.setClass(getApplicationContext(), DoctorappoActivity.class);
@@ -1064,7 +1064,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show(message);
+                ToastUtils.showShort(message);
             }
         });
     }

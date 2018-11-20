@@ -10,7 +10,7 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.han.referralproject.R;
-import com.medlink.danbogh.utils.T;
+import com.gzq.lib_core.utils.ToastUtils;
 
 public class LocationActivity extends AppCompatActivity {
 
@@ -68,7 +68,7 @@ public class LocationActivity extends AppCompatActivity {
         public void onReceiveLocation(BDLocation bdLocation) {
             String addrStr = bdLocation.getAddrStr();
             mTvMyLocation.setText(addrStr);
-            T.show(addrStr);
+            ToastUtils.showShort(addrStr);
         }
 
     };

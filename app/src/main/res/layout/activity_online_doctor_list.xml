@@ -24,7 +24,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="0dp"
         android:layout_height="85dp"
         android:gravity="center"
@@ -35,28 +35,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="杭州市"
+            android:text="签 约 医 生"
             android:textColor="@color/white"
-            android:textSize="34sp" />
+            android:textSize="34sp"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/img_xiala" />
-
-        <EditText
-            android:layout_width="533dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="22dp"
-            android:background="@drawable/edit_bg"
-            android:drawableLeft="@drawable/img_search"
-            android:drawablePadding="4dp"
-            android:gravity="center_vertical"
-            android:hint="请输入医生名、医院名、城市、分类"
-            android:paddingLeft="8dp"
-            android:textColorHint="#d4d4d4"
-            android:textSize="26sp" />
     </LinearLayout>
 
     <ImageView

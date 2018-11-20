@@ -17,12 +17,11 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.JpushAliasUtils;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
-import java.nio.file.NotLinkException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -94,7 +93,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
         if (TextUtils.isEmpty(password)
                 || !TextUtils.isDigitsOnly(password)
                 || password.length() != 6) {
-            T.show(R.string.sign_up_password_tip);
+            ToastUtils.showShort(R.string.sign_up_password_tip);
             MLVoiceSynthetize.startSynthesize(R.string.sign_up_password_tip);
             return;
         }
@@ -171,7 +170,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
                             return;
                         }
                         hideLoadingDialog();
-                        T.show(message);
+                        ToastUtils.showShort(message);
                         MLVoiceSynthetize.startSynthesize("主人," + message);
                     }
                 }
@@ -186,7 +185,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         if (result.matches(REGEX_IN_GO_BACK)) {
             onTvGoBackClicked();

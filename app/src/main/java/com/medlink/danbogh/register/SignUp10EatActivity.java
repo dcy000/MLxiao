@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,7 +161,7 @@ public class SignUp10EatActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         if (result.matches(REGEX_IN_GO_BACK)) {
             onTvGoBackClicked();

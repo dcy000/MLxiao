@@ -15,9 +15,9 @@ import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.JpushAliasUtils;
-import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,7 +201,7 @@ public class SignUp13SportsActivity extends BaseActivity {
                     @Override
                     public void onFailed(String message) {
                         hideLoadingDialog();
-                        T.show(message);
+                        ToastUtils.showShort(message);
                         MLVoiceSynthetize.startSynthesize("主人," + message);
                     }
                 }
@@ -213,7 +213,7 @@ public class SignUp13SportsActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         if (result.matches(REGEX_IN_GO_BACK)) {
             onTvGoBackClicked();

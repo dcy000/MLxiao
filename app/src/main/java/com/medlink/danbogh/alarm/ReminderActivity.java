@@ -13,9 +13,9 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -133,7 +133,7 @@ public class ReminderActivity extends BaseActivity {
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        T.show(message);
+                        ToastUtils.showShort(message);
                         finish();
                     }
                 });

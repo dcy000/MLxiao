@@ -22,9 +22,9 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.QaApi;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -155,7 +155,7 @@ public class RadioActivity extends BaseActivity implements
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show(message);
+                ToastUtils.showShort(message);
             }
         });
     }

@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.ToolBaseActivity;
-import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.adapter.KeyWordDifineRVAdapter;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
@@ -21,6 +20,7 @@ import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.PinYinUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
@@ -208,7 +208,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         data.add(bean);
         adapter.notifyDataSetChanged();
         SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
-        ToastUtils.show( "保存:" + recognizerResult + "成功");
+        ToastUtils.showShort( "保存:" + recognizerResult + "成功");
         MLVoiceSynthetize.startSynthesize("保存:" + recognizerResult + "关键词成功");
 
 //        flag = (Boolean) SharedPreferencesUtils.getParam(SetKeyWordActivity.this, "yuyin", false);

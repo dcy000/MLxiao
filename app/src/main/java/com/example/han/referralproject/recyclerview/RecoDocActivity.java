@@ -22,7 +22,7 @@ import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.PinYinUtils;
-import com.example.han.referralproject.util.ToastTool;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
@@ -145,7 +145,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort( message);
+                ToastUtils.showShort( message);
             }
         });
     }

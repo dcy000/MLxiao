@@ -11,6 +11,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.XfGroupInfo;
 import com.example.han.referralproject.facerecognition.DeleteGroupListener;
 import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
+import com.example.han.referralproject.facerecognition.IDeleteGroupListener;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.iflytek.cloud.IdentityResult;
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by gzq on 2018/3/15.
  */
 
-public class DeleteGroupActivity extends BaseActivity implements View.OnClickListener, DeleteGroupListener {
+public class DeleteGroupActivity extends BaseActivity implements View.OnClickListener, IDeleteGroupListener {
     @BindView(R.id.btn_delete)
     Button btnDelete;
     @BindView(R.id.text)

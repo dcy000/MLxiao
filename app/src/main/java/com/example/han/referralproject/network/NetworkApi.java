@@ -960,34 +960,34 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultClass(SET_PASSWORD, params, Object.class, successCallback, failedCallback);
     }
 
-    /**
-     * 修改个人基本信息
-     *
-     * @param bid
-     * @param height
-     * @param weight
-     * @param eating_habits
-     * @param smoke
-     * @param drink
-     * @param exercise_habits
-     * @param successCallback
-     * @param failedCallback
-     */
-    public static void alertBasedata(String bid, String height, String weight, String eating_habits, String smoke, String drink, String exercise_habits, String mh, String dz,
-                                     NetworkManager.SuccessCallback<Object> successCallback,
-                                     NetworkManager.FailedCallback failedCallback) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("bid", bid);
-        params.put("height", height);
-        params.put("weight", weight);
-        params.put("eatingHabits", eating_habits);
-        params.put("smoke", smoke);
-        params.put("drink", drink);
-        params.put("exerciseHabits", exercise_habits);
-        params.put("mh", mh);
-        params.put("dz", dz);
-        NetworkManager.getInstance().postResultClass(Alert_Basedata, params, Object.class, successCallback, failedCallback);
-    }
+//    /**
+//     * 修改个人基本信息
+//     *
+//     * @param bid
+//     * @param height
+//     * @param weight
+//     * @param eating_habits
+//     * @param smoke
+//     * @param drink
+//     * @param exercise_habits
+//     * @param successCallback
+//     * @param failedCallback
+//     */
+//    public static void alertBasedata(String bid, String height, String weight, String eating_habits, String smoke, String drink, String exercise_habits, String mh, String dz,
+//                                     NetworkManager.SuccessCallback<Object> successCallback,
+//                                     NetworkManager.FailedCallback failedCallback) {
+//        HashMap<String, String> params = new HashMap<>();
+//        params.put("bid", bid);
+//        params.put("height", height);
+//        params.put("weight", weight);
+//        params.put("eatingHabits", eating_habits);
+//        params.put("smoke", smoke);
+//        params.put("drink", drink);
+//        params.put("exerciseHabits", exercise_habits);
+//        params.put("mh", mh);
+//        params.put("dz", dz);
+//        NetworkManager.getInstance().postResultClass(Alert_Basedata, params, Object.class, successCallback, failedCallback);
+//    }
 
     /**
      * 更具语音获取疾病结果

@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.medlink.danbogh.utils.T;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 
@@ -52,14 +52,14 @@ public class DoctorSignInActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailed(int code) {
-                    T.show("登录失败");
+                    ToastUtils.showShort("登录失败");
                     mTvAction.setText("登录");
                     mTvAction.setEnabled(true);
                 }
 
                 @Override
                 public void onException(Throwable exception) {
-                    T.show("登录失败");
+                    ToastUtils.showShort("登录失败");
                     mTvAction.setText("登录");
                     mTvAction.setEnabled(true);
                 }

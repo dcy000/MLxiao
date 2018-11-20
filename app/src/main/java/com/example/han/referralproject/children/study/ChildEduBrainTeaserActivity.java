@@ -27,13 +27,13 @@ import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.gzq.lib_core.utils.UiUtils;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.HashMap;
@@ -236,7 +236,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
                     || TextUtils.isEmpty(model.getAnswer())
                     ) {
                 ChildEduBrainTeaserActivity.this.model = null;
-                T.show("服务器繁忙");
+                ToastUtils.showShort("服务器繁忙");
             }
             showQuestion(model);
         }

@@ -12,8 +12,8 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,7 +96,7 @@ public class SignUp2GenderActivity extends BaseActivity {
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         if (!mIvRbMan.isSelected() && !mIvRbWoman.isSelected()) {
-            T.show(R.string.sign_up2_gender_tip);
+            ToastUtils.showShort(R.string.sign_up2_gender_tip);
             MLVoiceSynthetize.startSynthesize(R.string.sign_up2_gender_tip);
             return;
         }
@@ -114,7 +114,7 @@ public class SignUp2GenderActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         if (result.matches(REGEX_IN_GO_BACK)) {
             onTvBackClicked();

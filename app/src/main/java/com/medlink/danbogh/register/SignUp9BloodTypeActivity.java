@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.util.LocalShared;
-import com.medlink.danbogh.utils.T;
+import com.gzq.lib_core.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class SignUp9BloodTypeActivity extends SignUp7HeightActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         if (result.matches(REGEX_IN_GO_BACK)) {
             onTvGoBackClicked();

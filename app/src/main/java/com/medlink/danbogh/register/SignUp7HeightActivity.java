@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.ArrayList;
@@ -124,7 +124,7 @@ public class SignUp7HeightActivity extends BaseActivity {
     }
 
     public void select(String text) {
-        T.show(text);
+        ToastUtils.showShort(text);
     }
 
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
@@ -132,7 +132,7 @@ public class SignUp7HeightActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         if (result.matches(REGEX_IN_GO_BACK)) {
             onTvGoBackClicked();

@@ -1,8 +1,6 @@
 package com.iflytek.wake;
 
-import android.content.Context;
 import android.os.Environment;
-import android.widget.Toast;
 
 import com.gzq.lib_core.base.App;
 import com.gzq.lib_core.utils.ToastUtils;
@@ -17,7 +15,7 @@ import com.iflytek.cloud.util.ResourceUtil;
 
 public class MLVoiceWake {
 
-    private static VoiceWakeuper initVoiceWakeuper() {
+    public static VoiceWakeuper initVoiceWakeuper() {
         VoiceWakeuper wakeuper = VoiceWakeuper.getWakeuper();
         if (wakeuper == null) {
             wakeuper = VoiceWakeuper.createWakeuper(App.getApp(), null);
@@ -78,7 +76,7 @@ public class MLVoiceWake {
     }
 
 
-    public void destroy() {
+    public static void destroy() {
         VoiceWakeuper wakeuper = VoiceWakeuper.getWakeuper();
         if (wakeuper != null) {
             wakeuper.destroy();

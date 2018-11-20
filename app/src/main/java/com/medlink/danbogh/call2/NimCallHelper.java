@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.han.referralproject.R;
-import com.medlink.danbogh.utils.T;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.netease.nimlib.sdk.ResponseCode;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
@@ -166,9 +166,9 @@ public class NimCallHelper {
                     Log.i("mylog33333333333", "failed  : " + code);
 
                     if (code == ResponseCode.RES_FORBIDDEN) {
-                        T.show(R.string.avchat_no_permission);
+                        ToastUtils.showShort(R.string.avchat_no_permission);
                     } else {
-                        T.show(R.string.avchat_call_failed);
+                        ToastUtils.showShort(R.string.avchat_call_failed);
                     }
                     closeRtc();
                     closeSessions(-1);
@@ -330,9 +330,9 @@ public class NimCallHelper {
             @Override
             public void onFailed(int code) {
                 if (code == -1) {
-                    T.show("本地音视频启动失败");
+                    ToastUtils.showShort("本地音视频启动失败");
                 } else {
-                    T.show("建立连接失败");
+                    ToastUtils.showShort("建立连接失败");
                 }
                 Log.e(TAG, "accept onFailed->" + code);
                 handleAcceptFailed();
@@ -505,28 +505,28 @@ public class NimCallHelper {
             case CallExitCode.NET_CHANGE: // 网络切换
             case CallExitCode.NET_ERROR: // 网络异常
             case CallExitCode.CONFIG_ERROR: // 服务器返回数据错误
-                T.show(R.string.avchat_net_error_then_quit);
+                ToastUtils.showShort(R.string.avchat_net_error_then_quit);
                 break;
             case CallExitCode.PEER_HANGUP:
             case CallExitCode.HANGUP:
                 if (mCallEstablished.get()) {
-                    T.show(R.string.avchat_call_finish);
+                    ToastUtils.showShort(R.string.avchat_call_finish);
                 }
                 break;
             case CallExitCode.PEER_BUSY:
-                T.show(R.string.avchat_peer_busy);
+                ToastUtils.showShort(R.string.avchat_peer_busy);
                 break;
             case CallExitCode.PROTOCOL_INCOMPATIBLE_PEER_LOWER:
-                T.show(R.string.avchat_peer_protocol_low_version);
+                ToastUtils.showShort(R.string.avchat_peer_protocol_low_version);
                 break;
             case CallExitCode.PROTOCOL_INCOMPATIBLE_SELF_LOWER:
-                T.show(R.string.avchat_local_protocol_low_version);
+                ToastUtils.showShort(R.string.avchat_local_protocol_low_version);
                 break;
             case CallExitCode.INVALIDE_CHANNELID:
-                T.show(R.string.avchat_invalid_channel_id);
+                ToastUtils.showShort(R.string.avchat_invalid_channel_id);
                 break;
             case CallExitCode.LOCAL_CALL_BUSY:
-                T.show(R.string.avchat_local_call_busy);
+                ToastUtils.showShort(R.string.avchat_local_call_busy);
                 break;
             default:
                 break;

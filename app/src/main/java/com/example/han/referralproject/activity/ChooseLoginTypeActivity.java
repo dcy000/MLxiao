@@ -17,7 +17,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
-import com.example.han.referralproject.util.ToastTool;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.SignUp1NameActivity;
 import com.medlink.danbogh.register.simple.SignUp01NameActivity;
@@ -84,7 +84,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                 //获取所有账号
                 String[] accounts = LocalShared.getInstance(ChooseLoginTypeActivity.this).getAccounts();
                 if (accounts == null) {
-                    ToastTool.showLong("未检测到您的登录历史，请输入账号和密码登录");
+                    ToastUtils.showLong("未检测到您的登录历史，请输入账号和密码登录");
                     startActivity(new Intent(this, SignInActivity.class));
                 } else {
                     startActivity(new Intent(this, AuthenticationActivity.class)
@@ -115,7 +115,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onSpeakListenerResult(String result) {
         String inSpell = PinYinUtils.converterToSpell(result);
-        ToastTool.showShort(result);
+        ToastUtils.showShort(result);
         if (inSpell.matches(".*((shou|sou)ji).*")) {
             tvPhoneSignIn.performClick();
             return;

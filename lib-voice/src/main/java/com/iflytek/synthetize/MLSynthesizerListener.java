@@ -19,22 +19,22 @@ public class MLSynthesizerListener implements SynthesizerListener {
 
     @Override
     public void onBufferProgress(int i, int i1, int i2, String s) {
-        Timber.i("MLSynthesizerListener>>>>>>>>========>>>>>>onBufferProgress()" + i + ">>>" + i1 + ">>>>" + i2 + ">>>>" + s);
+//        Timber.i("MLSynthesizerListener>>>>>>>>========>>>>>>onBufferProgress()" + i + ">>>" + i1 + ">>>>" + i2 + ">>>>" + s);
     }
 
     @Override
     public void onSpeakPaused() {
-        Timber.i("MLSynthesizerListener>>>>>>>>========>>>>>>onSpeakPaused()");
+//        Timber.i("MLSynthesizerListener>>>>>>>>========>>>>>>onSpeakPaused()");
     }
 
     @Override
     public void onSpeakResumed() {
-        Timber.i("MLSynthesizerListener>>>>>>>>========>>>>>>onSpeakResumed()");
+//        Timber.i("MLSynthesizerListener>>>>>>>>========>>>>>>onSpeakResumed()");
     }
 
     @Override
     public void onSpeakProgress(int i, int i1, int i2) {
-        Timber.i("MLSynthesizerListener>>>>>>>>========>>>>>>onSpeakProgress()" + i + ">>>" + i1 + ">>>>" + i2);
+//        Timber.i("MLSynthesizerListener>>>>>>>>========>>>>>>onSpeakProgress()" + i + ">>>" + i1 + ">>>>" + i2);
     }
 
     @Override
@@ -44,6 +44,6 @@ public class MLSynthesizerListener implements SynthesizerListener {
 
     @Override
     public void onEvent(int i, int i1, int i2, Bundle bundle) {
-        Timber.i("MLSynthesizerListener>>>>>>>>========>>>>>>onEvent()" + i + ">>>" + i1 + ">>>>" + i2 + ">>>" + bundle);
+//        Timber.i("MLSynthesizerListener>>>>>>>>========>>>>>>onEvent()" + i + ">>>" + i1 + ">>>>" + i2 + ">>>" + bundle);
     }
 }

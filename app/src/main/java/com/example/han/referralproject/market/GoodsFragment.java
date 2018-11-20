@@ -20,7 +20,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
 import com.example.han.referralproject.shopping.Goods;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
-import com.medlink.danbogh.utils.T;
+import com.gzq.lib_core.utils.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -103,7 +103,7 @@ public class GoodsFragment extends Fragment {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show(message);
+                ToastUtils.showShort(message);
             }
         });
     }

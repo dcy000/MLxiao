@@ -109,7 +109,7 @@ public class MusicUtils {
             @Override
             public void onSuccess(SearchMusic response) {
                 if (response == null || response.getSong() == null) {
-                    ToastUtils.show("暂时无法播放");
+                    Toast.makeText(context, "暂时无法播放", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 List<SearchMusic.Song> songs = response.getSong();
@@ -129,7 +129,7 @@ public class MusicUtils {
 
                     @Override
                     public void onExecuteFail(Exception e) {
-                        ToastUtils.show("暂时无法播放");
+                        Toast.makeText(context, "暂时无法播放", Toast.LENGTH_SHORT).show();
                     }
                 }.execute();
 
@@ -137,7 +137,7 @@ public class MusicUtils {
 
             @Override
             public void onFail(Exception e) {
-                ToastUtils.show("暂时无法播放");
+                Toast.makeText(context, "暂时无法播放", Toast.LENGTH_SHORT).show();
             }
         });
     }

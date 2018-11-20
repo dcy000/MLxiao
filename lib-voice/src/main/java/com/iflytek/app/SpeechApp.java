@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import com.gzq.lib_core.base.App;
 import com.gzq.lib_core.base.delegate.AppLifecycle;
 import com.iflytek.cloud.SpeechUtility;
+import com.iflytek.wake.MLVoiceWake;
 
 public class SpeechApp implements AppLifecycle {
 
@@ -30,6 +31,8 @@ public class SpeechApp implements AppLifecycle {
 
         // 以下语句用于设置日志开关（默认开启），设置成false时关闭语音云SDK日志打印
         // Setting.setShowLog(false);
+        //默认开启全局监听
+        MLVoiceWake.initVoiceWakeuper();
     }
 
     @Override

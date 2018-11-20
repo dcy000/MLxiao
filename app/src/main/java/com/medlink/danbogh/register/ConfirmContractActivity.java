@@ -12,17 +12,24 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ContractInfo;
+import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.medlink.danbogh.XDialogFragment;
-import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ConfirmContractActivity extends AppCompatActivity {
 
@@ -101,7 +108,7 @@ public class ConfirmContractActivity extends AppCompatActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show(message);
+                ToastUtils.showShort(message);
             }
         });
     }
@@ -113,22 +120,34 @@ public class ConfirmContractActivity extends AppCompatActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        NetworkApi.bindDoctor(MyApplication.getInstance().userId, Integer.valueOf(mDoctorId), new NetworkManager.SuccessCallback<String>() {
-            @Override
-            public void onSuccess(String response) {
-                XDialogFragment dialogFragment = new XDialogFragment();
-                dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        String userId = ((UserInfoBean) Box.getSessionManager().getUser()).bid;
+        Box.getRetrofit(API.class)
+                .bindDoctor(userId, mDoctorId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<Object>() {
                     @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        finish();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                    public void onNext(Object o) {
+                        XDialogFragment dialogFragment = new XDialogFragment();
+                        dialogFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                finish();
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        });
+                        dialogFragment.show(getSupportFragmentManager(), XDialogFragment.tag());
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        super.onError(ex);
+                        ToastUtils.showShort(ex.getMessage());
                     }
                 });
-                dialogFragment.show(getSupportFragmentManager(), XDialogFragment.tag());
-            }
-        });
     }
 
     @Override

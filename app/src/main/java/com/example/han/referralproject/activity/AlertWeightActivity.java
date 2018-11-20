@@ -4,14 +4,23 @@ import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.ToastUtils;
-import com.example.han.referralproject.util.ToastTool;
+import com.example.han.referralproject.service.API;
+import com.example.han.referralproject.util.LocalShared;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class AlertWeightActivity extends AlertHeightActivity {
 
@@ -23,6 +32,7 @@ public class AlertWeightActivity extends AlertHeightActivity {
         tvSignUpHeight.setText("您的体重");
         tvSignUpUnit.setText("kg");
     }
+
     @Override
     protected List<String> getStrings() {
         mStrings = new ArrayList<>();
@@ -35,20 +45,37 @@ public class AlertWeightActivity extends AlertHeightActivity {
     @Override
     public void onTvGoForwardClicked() {
         final String weight = mStrings.get(selectedPosition);
-        NetworkApi.alertBasedata(MyApplication.getInstance().userId, data.height, weight, eat, smoke, drink, exercise,
-                buffer==null?"":buffer.substring(0,buffer.length()-1),data.dz,new NetworkManager.SuccessCallback<Object>() {
-            @Override
-            public void onSuccess(Object response) {
-                ToastTool.showShort("修改成功");
-                MLVoiceSynthetize.startSynthesize("主人，您的体重已经修改为"+weight+"千克");
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
 
-            }
-        });
+        UserInfoBean user = Box.getSessionManager().getUser();
+        Box.getRetrofit(API.class)
+                .alertUserInfo(
+                        user.bid,
+                        data.height,
+                        weight,
+                        data.eatingHabits,
+                        data.smoke,
+                        data.drink,
+                        data.exerciseHabits,
+                        data.mh,
+                        data.dz
+                )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        ToastUtils.showShort("修改成功");
+                        MLVoiceSynthetize.startSynthesize("主人，您的体重已经修改为" + weight + "公斤");
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        super.onError(ex);
+                    }
+                });
     }
+
     @Override
     protected int geTip() {
         return R.string.sign_up_weight_tip;

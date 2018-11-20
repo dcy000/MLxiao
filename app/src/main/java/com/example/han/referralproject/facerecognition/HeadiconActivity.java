@@ -188,7 +188,7 @@ public class HeadiconActivity extends BaseActivity {
 
     private void createGroup(final String userid, final String xfid) {
         FaceAuthenticationUtils.getInstance(HeadiconActivity.this).createGroup(xfid);
-        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnCreateGroupListener(new CreateGroupListener() {
+        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnCreateGroupListener(new ICreateGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
                 try {
@@ -226,7 +226,7 @@ public class HeadiconActivity extends BaseActivity {
 
     private void joinGroup(final String userid, String groupid, final String xfid) {
         FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, xfid);
-        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+        FaceAuthenticationUtils.getInstance(HeadiconActivity.this).setOnJoinGroupListener(new IJoinGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
                 uploadHeadToSelf(userid, xfid);
@@ -260,6 +260,12 @@ public class HeadiconActivity extends BaseActivity {
         super.onResume();
         setDisableGlobalListen(true);
         startListening();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FaceAuthenticationUtils.getInstance(this).cancelIdentityVerifier();
     }
 
     @Override

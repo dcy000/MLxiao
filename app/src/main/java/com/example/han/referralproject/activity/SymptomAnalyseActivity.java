@@ -17,8 +17,7 @@ import com.example.han.referralproject.bean.SymptomBean;
 import com.example.han.referralproject.bean.SymptomResultBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.new_music.ToastUtils;
-import com.example.han.referralproject.util.ToastTool;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
@@ -99,7 +98,7 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
                         isFirst = false;
                     }
                 } else {
-                    ToastTool.showShort("最多选择三个病症标签");
+                    ToastUtils.showShort("最多选择三个病症标签");
                     return;
                 }
 
@@ -169,7 +168,7 @@ public class SymptomAnalyseActivity extends BaseActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.btn_analyse://提交
                 if(flag==0){
-                    ToastTool.showShort("至少选择一个病症标签");
+                    ToastUtils.showShort("至少选择一个病症标签");
                     return;
                 }
                 if(buffer.contains(",")){

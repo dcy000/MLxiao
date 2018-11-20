@@ -867,6 +867,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             DetectionData lithicAcidData = new DetectionData();
             lithicAcidData.setDetectionType("8");
             lithicAcidData.setUricAcid(Float.parseFloat(String.valueOf(Float.parseFloat(formatString) * 1000)));
+            datas.add(lithicAcidData);
             uploadData(datas);
 
         } else if (notifyData[1] == 97) {//胆固醇
@@ -885,6 +886,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             cholesterolData.setDetectionType("7");
             cholesterolData.setCholesterol(Float.parseFloat(String.format("%.2f", afterResult)));
             datas.add(cholesterolData);
+
             uploadData(datas);
         }
 

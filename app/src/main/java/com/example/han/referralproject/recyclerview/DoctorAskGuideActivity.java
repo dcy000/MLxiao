@@ -13,9 +13,9 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.FastClickUtil;
-import com.medlink.danbogh.utils.T;
 
 public class DoctorAskGuideActivity extends BaseActivity implements View.OnClickListener {
     /**
@@ -34,6 +34,7 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
 
         setEnableListeningLoop(false);
         mToolbar.setVisibility(View.VISIBLE);
+        mTitleText.setText("医 生 咨 询");
         MLVoiceSynthetize.startSynthesize("主人，请点击选择签约医生或在线医生");
         initView();
     }
@@ -65,7 +66,7 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
                             }, new NetworkManager.FailedCallback() {
                                 @Override
                                 public void onFailed(String message) {
-                                    T.show(message);
+                                    ToastUtils.showShort(message);
                                 }
                             });
                 }

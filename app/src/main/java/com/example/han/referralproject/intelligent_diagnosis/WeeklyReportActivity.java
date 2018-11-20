@@ -10,11 +10,10 @@ import android.view.View;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.WeeklyReport;
 import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.ToastTool;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -91,14 +90,14 @@ public class WeeklyReportActivity extends BaseActivity {
                     fragment2.notifyData(response.lastWeek);
                     fragment3.notifyData(response.lastWeek);
                 } else {
-                    ToastTool.showShort("暂无周报告");
+                    ToastUtils.showShort("暂无周报告");
                     MLVoiceSynthetize.startSynthesize("主人，您的测量数据太少，我们还不能为您生成本周的报告。请您坚持每天测量，我们将在每周一为您生成新报告");
                 }
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastTool.showShort("暂无周报告");
+                ToastUtils.showShort("暂无周报告");
                 MLVoiceSynthetize.startSynthesize("主人，您的测量数据太少，我们还不能为您生成本周的报告。请您坚持每天测量，我们将在每周一为您生成新报告");
             }
         });

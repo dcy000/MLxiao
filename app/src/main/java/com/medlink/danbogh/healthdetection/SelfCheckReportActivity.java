@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.medlink.danbogh.utils.T;
+import com.gzq.lib_core.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,17 +55,17 @@ public class SelfCheckReportActivity extends AppCompatActivity {
 
     @OnClick(R.id.tv_report_detail1)
     public void onTvReportDetail1Clicked() {
-        T.show("期待...");
+        ToastUtils.showShort("期待...");
     }
 
     @OnClick(R.id.tv_report_detail2)
     public void onTvReportDetail2Clicked() {
-        T.show("期待...");
+        ToastUtils.showShort("期待...");
     }
 
     @OnClick(R.id.tv_report_detail3)
     public void onTvReportDetail3Clicked() {
-        T.show("期待...");
+        ToastUtils.showShort("期待...");
     }
 
     @OnClick(R.id.iv_back)

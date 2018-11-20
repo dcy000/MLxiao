@@ -10,19 +10,15 @@ import android.os.Process;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import com.example.han.referralproject.BuildConfig;
+import com.example.han.referralproject.jipush.JPushMessageHelper;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
 import com.example.han.referralproject.new_music.ScreenUtils;
-import com.example.han.referralproject.new_music.ToastUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
 import com.gzq.lib_core.base.delegate.AppLifecycle;
 import com.gzq.lib_core.utils.AppUtils;
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechUtility;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.medlink.danbogh.call2.NimInitHelper;
-import com.medlink.danbogh.utils.T;
-import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import org.litepal.LitePal;
@@ -66,8 +62,6 @@ public class MyApplication implements AppLifecycle {
         LibMusicPlayer.init(application);
         Preferences.init(application);
         ScreenUtils.init(application);
-        ToastUtils.init(application);
-        ToastTool.init(application);
         MobclickAgent.setScenarioType(application, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
                 application,
@@ -75,7 +69,6 @@ public class MyApplication implements AppLifecycle {
                 "GCML"
         );
         MobclickAgent.startWithConfigure(umConfig);
-        T.init(application);
         LitePal.initialize(application);
         mInstance = this;
         LocalShared mShared = LocalShared.getInstance(application);
@@ -83,15 +76,6 @@ public class MyApplication implements AppLifecycle {
         xfid = mShared.getXunfeiId();
         telphoneNum = mShared.getPhoneNum();
         eqid = mShared.getEqID();
-
-//        WakeupHelper.init(application);
-//        StringBuilder builder = new StringBuilder();
-//        builder.append("appid=")
-//                .append("59196d96")
-//                .append(",")
-//                .append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
-//
-//        SpeechUtility.createUtility(application, builder.toString());
 
 
         NimInitHelper.getInstance().init(application, true);
@@ -102,6 +86,7 @@ public class MyApplication implements AppLifecycle {
         //初始化极光
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
         JPushInterface.init(application);
+        JPushMessageHelper.init();
     }
 
     @Override

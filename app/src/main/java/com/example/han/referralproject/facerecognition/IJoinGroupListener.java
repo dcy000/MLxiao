@@ -9,7 +9,7 @@ import com.iflytek.cloud.SpeechError;
  * Created by gzq on 2018/2/28.
  */
 
-public interface VertifyFaceListener {
+public interface IJoinGroupListener {
     void onResult(IdentityResult result, boolean islast);
     void onEvent(int eventType, int arg1, int arg2, Bundle obj);
     void onError(SpeechError error);

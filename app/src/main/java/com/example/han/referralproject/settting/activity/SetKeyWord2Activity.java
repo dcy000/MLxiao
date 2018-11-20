@@ -20,12 +20,12 @@ import com.example.han.referralproject.tool.wrapview.VoiceLineView;
 import com.example.han.referralproject.util.PinYinUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class SetKeyWord2Activity extends ToolBaseActivity implements View.OnClic
         }
         saveData(s);
         SharedPreferencesUtils.setParam(this, titlePinyin, new Gson().toJson(data));
-        T.show("主人,保存关键词:" + s + "成功");
+        ToastUtils.showShort("主人,保存关键词:" + s + "成功");
     }
 
     private void saveData(String s) {

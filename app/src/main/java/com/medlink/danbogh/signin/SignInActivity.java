@@ -34,13 +34,12 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.SessionBean;
 import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.facerecognition.AuthenticationActivity;
-import com.example.han.referralproject.facerecognition.CreateGroupListener;
 import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
-import com.example.han.referralproject.facerecognition.JoinGroupListener;
+import com.example.han.referralproject.facerecognition.ICreateGroupListener;
+import com.example.han.referralproject.facerecognition.IJoinGroupListener;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
-import com.example.han.referralproject.util.ToastTool;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
@@ -50,7 +49,6 @@ import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.JpushAliasUtils;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
 import org.json.JSONException;
@@ -288,7 +286,7 @@ public class SignInActivity extends BaseActivity {
 
     private void joinGroup(String groupid, final String xfid) {
         FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, xfid);
-        FaceAuthenticationUtils.getInstance(SignInActivity.this).setOnJoinGroupListener(new JoinGroupListener() {
+        FaceAuthenticationUtils.getInstance(SignInActivity.this).setOnJoinGroupListener(new IJoinGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
             }
@@ -310,7 +308,7 @@ public class SignInActivity extends BaseActivity {
 
     private void createGroup(final String xfid) {
         FaceAuthenticationUtils.getInstance(this).createGroup(xfid);
-        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new CreateGroupListener() {
+        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new ICreateGroupListener() {
             @Override
             public void onResult(IdentityResult result, boolean islast) {
                 try {
@@ -344,7 +342,7 @@ public class SignInActivity extends BaseActivity {
         //获取所有账号
         String[] accounts = LocalShared.getInstance(this).getAccounts();
         if (accounts == null) {
-            ToastTool.showLong("未检测到您的登录历史，请输入账号和密码登录");
+            ToastUtils.showLong("未检测到您的登录历史，请输入账号和密码登录");
         } else {
             startActivity(new Intent(SignInActivity.this, AuthenticationActivity.class).putExtra("from", "Welcome"));
         }
@@ -375,6 +373,7 @@ public class SignInActivity extends BaseActivity {
             mUnbinder.unbind();
         }
         unregisterReceiver(wifiChangedReceiver);
+        FaceAuthenticationUtils.getInstance(this).cancelIdentityVerifier();
         super.onDestroy();
     }
 
@@ -387,7 +386,7 @@ public class SignInActivity extends BaseActivity {
 
     @Override
     protected void onSpeakListenerResult(String result) {
-        T.show(result);
+        ToastUtils.showShort(result);
 
         String inSpell = PinYinUtils.converterToSpell(result);
 

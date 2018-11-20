@@ -10,8 +10,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
 import com.example.han.referralproject.ecg.ECGCompatActivity;
-import com.example.han.referralproject.util.ToastTool;
-import com.example.han.referralproject.xindian.XinDianDetectActivity;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Calendar;
@@ -139,7 +138,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
 //                    ToastUtil.showShort(this,"暂未开通");
                     break;
                 case R.id.ll_more://敬请期待
-                    ToastTool.showShort("敬请期待");
+                    ToastUtils.showShort("敬请期待");
                     break;
             }
         }
