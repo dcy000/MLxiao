@@ -11,7 +11,8 @@ ext {
             lintiancongUrl: "\"http://192.168.200.117:8080\"",//林天聪
             caowenbo      : "\"http://192.168.200.157:8080\"",//曹文博
             hosProduceUrl : "\"http://118.31.73.176:8080\"",//医疗版生产
-            hosTestUrl    : "\"http://47.96.98.60:8070\""//医疗版测试
+            hosTestUrl    : "\"http://47.96.98.60:8070\"",//医疗版测试
+            hosProduce    : "\"http://118.31.73.176:8090\"",//医疗版测试
     ]
     //TODO:各自开发的模块中还未统一IP的请尽早统一，避免不必要的风险。
     //TODO:开发时只更改开发引用即可，下方的生产引用不要轻易更改。
@@ -19,7 +20,7 @@ ext {
     developUrl = api.hosTestUrl
 
     //线上正式运行的IP地址
-    produceUrl = api.hosTestUrl
+    produceUrl = api.hosProduce
 
     baseUrls = [
             "debug"  : "\"http://118.31.238.207:8080/\"",
