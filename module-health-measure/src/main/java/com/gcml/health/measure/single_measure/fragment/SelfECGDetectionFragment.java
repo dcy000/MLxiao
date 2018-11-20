@@ -1,4 +1,4 @@
-package com.gcml.health.measure.first_diagnosis.fragment;
+package com.gcml.health.measure.single_measure.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.creative.ecg.StatusMsg;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
@@ -37,9 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -48,7 +47,7 @@ import timber.log.Timber;
  * created by:gzq
  * description:TODO
  */
-public class HealthECGDetectionFragment extends BluetoothBaseFragment implements View.OnClickListener {
+public class SelfECGDetectionFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private Context context;
     private BackGround mMainPc80BViewBg;
     private TextView mMainPc80BMSG;
@@ -56,8 +55,8 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
     private static final int BATTERY_ZERO = 0x302;
     public static final int RECEIVEMSG_PULSE_OFF = 0x115;
     private static final int MSG_NO_EXIST_ECGFILE = 46;
-    private TextView mBtnHealthHistory;
-    private TextView mBtnVideoDemo;
+    protected TextView mBtnHealthHistory;
+    protected TextView mBtnVideoDemo;
     private TextView mTvNext;
     private int nTransMode = 0;
     private String[] measureResult;
@@ -66,6 +65,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
     private Thread drawThread;
     private boolean isServiceBind = false;
     private boolean isRegistReceiver = false;
+    protected TextView changeDevice;
 
     @Override
     public void onAttach(Context context) {
@@ -86,13 +86,13 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         mMainPc80BViewDraw = (DrawThreadPC80B) view.findViewById(R.id.main_pc80B_view_draw);
         mBtnHealthHistory = (TextView) view.findViewById(R.id.btn_health_history);
         mBtnHealthHistory.setOnClickListener(this);
-        mBtnHealthHistory.setVisibility(View.GONE);
         mBtnVideoDemo = (TextView) view.findViewById(R.id.btn_video_demo);
         mBtnVideoDemo.setOnClickListener(this);
-        mBtnVideoDemo.setVisibility(View.GONE);
         mTvNext = (TextView) view.findViewById(R.id.tv_next);
+        mTvNext.setVisibility(View.GONE);
         mTvNext.setOnClickListener(this);
-        view.findViewById(R.id.tv_change_device).setVisibility(View.GONE);
+        changeDevice = view.findViewById(R.id.tv_change_device);
+        changeDevice.setOnClickListener(this);
         setBtnClickableState(false);
         MLVoiceSynthetize.startSynthesize(context, "主人，请打开设备开关，准备测量", false);
         initOther();
@@ -138,13 +138,13 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             if (action.equals(ReceiveService.BLU_ACTION_STATE_CHANGE)) {
                 String state = intent.getExtras().getString("arg1");
                 if (state.equals("OPENING")) {
-                    Timber.i("opening the bluetooth(ecg)");
+//                    Timber.i("opening the bluetooth(ecg)");
                 } else if (state.equals("OPENINGFILE")) {
-                    Timber.i("opening the bluetooth failed");
+//                    Timber.i("opening the bluetooth failed");
                 } else if (state.equals("DISCOVERYING")) {
-                    Timber.i("searching the bluetooth devices");
+//                    Timber.i("searching the bluetooth devices");
                 } else if (state.equals("CONNECTING")) {
-                    Timber.i("connecting the bluetooth device");
+//                    Timber.i("connecting the bluetooth device");
                 } else if (state.equals("CONNECTED")) {
                     if (dealVoiceAndJump != null) {
                         dealVoiceAndJump.updateVoice("设备已连接");
@@ -159,7 +159,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
                     }
                 }
             } else if (action.equals(ReceiveService.ACTION_BLUETOOH_OFF)) {
-                Timber.i("bluetooth is closed");
+//                Timber.i("bluetooth is closed");
                 context.sendBroadcast(new Intent(
                         ReceiveService.BLU_ACTION_STOPDISCOVERY));
                 context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
@@ -302,7 +302,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
                             }
                             Bundle data = msg.getData();
                             if (data.getBoolean("bLeadoff")) {
-                                setMSG(getResources().getString(R.string.measure_lead_off));
+                                setMSG(UtilsManager.getApplication().getResources().getString(R.string.measure_lead_off));
                             } else {
                                 setMSG(" ");
                             }
@@ -364,8 +364,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
     };
 
-    @SuppressLint("CheckResult")
-    private void uploadEcg(final int ecg, final int heartRate) {
+    protected void uploadEcg(final int ecg, final int heartRate) {
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData ecgData = new DetectionData();
         //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
@@ -373,7 +372,6 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         ecgData.setEcg(String.valueOf(ecg));
         ecgData.setHeartRate(heartRate);
         datas.add(ecgData);
-
 
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
@@ -413,6 +411,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             }
         }
     }
+
     private void setBattery(int battery) {
         if (battery == 0) {
             if (!mHandler.hasMessages(BATTERY_ZERO)) {
@@ -423,4 +422,13 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         }
     }
 
+    @Override
+    protected void clickHealthHistory(View view) {
+        super.clickHealthHistory(view);
+    }
+
+    @Override
+    protected void clickVideoDemo(View view) {
+        super.clickVideoDemo(view);
+    }
 }

@@ -3,14 +3,15 @@ package com.gcml.module_blutooth_devices.weight_devices;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
-import com.gcml.module_blutooth_devices.base.BluetoothServiceDetail;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
+import com.gcml.module_blutooth_devices.base.BluetoothServiceDetail;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.utils.ByteUtils;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class Weight_Bodivis_PresenterImp extends BaseBluetoothPresenter {
     }
 
     @Override
-    protected void connectSuccessed(String address,List<BluetoothServiceDetail> serviceDetails,boolean isReturn) {
+    protected void connectSuccessed(String address, List<BluetoothServiceDetail> serviceDetails, boolean isReturn) {
         super.connectSuccessed(address,serviceDetails,isReturn);
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
         baseView.updateData("initialization","0.00");

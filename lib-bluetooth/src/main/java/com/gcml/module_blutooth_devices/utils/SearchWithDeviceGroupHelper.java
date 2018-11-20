@@ -13,6 +13,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
+import com.gcml.module_blutooth_devices.bean.BoShengUserBean;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Chaosi_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Kangtai_PresenterImp;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Self_PresenterImp;
@@ -73,7 +74,6 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         this.measureType = measureType;
         devices = new ArrayList<>();
     }
-
     public void start() {
         switch (measureType) {
             case IPresenter.MEASURE_TEMPERATURE:

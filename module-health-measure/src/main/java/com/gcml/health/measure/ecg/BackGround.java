@@ -35,7 +35,7 @@ public class BackGround extends View {
 	/** ��������ĸ߶�(����) */
 	public static int mHeight = 0;
 
-	private int backgroundColor = 0;
+//	private int backgroundColor = 0;
 
 	private Paint mPaint;
 
@@ -64,14 +64,14 @@ public class BackGround extends View {
 		mPaint = new Paint();
 		mPaint.setAntiAlias(true);
 		mPaint.setStrokeWidth(1);
-		backgroundColor = Color.WHITE;
+//		backgroundColor = Color.WHITE;
 	}
 
 	/**
 	 * ���ñ�����ɫ
 	 */
 	public void setBackgroundColor(int backgroundColor) {
-		this.backgroundColor = backgroundColor;
+//		this.backgroundColor = backgroundColor;
 	}
 
 	private boolean isDrawBG = true;
@@ -90,7 +90,7 @@ public class BackGround extends View {
 		super.onDraw(canvas);
 		if (!isDrawBG)
 			return;
-		canvas.drawColor(backgroundColor);
+//		canvas.drawColor(backgroundColor);
 		if (gridCnt < 2) {
 			return;
 		}

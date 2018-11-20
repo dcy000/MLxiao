@@ -13,8 +13,6 @@ import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
-import android.support.v4.app.Fragment;
-
 import java.util.List;
 import java.util.UUID;
 

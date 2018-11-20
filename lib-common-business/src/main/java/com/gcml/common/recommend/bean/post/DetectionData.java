@@ -1,38 +1,17 @@
 package com.gcml.common.recommend.bean.post;
 
+import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.device.DeviceUtils;
 
 import java.io.Serializable;
 
-//    TDate {
-//        bloodOxygen (number, optional): 血氧（%） ,
-//        bloodSugar (number, optional): 血糖 ,
-//        cholesterol (number, optional): 胆固醇 ,
-//        detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-//        ecg (string, optional): 心电结果 ,
-//        eqid (string, optional): 机器id ,
-//        heartRate (integer, optional): 心率 ,
-//        highPressure (integer, optional): 高压 ,
-//        lowPressure (integer, optional): 低压 ,
-//        offset (integer, optional): 偏移量状态字 ,
-//        pulse (integer, optional): 脉搏 ,
-//        state (integer, optional): 是否观看过 ,
-//        sugarTime (integer, optional): 测血糖时间 ,
-//        temperAture (number, optional): 温度 ,
-//        time (string, optional): 测量时间 ,
-//        uricAcid (number, optional): 血尿酸 ,
-//        userid (integer, optional): 患者id ,
-//        weight (number, optional): 体重 ,
-//        yz (string, optional): 医嘱 ,
-//        zid (integer, optional): 数据信息id
-//    }
 public class DetectionData implements Serializable {
     private Float bloodOxygen;
     private Float bloodSugar;
     private Float cholesterol;
     private String detectionType;
     private String ecg;
-    private String eqid = DeviceUtils.getIMEI();
+    private String eqid = DeviceUtils.getAndroidId();
     private Integer heartRate;
     private Integer highPressure;
     private Integer lowPressure;
@@ -47,6 +26,8 @@ public class DetectionData implements Serializable {
     private Float weight;
     private String yz;
     private Integer zid;
+    private String result;
+    private String resultUrl;
 
     public DetectionData() {
 
@@ -210,5 +191,21 @@ public class DetectionData implements Serializable {
 
     public void setZid(Integer zid) {
         this.zid = zid;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getResultUrl() {
+        return resultUrl;
+    }
+
+    public void setResultUrl(String resultUrl) {
+        this.resultUrl = resultUrl;
     }
 }
