@@ -28,6 +28,7 @@ public class AddcontactPhoneActivity extends BaseActivity implements CanClearEdi
     public static final String FROM_WHERE = "from_where";
     public static final String FROM_REGISTER_BY_IDCARD = "register_by_idCard";
     public static final String FROM_REGISTER_BY_IDCARD_NUMBER = "register_by_idCard_number";
+    public static final String REGISTER_PHONE_NUMBER = "registerPhoneNumber";
     @BindView(R.id.tv_phone_number_notice)
     CanClearEditText ccetIdNumber;
     @BindView(R.id.tv_next)
@@ -51,7 +52,11 @@ public class AddcontactPhoneActivity extends BaseActivity implements CanClearEdi
             fromWhere = intent.getStringExtra(FROM_WHERE);
         }
         mToolbar.setVisibility(View.VISIBLE);
+
         mTitleText.setText("身 份 证 扫 描 注 册");
+        if (TextUtils.equals(FROM_REGISTER_BY_IDCARD, fromWhere)) {
+            mTitleText.setText("身 份 证 号 码 注 册");
+        }
 
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);
@@ -90,7 +95,6 @@ public class AddcontactPhoneActivity extends BaseActivity implements CanClearEdi
                     mlSpeak("请输入正确的手机号码");
                     return;
                 }
-
                 addEmergentContact(IdCardNumber);
                 break;
         }
@@ -99,17 +103,16 @@ public class AddcontactPhoneActivity extends BaseActivity implements CanClearEdi
     /**
      * 提交添加联系人接口
      */
-    private void addEmergentContact(final String idCardNumber) {
+    private void addEmergentContact(final String phoneNumber) {
         showLoadingDialog("...");
-        NetworkApi.putEmergentContact(idCardNumber, new StringCallback() {
+        NetworkApi.putEmergentContact(phoneNumber, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 try {
                     String body = response.body();
                     JSONObject jsonObject = new JSONObject(body);
                     if (jsonObject.optBoolean("tag")) {
-                        jumpPage();
-
+                        jumpPage(phoneNumber);
                         T.show("添加成功");
                     } else {
                         T.show("添加失败");
@@ -141,12 +144,18 @@ public class AddcontactPhoneActivity extends BaseActivity implements CanClearEdi
 
     /**
      * 添加紧急联系人成功之后  进行页面跳转
+     *
+     * @param phoneNumber
      */
-    private void jumpPage() {
+    private void jumpPage(String phoneNumber) {
         if (fromWhere.equals(FROM_REGISTER_BY_IDCARD)) {
-            startActivity(new Intent(this, InputFaceActivity.class).putExtras(getIntent()));
+            startActivity(new Intent(this, InputFaceActivity.class)
+                    .putExtra(REGISTER_PHONE_NUMBER, phoneNumber)
+                    .putExtras(getIntent()));
         } else if (fromWhere.equals(FROM_REGISTER_BY_IDCARD_NUMBER)) {
-            startActivity(new Intent(this, RealNameActivity.class).putExtras(getIntent()));
+            startActivity(new Intent(this, RealNameActivity.class)
+                    .putExtra(REGISTER_PHONE_NUMBER, phoneNumber)
+                    .putExtras(getIntent()));
         }
     }
 

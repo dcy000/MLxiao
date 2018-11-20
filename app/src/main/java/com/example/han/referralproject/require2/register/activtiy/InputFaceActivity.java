@@ -455,49 +455,6 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
     private void signUp(String url) {
         final LocalShared shared = LocalShared.getInstance(this);
         showLoadingDialog(getString(R.string.do_register));
-        if (TextUtils.isEmpty(registerPhoneNumber)) {
-            NetworkApi.registerWithNoNumber(
-                    registeRrealName,
-                    registerSex,
-                    registerAddress,
-                    registerIdCardNumber,
-                    url,
-                    new NetworkManager.SuccessCallback<UserInfoBean>() {
-                        @Override
-                        public void onSuccess(UserInfoBean response) {
-                            if (isFinishing() || isDestroyed()) {
-                                return;
-                            }
-                            hideLoadingDialog();
-                            try {
-                                initXFInfo(response.bid, faceData);
-                            } catch (Exception e) {
-                            }
-                            shared.setUserInfo(response);
-                            LocalShared.getInstance(mContext).setSex(response.sex);
-                            LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
-                            LocalShared.getInstance(mContext).setUserAge(response.age);
-                            LocalShared.getInstance(mContext).setUserHeight(response.height);
-                            new JpushAliasUtils(InputFaceActivity.this).setAlias("user_" + response.bid);
-
-                            startActivity(new Intent(InputFaceActivity.this, ScanCodeActivity.class)
-                                    .putExtra("isRegister", true));
-                        }
-                    }, new NetworkManager.FailedCallback() {
-                        @Override
-                        public void onFailed(String message) {
-                            if (isFinishing() || isDestroyed()) {
-                                return;
-                            }
-                            hideLoadingDialog();
-                            T.show(message);
-                            finish();
-                        }
-                    }
-            );
-            return;
-        }
-
         NetworkApi.register(
                 registeRrealName,
                 registerSex,
