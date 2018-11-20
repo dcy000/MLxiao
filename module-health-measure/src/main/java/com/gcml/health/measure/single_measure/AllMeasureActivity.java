@@ -368,6 +368,11 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             CCAppActions.jump2MainActivity();
             return;
         }
+
+        if (baseFragment != null && baseFragment instanceof HealthSelectSugarDetectionTimeFragment) {
+            CCAppActions.jump2MainActivity();
+            return;
+        }
         if (isMeasure) {
             showRefreshBluetoothDialog();
         } else {
