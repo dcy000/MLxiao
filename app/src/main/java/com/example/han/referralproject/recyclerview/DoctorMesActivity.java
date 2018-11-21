@@ -24,15 +24,12 @@ import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.qianming.SignatureActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class DoctorMesActivity extends BaseActivity implements View.OnClickListener {
 
@@ -337,7 +334,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                                     }
                                     final String amount = response.getAmount();
                                     String applyAmount = doctor.getApply_amount();
-                                    if (response.count != 0) {
+                                    if (response.count > 0) {
                                         if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
 //                                            ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
                                             bindDoctor();
@@ -418,7 +415,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
         if (doctor == null)
             return;
         String docId = doctor.docterid + "";
-        NetworkApi.bindDoctor(MyApplication.getInstance().userId, Integer.valueOf(docId.replace("null", "")), new NetworkManager.SuccessCallback<String>() {
+     /*   NetworkApi.bindDoctor(MyApplication.getInstance().userId, Integer.valueOf(docId.replace("null", "")), new NetworkManager.SuccessCallback<String>() {
             @Override
             public void onSuccess(String response) {
                 try {
@@ -432,6 +429,8 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                 }
             }
         });
+*/
+       startActivity(new Intent(this, SignatureActivity.class).putExtra("docId",docId));
     }
 
 }

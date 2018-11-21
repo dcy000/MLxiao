@@ -874,10 +874,11 @@
         <activity android:name=".health.TypeOfDrinkActivity" />
         <activity
             android:name=".require3.ScanCodeActivity"
-
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".require2.register.activtiy.AddcontactPhoneActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".require2.register.activtiy.AddcontactPhoneActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".qianming.SignatureActivity"></activity>
     </application>
 
 </manifest>

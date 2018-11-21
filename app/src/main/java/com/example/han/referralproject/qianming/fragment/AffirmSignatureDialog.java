@@ -1,4 +1,4 @@
-package com.example.han.referralproject.require2.dialog;
+package com.example.han.referralproject.qianming.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.DialogFragment;
@@ -9,10 +9,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.imageview.CircleImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,25 +20,19 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * 头像确认的dialog
- * Created by Administrator on 2018/7/14.
+ * Created by lenovo on 2018/11/21.
  */
 
 @SuppressLint("ValidFragment")
-public class AffirmHeadDialog extends DialogFragment {
-    private final byte[] imageData;
+public class AffirmSignatureDialog extends DialogFragment {
+    private byte[] imageData;
     @BindView(R.id.iv_head)
-    CircleImageView ivHead;
+    ImageView ivHead;
     @BindView(R.id.confirm)
     TextView confirm;
     @BindView(R.id.cancel)
     TextView cancel;
     Unbinder unbinder;
-
-    @SuppressLint("ValidFragment")
-    public AffirmHeadDialog(byte[] imageData) {
-        this.imageData = imageData;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,14 +44,17 @@ public class AffirmHeadDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_affirm_head, container, false);
+        View view = inflater.inflate(R.layout.dialog_affirm_signature, container, false);
         unbinder = ButterKnife.bind(this, view);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            imageData = arguments.getByteArray("imageData");
+        }
         updateHead();
         return view;
     }
 
     public void updateHead() {
-
         if (imageData != null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
             ivHead.setImageBitmap(bitmap);
@@ -80,7 +77,6 @@ public class AffirmHeadDialog extends DialogFragment {
                 dismiss();
                 break;
             case R.id.cancel:
-
                 if (listener != null) {
                     listener.onCancel();
                 }
@@ -95,9 +91,9 @@ public class AffirmHeadDialog extends DialogFragment {
         void onCancel();
     }
 
-    private ClickListener listener;
+    private AffirmSignatureDialog.ClickListener listener;
 
-    public void setListener(ClickListener listener) {
+    public void setListener(AffirmSignatureDialog.ClickListener listener) {
         this.listener = listener;
     }
 }

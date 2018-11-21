@@ -730,9 +730,16 @@ public class NetworkApi {
     }
 
     public static void bindDoctor(String bid, int doctorId, NetworkManager.SuccessCallback<String> callback) {
-
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bid", bid);
+        paramsMap.put("doid", String.valueOf(doctorId));
+        NetworkManager.getInstance().postResultString(BindDocUrl, paramsMap, callback);
+    }
+
+    public static void bindDoctor(String bid, int doctorId,String  signatrue, NetworkManager.SuccessCallback<String> callback) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("bid", bid);
+        paramsMap.put("user_sign", signatrue);
         paramsMap.put("doid", String.valueOf(doctorId));
         NetworkManager.getInstance().postResultString(BindDocUrl, paramsMap, callback);
     }

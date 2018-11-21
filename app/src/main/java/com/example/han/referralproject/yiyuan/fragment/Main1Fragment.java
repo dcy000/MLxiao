@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
@@ -24,6 +23,7 @@ import com.example.han.referralproject.building_record.BuildingRecordActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.olderhealthmanagement.OlderHealthManagementSerciveActivity;
+import com.example.han.referralproject.qianming.SignatureActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
@@ -47,7 +47,6 @@ import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.register.SignUp7HeightActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.witspring.unitbody.ChooseMemberActivity;
 
@@ -139,6 +138,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 gotoQianyueYiSheng();
                 break;
             case R.id.iv_qianyue:
+                startActivity(new Intent(getActivity(), SignatureActivity.class));
                 break;
             case R.id.celianglishi:
 //                showDialog(data = getZiChaData());
