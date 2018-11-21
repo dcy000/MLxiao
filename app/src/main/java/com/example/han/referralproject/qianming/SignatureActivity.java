@@ -3,6 +3,7 @@ package com.example.han.referralproject.qianming;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -136,7 +137,7 @@ public class SignatureActivity extends BaseActivity implements AffirmSignatureDi
     }
 
     private void qianyue(String imageUrl) {
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         if (intent == null) {
             return;
         }
@@ -144,8 +145,14 @@ public class SignatureActivity extends BaseActivity implements AffirmSignatureDi
         NetworkApi.bindDoctor(MyApplication.getInstance().userId, Integer.valueOf(docId.replace("null", "")), imageUrl, new NetworkManager.SuccessCallback<String>() {
             @Override
             public void onSuccess(String response) {
-                ActivityHelper.finishAll();
-                startActivity(new Intent(SignatureActivity.this, CheckContractActivity.class));
+                if (TextUtils.equals(intent.getStringExtra("fromBuildFile"), "is")) {
+                    setResult(RESULT_OK);
+                    finish();
+                    ActivityHelper.finishAll();
+                } else {
+                    startActivity(new Intent(SignatureActivity.this, CheckContractActivity.class));
+                    ActivityHelper.finishAll();
+                }
             }
         });
     }

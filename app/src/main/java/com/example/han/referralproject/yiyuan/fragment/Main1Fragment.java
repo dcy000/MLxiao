@@ -37,9 +37,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.example.han.referralproject.yiyuan.bean.HealthDetectQualificationBean;
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
-import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.google.gson.Gson;
-import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
@@ -414,7 +412,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     }
 
     private void isNotFile(final boolean isBindDoctor, final String name) {
-        NetworkApi.getFiledIsOrNot(getActivity()
+       /* NetworkApi.getFiledIsOrNot(getActivity()
                 , NetworkApi.FILE_URL
                 , LocalShared.getInstance(getActivity()).getUserId()
                 , new StringCallback() {
@@ -442,6 +440,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 //                            ShowToFiledDialog(isBindDoctor);
                             startActivity(new Intent(getActivity(), BuildingRecordActivity.class).putExtra("bind", isBindDoctor));
                         }
+
                     }
 
                     @Override
@@ -449,7 +448,8 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                         super.onError(response);
                         T.show("网络繁忙");
                     }
-                });
+                });*/
+        startActivity(new Intent(getActivity(), BuildingRecordActivity.class).putExtra("bind", isBindDoctor));
     }
 
     private void JianKangJianCe(final String examinationType) {

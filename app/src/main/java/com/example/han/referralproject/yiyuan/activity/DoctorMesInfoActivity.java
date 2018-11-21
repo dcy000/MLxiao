@@ -1,14 +1,12 @@
 package com.example.han.referralproject.yiyuan.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -26,20 +24,16 @@ import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.qianming.SignatureActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.Docter;
-import com.example.han.referralproject.recyclerview.DoctorMesActivity;
 import com.example.han.referralproject.recyclerview.OnlineTime;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
-import com.medlink.danbogh.XDialogFragment;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickListener {
 //
@@ -100,6 +94,7 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityHelper.addActivity(this);
         setContentView(R.layout.activity_doctor_mes_info);
         mToolbar.setVisibility(View.VISIBLE);
         mRightText.setVisibility(View.GONE);
@@ -337,7 +332,7 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
                                     }
                                     final String amount = response.getAmount();
                                     String applyAmount = doctor.getApply_amount();
-                                    if (response.count != 0) {
+                                    if (response.count > 0) {
                                         if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
 //                                            ConfirmContractActivity.start(DoctorMesInfoActivity.this, doctor.getDocterid());
                                             bindDoctor();
@@ -349,16 +344,16 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
                                     } else {
 //                                        ConfirmContractActivity.start(DoctorMesInfoActivity.this, doctor.getDocterid());
                                         bindDoctor();
-                                        setResult(RESULT_OK);
-                                        finish();
+                                      /*  setResult(RESULT_OK);
+                                        finish();*/
                                     }
 
                                 }
                             }, new NetworkManager.FailedCallback() {
                                 @Override
                                 public void onFailed(String message) {
-                                    setResult(RESULT_OK);
-                                    finish();
+//                                    setResult(RESULT_OK);
+//                                    finish();
                                     T.show("服务器繁忙，请稍后再试");
                                 }
                             });
@@ -421,7 +416,7 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
         if (doctor == null)
             return;
         String docId = doctor.docterid + "";
-        NetworkApi.bindDoctor(MyApplication.getInstance().userId, Integer.valueOf(docId.replace("null", "")), new NetworkManager.SuccessCallback<String>() {
+       /* NetworkApi.bindDoctor(MyApplication.getInstance().userId, Integer.valueOf(docId.replace("null", "")), new NetworkManager.SuccessCallback<String>() {
             @Override
             public void onSuccess(String response) {
                 try {
@@ -434,7 +429,11 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
+        startActivity(new Intent(this, SignatureActivity.class)
+                .putExtras(getIntent())
+                .putExtra("docId", docId)
+                .putExtra("fromBuildFile", "is"));
     }
 
 }
