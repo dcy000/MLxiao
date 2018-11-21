@@ -4,9 +4,11 @@ ext {
     //TODO:如果有新的IP,请添加到下面的集合中。生产IP不要轻易改动，开发只需更改开发地址即可。如果是在模块中使用，
     //TODO:请自行在build.gradle中配置BuildConfig,参考app模块
     api = [
+
+//            http://47.110.60.249:8080/ZZB
             testUrl       : "\"http://47.96.98.60:8080/\"",//测试服务器
             spareUrl      : "\"http://116.62.36.12:8080/\"",//备用服务器
-            produceUrl    : "\"http://118.31.238.207:8080/\"",//正式服务器
+            produceUrl    : "\"http://47.110.60.249:8080/\"",//正式服务器
             sungaofengUrl : "\"http://192.168.200.106:8080/\"",//孙高峰
             lintiancongUrl: "\"http://192.168.200.117:8080/\"",//林天聪
             caowenbo      : "\"http://192.168.200.157:8080/\"",//曹文博
@@ -19,15 +21,15 @@ ext {
     developUrl = api.testUrl
 
     //线上正式运行的IP地址
-    produceUrl = api.testUrl
+    produceUrl = api.produceUrl
 
     android = [
             compileSdkVersion: 27,
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
-            versionCode      : 24,
-            versionName      : "Robot.1.3.0"
+            versionCode      : 25,
+            versionName      : "Robot.ydsw.1.2.0"
     ]
 
     version = [
