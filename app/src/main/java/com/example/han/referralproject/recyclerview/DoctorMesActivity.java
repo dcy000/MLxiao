@@ -27,6 +27,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.qianming.SignatureActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
@@ -83,6 +84,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityHelper.addActivity(this);
         setContentView(R.layout.activity_doctor_mes);
         mToolbar.setVisibility(View.VISIBLE);
         //    initToolBar();

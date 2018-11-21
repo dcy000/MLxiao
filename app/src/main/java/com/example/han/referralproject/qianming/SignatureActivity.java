@@ -2,7 +2,6 @@ package com.example.han.referralproject.qianming;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -15,13 +14,12 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.qianming.fragment.AffirmSignatureDialog;
 import com.example.han.referralproject.qianming.wrap.PainterView;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.T;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -44,6 +42,7 @@ public class SignatureActivity extends BaseActivity implements AffirmSignatureDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signature);
+        ActivityHelper.addActivity(this);
         initTitle();
         initView();
     }
@@ -68,10 +67,9 @@ public class SignatureActivity extends BaseActivity implements AffirmSignatureDi
         tvSignatrueConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bitmap bitmapOrigin = signature.creatBitmap();
-                Bitmap bitmap = PainterView.replaceBitmapColor(bitmapOrigin, Color.parseColor("#333333"), Color.WHITE);
+                Bitmap bitmap = signature.creatBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
                 bytes = stream.toByteArray();
 
                 if (signatureDialog == null) {
@@ -146,13 +144,8 @@ public class SignatureActivity extends BaseActivity implements AffirmSignatureDi
         NetworkApi.bindDoctor(MyApplication.getInstance().userId, Integer.valueOf(docId.replace("null", "")), imageUrl, new NetworkManager.SuccessCallback<String>() {
             @Override
             public void onSuccess(String response) {
-                try {
-                    JSONObject result = new JSONObject(response);
-                    startActivity(new Intent(SignatureActivity.this, CheckContractActivity.class));
-                    T.show(result.getString("message"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                ActivityHelper.finishAll();
+                startActivity(new Intent(SignatureActivity.this, CheckContractActivity.class));
             }
         });
     }
