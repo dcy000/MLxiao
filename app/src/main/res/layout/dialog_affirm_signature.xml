@@ -5,9 +5,9 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:background="@drawable/shape_bg_clear_reset_dialog"
         android:layout_width="600dp"
         android:layout_height="400dp"
+        android:background="@drawable/shape_bg_clear_reset_dialog"
         android:orientation="vertical">
 
 
@@ -17,8 +17,7 @@
             android:layout_height="209dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="55dp"
-            android:layout_marginTop="55dp"
-         />
+            android:layout_marginTop="55dp" />
 
 
         <View
@@ -38,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="完成"
-                android:textColor="#3F86FC"
+                android:text="重签"
+                android:textColor="#999999"
                 android:textSize="34sp" />
 
             <View
@@ -53,8 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="重拍"
-                android:textColor="#999999"
+                android:text="确认"
+                android:textColor="#3F86FC"
                 android:textSize="34sp" />
 
         </LinearLayout>

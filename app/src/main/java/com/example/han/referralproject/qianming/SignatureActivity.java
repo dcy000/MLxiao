@@ -89,12 +89,14 @@ public class SignatureActivity extends BaseActivity implements AffirmSignatureDi
 
     @Override
     public void onConfirm() {
-        uploadHeadToSelf(bytes);
+        //取消
+        signature.clear();
     }
 
     @Override
     public void onCancel() {
-        signature.clear();
+        //确认
+        uploadHeadToSelf(bytes);
     }
 
     private UploadManager uploadManager = new UploadManager();

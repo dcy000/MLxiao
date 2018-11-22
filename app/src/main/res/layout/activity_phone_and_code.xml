@@ -44,13 +44,12 @@
         android:id="@+id/tv_code_phone_add_contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100pt"
-        android:layout_marginEnd="60pt"
-        android:text="无手机号,添加联系人"
+        android:layout_marginTop="48pt"
+        android:text="没有手机号?请点击"
         android:textColor="#ff3f86fc"
-        android:textSize="56pt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="48pt"
+        app:layout_constraintEnd_toEndOf="@+id/phone_view"
+        app:layout_constraintTop_toBottomOf="@+id/phone_view"
         tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>
