@@ -87,10 +87,10 @@ public class RegisterByIdCardActivity extends BaseActivity implements SomeCommon
 
     protected void backMainActivity() {
         LocalShared.getInstance(this).setString(FILTER, "");
-//        targetDevice = null;
-//        initializing = false;
-//        removeBounds();
-//        btHandler().post(oneShutRunnable);
+        targetDevice = null;
+        initializing = false;
+        removeBounds();
+        btHandler().post(oneShutRunnable);
     }
 
     private void removeBounds() {

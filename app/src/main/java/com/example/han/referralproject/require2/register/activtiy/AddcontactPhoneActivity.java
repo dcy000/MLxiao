@@ -10,15 +10,9 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.require2.wrap.CanClearEditText;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
-import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
-
-import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,7 +70,6 @@ public class AddcontactPhoneActivity extends BaseActivity implements CanClearEdi
     protected void onStart() {
         super.onStart();
         ccetIdNumber.setHintText("请输入手机号码");
-        ccetIdNumber.setMaxLength(11);
     }
 
     @Override
@@ -104,7 +97,8 @@ public class AddcontactPhoneActivity extends BaseActivity implements CanClearEdi
      * 提交添加联系人接口
      */
     private void addEmergentContact(final String phoneNumber) {
-        showLoadingDialog("...");
+        jumpPage(phoneNumber);
+       /* showLoadingDialog("...");
         NetworkApi.putEmergentContact(phoneNumber, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -137,9 +131,7 @@ public class AddcontactPhoneActivity extends BaseActivity implements CanClearEdi
 
             }
 
-
-        });
-
+        });*/
     }
 
     /**
