@@ -131,13 +131,15 @@ public class MyBaseDataActivity extends BaseActivity {
 
                             //身高体重地址
                             address.setText(data.address);
-                            height.setText(data.height + "cm");
-                            weight.setText(data.weight + "kg");
+                            String text3 = data.height + "cm";
+                            height.setText(text3.replaceAll("nullcm", ""));
+                            String text4 = data.weight + "kg";
+                            weight.setText(text4.replaceAll("nullkg", ""));
                             originAddress.setText(data.dz);
 
 
                             Picasso.with(MyBaseDataActivity.this)
-                                    .load(TextUtils.isEmpty(data.user_photo)?data.userPhoto:data.user_photo)
+                                    .load(TextUtils.isEmpty(data.user_photo) ? data.userPhoto : data.user_photo)
                                     .placeholder(R.drawable.avatar_placeholder)
                                     .error(R.drawable.avatar_placeholder)
                                     .tag(this)

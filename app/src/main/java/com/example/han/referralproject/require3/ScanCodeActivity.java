@@ -34,7 +34,7 @@ public class ScanCodeActivity extends BaseActivity {
     }
 
     private void initTitle() {
-        mTitleText.setVisibility(View.VISIBLE);
+        mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("扫码关注");
         mRightView.setImageResource(R.drawable.white_wifi_3);
         mRightView.setOnClickListener(new View.OnClickListener() {

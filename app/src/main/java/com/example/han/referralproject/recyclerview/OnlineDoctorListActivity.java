@@ -260,7 +260,9 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
 
 
     private void initView() {
-
+        mToolbar.setVisibility(View.VISIBLE);
+        mRightView.setVisibility(View.GONE);
+        mTitleText.setText("签 约 医 生");
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
         mIconBack = (ImageView) findViewById(R.id.icon_back);
         mIconBack.setOnClickListener(this);

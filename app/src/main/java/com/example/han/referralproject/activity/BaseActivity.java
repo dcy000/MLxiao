@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,13 +19,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,13 +30,10 @@ import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.jipush.MyReceiver;
 import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.example.han.referralproject.util.Utils;
-import com.github.mmin18.widget.RealtimeBlurView;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -627,14 +620,18 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void showLoadingDialog(String message) {
-        if (mDialog == null) {
-            mDialog = new ProgressDialog(mContext);
+        try {
+            if (mDialog == null) {
+                mDialog = new ProgressDialog(mContext);
 //            mDialog.setCanceledOnTouchOutside(false);
-            mDialog.setCanceledOnTouchOutside(true);
-            mDialog.setIndeterminate(true);
-            mDialog.setMessage(message);
+                mDialog.setCanceledOnTouchOutside(true);
+                mDialog.setIndeterminate(true);
+                mDialog.setMessage(message);
+            }
+            mDialog.show();
+        } catch (Exception e) {
+
         }
-        mDialog.show();
     }
 
 
