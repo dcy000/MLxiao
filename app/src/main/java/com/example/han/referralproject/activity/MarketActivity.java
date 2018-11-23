@@ -57,7 +57,6 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
 
         vpGoods.setOffscreenPageLimit(3);
 
-        setEnableListeningLoop(false);
         initFragment();
         vpGoods.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

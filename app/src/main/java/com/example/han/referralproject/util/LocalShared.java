@@ -3,17 +3,15 @@ package com.example.han.referralproject.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.speech.setting.IatSettings;
-import com.littlejie.circleprogress.utils.Constant;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class LocalShared {
     private final String SharedName = "ScopeMediaPrefsFile";
@@ -64,7 +62,6 @@ public class LocalShared {
     }
 
     /**
-     *
      * @param bid
      * @param xfid
      */
@@ -85,18 +82,20 @@ public class LocalShared {
 
     /**
      * 本地缓存的账号是否满了5个
+     *
      * @return
      */
-    public boolean isAccountOverflow(){
+    public boolean isAccountOverflow() {
         String[] accountsArray = getAccounts();
         if (accountsArray == null) {
             return false;
         }
-        if (accountsArray.length>5)
+        if (accountsArray.length > 5)
             return true;
         else
             return false;
     }
+
     public void deleteAccount(String bid, String xfid) {
         String[] accountsArray = getAccounts();
         if (accountsArray == null || TextUtils.isEmpty(bid) || TextUtils.isEmpty(xfid)) {
@@ -124,13 +123,14 @@ public class LocalShared {
     /**
      * 删除本机上所有缓存的账户
      */
-    public void deleteAllAccount(){
+    public void deleteAllAccount() {
         String[] accountsArray = getAccounts();
         if (accountsArray == null) {
             return;
         }
-        mShared.edit().putString(UserAccounts_new,"").commit();
+        mShared.edit().putString(UserAccounts_new, "").commit();
     }
+
     public String[] getAccounts() {
         String accountsString = mShared.getString(UserAccounts_new, "");
 
@@ -139,9 +139,10 @@ public class LocalShared {
             if (TextUtils.isEmpty(old_accountsString)) {
                 return null;
             } else {
-                addAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
+                UserInfoBean user = Box.getSessionManager().getUser();
+                addAccount(Box.getUserId(), user.xfid);
                 mShared.edit().putString(UserAccounts, "").commit();
-                return new String[]{MyApplication.getInstance().userId + "," + MyApplication.getInstance().xfid};
+                return new String[]{Box.getUserId() + "," + user.xfid};
             }
 
         }
@@ -172,11 +173,6 @@ public class LocalShared {
         if (infoBean == null) {
             return;
         }
-        MyApplication.getInstance().userId = infoBean.bid;
-        MyApplication.getInstance().telphoneNum = infoBean.tel;
-        MyApplication.getInstance().userName = infoBean.bname;
-        MyApplication.getInstance().eqid = infoBean.eqid;
-        MyApplication.getInstance().xfid = infoBean.xfid;
         mShared.edit()
                 .putString(UserId, infoBean.bid)
                 .putString(EQID, infoBean.eqid)
@@ -209,12 +205,11 @@ public class LocalShared {
 
     public void loginOut() {
         //String accountHistory = deleteAccount(MyApplication.getInstance().userId, MyApplication.getInstance().xfid);
-        MyApplication.getInstance().userId = null;
         mShared.edit().putString(UserId, "").commit();
+
     }
 
     public void reset() {
-        MyApplication.getInstance().userId = null;
         mShared.edit().clear().commit();
         if (context != null) {
             context.getSharedPreferences(IatSettings.PREFER_NAME, Context.MODE_PRIVATE)
@@ -486,6 +481,7 @@ public class LocalShared {
 
     /**
      * 讯飞组id
+     *
      * @param groupid
      */
 
@@ -499,6 +495,7 @@ public class LocalShared {
 
     /**
      * 讯飞组创建时候传入的xfid
+     *
      * @param xfid
      */
     public void setGroupFirstXfid(String xfid) {
@@ -510,10 +507,11 @@ public class LocalShared {
     }
 
     public void setHealthScore(int fenshuNum) {
-        mShared.edit().putInt("health_score",fenshuNum).commit();
+        mShared.edit().putInt("health_score", fenshuNum).commit();
     }
-    public int getHealthScore(){
-        return mShared.getInt("health_score",0);
+
+    public int getHealthScore() {
+        return mShared.getInt("health_score", 0);
     }
 
     public void setMeasureXueyaFirst(boolean isFirst) {
@@ -523,6 +521,7 @@ public class LocalShared {
     public boolean getMeasureXueyaFirst() {
         return mShared.getBoolean("measure_xueya_first", true);
     }
+
     public void setMeasureTiwenFirst(boolean isFirst) {
         mShared.edit().putBoolean("measure_tiwen_first", isFirst).commit();
     }
@@ -530,6 +529,7 @@ public class LocalShared {
     public boolean getMeasureTiwenFirst() {
         return mShared.getBoolean("measure_tiwen_first", true);
     }
+
     public void setMeasureXuetangFirst(boolean isFirst) {
         mShared.edit().putBoolean("measure_xuetang_first", isFirst).commit();
     }
@@ -537,6 +537,7 @@ public class LocalShared {
     public boolean getMeasureXuetangFirst() {
         return mShared.getBoolean("measure_xuetang_first", true);
     }
+
     public void setMeasureXueyangFirst(boolean isFirst) {
         mShared.edit().putBoolean("measure_xueyang_first", isFirst).commit();
     }

@@ -17,22 +17,24 @@
         android:id="@+id/ll_robot_con"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_centerInParent="true"
-        android:gravity="center">
+        android:orientation="vertical">
+
         <ImageView
             android:id="@+id/robot_con"
             android:layout_width="370dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_height="460dp"
+            android:layout_marginTop="13dp"
             android:clickable="true"
-            android:src="@drawable/ic_robot_normal"
-            android:layout_marginTop="-13dp"/>
+            android:src="@drawable/ic_robot" />
+
         <ImageView
+            android:id="@+id/call_family"
             android:layout_width="370dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_call_family_normal"
-            android:layout_marginTop="-10dp"/>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_call_family" />
     </LinearLayout>
 
     <ImageView
@@ -48,7 +50,7 @@
         android:layout_marginTop="25dp"
         android:layout_toLeftOf="@id/ll_robot_con"
         android:clickable="true"
-        android:src="@drawable/ic_person_info_normal" />
+        android:src="@drawable/ic_person_info" />
 
     <ImageView
         android:id="@+id/health_test"
@@ -63,7 +65,7 @@
         android:layout_marginTop="5dp"
         android:layout_toLeftOf="@id/ll_robot_con"
         android:clickable="true"
-        android:src="@drawable/ic_health_test_normal" />
+        android:src="@drawable/ic_health_test" />
 
     <ImageView
         android:id="@+id/doctor_ask"
@@ -78,7 +80,7 @@
         android:layout_marginTop="25dp"
         android:layout_toRightOf="@id/ll_robot_con"
         android:clickable="true"
-        android:src="@drawable/ic_doctor_ask_normal" />
+        android:src="@drawable/ic_doctor_ask" />
 
     <ImageView
         android:id="@+id/health_class"
@@ -93,22 +95,20 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/ll_robot_con"
         android:clickable="true"
-        android:src="@drawable/ic_shop_normal" />
+        android:src="@drawable/ic_shop" />
 
-    <RelativeLayout
-        android:id="@+id/ll_anim"
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iv_battery"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp" />
+
+    <FrameLayout
+        android:id="@+id/fl_status_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FAE2CA"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/iv_anim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:src="@drawable/conversation_bg" />
-    </RelativeLayout>
-
-
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true" />
 </RelativeLayout>

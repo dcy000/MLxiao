@@ -189,8 +189,8 @@ public class CookBookActivity extends ToolBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopListening();
-        stopSpeaking();
+        robotStopListening();
+        MLVoiceSynthetize.stop();
         mainHandler.removeCallbacksAndMessages(null);
     }
 }

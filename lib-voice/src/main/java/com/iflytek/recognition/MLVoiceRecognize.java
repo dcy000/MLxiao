@@ -195,21 +195,10 @@ public final class MLVoiceRecognize {
     }
 
 
-    /**
-     * 停止识别
-     */
-
-    public static void stopListening() {
-        SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
-        if (recognizer != null && recognizer.isListening()) {
-            recognizer.stopListening();
-            recognizer.cancel();
-        }
-    }
-
     public static void stop() {
         SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
-        if (recognizer != null) {
+        if (recognizer != null && recognizer.isListening()) {
+            recognizer.cancel();
             recognizer.stopListening();
         }
     }
@@ -223,5 +212,13 @@ public final class MLVoiceRecognize {
             recognizer.cancel();
             recognizer.destroy();
         }
+    }
+
+    public static boolean isListening() {
+        SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
+        if (recognizer != null) {
+            return recognizer.isListening();
+        }
+        return false;
     }
 }

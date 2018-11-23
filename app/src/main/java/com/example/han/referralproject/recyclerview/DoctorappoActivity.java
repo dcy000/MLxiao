@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -29,12 +31,13 @@ import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang.StringUtils;
 import org.litepal.crud.DataSupport;
@@ -1123,11 +1126,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String nimUserId = MyApplication.getInstance().nimUserId();
-        NimAccountHelper.getInstance().login(nimUserId, "123456", null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
-
 
         mButton2 = (Button) findViewById(R.id.cancel_yuyue);
         mButton3 = (Button) findViewById(R.id.cancel_yuyue1);
@@ -1217,12 +1217,11 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         circleImageView = (ImageView) findViewById(R.id.circleImageView1);
 
         if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
-            Picasso.with(this)
+            Glide.with(Box.getApp())
+                    .applyDefaultRequestOptions(new RequestOptions()
+                            .placeholder(R.drawable.avatar_placeholder)
+                            .error(R.drawable.avatar_placeholder))
                     .load(sharedPreferences1.getString("docter_photo", ""))
-                    .placeholder(R.drawable.avatar_placeholder)
-                    .error(R.drawable.avatar_placeholder)
-                    .tag(this)
-                    .fit()
                     .into(circleImageView);
         }
 
@@ -1326,7 +1325,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     }
 
     public void yuYueDoctor() {
-        NetworkApi.YuYue_info(MyApplication.getInstance().userId, doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
+        NetworkApi.YuYue_info(Box.getUserId(), doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
             @Override
             public void onSuccess(ArrayList<YuYueInfo> response) {
                 allReservationHistory.clear();

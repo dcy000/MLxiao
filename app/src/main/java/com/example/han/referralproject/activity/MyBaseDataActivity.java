@@ -9,19 +9,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
-import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.HealthInfo;
 import com.example.han.referralproject.util.LocalShared;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.medlink.danbogh.utils.Utils;
-import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
@@ -132,12 +133,11 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
 
     private void showUser(UserInfoBean user) {
         this.mUser = user;
-        Picasso.with(MyBaseDataActivity.this)
+        Glide.with(Box.getApp())
+                .applyDefaultRequestOptions(new RequestOptions()
+                        .placeholder(R.drawable.avatar_placeholder)
+                        .error(R.drawable.avatar_placeholder))
                 .load(user.userPhoto)
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .tag(this)
-                .fit()
                 .into(mHead);
         mName.setText(TextUtils.isEmpty(user.bname) ? "暂未填写" : user.bname);
         idCardCode = user.sfz;

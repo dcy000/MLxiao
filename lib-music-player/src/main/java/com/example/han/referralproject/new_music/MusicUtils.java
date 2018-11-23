@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.SupportActivity;
 import android.widget.Toast;
 
 import java.util.List;
@@ -113,7 +114,7 @@ public class MusicUtils {
                     return;
                 }
                 List<SearchMusic.Song> songs = response.getSong();
-                Activity activity = (Activity) context;
+                SupportActivity activity = (SupportActivity) context;
                 new PlaySearchedMusic(activity, songs.get(0)) {
                     @Override
                     public void onPrepare() {

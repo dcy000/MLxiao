@@ -152,8 +152,7 @@ public class ChildEduHomeActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(false);
-        setEnableListeningLoop(false);
+        setDisableWakeup(false);
         super.onResume();
     }
 }

@@ -20,6 +20,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 
+import com.gzq.lib_core.base.ui.IEvents;
+
 /**
  * 用于代理 {@link Application} 的生命周期
  *
@@ -33,4 +35,6 @@ public interface AppLifecycle {
     void onTerminate(@NonNull Application application);
 
     void onConfigurationChanged(@NonNull Configuration newConfig);
+
+    IEvents provideEvents();
 }

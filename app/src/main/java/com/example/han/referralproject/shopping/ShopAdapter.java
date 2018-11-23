@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
-import com.squareup.picasso.Picasso;
+import com.gzq.lib_core.base.Box;
 
 import java.util.List;
 
@@ -38,12 +40,11 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopVH> {
 
         holder.mContext = context;
         holder.mPosition = position;
-        Picasso.with(context)
+        Glide.with(Box.getApp())
+                .applyDefaultRequestOptions(new RequestOptions()
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder))
                 .load(mList.get(position).getGoodsimage())
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.placeholder)
-                .tag(context)
-                .fit()
                 .into(holder.mImageView);
         //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
         holder.mTextView.setText(mList.get(position).getGoodsname());

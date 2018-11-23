@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.AllDoctor;
-import com.squareup.picasso.Picasso;
+import com.gzq.lib_core.base.Box;
 
 import java.util.List;
 
@@ -55,12 +57,11 @@ public class AllDoctorAdapter extends RecyclerView.Adapter<AllDoctorAdapter.Hold
         });
         holder.mContext = context;
         holder.mPosition = position;
-        Picasso.with(context)
+        Glide.with(Box.getApp())
+                .applyDefaultRequestOptions(new RequestOptions()
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder))
                 .load(mListPat.get(position).docter_photo)
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .tag(context)
-                .fit()
                 .into(holder.mImagine);
         //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
         holder.mNameview.setText(mListPat.get(position).doctername);

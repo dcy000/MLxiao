@@ -28,6 +28,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.util.WiFiUtil;
+import com.gzq.lib_core.base.Box;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.signin.SignInActivity;
 
@@ -181,7 +182,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                     if (networkInfo != null && networkInfo.isConnected()){
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
                         if (isFirstWifi){
-                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
+                            if (TextUtils.isEmpty(Box.getUserId())) {
                                 startActivity(new Intent(mContext, SignInActivity.class));
                             } else {
                                 startActivity(new Intent(mContext, MainActivity.class));

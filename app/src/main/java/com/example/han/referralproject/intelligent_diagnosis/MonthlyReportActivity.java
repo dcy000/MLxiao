@@ -13,6 +13,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.MonthlyReport;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -74,7 +75,7 @@ public class MonthlyReportActivity extends BaseActivity {
     }
 
     private void getData() {
-        NetworkApi.getMonthReport(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<MonthlyReport>() {
+        NetworkApi.getMonthReport(Box.getUserId(), new NetworkManager.SuccessCallback<MonthlyReport>() {
             @Override
             public void onSuccess(MonthlyReport response) {
                 if (response != null) {

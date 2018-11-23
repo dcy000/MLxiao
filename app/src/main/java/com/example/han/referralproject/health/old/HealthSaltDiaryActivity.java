@@ -174,8 +174,7 @@ public class HealthSaltDiaryActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(true);
-        setEnableListeningLoop(false);
+        setDisableWakeup(true);
         super.onResume();
     }
 }

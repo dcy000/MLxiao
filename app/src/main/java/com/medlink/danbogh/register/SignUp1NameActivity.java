@@ -44,23 +44,8 @@ public class SignUp1NameActivity extends BaseActivity {
         setContentView(R.layout.activity_sign_up1_name);
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.GONE);
-        //mTvGoBack.setEnabled(false);
-//        setSoftInputListener();
     }
 
-//    private void setSoftInputListener() {
-//        SoftKeyBoardListener.setListener(SignUp1NameActivity.this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
-//            @Override
-//            public void keyBoardShow(int height) {
-//                Toast.makeText(SignUp1NameActivity.this, "键盘显示 高度" + height, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void keyBoardHide(int height) {
-//                Toast.makeText(SignUp1NameActivity.this, "键盘隐藏 高度" + height, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
 
     @Override
     protected void onDestroy() {
@@ -71,7 +56,8 @@ public class SignUp1NameActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
+        robotStartListening();
         MLVoiceSynthetize.startSynthesize(R.string.sign_up1_name_tip);
     }
 

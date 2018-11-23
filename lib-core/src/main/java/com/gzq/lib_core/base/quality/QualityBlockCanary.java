@@ -12,6 +12,7 @@ import com.github.moduth.blockcanary.BlockCanary;
 import com.github.moduth.blockcanary.BlockCanaryContext;
 import com.github.moduth.blockcanary.internal.BlockInfo;
 import com.gzq.lib_core.base.delegate.AppLifecycle;
+import com.gzq.lib_core.base.ui.IEvents;
 import com.gzq.lib_core.utils.NetworkUtils;
 
 import java.io.File;
@@ -44,6 +45,11 @@ public class QualityBlockCanary implements AppLifecycle{
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
 
+    }
+
+    @Override
+    public IEvents provideEvents() {
+        return null;
     }
 
     static class MyConfigBlockCanary extends BlockCanaryContext {

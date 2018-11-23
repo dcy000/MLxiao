@@ -124,7 +124,7 @@ public class HistoryTodayActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopListening();
+        robotStopListening();
         MLVoiceSynthetize.stop();
     }
 }

@@ -71,8 +71,9 @@ final class ObjectFactory {
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true);
-
-        okhttpBuilder.addInterceptor(getLoggingInterceptor());
+        if (BuildConfig.DEBUG) {
+            okhttpBuilder.addInterceptor(getLoggingInterceptor());
+        }
         OkhttpConfig okhttpConfig = globalConfig.getOkhttpConfig();
         if (okhttpConfig != null) {
             okhttpConfig.okhttp(context, okhttpBuilder);

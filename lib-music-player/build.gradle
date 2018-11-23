@@ -29,7 +29,8 @@ android {
 
 dependencies {
     implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation 'com.google.code.gson:gson:2.8.2'
+//    implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation 'me.wcy:lrcview:1.4.2'
+    implementation project(':lib-core')
 }

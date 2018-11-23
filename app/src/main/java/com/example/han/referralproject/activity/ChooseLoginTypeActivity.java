@@ -13,18 +13,35 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gcml.auth.face.FaceConstants;
+import com.gcml.auth.face.ui.FaceSignInActivity;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.model.HttpResult;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.ActivityUtils;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.SignUp1NameActivity;
 import com.medlink.danbogh.register.simple.SignUp01NameActivity;
 import com.medlink.danbogh.signin.SignInActivity;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
 
 public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClickListener {
 
@@ -87,8 +104,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                     ToastUtils.showLong("未检测到您的登录历史，请输入账号和密码登录");
                     startActivity(new Intent(this, SignInActivity.class));
                 } else {
-                    startActivity(new Intent(this, AuthenticationActivity.class)
-                            .putExtra("from", "Welcome"));
+                    signInWithFace();
                 }
                 break;
             case R.id.account_tip://注册
@@ -105,11 +121,70 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         }
     }
 
+    private void signInWithFace() {
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
+
+                if (mAccountIds == null) {
+                    emitter.onError(new Throwable("未检测到您的登录历史，请输入账号和密码登录"));
+                    return;
+                }
+                StringBuilder userIds = new StringBuilder();
+                for (String item : mAccountIds) {
+                    userIds.append(item.split(",")[0]).append(",");
+                }
+                String substring = userIds.substring(0, userIds.length() - 1);
+                emitter.onNext(substring);
+            }
+        }).flatMap(new Function<String, ObservableSource<HttpResult<ArrayList<UserInfoBean>>>>() {
+            @Override
+            public ObservableSource<HttpResult<ArrayList<UserInfoBean>>> apply(String s) throws Exception {
+                return Box.getRetrofit(API.class)
+                        .queryAllLocalUsers(s);
+            }
+        }).compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<ArrayList<UserInfoBean>>() {
+                    @Override
+                    public void onNext(ArrayList<UserInfoBean> users) {
+                        Intent intent = new Intent();
+                        intent.setClass(ChooseLoginTypeActivity.this, FaceSignInActivity.class);
+                        intent.putExtra("skip", false);
+                        intent.putExtra("currentUser", false);
+                        intent.putParcelableArrayListExtra("users", users);
+                        startActivityForResult(intent, 1001);
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        ToastUtils.showLong(ex.getMessage());
+                        startActivity(new Intent(ChooseLoginTypeActivity.this, SignInActivity.class));
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001 && data != null) {
+            int faceResult = data.getIntExtra(FaceConstants.KEY_AUTH_FACE_RESULT, 0);
+            switch (faceResult) {
+                case FaceConstants.AUTH_FACE_SUCCESS:
+                    ActivityUtils.skipActivity(MainActivity.class);
+                    break;
+                case FaceConstants.AUTH_FACE_FAIL:
+
+                    break;
+            }
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
-
+        setDisableWakeup(true);
     }
 
     @Override

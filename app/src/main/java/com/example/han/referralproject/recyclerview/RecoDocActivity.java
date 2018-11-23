@@ -18,10 +18,12 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.OfflineActivity;
-import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gcml.auth.face.FaceConstants;
+import com.gcml.auth.face.ui.FaceSignUpActivity;
+import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -46,7 +48,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         //隐藏软键盘
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-         mlist= new ArrayList<>();
+        mlist = new ArrayList<>();
         tvGoBack = (TextView) findViewById(R.id.tv_sign_up_go_back);
         tvGoBack.setOnClickListener(this);
 
@@ -60,14 +62,14 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         Spinner sp1 = (Spinner) findViewById(R.id.spinner1);
         Spinner sp2 = (Spinner) findViewById(R.id.spinner2);
 
-        setSpinner(sp,sp1,sp2);
+        setSpinner(sp, sp1, sp2);
 
         setAdapter();
         getData();
 
     }
 
-    private void setSpinner(Spinner sp,Spinner sp1,Spinner sp2) {
+    private void setSpinner(Spinner sp, Spinner sp1, Spinner sp2) {
         List<String> list = new ArrayList<String>();
         list.add("杭州");
         list.add("上海");
@@ -145,7 +147,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastUtils.showShort( message);
+                ToastUtils.showShort(message);
             }
         });
     }
@@ -157,13 +159,26 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                 startActivity(new Intent(mContext, OfflineActivity.class));
                 break;
             case R.id.tv_sign_up_go_back:
-                Intent intent = new Intent(mContext, RegisterVideoActivity.class);
-                startActivity(intent);
-                finish();
+                ActivityUtils.skipActivityForResult(FaceSignUpActivity.class, 1001);
                 break;
         }
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001) {
+            if (data != null) {
+                int extra = data.getIntExtra(FaceConstants.KEY_AUTH_FACE_RESULT, 0);
+                switch (extra) {
+                    case FaceConstants.AUTH_FACE_SUCCESS:
+                        ActivityUtils.skipActivity(RecoDocActivity.class);
+                        break;
+                    case FaceConstants.AUTH_FACE_FAIL:
+                        break;
+                }
+            }
+        }
+    }
     // 处理点击事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -179,7 +194,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
         MLVoiceSynthetize.startSynthesize(R.string.tips_doctor);
     }
 
@@ -210,7 +225,8 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {}
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            }
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {

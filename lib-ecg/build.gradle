@@ -28,7 +28,7 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation project(':lib-voice')
-    implementation rootProject.ext.dependencies["gson"]
+//    implementation rootProject.ext.dependencies["gson"]
     //预览PDF的库
     implementation 'com.github.barteksc:android-pdf-viewer:3.1.0-beta.1'
     implementation project(':lib-core')

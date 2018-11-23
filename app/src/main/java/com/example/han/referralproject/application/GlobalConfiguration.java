@@ -4,9 +4,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.example.han.referralproject.BuildConfig;
-import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.util.DeviceUtils;
-import com.example.han.referralproject.util.Utils;
 import com.gzq.lib_core.base.GlobalConfig;
 import com.gzq.lib_core.base.config.CrashManagerConfig;
 import com.gzq.lib_core.base.config.OkhttpConfig;
@@ -14,12 +12,13 @@ import com.gzq.lib_core.base.config.RetrofitConfig;
 import com.gzq.lib_core.base.config.RoomDatabaseConfig;
 import com.gzq.lib_core.base.config.SessionManagerConfig;
 import com.gzq.lib_core.base.delegate.GlobalModule;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.crash.CaocConfig;
 import com.gzq.lib_core.http.interceptor.CacheInterceptor;
 import com.gzq.lib_core.session.MmkvSessionManager;
 import com.gzq.lib_core.session.SessionConfig;
 import com.gzq.lib_core.session.SessionToken;
-import com.gzq.lib_core.session.SessionUserInfo;
+import com.gzq.lib_core.utils.ProcessUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +29,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
+import tech.linjiang.pandora.Pandora;
 import timber.log.Timber;
 
 public class GlobalConfiguration implements GlobalModule {
@@ -59,8 +59,12 @@ public class GlobalConfiguration implements GlobalModule {
                                                 .build();
                                         return chain.proceed(request);
                                     }
-                                })
-                        ;
+                                });
+
+                        if (context.getPackageName().equals(ProcessUtils.getCurProcessName(context))) {
+                            builder.addInterceptor(Pandora.get().getInterceptor());
+
+                        }
                     }
                 })
                 .sessionManagerConfiguration(new SessionManagerConfig() {

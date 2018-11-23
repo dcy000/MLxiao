@@ -1,0 +1,215 @@
+@appName = zzb-face
+@appId = 14408003
+@apiKey = HVVhGHwxMbOQetB2wzcqaV53
+@secretKey = o1zeFFQAKfyQ81HECVbATrDolWdyYLhj
+@baseUrl = https://aip.baidubce.com/
+@accessToken = 24.a4b0f7848a77d8c35e91a73226362d3f.2592000.1541915811.282335-14408003
+@refreshToken = 25.3325f4db7ad4777c8cf8a0e833337cd1.315360000.1854683811.282335-14408003
+
+@imgData1 = ""
+@imgData2 = ""
+
+@groupId = group_test_afirez
+@userId = user_id_sss
+
+# README
+# tools: VSCode Rest Client
+# baidu face http api v3
+# https://ai.baidu.com/docs#/Face-Detect-V3/top
+
+# base64 编码
+# 1. https://www.sojson.com/image2base64.html
+# 2. certutil -encode [srcfile] [encodedfile]: 
+
+# 获取 access_token
+###
+GET {{baseUrl}}oauth/2.0/token?grant_type=client_credentials&client_id={{apiKey}}&client_secret={{secretKey}}
+
+# 人脸检测
+###
+POST {{baseUrl}}rest/2.0/face/v3/detect?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "image" : "{{imgData1}}",
+    "image_type":"BASE64",
+    "face_field":"faceshape,facetype"
+}
+
+# 人脸比对
+###
+POST {{baseUrl}}rest/2.0/face/v3/match?access_token={{accessToken}}
+Content-Type: application/json
+
+[
+    {
+        "image" : "{{imgData1}}",
+        "image_type":"BASE64",
+        "face_type":"LIVE", 
+        "quality_control":"LOW",
+        "liveness_control":"NONE"
+    },
+    {
+        "image" : "{{imgData2}}",
+        "image_type":"BASE64",
+        "face_type":"LIVE", 
+        "quality_control":"LOW",
+        "liveness_control":"NONE"
+    }
+]
+
+# 人脸搜索
+###
+POST {{baseUrl}}rest/2.0/face/v3/search?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "image" : "{{imgData1}}",
+    "image_type":"BASE64",
+    "group_id_list":"{{groupId}}", 
+    "quality_control":"LOW",
+    "liveness_control":"NONE"
+}
+
+# 在线活体检测
+###
+POST {{baseUrl}}rest/2.0/face/v3/faceverify?access_token={{accessToken}}
+Content-Type: application/json
+
+[
+    {
+        "image" : "{{imgData1}}",
+        "image_type":"BASE64",
+        "face_field":"age,beauty,expression",
+    },
+    {
+        "image" : "{{imgData2}}",
+        "image_type":"BASE64",
+        "face_field":"age,beauty,expression",
+    }
+]
+
+# 人脸注册：用于向人脸库中新增用户，及组内用户的人脸图片
+###
+POST {{baseUrl}}rest/2.0/face/v3/faceset/user/add?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "image" : "{{imgData1}}",
+    "image_type":"BASE64",
+    "group_id":"{{groupId}}", 
+    "user_id":"{{userId}}",
+    "user_info":"sss",
+    "quality_control":"LOW",
+    "liveness_control":"NONE"
+}
+
+# 人脸更新： 用于对人脸库中指定用户，更新其下的人脸图像
+###
+POST {{baseUrl}}rest/2.0/face/v3/faceset/user/update?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "image" : "{{imgData2}}",
+    "image_type":"BASE64",
+    "group_id":"{{groupId}}", 
+    "user_id":"{{userId}}",
+    "user_info":"sss",
+    "quality_control":"LOW",
+    "liveness_control":"NONE"
+}
+
+# 人脸删除：删除用户的某一张人脸，如果该用户只有一张人脸图片，则同时删除用户
+###
+POST {{baseUrl}}rest/2.0/face/v3/faceset/user/delete?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "group_id":"{{groupId}}", 
+    "user_id":"{{userId}}",
+}
+
+# 用户信息查询：获取人脸库中某个用户的信息(user_info信息和用户所属的组)
+###
+GET {{baseUrl}}rest/2.0/face/v3/faceset/user/get?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "group_id":"{{groupId}}", 
+    "user_id":"{{userId}}",
+}
+
+# 获取用户人脸列表：用于获取一个用户的全部人脸列表
+###
+GET {{baseUrl}}rest/2.0/face/v3/faceset/face/getlist?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "group_id":"{{groupId}}", 
+    "user_id":"{{userId}}",
+}
+
+# 获取用户列表：用于查询指定用户组中的用户列表
+###
+GET {{baseUrl}}rest/2.0/face/v3/faceset/group/getusers?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "group_id":"{{groupId}}"
+}
+
+# 复制用户：用于将已经存在于人脸库中的用户复制到一个新的组
+###
+POST {{baseUrl}}rest/2.0/face/v3/faceset/user/copy?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "user_id":"{{userId}}",
+    "src_group_id":"{{groupId}}",
+    "dst_group_id":"group_id_another"
+}
+
+# 删除用户：用于将用户从某个组中删除
+###
+POST {{baseUrl}}rest/2.0/face/v3/faceset/user/delete?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "user_id":"{{userId}}",
+    "group_id":"{{groupId}}",
+}
+
+# 创建用户组：用于创建一个空的用户组，如果用户组已存在 则返回错误
+###
+POST {{baseUrl}}rest/2.0/face/v3/faceset/group/add?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "group_id":"{{groupId}}",
+}
+
+# 删除用户组：
+#   删除用户组下所有的用户及人脸，如果组不存在 则返回错误。 
+#   注：组内的人脸数量如果大于500条，会在后台异步进行删除。
+#   在删除期间，无法向该组中添加人脸。
+#   1秒钟可以删除20条记录，相当于一小时可以将7万人的人脸组删除干净。
+###
+POST {{baseUrl}}rest/2.0/face/v3/faceset/group/delete?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "group_id":"{{groupId}}",
+}
+
+# 组列表查询：用于查询用户组的列表
+###
+POST {{baseUrl}}rest/2.0/face/v3/faceset/group/getlist?access_token={{accessToken}}
+Content-Type: application/json
+
+{
+    "start":0,
+    "length":100
+}
+
+###
+GET http://47.96.98.60:8080/ZZB/xf/select_group_record?userid=0&&state=0

@@ -69,7 +69,8 @@ public class SignUp7HeightActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
+        robotStartListening();
         MLVoiceSynthetize.startSynthesize(geTip());
     }
 

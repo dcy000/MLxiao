@@ -237,15 +237,14 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(false);
-        setEnableListeningLoop(false);
+        setDisableWakeup(false);
         super.onResume();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopListening();
-        stopSpeaking();
+        robotStopListening();
+        MLVoiceSynthetize.stop();
     }
 }

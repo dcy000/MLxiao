@@ -9,17 +9,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
+import com.example.han.referralproject.util.DeviceUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gcml.auth.face.FaceConstants;
+import com.gcml.auth.face.ui.FaceSignUpActivity;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.ActivityUtils;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.regex.Matcher;
@@ -29,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.functions.Consumer;
 
 public class SignUp03PasswordActivity extends BaseActivity {
 
@@ -70,7 +77,8 @@ public class SignUp03PasswordActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
+        robotStartListening();
         MLVoiceSynthetize.startSynthesize(R.string.sign_up_password_tip);
     }
 
@@ -102,9 +110,25 @@ public class SignUp03PasswordActivity extends BaseActivity {
     }
 
     private void navToNext() {
-        Intent intent = new Intent(this, RegisterVideoActivity.class);
-        intent.putExtra("isFast", true);
-        startActivity(intent);
+        ActivityUtils.skipActivityForResult(FaceSignUpActivity.class, 1001);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001) {
+            if (data != null) {
+                int extra = data.getIntExtra(FaceConstants.KEY_AUTH_FACE_RESULT, 0);
+                switch (extra) {
+                    case FaceConstants.AUTH_FACE_SUCCESS:
+                        //快速注册
+                        ActivityUtils.skipActivity(MainActivity.class);
+                        break;
+                    case FaceConstants.AUTH_FACE_FAIL:
+                        break;
+                }
+            }
+        }
     }
 
     private void signUp(String password) {
@@ -122,59 +146,45 @@ public class SignUp03PasswordActivity extends BaseActivity {
         String smoke = shared.getSignUpSmoke();
         String drink = shared.getSignUpDrink();
         String sport = shared.getSignUpSport();
-        NetworkApi.registerUser(
-                name,
-                gender,
-                address,
-                idCard,
-                phone,
-                password,
-                height,
-                weight,
-                bloodType,
-                eat,
-                smoke,
-                drink,
-                sport,
-                new NetworkManager.SuccessCallback<UserInfoBean>() {
+
+        Box.getRetrofit(API.class)
+                .registerAccount(
+                        "50",
+                        name,
+                        gender,
+                        DeviceUtils.getIMEI(),
+                        phone,
+                        password,
+                        address,
+                        idCard,
+                        height + "",
+                        weight + "",
+                        bloodType,
+                        eat,
+                        smoke,
+                        drink,
+                        sport
+                ).compose(RxUtils.httpResponseTransformer())
+                .doOnNext(new Consumer<UserInfoBean>() {
                     @Override
-                    public void onSuccess(UserInfoBean response) {
-                        if (isFinishing() || isDestroyed()) {
-                            return;
-                        }
-                        hideLoadingDialog();
-                        shared.setUserInfo(response);
-                        LocalShared.getInstance(mContext).setSex(response.sex);
-                        LocalShared.getInstance(mContext).setUserPhoto(response.userPhoto);
-                        LocalShared.getInstance(mContext).setUserAge(response.age);
-                        LocalShared.getInstance(mContext).setUserHeight(response.height);
-                        new JpushAliasUtils(SignUp03PasswordActivity.this).setAlias("user_" + response.bid);
-                        NetworkApi.setUserMh("11", new NetworkManager.SuccessCallback<String>() {
-                            @Override
-                            public void onSuccess(String response) {
-                                navToNext();
-                                finishAffinity();
-                            }
-                        }, new NetworkManager.FailedCallback() {
-                            @Override
-                            public void onFailed(String message) {
-                                navToNext();
-                                finishAffinity();
-                            }
-                        });
+                    public void accept(UserInfoBean userInfoBean) throws Exception {
+                        Box.getSessionManager().setUser(userInfoBean);
                     }
-                }, new NetworkManager.FailedCallback() {
+                }).as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<UserInfoBean>() {
                     @Override
-                    public void onFailed(String message) {
-                        if (isFinishing() || isDestroyed()) {
-                            return;
-                        }
-                        hideLoadingDialog();
-                        ToastUtils.showShort(message);
-                        MLVoiceSynthetize.startSynthesize("主人," + message);
+                    public void onNext(UserInfoBean userInfoBean) {
+                        navToNext();
+                        finishAffinity();
                     }
-                }
-        );
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        super.onError(ex);
+                        hideLoadingDialog();
+                        MLVoiceSynthetize.startSynthesize("主人," + ex.message);
+                    }
+                });
     }
 
     public static final String REGEX_IN_DEL = "(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole)";

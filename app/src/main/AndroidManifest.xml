@@ -153,9 +153,6 @@
             android:name=".activity.AgreementActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.PreviousHistoryActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".activity.MessageActivity"
             android:screenOrientation="landscape" />
 
@@ -236,16 +233,9 @@
             android:largeHeap="true"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".facerecognition.AuthenticationActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".xindian.XindianActivity" />
-        <activity
-            android:name=".facerecognition.RegisterVideoActivity"
-            android:screenOrientation="landscape"
-            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name=".recyclerview.DoctorMesActivity"
             android:screenOrientation="landscape" />
@@ -288,10 +278,6 @@
         <activity
             android:name=".recyclerview.AppraiseActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".facerecognition.HeadiconActivity"
-            android:screenOrientation="landscape"
-            android:taskAffinity="com.medlink.fastsignup" />
         <activity
             android:name=".recyclerview.DoctorappoActivity"
             android:screenOrientation="landscape" />
@@ -414,9 +400,6 @@
             android:name="com.medlink.danbogh.alarm.ReminderActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.call2.DoctorSignInActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".activity.DiseaseDetailsActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -424,9 +407,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.healthdetection.SelfCheckReportActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.healthdetection.HealthRecordActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.ConfirmContractActivity"
@@ -581,16 +561,6 @@
         <activity
             android:name=".intelligent_diagnosis.MonthlyReportActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".intelligent_diagnosis.DeleteGroupActivity"
-            android:screenOrientation="landscape">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.HOME" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-        </activity>
         <activity android:name=".health.HealthDiaryActivity" />
         <activity
             android:name=".tool.JieMengActivity"

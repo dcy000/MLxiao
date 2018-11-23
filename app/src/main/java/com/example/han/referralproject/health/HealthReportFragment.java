@@ -23,6 +23,7 @@ import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.gzq.lib_core.utils.UiUtils;
 
@@ -99,7 +100,7 @@ public class HealthReportFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        NetworkApi.getWeekReport(MyApplication.getInstance().userId,
+        NetworkApi.getWeekReport(Box.getUserId(),
                 new NetworkManager.SuccessCallback<WeekReportModel>() {
                     @Override
                     public void onSuccess(WeekReportModel response) {

@@ -11,10 +11,14 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
+import com.example.han.referralproject.util.DeviceUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.JpushAliasUtils;
@@ -26,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.functions.Consumer;
 
 public class SignUp13SportsActivity extends BaseActivity {
 
@@ -125,7 +130,8 @@ public class SignUp13SportsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
+        robotStartListening();
         MLVoiceSynthetize.startSynthesize(R.string.sign_up_sports_tip);
     }
 
@@ -169,43 +175,54 @@ public class SignUp13SportsActivity extends BaseActivity {
         String smoke = shared.getSignUpSmoke();
         String drink = shared.getSignUpDrink();
         String sport = shared.getSignUpSport();
-        NetworkApi.registerUser(
-                name,
-                gender,
-                address,
-                idCard,
-                phone,
-                password,
-                height,
-                weight,
-                bloodType,
-                eat,
-                smoke,
-                drink,
-                sport,
-                new NetworkManager.SuccessCallback<UserInfoBean>() {
+
+
+        Box.getRetrofit(API.class)
+                .registerAccount(
+                        "50",
+                        name,
+                        gender,
+                        DeviceUtils.getIMEI(),
+                        phone,
+                        password,
+                        address,
+                        idCard,
+                        height + "",
+                        weight + "",
+                        bloodType,
+                        eat,
+                        smoke,
+                        drink,
+                        sport
+                ).compose(RxUtils.httpResponseTransformer())
+                .doOnNext(new Consumer<UserInfoBean>() {
                     @Override
-                    public void onSuccess(UserInfoBean response) {
+                    public void accept(UserInfoBean userInfoBean) throws Exception {
+                        Box.getSessionManager().setUser(userInfoBean);
+                    }
+                }).as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<UserInfoBean>() {
+                    @Override
+                    public void onNext(UserInfoBean userInfoBean) {
                         MLVoiceSynthetize.startSynthesize("主人，您已注册成功。请点下一步完善相关内容，即可愉快使用！");
                         tvGoBack.setVisibility(View.INVISIBLE);
                         hideLoadingDialog();
-                        shared.setUserInfo(response);
-                        LocalShared.getInstance(mContext).setSex(response.sex);
-                        LocalShared.getInstance(mContext).setUserPhoto(response.userPhoto);
-                        LocalShared.getInstance(mContext).setUserAge(response.age);
-                        LocalShared.getInstance(mContext).setUserHeight(response.height);
-                        new JpushAliasUtils(SignUp13SportsActivity.this).setAlias("user_" + response.bid);
+                        shared.setUserInfo(userInfoBean);
+                        LocalShared.getInstance(mContext).setSex(userInfoBean.sex);
+                        LocalShared.getInstance(mContext).setUserPhoto(userInfoBean.userPhoto);
+                        LocalShared.getInstance(mContext).setUserAge(userInfoBean.age);
+                        LocalShared.getInstance(mContext).setUserHeight(userInfoBean.height);
+                        new JpushAliasUtils(SignUp13SportsActivity.this).setAlias("user_" + userInfoBean.bid);
                         navToNext();
                     }
-                }, new NetworkManager.FailedCallback() {
+
                     @Override
-                    public void onFailed(String message) {
+                    protected void onError(ApiException ex) {
+                        super.onError(ex);
                         hideLoadingDialog();
-                        ToastUtils.showShort(message);
-                        MLVoiceSynthetize.startSynthesize("主人," + message);
+                        MLVoiceSynthetize.startSynthesize("主人," + ex.message);
                     }
-                }
-        );
+                });
     }
 
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";

@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MessageActivity;
@@ -40,10 +42,9 @@ import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
+import com.gzq.lib_core.base.Box;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
-import com.squareup.picasso.Picasso;
 
 public class PersonActivity extends BaseActivity implements View.OnClickListener {
 
@@ -101,7 +102,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         MLVoiceSynthetize.startSynthesize(R.string.person_info);
         mToolbar.setVisibility(View.VISIBLE);
 
-        userId = MyApplication.getInstance().userId;
+        userId = Box.getUserId();
         headImg = (ImageView) findViewById(R.id.per_image);
 
         mImageView3 = (ImageView) findViewById(R.id.iv_pay);
@@ -113,7 +114,6 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         mImageView5 = (ImageView) findViewById(R.id.iv_order);
 
-        setEnableListeningLoop(false);
         tvIsSign = (TextView) findViewById(R.id.doctor_status);
         findViewById(R.id.main_iv_health_class).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,7 +222,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     private void getData() {
 
 
-        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+        NetworkApi.PersonInfo(Box.getUserId(), new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
 
@@ -234,17 +234,15 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
                 SharedPreferences.Editor editor = sharedPreferences1.edit();
                 editor.putString("userName", response.getBname());
-                MyApplication.getInstance().userName = response.getBname();
                 editor.commit();
 
                 mTextView.setText(response.getBname());
-                //    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount())+"元");
-                Picasso.with(PersonActivity.this)
+
+                Glide.with(Box.getApp())
+                        .applyDefaultRequestOptions(new RequestOptions()
+                                .placeholder(R.drawable.avatar_placeholder)
+                                .error(R.drawable.avatar_placeholder))
                         .load(response.getuser_photo())
-                        .placeholder(R.drawable.avatar_placeholder)
-                        .error(R.drawable.avatar_placeholder)
-                        .tag(this)
-                        .fit()
                         .into(headImg);
 
 
@@ -293,7 +291,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         });
 
 
-        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+        NetworkApi.DoctorInfo(Box.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
             @Override
             public void onSuccess(Doctor response) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -352,7 +350,8 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 startActivity(new Intent(this, MyBaseDataActivity.class));
                 break;
             case R.id.iv_record:
-                startActivity(new Intent(this, HealthRecordActivity.class));
+//                startActivity(new Intent(this, HealthRecordActivity.class));
+                com.gcml.module_health_record.HealthRecordActivity.startActivity(this,0);
                 break;
             case R.id.tv_update:
                 showLoadingDialog("检查更新中");

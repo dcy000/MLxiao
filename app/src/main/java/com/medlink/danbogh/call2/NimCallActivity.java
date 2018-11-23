@@ -25,6 +25,7 @@ import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.AppraiseActivity;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.Utils;
@@ -754,7 +755,7 @@ public class NimCallActivity extends AppCompatActivity {
         if (mSeconds > 0) {
             final int minutes = mSeconds / 60 + 1;
             if (minutes >= 0) {
-                final String bid = MyApplication.getInstance().userId;
+                final String bid = Box.getUserId();
 
                 if ((!TextUtils.isEmpty(mPeerAccount)
                         && !mPeerAccount.startsWith("docter_"))

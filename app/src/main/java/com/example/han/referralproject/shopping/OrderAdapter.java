@@ -5,16 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.constant.ConstantData;
+import com.gzq.lib_core.base.Box;
 import com.medlink.danbogh.utils.Utils;
-import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by han on 2017/11/30.
@@ -43,14 +40,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderVH> {
 
         holder.mContext = context;
         holder.mPosition = position;
-        Picasso.with(context)
+
+        Glide.with(Box.getApp())
+                .applyDefaultRequestOptions(new RequestOptions()
+                        .placeholder(R.drawable.avatar_placeholder)
+                        .error(R.drawable.avatar_placeholder))
                 .load(mList.get(position).getPhoto())
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .tag(context)
-                .fit()
                 .into(holder.mImageView);
-        //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
+
 
         String date = Utils.getDateToString(Long.parseLong(mList.get(position).getTime()), "yyyy-MM-dd");
         holder.mTextView1.setText(date);
@@ -70,7 +67,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderVH> {
         holder.mTextView8.setText(mList.get(position).getPrice());
 
     }
-
 
 
     @Override

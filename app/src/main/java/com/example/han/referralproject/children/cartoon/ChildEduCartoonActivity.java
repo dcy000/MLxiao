@@ -8,6 +8,9 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.video.VideoListFragment;
 
+/**
+ * 动画片
+ */
 public class ChildEduCartoonActivity extends BaseActivity {
 
     private RadioGroup rgTabs;
@@ -38,8 +41,7 @@ public class ChildEduCartoonActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(false);
-        setEnableListeningLoop(false);
+        setDisableWakeup(false);
         super.onResume();
     }
 }

@@ -68,7 +68,8 @@ public class SignUp4IdCardActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
+        robotStartListening();
         MLVoiceSynthetize.startSynthesize(R.string.sign_up_id_card_tip);
     }
 

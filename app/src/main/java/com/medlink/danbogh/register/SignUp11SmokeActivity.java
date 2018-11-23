@@ -116,7 +116,8 @@ public class SignUp11SmokeActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
+        robotStartListening();
         MLVoiceSynthetize.startSynthesize(R.string.sign_up_smoke_tip);
     }
 

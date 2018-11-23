@@ -23,4 +23,13 @@ public interface Constants {
      * {@link com.gzq.lib_core.base.Box#getRoomDataBase(Class)}
      */
     String NAME_ROOM_DATABASE="EasyDB";
+    /**
+     * 存本机器的组id
+     */
+    String KEY_GROUP_ID="group_id";
+
+    /**
+     * 创建人脸识别组的时候传入的第一个讯飞id
+     */
+    String KEY_CREATE_GROUP_FIRST_XFID = "group_first_xfid";
 }

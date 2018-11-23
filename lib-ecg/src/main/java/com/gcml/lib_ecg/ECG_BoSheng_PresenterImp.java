@@ -30,9 +30,9 @@ import com.clj.fastble.callback.BleScanCallback;
 import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.clj.fastble.scan.BleScanRuleConfig;
+import com.gcml.lib_ecg.base.BoShengUserInfoBean;
 import com.gcml.lib_ecg.base.BorsamConfig;
 import com.gcml.lib_ecg.base.IView;
-import com.gcml.lib_ecg.base.UserInfoBean;
 import com.gcml.lib_ecg.ecg.Bluetooth_Constants;
 import com.google.gson.Gson;
 import com.gzq.lib_core.utils.ByteUtils;
@@ -118,7 +118,7 @@ public class ECG_BoSheng_PresenterImp {
     };
 
 
-    public ECG_BoSheng_PresenterImp(IView fragment, String macAddress, UserInfoBean user) {
+    public ECG_BoSheng_PresenterImp(IView fragment, String macAddress, BoShengUserInfoBean user) {
         this.fragment = fragment;
         this.macAddress = macAddress;
         context = fragment.getThisContext();
@@ -143,7 +143,7 @@ public class ECG_BoSheng_PresenterImp {
         }
     }
 
-    private void getUser(UserInfoBean user) {
+    private void getUser(BoShengUserInfoBean user) {
         getNetConfig(user.getPhone(), user.getBirth(), user.getName(), user.getSex());
     }
 

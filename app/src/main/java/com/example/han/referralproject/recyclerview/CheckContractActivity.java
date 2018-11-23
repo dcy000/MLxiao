@@ -6,22 +6,27 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.imageview.CircleImageView;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class CheckContractActivity extends BaseActivity {
 
@@ -38,6 +43,7 @@ public class CheckContractActivity extends BaseActivity {
     @BindView(R.id.tv_cancel_contract)
     TextView tvCancelContract;
     private Unbinder mUnbinder;
+    private UserInfoBean user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,30 +53,29 @@ public class CheckContractActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("签  约  医  生");
 
-        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
-            @Override
-            public void onSuccess(Doctor response) {
-                if (!TextUtils.isEmpty(response.getDocter_photo())) {
-                    Picasso.with(CheckContractActivity.this)
-                            .load(response.getDocter_photo())
-                            .placeholder(R.drawable.avatar_placeholder)
-                            .error(R.drawable.avatar_placeholder)
-                            .tag(this)
-                            .fit()
-                            .into(ivDoctorAvatar);
-                }
-                tvDoctorName.setText(String.format(getString(R.string.doctor_name), response.getDoctername()));
-                tvProfessionalRank.setText(String.format(getString(R.string.doctor_zhiji), response.getDuty()));
-                tvGoodAt.setText(String.format(getString(R.string.doctor_shanchang), response.getDepartment()));
-                tvService.setText(String.format(getString(R.string.doctor_shoufei), response.getService_amount()));
-            }
+        user = Box.getSessionManager().getUser();
+        Box.getRetrofit(API.class)
+                .queryDoctorInfo(user.doid)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<Doctor>() {
+                    @Override
+                    public void onNext(Doctor doctor) {
+                        if (!TextUtils.isEmpty(doctor.getDocter_photo())) {
 
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort(message);
-            }
-        });
+                            Glide.with(CheckContractActivity.this)
+                                    .applyDefaultRequestOptions(new RequestOptions()
+                                            .placeholder(R.drawable.avatar_placeholder)
+                                            .error(R.drawable.avatar_placeholder))
+                                    .load(doctor.getDocter_photo())
+                                    .into(ivDoctorAvatar);
+                        }
+                        tvDoctorName.setText(String.format(getString(R.string.doctor_name), doctor.getDoctername()));
+                        tvProfessionalRank.setText(String.format(getString(R.string.doctor_zhiji), doctor.getDuty()));
+                        tvGoodAt.setText(String.format(getString(R.string.doctor_shanchang), doctor.getDepartment()));
+                        tvService.setText(String.format(getString(R.string.doctor_shoufei), doctor.getService_amount()));
+                    }
+                });
     }
 
     @OnClick(R.id.tv_cancel_contract)
@@ -94,16 +99,16 @@ public class CheckContractActivity extends BaseActivity {
     }
 
     private void onCancelContract() {
-        NetworkApi.cancelContract(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Object>() {
+        Box.getRetrofit(API.class)
+                .cancelSignDoctor(user.bid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<Object>() {
                     @Override
-                    public void onSuccess(Object response) {
+                    public void onNext(Object o) {
                         ToastUtils.showShort("取消成功");
                         finish();
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        ToastUtils.showShort(message);
                     }
                 });
     }

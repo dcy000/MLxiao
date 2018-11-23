@@ -30,6 +30,13 @@ public class MmkvSessionManager extends SessionManager {
         return getUser() != null;
     }
 
+    @Override
+    public void clear() {
+        super.clear();
+        mUserInfo = null; // 清除本地缓存字段
+        KVUtils.clear();
+    }
+
     @Nullable
     @Override
     public <T> T getUser() {

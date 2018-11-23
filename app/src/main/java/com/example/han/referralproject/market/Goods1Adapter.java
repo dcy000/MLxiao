@@ -3,11 +3,13 @@ package com.example.han.referralproject.market;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.shopping.Goods;
-import com.squareup.picasso.Picasso;
+import com.gzq.lib_core.base.Box;
 
 import java.util.List;
 
@@ -24,12 +26,12 @@ public class Goods1Adapter extends BaseQuickAdapter<Goods,BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Goods goods) {
         helper.setText(R.id.name,goods.goodsname);
         helper.setText(R.id.price,"￥ "+goods.goodsprice);
-        Picasso.with(mContext)
+
+        Glide.with(Box.getApp())
+                .applyDefaultRequestOptions(new RequestOptions()
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder))
                 .load(goods.goodsimage)
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.placeholder)
-                .tag(mContext)
-                .fit()
                 .into((ImageView) helper.getView(R.id.img));
     }
 }

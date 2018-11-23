@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="config_color_white">#ffffff</color>
+    <color name="config_color_base_9">#999999</color>
+    <color name="config_color_transparent">#00000000</color>
+    <color name="config_color_base_3">#333333</color>
+    <color name="config_color_alert_line">#c6c6c6</color>
+    <color name="config_color_alert_btn">#3f86fc</color>
+    <color name="config_color_75_black">#C0000000</color>
+</resources>

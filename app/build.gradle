@@ -138,21 +138,15 @@ dependencies {
     implementation('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
-    implementation 'com.android.support:multidex:1.0.1'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation 'com.google.code.gson:gson:2.8.2'
-    //    compile 'com.hyphenate:hyphenate-sdk:3.3.2'
     implementation 'com.jakewharton:butterknife:8.4.0'
     implementation 'org.litepal.android:core:1.6.0'
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
     implementation 'com.zhy:okhttputils:2.6.2'
-    //    compile 'com.github.bumptech.glide:glide:3.8.0'
     implementation 'jp.wasabeef:glide-transformations:3.1.1'
     implementation 'me.wcy:lrcview:1.4.2'
     implementation 'com.tencent.bugly:crashreport_upgrade:1.2.5'
     implementation 'com.netease.nimlib:basesdk:4.3.0'
     implementation 'com.netease.nimlib:avchat:4.3.0'
-    implementation 'com.qiniu:qiniu-android-sdk:7.3.+'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     implementation 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
     testImplementation 'junit:junit:4.12'
@@ -169,12 +163,17 @@ dependencies {
     implementation rootProject.ext.dependencies["recyclerview-v7"]
     implementation rootProject.ext.dependencies["design"]
     implementation rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["lifecycle-extensions"]
+
     implementation 'com.lzy.net:okgo:3.0.4'
+    //慧泉健康自查中有使用到这个库facebook.fresco
     implementation 'com.facebook.fresco:fresco:1.7.1'
     implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
     implementation 'com.nex3z:flow-layout:1.1.0'
     implementation 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
     implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
+
+
     implementation name: 'mlrobot-release', ext: 'aar'
     implementation name: 'FaceppIDCardUI', ext: 'aar'
     implementation name: 'lib-crash', ext: 'aar'
@@ -182,22 +181,18 @@ dependencies {
     implementation name: 'library', ext: 'aar'
     implementation name: 'vmtools', ext: 'aar'
     implementation name: 'voicelibrary', ext: 'aar'
-    //    compile name: 'wkvideoplayer', ext: 'aar'
     implementation project(':wkvideoplayer')
     implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
     implementation 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
     implementation project(':module-edu')
     implementation project(':lib-video-player')
-    implementation project(':lib-zxing')
-    //    compile name: 'sdk', ext: 'aar'
-    //    compile name: 'sdk', ext: 'aar'
     //极光推送
     implementation 'cn.jiguang.sdk:jpush:3.1.1'
     // 此处以JPush 3.1.1 版本为例。
     implementation 'cn.jiguang.sdk:jcore:1.1.9'
     // 此处以JCore 1.1.9 版本为例。
     implementation 'com.github.mmin18:realtimeblurview:1.1.0'
-    implementation project(':sdk')
+    implementation project(':lib-beecloud-pay')
     implementation 'com.umeng.analytics:analytics:6.1.2'
     implementation 'me.songning.CircleView:library:1.0.0'
     implementation project(':circleprogress')
@@ -207,4 +202,10 @@ dependencies {
     implementation project(':lib-voice')
     implementation project(':lib-ecg')
     implementation project(':lib-core')
+    implementation project(':module-health-record')
+    implementation project(':lib-auth-face')
+
+    //调试工具Pandora
+    debugImplementation rootProject.ext.dependencies["pandora-debug"]
+    releaseImplementation rootProject.ext.dependencies["pandora-release"]
 }

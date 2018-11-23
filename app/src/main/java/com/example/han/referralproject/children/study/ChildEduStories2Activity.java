@@ -140,8 +140,7 @@ public class ChildEduStories2Activity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(false);
-        setEnableListeningLoop(false);
+        setDisableWakeup(false);
         super.onResume();
     }
 

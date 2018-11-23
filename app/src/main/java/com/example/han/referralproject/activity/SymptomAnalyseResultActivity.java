@@ -49,6 +49,6 @@ public class SymptomAnalyseResultActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
     }
 }

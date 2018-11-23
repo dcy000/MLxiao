@@ -46,7 +46,7 @@ public class SignUp01NameActivity extends BaseActivity {
         setContentView(R.layout.activity_sign_up1_name);
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.GONE);
-        //mTvGoBack.setEnabled(false);
+
     }
 
     @Override
@@ -58,7 +58,8 @@ public class SignUp01NameActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
+        robotStartListening();
         MLVoiceSynthetize.startSynthesize(R.string.sign_up1_name_tip);
     }
 

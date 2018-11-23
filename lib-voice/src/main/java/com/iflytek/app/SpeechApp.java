@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.gzq.lib_core.base.App;
 import com.gzq.lib_core.base.delegate.AppLifecycle;
+import com.gzq.lib_core.base.ui.IEvents;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.wake.MLVoiceWake;
 
@@ -43,5 +44,10 @@ public class SpeechApp implements AppLifecycle {
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
 
+    }
+
+    @Override
+    public IEvents provideEvents() {
+        return null;
     }
 }

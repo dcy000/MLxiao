@@ -14,10 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.RobotAmount;
@@ -26,11 +27,11 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.register.ConfirmContractActivity;
-import com.squareup.picasso.Picasso;
 
 public class DoctorMesActivity extends BaseActivity implements View.OnClickListener {
 
@@ -180,14 +181,12 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
             }
 
-            Picasso.with(this)
+            Glide.with(Box.getApp())
+                    .applyDefaultRequestOptions(new RequestOptions()
+                            .placeholder(R.drawable.avatar_placeholder)
+                            .error(R.drawable.avatar_placeholder))
                     .load(doctor.getDocter_photo())
-                    .placeholder(R.drawable.avatar_placeholder)
-                    .error(R.drawable.avatar_placeholder)
-                    .tag(this)
-                    .fit()
                     .into(mImageView1);
-
 
             mTextView.setText(doctor.getDoctername());
             mTextView1.setText(doctor.getDuty());
@@ -266,8 +265,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        setEnableListeningLoop(false);
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
         if ("1".equals(sign)) {
             MLVoiceSynthetize.startSynthesize(R.string.online_info);
 
@@ -383,7 +381,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void OnlineTime() {
-        NetworkApi.onlinedoctor_zixun(doctor.getDocterid(), MyApplication.getInstance().userId, 0, new NetworkManager.SuccessCallback<OnlineTime>() {
+        NetworkApi.onlinedoctor_zixun(doctor.getDocterid(), Box.getUserId(), 0, new NetworkManager.SuccessCallback<OnlineTime>() {
             @Override
             public void onSuccess(OnlineTime response) {
 

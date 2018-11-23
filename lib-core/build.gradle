@@ -21,6 +21,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
@@ -70,4 +75,11 @@ dependencies {
     //rxpermission
     api rootProject.ext.dependencies["rxpermissions2"]
     api rootProject.ext.dependencies["rxerrorhandler2"]
+    //二维码核心库
+    implementation 'com.google.zxing:core:3.3.0'
+    //讯飞库
+    api files('libs/Msc.jar')
+    api 'com.qiniu:qiniu-android-sdk:7.3.+'
+    //图片加载库Glide
+    api rootProject.ext.dependencies["glide"]
 }

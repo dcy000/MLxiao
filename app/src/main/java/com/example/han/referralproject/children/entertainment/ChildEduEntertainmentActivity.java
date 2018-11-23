@@ -23,6 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 儿童娱乐
+ */
 public class ChildEduEntertainmentActivity extends BaseActivity {
 
     private RecyclerView rvItems;
@@ -190,8 +193,7 @@ public class ChildEduEntertainmentActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(false);
-        setEnableListeningLoop(false);
+        setDisableWakeup(false);
         super.onResume();
     }
 

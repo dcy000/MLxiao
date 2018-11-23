@@ -22,9 +22,9 @@ import android.widget.ImageView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
+import com.gzq.lib_core.utils.QRCodeUtils;
 import com.gzq.lib_core.utils.UiUtils;
 import com.medlink.danbogh.utils.Handlers;
-import com.ml.zxing.QrCodeUtils;
 
 public class MyDialogFragment extends DialogFragment {
 
@@ -124,7 +124,7 @@ public class MyDialogFragment extends DialogFragment {
 //                    if (text.startsWith("http")){
 //                        text = MyDialogFragment.this.text.replaceFirst("https://|http://", "");
 //                    }
-                final Bitmap bitmap = QrCodeUtils.encodeQrCode(text, dp(260), dp(260));
+                final Bitmap bitmap = QRCodeUtils.creatQRCode(text, dp(260), dp(260));
                 if (bitmap != null && ivQrcode != null) {
                     Handlers.ui().post(new Runnable() {
                         @Override

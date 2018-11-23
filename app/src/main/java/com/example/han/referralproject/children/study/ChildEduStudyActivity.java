@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 
+/**
+ * 儿童幼教
+ */
 public class ChildEduStudyActivity extends BaseActivity {
 
     private ImageView ivBrainTeaser;
@@ -86,8 +89,7 @@ public class ChildEduStudyActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setEnableListeningLoop(false);
-        setDisableGlobalListen(false);
+        setDisableWakeup(false);
         super.onResume();
     }
 }

@@ -266,7 +266,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopListening();
-        stopSpeaking();
+        robotStopListening();
+        MLVoiceSynthetize.stop();
     }
 }

@@ -162,7 +162,6 @@ public class RadioActivity extends BaseActivity implements
 
     @Override
     protected void onResume() {
-        setEnableListeningLoop(false);
         super.onResume();
     }
 

@@ -16,29 +16,46 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.facerecognition.AuthenticationActivity;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
+import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gcml.auth.face.FaceConstants;
+import com.gcml.auth.face.ui.FaceSignInActivity;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.model.HttpResult;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.ActivityUtils;
+import com.gzq.lib_core.utils.RxUtils;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
 
-import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
+import com.medlink.danbogh.signin.SignInActivity;
+import com.medlink.danbogh.utils.Handlers;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -48,9 +65,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     ImageView mImageView3;
     ImageView mImageView4;
     ImageView mImageView5;
-    private Handler mHandler = new Handler();
 
-    SharedPreferences sharedPreferences;
 
 
     private ImageView mImageView6;
@@ -64,9 +79,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
 
-     /*   mediaPlayer = MediaPlayer.create(this, R.raw.face_register);
-
-        mediaPlayer.start();//播放音乐*/
         mToolbar.setVisibility(View.GONE);
         mImageView1 = (ImageView) findViewById(R.id.robot_con);
 
@@ -87,31 +99,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageView6.setOnClickListener(this);
         mBatteryIv = (ImageView) findViewById(R.id.iv_battery);
 
-        sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-        findViewById(R.id.ll_anim).setOnClickListener(this);
-
-        float pivotX = .5f; // 取自身区域在X轴上的中心点
-        float pivotY = .5f; // 取自身区域在Y轴上的中心点
-        //    new RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); // 围绕自身的中心点进行旋转
-
-        RotateAnimation tranAnimation = new RotateAnimation(-30, 30, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        tranAnimation.setDuration(1000);
-        tranAnimation.setRepeatCount(Animation.INFINITE);
-        tranAnimation.setRepeatMode(Animation.REVERSE);
-
-        findViewById(R.id.iv_anim).setAnimation(tranAnimation);
-        tranAnimation.start();
-
-        mHandler.postDelayed(new Runnable() {
+        Handlers.ui().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //speak(getString(R.string.facc_register));
                 MLVoiceSynthetize.startSynthesize(R.string.tips_splash);
-                // speak(R.string.head_verify);
-
             }
         }, 1000);
-
         if (!isMyServiceRunning(AssistiveTouchService.class)) {
             startService(new Intent(this, AssistiveTouchService.class));
         }
@@ -131,18 +124,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     @Override
-    protected void onActivitySpeakFinish() {
-        super.onActivitySpeakFinish();
-        findViewById(R.id.ll_anim).setVisibility(View.GONE);
-    }
-
-    @Override
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.ll_anim:
-                v.setVisibility(View.GONE);
-                break;
             case R.id.robot_con:
                 intent.setClass(getApplicationContext(), SpeechSynthesisActivity.class);
                 startActivity(intent);
@@ -152,13 +136,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.health_test://健康监测
-
-                intent.setClass(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("orderid", "0");
-                intent.putExtra("from", "Test");
-                startActivity(intent);
-
-//                startActivity(new Intent(mContext, Test_mainActivity.class));
+                vertifyWithFace();
                 break;
             case R.id.doctor_ask://医生咨询
                 intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
@@ -170,39 +148,76 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.call_family://紧急呼叫家人
                 //呼叫
-                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
-//                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
-//                    @Override
-//                    public void onSuccess(UserInfo response) {
-//                        if (isFinishing() || isDestroyed()) {
-//                            return;
-//                        }
-//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                            @Override
-//                            public void onSuccess(Object response) {
-//
-//                            }
-//                        }, new NetworkManager.FailedCallback() {
-//                            @Override
-//                            public void onFailed(String message) {
-//
-//                            }
-//                        });
-//                    }
-//                }, new NetworkManager.FailedCallback() {
-//                    @Override
-//                    public void onFailed(String message) {
-//
-//                    }
-//                });
+                UserInfoBean user = Box.getSessionManager().getUser();
+                NimCallActivity.launchNoCheck(this, user.eqid);
                 break;
         }
     }
 
+    private void vertifyWithFace() {
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
+                if (mAccountIds == null) {
+                    emitter.onError(new Throwable("未检测到您的登录历史，请输入账号和密码登录"));
+                    return;
+                }
+                StringBuilder userIds = new StringBuilder();
+                for (String item : mAccountIds) {
+                    userIds.append(item.split(",")[0]).append(",");
+                }
+                String substring = userIds.substring(0, userIds.length() - 1);
+                emitter.onNext(substring);
+            }
+        }).flatMap(new Function<String, ObservableSource<HttpResult<ArrayList<UserInfoBean>>>>() {
+            @Override
+            public ObservableSource<HttpResult<ArrayList<UserInfoBean>>> apply(String s) throws Exception {
+                return Box.getRetrofit(API.class)
+                        .queryAllLocalUsers(s);
+            }
+        }).compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<ArrayList<UserInfoBean>>() {
+                    @Override
+                    public void onNext(ArrayList<UserInfoBean> users) {
+                        Intent intent = new Intent();
+                        intent.setClass(MainActivity.this, FaceSignInActivity.class);
+                        intent.putExtra("skip", true);
+                        intent.putExtra("currentUser", true);
+                        intent.putParcelableArrayListExtra("users", users);
+                        startActivityForResult(intent, 1001);
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        ToastUtils.showShort(ex.getMessage());
+                        ActivityUtils.skipActivity(SignInActivity.class);
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001 && data != null) {
+            int faceResult = data.getIntExtra(FaceConstants.KEY_AUTH_FACE_RESULT, 0);
+            switch (faceResult) {
+                case FaceConstants.AUTH_FACE_SUCCESS:
+                    ActivityUtils.skipActivity(Test_mainActivity.class);
+                    break;
+                case FaceConstants.AUTH_FACE_FAIL:
+
+                    break;
+                case FaceConstants.AUTH_FACE_SKIP:
+                    ActivityUtils.skipActivity(Test_mainActivity.class);
+                    break;
+            }
+        }
+    }
 
     @Override
     public void onBackPressed() {
-        //main activity no back
     }
 
     @Override
@@ -220,8 +235,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onResume() {
-        NimAccountHelper.getInstance().login("user_" + MyApplication.getInstance().userId, "123456", null);
-        setEnableListeningLoop(false);
         super.onResume();
         NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {
             @Override
@@ -303,14 +316,4 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }
     }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mHandler != null) {
-            mHandler.removeCallbacks(null);
-        }
-    }
-
 }

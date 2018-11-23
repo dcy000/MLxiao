@@ -136,29 +136,6 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
         dialog.show(getFragmentManager(), "voicedialog");
     }
 
-    private void showSetVoiceNameDialog() {
-        final String[] voicers = voicers();
-        int index = mIatPreferences.getInt("language_index", 0);
-        new AlertDialog.Builder(this)
-                .setTitle("设置发音人")
-                .setSingleChoiceItems(
-                        voicers,
-                        index,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mIatPreferences.edit()
-                                        .putString("iat_language_preference", voicers[which])
-                                        .putInt("language_index", which)
-                                        .commit();
-                                dialog.dismiss();
-                            }
-                        }
-                )
-                .create()
-                .show();
-    }
-
 
     private void checkAppInfo() {
         showLoadingDialog("检查更新中");

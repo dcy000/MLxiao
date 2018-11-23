@@ -13,6 +13,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.FastClickUtil;
@@ -32,7 +33,6 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_ask_guide);
 
-        setEnableListeningLoop(false);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("医 生 咨 询");
         MLVoiceSynthetize.startSynthesize("主人，请点击选择签约医生或在线医生");
@@ -47,7 +47,7 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.doctor_yuyue:
                 if (FastClickUtil.isFastClick()) {
-                    NetworkApi.PersonInfo(MyApplication.getInstance().userId,
+                    NetworkApi.PersonInfo(Box.getUserId(),
                             new NetworkManager.SuccessCallback<UserInfo>() {
                                 @Override
                                 public void onSuccess(UserInfo userInfo) {

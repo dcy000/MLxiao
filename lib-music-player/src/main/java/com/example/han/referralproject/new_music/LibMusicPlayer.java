@@ -15,8 +15,6 @@ import okhttp3.OkHttpClient;
 public class LibMusicPlayer {
 
     public static void init(Context context) {
-        Preferences.init(context);
-        ScreenUtils.init(context);
         initOkHttpUtils();
     }
 

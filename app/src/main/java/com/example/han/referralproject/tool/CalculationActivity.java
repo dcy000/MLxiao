@@ -250,7 +250,7 @@ public class CalculationActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopListening();
+        robotStopListening();
         MLVoiceSynthetize.stop();
         mainHandler.removeCallbacksAndMessages(null);
     }

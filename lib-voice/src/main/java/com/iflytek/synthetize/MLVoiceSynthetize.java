@@ -106,33 +106,35 @@ public final class MLVoiceSynthetize {
     public static void startSynthesize(String text) {
         startSynthesize(text, false);
     }
+
     public static void startSynthesize(@StringRes int id) {
         startSynthesize(Box.getString(id), false);
     }
+
     /**
      * 开始合成
      */
     public static void startSynthesize(String text, boolean whine) {
-        startSynthesize(text,whine,null);
+        startSynthesize(text, whine, null);
     }
 
     /**
      * 开始合成
      */
-    public static void startSynthesize(String text,boolean whine, SynthesizerListener synthesizerListener) {
-        startSynthesize(text,whine,null, synthesizerListener);
+    public static void startSynthesize(String text, boolean whine, SynthesizerListener synthesizerListener) {
+        startSynthesize(text, whine, null, synthesizerListener);
     }
 
 
     /**
      * 开始合成
      */
-    public static void startSynthesize( String text, boolean isDefaultParam,InitListener initListener, SynthesizerListener synthesizerListener) {
+    public static void startSynthesize(String text, boolean isDefaultParam, InitListener initListener, SynthesizerListener synthesizerListener) {
 
         if (TextUtils.isEmpty(text)) {
             return;
         }
-        MLVoiceRecognize.stopListening();
+        MLVoiceRecognize.stop();
         SpeechSynthesizer synthesizer = initSpeechSynthesizer(initListener, isDefaultParam);
 
         if (synthesizerListener == null) {

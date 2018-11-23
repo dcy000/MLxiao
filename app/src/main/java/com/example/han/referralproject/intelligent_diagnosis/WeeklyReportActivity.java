@@ -13,6 +13,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -82,7 +83,7 @@ public class WeeklyReportActivity extends BaseActivity {
     }
 
     private void getData() {
-        NetworkApi.getWeekReport(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<WeekReportModel>() {
+        NetworkApi.getWeekReport(Box.getUserId(), new NetworkManager.SuccessCallback<WeekReportModel>() {
             @Override
             public void onSuccess(WeekReportModel response) {
                 if (response != null) {

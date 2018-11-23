@@ -44,7 +44,6 @@ import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.DetectionData;
 import com.example.han.referralproject.bean.DetectionResult;
 import com.example.han.referralproject.bean.NDialog;
-import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bluetooth.BluetoothLeService;
 import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
@@ -53,13 +52,14 @@ import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragm
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.XueyaUtils;
+import com.gcml.module_health_record.HealthRecordActivity;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -1127,50 +1127,54 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mButton2 = (Button) findViewById(R.id.history2);//血糖
         mButton3 = (Button) findViewById(R.id.history3);//血氧
         container = findViewById(R.id.container);
-        setEnableListeningLoop(false);
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
-                intent.putExtra("position", 0);
-                startActivity(intent);
+//                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+//                intent.putExtra("position", 0);
+//                startActivity(intent);
+                HealthRecordActivity.startActivity(DetectActivity.this,0);
             }
         });
 
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
-                intent.putExtra("position", 1);
-                startActivity(intent);
+//                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+//                intent.putExtra("position", 1);
+//                startActivity(intent);
+                HealthRecordActivity.startActivity(DetectActivity.this,1);
             }
         });
 
         mButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
-                intent.putExtra("position", 2);
-                startActivity(intent);
+//                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+//                intent.putExtra("position", 2);
+//                startActivity(intent);
+                HealthRecordActivity.startActivity(DetectActivity.this,2);
             }
         });
 
         mButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
-                intent.putExtra("position", 3);
-                startActivity(intent);
+//                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+//                intent.putExtra("position", 3);
+//                startActivity(intent);
+                HealthRecordActivity.startActivity(DetectActivity.this,3);
             }
         });
 
         findViewById(R.id.history4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
-                intent.putExtra("position", 7);
-                startActivity(intent);
+//                Intent intent = new Intent(DetectActivity.this, HealthRecordActivity.class);
+//                intent.putExtra("position", 7);
+//                startActivity(intent);
+                HealthRecordActivity.startActivity(DetectActivity.this,7);
             }
         });
         findViewById(R.id.history5).setOnClickListener(new View.OnClickListener() {
@@ -1195,8 +1199,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.history6).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(DetectActivity.this, HealthRecordActivity.class).putExtra("position", 8));
+                HealthRecordActivity.startActivity(DetectActivity.this,8);
             }
         });
         ivBack = (ImageView) findViewById(R.id.iv_back);

@@ -2,18 +2,14 @@ package com.example.han.referralproject.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.LocalShared;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
@@ -57,7 +53,7 @@ public class AlertHeightActivity extends BaseActivity {
         mTitleText.setText("修改身高");
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
-        data = (UserInfoBean) getIntent().getSerializableExtra("data");
+        data = (UserInfoBean) getIntent().getParcelableExtra("data");
         if (data != null) {
             initView();
         }

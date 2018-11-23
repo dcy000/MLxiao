@@ -1,17 +1,11 @@
 package com.example.han.referralproject;
 
-import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,8 +14,6 @@ import android.widget.Chronometer;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -31,6 +23,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 
@@ -75,7 +68,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void checkVersion() {
-        final String userId = MyApplication.getInstance().userId;
+        final String userId = Box.getUserId();
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override
             public void onSuccess(VersionInfoBean response) {
@@ -269,8 +262,7 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(true);
-        setEnableListeningLoop(false);
+        setDisableWakeup(true);
         super.onResume();
     }
 }

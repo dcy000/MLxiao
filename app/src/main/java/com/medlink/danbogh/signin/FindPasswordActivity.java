@@ -93,7 +93,7 @@ public class FindPasswordActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
         MLVoiceSynthetize.startSynthesize("主人，请输入您的手机号码");
     }
 

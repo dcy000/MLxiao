@@ -3,8 +3,6 @@ package com.example.han.referralproject.video;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -108,8 +106,7 @@ public class VideoListActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(true);
-        setEnableListeningLoop(false);
+        setDisableWakeup(true);
         super.onResume();
         MLVoiceSynthetize.startSynthesize("主人，欢迎观看健康课堂");
     }

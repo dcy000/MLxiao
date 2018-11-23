@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -22,8 +24,8 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gzq.lib_core.base.Box;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.squareup.picasso.Picasso;
 
 public class AppraiseActivity extends BaseActivity implements View.OnClickListener {
 
@@ -118,12 +120,12 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
         mTextView3.setText("擅长：" + sharedPreferences1.getString("feature", ""));
 
         if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
-            Picasso.with(this)
+
+            Glide.with(Box.getApp())
+                    .applyDefaultRequestOptions(new RequestOptions()
+                            .placeholder(R.drawable.avatar_placeholder)
+                            .error(R.drawable.avatar_placeholder))
                     .load(sharedPreferences1.getString("docter_photo", ""))
-                    .placeholder(R.drawable.avatar_placeholder)
-                    .error(R.drawable.avatar_placeholder)
-                    .tag(this)
-                    .fit()
                     .into(mCircleImageView);
         }
 
@@ -347,7 +349,7 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
 
                         }
 
-                        NetworkApi.appraise(sharedPreferences1.getString("doctor_id", ""), MyApplication.getInstance().userId, str.toString(), i, System.currentTimeMillis() + "", doid, new NetworkManager.SuccessCallback<String>() {
+                        NetworkApi.appraise(sharedPreferences1.getString("doctor_id", ""), Box.getUserId(), str.toString(), i, System.currentTimeMillis() + "", doid, new NetworkManager.SuccessCallback<String>() {
 
                             @Override
                             public void onSuccess(String response) {

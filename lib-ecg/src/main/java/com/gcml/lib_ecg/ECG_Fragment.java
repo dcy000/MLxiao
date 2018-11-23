@@ -10,7 +10,7 @@ import com.gcml.lib_ecg.base.BluetoothBaseFragment;
 import com.gcml.lib_ecg.base.ECGSingleGuideView;
 import com.gcml.lib_ecg.base.IPresenter;
 import com.gcml.lib_ecg.base.IView;
-import com.gcml.lib_ecg.base.UserInfoBean;
+import com.gcml.lib_ecg.base.BoShengUserInfoBean;
 import com.gcml.lib_ecg.ecg.Bluetooth_Constants;
 import com.gzq.lib_core.utils.ByteUtils;
 import com.gzq.lib_core.utils.DataUtils;
@@ -27,7 +27,7 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView, View.O
     protected TextView mBtnHealthHistory;
     protected TextView mBtnVideoDemo;
     protected TextView mTvNext;
-    protected UserInfoBean user;
+    protected BoShengUserInfoBean user;
     @Override
     protected int initLayout() {
         return R.layout.bluetooth_fragment_ecg;

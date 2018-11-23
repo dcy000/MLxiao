@@ -8,15 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.UserInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.util.LocalShared;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.utils.JpushAliasUtils;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -40,21 +42,21 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
     public void onBindViewHolder(ChangeAccountAdapter.MyHolder holder, final int position) {
         final UserInfoBean itemBean = mUserData.get(position);
         holder.mNameView.setText(itemBean.bname);
-        Picasso.with(mContext)
+
+        Glide.with(Box.getApp())
+                .applyDefaultRequestOptions(new RequestOptions()
+                        .placeholder(R.drawable.avatar_placeholder)
+                        .error(R.drawable.avatar_placeholder))
                 .load(itemBean.userPhoto)
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .tag(this)
-                .fit()
                 .into(holder.mHeaderIv);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new JpushAliasUtils(mContext).setAlias("user_"+itemBean.bid);
                 NimAccountHelper.getInstance().logout();
-                MyApplication.getInstance().userId = itemBean.bid;
-                MyApplication.getInstance().xfid=itemBean.xfid;
-                MyApplication.getInstance().eqid=itemBean.eqid;
+                //更新Session
+                Box.getSessionManager().setUser(itemBean);
+
                 LocalShared.getInstance(mContext).setUserInfo(itemBean);
                 LocalShared.getInstance(mContext).setSex(itemBean.sex);
                 LocalShared.getInstance(mContext).setUserPhoto(itemBean.userPhoto);

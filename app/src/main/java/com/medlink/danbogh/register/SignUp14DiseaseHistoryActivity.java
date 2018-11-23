@@ -11,9 +11,15 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.facerecognition.RegisterVideoActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recyclerview.RecoDocActivity;
+import com.example.han.referralproject.service.API;
+import com.gcml.auth.face.FaceConstants;
+import com.gcml.auth.face.ui.FaceSignUpActivity;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.ActivityUtils;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -24,6 +30,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class SignUp14DiseaseHistoryActivity extends BaseActivity {
 
@@ -91,7 +99,8 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
+        robotStartListening();
         MLVoiceSynthetize.startSynthesize(R.string.sign_up_disease_history_tip);
     }
 
@@ -105,28 +114,49 @@ public class SignUp14DiseaseHistoryActivity extends BaseActivity {
         String mh = getMh();
         if (TextUtils.isEmpty(mh)) {
             mh = "11";
-//            navToNext();
-//            return;
         }
 
         showLoadingDialog(getString(R.string.do_uploading));
-        NetworkApi.setUserMh(mh, new NetworkManager.SuccessCallback<String>() {
-            @Override
-            public void onSuccess(String response) {
-                hideLoadingDialog();
-                navToNext();
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                hideLoadingDialog();
-            }
-        });
+        Box.getRetrofit(API.class)
+                .setDisableHistory(Box.getUserId(), mh)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        hideLoadingDialog();
+                        navToNext();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        super.onError(ex);
+                        hideLoadingDialog();
+                    }
+                });
+
     }
 
     private void navToNext() {
-        Intent intent = new Intent(mContext, RegisterVideoActivity.class);
-        startActivity(intent);
+        ActivityUtils.skipActivityForResult(FaceSignUpActivity.class, 1001);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001) {
+            if (data != null) {
+                int extra = data.getIntExtra(FaceConstants.KEY_AUTH_FACE_RESULT, 0);
+                switch (extra) {
+                    case FaceConstants.AUTH_FACE_SUCCESS:
+                        ActivityUtils.skipActivity(RecoDocActivity.class);
+                        break;
+                    case FaceConstants.AUTH_FACE_FAIL:
+                        break;
+                }
+            }
+        }
     }
 
     private String getMh() {

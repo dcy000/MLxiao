@@ -1,16 +1,20 @@
 package com.gzq.lib_core.base.delegate;
 
 import android.app.Application;
+import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.gzq.lib_core.base.App;
+import com.gzq.lib_core.base.ui.IEvents;
 import com.gzq.lib_core.utils.ManifestParser;
 import com.gzq.lib_core.utils.ProcessUtils;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 对实现了AppLifecycle的接口进行生命周期分发
@@ -20,6 +24,7 @@ public class AppDelegate implements AppLifecycle {
     private Application mApplication;
     private List<AppLifecycle> appLifecycles;
     private ActivityLifecycleCallbacks activityDelegate;
+
 
     public AppDelegate(@NonNull Context context) {
         if (activityDelegate == null) {
@@ -76,15 +81,11 @@ public class AppDelegate implements AppLifecycle {
         }
     }
 
-    private static final String TAG = "AppDelegate";
-
-    private boolean checkMainProcess(Context context) {
-        String curProcessName = ProcessUtils.getCurProcessName(context);
-        Log.e(TAG, "checkMainProcess: " + curProcessName);
-        if (curProcessName.equals("com.example.han.referralproject")) {
-            return true;
-        }
-        return false;
+    @Override
+    public IEvents provideEvents() {
+        return null;
     }
-
+    public List<AppLifecycle> getAppLifecycles(){
+        return appLifecycles;
+    }
 }

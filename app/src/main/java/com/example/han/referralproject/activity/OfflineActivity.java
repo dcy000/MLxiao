@@ -36,7 +36,7 @@ public class OfflineActivity extends BaseActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
         MLVoiceSynthetize.startSynthesize(getString(R.string.user_help));
     }
 

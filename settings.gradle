@@ -1,18 +1,19 @@
 
 include ':app',
-        ':sdk',
+        ':lib-beecloud-pay',
         ':module-edu',
         ':lib-music-player',
         ':circleprogress',
         ':wkvideoplayer',
         ':lib-rulerview',
         ':lib-video-player',
-        ':lib-zxing',
         ':lib-voice',
 //        ':lib-common',
         ':lib-ecg',
         ':expand-textview-library',
         ':circleindicator',
-        'lib-core'
+        'lib-core',
+        'module-health-record',
+        'lib-auth-face'
 
 

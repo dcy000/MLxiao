@@ -32,28 +32,26 @@ import com.example.han.referralproject.activity.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.SessionBean;
-import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.facerecognition.AuthenticationActivity;
-import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
-import com.example.han.referralproject.facerecognition.ICreateGroupListener;
-import com.example.han.referralproject.facerecognition.IJoinGroupListener;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gcml.auth.face.FaceConstants;
+import com.gcml.auth.face.model.FaceRepository;
+import com.gcml.auth.face.ui.FaceSignInActivity;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.model.HttpResult;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
-import com.iflytek.cloud.IdentityResult;
-import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.Utils;
+import com.ml.edu.common.base.DefaultObserver;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,10 +60,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 public class SignInActivity extends BaseActivity {
 
@@ -208,16 +209,7 @@ public class SignInActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_in_sign_in)
     public void onTvSignInClicked() {
-
-        if ("123456".equals(etPhone.getText().toString()) && "654321".equals(etPassword.getText().toString())) {
-            Intent mIntent = new Intent(mContext, AuthenticationActivity.class);
-            mIntent.putExtra("isTest", true);
-            startActivity(mIntent);
-            finish();
-            return;
-        }
         showLoadingDialog(getString(R.string.do_login));
-
         Box.getRetrofit(API.class)
                 .login(etPhone.getText().toString(), etPassword.getText().toString())
                 .compose(RxUtils.httpResponseTransformer(false))
@@ -249,6 +241,23 @@ public class SignInActivity extends BaseActivity {
                 });
     }
 
+    private void checkGroup(String xfid) {
+        FaceRepository faceRepository = new FaceRepository();
+        faceRepository.tryJoinGroup(xfid)
+                .subscribeOn(Schedulers.io())
+                .subscribe(new DefaultObserver<String>() {
+                    @Override
+                    public void onNext(String groupId) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        ToastUtils.showShort(throwable.getMessage());
+                    }
+                });
+    }
+
     private ObservableTransformer<SessionBean, UserInfoBean> userTokenTransformer() {
         return new ObservableTransformer<SessionBean, UserInfoBean>() {
             @Override
@@ -272,81 +281,70 @@ public class SignInActivity extends BaseActivity {
         };
     }
 
-    private void checkGroup(final String xfid) {
-        //在登录的时候判断该台机器有没有创建人脸识别组，如果没有则创建
-        String groupId = LocalShared.getInstance(mContext).getGroupId();
-        String firstXfid = LocalShared.getInstance(mContext).getGroupFirstXfid();
-        if (!TextUtils.isEmpty(groupId) && !TextUtils.isEmpty(firstXfid)) {
-            Log.e("组信息", "checkGroup: 该机器组已近存在");
-            joinGroup(groupId, xfid);
-        } else {
-            createGroup(xfid);
-        }
-    }
-
-    private void joinGroup(String groupid, final String xfid) {
-        FaceAuthenticationUtils.getInstance(this).joinGroup(groupid, xfid);
-        FaceAuthenticationUtils.getInstance(SignInActivity.this).setOnJoinGroupListener(new IJoinGroupListener() {
-            @Override
-            public void onResult(IdentityResult result, boolean islast) {
-            }
-
-            @Override
-            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-
-            }
-
-            @Override
-            public void onError(SpeechError error) {
-                if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {//该组不存在;无效的参数
-                    createGroup(xfid);
-                }
-
-            }
-        });
-    }
-
-    private void createGroup(final String xfid) {
-        FaceAuthenticationUtils.getInstance(this).createGroup(xfid);
-        FaceAuthenticationUtils.getInstance(this).setOnCreateGroupListener(new ICreateGroupListener() {
-            @Override
-            public void onResult(IdentityResult result, boolean islast) {
-                try {
-                    JSONObject resObj = new JSONObject(result.getResultString());
-                    String groupId = resObj.getString("group_id");
-                    LocalShared.getInstance(SignInActivity.this).setGroupId(groupId);
-                    LocalShared.getInstance(SignInActivity.this).setGroupFirstXfid(xfid);
-                    //组创建好以后把自己加入到组中去
-                    joinGroup(groupId, xfid);
-                    FaceAuthenticationUtils.getInstance(SignInActivity.this).updateGroupInformation(groupId, xfid);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-
-            }
-
-            @Override
-            public void onError(SpeechError error) {
-//                ToastUtils.showShort("出现技术故障，请致电客服咨询" + error.getErrorCode());
-            }
-        });
-    }
 
     @OnClick(R.id.tv_sign_in_sign_up)
     public void onTvSignUpClicked() {
-        //获取所有账号
-        String[] accounts = LocalShared.getInstance(this).getAccounts();
-        if (accounts == null) {
-            ToastUtils.showLong("未检测到您的登录历史，请输入账号和密码登录");
-        } else {
-            startActivity(new Intent(SignInActivity.this, AuthenticationActivity.class).putExtra("from", "Welcome"));
+        signInWithFace();
+    }
+
+    private void signInWithFace() {
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
+
+                if (mAccountIds == null) {
+                    emitter.onError(new Throwable("未检测到您的登录历史，请输入账号和密码登录"));
+                    return;
+                }
+                StringBuilder userIds = new StringBuilder();
+                for (String item : mAccountIds) {
+                    userIds.append(item.split(",")[0]).append(",");
+                }
+                String substring = userIds.substring(0, userIds.length() - 1);
+                emitter.onNext(substring);
+            }
+        }).flatMap(new Function<String, ObservableSource<HttpResult<ArrayList<UserInfoBean>>>>() {
+            @Override
+            public ObservableSource<HttpResult<ArrayList<UserInfoBean>>> apply(String s) throws Exception {
+                return Box.getRetrofit(API.class)
+                        .queryAllLocalUsers(s);
+            }
+        }).compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<ArrayList<UserInfoBean>>() {
+                    @Override
+                    public void onNext(ArrayList<UserInfoBean> users) {
+                        Intent intent = new Intent();
+                        intent.setClass(SignInActivity.this, FaceSignInActivity.class);
+                        intent.putExtra("skip", false);
+                        intent.putExtra("currentUser", false);
+                        intent.putParcelableArrayListExtra("users", users);
+                        startActivityForResult(intent, 1001);
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        ToastUtils.showLong(ex.getMessage());
+                        startActivity(new Intent(SignInActivity.this, SignInActivity.class));
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001 && data != null) {
+            int faceResult = data.getIntExtra(FaceConstants.KEY_AUTH_FACE_RESULT, 0);
+            switch (faceResult) {
+                case FaceConstants.AUTH_FACE_SUCCESS:
+                    ActivityUtils.skipActivity(MainActivity.class);
+                    break;
+                case FaceConstants.AUTH_FACE_FAIL:
+
+                    break;
+            }
         }
-//        startActivity(new Intent(SignInActivity.this, SignUp1NameActivity.class));
     }
 
     @OnClick(R.id.tv_sign_in_forget_password)
@@ -362,7 +360,7 @@ public class SignInActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
         super.onResume();
         MLVoiceSynthetize.startSynthesize(R.string.tips_login);
     }
@@ -373,7 +371,6 @@ public class SignInActivity extends BaseActivity {
             mUnbinder.unbind();
         }
         unregisterReceiver(wifiChangedReceiver);
-        FaceAuthenticationUtils.getInstance(this).cancelIdentityVerifier();
         super.onDestroy();
     }
 

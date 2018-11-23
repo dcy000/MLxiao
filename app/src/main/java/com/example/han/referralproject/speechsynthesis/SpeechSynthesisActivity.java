@@ -23,19 +23,19 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.facerecognition.AuthenticationActivity;
+import com.example.han.referralproject.ecg.ECGCompatActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.HttpCallback;
@@ -51,6 +51,7 @@ import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
 import com.example.han.referralproject.shopping.OrderListActivity;
@@ -62,8 +63,19 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.gcml.auth.face.FaceConstants;
+import com.gcml.auth.face.ui.FaceSignInActivity;
+import com.gcml.lib_ecg.base.IPresenter;
+import com.gcml.module_health_record.HealthRecordActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.model.HttpResult;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.ActivityUtils;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -79,7 +91,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.music.TheOldMusicActivity;
@@ -102,6 +114,12 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
+
 public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener {
 
     private static String TAG = SpeechSynthesisActivity.class.getSimpleName();
@@ -120,6 +138,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private StringBuffer resultBuffer;
     private RelativeLayout mRelativeLayout;
     //    private AnimationDrawable faceAnim;
+    private int measureType;
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -333,10 +352,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
+        robotStartListening();
         super.onResume();
         MLVoiceSynthetize.startSynthesize("主人,来和我聊天吧", isDefaultParam);
-        setEnableListeningLoop(false);
         mLottieView.resumeAnimation();
     }
 
@@ -462,12 +481,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 setParam();
                 boolean isShowDialog = false;
                 if (isShowDialog) {
-                    stopSpeaking();
+                    MLVoiceSynthetize.stop();
                     mHandler.sendEmptyMessageDelayed(2, 500);
 
                 } else {
                     // 不显示听写对话框
-                    stopSpeaking();
+                    MLVoiceSynthetize.stop();
                     ret = mIat.startListening(mRecognizerListener);
                     if (ret != ErrorCode.SUCCESS) {
                         showTip("听写失败,错误码：" + ret);
@@ -518,9 +537,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             mAudioPath = null;
             return;
         }
-//        if (faceAnim != null && faceAnim.isRunning()) {
-//            faceAnim.stop();
-//        }
         if (yuyinFlag) {
             findViewById(R.id.iat_recognizes).performClick();
         }
@@ -680,31 +696,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
 
             if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
-                NimCallActivity.launchNoCheck(this, MyApplication.getInstance().eqid);
-//                NetworkApi.PersonInfo(MyApplication.getInstance().eqid, new NetworkManager.SuccessCallback<UserInfo>() {
-//                    @Override
-//                    public void onSuccess(UserInfo response) {
-//                        if (isFinishing() || isDestroyed()) {
-//                            return;
-//                        }
-//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                            @Override
-//                            public void onSuccess(Object response) {
-//
-//                            }
-//                        }, new NetworkManager.FailedCallback() {
-//                            @Override
-//                            public void onFailed(String message) {
-//
-//                            }
-//                        });
-//                    }
-//                }, new NetworkManager.FailedCallback() {
-//                    @Override
-//                    public void onFailed(String message) {
-//
-//                    }
-//                });
+                UserInfoBean user = Box.getSessionManager().getUser();
+                NimCallActivity.launchNoCheck(this, user.eqid);
                 return;
             }
 
@@ -718,13 +711,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-//            if (inSpell.matches(".*jian(ce|che|ca|cha).*")
-//                    ||inSpell.matches(".*(ce|che)(shi|si).*")) {
-//                Intent intent = new Intent(SpeechSynthesisActivity.this, AuthenticationActivity.class);
-//                intent.putExtra("from", "Test");
-//                startActivity(intent);
-//                return;
-//            }
 
             if (inSpell.matches(".*xiaoxi.*")) {
                 Intent intent = new Intent(SpeechSynthesisActivity.this, MessageActivity.class);
@@ -876,71 +862,39 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (dealKeyWord) {
                 return;
             }
-//            KeyWordBean keyword = (KeyWordBean) SharedPreferencesUtils.getParam(this, "keyword", new KeyWordBean());
-//            if (keyword.yueya.equals(resultBuffer.toString())) {
-//                mIatDialog.dismiss();
-//                Intent intent = new Intent(getApplicationContext(), DetectActivity.class);
-//                intent.putExtra("type", "xueya");
-//                startActivity(intent);
-//                return;
-//            }
             if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xueya");
-                startActivity(intent);
-
+                measureType= IPresenter.MEASURE_BLOOD_PRESSURE;
             } else if (inSpell.matches(".*ce.*xueyang.*")
                     || inSpell.matches(".*liang.*xueyang.*")
                     || inSpell.matches(".*ce.*baohedu.*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xueyang");
-                startActivity(intent);
-
+                measureType= IPresenter.MEASURE_BLOOD_OXYGEN;
 
             } else if (result.matches(".*测.*血糖.*")
                     || inSpell.matches(".*liang.*xuetang.*")
                     || inSpell.matches(".*xuetangyi.*")
                     ) {
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xuetang");
-                startActivity(intent);
+                measureType= IPresenter.MEASURE_BLOOD_SUGAR;
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "wendu");
-                startActivity(intent);
-
+                measureType= IPresenter.MEASURE_TEMPERATURE;
 
             } else if (inSpell.matches(".*ce.*xindian.*")
                     || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xindian");
-                startActivity(intent);
+                measureType= IPresenter.MEASURE_ECG;
 
 
             } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "sanheyi");
-                startActivity(intent);
+                measureType= IPresenter.MEASURE_OTHERS;
 
 
             } else if (inSpell.matches(".*ce.*tizhong.*")) {
 
                 mIatDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "tizhong");
-                startActivity(intent);
+                measureType= IPresenter.MEASURE_WEIGHT;
 
 
             } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
@@ -1039,7 +993,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     private void gotoQianyueYiSheng() {
-        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+        NetworkApi.PersonInfo(Box.getUserId(), new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
                 if ("1".equals(response.getState())) {
@@ -1103,17 +1057,53 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }
     }
 
+    private void vertifyWithFace() {
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
+                if (mAccountIds == null) {
+                    emitter.onError(new Throwable("未检测到您的登录历史，请输入账号和密码登录"));
+                    return;
+                }
+                StringBuilder userIds = new StringBuilder();
+                for (String item : mAccountIds) {
+                    userIds.append(item.split(",")[0]).append(",");
+                }
+                String substring = userIds.substring(0, userIds.length() - 1);
+                emitter.onNext(substring);
+            }
+        }).flatMap(new Function<String, ObservableSource<HttpResult<ArrayList<UserInfoBean>>>>() {
+            @Override
+            public ObservableSource<HttpResult<ArrayList<UserInfoBean>>> apply(String s) throws Exception {
+                return Box.getRetrofit(API.class)
+                        .queryAllLocalUsers(s);
+            }
+        }).compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<ArrayList<UserInfoBean>>() {
+                    @Override
+                    public void onNext(ArrayList<UserInfoBean> users) {
+                        Intent intent = new Intent();
+                        intent.setClass(SpeechSynthesisActivity.this, FaceSignInActivity.class);
+                        intent.putExtra("skip", true);
+                        intent.putExtra("currentUser", true);
+                        intent.putParcelableArrayListExtra("users", users);
+                        startActivityForResult(intent, 1001);
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        ToastUtils.showShort(ex.getMessage());
+                        ActivityUtils.skipActivity(SignInActivity.class);
+                    }
+                });
+    }
+
     private boolean keyWordDeal(String yuyin) {
         if (TextUtils.isEmpty(yuyin)) {
             return false;
         }
-        //血压
-//        jiance.addAll(getDefineData("xueyang"));
-//        jiance.addAll(getDefineData("tiwen"));
-//        jiance.addAll(getDefineData("xuetang"));
-//        jiance.addAll(getDefineData("xindian"));
-//        jiance.addAll(getDefineData("tizhong"));
-//        jiance.addAll(getDefineData("sanheyi"));
         List<KeyWordDefinevBean> jiance = getDefineData("xueya");
         String pinyin;
         for (int i = 0; i < jiance.size(); i++) {
@@ -1122,10 +1112,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xueya");
-                startActivity(intent);
+                measureType= IPresenter.MEASURE_BLOOD_PRESSURE;
                 return true;
             }
         }
@@ -1138,10 +1125,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xueyang");
-                startActivity(intent);
+                measureType= IPresenter.MEASURE_BLOOD_OXYGEN;
                 return true;
             }
         }
@@ -1154,10 +1138,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "wendu");
-                startActivity(intent);
+                measureType= IPresenter.MEASURE_TEMPERATURE;
                 return true;
             }
         }
@@ -1171,10 +1152,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xuetang");
-                startActivity(intent);
+                measureType= IPresenter.MEASURE_BLOOD_SUGAR;
                 return true;
             }
         }
@@ -1187,10 +1165,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "xindian");
-                startActivity(intent);
+                measureType= IPresenter.MEASURE_ECG;
                 return true;
             }
         }
@@ -1203,10 +1178,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "tizhong");
-                startActivity(intent);
+                measureType= IPresenter.MEASURE_WEIGHT;
                 return true;
             }
         }
@@ -1220,10 +1192,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                intent.putExtra("from", "Test");
-                intent.putExtra("fromType", "sanheyi");
-                startActivity(intent);
+                measureType= IPresenter.MEASURE_OTHERS;
                 return true;
             }
         }
@@ -1953,6 +1922,35 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 break;
             case TO_PING_SHU:
                 MLVoiceSynthetize.startSynthesize("主人，想听更多评书，请告诉我！", isDefaultParam);
+                break;
+            case 1001:
+                if (data != null) {
+                    int faceResult = data.getIntExtra(FaceConstants.KEY_AUTH_FACE_RESULT, 0);
+                    switch (faceResult) {
+                        case FaceConstants.AUTH_FACE_SUCCESS:
+                            switch (measureType){
+                                case IPresenter.MEASURE_ECG:
+                                    ActivityUtils.skipActivity(ECGCompatActivity.class);
+                                    break;
+                                    default:
+                                        ActivityUtils.skipActivity(Test_mainActivity.class);
+                                        break;
+                            }
+                            break;
+                        case FaceConstants.AUTH_FACE_FAIL:
+                            break;
+                        case FaceConstants.AUTH_FACE_SKIP:
+                            switch (measureType){
+                                case IPresenter.MEASURE_ECG:
+                                    ActivityUtils.skipActivity(ECGCompatActivity.class);
+                                    break;
+                                default:
+                                    ActivityUtils.skipActivity(Test_mainActivity.class);
+                                    break;
+                            }
+                            break;
+                    }
+                }
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);

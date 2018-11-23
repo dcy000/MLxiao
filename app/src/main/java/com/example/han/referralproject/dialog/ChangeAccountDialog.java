@@ -4,28 +4,27 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.adapter.ChangeAccountAdapter;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.NDialog;
-import com.example.han.referralproject.bean.NDialog1;
-import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.facerecognition.DeleteGroupListener;
-import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.LocalShared;
-import com.iflytek.cloud.IdentityResult;
-import com.iflytek.cloud.SpeechError;
+import com.gcml.auth.face.ui.FaceSignInActivity;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.model.HttpResult;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.ActivityUtils;
+import com.gzq.lib_core.utils.RxUtils;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.signin.SignInActivity;
 import com.umeng.analytics.MobclickAgent;
@@ -33,7 +32,11 @@ import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import java.util.ArrayList;
 
-import cn.jpush.android.api.JPushInterface;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
 
 
 public class ChangeAccountDialog extends Dialog implements View.OnClickListener {
@@ -57,76 +60,61 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
         mRecyclerView.setAdapter(mChangeAccountAdapter);
         findViewById(R.id.view_login).setOnClickListener(this);
         findViewById(R.id.btn_logout).setOnClickListener(this);
-        String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
-
-        if (mAccountIds == null) {
-            return;
-        }
-        StringBuilder userIds = new StringBuilder();
-        for (String item : mAccountIds) {
-            userIds.append(item.split(",")[0]).append(",");
-        }
-        NetworkApi.getAllUsers(userIds.substring(0, userIds.length() - 1), mListener);
-
+        getUsers();
     }
 
-    private NetworkManager.SuccessCallback<ArrayList<UserInfoBean>> mListener = new NetworkManager.SuccessCallback<ArrayList<UserInfoBean>>() {
-        @Override
-        public void onSuccess(ArrayList<UserInfoBean> response) {
-            if (response == null) {
-                return;
-            }
-            mDataList.addAll(response);
-            mChangeAccountAdapter.notifyDataSetChanged();
-        }
-    };
+    private void getUsers() {
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
 
+                if (mAccountIds == null) {
+                    emitter.onError(new Throwable("未检测到您的登录历史，请输入账号和密码登录"));
+                    return;
+                }
+                StringBuilder userIds = new StringBuilder();
+                for (String item : mAccountIds) {
+                    userIds.append(item.split(",")[0]).append(",");
+                }
+                String substring = userIds.substring(0, userIds.length() - 1);
+                emitter.onNext(substring);
+            }
+        }).flatMap(new Function<String, ObservableSource<HttpResult<ArrayList<UserInfoBean>>>>() {
+            @Override
+            public ObservableSource<HttpResult<ArrayList<UserInfoBean>>> apply(String s) throws Exception {
+                return Box.getRetrofit(API.class)
+                        .queryAllLocalUsers(s);
+            }
+        }).compose(RxUtils.httpResponseTransformer())
+                .subscribe(new CommonObserver<ArrayList<UserInfoBean>>() {
+                    @Override
+                    public void onNext(ArrayList<UserInfoBean> users) {
+                        if (users != null) {
+                            mDataList.addAll(users);
+                            mChangeAccountAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        super.onError(ex);
+                    }
+                });
+    }
     @Override
     public void onClick(View v) {
         new JpushAliasUtils(mContext).deleteAlias();
-        //删除在MainActivity中的组
-//        FaceAuthenticationUtils.getInstance(mContext).
-//                deleteGroup(LocalShared.getInstance(mContext).getGroupId(), LocalShared.getInstance(mContext).getGroupFirstXfid());
-//        FaceAuthenticationUtils.getInstance(mContext).setOnDeleteGroupListener(deleteGroupListener);
         switch (v.getId()) {
-
             case R.id.view_login://添加账号
-//                //为了解决人脸识别加组缓慢的解决方式，这样做是不规范的
-//                if (LocalShared.getInstance(mContext).isAccountOverflow()) {
-//                    NDialog1 dialog = new NDialog1(mContext);
-//                    dialog.setMessageCenter(true)
-//                            .setMessage("本机登录账号数量达到上限，是否快速清理？")
-//                            .setMessageSize(35)
-//                            .setCancleable(false)
-//                            .setButtonCenter(true)
-//                            .setPositiveTextColor(mContext.getResources().getColor(R.color.toolbar_bg))
-//                            .setNegativeTextColor(Color.parseColor("#999999"))
-//                            .setButtonSize(40)
-//                            .setOnConfirmListener(new NDialog1.OnConfirmListener() {
-//                                @Override
-//                                public void onClick(int which) {
-//                                    if (which == 1) {
-//                                        LocalShared.getInstance(mContext).deleteAllAccount();
-//                                        mContext.startActivity(new Intent(mContext, SignInActivity.class));
-//                                        ((Activity) mContext).finish();
-//                                    }
-//                                }
-//                            }).create(NDialog.CONFIRM).show();
-//                }else{
-//                    mContext.startActivity(new Intent(mContext, SignInActivity.class));
-//                    ((Activity) mContext).finish();
-//                }
                 mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();
                 break;
             case R.id.btn_logout:
+                //清除Session
+                Box.getSessionManager().clear();
                 MobclickAgent.onProfileSignOff();
                 NimAccountHelper.getInstance().logout();//退出网易IM
-                //LocalShared.getInstance(mContext).deleteAccount(MyApplication.getInstance().userId,MyApplication.getInstance().xfid);//删除当前这个人的账号
-//                //为了解决人脸识别加组缓慢的解决方式，这样做是不规范的
-//                if (LocalShared.getInstance(mContext).isAccountOverflow()) {
-//                    LocalShared.getInstance(mContext).deleteAllAccount();
-//                }
                 LocalShared.getInstance(mContext).loginOut();
                 mContext.startActivity(new Intent(mContext, ChooseLoginTypeActivity.class));
                 ((Activity) mContext).finish();

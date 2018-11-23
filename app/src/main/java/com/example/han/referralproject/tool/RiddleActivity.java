@@ -182,7 +182,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
 
     private void startListener() {
 //        SpeechRecognizer speechRecognizer = SpeechRecognizerHelper.initSpeechRecognizer(this);
-//        speechRecognizer.startListening(new RecognizerListener() {
+//        speechRecognizer.robotStartListening(new RecognizerListener() {
 //            @Override
 //            public void onVolumeChanged(int i, byte[] bytes) {
 //                vlWave.waveH = i / 6 + 2;
@@ -322,7 +322,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     }
 
     private void endOfSpeech() {
-        stopListening();
+        robotStopListening();
         vlWave.setVisibility(View.GONE);
 
         vlWave.stopRecord();
@@ -446,7 +446,7 @@ public class RiddleActivity extends BaseActivity implements RiddleDialog.ShowNex
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopListening();
+        robotStopListening();
         MLVoiceSynthetize.stop();
         mainHandler.removeCallbacksAndMessages(null);
     }

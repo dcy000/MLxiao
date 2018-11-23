@@ -195,7 +195,7 @@ public class BaiKeActivtiy extends ToolBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopListening();
+        robotStopListening();
         MLVoiceSynthetize.stop();
         mainHandler.removeCallbacksAndMessages(null);
     }

@@ -190,7 +190,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
     }
 
     private void endOfSpeech() {
-        stopListening();
+        robotStopListening();
         vlvWave.setVisibility(View.GONE);
         vlvWave.stopRecord();
         tvVoice.setVisibility(View.VISIBLE);
@@ -272,8 +272,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
 
     @Override
     protected void onResume() {
-        setDisableGlobalListen(false);
-        setEnableListeningLoop(false);
+        setDisableWakeup(false);
         super.onResume();
     }
 

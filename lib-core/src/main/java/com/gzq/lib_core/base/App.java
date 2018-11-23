@@ -11,10 +11,13 @@ import com.gzq.lib_core.base.delegate.AppDelegate;
 import com.gzq.lib_core.base.delegate.AppLifecycle;
 import com.gzq.lib_core.base.delegate.GlobalModule;
 import com.gzq.lib_core.base.delegate.MetaValue;
+import com.gzq.lib_core.base.ui.IEvents;
 import com.gzq.lib_core.log.CrashReportingTree;
 import com.gzq.lib_core.utils.ManifestParser;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import timber.log.Timber;
 
@@ -24,6 +27,7 @@ public class App extends Application {
     private static Application instance;
     private static GlobalConfig globalConfig;
     private static GlobalConfig.Builder globalBuilder;
+    private static Set<IEvents> events = new HashSet<>();
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -52,7 +56,22 @@ public class App extends Application {
 
         appLifecycle.onCreate(instance);
         Timber.tag(TAG).i("onCreate");
+        delegateEvents();
 
+    }
+
+    private void delegateEvents() {
+        if (appLifecycle != null) {
+            List<AppLifecycle> appLifecycles = ((AppDelegate) appLifecycle).getAppLifecycles();
+            if (appLifecycles != null && appLifecycles.size() > 0) {
+                for (AppLifecycle appLifecycle : appLifecycles) {
+                    IEvents iEvents = appLifecycle.provideEvents();
+                    if (iEvents != null) {
+                        events.add(iEvents);
+                    }
+                }
+            }
+        }
     }
 
     private void initGlobalConfig() {
@@ -101,5 +120,9 @@ public class App extends Application {
             globalConfig = globalBuilder.build();
         }
         return globalConfig;
+    }
+
+    public static Set<IEvents> getEvents() {
+        return events;
     }
 }

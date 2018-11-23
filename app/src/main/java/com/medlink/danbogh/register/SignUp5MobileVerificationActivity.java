@@ -12,14 +12,19 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.PhoneCode;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.Utils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +32,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lenovo on 2017/10/12.
@@ -82,7 +92,8 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDisableGlobalListen(true);
+        setDisableWakeup(true);
+        robotStartListening();
         MLVoiceSynthetize.startSynthesize(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
         EditText editText = inPhone ? etPhone : etCode;
         editText.requestFocus();
@@ -115,38 +126,56 @@ public class SignUp5MobileVerificationActivity extends BaseActivity {
             return;
         }
         tvFetchCode.setEnabled(false);
-        NetworkApi.canRegister(phone, "3", new NetworkManager.SuccessCallback<Object>() {
-            @Override
-            public void onSuccess(Object response) {
-                etCode.requestFocus();
-                NetworkApi.getCode(phone, new NetworkManager.SuccessCallback<String>() {
+
+        Box.getRetrofit(API.class)
+                .isPhoneRegister(phone, "3")
+                .onErrorReturn(new Function<Throwable, Object>() {
                     @Override
-                    public void onSuccess(String code) {
-                        mCode = code;
+                    public Object apply(Throwable throwable) throws Exception {
+                        Handlers.ui().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                ToastUtils.showShort("主人，手机号码已注册");
+                                MLVoiceSynthetize.startSynthesize("主人，手机号码已注册");
+                                inPhone = true;
+                                etPhone.setText("");
+                                etPhone.requestFocus();
+                                tvFetchCode.setEnabled(true);
+                            }
+                        });
+                        return null;
+                    }
+                })
+                .doOnNext(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        i = 60;
+                        Handlers.ui().postDelayed(countDown, 1000);
+                    }
+                })
+                .flatMap(new Function<Object, ObservableSource<PhoneCode>>() {
+                    @Override
+                    public ObservableSource<PhoneCode> apply(Object o) throws Exception {
+                        return Box.getRetrofit(API.class)
+                                .getPhoneCode(phone)
+                                .compose(RxUtils.httpResponseTransformer());
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CommonObserver<PhoneCode>() {
+                    @Override
+                    public void onNext(PhoneCode o) {
+                        mCode = o.getCode();
                         ToastUtils.showShort("获取验证码成功");
                         MLVoiceSynthetize.startSynthesize("获取验证码成功");
                     }
-                }, new NetworkManager.FailedCallback() {
+
                     @Override
-                    public void onFailed(String message) {
+                    protected void onError(ApiException ex) {
                         ToastUtils.showShort("获取验证码失败");
-                        MLVoiceSynthetize.startSynthesize("获取验证码失败");
                     }
                 });
-
-                i = 60;
-                Handlers.ui().postDelayed(countDown, 1000);
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                MLVoiceSynthetize.startSynthesize("主人，手机号码已注册");
-                inPhone = true;
-                etPhone.setText("");
-                etPhone.requestFocus();
-                tvFetchCode.setEnabled(true);
-            }
-        });
     }
 
     private int i;

@@ -2,11 +2,11 @@ package com.example.han.referralproject.service;
 
 import com.example.han.referralproject.bean.DetectionData;
 import com.example.han.referralproject.bean.DetectionResult;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.SessionBean;
-import com.example.han.referralproject.bean.UserInfoBean;
-import com.example.han.referralproject.shopping.Order;
+import com.gzq.lib_core.bean.PhoneCode;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.model.HttpResult;
-import com.ml.edu.data.ApiResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,45 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface API {
+    /**
+     * 注册账号
+     *
+     * @param age
+     * @param bname
+     * @param sex
+     * @param eqid
+     * @param tel
+     * @param pwd
+     * @param dz
+     * @param sfz
+     * @param height
+     * @param weight
+     * @param bloodType
+     * @param eatingHabits
+     * @param smoke
+     * @param drink
+     * @param exerciseHabits
+     * @return
+     */
+    @POST("ZZB/br/appadd")
+    Observable<HttpResult<UserInfoBean>> registerAccount(
+            @Query("age") String age,
+            @Query("bname") String bname,
+            @Query("sex") String sex,
+            @Query("eqid") String eqid,
+            @Query("tel") String tel,
+            @Query("pwd") String pwd,
+            @Query("dz") String dz,
+            @Query("sfz") String sfz,
+            @Query("height") String height,
+            @Query("weight") String weight,
+            @Query("bloodType") String bloodType,
+            @Query("eatingHabits") String eatingHabits,
+            @Query("smoke") String smoke,
+            @Query("drink") String drink,
+            @Query("exerciseHabits") String exerciseHabits
+    );
+
     /**
      * 检查是否是正常血压数据
      *
@@ -117,4 +156,59 @@ public interface API {
             @Query("mh") String mh,
             @Query("dz") String dz
     );
+
+    /**
+     * 查询医生的详细资料
+     *
+     * @param doctorId
+     * @return
+     */
+    @GET("ZZB/docter/sel_one_doctor_con")
+    Observable<HttpResult<Doctor>> queryDoctorInfo(@Query("docterid") String doctorId);
+
+    /**
+     * 取消签约医生
+     *
+     * @param userId
+     * @return
+     */
+    @POST("ZZB/br/updateUserState")
+    Observable<Object> cancelSignDoctor(@Query("bid") String userId);
+
+    /**
+     * 根据useId查询所有用户信息
+     *
+     * @param userIds
+     * @return
+     */
+    @GET("ZZB/api/user/info/users/")
+    Observable<HttpResult<ArrayList<UserInfoBean>>> queryAllLocalUsers(@Query("users") String userIds);
+
+    /**
+     * 上传疾病历史
+     *
+     * @param userId
+     * @param mh
+     * @return
+     */
+    @POST("ZZB/br/mhrecord")
+    Observable<Object> setDisableHistory(@Query("bid") String userId, @Query("mh") String mh);
+
+    /**
+     * 判断手机号码是否已经注册
+     *
+     * @param tel
+     * @param state
+     * @return
+     */
+    @GET("ZZB/login/tel_isClod")
+    Observable<Object> isPhoneRegister(@Query("tel") String tel, @Query("state") String state);
+
+    /**
+     * 获取验证码
+     * @param phone
+     * @return
+     */
+    @GET("ZZB/br/GainCode")
+    Observable<HttpResult<PhoneCode>> getPhoneCode(@Query("mobile")String phone);
 }

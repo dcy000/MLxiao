@@ -25,6 +25,8 @@ import com.gcml.lib_ecg.ECG_Fragment;
 import com.gcml.lib_ecg.ECG_PDF_Fragment;
 import com.gcml.lib_ecg.SelfECGDetectionFragment;
 import com.gcml.lib_ecg.base.BluetoothBaseFragment;
+import com.gcml.module_health_record.HealthRecordActivity;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.DataUtils;
@@ -36,7 +38,6 @@ import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.SPUtil;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,7 +157,7 @@ public class ECGCompatActivity extends ToolbarBaseActivity implements FragmentCh
                     ecgData.setHeartRate(boShengResultBean.getAvgbeats().get(0).getHR());
                     ecgData.setResultUrl(filePDF);
                     datas.add(ecgData);
-                    String userId = ((com.example.han.referralproject.bean.UserInfoBean) Box.getSessionManager().getUser()).bid;
+                    String userId = ((UserInfoBean) Box.getSessionManager().getUser()).bid;
                     Box.getRetrofit(API.class)
                             .postMeasureData(userId, datas)
                             .compose(RxUtils.httpResponseTransformer())

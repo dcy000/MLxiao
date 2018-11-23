@@ -22,6 +22,7 @@ import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.Utils;
+import com.gzq.lib_core.base.Box;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Date;
@@ -93,7 +94,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                 case 2:
                     Double numbers = Double.parseDouble(number) / 100;
 
-                    NetworkApi.PayInfo(Utils.getDeviceId(), numbers + "", date.getTime() + "", MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<String>() {
+                    NetworkApi.PayInfo(Utils.getDeviceId(), numbers + "", date.getTime() + "", Box.getUserId(), new NetworkManager.SuccessCallback<String>() {
                         @Override
                         public void onSuccess(String response) {
                             Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
@@ -113,7 +114,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                 case 0:
                     Double number1 = Double.parseDouble(number) / 100;
 
-                    NetworkApi.PayInfo(Utils.getDeviceId(), number1 + "", date.getTime() + "", MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<String>() {
+                    NetworkApi.PayInfo(Utils.getDeviceId(), number1 + "", date.getTime() + "", Box.getUserId(), new NetworkManager.SuccessCallback<String>() {
                         @Override
                         public void onSuccess(String response) {
                             Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();

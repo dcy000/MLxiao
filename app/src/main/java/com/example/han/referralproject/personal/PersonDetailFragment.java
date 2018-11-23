@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MessageActivity;
@@ -42,12 +44,12 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.gcml.module_health_record.HealthRecordActivity;
 import com.google.gson.Gson;
+import com.gzq.lib_core.base.Box;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.ml.edu.OldRouter;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by lenovo on 2018/3/12.
@@ -105,12 +107,11 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.activity_person, container, false);
         MLVoiceSynthetize.startSynthesize(R.string.person_info);
 
-        userId = MyApplication.getInstance().userId;
+        userId = Box.getUserId();
         headImg = (ImageView) view.findViewById(R.id.per_image);
         recreation = (ImageView) view.findViewById(R.id.iv_laoren_yule);
         recreation.setOnClickListener(this);
         tvBalance = (TextView) view.findViewById(R.id.tv_balance);
-        ((BaseActivity) getActivity()).setEnableListeningLoop(false);
         view.findViewById(R.id.main_iv_health_class).setOnClickListener(this);
         isSignDoctor = (TextView) view.findViewById(R.id.doctor_status);
         isSignDoctor.setOnClickListener(this);
@@ -166,7 +167,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
 
     private void getData() {
-        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+        NetworkApi.PersonInfo(Box.getUserId(), new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
 
@@ -179,15 +180,13 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 SharedPreferences.Editor editor = sharedPreferences1.edit();
                 editor.putString("userName", response.getBname());
                 editor.commit();
-                MyApplication.getInstance().userName = response.getBname();
                 tvUserName.setText(response.getBname());
-                //    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount())+"元");
-                Picasso.with(getActivity())
+
+                Glide.with(Box.getApp())
+                        .applyDefaultRequestOptions(new RequestOptions()
+                                .placeholder(R.drawable.avatar_placeholder)
+                                .error(R.drawable.avatar_placeholder))
                         .load(response.getuser_photo())
-                        .placeholder(R.drawable.avatar_placeholder)
-                        .error(R.drawable.avatar_placeholder)
-                        .tag(this)
-                        .fit()
                         .into(headImg);
 
 
@@ -235,7 +234,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
             }
         });
 
-        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
+        NetworkApi.DoctorInfo(Box.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
             @Override
             public void onSuccess(Doctor response) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();

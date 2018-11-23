@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
-import com.squareup.picasso.Picasso;
+import com.gzq.lib_core.base.Box;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -55,14 +55,13 @@ public class DoctorAdapter extends RecyclerView.Adapter<PatientVH> {
         });
         holder.mContext = context;
         holder.mPosition = position;
-        Picasso.with(context)
+
+        Glide.with(Box.getApp())
+                .applyDefaultRequestOptions(new RequestOptions()
+                        .placeholder(R.drawable.avatar_placeholder)
+                        .error(R.drawable.avatar_placeholder))
                 .load(mListPat.get(position).getDocter_photo())
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
-                .tag(context)
-                .fit()
                 .into(holder.mImagine);
-        //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
         holder.mNameview.setText(mListPat.get(position).getDoctername());
         holder.mRoomId.setText(mListPat.get(position).getDepartment());
 
