@@ -3,7 +3,6 @@ package com.example.han.referralproject.questionair.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,7 +31,7 @@ public class MonitorResultActivity extends BaseActivity {
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("中医体质检测报告");
+        mTitleText.setText("中医体质自查报告");
     }
 
     private void initData() {

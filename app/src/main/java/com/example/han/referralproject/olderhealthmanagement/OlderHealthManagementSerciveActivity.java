@@ -128,7 +128,7 @@ public class OlderHealthManagementSerciveActivity extends BaseActivity {
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("中医体质检测");
+        mTitleText.setText("中医体质自查");
     }
 
     @OnClick({R.id.tv_previous_item, R.id.tv_next_item})

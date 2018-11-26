@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -55,7 +54,7 @@ public class ChineseMedicineMonitorActivity extends BaseActivity implements View
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("中医体质检测");
+        mTitleText.setText("中医体质自查");
     }
 
     private void initData() {
