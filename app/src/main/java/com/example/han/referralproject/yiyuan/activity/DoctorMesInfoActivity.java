@@ -336,8 +336,7 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
                                         if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
 //                                            ConfirmContractActivity.start(DoctorMesInfoActivity.this, doctor.getDocterid());
                                             bindDoctor();
-                                            setResult(RESULT_OK);
-                                            finish();
+//                                            setResult(RESULT_OK);
                                         } else {
                                             onLackOfAmount();
                                         }
@@ -430,10 +429,17 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
                 }
             }
         });*/
-        startActivity(new Intent(this, SignatureActivity.class)
-                .putExtras(getIntent())
+        startActivityForResult(new Intent(this, SignatureActivity.class)
                 .putExtra("docId", docId)
-                .putExtra("fromBuildFile", "is"));
+                .putExtra("fromBuildFile", "is"), 199);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == -1) {
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
 }
