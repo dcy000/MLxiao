@@ -139,38 +139,11 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
     public void onSendCode(final String phone) {
         isSendedCode = true;
         this.phone = phone;
-        showLoadingDialog("正在获取验证码...");
+        getCode(phone);
+       /* showLoadingDialog("正在获取验证码...");
         NetworkApi.canRegister(phone, "3", new NetworkManager.SuccessCallback<Object>() {
             @Override
             public void onSuccess(Object response) {
-                hideLoadingDialog();
-                NetworkApi.getCode(phone, new NetworkManager.SuccessCallback<String>() {
-
-                    @Override
-                    public void onSuccess(String codeJson) {
-                        try {
-                            JSONObject codeObj = new JSONObject(codeJson);
-                            String code = codeObj.getString("code");
-                            if (code != null) {
-                                PhoneAndCodeActivity.this.code = code;
-                                T.show("获取验证码成功");
-//                                mlSpeak("获取验证码成功");
-                                phoneView.countDown();
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            T.show("获取验证码失败");
-//                            mlSpeak("获取验证码失败");
-                        }
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        T.show("获取验证码失败");
-//                        mlSpeak("获取验证码失败");
-                    }
-                });
 
             }
         }, new NetworkManager.FailedCallback() {
@@ -179,8 +152,41 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
                 hideLoadingDialog();
                 T.show("该手机号码已使用,请确认后重新使用");
             }
-        });
+        });*/
 
+    }
+
+    private void getCode(String phone) {
+        showLoadingDialog("...");
+        NetworkApi.getCode(phone, new NetworkManager.SuccessCallback<String>() {
+
+            @Override
+            public void onSuccess(String codeJson) {
+                hideLoadingDialog();
+                try {
+                    JSONObject codeObj = new JSONObject(codeJson);
+                    String code = codeObj.getString("code");
+                    if (code != null) {
+                        PhoneAndCodeActivity.this.code = code;
+                        T.show("获取验证码成功");
+//                                mlSpeak("获取验证码成功");
+                        phoneView.countDown();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    T.show("获取验证码失败");
+//                            mlSpeak("获取验证码失败");
+                }
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show("获取验证码失败");
+                hideLoadingDialog();
+//                        mlSpeak("获取验证码失败");
+            }
+        });
     }
 
 

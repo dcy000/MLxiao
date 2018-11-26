@@ -636,10 +636,14 @@ public class BaseActivity extends AppCompatActivity {
 
 
     public void hideLoadingDialog() {
-        if (mDialog == null) {
-            return;
+        try {
+            if (mDialog == null) {
+                return;
+            }
+            mDialog.dismiss();
+        } catch (Exception e) {
+
         }
-        mDialog.dismiss();
     }
 
 }
