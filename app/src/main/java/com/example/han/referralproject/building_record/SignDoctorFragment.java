@@ -20,8 +20,6 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.Docter;
 import com.example.han.referralproject.recyclerview.DoctorAdapter;
-import com.example.han.referralproject.recyclerview.DoctorMesActivity;
-import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
 import com.example.han.referralproject.yiyuan.activity.DoctorMesInfoActivity;
@@ -34,7 +32,6 @@ import com.lzy.okgo.model.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,8 +166,10 @@ public class SignDoctorFragment extends Fragment implements View.OnClickListener
         ivTopRight.setOnClickListener(this);
         signDoctors = (RecyclerView) view.findViewById(R.id.sign_doctors);
         tvSignUpGoBack = (TextView) view.findViewById(R.id.tv_sign_up_go_back);
+        tvSignUpGoBack.setVisibility(View.GONE);
         tvSignUpGoBack.setOnClickListener(this);
         tvSignUpGoForward = (TextView) view.findViewById(R.id.tv_sign_up_go_forward);
+        tvSignUpGoForward.setVisibility(View.GONE);
         tvSignUpGoForward.setOnClickListener(this);
     }
 
