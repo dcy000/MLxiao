@@ -27,8 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.example.han.referralproject.network.NetworkApi.PASSWORD;
-
 public class CodeActivity extends BaseActivity {
 
 
@@ -43,6 +41,7 @@ public class CodeActivity extends BaseActivity {
     private String phoneNumber;
     private String code = "";
     public static String DEFAULT_CODE = "8888";
+    private String idCardNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +56,7 @@ public class CodeActivity extends BaseActivity {
 
     private void initView() {
         phoneNumber = getIntent().getStringExtra("phone");
+        idCardNumber = getIntent().getStringExtra("idCardNumber");
         String phoneStar = phoneNumber.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
         textView17.setText("请输入手机" + phoneStar + "收到的验证码");
         tvSendCode.setSelected(true);
@@ -114,27 +114,53 @@ public class CodeActivity extends BaseActivity {
     }
 
     private void login() {
-        NetworkApi.login(phoneNumber, PASSWORD, new NetworkManager.SuccessCallback<UserInfoBean>() {
+// 手机号 登录
+// NetworkApi.login(phoneNumber, PASSWORD, new NetworkManager.SuccessCallback<UserInfoBean>() {
+//            @Override
+//            public void onSuccess(UserInfoBean response) {
+//                new JpushAliasUtils(CodeActivity.this).setAlias("user_" + response.bid);
+//                LocalShared.getInstance(mContext).setUserInfo(response);
+//                LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
+//                LocalShared.getInstance(mContext).setSex(response.sex);
+//                LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
+//                LocalShared.getInstance(mContext).setUserAge(response.age);
+//                LocalShared.getInstance(mContext).setUserHeight(response.height);
+//                hideLoadingDialog();
+//                startActivity(new Intent(CodeActivity.this, InquiryAndFileActivity.class));
+//                finish();
+//            }
+//        }, new NetworkManager.FailedCallback() {
+//            @Override
+//            public void onFailed(String message) {
+//                hideLoadingDialog();
+//                T.show("手机号或密码错误");
+//            }
+//        });
+
+
+       showLoadingDialog("");
+        NetworkApi.isRegisteredByIdCard(idCardNumber, new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
-                new JpushAliasUtils(CodeActivity.this).setAlias("user_" + response.bid);
+                hideLoadingDialog();
                 LocalShared.getInstance(mContext).setUserInfo(response);
-                LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
                 LocalShared.getInstance(mContext).setSex(response.sex);
                 LocalShared.getInstance(mContext).setUserPhoto(response.user_photo);
                 LocalShared.getInstance(mContext).setUserAge(response.age);
                 LocalShared.getInstance(mContext).setUserHeight(response.height);
-                hideLoadingDialog();
+                new JpushAliasUtils(CodeActivity.this).setAlias("user_" + response.bid);
                 startActivity(new Intent(CodeActivity.this, InquiryAndFileActivity.class));
-                finish();
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
                 hideLoadingDialog();
-                T.show("手机号或密码错误");
+//                hideLoadingDialog();
+                T.show("身份证错误");
             }
         });
+
+
     }
 
     private void sendCode() {

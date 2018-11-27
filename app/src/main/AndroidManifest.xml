@@ -795,6 +795,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".require2.login.ChoiceLoginTypeActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->

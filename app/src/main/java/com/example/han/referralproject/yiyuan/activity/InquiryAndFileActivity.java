@@ -230,7 +230,7 @@ public class InquiryAndFileActivity extends BaseActivity {
             tvRegisterDone.setVisibility(View.INVISIBLE);
         }
 
-        showLoadingDialog("...");
+        showLoadingDialog("");
         NetworkApi.getFiledIsOrNot(this
                 , NetworkApi.FILE_URL
                 , LocalShared.getInstance(this).getUserId()
@@ -354,7 +354,7 @@ public class InquiryAndFileActivity extends BaseActivity {
     }
 
     private void HasInquiryOrNot() {
-        showLoadingDialog("...");
+        showLoadingDialog("");
         NetworkApi.getHasInquiryOrNot(MyApplication.getInstance().userId, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {

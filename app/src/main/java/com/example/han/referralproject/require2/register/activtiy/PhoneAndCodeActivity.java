@@ -157,7 +157,7 @@ public class PhoneAndCodeActivity extends BaseActivity implements PhoneVerificat
     }
 
     private void getCode(String phone) {
-        showLoadingDialog("...");
+        showLoadingDialog("");
         NetworkApi.getCode(phone, new NetworkManager.SuccessCallback<String>() {
 
             @Override
