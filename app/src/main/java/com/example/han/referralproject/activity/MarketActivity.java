@@ -69,7 +69,7 @@ public class MarketActivity extends BaseActivity implements RadioGroup.OnChecked
                 return fragments.get(i);
             }
         });
-        rgHealthGoods.check(R.id.rb_shanshi);
+        rgHealthGoods.check(R.id.rb_yiliaoshebei);
 
     }
 
