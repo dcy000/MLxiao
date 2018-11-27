@@ -105,9 +105,11 @@ public class SignatureActivity extends BaseActivity implements AffirmSignatureDi
         if (faceData == null) {
             return;
         }
+        showLoadingDialog("");
         NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
             @Override
             public void onSuccess(String response) {
+                hideLoadingDialog();
                 Date date = new Date();
                 SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
                 StringBuilder str = new StringBuilder();//定义变长字符串
@@ -117,10 +119,11 @@ public class SignatureActivity extends BaseActivity implements AffirmSignatureDi
                 }
                 //将字符串转换为数字并输出
                 String key = simple.format(date) + str + ".jpg";
-
+                showLoadingDialog("");
                 uploadManager.put(faceData, key, response, new UpCompletionHandler() {
                     @Override
                     public void complete(String key, ResponseInfo info, JSONObject res) {
+                        hideLoadingDialog();
                         if (info.isOK()) {
                             String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
                             qianyue(imageUrl);
@@ -132,7 +135,7 @@ public class SignatureActivity extends BaseActivity implements AffirmSignatureDi
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-
+                hideLoadingDialog();
 
             }
         });

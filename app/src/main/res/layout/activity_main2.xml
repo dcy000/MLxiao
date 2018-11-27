@@ -20,6 +20,7 @@
         android:paddingRight="20pt" />
 
     <me.relex.circleindicator.CircleIndicator
+        android:visibility="gone"
         android:layout_marginBottom="12pt"
         android:layout_gravity="bottom|center_horizontal"
         android:id="@+id/circleIndicator"

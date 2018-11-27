@@ -21,7 +21,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * 收费项目的dialog
+ * 单项检测的dialog
  * Created by lenovo on 2018/7/16.
  */
 

@@ -84,7 +84,7 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setVisibility(View.VISIBLE);
-        mTitleText.setText("收费项目");
+        mTitleText.setText("单项检测");
 
         isTest = getIntent().getBooleanExtra("isTest", false);
 
