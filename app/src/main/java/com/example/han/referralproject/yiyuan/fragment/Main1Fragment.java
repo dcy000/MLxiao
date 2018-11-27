@@ -32,6 +32,7 @@ import com.example.han.referralproject.require2.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.require2.register.activtiy.InputFaceActivity;
+import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.example.han.referralproject.yiyuan.bean.HealthDetectQualificationBean;
@@ -137,6 +138,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 gotoQianyueYiSheng();
                 break;
             case R.id.iv_qianyue:
+                startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
             case R.id.celianglishi:
 //                showDialog(data = getZiChaData());
