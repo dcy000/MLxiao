@@ -150,7 +150,7 @@ public class SignatureActivity extends BaseActivity implements AffirmSignatureDi
                 if (TextUtils.equals(intent.getStringExtra("fromBuildFile"), "is")) {
                     setResult(RESULT_OK);
                     finish();
-                    ActivityHelper.finishAll();
+//                    ActivityHelper.finishAll();
                 } else {
                     startActivity(new Intent(SignatureActivity.this, CheckContractActivity.class));
                     ActivityHelper.finishAll();
