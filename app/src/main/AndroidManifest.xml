@@ -100,7 +100,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_base_30_hos" />
+            android:value="gcml_version_normal_testing" />
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
@@ -234,8 +234,7 @@
         <activity android:name=".xindian.XindianActivity" />
         <activity
             android:name=".facerecognition.RegisterVideoActivity"
-            android:screenOrientation="landscape"
-            android:taskAffinity="com.medlink.fastsignup" />
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".recyclerview.DoctorMesActivity"
             android:screenOrientation="landscape" />
@@ -280,8 +279,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".facerecognition.HeadiconActivity"
-            android:screenOrientation="landscape"
-            android:taskAffinity="com.medlink.fastsignup" />
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".recyclerview.DoctorappoActivity"
             android:screenOrientation="landscape" />
@@ -313,8 +311,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp7HeightActivity"
-            android:screenOrientation="landscape"
-            android:taskAffinity="com.ml.wenzhen" />
+            android:screenOrientation="landscape"/>
         <activity
             android:name="com.medlink.danbogh.register.SignUp8WeightActivity"
             android:screenOrientation="landscape" />
@@ -596,14 +593,11 @@
         <activity android:name=".children.study.ChildEduStories2Activity" />
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp01NameActivity"
-            android:taskAffinity="com.medlink.fastsignup"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
-            android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity"
-            android:taskAffinity="com.medlink.fastsignup" />
+            android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity"/>
         <activity
-            android:name="com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity"
-            android:taskAffinity="com.medlink.fastsignup" />
+            android:name="com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity"/>
         <activity
             android:name=".tool.DateInquireActivity"
             android:screenOrientation="landscape" />
