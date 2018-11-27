@@ -67,11 +67,13 @@ public class InquiryAndFileEndActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.tv_to_home_page:
                 startActivity(new Intent(this, MainActivity.class));
-                if ("建档".equals(title)) {
-                    finish();
-                } else {
-                    finishAffinity();
-                }
+//                if ("建档".equals(title)) {
+//                    finish();
+//                } else {
+//                    finishAffinity()
+//                }
+
+                finish();
                 break;
             case R.id.tv_exit:
                 tuichu();
@@ -84,11 +86,13 @@ public class InquiryAndFileEndActivity extends BaseActivity {
         NimAccountHelper.getInstance().logout();
         LocalShared.getInstance(this).loginOut();
         startActivity(new Intent(this, ChoiceLoginTypeActivity.class));
-        finishAffinity();
+//        finishAffinity();
+        finish();
     }
 
     @Override
     protected void backLastActivity() {
-        finishAffinity();
+//        finishAffinity();
+        finish();
     }
 }
