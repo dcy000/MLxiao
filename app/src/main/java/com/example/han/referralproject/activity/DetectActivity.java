@@ -48,7 +48,6 @@ import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.example.han.referralproject.health.DetectHealthSymptomsActivity;
 import com.example.han.referralproject.health.DetectResultActivity;
-import com.example.han.referralproject.health.model.DetectResult;
 import com.example.han.referralproject.measure.fragment.MeasureXuetangFragment;
 import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragment;
 import com.example.han.referralproject.network.NetworkApi;
@@ -2172,7 +2171,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
 
     private void postWenZhenData(final boolean testXueYa) {
-        WenZhenBean bean = new WenZhenBean();
+        final WenZhenBean bean = new WenZhenBean();
         bean.address = LocalShared.getInstance(this).getSignUpAddress();
         bean.allergicHistory = LocalShared.getInstance(this).getGuoMin();
         bean.diseasesHistory = LocalShared.getInstance(this).getJiBingShi();
@@ -2213,6 +2212,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             WenZhenReultBean reultBean = gson.fromJson(result, WenZhenReultBean.class);
                             if (reultBean.tag) {
                                 T.show("提交成功");
+                                LocalShared.getInstance(mContext).setUserHeight(bean.height);
                             } else {
                                 T.show("提交失败");
                             }
