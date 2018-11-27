@@ -6,6 +6,7 @@ import android.view.View;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
 
@@ -22,6 +23,7 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
         tvTitle.setText("您的体重");
         tvUnit.setText("kg");
         initTitle();
+        ActivityHelper.addActivity(this);
     }
 
     private void initTitle() {

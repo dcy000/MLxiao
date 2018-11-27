@@ -16,7 +16,6 @@ import com.example.han.referralproject.require2.healthservice.BindHealthManageSy
 import com.example.han.referralproject.require2.register.activtiy.ChoiceIDCardRegisterTypeActivity;
 import com.example.han.referralproject.require2.register.activtiy.RegisterByIdCardActivity;
 import com.example.han.referralproject.util.Utils;
-import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.T;
@@ -46,7 +45,6 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
         setContentView(R.layout.activity_choice_idcard_login_type);
         ButterKnife.bind(this);
         initTitle();
-        ActivityHelper.addActivity(this);
         if (BuildConfig.DEBUG) {
             Log.e("设备Id", "onCreate: " + Utils.getDeviceId());
         }

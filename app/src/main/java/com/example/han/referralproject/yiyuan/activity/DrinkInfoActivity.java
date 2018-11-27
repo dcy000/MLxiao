@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +44,7 @@ public class DrinkInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_drink_info);
         ButterKnife.bind(this);
         initTitle();
+        ActivityHelper.addActivity(this);
     }
 
     private void initTitle() {

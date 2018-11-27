@@ -11,8 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.util.LocalShared;
-
-import org.w3c.dom.Text;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +62,7 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTilte();
         speak("主人,您是与否有过敏史和疾病史");
+        ActivityHelper.addActivity(this);
     }
 
 

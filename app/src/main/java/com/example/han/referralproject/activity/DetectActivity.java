@@ -1037,7 +1037,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         mShared = LocalShared.getInstance(mContext);
         xuetangTimeFlag = getIntent().getIntExtra("time", 0);
         if (xuetangTimeFlag == 2) {
-            ivXutang= findViewById(R.id.ic_sanheyi_xuetang);
+            ivXutang = findViewById(R.id.ic_sanheyi_xuetang);
             ivXutang.setImageResource(R.drawable.video_xueyass);
         }
         mToolbar.setVisibility(View.GONE);

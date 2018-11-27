@@ -12,7 +12,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
-import com.medlink.danbogh.register.SignUp3AddressActivity;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
@@ -56,6 +56,7 @@ public class PregnancyWenActivity extends BaseActivity {
         mUnbinder = ButterKnife.bind(this);
         initView();
         initEvent();
+        ActivityHelper.addActivity(this);
     }
 
     private void initEvent() {

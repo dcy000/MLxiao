@@ -1,21 +1,16 @@
 package com.example.han.referralproject.yiyuan.activity;
 
-import cn.qqtheme.framework.picker.DatePicker;
-
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
@@ -25,7 +20,6 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.qqtheme.framework.util.ConvertUtils;
 
 public class YueJingWenActivity extends BaseActivity implements OnDateSetListener {
 
@@ -49,6 +43,7 @@ public class YueJingWenActivity extends BaseActivity implements OnDateSetListene
         ButterKnife.bind(this);
         initTilte();
         speak("主人,请输入上一次月经结束的时间");
+        ActivityHelper.addActivity(this);
     }
 
     private void initTilte() {

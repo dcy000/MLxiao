@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.han.referralproject.R;
@@ -23,6 +22,7 @@ import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.DrinkInfoActivity;
 import com.example.han.referralproject.yiyuan.activity.PregnancyWenActivity;
+import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.medlink.danbogh.register.entity.City;
@@ -75,6 +75,7 @@ public class SignUp3AddressActivity extends BaseActivity {
         initData();
         initLocation();
         initTitle();
+        ActivityHelper.addActivity(this);
     }
 
     private void initTitle() {
