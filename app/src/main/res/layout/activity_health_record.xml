@@ -156,6 +156,7 @@
                     android:textSize="20sp" />
 
                 <RadioButton
+                    android:visibility="gone"
                     android:id="@+id/rb_one_hour"
                     android:layout_width="124dp"
                     android:layout_height="32dp"
