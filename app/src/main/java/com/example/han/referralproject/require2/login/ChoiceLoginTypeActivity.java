@@ -2,10 +2,12 @@ package com.example.han.referralproject.require2.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
@@ -45,6 +47,9 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTitle();
         ActivityHelper.addActivity(this);
+        if (BuildConfig.DEBUG) {
+            Log.e("设备Id", "onCreate: " + Utils.getDeviceId());
+        }
     }
 
     /**

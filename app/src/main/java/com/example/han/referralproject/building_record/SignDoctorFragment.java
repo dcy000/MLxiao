@@ -95,7 +95,7 @@ public class SignDoctorFragment extends Fragment implements View.OnClickListener
                 ((BuildingRecordActivity) getActivity()).buildingRecordBean.setDoctorId(selectedDoctor.getDocterid());
                 ((BuildingRecordActivity) getActivity()).buildingRecordBean.setHiHealthRecordId("");
                 Intent docMsg = new Intent(getContext(), DoctorMesInfoActivity.class).putExtra("docMsg", mData.get(postion));
-                startActivityForResult(docMsg,120);
+                getActivity().startActivityForResult(docMsg,120);
 
             }
         });
