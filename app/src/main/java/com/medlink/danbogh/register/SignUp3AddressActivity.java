@@ -22,7 +22,11 @@ import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.PinYinUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.utils.ToastUtils;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SynthesizerListener;
+import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.register.entity.City;
 import com.medlink.danbogh.register.entity.Province;
@@ -171,7 +175,12 @@ public class SignUp3AddressActivity extends BaseActivity {
         super.onResume();
         setDisableWakeup(true);
         robotStartListening();
-        MLVoiceSynthetize.startSynthesize(R.string.sign_up3_address_tip);
+        MLVoiceSynthetize.startSynthesize(Box.getString(R.string.sign_up3_address_tip), new MLSynthesizerListener() {
+            @Override
+            public void onCompleted(SpeechError speechError) {
+                robotStartListening();
+            }
+        });
         startLocation();
     }
 

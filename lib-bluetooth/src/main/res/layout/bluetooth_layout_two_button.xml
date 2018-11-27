@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="880pt"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:gravity="center"
+    android:layout_marginBottom="100pt">
+    <TextView
+        android:id="@+id/btn_health_history"
+        android:layout_width="320pt"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bluetooth_btn_health_history_set"
+        android:paddingBottom="28pt"
+        android:paddingLeft="48pt"
+        android:paddingRight="48pt"
+        android:paddingTop="28pt"
+        android:text="健康数据"
+        android:textColor="#ffffff"
+        android:textSize="56pt"
+        android:clickable="true"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/btn_video_demo"
+        android:layout_width="320pt"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32pt"
+        android:background="@drawable/bluetooth_btn_video_demo_set"
+        android:paddingBottom="28pt"
+        android:paddingLeft="48pt"
+        android:paddingRight="48pt"
+        android:paddingTop="28pt"
+        android:text="使用演示"
+        android:textColor="#ffffff"
+        android:textSize="56pt"
+        android:clickable="true"
+        android:gravity="center"/>
+</LinearLayout>

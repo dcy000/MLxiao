@@ -9,11 +9,14 @@ include ':app',
         ':lib-video-player',
         ':lib-voice',
 //        ':lib-common',
-        ':lib-ecg',
+        ':module-ecg',
         ':expand-textview-library',
         ':circleindicator',
-        'lib-core',
-        'module-health-record',
-        'lib-auth-face'
+        ':lib-core',
+        ':module-health-record',
+        ':lib-auth-face',
+        ':module-video',
+        ':lib-bluetooth',
+        ':module-temperature'
 
 

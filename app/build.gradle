@@ -164,7 +164,6 @@ dependencies {
     implementation rootProject.ext.dependencies["design"]
     implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["lifecycle-extensions"]
-
     implementation 'com.lzy.net:okgo:3.0.4'
     //慧泉健康自查中有使用到这个库facebook.fresco
     implementation 'com.facebook.fresco:fresco:1.7.1'
@@ -172,8 +171,6 @@ dependencies {
     implementation 'com.nex3z:flow-layout:1.1.0'
     implementation 'com.github.tianzhijiexian:CommonAdapter:1.1.9'
     implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
-
-
     implementation name: 'mlrobot-release', ext: 'aar'
     implementation name: 'FaceppIDCardUI', ext: 'aar'
     implementation name: 'lib-crash', ext: 'aar'
@@ -200,12 +197,12 @@ dependencies {
     implementation project(':lib-rulerview')
     implementation project(':circleindicator')
     implementation project(':lib-voice')
-    implementation project(':lib-ecg')
+    implementation project(':module-ecg')
     implementation project(':lib-core')
     implementation project(':module-health-record')
     implementation project(':lib-auth-face')
-
     //调试工具Pandora
     debugImplementation rootProject.ext.dependencies["pandora-debug"]
     releaseImplementation rootProject.ext.dependencies["pandora-release"]
+    implementation project(':module-video')
 }

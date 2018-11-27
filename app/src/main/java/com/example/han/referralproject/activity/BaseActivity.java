@@ -185,7 +185,7 @@ public class BaseActivity extends AppCompatActivity {
 
 
     protected void robotStartListening() {
-        Observable.interval(0, 300, TimeUnit.MILLISECONDS)
+        Observable.interval(0, 200, TimeUnit.MILLISECONDS)
                 .as(RxUtils.autoDisposeConverter(this, Lifecycle.Event.ON_PAUSE))
                 .subscribe(new CommonObserver<Long>() {
                     @Override
