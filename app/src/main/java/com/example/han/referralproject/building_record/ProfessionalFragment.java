@@ -34,10 +34,32 @@ public class ProfessionalFragment extends Fragment implements View.OnClickListen
     public void setOnFragmentChange(IFragmentChange iFragmentChange) {
         this.iFragmentChange = iFragmentChange;
     }
-    private boolean[] switch_profress=new boolean[9];
-    private String[] profress=new String[]{"国家机关","军人","办事人员和有关人员","专业技术人员","商业、服务业人员","农、林、牧、渔、水利业生产人员","生产、运输设备操作人员及有关人员","不便分类的其他从业人员","无职业"};
+
+    private boolean[] switch_profress = new boolean[9];
+//    private String[] profress = new String[]{"国家机关",//0
+//            "专业技术人员", //1
+//            "办事人员和有关人员",//2
+//            "商业、服务业人员", //3
+//            "农、林、牧、渔、水利业生产人员",//4
+//            "生产、运输设备操作人员及有关人员",//5
+//            "军人", //6
+//            "不便分类的其他从业人员",//7
+//            "无职业"};//8
+
+
+    private String[] profress = new String[]{
+            "国家机关",
+            "军人",
+            "办事人员和有关人员",
+            "专业技术人员",
+            "商业、服务业人员",
+            "农、林、牧、渔、水利业生产人员",
+            "生产、运输设备操作人员及有关人员",
+            "不便分类的其他从业人员",
+            "无职业"};
     private List<TextView> textViews;
-    private String[] index=new String[]{"0","1","2","3","4","5","6","7","8"};
+    private String[] index = new String[]{"0", "6", "2", "1", "3", "4", "5", "7", "8"};
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,7 +94,7 @@ public class ProfessionalFragment extends Fragment implements View.OnClickListen
         tvSignUpGoBack.setOnClickListener(this);
         tvSignUpGoForward = view.findViewById(R.id.tv_sign_up_go_forward);
         tvSignUpGoForward.setOnClickListener(this);
-        textViews=new ArrayList<>();
+        textViews = new ArrayList<>();
         textViews.add(guojiajiguan);
         textViews.add(junren);
         textViews.add(daxuezhuanke);
@@ -87,7 +109,7 @@ public class ProfessionalFragment extends Fragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        ((BuildingRecordActivity) getActivity()). setDisableGlobalListen(true);
+        ((BuildingRecordActivity) getActivity()).setDisableGlobalListen(true);
         ((BuildingRecordActivity) getActivity()).speak("主人,请输入您目前从事的职业");
     }
 
@@ -133,7 +155,7 @@ public class ProfessionalFragment extends Fragment implements View.OnClickListen
                     ((BuildingRecordActivity) getActivity()).speak(R.string.select_least_one);
                     return;
                 }
-                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setProfessionType(MyArraysUtils.getIndex(result,profress,index));
+                ((BuildingRecordActivity) getActivity()).buildingRecordBean.setProfessionType(MyArraysUtils.getIndex(result, profress, index));
                 if (iFragmentChange != null) {
                     iFragmentChange.nextStep(this);
                 }
