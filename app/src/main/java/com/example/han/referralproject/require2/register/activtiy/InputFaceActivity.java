@@ -64,6 +64,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
     private String registeRrealName;
     private String registerSex;
     private String registerAddress;
+    private String constactPhoneNumber;
 
     @BindView(R.id.surface_view)
     SurfaceView surfaceView;
@@ -307,6 +308,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
 
     public static final String REGISTER_IDCARD_NUMBER = "registerIdCardNumber";
     public static final String REGISTER_PHONE_NUMBER = "registerPhoneNumber";
+    public static final String CONSTACT_PHONE_NUMBER = "constactPhoneNumber";
     public static final String REGISTER_REAL_NAME = "registeRrealName";
     public static final String REGISTER_SEX = "registerSex";
     public static final String REGISTER_ADDRESS = "registerAddress";
@@ -318,6 +320,7 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
         }
         registerIdCardNumber = getIntent().getStringExtra(REGISTER_IDCARD_NUMBER);
         registerPhoneNumber = getIntent().getStringExtra(REGISTER_PHONE_NUMBER);
+        constactPhoneNumber = getIntent().getStringExtra(CONSTACT_PHONE_NUMBER);
         registeRrealName = getIntent().getStringExtra(REGISTER_REAL_NAME);
         registerSex = getIntent().getStringExtra(REGISTER_SEX);
         registerAddress = getIntent().getStringExtra(REGISTER_ADDRESS);
@@ -453,14 +456,23 @@ public class InputFaceActivity extends BaseActivity implements AffirmHeadDialog.
     }
 
     private void signUp(String url) {
+        if (TextUtils.isEmpty(constactPhoneNumber)) {
+            registerAndOther(url, registerPhoneNumber, true);
+        } else {
+            registerAndOther(url, constactPhoneNumber, false);
+        }
+    }
+
+    private void registerAndOther(String url, String number, boolean hasPhoneNumber) {
         final LocalShared shared = LocalShared.getInstance(this);
         showLoadingDialog(getString(R.string.do_register));
         NetworkApi.register(
+                hasPhoneNumber,
                 registeRrealName,
                 registerSex,
                 registerAddress,
                 registerIdCardNumber,
-                registerPhoneNumber,
+                number,
                 url,
                 new NetworkManager.SuccessCallback<UserInfoBean>() {
                     @Override

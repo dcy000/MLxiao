@@ -297,12 +297,9 @@ public class BaseActivity extends AppCompatActivity {
 
 
     public void stopSpeaking() {
-
         if (synthesizer != null) {
             synthesizer.stopSpeaking();
         }
-
-
     }
 
     public void speak(int resId) {

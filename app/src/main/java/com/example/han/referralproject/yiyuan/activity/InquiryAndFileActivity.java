@@ -75,6 +75,7 @@ public class InquiryAndFileActivity extends BaseActivity {
         initView();
         ActivityHelper.finishAll();
         initXFInfo();
+        HasInquiryOrNot();
     }
 
     private void initXFInfo() {
@@ -229,32 +230,43 @@ public class InquiryAndFileActivity extends BaseActivity {
             tvRegisterDone.setVisibility(View.INVISIBLE);
         }
 
-
+        showLoadingDialog("...");
         NetworkApi.getFiledIsOrNot(this
                 , NetworkApi.FILE_URL
                 , LocalShared.getInstance(this).getUserId()
                 , new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        hideLoadingDialog();
                         if (response == null) {
                             onGetFileStateFailed();
                             return;
                         }
                         WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
-                        if (reultBean.tag) {
-                            ivJiandang.setEnabled(false);
-                            tvFileDone.setVisibility(View.VISIBLE);
+                        try {
+                            if (reultBean.tag) {
+                                ivJiandang.setEnabled(false);
+                                tvFileDone.setVisibility(View.VISIBLE);
 
-                        } else {
-                            ivJiandang.setEnabled(true);
-                            tvFileDone.setVisibility(View.GONE);
+                            } else {
+                                ivJiandang.setEnabled(true);
+                                tvFileDone.setVisibility(View.GONE);
+                            }
+                        } catch (Exception e) {
                         }
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
+                        hideLoadingDialog();
                         T.show("网络繁忙");
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        hideLoadingDialog();
                     }
                 });
     }
@@ -337,6 +349,41 @@ public class InquiryAndFileActivity extends BaseActivity {
             @Override
             public void onFailed(String message) {
                 T.show(message);
+            }
+        });
+    }
+
+    private void HasInquiryOrNot() {
+        showLoadingDialog("...");
+        NetworkApi.getHasInquiryOrNot(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                hideLoadingDialog();
+                try {
+                    if (response != null) {
+                        String body = response.body();
+                        JSONObject object = new JSONObject(body);
+                        boolean tag = object.optBoolean("tag");
+                        if (tag) {
+                            tvWenJianSkip.setVisibility(View.VISIBLE);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                hideLoadingDialog();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoadingDialog();
             }
         });
     }

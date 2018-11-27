@@ -92,6 +92,7 @@
         android:text="跳过"
         android:textColor="#fff"
         android:textSize="56pt"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/iv_inquire_file_exit"
         app:layout_constraintEnd_toStartOf="@+id/iv_inquire_file_exit"
         app:layout_constraintTop_toTopOf="@+id/iv_inquire_file_exit"

@@ -23,6 +23,7 @@ public class AddcontactPhoneActivity extends BaseActivity implements CanClearEdi
     public static final String FROM_REGISTER_BY_IDCARD = "register_by_idCard";
     public static final String FROM_REGISTER_BY_IDCARD_NUMBER = "register_by_idCard_number";
     public static final String REGISTER_PHONE_NUMBER = "registerPhoneNumber";
+    public static final String CONSTACT_PHONE_NUMBER = "constactPhoneNumber";
     @BindView(R.id.tv_phone_number_notice)
     CanClearEditText ccetIdNumber;
     @BindView(R.id.tv_next)
@@ -142,11 +143,11 @@ public class AddcontactPhoneActivity extends BaseActivity implements CanClearEdi
     private void jumpPage(String phoneNumber) {
         if (fromWhere.equals(FROM_REGISTER_BY_IDCARD)) {
             startActivity(new Intent(this, InputFaceActivity.class)
-                    .putExtra(REGISTER_PHONE_NUMBER, phoneNumber)
+                    .putExtra(CONSTACT_PHONE_NUMBER, phoneNumber)
                     .putExtras(getIntent()));
         } else if (fromWhere.equals(FROM_REGISTER_BY_IDCARD_NUMBER)) {
             startActivity(new Intent(this, RealNameActivity.class)
-                    .putExtra(REGISTER_PHONE_NUMBER, phoneNumber)
+                    .putExtra(CONSTACT_PHONE_NUMBER, phoneNumber)
                     .putExtras(getIntent()));
         }
     }

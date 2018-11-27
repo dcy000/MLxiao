@@ -23,6 +23,7 @@ import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.kaer.sdk.IDCardItem;
 import com.kaer.sdk.bt.BtReadClient;
 import com.kaer.sdk.bt.OnBluetoothListener;
@@ -617,6 +618,7 @@ public class RegisterByIdCardActivity extends BaseActivity implements SomeCommon
     protected void onPause() {
         super.onPause();
         stopSpeaking();
+        MLVoiceSynthetize.stop();
     }
 
 

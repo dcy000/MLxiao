@@ -68,12 +68,12 @@ public class NetworkApi {
      * 林本地
      */
 //    public static final String BasicUrl = "http://192.168.200.117:8080";
-//    public static final String BasicUrl = "http://192.168.200.120:8080";
+    public static final String BasicUrl = "http://192.168.200.120:8080";
 //    public static final String BasicUrl = "http://192.168.200.157:8080";
     /**
      * 测试
      */
-    public static final String BasicUrl = "http://47.96.98.60:8070";
+//    public static final String BasicUrl = "http://47.96.98.60:8070";
 
     public static final String PASSWORD = "123456";
     //上传建档信息
@@ -102,6 +102,7 @@ public class NetworkApi {
     public static final String Bloodsugar_Detection = BasicUrl + "/ZZB/api/healthMonitor/diabetes/questionnaire/";
     public static final String LoginUrl = BasicUrl + "/ZZB/login/applogin";
     public static final String RegisterUrl = BasicUrl + "/ZZB/br/appadd";
+    public static final String RegisterHasNoPhoneNumberUrl = BasicUrl + "/ZZB/br/appNoTelAdd";
     public static final String RegisteryiyuanUrl = BasicUrl + "/ZZB/br/appAddHospital";
     public static final String AddMhUrl = BasicUrl + "/ZZB/br/mhrecord";
     public static final String ClueUrl = BasicUrl + "/ZZB/br/selOneUserClueAll";
@@ -736,7 +737,7 @@ public class NetworkApi {
         NetworkManager.getInstance().postResultString(BindDocUrl, paramsMap, callback);
     }
 
-    public static void bindDoctor(String bid, int doctorId,String  signatrue, NetworkManager.SuccessCallback<String> callback) {
+    public static void bindDoctor(String bid, int doctorId, String signatrue, NetworkManager.SuccessCallback<String> callback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bid", bid);
         paramsMap.put("user_sign", signatrue);
@@ -1344,7 +1345,7 @@ public class NetworkApi {
                 .execute(callback);
     }
 
-    public static void register(String registeRrealName,
+    public static void register(boolean hasPhoneNumber, String registeRrealName,
                                 String registerSex,
                                 String registerAddress,
                                 String registerIdCardNumber,
@@ -1361,16 +1362,21 @@ public class NetworkApi {
         paramsMap.put("sfz", registerIdCardNumber);
         paramsMap.put("user_photo", user_photo);
         paramsMap.put("pwd", PASSWORD);
-        NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, successCallback, failedCallback);
+        if (hasPhoneNumber) {
+            NetworkManager.getInstance().postResultClass(RegisterUrl, paramsMap, UserInfoBean.class, successCallback, failedCallback);
+        } else {
+            NetworkManager.getInstance().postResultClass(RegisterHasNoPhoneNumberUrl, paramsMap, UserInfoBean.class, successCallback, failedCallback);
+        }
+
     }
 
     public static void registerWithNoNumber(String registeRrealName,
-                                String registerSex,
-                                String registerAddress,
-                                String registerIdCardNumber,
-                                String user_photo,
-                                NetworkManager.SuccessCallback<UserInfoBean> successCallback,
-                                NetworkManager.FailedCallback failedCallback) {
+                                            String registerSex,
+                                            String registerAddress,
+                                            String registerIdCardNumber,
+                                            String user_photo,
+                                            NetworkManager.SuccessCallback<UserInfoBean> successCallback,
+                                            NetworkManager.FailedCallback failedCallback) {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("bname", registeRrealName);
         paramsMap.put("sex", registerSex);
@@ -1486,12 +1492,20 @@ public class NetworkApi {
      */
     public static final String PUT_CONTACT = BasicUrl + "/ZZB//api/user/emergent/saveEmergentUser";
 
-    public static void putEmergentContact(String json, StringCallback callback) {
-        OkGo.<String>post(PUT_CONTACT)
+    public static void getHasInquiryOrNot(String userId, StringCallback callback) {
+        OkGo.<String>get(Inquiry)
                 .headers("equipmentId", Utils.getDeviceId())
-                .upJson(json)
+                .params("userId",userId)
                 .execute(callback);
     }
+
+
+
+
+
+
+
+
 
 
 }
