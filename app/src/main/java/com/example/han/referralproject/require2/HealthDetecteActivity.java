@@ -174,26 +174,29 @@ public class HealthDetecteActivity extends BaseActivity {
     }
 
     private void ShowToFiledDialog(final boolean isBindDoctor, final int id) {
-        SomeCommonDialog dialog = null;
-        switch (id) {
-            case R.id.im_health_detecte:
-                dialog = new SomeCommonDialog(DialogTypeEnum.noDocument);
-                break;
-            case R.id.im_pressure_fllow_up:
-                dialog = new SomeCommonDialog(DialogTypeEnum.noDocumentForPresure);
-                break;
-            case R.id.im_sugar_fllow_up:
-                dialog = new SomeCommonDialog(DialogTypeEnum.noDocumentForPresure);
-                break;
+        try {
+            SomeCommonDialog dialog = null;
+            switch (id) {
+                case R.id.im_health_detecte:
+                    dialog = new SomeCommonDialog(DialogTypeEnum.noDocument);
+                    break;
+                case R.id.im_pressure_fllow_up:
+                    dialog = new SomeCommonDialog(DialogTypeEnum.noDocumentForPresure);
+                    break;
+                case R.id.im_sugar_fllow_up:
+                    dialog = new SomeCommonDialog(DialogTypeEnum.noDocumentForPresure);
+                    break;
 
-        }
-        dialog.setListener(new SomeCommonDialog.OnDialogClickListener() {
-            @Override
-            public void onClickConfirm(DialogTypeEnum type) {
-                startActivity(new Intent(HealthDetecteActivity.this, BuildingRecordActivity.class).putExtra("bind", isBindDoctor));
             }
-        });
-        dialog.show(getSupportFragmentManager(), "dialog");
+            dialog.setListener(new SomeCommonDialog.OnDialogClickListener() {
+                @Override
+                public void onClickConfirm(DialogTypeEnum type) {
+                    startActivity(new Intent(HealthDetecteActivity.this, BuildingRecordActivity.class).putExtra("bind", isBindDoctor));
+                }
+            });
+            dialog.show(getSupportFragmentManager(), "dialog");
+        } catch (Exception e) {
+        }
     }
 
     private void JianKangJianCe(final String examinationType) {

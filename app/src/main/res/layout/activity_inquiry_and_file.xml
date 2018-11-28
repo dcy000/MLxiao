@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100pt"
         android:layout_marginTop="48pt"
-        android:text="                         恭喜您已完成注册！\n 您可选择问诊或建档，完成后即可进入主页。"
+        android:text="恭喜您已完成注册!"
         android:textSize="56pt"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/iv_jiandang"

@@ -100,7 +100,7 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
                 LocalShared.getInstance(mContext).setUserHeight(response.height);
                 new JpushAliasUtils(LoginByIDCardNuberActivity.this).setAlias("user_" + response.bid);*/
 
-                startActivity(new Intent(LoginByIDCardNuberActivity.this, CodeActivity.class).putExtra("phone", response.tel).putExtra("idCardNumber",idCardNumber));
+                startActivity(new Intent(LoginByIDCardNuberActivity.this, CodeActivity.class).putExtra("phone", response.tel).putExtra("idCardNumber", idCardNumber));
             }
         }, new NetworkManager.FailedCallback() {
             @Override
@@ -115,9 +115,12 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
     }
 
     private void registerNoticeDialog() {
-        SomeCommonDialog dialog = new SomeCommonDialog(DialogTypeEnum.idCardUnregistered);
-        dialog.setListener(this);
-        dialog.show(getSupportFragmentManager(), "dialog");
+        try {
+            SomeCommonDialog dialog = new SomeCommonDialog(DialogTypeEnum.idCardUnregistered);
+            dialog.setListener(this);
+            dialog.show(getSupportFragmentManager(), "dialog");
+        } catch (Exception e) {
+        }
     }
 
     @Override

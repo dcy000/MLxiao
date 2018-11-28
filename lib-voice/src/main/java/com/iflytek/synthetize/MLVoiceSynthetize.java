@@ -148,6 +148,7 @@ public class MLVoiceSynthetize {
             synthesizerListener = new MLSynthesizerListener();
 
         }
+        if (synthesizer!=null)
         synthesizer.startSpeaking(text, synthesizerListener);
     }
 
