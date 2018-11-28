@@ -93,7 +93,7 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
                 qita.setSelected(!qita.isSelected());
                 wu1.setSelected(false);
                 break;
-            case R.id.wu1:
+            case R.id.wu11:
                 wu1.setSelected(!wu1.isSelected());
                 qingmeisu.setSelected(false);
                 toubao.setSelected(false);
