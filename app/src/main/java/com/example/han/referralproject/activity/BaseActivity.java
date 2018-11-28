@@ -69,7 +69,7 @@ public class BaseActivity extends AppCompatActivity {
     private SpeechRecognizer mIat;
     private Handler mDelayHandler = new Handler();
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
-    private boolean enableListeningLoop = true;
+    private boolean enableListeningLoop = false;
     private boolean enableListeningLoopCache = enableListeningLoop;
     private LinearLayout rootView;
     private View mTitleView;
@@ -87,7 +87,7 @@ public class BaseActivity extends AppCompatActivity {
 
 
     public void setEnableListeningLoop(boolean enable) {
-        enableListeningLoop = enable;
+        enableListeningLoop = false;
         enableListeningLoopCache = enableListeningLoop;
     }
 
@@ -340,7 +340,7 @@ public class BaseActivity extends AppCompatActivity {
 
 
     public void setDisableGlobalListen(boolean disableGlobalListen) {
-        this.disableGlobalListen = disableGlobalListen;
+        this.disableGlobalListen = true;
         WakeupHelper.getInstance().enableWakeuperListening(!disableGlobalListen);
     }
 

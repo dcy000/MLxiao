@@ -31,7 +31,7 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
     TextView qita;
     @BindView(R.id.ll_1)
     LinearLayout ll1;
-    @BindView(R.id.wu1)
+    @BindView(R.id.wu11)
     TextView wu1;
     @BindView(R.id.title2)
     TextView title2;
@@ -74,7 +74,7 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.title1, R.id.qingmeisu, R.id.toubao, R.id.huanganlei, R.id.qita, R.id.ll_1, R.id.wu1, R.id.title2, R.id.gaouxeya, R.id.tangniaobing, R.id.shexian, R.id.xiaochuan, R.id.ll_2, R.id.tv_sign_up_go_back, R.id.tv_sign_up_go_forward, R.id.qita2, R.id.wu2})
+    @OnClick({R.id.title1, R.id.qingmeisu, R.id.toubao, R.id.huanganlei, R.id.qita, R.id.ll_1, R.id.wu11, R.id.title2, R.id.gaouxeya, R.id.tangniaobing, R.id.shexian, R.id.xiaochuan, R.id.ll_2, R.id.tv_sign_up_go_back, R.id.tv_sign_up_go_forward, R.id.qita2, R.id.wu2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.qingmeisu:
