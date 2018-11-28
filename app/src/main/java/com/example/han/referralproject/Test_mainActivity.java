@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
-import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
 import com.example.han.referralproject.ecg.ECGCompatActivity;
+import com.gzq.lib_bluetooth.BluetoothConstants;
+import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -95,46 +95,38 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
             Intent intent = new Intent();
             switch (v.getId()) {
                 case R.id.ll_xueya:
-                    intent.setClass(mContext, DetectActivity.class);
-//                    intent.setClass(mContext, InstructionsActivity.class);
-                    intent.putExtra("type", "xueya");
-                    startActivity(intent);
+                    Bundle bloodpressure = new Bundle();
+                    bloodpressure.putString(BluetoothConstants.TYPE_OF_MEASURE, BluetoothConstants.KEY_SPHYGMOMANOMETER);
+                    ActivityUtils.skipActivity(AllMeasureActivity.class, bloodpressure);
+
                     break;
                 case R.id.ll_xueyang:
-                    intent.setClass(getApplicationContext(), DetectActivity.class);
-//                    intent.setClass(mContext, InstructionsActivity.class);
-                    intent.putExtra("type", "xueyang");
-                    startActivity(intent);
+                    Bundle bloodoxygen = new Bundle();
+                    bloodoxygen.putString(BluetoothConstants.TYPE_OF_MEASURE, BluetoothConstants.KEY_OXIMETER);
+                    ActivityUtils.skipActivity(AllMeasureActivity.class, bloodoxygen);
                     break;
                 case R.id.ll_tiwen:
-                    intent.setClass(mContext, DetectActivity.class);
-//                    intent.setClass(mContext, InstructionsActivity.class);
-                    intent.putExtra("type", "wendu");
-                    startActivity(intent);
+                    Bundle tiwen = new Bundle();
+                    tiwen.putString(BluetoothConstants.TYPE_OF_MEASURE, BluetoothConstants.KEY_TEMPERATURE);
+                    ActivityUtils.skipActivity(AllMeasureActivity.class, tiwen);
                     break;
                 case R.id.ll_xuetang:
-                    intent.setClass(getApplicationContext(), SelectXuetangTimeActivity.class);
-                    intent.putExtra("type", "xuetang");
-                    startActivity(intent);
+                    Bundle bloodsugar = new Bundle();
+                    bloodsugar.putString(BluetoothConstants.TYPE_OF_MEASURE, BluetoothConstants.KEY_BLOOD_GLUCOSE_METER);
+                    ActivityUtils.skipActivity(AllMeasureActivity.class, bloodsugar);
                     break;
                 case R.id.ll_xindian:
-//                    intent.setClass(mContext, XinDianDetectActivity.class);
-//                    startActivity(intent);
                     ECGCompatActivity.startActivity(this);
                     break;
                 case R.id.ll_san:
-//                    intent.setClass(mContext, DetectActivity.class);
-                    intent.setClass(mContext, SelectXuetangTimeActivity.class);
-//                    intent.setClass(mContext, InstructionsActivity.class);
-                    intent.putExtra("type", "sanheyi");
-                    startActivity(intent);
+                    Bundle triple = new Bundle();
+                    triple.putString(BluetoothConstants.TYPE_OF_MEASURE, BluetoothConstants.KEY_TRIPLE);
+                    ActivityUtils.skipActivity(AllMeasureActivity.class, triple);
                     break;
                 case R.id.ll_tizhong://体重
-                    intent.setClass(mContext, DetectActivity.class);
-//                    intent.setClass(mContext, OnMeasureActivity.class);
-                    intent.putExtra("type", "tizhong");
-                    startActivity(intent);
-//                    ToastUtil.showShort(this,"暂未开通");
+                    Bundle weight = new Bundle();
+                    weight.putString(BluetoothConstants.TYPE_OF_MEASURE, BluetoothConstants.KEY_WEIGHING_SCALE);
+                    ActivityUtils.skipActivity(AllMeasureActivity.class, weight);
                     break;
                 case R.id.ll_more://敬请期待
                     ToastUtils.showShort("敬请期待");

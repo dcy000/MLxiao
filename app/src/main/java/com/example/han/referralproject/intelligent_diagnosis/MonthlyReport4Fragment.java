@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.MonthlyReport;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -75,7 +75,7 @@ public class MonthlyReport4Fragment extends Fragment {
     @BindView(R.id.tv_progress3)
     TextView tvProgress3;
     @BindView(R.id.rpb_sum)
-    RxTextRoundProgressBar rpbSum;
+    TextRoundProgressBar rpbSum;
     @BindView(R.id.chart)
     RadarChart mChart;
     Unbinder unbinder;

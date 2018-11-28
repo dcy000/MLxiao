@@ -1,5 +1,6 @@
 package com.gcml.lib_video_ksyplayer;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -37,15 +38,12 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump
     private PlayerEventListener playerEventListener;
 
     //播放本地资源的时候传resId,url传null;比方网络资源的时候resId传null
-    public static void startActivity(Context context, Uri uri, String url, String title) {
+    public static void startActivity(Activity context, Uri uri, String url, String title) {
         Intent intent = new Intent(context, MeasureVideoPlayActivity.class);
-        if (context instanceof Application) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
         intent.putExtra("uri", uri);
         intent.putExtra("url", url);
         intent.putExtra("title", title);
-        context.startActivity(intent);
+        context.startActivityForResult(intent, 1001);
     }
 
     @Override

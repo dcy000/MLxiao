@@ -35,6 +35,7 @@ public abstract class BaseBluetooth extends BasePresenter {
     private ConnectListener connectListener;
     private SearchListener searchListener;
     protected IBluetoothView baseView;
+    protected LifecycleOwner owner;
     /**
      * 每次搜索的时间
      */
@@ -51,11 +52,14 @@ public abstract class BaseBluetooth extends BasePresenter {
     public BaseBluetooth(IBluetoothView owner) {
         super(owner);
         this.baseView = owner;
-        if (owner instanceof Activity) {
-            activity = ((SupportActivity) owner);
+        if (owner instanceof SupportActivity) {
+            this.owner = (LifecycleOwner) owner;
+            activity = (SupportActivity) owner;
         } else if (owner instanceof Fragment) {
+            this.owner = (LifecycleOwner) owner;
             activity = ((Fragment) owner).getActivity();
         }
+
         activity.getLifecycle().addObserver(this);
     }
 
@@ -167,7 +171,9 @@ public abstract class BaseBluetooth extends BasePresenter {
             if (searchHelper != null) {
                 searchHelper.clear();
             }
-            connect(this.device.getAddress());
+            if (!isSDK()) {
+                connect(this.device.getAddress());
+            }
         }
 
         @Override
@@ -242,6 +248,10 @@ public abstract class BaseBluetooth extends BasePresenter {
         activity = null;
         connectListener = null;
         searchListener = null;
+    }
+
+    protected boolean isSDK() {
+        return false;
     }
 
     protected abstract void noneFind();

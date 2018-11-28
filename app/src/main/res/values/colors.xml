@@ -59,4 +59,5 @@
     <color name="round_corner_progress_bar_secondary_progress_default">@android:color/transparent
     </color>
     <color name="line3">#BBBBBB</color>
+    <color name="default_bg">#aa000000</color>
 </resources>

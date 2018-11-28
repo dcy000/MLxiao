@@ -3,12 +3,10 @@ package com.example.han.referralproject;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Chronometer;
 
 import com.example.han.referralproject.activity.BaseActivity;
@@ -19,7 +17,6 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.service.API;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
 import com.gzq.lib_core.base.Box;
@@ -29,8 +26,6 @@ import com.gzq.lib_core.utils.RxUtils;
 
 import java.util.ArrayList;
 
-import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerStandard;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 
@@ -63,8 +58,7 @@ public class WelcomeActivity extends BaseActivity {
             finish();
             return;
         }
-
-        playVideo();
+        checkVersion();
     }
 
     private void checkVersion() {
@@ -169,95 +163,6 @@ public class WelcomeActivity extends BaseActivity {
             }
         }
         return false;
-    }
-
-    @Override
-    protected void onPause() {
-        JZVideoPlayerStandard.releaseAllVideos();
-        super.onPause();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (JZVideoPlayerStandard.backPress()) {
-            return;
-        }
-        super.onBackPressed();
-    }
-
-    private void playVideo() {
-        boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
-//        if (isFirstIn) {
-        if (false) {
-            JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-            JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-            JZVideoPlayerStandard.startFullscreen(this, MyVideoPlayer.class, VEDIO_URL, "迈联智慧");
-        } else {
-            checkVersion();
-        }
-    }
-
-    public static class MyVideoPlayer extends JZVideoPlayerStandard {
-        private WelcomeActivity mWelcomeActivity;
-
-        public MyVideoPlayer(Context context) {
-            super(context);
-        }
-
-        @Override
-        public int getLayoutId() {
-            return R.layout.ml_player_splash;
-        }
-
-        @Override
-        public void init(Context context) {
-            super.init(context);
-            findViewById(R.id.common_tv_action).setOnClickListener(this);
-            backButton.setVisibility(GONE);
-            batteryTimeLayout.setVisibility(GONE);
-            try {
-                mWelcomeActivity = (WelcomeActivity) context;
-            } catch (Throwable e) {
-                mWelcomeActivity = null;
-                e.printStackTrace();
-            }
-
-            backButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    MyVideoPlayer.this.onClick(v);
-                    if (mWelcomeActivity != null) {
-                        mWelcomeActivity.onVideoPlayedComplete();
-                    }
-                }
-            });
-        }
-
-        @Override
-        public void onClick(View v) {
-            super.onClick(v);
-            if (v.getId() == R.id.common_tv_action) {
-                backPress();
-                if (mWelcomeActivity != null) {
-                    mWelcomeActivity.onVideoPlayedComplete();
-                }
-            }
-        }
-
-        @Override
-        public void onStateAutoComplete() {
-            super.onStateAutoComplete();
-            backPress();
-            if (mWelcomeActivity != null) {
-                mWelcomeActivity.onVideoPlayedComplete();
-            }
-        }
-    }
-
-    private void onVideoPlayedComplete() {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        LocalShared.getInstance(this).setIsFirstIn(false);
-        checkVersion();
     }
 
     @Override

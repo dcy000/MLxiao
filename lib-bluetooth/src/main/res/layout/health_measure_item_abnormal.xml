@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gcml.lib_widget.imageview.EclipseImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title"
+    android:layout_width="430pt"
+    android:layout_height="325pt"
+    android:clickable="true"
+    android:scaleType="fitXY"/>

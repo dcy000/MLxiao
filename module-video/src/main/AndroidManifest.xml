@@ -3,7 +3,14 @@
 
     <application>
         <meta-data
-            android:name="com.gcml.lib_video_ksyplayer.lifecycle.VideoPlayerLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks" />
+            android:name="com.gcml.lib_video_ksyplayer.app.VideoApp"
+            android:value="AppLifecycle" />
+
+        <activity
+            android:name=".MeasureVideoPlayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".NormalVideoPlayActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

@@ -172,16 +172,6 @@
             android:name=".xindian.XinDianDetectActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".xueya.XueyaActivity"
-            android:largeHeap="true"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".PlayVideoActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.DetectActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".xuetang.XuetangActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -229,21 +219,10 @@
             android:name=".Test_mainActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".xueya.AttentionActivity"
-            android:largeHeap="true"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".login.PerInfoActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".xindian.XindianActivity" />
         <activity
             android:name=".recyclerview.DoctorMesActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".video.MainVideoActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".video.PlayVideoActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".personal.PersonActivity"
@@ -268,12 +247,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.alarm.AlarmActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.SymptomAnalyseActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.SymptomAnalyseResultActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.AppraiseActivity"
@@ -421,12 +394,6 @@
             android:name=".shopping.GoodDetailActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.SymptomsActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.BodychartActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".shopping.OrderListActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -483,9 +450,6 @@
             android:name=".activity.AlertDrinkingActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.SelectXuetangTimeActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".recyclerview.HistoryActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -505,9 +469,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.ChooseLoginTypeActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".measure.MeasureXueyaResultActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".measure.MeasureXuetangResultActivity"
@@ -546,9 +507,6 @@
         <activity android:name=".health.old.HealthSaltDiaryActivity" />
         <activity android:name=".health.old.HealthSportsDiaryActivity" />
         <activity android:name=".health.old.HealthDrinkDiaryActivity" />
-        <activity
-            android:name=".activity.MessageCenterActivity"
-            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.MessageDetailsActivity"
             android:screenOrientation="landscape" />
@@ -659,6 +617,8 @@
         <activity
             android:name=".activity.MyBaseDataActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".AllMeasureActivity"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

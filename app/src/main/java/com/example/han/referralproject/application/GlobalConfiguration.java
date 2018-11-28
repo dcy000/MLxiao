@@ -4,7 +4,6 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.example.han.referralproject.BuildConfig;
-import com.example.han.referralproject.util.DeviceUtils;
 import com.gzq.lib_core.base.GlobalConfig;
 import com.gzq.lib_core.base.config.CrashManagerConfig;
 import com.gzq.lib_core.base.config.OkhttpConfig;
@@ -18,6 +17,7 @@ import com.gzq.lib_core.http.interceptor.CacheInterceptor;
 import com.gzq.lib_core.session.MmkvSessionManager;
 import com.gzq.lib_core.session.SessionConfig;
 import com.gzq.lib_core.session.SessionToken;
+import com.gzq.lib_core.utils.DeviceUtils;
 import com.gzq.lib_core.utils.ProcessUtils;
 
 import java.io.File;

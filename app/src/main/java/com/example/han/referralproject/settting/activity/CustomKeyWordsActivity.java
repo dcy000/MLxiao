@@ -9,7 +9,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.settting.adapter.KeyWordRVAdapter;
 import com.example.han.referralproject.settting.bean.KeyWordBean;
-import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.gcml.lib_widget.recycleview.GridViewDividerItemDecoration;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;

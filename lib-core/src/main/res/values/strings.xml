@@ -8,4 +8,6 @@
     <string name="customactivityoncrash_error_activity_error_details_copy">复制日志</string>
     <string name="customactivityoncrash_error_activity_error_details_copied">复制日志</string>
     <string name="customactivityoncrash_error_activity_error_details_clipboard_label">错误信息</string>
+    <string name="upload_data_success">数据上传成功</string>
+    <string name="upload_data_fail">数据上传失败</string>
 </resources>

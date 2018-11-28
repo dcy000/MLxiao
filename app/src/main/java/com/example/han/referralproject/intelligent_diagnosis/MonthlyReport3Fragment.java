@@ -4,7 +4,6 @@ package com.example.han.referralproject.intelligent_diagnosis;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.MonthlyReport;
-import com.example.han.referralproject.view.progress.RxTextRoundProgressBar;
+import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
@@ -56,7 +55,7 @@ public class MonthlyReport3Fragment extends Fragment {
     @BindView(R.id.tv_progress2)
     TextView tvProgress2;
     @BindView(R.id.rpb_sum)
-    RxTextRoundProgressBar rpbSum;
+    TextRoundProgressBar rpbSum;
     @BindView(R.id.ll_right)
     LinearLayout llRight;
     Unbinder unbinder;

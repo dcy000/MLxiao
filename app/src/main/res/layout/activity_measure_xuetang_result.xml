@@ -55,7 +55,7 @@
                 android:textSize="48pt"
                 android:textColor="#666666"
                 android:layout_marginLeft="16pt"/>
-            <com.example.han.referralproject.view.progress.RxRoundProgressBar
+            <com.gcml.lib_widget.progressbar.RoundProgressBar
                 android:id="@+id/rpb_gao"
                 android:layout_width="130pt"
                 android:layout_height="24pt"
@@ -98,7 +98,7 @@
                 android:textSize="48pt"
                 android:textColor="#666666"
                 android:layout_marginLeft="16pt"/>
-            <com.example.han.referralproject.view.progress.RxRoundProgressBar
+            <com.gcml.lib_widget.progressbar.RoundProgressBar
                 android:id="@+id/rpb_zhengchang"
                 android:layout_width="130pt"
                 android:layout_height="24pt"
@@ -141,7 +141,7 @@
                 android:textSize="48pt"
                 android:textColor="#666666"
                 android:layout_marginLeft="16pt"/>
-            <com.example.han.referralproject.view.progress.RxRoundProgressBar
+            <com.gcml.lib_widget.progressbar.RoundProgressBar
                 android:id="@+id/rpb_di"
                 android:layout_width="130pt"
                 android:layout_height="24pt"
@@ -191,7 +191,7 @@
                 android:textSize="48pt"
                 android:textColor="#666666"
                 android:layout_marginLeft="16pt"/>
-            <com.example.han.referralproject.view.progress.RxRoundProgressBar
+            <com.gcml.lib_widget.progressbar.RoundProgressBar
                 android:id="@+id/rpb_empty"
                 android:layout_width="130pt"
                 android:layout_height="24pt"
@@ -234,7 +234,7 @@
                 android:textSize="48pt"
                 android:textColor="#666666"
                 android:layout_marginLeft="16pt"/>
-            <com.example.han.referralproject.view.progress.RxRoundProgressBar
+            <com.gcml.lib_widget.progressbar.RoundProgressBar
                 android:id="@+id/rpb_one"
                 android:layout_width="130pt"
                 android:layout_height="24pt"
@@ -277,7 +277,7 @@
                 android:textSize="48pt"
                 android:textColor="#666666"
                 android:layout_marginLeft="16pt"/>
-            <com.example.han.referralproject.view.progress.RxRoundProgressBar
+            <com.gcml.lib_widget.progressbar.RoundProgressBar
                 android:id="@+id/rpb_two"
                 android:layout_width="130pt"
                 android:layout_height="24pt"

@@ -24,14 +24,13 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.ksyun.media.player.IMediaPlayer;
+import com.ksyun.media.player.KSYMediaPlayer;
 import com.medlink.danbogh.utils.Handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import tv.danmaku.ijk.media.player.IMediaPlayer;
-import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class RadioActivity extends BaseActivity implements
         IMediaPlayer.OnPreparedListener,
@@ -314,7 +313,7 @@ public class RadioActivity extends BaseActivity implements
         }
     }
 
-    private volatile IjkMediaPlayer mPlayer;
+    private volatile KSYMediaPlayer mPlayer;
 
     private volatile boolean isPlaying;
 
@@ -392,7 +391,7 @@ public class RadioActivity extends BaseActivity implements
             mPlayer = null;
         }
         onPlaying();
-        mPlayer = new IjkMediaPlayer();
+        mPlayer = new KSYMediaPlayer.Builder(this).build();
         try {
             mPlayer.setDataSource(url);
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);

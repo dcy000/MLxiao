@@ -67,6 +67,7 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class SignInActivity extends BaseActivity {
 
@@ -253,7 +254,7 @@ public class SignInActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable throwable) {
-                        ToastUtils.showShort(throwable.getMessage());
+                        Timber.e("人脸识别组异常："+throwable.getMessage());
                     }
                 });
     }

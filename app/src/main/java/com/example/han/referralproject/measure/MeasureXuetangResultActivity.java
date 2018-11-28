@@ -14,7 +14,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.video.VideoListActivity;
-import com.example.han.referralproject.view.progress.RxRoundProgressBar;
+import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.littlejie.circleprogress.CircleProgress;
 import com.littlejie.circleprogress.WaveProgress;
@@ -29,27 +29,27 @@ public class MeasureXuetangResultActivity extends BaseActivity implements View.O
     @BindView(R.id.tv_gao)
     TextView tvGao;
     @BindView(R.id.rpb_gao)
-    RxRoundProgressBar rpbGao;
+    RoundProgressBar rpbGao;
     @BindView(R.id.tv_zhengchang)
     TextView tvZhengchang;
     @BindView(R.id.rpb_zhengchang)
-    RxRoundProgressBar rpbZhengchang;
+    RoundProgressBar rpbZhengchang;
     @BindView(R.id.tv_di)
     TextView tvDi;
     @BindView(R.id.rpb_di)
-    RxRoundProgressBar rpbDi;
+    RoundProgressBar rpbDi;
     @BindView(R.id.tv_empty)
     TextView tvEmpty;
     @BindView(R.id.rpb_empty)
-    RxRoundProgressBar rpbEmpty;
+    RoundProgressBar rpbEmpty;
     @BindView(R.id.tv_one)
     TextView tvOne;
     @BindView(R.id.rpb_one)
-    RxRoundProgressBar rpbOne;
+    RoundProgressBar rpbOne;
     @BindView(R.id.tv_two)
     TextView tvTwo;
     @BindView(R.id.rpb_two)
-    RxRoundProgressBar rpbTwo;
+    RoundProgressBar rpbTwo;
     @BindView(R.id.ll_left)
     LinearLayout llLeft;
     @BindView(R.id.circleprogress)

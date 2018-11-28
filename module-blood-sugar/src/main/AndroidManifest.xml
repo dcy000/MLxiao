@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.module_blood_sugar" >
+    <application>
+        <activity android:name=".ui.BloodsugarAbnormalActivity"
+            android:screenOrientation="landscape"/>
+    </application>
+</manifest>

@@ -25,7 +25,7 @@ import android.widget.TextView;
 import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
-import com.gcml.auth.face.dialog.LoadingDialog;
+import com.gcml.lib_widget.dialog.LoadingDialog;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ScreenUtils;

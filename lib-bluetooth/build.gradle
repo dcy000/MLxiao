@@ -29,4 +29,7 @@ dependencies {
     implementation project(':lib-core')
     implementation rootProject.ext.dependencies["support-v4"]
     api rootProject.ext.dependencies["constraint-layout"]
+    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    implementation project(':lib-widget')
 }

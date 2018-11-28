@@ -60,7 +60,7 @@
                 android:textColor="#666666"
                 android:textSize="48pt" />
 
-            <com.example.han.referralproject.view.progress.RxRoundProgressBar
+            <com.gcml.lib_widget.progressbar.RoundProgressBar
                 android:id="@+id/rpb_gao"
                 android:layout_width="302pt"
                 android:layout_height="48pt"
@@ -105,7 +105,7 @@
                 android:textColor="#666666"
                 android:textSize="48pt" />
 
-            <com.example.han.referralproject.view.progress.RxRoundProgressBar
+            <com.gcml.lib_widget.progressbar.RoundProgressBar
                 android:id="@+id/rpb_diya"
                 android:layout_width="302pt"
                 android:layout_height="48pt"
@@ -500,7 +500,7 @@
             android:layout_marginRight="40pt"
             android:layout_marginTop="-16pt"/>
 
-        <com.example.han.referralproject.view.progress.RxTextRoundProgressBar
+        <com.gcml.lib_widget.progressbar.TextRoundProgressBar
             android:id="@+id/rpb_sum"
             android:layout_width="match_parent"
             android:layout_height="40pt"

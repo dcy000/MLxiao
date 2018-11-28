@@ -41,4 +41,12 @@ public interface BluetoothConstants {
      * 手环
      */
     String KEY_SPORTS_BRACELET="key_sports_bracelet";
+
+
+    /**
+     * 测量类型
+     */
+    String TYPE_OF_MEASURE="MeasureType";
+
+
 }

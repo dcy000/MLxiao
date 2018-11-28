@@ -1,12 +1,12 @@
 
-include ':app',
+include ':app', ':lib-widget',
         ':lib-beecloud-pay',
         ':module-edu',
         ':lib-music-player',
-        ':circleprogress',
-        ':wkvideoplayer',
+//        ':circleprogress',
+//        ':wkvideoplayer',
         ':lib-rulerview',
-        ':lib-video-player',
+//        ':lib-video-player',
         ':lib-voice',
 //        ':lib-common',
         ':module-ecg',
@@ -17,6 +17,11 @@ include ':app',
         ':lib-auth-face',
         ':module-video',
         ':lib-bluetooth',
-        ':module-temperature'
-
+        ':module-temperature',
+        ':module-blood-pressure',
+        ':module-blood-oxygen',
+        ':module-blood-sugar',
+        ':module-weight',
+        ':module-triple',
+        ':lib-progress-orb'
 

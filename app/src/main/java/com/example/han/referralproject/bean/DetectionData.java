@@ -1,6 +1,6 @@
 package com.example.han.referralproject.bean;
 
-import com.example.han.referralproject.util.DeviceUtils;
+import com.gzq.lib_core.utils.DeviceUtils;
 
 import java.io.Serializable;
 

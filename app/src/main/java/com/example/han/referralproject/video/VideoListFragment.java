@@ -23,8 +23,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.GridViewDividerItemDecoration;
-import com.ml.videoplayer.MlVideoPlayer;
+import com.gcml.lib_video_ksyplayer.NormalVideoPlayActivity;
+import com.gcml.lib_widget.recycleview.GridViewDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -336,7 +336,7 @@ public class VideoListFragment extends Fragment {
 //                    Intent intent = new Intent(context, MlVideoPlayerActivity.class);
 //                    intent.putExtra("url", entity.getVideourl());
 //                    context.startActivity(intent);
-                    MlVideoPlayer.play(context, entity.getVideourl(), entity.getTitle());
+                    NormalVideoPlayActivity.startActivity(context, null, entity.getVideourl(), entity.getTitle());
                 }
             });
         }
@@ -349,11 +349,5 @@ public class VideoListFragment extends Fragment {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
         super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        MlVideoPlayer.release();
-        super.onPause();
     }
 }

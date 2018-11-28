@@ -3,7 +3,9 @@ package com.gzq.lib_core.utils;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
+import com.gzq.lib_core.base.Box;
 import com.tencent.mmkv.MMKV;
 
 import java.util.Set;
@@ -89,6 +91,20 @@ public final class KVUtils {
             return mmkv.decodeBool(key, (Boolean) defaultObject);
         }
         return null;
+    }
+
+    public static <T> T getEntity(String key, Class<T> tClass) {
+        String kv = (String) get(null, key, "");
+        if (TextUtils.isEmpty(kv))
+            return null;
+        return Box.getGson().fromJson(kv, tClass);
+    }
+
+    public static void putEntity(String key, Object object) {
+        if (object == null) {
+            return;
+        }
+        put(key, Box.getGson().toJson(object));
     }
 
     public static Set<String> getStringSet(String key, @NonNull Set<String> defaultStringSet) {

@@ -19,7 +19,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
 import com.example.han.referralproject.shopping.Goods;
-import com.example.han.referralproject.util.GridViewDividerItemDecoration;
+import com.gcml.lib_widget.recycleview.GridViewDividerItemDecoration;
 import com.gzq.lib_core.utils.ToastUtils;
 
 import java.util.ArrayList;

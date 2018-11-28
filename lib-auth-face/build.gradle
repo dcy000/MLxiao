@@ -39,4 +39,5 @@ dependencies {
     implementation rootProject.ext.dependencies["recyclerview-v7"]
     implementation rootProject.ext.dependencies["lifecycle-extensions"]
     implementation project(':lib-voice')
+    implementation project(':lib-widget')
 }

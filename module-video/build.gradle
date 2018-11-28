@@ -29,7 +29,7 @@ android {
 dependencies {
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation 'com.kk.taurus.playerbase:playerbase:3.3.0'
-    implementation files('libs/libksyplayer.jar')
-    implementation files('libs/libksystat.jar')
+    api files('libs/libksyplayer.jar')
+    api files('libs/libksystat.jar')
     implementation project(':lib-core')
 }

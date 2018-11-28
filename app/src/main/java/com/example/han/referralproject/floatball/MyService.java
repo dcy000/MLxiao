@@ -14,9 +14,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
-
-import com.android.tedcoder.wkvideoplayer.util.DensityUtil;
 import com.example.han.referralproject.R;
+import com.gzq.lib_core.utils.ScreenUtils;
 
 public class MyService extends Service implements DragFloatActionButton.onClickListener, SeekBar.OnSeekBarChangeListener {
     public static Activity context;
@@ -74,7 +73,7 @@ public class MyService extends Service implements DragFloatActionButton.onClickL
         windowManagerParams.y = 0;
 //         设置悬浮窗口长宽数据
 //        floatBtn.measure(0, 0);
-        int originWidth = DensityUtil.dip2px(this, 58L);
+        int originWidth = ScreenUtils.dp2px(58L);
         floatBtn.setOriginWidth(originWidth);
         windowManagerParams.width = originWidth;
         windowManagerParams.height = originWidth;
