@@ -100,7 +100,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="gcml_version_normal_testing" />
+            android:value="gcml_version_normal" />
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
