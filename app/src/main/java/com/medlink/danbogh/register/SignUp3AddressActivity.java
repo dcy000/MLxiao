@@ -106,65 +106,70 @@ public class SignUp3AddressActivity extends BaseActivity {
     private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
-            stopLocation();
-
-            String province = bdLocation.getProvince();
-            String city = bdLocation.getCity();
-            String county = bdLocation.getDistrict();
-            String street = bdLocation.getStreet();
-            String streetNumber = bdLocation.getStreetNumber();
-            finalDetailAddress = street + streetNumber;
-            if (mProvinceNames != null) {
-                int size = mProvinceNames.size();
-                for (int i = 0; i < size; i++) {
-                    String provinceName = mProvinceNames.get(i);
-                    if (province.contains(provinceName)
-                            || provinceName.contains(province)) {
-                        finalI = i;
-                        List<String> cityNames = mCityNameMap.get(provinceName);
-                        if (cityNames != null) {
-                            mCityNames = cityNames;
-                            int size1 = mCityNames.size();
-                            for (int j = 0; j < size1; j++) {
-                                String cityName = mCityNames.get(j);
-                                if (cityName.contains(city)
-                                        || city.contains(cityName)) {
-                                    finalJ = j;
-                                    List<String> countyNames = mCountyNameMap.get(cityName);
-                                    if (countyNames != null) {
-                                        mCountyNames = countyNames;
-                                        int size2 = mCountyNames.size();
-                                        for (int k = 0; k < size2; k++) {
-                                            String countyName = mCountyNames.get(k);
-                                            if (countyName.contains(county)
-                                                    || county.contains(countyName)) {
-                                                finalK = k;
-                                                break;
+            try {
+                stopLocation();
+                if (bdLocation == null) {
+                    return;
+                }
+                String province = bdLocation.getProvince();
+                String city = bdLocation.getCity();
+                String county = bdLocation.getDistrict();
+                String street = bdLocation.getStreet();
+                String streetNumber = bdLocation.getStreetNumber();
+                finalDetailAddress = street + streetNumber;
+                if (mProvinceNames != null) {
+                    int size = mProvinceNames.size();
+                    for (int i = 0; i < size; i++) {
+                        String provinceName = mProvinceNames.get(i);
+                        if (province.contains(provinceName)
+                                || provinceName.contains(province)) {
+                            finalI = i;
+                            List<String> cityNames = mCityNameMap.get(provinceName);
+                            if (cityNames != null) {
+                                mCityNames = cityNames;
+                                int size1 = mCityNames.size();
+                                for (int j = 0; j < size1; j++) {
+                                    String cityName = mCityNames.get(j);
+                                    if (cityName.contains(city)
+                                            || city.contains(cityName)) {
+                                        finalJ = j;
+                                        List<String> countyNames = mCountyNameMap.get(cityName);
+                                        if (countyNames != null) {
+                                            mCountyNames = countyNames;
+                                            int size2 = mCountyNames.size();
+                                            for (int k = 0; k < size2; k++) {
+                                                String countyName = mCountyNames.get(k);
+                                                if (countyName.contains(county)
+                                                        || county.contains(countyName)) {
+                                                    finalK = k;
+                                                    break;
+                                                }
                                             }
                                         }
+                                        break;
                                     }
-                                    break;
                                 }
                             }
+                            break;
                         }
-                        break;
+                    }
+
+                    if (finalI >= 0 && finalI < mProvinceNames.size() &&
+                            finalJ >= 0 && finalJ < mCityNames.size() &&
+                            finalK >= 0 && finalK < mCountyNames.size()) {
+                        spProvince.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                spProvince.setSelection(finalI);
+                                spCounty.setSelection(finalJ);
+                                spCounty.setSelection(finalK);
+                                etAddress.setText(finalDetailAddress);
+                                etAddress.setSelection(finalDetailAddress.length());
+                            }
+                        });
                     }
                 }
-
-                if (finalI >= 0 && finalI < mProvinceNames.size() &&
-                        finalJ >= 0 && finalJ < mCityNames.size() &&
-                        finalK >= 0 && finalK < mCountyNames.size()) {
-                    spProvince.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            spProvince.setSelection(finalI);
-                            spCounty.setSelection(finalJ);
-                            spCounty.setSelection(finalK);
-                            etAddress.setText(finalDetailAddress);
-                            etAddress.setSelection(finalDetailAddress.length());
-                        }
-                    });
-                }
+            } catch (Exception e) {
             }
         }
     };
@@ -234,10 +239,10 @@ public class SignUp3AddressActivity extends BaseActivity {
         LocalShared.getInstance(this.getApplicationContext()).setSignUpAddress(getAddress());
 //        Intent intent = SignUp7HeightActivity.newIntent(this);
 //        startActivity(intent);
-        
+
         if ("女".equals(LocalShared.getInstance(this).getSex())) {
             startActivity(new Intent(this, PregnancyWenActivity.class));
-        }else {
+        } else {
             startActivity(new Intent(this, DrinkInfoActivity.class));
         }
     }
