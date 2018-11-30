@@ -20,7 +20,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.OfflineActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.PinYinUtils;
+import com.gzq.lib_core.utils.PinYinUtils;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignUpActivity;
 import com.gzq.lib_core.utils.ActivityUtils;

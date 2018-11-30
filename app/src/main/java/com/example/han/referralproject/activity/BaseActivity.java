@@ -22,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.gcml.lib_widget.dialog.LoadingDialog;
@@ -32,10 +31,9 @@ import com.gzq.lib_core.utils.ScreenUtils;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
-import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.iflytek.wake.MLVoiceWake;
 import com.iflytek.wake.MLWakeuperListener;
-import com.medlink.danbogh.utils.Handlers;
+import com.gzq.lib_core.utils.Handlers;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.concurrent.TimeUnit;
@@ -132,7 +130,6 @@ public class BaseActivity extends AppCompatActivity {
         finish();
     }
 
-    protected VoiceLineView voiceLineView;
 
     protected FrameLayout mContentParent;
 
@@ -148,19 +145,6 @@ public class BaseActivity extends AppCompatActivity {
     public void setContentView(int layoutResID) {
         mInflater.inflate(layoutResID, rootView);
         super.setContentView(rootView);
-        if (isShowVoiceView) {
-            mContentParent = (FrameLayout) findViewById(android.R.id.content);
-            voiceLineView = new VoiceLineView(this);
-            voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
-            voiceLineView.setAnimation(AnimationUtils.loadAnimation(BaseActivity.this, R.anim.popshow_anim));
-            int width = provideWaveViewWidth();
-            int height = provideWaveViewHeight();
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
-            params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-            mContentParent.addView(voiceLineView, params);
-            mContentParent.bringToFront();
-            voiceLineView.setVisibility(View.GONE);
-        }
 
     }
 
@@ -168,19 +152,6 @@ public class BaseActivity extends AppCompatActivity {
     public void setContentView(View view) {
         rootView.addView(view);
         super.setContentView(rootView);
-        if (isShowVoiceView) {
-            mContentParent = (FrameLayout) findViewById(android.R.id.content);
-            voiceLineView = new VoiceLineView(this);
-            voiceLineView.setBackgroundColor(Color.parseColor("#00000000"));
-            int width = ScreenUtils.dp2px(450);
-            int height = ScreenUtils.dp2px(120);
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
-            params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-            params.bottomMargin = 20;
-            mContentParent.addView(voiceLineView, params);
-            mContentParent.bringToFront();
-            voiceLineView.setVisibility(View.GONE);
-        }
     }
 
 
@@ -259,7 +230,7 @@ public class BaseActivity extends AppCompatActivity {
             if (ratio > 1) {
                 volume = (int) (20 * Math.log10(ratio));
             }
-            voiceLineView.setVolume(volume);
+//            voiceLineView.setVolume(volume);
 
         }
     };
@@ -267,9 +238,9 @@ public class BaseActivity extends AppCompatActivity {
     private volatile int volume;
 
     protected void showWaveView(boolean visible) {
-        if (voiceLineView != null) {
-            voiceLineView.setVisibility(visible ? View.VISIBLE : View.GONE);
-        }
+//        if (voiceLineView != null) {
+//            voiceLineView.setVisibility(visible ? View.VISIBLE : View.GONE);
+//        }
     }
 
     protected void updateVolume() {

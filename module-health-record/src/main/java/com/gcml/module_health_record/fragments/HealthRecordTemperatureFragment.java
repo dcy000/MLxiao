@@ -11,7 +11,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.TemperatureHistory;
 import com.gcml.module_health_record.others.MyFloatNumFormatter;
@@ -228,7 +227,7 @@ public class HealthRecordTemperatureFragment extends BaseFragment implements Vie
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            createEvent("HealthRecord>Temperature");
+            emitEvent("skip2Temperature");
         } else {
         }
     }

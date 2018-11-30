@@ -9,12 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.market.BaojianpinFragment;
 import com.example.han.referralproject.market.GoodsFragment;
-import com.example.han.referralproject.market.KangfuFragment;
-import com.example.han.referralproject.market.ShanshiFragment;
-import com.example.han.referralproject.market.YaopinFragment;
-import com.example.han.referralproject.market.YiliaoshebeiFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;

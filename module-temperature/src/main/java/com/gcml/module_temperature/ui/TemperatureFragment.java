@@ -70,9 +70,9 @@ public class TemperatureFragment extends BaseBluetoothFragment implements IBluet
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_health_history) {
-            createEvent("HealthRecord>Temperature");
+            emitEvent("HealthRecord>Temperature");
         } else if (i == R.id.btn_video_demo) {
-            createEvent("Video>Temperature");
+            emitEvent("Video>Temperature");
         }
     }
 

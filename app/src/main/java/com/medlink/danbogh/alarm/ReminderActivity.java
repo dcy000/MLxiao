@@ -12,10 +12,11 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.LocalShared;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.Handlers;
+import com.gzq.lib_core.utils.Handlers;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,13 +38,14 @@ public class ReminderActivity extends BaseActivity {
     public Unbinder mUnbinder;
 
     private String mContent;
+    private UserInfoBean user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
         mUnbinder = ButterKnife.bind(this);
-
+        user = Box.getSessionManager().getUser();
         mContent = getIntent().getStringExtra(AlarmHelper.CONTENT);
         int hourOfDay = getIntent().getIntExtra(AlarmHelper.HOUR_OF_DAY, 0);
         int minute = getIntent().getIntExtra(AlarmHelper.MINUTE, 0);
@@ -55,8 +57,8 @@ public class ReminderActivity extends BaseActivity {
                 mContent = "主人," + mContent;
             }
         }
-
-        mContent = LocalShared.getInstance(this).getUserName() + mContent;
+        UserInfoBean user = Box.getSessionManager().getUser();
+        mContent = user.bname + mContent;
         tvContent.setText(mContent);
         Handlers.runOnUiThread(mAlarm);
 
@@ -102,8 +104,9 @@ public class ReminderActivity extends BaseActivity {
     @OnClick(R.id.tv_btn_ignore)
     public void onTvBtnIgnoreClicked() {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
+
         NetworkApi.addEatMedicalRecord(
-                LocalShared.getInstance(this).getUserName()
+                user.bname
                 , content,
                 "0",
                 new NetworkManager.SuccessCallback<Object>() {
@@ -123,7 +126,7 @@ public class ReminderActivity extends BaseActivity {
     public void onTvBtnConfirmClicked() {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
         NetworkApi.addEatMedicalRecord(
-                LocalShared.getInstance(this).getUserName(),
+                user.bname,
                 content, "1",
                 new NetworkManager.SuccessCallback<Object>() {
                     @Override

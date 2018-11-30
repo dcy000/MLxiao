@@ -4,13 +4,13 @@
 
 package com.gzq.lib_core.session;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.constant.Constants;
 
 /**
@@ -26,7 +26,7 @@ public class PreferencesSessionManager extends SessionManager {
     private Object mUserInfo;
 
     public PreferencesSessionManager(Context context) {
-        Context mContext=context.getApplicationContext();
+        Context mContext = context.getApplicationContext();
         if (mContext == null)
             throw new NullPointerException("请初始化SessionManger");
         mSharedPreferences = mContext.getSharedPreferences(mContext.getPackageName() + ".session", Context.MODE_PRIVATE);
@@ -52,8 +52,10 @@ public class PreferencesSessionManager extends SessionManager {
             if (mUserInfo != null) {
                 return (T) mUserInfo;
             }
-            String json = mSharedPreferences.getString(Constants.KEY_SESSION_USER, null);
+            String json = mSharedPreferences.getString(Constants.KEY_SESSION_USER, "");
             if (TextUtils.isEmpty(json)) return null;
+            mGson = Box.getGson();
+            if (mGson == null) mGson = new Gson();
             return (T) mGson.fromJson(json, sConfig.getUserClass());
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,6 +66,7 @@ public class PreferencesSessionManager extends SessionManager {
     @Override
     public <T> void setUser(T user) {
         if (user == null) return;
+        mGson = Box.getGson();
         if (mGson == null) mGson = new Gson();
         String json = mGson.toJson(user);
         mSharedPreferences.edit().putString(Constants.KEY_SESSION_USER, json).apply();
@@ -74,6 +77,7 @@ public class PreferencesSessionManager extends SessionManager {
     @Override
     public <T> void setUserToken(T token) {
         if (token == null) return;
+        mGson = Box.getGson();
         if (mGson == null) mGson = new Gson();
         String json = mGson.toJson(token);
         mSharedPreferences.edit().putString(Constants.KEY_SESSION_TOKEN, json).apply();
@@ -85,8 +89,10 @@ public class PreferencesSessionManager extends SessionManager {
     public <T> T getUserToken() {
         if (sConfig.getUserTokenClass() == null) return null;
         try {
-            String json = mSharedPreferences.getString(Constants.KEY_SESSION_TOKEN, null);
+            String json = mSharedPreferences.getString(Constants.KEY_SESSION_TOKEN, "");
             if (TextUtils.isEmpty(json)) return null;
+            mGson = Box.getGson();
+            if (mGson == null) mGson = new Gson();
             return (T) mGson.fromJson(json, sConfig.getUserTokenClass());
         } catch (Exception e) {
             e.printStackTrace();

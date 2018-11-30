@@ -3,11 +3,9 @@ package com.example.han.referralproject.recharge;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,12 +14,10 @@ import android.widget.Toast;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.NDialog;
-import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.Utils;
+import com.gcml.lib_widget.dialog.AlertDialog;
 import com.gzq.lib_core.base.Box;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -105,7 +101,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         @Override
                         public void onFailed(String message) {
                             sign = false;
-                            Log.e("支付成功同步到我们的后台", "onFailed: "+message);
+                            Log.e("支付成功同步到我们的后台", "onFailed: " + message);
                         }
                     });
 
@@ -195,46 +191,43 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
      * 返回上一页
      */
     protected void backLastActivity() {
-        NDialog1 dialog = new NDialog1(this);
-        dialog.setMessageCenter(true)
-                .setMessage("您是否已支付成功?")
-                .setMessageSize(35)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(getResources().getColor(R.color.toolbar_bg))
-                .setNegativeTextColor(Color.parseColor("#999999"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+        new AlertDialog(this)
+                .builder()
+                .setMsg("您是否已支付成功?")
+                .setCancelable(false)
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-                            finish();
-                        }
+                    public void onClick(View v) {
                     }
-                }).create(NDialog.CONFIRM).show();
+                })
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                }).show();
     }
 
     /**
      * 返回到主页面
      */
     protected void backMainActivity() {
-        NDialog1 dialog = new NDialog1(this);
-        dialog.setMessageCenter(true)
-                .setMessage("您是否已支付成功?")
-                .setMessageSize(35)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#FFA200"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+        new AlertDialog(this)
+                .builder()
+                .setMsg("您是否已支付成功?")
+                .setCancelable(false)
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-                            startActivity(new Intent(mContext, MainActivity.class));
-                            finish();
-                        }
+                    public void onClick(View v) {
                     }
-                }).create(NDialog.CONFIRM).show();
+                })
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(mContext, MainActivity.class));
+                        finish();
+                    }
+                }).show();
     }
 
 
@@ -286,8 +279,6 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void run() {
                 while (sign1) {
-
-
 
 
                     if (type.startsWith("BC")) {

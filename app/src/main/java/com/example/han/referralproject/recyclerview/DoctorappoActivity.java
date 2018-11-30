@@ -3,12 +3,10 @@ package com.example.han.referralproject.recyclerview;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,22 +19,16 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.AllDoctor;
-import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.bean.NDialog;
-import com.example.han.referralproject.bean.NDialog1;
-import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.lib_widget.dialog.AlertDialog;
+import com.gcml.lib_widget.dialog.SingleButtonDialog;
 import com.gzq.lib_core.base.Box;
-import com.gzq.lib_core.bean.UserInfoBean;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
-import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
 
 import org.apache.commons.lang.StringUtils;
@@ -1151,11 +1143,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
         mTitleText.setText(getString(R.string.doctor_qianyue));
 
-
-        //  speak(R.string.yuyue_1);
-
-        dialog1 = new NDialog2(DoctorappoActivity.this);
-
         mButtons = (Button) findViewById(R.id.video_doctor);
         mButtons.setEnabled(false);
         mButtons.setSelected(false);
@@ -1163,30 +1150,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
                 NimCallActivity.launch(DoctorappoActivity.this, "docter_" + doctorId);
-//                NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
-//                    @Override
-//                    public void onSuccess(Doctor response) {
-//                        if (isFinishing() || isDestroyed()) {
-//                            return;
-//                        }
-//                        NetworkApi.postTelMessage(response.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                            @Override
-//                            public void onSuccess(Object response) {
-//
-//                            }
-//                        }, new NetworkManager.FailedCallback() {
-//                            @Override
-//                            public void onFailed(String message) {
-//
-//                            }
-//                        });
-//                    }
-//                }, new NetworkManager.FailedCallback() {
-//                    @Override
-//                    public void onFailed(String message) {
-//
-//                    }
-//                });
             }
         });
 
@@ -1353,16 +1316,10 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     }
 
 
-    NDialog1 dialog;
-    NDialog2 dialog1;
-
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.cancel_yuyue:
-
-                dialog = new NDialog1(DoctorappoActivity.this);
 
                 MLVoiceSynthetize.startSynthesize(R.string.cancel_yuyue);
 
@@ -1372,7 +1329,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
             case R.id.cancel_yuyue1:
 
-                dialog = new NDialog1(DoctorappoActivity.this);
                 MLVoiceSynthetize.startSynthesize(R.string.cancel_yuyue);
 
                 showNormal(2);
@@ -1380,7 +1336,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
             case R.id.cancel_yuyue2:
 
-                dialog = new NDialog1(DoctorappoActivity.this);
                 MLVoiceSynthetize.startSynthesize(R.string.cancel_yuyue);
 
                 showNormal(3);
@@ -1389,157 +1344,164 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     }
 
     public void showNormal(final int sign) {
-        dialog.setMessageCenter(false)
-                .setMessage("您确认要取消预约？")
-                .setMessageSize(40)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#FFA200"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+
+        new AlertDialog(this)
+                .builder()
+                .setMsg("您确认要取消预约？")
+                .setCancelable(false)
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
+                    public void onClick(View v) {
+                    }
+                })
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancelReserversion(sign);
+                    }
+                }).show();
+    }
 
-                            if (sign == 1) {
-
-
-                                NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
-                                    @Override
-                                    public void onSuccess(String response) {
-
-                                        long time = 0;
-                                        try {
-                                            time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                                        } catch (ParseException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        String times = String.valueOf(time - 60000);
+    private void cancelReserversion(int sign) {
+        if (sign == 1) {
 
 
-                                        models = DataSupport.findAll(AlarmModel.class);
+            NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                @Override
+                public void onSuccess(String response) {
+
+                    long time = 0;
+                    try {
+                        time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    String times = String.valueOf(time - 60000);
 
 
-                                        if (models.size() != 0) {
-
-                                            for (int i = 0; i < models.size(); i++) {
-                                                if (times.equals(models.get(i).getTimestamp() + "")) {
-                                                    models.get(i).delete();
-                                                    break;
-                                                }
-                                            }
+                    models = DataSupport.findAll(AlarmModel.class);
 
 
-                                        }
+                    if (models.size() != 0) {
+
+                        for (int i = 0; i < models.size(); i++) {
+                            if (times.equals(models.get(i).getTimestamp() + "")) {
+                                models.get(i).delete();
+                                break;
+                            }
+                        }
 
 
-                                        mTextView.setText(null);
-                                        mTextView1.setText(null);
-                                        mLinearLayout1.setVisibility(View.INVISIBLE);
-                                        yuYueDoctor();
-
-                                        ShowNormals("取消成功");
-                                        MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
+                    }
 
 
-                                    }
+                    mTextView.setText(null);
+                    mTextView1.setText(null);
+                    mLinearLayout1.setVisibility(View.INVISIBLE);
+                    yuYueDoctor();
 
-                                }, new NetworkManager.FailedCallback() {
-                                    @Override
-                                    public void onFailed(String message) {
-                                        ShowNormals("取消失败");
-
-
-                                    }
-                                });
+                    ShowNormals("取消成功");
+                    MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
 
 
-                            } else if (sign == 2) {
+                }
+
+            }, new NetworkManager.FailedCallback() {
+                @Override
+                public void onFailed(String message) {
+                    ShowNormals("取消失败");
 
 
-                                NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
-                                    @Override
-                                    public void onSuccess(String response) {
-
-                                        long time = 0;
-                                        try {
-                                            time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
-                                        } catch (ParseException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        String times = String.valueOf(time - 60000);
+                }
+            });
 
 
-                                        if (models.size() != 0) {
-
-                                            for (int i = 0; i < models.size(); i++) {
-                                                if (times.equals(models.get(i).getTimestamp() + "")) {
-                                                    models.get(i).delete();
-                                                    break;
-                                                }
-                                            }
-                                        }
-
-                                        mTextView2.setText(null);
-                                        mTextView6.setText(null);
-                                        mLinearLayout2.setVisibility(View.INVISIBLE);
-                                        yuYueDoctor();
+        } else if (sign == 2) {
 
 
-                                        ShowNormals("取消成功");
+            NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                @Override
+                public void onSuccess(String response) {
 
-                                        MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
+                    long time = 0;
+                    try {
+                        time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
-                                    }
-
-                                }, new NetworkManager.FailedCallback() {
-                                    @Override
-                                    public void onFailed(String message) {
-                                        ShowNormals("取消失败");
-
-
-                                    }
-                                });
+                    String times = String.valueOf(time - 60000);
 
 
-                            } else if (sign == 3) {
+                    if (models.size() != 0) {
+
+                        for (int i = 0; i < models.size(); i++) {
+                            if (times.equals(models.get(i).getTimestamp() + "")) {
+                                models.get(i).delete();
+                                break;
+                            }
+                        }
+                    }
+
+                    mTextView2.setText(null);
+                    mTextView6.setText(null);
+                    mLinearLayout2.setVisibility(View.INVISIBLE);
+                    yuYueDoctor();
 
 
-                                NetworkApi.YuYue_cancel(list.get(2).getRid() + "", new NetworkManager.SuccessCallback<String>() {
-                                    @Override
-                                    public void onSuccess(String response) {
+                    ShowNormals("取消成功");
 
-                                        long time = 0;
-                                        try {
-                                            time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
-                                        } catch (ParseException e) {
-                                            e.printStackTrace();
-                                        }
+                    MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
 
-                                        String times = String.valueOf(time - 60000);
+                }
 
-                                        if (models.size() != 0) {
-
-                                            for (int i = 0; i < models.size(); i++) {
-                                                if (times.equals(models.get(i).getTimestamp() + "")) {
-                                                    models.get(i).delete();
-                                                    break;
-                                                }
-                                            }
-                                        }
-
-                                        mTextView7.setText(null);
-                                        mTextView8.setText(null);
-                                        mLinearLayout3.setVisibility(View.INVISIBLE);
-
-                                        yuYueDoctor();
+            }, new NetworkManager.FailedCallback() {
+                @Override
+                public void onFailed(String message) {
+                    ShowNormals("取消失败");
 
 
-                                        ShowNormals("取消成功");
+                }
+            });
 
-                                        MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
+
+        } else if (sign == 3) {
+
+
+            NetworkApi.YuYue_cancel(list.get(2).getRid() + "", new NetworkManager.SuccessCallback<String>() {
+                @Override
+                public void onSuccess(String response) {
+
+                    long time = 0;
+                    try {
+                        time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    String times = String.valueOf(time - 60000);
+
+                    if (models.size() != 0) {
+
+                        for (int i = 0; i < models.size(); i++) {
+                            if (times.equals(models.get(i).getTimestamp() + "")) {
+                                models.get(i).delete();
+                                break;
+                            }
+                        }
+                    }
+
+                    mTextView7.setText(null);
+                    mTextView8.setText(null);
+                    mLinearLayout3.setVisibility(View.INVISIBLE);
+
+                    yuYueDoctor();
+
+
+                    ShowNormals("取消成功");
+
+                    MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
 
                                        /* DataSupport.deleteAllAsync(AlarmModel.class, "timestamp=?", times)
                                                 .listen(new UpdateOrDeleteCallback() {
@@ -1557,42 +1519,31 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                                                 });*/
 
 
-                                    }
+                }
 
-                                }, new NetworkManager.FailedCallback() {
-                                    @Override
-                                    public void onFailed(String message) {
+            }, new NetworkManager.FailedCallback() {
+                @Override
+                public void onFailed(String message) {
 
-                                        ShowNormals("取消失败");
+                    ShowNormals("取消失败");
 
-                                    }
-                                });
+                }
+            });
 
 
-                            }
-
-                        }
-
-                    }
-                }).create(NDialog.CONFIRM).show();
+        }
     }
 
 
     public void ShowNormals(String str) {
-        dialog1.setMessageCenter(true)
-                .setMessage(str)
-                .setMessageSize(40)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#FFA200"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog2.OnConfirmListener() {
+        new SingleButtonDialog(this)
+                .builder()
+                .setMsg(str)
+                .setPositiveButton("确定", new View.OnClickListener() {
                     @Override
-                    public void onClick(int which) {
-
+                    public void onClick(View v) {
                     }
-                }).create(NDialog.CONFIRM).show();
-
+                }).show();
     }
 
 

@@ -13,7 +13,7 @@ import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tool.dialog.CalculationDialog;
 import com.example.han.referralproject.tool.other.StringUtil;
 import com.example.han.referralproject.tool.other.XFSkillApi;
-import com.example.han.referralproject.tool.wrapview.VoiceLineView;
+import com.gcml.lib_widget.voiceline.VoiceLineView;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;

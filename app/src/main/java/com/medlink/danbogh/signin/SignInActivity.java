@@ -31,10 +31,9 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.AgreementActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.bean.SessionBean;
+import com.gzq.lib_core.bean.SessionBean;
 import com.example.han.referralproject.service.API;
-import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.PinYinUtils;
+import com.gzq.lib_core.utils.PinYinUtils;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.model.FaceRepository;
 import com.gcml.auth.face.ui.FaceSignInActivity;
@@ -43,15 +42,16 @@ import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.model.HttpResult;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.room.UserDatabase;
 import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.Utils;
 import com.ml.edu.common.base.DefaultObserver;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,6 +64,8 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -215,20 +217,23 @@ public class SignInActivity extends BaseActivity {
                 .login(etPhone.getText().toString(), etPassword.getText().toString())
                 .compose(RxUtils.httpResponseTransformer(false))
                 .compose(userTokenTransformer())
+                .doOnNext(new Consumer<UserInfoBean>() {
+                    @Override
+                    public void accept(UserInfoBean userInfoBean) throws Exception {
+                        checkGroup(userInfoBean.xfid);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        hideLoadingDialog();
+                    }
+                })
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new CommonObserver<UserInfoBean>() {
                     @Override
                     public void onNext(UserInfoBean response) {
-                        checkGroup(response.xfid);
-                        new JpushAliasUtils(SignInActivity.this).setAlias("user_" + response.bid);
-                        LocalShared.getInstance(mContext).setUserInfo(response);
-                        LocalShared.getInstance(mContext).addAccount(response.bid, response.xfid);
-                        LocalShared.getInstance(mContext).setSex(response.sex);
-                        LocalShared.getInstance(mContext).setUserPhoto(response.userPhoto);
-                        LocalShared.getInstance(mContext).setUserAge(response.age);
-                        LocalShared.getInstance(mContext).setUserHeight(response.height);
-
-                        hideLoadingDialog();
                         startActivity(new Intent(mContext, MainActivity.class));
                         finish();
                     }
@@ -236,7 +241,6 @@ public class SignInActivity extends BaseActivity {
                     @Override
                     protected void onError(ApiException ex) {
                         super.onError(ex);
-                        hideLoadingDialog();
                         ToastUtils.showShort(ex.getMessage());
                     }
                 });
@@ -254,7 +258,7 @@ public class SignInActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable throwable) {
-                        Timber.e("人脸识别组异常："+throwable.getMessage());
+                        Timber.e("人脸识别组异常：" + throwable.getMessage());
                     }
                 });
     }
@@ -267,15 +271,20 @@ public class SignInActivity extends BaseActivity {
                         .flatMap(new Function<SessionBean, ObservableSource<UserInfoBean>>() {
                             @Override
                             public ObservableSource<UserInfoBean> apply(SessionBean userToken) throws Exception {
+                                //保存Token
+                                Box.getSessionManager().setUserToken(userToken);
                                 return Box.getRetrofit(API.class)
                                         .queryUserInfo(userToken.getUserId() + "")
-                                        .compose(RxUtils.httpResponseTransformer());
+                                        .compose(RxUtils.httpResponseTransformer(false));
                             }
                         })
                         .doOnNext(new Consumer<UserInfoBean>() {
                             @Override
                             public void accept(UserInfoBean user) throws Exception {
+                                //session管理、存入数据库
                                 Box.getSessionManager().setUser(user);
+                                UserDatabase userDatabase = Box.getRoomDataBase(UserDatabase.class);
+                                userDatabase.userDao().insertUser(user);
                             }
                         });
             }
@@ -292,15 +301,15 @@ public class SignInActivity extends BaseActivity {
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
+                List<UserInfoBean> usersFromRoom = Box.getUsersFromRoom();
 
-                if (mAccountIds == null) {
+                if (usersFromRoom == null) {
                     emitter.onError(new Throwable("未检测到您的登录历史，请输入账号和密码登录"));
                     return;
                 }
                 StringBuilder userIds = new StringBuilder();
-                for (String item : mAccountIds) {
-                    userIds.append(item.split(",")[0]).append(",");
+                for (UserInfoBean user : usersFromRoom) {
+                    userIds.append(user.bid);
                 }
                 String substring = userIds.substring(0, userIds.length() - 1);
                 emitter.onNext(substring);

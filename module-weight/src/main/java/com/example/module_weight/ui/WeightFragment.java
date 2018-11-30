@@ -26,7 +26,9 @@ public class WeightFragment extends BaseBluetoothFragment implements IBluetoothV
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_health_history) {
+            emitEvent("HealthRecord>Weight");
         } else if (i == R.id.btn_video_demo) {
+            emitEvent("");
         }
     }
 

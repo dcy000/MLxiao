@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/alert_bg"
     android:layout_height="match_parent"
-    tools:context="com.medlink.danbogh.register.SignUp14DiseaseHistoryActivity">
+    tools:context="com.example.module_register.ui.normal.SignUp14DiseaseHistoryActivity">
 
     <TextView
         android:id="@+id/tv_sign_up_title"

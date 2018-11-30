@@ -25,15 +25,15 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.children.model.BrainTeaserModel;
 import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.example.han.referralproject.tool.other.StringUtil;
-import com.example.han.referralproject.tool.wrapview.VoiceLineView;
-import com.example.han.referralproject.util.PinYinUtils;
+import com.gcml.lib_widget.voiceline.VoiceLineView;
+import com.gzq.lib_core.utils.PinYinUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.gzq.lib_core.utils.UiUtils;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.Handlers;
+import com.gzq.lib_core.utils.Handlers;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.HashMap;

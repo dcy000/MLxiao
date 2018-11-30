@@ -72,7 +72,7 @@
             app:layout_constraintLeft_toRightOf="@+id/ce_brain_teaser_iv_show_answer"
             app:layout_constraintRight_toLeftOf="@+id/ce_brain_teaser_iv_next"/>
 
-        <com.example.han.referralproject.tool.wrapview.VoiceLineView
+        <com.gcml.lib_widget.voiceline.VoiceLineView
             android:id="@+id/ce_brain_teaser_vlv_voice_wave"
             android:layout_width="600pt"
             android:layout_height="56pt"

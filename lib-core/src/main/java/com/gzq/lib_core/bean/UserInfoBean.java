@@ -1,9 +1,16 @@
 package com.gzq.lib_core.bean;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
-public class UserInfoBean implements Parcelable{
+@Entity(tableName = "user")
+public class UserInfoBean implements Parcelable {
+    @NonNull
+    @PrimaryKey
     public String bid;
     public String categoryid;
     public String doct;
@@ -31,10 +38,13 @@ public class UserInfoBean implements Parcelable{
     public String wyyxId;
     public String doid;
     public String wyyxPwd;
+    @Ignore
+    public String password;
 
     public UserInfoBean() {
 
     }
+
 
     protected UserInfoBean(Parcel in) {
         bid = in.readString();
@@ -81,7 +91,7 @@ public class UserInfoBean implements Parcelable{
     @Override
     public String toString() {
         return "UserInfoBean{" +
-                "bid='" + bid + '\'' +
+                "bid=" + bid +
                 ", categoryid='" + categoryid + '\'' +
                 ", doct='" + doct + '\'' +
                 ", eq='" + eq + '\'' +
@@ -110,7 +120,6 @@ public class UserInfoBean implements Parcelable{
                 ", wyyxPwd='" + wyyxPwd + '\'' +
                 '}';
     }
-
 
     @Override
     public int describeContents() {

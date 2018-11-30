@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.BuildConfig;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.AllDoctor;
 import com.example.han.referralproject.bean.AlreadyYuyue;
 import com.example.han.referralproject.bean.BUA;
@@ -14,7 +13,6 @@ import com.example.han.referralproject.bean.BloodPressureHistory;
 import com.example.han.referralproject.bean.BloodSugarHistory;
 import com.example.han.referralproject.bean.CholesterolHistory;
 import com.example.han.referralproject.bean.ClueInfoBean;
-import com.example.han.referralproject.bean.ContractInfo;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.Doctor;
@@ -46,6 +44,7 @@ import com.example.han.referralproject.shopping.Order;
 import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoEntity;
+import com.example.module_register.bean.ContractInfo;
 import com.google.gson.reflect.TypeToken;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
@@ -690,17 +689,6 @@ public class NetworkApi {
         params.put("time", String.valueOf(Calendar.getInstance().getTimeInMillis()));
         params.put("state", state);
         NetworkManager.getInstance().postResultClass(ADD_EAT_MEDICAL_URL, params, Object.class, successCallback, failedCallback);
-    }
-
-    public static void getContractInfo(
-            String doctorId,
-            NetworkManager.SuccessCallback<ContractInfo> successCallback,
-            NetworkManager.FailedCallback failedCallback) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("userid", Box.getUserId());
-        params.put("docterid", doctorId);
-        NetworkManager.getInstance().getResultClass(GET_CONTRACT_INFO, params, ContractInfo.class, successCallback, failedCallback);
-
     }
 
     /**

@@ -24,7 +24,7 @@ import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivi
 import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.gzq.lib_core.utils.QRCodeUtils;
 import com.gzq.lib_core.utils.UiUtils;
-import com.medlink.danbogh.utils.Handlers;
+import com.gzq.lib_core.utils.Handlers;
 
 public class MyDialogFragment extends DialogFragment {
 

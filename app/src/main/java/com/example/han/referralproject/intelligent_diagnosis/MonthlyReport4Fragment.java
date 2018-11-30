@@ -26,6 +26,8 @@ import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -107,7 +109,7 @@ public class MonthlyReport4Fragment extends Fragment {
         }
     }
     private void initData() {
-        String height_s = LocalShared.getInstance(getActivity()).getUserHeight();
+        String height_s =((UserInfoBean) Box.getSessionManager().getUser()).height;
         float height_f = Float.parseFloat(height_s);
         sj_tizhong = Float.parseFloat(data.bmis) * (height_f / 100.0f) * (height_f / 100.0f);
         sj_yundong = Float.parseFloat(data.sportss);

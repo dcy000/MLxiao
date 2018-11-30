@@ -25,7 +25,7 @@ public abstract class BasePresenter<V extends IView>
     @CallSuper
     @Override
     public void onCreate(LifecycleOwner owner) {
-        this.mLifecycleOwner=owner;
+        this.mLifecycleOwner = owner;
     }
 
     @Override
@@ -52,11 +52,11 @@ public abstract class BasePresenter<V extends IView>
     @Override
     public void onDestroy(LifecycleOwner owner) {
         owner.getLifecycle().removeObserver(this);
-        mView=null;
-        mLifecycleOwner=null;
+        mView = null;
+        mLifecycleOwner = null;
     }
 
-    public void createEvent(String tag, Object... params) {
+    public void emitEvent(String tag, Object... params) {
         for (IEvents event : events) {
             event.onEvent(tag, params);
         }

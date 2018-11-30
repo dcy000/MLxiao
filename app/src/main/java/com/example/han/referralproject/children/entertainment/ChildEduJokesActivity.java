@@ -14,7 +14,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.children.model.JokeModel;
 import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.Handlers;
+import com.gzq.lib_core.utils.Handlers;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
 
 import java.util.ArrayList;

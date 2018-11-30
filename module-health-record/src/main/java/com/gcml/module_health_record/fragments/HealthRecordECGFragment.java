@@ -42,7 +42,7 @@ public class HealthRecordECGFragment extends BaseFragment implements View.OnClic
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            createEvent("HealthRecord>Ecg");
+            emitEvent("skip2Ecg");
         } else {
         }
     }

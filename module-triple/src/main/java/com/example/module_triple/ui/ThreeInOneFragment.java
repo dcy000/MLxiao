@@ -61,7 +61,9 @@ public class ThreeInOneFragment extends BaseBluetoothFragment implements View.On
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_health_history) {
+            emitEvent("HealthRecord>ThreeInOne");
         } else if (i == R.id.btn_video_demo) {
+            emitEvent("Video>ThreeInOne");
         }
     }
 

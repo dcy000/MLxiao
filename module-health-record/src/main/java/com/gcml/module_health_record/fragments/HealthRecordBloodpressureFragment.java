@@ -274,7 +274,7 @@ public class HealthRecordBloodpressureFragment extends BaseFragment implements V
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            createEvent("HealthRecord>BloodPressure");
+            emitEvent("skip2BloodPressure");
         } else {
 
         }

@@ -17,7 +17,7 @@ import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.gzq.lib_core.utils.ToastUtils;
-import com.medlink.danbogh.utils.Handlers;
+import com.gzq.lib_core.utils.Handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;

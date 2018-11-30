@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,14 +12,12 @@ import android.widget.TextView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.AlreadyYuyue;
-import com.example.han.referralproject.bean.NDialog;
-import com.example.han.referralproject.bean.NDialog1;
-import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.lib_widget.dialog.AlertDialog;
+import com.gcml.lib_widget.dialog.SingleButtonDialog;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -61,8 +58,8 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     Date date5;
     Date date6;
 
-    NDialog1 dialog;
-    NDialog2 dialog1;
+//    NDialog1 dialog;
+//    NDialog2 dialog1;
 
 
     public TextView mTextView1;
@@ -119,80 +116,102 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         MLVoiceSynthetize.startSynthesize(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")));
 
-        dialog = new NDialog1(AddAppoActivity.this);
+//        dialog = new NDialog1(AddAppoActivity.this);
 
-
-        dialog.setMessageCenter(true)
-                .setMessage(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")))
-                .setMessageSize(35)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#FFA200"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+        new AlertDialog(this)
+                .builder()
+                .setMsg(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")))
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-                            UserInfoBean user = Box.getSessionManager().getUser();
-                            NetworkApi.YuYue(start_time, end_time, user.bid, sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-                                    //sharedPreference.getString("doctor_id", "")
-
-                                    //   SharePerfence(sharedPreferences, str1, str2, str3);
-
-                                    ShowNormals("预约成功");
-
-
-                                }
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-                                    ShowNormals("预约失败");
-
-                                }
-                            });
-
-
-                        } else if (which == 0) {
-                            mTextView.setText("可预约");
-                            mTextView.setTextColor(Color.parseColor("#3F86FC"));
-                            dialog.create(NDialog.CONFIRM).cancel();
-                            dialog = null;
-                        }
-
+                    public void onClick(View v) {
+                        mTextView.setText("可预约");
+                        mTextView.setTextColor(Color.parseColor("#3F86FC"));
                     }
                 })
-                .create(NDialog.CONFIRM).show();
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        UserInfoBean user = Box.getSessionManager().getUser();
+                        NetworkApi.YuYue(start_time, end_time, user.bid, sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<String>() {
+                            @Override
+                            public void onSuccess(String response) {
+                                //sharedPreference.getString("doctor_id", "")
+
+                                //   SharePerfence(sharedPreferences, str1, str2, str3);
+
+                                ShowNormals("预约成功");
+
+
+                            }
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
+                                ShowNormals("预约失败");
+
+                            }
+                        });
+                    }
+                }).show();
+
+//        dialog.setMessageCenter(true)
+//                .setMessage(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")))
+//                .setMessageSize(35)
+//                .setCancleable(false)
+//                .setButtonCenter(true)
+//                .setPositiveTextColor(Color.parseColor("#FFA200"))
+//                .setButtonSize(40)
+//                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+//                    @Override
+//                    public void onClick(int which) {
+//                        if (which == 1) {
+//                            UserInfoBean user = Box.getSessionManager().getUser();
+//                            NetworkApi.YuYue(start_time, end_time, user.bid, sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<String>() {
+//                                @Override
+//                                public void onSuccess(String response) {
+//                                    //sharedPreference.getString("doctor_id", "")
+//
+//                                    //   SharePerfence(sharedPreferences, str1, str2, str3);
+//
+//                                    ShowNormals("预约成功");
+//
+//
+//                                }
+//                            }, new NetworkManager.FailedCallback() {
+//                                @Override
+//                                public void onFailed(String message) {
+//                                    ShowNormals("预约失败");
+//
+//                                }
+//                            });
+//
+//
+//                        } else if (which == 0) {
+//                            mTextView.setText("可预约");
+//                            mTextView.setTextColor(Color.parseColor("#3F86FC"));
+//                            dialog.create(NDialog.CONFIRM).cancel();
+//                            dialog = null;
+//                        }
+//
+//                    }
+//                })
+//                .create(NDialog.CONFIRM).show();
     }
 
     public void ShowNormals(String str) {
-        dialog1.setMessageCenter(true)
-                .setMessage(str)
-                .setMessageSize(40)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#FFA200"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog2.OnConfirmListener() {
+        new SingleButtonDialog(this)
+                .builder()
+                .setMsg(str)
+                .setPositiveButton("确定", new View.OnClickListener() {
                     @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-
-                            Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class);
-                            startActivity(intent);
-                            finish();
-
-                        }
-
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
-                }).create(NDialog.CONFIRM).show();
+                }).show();
 
     }
 
-
-    //  public ImageView ImageView1;
-    //   public ImageView ImageView2;
 
     SimpleDateFormat simpl;
 
@@ -265,7 +284,6 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         MLVoiceSynthetize.startSynthesize(R.string.yuyue_times);
 
-        dialog1 = new NDialog2(AddAppoActivity.this);
 
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 

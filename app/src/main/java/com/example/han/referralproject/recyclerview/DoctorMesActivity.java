@@ -3,7 +3,6 @@ package com.example.han.referralproject.recyclerview;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,19 +18,18 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.bean.NDialog;
-import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
-import com.example.han.referralproject.util.PinYinUtils;
+import com.example.module_register.ui.normal.ConfirmContractActivity;
+import com.gcml.lib_widget.dialog.AlertDialog;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.utils.PinYinUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.register.ConfirmContractActivity;
 
 public class DoctorMesActivity extends BaseActivity implements View.OnClickListener {
 
@@ -359,25 +357,23 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void onLackOfAmount() {
-        NDialog1 dialog = new NDialog1(this);
-        dialog.setMessageCenter(true)
-                .setMessage("账户余额不足,我要充值?")
-                .setMessageSize(35)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#FFA200"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+        new AlertDialog(this)
+                .builder()
+                .setMsg("账户余额不足,我要充值?")
+                .setCancelable(false)
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-                            Intent intent = new Intent(DoctorMesActivity.this, PayActivity.class);
-                            startActivity(intent);
-                        } else {
-                            finish();
-                        }
+                    public void onClick(View v) {
+                        finish();
                     }
-                }).create(NDialog.CONFIRM).show();
+                })
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(DoctorMesActivity.this, PayActivity.class);
+                        startActivity(intent);
+                    }
+                }).show();
     }
 
     public void OnlineTime() {

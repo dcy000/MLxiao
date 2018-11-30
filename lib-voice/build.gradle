@@ -33,6 +33,8 @@ android {
 
 dependencies {
     implementation rootProject.ext.dependencies["support-v4"]
-//    api files('libs/Msc.jar')
+    //    api files('libs/Msc.jar')
     implementation project(':lib-core')
+    api files('libs/Sunflower.jar')
+    api files('libs/Msc.jar')
 }

@@ -87,7 +87,7 @@ public abstract class BaseFragment<V extends IView, P extends IPresenter>
 
     public abstract P obtainPresenter();
 
-    public void createEvent(String tag, Object... params) {
+    public void emitEvent(String tag, Object... params) {
         for (IEvents event : events) {
             event.onEvent(tag, params);
         }

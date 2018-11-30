@@ -237,7 +237,7 @@ public class HealthRecordCholesterolFragment extends BaseFragment implements Vie
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            createEvent("HealthRecord>ThreeInOne");
+            emitEvent("skip2ThreeInOne");
         } else {
         }
     }

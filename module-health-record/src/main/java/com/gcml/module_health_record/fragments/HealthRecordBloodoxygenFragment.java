@@ -11,7 +11,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.module_health_record.R;
 import com.gcml.module_health_record.bean.BloodOxygenHistory;
 import com.gcml.module_health_record.others.MyMarkerView;
@@ -212,7 +211,7 @@ public class HealthRecordBloodoxygenFragment extends BaseFragment implements Vie
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            createEvent("HealthRecord>Bloodoxygen");
+            emitEvent("skip2Bloodoxygen");
         } else {
 
         }

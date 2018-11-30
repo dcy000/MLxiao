@@ -1,0 +1,52 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.module_register">
+
+    <application>
+        <activity
+            android:name=".ui.normal.ConfirmContractActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp1NameActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp2GenderActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp3AddressActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp4IdCardActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp5MobileVerificationActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp6PasswordActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp7HeightActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp8WeightActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp9BloodTypeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp10EatActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp11SmokeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp12DrinkActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp13SportsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.SignUp14DiseaseHistoryActivity"
+            android:screenOrientation="landscape" />
+    </application>
+
+</manifest>

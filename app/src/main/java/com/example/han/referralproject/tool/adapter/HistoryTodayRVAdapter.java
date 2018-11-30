@@ -6,8 +6,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.tool.xfparsebean.HistoryTodayBean;
-import com.hymane.expandtextview.ExpandTextView;
-import com.hymane.expandtextview.OnReadMoreClickListener;
+import com.gcml.lib_widget.textview.ExpandTextView;
+import com.gcml.lib_widget.textview.OnReadMoreClickListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.List;

@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.service.API;
+import com.example.module_register.adapter.EatAdapter;
+import com.example.module_register.adapter.EatModel;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
@@ -15,8 +17,6 @@ import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.register.EatAdapter;
-import com.medlink.danbogh.register.EatModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class AlertSmokeActivity extends BaseActivity {
@@ -40,6 +41,7 @@ public class AlertSmokeActivity extends BaseActivity {
     private EatAdapter mAdapter;
     private List<EatModel> mModels;
     private UserInfoBean data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class AlertSmokeActivity extends BaseActivity {
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("修改吸烟情况");
-        data= (UserInfoBean) getIntent().getParcelableExtra("data");
+        data = (UserInfoBean) getIntent().getParcelableExtra("data");
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
         initView();
@@ -55,7 +57,7 @@ public class AlertSmokeActivity extends BaseActivity {
 
 
     private void initView() {
-        if (data==null){
+        if (data == null) {
             return;
         }
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
@@ -67,6 +69,7 @@ public class AlertSmokeActivity extends BaseActivity {
         rvSignUpContent.setAdapter(mAdapter);
 
     }
+
     private int positionSelected = -1;
 
     private View.OnClickListener onItemClickListener = new View.OnClickListener() {
@@ -83,6 +86,7 @@ public class AlertSmokeActivity extends BaseActivity {
             mAdapter.notifyItemChanged(position);
         }
     };
+
     private List<EatModel> eatModals() {
         mModels = new ArrayList<>(3);
         mModels.add(new EatModel(getString(R.string.always_smoke),
@@ -102,6 +106,7 @@ public class AlertSmokeActivity extends BaseActivity {
                 R.drawable.bg_tv_salty_preference));
         return mModels;
     }
+
     @OnClick(R.id.tv_sign_up_go_back)
     public void onTvGoBackClicked() {
         finish();
@@ -109,7 +114,7 @@ public class AlertSmokeActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        if(positionSelected==-1){
+        if (positionSelected == -1) {
             ToastUtils.showShort("请选择其中一个");
             return;
         }
@@ -121,12 +126,18 @@ public class AlertSmokeActivity extends BaseActivity {
                         data.height,
                         data.weight,
                         data.eatingHabits,
-                        positionSelected+1+"",
+                        user.smoke = positionSelected + 1 + "",
                         data.drink,
                         data.exerciseHabits,
                         data.mh,
                         data.dz
                 )
+                .doOnNext(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        Box.getSessionManager().setUser(user);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -134,15 +145,15 @@ public class AlertSmokeActivity extends BaseActivity {
                     @Override
                     public void onNext(Object o) {
                         ToastUtils.showShort("修改成功");
-                        switch (positionSelected+1){
+                        switch (positionSelected + 1) {
                             case 1:
-                                MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为"+"经常吸烟");
+                                MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为" + "经常吸烟");
                                 break;
                             case 2:
-                                MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为"+"偶尔吸烟");
+                                MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为" + "偶尔吸烟");
                                 break;
                             case 3:
-                                MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为"+"从不吸烟");
+                                MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为" + "从不吸烟");
                                 break;
                         }
                     }
@@ -153,6 +164,7 @@ public class AlertSmokeActivity extends BaseActivity {
                     }
                 });
     }
+
     @Override
     protected void onActivitySpeakFinish() {
         finish();

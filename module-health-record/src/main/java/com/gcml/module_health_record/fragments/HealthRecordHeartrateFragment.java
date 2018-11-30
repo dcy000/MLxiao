@@ -228,7 +228,7 @@ public class HealthRecordHeartrateFragment extends BaseFragment implements View.
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            createEvent("HealthRecord>Bloodoxygen");
+            emitEvent("skip2Bloodoxygen");
         } else {
         }
     }

@@ -5,19 +5,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.bean.ClueInfoBean;
-import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -25,8 +20,7 @@ import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
-import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.PinYinUtils;
+import com.gzq.lib_core.utils.PinYinUtils;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignInActivity;
 import com.gzq.lib_core.base.Box;
@@ -44,7 +38,7 @@ import com.medlink.danbogh.alarm.AlarmModel;
 
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.signin.SignInActivity;
-import com.medlink.danbogh.utils.Handlers;
+import com.gzq.lib_core.utils.Handlers;
 
 import org.litepal.crud.DataSupport;
 
@@ -65,7 +59,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     ImageView mImageView3;
     ImageView mImageView4;
     ImageView mImageView5;
-
 
 
     private ImageView mImageView6;
@@ -158,14 +151,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
-                if (mAccountIds == null) {
+                List<UserInfoBean> usersFromRoom = Box.getUsersFromRoom();
+                if (usersFromRoom == null) {
                     emitter.onError(new Throwable("未检测到您的登录历史，请输入账号和密码登录"));
                     return;
                 }
                 StringBuilder userIds = new StringBuilder();
-                for (String item : mAccountIds) {
-                    userIds.append(item.split(",")[0]).append(",");
+
+                for (UserInfoBean user : usersFromRoom) {
+                    userIds.append(user.bid);
                 }
                 String substring = userIds.substring(0, userIds.length() - 1);
                 emitter.onNext(substring);

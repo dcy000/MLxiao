@@ -17,13 +17,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.NDialog;
-import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.lib_widget.dialog.AlertDialog;
 import com.gzq.lib_core.base.Box;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -43,7 +41,6 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
     public Button mButton5;
     public Button mButton6;
 
-    NDialog1 dialog;
 
     public Button mButton;
 
@@ -111,7 +108,6 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
         mButton6.setOnClickListener(this);
 
         mButton = (Button) findViewById(R.id.niming_appraise);
-        dialog = new NDialog1(AppraiseActivity.this);
 
 
         mTextView4.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
@@ -301,16 +297,18 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
 
 
     public void showNormal() {
-        dialog.setMessageCenter(true)
-                .setMessage("您确认要进行评价？")
-                .setMessageSize(40)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#FFA200"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+        new AlertDialog(this)
+                .builder()
+                .setMsg("您确认要进行评价？")
+                .setCancelable(false)
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
-                    public void onClick(int which) {
+                    public void onClick(View v) {
+                    }
+                })
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         StringBuffer str = new StringBuffer();
 
                         if (mButton1.isSelected()) {
@@ -364,10 +362,8 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
 
                             }
                         });
-
-
                     }
-                }).create(NDialog.CONFIRM).show();
+                }).show();
     }
 
 

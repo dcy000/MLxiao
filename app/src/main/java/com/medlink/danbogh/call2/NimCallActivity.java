@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.network.NetworkApi;
@@ -27,7 +26,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.AppraiseActivity;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.utils.ToastUtils;
-import com.medlink.danbogh.utils.Handlers;
+import com.gzq.lib_core.utils.Handlers;
 import com.medlink.danbogh.utils.Utils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;

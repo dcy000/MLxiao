@@ -52,16 +52,15 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JpushAliasUtils(mContext).setAlias("user_"+itemBean.bid);
                 NimAccountHelper.getInstance().logout();
                 //更新Session
                 Box.getSessionManager().setUser(itemBean);
 
-                LocalShared.getInstance(mContext).setUserInfo(itemBean);
-                LocalShared.getInstance(mContext).setSex(itemBean.sex);
-                LocalShared.getInstance(mContext).setUserPhoto(itemBean.userPhoto);
-                LocalShared.getInstance(mContext).setUserAge(itemBean.age);
-                LocalShared.getInstance(mContext).setUserHeight(itemBean.height);
+//                LocalShared.getInstance(mContext).setUserInfo(itemBean);
+//                LocalShared.getInstance(mContext).setSex(itemBean.sex);
+//                LocalShared.getInstance(mContext).setUserPhoto(itemBean.userPhoto);
+//                LocalShared.getInstance(mContext).setUserAge(itemBean.age);
+//                LocalShared.getInstance(mContext).setUserHeight(itemBean.height);
                 mContext.getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE)
                         .edit()
                         .putString("name", itemBean.doct)

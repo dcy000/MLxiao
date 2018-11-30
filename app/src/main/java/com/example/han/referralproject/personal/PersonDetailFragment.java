@@ -47,6 +47,7 @@ import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.google.gson.Gson;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.ml.edu.OldRouter;
@@ -69,7 +70,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                     break;
                 case 1:
 
-                    LocalShared.getInstance(getContext()).setXunfeiID(msg.obj + "");
+//                    LocalShared.getInstance(getContext()).setXunfeiID(msg.obj + "");
 
                     break;
             }
@@ -269,11 +270,12 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_check://病症自查
+                UserInfoBean user = Box.getSessionManager().getUser();
                 DiseaseUser diseaseUser = new DiseaseUser(
-                        LocalShared.getInstance(getActivity()).getUserName(),
-                        LocalShared.getInstance(getActivity()).getSex().equals("男") ? 1 : 2,
-                        Integer.parseInt(LocalShared.getInstance(getActivity()).getUserAge()) * 12,
-                        LocalShared.getInstance(getActivity()).getUserPhoto()
+                        user.bname,
+                        user.sex.equals("男") ? 1 : 2,
+                        Integer.parseInt(user.age) * 12,
+                        user.userPhoto
                 );
                 String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(getActivity(), com.witspring.unitbody.ChooseMemberActivity.class);

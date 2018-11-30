@@ -228,7 +228,7 @@ public class HealthRecordBUAFragment extends BaseFragment implements View.OnClic
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            createEvent("HealthRecord>ThreeInOne");
+            emitEvent("skip2ThreeInOne");
         } else {
         }
     }

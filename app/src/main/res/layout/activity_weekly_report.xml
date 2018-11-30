@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-    <me.relex.circleindicator.CircleIndicator
+    <com.gcml.lib_widget.circleindicator.CircleIndicator
         android:id="@+id/circleIndicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.gzq.lib_core.utils.UiUtils;
 
@@ -192,8 +194,9 @@ public class HealthReportFragment extends Fragment {
         }
         float bmi = Float.parseFloat(response.lastWeek.bmis);
         float targetBmi = Float.parseFloat(response.lastWeek.bmim);
-        LocalShared shared = LocalShared.getInstance(getContext());
-        float height = shared == null ? 0 : Float.parseFloat(shared.getUserHeight());
+        UserInfoBean user = Box.getSessionManager().getUser();
+        float height = TextUtils.isEmpty(user.height) ? 0 : Float.parseFloat(user.height);
+
         if (height > 0) {
             targetWeight = targetBmi / height / height * 10000;
             weight = bmi / height / height * 10000;
@@ -210,29 +213,6 @@ public class HealthReportFragment extends Fragment {
     }
 
     private ArrayList<TargetModel> mTargetModels = new ArrayList<>();
-//
-//    {
-//        TargetModel targetModel = new TargetModel();
-//        targetModel.setTitle("本周盐摄入量");
-//        targetModel.setTarget("少于40克");
-//        targetModel.setSource("摄入20克");
-//        mTargetModels.add(targetModel);
-//        targetModel = new TargetModel();
-//        targetModel.setTitle("本周饮酒量");
-//        targetModel.setTarget("少于100ml");
-//        targetModel.setSource("已饮50ml");
-//        mTargetModels.add(targetModel);
-//        targetModel = new TargetModel();
-//        targetModel.setTitle("本周运动时间");
-//        targetModel.setTarget("大于120分钟");
-//        targetModel.setSource("运动40分钟");
-//        mTargetModels.add(targetModel);
-//        targetModel = new TargetModel();
-//        targetModel.setTitle("体重");
-//        targetModel.setTarget("小于62Kg");
-//        targetModel.setSource("体重61kg");
-//        mTargetModels.add(targetModel);
-//    }
 
     private int[] backgroudReses = new int[]{
             R.drawable.health_ic_salt,

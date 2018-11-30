@@ -13,6 +13,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.lib_widget.circleindicator.CircleIndicator;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -22,7 +23,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import me.relex.circleindicator.CircleIndicator;
 
 /**
  * Created by gzq on 2018/3/9.

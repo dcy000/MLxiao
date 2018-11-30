@@ -18,10 +18,12 @@ import com.gzq.lib_core.base.delegate.AppLifecycle;
 import com.gzq.lib_core.base.quality.LeakCanaryUtil;
 import com.gzq.lib_core.base.ui.IEvents;
 import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.room.UserDatabase;
 import com.gzq.lib_core.session.SessionManager;
 import com.gzq.lib_core.utils.KVUtils;
 import com.gzq.lib_core.utils.UiUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Retrofit;
@@ -166,5 +168,15 @@ public class Box implements AppLifecycle {
      */
     public static int getColor(@ColorRes int id) {
         return ContextCompat.getColor(getApp(), id);
+    }
+
+    /**
+     * 从数据库获取所有Users
+     *
+     * @return
+     */
+    public static List<UserInfoBean> getUsersFromRoom() {
+        UserDatabase user = Box.getRoomDataBase(UserDatabase.class);
+        return user.userDao().getUsers();
     }
 }

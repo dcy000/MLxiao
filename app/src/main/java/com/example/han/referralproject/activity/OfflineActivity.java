@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.util.PinYinUtils;
+import com.gzq.lib_core.utils.PinYinUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public class OfflineActivity extends BaseActivity{

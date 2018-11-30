@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.gzq.lib_core.base.ui.BaseActivity;
 
 public abstract class ToolbarBaseActivity extends BaseActivity implements View.OnClickListener {
-    protected boolean isShowToolbar = true;
     protected View mToolbar = null;
     protected TextView mTitleText;
     protected TextView mRightText;
@@ -20,6 +19,7 @@ public abstract class ToolbarBaseActivity extends BaseActivity implements View.O
     protected TextView mLeftText;
     protected LinearLayout mllBack;
     private long lastclicktime = 0L;
+
     @Override
     public void setContentView(int layoutResID) {
         ViewGroup viewGroup = findViewById(android.R.id.content);
@@ -27,13 +27,14 @@ public abstract class ToolbarBaseActivity extends BaseActivity implements View.O
         LinearLayout parent = new LinearLayout(this);
         parent.setOrientation(LinearLayout.VERTICAL);
         viewGroup.addView(parent);
-        if (isShowToolbar) {
+        if (isShowToolbar()) {
             mToolbar = LayoutInflater.from(this).inflate(R.layout.toolbar_layout, parent, true);
             initToolbar();
         }
         LayoutInflater.from(this).inflate(layoutResID, parent, true);
     }
-    private void initToolbar() {
+
+    protected void initToolbar() {
         mllBack = mToolbar.findViewById(R.id.ll_back);
         mToolbar = mToolbar.findViewById(R.id.toolbar);
         mTitleText = mToolbar.findViewById(R.id.tv_top_title);
@@ -63,5 +64,9 @@ public abstract class ToolbarBaseActivity extends BaseActivity implements View.O
     }
 
     protected void backMainActivity() {
+    }
+
+    protected boolean isShowToolbar() {
+        return true;
     }
 }

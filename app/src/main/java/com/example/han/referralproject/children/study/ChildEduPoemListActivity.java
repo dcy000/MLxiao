@@ -14,7 +14,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.children.model.PoemModel;
 import com.example.han.referralproject.speechsynthesis.QaApi;
-import com.medlink.danbogh.utils.Handlers;
+import com.gzq.lib_core.utils.Handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,6 +1,5 @@
 package com.example.han.referralproject.recyclerview;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,10 +10,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.bean.NDialog;
-import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.service.API;
+import com.gcml.lib_widget.dialog.AlertDialog;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.observer.CommonObserver;
@@ -80,22 +78,21 @@ public class CheckContractActivity extends BaseActivity {
 
     @OnClick(R.id.tv_cancel_contract)
     public void onTvCancelContractClicked() {
-        NDialog1 dialog = new NDialog1(this);
-        dialog.setMessageCenter(true)
-                .setMessage("确定要取消签约吗？")
-                .setMessageSize(35)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#FFA200"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+        new AlertDialog(this)
+                .builder()
+                .setMsg("确定要取消签约吗？")
+                .setCancelable(false)
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-                            onCancelContract();
-                        }
+                    public void onClick(View v) {
                     }
-                }).create(NDialog.CONFIRM).show();
+                })
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onCancelContract();
+                    }
+                }).show();
     }
 
     private void onCancelContract() {

@@ -5,9 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,10 +55,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DefaultObserver;
-import io.reactivex.schedulers.Schedulers;
 
 
 public class HealthRecordActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, HealthRecordBloodsugarFragment.BloodsugarSelectTime {
@@ -612,7 +606,7 @@ public class HealthRecordActivity extends BaseActivity implements View.OnClickLi
         } else if (i == R.id.ll_back) {
             finish();
         } else if (i == R.id.iv_top_right) {
-            createEvent("HealthRecord>skip2MainActivity");
+            emitEvent("skip2MainActivity");
         } else if (i == R.id.tv_record_qrcode) {
 
             String text = Box.getBaseUrl() + "ZZB/br/whole_informations?bid=" + user.bid + "&bname=" + user.bname;

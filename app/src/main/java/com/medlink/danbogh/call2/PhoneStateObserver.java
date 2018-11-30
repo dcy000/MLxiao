@@ -4,7 +4,6 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.linheimx.app.library.utils.LogUtil;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.avchat.AVChatCallback;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
@@ -70,8 +69,6 @@ public class PhoneStateObserver {
      * 处理本地电话与网络通话的互斥
      */
     public void handleLocalCall() {
-        LogUtil.i(TAG, "notify call state changed, state=" + state.name());
-
         if (state != PhoneState.IDLE) {
             AVChatManager.getInstance().hangUp2(AVChatManager.getInstance().getCurrentChatId(), new HandleLocalCallCallback(1));
         }
@@ -142,7 +139,6 @@ public class PhoneStateObserver {
      * 若有本地来电，目前Demo中示例代码的处理是网络通话自动拒绝或者挂断，开发者可以自行灵活处理。
      */
     public void observeAutoHangUpForLocalPhone(Observer<Integer> observer, boolean register) {
-        LogUtil.i(TAG, "observeAutoHangUpForLocalPhone->" + observer + "#" + register);
         registerObservers(this.autoHangUpObservers, observer, register);
     }
 }

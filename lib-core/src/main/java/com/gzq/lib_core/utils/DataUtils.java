@@ -1,5 +1,7 @@
 package com.gzq.lib_core.utils;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -8,8 +10,11 @@ import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
 import android.util.SparseLongArray;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
@@ -17,6 +22,8 @@ import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.gzq.lib_core.utils.ConstantsUtils.BYTE;
 import static com.gzq.lib_core.utils.ConstantsUtils.GB;
@@ -116,30 +123,106 @@ public class DataUtils {
         return isInteger(value) || isDouble(value);
     }
 
+    public static String removeNonnumeric(String in) {
+        Pattern pattern = Pattern.compile("[^0-9]");
+        Matcher matcher = pattern.matcher(in);
+        return matcher.replaceAll("").trim();
+    }
+
+    /**
+     * 阿拉伯数字转中文
+     *
+     * @param chinese
+     * @return
+     */
+    public static String chineseMapToNumber(String chinese) {
+        if (chinese == null || chinese.length() == 0) {
+            return "";
+        }
+
+
+        char[] chars = chinese.toCharArray();
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < chars.length; i++) {
+            char aChar = chars[i];
+            switch (aChar) {
+                case '零':
+                case '0':
+                    builder.append("0");
+                    break;
+                case '一':
+                case '1':
+                    builder.append("1");
+                    break;
+                case '二':
+                case '两':
+                case '2':
+                    builder.append("2");
+                    break;
+                case '三':
+                case '3':
+                    builder.append("3");
+                    break;
+                case '四':
+                case '4':
+                    builder.append("4");
+                    break;
+                case '五':
+                case '5':
+                    builder.append("5");
+                    break;
+                case '六':
+                case '6':
+                    builder.append("6");
+                    break;
+                case '七':
+                case '7':
+                    builder.append("7");
+                    break;
+                case '八':
+                case '8':
+                    builder.append("8");
+                    break;
+                case '九':
+                case '9':
+                    builder.append("9");
+                    break;
+                case '百':
+                    builder.append("00");
+                    break;
+                default:
+                    break;
+            }
+        }
+        return builder.toString();
+    }
+
     /**
      * 将有空格的字符串中的空格替换成%20
      * 例如w e a 替换之后w%20e%20a
+     *
      * @param str
      * @return
      */
 
     public static String replaceSpace(String str) {
-        if(str==null){
+        if (str == null) {
             return null;
         }
         StringBuilder newStr = new StringBuilder();
-        for(int i=0;i<str.length();i++){
-            if(str.charAt(i)==' '){
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ' ') {
                 // newStr.append("%20");
                 newStr.append('%');
                 newStr.append('2');
                 newStr.append('0');
-            }else{
+            } else {
                 newStr.append(str.charAt(i));
             }
         }
         return newStr.toString();
     }
+
     /**
      * 隐藏手机中间4位号码
      * 130****0000
@@ -148,7 +231,7 @@ public class DataUtils {
      * @return 130****0000
      */
     public static String hideMobilePhone4(String mobile_phone) {
-        if (TextUtils.isEmpty(mobile_phone)||mobile_phone.length() != 11) {
+        if (TextUtils.isEmpty(mobile_phone) || mobile_phone.length() != 11) {
             return "手机号码不正确";
         }
         return mobile_phone.substring(0, 3) + "****" + mobile_phone.substring(7, 11);
@@ -780,6 +863,7 @@ public class DataUtils {
         }
         return sb.toString();
     }
+
     private static int[] pyValue = new int[]{
             -20319, -20317, -20304, -20295, -20292, -20283, -20265, -20257, -20242,
             -20230, -20051, -20036, -20032,
@@ -898,5 +982,32 @@ public class DataUtils {
             /*Z*/
             "za", "zai", "zan", "zang", "zao", "ze", "zei", "zen", "zeng", "zha", "zhai", "zhan", "zhang", "zhao", "zhe", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhua", "zhuai", "zhuan", "zhuang", "zhui", "zhun", "zhuo", "zi", "zong", "zou", "zu", "zuan", "zui", "zun", "zuo"
     };
+    public static String readText(InputStream in) {
+        if (in == null) {
+            return "";
+        }
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            StringBuilder builder = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                builder.append(line);
+            }
+            return builder.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 
+    public static String readTextFromAssetFile(Context context, String fileName) {
+        AssetManager manager = context.getAssets();
+        InputStream in = null;
+        try {
+            in = manager.open(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return readText(in);
+    }
 }

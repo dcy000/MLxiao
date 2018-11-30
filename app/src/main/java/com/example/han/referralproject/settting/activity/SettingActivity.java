@@ -21,6 +21,8 @@ import com.example.han.referralproject.settting.dialog.UpDateDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.utils.KVUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
@@ -178,7 +180,9 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
     public void onClickConfirm(EventType type) {
         if (type.getValue().equals(EventType.reset.getValue())) {
             //恢复出厂设置
-            LocalShared.getInstance(mContext).reset();
+//            LocalShared.getInstance(mContext).reset();
+            KVUtils.clear();
+            Box.getSessionManager().clear();
             Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.service.API;
+import com.example.module_register.adapter.EatAdapter;
+import com.example.module_register.adapter.EatModel;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
@@ -15,9 +17,6 @@ import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.register.EatAdapter;
-import com.medlink.danbogh.register.EatModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class AlertSportActivity extends BaseActivity {
@@ -135,9 +135,15 @@ public class AlertSportActivity extends BaseActivity {
                         eat,
                         smoke,
                         drink,
-                        positionSelected + 1 + "",
+                        user.exerciseHabits = positionSelected + 1 + "",
                         mh,
                         data.dz)
+                .doOnNext(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        Box.getSessionManager().setUser(user);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))

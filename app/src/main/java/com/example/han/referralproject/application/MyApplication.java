@@ -10,10 +10,9 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.example.han.referralproject.BuildConfig;
-import com.example.han.referralproject.events.HealthRecordEvents;
+import com.example.han.referralproject.events.AppEvents;
 import com.example.han.referralproject.jipush.JPushMessageHelper;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
-import com.example.han.referralproject.util.LocalShared;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.base.delegate.AppLifecycle;
 import com.gzq.lib_core.base.ui.IEvents;
@@ -21,8 +20,10 @@ import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.session.SessionManager;
 import com.gzq.lib_core.session.SessionStateChangedListener;
 import com.gzq.lib_core.utils.AppUtils;
+import com.gzq.lib_core.utils.Handlers;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimInitHelper;
+import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
@@ -70,6 +71,7 @@ public class MyApplication implements AppLifecycle {
 
         //其他
         LibMusicPlayer.init(application);
+        //LitePal数据库
         LitePal.initialize(application);
         mInstance = this;
         NimInitHelper.getInstance().init(application, true);
@@ -91,9 +93,20 @@ public class MyApplication implements AppLifecycle {
             public void onUserInfoChanged(SessionManager sessionManager) {
                 UserInfoBean user = sessionManager.getUser();
                 Timber.tag("SessionManager").i(user.toString());
-                if (!TextUtils.isEmpty(user.wyyxId) && !TextUtils.isEmpty(user.wyyxPwd)) {
-                    NimAccountHelper.getInstance().login(user.wyyxId, user.wyyxPwd, null);
-                }
+                Handlers.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!TextUtils.isEmpty(user.wyyxId) && !TextUtils.isEmpty(user.wyyxPwd)) {
+                            //视频通话必须在主线程登录
+                            NimAccountHelper.getInstance().login(user.wyyxId, user.wyyxPwd, null);
+                        }
+                        if (user != null) {
+                            //极光设置别名，友盟登陆
+                            new JpushAliasUtils(Box.getApp()).setAlias("user_" + user.bid);
+                            MobclickAgent.onProfileSignIn(user.bid);
+                        }
+                    }
+                });
             }
 
             @Override
@@ -106,7 +119,6 @@ public class MyApplication implements AppLifecycle {
 
     @Override
     public void onTerminate(@NonNull Application application) {
-
     }
 
     @Override
@@ -116,7 +128,7 @@ public class MyApplication implements AppLifecycle {
 
     @Override
     public IEvents provideEvents() {
-        return new HealthRecordEvents();
+        return new AppEvents();
     }
 
 

@@ -58,9 +58,8 @@ import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tool.other.StringUtil;
-import com.example.han.referralproject.tool.wrapview.VoiceLineView;
-import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.PinYinUtils;
+import com.gcml.lib_widget.voiceline.VoiceLineView;
+import com.gzq.lib_core.utils.PinYinUtils;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.auth.face.FaceConstants;
@@ -195,7 +194,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private boolean isStart;
     private TextView notice;
     private Gson gson;
-
+    private UserInfoBean user;
 
     @Override
     protected int provideWaveViewWidth() {
@@ -212,6 +211,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setShowVoiceView(true);
         setContentView(R.layout.activity_speech_synthesis);
+        user = Box.getSessionManager().getUser();
         rand = new Random();
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
         mImageView = (ImageView) findViewById(R.id.iat_recognizes);
@@ -742,11 +742,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
             if (inSpell.matches(REGEX_SEE_DOCTOR)) {
+
                 DiseaseUser diseaseUser = new DiseaseUser(
-                        LocalShared.getInstance(this).getUserName(),
-                        LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
-                        Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
-                        LocalShared.getInstance(this).getUserPhoto()
+                        user.bname,
+                        user.sex.equals("男") ? 1 : 2,
+                        Integer.parseInt(user.age) * 12,
+                        user.userPhoto
                 );
                 String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
@@ -864,37 +865,37 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
             if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
                 mIatDialog.dismiss();
-                measureType= IPresenter.MEASURE_BLOOD_PRESSURE;
+                measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
             } else if (inSpell.matches(".*ce.*xueyang.*")
                     || inSpell.matches(".*liang.*xueyang.*")
                     || inSpell.matches(".*ce.*baohedu.*")) {
                 mIatDialog.dismiss();
-                measureType= IPresenter.MEASURE_BLOOD_OXYGEN;
+                measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
 
             } else if (result.matches(".*测.*血糖.*")
                     || inSpell.matches(".*liang.*xuetang.*")
                     || inSpell.matches(".*xuetangyi.*")
                     ) {
-                measureType= IPresenter.MEASURE_BLOOD_SUGAR;
+                measureType = IPresenter.MEASURE_BLOOD_SUGAR;
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                 mIatDialog.dismiss();
-                measureType= IPresenter.MEASURE_TEMPERATURE;
+                measureType = IPresenter.MEASURE_TEMPERATURE;
 
             } else if (inSpell.matches(".*ce.*xindian.*")
                     || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
                 mIatDialog.dismiss();
-                measureType= IPresenter.MEASURE_ECG;
+                measureType = IPresenter.MEASURE_ECG;
 
 
             } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
                 mIatDialog.dismiss();
-                measureType= IPresenter.MEASURE_OTHERS;
+                measureType = IPresenter.MEASURE_OTHERS;
 
 
             } else if (inSpell.matches(".*ce.*tizhong.*")) {
 
                 mIatDialog.dismiss();
-                measureType= IPresenter.MEASURE_WEIGHT;
+                measureType = IPresenter.MEASURE_WEIGHT;
 
 
             } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
@@ -947,10 +948,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 finish();
             } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)).*")) {
                 DiseaseUser diseaseUser = new DiseaseUser(
-                        LocalShared.getInstance(this).getUserName(),
-                        LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
-                        Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
-                        LocalShared.getInstance(this).getUserPhoto()
+                        user.bname,
+                        user.sex.equals("男") ? 1 : 2,
+                        Integer.parseInt(user.age) * 12,
+                        user.userPhoto
                 );
                 String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
@@ -978,7 +979,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
                 startActivity(intent);
             } else if (inSpell.matches(".*((bin|bing)(zheng|zhen|zen|zeng)|(zi|zhi)(ca|cha)|(lan|nan)(shou|sou)).*")) {//症状自查
-                DiseaseUser diseaseUser = new DiseaseUser(LocalShared.getInstance(this).getUserName(), LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2, Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12, LocalShared.getInstance(this).getUserPhoto()
+                DiseaseUser diseaseUser = new DiseaseUser(
+                        user.bname,
+                        user.sex.equals("男") ? 1 : 2,
+                        Integer.parseInt(user.age) * 12,
+                        user.userPhoto
                 );
                 String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
@@ -1061,14 +1066,14 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
-                if (mAccountIds == null) {
+                List<UserInfoBean> usersFromRoom = Box.getUsersFromRoom();
+                if (usersFromRoom == null) {
                     emitter.onError(new Throwable("未检测到您的登录历史，请输入账号和密码登录"));
                     return;
                 }
                 StringBuilder userIds = new StringBuilder();
-                for (String item : mAccountIds) {
-                    userIds.append(item.split(",")[0]).append(",");
+                for (UserInfoBean user : usersFromRoom) {
+                    userIds.append(user.bid);
                 }
                 String substring = userIds.substring(0, userIds.length() - 1);
                 emitter.onNext(substring);
@@ -1112,7 +1117,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                measureType= IPresenter.MEASURE_BLOOD_PRESSURE;
+                measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
                 return true;
             }
         }
@@ -1125,7 +1130,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                measureType= IPresenter.MEASURE_BLOOD_OXYGEN;
+                measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
                 return true;
             }
         }
@@ -1138,7 +1143,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                measureType= IPresenter.MEASURE_TEMPERATURE;
+                measureType = IPresenter.MEASURE_TEMPERATURE;
                 return true;
             }
         }
@@ -1152,7 +1157,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                measureType= IPresenter.MEASURE_BLOOD_SUGAR;
+                measureType = IPresenter.MEASURE_BLOOD_SUGAR;
                 return true;
             }
         }
@@ -1165,7 +1170,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                measureType= IPresenter.MEASURE_ECG;
+                measureType = IPresenter.MEASURE_ECG;
                 return true;
             }
         }
@@ -1178,7 +1183,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                measureType= IPresenter.MEASURE_WEIGHT;
+                measureType = IPresenter.MEASURE_WEIGHT;
                 return true;
             }
         }
@@ -1192,7 +1197,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                measureType= IPresenter.MEASURE_OTHERS;
+                measureType = IPresenter.MEASURE_OTHERS;
                 return true;
             }
         }
@@ -1407,10 +1412,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private void gotoZhengzhuangCheck() {
         DiseaseUser diseaseUser = new DiseaseUser(
-                LocalShared.getInstance(this).getUserName(),
-                LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
-                Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
-                LocalShared.getInstance(this).getUserPhoto()
+                user.bname,
+                user.sex.equals("男") ? 1 : 2,
+                Integer.parseInt(user.age) * 12,
+                user.userPhoto
         );
         String currentUser = new Gson().toJson(diseaseUser);
         Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
@@ -1928,19 +1933,19 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     int faceResult = data.getIntExtra(FaceConstants.KEY_AUTH_FACE_RESULT, 0);
                     switch (faceResult) {
                         case FaceConstants.AUTH_FACE_SUCCESS:
-                            switch (measureType){
+                            switch (measureType) {
                                 case IPresenter.MEASURE_ECG:
                                     ActivityUtils.skipActivity(ECGCompatActivity.class);
                                     break;
-                                    default:
-                                        ActivityUtils.skipActivity(Test_mainActivity.class);
-                                        break;
+                                default:
+                                    ActivityUtils.skipActivity(Test_mainActivity.class);
+                                    break;
                             }
                             break;
                         case FaceConstants.AUTH_FACE_FAIL:
                             break;
                         case FaceConstants.AUTH_FACE_SKIP:
-                            switch (measureType){
+                            switch (measureType) {
                                 case IPresenter.MEASURE_ECG:
                                     ActivityUtils.skipActivity(ECGCompatActivity.class);
                                     break;

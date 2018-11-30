@@ -43,6 +43,7 @@ import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.google.gson.Gson;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 
@@ -60,7 +61,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                     mTextView.setText(mUser.getBname());
                     break;
                 case 1:
-                    LocalShared.getInstance(getApplicationContext()).setXunfeiID(msg.obj + "");
+//                    LocalShared.getInstance(getApplicationContext()).setXunfeiID(msg.obj + "");
 
                     break;
             }
@@ -183,7 +184,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
 
         tvSignDoctorName = (TextView) findViewById(R.id.doctor_name);
 
-        ((TextView)findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
+        ((TextView) findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(mContext));
         registerReceiver(mReceiver, new IntentFilter("change_account"));
     }
 
@@ -325,13 +326,14 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_check://病症自查
-                DiseaseUser diseaseUser=new DiseaseUser(
-                        LocalShared.getInstance(this).getUserName(),
-                        LocalShared.getInstance(this).getSex().equals("男")? 1:2,
-                        Integer.parseInt(LocalShared.getInstance(this).getUserAge())*12,
-                        LocalShared.getInstance(this).getUserPhoto()
+                UserInfoBean user = Box.getSessionManager().getUser();
+                DiseaseUser diseaseUser = new DiseaseUser(
+                        user.bname,
+                        user.sex.equals("男") ? 1 : 2,
+                        Integer.parseInt(user.age) * 12,
+                        user.userPhoto
                 );
-                String currentUser= new Gson().toJson(diseaseUser);
+                String currentUser = new Gson().toJson(diseaseUser);
                 Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
@@ -351,7 +353,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.iv_record:
 //                startActivity(new Intent(this, HealthRecordActivity.class));
-                com.gcml.module_health_record.HealthRecordActivity.startActivity(this,0);
+                com.gcml.module_health_record.HealthRecordActivity.startActivity(this, 0);
                 break;
             case R.id.tv_update:
                 showLoadingDialog("检查更新中");

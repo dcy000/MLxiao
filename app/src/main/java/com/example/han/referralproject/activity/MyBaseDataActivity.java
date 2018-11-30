@@ -20,6 +20,7 @@ import com.example.han.referralproject.util.LocalShared;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.KVUtils;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.medlink.danbogh.utils.Utils;
@@ -265,7 +266,10 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(this, AlertMHActivity.class).putExtra("data", mUser));
                 break;
             case R.id.tv_reset:
-                LocalShared.getInstance(mContext).reset();
+//                LocalShared.getInstance(mContext).reset();
+                KVUtils.clear();
+                Box.getSessionManager().clear();
+
                 Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);

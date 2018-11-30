@@ -15,7 +15,9 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.service.API;
-import com.example.han.referralproject.util.PinYinUtils;
+import com.example.module_register.bean.City;
+import com.example.module_register.bean.Province;
+import com.gzq.lib_core.utils.PinYinUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gzq.lib_core.base.Box;
@@ -25,9 +27,7 @@ import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.register.entity.City;
-import com.medlink.danbogh.register.entity.Province;
-import com.medlink.danbogh.utils.Handlers;
+import com.gzq.lib_core.utils.Handlers;
 import com.medlink.danbogh.utils.Utils;
 
 import java.util.ArrayList;
@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class AlertAddressActivity extends BaseActivity {
@@ -67,7 +68,7 @@ public class AlertAddressActivity extends BaseActivity {
         mTitleText.setText("修改住址");
         tvGoBack.setText("取消");
         tvGoForward.setText("确定");
-        data = (UserInfoBean) getIntent().getSerializableExtra("data");
+        data = (UserInfoBean) getIntent().getParcelableExtra("data");
         initData();
         initLocation();
     }
@@ -221,8 +222,14 @@ public class AlertAddressActivity extends BaseActivity {
                         data.drink,
                         data.exerciseHabits,
                         data.mh,
-                        getAddress()
+                        user.dz = getAddress()
                 )
+                .doOnNext(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        Box.getSessionManager().setUser(user);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))

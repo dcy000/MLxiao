@@ -11,10 +11,12 @@ import com.gzq.lib_core.base.config.RetrofitConfig;
 import com.gzq.lib_core.base.config.RoomDatabaseConfig;
 import com.gzq.lib_core.base.config.SessionManagerConfig;
 import com.gzq.lib_core.base.delegate.GlobalModule;
+import com.gzq.lib_core.bean.SessionBean;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.crash.CaocConfig;
 import com.gzq.lib_core.http.interceptor.CacheInterceptor;
 import com.gzq.lib_core.session.MmkvSessionManager;
+import com.gzq.lib_core.session.PreferencesSessionManager;
 import com.gzq.lib_core.session.SessionConfig;
 import com.gzq.lib_core.session.SessionToken;
 import com.gzq.lib_core.utils.DeviceUtils;
@@ -60,24 +62,24 @@ public class GlobalConfiguration implements GlobalModule {
                                         return chain.proceed(request);
                                     }
                                 });
-
+                        //只在主进程初始化，不然会报控制针
                         if (context.getPackageName().equals(ProcessUtils.getCurProcessName(context))) {
                             builder.addInterceptor(Pandora.get().getInterceptor());
-
                         }
                     }
                 })
                 .sessionManagerConfiguration(new SessionManagerConfig() {
                     @Override
                     public void session(Context context, SessionConfig.Builder builder) {
-                        builder.userClass(UserInfoBean.class).tokenClass(SessionToken.class);
+                        builder.userClass(UserInfoBean.class).tokenClass(SessionBean.class);
                         builder.sessionManager(new MmkvSessionManager(context));
                     }
                 })
                 .roomDatabaseConfiguration(new RoomDatabaseConfig() {
                     @Override
                     public void room(Context context, RoomDatabase.Builder builder) {
-
+                        //允许在主线程操作数据库Room
+                        builder.allowMainThreadQueries();
                     }
                 })
                 .retrofitConfiguration(new RetrofitConfig() {
@@ -89,8 +91,7 @@ public class GlobalConfiguration implements GlobalModule {
                 .crashManagerConfiguration(new CrashManagerConfig() {
                     @Override
                     public void crash(Context context, CaocConfig.Builder builder) {
-
-                        //关闭崩溃全局监听
+                        //Debug的时候打开崩溃全局监听
                         builder.enabled(BuildConfig.DEBUG);
                     }
                 });

@@ -346,7 +346,7 @@ public class HealthRecordBloodsugarFragment extends BaseFragment implements View
             }
 
         } else if (i == R.id.btn_go) {
-            createEvent("HealthRecord>BloodSugar");
+            emitEvent("skip2BloodSugar");
         }
     }
 

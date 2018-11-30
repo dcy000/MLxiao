@@ -16,8 +16,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.tool.adapter.DreamRVadapter;
-import com.example.han.referralproject.tool.wrapview.CenterAlignImageSpan;
 import com.example.han.referralproject.tool.xfparsebean.DreamBean;
+import com.gcml.lib_widget.textview.CenterAlignImageSpan;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;

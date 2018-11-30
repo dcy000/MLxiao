@@ -9,25 +9,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.module_blood_pressure.R;
-import com.gcml.lib_widget.dialog.AlertDialog;
-import com.gzq.lib_bluetooth.bean.DiagnoseInfoBean;
 import com.gcml.lib_widget.progressbar.RoundProgressBar;
-import com.google.gson.Gson;
 import com.gzq.lib_bluetooth.bean.NewWeeklyOrMonthlyBean;
 import com.gzq.lib_bluetooth.common.BaseBluetoothFragment;
 import com.gzq.lib_bluetooth.service.BluetoothAPI;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.base.ui.BasePresenter;
 import com.gzq.lib_core.base.ui.IPresenter;
-import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
-import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.littlejie.circleprogress.WaveProgress;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.List;
@@ -124,9 +116,9 @@ public class ShowMeasureBloodpressureResultFragment extends BaseBluetoothFragmen
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.tv_something_advice) {
-            createEvent("To_WeeklyReportActivity");
+            emitEvent("To_WeeklyReportActivity");
         } else if (i == R.id.health_knowledge) {
-            createEvent("To_MonthlyReportActivity");
+            emitEvent("To_MonthlyReportActivity");
         } else {
 
         }

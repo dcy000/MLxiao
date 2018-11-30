@@ -15,6 +15,8 @@ import com.example.han.referralproject.bean.MonthlyReport;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.littlejie.circleprogress.WaveProgress;
 
@@ -114,7 +116,7 @@ public class MonthlyReport2Fragment extends Fragment {
             diyaMubiao.setText("<" + String.format("%.0f", mb_diya));
             naMubiao.setText("<" + String.format("%.0f", Float.parseFloat(data.nam)));
             yundongMubiao.setText(">" + String.format("%.0f", Float.parseFloat(data.sportsm)));
-            String height_s = LocalShared.getInstance(getContext()).getUserHeight();
+            String height_s = ((UserInfoBean) Box.getSessionManager().getUser()).height;
             float height_f = Float.parseFloat(height_s);
             float weight = Float.parseFloat(data.bmim) * (height_f / 100.0f) * (height_f / 100.0f);
             tizhongMubiao.setText("<" + (int) weight + "");

@@ -47,9 +47,9 @@ public class BloodoxygenFragment extends BaseBluetoothFragment implements IBluet
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_health_history) {
-            createEvent("HealthRecord>Bloodoxygen");
+            emitEvent("HealthRecord>Bloodoxygen");
         } else if (i == R.id.btn_video_demo) {
-            createEvent("Video>Bloodoxygen");
+            emitEvent("Video>Bloodoxygen");
         }
     }
 

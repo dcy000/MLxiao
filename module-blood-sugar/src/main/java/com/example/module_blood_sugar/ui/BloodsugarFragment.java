@@ -50,9 +50,9 @@ public class BloodsugarFragment extends BaseBluetoothFragment implements IBlueto
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_health_history) {
-            createEvent("HealthRecord>BloodSugar");
+            emitEvent("HealthRecord>BloodSugar");
         } else if (i == R.id.btn_video_demo) {
-            createEvent("Video>BloodSugar");
+            emitEvent("Video>BloodSugar");
         }
     }
 
@@ -87,6 +87,7 @@ public class BloodsugarFragment extends BaseBluetoothFragment implements IBlueto
     public void abnormalData() {
         startActivityForResult(new Intent(getActivity(), BloodsugarAbnormalActivity.class), 1001);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class AlertWeightActivity extends AlertHeightActivity {
@@ -47,7 +48,7 @@ public class AlertWeightActivity extends AlertHeightActivity {
                 .alertUserInfo(
                         user.bid,
                         data.height,
-                        weight,
+                        user.weight = weight,
                         data.eatingHabits,
                         data.smoke,
                         data.drink,
@@ -55,6 +56,12 @@ public class AlertWeightActivity extends AlertHeightActivity {
                         data.mh,
                         data.dz
                 )
+                .doOnNext(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        Box.getSessionManager().setUser(user);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))

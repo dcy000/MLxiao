@@ -44,6 +44,7 @@ public abstract class BaseActivity<V extends IView, P extends IPresenter>
     /**
      * 该方法是为了扩展其他基础类而增加的，普通继承类可不重写该方法。
      */
+    @Deprecated
     protected void initStateView() {
     }
 
@@ -55,7 +56,7 @@ public abstract class BaseActivity<V extends IView, P extends IPresenter>
 
     public abstract P obtainPresenter();
 
-    public void createEvent(String tag, Object... params) {
+    public void emitEvent(String tag, Object... params) {
         for (IEvents event : events) {
             event.onEvent(tag, params);
         }

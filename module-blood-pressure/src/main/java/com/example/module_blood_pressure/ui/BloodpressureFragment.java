@@ -8,14 +8,11 @@ import android.widget.TextView;
 
 import com.example.module_blood_pressure.R;
 import com.example.module_blood_pressure.presenter.BloodpressurePresenter;
-import com.gzq.lib_bluetooth.bean.DetectionData;
 import com.gzq.lib_bluetooth.common.BaseBluetoothFragment;
 import com.gzq.lib_bluetooth.IBluetoothView;
 import com.gzq.lib_core.base.ui.IPresenter;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-
-import java.util.List;
 
 
 public class BloodpressureFragment extends BaseBluetoothFragment implements IBluetoothView, View.OnClickListener {
@@ -59,9 +56,9 @@ public class BloodpressureFragment extends BaseBluetoothFragment implements IBlu
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_health_history) {
-            createEvent("HealthRecord>BloodPressure");
+            emitEvent("HealthRecord>BloodPressure");
         } else if (i == R.id.btn_video_demo) {
-            createEvent("Video>BloodPressure");
+            emitEvent("Video>BloodPressure");
         }
     }
 

@@ -10,12 +10,15 @@ import com.tencent.mmkv.MMKV;
 
 import java.util.Set;
 
+import timber.log.Timber;
+
 /**
  * 使用腾讯的MMKV替换原生的SharedPreferences
  */
 public final class KVUtils {
     public static void init(Context application) {
-        MMKV.initialize(application.getApplicationContext());
+        String path = MMKV.initialize(application.getApplicationContext());
+        Timber.i("mmkv path>>>>:" + path);
     }
 
 

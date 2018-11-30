@@ -3,7 +3,6 @@ package com.example.module_blood_pressure.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -11,12 +10,9 @@ import android.view.View;
 
 import com.example.module_blood_pressure.R;
 import com.gcml.lib_widget.ToolbarBaseActivity;
-import com.gzq.lib_bluetooth.bean.DetectionData;
 import com.gzq.lib_core.base.ui.BasePresenter;
 import com.gzq.lib_core.base.ui.IPresenter;
-import com.iflytek.synthetize.MLVoiceSynthetize;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +61,7 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
 
     @Override
     protected void backMainActivity() {
-        createEvent("HealthRecord>skip2MainActivity");
+        emitEvent("skip2MainActivity");
     }
 
 

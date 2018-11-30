@@ -16,8 +16,9 @@ import android.widget.TextView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.service.API;
-import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.PinYinUtils;
+import com.example.module_register.ui.normal.SignUp1NameActivity;
+import com.example.module_register.ui.sample.SignUp01NameActivity;
+import com.gzq.lib_core.utils.PinYinUtils;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignInActivity;
 import com.gzq.lib_core.base.Box;
@@ -29,11 +30,10 @@ import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.register.SignUp1NameActivity;
-import com.medlink.danbogh.register.simple.SignUp01NameActivity;
 import com.medlink.danbogh.signin.SignInActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,8 +99,8 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.tv_face_sign_in:
                 //获取所有账号
-                String[] accounts = LocalShared.getInstance(ChooseLoginTypeActivity.this).getAccounts();
-                if (accounts == null) {
+                List<UserInfoBean> users = Box.getUsersFromRoom();
+                if (users == null) {
                     ToastUtils.showLong("未检测到您的登录历史，请输入账号和密码登录");
                     startActivity(new Intent(this, SignInActivity.class));
                 } else {
@@ -115,7 +115,6 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.sign_up_fast://快速注册
                 Intent intent = new Intent(ChooseLoginTypeActivity.this, SignUp01NameActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
         }
@@ -125,15 +124,14 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
-
-                if (mAccountIds == null) {
+                List<UserInfoBean> usersFromRoom = Box.getUsersFromRoom();
+                if (usersFromRoom == null) {
                     emitter.onError(new Throwable("未检测到您的登录历史，请输入账号和密码登录"));
                     return;
                 }
                 StringBuilder userIds = new StringBuilder();
-                for (String item : mAccountIds) {
-                    userIds.append(item.split(",")[0]).append(",");
+                for (UserInfoBean user : usersFromRoom) {
+                    userIds.append(user.bid);
                 }
                 String substring = userIds.substring(0, userIds.length() - 1);
                 emitter.onNext(substring);

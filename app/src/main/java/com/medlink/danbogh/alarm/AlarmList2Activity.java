@@ -1,10 +1,8 @@
 package com.medlink.danbogh.alarm;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,10 +14,9 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.ClueInfoBean;
-import com.example.han.referralproject.bean.NDialog;
-import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.gcml.lib_widget.dialog.AlertDialog;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import org.litepal.crud.DataSupport;
@@ -178,22 +175,22 @@ public class AlarmList2Activity extends BaseActivity {
 
     public void onDeleteAlarm(long id) {
         final long alarmId = id;
-        NDialog1 dialog = new NDialog1(this);
-        dialog.setMessageCenter(true)
-                .setMessage("您确定要删除吗?")
-                .setMessageSize(35)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#FFA200"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+        new AlertDialog(this)
+                .builder()
+                .setMsg("您确定要删除吗?")
+                .setCancelable(false)
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-                            cancelAlarm(alarmId);
-                        }
+                    public void onClick(View v) {
                     }
-                }).create(NDialog.CONFIRM).show();
+                })
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancelAlarm(alarmId);
+                    }
+                }).show();
+
     }
 
     public void cancelAlarm(long alarmId) {

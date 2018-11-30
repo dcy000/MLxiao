@@ -2,7 +2,6 @@ package com.example.han.referralproject.shopping;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,18 +12,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.bean.NDialog;
-import com.example.han.referralproject.bean.NDialog1;
-import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.service.API;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignInActivity;
+import com.gcml.lib_widget.dialog.AlertDialog;
+import com.gcml.lib_widget.dialog.SingleButtonDialog;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
@@ -37,6 +33,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.signin.SignInActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -56,8 +53,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     TextView mTextView3;
     Button mButton;
     int i = 1;
-    NDialog1 dialog1;
-    NDialog2 dialog2;
 
     Goods goods;
 
@@ -79,9 +74,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
 
         mActivity = this;
-
-        dialog1 = new NDialog1(GoodDetailActivity.this);
-        dialog2 = new NDialog2(GoodDetailActivity.this);
 
 
         Intent intent = getIntent();
@@ -193,58 +185,51 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
 
     public void ShowNormals(final String orderid) {
-        dialog1.setMessageCenter(true)
-                .setMessage("是否确认购买该商品")
-                .setMessageSize(50)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#3F86FC"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
+        new AlertDialog(this)
+                .builder()
+                .setMsg("是否确认购买该商品")
+                .setCancelable(false)
+                .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-                            vertifyWithFace();
+                    public void onClick(View v) {
+                        NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
+                            @Override
+                            public void onSuccess(String response) {
+                                ShowNormal("取消成功");
 
-                        } else if (which == 0) {
+                            }
 
-                            NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-                                    ShowNormal("取消成功");
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
 
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-                                    ShowNormal("取消失败");
+                                ShowNormal("取消失败");
 
 
-                                }
-                            });
-
-
-                        }
-
+                            }
+                        });
                     }
-                }).create(NDialog.CONFIRM).show();
-
+                })
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        vertifyWithFace();
+                    }
+                }).show();
     }
 
     private void vertifyWithFace() {
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                String[] mAccountIds = LocalShared.getInstance(mContext).getAccounts();
-                if (mAccountIds == null) {
+                List<UserInfoBean> usersFromRoom = Box.getUsersFromRoom();
+                if (usersFromRoom == null) {
                     emitter.onError(new Throwable("未检测到您的登录历史，请输入账号和密码登录"));
                     return;
                 }
                 StringBuilder userIds = new StringBuilder();
-                for (String item : mAccountIds) {
-                    userIds.append(item.split(",")[0]).append(",");
+                for (UserInfoBean user : usersFromRoom) {
+                    userIds.append(user.bid);
                 }
                 String substring = userIds.substring(0, userIds.length() - 1);
                 emitter.onNext(substring);
@@ -292,44 +277,30 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     public void ShowNormal(String message) {
-        dialog2.setMessageCenter(true)
-                .setMessage(message)
-                .setMessageSize(50)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#3F86FC"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog2.OnConfirmListener() {
+        new SingleButtonDialog(this)
+                .builder()
+                .setMsg(message)
+                .setPositiveButton("确定", new View.OnClickListener() {
                     @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-                        }
-
+                    public void onClick(View v) {
                     }
-                }).create(NDialog.CONFIRM).show();
-
+                }).show();
     }
 
     public void showPaySuccessDialog() {
         MLVoiceSynthetize.startSynthesize(R.string.shop_success);
-        dialog2.setMessageCenter(true)
-                .setMessage("支付成功")
-                .setMessageSize(50)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#3F86FC"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog2.OnConfirmListener() {
-                    @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
-                            Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
 
+        new SingleButtonDialog(this)
+                .builder()
+                .setMsg("支付成功")
+                .setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
-                }).create(NDialog.CONFIRM).show();
+                }).show();
     }
 
     @Override
@@ -339,19 +310,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
             mActivity = null;
         }
 
-
-    }
-
-
-    @Override
-    protected void onDestroy() {
-
-        if (dialog2 != null) {
-
-            dialog2.create(NDialog.CONFIRM).cancel();
-            dialog2 = null;
-        }
-        super.onDestroy();
 
     }
 }

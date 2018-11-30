@@ -224,7 +224,7 @@ public class HealthRecordWeightFragment extends BaseFragment implements View.OnC
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            createEvent("HealthRecord>Weight");
+            emitEvent("skip2Weight");
         } else {
         }
     }
