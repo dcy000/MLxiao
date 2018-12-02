@@ -11,14 +11,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.imageview.CircleImageView;
-import com.example.han.referralproject.util.LocalShared;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.medlink.danbogh.call2.NimAccountHelper;
-import com.medlink.danbogh.utils.JpushAliasUtils;
 
 import java.util.ArrayList;
 

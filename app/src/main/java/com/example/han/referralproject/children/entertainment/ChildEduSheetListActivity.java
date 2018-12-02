@@ -18,6 +18,10 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.children.model.SheetModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.ml.edu.common.widget.recycleyview.CenterScrollListener;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
@@ -25,6 +29,8 @@ import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import io.reactivex.functions.Action;
 
 public class ChildEduSheetListActivity extends BaseActivity {
 
@@ -89,34 +95,35 @@ public class ChildEduSheetListActivity extends BaseActivity {
             rvSheets.scrollToPosition(1);
         }
         showLoadingDialog("加载中...");
-        NetworkApi.getChildEduSheetList(1, 12, new NetworkManager.SuccessCallback<List<SheetModel>>() {
-            @Override
-            public void onSuccess(List<SheetModel> response) {
-                if (isFinishing()) {
-                    return;
-                }
-                hideLoadingDialog();
-                mModels.clear();
-                mModels.addAll(response);
-                Iterator<SheetModel> iterator = mModels.iterator();
-                while (iterator.hasNext()) {
-                    SheetModel model = iterator.next();
-                    if (!sheetCategory.equals(model.getFlag())) {
-                        iterator.remove();
+        Box.getRetrofit(API.class)
+                .getChildEduSheetList(1, 12)
+                .compose(RxUtils.httpResponseTransformer())
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        hideLoadingDialog();
                     }
-                }
-                mAdapter.notifyDataSetChanged();
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                if (isFinishing()) {
-                    return;
-                }
-                hideLoadingDialog();
-                ToastUtils.showShort("服务器繁忙");
-            }
-        });
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<SheetModel>>() {
+                    @Override
+                    public void onNext(List<SheetModel> sheetModels) {
+                        if (isFinishing()) {
+                            return;
+                        }
+                        hideLoadingDialog();
+                        mModels.clear();
+                        mModels.addAll(sheetModels);
+                        Iterator<SheetModel> iterator = mModels.iterator();
+                        while (iterator.hasNext()) {
+                            SheetModel model = iterator.next();
+                            if (!sheetCategory.equals(model.getFlag())) {
+                                iterator.remove();
+                            }
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     private OverFlyingLayoutManager.OnPageChangeListener onPageChangeListener =

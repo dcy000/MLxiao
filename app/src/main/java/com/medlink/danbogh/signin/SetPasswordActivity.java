@@ -11,6 +11,13 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.module_register.service.RegisterAPI;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.PhoneCode;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.service.CommonAPI;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.gzq.lib_core.utils.Handlers;
@@ -59,20 +66,24 @@ public class SetPasswordActivity extends BaseActivity {
     @OnClick(R.id.tv_set_password_fetch_code)
     public void onTvFetchCodeClicked() {
         tvFetchCode.setEnabled(false);
-        NetworkApi.getCode(mPhone, new NetworkManager.SuccessCallback<String>() {
-            @Override
-            public void onSuccess(String code) {
-                SetPasswordActivity.this.code = code;
-                ToastUtils.showShort("获取验证码成功");
-                MLVoiceSynthetize.startSynthesize("获取验证码成功");
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort("获取验证码失败");
-                MLVoiceSynthetize.startSynthesize("获取验证码失败");
-            }
-        });
+        Box.getRetrofit(CommonAPI.class)
+                .getPhoneCode(mPhone)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<PhoneCode>() {
+                    @Override
+                    public void onNext(PhoneCode phoneCode) {
+                        SetPasswordActivity.this.code = code;
+                        ToastUtils.showShort("获取验证码成功");
+                        MLVoiceSynthetize.startSynthesize("获取验证码成功");
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        ToastUtils.showShort("获取验证码失败");
+                        MLVoiceSynthetize.startSynthesize("获取验证码失败");
+                    }
+                });
         i = 60;
         Handlers.ui().postDelayed(countDown, 1000);
     }

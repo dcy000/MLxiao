@@ -21,7 +21,11 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.speechsynthesis.QaApi;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.ksyun.media.player.IMediaPlayer;
@@ -144,19 +148,18 @@ public class RadioActivity extends BaseActivity implements
         adapter.setOnItemSelectionChangedListener(listener);
         rvRadios.setAdapter(adapter);
 
-        NetworkApi.getFM("6", "1", "12", new NetworkManager.SuccessCallback<List<RadioEntity>>() {
-            @Override
-            public void onSuccess(List<RadioEntity> response) {
-                entities.addAll(response);
-                adapter.notifyDataSetChanged();
-                adapter.setSelectedPosition(0);
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort(message);
-            }
-        });
+        Box.getRetrofit(API.class)
+                .getFM(6, 1, 12, 0)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<RadioEntity>>() {
+                    @Override
+                    public void onNext(List<RadioEntity> radioEntities) {
+                        entities.addAll(radioEntities);
+                        adapter.notifyDataSetChanged();
+                        adapter.setSelectedPosition(0);
+                    }
+                });
     }
 
     @Override

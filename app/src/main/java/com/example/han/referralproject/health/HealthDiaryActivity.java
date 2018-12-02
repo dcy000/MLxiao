@@ -14,10 +14,17 @@ import com.example.han.referralproject.health.model.DetailsModel;
 import com.example.han.referralproject.health.model.ItemsModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class HealthDiaryActivity extends BaseActivity
         implements HealthDiaryDetailsFragment.OnActionListener {
@@ -154,30 +161,30 @@ public class HealthDiaryActivity extends BaseActivity
             double salt = resultModels.get(0).selectedValue * saltUnitValues.get(resultModels.get(0).unitPosition);
             int sports = (int) (resultModels.get(1).selectedValue * sportsUnitValues.get(resultModels.get(1).unitPosition));
             int drink = (int) (resultModels.get(2).selectedValue * drinkUnitValues.get(resultModels.get(2).unitPosition));
-            NetworkApi.postHealthDiary(
-                    salt,
-                    sports,
-                    drink,
-                    new NetworkManager.SuccessCallback<Object>() {
+
+            Box.getRetrofit(API.class)
+                    .postHealthDiary(Box.getUserId(), salt + "", sports + "", drink + "")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new CommonObserver<Object>() {
                         @Override
-                        public void onSuccess(Object response) {
+                        public void onNext(Object o) {
                             if (isFinishing() || isDestroyed()) {
                                 return;
                             }
                             ToastUtils.showShort("提交成功");
                             showWeekTarget();
                         }
-                    }, new NetworkManager.FailedCallback() {
+
                         @Override
-                        public void onFailed(String message) {
+                        protected void onError(ApiException ex) {
                             if (isFinishing() || isDestroyed()) {
                                 return;
                             }
-                            ToastUtils.showShort(message);
-                            MLVoiceSynthetize.startSynthesize(message);
+                            ToastUtils.showShort(ex.message);
+                            MLVoiceSynthetize.startSynthesize(ex.message);
                         }
-                    }
-            );
+                    });
         } else {
             this.what++;
             switchFragment(what + 1, what);

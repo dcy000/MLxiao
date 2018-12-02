@@ -161,6 +161,7 @@ dependencies {
     implementation name: 'huiquan-self-check', ext: 'aar'
     implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
     implementation 'com.nex3z:flow-layout:1.1.0'
+    implementation 'com.lzy.net:okgo:3.0.4'
 
     //轮子 在闹钟处有使用
     implementation name: 'lib-wheelrecyclerview', ext: 'aar'
@@ -192,8 +193,6 @@ dependencies {
 
     //序号带颜色的小圈 后期应该去掉 周报告、月报告有使用
     implementation 'me.songning.CircleView:library:1.0.0'
-
-//    implementation 'com.lzy.net:okgo:3.0.4'
 
 
 

@@ -243,7 +243,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             public void onAnimationEnd(Animator animation) {
                 if (animationType != 0) {
                     mLottieView.clearAnimation();
-                    mLottieView.setAnimation("default.json");
+                    mLottieView.setAnimation("anim-default.json");
                     animationType = 0;
                 }
 
@@ -379,11 +379,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             switch (animationType) {
                 case -1:
                     // no answer
-                    mLottieView.setAnimation("no_answer.json");
+                    mLottieView.setAnimation("anim-no-answer.json");
                     break;
                 default:
                     // animationType = 0
-                    mLottieView.setAnimation("default.json");
+                    mLottieView.setAnimation("anim-default.json");
                     break;
             }
             mLottieView.playAnimation();

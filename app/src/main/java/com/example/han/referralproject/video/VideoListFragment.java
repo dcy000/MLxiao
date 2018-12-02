@@ -23,8 +23,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.gcml.lib_video_ksyplayer.NormalVideoPlayActivity;
 import com.gcml.lib_widget.recycleview.GridViewDividerItemDecoration;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -119,24 +123,20 @@ public class VideoListFragment extends Fragment {
     }
 
     private void getVideos() {
-        NetworkApi.getVideoList(
-                position + 1, "0", "1", page, pageSize,
-                new NetworkManager.SuccessCallback<List<VideoEntity>>() {
+        Box.getRetrofit(API.class)
+                .getVideoList(position + 1, 0, 1, page, pageSize)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<VideoEntity>>() {
                     @Override
-                    public void onSuccess(List<VideoEntity> entities) {
+                    public void onNext(List<VideoEntity> videoEntities) {
                         if (videos == null) {
                             videos = new ArrayList<>();
                         }
-                        videos.addAll(entities);
+                        videos.addAll(videoEntities);
                         adapter.notifyDataSetChanged();
                     }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-
-                    }
-                }
-        );
+                });
     }
 
     private int page = 1;

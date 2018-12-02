@@ -21,11 +21,18 @@ import com.example.han.referralproject.children.model.SongModel;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicUtils;
+import com.example.han.referralproject.service.API;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import io.reactivex.functions.Action;
 
 public class ChildEduSheetDetailsActivity extends BaseActivity {
 
@@ -94,38 +101,37 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
             showLoadingDialog("加载中...");
             loadSheet(page, limit);
         }
-
-        NetworkApi.getChildEduSheetList(1, 12, new NetworkManager.SuccessCallback<List<SheetModel>>() {
-            @Override
-            public void onSuccess(List<SheetModel> response) {
-                if (isFinishing()) {
-                    return;
-                }
-                hideLoadingDialog();
-                if (response == null || response.isEmpty()) {
-                    ToastUtils.showShort("服务器繁忙");
-                    return;
-                }
-                Iterator<SheetModel> iterator = response.iterator();
-                while (iterator.hasNext()) {
-                    SheetModel model = iterator.next();
-                    if (sheetCategory.equals(model.getFlag())) {
-                        sheetModel = model;
-                        onSheetModel(sheetModel);
+        Box.getRetrofit(API.class)
+                .getChildEduSheetList(1, 12)
+                .compose(RxUtils.httpResponseTransformer())
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        hideLoadingDialog();
                     }
-                }
-                mAdapter.notifyDataSetChanged();
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                if (isFinishing()) {
-                    return;
-                }
-                hideLoadingDialog();
-                ToastUtils.showShort("服务器繁忙");
-            }
-        });
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<SheetModel>>() {
+                    @Override
+                    public void onNext(List<SheetModel> sheetModels) {
+                        if (isFinishing()) {
+                            return;
+                        }
+                        if (sheetModels == null || sheetModels.isEmpty()) {
+                            ToastUtils.showShort("服务器繁忙");
+                            return;
+                        }
+                        Iterator<SheetModel> iterator = sheetModels.iterator();
+                        while (iterator.hasNext()) {
+                            SheetModel model = iterator.next();
+                            if (sheetCategory.equals(model.getFlag())) {
+                                sheetModel = model;
+                                onSheetModel(sheetModel);
+                            }
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     private void onSheetModel(SheetModel sheetModel) {
@@ -156,41 +162,43 @@ public class ChildEduSheetDetailsActivity extends BaseActivity {
     };
 
     private void loadSheet(int page, int limit) {
-        NetworkApi.getChildEduSongListBySheetId(
-                page,
-                limit,
-                sheetModel.getId(),
-                3,
-                "",
-                new NetworkManager.SuccessCallback<List<SongModel>>() {
+        Box.getRetrofit(API.class)
+                .getChildEduSongListBySheetId(page, limit,
+                        sheetModel.getId(), 3, "")
+                .compose(RxUtils.httpResponseTransformer())
+                .doOnTerminate(new Action() {
                     @Override
-                    public void onSuccess(List<SongModel> response) {
+                    public void run() throws Exception {
+                        hideLoadingDialog();
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<SongModel>>() {
+                    @Override
+                    public void onNext(List<SongModel> songModels) {
                         if (isFinishing()) {
                             return;
                         }
                         if (mAutoLoadMoreHelper != null) {
                             mAutoLoadMoreHelper.setLoading(false);
                         }
-                        hideLoadingDialog();
+
 //                        mModels.clear();
-                        mModels.addAll(response);
+                        mModels.addAll(songModels);
                         mAdapter.notifyDataSetChanged();
                     }
-                },
-                new NetworkManager.FailedCallback() {
+
                     @Override
-                    public void onFailed(String message) {
+                    protected void onError(ApiException ex) {
                         if (isFinishing()) {
                             return;
                         }
                         if (mAutoLoadMoreHelper != null) {
                             mAutoLoadMoreHelper.setLoading(false);
                         }
-                        hideLoadingDialog();
-                        ToastUtils.showShort(message);
+                        super.onError(ex);
                     }
-                }
-        );
+                });
     }
 
     private OnItemClickListener onItemClickListener = new OnItemClickListener() {
