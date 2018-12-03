@@ -167,42 +167,19 @@
         <activity
             android:name=".Test_mainActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".recyclerview.DoctorMesActivity"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".personal.PersonActivity"
             android:screenOrientation="landscape" />
 
-        <service
-            android:name="com.medlink.danbogh.alarm.AlarmService"
-            android:enabled="true" />
 
-        <receiver android:name="com.medlink.danbogh.alarm.AlarmReceiver">
-            <intent-filter>
-                <action android:name="com.medlink.intent.Alarm" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
 
-        <activity
-            android:name="com.medlink.danbogh.alarm.AlarmList2Activity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.alarm.AlarmDetail2Activity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.alarm.AlarmActivity"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".recyclerview.AppraiseActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".recyclerview.DoctorappoActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".recyclerview.AddAppoActivity"
-            android:screenOrientation="landscape" />
+
+
         <activity
             android:name=".recharge.PayActivity"
             android:screenOrientation="landscape" />
@@ -268,9 +245,7 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity
-            android:name="com.medlink.danbogh.alarm.ReminderActivity"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.DiseaseDetailsActivity"
             android:screenOrientation="landscape" />
@@ -291,13 +266,6 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".shopping.OrderListActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".recyclerview.OnlineDoctorListActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".recyclerview.DoctorAskGuideActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.signin.SignInActivity"
@@ -324,9 +292,7 @@
         <service android:name=".floatball.MyService" />
 
 
-        <activity
-            android:name=".recyclerview.DoctorAlarmActivity"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.AlertHeightActivity"
             android:screenOrientation="landscape" />
@@ -345,12 +311,8 @@
         <activity
             android:name=".activity.AlertDrinkingActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".recyclerview.HistoryActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".recyclerview.CheckContractActivity"
-            android:screenOrientation="landscape" />
+
+
         <activity
             android:name=".activity.MarketActivity"
             android:screenOrientation="landscape" />

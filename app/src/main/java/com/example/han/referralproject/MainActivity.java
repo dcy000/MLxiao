@@ -12,12 +12,15 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
-import com.example.han.referralproject.bean.ClueInfoBean;
+import com.example.lib_alarm_clock.AlarmHelper;
+import com.example.lib_alarm_clock.bean.ClueInfoBean;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.personal.PersonDetailActivity;
-import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
+import com.example.lib_alarm_clock.service.AlarmAPI;
+import com.example.lib_alarm_clock.ui.AlarmList2Activity;
+import com.example.module_doctor_advisory.ui.DoctorAskGuideActivity;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignInActivity;
 import com.gzq.lib_core.base.Box;
@@ -31,9 +34,7 @@ import com.gzq.lib_core.utils.PinYinUtils;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.alarm.AlarmHelper;
-import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.medlink.danbogh.alarm.AlarmModel;
+import com.gzq.lib_core.bean.AlarmModel;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.signin.SignInActivity;
 
@@ -227,7 +228,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        Box.getRetrofit(API.class)
+        Box.getRetrofit(AlarmAPI.class)
                 .getAllAlarmClocks(Box.getUserId())
                 .compose(RxUtils.httpResponseTransformer())
                 .as(RxUtils.autoDisposeConverter(this))

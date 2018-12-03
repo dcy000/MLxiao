@@ -354,7 +354,7 @@
                 android:layout_marginTop="36pt"
                 android:textColor="#3ACC61"
                 android:visibility="gone"/>
-            <com.littlejie.circleprogress.WaveProgress
+            <com.gcml.lib_widget.circleprogress.WaveProgress
                 android:id="@+id/wave_progress_bar"
                 android:layout_width="293pt"
                 android:layout_height="293pt"

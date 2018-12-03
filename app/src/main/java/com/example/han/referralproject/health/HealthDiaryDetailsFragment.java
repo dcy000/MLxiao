@@ -19,10 +19,10 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.health.model.DetailsModel;
+import com.gcml.lib_widget.rulerview.RulerView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.ml.edu.common.widget.recycleyview.CenterScrollListener;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
-import com.ml.rulerview.RulerView;
 
 public class HealthDiaryDetailsFragment extends Fragment {
 

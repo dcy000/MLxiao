@@ -15,8 +15,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.imageview.CircleImageView;
+import com.example.module_doctor_advisory.bean.Doctor;
+import com.example.module_doctor_advisory.service.DoctorAPI;
+import com.gcml.lib_widget.imageview.CircleImageView;
 import com.example.han.referralproject.service.API;
 import com.gcml.lib_widget.dialog.AlertDialog;
 import com.gzq.lib_core.base.Box;
@@ -112,7 +113,7 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
         daid = getIntent().getIntExtra("daid", 0);
         doid = getIntent().getStringExtra("doid");
 
-        Box.getRetrofit(API.class)
+        Box.getRetrofit(DoctorAPI.class)
                 .queryDoctorInfo(doid)
                 .compose(RxUtils.httpResponseTransformer())
                 .as(RxUtils.autoDisposeConverter(this))

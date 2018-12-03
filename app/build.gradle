@@ -118,14 +118,13 @@ android {
 
 repositories {
     flatDir {
-        dirs 'libs', '../module-register/libs'
+        dirs 'libs', '../module-register/libs','../module-alarm-clock/libs'
     }
 
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-
     implementation rootProject.ext.dependencies["constraint-layout"]
     implementation rootProject.ext.dependencies["support-v4"]
     implementation rootProject.ext.dependencies["appcompat-v7"]
@@ -137,13 +136,10 @@ dependencies {
     implementation rootProject.ext.dependencies["viewmodel"]
     //万能适配器
     implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
-
     //图标库
-     implementation rootProject.ext.dependencies["MPAndroidChart"]
-
+    implementation rootProject.ext.dependencies["MPAndroidChart"]
     //黄油刀
     implementation rootProject.ext.dependencies["butterknife"]
-
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     //腾讯Buggly
     implementation rootProject.ext.dependencies["bugly-crashreport"]
@@ -151,61 +147,37 @@ dependencies {
     //调试工具Pandora
     debugImplementation rootProject.ext.dependencies["pandora-debug"]
     releaseImplementation rootProject.ext.dependencies["pandora-release"]
-
-
-    //数据库框架LitePal 在闹钟处有使用
-    implementation 'org.litepal.android:core:1.6.0'
-
     //慧泉健康自查中有使用到这个库facebook.fresco
     implementation 'com.facebook.fresco:fresco:1.7.1'
     implementation name: 'huiquan-self-check', ext: 'aar'
     implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
     implementation 'com.nex3z:flow-layout:1.1.0'
     implementation 'com.lzy.net:okgo:3.0.4'
-
-    //轮子 在闹钟处有使用
-    implementation name: 'lib-wheelrecyclerview', ext: 'aar'
-
     //在和小E机器人对话界面有使用
     implementation('com.airbnb.android:lottie:2.2.5', {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     })
-
     //极光推送
     implementation 'cn.jiguang.sdk:jpush:3.1.1'
     implementation 'cn.jiguang.sdk:jcore:1.1.9'
-
     //高斯模糊 极光推送的通知有使用
     implementation 'com.github.mmin18:realtimeblurview:1.1.0'
-
     //友盟
     implementation 'com.umeng.analytics:analytics:6.1.2'
-
-    //仿IOS button
-    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
-
     //网易视频通话
     implementation 'com.netease.nimlib:basesdk:4.3.0'
     implementation 'com.netease.nimlib:avchat:4.3.0'
-
     //健康日记那里有使用
     implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
-
     //序号带颜色的小圈 后期应该去掉 周报告、月报告有使用
     implementation 'me.songning.CircleView:library:1.0.0'
-
-
-
-
     implementation project(':module-edu')
     implementation project(':lib-beecloud-pay')
-    implementation project(':lib-rulerview')
     implementation project(':lib-voice')
     implementation project(':module-ecg')
     implementation project(':lib-core')
     implementation project(':module-health-record')
     implementation project(':module-auth-face')
-
     implementation project(':module-video')
     implementation project(':lib-bluetooth')
     implementation project(':module-blood-pressure')
@@ -215,9 +187,7 @@ dependencies {
     implementation project(':module-triple')
     implementation project(':module-weight')
     implementation project(':lib-widget')
-    implementation project(':lib-progress-orb')
     implementation project(':module-register')
-
-
-
+    implementation project(':module-alarm-clock')
+    implementation project(':module-doctor-advisory')
 }

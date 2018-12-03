@@ -10,11 +10,14 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.ecg.ECGCompatActivity;
 import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
+import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
+import com.example.module_register.ui.normal.ConfirmContractActivity;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gzq.lib_bluetooth.BluetoothConstants;
 import com.gzq.lib_core.base.ui.IEvents;
 import com.gzq.lib_core.utils.ActivityUtils;
+import com.medlink.danbogh.call2.NimCallActivity;
 
 public class AppEvents implements IEvents {
     @Override
@@ -105,6 +108,21 @@ public class AppEvents implements IEvents {
             case "HealthRecord>BloodSugar":
                 //血糖历史记录
                 HealthRecordActivity.startActivity(ActivityUtils.currentActivity(), 2);
+                break;
+            case "NimCall":
+                if (objects != null) {
+                    String callId = objects[0] + "";
+                    NimCallActivity.launch(ActivityUtils.currentActivity(), callId);
+                }
+                break;
+            case "skip2ConfirmContractActivity":
+                if (objects != null) {
+                    String docId = objects[0] + "";
+                    ConfirmContractActivity.start(ActivityUtils.currentActivity(), docId);
+                }
+                break;
+            case "skip2PayActivity":
+                ActivityUtils.skipActivity(PayActivity.class);
                 break;
         }
     }

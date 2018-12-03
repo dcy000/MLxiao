@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.module_blood_pressure.R;
+import com.gcml.lib_widget.circleprogress.WaveProgress;
 import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.gzq.lib_bluetooth.bean.NewWeeklyOrMonthlyBean;
 import com.gzq.lib_bluetooth.common.BaseBluetoothFragment;
@@ -19,7 +20,6 @@ import com.gzq.lib_core.base.ui.IPresenter;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.littlejie.circleprogress.WaveProgress;
 
 import java.util.Calendar;
 import java.util.List;
@@ -111,7 +111,6 @@ public class ShowMeasureBloodpressureResultFragment extends BaseBluetoothFragmen
     private boolean isTask;
 
 
-
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -123,12 +122,6 @@ public class ShowMeasureBloodpressureResultFragment extends BaseBluetoothFragmen
 
         }
     }
-
-
-
-
-
-
 
 
     public void showLoadingDialog(String message) {
@@ -217,6 +210,7 @@ public class ShowMeasureBloodpressureResultFragment extends BaseBluetoothFragmen
         initViewColor();
 
     }
+
     private void initViewColor() {
         switch (healthState) {
             case "异常增高":
@@ -309,6 +303,7 @@ public class ShowMeasureBloodpressureResultFragment extends BaseBluetoothFragmen
         }
 
     }
+
     @Override
     public IPresenter obtainPresenter() {
         return new BasePresenter(this) {

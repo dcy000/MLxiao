@@ -36,7 +36,7 @@
         android:src="@drawable/icon_home" />
 
 
-    <com.example.han.referralproject.imageview.CircleImageView
+    <com.gcml.lib_widget.imageview.CircleImageView
         android:id="@+id/per_image"
         android:layout_width="250dp"
         android:layout_height="250dp"

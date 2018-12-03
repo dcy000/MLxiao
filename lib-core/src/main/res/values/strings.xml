@@ -14,4 +14,7 @@
     <string name="do_loading">正在加载</string>
     <string name="do_register">正在注册</string>
     <string name="do_login">正在登录</string>
+    <string name="doctor_remind">您的预约时间到了</string>
+    <string name="yuyue_video">预&#160;&#160;约&#160;&#160;视&#160;&#160;频</string>
+    <string name="yuyue_tim">主人您的预约时间到了，请及时和医生进行视频通话</string>
 </resources>

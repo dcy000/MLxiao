@@ -1,19 +1,12 @@
 
-include ':app',
+include ':app', ':module-doctor-advisory', ':module-alarm-clock',
         ':lib-widget',
         ':module-register',
         ':lib-beecloud-pay',
         ':module-edu',
         ':lib-music-player',
-//        ':circleprogress',
-//        ':wkvideoplayer',
-        ':lib-rulerview',
-//        ':lib-video-player',
         ':lib-voice',
-//        ':lib-common',
         ':module-ecg',
-//        ':expand-textview-library',
-//        ':circleindicator',
         ':lib-core',
         ':module-health-record',
         ':module-auth-face',
@@ -24,6 +17,5 @@ include ':app',
         ':module-blood-oxygen',
         ':module-blood-sugar',
         ':module-weight',
-        ':module-triple',
-        ':lib-progress-orb'
+        ':module-triple'
 

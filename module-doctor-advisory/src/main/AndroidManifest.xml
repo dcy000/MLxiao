@@ -1,0 +1,28 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.module_doctor_advisory">
+
+    <application>
+        <activity
+            android:name="com.example.module_doctor_advisory.ui.AddAppoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_doctor_advisory.ui.CheckContractActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_doctor_advisory.ui.DoctorappoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.DoctorAskGuideActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_doctor_advisory.ui.DoctorMesActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_doctor_advisory.ui.HistoryActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_doctor_advisory.ui.OnlineDoctorListActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+    </application>
+</manifest>

@@ -19,9 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.recyclerview.AppraiseActivity;
 import com.example.han.referralproject.service.API;
+import com.example.module_doctor_advisory.bean.RobotAmount;
+import com.example.module_doctor_advisory.service.DoctorAPI;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.observer.CommonObserver;
@@ -86,7 +87,7 @@ public class NimCallActivity extends AppCompatActivity {
 
     public static void launch(final Context context, final String account) {
         final String deviceId = com.example.han.referralproject.util.Utils.getDeviceId();
-        Box.getRetrofit(API.class)
+        Box.getRetrofit(DoctorAPI.class)
                 .queryMoneyById(DeviceUtils.getIMEI())
                 .compose(RxUtils.httpResponseTransformer())
                 .subscribe(new CommonObserver<RobotAmount>() {

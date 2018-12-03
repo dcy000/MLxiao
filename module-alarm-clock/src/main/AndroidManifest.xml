@@ -1,0 +1,32 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lib_alarm_clock" >
+    <application>
+        <service
+            android:name="com.example.lib_alarm_clock.AlarmService"
+            android:enabled="true" />
+
+        <receiver android:name="com.example.lib_alarm_clock.AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.medlink.intent.Alarm" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.example.lib_alarm_clock.ui.AlarmActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.lib_alarm_clock.ui.AlarmDetail2Activity"
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name="com.example.lib_alarm_clock.ui.AlarmList2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.lib_alarm_clock.ui.DoctorAlarmActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.lib_alarm_clock.ui.ReminderActivity"
+            android:screenOrientation="landscape" />
+    </application>
+</manifest>

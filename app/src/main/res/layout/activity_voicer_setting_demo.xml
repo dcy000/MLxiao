@@ -11,24 +11,24 @@
         android:layout_width="600dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/text_size_30" />
+        android:layout_marginTop="30dp" />
 
     <SeekBar
         android:id="@+id/sb_yudiao"
         android:layout_width="600dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/text_size_30" />
+        android:layout_marginTop="30dp" />
 
     <SeekBar
         android:id="@+id/sb_rate"
         android:layout_width="600dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/text_size_30" />
+        android:layout_marginTop="30dp" />
 
     <LinearLayout
-        android:layout_marginTop="@dimen/text_size_30"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="180sp"
@@ -38,7 +38,7 @@
             android:id="@+id/tv_yusu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_size_30"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="语速"
             android:textSize="30sp" />
@@ -47,7 +47,7 @@
             android:id="@+id/tv_yudiao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_size_30"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="语调"
             android:textSize="30sp" />
@@ -56,7 +56,7 @@
             android:id="@+id/tv_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_size_30"
+            android:layout_marginTop="30dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="采样率"
@@ -68,7 +68,7 @@
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/text_size_30"
+        android:layout_marginTop="30dp"
         android:background="#999"
         android:gravity="center"
         android:text="说话"

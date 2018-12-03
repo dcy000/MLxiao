@@ -31,7 +31,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/health_salt_diary_tv_title"/>
 
-    <com.ml.rulerview.RulerView
+    <com.gcml.lib_widget.rulerview.RulerView
         android:id="@+id/health_diary_rv_ruler"
         android:layout_width="0dp"
         android:layout_height="220pt"

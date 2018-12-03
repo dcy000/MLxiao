@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_tab3_contract_doctor"
-    tools:context="com.example.module_register.ui.normal.ConfirmContractActivity">
+    tools:context="com.example.module_register.com.example.module_doctor_advisory.ui.ConfirmContractActivity">
 
     <View
         android:id="@+id/line_center_vertical"

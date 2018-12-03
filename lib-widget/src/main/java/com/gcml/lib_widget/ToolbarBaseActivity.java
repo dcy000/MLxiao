@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gcml.lib_widget.dialog.LoadingDialog;
 import com.gzq.lib_core.base.ui.BaseActivity;
 
 public abstract class ToolbarBaseActivity extends BaseActivity implements View.OnClickListener {
@@ -19,6 +20,7 @@ public abstract class ToolbarBaseActivity extends BaseActivity implements View.O
     protected TextView mLeftText;
     protected LinearLayout mllBack;
     private long lastclicktime = 0L;
+    private LoadingDialog mLoadingDialog;
 
     @Override
     public void setContentView(int layoutResID) {
@@ -59,14 +61,42 @@ public abstract class ToolbarBaseActivity extends BaseActivity implements View.O
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        hideLoadingDialog();
+    }
+
     protected void backLastActivity() {
         finish();
     }
 
     protected void backMainActivity() {
+        emitEvent("skip2MainActivity");
     }
 
     protected boolean isShowToolbar() {
         return true;
+    }
+
+    public void showLoadingDialog(String tips) {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+        mLoadingDialog = new LoadingDialog.Builder(this)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord(tips)
+                .create();
+        mLoadingDialog.show();
+    }
+
+    public void hideLoadingDialog() {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
     }
 }

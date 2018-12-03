@@ -19,19 +19,21 @@ import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
-import com.example.han.referralproject.bean.Doctor;
-import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.recharge.PayActivity;
-import com.example.han.referralproject.recyclerview.CheckContractActivity;
-import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
+import com.example.lib_alarm_clock.ui.AlarmList2Activity;
+import com.example.module_doctor_advisory.bean.Doctor;
+import com.example.module_doctor_advisory.bean.RobotAmount;
+import com.example.module_doctor_advisory.service.DoctorAPI;
+import com.example.module_doctor_advisory.ui.CheckContractActivity;
+import com.example.module_doctor_advisory.ui.OnlineDoctorListActivity;
 import com.google.gson.Gson;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
@@ -41,7 +43,6 @@ import com.gzq.lib_core.utils.AppUtils;
 import com.gzq.lib_core.utils.DeviceUtils;
 import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.alarm.AlarmList2Activity;
 
 import io.reactivex.functions.Action;
 
@@ -211,7 +212,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
         if (TextUtils.isEmpty(user.doid)) {
             tvSignDoctorName.setText("暂无");
         } else {
-            Box.getRetrofit(API.class)
+            Box.getRetrofit(DoctorAPI.class)
                     .queryDoctorInfo(user.doid)
                     .compose(RxUtils.httpResponseTransformer())
                     .as(RxUtils.autoDisposeConverter(this))
@@ -226,7 +227,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                     });
         }
 
-        Box.getRetrofit(API.class)
+        Box.getRetrofit(DoctorAPI.class)
                 .queryMoneyById(DeviceUtils.getIMEI())
                 .compose(RxUtils.httpResponseTransformer())
                 .as(RxUtils.autoDisposeConverter(this))

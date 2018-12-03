@@ -46,16 +46,4 @@
         <item>根据世界卫生组织标准，测量结果正常</item>
         <item>您的血氧饱和度偏低，请尽快联系医生</item>
     </string-array>
-    <string-array name="repeats">
-        <item>一次</item>
-        <item>每天</item>
-        <item>隔天</item>
-        <item>周日</item>
-        <item>周一</item>
-        <item>周二</item>
-        <item>周三</item>
-        <item>周四</item>
-        <item>周五</item>
-        <item>周六</item>
-    </string-array>
 </resources>

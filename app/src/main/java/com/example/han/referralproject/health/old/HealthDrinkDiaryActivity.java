@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.gcml.lib_widget.rulerview.RulerView;
 import com.ml.edu.common.widget.recycleyview.CenterScrollListener;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
-import com.ml.rulerview.RulerView;
 
 import java.util.ArrayList;
 import java.util.List;

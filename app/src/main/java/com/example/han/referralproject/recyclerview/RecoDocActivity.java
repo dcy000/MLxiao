@@ -19,6 +19,12 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.OfflineActivity;
 import com.example.han.referralproject.service.API;
+import com.example.module_doctor_advisory.adapter.DoctorAdapter;
+import com.example.module_doctor_advisory.bean.Docter;
+import com.example.module_doctor_advisory.service.DoctorAPI;
+import com.example.module_doctor_advisory.ui.DoctorMesActivity;
+import com.example.module_doctor_advisory.utils.SpaceItemDecoration;
+import com.example.module_doctor_advisory.utils.SpacesItemDecoration;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignUpActivity;
 import com.gzq.lib_core.base.Box;
@@ -136,7 +142,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void getData() {
-        Box.getRetrofit(API.class)
+        Box.getRetrofit(DoctorAPI.class)
                 .getDoctors(0, mCurrPage)
                 .compose(RxUtils.httpResponseTransformer())
                 .as(RxUtils.autoDisposeConverter(this))

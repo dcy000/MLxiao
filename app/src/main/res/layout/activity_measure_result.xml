@@ -308,7 +308,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 />
-            <com.littlejie.circleprogress.WaveProgress
+            <com.gcml.lib_widget.circleprogress.WaveProgress
                 android:id="@+id/wave_progress_bar"
                 android:layout_width="293pt"
                 android:layout_height="293pt"

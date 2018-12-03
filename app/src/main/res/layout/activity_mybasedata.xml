@@ -14,7 +14,7 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <com.example.han.referralproject.imageview.CircleImageView
+        <com.gcml.lib_widget.imageview.CircleImageView
             android:id="@+id/head"
             android:layout_width="150dp"
             android:layout_height="150dp"

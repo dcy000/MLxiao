@@ -13,12 +13,12 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.MonthlyReport;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.lib_widget.circleprogress.WaveProgress;
 import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.littlejie.circleprogress.WaveProgress;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

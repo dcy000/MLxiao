@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--导航栏的背景颜色-->
+    <color name="toolbar_bg">#3F86FC</color>
+</resources>

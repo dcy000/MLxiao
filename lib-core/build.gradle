@@ -82,4 +82,7 @@ dependencies {
     api 'com.qiniu:qiniu-android-sdk:7.3.+'
     //图片加载库Glide
     api rootProject.ext.dependencies["glide"]
+
+    //数据库框架LitePal 在闹钟处有使用 最终必须去掉
+    api 'org.litepal.android:core:1.6.0'
 }
