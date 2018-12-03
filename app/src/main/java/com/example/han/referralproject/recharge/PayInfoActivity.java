@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -14,11 +13,13 @@ import android.widget.Toast;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.Utils;
+import com.example.han.referralproject.service.API;
 import com.gcml.lib_widget.dialog.AlertDialog;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.DeviceUtils;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Date;
@@ -89,44 +90,44 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
                 case 2:
                     Double numbers = Double.parseDouble(number) / 100;
+                    Box.getRetrofit(API.class)
+                            .recharge(DeviceUtils.getIMEI(), numbers, date.getTime(), Box.getUserId())
+                            .compose(RxUtils.httpResponseTransformer())
+                            .as(RxUtils.autoDisposeConverter(PayInfoActivity.this))
+                            .subscribe(new CommonObserver<String>() {
+                                @Override
+                                public void onNext(String s) {
+                                    Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                                    MLVoiceSynthetize.startSynthesize(R.string.pay_success);
+                                }
 
-                    NetworkApi.PayInfo(Utils.getDeviceId(), numbers + "", date.getTime() + "", Box.getUserId(), new NetworkManager.SuccessCallback<String>() {
-                        @Override
-                        public void onSuccess(String response) {
-                            Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-                            MLVoiceSynthetize.startSynthesize(R.string.pay_success);
-
-                        }
-                    }, new NetworkManager.FailedCallback() {
-                        @Override
-                        public void onFailed(String message) {
-                            sign = false;
-                            Log.e("支付成功同步到我们的后台", "onFailed: " + message);
-                        }
-                    });
-
+                                @Override
+                                protected void onError(ApiException ex) {
+                                    super.onError(ex);
+                                    sign = false;
+                                }
+                            });
                     break;
 
                 case 0:
                     Double number1 = Double.parseDouble(number) / 100;
+                    Box.getRetrofit(API.class)
+                            .recharge(DeviceUtils.getIMEI(), number1, date.getTime(), Box.getUserId())
+                            .compose(RxUtils.httpResponseTransformer())
+                            .as(RxUtils.autoDisposeConverter(PayInfoActivity.this))
+                            .subscribe(new CommonObserver<String>() {
+                                @Override
+                                public void onNext(String s) {
+                                    Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                                    MLVoiceSynthetize.startSynthesize(R.string.pay_success);
+                                }
 
-                    NetworkApi.PayInfo(Utils.getDeviceId(), number1 + "", date.getTime() + "", Box.getUserId(), new NetworkManager.SuccessCallback<String>() {
-                        @Override
-                        public void onSuccess(String response) {
-                            Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-
-                            MLVoiceSynthetize.startSynthesize(R.string.pay_success);
-
-
-                        }
-                    }, new NetworkManager.FailedCallback() {
-                        @Override
-                        public void onFailed(String message) {
-                            sign1 = false;
-
-                        }
-                    });
-
+                                @Override
+                                protected void onError(ApiException ex) {
+                                    super.onError(ex);
+                                    sign1 = false;
+                                }
+                            });
                     break;
             }
 

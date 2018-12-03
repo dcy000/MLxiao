@@ -1,8 +1,6 @@
 package com.example.han.referralproject.recyclerview;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,21 +17,20 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.RobotAmount;
-import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
+import com.example.han.referralproject.service.API;
 import com.example.module_register.ui.normal.ConfirmContractActivity;
 import com.gcml.lib_widget.dialog.AlertDialog;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.DeviceUtils;
 import com.gzq.lib_core.utils.PinYinUtils;
-import com.gzq.lib_core.utils.ToastUtils;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.call2.NimCallActivity;
 
 public class DoctorMesActivity extends BaseActivity implements View.OnClickListener {
 
-    ImageView mImageView;
 
     ImageView mImageView1;
     TextView mTextView;
@@ -53,13 +50,9 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
     String sign;
 
-    boolean flag = true;
 
     int i = 300;
 
-    SharedPreferences sharedPreferences;
-
-    SharedPreferences sharedPreference;
 
 
     Handler mHandler = new Handler() {
@@ -93,9 +86,6 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
         sign = intent.getStringExtra("sign");
         mToolbar.setVisibility(View.VISIBLE);
 
-        sharedPreferences = getSharedPreferences(ConstantData.ONLINE_TIME, Context.MODE_PRIVATE);
-
-        sharedPreference = getSharedPreferences(ConstantData.ONLINE_ID, Context.MODE_PRIVATE);
 
         mImageView1 = (ImageView) findViewById(R.id.circleImageView);
         mTextView = (TextView) findViewById(R.id.names);
@@ -125,22 +115,6 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             mTitleText.setText(getString(R.string.doctor_qianyue));
 
         }
-
-        if (!"".equals(sharedPreferences.getString("online_time", ""))) {
-
-            long countdown = System.currentTimeMillis() - Long.parseLong(sharedPreferences.getString("online_time", ""));
-            if (countdown < 300000) {
-
-                i = 300 - Integer.parseInt((countdown / 1000) + "");
-                mButton.setEnabled(false);
-                countdown();
-
-
-            }
-
-
-        }
-
 
         if (doctor != null) {
             if (Integer.parseInt(doctor.getEvaluation()) <= 60) {
@@ -322,16 +296,19 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
 
                 } else {
-                    NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
-                            new NetworkManager.SuccessCallback<RobotAmount>() {
+                    Box.getRetrofit(API.class)
+                            .queryMoneyById(DeviceUtils.getIMEI())
+                            .compose(RxUtils.httpResponseTransformer())
+                            .as(RxUtils.autoDisposeConverter(this))
+                            .subscribe(new CommonObserver<RobotAmount>() {
                                 @Override
-                                public void onSuccess(RobotAmount response) {
-                                    if (response == null) {
+                                public void onNext(RobotAmount robotAmount) {
+                                    if (robotAmount == null) {
                                         return;
                                     }
-                                    final String amount = response.getAmount();
+                                    final String amount = robotAmount.getAmount();
                                     String applyAmount = doctor.getApply_amount();
-                                    if (response.count != 0) {
+                                    if (robotAmount.count != 0) {
                                         if (Float.parseFloat(amount) > Float.parseFloat(applyAmount)) {
                                             ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
                                             finish();
@@ -342,12 +319,6 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                                         ConfirmContractActivity.start(DoctorMesActivity.this, doctor.getDocterid());
                                         finish();
                                     }
-
-                                }
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-                                    ToastUtils.showShort("服务器繁忙，请稍后再试");
                                 }
                             });
                 }
@@ -376,30 +347,30 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                 }).show();
     }
 
-    public void OnlineTime() {
-        NetworkApi.onlinedoctor_zixun(doctor.getDocterid(), Box.getUserId(), 0, new NetworkManager.SuccessCallback<OnlineTime>() {
-            @Override
-            public void onSuccess(OnlineTime response) {
-
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("online_time", response.getTime());
-                editor.commit();
-
-                SharedPreferences.Editor editors = sharedPreference.edit();
-                editors.putString("online_id", doctor.getDocterid());
-                editors.commit();
-
-                MLVoiceSynthetize.startSynthesize(R.string.doctor_online);
-
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-
-            }
-        });
-
-    }
+//    public void OnlineTime() {
+//        NetworkApi.onlinedoctor_zixun(doctor.getDocterid(), Box.getUserId(), 0, new NetworkManager.SuccessCallback<OnlineTime>() {
+//            @Override
+//            public void onSuccess(OnlineTime response) {
+//
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.putString("online_time", response.getTime());
+//                editor.commit();
+//
+//                SharedPreferences.Editor editors = sharedPreference.edit();
+//                editors.putString("online_id", doctor.getDocterid());
+//                editors.commit();
+//
+//                MLVoiceSynthetize.startSynthesize(R.string.doctor_online);
+//
+//            }
+//
+//        }, new NetworkManager.FailedCallback() {
+//            @Override
+//            public void onFailed(String message) {
+//
+//            }
+//        });
+//
+//    }
 
 }

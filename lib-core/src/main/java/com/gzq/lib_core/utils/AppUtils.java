@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 
 import com.gzq.lib_core.base.App;
+import com.gzq.lib_core.base.Box;
 
 import java.io.File;
 import java.util.List;
@@ -232,6 +233,18 @@ public class AppUtils {
             isSuccess &= FileUtils.cleanCustomCache(dir);
         }
         return isSuccess;
+    }
+
+    public static Object getMeta(String key) {
+        Object value = null;
+        try {
+            ApplicationInfo appInfo = App.getApp().getPackageManager()
+                    .getApplicationInfo(getAppInfo().packageName, PackageManager.GET_META_DATA);
+            value = appInfo.metaData.get(key);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return value;
     }
 
     /**

@@ -21,11 +21,14 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.YuYueInfo;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.gcml.lib_widget.dialog.AlertDialog;
 import com.gcml.lib_widget.dialog.SingleButtonDialog;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
@@ -39,6 +42,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class DoctorappoActivity extends BaseActivity implements View.OnClickListener {
 
@@ -158,40 +164,35 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                         } else if ("已过期".equals(list.get(0).getState()) ||
                                 "已拒绝".equals(list.get(0).getState())) {
-
-                            NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-                                    long time = 0;
-                                    try {
-                                        time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    String times = String.valueOf(time - 60000);
-
-
-                                    if (models.size() != 0) {
-
-                                        for (int i = 0; i < models.size(); i++) {
-                                            if (times.equals(models.get(i).getTimestamp() + "")) {
-                                                models.get(i).delete();
-                                                break;
+                            Box.getRetrofit(API.class)
+                                    .cancelReservation(list.get(0).getRid())
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new CommonObserver<Object>() {
+                                        @Override
+                                        public void onNext(Object o) {
+                                            long time = 0;
+                                            try {
+                                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
                                             }
+
+                                            String times = String.valueOf(time - 60000);
+
+
+                                            if (models.size() != 0) {
+
+                                                for (int i = 0; i < models.size(); i++) {
+                                                    if (times.equals(models.get(i).getTimestamp() + "")) {
+                                                        models.get(i).delete();
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            mLinearLayout1.setVisibility(View.GONE);
                                         }
-                                    }
-                                    mLinearLayout1.setVisibility(View.GONE);
-
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-
-                                }
-                            });
+                                    });
 
 
                         } else {
@@ -315,40 +316,35 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         } else if ("已过期".equals(list.get(1).getState())
 
                                 || "已拒绝".equals(list.get(1).getState())) {
-
-                            NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-                                    long time = 0;
-                                    try {
-                                        time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    String times = String.valueOf(time - 60000);
-
-
-                                    if (models.size() != 0) {
-
-                                        for (int i = 0; i < models.size(); i++) {
-                                            if (times.equals(models.get(i).getTimestamp() + "")) {
-                                                models.get(i).delete();
-                                                break;
+                            Box.getRetrofit(API.class)
+                                    .cancelReservation(list.get(0).getRid())
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new CommonObserver<Object>() {
+                                        @Override
+                                        public void onNext(Object o) {
+                                            long time = 0;
+                                            try {
+                                                time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
                                             }
+
+                                            String times = String.valueOf(time - 60000);
+
+
+                                            if (models.size() != 0) {
+
+                                                for (int i = 0; i < models.size(); i++) {
+                                                    if (times.equals(models.get(i).getTimestamp() + "")) {
+                                                        models.get(i).delete();
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            mLinearLayout2.setVisibility(View.GONE);
                                         }
-                                    }
-                                    mLinearLayout2.setVisibility(View.GONE);
-
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-
-                                }
-                            });
+                                    });
 
                         } else {
 
@@ -471,40 +467,35 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         } else if ("已过期".equals(list.get(2).getState())
                                 || "已拒绝".equals(list.get(2).getState())) {
 
-
-                            NetworkApi.YuYue_cancel(list.get(2).getRid() + "", new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-                                    long time = 0;
-                                    try {
-                                        time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    String times = String.valueOf(time - 60000);
-
-
-                                    if (models.size() != 0) {
-
-                                        for (int i = 0; i < models.size(); i++) {
-                                            if (times.equals(models.get(i).getTimestamp() + "")) {
-                                                models.get(i).delete();
-                                                break;
+                            Box.getRetrofit(API.class)
+                                    .cancelReservation(list.get(0).getRid())
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new CommonObserver<Object>() {
+                                        @Override
+                                        public void onNext(Object o) {
+                                            long time = 0;
+                                            try {
+                                                time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
                                             }
+
+                                            String times = String.valueOf(time - 60000);
+
+
+                                            if (models.size() != 0) {
+
+                                                for (int i = 0; i < models.size(); i++) {
+                                                    if (times.equals(models.get(i).getTimestamp() + "")) {
+                                                        models.get(i).delete();
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            mLinearLayout3.setVisibility(View.GONE);
                                         }
-                                    }
-                                    mLinearLayout3.setVisibility(View.GONE);
-
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-
-                                }
-                            });
+                                    });
 
 
                         } else {
@@ -637,40 +628,35 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                         } else if ("已过期".equals(list.get(0).getState())
                                 || "已拒绝".equals(list.get(0).getState())) {
-
-                            NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-                                    long time = 0;
-                                    try {
-                                        time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    String times = String.valueOf(time - 60000);
-
-
-                                    if (models.size() != 0) {
-
-                                        for (int i = 0; i < models.size(); i++) {
-                                            if (times.equals(models.get(i).getTimestamp() + "")) {
-                                                models.get(i).delete();
-                                                break;
+                            Box.getRetrofit(API.class)
+                                    .cancelReservation(list.get(0).getRid())
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new CommonObserver<Object>() {
+                                        @Override
+                                        public void onNext(Object o) {
+                                            long time = 0;
+                                            try {
+                                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
                                             }
+
+                                            String times = String.valueOf(time - 60000);
+
+
+                                            if (models.size() != 0) {
+
+                                                for (int i = 0; i < models.size(); i++) {
+                                                    if (times.equals(models.get(i).getTimestamp() + "")) {
+                                                        models.get(i).delete();
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            mLinearLayout1.setVisibility(View.GONE);
                                         }
-                                    }
-                                    mLinearLayout1.setVisibility(View.GONE);
-
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-
-                                }
-                            });
+                                    });
 
                         } else {
                             mTextView.setText(StringUtils.substringBeforeLast(list.get(0).getStart_time(), ":"));
@@ -800,41 +786,35 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         } else if ("已过期".equals(list.get(1).getState())
                                 || "已拒绝".equals(list.get(1).getState())) {
 
-
-                            NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-                                    long time = 0;
-                                    try {
-                                        time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    String times = String.valueOf(time - 60000);
-
-
-                                    if (models.size() != 0) {
-
-                                        for (int i = 0; i < models.size(); i++) {
-                                            if (times.equals(models.get(i).getTimestamp() + "")) {
-                                                models.get(i).delete();
-                                                break;
+                            Box.getRetrofit(API.class)
+                                    .cancelReservation(list.get(1).getRid())
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new CommonObserver<Object>() {
+                                        @Override
+                                        public void onNext(Object o) {
+                                            long time = 0;
+                                            try {
+                                                time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
                                             }
+
+                                            String times = String.valueOf(time - 60000);
+
+
+                                            if (models.size() != 0) {
+
+                                                for (int i = 0; i < models.size(); i++) {
+                                                    if (times.equals(models.get(i).getTimestamp() + "")) {
+                                                        models.get(i).delete();
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            mLinearLayout2.setVisibility(View.GONE);
                                         }
-                                    }
-                                    mLinearLayout2.setVisibility(View.GONE);
-
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-
-                                }
-                            });
-
+                                    });
 
                         } else {
 
@@ -968,40 +948,35 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         } else if ("已过期".equals(list.get(0).getState())
                                 || "已拒绝".equals(list.get(0).getState())) {
 
-
-                            NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-                                    long time = 0;
-                                    try {
-                                        time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    String times = String.valueOf(time - 60000);
-
-
-                                    if (models.size() != 0) {
-
-                                        for (int i = 0; i < models.size(); i++) {
-                                            if (times.equals(models.get(i).getTimestamp() + "")) {
-                                                models.get(i).delete();
-                                                break;
+                            Box.getRetrofit(API.class)
+                                    .cancelReservation(list.get(0).getRid())
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new CommonObserver<Object>() {
+                                        @Override
+                                        public void onNext(Object o) {
+                                            long time = 0;
+                                            try {
+                                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
                                             }
+
+                                            String times = String.valueOf(time - 60000);
+
+
+                                            if (models.size() != 0) {
+
+                                                for (int i = 0; i < models.size(); i++) {
+                                                    if (times.equals(models.get(i).getTimestamp() + "")) {
+                                                        models.get(i).delete();
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            mLinearLayout1.setVisibility(View.GONE);
                                         }
-                                    }
-                                    mLinearLayout1.setVisibility(View.GONE);
-
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-
-                                }
-                            });
+                                    });
 
 
                         } else {
@@ -1114,13 +1089,13 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     Button mButton4;
 
     TextView mHistroy;
-
+    private UserInfoBean user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorappo);
-
+        user = Box.getSessionManager().getUser();
         mButton2 = (Button) findViewById(R.id.cancel_yuyue);
         mButton3 = (Button) findViewById(R.id.cancel_yuyue1);
         mButton4 = (Button) findViewById(R.id.cancel_yuyue2);
@@ -1149,14 +1124,13 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
         mButtons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NimCallActivity.launch(DoctorappoActivity.this, "docter_" + doctorId);
+                NimCallActivity.launch(DoctorappoActivity.this, "docter_" + user.doid);
             }
         });
 
 
         sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
-        doctorId = sharedPreferences1.getString("doctor_id", "");
 
         mTextView = (TextView) findViewById(R.id.yuyue_time);
         mTextView1 = (TextView) findViewById(R.id.yuyue_time1);
@@ -1273,7 +1247,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
     List<YuYueInfo> list = new ArrayList<YuYueInfo>();
 
-    private String doctorId;
 
     @Override
     protected void onStart() {
@@ -1288,31 +1261,25 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     }
 
     public void yuYueDoctor() {
-        NetworkApi.YuYue_info(Box.getUserId(), doctorId, new NetworkManager.SuccessCallback<ArrayList<YuYueInfo>>() {
-            @Override
-            public void onSuccess(ArrayList<YuYueInfo> response) {
-                allReservationHistory.clear();
-                allReservationHistory.addAll(response);
-                list.clear();
-                for (int i = 0; i < response.size(); i++) {
-                    if ("未接受".equals(response.get(i).getState())) {
-                        list.add(response.get(i));
+        Box.getRetrofit(API.class)
+                .querySignedDoctorInfo(user.bid, user.doid)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<YuYueInfo>>() {
+                    @Override
+                    public void onNext(List<YuYueInfo> yuYueInfos) {
+                        allReservationHistory.clear();
+                        allReservationHistory.addAll(yuYueInfos);
+                        list.clear();
+                        for (int i = 0; i < yuYueInfos.size(); i++) {
+                            if ("未接受".equals(yuYueInfos.get(i).getState())) {
+                                list.add(yuYueInfos.get(i));
+                            }
+                        }
+
+                        mHandler.sendEmptyMessage(0);
                     }
-                }
-
-                mHandler.sendEmptyMessage(0);
-
-
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-
-            }
-        });
-
-
+                });
     }
 
 
@@ -1365,175 +1332,150 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
     private void cancelReserversion(int sign) {
         if (sign == 1) {
 
-
-            NetworkApi.YuYue_cancel(list.get(0).getRid() + "", new NetworkManager.SuccessCallback<String>() {
-                @Override
-                public void onSuccess(String response) {
-
-                    long time = 0;
-                    try {
-                        time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    String times = String.valueOf(time - 60000);
-
-
-                    models = DataSupport.findAll(AlarmModel.class);
-
-
-                    if (models.size() != 0) {
-
-                        for (int i = 0; i < models.size(); i++) {
-                            if (times.equals(models.get(i).getTimestamp() + "")) {
-                                models.get(i).delete();
-                                break;
+            Box.getRetrofit(API.class)
+                    .cancelReservation(list.get(0).getRid())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new CommonObserver<Object>() {
+                        @Override
+                        public void onNext(Object o) {
+                            long time = 0;
+                            try {
+                                time = Long.parseLong(dateToStamp(list.get(0).getStart_time()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
+
+                            String times = String.valueOf(time - 60000);
+
+
+                            models = DataSupport.findAll(AlarmModel.class);
+
+
+                            if (models.size() != 0) {
+
+                                for (int i = 0; i < models.size(); i++) {
+                                    if (times.equals(models.get(i).getTimestamp() + "")) {
+                                        models.get(i).delete();
+                                        break;
+                                    }
+                                }
+
+
+                            }
+
+
+                            mTextView.setText(null);
+                            mTextView1.setText(null);
+                            mLinearLayout1.setVisibility(View.INVISIBLE);
+                            yuYueDoctor();
+
+                            ShowNormals("取消成功");
+                            MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
                         }
-
-
-                    }
-
-
-                    mTextView.setText(null);
-                    mTextView1.setText(null);
-                    mLinearLayout1.setVisibility(View.INVISIBLE);
-                    yuYueDoctor();
-
-                    ShowNormals("取消成功");
-                    MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
-
-
-                }
-
-            }, new NetworkManager.FailedCallback() {
-                @Override
-                public void onFailed(String message) {
-                    ShowNormals("取消失败");
-
-
-                }
-            });
-
+                    });
 
         } else if (sign == 2) {
+            Box.getRetrofit(API.class)
+                    .cancelReservation(list.get(1).getRid())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new CommonObserver<Object>() {
+                        @Override
+                        public void onNext(Object o) {
 
-
-            NetworkApi.YuYue_cancel(list.get(1).getRid() + "", new NetworkManager.SuccessCallback<String>() {
-                @Override
-                public void onSuccess(String response) {
-
-                    long time = 0;
-                    try {
-                        time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    String times = String.valueOf(time - 60000);
-
-
-                    if (models.size() != 0) {
-
-                        for (int i = 0; i < models.size(); i++) {
-                            if (times.equals(models.get(i).getTimestamp() + "")) {
-                                models.get(i).delete();
-                                break;
+                            long time = 0;
+                            try {
+                                time = Long.parseLong(dateToStamp(list.get(1).getStart_time()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
+
+                            String times = String.valueOf(time - 60000);
+
+
+                            if (models.size() != 0) {
+
+                                for (int i = 0; i < models.size(); i++) {
+                                    if (times.equals(models.get(i).getTimestamp() + "")) {
+                                        models.get(i).delete();
+                                        break;
+                                    }
+                                }
+                            }
+
+                            mTextView2.setText(null);
+                            mTextView6.setText(null);
+                            mLinearLayout2.setVisibility(View.INVISIBLE);
+                            yuYueDoctor();
+
+
+                            ShowNormals("取消成功");
+
+                            MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
                         }
-                    }
-
-                    mTextView2.setText(null);
-                    mTextView6.setText(null);
-                    mLinearLayout2.setVisibility(View.INVISIBLE);
-                    yuYueDoctor();
-
-
-                    ShowNormals("取消成功");
-
-                    MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
-
-                }
-
-            }, new NetworkManager.FailedCallback() {
-                @Override
-                public void onFailed(String message) {
-                    ShowNormals("取消失败");
-
-
-                }
-            });
-
+                    });
 
         } else if (sign == 3) {
-
-
-            NetworkApi.YuYue_cancel(list.get(2).getRid() + "", new NetworkManager.SuccessCallback<String>() {
-                @Override
-                public void onSuccess(String response) {
-
-                    long time = 0;
-                    try {
-                        time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    String times = String.valueOf(time - 60000);
-
-                    if (models.size() != 0) {
-
-                        for (int i = 0; i < models.size(); i++) {
-                            if (times.equals(models.get(i).getTimestamp() + "")) {
-                                models.get(i).delete();
-                                break;
+            Box.getRetrofit(API.class)
+                    .cancelReservation(list.get(2).getRid())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new CommonObserver<Object>() {
+                        @Override
+                        public void onNext(Object o) {
+                            long time = 0;
+                            try {
+                                time = Long.parseLong(dateToStamp(list.get(2).getStart_time()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
+
+                            String times = String.valueOf(time - 60000);
+
+                            if (models.size() != 0) {
+
+                                for (int i = 0; i < models.size(); i++) {
+                                    if (times.equals(models.get(i).getTimestamp() + "")) {
+                                        models.get(i).delete();
+                                        break;
+                                    }
+                                }
+                            }
+
+                            mTextView7.setText(null);
+                            mTextView8.setText(null);
+                            mLinearLayout3.setVisibility(View.INVISIBLE);
+
+                            yuYueDoctor();
+
+
+                            ShowNormals("取消成功");
+
+                            MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
                         }
-                    }
 
-                    mTextView7.setText(null);
-                    mTextView8.setText(null);
-                    mLinearLayout3.setVisibility(View.INVISIBLE);
-
-                    yuYueDoctor();
-
-
-                    ShowNormals("取消成功");
-
-                    MLVoiceSynthetize.startSynthesize(R.string.cancel_success);
-
-                                       /* DataSupport.deleteAllAsync(AlarmModel.class, "timestamp=?", times)
-                                                .listen(new UpdateOrDeleteCallback() {
-                                                    @Override
-                                                    public void onFinish(int rowsAffected) {
-                                                        if (rowsAffected >= 1) {
-
-                                                            mTextView7.setText("");
-                                                            mTextView8.setText("");
-                                                            mLinearLayout3.setVisibility(View.INVISIBLE);
-                                                            ShowNormals("取消成功");
-                                                        }
-
-                                                    }
-                                                });*/
-
-
-                }
-
-            }, new NetworkManager.FailedCallback() {
-                @Override
-                public void onFailed(String message) {
-
-                    ShowNormals("取消失败");
-
-                }
-            });
-
-
+                        @Override
+                        protected void onError(ApiException ex) {
+                            super.onError(ex);
+                            ShowNormals("取消失败");
+                        }
+                    });
         }
     }
 
+    private void cancelReservation(int rid) {
+        Box.getRetrofit(API.class)
+                .cancelReservation(rid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CommonObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+
+                    }
+                });
+    }
 
     public void ShowNormals(String str) {
         new SingleButtonDialog(this)

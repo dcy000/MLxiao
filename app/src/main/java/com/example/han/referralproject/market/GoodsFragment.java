@@ -15,14 +15,16 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.shopping.GoodDetailActivity;
 import com.example.han.referralproject.shopping.Goods;
 import com.gcml.lib_widget.recycleview.GridViewDividerItemDecoration;
-import com.gzq.lib_core.utils.ToastUtils;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by afirez on 18-1-6.
@@ -94,18 +96,17 @@ public class GoodsFragment extends Fragment {
     }
 
     private void initData() {
-        NetworkApi.goods_list(mPosition, new NetworkManager.SuccessCallback<ArrayList<Goods>>() {
-            @Override
-            public void onSuccess(ArrayList<Goods> response) {
-                mData.addAll(response);
-                mAdapter.notifyDataSetChanged();
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort(message);
-            }
-        });
+        Box.getRetrofit(API.class)
+                .getGoods(mPosition)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<Goods>>() {
+                    @Override
+                    public void onNext(List<Goods> goods) {
+                        mData.addAll(goods);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 
 }

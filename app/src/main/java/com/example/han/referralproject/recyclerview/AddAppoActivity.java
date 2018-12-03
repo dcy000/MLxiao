@@ -1,8 +1,6 @@
 package com.example.han.referralproject.recyclerview;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -13,13 +11,15 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.AlreadyYuyue;
-import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.service.API;
 import com.gcml.lib_widget.dialog.AlertDialog;
 import com.gcml.lib_widget.dialog.SingleButtonDialog;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.text.ParseException;
@@ -30,10 +30,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class AddAppoActivity extends BaseActivity implements View.OnClickListener {
 
 
-    SharedPreferences sharedPreferences1;
 
 
     SimpleDateFormat simple;
@@ -57,7 +59,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     Date date4;
     Date date5;
     Date date6;
-
+    private Doctor doctor;
 //    NDialog1 dialog;
 //    NDialog2 dialog1;
 
@@ -114,13 +116,13 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         final String start_time = str[0] + "-" + str[1] + "-" + str[2] + " " + strs[0];
         final String end_time = str[0] + "-" + str[1] + "-" + str[2] + " " + strs[1];
 
-        MLVoiceSynthetize.startSynthesize(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")));
+        MLVoiceSynthetize.startSynthesize(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, doctor.doctername));
 
 //        dialog = new NDialog1(AddAppoActivity.this);
 
         new AlertDialog(this)
                 .builder()
-                .setMsg(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")))
+                .setMsg(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, doctor.doctername))
                 .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -132,69 +134,25 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onClick(View v) {
                         UserInfoBean user = Box.getSessionManager().getUser();
-                        NetworkApi.YuYue(start_time, end_time, user.bid, sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<String>() {
-                            @Override
-                            public void onSuccess(String response) {
-                                //sharedPreference.getString("doctor_id", "")
+                        Box.getRetrofit(API.class)
+                                .signMyDotor(start_time, end_time, user.bid, user.doid)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new CommonObserver<Object>() {
+                                    @Override
+                                    public void onNext(Object o) {
+                                        ShowNormals("预约成功");
+                                    }
 
-                                //   SharePerfence(sharedPreferences, str1, str2, str3);
-
-                                ShowNormals("预约成功");
-
-
-                            }
-                        }, new NetworkManager.FailedCallback() {
-                            @Override
-                            public void onFailed(String message) {
-                                ShowNormals("预约失败");
-
-                            }
-                        });
+                                    @Override
+                                    protected void onError(ApiException ex) {
+                                        super.onError(ex);
+                                        ShowNormals("预约失败");
+                                    }
+                                });
                     }
                 }).show();
 
-//        dialog.setMessageCenter(true)
-//                .setMessage(String.format(getString(R.string.dialog), str[0], str[1], str[2], str2, str3, sharedPreferences1.getString("name", "")))
-//                .setMessageSize(35)
-//                .setCancleable(false)
-//                .setButtonCenter(true)
-//                .setPositiveTextColor(Color.parseColor("#FFA200"))
-//                .setButtonSize(40)
-//                .setOnConfirmListener(new NDialog1.OnConfirmListener() {
-//                    @Override
-//                    public void onClick(int which) {
-//                        if (which == 1) {
-//                            UserInfoBean user = Box.getSessionManager().getUser();
-//                            NetworkApi.YuYue(start_time, end_time, user.bid, sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<String>() {
-//                                @Override
-//                                public void onSuccess(String response) {
-//                                    //sharedPreference.getString("doctor_id", "")
-//
-//                                    //   SharePerfence(sharedPreferences, str1, str2, str3);
-//
-//                                    ShowNormals("预约成功");
-//
-//
-//                                }
-//                            }, new NetworkManager.FailedCallback() {
-//                                @Override
-//                                public void onFailed(String message) {
-//                                    ShowNormals("预约失败");
-//
-//                                }
-//                            });
-//
-//
-//                        } else if (which == 0) {
-//                            mTextView.setText("可预约");
-//                            mTextView.setTextColor(Color.parseColor("#3F86FC"));
-//                            dialog.create(NDialog.CONFIRM).cancel();
-//                            dialog = null;
-//                        }
-//
-//                    }
-//                })
-//                .create(NDialog.CONFIRM).show();
     }
 
     public void ShowNormals(String str) {
@@ -209,7 +167,6 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
                         finish();
                     }
                 }).show();
-
     }
 
 
@@ -283,10 +240,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         initView();
 
         MLVoiceSynthetize.startSynthesize(R.string.yuyue_times);
-
-
-        sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-
+        getDoctorInfo();
         date = new Date();
         simpl = new SimpleDateFormat("M");
 
@@ -403,589 +357,593 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
 
         judge();
 
+        Box.getRetrofit(API.class)
+                .queryDoctorReservationList(((UserInfoBean) Box.getSessionManager().getUser()).doid)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<AlreadyYuyue>>() {
+                    @Override
+                    public void onNext(List<AlreadyYuyue> alreadyYuyues) {
+                        list = alreadyYuyues;
+                        for (int i = 0; i < list.size(); i++) {
+                            if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:00:00"))
+                                    || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:00:00"))
+                                    ) {
 
-        NetworkApi.YuYue_already(sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
-            @Override
-            public void onSuccess(ArrayList<AlreadyYuyue> response) {
+                                mTextView1.setText("已预约");
+                                mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView1.setEnabled(false);
 
-                list = response;
 
+                            }
 
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:00:00"))
-                            || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:00:00"))
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:00:00"))
 
-                        mTextView1.setText("已预约");
-                        mTextView1.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView1.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:00:00"))
 
+                                    ) {
 
-                    }
+                                mTextView2.setText("已预约");
+                                mTextView2.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView2.setEnabled(false);
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:00:00"))
+                            }
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:00:00"))
+                            if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:00:00"))
 
-                            ) {
 
-                        mTextView2.setText("已预约");
-                        mTextView2.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView2.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:00:00"))
 
-                    }
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:00:00"))
+                                mTextView3.setText("已预约");
+                                mTextView3.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView3.setEnabled(false);
 
 
-                            || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:00:00"))
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:00:00"))
 
-                        mTextView3.setText("已预约");
-                        mTextView3.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView3.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:00:00"))
 
 
-                    }
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:00:00"))
+                                mTextView4.setText("已预约");
+                                mTextView4.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView4.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:00:00"))
+                            }
 
+                            if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:00:00"))
 
-                            ) {
 
-                        mTextView4.setText("已预约");
-                        mTextView4.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView4.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:00:00"))
 
-                    }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:00:00"))
+                                    ) {
 
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:00:00"))
+                                mTextView5.setText("已预约");
+                                mTextView5.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView5.setEnabled(false);
 
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:00:00"))
 
+                                    || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:00:00"))
 
-                        mTextView5.setText("已预约");
-                        mTextView5.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView5.setEnabled(false);
 
-                    }
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:00:00"))
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:00:00"))
+                                mTextView6.setText("已预约");
+                                mTextView6.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView6.setEnabled(false);
 
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:00:00"))
 
+                                    || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:00:00"))
 
-                        mTextView6.setText("已预约");
-                        mTextView6.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView6.setEnabled(false);
+                                    ) {
 
-                    }
+                                mTextView7.setText("已预约");
+                                mTextView7.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView7.setEnabled(false);
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:00:00"))
+                            }
+                            if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:20:00"))
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:00:00"))
+                                    || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:20:00"))
 
-                            ) {
 
-                        mTextView7.setText("已预约");
-                        mTextView7.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView7.setEnabled(false);
+                                    ) {
 
-                    }
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:20:00"))
+                                mTextView8.setText("已预约");
+                                mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView8.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:20:00"))
+                            }
 
+                            if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:20:00"))
 
-                            ) {
 
-                        mTextView8.setText("已预约");
-                        mTextView8.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView8.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:20:00"))
 
-                    }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:20:00"))
+                                    ) {
 
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:20:00"))
+                                mTextView9.setText("已预约");
+                                mTextView9.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView9.setEnabled(false);
 
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:20:00"))
 
 
-                        mTextView9.setText("已预约");
-                        mTextView9.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView9.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:20:00"))
 
-                    }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:20:00"))
+                                    ) {
 
 
-                            || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:20:00"))
+                                mTextView10.setText("已预约");
+                                mTextView10.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView10.setEnabled(false);
 
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:20:00"))
 
 
-                        mTextView10.setText("已预约");
-                        mTextView10.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView10.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:20:00"))
 
-                    }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:20:00"))
+                                    ) {
 
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:20:00"))
+                                mTextView11.setText("已预约");
+                                mTextView11.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView11.setEnabled(false);
 
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:20:00"))
 
+                                    || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:20:00"))
 
-                        mTextView11.setText("已预约");
-                        mTextView11.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView11.setEnabled(false);
 
-                    }
+                                    ) {
+                                mTextView12.setText("已预约");
+                                mTextView12.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView12.setEnabled(false);
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:20:00"))
+                            }
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:20:00"))
+                            if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:20:00"))
 
+                                    || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:20:00"))
 
-                            ) {
-                        mTextView12.setText("已预约");
-                        mTextView12.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView12.setEnabled(false);
+                                    ) {
+                                mTextView13.setText("已预约");
+                                mTextView13.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView13.setEnabled(false);
 
-                    }
+                            }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:20:00"))
+                            if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:20:00"))
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:20:00"))
+                                    || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:20:00"))
 
-                            ) {
-                        mTextView13.setText("已预约");
-                        mTextView13.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView13.setEnabled(false);
 
-                    }
+                                    ) {
+                                mTextView14.setText("已预约");
+                                mTextView14.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView14.setEnabled(false);
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:20:00"))
+                            }
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:20:00"))
 
+                            if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:40:00"))
 
-                            ) {
-                        mTextView14.setText("已预约");
-                        mTextView14.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView14.setEnabled(false);
 
-                    }
+                                    || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:40:00"))
 
 
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "09:40:00"))
+                                    ) {
+                                mTextView15.setText("已预约");
+                                mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView15.setEnabled(false);
 
+                            }
 
-                            || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "15:40:00"))
+                            if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:40:00"))
 
 
-                            ) {
-                        mTextView15.setText("已预约");
-                        mTextView15.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView15.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:40:00"))
 
-                    }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "09:40:00"))
+                                    ) {
+                                mTextView16.setText("已预约");
+                                mTextView16.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView16.setEnabled(false);
 
+                            }
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "15:40:00"))
+                            if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:40:00"))
 
+                                    || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:40:00"))
 
-                            ) {
-                        mTextView16.setText("已预约");
-                        mTextView16.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView16.setEnabled(false);
 
-                    }
+                                    ) {
+                                mTextView17.setText("已预约");
+                                mTextView17.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView17.setEnabled(false);
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "09:40:00"))
+                            }
 
-                            || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "15:40:00"))
+                            if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:40:00"))
 
+                                    || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:40:00"))
 
-                            ) {
-                        mTextView17.setText("已预约");
-                        mTextView17.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView17.setEnabled(false);
 
-                    }
+                                    ) {
+                                mTextView18.setText("已预约");
+                                mTextView18.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView18.setEnabled(false);
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "09:40:00"))
+                            }
+                            if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:40:00"))
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "15:40:00"))
+                                    || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:40:00"))
 
 
-                            ) {
-                        mTextView18.setText("已预约");
-                        mTextView18.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView18.setEnabled(false);
+                                    ) {
 
-                    }
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "09:40:00"))
+                                mTextView19.setText("已预约");
+                                mTextView19.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView19.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "15:40:00"))
+                            }
 
+                            if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:40:00"))
 
-                            ) {
+                                    || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:40:00"))
 
-                        mTextView19.setText("已预约");
-                        mTextView19.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView19.setEnabled(false);
+                                    ) {
 
-                    }
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "09:40:00"))
+                                mTextView20.setText("已预约");
+                                mTextView20.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView20.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "15:40:00"))
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:40:00"))
 
+                                    || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:40:00"))
 
-                        mTextView20.setText("已预约");
-                        mTextView20.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView20.setEnabled(false);
+                                    ) {
 
-                    }
+                                mTextView21.setText("已预约");
+                                mTextView21.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView21.setEnabled(false);
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "09:40:00"))
+                            }
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "15:40:00"))
+                            if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:00:00"))
 
-                            ) {
+                                    || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "16:00:00"))
 
-                        mTextView21.setText("已预约");
-                        mTextView21.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView21.setEnabled(false);
 
-                    }
+                                    ) {
+                                mTextView22.setText("已预约");
+                                mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView22.setEnabled(false);
 
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:00:00"))
+                            }
 
-                            || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "16:00:00"))
+                            if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:00:00"))
 
+                                    || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "16:00:00"))
 
-                            ) {
-                        mTextView22.setText("已预约");
-                        mTextView22.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView22.setEnabled(false);
 
-                    }
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:00:00"))
+                                mTextView23.setText("已预约");
+                                mTextView23.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView23.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "16:00:00"))
+                            }
 
+                            if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:00:00"))
 
-                            ) {
+                                    || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "16:00:00"))
 
-                        mTextView23.setText("已预约");
-                        mTextView23.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView23.setEnabled(false);
 
-                    }
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:00:00"))
+                                mTextView24.setText("已预约");
+                                mTextView24.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView24.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "16:00:00"))
+                            }
 
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:00:00"))
 
-                        mTextView24.setText("已预约");
-                        mTextView24.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView24.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "16:00:00"))
 
-                    }
 
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:00:00"))
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "16:00:00"))
+                                mTextView25.setText("已预约");
+                                mTextView25.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView25.setEnabled(false);
 
+                            }
 
-                            ) {
 
+                            if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:00:00"))
 
-                        mTextView25.setText("已预约");
-                        mTextView25.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView25.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "16:00:00"))
 
-                    }
 
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:00:00"))
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "16:00:00"))
+                                mTextView26.setText("已预约");
+                                mTextView26.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView26.setEnabled(false);
 
+                            }
 
-                            ) {
 
+                            if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:00:00"))
 
-                        mTextView26.setText("已预约");
-                        mTextView26.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView26.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "16:00:00"))
 
-                    }
 
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:00:00"))
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "16:00:00"))
+                                mTextView27.setText("已预约");
+                                mTextView27.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView27.setEnabled(false);
 
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:00:00"))
 
+                                    || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "16:00:00"))
 
-                        mTextView27.setText("已预约");
-                        mTextView27.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView27.setEnabled(false);
 
-                    }
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:00:00"))
+                                mTextView28.setText("已预约");
+                                mTextView28.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView28.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "16:00:00"))
+                            }
 
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:20:00"))
 
-                        mTextView28.setText("已预约");
-                        mTextView28.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView28.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "16:20:00"))
 
-                    }
 
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:20:00"))
+                                mTextView29.setText("已预约");
+                                mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
+                                mTextView29.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "16:20:00"))
+                            }
 
+                            if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:20:00"))
 
-                            ) {
+                                    || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "16:20:00"))
 
-                        mTextView29.setText("已预约");
-                        mTextView29.setTextColor(Color.parseColor("#BBBBBB"));
-                        mTextView29.setEnabled(false);
 
-                    }
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:20:00"))
+                                mTextView30.setText("已预约");
+                                mTextView30.setTextColor(Color.parseColor("#BBBBBB"));
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "16:20:00"))
+                                mTextView30.setEnabled(false);
 
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:20:00"))
 
-                        mTextView30.setText("已预约");
-                        mTextView30.setTextColor(Color.parseColor("#BBBBBB"));
+                                    || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "16:20:00"))
 
-                        mTextView30.setEnabled(false);
 
-                    }
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:20:00"))
+                                mTextView31.setText("已预约");
+                                mTextView31.setTextColor(Color.parseColor("#BBBBBB"));
 
-                            || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "16:20:00"))
+                                mTextView31.setEnabled(false);
 
+                            }
 
-                            ) {
 
-                        mTextView31.setText("已预约");
-                        mTextView31.setTextColor(Color.parseColor("#BBBBBB"));
+                            if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:20:00"))
 
-                        mTextView31.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "16:20:00"))
 
-                    }
 
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:20:00"))
+                                mTextView32.setText("已预约");
+                                mTextView32.setTextColor(Color.parseColor("#BBBBBB"));
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "16:20:00"))
+                                mTextView32.setEnabled(false);
 
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:20:00"))
 
-                        mTextView32.setText("已预约");
-                        mTextView32.setTextColor(Color.parseColor("#BBBBBB"));
+                                    || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "16:20:00"))
 
-                        mTextView32.setEnabled(false);
 
-                    }
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:20:00"))
+                                mTextView33.setText("已预约");
+                                mTextView33.setTextColor(Color.parseColor("#BBBBBB"));
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "16:20:00"))
+                                mTextView33.setEnabled(false);
 
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:20:00"))
 
-                        mTextView33.setText("已预约");
-                        mTextView33.setTextColor(Color.parseColor("#BBBBBB"));
+                                    || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "16:20:00"))
 
-                        mTextView33.setEnabled(false);
 
-                    }
+                                    ) {
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:20:00"))
+                                mTextView34.setText("已预约");
+                                mTextView34.setTextColor(Color.parseColor("#BBBBBB"));
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "16:20:00"))
+                                mTextView34.setEnabled(false);
 
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:20:00"))
 
-                        mTextView34.setText("已预约");
-                        mTextView34.setTextColor(Color.parseColor("#BBBBBB"));
+                                    || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "16:20:00"))
 
-                        mTextView34.setEnabled(false);
+                                    ) {
 
-                    }
+                                mTextView35.setText("已预约");
+                                mTextView35.setTextColor(Color.parseColor("#BBBBBB"));
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:20:00"))
+                                mTextView35.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "16:20:00"))
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:40:00"))
 
-                        mTextView35.setText("已预约");
-                        mTextView35.setTextColor(Color.parseColor("#BBBBBB"));
+                                    || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "16:40:00"))
 
-                        mTextView35.setEnabled(false);
+                                    ) {
 
-                    }
+                                mTextView36.setText("已预约");
+                                mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
 
-                    if (list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "10:40:00"))
+                                mTextView36.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(simple.format(date) + "", "16:40:00"))
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:40:00"))
 
-                        mTextView36.setText("已预约");
-                        mTextView36.setTextColor(Color.parseColor("#BBBBBB"));
+                                    || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "16:40:00"))
 
-                        mTextView36.setEnabled(false);
+                                    ) {
 
-                    }
+                                mTextView37.setText("已预约");
+                                mTextView37.setTextColor(Color.parseColor("#BBBBBB"));
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "10:40:00"))
+                                mTextView37.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter.format(date1) + "", "16:40:00"))
+                            }
 
-                            ) {
+                            if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:40:00"))
 
-                        mTextView37.setText("已预约");
-                        mTextView37.setTextColor(Color.parseColor("#BBBBBB"));
+                                    || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "16:40:00"))
 
-                        mTextView37.setEnabled(false);
+                                    ) {
 
-                    }
+                                mTextView38.setText("已预约");
+                                mTextView38.setTextColor(Color.parseColor("#BBBBBB"));
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "10:40:00"))
+                                mTextView38.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(formatte2.format(date2) + "", "16:40:00"))
+                            }
 
-                            ) {
 
-                        mTextView38.setText("已预约");
-                        mTextView38.setTextColor(Color.parseColor("#BBBBBB"));
+                            if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:40:00"))
 
-                        mTextView38.setEnabled(false);
+                                    || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "16:40:00"))
 
-                    }
+                                    ) {
 
+                                {
+                                    mTextView39.setText("已预约");
+                                    mTextView39.setTextColor(Color.parseColor("#BBBBBB"));
 
-                    if (list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "10:40:00"))
+                                    mTextView39.setEnabled(false);
 
-                            || list.get(i).getStart_time().equals(changeTime(formatter4.format(date3) + "", "16:40:00"))
+                                }
 
-                            ) {
+                                if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:40:00"))
 
-                        {
-                            mTextView39.setText("已预约");
-                            mTextView39.setTextColor(Color.parseColor("#BBBBBB"));
+                                        || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "16:40:00"))
 
-                            mTextView39.setEnabled(false);
+                                        ) {
 
+                                    mTextView40.setText("已预约");
+                                    mTextView40.setTextColor(Color.parseColor("#BBBBBB"));
+
+                                    mTextView40.setEnabled(false);
+
+                                }
+
+                                if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:40:00"))
+
+                                        || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "16:40:00"))
+
+                                        ) {
+
+                                    mTextView41.setText("已预约");
+                                    mTextView41.setTextColor(Color.parseColor("#BBBBBB"));
+
+                                    mTextView41.setEnabled(false);
+
+                                }
+
+
+                                if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:40:00"))
+
+                                        || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "16:40:00"))
+
+                                        ) {
+
+                                    mTextView42.setText("已预约");
+                                    mTextView42.setTextColor(Color.parseColor("#BBBBBB"));
+
+                                    mTextView42.setEnabled(false);
+
+                                }
+
+                                // sharedPreferences1.getString("doctor_id", "")
+
+                            }
                         }
-
-                        if (list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "10:40:00"))
-
-                                || list.get(i).getStart_time().equals(changeTime(formatter6.format(date4) + "", "16:40:00"))
-
-                                ) {
-
-                            mTextView40.setText("已预约");
-                            mTextView40.setTextColor(Color.parseColor("#BBBBBB"));
-
-                            mTextView40.setEnabled(false);
-
-                        }
-
-                        if (list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "10:40:00"))
-
-                                || list.get(i).getStart_time().equals(changeTime(formatter8.format(date5) + "", "16:40:00"))
-
-                                ) {
-
-                            mTextView41.setText("已预约");
-                            mTextView41.setTextColor(Color.parseColor("#BBBBBB"));
-
-                            mTextView41.setEnabled(false);
-
-                        }
-
-
-                        if (list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "10:40:00"))
-
-                                || list.get(i).getStart_time().equals(changeTime(formatter10.format(date6) + "", "16:40:00"))
-
-                                ) {
-
-                            mTextView42.setText("已预约");
-                            mTextView42.setTextColor(Color.parseColor("#BBBBBB"));
-
-                            mTextView42.setEnabled(false);
-
-                        }
-
-                        // sharedPreferences1.getString("doctor_id", "")
-
                     }
-                }
-            }
+                });
+    }
 
-        }, new NetworkManager.FailedCallback()
-
-        {
-            @Override
-            public void onFailed(String message) {
-
-            }
-        });
-
+    private void getDoctorInfo() {
+        Box.getRetrofit(API.class)
+                .queryDoctorInfo(((UserInfoBean) Box.getSessionManager().getUser()).doid)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<Doctor>() {
+                    @Override
+                    public void onNext(Doctor doctor) {
+                        AddAppoActivity.this.doctor=doctor;
+                    }
+                });
     }
 
     public String dateToStamp(String s) throws ParseException {

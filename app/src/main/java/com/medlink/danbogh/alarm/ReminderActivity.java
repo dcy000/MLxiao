@@ -10,18 +10,22 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
-import com.gzq.lib_core.utils.ToastUtils;
-import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.Handlers;
+import com.iflytek.synthetize.MLVoiceSynthetize;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.schedulers.Schedulers;
 
 public class ReminderActivity extends BaseActivity {
 
@@ -105,19 +109,19 @@ public class ReminderActivity extends BaseActivity {
     public void onTvBtnIgnoreClicked() {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
 
-        NetworkApi.addEatMedicalRecord(
-                user.bname
-                , content,
-                "0",
-                new NetworkManager.SuccessCallback<Object>() {
+        Box.getRetrofit(API.class)
+                .addEatMedicalRecord(user.bname, content, Calendar.getInstance().getTimeInMillis(), "0")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate(new Action() {
                     @Override
-                    public void onSuccess(Object response) {
+                    public void run() throws Exception {
                         finish();
                     }
-                }, new NetworkManager.FailedCallback() {
+                })
+                .subscribe(new CommonObserver<Object>() {
                     @Override
-                    public void onFailed(String message) {
-                        finish();
+                    public void onNext(Object o) {
                     }
                 });
     }
@@ -125,19 +129,19 @@ public class ReminderActivity extends BaseActivity {
     @OnClick(R.id.tv_btn_confirm)
     public void onTvBtnConfirmClicked() {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
-        NetworkApi.addEatMedicalRecord(
-                user.bname,
-                content, "1",
-                new NetworkManager.SuccessCallback<Object>() {
+        Box.getRetrofit(API.class)
+                .addEatMedicalRecord(user.bname, content, Calendar.getInstance().getTimeInMillis(), "1")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate(new Action() {
                     @Override
-                    public void onSuccess(Object response) {
+                    public void run() throws Exception {
                         finish();
                     }
-                }, new NetworkManager.FailedCallback() {
+                })
+                .subscribe(new CommonObserver<Object>() {
                     @Override
-                    public void onFailed(String message) {
-                        ToastUtils.showShort(message);
-                        finish();
+                    public void onNext(Object o) {
                     }
                 });
     }

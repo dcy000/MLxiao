@@ -21,6 +21,7 @@ import io.reactivex.schedulers.Schedulers;
 public class RxUtils {
     /**
      * 默认回调到主线程
+     *
      * @param <T>
      * @return
      */
@@ -38,6 +39,7 @@ public class RxUtils {
 
     /**
      * 自己决定是否回调到主线程
+     *
      * @param isObserveOnMain
      * @param <T>
      * @return
@@ -46,7 +48,7 @@ public class RxUtils {
         return new ObservableTransformer<BaseModel<T>, T>() {
             @Override
             public ObservableSource<T> apply(Observable<BaseModel<T>> upstream) {
-                if (isObserveOnMain){
+                if (isObserveOnMain) {
                     return upstream.subscribeOn(Schedulers.io())
                             .observeOn(Schedulers.newThread())
                             .compose(ErrorTransformer.<T>getInstance())
@@ -66,5 +68,4 @@ public class RxUtils {
     public static <T> AutoDisposeConverter<T> autoDisposeConverter(LifecycleOwner owner, Lifecycle.Event event) {
         return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(owner, event));
     }
-
 }

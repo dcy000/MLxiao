@@ -9,12 +9,13 @@ import android.view.View;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.model.WeekReportModel;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.gcml.lib_widget.circleindicator.CircleIndicator;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -83,25 +84,33 @@ public class WeeklyReportActivity extends BaseActivity {
     }
 
     private void getData() {
-        NetworkApi.getWeekReport(Box.getUserId(), new NetworkManager.SuccessCallback<WeekReportModel>() {
-            @Override
-            public void onSuccess(WeekReportModel response) {
-                if (response != null) {
-                    fragment1.notifyData(response.lastWeek);
-                    fragment2.notifyData(response.lastWeek);
-                    fragment3.notifyData(response.lastWeek);
-                } else {
-                    ToastUtils.showShort("暂无周报告");
-                    MLVoiceSynthetize.startSynthesize("主人，您的测量数据太少，我们还不能为您生成本周的报告。请您坚持每天测量，我们将在每周一为您生成新报告");
-                }
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort("暂无周报告");
-                MLVoiceSynthetize.startSynthesize("主人，您的测量数据太少，我们还不能为您生成本周的报告。请您坚持每天测量，我们将在每周一为您生成新报告");
-            }
-        });
+        Box.getRetrofit(API.class)
+                .getWeeklyReport(Box.getUserId(), "1")
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<WeekReportModel>() {
+                    @Override
+                    public void onNext(WeekReportModel weekReportModel) {
+                        if (weekReportModel != null) {
+                            fragment1.notifyData(weekReportModel.lastWeek);
+                            fragment2.notifyData(weekReportModel.lastWeek);
+                            fragment3.notifyData(weekReportModel.lastWeek);
+                        } else {
+                            ToastUtils.showShort("暂无周报告");
+                            MLVoiceSynthetize.startSynthesize("主人，您的测量数据太少，" +
+                                    "我们还不能为您生成本周的报告。请您坚持每天测量，" +
+                                    "我们将在每周一为您生成新报告");
+                        }
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        ToastUtils.showShort("暂无周报告");
+                        MLVoiceSynthetize.startSynthesize("主人，您的测量数据太少，" +
+                                "我们还不能为您生成本周的报告。请您坚持每天测量，我们将在每周一为您生成新报告");
+
+                    }
+                });
     }
 
 

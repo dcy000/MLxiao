@@ -1,8 +1,6 @@
 package com.example.han.referralproject.recyclerview;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -12,9 +10,10 @@ import android.widget.ImageView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
@@ -32,8 +31,6 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
     private List<Docter> mlist = new ArrayList<Docter>();
     DoctorAdapter mDoctorAdapter;
     private int page = 1;
-    SharedPreferences sharedPreferences;
-    SharedPreferences sharedPreference;
     long countdown;
     private String mFlag;
 
@@ -46,57 +43,44 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
         setContentView(R.layout.activity_online_doctor_list);
 
         initView();
-
-        sharedPreferences = getSharedPreferences(ConstantData.ONLINE_TIME, Context.MODE_PRIVATE);
-
-        sharedPreference = getSharedPreferences(ConstantData.ONLINE_ID, Context.MODE_PRIVATE);
-
         mFlag = getIntent().getStringExtra("flag");
         if ("contract".equals(mFlag)) {
-            NetworkApi.doctor_list(0, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
-                @Override
-                public void onSuccess(ArrayList<Docter> response) {
-                    mlist.clear();
-                    mlist.addAll(response);
-                    mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
-                    mRecyclerView.setAdapter(mDoctorAdapter);
-                    setData();
-                }
-
-            }, new NetworkManager.FailedCallback() {
-                @Override
-                public void onFailed(String message) {
-
-                }
-            });
+            Box.getRetrofit(API.class)
+                    .getDoctors(0, limit)
+                    .compose(RxUtils.httpResponseTransformer())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new CommonObserver<List<Docter>>() {
+                        @Override
+                        public void onNext(List<Docter> docters) {
+                            mlist.clear();
+                            mlist.addAll(docters);
+                            mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
+                            mRecyclerView.setAdapter(mDoctorAdapter);
+                            setData();
+                        }
+                    });
 
             return;
         }
 
+        Box.getRetrofit(API.class)
+                .getOnlineDoctor(1, "", page, 9)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<Docter>>() {
+                    @Override
+                    public void onNext(List<Docter> docters) {
 
-        NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
-            @Override
-            public void onSuccess(ArrayList<Docter> response) {
+                        List<Docter> list = new ArrayList<Docter>();
+                        mlist.clear();
+                        list.addAll(docters);
+                        mlist.addAll(list);
+                        mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
+                        mRecyclerView.setAdapter(mDoctorAdapter);
 
-                List<Docter> list = new ArrayList<Docter>();
-                mlist.clear();
-                list.addAll(response);
-                mlist.addAll(list);
-                mDoctorAdapter = new DoctorAdapter(mlist, getApplicationContext());
-                mRecyclerView.setAdapter(mDoctorAdapter);
-
-                setData();
-
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-
-            }
-        });
-
-
+                        setData();
+                    }
+                });
     }
 
 
@@ -124,28 +108,7 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                     startActivity(intent);
                     return;
                 }
-
-                if (!"".equals(sharedPreferences.getString("online_time", ""))) {
-                    countdown = System.currentTimeMillis() - Long.parseLong(sharedPreferences.getString("online_time", ""));
-                    if (countdown < 300000) {
-                        if (mlist.get(postion).getDocterid().equals(sharedPreference.getString("online_id", ""))) {
-                            jump(postion);
-                        }
-                    } else {
-                        jump(postion);
-                    }
-                } else {
-                    jump(postion);
-                }
-
-              /*  Intent intent = new Intent(OnlineDoctorListActivity.this, DoctorMesActivity.class);
-                intent.putExtra("docMsg", (Serializable) mlist.get(postion));
-                if (!"contract".equals(mFlag)) {
-                    intent.putExtra("sign", "1");
-                }
-                startActivity(intent);*/
-//                finish();
-
+                jump(postion);
             }
         });
 
@@ -183,41 +146,34 @@ public class OnlineDoctorListActivity extends BaseActivity implements View.OnCli
                     if ((countItem - 1) == maxPosition && isSlidingUp) {
                         if ("contract".equals(mFlag)) {
                             limit += 9;
-                            NetworkApi.doctor_list(0, limit, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
-                                @Override
-                                public void onSuccess(ArrayList<Docter> response) {
-                                    mlist.clear();
-                                    mlist.addAll(response);
-                                    mDoctorAdapter.notifyDataSetChanged();
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-                                }
-                            });
+                            Box.getRetrofit(API.class)
+                                    .getDoctors(0, limit)
+                                    .compose(RxUtils.httpResponseTransformer())
+                                    .as(RxUtils.autoDisposeConverter(OnlineDoctorListActivity.this))
+                                    .subscribe(new CommonObserver<List<Docter>>() {
+                                        @Override
+                                        public void onNext(List<Docter> docters) {
+                                            mlist.clear();
+                                            mlist.addAll(docters);
+                                            mDoctorAdapter.notifyDataSetChanged();
+                                        }
+                                    });
                             return;
                         }
 
                         if (mlist.size() >= 9) {
                             page += 1;
-
-                            NetworkApi.onlinedoctor_list(1, "", page, 9, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
-                                @Override
-                                public void onSuccess(ArrayList<Docter> response) {
-                                    mlist.addAll(response);
-                                    mDoctorAdapter.notifyDataSetChanged();
-
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-                                }
-                            });
-
+                            Box.getRetrofit(API.class)
+                                    .getOnlineDoctor(1, "", page, 9)
+                                    .compose(RxUtils.httpResponseTransformer())
+                                    .as(RxUtils.autoDisposeConverter(OnlineDoctorListActivity.this))
+                                    .subscribe(new CommonObserver<List<Docter>>() {
+                                        @Override
+                                        public void onNext(List<Docter> docters) {
+                                            mlist.addAll(docters);
+                                            mDoctorAdapter.notifyDataSetChanged();
+                                        }
+                                    });
 
                         }
 

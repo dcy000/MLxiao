@@ -2,7 +2,7 @@ package com.example.han.referralproject.speechsynthesis;
 
 import android.text.TextUtils;
 
-import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.util.Utils;
 
 import org.json.JSONArray;
@@ -35,7 +35,7 @@ public class QaApi {
                 .add("text", text)
                 .build();
         Request request = new Request.Builder()
-                .url(NetworkApi.BasicUrl + "/ZZB/xf/xfrq")
+                .url(BuildConfig.SERVER_ADDRESS + "ZZB/xf/xfrq")
                 .post(body)
                 .build();
         Call call = client.newCall(request);

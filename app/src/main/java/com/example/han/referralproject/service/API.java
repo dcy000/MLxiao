@@ -1,11 +1,23 @@
 package com.example.han.referralproject.service;
 
+import com.example.han.referralproject.bean.AlreadyYuyue;
+import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.DetectionData;
 import com.example.han.referralproject.bean.DetectionResult;
+import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.Doctor;
+import com.example.han.referralproject.bean.MonthlyReport;
+import com.example.han.referralproject.bean.RobotAmount;
+import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.bean.YuYueInfo;
+import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.children.model.SheetModel;
 import com.example.han.referralproject.children.model.SongModel;
+import com.example.han.referralproject.health.model.WeekReportModel;
 import com.example.han.referralproject.radio.RadioEntity;
+import com.example.han.referralproject.recyclerview.Docter;
+import com.example.han.referralproject.shopping.Goods;
+import com.example.han.referralproject.shopping.Orders;
 import com.example.han.referralproject.video.VideoEntity;
 import com.gzq.lib_core.bean.SessionBean;
 import com.gzq.lib_core.bean.UserInfoBean;
@@ -209,6 +221,7 @@ public interface API {
 
     /**
      * 获取视频列表
+     *
      * @param tag1
      * @param tag2
      * @param flag
@@ -218,10 +231,312 @@ public interface API {
      */
     @GET("ZZB/vc/selAllUpload")
     Observable<HttpResult<List<VideoEntity>>> getVideoList(
-        @Query("tag1")int tag1,
-        @Query("tag2")int tag2,
-        @Query("flag")int flag,
-        @Query("page")int page,
-        @Query("pagesize")int pagesize
+            @Query("tag1") int tag1,
+            @Query("tag2") int tag2,
+            @Query("flag") int flag,
+            @Query("page") int page,
+            @Query("pagesize") int pagesize
+    );
+
+    /**
+     * 充值
+     *
+     * @param eqid
+     * @param bba
+     * @param time
+     * @param userId
+     * @return
+     */
+    @POST("ZZB/br/chongzhi")
+    Observable<HttpResult<String>> recharge(
+            @Query("eqid") String eqid,
+            @Query("bba") double bba,
+            @Query("time") long time,
+            @Query("bid") String userId
+    );
+
+    /**
+     * 根据userId查询该账户绑定的医生信息
+     *
+     * @param userId
+     * @return
+     */
+    @Deprecated
+    @GET("ZZB/docter/search_OneDocter")
+    Observable<HttpResult<Doctor>> queryDoctorInformation(@Query("bid") String userId);
+
+    /**
+     * 视频通话扣费
+     *
+     * @param docterid
+     * @param eqid
+     * @param time
+     * @param bid
+     * @return
+     */
+    @POST("ZZB/eq/koufei")
+    Observable<String> charge(
+            @Query("docterid") String docterid,
+            @Query("eqid") String eqid,
+            @Query("time") int time,
+            @Query("bid") String bid
+    );
+
+    /**
+     * 根据机器id查询这台机器剩余金额
+     *
+     * @return
+     */
+    @GET("ZZB/eq/eq_amount")
+    Observable<HttpResult<RobotAmount>> queryMoneyById(@Query("eqid") String eqid);
+
+    /**
+     * 预约自己的签约医生
+     *
+     * @param start_time
+     * @param end_time
+     * @param userId
+     * @param docterid
+     * @return
+     */
+    @POST("ZZB/bl/insertReserve")
+    Observable<Object> signMyDotor(
+            @Query("start_time") String start_time,
+            @Query("end_time") String end_time,
+            @Query("userid") String userId,
+            @Query("docterid") String docterid
+    );
+
+    /**
+     * 查询预约信息
+     *
+     * @param userId
+     * @param docId
+     * @return
+     */
+    @GET("ZZB/bl/selAllreserveByDoidAndUserid")
+    Observable<HttpResult<List<YuYueInfo>>> querySignedDoctorInfo(
+            @Query("userid") String userId,
+            @Query("docterid") String docId);
+
+    /**
+     * 获取月报告
+     *
+     * @param userId
+     * @param state
+     * @return
+     */
+    @GET("ZZB/ai/sel")
+    Observable<HttpResult<MonthlyReport>> getMonthlyReport(
+            @Query("userid") String userId,
+            @Query("state") String state
+    );
+
+    /**
+     * 获取周报告
+     *
+     * @param userId
+     * @param state
+     * @return
+     */
+    @GET("ZZB/ai/sel")
+    Observable<HttpResult<WeekReportModel>> getWeeklyReport(
+            @Query("userid") String userId,
+            @Query("state") String state
+    );
+
+    /**
+     * 根据疾病名字获取疾病详情
+     *
+     * @param disableName
+     * @return
+     */
+    @GET("ZZB/bl/selSugByBname")
+    Observable<HttpResult<DiseaseResult>> queryDisableDetailByName(@Query("bname") String disableName);
+
+    /**
+     * 重置密码
+     *
+     * @param account
+     * @param pwd
+     * @return
+     */
+    @POST("ZZB/acc/update_account_pwd")
+    Observable<Object> setPassWord(@Query("account") String account, @Query("pwd") String pwd);
+
+    /**
+     * 检验该手机账号是否存在
+     *
+     * @param cate
+     * @param account
+     * @return
+     */
+    @GET("ZZB/acc/sel_account")
+    Observable<Object> isPhoneUsable(@Query("cate") String cate, @Query("account") String account);
+
+    /**
+     * 添加吃药记录
+     *
+     * @param username
+     * @param jl
+     * @param time
+     * @param state
+     * @return
+     */
+    @POST("ZZB/br/addeatmod")
+    Observable<Object> addEatMedicalRecord(
+            @Query("username") String username,
+            @Query("jl") String jl,
+            @Query("time") long time,
+            @Query("state") String state);
+
+    /**
+     * 查询app版本号
+     *
+     * @param channelName
+     * @return
+     */
+    @GET("ZZB/vc/selone")
+    Observable<HttpResult<VersionInfoBean>> getAppVersion(@Query("vname") String channelName);
+
+    /**
+     * 获取医嘱信息
+     *
+     * @param userId
+     * @return
+     */
+    @GET("ZZB/bl/selYzAndTime")
+    Observable<HttpResult<List<YzInfoBean>>> getMedicalOrders(@Query("userid") String userId);
+
+    /**
+     * 获取添加的所有闹钟
+     *
+     * @param userId
+     * @return
+     */
+    @GET("ZZB/br/selOneUserClueAll")
+    Observable<HttpResult<List<ClueInfoBean>>> getAllAlarmClocks(@Query("bid") String userId);
+
+    /**
+     * 获取订单列表
+     *
+     * @param pay_state
+     * @param delivery_state
+     * @param display_state
+     * @param bname
+     * @param page
+     * @param limit
+     * @return
+     */
+    @GET("ZZB/order/one_more_orders")
+    Observable<HttpResult<List<Orders>>> getOrderList(
+            @Query("pay_state") String pay_state,
+            @Query("delivery_state") String delivery_state,
+            @Query("display_state") String display_state,
+            @Query("bname") String bname,
+            @Query("page") String page,
+            @Query("limit") String limit
+    );
+
+    /**
+     * 取消发起的预付订单
+     *
+     * @param pay_state
+     * @param delivery_state
+     * @param display_state
+     * @param orderid
+     * @return
+     */
+    @POST("ZZB/order/delivery_del")
+    Observable<Object> cancelPayOrder(
+            @Query("pay_state") String pay_state,
+            @Query("delivery_state") String delivery_state,
+            @Query("display_state") String display_state,
+            @Query("orderid") String orderid);
+
+    /**
+     * 商品列表
+     *
+     * @param state
+     * @return
+     */
+    @GET("ZZB/order/OneType_state")
+    Observable<HttpResult<List<Goods>>> getGoods(@Query("state") int state);
+
+    /**
+     * 在线医生
+     *
+     * @param online_status
+     * @param doctername
+     * @param page
+     * @param pagesize
+     * @return
+     */
+    @GET("ZZB/docter/search_online_status")
+    Observable<HttpResult<List<Docter>>> getOnlineDoctor(
+            @Query("online_status") int online_status,
+            @Query("doctername") String doctername,
+            @Query("page") int page,
+            @Query("pagesize") int pagesize
+    );
+
+    /**
+     * 查询所有医生
+     *
+     * @param start
+     * @param limit
+     * @return
+     */
+    @GET("ZZB/docter/seldoctors")
+    Observable<HttpResult<List<Docter>>> getDoctors(
+            @Query("start") int start,
+            @Query("limit") int limit
+    );
+
+    /**
+     * 对医生进行评价
+     *
+     * @param docId
+     * @param userId
+     * @param content
+     * @param score
+     * @param time
+     * @param daid
+     * @return
+     */
+    @POST("ZZB/pj/insert")
+    Observable<Object> appraiseDoctor(
+            @Query("docterid") String docId,
+            @Query("bid") String userId,
+            @Query("content") String content,
+            @Query("score") int score,
+            @Query("time") long time,
+            @Query("daid") int daid
+    );
+
+    /**
+     * 查询该医生被预约的时间段
+     *
+     * @param docterid
+     * @return
+     */
+    @POST("ZZB/bl/selReserveStart_time")
+    Observable<HttpResult<List<AlreadyYuyue>>> queryDoctorReservationList(
+            @Query("docterid") String docterid
+    );
+
+    /**
+     * 更新预约状态
+     *
+     * @param rid
+     * @param state
+     * @return
+     */
+    @POST("ZZB/bl/app_update_reserve_state")
+    Observable<Object> updateReservationStatus(@Query("rid") String rid, @Query("state") String state);
+
+    @POST("ZZB/bl/delReserveByRid")
+    Observable<Object> cancelReservation(
+            @Query("rid")int rid
     );
 }

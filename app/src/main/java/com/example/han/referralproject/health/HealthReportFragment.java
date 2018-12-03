@@ -18,14 +18,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.health.model.TargetModel;
 import com.example.han.referralproject.health.model.WeekReportModel;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.service.API;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.gzq.lib_core.utils.UiUtils;
 
@@ -102,29 +102,32 @@ public class HealthReportFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        NetworkApi.getWeekReport(Box.getUserId(),
-                new NetworkManager.SuccessCallback<WeekReportModel>() {
+        Box.getRetrofit(API.class)
+                .getWeeklyReport(Box.getUserId(), "1")
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<WeekReportModel>() {
                     @Override
-                    public void onSuccess(WeekReportModel response) {
-                        if (response == null
+                    public void onNext(WeekReportModel weekReportModel) {
+                        if (weekReportModel == null
                                 || getActivity() == null
                                 || getActivity().isFinishing()
                                 || getActivity().isDestroyed()) {
                             return;
                         }
-                        onWeekReport(response);
+                        onWeekReport(weekReportModel);
                     }
 
-                }, new NetworkManager.FailedCallback() {
                     @Override
-                    public void onFailed(String message) {
+                    protected void onError(ApiException ex) {
                         if (getActivity() == null
                                 || getActivity().isFinishing()
                                 || getActivity().isDestroyed()) {
                             return;
                         }
                         onWeekReport(null);
-                        ToastUtils.showShort(message);
+                        ToastUtils.showShort(ex.message);
+
                     }
                 });
     }

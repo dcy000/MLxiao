@@ -1,6 +1,6 @@
 package com.example.han.referralproject.tool.other;
 
-import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.tool.xfparsebean.BaiKeBean;
 import com.example.han.referralproject.tool.xfparsebean.ChineseZodiacBean;
 import com.example.han.referralproject.tool.xfparsebean.CookbookBean;
@@ -354,7 +354,7 @@ public class XFSkillApi {
                 .add("text", contentText)
                 .build();
         Request request = new Request.Builder()
-                .url(NetworkApi.BasicUrl + "/ZZB/xf/xfrq")
+                .url(BuildConfig.SERVER_ADDRESS + "ZZB/xf/xfrq")
                 .post(body)
                 .build();
         return client.newCall(request);

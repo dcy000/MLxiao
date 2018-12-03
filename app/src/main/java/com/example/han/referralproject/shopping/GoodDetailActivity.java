@@ -13,8 +13,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.auth.face.FaceConstants;
@@ -39,7 +37,9 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 public class GoodDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -192,22 +192,21 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        NetworkApi.pay_cancel("3", "0", "1", orderid, new NetworkManager.SuccessCallback<String>() {
-                            @Override
-                            public void onSuccess(String response) {
-                                ShowNormal("取消成功");
+                        Box.getRetrofit(API.class)
+                                .cancelPayOrder("3", "0", "1", orderid)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new CommonObserver<Object>() {
+                                    @Override
+                                    public void onNext(Object o) {
+                                        ShowNormal("取消成功");
+                                    }
 
-                            }
-
-                        }, new NetworkManager.FailedCallback() {
-                            @Override
-                            public void onFailed(String message) {
-
-                                ShowNormal("取消失败");
-
-
-                            }
-                        });
+                                    @Override
+                                    protected void onError(ApiException ex) {
+                                        ShowNormal("取消失败");
+                                    }
+                                });
                     }
                 })
                 .setPositiveButton("确定", new View.OnClickListener() {

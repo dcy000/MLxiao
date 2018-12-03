@@ -18,13 +18,14 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.OfflineActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.gzq.lib_core.utils.PinYinUtils;
+import com.example.han.referralproject.service.API;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignUpActivity;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.ActivityUtils;
-import com.gzq.lib_core.utils.ToastUtils;
+import com.gzq.lib_core.utils.PinYinUtils;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
@@ -135,21 +136,18 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void getData() {
-        NetworkApi.doctor_list(0, mCurrPage, new NetworkManager.SuccessCallback<ArrayList<Docter>>() {
-            @Override
-            public void onSuccess(ArrayList<Docter> response) {
-                mlist.clear();
-                mlist.addAll(response);
-                mDoctorAdapter.notifyDataSetChanged();
-
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort(message);
-            }
-        });
+        Box.getRetrofit(API.class)
+                .getDoctors(0, mCurrPage)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<Docter>>() {
+                    @Override
+                    public void onNext(List<Docter> docters) {
+                        mlist.clear();
+                        mlist.addAll(docters);
+                        mDoctorAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     @Override
@@ -163,6 +161,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
                 break;
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -179,6 +178,7 @@ public class RecoDocActivity extends BaseActivity implements View.OnClickListene
             }
         }
     }
+
     // 处理点击事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

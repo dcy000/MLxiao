@@ -4,10 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -25,22 +21,16 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
-import com.example.han.referralproject.bean.User;
-import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.children.ChildEduHomeActivity;
-import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.health.HealthDiaryActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
-import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
@@ -48,45 +38,29 @@ import com.gcml.module_health_record.HealthRecordActivity;
 import com.google.gson.Gson;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.AppUtils;
+import com.gzq.lib_core.utils.DeviceUtils;
+import com.gzq.lib_core.utils.RxUtils;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.ml.edu.OldRouter;
+
+import io.reactivex.functions.Action;
 
 /**
  * Created by lenovo on 2018/3/12.
  */
 
 public class PersonDetailFragment extends Fragment implements View.OnClickListener {
-    public String userId;
 
-
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    mUser = (User) msg.obj;
-                    tvUserName.setText(mUser.getBname());
-                    break;
-                case 1:
-
-//                    LocalShared.getInstance(getContext()).setXunfeiID(msg.obj + "");
-
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-
-
-    };
-
-    User mUser;
 
     public TextView tvUserName;
     public ImageView headImg;
     public ImageView mIvAlarm;
 
-    SharedPreferences sharedPreferences;
     public TextView signDoctorName;
     public TextView tvBalance;
 
@@ -100,7 +74,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
     private ChangeAccountDialog mChangeAccountDialog;
 
-    SharedPreferences sharedPreferences1;
 
     @Nullable
     @Override
@@ -108,7 +81,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.activity_person, container, false);
         MLVoiceSynthetize.startSynthesize(R.string.person_info);
 
-        userId = Box.getUserId();
         headImg = (ImageView) view.findViewById(R.id.per_image);
         recreation = (ImageView) view.findViewById(R.id.iv_laoren_yule);
         recreation.setOnClickListener(this);
@@ -131,8 +103,6 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         view.findViewById(R.id.tv_update).setOnClickListener(this);
         mIvAlarm = (ImageView) view.findViewById(R.id.iv_alarm);
         mIvAlarm.setOnClickListener(this);
-        sharedPreferences = getActivity().getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-        sharedPreferences1 = getActivity().getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
         signDoctorName = (TextView) view.findViewById(R.id.doctor_name);
         ((TextView) view.findViewById(R.id.tv_update)).setText("检查更新 v" + Utils.getLocalVersionName(getActivity()));
         getActivity().registerReceiver(mReceiver, new IntentFilter("change_account"));
@@ -168,102 +138,56 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
 
     private void getData() {
-        NetworkApi.PersonInfo(Box.getUserId(), new NetworkManager.SuccessCallback<UserInfo>() {
-            @Override
-            public void onSuccess(UserInfo response) {
+        UserInfoBean user = Box.getSessionManager().getUser();
 
-                Message msg = mHandler.obtainMessage();
-                msg.what = 1;
-                msg.obj = response.getXfid();
-                mHandler.sendMessage(msg);
+        tvUserName.setText(user.bname);
 
+        Glide.with(Box.getApp())
+                .applyDefaultRequestOptions(new RequestOptions()
+                        .placeholder(R.drawable.avatar_placeholder)
+                        .error(R.drawable.avatar_placeholder))
+                .load(user.userPhoto)
+                .into(headImg);
+        if ("1".equals(user.state)) {
+            isSignDoctor.setText("已签约");
+        } else if ("0".equals(user.state)) {
 
-                SharedPreferences.Editor editor = sharedPreferences1.edit();
-                editor.putString("userName", response.getBname());
-                editor.commit();
-                tvUserName.setText(response.getBname());
+            isSignDoctor.setText("未签约");
 
-                Glide.with(Box.getApp())
-                        .applyDefaultRequestOptions(new RequestOptions()
-                                .placeholder(R.drawable.avatar_placeholder)
-                                .error(R.drawable.avatar_placeholder))
-                        .load(response.getuser_photo())
-                        .into(headImg);
+        } else {
+            isSignDoctor.setText("待审核");
 
+        }
+        if (TextUtils.isEmpty(user.doid)) {
+            signDoctorName.setText("暂无");
+        } else {
+            Box.getRetrofit(API.class)
+                    .queryDoctorInfo(user.doid)
+                    .compose(RxUtils.httpResponseTransformer())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new CommonObserver<Doctor>() {
+                        @Override
+                        public void onNext(Doctor doctor) {
+                            if (!"".equals(doctor.getDoctername())) {
+                                signDoctorName.setText(doctor.getDoctername());
 
-                if ("1".equals(response.getState())) {
-                    isSignDoctor.setText("已签约");
-                } else if ("0".equals(response.getState()) && (TextUtils.isEmpty(response.getDoctername()))) {
+                            }
+                        }
+                    });
+        }
 
-                    isSignDoctor.setText("未签约");
-
-                } else {
-                    isSignDoctor.setText("待审核");
-
-                }
-
-
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-
-
-            }
-        });
-
-        NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
-            @Override
-            public void onSuccess(final RobotAmount response) {
-
-
-                if (response.getAmount() != null) {
-
-                    tvBalance.setText(String.format(getString(R.string.robot_amount), response.getAmount()));
-
-                }
-
-
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-
-
-            }
-        });
-
-        NetworkApi.DoctorInfo(Box.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
-            @Override
-            public void onSuccess(Doctor response) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("doctor_id", response.getDocterid() + "");
-                editor.putString("name", response.getDoctername());
-                editor.putString("position", response.getDuty());
-                editor.putString("feature", response.getDepartment());
-                editor.putString("hospital", response.getHosname());
-                editor.putString("service_amount", response.getService_amount());
-                editor.putString("docter_photo", response.getDocter_photo());
-                editor.commit();
-
-
-                if (!"".equals(response.getDoctername())) {
-
-                    signDoctorName.setText(response.getDoctername());
-
-                }
-
-
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                signDoctorName.setText("暂无");
-            }
-        });
+        Box.getRetrofit(API.class)
+                .queryMoneyById(DeviceUtils.getIMEI())
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<RobotAmount>() {
+                    @Override
+                    public void onNext(RobotAmount robotAmount) {
+                        if (robotAmount.getAmount() != null) {
+                            tvBalance.setText(String.format(getString(R.string.robot_amount), robotAmount.getAmount()));
+                        }
+                    }
+                });
     }
 
     @Override
@@ -303,29 +227,37 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 break;
             case R.id.tv_update:
                 ((BaseActivity) getActivity()).showLoadingDialog("检查更新中");
-                NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
-                    @Override
-                    public void onSuccess(VersionInfoBean response) {
-                        ((BaseActivity) getActivity()).hideLoadingDialog();
-                        try {
-                            if (response != null && response.vid > getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionCode) {
-                                new UpdateAppManager(getActivity()).showNoticeDialog(response.url);
-                            } else {
-                                MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
-                                Toast.makeText(getActivity(), "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                Box.getRetrofit(API.class)
+                        .getAppVersion(AppUtils.getMeta("com.gcml.version") + "")
+                        .compose(RxUtils.httpResponseTransformer())
+                        .doOnTerminate(new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                ((BaseActivity) getActivity()).hideLoadingDialog();
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        ((BaseActivity) getActivity()).hideLoadingDialog();
-                        MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
-                        Toast.makeText(getActivity(), "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        })
+                        .as(RxUtils.autoDisposeConverter(this))
+                        .subscribe(new CommonObserver<VersionInfoBean>() {
+                            @Override
+                            public void onNext(VersionInfoBean versionInfoBean) {
+                                try {
+                                    if (versionInfoBean != null && versionInfoBean.vid > AppUtils.getAppInfo().getVersionCode()) {
+                                        new UpdateAppManager(getContext()).showNoticeDialog(versionInfoBean.url);
+                                    } else {
+                                        MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
+                                        ToastUtils.showShort("当前已经是最新版本了");
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            protected void onError(ApiException ex) {
+                                MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
+                                ToastUtils.showShort("当前已经是最新版本了");
+                            }
+                        });
                 break;
             case R.id.main_iv_health_class:
                 startActivity(new Intent(getActivity(), VideoListActivity.class));

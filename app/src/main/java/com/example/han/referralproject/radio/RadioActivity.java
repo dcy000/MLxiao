@@ -19,18 +19,15 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.speechsynthesis.QaApi;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.Handlers;
 import com.gzq.lib_core.utils.RxUtils;
-import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
-import com.gzq.lib_core.utils.Handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;

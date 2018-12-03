@@ -1,33 +1,35 @@
 package com.example.han.referralproject.settting.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.settting.EventType;
 import com.example.han.referralproject.settting.dialog.ClearCacheOrResetDialog;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
 import com.example.han.referralproject.settting.dialog.UpDateDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.AppUtils;
 import com.gzq.lib_core.utils.KVUtils;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Action;
 
 public class SettingActivity extends BaseActivity implements ClearCacheOrResetDialog.OnDialogClickListener, UpDateDialog.OnDialogClickListener {
     @BindView(R.id.rl_voice_set)
@@ -141,33 +143,40 @@ public class SettingActivity extends BaseActivity implements ClearCacheOrResetDi
 
     private void checkAppInfo() {
         showLoadingDialog("检查更新中");
-        NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
-            @Override
-            public void onSuccess(VersionInfoBean response) {
-                SettingActivity.this.upDateUrl = response.url;
-                hideLoadingDialog();
-                try {
-                    if (response != null && response.vid > getPackageManager().getPackageInfo(SettingActivity.this.getPackageName(), 0).versionCode) {
-//                                new UpdateAppManager(SettingActivity.this).showNoticeDialog(response.url);
-                        UpDateDialog upDateDialog = new UpDateDialog();
-                        upDateDialog.setListener(SettingActivity.this);
-                        upDateDialog.show(getFragmentManager(), "updatedialog");
-
-                    } else {
-                        MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
+        Box.getRetrofit(API.class)
+                .getAppVersion(AppUtils.getMeta("com.gcml.version") + "")
+                .compose(RxUtils.httpResponseTransformer())
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        hideLoadingDialog();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                hideLoadingDialog();
-                MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
-//                ToastUtil.showShort(mContext, "当前已经是最新版本了");
-            }
-        });
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<VersionInfoBean>() {
+                    @Override
+                    public void onNext(VersionInfoBean versionInfoBean) {
+                        SettingActivity.this.upDateUrl = versionInfoBean.url;
+                        try {
+                            if (versionInfoBean != null && versionInfoBean.vid > AppUtils.getAppInfo().getVersionCode()) {
+                                UpDateDialog upDateDialog = new UpDateDialog();
+                                upDateDialog.setListener(SettingActivity.this);
+                                upDateDialog.show(getFragmentManager(), "updatedialog");
+                            } else {
+                                MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
+                                Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
+                        Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void showDialog(EventType type) {

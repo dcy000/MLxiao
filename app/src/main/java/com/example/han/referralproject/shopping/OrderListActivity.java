@@ -1,8 +1,6 @@
 package com.example.han.referralproject.shopping;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -11,13 +9,14 @@ import android.view.View;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
-import com.gzq.lib_core.utils.ToastUtils;
+import com.example.han.referralproject.service.API;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -31,8 +30,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
     OrderAdapter mOrderAdapter;
     private int mCurrPage = 1;
     private RecyclerView mRecyclerView;
-
-    SharedPreferences mSharedPreferences;
+    private UserInfoBean user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,33 +48,24 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.order_list);
-        mSharedPreferences = getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
-
-        NetworkApi.order_list("2", "0", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
-            @Override
-            public void onSuccess(ArrayList<Orders> response) {
-
-
-                List<Orders> list = new ArrayList<Orders>();
-                list.addAll(response);
-                mlist.addAll(list);
-                mOrderAdapter = new OrderAdapter(mlist, getApplicationContext());
-                mRecyclerView.setAdapter(mOrderAdapter);
-
-
-                setData();
+        user = Box.getSessionManager().getUser();
+        Box.getRetrofit(API.class)
+                .getOrderList("2", "0", "1", user.bname, "1", "1000")
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<Orders>>() {
+                    @Override
+                    public void onNext(List<Orders> orders) {
+                        List<Orders> list = new ArrayList<Orders>();
+                        list.addAll(orders);
+                        mlist.addAll(list);
+                        mOrderAdapter = new OrderAdapter(mlist, getApplicationContext());
+                        mRecyclerView.setAdapter(mOrderAdapter);
 
 
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort(message);
-            }
-        });
-
-
+                        setData();
+                    }
+                });
     }
 
 
@@ -164,30 +153,21 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
                         if (mlist.size() >= 1300) {
                             mCurrPage += 1;
 
+                            Box.getRetrofit(API.class)
+                                    .getOrderList("2", "4", "1", user.bname, mCurrPage + "", "1000")
+                                    .compose(RxUtils.httpResponseTransformer())
+                                    .as(RxUtils.autoDisposeConverter(OrderListActivity.this))
+                                    .subscribe(new CommonObserver<List<Orders>>() {
+                                        @Override
+                                        public void onNext(List<Orders> orders) {
 
-                            NetworkApi.order_list("2", "4", "1", mSharedPreferences.getString("userName", ""), mCurrPage + "", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
-                                @Override
-                                public void onSuccess(ArrayList<Orders> response) {
-
-
-                                    List<Orders> list = new ArrayList<Orders>();
-                                    list.clear();
-                                    list = response;
-                                    mlist.addAll(list);
-                                    mOrderAdapter.notifyDataSetChanged();
-
-
-                                }
-
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-
-                                }
-                            });
-
-
+                                            List<Orders> list = new ArrayList<Orders>();
+                                            list.clear();
+                                            list = orders;
+                                            mlist.addAll(list);
+                                            mOrderAdapter.notifyDataSetChanged();
+                                        }
+                                    });
                         }
 
 

@@ -9,24 +9,25 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.example.module_register.service.RegisterAPI;
+import com.example.han.referralproject.service.API;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.PhoneCode;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.service.CommonAPI;
+import com.gzq.lib_core.utils.Handlers;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.gzq.lib_core.utils.Handlers;
 import com.medlink.danbogh.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.schedulers.Schedulers;
 
 public class SetPasswordActivity extends BaseActivity {
 
@@ -137,21 +138,24 @@ public class SetPasswordActivity extends BaseActivity {
             hideLoadingDialog();
             return;
         }
-        NetworkApi.setPassword(mPhone, pwd, new NetworkManager.SuccessCallback<String>() {
-            @Override
-            public void onSuccess(String response) {
-                hideLoadingDialog();
-                Intent intent = new Intent(SetPasswordActivity.this, SignInActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                hideLoadingDialog();
-                ToastUtils.showShort(message);
-            }
-        });
+        Box.getRetrofit(API.class)
+                .setPassWord(mPhone, pwd)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        hideLoadingDialog();
+                    }
+                })
+                .subscribe(new CommonObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        Intent intent = new Intent(SetPasswordActivity.this, SignInActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
     }
 
     @Override

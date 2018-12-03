@@ -13,11 +13,13 @@ import android.widget.TextView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
+import com.example.han.referralproject.service.API;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
@@ -113,29 +115,22 @@ public class ShopListActivity extends BaseActivity implements View.OnClickListen
     private ShopAdapter mShopAdapter;
 
     public void initData(int status) {
+        Box.getRetrofit(API.class)
+                .getGoods(status)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<Goods>>() {
+                    @Override
+                    public void onNext(List<Goods> goods) {
+                        List<Goods> list = new ArrayList<Goods>();
+                        mlist.clear();
+                        list = goods;
+                        mlist.addAll(list);
+                        setData();
 
-        NetworkApi.goods_list(status, new NetworkManager.SuccessCallback<ArrayList<Goods>>() {
-            @Override
-            public void onSuccess(ArrayList<Goods> response) {
-
-                List<Goods> list = new ArrayList<Goods>();
-                mlist.clear();
-                list = response;
-                mlist.addAll(list);
-                setData();
-
-                mShopAdapter.notifyDataSetChanged();
-
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-
-            }
-        });
-
-
+                        mShopAdapter.notifyDataSetChanged();
+                    }
+                });
        /* RetrofitService retrofitService = RetrofitClient.getClient();
         // 创建有一个回调对象
         Call<List<Goods>> call = retrofitService.GoodsList(url);

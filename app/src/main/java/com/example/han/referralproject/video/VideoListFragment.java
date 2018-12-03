@@ -21,8 +21,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.service.API;
 import com.gcml.lib_video_ksyplayer.NormalVideoPlayActivity;
 import com.gcml.lib_widget.recycleview.GridViewDividerItemDecoration;

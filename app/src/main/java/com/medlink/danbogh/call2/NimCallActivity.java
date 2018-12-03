@@ -19,14 +19,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.AppraiseActivity;
+import com.example.han.referralproject.service.API;
 import com.gzq.lib_core.base.Box;
-import com.gzq.lib_core.utils.ToastUtils;
+import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.DeviceUtils;
 import com.gzq.lib_core.utils.Handlers;
+import com.gzq.lib_core.utils.RxUtils;
+import com.gzq.lib_core.utils.ToastUtils;
 import com.medlink.danbogh.utils.Utils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -61,6 +63,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class NimCallActivity extends AppCompatActivity {
 
@@ -82,22 +86,20 @@ public class NimCallActivity extends AppCompatActivity {
 
     public static void launch(final Context context, final String account) {
         final String deviceId = com.example.han.referralproject.util.Utils.getDeviceId();
-        NetworkApi.Person_Amount(deviceId, new NetworkManager.SuccessCallback<RobotAmount>() {
+        Box.getRetrofit(API.class)
+                .queryMoneyById(DeviceUtils.getIMEI())
+                .compose(RxUtils.httpResponseTransformer())
+                .subscribe(new CommonObserver<RobotAmount>() {
                     @Override
-                    public void onSuccess(RobotAmount response) {
-                        final String amount = response.getAmount();
+                    public void onNext(RobotAmount robotAmount) {
+                        final String amount = robotAmount.getAmount();
 
-                        if (!TextUtils.isEmpty(amount)&& Float.parseFloat(amount) > 0) {
+                        if (!TextUtils.isEmpty(amount) && Float.parseFloat(amount) > 0) {
                             //有余额
                             launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
                         } else {
                             ToastUtils.showShort("余额不足，请充值后再试");
                         }
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        ToastUtils.showShort("服务器繁忙，请稍后再试");
                     }
                 });
     }
@@ -763,41 +765,34 @@ public class NimCallActivity extends AppCompatActivity {
                         && !mCallData.getAccount().startsWith("docter_"))) {
                     return;
                 }
-
-                NetworkApi.DoctorInfo(bid, new NetworkManager.SuccessCallback<Doctor>() {
-                    @Override
-                    public void onSuccess(Doctor response) {
-                        int docterid = response.docterid;
-                        NetworkApi.charge(minutes, docterid, bid,
-                                new NetworkManager.SuccessCallback<String>() {
-                                    @Override
-                                    public void onSuccess(String response) {
-                                        ToastUtils.showShort(minutes + "分钟");
-                                        if (TextUtils.isEmpty(response)) {
-                                            return;
-                                        }
-                                        try {
-                                            JSONObject mResult = new JSONObject(response);
-                                            Intent intent = new Intent(NimCallActivity.this, AppraiseActivity.class);
-                                            intent.putExtra("doid", mResult.getInt("daid"));
-                                            startActivity(intent);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }, new NetworkManager.FailedCallback() {
-                                    @Override
-                                    public void onFailed(String message) {
-                                        ToastUtils.showShort(minutes + "分钟, 失败");
-                                    }
-                                });
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        ToastUtils.showShort("请签约医生");
-                    }
-                });
+                UserInfoBean user = Box.getSessionManager().getUser();
+                String doid = user.doid;
+                if (TextUtils.isEmpty(doid)) {
+                    ToastUtils.showShort("请先签约医生");
+                    return;
+                }
+                Box.getRetrofit(API.class)
+                        .charge(doid, DeviceUtils.getIMEI(), minutes, Box.getUserId())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new CommonObserver<String>() {
+                            @Override
+                            public void onNext(String response) {
+                                ToastUtils.showShort(minutes + "分钟");
+                                if (TextUtils.isEmpty(response)) {
+                                    return;
+                                }
+                                try {
+                                    JSONObject mResult = new JSONObject(response);
+                                    Intent intent = new Intent(NimCallActivity.this, AppraiseActivity.class);
+                                    intent.putExtra("daid", mResult.getInt("daid"));
+                                    intent.putExtra("daid", doid);
+                                    startActivity(intent);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
             }
         }
     }
@@ -838,7 +833,7 @@ public class NimCallActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.iv_finish)
-    public void onBackClicked(){
+    public void onBackClicked() {
         Toast.makeText(NimCallActivity.this, "正在停止通话", Toast.LENGTH_SHORT).show();
         mHandler.postDelayed(new Runnable() {
             @Override
@@ -850,9 +845,10 @@ public class NimCallActivity extends AppCompatActivity {
     }
 
     private boolean isClosed = false;
+
     @OnClick(R.id.iv_call_hang_up)
     public void onIvHangUpClicked() {
-        if (isClosed){
+        if (isClosed) {
             findViewById(R.id.iv_call_hang_up).setVisibility(View.GONE);
             return;
         }

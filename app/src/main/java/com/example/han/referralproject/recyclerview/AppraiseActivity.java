@@ -1,8 +1,6 @@
 package com.example.han.referralproject.recyclerview;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,13 +15,17 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.imageview.CircleImageView;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.gcml.lib_widget.dialog.AlertDialog;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class AppraiseActivity extends BaseActivity implements View.OnClickListener {
 
@@ -50,13 +52,13 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
     public TextView mTextView3;
     public TextView mTextView4;
 
-    SharedPreferences sharedPreferences1;
 
     CircleImageView mCircleImageView;
 
     int i = 0;
 
-    public int doid;//账单id
+    public int daid;//账单id
+    private String doid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,6 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
 
         mTitleText.setText(getString(R.string.doctor_appraise));
 
-        sharedPreferences1 = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
 
         mCircleImageView = (CircleImageView) findViewById(R.id.circleImageView1);
         mImageView1 = (ImageView) findViewById(R.id.star1);
@@ -108,25 +109,31 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
         mButton6.setOnClickListener(this);
 
         mButton = (Button) findViewById(R.id.niming_appraise);
+        daid = getIntent().getIntExtra("daid", 0);
+        doid = getIntent().getStringExtra("doid");
 
+        Box.getRetrofit(API.class)
+                .queryDoctorInfo(doid)
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<Doctor>() {
+                    @Override
+                    public void onNext(Doctor doctor) {
+                        if (!TextUtils.isEmpty(doctor.getDocter_photo())) {
 
-        mTextView4.setText("收费标准：" + sharedPreferences1.getString("service_amount", "") + "元/分钟");
-        mTextView1.setText(sharedPreferences1.getString("name", ""));
-        mTextView2.setText("职级：" + sharedPreferences1.getString("position", ""));
-        mTextView3.setText("擅长：" + sharedPreferences1.getString("feature", ""));
-
-        if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
-
-            Glide.with(Box.getApp())
-                    .applyDefaultRequestOptions(new RequestOptions()
-                            .placeholder(R.drawable.avatar_placeholder)
-                            .error(R.drawable.avatar_placeholder))
-                    .load(sharedPreferences1.getString("docter_photo", ""))
-                    .into(mCircleImageView);
-        }
-
-        doid = getIntent().getIntExtra("doid", 0);
-
+                            Glide.with(AppraiseActivity.this)
+                                    .applyDefaultRequestOptions(new RequestOptions()
+                                            .placeholder(R.drawable.avatar_placeholder)
+                                            .error(R.drawable.avatar_placeholder))
+                                    .load(doctor.getDocter_photo())
+                                    .into(mCircleImageView);
+                        }
+                        mTextView1.setText(String.format(getString(R.string.doctor_name), doctor.getDoctername()));
+                        mTextView2.setText(String.format(getString(R.string.doctor_zhiji), doctor.getDuty()));
+                        mTextView3.setText(String.format(getString(R.string.doctor_shanchang), doctor.getDepartment()));
+                        mTextView4.setText(String.format(getString(R.string.doctor_shoufei), doctor.getService_amount()));
+                    }
+                });
     }
 
     /**
@@ -346,22 +353,16 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
                             str.append(mButton6.getText().toString());
 
                         }
-
-                        NetworkApi.appraise(sharedPreferences1.getString("doctor_id", ""), Box.getUserId(), str.toString(), i, System.currentTimeMillis() + "", doid, new NetworkManager.SuccessCallback<String>() {
-
-                            @Override
-                            public void onSuccess(String response) {
-                                finish();
-
-                            }
-
-                        }, new NetworkManager.FailedCallback() {
-                            @Override
-                            public void onFailed(String message) {
-
-
-                            }
-                        });
+                        Box.getRetrofit(API.class)
+                                .appraiseDoctor(doid, Box.getUserId(), str.toString(), i, System.currentTimeMillis(), daid)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new CommonObserver<Object>() {
+                                    @Override
+                                    public void onNext(Object o) {
+                                        finish();
+                                    }
+                                });
                     }
                 }).show();
     }

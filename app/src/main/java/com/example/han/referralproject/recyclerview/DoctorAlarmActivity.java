@@ -3,8 +3,8 @@ package com.example.han.referralproject.recyclerview;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.PowerManager;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -14,8 +14,11 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.AlreadyYuyue;
 import com.example.han.referralproject.constant.ConstantData;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
@@ -23,7 +26,10 @@ import com.medlink.danbogh.call2.NimCallActivity;
 
 import org.litepal.crud.DataSupport;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class DoctorAlarmActivity extends BaseActivity {
 
@@ -93,46 +99,31 @@ public class DoctorAlarmActivity extends BaseActivity {
 
 
         if (model != null && model.getTimestamp() != 0) {
+            Box.getRetrofit(API.class)
+                    .queryDoctorReservationList(((UserInfoBean) Box.getSessionManager().getUser()).doid)
+                    .compose(RxUtils.httpResponseTransformer(false))
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new CommonObserver<List<AlreadyYuyue>>() {
+                        @Override
+                        public void onNext(List<AlreadyYuyue> alreadyYuyues) {
+                            for (int i = 0; i < alreadyYuyues.size(); i++) {
 
+                                if (startTime.equals(alreadyYuyues.get(i).getStart_time())) {
+                                    Box.getRetrofit(API.class)
+                                            .updateReservationStatus(alreadyYuyues.get(i).getRid(), "5")
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(new CommonObserver<Object>() {
+                                                @Override
+                                                public void onNext(Object o) {
 
-            NetworkApi.YuYue_already(sharedPreferences1.getString("doctor_id", ""), new NetworkManager.SuccessCallback<ArrayList<AlreadyYuyue>>() {
-                @Override
-                public void onSuccess(ArrayList<AlreadyYuyue> response) {
-
-                    for (int i = 0; i < response.size(); i++) {
-
-                        if (startTime.equals(response.get(i).getStart_time())) {
-
-                            NetworkApi.update_status(response.get(i).getRid(), "5", new NetworkManager.SuccessCallback<String>() {
-                                @Override
-                                public void onSuccess(String response) {
-
+                                                }
+                                            });
                                 }
 
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-
-                                }
-                            });
-
-
+                            }
                         }
-
-                    }
-
-                }
-
-            }, new NetworkManager.FailedCallback()
-
-            {
-                @Override
-                public void onFailed(String message) {
-
-                }
-            });
-
-
+                    });
         }
 
 

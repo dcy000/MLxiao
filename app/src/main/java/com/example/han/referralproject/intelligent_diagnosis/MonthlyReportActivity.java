@@ -10,10 +10,12 @@ import android.view.View;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.MonthlyReport;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.gcml.lib_widget.circleindicator.CircleIndicator;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.exception.ApiException;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -74,26 +76,30 @@ public class MonthlyReportActivity extends BaseActivity {
     }
 
     private void getData() {
-        NetworkApi.getMonthReport(Box.getUserId(), new NetworkManager.SuccessCallback<MonthlyReport>() {
-            @Override
-            public void onSuccess(MonthlyReport response) {
-                if (response != null) {
-                    fragment1.notifyData(response.mapq);
-                    fragment2.notifyData(response.mapq);
-                    fragment3.notifyData(response.mapq);
-                    fragment4.notifyData(response.mapq);
-                    fragment5.notifyData(response.mapq);
-                } else {
-                    ToastUtils.showShort("暂无月报告");
-                    MLVoiceSynthetize.startSynthesize("主人，您的测量数据太少，我们还不能为您生成本月的报告。请您坚持每天测量，我们将在每月一号为您生成新报告");
-                }
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort("暂无月报告");
-                MLVoiceSynthetize.startSynthesize("主人，您的测量数据太少，我们还不能为您生成本月的报告。请您坚持每天测量，我们将在每月一号为您生成新报告");
-            }
-        });
+        Box.getRetrofit(API.class)
+                .getMonthlyReport(Box.getUserId(), "2")
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<MonthlyReport>() {
+                    @Override
+                    public void onNext(MonthlyReport monthlyReport) {
+                        if (monthlyReport != null) {
+                            fragment1.notifyData(monthlyReport.mapq);
+                            fragment2.notifyData(monthlyReport.mapq);
+                            fragment3.notifyData(monthlyReport.mapq);
+                            fragment4.notifyData(monthlyReport.mapq);
+                            fragment5.notifyData(monthlyReport.mapq);
+                        } else {
+                            ToastUtils.showShort("暂无月报告");
+                            MLVoiceSynthetize.startSynthesize("主人，您的测量数据太少，我们还不能为您生成本月的报告。请您坚持每天测量，我们将在每月一号为您生成新报告");
+                        }
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        ToastUtils.showShort("暂无月报告");
+                        MLVoiceSynthetize.startSynthesize("主人，您的测量数据太少，我们还不能为您生成本月的报告。请您坚持每天测量，我们将在每月一号为您生成新报告");
+                    }
+                });
     }
 }

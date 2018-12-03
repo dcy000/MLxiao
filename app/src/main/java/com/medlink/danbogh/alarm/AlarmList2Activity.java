@@ -14,14 +14,15 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.ClueInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
 import com.gcml.lib_widget.dialog.AlertDialog;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import org.litepal.crud.DataSupport;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -71,20 +72,24 @@ public class AlarmList2Activity extends BaseActivity {
         mAdapter = new AlarmsAdapter();
         rvAlarms.setAdapter(mAdapter);
         refresh();
-        NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {
-            @Override
-            public void onSuccess(ArrayList<ClueInfoBean> response) {
-                if (response == null || response.size() == 0) {
-                    return;
-                }
-                StringBuilder mBuilder = new StringBuilder();
+        Box.getRetrofit(API.class)
+                .getAllAlarmClocks(Box.getUserId())
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<ClueInfoBean>>() {
+                    @Override
+                    public void onNext(List<ClueInfoBean> clueInfoBeans) {
+                        if (clueInfoBeans == null || clueInfoBeans.size() == 0) {
+                            return;
+                        }
+                        StringBuilder mBuilder = new StringBuilder();
 
-                for (ClueInfoBean itemBean : response) {
-                    mBuilder.append(response.get(0).doctername).append("提醒您").append(itemBean.cluetime).append("吃").append(itemBean.medicine);
-                }
-                MLVoiceSynthetize.startSynthesize(mBuilder.toString());
-            }
-        });
+                        for (ClueInfoBean itemBean : clueInfoBeans) {
+                            mBuilder.append(clueInfoBeans.get(0).doctername).append("提醒您").append(itemBean.cluetime).append("吃").append(itemBean.medicine);
+                        }
+                        MLVoiceSynthetize.startSynthesize(mBuilder.toString());
+                    }
+                });
     }
 
     @Override

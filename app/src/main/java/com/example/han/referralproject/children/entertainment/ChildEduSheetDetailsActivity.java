@@ -18,8 +18,6 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.children.AutoLoadMoreHelper;
 import com.example.han.referralproject.children.model.SheetModel;
 import com.example.han.referralproject.children.model.SongModel;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicUtils;
 import com.example.han.referralproject.service.API;
 import com.gzq.lib_core.base.Box;

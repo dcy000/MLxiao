@@ -13,13 +13,15 @@ import retrofit2.http.Query;
 public interface CommonAPI {
     /**
      * 获取验证码
+     *
      * @param phone
      * @return
      */
     @GET("ZZB/br/GainCode")
-    Observable<HttpResult<PhoneCode>> getPhoneCode(@Query("mobile")String phone);
+    Observable<HttpResult<PhoneCode>> getPhoneCode(@Query("mobile") String phone);
+
     /**
-     * 判断手机号码是否已经注册
+     * 判断手机号码是否已经被注册
      *
      * @param tel
      * @param state

@@ -32,12 +32,9 @@ import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
-import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.ecg.ECGCompatActivity;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.HttpCallback;
 import com.example.han.referralproject.new_music.HttpClient;
 import com.example.han.referralproject.new_music.Music;
@@ -58,13 +55,12 @@ import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tool.other.StringUtil;
-import com.gcml.lib_widget.voiceline.VoiceLineView;
-import com.gzq.lib_core.utils.PinYinUtils;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignInActivity;
 import com.gcml.lib_ecg.base.IPresenter;
+import com.gcml.lib_widget.voiceline.VoiceLineView;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -74,6 +70,8 @@ import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.model.HttpResult;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.ActivityUtils;
+import com.gzq.lib_core.utils.AppUtils;
+import com.gzq.lib_core.utils.PinYinUtils;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.cloud.ErrorCode;
@@ -117,6 +115,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Function;
 
 public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener {
@@ -669,29 +668,38 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
             if (inSpell.matches(".*gengxin.*")) {
                 showLoadingDialog("检查更新中");
-                NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
-                    @Override
-                    public void onSuccess(VersionInfoBean response) {
-                        hideLoadingDialog();
-                        try {
-                            if (response != null && response.vid > getPackageManager().getPackageInfo(SpeechSynthesisActivity.this.getPackageName(), 0).versionCode) {
-                                new UpdateAppManager(SpeechSynthesisActivity.this).showNoticeDialog(response.url);
-                            } else {
+
+                Box.getRetrofit(API.class)
+                        .getAppVersion(AppUtils.getMeta("com.gcml.version") + "")
+                        .compose(RxUtils.httpResponseTransformer())
+                        .doOnTerminate(new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                hideLoadingDialog();
+                            }
+                        })
+                        .as(RxUtils.autoDisposeConverter(this))
+                        .subscribe(new CommonObserver<VersionInfoBean>() {
+                            @Override
+                            public void onNext(VersionInfoBean versionInfoBean) {
+                                try {
+                                    if (versionInfoBean != null && versionInfoBean.vid > AppUtils.getAppInfo().getVersionCode()) {
+                                        new UpdateAppManager(SpeechSynthesisActivity.this).showNoticeDialog(versionInfoBean.url);
+                                    } else {
+                                        MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
+                                        Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            protected void onError(ApiException ex) {
                                 MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
                                 Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        hideLoadingDialog();
-                        MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
-                        Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        });
                 return;
             }
 
@@ -998,34 +1006,26 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     private void gotoQianyueYiSheng() {
-        NetworkApi.PersonInfo(Box.getUserId(), new NetworkManager.SuccessCallback<UserInfo>() {
-            @Override
-            public void onSuccess(UserInfo response) {
-                if ("1".equals(response.getState())) {
-                    //已签约
-                    startActivity(new Intent(SpeechSynthesisActivity.this,
-                            DoctorappoActivity.class));
-                } else if ("0".equals(response.getState())
-                        && (TextUtils.isEmpty(response.getDoctername()))) {
-                    //未签约
-                    Intent intent = new Intent(SpeechSynthesisActivity.this,
-                            OnlineDoctorListActivity.class);
-                    intent.putExtra("flag", "contract");
-                    startActivity(intent);
-                } else {
-                    // 待审核
-                    Intent intent = new Intent(SpeechSynthesisActivity.this,
-                            CheckContractActivity.class);
-                    startActivity(intent);
-                }
-            }
+        UserInfoBean user = Box.getSessionManager().getUser();
 
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort(message);
+        if (TextUtils.isEmpty(user.doid)) {
+            //未签约
+            Intent intent = new Intent(SpeechSynthesisActivity.this,
+                    OnlineDoctorListActivity.class);
+            intent.putExtra("flag", "contract");
+            startActivity(intent);
+        } else {
+            if ("0".equals(user.state)) {
+                // 待审核
+                Intent intent = new Intent(SpeechSynthesisActivity.this,
+                        CheckContractActivity.class);
+                startActivity(intent);
+            } else {
+                //已签约
+                startActivity(new Intent(SpeechSynthesisActivity.this,
+                        DoctorappoActivity.class));
             }
-        });
+        }
     }
 
     private void gotoPersonCenter() {

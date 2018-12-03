@@ -11,11 +11,14 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.MessageShowAdapter;
 import com.example.han.referralproject.bean.YzInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.service.API;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MessageActivity extends BaseActivity implements View.OnClickListener {
     private ArrayList<YzInfoBean> mDataList = new ArrayList<>();
@@ -41,25 +44,29 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         messageShowAdapter = new MessageShowAdapter(mContext, mDataList);
         mRecyclerView.setAdapter(messageShowAdapter);
-        NetworkApi.getYzList(successCallback);
+
+        Box.getRetrofit(API.class)
+                .getMedicalOrders(Box.getUserId())
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<YzInfoBean>>() {
+                    @Override
+                    public void onNext(List<YzInfoBean> yzInfoBeans) {
+                        if (yzInfoBeans == null || yzInfoBeans.size() == 0) {
+                            MLVoiceSynthetize.startSynthesize(R.string.no_yz);
+                            findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
+                            mBtnGo.setVisibility(View.GONE);
+                            mTvEmptyDataTips.setText("啊哦!你还没有医生建议");
+                            return;
+                        }
+                        mDataList.addAll(yzInfoBeans);
+                        messageShowAdapter.notifyDataSetChanged();
+                        MLVoiceSynthetize.startSynthesize(yzInfoBeans.get(0).yz);
+                    }
+                });
 
     }
 
-    private NetworkManager.SuccessCallback successCallback = new NetworkManager.SuccessCallback<ArrayList<YzInfoBean>>() {
-        @Override
-        public void onSuccess(ArrayList<YzInfoBean> response) {
-            if (response == null || response.size() == 0) {
-                MLVoiceSynthetize.startSynthesize(R.string.no_yz);
-                findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
-                mBtnGo.setVisibility(View.GONE);
-                mTvEmptyDataTips.setText("啊哦!你还没有医生建议");
-                return;
-            }
-            mDataList.addAll(response);
-            messageShowAdapter.notifyDataSetChanged();
-            MLVoiceSynthetize.startSynthesize(response.get(0).yz);
-        }
-    };
 
     @Override
     public void onClick(View v) {

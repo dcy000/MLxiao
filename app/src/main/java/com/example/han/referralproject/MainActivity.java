@@ -14,13 +14,10 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
-import com.gzq.lib_core.utils.PinYinUtils;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignInActivity;
 import com.gzq.lib_core.base.Box;
@@ -29,16 +26,16 @@ import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.model.HttpResult;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.ActivityUtils;
+import com.gzq.lib_core.utils.Handlers;
+import com.gzq.lib_core.utils.PinYinUtils;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
-
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.signin.SignInActivity;
-import com.gzq.lib_core.utils.Handlers;
 
 import org.litepal.crud.DataSupport;
 
@@ -230,32 +227,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {
-            @Override
-            public void onSuccess(ArrayList<ClueInfoBean> response) {
-                if (response == null || response.size() == 0) {
-                    return;
-                }
-                List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
-                //DataSupport.deleteAll(AlarmModel.class);
-                for (ClueInfoBean itemBean : response) {
-                    String[] timeString = itemBean.cluetime.split(":");
-                    boolean isSetted = false;
-                    for (AlarmModel itemModel : models) {
-                        if (itemModel.getHourOfDay() == Integer.valueOf(timeString[0])
-                                && itemModel.getMinute() == Integer.valueOf(timeString[1])
-                                && itemModel.getContent() != null
-                                && itemModel.getContent().equals(itemBean.medicine)) {
-                            isSetted = true;
-                            break;
+        Box.getRetrofit(API.class)
+                .getAllAlarmClocks(Box.getUserId())
+                .compose(RxUtils.httpResponseTransformer())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<List<ClueInfoBean>>() {
+                    @Override
+                    public void onNext(List<ClueInfoBean> clueInfoBeans) {
+                        if (clueInfoBeans == null || clueInfoBeans.size() == 0) {
+                            return;
+                        }
+                        List<AlarmModel> models = DataSupport.findAll(AlarmModel.class);
+                        //DataSupport.deleteAll(AlarmModel.class);
+                        for (ClueInfoBean itemBean : clueInfoBeans) {
+                            String[] timeString = itemBean.cluetime.split(":");
+                            boolean isSetted = false;
+                            for (AlarmModel itemModel : models) {
+                                if (itemModel.getHourOfDay() == Integer.valueOf(timeString[0])
+                                        && itemModel.getMinute() == Integer.valueOf(timeString[1])
+                                        && itemModel.getContent() != null
+                                        && itemModel.getContent().equals(itemBean.medicine)) {
+                                    isSetted = true;
+                                    break;
+                                }
+                            }
+                            if (!isSetted) {
+                                AlarmHelper.setupAlarm(mContext, Integer.valueOf(timeString[0]), Integer.valueOf(timeString[1]), itemBean.medicine);
+                            }
                         }
                     }
-                    if (!isSetted) {
-                        AlarmHelper.setupAlarm(mContext, Integer.valueOf(timeString[0]), Integer.valueOf(timeString[1]), itemBean.medicine);
-                    }
-                }
-            }
-        });
+                });
     }
 
 

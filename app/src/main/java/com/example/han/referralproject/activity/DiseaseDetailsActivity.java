@@ -12,9 +12,10 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.SymptomResultBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
-import com.gzq.lib_core.utils.ToastUtils;
+import com.example.han.referralproject.service.API;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public class DiseaseDetailsActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
@@ -65,26 +66,25 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
         mRbReason.setChecked(true);
         mData = (SymptomResultBean.bqs) getIntent().getSerializableExtra("data");
         if (mData == null) {
-            NetworkApi.getJibing(getIntent().getStringExtra("type"), new NetworkManager.SuccessCallback<DiseaseResult>() {
-                @Override
-                public void onSuccess(DiseaseResult response) {
-                    mData = new SymptomResultBean.bqs();
-                    mData.setBname(response.bname);
-                    mData.setEat(response.eat);
-                    mData.setReview(response.review);
-                    mData.setSuggest(response.suggest);
-                    mData.setSports(response.sports);
-                    mData.setGl("0");
+            Box.getRetrofit(API.class)
+                    .queryDisableDetailByName(getIntent().getStringExtra("type"))
+                    .compose(RxUtils.httpResponseTransformer())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new CommonObserver<DiseaseResult>() {
+                        @Override
+                        public void onNext(DiseaseResult diseaseResult) {
+                            mData = new SymptomResultBean.bqs();
+                            mData.setBname(diseaseResult.bname);
+                            mData.setEat(diseaseResult.eat);
+                            mData.setReview(diseaseResult.review);
+                            mData.setSuggest(diseaseResult.suggest);
+                            mData.setSports(diseaseResult.sports);
+                            mData.setGl("0");
 
-                    mContent.setText(mData.getReview());
-                    MLVoiceSynthetize.startSynthesize(response.review + "。" + response.getSuggest() + "。" + response.getSports());
-                }
-            }, new NetworkManager.FailedCallback() {
-                @Override
-                public void onFailed(String message) {
-                    ToastUtils.showShort(message);
-                }
-            });
+                            mContent.setText(mData.getReview());
+                            MLVoiceSynthetize.startSynthesize(diseaseResult.review + "。" + diseaseResult.getSuggest() + "。" + diseaseResult.getSports());
+                        }
+                    });
         } else {
             mContent.setText(mData.getReview());
             MLVoiceSynthetize.startSynthesize(mData.getReview() + "。" + mData.getSuggest() + "。" + mData.getSports());

@@ -13,20 +13,21 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.AppUtils;
 import com.gzq.lib_core.utils.RxUtils;
 
 import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
 public class WelcomeActivity extends BaseActivity {
@@ -63,13 +64,55 @@ public class WelcomeActivity extends BaseActivity {
 
     private void checkVersion() {
         final String userId = Box.getUserId();
-        NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
-            @Override
-            public void onSuccess(VersionInfoBean response) {
-                try {
-                    if (response != null && response.vid > getPackageManager().getPackageInfo(WelcomeActivity.this.getPackageName(), 0).versionCode) {
-                        new UpdateAppManager(WelcomeActivity.this).showNoticeDialog(response.url);
-                    } else {
+
+        Box.getRetrofit(API.class)
+                .getAppVersion(AppUtils.getMeta("com.gcml.version") + "")
+                .compose(RxUtils.httpResponseTransformer())
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        hideLoadingDialog();
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new CommonObserver<VersionInfoBean>() {
+                    @Override
+                    public void onNext(VersionInfoBean versionInfoBean) {
+                        try {
+                            if (versionInfoBean != null && versionInfoBean.vid > AppUtils.getAppInfo().getVersionCode()) {
+                                new UpdateAppManager(WelcomeActivity.this).showNoticeDialog(versionInfoBean.url);
+                            } else {
+                                ch = (Chronometer) findViewById(R.id.chronometer);
+                                //设置开始计时时间
+                                ch.setBase(SystemClock.elapsedRealtime());
+                                //启动计时器
+                                ch.start();
+                                //为计时器绑定监听事件
+                                ch.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                                    @Override
+                                    public void onChronometerTick(Chronometer ch) {
+                                        // 如果从开始计时到现在超过了60s
+                                        if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
+                                            ch.stop();
+                                            if (TextUtils.isEmpty(userId)) {
+                                                Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                queryUserInfo(userId);
+                                            }
+
+                                        }
+                                    }
+                                });
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
                         ch = (Chronometer) findViewById(R.id.chronometer);
                         //设置开始计时时间
                         ch.setBase(SystemClock.elapsedRealtime());
@@ -94,38 +137,7 @@ public class WelcomeActivity extends BaseActivity {
                             }
                         });
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ch = (Chronometer) findViewById(R.id.chronometer);
-                //设置开始计时时间
-                ch.setBase(SystemClock.elapsedRealtime());
-                //启动计时器
-                ch.start();
-                //为计时器绑定监听事件
-                ch.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                    @Override
-                    public void onChronometerTick(Chronometer ch) {
-                        // 如果从开始计时到现在超过了60s
-                        if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
-                            ch.stop();
-                            if (TextUtils.isEmpty(userId)) {
-                                Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                queryUserInfo(userId);
-                            }
-
-                        }
-                    }
                 });
-            }
-        });
     }
 
     private void queryUserInfo(String userId) {

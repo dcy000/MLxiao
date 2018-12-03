@@ -9,12 +9,8 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.UserInfo;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.gzq.lib_core.base.Box;
-import com.gzq.lib_core.utils.ToastUtils;
+import com.gzq.lib_core.bean.UserInfoBean;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.utils.FastClickUtil;
 
@@ -46,29 +42,18 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
             default:
                 break;
             case R.id.doctor_yuyue:
-                if (FastClickUtil.isFastClick()) {
-                    NetworkApi.PersonInfo(Box.getUserId(),
-                            new NetworkManager.SuccessCallback<UserInfo>() {
-                                @Override
-                                public void onSuccess(UserInfo userInfo) {
-                                    String state = userInfo.getState();
-                                    if ("0".equals(state) && TextUtils.isEmpty(userInfo.getDoctername())) {
-                                        Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
-                                        intent.putExtra("flag", "contract");
-                                        startActivity(intent);
-                                    } else if ("0".equals(state) && !TextUtils.isEmpty(userInfo.getDoctername())) {
-                                        Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
-                                        startActivity(intent);
-                                    } else {
-                                        startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity.class));
-                                    }
-                                }
-                            }, new NetworkManager.FailedCallback() {
-                                @Override
-                                public void onFailed(String message) {
-                                    ToastUtils.showShort(message);
-                                }
-                            });
+                UserInfoBean user = Box.getSessionManager().getUser();
+                if (TextUtils.isEmpty(user.doid)) {
+                    Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
+                    intent.putExtra("flag", "contract");
+                    startActivity(intent);
+                } else {
+                    if ("0".equals(user.state)) {
+                        Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
+                        startActivity(intent);
+                    } else {
+                        startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity.class));
+                    }
                 }
                 break;
             case R.id.doctor_zaixian:
