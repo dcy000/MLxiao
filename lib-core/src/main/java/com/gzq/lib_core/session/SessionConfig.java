@@ -1,14 +1,10 @@
 package com.gzq.lib_core.session;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
-import java.lang.ref.WeakReference;
-
 /**
  * Session配置信息
- * Created by ChenRui on 2018/3/26 0026 14:54.
  */
 public final class SessionConfig {
     private Class<?> userTokenClass;

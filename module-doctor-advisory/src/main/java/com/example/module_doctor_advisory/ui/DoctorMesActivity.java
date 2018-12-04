@@ -246,7 +246,6 @@ public class DoctorMesActivity extends ToolbarBaseActivity implements View.OnCli
         int i1 = view.getId();
         if (i1 == R.id.qianyue) {
             if ("1".equals(sign)) {
-                //TODO 给签约医生打电话
                 emitEvent("NimCall", "docter_" + doctor.docterid);
             } else {
                 Box.getRetrofit(DoctorAPI.class)

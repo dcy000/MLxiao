@@ -18,6 +18,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.service.API;
 import com.example.module_register.ui.normal.SignUp1NameActivity;
 import com.example.module_register.ui.sample.SignUp01NameActivity;
+import com.gzq.lib_core.service.CommonAPI;
 import com.gzq.lib_core.utils.PinYinUtils;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignInActivity;
@@ -139,7 +140,7 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         }).flatMap(new Function<String, ObservableSource<HttpResult<ArrayList<UserInfoBean>>>>() {
             @Override
             public ObservableSource<HttpResult<ArrayList<UserInfoBean>>> apply(String s) throws Exception {
-                return Box.getRetrofit(API.class)
+                return Box.getRetrofit(CommonAPI.class)
                         .queryAllLocalUsers(s);
             }
         }).compose(RxUtils.httpResponseTransformer())

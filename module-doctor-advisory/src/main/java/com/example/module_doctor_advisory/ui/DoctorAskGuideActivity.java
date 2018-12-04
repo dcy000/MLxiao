@@ -45,6 +45,7 @@ public class DoctorAskGuideActivity extends ToolbarBaseActivity implements View.
             if (TextUtils.isEmpty(user.doid)) {
                 Intent intent = new Intent(DoctorAskGuideActivity.this, OnlineDoctorListActivity.class);
                 intent.putExtra("flag", "contract");
+                intent.putExtra("title", "签 约 医 生");
                 startActivity(intent);
             } else {
                 if ("0".equals(user.state)) {
@@ -56,8 +57,8 @@ public class DoctorAskGuideActivity extends ToolbarBaseActivity implements View.
             }
 
         } else if (i == R.id.doctor_zaixian) {
-            startActivity(new Intent(this, OnlineDoctorListActivity.class));
-
+            startActivity(new Intent(this, OnlineDoctorListActivity.class)
+                    .putExtra("title", "在 线 医 生"));
         } else {
         }
     }

@@ -236,7 +236,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
                     || TextUtils.isEmpty(model.getAnswer())
                     ) {
                 ChildEduBrainTeaserActivity.this.model = null;
-                ToastUtils.showShort("服务器繁忙");
+                ToastUtils.showShort("糟糕！获取不到题目(*)(*)");
             }
             showQuestion(model);
         }

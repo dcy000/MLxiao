@@ -106,7 +106,8 @@ public class SignUp5MobileVerificationActivity extends VoiceToolBarActivity {
 
     @Override
     public IPresenter obtainPresenter() {
-        return new BasePresenter(this) {};
+        return new BasePresenter(this) {
+        };
     }
 
 
@@ -228,7 +229,9 @@ public class SignUp5MobileVerificationActivity extends VoiceToolBarActivity {
             MLVoiceSynthetize.startSynthesize(inPhone ? R.string.sign_up_phone_tip : R.string.sign_up_code_tip);
             return;
         }
-
+        if (TextUtils.isEmpty(mCode)) {
+            return;
+        }
         if (mCode.contains(code)) {
             ToastUtils.showShort("验证码正确");
             navToNext();

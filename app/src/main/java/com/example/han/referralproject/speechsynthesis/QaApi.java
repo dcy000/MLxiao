@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.util.Utils;
+import com.gzq.lib_core.http.interceptor.Level;
+import com.gzq.lib_core.http.interceptor.LoggingInterceptor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,6 +20,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okhttp3.internal.platform.Platform;
 
 /**
  * Created by afirz on 2017/12/18.
@@ -28,7 +31,17 @@ public class QaApi {
 
     public static HashMap<String, String> getQaFromXf(String text) {
         if (client == null) {
-            client = new OkHttpClient();
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            builder.addInterceptor(new LoggingInterceptor.Builder()
+                    .loggable(com.gzq.lib_core.BuildConfig.DEBUG)
+                    .setLevel(Level.BASIC)
+                    .log(Platform.WARN)
+                    .request("Request")
+                    .response("Response")
+                    .addHeader("version", com.gzq.lib_core.BuildConfig.VERSION_NAME)
+                    .enableAndroidStudio_v3_LogsHack(true)
+                    .build());
+            client = builder.build();
         }
         RequestBody body = new FormBody.Builder()
                 .add("eqid", Utils.getDeviceId())
@@ -161,14 +174,14 @@ public class QaApi {
 
             //评书,历史上的今天,搞笑段子,相声小品,公开课,名人演讲,戏曲
             if (service.equals("storyTelling")
-                    ||service.equals("history")
-                    ||service.equals("LEIQIAO.funnyPassage")
-                    ||service.equals("crossTalk")
-                    ||service.equals("LEIQIAO.openClass")
-                    ||service.equals("LEIQIAO.speech")
-                    ||service.equals("drama")
-                    ){
-                String url=resultObj.getString("url");
+                    || service.equals("history")
+                    || service.equals("LEIQIAO.funnyPassage")
+                    || service.equals("crossTalk")
+                    || service.equals("LEIQIAO.openClass")
+                    || service.equals("LEIQIAO.speech")
+                    || service.equals("drama")
+                    ) {
+                String url = resultObj.getString("url");
                 if (!TextUtils.isEmpty(url)) {
                     results.put("audiopath", url);
                 }

@@ -47,7 +47,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/color_eee" />
         <RadioButton
             android:id="@+id/rb_video_stroke"
             android:layout_width="match_parent"
@@ -61,7 +61,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/color_eee" />
         <RadioButton
             android:id="@+id/rb_video_psychosis"
             android:layout_width="match_parent"
@@ -75,7 +75,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/color_eee" />
         <RadioButton
             android:id="@+id/rb_video_palsy"
             android:layout_width="match_parent"
@@ -89,7 +89,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/color_eee" />
         <RadioButton
             android:id="@+id/rb_video_device_show"
             android:layout_width="match_parent"

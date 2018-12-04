@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.MarketActivity;
 import com.example.lib_alarm_clock.AlarmHelper;
 import com.example.lib_alarm_clock.bean.ClueInfoBean;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
@@ -21,6 +20,7 @@ import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.lib_alarm_clock.service.AlarmAPI;
 import com.example.lib_alarm_clock.ui.AlarmList2Activity;
 import com.example.module_doctor_advisory.ui.DoctorAskGuideActivity;
+import com.example.module_mall.ui.MarketActivity;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignInActivity;
 import com.gzq.lib_core.base.Box;
@@ -28,6 +28,7 @@ import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.model.HttpResult;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.service.CommonAPI;
 import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.Handlers;
 import com.gzq.lib_core.utils.PinYinUtils;
@@ -36,7 +37,6 @@ import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.gzq.lib_core.bean.AlarmModel;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.signin.SignInActivity;
 
 import org.litepal.crud.DataSupport;
 
@@ -157,7 +157,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 StringBuilder userIds = new StringBuilder();
 
                 for (UserInfoBean user : usersFromRoom) {
-                    userIds.append(user.bid);
+                    userIds.append(user.bid + ",");
                 }
                 String substring = userIds.substring(0, userIds.length() - 1);
                 emitter.onNext(substring);
@@ -165,7 +165,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }).flatMap(new Function<String, ObservableSource<HttpResult<ArrayList<UserInfoBean>>>>() {
             @Override
             public ObservableSource<HttpResult<ArrayList<UserInfoBean>>> apply(String s) throws Exception {
-                return Box.getRetrofit(API.class)
+                return Box.getRetrofit(CommonAPI.class)
                         .queryAllLocalUsers(s);
             }
         }).compose(RxUtils.httpResponseTransformer())
@@ -184,7 +184,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     @Override
                     protected void onError(ApiException ex) {
                         ToastUtils.showShort(ex.getMessage());
-                        ActivityUtils.skipActivity(SignInActivity.class);
+                        ActivityUtils.skipActivity(Test_mainActivity.class);
                     }
                 });
     }

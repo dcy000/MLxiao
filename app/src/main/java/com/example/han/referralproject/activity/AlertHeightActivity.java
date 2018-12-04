@@ -14,6 +14,8 @@ import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import java.util.ArrayList;
 import java.util.List;
@@ -135,7 +137,7 @@ public class AlertHeightActivity extends BaseActivity {
                     @Override
                     public void onNext(Object o) {
                         ToastUtils.showShort("修改成功");
-                        MLVoiceSynthetize.startSynthesize("主人，您的身高已经修改为" + height + "厘米");
+                        MLVoiceSynthetize.startSynthesize("主人，您的身高已经修改为" + height + "厘米",voiceListener);
                     }
 
                     @Override
@@ -144,9 +146,11 @@ public class AlertHeightActivity extends BaseActivity {
                     }
                 });
     }
-
-    @Override
-    protected void onActivitySpeakFinish() {
-        finish();
-    }
+    private MLSynthesizerListener voiceListener=new MLSynthesizerListener(){
+        @Override
+        public void onCompleted(SpeechError speechError) {
+            super.onCompleted(speechError);
+            finish();
+        }
+    };
 }

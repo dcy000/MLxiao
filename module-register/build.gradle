@@ -42,6 +42,6 @@ dependencies {
     implementation project(':lib-widget')
     implementation project(':lib-core')
     implementation project(':lib-voice')
-    implementation project(':module-auth-face')
+    implementation project(':lib-auth-face')
     implementation name: 'voicelibrary', ext: 'aar'
 }

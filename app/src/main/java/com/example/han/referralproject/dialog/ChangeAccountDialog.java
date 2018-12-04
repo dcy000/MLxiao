@@ -19,6 +19,7 @@ import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.model.HttpResult;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.room.UserDatabase;
+import com.gzq.lib_core.service.CommonAPI;
 import com.gzq.lib_core.utils.KVUtils;
 import com.gzq.lib_core.utils.RxUtils;
 import com.medlink.danbogh.call2.NimAccountHelper;
@@ -82,7 +83,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
         }).flatMap(new Function<String, ObservableSource<HttpResult<ArrayList<UserInfoBean>>>>() {
             @Override
             public ObservableSource<HttpResult<ArrayList<UserInfoBean>>> apply(String s) throws Exception {
-                return Box.getRetrofit(API.class)
+                return Box.getRetrofit(CommonAPI.class)
                         .queryAllLocalUsers(s);
             }
         }).compose(RxUtils.httpResponseTransformer())

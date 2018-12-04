@@ -318,7 +318,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/color_eee" />
 
         <RadioButton
             android:id="@+id/rb_record_blood_pressure"
@@ -335,7 +335,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/color_eee" />
 
         <RadioButton
             android:id="@+id/rb_record_blood_glucose"
@@ -352,7 +352,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/color_eee" />
 
         <RadioButton
             android:id="@+id/rb_record_blood_oxygen"
@@ -369,7 +369,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/color_eee" />
 
         <RadioButton
             android:id="@+id/rb_record_heart_rate"
@@ -387,7 +387,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line"
+            android:background="@color/color_eee"
             android:visibility="gone" />
 
         <RadioButton
@@ -406,7 +406,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line"
+            android:background="@color/color_eee"
             android:visibility="gone" />
 
         <RadioButton
@@ -424,7 +424,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/color_eee" />
 
         <RadioButton
             android:id="@+id/rb_record_bua"
@@ -441,7 +441,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/color_eee" />
 
         <RadioButton
             android:id="@+id/rb_record_ecg"
@@ -458,7 +458,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/color_eee" />
 
         <RadioButton
             android:id="@+id/rb_record_weight"
@@ -475,7 +475,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/line" />
+            android:background="@color/color_eee" />
     </RadioGroup>
 
     <TextView

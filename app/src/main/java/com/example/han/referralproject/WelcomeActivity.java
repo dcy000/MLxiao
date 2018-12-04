@@ -21,6 +21,7 @@ import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.service.CommonAPI;
 import com.gzq.lib_core.utils.AppUtils;
 import com.gzq.lib_core.utils.RxUtils;
 
@@ -68,12 +69,6 @@ public class WelcomeActivity extends BaseActivity {
         Box.getRetrofit(API.class)
                 .getAppVersion(AppUtils.getMeta("com.gcml.version") + "")
                 .compose(RxUtils.httpResponseTransformer())
-                .doOnTerminate(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        hideLoadingDialog();
-                    }
-                })
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new CommonObserver<VersionInfoBean>() {
                     @Override
@@ -141,7 +136,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void queryUserInfo(String userId) {
-        Box.getRetrofit(API.class)
+        Box.getRetrofit(CommonAPI.class)
                 .queryUserInfo(userId)
                 .compose(RxUtils.httpResponseTransformer(false))
                 .doOnNext(new Consumer<UserInfoBean>() {
@@ -156,6 +151,13 @@ public class WelcomeActivity extends BaseActivity {
                     @Override
                     public void onNext(UserInfoBean userInfoBean) {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    protected void onError(ApiException ex) {
+                        Intent intent = new Intent(getApplicationContext(), ChooseLoginTypeActivity.class);
                         startActivity(intent);
                         finish();
                     }

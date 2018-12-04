@@ -16,6 +16,8 @@ import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -147,13 +149,13 @@ public class AlertSmokeActivity extends BaseActivity {
                         ToastUtils.showShort("修改成功");
                         switch (positionSelected + 1) {
                             case 1:
-                                MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为" + "经常吸烟");
+                                MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为" + "经常吸烟",voiceListener);
                                 break;
                             case 2:
-                                MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为" + "偶尔吸烟");
+                                MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为" + "偶尔吸烟",voiceListener);
                                 break;
                             case 3:
-                                MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为" + "从不吸烟");
+                                MLVoiceSynthetize.startSynthesize("主人，您的吸烟情况已经修改为" + "从不吸烟",voiceListener);
                                 break;
                         }
                     }
@@ -164,9 +166,11 @@ public class AlertSmokeActivity extends BaseActivity {
                     }
                 });
     }
-
-    @Override
-    protected void onActivitySpeakFinish() {
-        finish();
-    }
+    private MLSynthesizerListener voiceListener=new MLSynthesizerListener(){
+        @Override
+        public void onCompleted(SpeechError speechError) {
+            super.onCompleted(speechError);
+            finish();
+        }
+    };
 }

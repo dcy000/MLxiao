@@ -2,7 +2,6 @@ package com.gzq.lib_core.session;
 
 /**
  * 会话状态改变监听器
- * Created by ChenRui on 2018/3/26 0026 15:07.
  */
 public interface SessionStateChangedListener {
 

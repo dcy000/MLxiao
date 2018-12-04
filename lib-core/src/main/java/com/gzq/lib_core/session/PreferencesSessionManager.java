@@ -15,7 +15,6 @@ import com.gzq.lib_core.constant.Constants;
 
 /**
  * 默认使用{@link SharedPreferences}进行用户信息的保存
- * Created by ChenRui on 2017/5/2 0002 18:37.
  */
 public class PreferencesSessionManager extends SessionManager {
 

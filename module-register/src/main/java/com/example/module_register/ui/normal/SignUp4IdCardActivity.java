@@ -116,7 +116,7 @@ public class SignUp4IdCardActivity extends VoiceToolBarActivity {
     @OnClick(R2.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         String idCard = etIdCard.getText().toString().trim();
-        if (!RegularExpressionUtils.isIDCard(idCard)) {
+        if (!RegularExpressionUtils.isIDCard18(idCard)) {
             MLVoiceSynthetize.startSynthesize(R.string.sign_up_id_card_tip);
             return;
         }

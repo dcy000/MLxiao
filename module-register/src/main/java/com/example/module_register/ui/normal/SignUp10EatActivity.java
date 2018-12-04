@@ -15,6 +15,7 @@ import com.example.module_register.adapter.EatAdapter;
 import com.example.module_register.adapter.EatModel;
 import com.example.module_register.ui.base.VoiceToolBarActivity;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.base.ui.BasePresenter;
 import com.gzq.lib_core.base.ui.IPresenter;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.utils.ToastUtils;
@@ -89,7 +90,8 @@ public class SignUp10EatActivity extends VoiceToolBarActivity {
 
     @Override
     public IPresenter obtainPresenter() {
-        return null;
+        return new BasePresenter(this) {
+        };
     }
 
     private int positionSelected = -1;
@@ -160,7 +162,7 @@ public class SignUp10EatActivity extends VoiceToolBarActivity {
         for (int i = 0; i < size; i++) {
             EatModel model = mModels.get(i);
             if (model.isSelected()) {
-                cacheUserInfo((i+1) + "");
+                cacheUserInfo((i + 1) + "");
                 Intent intent = new Intent(this, SignUp11SmokeActivity.class);
                 startActivity(intent);
                 return;
@@ -168,6 +170,7 @@ public class SignUp10EatActivity extends VoiceToolBarActivity {
         }
         MLVoiceSynthetize.startSynthesize(R.string.sign_up_eat_tip);
     }
+
     private void cacheUserInfo(String eat) {
         UserInfoBean user = Box.getSessionManager().getUser();
         if (user == null) {
@@ -176,6 +179,7 @@ public class SignUp10EatActivity extends VoiceToolBarActivity {
         user.eatingHabits = eat;
         Box.getSessionManager().setUser(user);
     }
+
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
     public static final String REGEX_IN_GO_FORWARD = ".*(下一步|下一部|确定|完成).*";
 

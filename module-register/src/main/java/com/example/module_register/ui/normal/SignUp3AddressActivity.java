@@ -80,14 +80,13 @@ public class SignUp3AddressActivity extends VoiceToolBarActivity {
 
     @Override
     public void initParams(Intent intentArgument) {
-
+        initLocation();
     }
 
     @Override
     public void initView() {
         mUnbinder = ButterKnife.bind(this);
         initData();
-        initLocation();
     }
 
     @Override
@@ -202,7 +201,6 @@ public class SignUp3AddressActivity extends VoiceToolBarActivity {
     protected void onResume() {
         super.onResume();
         setDisableWakeup(true);
-        robotStartListening();
         MLVoiceSynthetize.startSynthesize(Box.getString(R.string.sign_up3_address_tip), new MLSynthesizerListener() {
             @Override
             public void onCompleted(SpeechError speechError) {

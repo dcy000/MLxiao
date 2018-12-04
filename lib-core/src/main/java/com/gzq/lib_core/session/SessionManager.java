@@ -15,7 +15,6 @@ import java.util.Set;
 
 /**
  * 会话管理
- * Created by ChenRui on 2017/4/28 0028 17:27.
  */
 public abstract class SessionManager {
 

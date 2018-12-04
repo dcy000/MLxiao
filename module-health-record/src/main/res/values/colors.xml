@@ -5,7 +5,6 @@
     <!--主推背景色-->
     <color name="health_record_main_bg">#f5f5f5</color>
     <color name="health_record_white">@android:color/white</color>
-    <color name="health_record_gray">#bbbbbb</color>
     <color name="health_record_line">#eeeeee</color>
     <color name="health_record_color_9cd793">#9CD793</color>
     <color name="health_record_color_c2364b">#C2364B</color>

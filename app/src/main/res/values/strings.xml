@@ -413,15 +413,7 @@
     <string name="healthy_con">健康器材</string>
     <string name="goods_name">快速心电监测仪PC-80b</string>
     <string name="goods_amount">198</string>
-    <string name="goods_detail">商&#160;&#160;品&#160;&#160;详&#160;&#160;情</string>
 
-    <string name="orders_detail">订&#160;&#160;单&#160;&#160;详&#160;&#160;情</string>
-
-
-
-
-
-    <string name="shop_sum_price" formatted="false">总价：%1$s</string>
     <string name="an_hour_later">饭后\n一小时</string>
     <string name="two_hour_later">饭后\n两小时</string>
     <string name="kongfu">空腹</string>
@@ -437,9 +429,9 @@
     <string name="facc_register">三\n\n二\n\n依\n茄子</string>
 
     <string name="shop_good">主人，请选择您要购买的商品</string>
-    <string name="shop_mount">主人，请选择购买数量</string>
+
     <string name="shop_yanzheng">主人，验证不通过，请重新验证</string>
-    <string name="shop_success">主人，恭喜您支付成功</string>
+
 
 
     <string name="bingzhengxiangqing">病症详情</string>
@@ -474,8 +466,6 @@
     <string name="zhanghu_chongzhi">主人，请使用支付宝或微信扫码完成充值</string>
 
     <string name="chongzhi_define">主人，请输入充值金额</string>
-
-    <string name="order">主人，请查看您的订单</string>
 
 
     <string name="body_guide">人&#160;&#160;体&#160;&#160;导&#160;&#160;图</string>

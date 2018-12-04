@@ -4,19 +4,15 @@ import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,14 +22,13 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.gcml.lib_widget.dialog.LoadingDialog;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.utils.Handlers;
 import com.gzq.lib_core.utils.RxUtils;
-import com.gzq.lib_core.utils.ScreenUtils;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.wake.MLVoiceWake;
 import com.iflytek.wake.MLWakeuperListener;
-import com.gzq.lib_core.utils.Handlers;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.concurrent.TimeUnit;
@@ -128,17 +123,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void backMainActivity() {
         startActivity(new Intent(mContext, MainActivity.class));
         finish();
-    }
-
-
-    protected FrameLayout mContentParent;
-
-    protected int provideWaveViewWidth() {
-        return ScreenUtils.dp2px(450);
-    }
-
-    protected int provideWaveViewHeight() {
-        return ScreenUtils.dp2px(120);
     }
 
     @Override
@@ -251,11 +235,6 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void setShowVoiceView(boolean showVoiceView) {
         isShowVoiceView = showVoiceView;
-    }
-
-
-    protected void onActivitySpeakFinish() {
-
     }
 
     @Override

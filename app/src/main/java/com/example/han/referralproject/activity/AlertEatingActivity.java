@@ -16,6 +16,8 @@ import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -161,22 +163,22 @@ public class AlertEatingActivity extends BaseActivity {
                         ToastUtils.showShort("修改成功");
                         switch (positionSelected + 1) {
                             case 1:
-                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "荤素搭配");
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "荤素搭配",voiceListener);
                                 break;
                             case 2:
-                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好吃荤");
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好吃荤",voiceListener);
                                 break;
                             case 3:
-                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好吃素");
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好吃素",voiceListener);
                                 break;
                             case 4:
-                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好吃咸");
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好吃咸",voiceListener);
                                 break;
                             case 5:
-                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好油腻");
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好油腻",voiceListener);
                                 break;
                             case 6:
-                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好甜食");
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮食情况已经修改为" + "偏好甜食",voiceListener);
                                 break;
                         }
                     }
@@ -187,9 +189,11 @@ public class AlertEatingActivity extends BaseActivity {
                     }
                 });
     }
-
-    @Override
-    protected void onActivitySpeakFinish() {
-        finish();
-    }
+    private MLSynthesizerListener voiceListener=new MLSynthesizerListener(){
+        @Override
+        public void onCompleted(SpeechError speechError) {
+            super.onCompleted(speechError);
+            finish();
+        }
+    };
 }

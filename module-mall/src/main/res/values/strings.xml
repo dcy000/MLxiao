@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">module-mall</string>
+    <string name="shop_mount">主人，请选择购买数量</string>
+    <string name="goods_detail">商&#160;&#160;品&#160;&#160;详&#160;&#160;情</string>
+    <string name="shop_sum_price" formatted="false">总价：%1$s</string>
+    <string name="shop_success">主人，恭喜您支付成功</string>
+    <string name="order">主人，请查看您的订单</string>
+    <string name="orders_detail">订&#160;&#160;单&#160;&#160;详&#160;&#160;情</string>
+</resources>

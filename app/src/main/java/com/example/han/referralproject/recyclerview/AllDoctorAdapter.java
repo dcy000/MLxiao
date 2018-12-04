@@ -59,8 +59,8 @@ public class AllDoctorAdapter extends RecyclerView.Adapter<AllDoctorAdapter.Hold
         holder.mPosition = position;
         Glide.with(Box.getApp())
                 .applyDefaultRequestOptions(new RequestOptions()
-                        .placeholder(R.drawable.placeholder)
-                        .error(R.drawable.placeholder))
+                        .placeholder(R.drawable.mall_placeholder)
+                        .error(R.drawable.mall_placeholder))
                 .load(mListPat.get(position).docter_photo)
                 .into(holder.mImagine);
         //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);

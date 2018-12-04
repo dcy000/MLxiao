@@ -177,7 +177,7 @@ dependencies {
     implementation project(':module-ecg')
     implementation project(':lib-core')
     implementation project(':module-health-record')
-    implementation project(':module-auth-face')
+    implementation project(':lib-auth-face')
     implementation project(':module-video')
     implementation project(':lib-bluetooth')
     implementation project(':module-blood-pressure')
@@ -190,4 +190,5 @@ dependencies {
     implementation project(':module-register')
     implementation project(':module-alarm-clock')
     implementation project(':module-doctor-advisory')
+    implementation project(':module-mall')
 }

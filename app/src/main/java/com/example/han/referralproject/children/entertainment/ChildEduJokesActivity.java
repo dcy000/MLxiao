@@ -13,6 +13,8 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.children.model.JokeModel;
 import com.example.han.referralproject.speechsynthesis.QaApi;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.gzq.lib_core.utils.Handlers;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
@@ -74,14 +76,6 @@ public class ChildEduJokesActivity extends BaseActivity {
         fetchJokes();
     }
 
-    @Override
-    protected void onActivitySpeakFinish() {
-        super.onActivitySpeakFinish();
-        if (isPlaying) {
-            nextSentence();
-        }
-    }
-
     private volatile boolean isPlaying;
 
     private void nextSentence() {
@@ -100,7 +94,7 @@ public class ChildEduJokesActivity extends BaseActivity {
         mAdapter.setPositionSelected(positionSelected);
         mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(positionSelected);
-        MLVoiceSynthetize.startSynthesize(mSentences.get(positionSelected));
+        MLVoiceSynthetize.startSynthesize(mSentences.get(positionSelected),voiceListener);
     }
 
     private void replay() {
@@ -112,7 +106,7 @@ public class ChildEduJokesActivity extends BaseActivity {
         mAdapter.setPositionSelected(0);
         mAdapter.notifyDataSetChanged();
         rvPoemSentences.scrollToPosition(0);
-        MLVoiceSynthetize.startSynthesize(mSentences.get(0));
+        MLVoiceSynthetize.startSynthesize(mSentences.get(0),voiceListener);
     }
 
     private void fetchJokes() {
@@ -131,13 +125,13 @@ public class ChildEduJokesActivity extends BaseActivity {
                 return;
             }
             if (results == null) {
-                MLVoiceSynthetize.startSynthesize("没有笑话了， 让我再想想");
+                MLVoiceSynthetize.startSynthesize("没有笑话了， 让我再想想",voiceListener);
                 return;
             }
             String jokesJson = results.get("resultJson");
             List<JokeModel> models = JokeModel.parseJokes(jokesJson);
             if (models == null || models.isEmpty()) {
-                MLVoiceSynthetize.startSynthesize("没有笑话了， 让我再想想");
+                MLVoiceSynthetize.startSynthesize("没有笑话了， 让我再想想",voiceListener);
                 return;
             }
             if (random == null) {
@@ -252,4 +246,13 @@ public class ChildEduJokesActivity extends BaseActivity {
         setDisableWakeup(false);
         super.onResume();
     }
+    private MLSynthesizerListener voiceListener=new MLSynthesizerListener(){
+        @Override
+        public void onCompleted(SpeechError speechError) {
+            super.onCompleted(speechError);
+            if (isPlaying) {
+                nextSentence();
+            }
+        }
+    };
 }

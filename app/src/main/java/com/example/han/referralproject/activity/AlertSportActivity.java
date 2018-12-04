@@ -16,7 +16,10 @@ import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -153,16 +156,16 @@ public class AlertSportActivity extends BaseActivity {
                         ToastUtils.showShort("修改成功");
                         switch (positionSelected + 1) {
                             case 1:
-                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "每天一次");
+                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "每天一次", voiceListener);
                                 break;
                             case 2:
-                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "每周几次");
+                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "每周几次", voiceListener);
                                 break;
                             case 3:
-                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "偶尔运动");
+                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "偶尔运动", voiceListener);
                                 break;
                             case 4:
-                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "从不运动");
+                                MLVoiceSynthetize.startSynthesize("主人，您的运动情况已经修改为" + "从不运动", voiceListener);
                                 break;
                         }
                     }
@@ -174,8 +177,11 @@ public class AlertSportActivity extends BaseActivity {
                 });
     }
 
-    @Override
-    protected void onActivitySpeakFinish() {
-        finish();
-    }
+    private MLSynthesizerListener voiceListener = new MLSynthesizerListener() {
+        @Override
+        public void onCompleted(SpeechError speechError) {
+            super.onCompleted(speechError);
+            finish();
+        }
+    };
 }

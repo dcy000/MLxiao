@@ -151,13 +151,10 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 .into(headImg);
         if ("1".equals(user.state)) {
             isSignDoctor.setText("已签约");
-        } else if ("0".equals(user.state)) {
-
-            isSignDoctor.setText("未签约");
-
-        } else {
+        } else if ("0".equals(user.state)&& !TextUtils.isEmpty(user.doid)) {
             isSignDoctor.setText("待审核");
-
+        } else {
+            isSignDoctor.setText("未签约");
         }
         if (TextUtils.isEmpty(user.doid)) {
             signDoctorName.setText("暂无");

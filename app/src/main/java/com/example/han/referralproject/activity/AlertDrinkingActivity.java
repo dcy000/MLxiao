@@ -16,6 +16,8 @@ import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class AlertDrinkingActivity extends BaseActivity {
     private EatAdapter mAdapter;
     private List<EatModel> mModels;
     private UserInfoBean data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +53,12 @@ public class AlertDrinkingActivity extends BaseActivity {
         mTitleText.setText("修改饮酒情况");
         tvSignUpGoBack.setText("取消");
         tvSignUpGoForward.setText("确定");
-        data= (UserInfoBean) getIntent().getParcelableExtra("data");
+        data = (UserInfoBean) getIntent().getParcelableExtra("data");
         initView();
     }
+
     private void initView() {
-        if (data==null){
+        if (data == null) {
             return;
         }
 
@@ -67,6 +71,7 @@ public class AlertDrinkingActivity extends BaseActivity {
         rvSignUpContent.setAdapter(mAdapter);
 
     }
+
     private int positionSelected = -1;
 
     private View.OnClickListener onItemClickListener = new View.OnClickListener() {
@@ -112,7 +117,7 @@ public class AlertDrinkingActivity extends BaseActivity {
 
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
-        if(positionSelected==-1){
+        if (positionSelected == -1) {
             ToastUtils.showShort("请选择其中一个");
             return;
         }
@@ -124,7 +129,7 @@ public class AlertDrinkingActivity extends BaseActivity {
                         data.weight,
                         data.eatingHabits,
                         data.smoke,
-                        user.drink=positionSelected+1+"",
+                        user.drink = positionSelected + 1 + "",
                         data.exerciseHabits,
                         data.mh,
                         data.dz
@@ -142,15 +147,15 @@ public class AlertDrinkingActivity extends BaseActivity {
                     @Override
                     public void onNext(Object o) {
                         ToastUtils.showShort("修改成功");
-                        switch (positionSelected+1){
+                        switch (positionSelected + 1) {
                             case 1:
-                                MLVoiceSynthetize.startSynthesize("主人，您的饮酒情况已经修改为"+"经常喝酒");
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮酒情况已经修改为" + "经常喝酒",voiceListener);
                                 break;
                             case 2:
-                                MLVoiceSynthetize.startSynthesize("主人，您的饮酒情况已经修改为"+"偶尔喝酒");
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮酒情况已经修改为" + "偶尔喝酒",voiceListener);
                                 break;
                             case 3:
-                                MLVoiceSynthetize.startSynthesize("主人，您的饮酒情况已经修改为"+"从不喝酒");
+                                MLVoiceSynthetize.startSynthesize("主人，您的饮酒情况已经修改为" + "从不喝酒",voiceListener);
                                 break;
 
                         }
@@ -162,8 +167,12 @@ public class AlertDrinkingActivity extends BaseActivity {
                     }
                 });
     }
-    @Override
-    protected void onActivitySpeakFinish() {
-        finish();
-    }
+
+    private MLSynthesizerListener voiceListener = new MLSynthesizerListener() {
+        @Override
+        public void onCompleted(SpeechError speechError) {
+            super.onCompleted(speechError);
+            finish();
+        }
+    };
 }

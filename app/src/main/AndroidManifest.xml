@@ -261,12 +261,7 @@
         <activity
             android:name=".shopping.ShopListActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".shopping.GoodDetailActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".shopping.OrderListActivity"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name="com.medlink.danbogh.signin.SignInActivity"
             android:screenOrientation="landscape"
@@ -313,9 +308,7 @@
             android:screenOrientation="landscape" />
 
 
-        <activity
-            android:name=".activity.MarketActivity"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.AlertMHActivity"
             android:screenOrientation="landscape" />

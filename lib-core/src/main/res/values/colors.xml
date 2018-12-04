@@ -4,4 +4,8 @@
     <color name="common_toolbar_bg">#3F86FC</color>
     <color name="common_toolbar_pressed">#33000000</color>
     <color name="common_toolbar_normal">#00000000</color>
+    <!--背景色-->
+    <color name="main_bg">#f5f5f5</color>
+    <color name="health_record_gray">#bbbbbb</color>
+    <color name="color_eee">#eeeeee</color>
 </resources>

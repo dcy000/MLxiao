@@ -24,9 +24,7 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
-import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
@@ -47,7 +45,6 @@ import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.service.API;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
-import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
 import com.example.han.referralproject.tool.other.StringUtil;
@@ -59,6 +56,9 @@ import com.example.module_doctor_advisory.ui.CheckContractActivity;
 import com.example.module_doctor_advisory.ui.DoctorAskGuideActivity;
 import com.example.module_doctor_advisory.ui.DoctorappoActivity;
 import com.example.module_doctor_advisory.ui.OnlineDoctorListActivity;
+import com.example.module_mall.ui.MarketActivity;
+import com.example.module_mall.ui.OrderListActivity;
+import com.example.module_register.ui.base.VoiceToolBarActivity;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignInActivity;
 import com.gcml.lib_ecg.base.IPresenter;
@@ -67,10 +67,12 @@ import com.gcml.module_health_record.HealthRecordActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.base.ui.BasePresenter;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.model.HttpResult;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.service.CommonAPI;
 import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.AppUtils;
 import com.gzq.lib_core.utils.PinYinUtils;
@@ -86,6 +88,7 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.signin.SignInActivity;
@@ -118,7 +121,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Function;
 
-public class SpeechSynthesisActivity extends BaseActivity implements View.OnClickListener {
+public class SpeechSynthesisActivity extends VoiceToolBarActivity implements View.OnClickListener {
 
     private static String TAG = SpeechSynthesisActivity.class.getSimpleName();
     // 语音听写对象
@@ -143,7 +146,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             switch (msg.what) {
                 case 0:
                     //startSynthesis(str1);
-                    MLVoiceSynthetize.startSynthesize(str1, isDefaultParam);
+                    MLVoiceSynthetize.startSynthesize(str1, isDefaultParam,voiceListener);
                     startAnim();
 
                     break;
@@ -167,8 +170,28 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
     };
+    /**
+     * 小E说完的监听
+     */
+    private MLSynthesizerListener voiceListener=new MLSynthesizerListener(){
+        @Override
+        public void onCompleted(SpeechError speechError) {
+            if (!TextUtils.isEmpty(mAudioPath)) {
 
-
+                int tag = TO_STORY;
+                String service = results.get("service");
+                if ("storyTelling".equals(service)) {
+                    tag = TO_PING_SHU;
+                }
+                onPlayAudio(mAudioPath, tag);
+                mAudioPath = null;
+                return;
+            }
+            if (yuyinFlag) {
+                findViewById(R.id.iat_recognizes).performClick();
+            }
+        }
+    };
     int maxVolume = 0;
     int volume = 0;
     AudioManager mAudioManager;
@@ -206,16 +229,25 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setShowVoiceView(true);
-        setContentView(R.layout.activity_speech_synthesis);
+    public int layoutId(Bundle savedInstanceState) {
+        return R.layout.activity_speech_synthesis;
+    }
+
+    @Override
+    public void initParams(Intent intentArgument) {
         user = Box.getSessionManager().getUser();
         rand = new Random();
         sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
+
+        //初始化音频管理器
+        mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        volume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+    }
+
+    @Override
+    public void initView() {
         mImageView = (ImageView) findViewById(R.id.iat_recognizes);
-
-
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,12 +256,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
         });
         initLayout();
-
-        //初始化音频管理器
-        mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        volume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-
         mRelativeLayout = findViewById(R.id.Rela);
         mLottieView = findViewById(R.id.animation_view);
         mLottieView.addAnimatorListener(new Animator.AnimatorListener() {
@@ -287,6 +313,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 onChoiceLanguages();
             }
         });
+    }
+
+    @Override
+    public com.gzq.lib_core.base.ui.IPresenter obtainPresenter() {
+        return new BasePresenter(this) {};
     }
 
 
@@ -354,7 +385,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         setDisableWakeup(true);
         robotStartListening();
         super.onResume();
-        MLVoiceSynthetize.startSynthesize("主人,来和我聊天吧", isDefaultParam);
+        MLVoiceSynthetize.startSynthesize("主人,来和我聊天吧", isDefaultParam,voiceListener);
         mLottieView.resumeAnimation();
     }
 
@@ -402,7 +433,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     return;
                 }
                 if (response == null || response.getSong() == null) {
-                    MLVoiceSynthetize.startSynthesize("抱歉，没找到这首歌", isDefaultParam);
+                    MLVoiceSynthetize.startSynthesize("抱歉，没找到这首歌", isDefaultParam,voiceListener);
                     mHandler.sendEmptyMessageDelayed(1, 3000);
                     return;
                 }
@@ -464,6 +495,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View view) {
 
+        super.onClick(view);
         if (null == mIat) {
             // 创建单例失败，与 21001 错误为同样原因，参考 http://bbs.xfyun.cn/forum.php?mod=viewthread&tid=9688
             this.showTip("创建对象失败，请确认 libmsc.so 放置正确，且有调用 createUtility 进行初始化");
@@ -522,25 +554,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
 
-    @Override
-    protected void onActivitySpeakFinish() {
-        super.onActivitySpeakFinish();
-        if (!TextUtils.isEmpty(mAudioPath)) {
-
-            int tag = TO_STORY;
-            String service = results.get("service");
-            if ("storyTelling".equals(service)) {
-                tag = TO_PING_SHU;
-            }
-            onPlayAudio(mAudioPath, tag);
-            mAudioPath = null;
-            return;
-        }
-        if (yuyinFlag) {
-            findViewById(R.id.iat_recognizes).performClick();
-        }
-    }
-
     private void onPlayAudio(String audioPath, int tag) {
         Music music = new Music(audioPath);
         startActivityForResult(new Intent(SpeechSynthesisActivity.this, MusicPlayActivity.class)
@@ -598,7 +611,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (yuyinFlag) {
                 findViewById(R.id.iat_recognizes).performClick();
             } else {
-                MLVoiceSynthetize.startSynthesize("主人,我没听清您能再说一遍吗", isDefaultParam);
+                MLVoiceSynthetize.startSynthesize("主人,我没听清您能再说一遍吗", isDefaultParam,voiceListener);
             }
         }
 
@@ -662,7 +675,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         Integer.valueOf(minute));
                 String tip = String.format(Locale.CHINA,
                         "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
-                MLVoiceSynthetize.startSynthesize(tip, isDefaultParam);
+                MLVoiceSynthetize.startSynthesize(tip, isDefaultParam,voiceListener);
                 return;
             }
 
@@ -686,8 +699,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                                     if (versionInfoBean != null && versionInfoBean.vid > AppUtils.getAppInfo().getVersionCode()) {
                                         new UpdateAppManager(SpeechSynthesisActivity.this).showNoticeDialog(versionInfoBean.url);
                                     } else {
-                                        MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
-                                        Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                                        MLVoiceSynthetize.startSynthesize("当前已经是最新版本了",voiceListener);
+                                        ToastUtils.showShort("当前已经是最新版本了");
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -696,8 +709,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
                             @Override
                             protected void onError(ApiException ex) {
-                                MLVoiceSynthetize.startSynthesize("当前已经是最新版本了");
-                                Toast.makeText(mContext, "当前已经是最新版本了", Toast.LENGTH_SHORT).show();
+                                MLVoiceSynthetize.startSynthesize("当前已经是最新版本了",voiceListener);
+                                ToastUtils.showShort("当前已经是最新版本了");
                             }
                         });
                 return;
@@ -1036,13 +1049,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private void deleteVoice() {
         volume -= 3;
         if (volume > 3) {
-            MLVoiceSynthetize.startSynthesize(getString(R.string.reduce_volume), isDefaultParam);
+            MLVoiceSynthetize.startSynthesize(getString(R.string.reduce_volume), isDefaultParam,voiceListener);
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
             mHandler.sendEmptyMessageDelayed(1, 2000);
 
 
         } else {
-            MLVoiceSynthetize.startSynthesize(getString(R.string.min_volume), isDefaultParam);
+            MLVoiceSynthetize.startSynthesize(getString(R.string.min_volume), isDefaultParam,voiceListener);
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 3, AudioManager.FLAG_PLAY_SOUND);
             mHandler.sendEmptyMessageDelayed(1, 3000);
 
@@ -1052,11 +1065,11 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     private void addVoice() {
         volume += 3;
         if (volume < maxVolume) {
-            MLVoiceSynthetize.startSynthesize(getString(R.string.add_volume), isDefaultParam);
+            MLVoiceSynthetize.startSynthesize(getString(R.string.add_volume), isDefaultParam,voiceListener);
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
             mHandler.sendEmptyMessageDelayed(1, 2000);
         } else {
-            MLVoiceSynthetize.startSynthesize(getString(R.string.max_volume), isDefaultParam);
+            MLVoiceSynthetize.startSynthesize(getString(R.string.max_volume), isDefaultParam,voiceListener);
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_PLAY_SOUND);
             mHandler.sendEmptyMessageDelayed(1, 3000);
         }
@@ -1081,7 +1094,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         }).flatMap(new Function<String, ObservableSource<HttpResult<ArrayList<UserInfoBean>>>>() {
             @Override
             public ObservableSource<HttpResult<ArrayList<UserInfoBean>>> apply(String s) throws Exception {
-                return Box.getRetrofit(API.class)
+                return Box.getRetrofit(CommonAPI.class)
                         .queryAllLocalUsers(s);
             }
         }).compose(RxUtils.httpResponseTransformer())
@@ -1494,9 +1507,9 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         if (!TextUtils.isEmpty(audiopath)) {
             mAudioPath = audiopath;
             if (!empty) {
-                MLVoiceSynthetize.startSynthesize(text, isDefaultParam);
+                MLVoiceSynthetize.startSynthesize(text, isDefaultParam,voiceListener);
             } else {
-                onActivitySpeakFinish();
+                voiceListener.onCompleted(null);
             }
             return;
         }
@@ -1565,41 +1578,41 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 switch (randNum) {
 
                     case 1:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_1), isDefaultParam);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_1), isDefaultParam,voiceListener);
                         break;
                     case 2:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_2), isDefaultParam);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_2), isDefaultParam,voiceListener);
                         break;
                     case 3:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_3), isDefaultParam);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_3), isDefaultParam,voiceListener);
 
                         break;
                     case 4:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_4), isDefaultParam);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_4), isDefaultParam,voiceListener);
 
                         break;
                     case 5:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_5), isDefaultParam);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_5), isDefaultParam,voiceListener);
 
                         break;
                     case 6:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_6), isDefaultParam);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_6), isDefaultParam,voiceListener);
 
                         break;
                     case 7:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_7), isDefaultParam);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_7), isDefaultParam,voiceListener);
 
                         break;
                     case 8:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_8), isDefaultParam);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_8), isDefaultParam,voiceListener);
 
                         break;
                     case 9:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_9), isDefaultParam);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_9), isDefaultParam,voiceListener);
 
                         break;
                     case 10:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_10), isDefaultParam);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_10), isDefaultParam,voiceListener);
                     case 11:
                     case 12:
                     case 13:
@@ -1623,7 +1636,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         //变声学舌
                         MLVoiceSynthetize.setRandomParam();
                         isDefaultParam = false;
-                        MLVoiceSynthetize.startSynthesize(resultBuffer.toString(), isDefaultParam);
+                        MLVoiceSynthetize.startSynthesize(resultBuffer.toString(), isDefaultParam,voiceListener);
                         isDefaultParam = true;
                         break;
                     default:
@@ -1920,13 +1933,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case TO_MUSICPLAY:
-                MLVoiceSynthetize.startSynthesize("主人，想听更多歌曲，请告诉我！", isDefaultParam);
+                MLVoiceSynthetize.startSynthesize("主人，想听更多歌曲，请告诉我！", isDefaultParam,voiceListener);
                 break;
             case TO_STORY:
-                MLVoiceSynthetize.startSynthesize("主人，我讲的故事好听吗？", isDefaultParam);
+                MLVoiceSynthetize.startSynthesize("主人，我讲的故事好听吗？", isDefaultParam,voiceListener);
                 break;
             case TO_PING_SHU:
-                MLVoiceSynthetize.startSynthesize("主人，想听更多评书，请告诉我！", isDefaultParam);
+                MLVoiceSynthetize.startSynthesize("主人，想听更多评书，请告诉我！", isDefaultParam,voiceListener);
                 break;
             case 1001:
                 if (data != null) {

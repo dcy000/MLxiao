@@ -10,8 +10,8 @@ import com.example.module_doctor_advisory.R;
 import com.example.module_doctor_advisory.adapter.DoctorAdapter;
 import com.example.module_doctor_advisory.bean.Docter;
 import com.example.module_doctor_advisory.service.DoctorAPI;
-import com.example.module_doctor_advisory.utils.SpaceItemDecoration;
-import com.example.module_doctor_advisory.utils.SpacesItemDecoration;
+import com.gzq.lib_core.handle.SpaceItemDecoration;
+import com.gzq.lib_core.handle.SpacesItemDecoration;
 import com.gcml.lib_widget.ToolbarBaseActivity;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.base.ui.BasePresenter;
@@ -29,7 +29,6 @@ import java.util.List;
 public class OnlineDoctorListActivity extends ToolbarBaseActivity implements View.OnClickListener {
 
 
-
     private RecyclerView mRecyclerView;
     private List<Docter> mlist = new ArrayList<Docter>();
     DoctorAdapter mDoctorAdapter;
@@ -39,6 +38,7 @@ public class OnlineDoctorListActivity extends ToolbarBaseActivity implements Vie
 
 
     private int limit = 9;
+    private String title;
 
     @Override
     public int layoutId(Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class OnlineDoctorListActivity extends ToolbarBaseActivity implements Vie
 
     @Override
     public void initParams(Intent intentArgument) {
+        title = intentArgument.getStringExtra("title");
         mFlag = intentArgument.getStringExtra("flag");
         if ("contract".equals(mFlag)) {
             Box.getRetrofit(DoctorAPI.class)
@@ -220,12 +221,14 @@ public class OnlineDoctorListActivity extends ToolbarBaseActivity implements Vie
 
     @Override
     public void initView() {
+        mTitleText.setText(title);
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
     }
 
     @Override
     public IPresenter obtainPresenter() {
-        return new BasePresenter(this) {};
+        return new BasePresenter(this) {
+        };
     }
 
 }

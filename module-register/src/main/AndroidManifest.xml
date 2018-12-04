@@ -3,9 +3,6 @@
 
     <application>
         <activity
-            android:name="com.example.module_doctor_advisory.ui.ConfirmContractActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".ui.normal.SignUp1NameActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -46,6 +43,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.normal.SignUp14DiseaseHistoryActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.normal.ConfirmContractActivity"
             android:screenOrientation="landscape" />
     </application>
 

@@ -85,4 +85,5 @@ dependencies {
 
     //数据库框架LitePal 在闹钟处有使用 最终必须去掉
     api 'org.litepal.android:core:1.6.0'
+    compileOnly rootProject.ext.dependencies["recyclerview-v7"]
 }

@@ -6,7 +6,6 @@ package com.gzq.lib_core.session;
 
 /**
  * 会话用户信息
- * Created by ChenRui on 2017/5/2 0002 11:51.
  */
 public class SessionUserInfo {
 

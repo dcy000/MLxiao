@@ -19,6 +19,7 @@ import com.example.han.referralproject.util.HealthInfo;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.service.CommonAPI;
 import com.gzq.lib_core.utils.KVUtils;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
@@ -117,7 +118,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     private void getData() {
         UserInfoBean user = Box.getSessionManager().getUser();
         Log.i(TAG, "getData: " + user);
-        Box.getRetrofit(API.class)
+        Box.getRetrofit(CommonAPI.class)
                 .queryUserInfo(user.bid)
                 .compose(RxUtils.httpResponseTransformer())
                 .as(RxUtils.autoDisposeConverter(this))

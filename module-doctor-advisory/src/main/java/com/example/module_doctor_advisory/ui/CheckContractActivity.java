@@ -20,6 +20,7 @@ import com.gzq.lib_core.base.ui.BasePresenter;
 import com.gzq.lib_core.base.ui.IPresenter;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.service.CommonAPI;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 
@@ -27,7 +28,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class CheckContractActivity extends ToolbarBaseActivity {
@@ -88,7 +92,8 @@ public class CheckContractActivity extends ToolbarBaseActivity {
 
     @Override
     public IPresenter obtainPresenter() {
-        return new BasePresenter(this) {};
+        return new BasePresenter(this) {
+        };
     }
 
     @OnClick(R2.id.tv_cancel_contract)
@@ -113,12 +118,26 @@ public class CheckContractActivity extends ToolbarBaseActivity {
     private void onCancelContract() {
         Box.getRetrofit(DoctorAPI.class)
                 .cancelSignDoctor(user.bid)
+                .flatMap(new Function<Object, ObservableSource<UserInfoBean>>() {
+                    @Override
+                    public ObservableSource<UserInfoBean> apply(Object o) throws Exception {
+                        return Box.getRetrofit(CommonAPI.class)
+                                .queryUserInfo(Box.getUserId())
+                                .compose(RxUtils.httpResponseTransformer(false))
+                                .doOnNext(new Consumer<UserInfoBean>() {
+                                    @Override
+                                    public void accept(UserInfoBean userInfoBean) throws Exception {
+                                        Box.getSessionManager().setUser(userInfoBean);
+                                    }
+                                });
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new CommonObserver<Object>() {
+                .subscribe(new CommonObserver<UserInfoBean>() {
                     @Override
-                    public void onNext(Object o) {
+                    public void onNext(UserInfoBean o) {
                         ToastUtils.showShort("取消成功");
                         finish();
                     }

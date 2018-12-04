@@ -6,7 +6,6 @@ package com.gzq.lib_core.session;
 
 /**
  * 用户授权
- * Created by ChenRui on 2017/4/28 0028 18:33.
  */
 public class SessionToken {
 
