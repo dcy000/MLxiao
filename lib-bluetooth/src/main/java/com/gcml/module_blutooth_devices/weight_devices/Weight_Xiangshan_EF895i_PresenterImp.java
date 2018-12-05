@@ -135,7 +135,8 @@ public class Weight_Xiangshan_EF895i_PresenterImp extends BaseBluetoothPresenter
             public void OnListening(BleDevice bleDevice) {
                 Logg.e(Weight_Xiangshan_EF895i_PresenterImp.class, "OnListening: " + bleDevice.getDeviceType().toString() + "---" + bleDevice.getBluetoothDevice().getAddress());
                 if (bleDevice.getBluetoothDevice().getAddress().equals(targetAddress)) {
-                    bleScan.scanLeStopDevice();
+//                    bleScan.scanLeStopDevice();
+                    bleScan.ScanLeStopDevice();
                     connectDevice(targetAddress);
                 }
             }
@@ -149,7 +150,8 @@ public class Weight_Xiangshan_EF895i_PresenterImp extends BaseBluetoothPresenter
         isDestroy = true;
         if (bleScan != null) {
             if (bleScan.ismScanning()) {
-                bleScan.scanLeStopDevice();
+//                bleScan.scanLeStopDevice();
+                bleScan.ScanLeStopDevice();
             }
         }
         if (isConnected) {

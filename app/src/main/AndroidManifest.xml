@@ -187,6 +187,7 @@
             android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -487,9 +488,9 @@
             android:name=".intelligent_diagnosis.DeleteGroupActivity"
             android:screenOrientation="landscape">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
             <!--</intent-filter>-->
         </activity>
         <activity
@@ -622,28 +623,39 @@
             android:name="com.gcml.module_health_record.HealthRecordActivity"
             android:label="历史测量数据界面"
             android:screenOrientation="landscape" />
-        <activity android:name=".hypertensionmanagement.activity.OriginHypertensionTipActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.NormalHighTipActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.PressureFlatTipActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.PressureNornalTipActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.SlowDiseaseManagementActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.SlowDiseaseManagementTipActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.BasicInformationActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.PrimaryHypertensionActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.HypertensionTipActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.HypertensionActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.HasDiseaseOrNotActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".hypertensionmanagement.activity.OriginHypertensionTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.NormalHighTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.PressureFlatTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.PressureNornalTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.SlowDiseaseManagementActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.SlowDiseaseManagementTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.BasicInformationActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.PrimaryHypertensionActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.HypertensionTipActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.HypertensionActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.HasDiseaseOrNotActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".homepage.MainActivity"
             android:label="20180730主页面"
@@ -653,35 +665,49 @@
             android:name=".measure.NewMeasureBloodpressureResultActivity"
             android:label="单次血压测量结果展示页面"
             android:screenOrientation="landscape" />
-        <activity android:name=".hypertensionmanagement.activity.IsEmptyStomachOrNotActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.NormalHightActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.BloodPressureMeasureActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.BloodClucoseMeasureActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.WeightMeasureActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".settting.activity.FactoryTestActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".settting.activity.ScreenPointActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".settting.activity.ScreenTouchActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".tcm.activity.HealthManagementResultActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".tcm.activity.OlderHealthManagementSerciveActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".tcm.SymptomCheckActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".settting.activity.CameraActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".hypertensionmanagement.activity.DetecteTipActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".hypertensionmanagement.activity.IsEmptyStomachOrNotActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.NormalHightActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.BloodPressureMeasureActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.BloodClucoseMeasureActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.WeightMeasureActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".settting.activity.FactoryTestActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".settting.activity.ScreenPointActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".settting.activity.ScreenTouchActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tcm.activity.HealthManagementResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tcm.activity.OlderHealthManagementSerciveActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".tcm.SymptomCheckActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".settting.activity.CameraActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertensionmanagement.activity.DetecteTipActivity"
+            android:screenOrientation="landscape" />
         <!--<activity android:name=".recommend.RecommendActivity" />-->
-        <activity android:name=".searchmaket.activity.SearchGoodsActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".searchmaket.activity.SearchGoodsActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

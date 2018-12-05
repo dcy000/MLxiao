@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gcml.common.demo.R;
-import com.tencent.bugly.crashreport.CrashReport;
 
 public class AppActivity extends AppCompatActivity {
 
@@ -38,17 +37,14 @@ public class AppActivity extends AppCompatActivity {
 
     public void onJavaCrash(View view) {
         Toast.makeText(this, "10 秒中后去撩撩 Bugly 呗", Toast.LENGTH_SHORT).show();
-        CrashReport.testJavaCrash();
     }
 
     public void onNdkCrash(View view) {
         Toast.makeText(this, "10 秒中后去撩撩 Bugly 呗", Toast.LENGTH_SHORT).show();
-        CrashReport.testNativeCrash();
     }
 
     public void onAnr(View view) {
         Toast.makeText(this, "10 秒中后去撩撩 Bugly 呗", Toast.LENGTH_SHORT).show();
-        CrashReport.testANRCrash();
     }
 
 }

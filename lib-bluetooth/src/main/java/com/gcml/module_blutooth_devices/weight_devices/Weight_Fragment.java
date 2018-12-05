@@ -145,27 +145,6 @@ public class Weight_Fragment extends BluetoothBaseFragment implements IView, Vie
             if (mTvTizhong != null) {
                 mTvTizhong.setText(datas[0]);
             }
-//            String userHeight = null;
-//            try {
-//                userHeight = SharePreferenceHelper.getInstance().getLocalShared(getContext()).getUserHeight();
-//            } catch (NoSuchMethodException e) {
-//                e.printStackTrace();
-//            } catch (InvocationTargetException e) {
-//                e.printStackTrace();
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            } catch (ClassNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (java.lang.InstantiationException e) {
-//                e.printStackTrace();
-//            }
-//            if (!TextUtils.isEmpty(userHeight)) {
-//                float parseFloat = Float.parseFloat(userHeight);
-//                float weight = Float.parseFloat(datas[0]);
-//                if (mTvTizhi != null) {
-//                    mTvTizhi.setText(String.format("%.2f", weight / (parseFloat * parseFloat / 10000)));
-//                }
-//            }
         } else if (datas.length == 3) {
             if (!isMeasureFinishedOfThisTime && Float.parseFloat(datas[2]) != 0) {
                 isMeasureFinishedOfThisTime = true;

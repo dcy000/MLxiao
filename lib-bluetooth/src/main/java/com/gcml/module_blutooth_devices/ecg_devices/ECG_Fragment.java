@@ -132,7 +132,7 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView, View.O
             });
         } else if (datas.length == 2) {
             mMeasureTip.setText(datas[1]);
-        } else if (datas.length == 4) {
+        } else if (datas.length == 5) {
             //pdf编号，pdf地址，异常标识，结论,心率
             onMeasureFinished(datas[0], datas[1], datas[2], datas[3],datas[4]);
             if (analysisData != null) {

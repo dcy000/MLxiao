@@ -39,10 +39,8 @@ public class Weight_Simaide_PresenterImp extends BaseBluetoothPresenter {
     private VTDeviceManager manager;
     private VTDeviceScale device;
 
-
     public Weight_Simaide_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting) {
         super(fragment, discoverSetting);
-
     }
 
 
@@ -55,18 +53,15 @@ public class Weight_Simaide_PresenterImp extends BaseBluetoothPresenter {
     @Override
     public void checkBlueboothOpened() {
         super.checkBlueboothOpened();
-
-
         manager = VTDeviceManager.getInstance();
         manager.setKey(KEY);
         manager.startBle(baseContext);
-
         new WeakHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 manager.setDeviceManagerListener(deviceManagerListener);
             }
-        },1000);
+        }, 1000);
 
         new WeakHandler().postDelayed(new Runnable() {
             @Override
@@ -75,6 +70,7 @@ public class Weight_Simaide_PresenterImp extends BaseBluetoothPresenter {
             }
         }, 1000);
     }
+
 
     @Override
     public void searchDevices() {
@@ -178,7 +174,7 @@ public class Weight_Simaide_PresenterImp extends BaseBluetoothPresenter {
                 SimaideBodyInfo scaleInfo = new Gson().fromJson(response, SimaideBodyInfo.class);
                 if (scaleInfo.getCode() == 200) {
                     float weight = scaleInfo.getDetails().getWeight();
-                    baseView.updateData("result","result",String.format("%.2f", weight));
+                    baseView.updateData("result", "result", String.format("%.2f", weight));
                 }
             }
         }
@@ -196,7 +192,6 @@ public class Weight_Simaide_PresenterImp extends BaseBluetoothPresenter {
         if (manager != null) {
             manager.releaseBleManager();
         }
-        devices = null;
         manager = null;
     }
 }

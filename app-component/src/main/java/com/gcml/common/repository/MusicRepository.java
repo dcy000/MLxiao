@@ -1,5 +1,6 @@
 package com.gcml.common.repository;
 
+import com.gcml.common.repository.entity.FingerBean;
 import com.gcml.common.repository.entity.SheetEntity;
 import com.gcml.common.repository.entity.SongEntity;
 import com.gcml.common.repository.local.SheetDao;
@@ -67,5 +68,9 @@ public class MusicRepository {
                  return new Object();
             }
         });
+    }
+
+    public Observable<List<FingerBean>> getFingers(){
+        return mMusicService.getFingers("0","100").compose(RxUtils.apiResultTransformer());
     }
 }

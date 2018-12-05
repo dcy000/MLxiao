@@ -360,7 +360,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 switch (brand) {
                     case "zjwellcom":
                         baseBluetoothPresenter = new Fingerprint_WeiEr_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MIX, address, "zjwellcom"));
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MIX, address, "zjwellcom"),new ArrayList<byte[]>());
                         break;
                     default:
                         break;
