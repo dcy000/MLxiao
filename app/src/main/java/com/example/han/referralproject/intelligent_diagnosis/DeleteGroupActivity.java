@@ -61,8 +61,9 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
                 NetworkApi.getGroupInfo(etIp.getText().toString(), new NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>>() {
                     @Override
                     public void onSuccess(ArrayList<XfGroupInfo> response) {
+                        lists.clear();
                         lists.addAll(response);
-                        i = response.size() - 1;
+                        i = 0;
                         text.append("获取完成。总共需要检验数据：" + response.size());
                         FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).deleteGroup(lists.get(i).gid, lists.get(i).xfid);
                         FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).setOnDeleteGroupListener(DeleteGroupActivity.this);
@@ -78,12 +79,25 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onResult(IdentityResult result, boolean islast) {
         text.append(result.getResultString() + "\n");
-        i--;
+        i++;
         deleteSum++;
         Handlers.bg().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (i < 1000 && i < 0) {
+                if ( i < lists.size() ) {
+                    if (i % 20 == 0) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tvResult.setText("等待 6 秒");
+                            }
+                        });
+                        try {
+                            Thread.sleep(6000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).deleteGroup(lists.get(i).gid, lists.get(i).xfid);
                     FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).setOnDeleteGroupListener(DeleteGroupActivity.this);
                 } else {
@@ -108,11 +122,24 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onError(SpeechError error) {
         text.append(error.getPlainDescription(true) + "\n");
-        i--;
+        i++;
         Handlers.bg().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (i < 1000) {
+                if (i < lists.size() ) {
+                    if (i % 20 == 0) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tvResult.setText("等待 6 秒");
+                            }
+                        });
+                        try {
+                            Thread.sleep(6000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).deleteGroup(lists.get(i).gid, lists.get(i).xfid);
                     FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).setOnDeleteGroupListener(DeleteGroupActivity.this);
                 } else {

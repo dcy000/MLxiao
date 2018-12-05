@@ -1166,7 +1166,7 @@ public class NetworkApi {
         if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
             return;
         }
-        params.put("userid", UserSpHelper.getUserId());
+        params.put("userid", "0");
 //        params.put("gid", gid);
 //        params.put("xfid", xfid);
         params.put("state", "0");
