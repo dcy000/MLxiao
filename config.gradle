@@ -8,7 +8,7 @@ ext {
             spareUrl      : "\"http://116.62.36.12:8080/\"",//备用服务器
             produceUrl    : "\"http://118.31.238.207:8080/\"",//正式服务器
             sungaofengUrl : "\"http://192.168.200.106:8080/\"",//孙高峰
-            lintiancongUrl: "\"http://192.168.200.117:8080/\"",//林天聪
+            lintiancongUrl: "\"http://192.168.0.107:8080/\"",//林天聪
             caowenbo      : "\"http://192.168.200.157:8080/\"",//曹文博
 
             seniverse     : "\"https://api.seniverse.com/v3/\"", // 心知天气 baseUrl
@@ -17,10 +17,10 @@ ext {
     //TODO:各自开发的模块中还未统一IP的请尽早统一，避免不必要的风险。
     //TODO:开发时只更改开发引用即可，下方的生产引用不要轻易更改。
     //开发使用的IP地址
-    developUrl = api.testUrl
+    developUrl = api.lintiancongUrl
 
     //线上正式运行的IP地址
-    produceUrl = api.testUrl
+    produceUrl = api.lintiancongUrl
 
     android = [
             compileSdkVersion: 27,

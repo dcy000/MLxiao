@@ -1,4 +1,4 @@
-package com.gcml.auth.face.model;
+package com.gcml.common.utils;
 
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
@@ -20,12 +20,11 @@ import android.util.Base64;
 import android.view.SurfaceHolder;
 import android.view.View;
 
-import com.gcml.auth.face.utils.CameraUtils;
+import com.gcml.common.utils.CameraUtils;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -464,12 +463,22 @@ public class PreviewHelper
         return rotated;
     }
 
+    public static byte[] bitmapToBytes(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        if (!bitmap.isRecycled()) {
+            bitmap.recycle();
+        }
+        return baos.toByteArray();
+    }
+
     public static String bitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         if (!bitmap.isRecycled()) {
             bitmap.recycle();
         }
+
         return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
     }
 

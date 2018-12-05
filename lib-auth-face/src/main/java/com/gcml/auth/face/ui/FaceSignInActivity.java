@@ -14,7 +14,7 @@ import com.billy.cc.core.component.CCResult;
 import com.gcml.auth.face.BR;
 import com.gcml.auth.face.R;
 import com.gcml.auth.face.databinding.FaceActivitySignInBinding;
-import com.gcml.auth.face.model.PreviewHelper;
+import com.gcml.common.utils.PreviewHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;

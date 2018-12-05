@@ -181,7 +181,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
 
     private void checkFace(UserEntity user) {
         if (TextUtils.isEmpty(user.xfid)) {
-            CC.obtainBuilder("com.gcml.auth.face.signup")
+            CC.obtainBuilder("com.gcml.auth.face2.signup")
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
