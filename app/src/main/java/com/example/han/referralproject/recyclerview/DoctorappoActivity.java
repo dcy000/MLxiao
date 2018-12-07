@@ -1079,6 +1079,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
                     }
 
+
+
                     break;
             }
 
@@ -1094,26 +1096,6 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 
 
     public void enableVideo(long time, long time1) {
-//        if (mYuYueInfoList == null || mYuYueInfoList.isEmpty()) {
-//            mBtnCallDoctor.setEnabled(false);
-//            mBtnCallDoctor.setSelected(false);
-//            return;
-//        }
-//
-//        boolean allowed = false;
-//        for (YuYueInfo yuYueInfo : mYuYueInfoList) {
-//            if ("已接受".equals(yuYueInfo.getState())) {
-//                allowed = true;
-//                break;
-//            }
-//        }
-//        if (!allowed) {
-//            mBtnCallDoctor.setEnabled(false);
-//            mBtnCallDoctor.setSelected(false);
-//            return;
-//        }
-
-
         if (System.currentTimeMillis() < time && System.currentTimeMillis() >= time1) {
             mBtnCallDoctor.setEnabled(true);
             mBtnCallDoctor.setSelected(true);
@@ -1327,6 +1309,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                         mYuYueInfoList.add(response.get(i));
                     }
                 }
+
+
 
                 mHandler.sendEmptyMessage(0);
 

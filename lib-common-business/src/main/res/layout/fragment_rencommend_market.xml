@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0pt"
         android:visibility="gone"></com.gcml.common.widget.toolbar.TranslucentToolBar>
-
+    <include layout="@layout/layout_no_data_view" android:id="@+id/no_data"/>
     <TextView
         android:id="@+id/tv_commend_text"
         android:layout_width="1492pt"

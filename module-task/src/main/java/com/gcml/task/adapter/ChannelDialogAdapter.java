@@ -120,56 +120,22 @@ public class ChannelDialogAdapter extends BaseMultiItemQuickAdapter<ChannelModel
                     }
                 });
 
-
+                baseViewHolder.getView(R.id.img_edit).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemClick(channel, baseViewHolder);
+                    }
+                });
                 baseViewHolder.getView(R.id.rl_channel).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //执行删除，移动到推荐频道列表
-                        if (mIsEdit) {
-                            if (channel.getChannelType() == 1) return;
-                            int otherFirstPosition = getOtherFirstPosition();
-                            int currentPosition = baseViewHolder.getAdapterPosition();
-                            //获取到目标View
-                            View targetView = mRecyclerView.getLayoutManager().findViewByPosition(otherFirstPosition);
-                            //获取当前需要移动的View
-                            View currentView = mRecyclerView.getLayoutManager().findViewByPosition(currentPosition);
-                            // 如果targetView不在屏幕内,则indexOfChild为-1  此时不需要添加动画,因为此时notifyItemMoved自带一个向目标移动的动画
-                            // 如果在屏幕内,则添加一个位移动画
-                            if (mRecyclerView.indexOfChild(targetView) >= 0 && otherFirstPosition != -1) {
-                                RecyclerView.LayoutManager manager = mRecyclerView.getLayoutManager();
-                                int spanCount = ((GridLayoutManager) manager).getSpanCount();
-                                int targetX = targetView.getLeft();
-                                int targetY = targetView.getTop();
-                                int myChannelSize = getMyChannelSize();//这里我是为了偷懒 ，算出来我的频道的大小
-                                if (myChannelSize % spanCount == 1) {
-                                    //我的频道最后一行 之后一个，移动后
-                                    targetY -= targetView.getHeight();
-                                }
-                                //我的频道 移动到 推荐频道的第一个
-                                channel.setItemtype(ChannelModel.TYPE_OTHER_CHANNEL);//改为推荐频道类型
-                                channel.setChannelSelect(false);
-
-                                if (onChannelListener != null)
-                                    onChannelListener.onMoveToOtherChannel(currentPosition, otherFirstPosition - 1);
-                                startAnimation(currentView, targetX, targetY);
-                            } else {
-                                channel.setItemtype(ChannelModel.TYPE_OTHER_CHANNEL);//改为推荐频道类型
-                                channel.setChannelSelect(false);
-                                if (otherFirstPosition == -1) otherFirstPosition = mData.size();
-                                if (onChannelListener != null)
-                                    onChannelListener.onMoveToOtherChannel(currentPosition, otherFirstPosition - 1);
-                            }
-                        } else {
-                            if (onChannelListener != null) {
-                                onChannelListener.onFinish(channel.getChannelName());
-                            }
-                        }
+                        itemClick(channel, baseViewHolder);
                     }
                 });
                 break;
             case ChannelModel.TYPE_OTHER:
                 baseViewHolder.setText(R.id.tvTitle, channel.getChannelName())
-                        .setText(R.id.tv_sort, "点击添加项目");
+                        .setText(R.id.tv_sort, "点击下方项目可快速添加");
                 baseViewHolder.getView(R.id.tv_sort).setTag(false);
                 break;
             case ChannelModel.TYPE_OTHER_CHANNEL:
@@ -221,6 +187,49 @@ public class ChannelDialogAdapter extends BaseMultiItemQuickAdapter<ChannelModel
                 });
 
                 break;
+        }
+    }
+
+    private void itemClick(ChannelModel channel, BaseViewHolder baseViewHolder) {
+        //执行删除，移动到推荐频道列表
+        if (mIsEdit) {
+            if (channel.getChannelType() == 1) return;
+            int otherFirstPosition = getOtherFirstPosition();
+            int currentPosition = baseViewHolder.getAdapterPosition();
+            //获取到目标View
+            View targetView = mRecyclerView.getLayoutManager().findViewByPosition(otherFirstPosition);
+            //获取当前需要移动的View
+            View currentView = mRecyclerView.getLayoutManager().findViewByPosition(currentPosition);
+            // 如果targetView不在屏幕内,则indexOfChild为-1  此时不需要添加动画,因为此时notifyItemMoved自带一个向目标移动的动画
+            // 如果在屏幕内,则添加一个位移动画
+            if (mRecyclerView.indexOfChild(targetView) >= 0 && otherFirstPosition != -1) {
+                RecyclerView.LayoutManager manager = mRecyclerView.getLayoutManager();
+                int spanCount = ((GridLayoutManager) manager).getSpanCount();
+                int targetX = targetView.getLeft();
+                int targetY = targetView.getTop();
+                int myChannelSize = getMyChannelSize();//这里我是为了偷懒 ，算出来我的频道的大小
+                if (myChannelSize % spanCount == 1) {
+                    //我的频道最后一行 之后一个，移动后
+                    targetY -= targetView.getHeight();
+                }
+                //我的频道 移动到 推荐频道的第一个
+                channel.setItemtype(ChannelModel.TYPE_OTHER_CHANNEL);//改为推荐频道类型
+                channel.setChannelSelect(false);
+
+                if (onChannelListener != null)
+                    onChannelListener.onMoveToOtherChannel(currentPosition, otherFirstPosition - 1);
+                startAnimation(currentView, targetX, targetY);
+            } else {
+                channel.setItemtype(ChannelModel.TYPE_OTHER_CHANNEL);//改为推荐频道类型
+                channel.setChannelSelect(false);
+                if (otherFirstPosition == -1) otherFirstPosition = mData.size();
+                if (onChannelListener != null)
+                    onChannelListener.onMoveToOtherChannel(currentPosition, otherFirstPosition - 1);
+            }
+        } else {
+            if (onChannelListener != null) {
+                onChannelListener.onFinish(channel.getChannelName());
+            }
         }
     }
 

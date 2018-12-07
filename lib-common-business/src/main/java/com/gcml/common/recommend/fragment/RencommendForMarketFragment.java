@@ -43,6 +43,7 @@ public class RencommendForMarketFragment extends Fragment {
     private RecyclerView rvCommendGoods;
     private IChangToolbar iChangToolbar;
     private RecommendRepository recommendRepository = new RecommendRepository();
+    private View view;
 
     public void setOnChangToolbar(IChangToolbar iChangToolbar) {
         this.iChangToolbar = iChangToolbar;
@@ -74,7 +75,7 @@ public class RencommendForMarketFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rencommend_market, container, false);
+         view = inflater.inflate(R.layout.fragment_rencommend_market, container, false);
         bindView(view);
         return view;
     }
@@ -128,10 +129,14 @@ public class RencommendForMarketFragment extends Fragment {
                 .subscribe(new DefaultObserver<List<GoodBean>>() {
                     @Override
                     public void onNext(List<GoodBean> goodBeans) {
-                        rvCommendGoods.setAdapter(new RecommendRorMarketAdapter(R.layout.layout_recommend_market_item, goodBeans));
+
 
                         if (goodBeans == null || goodBeans.size() == 0) {
                             noDataView.setVisibility(View.VISIBLE);
+                            view.findViewById(R.id.no_data).setVisibility(View.VISIBLE);
+                        }else{
+                            rvCommendGoods.setAdapter(new RecommendRorMarketAdapter(R.layout.layout_recommend_market_item, goodBeans));
+                            view.findViewById(R.id.no_data).setVisibility(View.GONE);
                         }
 
                     }
@@ -139,6 +144,7 @@ public class RencommendForMarketFragment extends Fragment {
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        view.findViewById(R.id.no_data).setVisibility(View.VISIBLE);
                         noDataView.setVisibility(View.VISIBLE);
                     }
 

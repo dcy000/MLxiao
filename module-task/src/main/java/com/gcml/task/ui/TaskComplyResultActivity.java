@@ -83,7 +83,7 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
 
     private void bindData() {
         MLVoiceSynthetize.startSynthesize(getApplicationContext(), resultBean.result, false);
-        mToolBar.setData("健 康 报 告", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
+        mToolBar.setData("健 康 报 告", 0, null, R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();
@@ -102,35 +102,36 @@ public class TaskComplyResultActivity extends AppCompatActivity implements View.
                         .setPositiveButton("确认", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+                                finish();
                             }
                         }).show();
             }
         });
         resultTitle.setText(resultBean.result);
 
-        totalContent1.setText(resultBean.initiative == null ? "暂无": resultBean.initiative);
-        totalContent2.setText(resultBean.compliance == null ? "暂无": resultBean.compliance);
-        totalContent3.setText(resultBean.attitude == null ? "暂无": resultBean.attitude);
-        totalContent4.setText(resultBean.awareness == null ? "暂无": resultBean.awareness);
+        totalContent1.setText(resultBean.initiative == null ? "暂无" : resultBean.initiative);
+        totalContent2.setText(resultBean.compliance == null ? "暂无" : resultBean.compliance);
+        totalContent3.setText(resultBean.attitude == null ? "暂无" : resultBean.attitude);
+        totalContent4.setText(resultBean.awareness == null ? "暂无" : resultBean.awareness);
 
-        testContent1.setText(resultBean.detectionPlan.HTN == null ? "暂无": resultBean.detectionPlan.HTN);
-        testContent2.setText(resultBean.detectionPlan.weight == null ? "暂无": resultBean.detectionPlan.weight);
-        testContent3.setText(resultBean.detectionPlan.GLU == null ? "暂无": resultBean.detectionPlan.GLU);
+        testContent1.setText(resultBean.detectionPlan.HTN == null ? "暂无" : resultBean.detectionPlan.HTN);
+        testContent2.setText(resultBean.detectionPlan.weight == null ? "暂无" : resultBean.detectionPlan.weight);
+        testContent3.setText(resultBean.detectionPlan.GLU == null ? "暂无" : resultBean.detectionPlan.GLU);
 
         if (resultBean.sportRecommend != null) {
             mLayoutSport.setVisibility(View.VISIBLE);
             sportContent1.setText("每周" + resultBean.sportRecommend.weekCount + "次");
             sportContent2.setText(resultBean.sportRecommend.timeCost + "min");
-            sportContent3.setText( String .format("%.2f", resultBean.sportRecommend.weightTarget) + "kg");
+            sportContent3.setText(String.format("%.2f", resultBean.sportRecommend.weightTarget) + "kg");
         } else {
             mLayoutSport.setVisibility(View.GONE);
         }
 
-        dineContent1.setText(resultBean.intake.naSalt == null ? "暂无": "<" + resultBean.intake.naSalt);
-        dineContent2.setText(resultBean.intake.grease == null ? "暂无": "<" + resultBean.intake.grease);
-        dineContent3.setText(resultBean.intake.drink == null ? "暂无": "<" + resultBean.intake.drink);
-        dineContent4.setText(resultBean.intake.smoke == null ? "暂无": resultBean.intake.smoke);
+        dineContent1.setText(resultBean.intake.naSalt == null ? "暂无" : "<" + resultBean.intake.naSalt);
+        dineContent2.setText(resultBean.intake.grease == null ? "暂无" : "<" + resultBean.intake.grease);
+        dineContent3.setText(resultBean.intake.drink == null ? "暂无" : "<" + resultBean.intake.drink);
+        dineContent4.setText(resultBean.intake.smoke == null ? "暂无" : resultBean.intake.smoke);
 
         resultAgain.setOnClickListener(this);
         resultAffirm.setOnClickListener(this);

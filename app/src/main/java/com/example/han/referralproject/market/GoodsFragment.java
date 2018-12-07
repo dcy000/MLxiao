@@ -34,6 +34,7 @@ public class GoodsFragment extends Fragment {
     private Goods1Adapter mAdapter;
 
     private int mPosition = 1;
+    private View view;
 
 
     public static GoodsFragment newInstance(int position) {
@@ -63,7 +64,7 @@ public class GoodsFragment extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_goods, container, false);
+        view = inflater.inflate(R.layout.fragment_goods, container, false);
         rvGoods = view.findViewById(R.id.rv_goods);
         rvGoods.setLayoutManager(new GridLayoutManager(getContext(), 3));
 //        rvGoods.addItemDecoration(new GridViewDividerItemDecoration(0, 32));
@@ -96,6 +97,7 @@ public class GoodsFragment extends Fragment {
         NetworkApi.goods_list(mPosition, new NetworkManager.SuccessCallback<ArrayList<Goods>>() {
             @Override
             public void onSuccess(ArrayList<Goods> response) {
+                view.findViewById(R.id.no_data).setVisibility(View.GONE);
                 mData.addAll(response);
                 mAdapter.notifyDataSetChanged();
             }
@@ -103,6 +105,7 @@ public class GoodsFragment extends Fragment {
             @Override
             public void onFailed(String message) {
                 ToastUtils.showShort(message);
+                view.findViewById(R.id.no_data).setVisibility(View.VISIBLE);
             }
         });
     }

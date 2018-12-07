@@ -4,13 +4,18 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.gcml.common.repository.http.HttpLogInterceptor;
 import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.service.ProcessUtils;
 import com.google.gson.Gson;
+
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.ConnectException;
 import java.util.Map;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -29,7 +34,7 @@ public class NetworkManager {
         GET, POST
     }
 
-    private NetworkManager(){
+    private NetworkManager() {
         client = new OkHttpClient();
         mGson = new Gson();
         mContext = UtilsManager.getApplication();
@@ -137,7 +142,7 @@ public class NetworkManager {
         Callback responseCallback = new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
-                if (e instanceof ConnectException){
+                if (e instanceof ConnectException) {
                     handleFailedRequest("请检查网络连接");
                 } else {
                     handleFailedRequest(e.getMessage());

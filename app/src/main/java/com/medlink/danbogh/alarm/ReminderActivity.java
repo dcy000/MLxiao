@@ -13,6 +13,7 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.medlink.danbogh.utils.Handlers;
 
@@ -102,7 +103,7 @@ public class ReminderActivity extends BaseActivity {
     public void onTvBtnIgnoreClicked() {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
         NetworkApi.addEatMedicalRecord(
-                LocalShared.getInstance(this).getUserName()
+                UserSpHelper.getUserName()
                 , content,
                 "0",
                 new NetworkManager.SuccessCallback<Object>() {
@@ -122,7 +123,7 @@ public class ReminderActivity extends BaseActivity {
     public void onTvBtnConfirmClicked() {
         String content = getIntent().getStringExtra(AlarmHelper.CONTENT);
         NetworkApi.addEatMedicalRecord(
-                LocalShared.getInstance(this).getUserName(),
+                UserSpHelper.getUserName(),
                 content, "1",
                 new NetworkManager.SuccessCallback<Object>() {
                     @Override
@@ -132,7 +133,7 @@ public class ReminderActivity extends BaseActivity {
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        ToastUtils.showShort(message);
+//                        ToastUtils.showShort(message);
                         finish();
                     }
                 });
