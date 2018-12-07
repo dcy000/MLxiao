@@ -210,10 +210,14 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
                 .buffer(1)
                 .map(bitmapToBase64Mapper())
                 .compose(viewModel.ensureLive())
-                .doOnNext(new Consumer<String>() {
+                .flatMap(new Function<String, ObservableSource<String>>() {
                     @Override
-                    public void accept(String s) throws Exception {
-                        imageData = s;
+                    public ObservableSource<String> apply(String img) throws Exception {
+                        imageData = img;
+                        if (TextUtils.isEmpty(img)) {
+                            return Observable.error(new FaceBdError(FaceBdErrorUtils.ERROR_FACE_LIVELESS, ""));
+                        }
+                        return Observable.just(img);
                     }
                 })
                 .compose(checkFace())
