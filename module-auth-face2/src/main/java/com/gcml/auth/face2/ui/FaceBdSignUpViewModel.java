@@ -23,8 +23,8 @@ public class FaceBdSignUpViewModel extends BaseViewModel {
         return mFaceBdRepository.addFace(image, userId, "");
     }
 
-    public Observable<String> addFaceByApi(String userId, String imageData) {
-        return mFaceBdRepository.addFaceByApi(userId, imageData);
+    public Observable<String> addFaceByApi(String userId, String imageData, byte[] image) {
+        return mFaceBdRepository.addFaceByApi(userId, imageData, image);
     }
 
     public Observable<String> addFaceByApi(byte[] image, String userId) {
@@ -37,9 +37,5 @@ public class FaceBdSignUpViewModel extends BaseViewModel {
 
     public ObservableTransformer<List<String>, String> ensureLive() {
         return mFaceBdRepository.ensureLive();
-    }
-
-    public ObservableTransformer<String, FaceBdUser> ensureFaceAdded() {
-        return mFaceBdRepository.ensureFaceAdded();
     }
 }

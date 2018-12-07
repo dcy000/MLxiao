@@ -65,6 +65,8 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
     protected void init(Bundle savedInstanceState) {
         callId = getIntent().getStringExtra("callId");
         skip = getIntent().getBooleanExtra("skip", false);
+        verify = getIntent().getBooleanExtra("verify", false);
+        faceId = getIntent().getStringExtra("faceId");
         binding.setPresenter(this);
         binding.tvSkip.setVisibility(skip ? View.VISIBLE : View.GONE);
         mPreviewHelper = new PreviewHelper(this);
@@ -136,7 +138,7 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
                         image = s;
                     }
                 })
-                .compose(viewModel.ensureSignInByFace())
+                .compose(viewModel.ensureSignInByFace(faceId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -373,7 +375,9 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
     }
 
     private String callId;
+    private String faceId;
 
     private volatile boolean error = true;
     private volatile boolean skip = true;
+    private volatile boolean verify = false;
 }

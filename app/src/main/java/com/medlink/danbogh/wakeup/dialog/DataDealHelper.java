@@ -291,7 +291,7 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(zuogejiancha|jianchashenti|zuotijian).*")) {
 
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+            CC.obtainBuilder("com.gcml.auth.face2.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -630,7 +630,7 @@ public class DataDealHelper {
             return;
         }
         if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+            CC.obtainBuilder("com.gcml.auth.face2.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -657,7 +657,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*xueyang.*")
                 || inSpell.matches(".*liang.*xueyang.*")
                 || inSpell.matches(".*ce.*baohedu.*")) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+            CC.obtainBuilder("com.gcml.auth.face2.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -685,7 +685,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*liang.*xuetang.*")
                 || inSpell.matches(".*xuetangyi.*")
                 ) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+            CC.obtainBuilder("com.gcml.auth.face2.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -710,7 +710,7 @@ public class DataDealHelper {
 
 
         } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+            CC.obtainBuilder("com.gcml.auth.face2.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -735,7 +735,7 @@ public class DataDealHelper {
 
         } else if (inSpell.matches(".*ce.*xindian.*")
                 || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+            CC.obtainBuilder("com.gcml.auth.face2.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -760,7 +760,7 @@ public class DataDealHelper {
 
 
         } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+            CC.obtainBuilder("com.gcml.auth.face2.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -784,7 +784,7 @@ public class DataDealHelper {
             }
 
         } else if (inSpell.matches(".*ce.*tizhong.*")) {
-            CC.obtainBuilder("com.gcml.auth.face.signin")
+            CC.obtainBuilder("com.gcml.auth.face2.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
                     .build()
@@ -1248,7 +1248,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1279,7 +1279,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1311,7 +1311,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1343,7 +1343,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1374,7 +1374,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1405,7 +1405,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()
@@ -1437,7 +1437,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face.signin")
+                CC.obtainBuilder("com.gcml.auth.face2.signin")
                         .addParam("skip", true)
                         .addParam("currentUser", false)
                         .build()

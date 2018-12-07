@@ -16,7 +16,6 @@
         <activity android:name=".ui.FaceSignInActivity" />
         <activity android:name=".ui.FaceBdSignUpActivity" />
         <activity android:name=".ui.FaceBdSignInActivity" />
-        <activity android:name=".ui.FaceBdVerifyActivity"></activity>
     </application>
 
 </manifest>

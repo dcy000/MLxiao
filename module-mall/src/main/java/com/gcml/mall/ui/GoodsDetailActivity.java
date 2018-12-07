@@ -250,19 +250,27 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void checkUser(String orderid) {
-        CC.obtainBuilder("com.gcml.auth.face.signin")
+        CC.obtainBuilder("com.gcml.auth.face2.signin")
+                .addParam("verify", true)
                 .build()
                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
                     @Override
                     public void onResult(CC cc, CCResult result) {
-                        boolean currentUser = result.getDataItem("currentUser");
-                        if (result.isSuccess() && currentUser) {
+                        if (result.isSuccess()) {
                             showPaySuccessDialog(GoodsDetailActivity.this);
                             confirmOrder(orderid);
                         } else {
                             ToastUtils.showShort(result.getErrorMessage());
                             cancelOrder(orderid);
                         }
+//                        boolean currentUser = result.getDataItem("currentUser");
+//                        if (result.isSuccess() && currentUser) {
+//                            showPaySuccessDialog(GoodsDetailActivity.this);
+//                            confirmOrder(orderid);
+//                        } else {
+//                            ToastUtils.showShort(result.getErrorMessage());
+//                            cancelOrder(orderid);
+//                        }
                     }
                 });
     }

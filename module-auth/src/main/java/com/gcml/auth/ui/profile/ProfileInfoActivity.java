@@ -639,7 +639,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     }
 
     private void modifyHead() {
-        CC.obtainBuilder("com.gcml.auth.face.signup")
+        CC.obtainBuilder("com.gcml.auth.face2.signup")
                 .build()
                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
                     @Override

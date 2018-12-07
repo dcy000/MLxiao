@@ -24,8 +24,8 @@ public class FaceBdSignInViewModel extends BaseViewModel {
         return mFaceBdRepository.addFace(image, userId, "");
     }
 
-    public  ObservableTransformer<String, UserEntity> ensureSignInByFace() {
-        return mFaceBdRepository.ensureSignInByFace();
+    public  ObservableTransformer<String, UserEntity> ensureSignInByFace(String faceId) {
+        return mFaceBdRepository.ensureSignInByFace(faceId);
     }
 
     public Observable<String> verifyLive(List<String> images) {
@@ -36,7 +36,4 @@ public class FaceBdSignInViewModel extends BaseViewModel {
         return mFaceBdRepository.ensureLive();
     }
 
-    public ObservableTransformer<String, FaceBdUser> ensureFaceAdded() {
-        return mFaceBdRepository.ensureFaceAdded();
-    }
 }

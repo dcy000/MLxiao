@@ -9,6 +9,7 @@ import com.gcml.auth.face2.model.entity.FaceBdSearch;
 import com.gcml.auth.face2.model.entity.FaceBdSearchParam;
 import com.gcml.auth.face2.model.entity.FaceBdVerify;
 import com.gcml.auth.face2.model.entity.FaceBdVerifyParam;
+import com.gcml.auth.face2.model.entity.FaceUser;
 import com.gcml.common.repository.http.ApiResult;
 import com.gcml.common.user.UserToken;
 
@@ -21,6 +22,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -46,10 +48,18 @@ public interface FaceBdService {
 
     @FormUrlEncoded
     @POST("ZZB/api/user/face/user/{userId}/")
-    Observable<ApiResult<Object>> addFace(
+    Observable<ApiResult<FaceUser>> addFace(
             @Path("userId") String userId,
             @Field("image") String image,
             @Field("imageType") String imageType
+    );
+
+    @PUT("ZZB/api/user/face/user/{userId}/")
+    Observable<ApiResult<FaceUser>> updateFace(
+            @Path("userId") String userId,
+            @Query("groupId") String groupId,
+            @Query("image") String image,
+            @Query("imageType") String imageType
     );
 
     @FormUrlEncoded
@@ -60,7 +70,7 @@ public interface FaceBdService {
     );
 
     @GET("ZZB/api/user/face/{userId}/")
-    Observable<ApiResult<Object>> getFace(
+    Observable<ApiResult<List<FaceUser>>> getFace(
             @Path("userId") String userId
     );
 

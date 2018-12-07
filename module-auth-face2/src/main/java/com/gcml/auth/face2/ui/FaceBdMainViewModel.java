@@ -33,6 +33,6 @@ public class FaceBdMainViewModel extends BaseViewModel {
     }
 
     public ObservableTransformer<String, FaceBdUser> ensureFaceAdded() {
-        return mFaceBdRepository.ensureFaceAdded();
+        return mFaceBdRepository.ensureFaceAdded("");
     }
 }

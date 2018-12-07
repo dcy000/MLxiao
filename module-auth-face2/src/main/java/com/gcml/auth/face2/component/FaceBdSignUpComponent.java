@@ -11,6 +11,10 @@ import com.billy.cc.core.component.IComponent;
 import com.gcml.auth.face2.ui.FaceBdSignUpActivity;
 import com.gcml.common.data.UserSpHelper;
 
+/**
+ * 1. 注册人脸
+ * 2. 更新人脸
+ */
 public class FaceBdSignUpComponent implements IComponent {
     @Override
     public String getName() {

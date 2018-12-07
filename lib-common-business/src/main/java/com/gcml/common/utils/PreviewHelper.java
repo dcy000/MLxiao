@@ -466,18 +466,15 @@ public class PreviewHelper
     public static byte[] bitmapToBytes(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        if (!bitmap.isRecycled()) {
-            bitmap.recycle();
-        }
         return baos.toByteArray();
     }
 
     public static String bitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        if (!bitmap.isRecycled()) {
-            bitmap.recycle();
-        }
+//        if (!bitmap.isRecycled()) {
+//            bitmap.recycle();
+//        }
 
         return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
     }

@@ -241,7 +241,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     }
 
     public void goSignInByFace() {
-        CC.obtainBuilder("com.gcml.auth.face.signin")
+        CC.obtainBuilder("com.gcml.auth.face2.signin")
                 .addParam("currentUser", false)
                 .build()
                 .callAsync(new IComponentCallback() {

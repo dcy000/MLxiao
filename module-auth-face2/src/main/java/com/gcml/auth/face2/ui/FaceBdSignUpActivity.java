@@ -39,6 +39,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.Cancellable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -126,71 +127,83 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
 
     private IconDialog iconDialog;
 
-    private void showFace(Bitmap faceBitmap) {
-        if (!NetUitls.isConnected()) {
-            binding.ivTips.setText("请连接Wifi!");
-            ToastUtils.showShort("请连接Wifi!");
-            return;
-        }
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                "请确认是否是您的头像，如果不是请选择重新拍摄。");
-        iconDialog = new IconDialog(this).builder()
-                .setCancelable(false)
-                .setIcon(faceBitmap)
-                .setNegativeButton("重拍", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        start();
-                    }
-                })
-                .setPositiveButton("确认头像", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-//                        signUpFace(faceBitmap);
-                    }
-                });
-        iconDialog.show();
+//    private void showFace(Bitmap faceBitmap) {
+//        if (!NetUitls.isConnected()) {
+//            binding.ivTips.setText("请连接Wifi!");
+//            ToastUtils.showShort("请连接Wifi!");
+//            return;
+//        }
+//        MLVoiceSynthetize.startSynthesize(getApplicationContext(),
+//                "请确认是否是您的头像，如果不是请选择重新拍摄。");
+//        iconDialog = new IconDialog(this).builder()
+//                .setCancelable(false)
+//                .setIcon(faceBitmap)
+//                .setNegativeButton("重拍", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        start();
+//                    }
+//                })
+//                .setPositiveButton("确认头像", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+////                        signUpFace(faceBitmap);
+//                    }
+//                });
+//        iconDialog.show();
+//    }
+
+    private <T> ObservableTransformer<T, T> checkFace() {
+        return new ObservableTransformer<T, T>() {
+            @Override
+            public ObservableSource<T> apply(Observable<T> upstream) {
+                return upstream
+                        .flatMap(new Function<T, ObservableSource<T>>() {
+                            @Override
+                            public ObservableSource<T> apply(T t) throws Exception {
+                                return rxShowAvatar(t);
+                            }
+                        });
+            }
+        };
     }
 
-//    private ObservableTransformer<List<Bitmap>, List<Bitmap>> showFace(Bitmap faceBitmap) {
-//        return new ObservableTransformer<List<Bitmap>, List<Bitmap>>() {
-//            @Override
-//            public ObservableSource<List<Bitmap>> apply(Observable<List<Bitmap>> upstream) {
-//                return upstream
-//                        .flatMap(new Function<List<Bitmap>, ObservableSource<List<Bitmap>>>() {
-//                            @Override
-//                            public ObservableSource<List<Bitmap>> apply(List<Bitmap> bitmaps) throws Exception {
-//                                return rxShowAvatar();
-//                            }
-//
-//                        });
-//            }
-//        };
-//    }
-//
-//    private Observable<List<Bitmap>> rxShowAvatar() {
-//        return Observable.create(new ObservableOnSubscribe<List<Bitmap>>() {
-//            @Override
-//            public void subscribe(ObservableEmitter<List<Bitmap>> emitter) throws Exception {
-//                iconDialog = new IconDialog(this).builder()
-//                        .setCancelable(false)
-//                        .setIcon(faceBitmap)
-//                        .setNegativeButton("重拍", new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                start();
-//                            }
-//                        })
-//                        .setPositiveButton("确认头像", new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-////                        signUpFace(faceBitmap);
-//                            }
-//                        });
-//                iconDialog.show();
-//            }
-//        });
-//    }
+    private <T> Observable<T> rxShowAvatar(T t) {
+        return Observable.create(new ObservableOnSubscribe<T>() {
+            @Override
+            public void subscribe(ObservableEmitter<T> emitter) throws Exception {
+                iconDialog = new IconDialog(FaceBdSignUpActivity.this).builder()
+                        .setCancelable(false)
+                        .setIcon(maps.get(0))
+                        .setNegativeButton("重拍", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (!emitter.isDisposed()) {
+                                    emitter.onError(new RuntimeException("retry"));
+                                }
+                            }
+                        })
+                        .setPositiveButton("确认头像", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (!emitter.isDisposed()) {
+                                    emitter.onNext(t);
+                                }
+                            }
+                        });
+                emitter.setCancellable(new Cancellable() {
+                    @Override
+                    public void cancel() throws Exception {
+                        if (iconDialog != null) {
+                            iconDialog.dismiss();
+                        }
+                    }
+                });
+                iconDialog.show();
+            }
+        }).subscribeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(AndroidSchedulers.mainThread());
+    }
 
     private void start() {
         mPreviewHelper.rxFrame()
@@ -203,13 +216,14 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
                         imageData = s;
                     }
                 })
+                .compose(checkFace())
 //                .compose(viewModel.ensureFaceAdded())
 //                .compose(ensureAddFace())
                 .flatMap(new Function<String, ObservableSource<String>>() {
 
                     @Override
                     public ObservableSource<String> apply(String s) throws Exception {
-                        return viewModel.addFaceByApi(userId, s)
+                        return viewModel.addFaceByApi(userId, s, image)
                                 .subscribeOn(Schedulers.io());
                     }
                 })
@@ -261,14 +275,18 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
     private volatile String imageData = "";
 
     private volatile ArrayList<String> images;
+    private volatile List<Bitmap> maps;
+    private volatile byte[] image;
 
     @NonNull
     private Function<List<Bitmap>, List<String>> bitmapToBase64Mapper() {
         return new Function<List<Bitmap>, List<String>>() {
             @Override
             public List<String> apply(List<Bitmap> bitmaps) throws Exception {
+                maps = bitmaps;
                 images = new ArrayList<>();
                 for (Bitmap bitmap : bitmaps) {
+                    image = PreviewHelper.bitmapToBytes(bitmaps.get(0));
                     images.add(PreviewHelper.bitmapToBase64(bitmap));
                 }
                 return images;

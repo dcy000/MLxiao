@@ -327,7 +327,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     }
 
     private void modifyHead() {
-        CC.obtainBuilder("com.gcml.auth.face.signup")
+        CC.obtainBuilder("com.gcml.auth.face2.signup")
                 .build()
                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
                     @Override

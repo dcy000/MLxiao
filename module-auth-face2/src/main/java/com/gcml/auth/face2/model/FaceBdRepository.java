@@ -11,10 +11,12 @@ import com.gcml.auth.face2.model.entity.FaceBdSearchParam;
 import com.gcml.auth.face2.model.entity.FaceBdUser;
 import com.gcml.auth.face2.model.entity.FaceBdVerify;
 import com.gcml.auth.face2.model.entity.FaceBdVerifyParam;
+import com.gcml.auth.face2.model.entity.FaceUser;
 import com.gcml.auth.face2.model.exception.FaceBdError;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.RepositoryApp;
+import com.gcml.common.repository.http.ApiException;
 import com.gcml.common.user.UserToken;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UploadHelper;
@@ -28,11 +30,13 @@ import java.util.Locale;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Function3;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 
 public class FaceBdRepository {
 
@@ -74,15 +78,12 @@ public class FaceBdRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Observable<String> uploadImg(byte[] avatarData, String userId, String faceId) {
+    public Observable<String> uploadImg(byte[] avatarData, String key) {
         return mFaceBdService.getQiniuToken()
                 .compose(RxUtils.apiResultTransformer())
                 .flatMap(new Function<String, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(String token) throws Exception {
-                        String time = new SimpleDateFormat("yyyyMMddHHmmss",
-                                Locale.getDefault()).format(new Date());
-                        String key = String.format("%s_%s.jpg", time, userId);
                         return mUploadHelper.upload(avatarData, key, token)
                                 .subscribeOn(Schedulers.io());
                     }
@@ -138,8 +139,16 @@ public class FaceBdRepository {
         return new ObservableTransformer<List<String>, String>() {
             @Override
             public ObservableSource<String> apply(Observable<List<String>> upstream) {
+                PublishSubject<Object> subject = PublishSubject.create();
+                Observable<String> token = accessToken()
+                        .doOnDispose(new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                subject.onNext(new Object());
+                            }
+                        });
                 return upstream
-                        .zipWith(accessToken(), new BiFunction<List<String>, String, String>() {
+                        .zipWith(token, new BiFunction<List<String>, String, String>() {
                             @Override
                             public String apply(List<String> images, String token) throws Exception {
                                 ArrayList<FaceBdVerifyParam> imgs = new ArrayList<>();
@@ -150,20 +159,27 @@ public class FaceBdRepository {
                                     img.setFaceField("age,beauty,expression");
                                     imgs.add(img);
                                 }
-                                return mFaceBdService.verify(token, imgs)
-                                        .compose(FaceBdResultUtils.faceBdResultTransformer())
-                                        .flatMap(new Function<FaceBdVerify, ObservableSource<String>>() {
-                                            @Override
-                                            public ObservableSource<String> apply(FaceBdVerify result) throws Exception {
-                                                String image = FaceBdErrorUtils.liveFace(result);
-                                                if (!TextUtils.isEmpty(image)) {
-                                                    return Observable.just(image);
+                                String img = "";
+                                try {
+                                    img = mFaceBdService.verify(token, imgs)
+                                            .compose(FaceBdResultUtils.faceBdResultTransformer())
+                                            .flatMap(new Function<FaceBdVerify, ObservableSource<String>>() {
+                                                @Override
+                                                public ObservableSource<String> apply(FaceBdVerify result) throws Exception {
+                                                    String image = FaceBdErrorUtils.liveFace(result);
+                                                    if (!TextUtils.isEmpty(image)) {
+                                                        return Observable.just(image);
+                                                    }
+                                                    return Observable.error(new FaceBdError(FaceBdErrorUtils.ERROR_FACE_LIVELESS, ""));
                                                 }
-                                                return Observable.error(new FaceBdError(FaceBdErrorUtils.ERROR_FACE_LIVELESS, ""));
-                                            }
-                                        })
-                                        .subscribeOn(Schedulers.io())
-                                        .blockingFirst();
+                                            })
+                                            .takeUntil(subject)
+                                            .subscribeOn(Schedulers.io())
+                                            .blockingFirst();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                return img;
                             }
                         });
             }
@@ -172,10 +188,55 @@ public class FaceBdRepository {
 
     public Observable<String> addFaceByApi(
             String userId,
-            String imageData) {
+            String imageData, byte[] image) {
         String[] imgData = imageData.split(",");
-        return mFaceBdService.addFace(userId, imgData[1], imgData[0])
+        return mFaceBdService.getFace(userId)
                 .compose(RxUtils.apiResultTransformer())
+                .flatMap(new Function<List<FaceUser>, ObservableSource<FaceUser>>() {
+                    @Override
+                    public ObservableSource<FaceUser> apply(List<FaceUser> faceUsers) throws Exception {
+                        return mFaceBdService.updateFace(userId, faceUsers.get(0).getGroupId(), imgData[1], imgData[0])
+                                .compose(RxUtils.apiResultTransformer())
+                                .subscribeOn(Schedulers.io());
+                    }
+                })
+                .onErrorResumeNext(new Function<Throwable, ObservableSource<FaceUser>>() {
+                    @Override
+                    public ObservableSource<FaceUser> apply(Throwable throwable) throws Exception {
+                        if (throwable instanceof ApiException) {
+                            if (((ApiException) throwable).code() == 3005) { // 3005， 用户未注册过人脸
+                                return mFaceBdService.addFace(userId, imgData[1], imgData[0])
+                                        .compose(RxUtils.apiResultTransformer())
+                                        .subscribeOn(Schedulers.io());
+                            }
+                        }
+                        return Observable.error(throwable);
+                    }
+                })
+                .flatMap(new Function<FaceUser, Observable<String>>() {
+                    @Override
+                    public Observable<String> apply(FaceUser faceUser) throws Exception {
+                        return uploadImg(image, faceUser.getImageKey());
+                    }
+                })
+                .flatMap(new Function<String, ObservableSource<Object>>() {
+                    @Override
+                    public ObservableSource<Object> apply(String r) throws Exception {
+                        UserEntity user = new UserEntity();
+                        user.avatar = r;
+                        Observable<UserEntity> rxUpdateUser = CC.obtainBuilder("com.gcml.auth.putUser")
+                                .addParam("user", user)
+                                .build()
+                                .call()
+                                .getDataItem("data");
+                        return rxUpdateUser.map(new Function<UserEntity, Object>() {
+                            @Override
+                            public Object apply(UserEntity userEntity) throws Exception {
+                                return new Object();
+                            }
+                        }).subscribeOn(Schedulers.io());
+                    }
+                })
                 .map(new Function<Object, String>() {
                     @Override
                     public String apply(Object o) throws Exception {
@@ -188,7 +249,7 @@ public class FaceBdRepository {
     public Observable<String> addFaceByApi(
             byte[] imageData,
             String userId) {
-        return uploadImg(imageData, userId, userId)
+        return uploadImg(imageData, userId)
                 .flatMap(new Function<String, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(String url) throws Exception {
@@ -205,12 +266,13 @@ public class FaceBdRepository {
                 });
     }
 
-    public ObservableTransformer<String, UserEntity> ensureSignInByFace() {
+
+    public ObservableTransformer<String, UserEntity> ensureSignInByFace(String faceId) {
         return new ObservableTransformer<String, UserEntity>() {
 
             @Override
             public ObservableSource<UserEntity> apply(Observable<String> upstream) {
-                return upstream.compose(ensureFaceAdded())
+                return upstream.compose(ensureFaceAdded(faceId))
                         .flatMap(new Function<FaceBdUser, ObservableSource<UserEntity>>() {
                             @Override
                             public ObservableSource<UserEntity> apply(FaceBdUser bdUser) throws Exception {
@@ -257,6 +319,23 @@ public class FaceBdRepository {
                         });
             }
         };
+    }
+
+    public Observable<String> getFaceId(String userId) {
+        return mFaceBdService.getFace(userId)
+                .compose(RxUtils.apiResultTransformer())
+                .map(new Function<List<FaceUser>, String>() {
+                    @Override
+                    public String apply(List<FaceUser> faceUsers) throws Exception {
+                        return faceUsers.get(0).getFaceId();
+                    }
+                })
+                .onErrorResumeNext(new Function<Throwable, ObservableSource<? extends String>>() {
+                    @Override
+                    public ObservableSource<? extends String> apply(Throwable throwable) throws Exception {
+                        return Observable.just("");
+                    }
+                });
     }
 
     public Observable<String> addFace(
@@ -324,7 +403,7 @@ public class FaceBdRepository {
     }
 
 
-    public ObservableTransformer<String, FaceBdUser> ensureFaceAdded() {
+    public ObservableTransformer<String, FaceBdUser> ensureFaceAdded(String faceId) {
         return new ObservableTransformer<String, FaceBdUser>() {
             @Override
             public ObservableSource<FaceBdUser> apply(Observable<String> upstream) {
@@ -336,6 +415,9 @@ public class FaceBdRepository {
                         param.setImageType(imgData[0]);
                         param.setImage(imgData[1]);
                         param.setGroupIdList(groups);
+                        if (!TextUtils.isEmpty(faceId)) {
+                            param.setUserId(faceId);
+                        }
                         return mFaceBdService.search(token, param)
                                 .compose(FaceBdResultUtils.faceBdResultTransformer())
                                 .flatMap(new Function<FaceBdSearch, ObservableSource<FaceBdUser>>() {
