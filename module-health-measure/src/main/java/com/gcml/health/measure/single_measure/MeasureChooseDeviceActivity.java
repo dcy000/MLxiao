@@ -36,10 +36,11 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     private LinearLayout llTizhong;
     private LinearLayout llSan;
     private LinearLayout llMore;
-    public static final String IS_FACE_SKIP="isFaceSkip";
-    public static void startActivity(Context context,boolean isFaceSkip) {
+    public static final String IS_FACE_SKIP = "isFaceSkip";
+
+    public static void startActivity(Context context, boolean isFaceSkip) {
         Intent intent = new Intent(context, MeasureChooseDeviceActivity.class);
-        intent.putExtra(IS_FACE_SKIP,isFaceSkip);
+        intent.putExtra(IS_FACE_SKIP, isFaceSkip);
         if (context instanceof Application) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -112,8 +113,9 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             AllMeasureActivity.startActivity(this, measureType);
 
         } else if (i == R.id.ll_more) {
-            measureType=IPresenter.MEASURE_HAND_RING;
-            AllMeasureActivity.startActivity(this,measureType);
+//            measureType=IPresenter.MEASURE_HAND_RING;
+//            AllMeasureActivity.startActivity(this,measureType);
+            ToastUtils.showLong("敬请期待");
 
         } else {
         }
@@ -154,7 +156,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         Intent intent = new Intent();
         intent.setClass(this, AllMeasureActivity.class);
         intent.putExtra(IPresenter.MEASURE_TYPE, measureType);
-        intent.putExtra(IS_FACE_SKIP,getIntent().getBooleanExtra(IS_FACE_SKIP,false));
+        intent.putExtra(IS_FACE_SKIP, getIntent().getBooleanExtra(IS_FACE_SKIP, false));
         startActivity(intent);
     }
 

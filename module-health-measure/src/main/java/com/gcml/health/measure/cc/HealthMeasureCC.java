@@ -1,6 +1,8 @@
 package com.gcml.health.measure.cc;
 
 import android.content.Context;
+import android.os.Bundle;
+
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
@@ -12,6 +14,8 @@ import com.gcml.health.measure.hypertension_management.BloodsugarManagerActivity
 import com.gcml.health.measure.hypertension_management.WeightManagerActivity;
 import com.gcml.health.measure.single_measure.AllMeasureActivity;
 import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
+import com.gcml.module_blutooth_devices.ecg_devices.ECG_PDF_Fragment;
+
 import timber.log.Timber;
 
 /**
@@ -63,6 +67,10 @@ public class HealthMeasureCC implements IComponent {
          * 慢病管理体重测量
          */
         String TO_WEIGHTMANAGERACTIVITY = "To_WeightManagerActivity";
+        /**
+         * 获取ECG_PDF_FRAGMENT这个fragment的实例
+         */
+        String GET_ECG_PDF_FRAGMENT = "getECG_PDF_Fragment";
     }
 
     interface ReceiveKeys {
@@ -128,6 +136,14 @@ public class HealthMeasureCC implements IComponent {
 //                HealthWeightDetectionUiFragment healthWeightDetectionUiFragment = new HealthWeightDetectionUiFragment();
 //                CCResultActions.onCCResultActionWithFragmentBean(healthWeightDetectionUiFragment);
                 WeightManagerActivity.startActivity(context);
+                return true;
+            case ReceiveActionNames.GET_ECG_PDF_FRAGMENT:
+                String url = cc.getParamItem("url");
+                ECG_PDF_Fragment pdfFragment = new ECG_PDF_Fragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("key_pdf_url", url);
+                pdfFragment.setArguments(bundle);
+                CC.sendCCResult(cc.getCallId(), CCResult.success("fragment", pdfFragment));
                 return true;
             default:
                 Timber.e("未匹配到任何操作Action");

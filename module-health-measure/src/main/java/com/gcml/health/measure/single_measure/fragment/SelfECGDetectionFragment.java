@@ -125,6 +125,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         }
         context.startService(new Intent(context, ReceiveService.class));
         context.bindService(new Intent(context, ReceiveService.class), serviceConnect, Service.BIND_AUTO_CREATE);
+        context.stopService(new Intent(context, ReceiveService.class));
     }
 
     private ServiceConnection serviceConnect = new ServiceConnection() {
@@ -424,6 +425,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
             }
         }
     }
+
     private void setBattery(int battery) {
         if (battery == 0) {
             if (!mHandler.hasMessages(BATTERY_ZERO)) {

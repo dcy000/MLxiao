@@ -615,14 +615,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 .error(R.drawable.avatar_placeholder)
                 .into(binding.ivAvatar);
         binding.tvName.setText(TextUtils.isEmpty(user.name) ? "暂未填写" : user.name);
-        if (!TextUtils.isEmpty(user.birthday)) {
-            binding.tvAge.setText(String.format(Locale.getDefault(), "%d岁", Utils.ageByBirthday(user.birthday)));
-        } else if (!TextUtils.isEmpty(user.idCard)
-                && user.idCard.length() == 18) {
-            binding.tvAge.setText(String.format(Locale.getDefault(), "%d岁", Utils.age(user.idCard)));
-        } else {
-            binding.tvAge.setText(TextUtils.isEmpty(user.age) ? "暂未填写" : user.age + "岁");
-        }
+        binding.tvAge.setText(TextUtils.isEmpty(user.age) ? "暂未填写" : user.age + "岁");
         binding.tvSex.setText(TextUtils.isEmpty(user.sex) ? "暂未填写" : user.sex);
         binding.tvHeight.setText(TextUtils.isEmpty(user.height) ? "暂未填写" : user.height + "cm");
         binding.tvWeight.setText(TextUtils.isEmpty(user.weight) ? "暂未填写" : user.weight + "kg");

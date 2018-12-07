@@ -6,7 +6,8 @@ package com.gcml.module_health_record.bean;
 
 public class ECGHistory extends BaseBean{
     public String ecg;
-
+    public String result_url;
+    public String result;
     @Override
     public String toString() {
         return "ECGHistory{" +

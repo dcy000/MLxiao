@@ -20,6 +20,7 @@ import com.gcml.common.repository.di.RepositoryModule;
 import com.gcml.common.repository.http.HttpLogInterceptor;
 import com.gcml.common.repository.utils.Preconditions;
 import com.gcml.common.utils.ManifestParser;
+import com.github.moduth.blockcanary.internal.ProcessUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
+import tech.linjiang.pandora.Pandora;
 //import tech.linjiang.pandora.Pandora;
 
 public enum RepositoryApp implements IRepositoryApp {
@@ -140,7 +142,10 @@ public enum RepositoryApp implements IRepositoryApp {
                         okHttpBuilder
                                 .addNetworkInterceptor(new StethoInterceptor())
                                 .writeTimeout(10, TimeUnit.SECONDS);
-//                                .addInterceptor(Pandora.get().getInterceptor());
+                        //只在主进程初始化，不然会报控制针
+                        if (context.getPackageName().equals(ProcessUtils.myProcessName())) {
+                            okHttpBuilder.addInterceptor(Pandora.get().getInterceptor());
+                        }
                     })
                     //这里可以自己自定义配置 RxCache 的参数
                     .rxCacheConfiguration((context1, rxCacheBuilder) -> {

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-
-<solid android:color="#ff13d3b2" />
-<corners android:radius="10pt" />
-
+    <corners android:radius="8pt"/>
+    <stroke android:width="2pt" android:color="@color/common_toolbar_bg"/>
 </shape>

@@ -22,7 +22,6 @@ import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
-import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.FirstDiagnosisBean;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
@@ -475,7 +474,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             case IPresenter.MEASURE_ECG:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
-                if (fragment instanceof SelfECGDetectionFragment) {
+                if (fragment instanceof HealthECGDetectionFragment) {
                     ((HealthECGDetectionFragment) fragment).startDiscovery();
                 } else if (fragment instanceof ECG_Fragment) {
                     ((HealthECGBoShengFragment) fragment).onStop();
