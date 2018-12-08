@@ -9,15 +9,11 @@
     <color name="white">@android:color/white</color>
 
 
-    <color name="name_color">#686868</color>
-    <color name="name_good_at">#8c8c8c</color>
-    <color name="name_pay">#327DFB</color>
 
-    <color name="appraise">#676767</color>
 
-    <color name="color_c2364b">#C2364B</color>
-    <color name="color_f5455e">#F5455E</color>
-    <color name="color_9cd793">#9CD793</color>
+
+
+
 
     <color name="gray">#bbbbbb</color>
     <color name="line">#eeeeee</color>
@@ -48,5 +44,5 @@
     <color name="round_corner_progress_bar_secondary_progress_default">@android:color/transparent
     </color>
     <color name="line3">#BBBBBB</color>
-    <color name="default_bg">#aa000000</color>
+
 </resources>

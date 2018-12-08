@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gcml.lib_location" >
+    <!--百度地图配置-->
+    <meta-data
+        android:name="com.baidu.lbsapi.API_KEY"
+        android:value="MDMGtSWAjuIlCSQE7lkYbAHzKos6PNIG" />
+
+    <service
+        android:name="com.baidu.location.f"
+        android:enabled="true"
+        android:process=":remote" />
+</manifest>

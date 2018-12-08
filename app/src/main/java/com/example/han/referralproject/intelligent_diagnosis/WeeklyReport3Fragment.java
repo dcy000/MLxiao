@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.model.WeekReportModel;
-import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_widget.progressbar.TextRoundProgressBar;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.RadarChart;

@@ -1,0 +1,42 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.module_tools">
+
+    <application>
+        <activity
+            android:name="com.example.module_tools.ui.DateInquireActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_tools.ui.CookBookActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_tools.ui.CookBookResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_tools.ui.JieMengRetultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_tools.ui.DateInquireResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_tools.ui.BaiKeActivtiy"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_tools.ui.BaikeResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_tools.ui.CalculationActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_tools.ui.RiddleActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_tools.ui.HistoryTodayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_tools.ui.JieMengActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_tools.ui.ToolsActivity"
+            android:screenOrientation="landscape" />
+    </application>
+</manifest>

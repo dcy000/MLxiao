@@ -14,11 +14,11 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.lib_alarm_clock.AlarmHelper;
 import com.example.lib_alarm_clock.bean.ClueInfoBean;
 import com.example.han.referralproject.floatingball.AssistiveTouchService;
-import com.example.han.referralproject.personal.PersonDetailActivity;
-import com.example.han.referralproject.service.API;
+import com.example.module_person.ui.PersonDetailActivity;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.lib_alarm_clock.service.AlarmAPI;
 import com.example.lib_alarm_clock.ui.AlarmList2Activity;
+import com.example.module_call.ui.NimCallActivity;
 import com.example.module_doctor_advisory.ui.DoctorAskGuideActivity;
 import com.example.module_mall.ui.MarketActivity;
 import com.gcml.auth.face.FaceConstants;
@@ -36,7 +36,6 @@ import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.gzq.lib_core.bean.AlarmModel;
-import com.medlink.danbogh.call2.NimCallActivity;
 
 import org.litepal.crud.DataSupport;
 

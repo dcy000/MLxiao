@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.module_register.R;
 import com.example.module_register.R2;
-import com.example.module_register.adapter.SelectAdapter;
+import com.gcml.lib_location.adapter.SelectAdapter;
 import com.example.module_register.ui.base.VoiceToolBarActivity;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.base.ui.BasePresenter;

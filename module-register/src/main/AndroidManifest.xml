@@ -2,6 +2,7 @@
     package="com.example.module_register">
 
     <application>
+
         <activity
             android:name=".ui.normal.SignUp1NameActivity"
             android:screenOrientation="landscape" />
@@ -47,6 +48,17 @@
         <activity
             android:name=".ui.normal.ConfirmContractActivity"
             android:screenOrientation="landscape" />
+
+        <activity
+            android:name="com.example.module_register.ui.sample.SignUp01NameActivity"
+            android:taskAffinity="com.medlink.fastsignup"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name="com.example.module_register.ui.sample.SignUp03PasswordActivity"
+            android:taskAffinity="com.medlink.fastsignup" />
+        <activity
+            android:name="com.example.module_register.ui.sample.SignUp02MobileVerificationActivity"
+            android:taskAffinity="com.medlink.fastsignup" />
     </application>
 
 </manifest>

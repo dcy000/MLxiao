@@ -1,5 +1,5 @@
 
-include ':app', ':module-doctor-advisory', ':module-alarm-clock', ':module-mall',
+include ':app', ':module-doctor-advisory', ':module-alarm-clock', ':module-mall', ':module-call', ':module-tools', ':module-setting', ':module-login', ':module-person', ':lib-location',
         ':lib-widget',
         ':module-register',
         ':lib-beecloud-pay',

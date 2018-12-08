@@ -24,5 +24,14 @@
             android:name="com.example.module_doctor_advisory.ui.OnlineDoctorListActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.AppraiseActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_doctor_advisory.ui.RecoDocActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name="com.example.module_doctor_advisory.ui.OfflineActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

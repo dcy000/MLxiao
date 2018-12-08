@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.module_doctor_advisory.R;
 import com.example.module_doctor_advisory.bean.Docter;
-import com.example.module_doctor_advisory.bean.RobotAmount;
+import com.gzq.lib_core.bean.RobotAmount;
 import com.example.module_doctor_advisory.service.DoctorAPI;
 import com.gcml.lib_widget.ToolbarBaseActivity;
 import com.gcml.lib_widget.dialog.AlertDialog;
@@ -22,6 +22,7 @@ import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.base.ui.BasePresenter;
 import com.gzq.lib_core.base.ui.IPresenter;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.service.CommonAPI;
 import com.gzq.lib_core.utils.DeviceUtils;
 import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -248,7 +249,7 @@ public class DoctorMesActivity extends ToolbarBaseActivity implements View.OnCli
             if ("1".equals(sign)) {
                 emitEvent("NimCall", "docter_" + doctor.docterid);
             } else {
-                Box.getRetrofit(DoctorAPI.class)
+                Box.getRetrofit(CommonAPI.class)
                         .queryMoneyById(DeviceUtils.getIMEI())
                         .compose(RxUtils.httpResponseTransformer())
                         .as(RxUtils.autoDisposeConverter(this))

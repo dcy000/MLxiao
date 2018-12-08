@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health.model.WeekReportModel;
-import com.example.han.referralproject.util.LocalShared;
 import com.gcml.lib_widget.circleprogress.WaveProgress;
 import com.gcml.lib_widget.progressbar.RoundProgressBar;
 import com.gcml.lib_widget.progressbar.TextRoundProgressBar;

@@ -24,9 +24,10 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.children.model.BrainTeaserModel;
 import com.example.han.referralproject.speechsynthesis.QaApi;
-import com.example.han.referralproject.tool.other.StringUtil;
 import com.gcml.lib_widget.voiceline.VoiceLineView;
+import com.gzq.lib_core.utils.KeyboardUtils;
 import com.gzq.lib_core.utils.PinYinUtils;
+import com.gzq.lib_core.utils.StringUtil;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.gzq.lib_core.utils.UiUtils;
 import com.iflytek.cloud.SpeechError;
@@ -34,7 +35,6 @@ import com.iflytek.recognition.MLRecognizerListener;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.gzq.lib_core.utils.Handlers;
-import com.medlink.danbogh.utils.Utils;
 
 import java.util.HashMap;
 
@@ -265,7 +265,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View view = getCurrentFocus();
         if (view != null) {
-            Utils.hideKeyBroad(view);
+            KeyboardUtils.hideKeyboard(view);
         }
         return super.dispatchTouchEvent(ev);
     }

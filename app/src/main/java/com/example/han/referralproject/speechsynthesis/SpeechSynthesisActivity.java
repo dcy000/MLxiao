@@ -26,11 +26,16 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MessageActivity;
-import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
-import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.module_login.ui.SignInActivity;
+import com.example.module_person.ui.MyBaseDataActivity;
+import com.example.module_setting.SharedPreferencesUtils;
+import com.example.module_setting.UpdateAppManager;
+import com.example.module_setting.bean.KeyWordDefinevBean;
+import com.example.module_setting.setting.IatSettings;
+import com.gzq.lib_core.bean.VersionInfoBean;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.ecg.ECGCompatActivity;
 import com.example.han.referralproject.new_music.HttpCallback;
@@ -39,19 +44,14 @@ import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
-import com.example.han.referralproject.personal.PersonDetailActivity;
+import com.example.module_person.ui.PersonDetailActivity;
 import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
-import com.example.han.referralproject.service.API;
-import com.example.han.referralproject.settting.SharedPreferencesUtils;
-import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
-import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
-import com.example.han.referralproject.tool.other.StringUtil;
-import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.lib_alarm_clock.AlarmHelper;
 import com.example.lib_alarm_clock.ui.AlarmList2Activity;
+import com.example.module_call.ui.NimCallActivity;
 import com.example.module_doctor_advisory.ui.CheckContractActivity;
 import com.example.module_doctor_advisory.ui.DoctorAskGuideActivity;
 import com.example.module_doctor_advisory.ui.DoctorappoActivity;
@@ -77,6 +77,7 @@ import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.AppUtils;
 import com.gzq.lib_core.utils.PinYinUtils;
 import com.gzq.lib_core.utils.RxUtils;
+import com.gzq.lib_core.utils.StringUtil;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -90,8 +91,6 @@ import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.signin.SignInActivity;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.music.TheOldMusicActivity;
@@ -146,7 +145,7 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
             switch (msg.what) {
                 case 0:
                     //startSynthesis(str1);
-                    MLVoiceSynthetize.startSynthesize(str1, isDefaultParam,voiceListener);
+                    MLVoiceSynthetize.startSynthesize(str1, isDefaultParam, voiceListener);
                     startAnim();
 
                     break;
@@ -173,7 +172,7 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
     /**
      * 小E说完的监听
      */
-    private MLSynthesizerListener voiceListener=new MLSynthesizerListener(){
+    private MLSynthesizerListener voiceListener = new MLSynthesizerListener() {
         @Override
         public void onCompleted(SpeechError speechError) {
             if (!TextUtils.isEmpty(mAudioPath)) {
@@ -231,6 +230,11 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
     @Override
     public int layoutId(Bundle savedInstanceState) {
         return R.layout.activity_speech_synthesis;
+    }
+
+    @Override
+    protected boolean isShowToolbar() {
+        return false;
     }
 
     @Override
@@ -317,7 +321,8 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
 
     @Override
     public com.gzq.lib_core.base.ui.IPresenter obtainPresenter() {
-        return new BasePresenter(this) {};
+        return new BasePresenter(this) {
+        };
     }
 
 
@@ -385,7 +390,7 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
         setDisableWakeup(true);
         robotStartListening();
         super.onResume();
-        MLVoiceSynthetize.startSynthesize("主人,来和我聊天吧", isDefaultParam,voiceListener);
+        MLVoiceSynthetize.startSynthesize("主人,来和我聊天吧", isDefaultParam, voiceListener);
         mLottieView.resumeAnimation();
     }
 
@@ -433,7 +438,7 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
                     return;
                 }
                 if (response == null || response.getSong() == null) {
-                    MLVoiceSynthetize.startSynthesize("抱歉，没找到这首歌", isDefaultParam,voiceListener);
+                    MLVoiceSynthetize.startSynthesize("抱歉，没找到这首歌", isDefaultParam, voiceListener);
                     mHandler.sendEmptyMessageDelayed(1, 3000);
                     return;
                 }
@@ -611,7 +616,7 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
             if (yuyinFlag) {
                 findViewById(R.id.iat_recognizes).performClick();
             } else {
-                MLVoiceSynthetize.startSynthesize("主人,我没听清您能再说一遍吗", isDefaultParam,voiceListener);
+                MLVoiceSynthetize.startSynthesize("主人,我没听清您能再说一遍吗", isDefaultParam, voiceListener);
             }
         }
 
@@ -675,14 +680,14 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
                         Integer.valueOf(minute));
                 String tip = String.format(Locale.CHINA,
                         "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
-                MLVoiceSynthetize.startSynthesize(tip, isDefaultParam,voiceListener);
+                MLVoiceSynthetize.startSynthesize(tip, isDefaultParam, voiceListener);
                 return;
             }
 
             if (inSpell.matches(".*gengxin.*")) {
                 showLoadingDialog("检查更新中");
 
-                Box.getRetrofit(API.class)
+                Box.getRetrofit(CommonAPI.class)
                         .getAppVersion(AppUtils.getMeta("com.gcml.version") + "")
                         .compose(RxUtils.httpResponseTransformer())
                         .doOnTerminate(new Action() {
@@ -699,7 +704,7 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
                                     if (versionInfoBean != null && versionInfoBean.vid > AppUtils.getAppInfo().getVersionCode()) {
                                         new UpdateAppManager(SpeechSynthesisActivity.this).showNoticeDialog(versionInfoBean.url);
                                     } else {
-                                        MLVoiceSynthetize.startSynthesize("当前已经是最新版本了",voiceListener);
+                                        MLVoiceSynthetize.startSynthesize("当前已经是最新版本了", voiceListener);
                                         ToastUtils.showShort("当前已经是最新版本了");
                                     }
                                 } catch (Exception e) {
@@ -709,7 +714,7 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
 
                             @Override
                             protected void onError(ApiException ex) {
-                                MLVoiceSynthetize.startSynthesize("当前已经是最新版本了",voiceListener);
+                                MLVoiceSynthetize.startSynthesize("当前已经是最新版本了", voiceListener);
                                 ToastUtils.showShort("当前已经是最新版本了");
                             }
                         });
@@ -1049,13 +1054,13 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
     private void deleteVoice() {
         volume -= 3;
         if (volume > 3) {
-            MLVoiceSynthetize.startSynthesize(getString(R.string.reduce_volume), isDefaultParam,voiceListener);
+            MLVoiceSynthetize.startSynthesize(getString(R.string.reduce_volume), isDefaultParam, voiceListener);
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
             mHandler.sendEmptyMessageDelayed(1, 2000);
 
 
         } else {
-            MLVoiceSynthetize.startSynthesize(getString(R.string.min_volume), isDefaultParam,voiceListener);
+            MLVoiceSynthetize.startSynthesize(getString(R.string.min_volume), isDefaultParam, voiceListener);
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 3, AudioManager.FLAG_PLAY_SOUND);
             mHandler.sendEmptyMessageDelayed(1, 3000);
 
@@ -1065,11 +1070,11 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
     private void addVoice() {
         volume += 3;
         if (volume < maxVolume) {
-            MLVoiceSynthetize.startSynthesize(getString(R.string.add_volume), isDefaultParam,voiceListener);
+            MLVoiceSynthetize.startSynthesize(getString(R.string.add_volume), isDefaultParam, voiceListener);
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_PLAY_SOUND);
             mHandler.sendEmptyMessageDelayed(1, 2000);
         } else {
-            MLVoiceSynthetize.startSynthesize(getString(R.string.max_volume), isDefaultParam,voiceListener);
+            MLVoiceSynthetize.startSynthesize(getString(R.string.max_volume), isDefaultParam, voiceListener);
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_PLAY_SOUND);
             mHandler.sendEmptyMessageDelayed(1, 3000);
         }
@@ -1507,7 +1512,7 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
         if (!TextUtils.isEmpty(audiopath)) {
             mAudioPath = audiopath;
             if (!empty) {
-                MLVoiceSynthetize.startSynthesize(text, isDefaultParam,voiceListener);
+                MLVoiceSynthetize.startSynthesize(text, isDefaultParam, voiceListener);
             } else {
                 voiceListener.onCompleted(null);
             }
@@ -1578,41 +1583,41 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
                 switch (randNum) {
 
                     case 1:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_1), isDefaultParam,voiceListener);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_1), isDefaultParam, voiceListener);
                         break;
                     case 2:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_2), isDefaultParam,voiceListener);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_2), isDefaultParam, voiceListener);
                         break;
                     case 3:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_3), isDefaultParam,voiceListener);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_3), isDefaultParam, voiceListener);
 
                         break;
                     case 4:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_4), isDefaultParam,voiceListener);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_4), isDefaultParam, voiceListener);
 
                         break;
                     case 5:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_5), isDefaultParam,voiceListener);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_5), isDefaultParam, voiceListener);
 
                         break;
                     case 6:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_6), isDefaultParam,voiceListener);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_6), isDefaultParam, voiceListener);
 
                         break;
                     case 7:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_7), isDefaultParam,voiceListener);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_7), isDefaultParam, voiceListener);
 
                         break;
                     case 8:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_8), isDefaultParam,voiceListener);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_8), isDefaultParam, voiceListener);
 
                         break;
                     case 9:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_9), isDefaultParam,voiceListener);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_9), isDefaultParam, voiceListener);
 
                         break;
                     case 10:
-                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_10), isDefaultParam,voiceListener);
+                        MLVoiceSynthetize.startSynthesize(getString(R.string.speak_10), isDefaultParam, voiceListener);
                     case 11:
                     case 12:
                     case 13:
@@ -1636,7 +1641,7 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
                         //变声学舌
                         MLVoiceSynthetize.setRandomParam();
                         isDefaultParam = false;
-                        MLVoiceSynthetize.startSynthesize(resultBuffer.toString(), isDefaultParam,voiceListener);
+                        MLVoiceSynthetize.startSynthesize(resultBuffer.toString(), isDefaultParam, voiceListener);
                         isDefaultParam = true;
                         break;
                     default:
@@ -1933,13 +1938,13 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case TO_MUSICPLAY:
-                MLVoiceSynthetize.startSynthesize("主人，想听更多歌曲，请告诉我！", isDefaultParam,voiceListener);
+                MLVoiceSynthetize.startSynthesize("主人，想听更多歌曲，请告诉我！", isDefaultParam, voiceListener);
                 break;
             case TO_STORY:
-                MLVoiceSynthetize.startSynthesize("主人，我讲的故事好听吗？", isDefaultParam,voiceListener);
+                MLVoiceSynthetize.startSynthesize("主人，我讲的故事好听吗？", isDefaultParam, voiceListener);
                 break;
             case TO_PING_SHU:
-                MLVoiceSynthetize.startSynthesize("主人，想听更多评书，请告诉我！", isDefaultParam,voiceListener);
+                MLVoiceSynthetize.startSynthesize("主人，想听更多评书，请告诉我！", isDefaultParam, voiceListener);
                 break;
             case 1001:
                 if (data != null) {

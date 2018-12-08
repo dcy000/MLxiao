@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="textcolor">#6AB7EB</color>
+    <color name="name_color">#686868</color>
+    <color name="name_good_at">#8c8c8c</color>
+    <color name="name_pay">#327DFB</color>
+    <color name="appraise">#676767</color>
 </resources>

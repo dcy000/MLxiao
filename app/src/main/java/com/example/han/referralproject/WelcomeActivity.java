@@ -10,12 +10,11 @@ import android.util.Log;
 import android.widget.Chronometer;
 
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.ChooseLoginTypeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.module_login.ui.ChooseLoginTypeActivity;
+import com.example.module_setting.UpdateAppManager;
+import com.gzq.lib_core.bean.VersionInfoBean;
 import com.example.han.referralproject.new_music.MusicService;
-import com.example.han.referralproject.service.API;
-import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.WiFiUtil;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
@@ -28,7 +27,6 @@ import com.gzq.lib_core.utils.RxUtils;
 import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
 public class WelcomeActivity extends BaseActivity {
@@ -66,7 +64,7 @@ public class WelcomeActivity extends BaseActivity {
     private void checkVersion() {
         final String userId = Box.getUserId();
 
-        Box.getRetrofit(API.class)
+        Box.getRetrofit(CommonAPI.class)
                 .getAppVersion(AppUtils.getMeta("com.gcml.version") + "")
                 .compose(RxUtils.httpResponseTransformer())
                 .as(RxUtils.autoDisposeConverter(this))

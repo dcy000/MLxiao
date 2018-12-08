@@ -3,7 +3,6 @@ package com.example.module_doctor_advisory.service;
 import com.gzq.lib_core.bean.AlreadyYuyue;
 import com.example.module_doctor_advisory.bean.Docter;
 import com.example.module_doctor_advisory.bean.Doctor;
-import com.example.module_doctor_advisory.bean.RobotAmount;
 import com.example.module_doctor_advisory.bean.YuYueInfo;
 import com.gzq.lib_core.http.model.HttpResult;
 
@@ -44,13 +43,7 @@ public interface DoctorAPI {
             @Query("pagesize") int pagesize
     );
 
-    /**
-     * 根据机器id查询这台机器剩余金额
-     *
-     * @return
-     */
-    @GET("ZZB/eq/eq_amount")
-    Observable<HttpResult<RobotAmount>> queryMoneyById(@Query("eqid") String eqid);
+
 
     /**
      * 查询医生的详细资料
@@ -112,5 +105,26 @@ public interface DoctorAPI {
     @POST("ZZB/bl/selReserveStart_time")
     Observable<HttpResult<List<AlreadyYuyue>>> queryDoctorReservationList(
             @Query("docterid") String docterid
+    );
+
+    /**
+     * 对医生进行评价
+     *
+     * @param docId
+     * @param userId
+     * @param content
+     * @param score
+     * @param time
+     * @param daid
+     * @return
+     */
+    @POST("ZZB/pj/insert")
+    Observable<Object> appraiseDoctor(
+            @Query("docterid") String docId,
+            @Query("bid") String userId,
+            @Query("content") String content,
+            @Query("score") int score,
+            @Query("time") long time,
+            @Query("daid") int daid
     );
 }

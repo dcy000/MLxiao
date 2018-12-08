@@ -36,7 +36,7 @@ dependencies {
     implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     implementation rootProject.ext.dependencies["constraint-layout"]
-    api('github.hellocsl:GalleryLayoutManager:1.0.6') {
+    implementation('github.hellocsl:GalleryLayoutManager:1.0.6') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
     implementation project(':lib-widget')
@@ -44,4 +44,5 @@ dependencies {
     implementation project(':lib-voice')
     implementation project(':lib-auth-face')
     implementation name: 'voicelibrary', ext: 'aar'
+    implementation project(':lib-location')
 }

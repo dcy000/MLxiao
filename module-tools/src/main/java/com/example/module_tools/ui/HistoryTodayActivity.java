@@ -1,0 +1,145 @@
+package com.example.module_tools.ui;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.module_tools.R;
+import com.example.module_tools.R2;
+import com.example.module_tools.adapter.HistoryTodayRVAdapter;
+import com.example.module_tools.bean.HistoryTodayBean;
+import com.example.module_tools.service.XFSkillApi;
+import com.gcml.lib_widget.ToolbarBaseActivity;
+import com.gzq.lib_core.base.ui.BasePresenter;
+import com.gzq.lib_core.base.ui.IPresenter;
+import com.gzq.lib_core.utils.TimeUtils;
+import com.iflytek.recognition.MLVoiceRecognize;
+import com.iflytek.synthetize.MLVoiceSynthetize;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class HistoryTodayActivity extends ToolbarBaseActivity {
+
+    @BindView(R2.id.tv_title)
+    TextView tvTitle;
+    @BindView(R2.id.tv_date)
+    TextView tvDate;
+    @BindView(R2.id.tv_history_event)
+    RecyclerView rvHistoryEvent;
+    @BindView(R2.id.tv_back)
+    TextView tvBack;
+    private List<HistoryTodayBean> data = new ArrayList<>();
+    private HistoryTodayRVAdapter adapter;
+
+
+    @Override
+    public int layoutId(Bundle savedInstanceState) {
+        return R.layout.activity_history_today;
+    }
+
+    @Override
+    public void initParams(Intent intentArgument) {
+        MLVoiceSynthetize.startSynthesize("主人,欢迎来到历史的今天");
+        initData();
+    }
+
+    private void initEvent() {
+        tvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+
+    private void initData() {
+        String[] question = {"历史上的今天发生了什么", "历史上的今天有什么大事", "今天的历史性事件有哪些"};
+        XFSkillApi.getSkillData(question[new Random().nextInt(1)], new XFSkillApi.getDataListener() {
+
+            @Override
+            public void onSuccess(Object anwser, final String anwserText, String service, String question) {
+                final List<HistoryTodayBean> resultData = (List<HistoryTodayBean>) anwser;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (resultData != null && resultData.size() != 0) {
+                            data.addAll(resultData);
+                            adapter.notifyDataSetChanged();
+                            MLVoiceSynthetize.startSynthesize(data.get(0).title + "," + data.get(0).description);
+                        } else {
+                            MLVoiceSynthetize.startSynthesize("主人,我还不知道历史上的今天发生了什么事,我得去学习一下");
+                        }
+                    }
+                });
+            }
+        });
+
+//        假数据
+//        for (int i = 0; i < 10; i++) {
+//            HistoryTodayBean bean = new HistoryTodayBean();
+//            bean.description = "哈哈时候哈哈时候哈哈时候哈哈时候哈哈" +
+//                    "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时" +
+//                    "哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候" +
+//                    "哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈" +
+//                    "时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈" +
+//                    "哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时" +
+//                    "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈" +
+//                    "哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时" +
+//                    "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈哈哈时" +
+//                    "候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈" +
+//                    "时候时候候哈哈时候哈哈时候哈哈时候哈哈时候哈哈时候哈哈哈" +
+//                    "哈时候哈哈时候哈哈时候哈哈时候哈哈" +
+//                    "时候哈哈时候哈哈时候哈哈时候时候候哈哈时候哈哈时候哈哈" +
+//                    "时候哈哈时候哈哈时候哈哈哈哈时候哈哈时候哈哈时候哈哈时" +
+//                    "候哈哈时候哈哈时候哈哈时候哈哈时候时候";
+//            bean.title = "sdf";
+//            bean.imgs = new ArrayList<>();
+//            bean.imgs.add("http://a0.att.hudong.com/32/26/20300542501236139721267074877_140.jpg");
+//            data.add(bean);
+//        }
+//        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void initView() {
+        ButterKnife.bind(this);
+        String date = TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("MM月dd日"));
+        tvDate.setText(date);
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        rvHistoryEvent.setLayoutManager(layout);
+        adapter = new HistoryTodayRVAdapter(R.layout.item_history_today, data);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                MLVoiceSynthetize.stop();
+                MLVoiceSynthetize.startSynthesize(data.get(i).title + "," + data.get(i).description);
+            }
+        });
+        rvHistoryEvent.setAdapter(adapter);
+        initEvent();
+    }
+
+    @Override
+    public IPresenter obtainPresenter() {
+        return new BasePresenter(this) {};
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MLVoiceRecognize.stop();
+        MLVoiceSynthetize.stop();
+    }
+}

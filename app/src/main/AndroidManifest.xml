@@ -94,18 +94,6 @@
             android:value="AppLifecycle" />
 
 
-        <service android:name=".new_music.MusicService" />
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
-
         <meta-data
             android:name="com.gcml.version"
             android:value="gcml_version_normal" />
@@ -132,9 +120,7 @@
         <activity
             android:name=".activity.WifiConnectActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.AgreementActivity"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.MessageActivity"
             android:screenOrientation="landscape" />
@@ -144,13 +130,8 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.OfflineActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".recyclerview.RecoDocActivity"
-            android:screenOrientation="landscape">
-        </activity>
+
+
         <activity
             android:name=".WelcomeActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
@@ -173,107 +154,27 @@
             android:screenOrientation="landscape" />
 
 
-
-
-        <activity
-            android:name=".recyclerview.AppraiseActivity"
-            android:screenOrientation="landscape" />
-
-
         <activity
             android:name=".recharge.PayActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".recharge.PayInfoActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.healthdetection.HealthDetectionActivity"
-            android:screenOrientation="landscape" />
 
-        <meta-data
-            android:name="com.netease.nim.appKey"
-            android:value="a114ad1e5d86c2d3fa83d2a15bbc29cc" />
-        <!-- 声明网易云通信后台服务，如需保持后台推送，使用独立进程效果会更好。 -->
-        <service
-            android:name="com.netease.nimlib.service.NimService"
-            android:process=":core" />
-        <!-- 运行后台辅助服务 -->
-        <service
-            android:name="com.netease.nimlib.service.NimService$Aux"
-            android:process=":core" />
-        <!-- 声明网易云通信后台辅助服务 -->
-        <service
-            android:name="com.netease.nimlib.job.NIMJobService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":core" />
-        <!--
-             网易云通信SDK的监视系统启动和网络变化的广播接收器，用户开机自启动以及网络变化时候重新登录，
-            保持和 NimService 同一进程
-        -->
-        <receiver
-            android:name="com.netease.nimlib.service.NimReceiver"
-            android:exported="false"
-            android:process=":core">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
-        <!-- 网易云通信进程间通信 Receiver -->
-        <receiver android:name="com.netease.nimlib.service.ResponseReceiver" />
-        <!-- 网易云通信进程间通信service -->
-        <service android:name="com.netease.nimlib.service.ResponseService" />
 
-        <receiver android:name="com.medlink.danbogh.call2.InComingCallReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE" />
-            </intent-filter>
-        </receiver>
 
-        <activity
-            android:name="com.medlink.danbogh.call2.NimCallActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="landscape" />
 
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="MDMGtSWAjuIlCSQE7lkYbAHzKos6PNIG" />
-
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
 
 
         <activity
             android:name=".activity.DiseaseDetailsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.medlink.danbogh.location.LocationActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="com.medlink.danbogh.healthdetection.SelfCheckReportActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".video.VideoListActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".shopping.ShopListActivity"
-            android:screenOrientation="landscape" />
 
-        <activity
-            android:name="com.medlink.danbogh.signin.SignInActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name="com.medlink.danbogh.signin.FindPasswordActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name="com.medlink.danbogh.signin.SetPasswordActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
+
+
         <activity
             android:name=".recharge.DefineActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -288,39 +189,11 @@
 
 
 
-        <activity
-            android:name=".activity.AlertHeightActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.AlertWeightActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.AlertSportActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.AlertSmokeActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.AlertEatingActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.AlertDrinkingActivity"
-            android:screenOrientation="landscape" />
 
-
-
-        <activity
-            android:name=".activity.AlertMHActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.AlertAddressActivity"
-            android:screenOrientation="landscape" />
         <activity
             android:name=".new_music.MusicPlayActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.ChooseLoginTypeActivity"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".radio.RadioActivity"
             android:screenOrientation="landscape" />
@@ -351,103 +224,21 @@
             android:name=".intelligent_diagnosis.MonthlyReportActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".health.HealthDiaryActivity" />
-        <activity
-            android:name=".tool.JieMengActivity"
-            android:screenOrientation="landscape">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN"/> -->
-
-
-            <!-- <category android:name="android.intent.category.HOME"/> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
-            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
-            <!-- </intent-filter> -->
-        </activity>
         <activity android:name=".children.study.ChildEduStories2Activity"></activity>
-        <activity
-            android:name="com.example.module_register.ui.sample.SignUp01NameActivity"
-            android:taskAffinity="com.medlink.fastsignup"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity
-            android:name="com.example.module_register.ui.sample.SignUp03PasswordActivity"
-            android:taskAffinity="com.medlink.fastsignup" />
-        <activity
-            android:name="com.example.module_register.ui.sample.SignUp02MobileVerificationActivity"
-            android:taskAffinity="com.medlink.fastsignup" />
-        <activity
-            android:name=".tool.DateInquireActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.CookBookActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.CookBookResultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.JieMengRetultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.DateInquireResultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.BaiKeActivtiy"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.BaikeResultActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.CalculationActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.RiddleActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.HistoryTodayActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.SettingActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.VoiceSettingActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.AboutActivity"
-            android:screenOrientation="landscape" />
 
         <activity
-            android:name=".personal.PersonDetailActivity"
+            android:name="com.example.module_person.ui.PersonDetailActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".tool.ToolsActivity"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".children.entertainment.ChildEduJokesActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.SetKeyWordActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.VoicerSettingDemoActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.CustomKeyWordsActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.KeyWordEditActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.SetKeyWord2Activity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".settting.activity.KeyWordEdit2Activity"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".ecg.ECGCompatActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.MyBaseDataActivity"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".AllMeasureActivity"
             android:screenOrientation="landscape" />

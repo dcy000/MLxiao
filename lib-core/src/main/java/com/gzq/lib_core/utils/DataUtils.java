@@ -18,7 +18,9 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.security.MessageDigest;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
@@ -1009,5 +1011,50 @@ public class DataUtils {
             e.printStackTrace();
         }
         return readText(in);
+    }
+
+    public static String md5(String text) {
+        if (text == null || text.trim().length() == 0) {
+            throw new IllegalArgumentException("text == null or empty");
+        }
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            return bytesToHexString(md5.digest(text.getBytes("utf-8")));
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+    public static String bytesToHexString(byte[] data) {
+        if (data == null) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        int length = data.length;
+        for (int i = 0; i < length; i++) {
+            String hex = Integer.toHexString(0xFF & data[i]);
+            if (hex.length() == 1) {
+                builder.append('0');
+            }
+            builder.append(hex);
+        }
+        return builder.toString();
+    }
+    public static int getAgeFromIdCard(String idCard) {
+        if (TextUtils.isEmpty(idCard)
+                || idCard.length() != 18) {
+            return 0;
+        }
+        try {
+            int birthYear = Integer.valueOf(idCard.substring(6, 10));
+            Calendar calendar = Calendar.getInstance();
+            int currentYear = calendar.get(Calendar.YEAR);
+            if (birthYear > currentYear) {
+                return 0;
+            }
+            return currentYear - birthYear;
+        } catch (Throwable e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }

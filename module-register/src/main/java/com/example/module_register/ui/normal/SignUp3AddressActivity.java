@@ -18,8 +18,8 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.module_register.R;
 import com.example.module_register.R2;
-import com.example.module_register.bean.City;
-import com.example.module_register.bean.Province;
+import com.gcml.lib_location.bean.City;
+import com.gcml.lib_location.bean.Province;
 import com.example.module_register.ui.base.VoiceToolBarActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,7 +36,6 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +45,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import butterknife.internal.Utils;
 
 public class SignUp3AddressActivity extends VoiceToolBarActivity {
 

@@ -1,7 +1,9 @@
 package com.gzq.lib_core.service;
 
 import com.gzq.lib_core.bean.PhoneCode;
+import com.gzq.lib_core.bean.RobotAmount;
 import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.bean.VersionInfoBean;
 import com.gzq.lib_core.http.model.HttpResult;
 
 import java.util.ArrayList;
@@ -50,4 +52,21 @@ public interface CommonAPI {
      */
     @GET("ZZB/api/user/info/users/")
     Observable<HttpResult<ArrayList<UserInfoBean>>> queryAllLocalUsers(@Query("users") String userIds);
+
+    /**
+     * 根据机器id查询这台机器剩余金额
+     *
+     * @return
+     */
+    @GET("ZZB/eq/eq_amount")
+    Observable<HttpResult<RobotAmount>> queryMoneyById(@Query("eqid") String eqid);
+
+    /**
+     * 查询app版本号
+     *
+     * @param channelName
+     * @return
+     */
+    @GET("ZZB/vc/selone")
+    Observable<HttpResult<VersionInfoBean>> getAppVersion(@Query("vname") String channelName);
 }

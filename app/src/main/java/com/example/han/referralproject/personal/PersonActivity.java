@@ -16,20 +16,19 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MessageActivity;
-import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.DiseaseUser;
-import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.module_person.ui.MyBaseDataActivity;
+import com.example.module_setting.UpdateAppManager;
+import com.gzq.lib_core.bean.VersionInfoBean;
 import com.example.han.referralproject.children.ChildEduHomeActivity;
-import com.example.han.referralproject.dialog.ChangeAccountDialog;
+import com.example.module_person.dialog.ChangeAccountDialog;
 import com.example.han.referralproject.recharge.PayActivity;
-import com.example.han.referralproject.service.API;
-import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.lib_alarm_clock.ui.AlarmList2Activity;
 import com.example.module_doctor_advisory.bean.Doctor;
-import com.example.module_doctor_advisory.bean.RobotAmount;
+import com.gzq.lib_core.bean.RobotAmount;
 import com.example.module_doctor_advisory.service.DoctorAPI;
 import com.example.module_doctor_advisory.ui.CheckContractActivity;
 import com.example.module_doctor_advisory.ui.OnlineDoctorListActivity;
@@ -39,6 +38,7 @@ import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
+import com.gzq.lib_core.service.CommonAPI;
 import com.gzq.lib_core.utils.AppUtils;
 import com.gzq.lib_core.utils.DeviceUtils;
 import com.gzq.lib_core.utils.RxUtils;
@@ -227,7 +227,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                     });
         }
 
-        Box.getRetrofit(DoctorAPI.class)
+        Box.getRetrofit(CommonAPI.class)
                 .queryMoneyById(DeviceUtils.getIMEI())
                 .compose(RxUtils.httpResponseTransformer())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -276,7 +276,7 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.tv_update:
                 showLoadingDialog("检查更新中");
-                Box.getRetrofit(API.class)
+                Box.getRetrofit(CommonAPI.class)
                         .getAppVersion(AppUtils.getMeta("com.gcml.version") + "")
                         .compose(RxUtils.httpResponseTransformer())
                         .doOnTerminate(new Action() {

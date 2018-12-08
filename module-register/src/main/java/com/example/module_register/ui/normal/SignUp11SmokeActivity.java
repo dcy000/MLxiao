@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.example.module_register.R;
 import com.example.module_register.R2;
-import com.example.module_register.adapter.EatAdapter;
-import com.example.module_register.adapter.EatModel;
+import com.gcml.lib_location.adapter.EatAdapter;
+import com.gcml.lib_location.bean.EatModel;
 import com.example.module_register.ui.base.VoiceToolBarActivity;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.base.ui.BasePresenter;

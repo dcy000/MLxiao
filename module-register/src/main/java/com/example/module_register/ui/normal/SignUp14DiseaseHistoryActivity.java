@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.example.module_register.R;
 import com.example.module_register.R2;
-import com.example.module_register.adapter.DiseaseHistoryAdapter;
-import com.example.module_register.adapter.DiseaseHistoryModel;
-import com.example.module_register.adapter.DiseaseHolder;
+import com.gcml.lib_location.adapter.DiseaseHistoryAdapter;
+import com.gcml.lib_location.bean.DiseaseHistoryModel;
+import com.gcml.lib_location.adapter.DiseaseHolder;
 import com.example.module_register.service.RegisterAPI;
 import com.example.module_register.ui.base.VoiceToolBarActivity;
 import com.gcml.auth.face.FaceConstants;

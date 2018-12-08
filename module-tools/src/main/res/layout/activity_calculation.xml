@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:background="@drawable/bar_bk"
+        android:gravity="center"
+        android:text="计算"
+        android:textColor="#FFF"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:background="@drawable/toolbar_set"
+        android:drawableLeft="@drawable/icon_back"
+        android:drawablePadding="12dp"
+        android:gravity="center"
+        android:paddingLeft="30dp"
+        android:paddingRight="40dp"
+        android:text="返回"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/cl_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_start"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_js"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+        <TextView
+            android:id="@+id/tv_demo5"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:layout_marginTop="25dp"
+            android:text="5÷2等于多少？"
+            android:textColor="#FF678CFF"
+            android:textSize="28dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_demo4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_demo4" />
+
+        <TextView
+            android:id="@+id/tv_demo4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="2+2+2+2+2-3/4=？"
+            android:textColor="#FF678CFF"
+            android:textSize="32dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_demo3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_demo3" />
+
+        <TextView
+            android:id="@+id/tv_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="40dp"
+            android:text="数值计算"
+            android:textAlignment="viewStart"
+            android:textColor="#FF333333"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_notice_demo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:text="您可以这样提问："
+            android:textColor="#FF333333"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_notice" />
+
+        <TextView
+            android:id="@+id/tv_demo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="45的三次方等于多少？"
+            android:textColor="#FF678CFF"
+            android:textSize="28dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_notice_demo"
+            app:layout_constraintTop_toBottomOf="@+id/tv_notice_demo" />
+
+        <TextView
+            android:id="@+id/tv_demo2"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginTop="25dp"
+            android:text="根号76等于多少？"
+            android:textColor="#FF678CFF"
+            android:textSize="28dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_demo1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_demo1" />
+
+        <TextView
+            android:id="@+id/tv_demo3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="45与53的差是多少？"
+            android:textColor="#FF678CFF"
+            android:textSize="28dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_demo2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_demo2" />
+
+        <ImageView
+            android:id="@+id/iv_yuyin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:background="@drawable/iv_yuyin_baike_set"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="按下请说话"
+            android:textColor="#FF333333"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_yuyin" />
+
+        <com.gcml.lib_widget.voiceline.VoiceLineView
+            android:id="@+id/vl_wave"
+            android:layout_width="300dp"
+            android:layout_height="27dp"
+            android:layout_marginBottom="25dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:voiceLineColor="#FF87BDEF"
+            app:voiceLineWidth="3dp"
+            app:voiceTextColor="#333"
+            app:voiceTextSize="24dp" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

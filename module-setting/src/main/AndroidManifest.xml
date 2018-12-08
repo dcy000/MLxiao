@@ -1,0 +1,43 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.module_setting">
+
+    <application>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name="com.example.module_setting.ui.AboutActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_setting.ui.CustomKeyWordsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_setting.ui.KeyWordEdit2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_setting.ui.KeyWordEditActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_setting.ui.SetKeyWord2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_setting.ui.SetKeyWordActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_setting.ui.SettingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_setting.ui.VoicerSettingDemoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_setting.ui.VoiceSettingActivity"
+            android:screenOrientation="landscape" />
+    </application>
+</manifest>

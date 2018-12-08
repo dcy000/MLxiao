@@ -4,7 +4,6 @@ import com.example.han.referralproject.bean.DetectionData;
 import com.example.han.referralproject.bean.DetectionResult;
 import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.MonthlyReport;
-import com.example.han.referralproject.bean.VersionInfoBean;
 import com.example.han.referralproject.bean.YzInfoBean;
 import com.example.han.referralproject.children.model.SheetModel;
 import com.example.han.referralproject.children.model.SongModel;
@@ -47,47 +46,6 @@ public interface API {
      */
     @POST("ZZB/api/healthMonitor/detection/{userId}/")
     Observable<HttpResult<List<DetectionResult>>> postMeasureData(@Path("userId") String userId, @Body ArrayList<DetectionData> datas);
-
-    /**
-     * 获取登录token
-     *
-     * @param userName
-     * @param password
-     * @return
-     */
-    @POST("/ZZB/login/applogin")
-    Observable<HttpResult<SessionBean>> login(@Query("username") String userName, @Query("password") String password);
-
-
-
-
-
-    /**
-     * 修改个人基本信息
-     *
-     * @param userId
-     * @param height
-     * @param weight
-     * @param eatingHabits
-     * @param smoke
-     * @param drink
-     * @param exerciseHabits
-     * @param mh
-     * @param dz
-     * @return
-     */
-    @POST("ZZB/br/update_user_onecon")
-    Observable<Object> alertUserInfo(
-            @Query("bid") String userId,
-            @Query("height") String height,
-            @Query("weight") String weight,
-            @Query("eating_habits") String eatingHabits,
-            @Query("smoke") String smoke,
-            @Query("drink") String drink,
-            @Query("exercise_habits") String exerciseHabits,
-            @Query("mh") String mh,
-            @Query("dz") String dz
-    );
 
 
     /**
@@ -202,22 +160,7 @@ public interface API {
     @GET("ZZB/docter/search_OneDocter")
     Observable<HttpResult<Doctor>> queryDoctorInformation(@Query("bid") String userId);
 
-    /**
-     * 视频通话扣费
-     *
-     * @param docterid
-     * @param eqid
-     * @param time
-     * @param bid
-     * @return
-     */
-    @POST("ZZB/eq/koufei")
-    Observable<String> charge(
-            @Query("docterid") String docterid,
-            @Query("eqid") String eqid,
-            @Query("time") int time,
-            @Query("bid") String bid
-    );
+
 
 
     /**
@@ -255,35 +198,10 @@ public interface API {
     @GET("ZZB/bl/selSugByBname")
     Observable<HttpResult<DiseaseResult>> queryDisableDetailByName(@Query("bname") String disableName);
 
-    /**
-     * 重置密码
-     *
-     * @param account
-     * @param pwd
-     * @return
-     */
-    @POST("ZZB/acc/update_account_pwd")
-    Observable<Object> setPassWord(@Query("account") String account, @Query("pwd") String pwd);
-
-    /**
-     * 检验该手机账号是否存在
-     *
-     * @param cate
-     * @param account
-     * @return
-     */
-    @GET("ZZB/acc/sel_account")
-    Observable<Object> isPhoneUsable(@Query("cate") String cate, @Query("account") String account);
 
 
-    /**
-     * 查询app版本号
-     *
-     * @param channelName
-     * @return
-     */
-    @GET("ZZB/vc/selone")
-    Observable<HttpResult<VersionInfoBean>> getAppVersion(@Query("vname") String channelName);
+
+
 
     /**
      * 获取医嘱信息
@@ -295,28 +213,6 @@ public interface API {
     Observable<HttpResult<List<YzInfoBean>>> getMedicalOrders(@Query("userid") String userId);
 
 
-
-
-    /**
-     * 对医生进行评价
-     *
-     * @param docId
-     * @param userId
-     * @param content
-     * @param score
-     * @param time
-     * @param daid
-     * @return
-     */
-    @POST("ZZB/pj/insert")
-    Observable<Object> appraiseDoctor(
-            @Query("docterid") String docId,
-            @Query("bid") String userId,
-            @Query("content") String content,
-            @Query("score") int score,
-            @Query("time") long time,
-            @Query("daid") int daid
-    );
 
 
 }

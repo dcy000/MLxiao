@@ -6,18 +6,23 @@ import android.os.Bundle;
 
 import com.example.han.referralproject.AllMeasureActivity;
 import com.example.han.referralproject.MainActivity;
+import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.ecg.ECGCompatActivity;
 import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
 import com.example.han.referralproject.recharge.PayActivity;
-import com.example.han.referralproject.recyclerview.RecoDocActivity;
+import com.example.module_doctor_advisory.ui.RecoDocActivity;
+import com.example.module_call.ui.NimCallActivity;
+import com.example.module_doctor_advisory.ui.AppraiseActivity;
+import com.example.module_login.ui.ChooseLoginTypeActivity;
 import com.example.module_register.ui.normal.ConfirmContractActivity;
+import com.example.module_register.ui.normal.SignUp1NameActivity;
+import com.example.module_register.ui.sample.SignUp01NameActivity;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gzq.lib_bluetooth.BluetoothConstants;
 import com.gzq.lib_core.base.ui.IEvents;
 import com.gzq.lib_core.utils.ActivityUtils;
-import com.medlink.danbogh.call2.NimCallActivity;
 
 public class AppEvents implements IEvents {
     @Override
@@ -124,6 +129,35 @@ public class AppEvents implements IEvents {
             case "skip2PayActivity":
                 ActivityUtils.skipActivity(PayActivity.class);
                 break;
+            case "skip2AppraiseActivity":
+                if (objects != null) {
+                    Integer daid = (Integer) objects[0];
+                    String doid = objects[1] + "";
+                    Intent intent = new Intent(ActivityUtils.currentActivity(), AppraiseActivity.class);
+                    intent.putExtra("daid", daid);
+                    intent.putExtra("doid", doid);
+                    ActivityUtils.currentActivity().startActivity(intent);
+                }
+                break;
+            case "skip2WifiConnectActivity":
+                ActivityUtils.skipActivity(WifiConnectActivity.class);
+                break;
+            case "skip2WelcomeActivity-NewTask":
+                Intent intent = new Intent(ActivityUtils.currentActivity(), WelcomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                ActivityUtils.currentActivity().startActivity(intent);
+                break;
+            case "skip2ChooseLoginTypeActivity":
+                ActivityUtils.skipActivity(ChooseLoginTypeActivity.class);
+                break;
+            case "skip2SignUp1NameActivity":
+                ActivityUtils.skipActivity(SignUp1NameActivity.class);
+                break;
+            case "skip2SignUp01NameActivity":
+                ActivityUtils.skipActivity(SignUp01NameActivity.class);
+                break;
         }
     }
+
+
 }

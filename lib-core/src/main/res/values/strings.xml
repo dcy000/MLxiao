@@ -17,4 +17,7 @@
     <string name="doctor_remind">您的预约时间到了</string>
     <string name="yuyue_video">预&#160;&#160;约&#160;&#160;视&#160;&#160;频</string>
     <string name="yuyue_tim">主人您的预约时间到了，请及时和医生进行视频通话</string>
+    <string name="sign_up_phone_tip">主人,请输入您的手机号码</string>
+    <string name="sign_up_code_tip">主人,请输入验证码</string>
+    <string name="mp_user_help">主人，认真阅读用户须知，帮助您完成签约</string>
 </resources>
