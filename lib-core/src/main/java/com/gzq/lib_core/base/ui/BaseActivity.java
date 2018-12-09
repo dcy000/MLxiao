@@ -3,6 +3,7 @@ package com.gzq.lib_core.base.ui;
 import android.arch.lifecycle.LifecycleObserver;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -54,6 +55,7 @@ public abstract class BaseActivity<V extends IView, P extends IPresenter>
 
     public abstract void initView();
 
+    @NonNull
     public abstract P obtainPresenter();
 
     public void emitEvent(String tag, Object... params) {

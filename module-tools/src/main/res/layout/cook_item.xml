@@ -26,7 +26,6 @@
 
     <View
         android:layout_marginTop="20dp"
-        android:id="@+id/view"
         android:layout_width="960dp"
         android:layout_height="1dp"
         android:background="#ffbbbbbb" />

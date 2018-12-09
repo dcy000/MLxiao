@@ -2,7 +2,6 @@ package com.example.han.referralproject.speechsynthesis;
 
 import android.animation.Animator;
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,17 +25,19 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MessageActivity;
-import com.example.han.referralproject.bean.DiseaseUser;
+import com.example.han.referralproject.person.bean.DiseaseUser;
 import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
+import com.example.module_child_edu.service.QaApi;
+import com.example.module_child_edu.ui.RadioActivity;
 import com.example.module_login.ui.SignInActivity;
+import com.example.module_pay.ui.PayActivity;
 import com.example.module_person.ui.MyBaseDataActivity;
 import com.example.module_setting.SharedPreferencesUtils;
 import com.example.module_setting.UpdateAppManager;
 import com.example.module_setting.bean.KeyWordDefinevBean;
 import com.example.module_setting.setting.IatSettings;
 import com.gzq.lib_core.bean.VersionInfoBean;
-import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.ecg.ECGCompatActivity;
 import com.example.han.referralproject.new_music.HttpCallback;
 import com.example.han.referralproject.new_music.HttpClient;
@@ -44,10 +45,7 @@ import com.example.han.referralproject.new_music.Music;
 import com.example.han.referralproject.new_music.MusicPlayActivity;
 import com.example.han.referralproject.new_music.PlaySearchedMusic;
 import com.example.han.referralproject.new_music.SearchMusic;
-import com.example.module_person.ui.PersonDetailActivity;
-import com.example.han.referralproject.radio.RadioActivity;
-import com.example.han.referralproject.recharge.PayActivity;
-import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.person.PersonDetailActivity;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.example.lib_alarm_clock.AlarmHelper;
 import com.example.lib_alarm_clock.ui.AlarmList2Activity;
@@ -89,9 +87,10 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.iflytek.recognition.DataHandler;
 import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.wakeup.MlRecognizerDialog;
+import com.example.han.referralproject.dialog.MlRecognizerDialog;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.music.TheOldMusicActivity;
 
@@ -198,7 +197,7 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
     Random rand;
 
 
-    SharedPreferences sharedPreferences;
+//    SharedPreferences sharedPreferences;
 
     ImageView mImageView;
     private LottieAnimationView mLottieView;
@@ -241,8 +240,6 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
     public void initParams(Intent intentArgument) {
         user = Box.getSessionManager().getUser();
         rand = new Random();
-        sharedPreferences = getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE);
-
         //初始化音频管理器
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -933,7 +930,7 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
 
             } else if (result.matches(".*打.*电话.*") || inSpell.matches(".*zixun.*yisheng.*")) {
 
-                if ("".equals(sharedPreferences.getString("name", ""))) {
+                if (TextUtils.isEmpty(user.doid)||user.doid.equals("0")) {
                     ToastUtils.showShort("请先查看是否与签约医生签约成功");
                 } else {
                     Intent intent = new Intent();
@@ -1473,8 +1470,7 @@ public class SpeechSynthesisActivity extends VoiceToolBarActivity implements Vie
     //public boolean sign = true;
 
     private void printResult(RecognizerResult results) {
-        String text = JsonParser.parseIatResult(results.getResultString());
-
+        String text = DataHandler.printResult(results).toString();
         String sn = null;
         // 读取json结果中的sn字段
         try {

@@ -24,8 +24,8 @@
         <meta-data
             android:name="com.gzq.lib_core.base.quality.QualityFragment"
             android:value="FragmentLifecycle" />
-        <!--<meta-data-->
-            <!--android:name="com.gzq.lib_core.base.quality.QualityBlockCanary"-->
-            <!--android:value="AppLifecycle" />-->
+        <meta-data
+            android:name="com.gzq.lib_core.base.quality.QualityBlockCanary"
+            android:value="AppLifecycle" />
     </application>
 </manifest>

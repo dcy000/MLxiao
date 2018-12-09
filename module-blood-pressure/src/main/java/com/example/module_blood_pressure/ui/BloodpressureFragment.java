@@ -2,15 +2,19 @@ package com.example.module_blood_pressure.ui;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.module_blood_pressure.R;
 import com.example.module_blood_pressure.presenter.BloodpressurePresenter;
+import com.gcml.lib_video_ksyplayer.MeasureVideoPlayActivity;
 import com.gzq.lib_bluetooth.common.BaseBluetoothFragment;
 import com.gzq.lib_bluetooth.IBluetoothView;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.base.ui.IPresenter;
+import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -59,6 +63,9 @@ public class BloodpressureFragment extends BaseBluetoothFragment implements IBlu
             emitEvent("HealthRecord>BloodPressure");
         } else if (i == R.id.btn_video_demo) {
             emitEvent("Video>BloodPressure");
+            //血压演示视频
+            Uri uri = Uri.parse("android.resource://" + Box.getApp().getPackageName() + "/" + com.gcml.lib_video_ksyplayer.R.raw.tips_xueya);
+            MeasureVideoPlayActivity.startActivity(mActivity, uri, null, "血压测量演示视频");
         }
     }
 

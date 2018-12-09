@@ -93,12 +93,6 @@ public class SignInActivity extends ToolbarBaseActivity {
     RelativeLayout rlBack;
     private Unbinder mUnbinder;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
 
     @Override
     public int layoutId(Bundle savedInstanceState) {
@@ -106,8 +100,12 @@ public class SignInActivity extends ToolbarBaseActivity {
     }
 
     @Override
+    protected boolean isShowToolbar() {
+        return false;
+    }
+
+    @Override
     public void initParams(Intent intentArgument) {
-        mToolbar.setVisibility(View.GONE);
         MLVoiceRecognize.startRecognize(recognizerListener);
     }
 

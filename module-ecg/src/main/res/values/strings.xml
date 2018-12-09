@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">lib-ecg</string>
-    <string name="connect_connect_off">与设备连接断开</string>
     <string name="measure_ecg_file_ing">正在接收文件</string>
     <string name="measure_ecg_file_end">接收完成</string>
     <string name="measure_ecg_time_out">接收超时</string>

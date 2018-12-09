@@ -92,7 +92,6 @@ public class WeeklyReport3Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_weekly_report3, container, false);
-//        data = (WeeklyReport) getArguments().getSerializable("data");
         unbinder = ButterKnife.bind(this, view);
 
         return view;

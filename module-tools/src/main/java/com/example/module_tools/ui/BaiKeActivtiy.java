@@ -62,6 +62,11 @@ public class BaiKeActivtiy extends ToolBaseActivity {
     }
 
     @Override
+    protected boolean isShowToolbar() {
+        return false;
+    }
+
+    @Override
     public void initParams(Intent intentArgument) {
 
     }

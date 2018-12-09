@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -12,10 +13,12 @@ import android.view.View;
 import android.widget.RadioGroup;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.gcml.lib_widget.ToolbarBaseActivity;
+import com.gzq.lib_core.base.ui.BasePresenter;
+import com.gzq.lib_core.base.ui.IPresenter;
 import com.gzq.lib_core.utils.Handlers;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class VideoListActivity extends BaseActivity {
+public class VideoListActivity extends ToolbarBaseActivity {
 
     @BindView(R.id.vp_video)
     ViewPager vpVideo;
@@ -43,12 +46,20 @@ public class VideoListActivity extends BaseActivity {
 
     private int position;
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_list);
-        mToolbar.setVisibility(View.VISIBLE);
-//        mTitleText.setText(R.string.title_health_class);
+    public int layoutId(Bundle savedInstanceState) {
+        return R.layout.activity_video_list;
+    }
+
+    @Override
+    public void initParams(Intent intentArgument) {
+
+    }
+
+    @Override
+    public void initView() {
         mTitleText.setText(R.string.title_health_class);
         mRightView.setImageResource(R.drawable.icon_wifi);
         mUnbinder = ButterKnife.bind(this);
@@ -104,9 +115,14 @@ public class VideoListActivity extends BaseActivity {
         });
     }
 
+    @NonNull
+    @Override
+    public IPresenter obtainPresenter() {
+        return new BasePresenter(this) {};
+    }
+
     @Override
     protected void onResume() {
-        setDisableWakeup(true);
         super.onResume();
         MLVoiceSynthetize.startSynthesize("主人，欢迎观看健康课堂");
     }
@@ -161,10 +177,6 @@ public class VideoListActivity extends BaseActivity {
         return position;
     }
 
-    @Override
-    protected void onSpeakListenerResult(String result) {
-        super.onSpeakListenerResult(result);
-    }
 
     @Override
     protected void onDestroy() {

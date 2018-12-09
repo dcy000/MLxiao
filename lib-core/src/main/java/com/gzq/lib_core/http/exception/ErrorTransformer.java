@@ -7,6 +7,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Function;
+import timber.log.Timber;
 
 /**
  * 加入了对错误处理，已经比较完整了

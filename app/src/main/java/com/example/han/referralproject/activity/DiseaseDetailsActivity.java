@@ -3,6 +3,7 @@ package com.example.han.referralproject.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -13,12 +14,15 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.SymptomResultBean;
 import com.example.han.referralproject.service.API;
+import com.gcml.lib_widget.ToolbarBaseActivity;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.base.ui.BasePresenter;
+import com.gzq.lib_core.base.ui.IPresenter;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
-public class DiseaseDetailsActivity extends BaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class DiseaseDetailsActivity extends ToolbarBaseActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     private TextView mContent;
     /**
@@ -40,17 +44,20 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
     private RadioGroup mRgDisease;
     private SymptomResultBean.bqs mData;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_disease_details);
-        mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("病  症  详  情");
-        initView();
+    public int layoutId(Bundle savedInstanceState) {
+        return R.layout.activity_disease_details;
+    }
+
+    @Override
+    public void initParams(Intent intentArgument) {
 
     }
 
-    private void initView() {
+    @Override
+    public void initView() {
+        mTitleText.setText("病  症  详  情");
         mContent = (TextView) findViewById(R.id.content);
         mRbReason = (RadioButton) findViewById(R.id.rb_reason);
         mRbReason.setOnClickListener(this);
@@ -92,17 +99,16 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
 
     }
 
+    @NonNull
+    @Override
+    public IPresenter obtainPresenter() {
+        return new BasePresenter(this) {};
+    }
+
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
-            case R.id.iv_back:
-                finish();
-                break;
-            case R.id.iv_home:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-                break;
             case R.id.rb_reason:
                 mRbReason.setChecked(true);
                 if (mData != null)

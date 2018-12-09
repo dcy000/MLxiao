@@ -1,5 +1,6 @@
 package com.example.lib_alarm_clock.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -54,6 +55,11 @@ public class ReminderActivity extends ToolbarBaseActivity {
     @Override
     public int layoutId(Bundle savedInstanceState) {
         return R.layout.activity_reminder;
+    }
+
+    @Override
+    protected boolean isShowToolbar() {
+        return false;
     }
 
     @Override
@@ -197,6 +203,7 @@ public class ReminderActivity extends ToolbarBaseActivity {
                 });
     }
 
+    @SuppressLint("InvalidWakeLockTag")
     @Override
     protected void onResume() {
         super.onResume();

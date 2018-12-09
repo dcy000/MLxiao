@@ -25,10 +25,10 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation project(':lib-bluetooth')
     implementation project(':lib-core')
     implementation project(':lib-voice')
+    implementation project(':lib-video')
 }

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">module_pay</string>
+    <string name="pay_1">¥50</string>
+    <string name="pay_2">充&#160;&#160;&#160;值</string>
+    <string name="pay_3">¥100</string>
+    <string name="pay_4">¥200</string>
+    <string name="chongzhi">主人，请选择您要充值的金额</string>
+    <string name="pay_success">主人，您已充值成功，请查询个人账户余额</string>
+    <string name="pay">账&#160;&#160;户&#160;&#160;充&#160;&#160;值</string>
+    <string name="zhanghu_chongzhi">主人，请使用支付宝或微信扫码完成充值</string>
+    <string name="chongzhi_define">主人，请输入充值金额</string>
+</resources>

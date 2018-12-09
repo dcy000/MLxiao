@@ -2,7 +2,6 @@ package com.example.han.referralproject;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.han.referralproject.util.BatteryHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,7 +78,6 @@ public class StatusBarFragment extends Fragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        BatteryHelper.init(context);
         if (mBatteryHelper == null) {
             mBatteryHelper = new BatteryHelper();
         }

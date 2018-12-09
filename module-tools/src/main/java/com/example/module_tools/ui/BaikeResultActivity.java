@@ -44,6 +44,11 @@ public class BaikeResultActivity extends ToolbarBaseActivity {
     }
 
     @Override
+    protected boolean isShowToolbar() {
+        return false;
+    }
+
+    @Override
     public void initParams(Intent intentArgument) {
         data = (List<BaiKeBean>) intentArgument.getSerializableExtra("data");
         MLVoiceSynthetize.startSynthesize(data.get(0).summary);

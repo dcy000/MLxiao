@@ -3,6 +3,7 @@ package com.example.han.referralproject.health.old;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +11,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
+import com.gcml.lib_widget.ToolbarBaseActivity;
 import com.gcml.lib_widget.rulerview.RulerView;
-import com.ml.edu.common.widget.recycleyview.CenterScrollListener;
-import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
+import com.gzq.lib_core.base.ui.BasePresenter;
+import com.gzq.lib_core.base.ui.IPresenter;
+import com.gzq.lib_core.recycleview.CenterScrollListener;
+import com.gzq.lib_core.recycleview.OverFlyingLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HealthSaltDiaryActivity extends BaseActivity {
+public class HealthSaltDiaryActivity extends ToolbarBaseActivity {
 
     private RulerView rvRuler;
     private TextView tvRulerIndicator;
@@ -30,12 +33,19 @@ public class HealthSaltDiaryActivity extends BaseActivity {
     private RecyclerView rvUnits;
     private UnitAdapter mUnitAdapter;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.health_activity_salt_diary);
+    public int layoutId(Bundle savedInstanceState) {
+        return R.layout.health_activity_salt_diary;
+    }
+
+    @Override
+    public void initParams(Intent intentArgument) {
         mUnits = getUnits();
-        mToolbar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void initView() {
         mTitleText.setText("健  康  日  记");
         tvSaltG = (TextView) findViewById(R.id.health_diary_tv_salt_g);
         rvRuler = (RulerView) findViewById(R.id.health_diary_rv_ruler);
@@ -90,6 +100,12 @@ public class HealthSaltDiaryActivity extends BaseActivity {
         });
         rvUnits.setAdapter(mUnitAdapter);
         rvUnits.setLayoutManager(lm);
+    }
+
+    @NonNull
+    @Override
+    public IPresenter obtainPresenter() {
+        return new BasePresenter(this) {};
     }
 
     public List<String> getUnits() {
@@ -170,11 +186,5 @@ public class HealthSaltDiaryActivity extends BaseActivity {
                 onItemClickListener.onItemClick(getAdapterPosition());
             }
         }
-    }
-
-    @Override
-    protected void onResume() {
-        setDisableWakeup(true);
-        super.onResume();
     }
 }

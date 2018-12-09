@@ -1099,6 +1099,7 @@ public class DoctorappoActivity extends ToolbarBaseActivity implements View.OnCl
     @Override
     public void initParams(Intent intentArgument) {
         user = Box.getSessionManager().getUser();
+        MLVoiceSynthetize.startSynthesize(R.string.qianyue_doctor);
     }
 
     @Override
@@ -1119,9 +1120,6 @@ public class DoctorappoActivity extends ToolbarBaseActivity implements View.OnCl
             }
         });
 
-        MLVoiceSynthetize.startSynthesize(R.string.qianyue_doctor);
-
-        mToolbar.setVisibility(View.VISIBLE);
 
         mTitleText.setText(getString(R.string.doctor_qianyue));
 

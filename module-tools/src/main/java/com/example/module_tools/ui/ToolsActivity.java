@@ -46,6 +46,11 @@ public class ToolsActivity extends ToolbarBaseActivity {
     }
 
     @Override
+    protected boolean isShowToolbar() {
+        return false;
+    }
+
+    @Override
     public void initParams(Intent intentArgument) {
         MLVoiceSynthetize.startSynthesize("主人,欢迎来到工具页面,请选择您想使用的小工具");
     }

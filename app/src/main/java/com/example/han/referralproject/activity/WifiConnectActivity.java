@@ -12,7 +12,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -27,13 +27,16 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.util.WiFiUtil;
 import com.example.module_login.ui.SignInActivity;
+import com.gcml.lib_widget.ToolbarBaseActivity;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.base.ui.BasePresenter;
+import com.gzq.lib_core.base.ui.IPresenter;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WifiConnectActivity extends BaseActivity implements View.OnClickListener{
+public class WifiConnectActivity extends ToolbarBaseActivity implements View.OnClickListener{
     private WifiConnectRecyclerAdapter mConnectAdapter;
     private List<ScanResult> mDataList = new ArrayList<>();
     private WiFiUtil mWiFiUtil;
@@ -45,10 +48,22 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     private MediaPlayer mediaPlayer;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wifi_connect_layout);
-        mToolbar.setVisibility(View.VISIBLE);
+    public int layoutId(Bundle savedInstanceState) {
+        return R.layout.activity_wifi_connect_layout;
+    }
+
+    @Override
+    public void initParams(Intent intentArgument) {
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mNetworkReceiver, filter);
+    }
+
+    @Override
+    public void initView() {
         mRightView.setImageResource(R.drawable.icon_refresh);
         mTitleText.setText("WiFi连接");
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -76,15 +91,18 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mSwitch.setChecked(mWiFiUtil.isWifiOpened());
         mSwitch.setOnCheckedChangeListener(mCheckedChangeListener);
         RecyclerView mWifiRv = (RecyclerView) findViewById(R.id.rv_wifi);
-        mWifiRv.setLayoutManager(new LinearLayoutManager(mContext));
-        mConnectAdapter = new WifiConnectRecyclerAdapter(mContext, mDataList);
+        mWifiRv.setLayoutManager(new LinearLayoutManager(this));
+        mConnectAdapter = new WifiConnectRecyclerAdapter(this, mDataList);
         mWifiRv.setAdapter(mConnectAdapter);
         scanWifi();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(mNetworkReceiver, filter);
+
+
+    }
+
+    @NonNull
+    @Override
+    public IPresenter obtainPresenter() {
+        return new BasePresenter(this) {};
     }
 
     private void scanWifi() {
@@ -108,7 +126,8 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        super.onClick(v);
+        switch (v.getId()) {
             case R.id.iv_top_right:
                 scanWifi();
                 break;
@@ -181,9 +200,9 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
                         if (isFirstWifi){
                             if (TextUtils.isEmpty(Box.getUserId())) {
-                                startActivity(new Intent(mContext, SignInActivity.class));
+                                startActivity(new Intent(WifiConnectActivity.this, SignInActivity.class));
                             } else {
-                                startActivity(new Intent(mContext, MainActivity.class));
+                                startActivity(new Intent(WifiConnectActivity.this, MainActivity.class));
                             }
                             finish();
                         } else {

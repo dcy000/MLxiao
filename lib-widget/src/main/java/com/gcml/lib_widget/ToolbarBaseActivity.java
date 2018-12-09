@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.gcml.lib_widget.dialog.LoadingDialog;
 import com.gzq.lib_core.base.ui.BaseActivity;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public abstract class ToolbarBaseActivity extends BaseActivity implements View.OnClickListener {
     protected View mToolbar = null;
@@ -65,6 +66,13 @@ public abstract class ToolbarBaseActivity extends BaseActivity implements View.O
     protected void onPause() {
         super.onPause();
         hideLoadingDialog();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MLVoiceSynthetize.stop();
     }
 
     protected void backLastActivity() {

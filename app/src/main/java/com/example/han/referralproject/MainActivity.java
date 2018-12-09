@@ -7,15 +7,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.floatingball.AssistiveTouchService;
+import com.example.han.referralproject.person.PersonDetailActivity;
+import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.lib_alarm_clock.AlarmHelper;
 import com.example.lib_alarm_clock.bean.ClueInfoBean;
-import com.example.han.referralproject.floatingball.AssistiveTouchService;
-import com.example.module_person.ui.PersonDetailActivity;
-import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.lib_alarm_clock.service.AlarmAPI;
 import com.example.lib_alarm_clock.ui.AlarmList2Activity;
 import com.example.module_call.ui.NimCallActivity;
@@ -23,7 +23,11 @@ import com.example.module_doctor_advisory.ui.DoctorAskGuideActivity;
 import com.example.module_mall.ui.MarketActivity;
 import com.gcml.auth.face.FaceConstants;
 import com.gcml.auth.face.ui.FaceSignInActivity;
+import com.gcml.lib_widget.ToolbarBaseActivity;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.base.ui.BasePresenter;
+import com.gzq.lib_core.base.ui.IPresenter;
+import com.gzq.lib_core.bean.AlarmModel;
 import com.gzq.lib_core.bean.UserInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.model.HttpResult;
@@ -34,8 +38,10 @@ import com.gzq.lib_core.utils.Handlers;
 import com.gzq.lib_core.utils.PinYinUtils;
 import com.gzq.lib_core.utils.RxUtils;
 import com.gzq.lib_core.utils.ToastUtils;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.recognition.MLRecognizerListener;
+import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.gzq.lib_core.bean.AlarmModel;
 
 import org.litepal.crud.DataSupport;
 
@@ -49,7 +55,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends ToolbarBaseActivity implements View.OnClickListener {
 
     ImageView mImageView1;
     ImageView mImageView2;
@@ -62,14 +68,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mBatteryIv;
     private BatteryBroadCastReceiver mBatteryReceiver;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+    @Override
+    public int layoutId(Bundle savedInstanceState) {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected boolean isShowToolbar() {
+        return false;
+    }
+
+    @Override
+    public void initParams(Intent intentArgument) {
+        MLVoiceRecognize.startRecognize(recognizeListener);
+    }
+
+    @Override
+    public void initView() {
         StatusBarFragment.show(getSupportFragmentManager(), R.id.fl_status_bar);
 
-        mToolbar.setVisibility(View.GONE);
         mImageView1 = (ImageView) findViewById(R.id.robot_con);
 
         mImageView2 = (ImageView) findViewById(R.id.person_info);
@@ -98,7 +116,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (!isMyServiceRunning(AssistiveTouchService.class)) {
             startService(new Intent(this, AssistiveTouchService.class));
         }
+    }
 
+    @NonNull
+    @Override
+    public IPresenter obtainPresenter() {
+        return new BasePresenter(this) {};
     }
 
 
@@ -115,6 +138,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.robot_con:
@@ -252,7 +276,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 }
                             }
                             if (!isSetted) {
-                                AlarmHelper.setupAlarm(mContext, Integer.valueOf(timeString[0]), Integer.valueOf(timeString[1]), itemBean.medicine);
+                                AlarmHelper.setupAlarm(Box.getApp(), Integer.valueOf(timeString[0]), Integer.valueOf(timeString[1]), itemBean.medicine);
                             }
                         }
                     }
@@ -264,33 +288,52 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public static final String REGEX_GO_CLASS = ".*(jiankangketang|shipin).*";
     public static final String REGEX_SEE_DOCTOR = ".*(yisheng|zixun|kan|yuyue)(zixun|yisheng).*";
     public static final String REGEX_SET_ALARM = ".*(naozhong|tixingwochiyao).*";
+    private MLRecognizerListener recognizeListener=new MLRecognizerListener() {
+        @Override
+        public void onMLVolumeChanged(int i, byte[] bytes) {
 
-    @Override
-    protected void onSpeakListenerResult(String result) {
-        super.onSpeakListenerResult(result);
-        //Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
-        String inSpell = PinYinUtils.converterToSpell(result);
-
-        if (inSpell.matches(REGEX_SET_ALARM)) {
-            Intent intent = AlarmList2Activity.newLaunchIntent(this);
-            startActivity(intent);
-            return;
         }
 
-        if (inSpell.matches(REGEX_SEE_DOCTOR)) {
-            mImageView4.performClick();
-            return;
+        @Override
+        public void onMLBeginOfSpeech() {
+
         }
 
-        if (inSpell.matches(REGEX_GO_CLASS)) {
-            mImageView5.performClick();
-            return;
+        @Override
+        public void onMLEndOfSpeech() {
+
         }
 
-        if (inSpell.matches(REGEX_GO_PERSONAL_CENTER)) {
-            mImageView2.performClick();
+        @Override
+        public void onMLResult(String result) {
+            String inSpell = PinYinUtils.converterToSpell(result);
+
+            if (inSpell.matches(REGEX_SET_ALARM)) {
+                Intent intent = AlarmList2Activity.newLaunchIntent(MainActivity.this);
+                startActivity(intent);
+                return;
+            }
+
+            if (inSpell.matches(REGEX_SEE_DOCTOR)) {
+                mImageView4.performClick();
+                return;
+            }
+
+            if (inSpell.matches(REGEX_GO_CLASS)) {
+                mImageView5.performClick();
+                return;
+            }
+
+            if (inSpell.matches(REGEX_GO_PERSONAL_CENTER)) {
+                mImageView2.performClick();
+            }
         }
-    }
+
+        @Override
+        public void onMLError(SpeechError error) {
+
+        }
+    };
 
     public class BatteryBroadCastReceiver extends BroadcastReceiver {
         @Override

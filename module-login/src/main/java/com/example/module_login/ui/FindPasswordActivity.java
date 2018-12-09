@@ -42,18 +42,15 @@ public class FindPasswordActivity extends ToolbarBaseActivity {
     private Unbinder mUnbinder;
     private String mPhone;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mToolbar.setVisibility(View.GONE);
-
-
-
-    }
 
     @Override
     public int layoutId(Bundle savedInstanceState) {
         return R.layout.activity_find_password;
+    }
+
+    @Override
+    protected boolean isShowToolbar() {
+        return false;
     }
 
     @Override

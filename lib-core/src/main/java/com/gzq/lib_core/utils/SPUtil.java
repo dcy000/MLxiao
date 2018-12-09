@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.gzq.lib_core.base.App;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -13,7 +15,7 @@ public class SPUtil {
     /**
      * 保存在手机里面的文件名
      */
-    public static final String FILE_NAME = "ScopeMediaPrefsFile";
+    public static final String FILE_NAME = App.getApp().getPackageName() + ".sp";
 
     public static Application getApplication() {
         try {

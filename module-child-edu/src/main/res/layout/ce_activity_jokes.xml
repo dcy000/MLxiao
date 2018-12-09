@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ce_common_bg">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="1532pt"
+        android:layout_height="906pt"
+        android:layout_marginTop="224pt"
+        android:background="@drawable/ce_study_bg_poem_details"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/ce_poem_details_tv_poem_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="95pt"
+            android:textColor="#333333"
+            android:textSize="96pt"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="寻隐者不遇"/>
+
+        <TextView
+            android:id="@+id/ce_poem_details_tv_poem_author_and_dynasty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="40pt"
+            android:textColor="#333333"
+            android:textSize="56pt"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ce_poem_details_tv_poem_title"
+            tools:text="加到·糖"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ce_poem_details_rv_poem_sentences"
+            android:layout_width="wrap_content"
+            android:layout_height="480pt"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ce_poem_details_tv_poem_author_and_dynasty"/>
+
+        <ImageView
+            android:id="@+id/ce_poem_details_iv_replay"
+            android:layout_width="208pt"
+            android:layout_height="208pt"
+            android:layout_marginBottom="70pt"
+            android:layout_marginLeft="50pt"
+            android:src="@drawable/ce_study_ic_poem_replay"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <ImageView
+            android:id="@+id/ce_poem_details_iv_next_normal"
+            android:layout_width="160pt"
+            android:layout_height="220pt"
+            android:layout_marginBottom="64pt"
+            android:layout_marginRight="64pt"
+            android:src="@drawable/ce_study_ic_poem_next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/ce_common_iv_back"
+        android:layout_width="185pt"
+        android:layout_height="154pt"
+        android:background="@drawable/ce_common_item_bg"
+        android:paddingLeft="60pt"
+        android:paddingRight="60pt"
+        android:paddingTop="42pt"
+        android:src="@drawable/ce_common_ic_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ce_common_iv_title"
+        android:layout_width="507pt"
+        android:layout_height="130pt"
+        android:layout_marginTop="30pt"
+        android:src="@drawable/ce_jokes_ic_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+</android.support.constraint.ConstraintLayout>

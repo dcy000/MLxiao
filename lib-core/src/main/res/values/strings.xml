@@ -9,9 +9,7 @@
     <string name="customactivityoncrash_error_activity_error_details_copied">复制日志</string>
     <string name="customactivityoncrash_error_activity_error_details_clipboard_label">错误信息</string>
     <string name="upload_data_success">数据上传成功</string>
-    <string name="upload_data_fail">数据上传失败</string>
     <string name="do_uploading">正在上传</string>
-    <string name="do_loading">正在加载</string>
     <string name="do_register">正在注册</string>
     <string name="do_login">正在登录</string>
     <string name="doctor_remind">您的预约时间到了</string>

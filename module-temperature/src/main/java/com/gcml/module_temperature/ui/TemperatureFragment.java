@@ -1,15 +1,19 @@
 package com.gcml.module_temperature.ui;
 
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.lib_video_ksyplayer.MeasureVideoPlayActivity;
 import com.gcml.module_temperature.R;
 import com.gcml.module_temperature.presenter.TemperaturePresenter;
 import com.gzq.lib_bluetooth.common.BaseBluetoothFragment;
 import com.gzq.lib_bluetooth.IBluetoothView;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.base.ui.IPresenter;
+import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -72,7 +76,9 @@ public class TemperatureFragment extends BaseBluetoothFragment implements IBluet
         if (i == R.id.btn_health_history) {
             emitEvent("HealthRecord>Temperature");
         } else if (i == R.id.btn_video_demo) {
-            emitEvent("Video>Temperature");
+            //体温计演示视频
+            Uri uri = Uri.parse("android.resource://" + Box.getApp().getPackageName() + "/" + com.gcml.lib_video_ksyplayer.R.raw.tips_wendu);
+            MeasureVideoPlayActivity.startActivity(mActivity, uri, null, "耳温测量演示视频");
         }
     }
 

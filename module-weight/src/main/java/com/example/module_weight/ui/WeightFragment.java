@@ -28,7 +28,7 @@ public class WeightFragment extends BaseBluetoothFragment implements IBluetoothV
         if (i == R.id.btn_health_history) {
             emitEvent("HealthRecord>Weight");
         } else if (i == R.id.btn_video_demo) {
-            emitEvent("");
+            ToastUtils.showShort("暂无演示视频");
         }
     }
 

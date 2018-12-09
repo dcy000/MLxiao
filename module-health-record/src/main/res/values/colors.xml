@@ -3,7 +3,6 @@
     <!--导航栏的背景颜色-->
     <color name="health_record_toolbar_bg">#3F86FC</color>
     <!--主推背景色-->
-    <color name="health_record_main_bg">#f5f5f5</color>
     <color name="health_record_white">@android:color/white</color>
     <color name="health_record_line">#eeeeee</color>
     <color name="health_record_color_9cd793">#9CD793</color>

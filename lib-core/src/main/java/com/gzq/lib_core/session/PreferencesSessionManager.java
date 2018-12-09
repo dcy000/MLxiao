@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.constant.Constants;
+import com.gzq.lib_core.utils.SPUtil;
 
 /**
  * 默认使用{@link SharedPreferences}进行用户信息的保存
@@ -19,8 +20,6 @@ import com.gzq.lib_core.constant.Constants;
 public class PreferencesSessionManager extends SessionManager {
 
     private Gson mGson;
-    private SharedPreferences mSharedPreferences;
-
     // 用户信息获取比较频繁，作为一个字段去维护
     private Object mUserInfo;
 
@@ -28,7 +27,6 @@ public class PreferencesSessionManager extends SessionManager {
         Context mContext = context.getApplicationContext();
         if (mContext == null)
             throw new NullPointerException("请初始化SessionManger");
-        mSharedPreferences = mContext.getSharedPreferences(mContext.getPackageName() + ".session", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -40,7 +38,9 @@ public class PreferencesSessionManager extends SessionManager {
     public void clear() {
         super.clear();
         mUserInfo = null; // 清除本地缓存字段
-        mSharedPreferences.edit().clear().apply();
+        SPUtil.remove(Constants.KEY_SESSION_USER);
+        SPUtil.remove(Constants.KEY_SESSION_TOKEN);
+        notifyUserInfoCleared();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class PreferencesSessionManager extends SessionManager {
             if (mUserInfo != null) {
                 return (T) mUserInfo;
             }
-            String json = mSharedPreferences.getString(Constants.KEY_SESSION_USER, "");
+            String json = (String) SPUtil.get(Constants.KEY_SESSION_USER, "");
             if (TextUtils.isEmpty(json)) return null;
             mGson = Box.getGson();
             if (mGson == null) mGson = new Gson();
@@ -68,7 +68,7 @@ public class PreferencesSessionManager extends SessionManager {
         mGson = Box.getGson();
         if (mGson == null) mGson = new Gson();
         String json = mGson.toJson(user);
-        mSharedPreferences.edit().putString(Constants.KEY_SESSION_USER, json).apply();
+        SPUtil.put(Constants.KEY_SESSION_USER, json);
         mUserInfo = user;
         notifyUserInfoChanged();
     }
@@ -79,7 +79,7 @@ public class PreferencesSessionManager extends SessionManager {
         mGson = Box.getGson();
         if (mGson == null) mGson = new Gson();
         String json = mGson.toJson(token);
-        mSharedPreferences.edit().putString(Constants.KEY_SESSION_TOKEN, json).apply();
+        SPUtil.put(Constants.KEY_SESSION_TOKEN, json);
         notifyTokenChanged();
     }
 
@@ -88,7 +88,7 @@ public class PreferencesSessionManager extends SessionManager {
     public <T> T getUserToken() {
         if (sConfig.getUserTokenClass() == null) return null;
         try {
-            String json = mSharedPreferences.getString(Constants.KEY_SESSION_TOKEN, "");
+            String json = (String) SPUtil.get(Constants.KEY_SESSION_TOKEN, "");
             if (TextUtils.isEmpty(json)) return null;
             mGson = Box.getGson();
             if (mGson == null) mGson = new Gson();

@@ -3,19 +3,23 @@ package com.example.han.referralproject.events;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 
-import com.example.han.referralproject.AllMeasureActivity;
+import com.example.han.referralproject.activity.AllMeasureActivity;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.ecg.ECGCompatActivity;
 import com.example.han.referralproject.intelligent_diagnosis.MonthlyReportActivity;
 import com.example.han.referralproject.intelligent_diagnosis.WeeklyReportActivity;
-import com.example.han.referralproject.recharge.PayActivity;
-import com.example.module_doctor_advisory.ui.RecoDocActivity;
+import com.example.han.referralproject.video.VideoListActivity;
+import com.example.han.referralproject.video.VideoListFragment;
 import com.example.module_call.ui.NimCallActivity;
+import com.example.module_child_edu.ui.RadioActivity;
 import com.example.module_doctor_advisory.ui.AppraiseActivity;
+import com.example.module_doctor_advisory.ui.RecoDocActivity;
 import com.example.module_login.ui.ChooseLoginTypeActivity;
+import com.example.module_pay.ui.PayActivity;
 import com.example.module_register.ui.normal.ConfirmContractActivity;
 import com.example.module_register.ui.normal.SignUp1NameActivity;
 import com.example.module_register.ui.sample.SignUp01NameActivity;
@@ -86,34 +90,6 @@ public class AppEvents implements IEvents {
             case "Skip2RecoDocActivity":
                 ActivityUtils.skipActivity(RecoDocActivity.class);
                 break;
-            case "HealthRecord>BloodPressure":
-                //血压历史记录
-                HealthRecordActivity.startActivity(ActivityUtils.currentActivity(), 1);
-                break;
-            case "HealthRecord>Temperature":
-                //体温历史记录
-                HealthRecordActivity.startActivity(ActivityUtils.currentActivity(), 0);
-                break;
-            case "HealthRecord>Weight":
-                //体重历史记录
-                HealthRecordActivity.startActivity(ActivityUtils.currentActivity(), 8);
-                break;
-            case "HealthRecord>Bloodoxygen":
-                //血氧历史记录
-                HealthRecordActivity.startActivity(ActivityUtils.currentActivity(), 3);
-                break;
-            case "HealthRecord>Ecg":
-                //心电历史记录
-                HealthRecordActivity.startActivity(ActivityUtils.currentActivity(), 7);
-                break;
-            case "HealthRecord>ThreeInOne":
-                //三合一历史记录>胆固醇
-                HealthRecordActivity.startActivity(ActivityUtils.currentActivity(), 5);
-                break;
-            case "HealthRecord>BloodSugar":
-                //血糖历史记录
-                HealthRecordActivity.startActivity(ActivityUtils.currentActivity(), 2);
-                break;
             case "NimCall":
                 if (objects != null) {
                     String callId = objects[0] + "";
@@ -156,8 +132,21 @@ public class AppEvents implements IEvents {
             case "skip2SignUp01NameActivity":
                 ActivityUtils.skipActivity(SignUp01NameActivity.class);
                 break;
+            case "ShowVideoListFragment":
+                if (objects != null && objects.length == 3) {
+                    FragmentManager fragmentManager = (FragmentManager) objects[0];
+                    Integer contanierId = (Integer) objects[1];
+                    Integer position= (Integer) objects[2];
+                    VideoListFragment.addOrShow(fragmentManager,contanierId,position);
+                }
+                break;
+            case "skip2VideoListActivity":
+                ActivityUtils.skipActivity(VideoListActivity.class);
+                break;
+            case "skip2RadioActivity":
+                ActivityUtils.skipActivity(RadioActivity.class);
+                break;
         }
     }
-
 
 }

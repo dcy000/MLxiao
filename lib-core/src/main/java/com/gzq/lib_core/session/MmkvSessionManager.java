@@ -35,7 +35,9 @@ public class MmkvSessionManager extends SessionManager {
     public void clear() {
         super.clear();
         mUserInfo = null; // 清除本地缓存字段
-        KVUtils.clear();
+        KVUtils.remove(Constants.KEY_SESSION_USER);
+        KVUtils.remove(Constants.KEY_SESSION_TOKEN);
+        notifyUserInfoCleared();
     }
 
     @Nullable

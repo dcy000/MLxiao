@@ -5,13 +5,9 @@ import com.example.han.referralproject.bean.DetectionResult;
 import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.MonthlyReport;
 import com.example.han.referralproject.bean.YzInfoBean;
-import com.example.han.referralproject.children.model.SheetModel;
-import com.example.han.referralproject.children.model.SongModel;
 import com.example.han.referralproject.health.model.WeekReportModel;
-import com.example.han.referralproject.radio.RadioEntity;
 import com.example.han.referralproject.video.VideoEntity;
 import com.example.module_doctor_advisory.bean.Doctor;
-import com.gzq.lib_core.bean.SessionBean;
 import com.gzq.lib_core.http.model.HttpResult;
 
 import java.util.ArrayList;
@@ -65,54 +61,6 @@ public interface API {
             @Query("drink") String drink
     );
 
-    /**
-     * 获取儿童娱乐资源
-     *
-     * @param page
-     * @param limit
-     * @return
-     */
-    @GET("ZZB/rep/sel_music_danforapp")
-    Observable<HttpResult<List<SheetModel>>> getChildEduSheetList(
-            @Query("page") int page,
-            @Query("limit") int limit
-    );
-
-    /**
-     * 获取儿歌
-     *
-     * @param page
-     * @param limit
-     * @param mid
-     * @param type
-     * @param wr
-     * @return
-     */
-    @GET("ZZB/rep/selSomeImitate")
-    Observable<HttpResult<List<SongModel>>> getChildEduSongListBySheetId(
-            @Query("page") int page,
-            @Query("limit") int limit,
-            @Query("mid") int mid,
-            @Query("type") int type,
-            @Query("wr") String wr
-    );
-
-    /**
-     * 获取广播列表
-     *
-     * @param type
-     * @param page
-     * @param limit
-     * @param mid
-     * @return
-     */
-    @GET("ZZB/rep/selSomeImitate")
-    Observable<HttpResult<List<RadioEntity>>> getFM(
-            @Query("type") int type,
-            @Query("page") int page,
-            @Query("limit") int limit,
-            @Query("mid") int mid
-    );
 
     /**
      * 获取视频列表
@@ -131,23 +79,6 @@ public interface API {
             @Query("flag") int flag,
             @Query("page") int page,
             @Query("pagesize") int pagesize
-    );
-
-    /**
-     * 充值
-     *
-     * @param eqid
-     * @param bba
-     * @param time
-     * @param userId
-     * @return
-     */
-    @POST("ZZB/br/chongzhi")
-    Observable<HttpResult<String>> recharge(
-            @Query("eqid") String eqid,
-            @Query("bba") double bba,
-            @Query("time") long time,
-            @Query("bid") String userId
     );
 
     /**

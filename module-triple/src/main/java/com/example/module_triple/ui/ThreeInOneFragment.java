@@ -1,15 +1,19 @@
 package com.example.module_triple.ui;
 
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.module_triple.R;
 import com.example.module_triple.presenter.TriplePresenter;
+import com.gcml.lib_video_ksyplayer.MeasureVideoPlayActivity;
 import com.gzq.lib_bluetooth.common.BaseBluetoothFragment;
 import com.gzq.lib_bluetooth.IBluetoothView;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.base.ui.IPresenter;
+import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -63,7 +67,8 @@ public class ThreeInOneFragment extends BaseBluetoothFragment implements View.On
         if (i == R.id.btn_health_history) {
             emitEvent("HealthRecord>ThreeInOne");
         } else if (i == R.id.btn_video_demo) {
-            emitEvent("Video>ThreeInOne");
+            Uri uri = Uri.parse("android.resource://" + Box.getApp().getPackageName() + "/" + com.gcml.lib_video_ksyplayer.R.raw.tips_sanheyi);
+            MeasureVideoPlayActivity.startActivity(mActivity, uri, null, "三合一测量演示视频");
         }
     }
 

@@ -11,15 +11,6 @@
     </style>
 
 
-    <style name="XDialog_pup" parent="@android:style/Theme.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowSoftInputMode">adjustPan</item>
-        <item name="android:windowIsFloating">true</item>
-    </style>
-
-
     <style name="mypopwindow_anim_style">
         <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
         <!-- 指定显示的动画xml -->

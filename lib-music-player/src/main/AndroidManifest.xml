@@ -4,9 +4,13 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application>
+        <service android:name="com.example.han.referralproject.new_music.MusicService" />
+
         <activity
             android:name="com.example.han.referralproject.new_music.MusicPlayActivity"
             android:screenOrientation="landscape" />
-        <service android:name="com.example.han.referralproject.new_music.MusicService" />
+        <activity
+            android:name=".MusicPlayActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

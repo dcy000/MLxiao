@@ -34,4 +34,5 @@ dependencies {
     implementation project(':lib-core')
     implementation project(':lib-voice')
     implementation project(':lib-widget')
+    implementation project(':lib-video')
 }

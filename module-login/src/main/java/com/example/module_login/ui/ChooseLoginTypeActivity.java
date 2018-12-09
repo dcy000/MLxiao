@@ -75,6 +75,11 @@ public class ChooseLoginTypeActivity extends ToolbarBaseActivity implements View
     }
 
     @Override
+    protected boolean isShowToolbar() {
+        return false;
+    }
+
+    @Override
     public void initParams(Intent intentArgument) {
         MLVoiceRecognize.startRecognize(recognizerListener);
     }

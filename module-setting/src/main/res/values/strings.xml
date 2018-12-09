@@ -8,5 +8,4 @@
     <string name="version_update_action_download">下载安装</string>
     <string name="version_update_action_later">以后再说</string>
     <string name="version_update_action_cancel">取消</string>
-    <string name="version_update_url_error_message">版本更新链接错误！</string>
 </resources>

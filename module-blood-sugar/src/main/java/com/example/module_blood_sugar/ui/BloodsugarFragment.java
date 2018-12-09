@@ -2,15 +2,19 @@ package com.example.module_blood_sugar.ui;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.module_blood_sugar.R;
 import com.example.module_blood_sugar.presenter.BloodSugarPresenter;
+import com.gcml.lib_video_ksyplayer.MeasureVideoPlayActivity;
 import com.gzq.lib_bluetooth.common.BaseBluetoothFragment;
 import com.gzq.lib_bluetooth.IBluetoothView;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.base.ui.IPresenter;
+import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -52,7 +56,8 @@ public class BloodsugarFragment extends BaseBluetoothFragment implements IBlueto
         if (i == R.id.btn_health_history) {
             emitEvent("HealthRecord>BloodSugar");
         } else if (i == R.id.btn_video_demo) {
-            emitEvent("Video>BloodSugar");
+            Uri uri = Uri.parse("android.resource://" + Box.getApp().getPackageName() + "/" + com.gcml.lib_video_ksyplayer.R.raw.tips_xuetang);
+            MeasureVideoPlayActivity.startActivity(mActivity, uri, null, "血糖测量演示视频");
         }
     }
 

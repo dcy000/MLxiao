@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">module-person</string>
     <string name="person_info">主人，欢迎来到个人中心</string>
+    <string name="robot_amount" formatted="false">¥%1$s</string>
 </resources>

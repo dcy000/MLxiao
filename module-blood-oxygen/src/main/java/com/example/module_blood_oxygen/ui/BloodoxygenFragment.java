@@ -1,15 +1,19 @@
 package com.example.module_blood_oxygen.ui;
 
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.module_blood_oxygen.R;
 import com.example.module_blood_oxygen.presenter.BloodOxygenPresenter;
+import com.gcml.lib_video_ksyplayer.MeasureVideoPlayActivity;
 import com.gzq.lib_bluetooth.common.BaseBluetoothFragment;
 import com.gzq.lib_bluetooth.IBluetoothView;
+import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.base.ui.IPresenter;
+import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -49,7 +53,8 @@ public class BloodoxygenFragment extends BaseBluetoothFragment implements IBluet
         if (i == R.id.btn_health_history) {
             emitEvent("HealthRecord>Bloodoxygen");
         } else if (i == R.id.btn_video_demo) {
-            emitEvent("Video>Bloodoxygen");
+            Uri uri = Uri.parse("android.resource://" + Box.getApp().getPackageName() + "/" + com.gcml.lib_video_ksyplayer.R.raw.tips_xueyang);
+            MeasureVideoPlayActivity.startActivity(mActivity, uri, null, "血氧测量演示视频");
         }
     }
 

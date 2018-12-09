@@ -1,8 +1,6 @@
 package com.example.han.referralproject.intelligent_diagnosis;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.constant.ConstantData;
+import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.bean.UserInfoBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +32,7 @@ public class DietAdviceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_diet_advice, container, false);
         unbinder = ButterKnife.bind(this, view);
-        SharedPreferences sp = getActivity().getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
-        tvPerson.setText("使用人:" + sp.getString("userName", ""));
+        tvPerson.setText("使用人:" + ((UserInfoBean) Box.getSessionManager().getUser()).bname);
         return view;
     }
 

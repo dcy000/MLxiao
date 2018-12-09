@@ -47,18 +47,15 @@ public class SetPasswordActivity extends ToolbarBaseActivity {
     private Unbinder mUnbinder;
     private String mPhone;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-
-
-    }
 
     @Override
     public int layoutId(Bundle savedInstanceState) {
         return R.layout.activity_set_password;
+    }
+
+    @Override
+    protected boolean isShowToolbar() {
+        return false;
     }
 
     @Override
@@ -69,7 +66,6 @@ public class SetPasswordActivity extends ToolbarBaseActivity {
     @Override
     public void initView() {
         mUnbinder = ButterKnife.bind(this);
-        mToolbar.setVisibility(View.GONE);
     }
 
     @Override

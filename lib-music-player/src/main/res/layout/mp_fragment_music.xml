@@ -26,7 +26,6 @@
             android:visibility="gone">
 
             <ImageView
-                android:id="@+id/mp_iv_back"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@drawable/mp_btn_action_bg_selector"

@@ -3,44 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.han.referralproject.com.example.module_doctor_advisory.ui.DoctorappoActivity">
+    android:layout_height="match_parent">
 
-    <!--<LinearLayout
-        android:id="@+id/linearlayou"
-        android:layout_width="wrap_content"
-        android:layout_height="69dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/icon_back"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_back" />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:text="@string/doctor_yuyue"
-        android:textColor="@color/white"
-        android:textSize="40sp" />
-
-
-    <ImageView
-        android:id="@+id/icon_home"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:clickable="true"
-        android:src="@drawable/icon_wifi" />-->
 
     <LinearLayout
         android:id="@+id/linearlayou1"

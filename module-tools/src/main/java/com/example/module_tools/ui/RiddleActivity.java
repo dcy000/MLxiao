@@ -63,16 +63,15 @@ public class RiddleActivity extends ToolbarBaseActivity implements RiddleDialog.
     private String resultPinYin;
     private String anwserPinyin;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
 
     @Override
     public int layoutId(Bundle savedInstanceState) {
         return R.layout.activity_riddle;
+    }
+
+    @Override
+    protected boolean isShowToolbar() {
+        return false;
     }
 
     @Override

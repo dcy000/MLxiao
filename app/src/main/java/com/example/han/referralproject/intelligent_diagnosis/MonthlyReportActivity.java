@@ -1,18 +1,20 @@
 package com.example.han.referralproject.intelligent_diagnosis;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.MonthlyReport;
 import com.example.han.referralproject.service.API;
+import com.gcml.lib_widget.ToolbarBaseActivity;
 import com.gcml.lib_widget.circleindicator.CircleIndicator;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.base.ui.BasePresenter;
+import com.gzq.lib_core.base.ui.IPresenter;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.RxUtils;
@@ -29,7 +31,7 @@ import butterknife.ButterKnife;
  * Created by gzq on 2018/3/14.
  */
 
-public class MonthlyReportActivity extends BaseActivity {
+public class MonthlyReportActivity extends ToolbarBaseActivity {
     @BindView(R.id.viewpage)
     ViewPager viewpage;
     @BindView(R.id.circleIndicator)
@@ -41,14 +43,29 @@ public class MonthlyReportActivity extends BaseActivity {
     private MonthlyReport4Fragment fragment4;
     private MonthlyReport5Fragment fragment5;
 
+
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_monthly_report);
+    public int layoutId(Bundle savedInstanceState) {
+        return R.layout.activity_monthly_report;
+    }
+
+    @Override
+    public void initParams(Intent intentArgument) {
+
+    }
+
+    @Override
+    public void initView() {
         ButterKnife.bind(this);
-        mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("月生活记录");
         initFragment();
+    }
+
+    @NonNull
+    @Override
+    public IPresenter obtainPresenter() {
+        return new BasePresenter(this) {};
     }
 
     private void initFragment() {

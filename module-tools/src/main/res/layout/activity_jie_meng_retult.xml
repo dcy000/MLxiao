@@ -6,7 +6,6 @@
     android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl_dream_result"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="65dp"

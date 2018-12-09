@@ -56,6 +56,11 @@ public class JieMengRetultActivity extends ToolbarBaseActivity {
     }
 
     @Override
+    protected boolean isShowToolbar() {
+        return false;
+    }
+
+    @Override
     public void initParams(Intent intentArgument) {
         data = (List<DreamBean>) intentArgument.getSerializableExtra("data");
         question = intentArgument.getStringExtra("question");

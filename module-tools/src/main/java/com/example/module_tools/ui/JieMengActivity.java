@@ -69,6 +69,11 @@ public class JieMengActivity extends ToolBaseActivity {
     }
 
     @Override
+    protected boolean isShowToolbar() {
+        return false;
+    }
+
+    @Override
     public void initParams(Intent intentArgument) {
 
     }

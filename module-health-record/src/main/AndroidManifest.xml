@@ -2,6 +2,8 @@
     package="com.gcml.module_health_record">
 
     <application>
+        <meta-data android:name="com.gcml.module_health_record.app.HealthRecordApp"
+            android:value="AppLifecycle"/>
         <activity android:name=".HealthRecordActivity" />
     </application>
 </manifest>

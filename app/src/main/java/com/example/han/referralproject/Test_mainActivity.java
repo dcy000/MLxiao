@@ -2,13 +2,17 @@ package com.example.han.referralproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.AllMeasureActivity;
 import com.example.han.referralproject.ecg.ECGCompatActivity;
+import com.gcml.lib_widget.ToolbarBaseActivity;
 import com.gzq.lib_bluetooth.BluetoothConstants;
+import com.gzq.lib_core.base.ui.BasePresenter;
+import com.gzq.lib_core.base.ui.IPresenter;
 import com.gzq.lib_core.utils.ActivityUtils;
 import com.gzq.lib_core.utils.ToastUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -18,7 +22,7 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Test_mainActivity extends BaseActivity implements View.OnClickListener {
+public class Test_mainActivity extends ToolbarBaseActivity implements View.OnClickListener {
     public static final int MIN_CLICK_DELAY_TIME = 1000;
     @BindView(R.id.ll_xueya)
     LinearLayout llXueya;
@@ -54,23 +58,20 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         finish();
     }
 
-    /**
-     * 返回到主页面
-     */
-    protected void backMainActivity() {
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
+    @Override
+    public int layoutId(Bundle savedInstanceState) {
+        return R.layout.activity_test_main2;
     }
 
+    @Override
+    public void initParams(Intent intentArgument) {
+        isTest = intentArgument.getBooleanExtra("isTest", false);
+        MLVoiceSynthetize.startSynthesize(R.string.tips_test);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_main2);
+    public void initView() {
         ButterKnife.bind(this);
-        mToolbar.setVisibility(View.VISIBLE);
-        isTest = getIntent().getBooleanExtra("isTest", false);
-
         llXueya.setOnClickListener(this);
         llXueyang.setOnClickListener(this);
         llXuetang.setOnClickListener(this);
@@ -80,13 +81,20 @@ public class Test_mainActivity extends BaseActivity implements View.OnClickListe
         llSan.setOnClickListener(this);
         llMore.setOnClickListener(this);
 
-        MLVoiceSynthetize.startSynthesize(R.string.tips_test);
 
+
+    }
+
+    @NonNull
+    @Override
+    public IPresenter obtainPresenter() {
+        return new BasePresenter(this) {
+        };
     }
 
     @Override
     public void onClick(View v) {
-
+        super.onClick(v);
         long currentTime = Calendar.getInstance().getTimeInMillis();
         if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
             lastClickTime = currentTime;

@@ -28,6 +28,7 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':lib-core')
     compileOnly rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["support-core-utils"]
     implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 }

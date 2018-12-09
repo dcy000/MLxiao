@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.module_pay" >
+    <application>
+        <activity
+            android:name="com.example.module_pay.ui.DefineActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.example.module_pay.ui.PayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_pay.ui.PayInfoActivity"
+            android:screenOrientation="landscape" />
+
+    </application>
+</manifest>

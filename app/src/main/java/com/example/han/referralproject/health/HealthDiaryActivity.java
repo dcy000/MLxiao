@@ -1,19 +1,22 @@
 package com.example.han.referralproject.health;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
-import android.view.View;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.health.model.DetailsModel;
 import com.example.han.referralproject.health.model.ItemsModel;
 import com.example.han.referralproject.service.API;
+import com.gcml.lib_widget.ToolbarBaseActivity;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.base.ui.BasePresenter;
+import com.gzq.lib_core.base.ui.IPresenter;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.utils.ToastUtils;
@@ -24,7 +27,7 @@ import java.util.ArrayList;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class HealthDiaryActivity extends BaseActivity
+public class HealthDiaryActivity extends ToolbarBaseActivity
         implements HealthDiaryDetailsFragment.OnActionListener {
 
     private int what;
@@ -34,11 +37,20 @@ public class HealthDiaryActivity extends BaseActivity
     private Fragment[] mFragments;
     private ItemsModel[] mItemsModels;
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.health_activity_diary);
-        mToolbar.setVisibility(View.VISIBLE);
+    public int layoutId(Bundle savedInstanceState) {
+        return R.layout.health_activity_diary;
+    }
+
+    @Override
+    public void initParams(Intent intentArgument) {
+
+    }
+
+    @Override
+    public void initView() {
         mTitleText.setText("健  康  日  记");
 
         DetailsModel detailsModel0 = new DetailsModel();
@@ -119,6 +131,12 @@ public class HealthDiaryActivity extends BaseActivity
                 HealthDiaryDetails2Fragment.newInstance(itemsModel1, detailsModel2),
         };
         switchFragment(0, 0);
+    }
+
+    @NonNull
+    @Override
+    public IPresenter obtainPresenter() {
+        return new BasePresenter(this) {};
     }
 
     @Override
@@ -242,11 +260,5 @@ public class HealthDiaryActivity extends BaseActivity
         public float selectedValue;
         public int unitPosition;
         public String item;
-    }
-
-    @Override
-    protected void onResume() {
-        setDisableWakeup(true);
-        super.onResume();
     }
 }

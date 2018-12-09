@@ -30,7 +30,6 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/health_diary_tv_more_items_top_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="健  康  日  记"
@@ -58,7 +57,6 @@
     </android.support.constraint.ConstraintLayout>
 
     <TextView
-        android:id="@+id/health_diary_tv_more_items_the_items_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -76,7 +74,6 @@
         android:overScrollMode="never"/>
 
     <TextView
-        android:id="@+id/health_diary_tv_more_items_more_items_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

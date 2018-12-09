@@ -34,9 +34,6 @@
     <string name="sign_up_sports_tip">主人,您运动吗</string>
     <string name="sign_up_disease_history_tip">主人，如果您有病史，请选择对应标签</string>
 
-    <string name="empty_account">输入账号不能为空</string>
     <string name="empty_pwd">输入密码不能为空</string>
     <string name="empty_name">输入姓名不能为空</string>
-    <string name="empty_address">输入地址不能为空</string>
-    <string name="empty_phone">请输入手机号码</string>
 </resources>

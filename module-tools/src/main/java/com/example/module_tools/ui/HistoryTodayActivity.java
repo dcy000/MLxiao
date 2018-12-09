@@ -48,6 +48,11 @@ public class HistoryTodayActivity extends ToolbarBaseActivity {
     }
 
     @Override
+    protected boolean isShowToolbar() {
+        return false;
+    }
+
+    @Override
     public void initParams(Intent intentArgument) {
         MLVoiceSynthetize.startSynthesize("主人,欢迎来到历史的今天");
         initData();

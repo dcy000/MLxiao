@@ -75,7 +75,6 @@
         android:text="0杯"/>
 
     <View
-        android:id="@+id/health_diary_indicator_ruler"
         android:layout_width="6pt"
         android:layout_height="78pt"
         android:layout_marginTop="12pt"

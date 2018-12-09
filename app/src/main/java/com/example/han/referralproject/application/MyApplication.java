@@ -19,11 +19,12 @@ import com.gzq.lib_core.base.Box;
 import com.gzq.lib_core.base.delegate.AppLifecycle;
 import com.gzq.lib_core.base.ui.IEvents;
 import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.room.UserDatabase;
 import com.gzq.lib_core.session.SessionManager;
 import com.gzq.lib_core.session.SessionStateChangedListener;
 import com.gzq.lib_core.utils.AppUtils;
 import com.gzq.lib_core.utils.Handlers;
-import com.medlink.danbogh.utils.JpushAliasUtils;
+import com.example.han.referralproject.util.JpushAliasUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
@@ -112,6 +113,17 @@ public class MyApplication implements AppLifecycle {
             @Override
             public void onTokenInfoChanged(SessionManager sessionManager) {
 
+            }
+
+            @Override
+            public void onUserInfoCleared(SessionManager sessionManager) {
+                //退出友盟
+                MobclickAgent.onProfileSignOff();
+                //退出网易IM
+                NimAccountHelper.getInstance().logout();
+                //清除Room中的缓存
+                UserDatabase userDatabase = Box.getRoomDataBase(UserDatabase.class);
+                userDatabase.userDao().deleteById(Box.getUserId());
             }
         });
 

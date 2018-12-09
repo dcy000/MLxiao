@@ -42,6 +42,11 @@ public class DateInquireResultActivity extends ToolbarBaseActivity {
     }
 
     @Override
+    protected boolean isShowToolbar() {
+        return false;
+    }
+
+    @Override
     public void initParams(Intent intentArgument) {
         intent = intentArgument;
         MLVoiceSynthetize.startSynthesize(intent.getStringExtra("anwser"));

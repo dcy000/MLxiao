@@ -19,7 +19,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.DetectionData;
 import com.example.han.referralproject.bean.DetectionResult;
 import com.example.han.referralproject.service.API;
-import com.example.han.referralproject.util.MyDialogFragment;
+import com.example.han.referralproject.dialog.MyDialogFragment;
 import com.gcml.lib_ecg.ChooseECGDeviceFragment;
 import com.gcml.lib_ecg.ECG_Fragment;
 import com.gcml.lib_ecg.ECG_PDF_Fragment;

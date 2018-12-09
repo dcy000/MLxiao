@@ -5,31 +5,35 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Chronometer;
 
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
-import com.example.module_login.ui.ChooseLoginTypeActivity;
-import com.example.module_setting.UpdateAppManager;
-import com.gzq.lib_core.bean.VersionInfoBean;
 import com.example.han.referralproject.new_music.MusicService;
 import com.example.han.referralproject.util.WiFiUtil;
+import com.example.module_login.ui.ChooseLoginTypeActivity;
+import com.example.module_setting.UpdateAppManager;
+import com.gcml.lib_widget.ToolbarBaseActivity;
 import com.gzq.lib_core.base.Box;
+import com.gzq.lib_core.base.ui.BasePresenter;
+import com.gzq.lib_core.base.ui.IPresenter;
 import com.gzq.lib_core.bean.UserInfoBean;
+import com.gzq.lib_core.bean.VersionInfoBean;
 import com.gzq.lib_core.http.exception.ApiException;
 import com.gzq.lib_core.http.observer.CommonObserver;
 import com.gzq.lib_core.service.CommonAPI;
 import com.gzq.lib_core.utils.AppUtils;
 import com.gzq.lib_core.utils.RxUtils;
+import com.iflytek.wake.MLVoiceWake;
 
 import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 
-public class WelcomeActivity extends BaseActivity {
+public class WelcomeActivity extends ToolbarBaseActivity {
 
     private static final String TAG = "afirez";
 
@@ -38,14 +42,35 @@ public class WelcomeActivity extends BaseActivity {
     public static final String VEDIO_URL = "http://oyptcv2pb.bkt.clouddn.com/abc_1521797390144";
     public static final String IMAGE_URL = "http://oyptcv2pb.bkt.clouddn.com/abc_1521797325763";
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public int layoutId(Bundle savedInstanceState) {
+        return R.layout.activity_welcome;
+    }
+
+    @Override
+    protected boolean isShowToolbar() {
+        return false;
+    }
+
+    @Override
+    public void initParams(Intent intentArgument) {
+
+    }
+
+    @Override
+    public void initView() {
         initContentView();
     }
 
+    @NonNull
+    @Override
+    public IPresenter obtainPresenter() {
+        return new BasePresenter(this) {
+        };
+    }
+
     private void initContentView() {
-        setContentView(R.layout.activity_welcome);
         Log.i(TAG, "onCreate: ");
         //启动音乐服务
         if (!isWorked("com.example.han.referralproject.MusicService")) {
@@ -179,7 +204,7 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        setDisableWakeup(true);
+        MLVoiceWake.stopWakeUp();
         super.onResume();
     }
 }

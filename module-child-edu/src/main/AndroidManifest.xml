@@ -1,0 +1,51 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.module_child_edu">
+
+    <application>
+        <activity
+            android:name="com.example.module_child_edu.ui.RadioActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduHomeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduCartoonActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduEntertainmentActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduStudyActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduSheetListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduSheetDetailsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduPoemListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduWordsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduStoriesActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustNothing|stateHidden" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduBrainTeaserActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduWhyActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduPoemDetailsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.example.module_child_edu.ui.ChildEduJokesActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name="com.example.module_child_edu.ui.ChildEduStories2Activity"
+            android:screenOrientation="landscape"/>
+    </application>
+</manifest>

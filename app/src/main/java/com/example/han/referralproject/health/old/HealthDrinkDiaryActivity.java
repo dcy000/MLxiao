@@ -2,20 +2,23 @@ package com.example.han.referralproject.health.old;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
+import com.gcml.lib_widget.ToolbarBaseActivity;
 import com.gcml.lib_widget.rulerview.RulerView;
-import com.ml.edu.common.widget.recycleyview.CenterScrollListener;
-import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
+import com.gzq.lib_core.base.ui.BasePresenter;
+import com.gzq.lib_core.base.ui.IPresenter;
+import com.gzq.lib_core.recycleview.CenterScrollListener;
+import com.gzq.lib_core.recycleview.OverFlyingLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HealthDrinkDiaryActivity extends BaseActivity {
+public class HealthDrinkDiaryActivity extends ToolbarBaseActivity {
 
     private RulerView rvRuler;
     private TextView tvRulerIndicator;
@@ -30,11 +33,17 @@ public class HealthDrinkDiaryActivity extends BaseActivity {
     private HealthSaltDiaryActivity.UnitAdapter mUnitAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.health_activity_drink_diary);
+    public int layoutId(Bundle savedInstanceState) {
+        return R.layout.health_activity_drink_diary;
+    }
+
+    @Override
+    public void initParams(Intent intentArgument) {
         units = getUnits();
-        mToolbar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void initView() {
         mTitleText.setText("健  康  日  记");
         tvTopic = (TextView) findViewById(R.id.health_diary_tv_topic);
         rvItems = (RecyclerView) findViewById(R.id.health_diary_rv_items);
@@ -105,6 +114,13 @@ public class HealthDrinkDiaryActivity extends BaseActivity {
         rvUnits.setLayoutManager(lm2);
     }
 
+    @NonNull
+    @Override
+    public IPresenter obtainPresenter() {
+        return new BasePresenter(this) {
+        };
+    }
+
     private List<String> getUnits() {
         List<String> units = new ArrayList<>();
         units.add("杯");
@@ -125,11 +141,5 @@ public class HealthDrinkDiaryActivity extends BaseActivity {
         mModels.add("黄酒");
         mModels.add("红酒");
         return mModels;
-    }
-
-    @Override
-    protected void onResume() {
-        setDisableWakeup(true);
-        super.onResume();
     }
 }

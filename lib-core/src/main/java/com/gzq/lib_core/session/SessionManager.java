@@ -126,5 +126,9 @@ public abstract class SessionManager {
         }
     }
 
-
+    protected void notifyUserInfoCleared() {
+        for (SessionStateChangedListener listener : mSessionStateChangedListeners) {
+            listener.onUserInfoCleared(this);
+        }
+    }
 }

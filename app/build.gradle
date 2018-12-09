@@ -175,7 +175,6 @@ dependencies {
     implementation project(':lib-core')
     implementation project(':module-health-record')
     implementation project(':lib-auth-face')
-    implementation project(':module-video')
     implementation project(':lib-bluetooth')
     implementation project(':module-blood-pressure')
     implementation project(':module-temperature')
@@ -193,4 +192,19 @@ dependencies {
     implementation project(':module-tools')
     implementation project(':module-login')
     implementation project(':module-person')
+    implementation project(':module-pay')
+    implementation project(':module-child-edu')
+    implementation project(':lib-video')
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                //这里写你想统一的版本是多少，前提是你sdk里有
+                details.useVersion '28.0.0'
+            }
+        }
+    }
 }

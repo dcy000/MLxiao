@@ -15,4 +15,9 @@ public interface SessionStateChangedListener {
      */
     void onTokenInfoChanged(SessionManager sessionManager);
 
+    /**
+     * 清除本地用户信息
+     * @param sessionManager
+     */
+    void onUserInfoCleared(SessionManager sessionManager);
 }

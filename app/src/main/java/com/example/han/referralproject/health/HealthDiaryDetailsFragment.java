@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
@@ -17,12 +16,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.health.model.DetailsModel;
+import com.gcml.lib_widget.ToolbarBaseActivity;
 import com.gcml.lib_widget.rulerview.RulerView;
+import com.gzq.lib_core.recycleview.CenterScrollListener;
+import com.gzq.lib_core.recycleview.OverFlyingLayoutManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.ml.edu.common.widget.recycleyview.CenterScrollListener;
-import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
 
 public class HealthDiaryDetailsFragment extends Fragment {
 
@@ -109,7 +108,7 @@ public class HealthDiaryDetailsFragment extends Fragment {
         rvUnits = (RecyclerView) findViewById(R.id.health_diary_rv_units);
         tvAction = (TextView) findViewById(R.id.health_diary_tv_action);
         FragmentActivity activity = getActivity();
-        if (activity != null && activity instanceof BaseActivity) {
+        if (activity != null && activity instanceof ToolbarBaseActivity) {
             MLVoiceSynthetize.startSynthesize("主人，请" + mModel.getTitle());
         }
         tvTitle.setText(mModel.getTitle());
