@@ -5,8 +5,8 @@
         <shape>
             <corners android:radius="10dp" />
 
-            <solid android:color="#7FFFFFFF" />
-            <size android:height="12dp"/>
+            <solid android:color="#FFFFFF" />
+            <size android:height="12dp" />
         </shape>
     </item>
     <!-- 拖动后的颜色 -->
@@ -15,8 +15,8 @@
             <shape>
                 <corners android:radius="10dp" />
 
-                <solid android:color="#FFFFFF" />
-                <size android:height="12dp"/>
+                <solid android:color="#999" />
+                <size android:height="12dp" />
             </shape>
         </clip>
     </item>

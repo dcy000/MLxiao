@@ -212,5 +212,7 @@ dependencies {
 
     implementation rootProject.ext.dependencies["lifecycle-extensions"]
     implementation rootProject.ext.dependencies["lifecycle-runtime"]
+
+    implementation project(':module-control_volume')
 }
 

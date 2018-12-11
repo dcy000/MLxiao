@@ -15,7 +15,6 @@ import android.widget.FrameLayout;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.ClueInfoBean;
-import com.example.han.referralproject.floatingball.AssistiveTouchService;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
@@ -27,6 +26,7 @@ import com.example.lenovo.rto.accesstoken.AccessToken;
 import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
+import com.example.module_control_volume.VolumeControlFloatwindow;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
@@ -95,10 +95,11 @@ public class MainActivity extends BaseActivity implements CountdownDialog.Ontouc
             }
         }, 1000);
 
-        if (!isMyServiceRunning(AssistiveTouchService.class)) {
-            startService(new Intent(this, AssistiveTouchService.class));
-        }
-
+//        if (!isMyServiceRunning(AssistiveTouchService.class)) {
+//            startService(new Intent(this, AssistiveTouchService.class));
+//        }
+        //启动音量控制悬浮按钮
+        VolumeControlFloatwindow.init(this.getApplicationContext());
 //        Looper.myQueue().addIdleHandler(YiYuanIdleHandler.getInstance());
     }
 
