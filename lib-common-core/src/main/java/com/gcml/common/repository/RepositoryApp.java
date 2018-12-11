@@ -17,6 +17,7 @@ import com.gcml.common.repository.di.DaggerRepositoryComponent;
 import com.gcml.common.repository.di.RepositoryComponent;
 import com.gcml.common.repository.di.RepositoryConfigModule;
 import com.gcml.common.repository.di.RepositoryModule;
+import com.gcml.common.repository.http.HeadersInterceptor;
 import com.gcml.common.repository.http.HttpLogInterceptor;
 import com.gcml.common.repository.utils.Preconditions;
 import com.gcml.common.utils.ManifestParser;
@@ -139,7 +140,8 @@ public enum RepositoryApp implements IRepositoryApp {
                         RetrofitUrlManager.getInstance().with(okHttpBuilder);
                         okHttpBuilder
                                 .addNetworkInterceptor(new StethoInterceptor())
-                                .writeTimeout(10, TimeUnit.SECONDS);
+                                .writeTimeout(10, TimeUnit.SECONDS)
+                                .addInterceptor(new HeadersInterceptor());
 //                                .addInterceptor(Pandora.get().getInterceptor());
                     })
                     //这里可以自己自定义配置 RxCache 的参数

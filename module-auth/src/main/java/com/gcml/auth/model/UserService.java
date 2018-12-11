@@ -1,6 +1,7 @@
 package com.gcml.auth.model;
 
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.repository.Api;
 import com.gcml.common.repository.http.ApiResult;
 import com.gcml.common.user.UserToken;
 
@@ -79,4 +80,9 @@ public interface UserService {
     Observable<ApiResult<List<UserEntity>>> getAllUsers(
             @Query("users") String usersIds
     );
+
+    @POST("ZZB/api/server/login/")
+    Observable<ApiResult<ServerBean>> getServiceProvider(
+            @Query("account")String server_account,
+            @Query("password")String server_password);
 }
