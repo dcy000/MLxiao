@@ -616,7 +616,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     Bundle pdfBundle = new Bundle();
                     pdfBundle.putString(ECG_PDF_Fragment.KEY_BUNDLE_PDF_URL, fileAddress);
                     pdf_fragment.setArguments(pdfBundle);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, pdf_fragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, pdf_fragment).commitAllowingStateLoss();
                     isMeasure = false;
                     mRightView.setImageResource(R.drawable.health_measure_icon_qrcode);
                 }

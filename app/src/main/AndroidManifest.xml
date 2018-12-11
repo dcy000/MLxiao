@@ -421,7 +421,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name="com.gcml.old.auth.personal.PersonDetailActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".activity.SelectXuetangTimeActivity"
             android:screenOrientation="landscape" />

@@ -19,6 +19,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.medlink.danbogh.XDialogFragment;
 
 public class ConfirmContractActivity extends AppCompatActivity {
@@ -138,8 +139,7 @@ public class ConfirmContractActivity extends AppCompatActivity {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         finish();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        Intent intent = new Intent(getApplicationContext(), PersonDetailActivity.class);
                         startActivity(intent);
                     }
                 });

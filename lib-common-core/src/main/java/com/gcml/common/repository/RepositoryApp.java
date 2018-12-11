@@ -1,5 +1,6 @@
 package com.gcml.common.repository;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.migration.Migration;
@@ -20,7 +21,6 @@ import com.gcml.common.repository.di.RepositoryModule;
 import com.gcml.common.repository.http.HttpLogInterceptor;
 import com.gcml.common.repository.utils.Preconditions;
 import com.gcml.common.utils.ManifestParser;
-import com.github.moduth.blockcanary.internal.ProcessUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,7 +143,7 @@ public enum RepositoryApp implements IRepositoryApp {
                                 .addNetworkInterceptor(new StethoInterceptor())
                                 .writeTimeout(10, TimeUnit.SECONDS);
                         //只在主进程初始化，不然会报控制针
-                        if (context.getPackageName().equals(ProcessUtils.myProcessName())) {
+                        if (context.getPackageName().equals(getCurProcessName(context))) {
                             okHttpBuilder.addInterceptor(Pandora.get().getInterceptor());
                         }
                     })
@@ -178,7 +178,26 @@ public enum RepositoryApp implements IRepositoryApp {
                     });
         }
     }
+    /**
+     * 获取当前进程名
+     * @param context
+     * @return
+     */
+    public static String getCurProcessName(Context context) {
 
+        int pid = android.os.Process.myPid();
+
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+
+        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager
+                .getRunningAppProcesses()) {
+
+            if (appProcess.pid == pid) {
+                return appProcess.processName;
+            }
+        }
+        return null;
+    }
     public static class HttpInterceptorImpl implements ClientModule.HttpInterceptor {
 
         @Override

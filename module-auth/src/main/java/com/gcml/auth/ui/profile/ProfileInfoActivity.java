@@ -20,6 +20,7 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityProfileInfoBinding;
+import com.gcml.auth.ui.AuthActivity;
 import com.gcml.auth.ui.profile.update.AlertAddressActivity;
 import com.gcml.auth.ui.profile.update.AlertIDCardActivity;
 import com.gcml.auth.ui.profile.update.AlertMHActivity;
@@ -590,6 +591,11 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 .build()
                 .call()
                 .getDataItem("data");
+        if (data==null){
+            Intent intent=new Intent(this,AuthActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
         data.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))

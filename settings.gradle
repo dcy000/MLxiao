@@ -1,4 +1,4 @@
-include ':app',
+include ':app', ':module-factory-test',
         ':app-component',
         ':lib-common-core',
         ':lib-common-business',

@@ -22,7 +22,7 @@ ext {
     developUrl = api.testUrl
 
     //线上正式运行的IP地址
-    produceUrl = api.lintiancongUrl
+    produceUrl = api.testUrl
 
 
     android = [

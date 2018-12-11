@@ -1,5 +1,6 @@
 package com.example.han.referralproject.homepage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -164,6 +165,11 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                 .build()
                 .call()
                 .getDataItem("data");
+        if (rxUsers == null) {
+            CC.obtainBuilder("com.gcml.auth")
+                    .build()
+                    .call();
+        }
         rxUsers.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -218,7 +224,6 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
     public void onComplete() {
 
     }
-
 
 
 }

@@ -2,6 +2,7 @@ package com.example.han.referralproject.children.study;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.children.SmoothScrollLayoutManager;
 import com.example.han.referralproject.children.model.PoemModel;
 import com.ml.edu.common.widget.recycleyview.OverFlyingLayoutManager;
 
@@ -63,8 +65,8 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
             }
         });
 
-        lm = new LinearLayoutManager(this);
-        lm.setOrientation(OverFlyingLayoutManager.VERTICAL);
+        lm = new SmoothScrollLayoutManager(this);
+        lm.setOrientation(LinearLayoutManager.VERTICAL);
         mSentences = new ArrayList<>();
         mAdapter = new Adapter(mSentences);
         rvPoemSentences.setLayoutManager(lm);
@@ -87,7 +89,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         if (poemModel != null) {
             tvPoemTitle.setText(poemModel.getTitle());
             tvAuthorAndDynasty.setText(String.format("%s·%s", poemModel.getAuthor(), poemModel.getDynasty()));
-            String content = poemModel.getContent().replaceAll(" ","");
+            String content = poemModel.getContent().replaceAll(" ", "");
             String[] sentences = content.split("[、，。；？！,.;?!]");
             mSentences.clear();
 //            Collections.addAll(mSentences, sentences);
@@ -122,7 +124,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         positionSelected++;
         mAdapter.setPositionSelected(positionSelected);
         mAdapter.notifyItemChanged(positionSelected);
-        rvPoemSentences.scrollToPosition(positionSelected);
+        rvPoemSentences.smoothScrollToPosition(positionSelected);
         speak(mSentences.get(positionSelected));
     }
 
@@ -139,7 +141,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         positionSelected--;
         mAdapter.setPositionSelected(positionSelected);
         mAdapter.notifyDataSetChanged();
-        rvPoemSentences.scrollToPosition(positionSelected);
+        rvPoemSentences.smoothScrollToPosition(positionSelected);
         speak(mSentences.get(positionSelected));
     }
 
@@ -152,7 +154,7 @@ public class ChildEduPoemDetailsActivity extends BaseActivity {
         isPlaying = true;
 //        mAdapter.notifyDataSetChanged();
         mAdapter.setPositionSelected(0);
-        rvPoemSentences.scrollToPosition(0);
+        rvPoemSentences.smoothScrollToPosition(0);
         speak(mPoemModel.getTitle() + "," + mPoemModel.getAuthor() + "," + mPoemModel.getDynasty() + "," + mSentences.get(0));
 
     }

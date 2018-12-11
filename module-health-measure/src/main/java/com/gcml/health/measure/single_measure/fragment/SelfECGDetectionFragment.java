@@ -277,19 +277,19 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                     switch (msg.arg1) {
                         case StatusMsg.FILE_TRANSMIT_START: {
                             // 接收文件 receive file
-                            setMSG(getResources().getString(R.string.measure_ecg_file_ing));
+                            setMSG(App.obtainString(R.string.measure_ecg_file_ing));
                         }
                         break;
                         case StatusMsg.FILE_TRANSMIT_SUCCESS: {
-                            setMSG(getResources().getString(R.string.measure_ecg_file_end));
+                            setMSG(App.obtainString(R.string.measure_ecg_file_end));
                         }
                         break;
                         case StatusMsg.FILE_TRANSMIT_ERROR: {
-                            setMSG(getResources().getString(R.string.measure_ecg_time_err));
+                            setMSG(App.obtainString(R.string.measure_ecg_time_err));
                         }
                         break;
                         case StaticReceive.MSG_DATA_TIMEOUT: {
-                            setMSG(getResources().getString(R.string.measure_ecg_time_out));
+                            setMSG(App.obtainString(R.string.measure_ecg_time_out));
                         }
                         break;
                         case 4: {
@@ -299,7 +299,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             }
                             Bundle data = msg.getData();
                             if (data.getBoolean("bLeadoff")) {
-                                setMSG(getResources().getString(R.string.measure_lead_off));
+                                setMSG(App.obtainString(R.string.measure_lead_off));
                             } else {
                                 setMSG(" ");
                             }
@@ -312,7 +312,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             }
                             Bundle data = msg.getData();
                             if (data.getBoolean("bLeadoff")) {
-                                setMSG(getResources().getString(R.string.measure_lead_off));
+                                setMSG(App.obtainString(R.string.measure_lead_off));
                             } else {
                                 setMSG(" ");
                             }
@@ -344,7 +344,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             // 传输模式   transmission mode
                             nTransMode = (Integer) msg.obj;
                             if (nTransMode == StatusMsg.TRANSMIT_MODE_FILE) {
-                                setMSG(getResources().getString(R.string.measure_ecg_file_ing));
+                                setMSG(App.obtainString(R.string.measure_ecg_file_ing));
                             } else if (nTransMode == StatusMsg.TRANSMIT_MODE_CONTINUOUS) {
                                 setMSG("");
                             }
