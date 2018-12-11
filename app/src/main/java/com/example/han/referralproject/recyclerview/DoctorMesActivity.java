@@ -20,7 +20,6 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
-import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -29,7 +28,6 @@ import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
 public class DoctorMesActivity extends BaseActivity implements View.OnClickListener {
@@ -327,7 +325,9 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
 
                 } else {
-                    NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
+                    bindDoctor();
+                    finish();
+                  /*  NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
                             new NetworkManager.SuccessCallback<RobotAmount>() {
                                 @Override
                                 public void onSuccess(RobotAmount response) {
@@ -357,7 +357,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                                     finish();
                                     T.show("服务器繁忙，请稍后再试");
                                 }
-                            });
+                            });*/
                 }
                 break;
 
@@ -432,7 +432,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             }
         });
 */
-       startActivity(new Intent(this, SignatureActivity.class).putExtra("docId",docId));
+        startActivity(new Intent(this, SignatureActivity.class).putExtra("docId", docId));
     }
 
 }

@@ -438,6 +438,7 @@
                 android:textSize="72pt" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/cesuo_qita"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

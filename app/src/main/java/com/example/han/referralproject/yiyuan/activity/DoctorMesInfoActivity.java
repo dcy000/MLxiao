@@ -20,7 +20,6 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
-import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -32,7 +31,6 @@ import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
 public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickListener {
@@ -323,7 +321,7 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
                 if ("1".equals(sign)) {
                     NimCallActivity.launch(mContext, "docter_" + doctor.docterid);
                 } else {
-                    NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
+                   /* NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
                             new NetworkManager.SuccessCallback<RobotAmount>() {
                                 @Override
                                 public void onSuccess(RobotAmount response) {
@@ -343,8 +341,8 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
                                     } else {
 //                                        ConfirmContractActivity.start(DoctorMesInfoActivity.this, doctor.getDocterid());
                                         bindDoctor();
-                                      /*  setResult(RESULT_OK);
-                                        finish();*/
+                                      *//*  setResult(RESULT_OK);
+                                        finish();*//*
                                     }
 
                                 }
@@ -355,7 +353,8 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
 //                                    finish();
                                     T.show("服务器繁忙，请稍后再试");
                                 }
-                            });
+                            });*/
+                    bindDoctor();
                 }
                 break;
 
