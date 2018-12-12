@@ -59,61 +59,9 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     }
 
     public void goSignUp() {
-        showDialog();
-    }
-
-    private void showDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("输入服务商名称和登陆密码");
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-
-        final EditText et1 = new EditText(this);
-        et1.setHint("请输入名称");
-        et1.setSingleLine(true);
-        final EditText et2 = new EditText(this);
-        et2.setHint("请输入密码");
-        et2.setSingleLine(true);
-        linearLayout.addView(et1);
-        linearLayout.addView(et2);
-        builder.setView(linearLayout);
-        builder.setNegativeButton("取消", null);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String name = et1.getText().toString().trim();
-                String pwd = et2.getText().toString().trim();
-                if (TextUtils.isEmpty(name)||TextUtils.isEmpty(pwd)){
-                    return;
-                }
-                UserRepository userRepository = new UserRepository();
-                userRepository.getServiceProvider(name, pwd)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .as(RxUtils.autoDisposeConverter(AuthActivity.this))
-                        .subscribe(new DefaultObserver<ServerBean>() {
-                            @Override
-                            public void onNext(ServerBean serverBean) {
-                                SPUtil.put("header-server",serverBean.getServerId()+"");
-                                CC.obtainBuilder("com.gcml.auth.signup")
-                                        .build()
-                                        .callAsync();
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                Timber.e(e);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                Timber.e("onComplete");
-                            }
-                        });
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        CC.obtainBuilder("com.gcml.auth.signup")
+                .build()
+                .callAsync();
     }
 
     public void goSignInByPhone() {
