@@ -2,12 +2,21 @@ package com.gcml.module_blutooth_devices.others;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.data.SPUtil;
+import com.gcml.common.utils.data.TimeCountDownUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
+import com.gcml.module_blutooth_devices.base.Logg;
+import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.yc.pedometer.info.BPVOneDayInfo;
+import com.yc.pedometer.info.RateOneDayInfo;
+import com.yc.pedometer.info.SleepTimeInfo;
 import com.yc.pedometer.info.StepOneDayAllInfo;
 import com.yc.pedometer.sdk.BLEServiceOperate;
 import com.yc.pedometer.sdk.BloodPressureChangeListener;
@@ -24,6 +33,7 @@ import com.yc.pedometer.sdk.WriteCommandToBLE;
 import com.yc.pedometer.utils.CalendarUtils;
 import com.yc.pedometer.utils.GlobalVariable;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.logging.Handler;
 
@@ -33,13 +43,22 @@ import java.util.logging.Handler;
  * mac:78:02:B7:27:8A:74
  */
 @SuppressLint("LongLogTag")
-public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter implements StepChangeListener, BloodPressureChangeListener, RateChangeListener, SleepChangeListener, ServiceStatusCallback, ICallback {
+public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter
+        implements StepChangeListener, BloodPressureChangeListener,
+        RateChangeListener, SleepChangeListener,
+        ServiceStatusCallback, ICallback {
     private static final String TAG = "HandRing_Tongleda_PresenterImp";
     private final BLEServiceOperate mBLEServiceOperate;
     private final DataProcessing mDataProcessing;
     private static WriteCommandToBLE mWriteCommand;
     private final UTESQLOperate mySQLOperate;
     private BluetoothLeService mBluetoothLeService;
+    private int realTimeHearRate = 0;
+    private int measureHeartRateState = 0;
+    public static final String FLAG_TIME = "flag_time";
+    public static final String FLAG_STEP = "flag_steps";
+    public static final String FLAG_HEART_RATE = "flag_heart_rate";
+    public static final String FLAG_SLEEP = "flag_sleep";
 
     public HandRing_Tongleda_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting) {
         super(fragment, discoverSetting);
@@ -72,7 +91,11 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
      */
     @Override
     public void onStepChange(StepOneDayAllInfo stepOneDayAllInfo) {
-        Log.e(TAG, "onStepChange: "+stepOneDayAllInfo.toString());
+        int mSteps = stepOneDayAllInfo.getStep();
+        float mDistance = stepOneDayAllInfo.getDistance();
+        int mCalories = stepOneDayAllInfo.getCalories();
+        baseView.updateData(FLAG_STEP, mSteps + "", String.format("%.2f", mDistance), mCalories + "");
+        Log.e(TAG, "onStepChange: 步数：" + mSteps + "---距离：" + mDistance + "--卡路里：" + mCalories);
     }
 
     /**
@@ -89,7 +112,7 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
             if (bloodPressureOneDayInfo != null && bloodPressureOneDayInfo.size() > 0) {
                 int hightBloodPressure = bloodPressureOneDayInfo.get(bloodPressureOneDayInfo.size() - 1).getHightBloodPressure();
                 int lowBloodPressure = bloodPressureOneDayInfo.get(bloodPressureOneDayInfo.size() - 1).getLowBloodPressure();
-                ToastUtils.showShort("高压：" + hightBloodPressure + ",低压：" + lowBloodPressure);
+//                ToastUtils.showShort("高压：" + hightBloodPressure + ",低压：" + lowBloodPressure);
 
             }
         }
@@ -98,12 +121,17 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
     /**
      * 心率
      *
-     * @param i
-     * @param i1
+     * @param rate
+     * @param status
      */
     @Override
-    public void onRateChange(int i, int i1) {
-
+    public void onRateChange(int rate, int status) {
+        realTimeHearRate = rate;
+        measureHeartRateState = status;
+        Logg.e(HandRing_Tongleda_PresenterImp.class, "实时跳动的心率：" + rate);
+        if (status == GlobalVariable.RATE_TEST_FINISH) {
+            updateUpdataRateMainUI();
+        }
     }
 
     /**
@@ -111,7 +139,7 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
      */
     @Override
     public void onSleepChange() {
-
+        querySleepInfo();
     }
 
     @Override
@@ -142,8 +170,7 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
             case ICallbackStatus.SYNC_TIME_OK:
                 // after set time
                 Log.d(TAG, "OnResult: 同步时间成功");
-
-                Commond.synStep();
+                baseView.updateData(FLAG_TIME);
                 break;
             case ICallbackStatus.GET_BLE_VERSION_OK:
                 // after read
@@ -151,15 +178,19 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
                 break;
             case ICallbackStatus.DISCONNECT_STATUS:
                 Log.d(TAG, "OnResult: 蓝牙断开连接");
+                baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_disconnected));
                 break;
             case ICallbackStatus.CONNECTED_STATUS:
-                Log.d(TAG, "OnResult: 蓝牙连接成功:"+Thread.currentThread().getName());
+                Log.d(TAG, "OnResult: 蓝牙连接成功:" + Thread.currentThread().getName());
+                SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_HAND_RING, targetName + "," + targetAddress);
+                baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
                 break;
             case ICallbackStatus.DISCOVERY_DEVICE_SHAKE:
                 Log.d(TAG, "摇一摇拍照");
                 break;
             case ICallbackStatus.OFFLINE_RATE_SYNC_OK:
                 Log.d(TAG, "OnResult: 心率同步成功");
+                updateUpdataRateMainUI();
                 break;
             case ICallbackStatus.SET_METRICE_OK:
                 // 设置公制单位成功
@@ -234,7 +265,7 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
 
     @Override
     public void OnDataResult(boolean b, int i, byte[] bytes) {
-
+        Log.e(TAG, "OnDataResult: ");
     }
 
     @Override
@@ -256,11 +287,84 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
     public void onControlDialCallback(boolean b, int i, int i1) {
 
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         mBLEServiceOperate.disConnect();
         mBLEServiceOperate.unBindService();
+        TimeCountDownUtils.getInstance().cancelAll();
+    }
+
+    /**
+     * 获取一天最新心率值、最高、最低、平均心率值
+     */
+    private void updateUpdataRateMainUI() {
+        RateOneDayInfo mRateOneDayInfo = mySQLOperate
+                .queryRateOneDayMainInfo(CalendarUtils.getCalendar(0));
+        if (mRateOneDayInfo != null) {
+            int currentRate = mRateOneDayInfo.getCurrentRate();
+            int lowestValue = mRateOneDayInfo.getLowestRate();
+            int averageValue = mRateOneDayInfo.getVerageRate();
+            int highestValue = mRateOneDayInfo.getHighestRate();
+            baseView.updateData(FLAG_HEART_RATE, currentRate + "", highestValue + "", lowestValue + "");
+            Logg.e(HandRing_Tongleda_PresenterImp.class, "当前心率：" + currentRate + "--最高心率：" + highestValue + "---最低心率：" + lowestValue);
+
+        } else {
+            //当天还没有测量过心率
+            Commond.startHeartRate(true);
+            //心率测量10秒钟
+            TimeCountDownUtils.getInstance().create(10000, 1000,
+                    new TimeCountDownUtils.TimeCountListener() {
+                        @Override
+                        public void onTick(long millisUntilFinished, String tag) {
+
+                        }
+
+                        @Override
+                        public void onFinish(String tag) {
+                            Commond.startHeartRate(false);
+                        }
+                    });
+        }
+    }
+
+    /**
+     * 获取某一天睡眠详细，并更新睡眠UI CalendarUtils.getCalendar(0)代表今天，也可写成"20141101"
+     * CalendarUtils.getCalendar(-1)代表昨天，也可写成"20141031"
+     * CalendarUtils.getCalendar(-2)代表前天，也可写成"20141030" 以此类推
+     */
+    private void querySleepInfo() {
+        SleepTimeInfo sleepTimeInfo = mySQLOperate.querySleepInfo(CalendarUtils
+                .getCalendar(0));
+        int deepTime, lightTime, awakeCount, sleepTotalTime;
+        if (sleepTimeInfo != null) {
+            deepTime = sleepTimeInfo.getDeepTime();
+            lightTime = sleepTimeInfo.getLightTime();
+            awakeCount = sleepTimeInfo.getAwakeCount();
+            sleepTotalTime = sleepTimeInfo.getSleepTotalTime();
+
+            double total_hour = ((float) sleepTotalTime / 60f);
+            DecimalFormat df1 = new DecimalFormat("0.0"); // 保留1位小数，带前导零
+
+            int deep_hour = deepTime / 60;
+            int deep_minute = (deepTime - deep_hour * 60);
+            int light_hour = lightTime / 60;
+            int light_minute = (lightTime - light_hour * 60);
+            int active_count = awakeCount;
+            String total_hour_str = df1.format(total_hour);
+
+            if (total_hour_str.equals("0.0")) {
+                total_hour_str = "0";
+            }
+            Logg.e(HandRing_Tongleda_PresenterImp.class,
+                    "深睡：" + deep_hour + "---浅睡：" + light_hour + "---清醒次数：" + active_count);
+            baseView.updateData(FLAG_SLEEP, deep_hour + "", light_hour + "", active_count + "");
+        } else {
+            Logg.e(HandRing_Tongleda_PresenterImp.class,
+                    "深睡：" + 0 + "---浅睡：" + 0 + "---清醒次数：" + 0);
+            baseView.updateData(FLAG_SLEEP, 0 + "", 0 + "", 0 + "");
+        }
     }
 
     public static class Commond {
@@ -323,25 +427,27 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
         /**
          * 同步步数
          */
-        public static void synStep(){
+        public static void synStep() {
             mWriteCommand.syncAllStepData();
         }
 
         /**
          * 同步睡眠
          */
-        public static void synSleep(){
+        public static void synSleep() {
             mWriteCommand.syncAllSleepData();
         }
 
         /**
          * 同步血压
          */
-        public static void synBloodpressure(){
+        public static void synBloodpressure() {
             mWriteCommand.syncAllBloodPressureData();
         }
+
         /**
          * 测量血压
+         *
          * @param isStart true:开始测量，false:停止测量
          */
         public static void startBloodpressure(boolean isStart) {
@@ -354,12 +460,13 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
 
         /**
          * 测量心率
+         *
          * @param isStart
          */
-        public static void startHeartRate(boolean isStart){
-            if (isStart){
+        public static void startHeartRate(boolean isStart) {
+            if (isStart) {
                 mWriteCommand.sendRateTestCommand(GlobalVariable.RATE_TEST_START);
-            }else{
+            } else {
                 mWriteCommand.sendRateTestCommand(GlobalVariable.RATE_TEST_STOP);
             }
         }
@@ -367,16 +474,17 @@ public class HandRing_Tongleda_PresenterImp extends BaseBluetoothPresenter imple
         /**
          * 获取蓝牙版本号
          */
-        public static void getBleVersion(){
+        public static void getBleVersion() {
             mWriteCommand.sendToReadBLEVersion();
         }
 
         /**
          * 消息推送
+         *
          * @param message
-         * @param type {@link GlobalVariable#TYPE_QQ}
+         * @param type    {@link GlobalVariable#TYPE_QQ}
          */
-        public static void pushMessage(String message, int type){
+        public static void pushMessage(String message, int type) {
             mWriteCommand.sendTextToBle(message, type);
         }
     }

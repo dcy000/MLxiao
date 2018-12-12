@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -68,7 +69,8 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
         mChart = view.findViewById(R.id.chart);
 
         mRgXuetangTime.setVisibility(View.GONE);
-        mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
+//        mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
+        mColor1.setBackgroundColor(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_node_color));
         mIndicator1.setText("体温(℃)");
         mLlSecond.setVisibility(View.GONE);
 
@@ -109,7 +111,8 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
 
         LimitLine ll1 = new LimitLine(37.2f, "37.2℃");
         ll1.setLineWidth(2f);
-        ll1.setLineColor(getResources().getColor(R.color.health_record_picket_line));
+//        ll1.setLineColor(getResources().getColor(R.color.health_record_picket_line));
+        ll1.setLineColor(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_picket_line));
         ll1.enableDashedLine(10.0f, 10f, 0f);
         ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll1.setTextSize(18f);
@@ -117,7 +120,8 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
 
         LimitLine ll2 = new LimitLine(36f, "36.0℃");
         ll2.setLineWidth(2f);
-        ll2.setLineColor(getResources().getColor(R.color.health_record_picket_line));
+//        ll2.setLineColor(getResources().getColor(R.color.health_record_picket_line));
+        ll2.setLineColor(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_picket_line));
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
         ll2.setTextSize(18f);
@@ -158,7 +162,8 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
             if (response.get(i).temper_ature > 37.2 || response.get(i).temper_ature < 36.0) {//超出正常范围的数据用红色表明
                 colors.add(Color.RED);
             } else {
-                colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
+//                colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
+                colors.add(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_node_text_color));//正常字体的颜色
             }
             values.add(new Entry(i, response.get(i).temper_ature));
             times.add(response.get(i).time);
@@ -195,9 +200,11 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
                 //走势线的样式
 //            set1.enableDashedLine(10f, 0f, 0f);
                 //走势线的颜色
-                set1.setColor(getResources().getColor(R.color.health_record_line_color));
+//                set1.setColor(getResources().getColor(R.color.health_record_line_color));
+                set1.setColor(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_line_color));
                 //节点圆圈的颜色
-                set1.setCircleColor(getResources().getColor(R.color.health_record_node_color));
+//                set1.setCircleColor(getResources().getColor(R.color.health_record_node_color));
+                set1.setCircleColor(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_node_color));
 
                 //走势线的粗细
                 set1.setLineWidth(6f);
@@ -248,7 +255,6 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            //TODO:跳转到测量界面
             CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_TEMPERATURE);
         } else {
         }

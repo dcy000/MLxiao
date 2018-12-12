@@ -16,6 +16,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
@@ -179,7 +180,7 @@ public class UserRepository {
                                 continue;
                             }
                             userIdsBuilder.append(user.id);
-                            if (i != size -1) {
+                            if (i != size - 1) {
                                 userIdsBuilder.append(",");
                             }
                         }
@@ -209,6 +210,11 @@ public class UserRepository {
 
     public Observable<Object> isIdCardNotExit(String idCard) {
         return mUserService.isIdCardNotExit(idCard)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<ServerBean> getServiceProvider(String serverName, String serverPwd) {
+        return mUserService.getServiceProvider(serverName, serverPwd)
                 .compose(RxUtils.apiResultTransformer());
     }
 }

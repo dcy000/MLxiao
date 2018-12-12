@@ -115,6 +115,7 @@ dependencies {
     addComponent 'module-task'
     addComponent 'module-mall'
     addComponent 'module-video'
+    addComponent 'lib-bluetooth'
 
     implementation project(":lib-common-business")
     implementation project(":lib-common-core")

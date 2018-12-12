@@ -19,6 +19,7 @@ import com.gcml.health.measure.first_diagnosis.bean.ChooseDeviceBean;
 import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;
 import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -90,6 +91,10 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                //TODO:默认体重必选，不能去掉
+                if (position==6){
+                    return;
+                }
                 if (position == 7) {
                     ToastUtils.showShort("敬请期待");
                     return;
@@ -117,7 +122,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         HealthMeasureRepository.getUserHasedDevices(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(getActivity()))
+                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                 .subscribeWith(new DefaultObserver<List<DeviceBean>>() {
                     @Override
                     public void onNext(List<DeviceBean> deviceBeans) {
@@ -188,6 +193,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
             this.deviceBeans.get(1).setChoosed(true);
             this.deviceBeans.get(2).setChoosed(true);
             this.deviceBeans.get(3).setChoosed(true);
+            this.deviceBeans.get(6).setChoosed(true);
         }
         adapter.notifyDataSetChanged();
 
@@ -222,7 +228,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         HealthMeasureRepository.postUserHasedDevices(userId, postDeviceBeans)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(getActivity()))
+                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                 .subscribeWith(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {

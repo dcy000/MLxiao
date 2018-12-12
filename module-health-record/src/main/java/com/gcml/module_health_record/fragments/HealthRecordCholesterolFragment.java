@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -175,7 +176,8 @@ public class HealthRecordCholesterolFragment extends RecycleBaseFragment impleme
             if (response.get(i).cholesterol < 2.9 || response.get(i).cholesterol > 6.0) {
                 colors.add(Color.RED);
             } else {
-                colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
+//                colors.add(getResources().getColor(R.color.health_record_node_text_color));//正常字体的颜色
+                colors.add(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_node_text_color));//正常字体的颜色
             }
             value.add(new Entry(i, response.get(i).cholesterol));
             times.add(response.get(i).time);
@@ -206,8 +208,10 @@ public class HealthRecordCholesterolFragment extends RecycleBaseFragment impleme
 
 
                 //走势线的样式
-                set1.setColor(getResources().getColor(R.color.health_record_line_color));
-                set1.setCircleColor(getResources().getColor(R.color.health_record_node_color));
+//                set1.setColor(getResources().getColor(R.color.health_record_line_color));
+                set1.setColor(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_line_color));
+//                set1.setCircleColor(getResources().getColor(R.color.health_record_node_color));
+                set1.setCircleColor(ContextCompat.getColor(UtilsManager.getApplication(),R.color.health_record_node_color));
 
 
                 set1.setValueTextColors(colors);
@@ -264,7 +268,6 @@ public class HealthRecordCholesterolFragment extends RecycleBaseFragment impleme
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_go) {
-            //TODO:跳转到测量界面
             CCHealthMeasureActions.jump2AllMeasureActivity(HealthRecordActivity.MeasureType.MEASURE_OTHERS);
         } else {
         }

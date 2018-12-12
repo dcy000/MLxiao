@@ -5,11 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.display.ImageUtils;
+import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IView;
@@ -22,6 +24,9 @@ import com.wellcom.verify.GfpInterface;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * 精驰指纹仪
@@ -53,6 +58,8 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
     private MyHandler myHandler;
     private static String action;
     private static boolean isConnected = false;
+    private static long l;
+    private List<byte[]> bytes;
 
     static class MyHandler extends Handler {
         private final ArrayList<byte[]> feature_group;
@@ -65,6 +72,8 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
         private IView fragment;
         private String bluetoothName;
         private String bluetoothMac;
+        private List<byte[]> bytes;
+        private int i = 0;
 
         public MyHandler(IView fragment, String name, String mac) {
             feature_group = new ArrayList<>();
@@ -75,6 +84,10 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
 
         public void setGfpInterface(GfpInterface gfpInterface) {
             this.gfpInterface = gfpInterface;
+        }
+
+        public void setBytes(List<byte[]> bbytes) {
+            this.bytes = bbytes;
         }
 
         public int getIntBTStatus() {
@@ -154,14 +167,21 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
                     if (lengthFTR == 256) { // 获取指纹特征成功
                         System.arraycopy(feature, 0, currentTemplet, 0, 256);
                         fragment.updateData("validate", ByteUtils.byteToString(currentTemplet));
-                        int result = gfpInterface.sysOneMatch(resultTemplet, currentTemplet);
-                        if (result > 0) {
-                            Logg.e(MyHandler.class, "比对成功");
-                            fragment.updateState("验证成功");
-                        } else {
-                            Logg.e(MyHandler.class, "比对失败");
-                            fragment.updateState("验证失败");
+                        for (byte[] byt : bytes) {
+                            i++;
+                            int result = gfpInterface.sysOneMatch(byt, currentTemplet);
+                            if (result > 0) {
+                                Logg.e(MyHandler.class, "比对成功");
+                                fragment.updateState("验证成功");
+                                break;
+                            } else {
+                                Logg.e(MyHandler.class, "比对失败");
+                                fragment.updateState("验证失败:" + i);
+                                SystemClock.sleep(10);
+                            }
                         }
+                        i = 0;
+                        fragment.updateState("耗费时间：" + (SystemClock.currentThreadTimeMillis() - l));
                     } else { // 获取指纹特征失败
 
                     }
@@ -174,6 +194,7 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
                         System.arraycopy(byteTemplate, 0, resultTemplet,
                                 0, 256);
                         fragment.updateState("录入指纹成功");
+                        Timber.e(ByteUtils.byteToString(resultTemplet));
                         fragment.updateData("input", ByteUtils.byteToString(resultTemplet));
                     } else { // 获取指纹模板失败
                         Logg.e(Fingerprint_WeiEr_PresenterImp.class, "获取指纹模板失败");
@@ -251,20 +272,14 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
         return mFPBitmap;
     }
 
-    public Fingerprint_WeiEr_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting) {
+    public Fingerprint_WeiEr_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting, List<byte[]> bytes) {
         super(fragment, discoverSetting);
+        this.bytes = bytes;
         myHandler = new MyHandler(baseView, targetName, targetAddress);
         Logg.e(Fingerprint_WeiEr_PresenterImp.class, "初始化");
         gfpInterface = new GfpInterface(fragment.getThisContext(), myHandler);
         myHandler.setGfpInterface(gfpInterface);
-//        if (!targetAddress.isEmpty()) {
-//            BluetoothClientManager.getClient().refreshCache(targetAddress);
-//            try {
-//                Thread.sleep(500);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        myHandler.setBytes(bytes);
         connectDevice(targetName);
     }
 
@@ -325,20 +340,21 @@ public class Fingerprint_WeiEr_PresenterImp extends BaseBluetoothPresenter {
     }
 
     @Override
-    public void connectDevice(String macAddress) {
+    public void connectDevice(final String macAddress) {
         if (!isConnected) {
             Logg.e(Fingerprint_WeiEr_PresenterImp.class, "尝试连接设备：" + targetName);
             gfpInterface.fpiOpenBT();
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-            }
+            SystemClock.sleep(100);
             gfpInterface.fpiConnectBT(macAddress);
         }
     }
-
+    public void  addByte(byte[] bytes){
+        this.bytes.add(bytes);
+        myHandler.setBytes(this.bytes);
+    }
     @Override
     public void validateFinger() {
+        l = SystemClock.currentThreadTimeMillis();
         action = ACTION_VALIDATE_FINGERPRINT;
         if (myHandler.getIntBTStatus() != 3) {
             baseView.updateState("设备未连接");

@@ -48,15 +48,11 @@ public class ReceiveService extends Service {
 	}
 
 	private void init() {
-		registerReceiver();// ע��㲥������
-		// ��ʼ����������, init bluetooth operation
+		registerReceiver();// ??????????
+		// ?????????????, init bluetooth operation
 		myBluetooth = new ECGBluetooth(this, mHandler);
 	}
 
-	/**
-	 * �������������ݶ�ȡ�з��͵���Ϣ
-	 * updata bluetooth status handler
-	 */
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -80,7 +76,7 @@ public class ReceiveService extends Service {
 				break;
 			case ECGBluetooth.BLUETOOTH_MSG_CONNECTED: {
 				sendBroadcast(BLU_ACTION_STATE_CHANGE, "CONNECTED");
-				//将蓝牙地址保存一下
+				//?????????
 				String name = ECGBluetooth.bluSocket
 						.getRemoteDevice().getName();
 				String address = ECGBluetooth.bluSocket.getRemoteDevice().getAddress();
@@ -100,13 +96,6 @@ public class ReceiveService extends Service {
 		}
 	};
 
-	/**
-	 * ��ʼ�����豸����
-	 * start to receive data
-	 * 
-	 * @param start
-	 *            �Ƿ���
-	 */
 	private void startRece(boolean start) {
 		if (start) {
 			try {
@@ -128,16 +117,11 @@ public class ReceiveService extends Service {
 		}
 	}
 
-	/**
-	 * ע��㲥������
-	 */
 	private void registerReceiver() {
 		IntentFilter filter = new IntentFilter();
-		// ������ع㲥������������
 		filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
 
 		this.registerReceiver(bluetoothReceiver, filter);
-		filter = null;
 		filter = new IntentFilter();
 		filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
 		filter.addAction(Intent.ACTION_MEDIA_EJECT);
@@ -155,9 +139,6 @@ public class ReceiveService extends Service {
 		this.registerReceiver(bluetoothReceiver, filter);
 	}
 
-	/**
-	 * ע���㲥������
-	 */
 	private void unregisterReceiver() {
 		this.unregisterReceiver(bluetoothReceiver);
 	}
@@ -175,17 +156,15 @@ public class ReceiveService extends Service {
 				} else if (state == BluetoothAdapter.STATE_ON) {
 					// sendBroadcast(ACTION_BLUETOOH_ON);
 				}
-			} else if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {// �洢�豸����
+			} else if (action.equals(Intent.ACTION_MEDIA_MOUNTED)) {
 				sendBroadcast(ACTION_MEDIA_MOUNTED);
-			} else if (action.equals(Intent.ACTION_MEDIA_EJECT)) {// �洢�豸��ж��
+			} else if (action.equals(Intent.ACTION_MEDIA_EJECT)) {
 				sendBroadcast(ACTION_MEDIA_EJECT);
-			} else if (action.equals(Intent.ACTION_MEDIA_REMOVED)) {// �洢�豸���Ƴ�
+			} else if (action.equals(Intent.ACTION_MEDIA_REMOVED)) {
 				sendBroadcast(ACTION_MEDIA_EJECT);
 			} else if (action.equals(BLU_ACTION_STARTDISCOVERY)) {
-				// ��ʼ�����豸   start connect device
 				int deviceName = intent.getExtras().getInt("device");
 				String nameAddress = ((String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, ""));
-				//从本地获取缓存 如果取到了物理地址直接连接，如果没有取到则搜索名字
 				if (TextUtils.isEmpty(nameAddress)){
 					myBluetooth.startDiscovery(deviceName);
 				}else{
@@ -200,11 +179,11 @@ public class ReceiveService extends Service {
 					}
 				}
 			} else if (action.equals(BLU_ACTION_STOPDISCOVERY)) {
-				// ֹͣ�豸����  stop device discovery
+				// ????????  stop device discovery
 				myBluetooth.stopDiscovery();
 			} else if (action.equals(BLU_ACTION_DISCONNECT)
 					|| action.equals(ACTION_BLU_DISCONNECT)
-					|| action.equals(ACTION_USER_EXIT)) {// �Ͽ����豸������				
+					|| action.equals(ACTION_USER_EXIT)) {
 				//close receive data
 				startRece(false);
 				//bluetooth disconnect
@@ -213,71 +192,31 @@ public class ReceiveService extends Service {
 		}
 	};
 
-	/**
-	 * �����رչ㲥
-	 */
 	public static final String ACTION_BLUETOOH_OFF = "bluetooth_off";
 
-	/**
-	 * �����򿪹㲥
-	 */
 	public static final String ACTION_BLUETOOH_ON = "bluetooth_on";
 
-	/**
-	 * �洢�豸��ж��
-	 */
 	public static final String ACTION_MEDIA_EJECT = "media_eject";
 
-	/**
-	 * �������ӶϿ�
-	 */
 	public static final String ACTION_BLU_DISCONNECT = "disconnect";
 
-	/**
-	 * �洢�豸�ѹ���
-	 */
 	public static final String ACTION_MEDIA_MOUNTED = "media_mounted";
 
-	/**
-	 * ��������״̬�ı�
-	 */
 	public static final String BLU_ACTION_STATE_CHANGE = "state_change";
 
-	/**
-	 * �����㲥 ��ʼ�����豸
-	 */
 	public static final String BLU_ACTION_STARTDISCOVERY = "startDiscovery";
 
-	/**
-	 * �����㲥 ֹͣ�����豸
-	 */
 	public static final String BLU_ACTION_STOPDISCOVERY = "stopDiscovery";
 
-	/**
-	 * �����㲥 �Ͽ����豸������
-	 */
 	public static final String BLU_ACTION_DISCONNECT = "disconnect";
 
-	/**
-	 * �û��㲥����������ǰ�û��˳���¼
-	 */
 	public static final String ACTION_USER_EXIT = "userexit";
 
-	/**
-	 * ���͹㲥 ��Ҫ����֪ͨӦ������״̬���豸�洢����״̬
-	 * 
-	 * @param action
-	 */
 	private void sendBroadcast(String action) {
 		Intent intent = new Intent(action);
 		this.sendBroadcast(intent);
 	}
 
-	/**
-	 * ���͹㲥 ��Ҫ����֪ͨӦ��������ǰ������״̬
-	 * 
-	 * @param arg
-	 */
 	private void sendBroadcast(String... arg) {
 		Intent i = new Intent(arg[0]);
 		for (int j = 1; j < arg.length; j++) {

@@ -9,6 +9,7 @@ import com.gcml.health.measure.R;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -26,8 +27,9 @@ import io.reactivex.schedulers.Schedulers;
  * created by:gzq
  * description:TODO
  */
-public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment{
-    private boolean isJump2Next=false;
+public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment {
+    private boolean isJump2Next = false;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -39,7 +41,7 @@ public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getContext(),"主人，请打开设备开关,开始测量",false);
+        MLVoiceSynthetize.startSynthesize(getContext(), "主人，请打开设备开关,开始测量", false);
     }
 
     @Override
@@ -49,10 +51,11 @@ public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment{
             fragmentChanged.onFragmentChanged(this, null);
         }
     }
+
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
-        if (results.length==2){
+        if (results.length == 2) {
             ArrayList<DetectionData> datas = new ArrayList<>();
             final DetectionData data = new DetectionData();
             //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
@@ -64,7 +67,7 @@ public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment{
             HealthMeasureRepository.postMeasureData(datas)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this))
+                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                     .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                         @Override
                         public void onNext(List<DetectionResult> o) {
@@ -74,7 +77,7 @@ public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment{
 
                         @Override
                         public void onError(Throwable e) {
-                            ToastUtils.showShort("上传数据失败:"+e.getMessage());
+                            ToastUtils.showShort("上传数据失败:" + e.getMessage());
                         }
 
                         @Override
@@ -82,32 +85,14 @@ public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment{
 
                         }
                     });
-
-
-//            HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-//                @Override
-//                public void onSuccess(String callbackString) {
-////                    if (fragmentChanged != null && !isJump2Next) {
-////                        isJump2Next = true;
-////                        fragmentChanged.onFragmentChanged(HealthBloodOxygenDetectionFragment.this, null);
-////                    }
-//                    ((FirstDiagnosisActivity) mActivity).putCacheData(data);
-//                    setBtnClickableState(true);
-//
-//                }
-//
-//                @Override
-//                public void onError() {
-//                    ToastUtils.showShort("上传数据失败");
-//                }
-//            });
         }
     }
-    private void setBtnClickableState(boolean enableClick){
-        if (enableClick){
+
+    private void setBtnClickableState(boolean enableClick) {
+        if (enableClick) {
             mBtnHealthHistory.setClickable(true);
             mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
-        }else{
+        } else {
             mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
             mBtnHealthHistory.setClickable(false);
         }

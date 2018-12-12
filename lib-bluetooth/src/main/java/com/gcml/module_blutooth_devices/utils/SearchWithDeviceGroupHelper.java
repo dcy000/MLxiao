@@ -2,12 +2,14 @@ package com.gcml.module_blutooth_devices.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.gcml.common.utils.permission.PermissionsManager;
 import com.gcml.common.utils.permission.PermissionsResultAction;
+import com.gcml.common.utils.thread.ThreadUtils;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
@@ -27,6 +29,7 @@ import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Self_Prese
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_BoSheng_PresenterImp;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Chaosi_PresenterImp;
 import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerprint_WeiEr_PresenterImp;
+import com.gcml.module_blutooth_devices.others.HandRing_Tongleda_PresenterImp;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Self_PresenterImp;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Ailikang_PresenterImp;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fudakang_PresenterImp;
@@ -35,6 +38,7 @@ import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Zhiziyun
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Bodivis_PresenterImp;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Chaosi_PresenterImp;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Self_PresenterImp;
+import com.gcml.module_blutooth_devices.weight_devices.Weight_Simaide_PresenterImp;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Xiangshan_EF895i_PresenterImp;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Yike_PresenterImp;
 import com.inuker.bluetooth.library.search.SearchRequest;
@@ -52,10 +56,11 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private static final String[] BLOODPRESSURE_BRANDS = {"eBlood-Pressure", "Yuwell", "Dual-SPP", "iChoice", "KN-550BT 110"};
     private static final String[] BLOODSUGAR_BRANDS = {"Bioland-BGM", "BLE-Glucowell", "BDE_WEIXIN_TTM"};
     private static final String[] TEMPERATURE_BRANDS = {"AET-WD", "ClinkBlood", "MEDXING-IRT", "FSRKB-EWQ01"};
-    private static final String[] WEIGHT_BRANDS = {"VScale", "SHHC-60F1", "iChoice", "SENSSUN_CLOUD", "000FatScale01"};
+    private static final String[] WEIGHT_BRANDS = {"IF_B2A", "dr01", "VScale", "SHHC-60F1", "iChoice", "SENSSUN", "000FatScale01"};
     private static final String[] ECG_BRANDS = {"WeCardio STD", "A12-B"};
     private static final String[] FINGERPRINT_BRANDS = {"zjwellcom"};
     private static final String[] OTHERS_BRANDS = {"BeneCheck GL"};
+    private static final String[] HAND_RING = {"RB09_Heart"};
     private List<SearchResult> devices;
     private int measureType;
     private BaseBluetoothPresenter baseBluetoothPresenter;
@@ -67,12 +72,14 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
      * 蓝牙连接的敏感权限
      */
     private static final String DANGET_PERMISSION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private ThreadUtils.SimpleTask<Void> searchTask;
 
     public SearchWithDeviceGroupHelper(IView view, int measureType) {
         this.view = view;
         this.measureType = measureType;
         devices = new ArrayList<>();
     }
+
 
     public void start() {
         switch (measureType) {
@@ -99,6 +106,9 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 break;
             case IPresenter.MEASURE_OTHERS:
                 search(OTHERS_BRANDS);
+                break;
+            case IPresenter.MEASURE_HAND_RING:
+                search(HAND_RING);
                 break;
             default:
                 break;
@@ -143,7 +153,22 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 .searchBluetoothLeDevice(8000, 1)
                 .build();
         if (mySearchResponse != null) {
-            BluetoothClientManager.getClient().search(searchRequest, mySearchResponse);
+            if (searchTask == null) {
+                searchTask = new ThreadUtils.SimpleTask<Void>() {
+                    @Nullable
+                    @Override
+                    public Void doInBackground() throws Throwable {
+                        BluetoothClientManager.getClient().search(searchRequest, mySearchResponse);
+                        return null;
+                    }
+
+                    @Override
+                    public void onSuccess(@Nullable Void result) {
+
+                    }
+                };
+            }
+            ThreadUtils.executeByIo(searchTask);
         }
     }
 
@@ -157,14 +182,14 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchStarted() {
             isSearching = true;
-            Log.i(TAG, "onSearchStarted: ");
+            Log.i(TAG, "onSearchStarted: " + ThreadUtils.isMainThread());
         }
 
         @Override
         public void onDeviceFounded(SearchResult searchResult) {
             String name = searchResult.getName();
             String address = searchResult.getAddress();
-            Log.i(TAG, "》》》" + name + "》》》" + address);
+            Log.i(TAG, "》》》" + name + "》》》" + address + "is main thread:");
             if (!TextUtils.isEmpty(name)) {
                 for (String s : brands) {
                     if (name.startsWith(s) && !devices.contains(searchResult)) {
@@ -177,6 +202,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         @Override
         public void onSearchStopped() {
             isSearching = false;
+            Log.i(TAG, "onSearchStopped: matched devices length==" + devices.size());
             if (devices.size() > 0) {
                 Collections.sort(devices, SearchWithDeviceGroupHelper.this);
                 initPresenter(devices.get(0).getName(), devices.get(0).getAddress());
@@ -304,6 +330,14 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                         baseBluetoothPresenter = new Weight_Self_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "000FatScale01"));
                         break;
+                    case "dr01":
+                        baseBluetoothPresenter = new Weight_Simaide_PresenterImp(view,
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "dr01"));
+                        break;
+                    case "IF_B2A":
+                        baseBluetoothPresenter = new Weight_Xiangshan_EF895i_PresenterImp(view,
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "IF_B2A"));
+                        break;
                     default:
                         break;
                 }
@@ -326,7 +360,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 switch (brand) {
                     case "zjwellcom":
                         baseBluetoothPresenter = new Fingerprint_WeiEr_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MIX, address, "zjwellcom"));
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MIX, address, "zjwellcom"),new ArrayList<byte[]>());
                         break;
                     default:
                         break;
@@ -337,6 +371,16 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                     case "BeneCheck GL-0F8B0C":
                         baseBluetoothPresenter = new ThreeInOne_Self_PresenterImp(view,
                                 new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BeneCheck GL-0F8B0C"));
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case IPresenter.MEASURE_HAND_RING:
+                switch (brand) {
+                    case "RB09_Heart":
+                        baseBluetoothPresenter = new HandRing_Tongleda_PresenterImp(view,
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "RB09_Heart"));
                         break;
                     default:
                         break;
@@ -362,6 +406,10 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     public void destroy() {
         if (isSearching) {
             BluetoothClientManager.getClient().stopSearch();
+        }
+        if (searchTask != null) {
+            ThreadUtils.cancel(searchTask);
+            searchTask = null;
         }
         if (baseBluetoothPresenter != null) {
             baseBluetoothPresenter.onDestroy();

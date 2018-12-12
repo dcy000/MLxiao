@@ -624,6 +624,9 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
     }
 
     private void showLessThan3Dialog(String notice) {
+        if (!isAdded()){
+            return;
+        }
         FllowUpTimesDialog dialog = new FllowUpTimesDialog(notice);
         dialog.setListener(new FllowUpTimesDialog.OnDialogClickListener() {
             @Override
@@ -631,6 +634,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
                 dialog.dismiss();
             }
         });
+
         dialog.show(getFragmentManager(), "less3");
         MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您尚未满足3天测量标准，请在健康监测中测量三日", false);
     }

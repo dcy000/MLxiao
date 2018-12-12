@@ -19,12 +19,16 @@ import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
-public class ECG_Fragment extends BluetoothBaseFragment implements IView {
+public class ECG_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
     private ECGSingleGuideView mEcgView;
     private BaseBluetoothPresenter baseBluetoothPresenter;
     private SearchWithDeviceGroupHelper helper;
     private TextView mMeasureTip;
+    protected TextView mBtnChangeDevice;
     private Bundle bundle;
+    protected TextView mBtnHealthHistory;
+    protected TextView mBtnVideoDemo;
+    protected TextView mTvNext;
 
     @Override
     protected int initLayout() {
@@ -35,8 +39,15 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView {
     protected void initView(View view, Bundle bundle) {
         mEcgView = view.findViewById(R.id.ecgView);
         mMeasureTip = view.findViewById(R.id.measure_tip);
+        mBtnChangeDevice = view.findViewById(R.id.tv_change_device);
+        mBtnChangeDevice.setOnClickListener(this);
+        mBtnHealthHistory = view.findViewById(R.id.btn_health_history);
+        mBtnHealthHistory.setOnClickListener(this);
+        mBtnVideoDemo = view.findViewById(R.id.btn_video_demo);
+        mBtnVideoDemo.setOnClickListener(this);
+        mTvNext = view.findViewById(R.id.tv_next);
+        mTvNext.setOnClickListener(this);
         this.bundle = bundle;
-
     }
 
     @Override
@@ -70,11 +81,11 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView {
     }
 
     private void chooseConnectType(String address, String brand) {
-        if (!TextUtils.isEmpty(brand)){
+        if (!TextUtils.isEmpty(brand)) {
             switch (brand) {
                 case "WeCardio STD":
                     //3200
-                    mEcgView.setBaseLineValue(3400f);
+                    mEcgView.setBaseLineValue(3600f);
                     mEcgView.setBrand("BoSheng");
                     break;
                 case "A12-B":
@@ -121,12 +132,14 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView {
             });
         } else if (datas.length == 2) {
             mMeasureTip.setText(datas[1]);
-        } else if (datas.length == 3) {
+        } else if (datas.length == 5) {
+            //pdf编号，pdf地址，异常标识，结论,心率
+            onMeasureFinished(datas[0], datas[1], datas[2], datas[3],datas[4]);
             if (analysisData != null) {
                 if (DataUtils.isNullString(datas[1]) || DataUtils.isNullString(datas[2])) {
                     analysisData.onError();
                 } else {
-                    analysisData.onSuccess(datas[0], datas[1], datas[2]);
+                    analysisData.onSuccess(datas[0], datas[1], datas[2],datas[3],datas[4]);
                 }
             }
         }
@@ -150,11 +163,11 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView {
         super.onStop();
         if (baseBluetoothPresenter != null) {
             baseBluetoothPresenter.onDestroy();
-            baseBluetoothPresenter=null;
+            baseBluetoothPresenter = null;
         }
         if (helper != null) {
             helper.destroy();
-            helper=null;
+            helper = null;
         }
     }
 
@@ -164,8 +177,33 @@ public class ECG_Fragment extends BluetoothBaseFragment implements IView {
         this.analysisData = analysisData;
     }
 
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.tv_change_device) {
+            if (fragmentChanged != null) {
+                fragmentChanged.onFragmentChanged(this, null);
+            }
+        } else if (i == R.id.btn_health_history) {
+            if (dealVoiceAndJump != null) {
+                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_ECG);
+            }
+            clickHealthHistory(v);
+        } else if (i == R.id.btn_video_demo) {
+            if (dealVoiceAndJump != null) {
+                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_ECG);
+            }
+            clickVideoDemo(v);
+        } else if (i == R.id.tv_next) {
+            clickBtnNext();
+        }
+    }
+
+    protected void clickBtnNext() {
+    }
+
     public interface AnalysisData {
-        void onSuccess(String fileNum, String fileAddress, String filePDF);
+        void onSuccess(String fileNum, String fileAddress, String flag,String result,String heartRate);
 
         void onError();
     }

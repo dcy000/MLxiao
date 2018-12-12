@@ -20,7 +20,7 @@ import com.gcml.common.utils.click.ClickEventListener;
  */
 
 public abstract class ToolbarBaseActivity extends AppCompatActivity implements View.OnClickListener {
-    protected boolean isShowToolbar=true;
+    protected boolean isShowToolbar = true;
     protected View mToolbar = null;
     protected TextView mTitleText;
     protected TextView mRightText;
@@ -28,6 +28,7 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
     protected ImageView mRightView;
     protected TextView mLeftText;
     protected LinearLayout mllBack;
+    private long lastclicktime = 0L;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,12 +64,16 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
     @CallSuper
     @Override
     public void onClick(View v) {
-        if (v.getId()==R.id.ll_back){
-           backLastActivity();
-        }else if (v.getId()==R.id.iv_top_right){
-            backMainActivity();
+        if (v.getId() == R.id.ll_back) {
+            backLastActivity();
+        } else if (v.getId() == R.id.iv_top_right) {
+            if (System.currentTimeMillis() - lastclicktime > 2000) {
+                lastclicktime = System.currentTimeMillis();
+                backMainActivity();
+            }
         }
     }
+
     /**
      * Find出来的View，自带防抖功能
      */
@@ -78,8 +83,11 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
         view.setOnClickListener(new ClickEventListener(this));
         return view;
     }
+
     protected void backLastActivity() {
         finish();
     }
-    protected void backMainActivity() {}
+
+    protected void backMainActivity() {
+    }
 }

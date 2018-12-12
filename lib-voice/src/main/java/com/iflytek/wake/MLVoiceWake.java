@@ -40,7 +40,7 @@ public class MLVoiceWake {
     private static VoiceWakeuper setParams() {
         VoiceWakeuper voiceWakeuper = initVoiceWakeuper();
         voiceWakeuper.setParameter(SpeechConstant.PARAMS, null);
-        voiceWakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:10");
+        voiceWakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:1045");
         voiceWakeuper.setParameter(SpeechConstant.IVW_SST, "wakeup");
         voiceWakeuper.setParameter(SpeechConstant.KEEP_ALIVE, "1");
         voiceWakeuper.setParameter(SpeechConstant.IVW_NET_MODE, "1");

@@ -19,6 +19,7 @@ import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.measure_abnormal.HealthMeasureAbnormalActivity;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.single_measure.ShowMeasureBloodpressureResultActivity;
+import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -117,7 +118,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
             HealthMeasureRepository.checkIsNormalData(UserSpHelper.getUserId(), datas)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this))
+                    .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                     .subscribeWith(new DefaultObserver<Object>() {
                         @Override
                         public void onNext(Object o) {
@@ -165,7 +166,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
                         dialog.dismiss();
                     }
                 })
-                .as(RxUtils.autoDisposeConverter(this))
+                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                 .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
                     @Override
                     public void onNext(List<DetectionResult> o) {

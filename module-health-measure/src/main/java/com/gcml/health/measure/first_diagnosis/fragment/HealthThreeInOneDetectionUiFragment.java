@@ -10,6 +10,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -107,15 +108,6 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
                 MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + lithicAcidData.getUricAcid());
                 uploadData(datas);
             }
-//            if (sugarData != null && cholesterolData != null && lithicAcidData != null) {
-//                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖"
-//                        + sugarData.getBloodSugar() + ",尿酸" + lithicAcidData.getUricAcid() + ",胆固醇"
-//                        + cholesterolData.getCholesterol(), false);
-//                datas.add(sugarData);
-//                datas.add(cholesterolData);
-//                datas.add(lithicAcidData);
-//
-//            }
         }
     }
 
@@ -125,14 +117,11 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
+                .as(RxUtils.autoDisposeConverter(this, LifecycleUtils.LIFE))
                 .subscribeWith(new DefaultObserver<Object>() {
                     @Override
                     public void onNext(Object o) {
                         ToastUtils.showLong("数据上传成功");
-//                        ((FirstDiagnosisActivity) mActivity).putCacheData(sugarData);
-//                        ((FirstDiagnosisActivity) mActivity).putCacheData(cholesterolData);
-//                        ((FirstDiagnosisActivity) mActivity).putCacheData(lithicAcidData);
                         setBtnClickableState(true);
                         datas.clear();
                     }
@@ -149,23 +138,6 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
                     }
                 });
 
-//        HealthMeasureApi.postMeasureData(datas, new NetworkCallback() {
-//            @Override
-//            public void onSuccess(String callbackString) {
-//                ToastUtils.showLong("数据上传成功");
-//                ((FirstDiagnosisActivity) mActivity).putCacheData(sugarData);
-//                ((FirstDiagnosisActivity) mActivity).putCacheData(cholesterolData);
-//                ((FirstDiagnosisActivity) mActivity).putCacheData(lithicAcidData);
-//                setBtnClickableState(true);
-//                datas.clear();
-//            }
-//
-//            @Override
-//            public void onError() {
-//                ToastUtils.showLong("数据上传失败");
-//                datas.clear();
-//            }
-//        });
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.gcml.common.utils.data;
 
 import android.os.Build;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
@@ -147,7 +148,7 @@ public class DataUtils {
      * @return 130****0000
      */
     public static String hideMobilePhone4(String mobile_phone) {
-        if (mobile_phone.length() != 11) {
+        if (TextUtils.isEmpty(mobile_phone)||mobile_phone.length() != 11) {
             return "手机号码不正确";
         }
         return mobile_phone.substring(0, 3) + "****" + mobile_phone.substring(7, 11);

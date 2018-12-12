@@ -20,9 +20,10 @@ import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 
+import java.util.ArrayList;
+
 public class Fingerpint_Fragment extends BluetoothBaseFragment implements IView, View.OnClickListener {
 
-    private View view;
     /**
      * 指纹录入
      */
@@ -62,7 +63,9 @@ public class Fingerpint_Fragment extends BluetoothBaseFragment implements IView,
     @Override
     public void onResume() {
         super.onResume();
-        dealLogic();
+        baseBluetoothPresenter = new Fingerprint_WeiEr_PresenterImp(this,
+                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MIX, null, "zjwellcom"),new ArrayList<byte[]>());
+//        dealLogic();
     }
 
     public void dealLogic() {
@@ -95,7 +98,7 @@ public class Fingerpint_Fragment extends BluetoothBaseFragment implements IView,
             switch (brand) {
                 case "zjwellcom":
                     baseBluetoothPresenter = new Fingerprint_WeiEr_PresenterImp(this,
-                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MIX, address, "zjwellcom"));
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MIX, address, "zjwellcom"),new ArrayList<byte[]>());
                     break;
             }
         }

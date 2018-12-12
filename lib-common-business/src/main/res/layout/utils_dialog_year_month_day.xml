@@ -14,19 +14,19 @@
             android:gravity="center"
             android:layout_marginTop="60pt">
 
-            <com.gcml.lib_utils.ui.dialog.date_picker.WheelView
+            <com.gcml.common.widget.base.dialog.date_picker.WheelView
                 android:id="@+id/wheelView_year"
                 android:layout_width="300pt"
                 android:layout_height="match_parent"
                 />
 
-            <com.gcml.lib_utils.ui.dialog.date_picker.WheelView
+            <com.gcml.common.widget.base.dialog.date_picker.WheelView
                 android:id="@+id/wheelView_month"
                 android:layout_width="300pt"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="40pt" />
 
-            <com.gcml.lib_utils.ui.dialog.date_picker.WheelView
+            <com.gcml.common.widget.base.dialog.date_picker.WheelView
                 android:id="@+id/wheelView_day"
                 android:layout_width="300pt"
                 android:layout_height="match_parent"
