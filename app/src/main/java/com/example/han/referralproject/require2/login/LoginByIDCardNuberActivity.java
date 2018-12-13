@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MeasureChooseDeviceActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
@@ -17,8 +18,11 @@ import com.example.han.referralproject.require2.dialog.DialogTypeEnum;
 import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.require2.register.activtiy.ChoiceIDCardRegisterTypeActivity;
 import com.example.han.referralproject.require2.wrap.CanClearEditText;
+import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
+import com.gcml.module_factory_test.AA;
+import com.gcml.module_factory_test.ui.FactoryTestActivity;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.Utils;
 
@@ -26,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginByIDCardNuberActivity extends BaseActivity implements SomeCommonDialog.OnDialogClickListener, CanClearEditText.OnTextChangeListener {
+public class LoginByIDCardNuberActivity extends BaseActivity implements SomeCommonDialog.OnDialogClickListener, CanClearEditText.OnTextChangeListener, AA {
 
     @BindView(R.id.tv_phone_number_notice)
     CanClearEditText ccetIdNumber;
@@ -75,6 +79,12 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
         switch (view.getId()) {
             case R.id.tv_next:
                 String IdCardNumber = ccetIdNumber.getPhone();
+                if ("888888".equals(IdCardNumber)) {
+                    FactoryTestActivity.factoryTestListener = this;
+                    startActivity(new Intent(this, FactoryTestActivity.class));
+                    return;
+                }
+
                 if (!Utils.checkIdCard1(IdCardNumber)) {
                     mlSpeak("请输入正确的身份证号码");
                     return;
@@ -134,5 +144,22 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
         } else {
             tvNext.setEnabled(true);
         }
+    }
+
+    @Override
+    public void clickConnectWifi() {
+        startActivity(new Intent(this, WifiConnectActivity.class));
+    }
+
+    @Override
+    public void clickMeasureOxygen() {
+//        startActivity(new Intent(this, HealthDetecteActivity.class));
+        MeasureChooseDeviceActivity.startActivity(this, false);
+    }
+
+    @Override
+    public void clickChatWithRobot() {
+        startActivity(new Intent(this, SpeechSynthesisActivity.class));
+
     }
 }
