@@ -1,0 +1,60 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+n
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    compileOnly fileTree(include: ['*.jar'], dir: 'libs')
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["butterknife"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    //rxjava2+rxandroid2
+    implementation rootProject.ext.dependencies["rxjava2"]
+    implementation rootProject.ext.dependencies["rxandroid2"]
+
+    //retrofit+他的适配器
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["retrofit-converter-gson"]
+    implementation rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+
+    //Rxjava生命周期管理
+    implementation rootProject.ext.dependencies["autodispose"]
+    implementation rootProject.ext.dependencies["autodispose-arch"]
+    //Zxing核心包
+    implementation 'com.google.zxing:core:3.3.0'
+
+    //在和小E机器人对话界面有使用
+    implementation('com.airbnb.android:lottie:2.2.5', {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    })
+    implementation 'com.kk.taurus.playerbase:playerbase:3.3.0'
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+}

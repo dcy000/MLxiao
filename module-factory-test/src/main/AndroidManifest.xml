@@ -1,0 +1,21 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gcml.module_factory_test">
+
+    <application>
+        <activity
+            android:name=".ui.CameraActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.FactoryTestActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.NormalVideoPlayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ScreenPointActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ScreenTouchActivity"
+            android:screenOrientation="landscape" />
+    </application>
+</manifest>
