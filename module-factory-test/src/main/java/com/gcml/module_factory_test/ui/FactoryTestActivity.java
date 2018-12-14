@@ -1,11 +1,11 @@
 package com.gcml.module_factory_test.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
-
 
 import com.gcml.module_factory_test.AA;
 import com.gcml.module_factory_test.R;
@@ -83,8 +83,7 @@ public class FactoryTestActivity extends ToolbarBaseActivity {
             startActivity(new Intent(this, ScreenTouchActivity.class));
 
         } else if (i == R.id.tv_screen_video) {//屏幕触摸检测
-            NormalVideoPlayActivity.startActivity(this, null, "http://oyptcv2pb.bkt.clouddn.com/abc_1521797390144", "测试");
-        } else {
+            NormalVideoPlayActivity.startActivity(this, Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_test), null, "测试");
         }
     }
 
