@@ -2,7 +2,6 @@ package com.gcml.module_factory_test;
 
 import android.content.Context;
 
-import com.gcml.module_factory_test.video.CompleteCover;
 import com.gcml.module_factory_test.video.ControllerCover;
 import com.gcml.module_factory_test.video.ErrorCover;
 import com.gcml.module_factory_test.video.GestureCover;
@@ -10,7 +9,6 @@ import com.gcml.module_factory_test.video.LoadingCover;
 import com.kk.taurus.playerbase.receiver.GroupValue;
 import com.kk.taurus.playerbase.receiver.ReceiverGroup;
 
-import static com.gcml.module_factory_test.utils.DataInter.ReceiverKey.KEY_COMPLETE_COVER;
 import static com.gcml.module_factory_test.utils.DataInter.ReceiverKey.KEY_CONTROLLER_COVER;
 import static com.gcml.module_factory_test.utils.DataInter.ReceiverKey.KEY_ERROR_COVER;
 import static com.gcml.module_factory_test.utils.DataInter.ReceiverKey.KEY_GESTURE_COVER;
@@ -67,9 +65,9 @@ public class ReceiverGroupManager {
         ReceiverGroup receiverGroup = new ReceiverGroup(groupValue);
         receiverGroup.addReceiver(KEY_LOADING_COVER, new LoadingCover(context));
         receiverGroup.addReceiver(KEY_CONTROLLER_COVER, new ControllerCover(context,false));
-        receiverGroup.addReceiver(KEY_GESTURE_COVER, new GestureCover(context));
-        receiverGroup.addReceiver(KEY_COMPLETE_COVER, new CompleteCover(context));
-        receiverGroup.addReceiver(KEY_ERROR_COVER, new ErrorCover(context,false));
+//        receiverGroup.addReceiver(KEY_GESTURE_COVER, new GestureCover(context));
+//        receiverGroup.addReceiver(KEY_COMPLETE_COVER, new CompleteCover(context));
+//        receiverGroup.addReceiver(KEY_ERROR_COVER, new ErrorCover(context,false));
         return receiverGroup;
     }
 }
