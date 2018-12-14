@@ -18,6 +18,7 @@
     <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
     <uses-permission android:name="com.example.han.referralproject.permission.RECEIVE_MSG" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
@@ -234,7 +235,7 @@
         <activity android:name=".xindian.XindianActivity" />
         <activity
             android:name=".facerecognition.RegisterVideoActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.DoctorMesActivity"
             android:screenOrientation="landscape" />
@@ -279,7 +280,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".facerecognition.HeadiconActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.DoctorappoActivity"
             android:screenOrientation="landscape" />
@@ -311,7 +312,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp7HeightActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.medlink.danbogh.register.SignUp8WeightActivity"
             android:screenOrientation="landscape" />
@@ -594,10 +595,8 @@
         <activity
             android:name="com.medlink.danbogh.register.simple.SignUp01NameActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity
-            android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity"/>
-        <activity
-            android:name="com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity"/>
+        <activity android:name="com.medlink.danbogh.register.simple.SignUp03PasswordActivity" />
+        <activity android:name="com.medlink.danbogh.register.simple.SignUp02MobileVerificationActivity" />
         <activity
             android:name=".tool.DateInquireActivity"
             android:screenOrientation="landscape" />
