@@ -10,7 +10,7 @@ import com.gcml.auth.face2.model.entity.FaceBdSearchParam;
 import com.gcml.auth.face2.model.entity.FaceBdVerify;
 import com.gcml.auth.face2.model.entity.FaceBdVerifyParam;
 import com.gcml.auth.face2.model.entity.FaceUser;
-import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.http.ApiResult;
 import com.gcml.common.user.UserToken;
 
 import java.util.List;

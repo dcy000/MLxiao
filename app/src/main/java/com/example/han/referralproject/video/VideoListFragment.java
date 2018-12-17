@@ -22,7 +22,7 @@ import com.example.han.referralproject.cc.CCVideoActions;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.GridViewDividerItemDecoration;
-import com.gcml.common.repository.imageloader.ImageLoader;
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.utils.data.DataUtils;
 
 import java.util.ArrayList;

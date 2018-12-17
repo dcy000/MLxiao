@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 
 import com.billy.cc.core.component.CC;
-import com.gcml.common.app.lifecycle.AppLifecycleCallbacks;
+import com.gcml.common.api.AppLifecycleCallbacks;
 
 public class CCAppLifecycleCallbacks implements AppLifecycleCallbacks {
     @Override

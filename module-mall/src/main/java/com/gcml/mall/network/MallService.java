@@ -1,7 +1,6 @@
 package com.gcml.mall.network;
 
-import com.gcml.common.recommend.bean.get.GoodBean;
-import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.http.ApiResult;
 import com.gcml.mall.bean.CategoryBean;
 import com.gcml.mall.bean.GoodsBean;
 import com.gcml.mall.bean.OrderBean;

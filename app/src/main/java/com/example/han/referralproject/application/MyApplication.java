@@ -2,8 +2,6 @@
 package com.example.han.referralproject.application;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -21,12 +19,11 @@ import com.example.han.referralproject.homepage.HomepageWeatherBean;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
-import com.gcml.common.app.lifecycle.AppDelegate;
+import com.gcml.common.AppDelegate;
+import com.gcml.common.OkHttpClientHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.location.BdLocationHelper;
-import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.data.LunarUtils;
 import com.gcml.common.utils.data.TimeUtils;
@@ -239,7 +236,7 @@ public class MyApplication extends Application {
 
     private void initOkGo() {
         OkGo.getInstance().init(this)
-                .setOkHttpClient(RepositoryApp.INSTANCE.repositoryComponent().okHttpClient());
+                .setOkHttpClient(OkHttpClientHelper.get());
     }
 
     private void initVideoPlay() {

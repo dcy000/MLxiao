@@ -1,7 +1,7 @@
 package com.example.han.referralproject.market.network;
 
 import com.example.han.referralproject.market.network.bean.GoodsTypeBean;
-import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.http.ApiResult;
 
 import java.util.List;
 

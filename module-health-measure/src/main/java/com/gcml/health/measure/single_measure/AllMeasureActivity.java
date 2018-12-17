@@ -130,7 +130,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         isMeasureTask = getIntent().getBooleanExtra(IPresenter.IS_MEASURE_TASK, false);
         isFaceSkip = getIntent().getBooleanExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP, false);
         //TODO:测试代码
-        if (BuildConfig.RUN_APP) {
+        if (BuildConfig.RUN_AS_APP) {
             measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
         }
         switch (measure_type) {

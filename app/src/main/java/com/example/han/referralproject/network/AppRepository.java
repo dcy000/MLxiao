@@ -1,8 +1,8 @@
 package com.example.han.referralproject.network;
 
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
-import com.gcml.common.repository.IRepositoryHelper;
-import com.gcml.common.repository.RepositoryApp;
+import com.gcml.common.RetrofitHelper;
+
 import io.reactivex.Observable;
 import timber.log.Timber;
 
@@ -21,8 +21,7 @@ public class AppRepository {
 
     private static String TIANQI_API_SECRET_KEY = "rodu3msnpwbpzosf";
 
-    private static IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
-    private static AppServer healthMeasureServer = mRepositoryHelper.retrofitService(AppServer.class);
+    private static AppServer healthMeasureServer = RetrofitHelper.service(AppServer.class);
     public static Observable<HomepageWeatherBean>  getWeather(String city){
         Timber.i("天气接口被调用");
         return healthMeasureServer

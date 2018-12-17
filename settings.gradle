@@ -29,6 +29,5 @@ include ':module-video',
         ':module-control-volume',
         ':module-health-record',
         ':module-edu',
-        ':module-recreation',
-        ':module-family'
+        ':module-recreation'
 

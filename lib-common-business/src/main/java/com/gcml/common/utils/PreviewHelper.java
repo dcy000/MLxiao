@@ -20,10 +20,6 @@ import android.util.Base64;
 import android.view.SurfaceHolder;
 import android.view.View;
 
-import com.gcml.common.utils.CameraUtils;
-import com.gcml.common.repository.utils.DefaultObserver;
-import com.gcml.common.utils.RxUtils;
-
 import java.io.ByteArrayOutputStream;
 
 import io.reactivex.Observable;

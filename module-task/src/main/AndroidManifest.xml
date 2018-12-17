@@ -41,9 +41,6 @@
         <activity android:name=".ui.TaskDialyContactActivity"
             android:launchMode="singleTask"/>
 
-        <meta-data
-            android:name="com.gcml.task.TaskApplication"
-            android:value="AppLifecycleCallbacks" />
     </application>
 
 </manifest>
