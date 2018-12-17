@@ -1,4 +1,4 @@
-include ':app',
+include ':app', ':module-auth-face2',
         ':app-component',
         ':lib-common-core',
         ':lib-common-business',
@@ -6,8 +6,8 @@ include ':app',
         ':component-cc'
 
 // 支持模块
-include ':lib-auth-face',
-        ':lib-baidu-unit',
+include ':lib-baidu-unit',
+//        ':lib-auth-face',
         ':lib-mlvoice',
 //        ':lib-call',
         ':lib-pay-beecloud',
@@ -30,6 +30,5 @@ include ':module-video',
         ':module-control-volume',
         ':module-health-record',
         ':module-edu',
-        ':module-recreation',
-        ':module-family'
+        ':module-recreation'
 

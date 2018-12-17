@@ -1,8 +1,7 @@
 package com.gcml.health.measure.network;
 
+import com.gcml.common.RetrofitHelper;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.IRepositoryHelper;
-import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
@@ -27,8 +26,7 @@ import timber.log.Timber;
  * description:TODO
  */
 public class HealthMeasureRepository {
-    private static IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
-    private static HealthMeasureServer healthMeasureServer = mRepositoryHelper.retrofitService(HealthMeasureServer.class);
+    private static HealthMeasureServer healthMeasureServer = RetrofitHelper.service(HealthMeasureServer.class);
 
     /**
      * 获取健康调查的题目

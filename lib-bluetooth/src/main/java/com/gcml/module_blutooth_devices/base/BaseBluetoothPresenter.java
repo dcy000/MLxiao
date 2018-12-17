@@ -444,16 +444,16 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
         isDestroy = true;
         if (weakHandler != null) {
             weakHandler.removeCallbacksAndMessages(null);
-            weakHandler = null;
         }
+        weakHandler = null;
         if (weakHandler2 != null) {
             weakHandler2.removeCallbacksAndMessages(null);
-            weakHandler2 = null;
         }
+        weakHandler2 = null;
         if (timeCount != null) {
             timeCount.cancel();
-            timeCount = null;
         }
+        timeCount = null;
         if (isOnSearching) {
             BluetoothClientManager.getClient().stopSearch();
         }
@@ -473,8 +473,8 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
         Logg.e(BaseBluetoothPresenter.class, "被注销的mac地址" + address);
         if (!TextUtils.isEmpty(address) && connectStateListener != null) {
             BluetoothClientManager.getClient().unregisterConnectStatusListener(address, connectStateListener);
-            connectStateListener = null;
         }
+        connectStateListener = null;
         searchListener = null;
         connectListener = null;
         lockedDevice = null;

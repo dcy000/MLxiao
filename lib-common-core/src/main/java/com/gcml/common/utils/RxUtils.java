@@ -14,9 +14,8 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 
-import com.gcml.common.repository.http.ApiException;
-import com.gcml.common.repository.http.ApiResult;
-import com.gcml.common.repository.utils.Serializer;
+import com.gcml.common.http.ApiException;
+import com.gcml.common.http.ApiResult;
 import com.google.gson.reflect.TypeToken;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.AutoDisposeConverter;
@@ -162,7 +161,7 @@ public class RxUtils {
                 }
                 return WifiManager.calculateSignalLevel(wifiInfo.getRssi(), numsLevel);
             }
-        }).distinct();
+        }).distinctUntilChanged();
     }
 
     public static Observable<Integer> rxWifiLevels(Context context, int numsLevel, ScanResult wifi) {

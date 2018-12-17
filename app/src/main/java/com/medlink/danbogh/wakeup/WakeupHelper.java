@@ -1,6 +1,7 @@
 package com.medlink.danbogh.wakeup;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -8,12 +9,8 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.hypertensionmanagement.activity.DetecteTipActivity;
-import com.example.han.referralproject.recyclerview.CheckContractActivity;
-import com.example.han.referralproject.recyclerview.DoctorMesActivity;
-import com.gcml.common.app.lifecycle.TopActivityHelper;
+import com.gcml.common.AppDelegate;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.old.auth.register.ConfirmContractActivity;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.VoiceWakeuper;
@@ -88,7 +85,7 @@ public class WakeupHelper {
 
     private void setParameter(VoiceWakeuper wakeuper) {
         wakeuper.setParameter(SpeechConstant.PARAMS, null);
-        wakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:10");
+        wakeuper.setParameter(SpeechConstant.IVW_THRESHOLD, "0:1045");
         wakeuper.setParameter(SpeechConstant.IVW_SST, "wakeup");
         wakeuper.setParameter(SpeechConstant.KEEP_ALIVE, "1");
         wakeuper.setParameter(SpeechConstant.IVW_NET_MODE, "1");
@@ -155,12 +152,11 @@ public class WakeupHelper {
                                 return;
                             }
 
-                            if (TopActivityHelper.topActivity != null) {
-                                if (TopActivityHelper.topActivity.getClass().getName().contains("TaskComplyActivity")
-                                        || TopActivityHelper.topActivity.getClass().getName().contains("TaskComplyChoiceActivity")
-                                        || TopActivityHelper.topActivity instanceof NimCallActivity
-                                        )
-
+                            Activity activity = AppDelegate.INSTANCE.activity();
+                            if (activity != null) {
+                                if (activity.getClass().getName().contains("TaskComplyActivity")
+                                        || activity.getClass().getName().contains("TaskComplyChoiceActivity")
+                                        || activity instanceof NimCallActivity)
                                     return;
                             }
 

@@ -13,7 +13,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.imageloader.ImageLoader;
+import com.gcml.common.imageloader.ImageLoader;
 import com.medlink.danbogh.call2.NimAccountHelper;
 
 import java.util.ArrayList;

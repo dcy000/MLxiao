@@ -15,3 +15,7 @@
 >     - somebody1 ( develop branch by somebody1 )
 >     - somebody2 ( develop branch by somebody2 )
 >     - somebody3 ( develop branch by somebody3 )
+
+## Android 工程化
+
+1. [工程化](lib-common-core/README.md)

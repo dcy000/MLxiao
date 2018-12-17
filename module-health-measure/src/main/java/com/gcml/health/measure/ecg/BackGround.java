@@ -70,6 +70,7 @@ public class BackGround extends View {
 	/**
 	 * ���ñ�����ɫ
 	 */
+	@Override
 	public void setBackgroundColor(int backgroundColor) {
 		this.backgroundColor = backgroundColor;
 	}
@@ -90,12 +91,12 @@ public class BackGround extends View {
 		super.onDraw(canvas);
 		if (!isDrawBG)
 			return;
-		canvas.drawColor(backgroundColor);
+//		canvas.drawColor(backgroundColor);
 		if (gridCnt < 2) {
 			return;
 		}
 		mPaint.setStrokeWidth(1);
-		mPaint.setColor(Color.rgb(0xba, 0xba, 0xba));
+		mPaint.setColor(Color.parseColor("#66767676"));
 		// ����������
 		for (float i = 0; i < width; i += gridHeigh) {
 			canvas.drawLine(fMMgetPxforX(i), 0, fMMgetPxforX(i), mHeight,

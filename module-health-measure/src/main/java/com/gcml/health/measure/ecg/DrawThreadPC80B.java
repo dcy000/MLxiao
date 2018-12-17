@@ -91,7 +91,7 @@ public class DrawThreadPC80B extends BaseDraw {
 			return;
 		}
 		paint.setPathEffect(cornerPathEffect);
-		paint.setColor(Color.RED);
+		paint.setColor(Color.parseColor("#00FF00"));
 		paint.setStyle(Style.STROKE);
 		paint.setStrokeWidth(dm.density);
 		Path path = new Path();

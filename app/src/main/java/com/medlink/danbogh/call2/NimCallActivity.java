@@ -86,7 +86,7 @@ public class NimCallActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(RobotAmount response) {
                         final String amount = response.getAmount();
-                        if (Float.parseFloat(amount) > 0) {
+                        if (!TextUtils.isEmpty(account) && Float.parseFloat(amount) > 0) {
                             //有余额
                             launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
                         } else {

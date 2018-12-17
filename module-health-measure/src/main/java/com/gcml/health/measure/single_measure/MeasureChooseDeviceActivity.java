@@ -112,8 +112,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             AllMeasureActivity.startActivity(this, measureType);
 
         } else if (i == R.id.ll_more) {
-            //敬请期待
-            ToastUtils.showShort("敬请期待");
+            measureType=IPresenter.MEASURE_HAND_RING;
+            AllMeasureActivity.startActivity(this,measureType);
 
         } else {
         }
@@ -151,26 +151,6 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     }
 
     private void aferVideo() {
-        ApplicationInfo appInfo = null;
-        String channel = null;
-        try {
-            appInfo = this.getPackageManager()
-                    .getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-            channel=appInfo.metaData.getString("com.gcml.version");
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (!TextUtils.isEmpty(channel)){
-            if (channel.equals("gcml_version_normal")){
-                if (measureType == IPresenter.MEASURE_ECG) {
-                    XinDianDetectActivity.startActivity(this,
-                            MeasureChooseDeviceActivity.class.getSimpleName(),getIntent().getBooleanExtra(IS_FACE_SKIP,false));
-                    return;
-                }
-            }
-        }
-
         Intent intent = new Intent();
         intent.setClass(this, AllMeasureActivity.class);
         intent.putExtra(IPresenter.MEASURE_TYPE, measureType);

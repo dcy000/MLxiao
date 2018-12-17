@@ -1,5 +1,8 @@
 package com.gcml.common.repository;
 
+import com.gcml.common.RetrofitHelper;
+import com.gcml.common.RoomHelper;
+import com.gcml.common.repository.entity.FingerBean;
 import com.gcml.common.repository.entity.SheetEntity;
 import com.gcml.common.repository.entity.SongEntity;
 import com.gcml.common.repository.local.SheetDao;
@@ -14,11 +17,9 @@ import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
 public class MusicRepository {
-    private IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
+    private MusicService mMusicService = RetrofitHelper.service(MusicService.class);
 
-    private MusicService mMusicService = mRepositoryHelper.retrofitService(MusicService.class);
-
-    private SheetDao mSheetDao = mRepositoryHelper.roomDb(SheetDb.class, SheetDb.class.getName()).sheetDao();
+    private SheetDao mSheetDao = RoomHelper.db(SheetDb.class, SheetDb.class.getName()).sheetDao();
 
     public Observable<List<SheetEntity>> sheetListFromApi(
             String name,
@@ -32,7 +33,7 @@ public class MusicRepository {
             int sheetId,
             int page,
             int limit) {
-        return mRepositoryHelper.retrofitService(MusicService.class).songs(3, "", sheetId, page, limit)
+        return RetrofitHelper.service(MusicService.class).songs(3, "", sheetId, page, limit)
                 .compose(RxUtils.apiResultTransformer());
     }
 
@@ -67,5 +68,9 @@ public class MusicRepository {
                  return new Object();
             }
         });
+    }
+
+    public Observable<List<FingerBean>> getFingers(){
+        return mMusicService.getFingers("0","100").compose(RxUtils.apiResultTransformer());
     }
 }

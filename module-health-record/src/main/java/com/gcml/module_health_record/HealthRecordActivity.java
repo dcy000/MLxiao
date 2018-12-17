@@ -147,6 +147,7 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_recoed_activity_health_record);
         MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请查看您的健康数据", false);
+
         initView();
         initDialog();
     }
@@ -285,6 +286,8 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         mTvTimeEnd.setOnClickListener(this);
         mLlSelectTime = findViewById(R.id.ll_select_time);
         mHealthRecordFl = findViewById(R.id.health_record_fl);
+
+
         mDialoHealthRecordUnitView = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.dialog_health_record_unit, null);
         mUnitDayDialoHealthRecordUnitView = mDialoHealthRecordUnitView

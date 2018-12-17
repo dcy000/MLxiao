@@ -11,8 +11,8 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.gcml.auth.face.BR;
 import com.gcml.auth.face.R;
-import com.gcml.auth.face.databinding.AuthActivityFaceSignUpBinding;
-import com.gcml.auth.face.model.PreviewHelper;
+import com.gcml.auth.face.databinding.FaceActivitySignUpBinding;
+import com.gcml.common.utils.PreviewHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
@@ -37,14 +37,14 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class FaceSignUpActivity extends BaseActivity<AuthActivityFaceSignUpBinding, FaceSignUpViewModel> {
+public class FaceSignUpActivity extends BaseActivity<FaceActivitySignUpBinding, FaceSignUpViewModel> {
 
     private PreviewHelper mPreviewHelper;
     private String faceId;
 
     @Override
     protected int layoutId() {
-        return R.layout.auth_activity_face_sign_up;
+        return R.layout.face_activity_sign_up;
     }
 
     @Override

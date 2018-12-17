@@ -12,7 +12,7 @@ import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignUpBinding;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.mvvm.BaseActivity;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.display.KeyboardUtils;
@@ -267,7 +267,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
-                        CC.obtainBuilder("com.gcml.auth.face.signup")
+                        CC.obtainBuilder("com.gcml.auth.face2.signup")
                                 .build()
                                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
                                     @Override

@@ -1,6 +1,6 @@
 package com.gcml.module_health_record.network;
 
-import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.http.ApiResult;
 import com.gcml.module_health_record.bean.BUA;
 import com.gcml.module_health_record.bean.BloodOxygenHistory;
 import com.gcml.module_health_record.bean.BloodPressureHistory;

@@ -3,7 +3,7 @@ package com.gcml.call;
 import android.app.Application;
 import android.content.Context;
 
-import com.gcml.common.app.lifecycle.AppLifecycleCallbacks;
+import com.gcml.common.api.AppLifecycleCallbacks;
 
 public class CallAppLifecycleCallbacks implements AppLifecycleCallbacks {
     @Override

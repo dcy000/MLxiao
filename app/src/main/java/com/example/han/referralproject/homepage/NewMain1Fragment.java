@@ -1,8 +1,5 @@
 package com.example.han.referralproject.homepage;
 
-import android.annotation.SuppressLint;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -21,7 +18,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
@@ -283,7 +280,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                             getActivity().getApplicationContext(),
                                             "请先去个人中心完善性别和年龄信息");
                                 } else {
-                                    CC.obtainBuilder("com.gcml.auth.face.signin")
+                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
                                             .addParam("skip", true)
                                             .addParam("currentUser", false)
                                             .build()

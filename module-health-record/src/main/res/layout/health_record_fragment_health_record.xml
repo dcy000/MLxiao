@@ -21,7 +21,6 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@color/health_record_color_9cd793" />
-        />
 
         <TextView
             android:id="@+id/indicator_1"

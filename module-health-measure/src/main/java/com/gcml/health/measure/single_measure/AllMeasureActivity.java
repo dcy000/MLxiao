@@ -1,5 +1,6 @@
 package com.gcml.health.measure.single_measure;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
@@ -16,6 +17,10 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.creative.ecg.ECG;
+import com.creative.filemanage.PC700FileOperation;
+import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.data.DataUtils;
@@ -30,7 +35,12 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCHealthRecordActions;
 import com.gcml.health.measure.cc.CCVideoActions;
+import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
+import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.health.measure.single_measure.fragment.ChooseECGDeviceFragment;
+import com.gcml.health.measure.single_measure.fragment.SelfECGDetectionFragment;
+import com.gcml.health.measure.single_measure.fragment.SingleMeasureHandRingFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodoxygenFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodpressureFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodoxygenFragment;
@@ -43,6 +53,8 @@ import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeas
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureTemperatureFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureThreeInOneFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureWeightFragment;
+import com.gcml.health.measure.utils.ChannelUtils;
+import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
@@ -54,6 +66,7 @@ import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_PDF_Fragment;
 import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerpint_Fragment;
+import com.gcml.module_blutooth_devices.others.HandRing_Fragment;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
@@ -65,6 +78,11 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.microedition.khronos.egl.EGL;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentChanged, ThreeInOne_Fragment.MeasureItemChanged {
@@ -76,7 +94,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private Uri uri;
     private boolean isFaceSkip;
     private boolean isShowBloodsugarSelectTime = false;
-    private ArrayList<Integer> threeInOnePosition=new ArrayList<>();
+    private ArrayList<Integer> threeInOnePosition = new ArrayList<>();
+
     public static void startActivity(Context context, int measure_type) {
         Intent intent = new Intent(context, AllMeasureActivity.class);
         if (context instanceof Application) {
@@ -111,7 +130,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         isMeasureTask = getIntent().getBooleanExtra(IPresenter.IS_MEASURE_TASK, false);
         isFaceSkip = getIntent().getBooleanExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP, false);
         //TODO:测试代码
-        if (BuildConfig.RUN_APP) {
+        if (BuildConfig.RUN_AS_APP) {
             measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
         }
         switch (measure_type) {
@@ -148,7 +167,6 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     mRightView.setImageResource(R.drawable.common_icon_home);
                     isShowBloodsugarSelectTime = true;
                     baseFragment = new HealthSelectSugarDetectionTimeFragment();
-                    baseFragment.setOnFragmentChangedListener(this);
                 }
                 break;
             case IPresenter.MEASURE_BLOOD_OXYGEN:
@@ -177,9 +195,17 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 }
                 break;
             case IPresenter.MEASURE_ECG:
-                if (baseFragment == null) {
-                    mTitleText.setText("心 电 测 量");
+                //心电
+                int device = (int) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 0);
+                mTitleText.setText("心 电 测 量");
+                if (device == 1) {
+                    baseFragment = new SelfECGDetectionFragment();
+                } else if (device == 2) {
                     baseFragment = new ECG_Fragment();
+                } else {
+                    mTitleText.setText("心 电 设 备 选 择");
+                    baseFragment = new ChooseECGDeviceFragment();
+                    mRightView.setImageResource(R.drawable.common_icon_home);
                 }
                 break;
             case IPresenter.MEASURE_OTHERS:
@@ -189,12 +215,18 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     mRightView.setImageResource(R.drawable.common_icon_home);
                     isShowBloodsugarSelectTime = true;
                     baseFragment = new HealthSelectSugarDetectionTimeFragment();
-                    baseFragment.setOnFragmentChangedListener(this);
                 }
                 break;
             case IPresenter.CONTROL_FINGERPRINT:
                 if (baseFragment == null) {
                     baseFragment = new Fingerpint_Fragment();
+                }
+                break;
+            case IPresenter.MEASURE_HAND_RING:
+                //手环
+                if (baseFragment == null) {
+                    mTitleText.setText("活 动 监 测");
+                    baseFragment = new SingleMeasureHandRingFragment();
                 }
                 break;
             default:
@@ -207,29 +239,10 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 .commit();
         if (baseFragment != null) {
             baseFragment.setOnDealVoiceAndJumpListener(dealVoiceAndJump);
+            baseFragment.setOnFragmentChangedListener(this);
         }
 
-
-        if (baseFragment != null && measure_type == IPresenter.MEASURE_ECG) {
-            ((ECG_Fragment) baseFragment).setOnAnalysisDataListener(new ECG_Fragment.AnalysisData() {
-                @Override
-                public void onSuccess(String fileNum, String fileAddress, String filePDF) {
-                    pdfUrl = filePDF;
-                    ECG_PDF_Fragment pdf_fragment = new ECG_PDF_Fragment();
-                    Bundle pdfBundle = new Bundle();
-                    pdfBundle.putString(ECG_PDF_Fragment.KEY_BUNDLE_PDF_URL, filePDF);
-                    pdf_fragment.setArguments(pdfBundle);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, pdf_fragment).commit();
-                    isMeasure = false;
-                    mRightView.setImageResource(R.drawable.health_measure_icon_qrcode);
-                }
-
-                @Override
-                public void onError() {
-
-                }
-            });
-        }
+        setECGListener();
     }
 
     private DealVoiceAndJump dealVoiceAndJump = new DealVoiceAndJump() {
@@ -274,10 +287,10 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     break;
                 case IPresenter.MEASURE_OTHERS:
                     //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
-                    if (threeInOnePosition.size()==0){
+                    if (threeInOnePosition.size() == 0) {
                         CCHealthRecordActions.jump2HealthRecordActivity(6);
-                    }else {
-                        CCHealthRecordActions.jump2HealthRecordActivity(threeInOnePosition.get(threeInOnePosition.size()-1));
+                    } else {
+                        CCHealthRecordActions.jump2HealthRecordActivity(threeInOnePosition.get(threeInOnePosition.size() - 1));
                     }
                     break;
                 default:
@@ -360,13 +373,16 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
 
     @Override
     protected void backMainActivity() {
+        if (baseFragment != null && baseFragment instanceof ChooseECGDeviceFragment) {
+            CCAppActions.jump2MainActivity();
+            return;
+        }
         if (isMeasure) {
             showRefreshBluetoothDialog();
         } else {
             if (DataUtils.isNullString(pdfUrl)) {
                 return;
             }
-            //郭志强
             Bitmap bitmap = QRCodeUtils.creatQRCode(pdfUrl, 600, 600);
             DialogImage dialogImage = new DialogImage(AllMeasureActivity.this);
             dialogImage.setImage(bitmap);
@@ -441,8 +457,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             case IPresenter.MEASURE_ECG:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
-                ((ECG_Fragment) baseFragment).onStop();
-                ((ECG_Fragment) baseFragment).dealLogic();
+                if (baseFragment instanceof SelfECGDetectionFragment) {
+                    ((SelfECGDetectionFragment) baseFragment).startDiscovery();
+                } else if (baseFragment instanceof ECG_Fragment) {
+                    ((ECG_Fragment) baseFragment).onStop();
+                    ((ECG_Fragment) baseFragment).dealLogic();
+                }
                 break;
             case IPresenter.MEASURE_OTHERS:
                 //三合一
@@ -456,6 +476,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT);
                 ((Fingerpint_Fragment) baseFragment).onStop();
                 ((Fingerpint_Fragment) baseFragment).dealLogic();
+                break;
+            case IPresenter.MEASURE_HAND_RING:
+                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_HAND_RING, "");
+                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_HAND_RING);
+                ((SingleMeasureHandRingFragment) baseFragment).onStop();
+                ((SingleMeasureHandRingFragment) baseFragment).dealLogic();
                 break;
             default:
                 break;
@@ -501,14 +527,14 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             if (bundle != null) {
-                if (measure_type==IPresenter.MEASURE_BLOOD_SUGAR){
+                if (measure_type == IPresenter.MEASURE_BLOOD_SUGAR) {
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureBloodsugarFragment();
                     } else {
                         baseFragment = new SingleMeasureBloodsugarFragment();
                         baseFragment.setArguments(bundle);
                     }
-                }else if (measure_type==IPresenter.MEASURE_OTHERS){
+                } else if (measure_type == IPresenter.MEASURE_OTHERS) {
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureThreeInOneFragment();
                     } else {
@@ -517,13 +543,89 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     baseFragment.setArguments(bundle);
                     ((ThreeInOne_Fragment) baseFragment).setOnMeasureItemChanged(this);
                 }
-                baseFragment.setOnDealVoiceAndJumpListener(dealVoiceAndJump);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame, baseFragment).commit();
+
                 isShowBloodsugarSelectTime = false;
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
             }
 
+        } else if (fragment instanceof ChooseECGDeviceFragment) {
+            if (bundle != null) {
+                int bundleInt = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 1);
+                if (bundleInt == 1) {
+                    baseFragment = new SelfECGDetectionFragment();
+                } else if (bundleInt == 2) {
+                    baseFragment = new ECG_Fragment();
+                }
+                mTitleText.setText("心 电 测 量");
+                mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+            }
+        } else if (fragment instanceof ECG_Fragment || fragment instanceof SelfECGDetectionFragment) {
+            //先清除本地的缓存
+            SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG);
+            mTitleText.setText("心 电 设 备 选 择");
+            baseFragment = new ChooseECGDeviceFragment();
+            mRightView.setImageResource(R.drawable.common_icon_home);
+        }
+        baseFragment.setOnFragmentChangedListener(this);
+        baseFragment.setOnDealVoiceAndJumpListener(dealVoiceAndJump);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame, baseFragment).commit();
+        setECGListener();
+
+    }
+
+    private void setECGListener() {
+        if (baseFragment != null && measure_type == IPresenter.MEASURE_ECG && baseFragment instanceof ECG_Fragment) {
+            ((ECG_Fragment) baseFragment).setOnAnalysisDataListener(new ECG_Fragment.AnalysisData() {
+                @SuppressLint("CheckResult")
+                @Override
+                public void onSuccess(String fileNum, String fileAddress, String flag, String result, String heartRate) {
+                    ArrayList<DetectionData> datas = new ArrayList<>();
+                    DetectionData ecgData = new DetectionData();
+                    //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+                    ecgData.setDetectionType("2");
+                    ecgData.setEcg(TextUtils.equals(flag, "2") ? "1" : flag);
+                    ecgData.setResult(result);
+                    ecgData.setHeartRate(Integer.parseInt(heartRate));
+                    ecgData.setResultUrl(fileAddress);
+                    datas.add(ecgData);
+                    HealthMeasureRepository.postMeasureData(datas)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .as(RxUtils.autoDisposeConverter(AllMeasureActivity.this, LifecycleUtils.LIFE))
+                            .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                                @Override
+                                public void onNext(List<DetectionResult> o) {
+                                    ToastUtils.showShort("数据上传成功");
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
+
+                    pdfUrl = fileAddress;
+                    ECG_PDF_Fragment pdf_fragment = new ECG_PDF_Fragment();
+                    Bundle pdfBundle = new Bundle();
+                    pdfBundle.putString(ECG_PDF_Fragment.KEY_BUNDLE_PDF_URL, fileAddress);
+                    pdf_fragment.setArguments(pdfBundle);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame, pdf_fragment).commit();
+                    isMeasure = false;
+                    mRightView.setImageResource(R.drawable.health_measure_icon_qrcode);
+                }
+
+
+                @Override
+                public void onError() {
+
+                }
+            });
         }
     }
 

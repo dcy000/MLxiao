@@ -138,11 +138,6 @@ public class ECGBluetooth {
 	 */
 	public void startDiscovery(final int name) {
 		this.conDeviceName = name;
-		// if (conDeviceName == 4) {
-		// startDiscoveryBLE();
-		// } else {
-		// startDiscovery();
-		// }
 		startDiscovery();
 	}
 	//直接连设备

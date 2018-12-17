@@ -1,14 +1,16 @@
 package com.gcml.common.repository.remote;
 
 
+import com.gcml.common.repository.entity.FingerBean;
 import com.gcml.common.repository.entity.SheetEntity;
 import com.gcml.common.repository.entity.SongEntity;
-import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.http.ApiResult;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Query;
 
 public interface MusicService {
@@ -26,5 +28,12 @@ public interface MusicService {
             @Query("mid") int sheetId,
             @Query("page") int page,
             @Query("limit") int limit
+    );
+
+    @Headers({"Domain-Name: abcd"})
+    @GET("ZZB/api/user/finger/query/")
+    Observable<ApiResult<List<FingerBean>>> getFingers(
+            @Query("start") String start,
+            @Query("end") String end
     );
 }
