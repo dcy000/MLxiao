@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.MeasureChooseDeviceActivity;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.UserInfoBean;
@@ -161,5 +162,13 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
     public void clickChatWithRobot() {
         startActivity(new Intent(this, SpeechSynthesisActivity.class));
 
+    }
+
+    @Override
+    public void clickSystemReset() {
+        LocalShared.getInstance(mContext).reset();
+        Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

@@ -89,8 +89,9 @@ public class FactoryTestActivity extends ToolbarBaseActivity {
         } else if (i == R.id.tv_screen_video) {//屏幕触摸检测
             NormalVideoPlayActivity.startActivity(this, Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_test), null, "测试");
         } else if (i == R.id.tv_system_reset) {//恢复出厂设置
-            reset();
-            finish();
+            if (factoryTestListener!=null){
+                factoryTestListener.clickSystemReset();
+            }
         }
     }
 
@@ -110,11 +111,6 @@ public class FactoryTestActivity extends ToolbarBaseActivity {
         PlayerConfig.setDefaultPlanId(PLAN_ID_KSY);
         PlayerConfig.setUseDefaultNetworkEventProducer(true);
         PlayerLibrary.init(this.getApplication());
-    }
-
-    public void reset() {
-        Intent intent = new Intent("com.gcml.hos.reset");
-        sendBroadcast(intent);
     }
 
 }

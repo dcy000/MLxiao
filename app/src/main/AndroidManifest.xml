@@ -900,15 +900,6 @@
             android:screenOrientation="landscape" />
         <activity android:name=".yiyuan.newdetect.SugarFollowUpActivity" />
         <activity android:name=".yiyuan.newdetect.HealthFollowUpActivity"></activity>
-
-        <receiver
-            android:name=".broadcast.ResetBroadCast"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.gcml.hos.reset"></action>
-            </intent-filter>
-        </receiver>
-
     </application>
 
 </manifest>

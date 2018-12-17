@@ -4,4 +4,5 @@ public interface AA {
     void clickConnectWifi();
     void clickMeasureOxygen();
     void clickChatWithRobot();
+    void clickSystemReset();
 }
