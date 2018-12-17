@@ -11,6 +11,8 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.permission.PermissionsManager;
+import com.permission.PermissionsResultAction;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +36,22 @@ public class ChoiceIDCardRegisterTypeActivity extends BaseActivity {
         setContentView(R.layout.activity_choice_idcard_register_type);
         ButterKnife.bind(this);
         initTitle();
+        requestPermission();
         ActivityHelper.addActivity(this);
+    }
+
+    private void requestPermission() {
+        PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onDenied(String permission) {
+
+            }
+        });
     }
 
     private void initTitle() {
