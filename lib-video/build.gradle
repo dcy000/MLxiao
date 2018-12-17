@@ -4,7 +4,7 @@ apply from: rootProject.file("build-base.gradle")
 android {
     defaultConfig {
         if (project.ext.runAsApp) {
-            applicationId "com.gcml.voice"
+            applicationId "com.gcml.video"
             versionCode = rootProject.ext.android["versionCode"]
             versionName rootProject.ext.android["versionName"]
         }
