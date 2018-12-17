@@ -2,7 +2,7 @@
 
 ## TODO
 
-- [x] 数据层搭建（见 lib-common-core 模块 repository 。用到的开源项目：Dagger2， RxJava， Retrofit， RxCache， Room， Gson ，timber，Stetho）
+- [x] 数据层搭建（见 lib-common-core 模块 repository 。用到的开源项目：Dagger2(弃用)， RxJava， Retrofit， RxCache， Room， Gson ，timber，Stetho）
 - [x] 图片加载二次封装
 - [x] 生命周期分发( 见 AppDelegate ）
 - [x] 生命周期与内存泄漏(AutoDispose, RxLife）
@@ -15,6 +15,129 @@
 - [ ] 表现层 （ MVVM ）， 业务层 
 - [ ] 业务拆分与组件封装
 - [ ] 依赖管理 CI CD
+
+### 使用
+
+- 获取 **Retrofit** Service
+
+```
+T service = RetrofitHelper.service(/* Class<T> service */);
+
+```
+
+- 获取 **RxCache** Provider
+
+```
+T service = RxCacheHelper.provider(/* Class<T> provider */);
+
+```
+
+- 获取 **Room** DB
+
+```
+ /* <DB extends RoomDatabase> */
+ <DB > db = RoomHelper.db(/* Class<DB> database */, /* String dbName */)
+
+```
+
+- 获取 **Cache**
+
+```
+
+  Cache<String, Object> cache = CacheHelper.get();
+
+```
+
+- **App 生命周期** （模块内声明即可）
+
+```
+@AutoService(AppLifecycleCallbacks.class)
+public class AppLifecycleCallbacksImpl implements AppLifecycleCallbacks {
+    @Override
+    public void attachBaseContext(Application app, Context base) {
+        // 业务代码
+    }
+
+    @Override
+    public void onCreate(Application app) {
+        // 业务代码
+    }
+
+    @Override
+    public void onTerminate(Application app) {
+        // 业务代码
+    }
+}
+
+// @AutoService 注解会把所有实现 AppLifecycleCallbacks 接口的实现类收集起来
+// AppDelegate 中会把 App 的生命周期分发给收集到的 AppLifecycleCallbacks 实现类
+```
+
+- **扩展 Gson** （模块内声明即可）
+
+```
+@AutoService(BuildGson.class)
+public class BuildGsonImpl implements BuildGson {
+    @Override
+    public void buildGson(Context context, GsonBuilder builder) {
+        builder.enableComplexMapKeySerialization();
+    }
+}
+
+```
+
+- **扩展 OkHttp** （模块内声明即可）
+
+```
+@AutoService(BuildOkHttpClient.class)
+public class BuildOkHttpClientImpl implements BuildOkHttpClient {
+    @Override
+    public void buildOkHttpClient(Context context, OkHttpClient.Builder builder) {
+        builder.writeTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS);
+    }
+}
+
+```
+
+
+- **扩展 Retrofit** （模块内声明即可）
+
+```
+@AutoService(BuildRetrofit.class)
+public class BuildRetrofitImpl implements BuildRetrofit {
+    @Override
+    public void buildRetrofit(Context context, Retrofit.Builder builder) {
+        builder.baseUrl("baseUrl");
+    }
+}
+
+```
+
+- **扩展 RxCache** （模块内声明即可）
+
+```
+@AutoService(BuildRxCache.class)
+public class BuildRxCacheImpl implements BuildRxCache {
+    @Override
+    public void buildRxCache(Context context, RxCache.Builder builder) {
+        builder.useExpiredDataIfLoaderNotAvailable(true);
+    }
+}
+```
+
+- **扩展 Room** （模块内声明即可）
+
+```
+@AutoService(BuildRoomDb.class)
+public class BuildRoomDbImpl implements BuildRoomDb {
+    @Override
+    public void buildRoomDb(Context context, String dbClazzName, RoomDatabase.Builder builder) {
+       // 业务代码
+    }
+}
+```
 
 ## Why RxJava
 

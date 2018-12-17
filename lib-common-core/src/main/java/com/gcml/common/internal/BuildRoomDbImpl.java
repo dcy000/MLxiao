@@ -7,7 +7,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.gcml.common.api.BuildRoomDb;
+import com.google.auto.service.AutoService;
 
+@AutoService(BuildRoomDb.class)
 public class BuildRoomDbImpl implements BuildRoomDb {
     @Override
     public void buildRoomDb(Context context, String dbClazzName, RoomDatabase.Builder builder) {
