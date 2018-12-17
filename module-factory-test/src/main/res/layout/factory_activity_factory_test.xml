@@ -81,5 +81,15 @@
         android:text="视频播放检测"
         android:textColor="@color/white"
         android:textSize="28sp"/>
+    <TextView
+        android:id="@+id/tv_system_reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_factory_btn"
+        android:text="恢复出厂设置"
+        android:textColor="@color/white"
+        android:textSize="28sp"/>
 
 </LinearLayout>

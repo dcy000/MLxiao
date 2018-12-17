@@ -204,19 +204,19 @@
 
         </activity>
         <!--<activity-->
-            <!--android:name=".WelcomeActivity"-->
-            <!--android:configChanges="screenSize|keyboardHidden|orientation"-->
-            <!--android:launchMode="singleTask"-->
-            <!--android:screenOrientation="landscape">-->
+        <!--android:name=".WelcomeActivity"-->
+        <!--android:configChanges="screenSize|keyboardHidden|orientation"-->
+        <!--android:launchMode="singleTask"-->
+        <!--android:screenOrientation="landscape">-->
 
-            <!--&lt;!&ndash; <intent-filter> &ndash;&gt;-->
-            <!--&lt;!&ndash; <action android:name="android.intent.action.MAIN" /> &ndash;&gt;-->
+        <!--&lt;!&ndash; <intent-filter> &ndash;&gt;-->
+        <!--&lt;!&ndash; <action android:name="android.intent.action.MAIN" /> &ndash;&gt;-->
 
 
-            <!--&lt;!&ndash; <category android:name="android.intent.category.HOME" /> &ndash;&gt;-->
-            <!--&lt;!&ndash; <category android:name="android.intent.category.LAUNCHER" /> &ndash;&gt;-->
-            <!--&lt;!&ndash; <category android:name="android.intent.category.DEFAULT" /> &ndash;&gt;-->
-            <!--&lt;!&ndash; </intent-filter> &ndash;&gt;-->
+        <!--&lt;!&ndash; <category android:name="android.intent.category.HOME" /> &ndash;&gt;-->
+        <!--&lt;!&ndash; <category android:name="android.intent.category.LAUNCHER" /> &ndash;&gt;-->
+        <!--&lt;!&ndash; <category android:name="android.intent.category.DEFAULT" /> &ndash;&gt;-->
+        <!--&lt;!&ndash; </intent-filter> &ndash;&gt;-->
         <!--</activity>-->
         <activity
             android:name=".Test_mainActivity"
@@ -801,6 +801,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".require2.login.ChoiceLoginTypeActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
@@ -899,6 +900,15 @@
             android:screenOrientation="landscape" />
         <activity android:name=".yiyuan.newdetect.SugarFollowUpActivity" />
         <activity android:name=".yiyuan.newdetect.HealthFollowUpActivity"></activity>
+
+        <receiver
+            android:name=".broadcast.ResetBroadCast"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.gcml.hos.reset"></action>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

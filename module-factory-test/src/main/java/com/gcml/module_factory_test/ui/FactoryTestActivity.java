@@ -35,6 +35,10 @@ public class FactoryTestActivity extends ToolbarBaseActivity {
     TextView tvScreenTouch;
     @BindView(R2.id.tv_screen_video)
     TextView tvScreenVideo;
+    @BindView(R2.id.tv_system_reset)
+    TextView tvReset;
+
+
     public static AA factoryTestListener;
 
 
@@ -57,7 +61,7 @@ public class FactoryTestActivity extends ToolbarBaseActivity {
         mTitleText.setText("工厂检测");
     }
 
-    @OnClick({R2.id.tv_wifi, R2.id.tv_bluetooth, R2.id.tv_camera, R2.id.tv_micro, R2.id.tv_screen_point, R2.id.tv_screen_touch, R2.id.tv_screen_video})
+    @OnClick({R2.id.tv_wifi, R2.id.tv_bluetooth, R2.id.tv_camera, R2.id.tv_micro, R2.id.tv_screen_point, R2.id.tv_screen_touch, R2.id.tv_screen_video, R2.id.tv_system_reset})
     public void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.tv_wifi) {//WIFI检测
@@ -84,6 +88,9 @@ public class FactoryTestActivity extends ToolbarBaseActivity {
 
         } else if (i == R.id.tv_screen_video) {//屏幕触摸检测
             NormalVideoPlayActivity.startActivity(this, Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_test), null, "测试");
+        } else if (i == R.id.tv_system_reset) {//恢复出厂设置
+            reset();
+            finish();
         }
     }
 
@@ -104,4 +111,10 @@ public class FactoryTestActivity extends ToolbarBaseActivity {
         PlayerConfig.setUseDefaultNetworkEventProducer(true);
         PlayerLibrary.init(this.getApplication());
     }
+
+    public void reset() {
+        Intent intent = new Intent("com.gcml.hos.reset");
+        sendBroadcast(intent);
+    }
+
 }
