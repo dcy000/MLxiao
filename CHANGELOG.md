@@ -17,9 +17,10 @@
 
 - [ ] 后面慢慢抽出的组件， 可添加文档，以记录
 
+
 - App 生命周期 （模块内声明即可， 其他 api 扩展类似）
 
-
+```
 @AutoService(AppLifecycleCallbacks.class)
 public class AppLifecycleCallbacksImpl implements AppLifecycleCallbacks {
     @Override
@@ -40,4 +41,4 @@ public class AppLifecycleCallbacksImpl implements AppLifecycleCallbacks {
 
 // @AutoService 注解会把所有实现 AppLifecycleCallbacks 接口的实现类收集起来
 // AppDelegate 中会把 App 的生命周期分发给收集到的 AppLifecycleCallbacks 实现类
-~~~
+```
