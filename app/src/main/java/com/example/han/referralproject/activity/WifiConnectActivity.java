@@ -105,6 +105,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
             mConnectedLayout.setVisibility(View.VISIBLE);
             mConnectedWifiName.setText(mInfo.getSSID());
             if (getIntent() != null && getIntent().getBooleanExtra("factoryMode", false)) {
+                level.setVisibility(View.VISIBLE);
                 RxUtils.rxWifiLevel(getApplication(), 4)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
