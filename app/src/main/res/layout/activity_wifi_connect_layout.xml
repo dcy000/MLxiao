@@ -61,6 +61,17 @@
                 android:gravity="center"
                 android:textColor="#000"
                 android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tv_level"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:text="是的那份"
+                android:textColor="#000"
+                android:textSize="24sp"
+                android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>
 

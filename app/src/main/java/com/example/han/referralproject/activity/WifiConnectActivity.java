@@ -28,20 +28,26 @@ import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.util.WiFiUtil;
+import com.gcml.common.utils.RxUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WifiConnectActivity extends BaseActivity implements View.OnClickListener{
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
+public class WifiConnectActivity extends BaseActivity implements View.OnClickListener {
     private WifiConnectRecyclerAdapter mConnectAdapter;
     private List<ScanResult> mDataList = new ArrayList<>();
     private WiFiUtil mWiFiUtil;
     private Switch mSwitch;
     private View mConnectedLayout;
-    private TextView mConnectedWifiName;
+    private TextView mConnectedWifiName, level;
     private WifiManager mWifiManager;
     private boolean isFirstWifi = false;
     private MediaPlayer mediaPlayer;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,21 +57,22 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         mRightView.setImageResource(R.drawable.icon_refresh);
         mTitleText.setText("WiFi连接");
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        boolean iswifiConnected=cm != null
+        boolean iswifiConnected = cm != null
                 && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
-        if(iswifiConnected){
+        if (iswifiConnected) {
 //            mediaPlayer=MediaPlayer.create(this,R.raw.wifi_connected);
             speak("主人,您的wifi已连接,如果需要更换,请点击对应wifi名称");
-        }else{
+        } else {
 //            mediaPlayer = MediaPlayer.create(this, R.raw.wifi_connect);
             speak("主人,请连接wifi,如果未找到,请点击右上角的刷新按钮");
         }
 
-//        mediaPlayer.start();//播放音乐
+//        mediaPayer.start();//播放音乐
+        level = findViewById(R.id.tv_level);
 
         mRightView.setOnClickListener(this);
-        isFirstWifi= getIntent().getBooleanExtra("is_first_wifi", false);
+        isFirstWifi = getIntent().getBooleanExtra("is_first_wifi", false);
         mWiFiUtil = WiFiUtil.getInstance(this);
         mWiFiUtil.openWifi();
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -77,6 +84,10 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         RecyclerView mWifiRv = (RecyclerView) findViewById(R.id.rv_wifi);
         mWifiRv.setLayoutManager(new LinearLayoutManager(mContext));
         mConnectAdapter = new WifiConnectRecyclerAdapter(mContext, mDataList);
+        if (getIntent() != null && getIntent().getBooleanExtra("factoryMode", false)) {
+            mConnectAdapter.setFactory(true);
+            mConnectAdapter.setFactory(mWifiManager);
+        }
         mWifiRv.setAdapter(mConnectAdapter);
         scanWifi();
         IntentFilter filter = new IntentFilter();
@@ -93,8 +104,22 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         if (mInfo != null) {
             mConnectedLayout.setVisibility(View.VISIBLE);
             mConnectedWifiName.setText(mInfo.getSSID());
+            if (getIntent() != null && getIntent().getBooleanExtra("factoryMode", false)) {
+                RxUtils.rxWifiLevel(getApplication(), 4)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .as(RxUtils.autoDisposeConverter(this))
+                        .subscribe(new Consumer<Integer>() {
+                            @Override
+                            public void accept(Integer levelValue) throws Exception {
+                                level.setText(levelValue+"");
+                            }
+                        });
+            }
+
+
             for (ScanResult itemResult : mWiFiUtil.getWifiList()) {
-                if (!itemResult.BSSID.equals(mInfo.getBSSID())){
+                if (!itemResult.BSSID.equals(mInfo.getBSSID())) {
                     mDataList.add(itemResult);
                 }
             }
@@ -107,7 +132,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_top_right:
                 scanWifi();
                 break;
@@ -121,9 +146,9 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mNetworkReceiver);
-        if(mediaPlayer!=null){
+        if (mediaPlayer != null) {
             mediaPlayer.release();
-            mediaPlayer=null;
+            mediaPlayer = null;
         }
     }
 
@@ -176,9 +201,9 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                     ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
                     NetworkInfo info = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
                     NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
-                    if (networkInfo != null && networkInfo.isConnected()){
+                    if (networkInfo != null && networkInfo.isConnected()) {
                         //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
-                        if (isFirstWifi){
+                        if (isFirstWifi) {
                             if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
                                 startActivity(new Intent(mContext, ChoiceLoginTypeActivity.class));
                             } else {

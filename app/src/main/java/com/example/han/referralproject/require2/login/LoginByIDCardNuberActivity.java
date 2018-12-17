@@ -149,7 +149,7 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
 
     @Override
     public void clickConnectWifi() {
-        startActivity(new Intent(this, WifiConnectActivity.class));
+        startActivity(new Intent(this, WifiConnectActivity.class).putExtra("factoryMode",true));
     }
 
     @Override
