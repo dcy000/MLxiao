@@ -145,25 +145,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
             case R.id.shopping:
 
-/*
-                NetworkApi.order_list("0", "0", "1", "琪琪", "1", "4", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
-                    @Override
-                    public void onSuccess(ArrayList<Orders> response) {
-
-                        Logg.e("==========", response.toString());
-
-                    }
-
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-
-                        Logg.e("=============", "失败");
-
-                    }
-                });*/
-
-
                 NetworkApi.preparingPay(UserSpHelper.getUserId(), Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Float.parseFloat(mTextView2.getText().toString()) * Float.parseFloat(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<String>() {
 
                     @Override

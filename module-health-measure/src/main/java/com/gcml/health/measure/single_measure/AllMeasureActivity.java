@@ -581,35 +581,37 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 @SuppressLint("CheckResult")
                 @Override
                 public void onSuccess(String fileNum, String fileAddress, String flag, String result, String heartRate) {
-                    ArrayList<DetectionData> datas = new ArrayList<>();
-                    DetectionData ecgData = new DetectionData();
-                    //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
-                    ecgData.setDetectionType("2");
-                    ecgData.setEcg(TextUtils.equals(flag, "2") ? "1" : flag);
-                    ecgData.setResult(result);
-                    ecgData.setHeartRate(Integer.parseInt(heartRate));
-                    ecgData.setResultUrl(fileAddress);
-                    datas.add(ecgData);
-                    HealthMeasureRepository.postMeasureData(datas)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .as(RxUtils.autoDisposeConverter(AllMeasureActivity.this, LifecycleUtils.LIFE))
-                            .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
-                                @Override
-                                public void onNext(List<DetectionResult> o) {
-                                    ToastUtils.showShort("数据上传成功");
-                                }
+                    if (!isFaceSkip) {
+                        ArrayList<DetectionData> datas = new ArrayList<>();
+                        DetectionData ecgData = new DetectionData();
+                        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+                        ecgData.setDetectionType("2");
+                        ecgData.setEcg(TextUtils.equals(flag, "2") ? "1" : flag);
+                        ecgData.setResult(result);
+                        ecgData.setHeartRate(Integer.parseInt(heartRate));
+                        ecgData.setResultUrl(fileAddress);
+                        datas.add(ecgData);
+                        HealthMeasureRepository.postMeasureData(datas)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .as(RxUtils.autoDisposeConverter(AllMeasureActivity.this, LifecycleUtils.LIFE))
+                                .subscribeWith(new DefaultObserver<List<DetectionResult>>() {
+                                    @Override
+                                    public void onNext(List<DetectionResult> o) {
+                                        ToastUtils.showShort("数据上传成功");
+                                    }
 
-                                @Override
-                                public void onError(Throwable e) {
-                                    ToastUtils.showLong("数据上传失败:" + e.getMessage());
-                                }
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        ToastUtils.showLong("数据上传失败:" + e.getMessage());
+                                    }
 
-                                @Override
-                                public void onComplete() {
+                                    @Override
+                                    public void onComplete() {
 
-                                }
-                            });
+                                    }
+                                });
+                    }
 
                     pdfUrl = fileAddress;
                     ECG_PDF_Fragment pdf_fragment = new ECG_PDF_Fragment();

@@ -3,6 +3,7 @@ package com.gcml.module_health_record.fragments;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.gcml.module_health_record.bean.ECGHistory;
 import com.gcml.module_health_record.cc.CCHealthMeasureActions;
 import com.gcml.module_health_record.others.XindianAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HealthRecordECGFragment extends RecycleBaseFragment implements View.OnClickListener {
@@ -37,10 +39,16 @@ public class HealthRecordECGFragment extends RecycleBaseFragment implements View
 
 
     public void refreshData(List<ECGHistory> response, String temp) {
+        List<ECGHistory> ecgs=new ArrayList<>();
+        for (ECGHistory data : response) {
+            if (!TextUtils.isEmpty(data.result) && !data.result.contains("重新测试")) {
+               ecgs.add(data);
+            }
+        }
         view.findViewById(R.id.view_empty_data).setVisibility(View.GONE);
         mXindiantu.setLayoutManager(new LinearLayoutManager(getContext()));
-        if (isAdded()){
-            mXindiantu.setAdapter(new XindianAdapter(R.layout.health_record_item_message, response,
+        if (isAdded()) {
+            mXindiantu.setAdapter(new XindianAdapter(R.layout.health_record_item_message, ecgs,
                     getResources().getStringArray(R.array.ecg_measureres)));
         }
     }

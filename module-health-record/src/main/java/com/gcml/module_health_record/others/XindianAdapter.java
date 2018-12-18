@@ -38,6 +38,9 @@ public class XindianAdapter extends BaseQuickAdapter<ECGHistory, BaseViewHolder>
                 helper.setText(R.id.item_tv_message, "分析结果出现错误");
             }
         } else {
+//            if (item.result.contains("重新测试")) {
+//                return;
+//            }
             helper.setText(R.id.item_tv_message, item.result);
         }
 
@@ -48,7 +51,7 @@ public class XindianAdapter extends BaseQuickAdapter<ECGHistory, BaseViewHolder>
         } else {
             helper.getView(R.id.btn_health_record_detail).setVisibility(View.VISIBLE);
         }
-        ((TextView)helper.getView(R.id.btn_health_record_detail)).setOnClickListener(new View.OnClickListener() {
+        ((TextView) helper.getView(R.id.btn_health_record_detail)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ShowPDFActivity.startActivity(mContext, item.result_url);
