@@ -72,8 +72,7 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("选 择 登 录 方 式");
 
-        mLeftText.setVisibility(View.GONE);
-        mLeftView.setVisibility(View.GONE);
+        mllBack.setVisibility(View.GONE);
 
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.VISIBLE);

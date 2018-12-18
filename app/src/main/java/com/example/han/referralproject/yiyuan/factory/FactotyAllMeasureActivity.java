@@ -22,6 +22,7 @@ import com.example.han.referralproject.single_measure.ChooseECGDeviceFragment;
 import com.example.han.referralproject.single_measure.SelfECGDetectionFragment;
 import com.example.han.referralproject.single_measure.SingleMeasureHandRingFragment;
 import com.example.han.referralproject.single_measure.bean.BoShengResultBean;
+import com.example.han.referralproject.single_measure.factory.FactoryDialogFragment;
 import com.example.han.referralproject.single_measure.factory.FactoryHealthSelectSugarDetectionTimeFragment;
 import com.example.han.referralproject.single_measure.factory.FactorySingleMeasureBloodoxygenFragment;
 import com.example.han.referralproject.single_measure.factory.FactorySingleMeasureBloodpressureFragment;
@@ -30,7 +31,6 @@ import com.example.han.referralproject.single_measure.factory.FactorySingleMeasu
 import com.example.han.referralproject.single_measure.factory.FactorySingleMeasureTemperatureFragment;
 import com.example.han.referralproject.single_measure.factory.FactorySingleMeasureThreeInOneFragment;
 import com.example.han.referralproject.single_measure.factory.FactorySingleMeasureWeightFragment;
-import com.example.han.referralproject.view.MyDialogFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
@@ -349,7 +349,7 @@ public class FactotyAllMeasureActivity extends BaseActivity implements FragmentC
             if (DataUtils.isNullString(pdfUrl)) {
                 return;
             }
-            MyDialogFragment.newInstance(pdfUrl).show(getSupportFragmentManager(), "AllMeasure");
+            FactoryDialogFragment.newInstance(pdfUrl).show(getSupportFragmentManager(), "AllMeasure");
         }
     }
 
