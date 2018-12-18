@@ -34,6 +34,9 @@
         <activity android:name="com.gcml.common.mvvm.MvvmActivity" />
         <activity android:name="com.gcml.common.dialog.DialogActivity" />
         <activity android:name="com.gcml.common.gzq.TestFingerActivity">
+
+        </activity>
+        <activity android:name="com.gcml.common.TestH5Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
