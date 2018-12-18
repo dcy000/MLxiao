@@ -28,14 +28,9 @@ import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.util.WiFiUtil;
-import com.gcml.common.utils.RxUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class WifiConnectActivity extends BaseActivity implements View.OnClickListener {
     private WifiConnectRecyclerAdapter mConnectAdapter;
@@ -104,18 +99,10 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
         if (mInfo != null) {
             mConnectedLayout.setVisibility(View.VISIBLE);
             mConnectedWifiName.setText(mInfo.getSSID());
+
             if (getIntent() != null && getIntent().getBooleanExtra("factoryMode", false)) {
                 level.setVisibility(View.VISIBLE);
-                RxUtils.rxWifiLevel(getApplication(), 4)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .as(RxUtils.autoDisposeConverter(this))
-                        .subscribe(new Consumer<Integer>() {
-                            @Override
-                            public void accept(Integer levelValue) throws Exception {
-                                level.setText(levelValue+"");
-                            }
-                        });
+                level.setText(mInfo.getRssi() + "");
             }
 
 
