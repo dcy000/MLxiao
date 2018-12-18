@@ -11,7 +11,7 @@ import com.gcml.auth.face.debug.model.entity.FaceBdUser;
 import com.gcml.auth.face.debug.model.entity.FaceBdVerify;
 import com.gcml.auth.face.debug.model.entity.FaceBdVerifyParam;
 import com.gcml.auth.face.debug.model.exception.FaceBdError;
-import com.gcml.common.repository.RepositoryApp;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +26,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FaceBdRepository {
 
-    private FaceBdService mFaceBdService =
-            RepositoryApp.INSTANCE
-                    .repositoryComponent()
-                    .repositoryHelper()
-                    .retrofitService(FaceBdService.class);
+    private FaceBdService mFaceBdService = RetrofitHelper.service(FaceBdService.class);
 
     private Observable<String> accessToken() {
         if (!TextUtils.isEmpty(FaceBdErrorUtils.accessToken)) {

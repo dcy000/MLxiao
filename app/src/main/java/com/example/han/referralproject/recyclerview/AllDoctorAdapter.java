@@ -57,12 +57,12 @@ public class AllDoctorAdapter extends RecyclerView.Adapter<AllDoctorAdapter.Hold
         holder.mPosition = position;
         Picasso.with(context)
                 .load(mListPat.get(position).docter_photo)
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
+                .placeholder(R.drawable.common_ic_avatar_placeholder)
+                .error(R.drawable.common_ic_avatar_placeholder)
                 .tag(context)
                 .fit()
                 .into(holder.mImagine);
-        //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
+        //    holder.mImagine.setImageResource(R.drawable.common_ic_avatar_placeholder);
         holder.mNameview.setText(mListPat.get(position).doctername);
         holder.mRoomId.setText(mListPat.get(position).department);
 

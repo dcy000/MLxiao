@@ -27,8 +27,8 @@ import com.gcml.auth.ui.profile.update.AlertNameActivity;
 import com.gcml.common.data.HealthInfo;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.mvvm.BaseActivity;
-import com.gcml.common.repository.imageloader.ImageLoader;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.imageloader.ImageLoader;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -685,8 +685,8 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
         ImageLoader.with(this)
                 .load(mUser.avatar)
                 .circle()
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
+                .placeholder(R.drawable.common_ic_avatar_placeholder)
+                .error(R.drawable.common_ic_avatar_placeholder)
                 .into(binding.ivAvatar);
         binding.tvName.setText(TextUtils.isEmpty(user.name) ? "暂未填写" : user.name);
         if (!TextUtils.isEmpty(user.birthday)) {

@@ -13,10 +13,10 @@ import com.gcml.auth.face2.model.entity.FaceBdVerify;
 import com.gcml.auth.face2.model.entity.FaceBdVerifyParam;
 import com.gcml.auth.face2.model.entity.FaceUser;
 import com.gcml.auth.face2.model.exception.FaceBdError;
+import com.gcml.common.RetrofitHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.RepositoryApp;
-import com.gcml.common.repository.http.ApiException;
+import com.gcml.common.http.ApiException;
 import com.gcml.common.user.UserToken;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UploadHelper;
@@ -40,11 +40,7 @@ import io.reactivex.subjects.PublishSubject;
 
 public class FaceBdRepository {
 
-    private FaceBdService mFaceBdService =
-            RepositoryApp.INSTANCE
-                    .repositoryComponent()
-                    .repositoryHelper()
-                    .retrofitService(FaceBdService.class);
+    private FaceBdService mFaceBdService = RetrofitHelper.service(FaceBdService.class);
 
     private UploadHelper mUploadHelper = new UploadHelper();
 

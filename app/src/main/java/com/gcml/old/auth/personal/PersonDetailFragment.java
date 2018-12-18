@@ -36,8 +36,8 @@ import com.example.han.referralproject.util.UpdateAppManager;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.imageloader.ImageLoader;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.imageloader.ImageLoader;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.utils.display.ToastUtils;
@@ -183,8 +183,8 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                         tvUserName.setText(user.name);
                         ImageLoader.with(activity)
                                 .load(user.avatar)
-                                .placeholder(R.drawable.avatar_placeholder)
-                                .error(R.drawable.avatar_placeholder)
+                                .placeholder(R.drawable.common_ic_avatar_placeholder)
+                                .error(R.drawable.common_ic_avatar_placeholder)
                                 .into(headImg);
                         if ("1".equals(user.state)) {
                             isSignDoctor.setText("已签约");

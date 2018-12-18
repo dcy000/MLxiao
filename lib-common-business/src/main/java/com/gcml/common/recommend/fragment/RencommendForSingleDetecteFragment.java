@@ -19,7 +19,7 @@ import com.gcml.common.recommend.adapter.RecommendAdapter;
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.recommend.network.RecommendRepository;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 

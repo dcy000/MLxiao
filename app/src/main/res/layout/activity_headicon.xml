@@ -41,14 +41,14 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/avatar_placeholder" />
+        android:src="@drawable/common_ic_avatar_placeholder" />
 
     <!--<ImageView
         android:id="@+id/per_image"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/avatar_placeholder" />-->
+        android:src="@drawable/common_ic_avatar_placeholder" />-->
 
     <Button
         android:id="@+id/cancel"

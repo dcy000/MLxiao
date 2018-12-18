@@ -22,7 +22,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:clickable="true"
-            android:src="@drawable/avatar_placeholder" />
+            android:src="@drawable/common_ic_avatar_placeholder" />
 
         <TextView
             android:id="@+id/per_name"

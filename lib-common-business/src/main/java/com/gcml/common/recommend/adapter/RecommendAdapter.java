@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.business.R;
 import com.gcml.common.recommend.bean.get.GoodBean;
-import com.gcml.common.repository.imageloader.ImageLoader;
+import com.gcml.common.imageloader.ImageLoader;
 
 import java.util.List;
 

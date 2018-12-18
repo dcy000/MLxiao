@@ -42,9 +42,6 @@
             android:launchMode="singleTask" />
         <activity android:name=".ui.GoodsDetailActivity" />
 
-        <meta-data
-            android:name="com.gcml.mall.MallAppLifecycleCallbacks"
-            android:value="AppLifecycleCallbacks" />
     </application>
 
 </manifest>

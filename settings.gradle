@@ -9,7 +9,7 @@ include ':app', ':module-auth-face2',
 include ':lib-baidu-unit',
 //        ':lib-auth-face',
         ':lib-mlvoice',
-        ':lib-call',
+//        ':lib-call',
         ':lib-pay-beecloud',
         ':lib-music-player',
         ':lib-progress-orb',
@@ -21,6 +21,7 @@ include ':lib-baidu-unit',
 
 // 业务模块
 include ':module-video',
+        ':module-call',
         ':module-family',
         ':module-mall',
         ':module-task',
@@ -29,6 +30,5 @@ include ':module-video',
         ':module-control-volume',
         ':module-health-record',
         ':module-edu',
-        ':module-recreation',
-        ':module-family'
+        ':module-recreation'
 

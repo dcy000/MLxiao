@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.constant.ConstantData;
@@ -120,8 +119,8 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
         if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
             Picasso.with(this)
                     .load(sharedPreferences1.getString("docter_photo", ""))
-                    .placeholder(R.drawable.avatar_placeholder)
-                    .error(R.drawable.avatar_placeholder)
+                    .placeholder(R.drawable.common_ic_avatar_placeholder)
+                    .error(R.drawable.common_ic_avatar_placeholder)
                     .tag(this)
                     .fit()
                     .into(mCircleImageView);

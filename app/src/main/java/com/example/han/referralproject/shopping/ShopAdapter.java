@@ -45,7 +45,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopVH> {
                 .tag(context)
                 .fit()
                 .into(holder.mImageView);
-        //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
+        //    holder.mImagine.setImageResource(R.drawable.common_ic_avatar_placeholder);
         holder.mTextView.setText(mList.get(position).getGoodsname());
         holder.mTextView1.setText("¥ " + mList.get(position).getGoodsprice());
     }

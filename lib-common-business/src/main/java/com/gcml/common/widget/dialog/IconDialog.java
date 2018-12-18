@@ -3,7 +3,6 @@ package com.gcml.common.widget.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +11,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.gcml.common.business.R;
-import com.gcml.common.repository.imageloader.ImageLoader;
-import com.gcml.common.repository.imageloader.glide.GlideImageLoader;
-
-import timber.log.Timber;
+import com.gcml.common.imageloader.ImageLoader;
 
 /**
  * 作者：wecent

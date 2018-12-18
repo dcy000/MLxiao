@@ -17,11 +17,17 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
+import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 import cn.beecloud.entity.BCRestfulCommonResult;
@@ -350,18 +356,18 @@ class BCHttpClientUtil {
         if (socketFactory == null)
             return response;
 
-        X509TrustManager trustManager = Platform.get().trustManager(socketFactory);
+//        X509TrustManager trustManager = Platform.get().trustManager(socketFactory);
 
-        if (trustManager == null) {
-            response.code = -1;
-            return response;
-        }
+//        if (trustManager == null) {
+//            response.code = -1;
+//            return response;
+//        }
 
         //PayPal needs TLS v1.2
         OkHttpClient client =
                 new OkHttpClient.Builder()
                         .connectTimeout(BCCache.getInstance().connectTimeout, TimeUnit.MILLISECONDS)
-                        .sslSocketFactory(socketFactory, trustManager).build();
+                        .sslSocketFactory(socketFactory).build();
 
         FormBody.Builder form = new FormBody.Builder();
         form.add("grant_type", "client_credentials");

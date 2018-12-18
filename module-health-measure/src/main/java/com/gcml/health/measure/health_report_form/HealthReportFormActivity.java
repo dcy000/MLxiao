@@ -76,7 +76,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
     @SuppressLint("CheckResult")
     private void getData() {
         //TODO:测试代码
-        if (BuildConfig.RUN_APP) {
+        if (BuildConfig.RUN_AS_APP) {
             userId = " 100217";
         } else {
             userId = UserSpHelper.getUserId();
