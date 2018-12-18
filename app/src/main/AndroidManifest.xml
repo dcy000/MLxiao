@@ -900,6 +900,15 @@
             android:screenOrientation="landscape" />
         <activity android:name=".yiyuan.newdetect.SugarFollowUpActivity" />
         <activity android:name=".yiyuan.newdetect.HealthFollowUpActivity"></activity>
+
+        <!--工厂模式的检测-->
+        <activity
+            android:name=".yiyuan.factory.FactoryMeasureChooseDeviceActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".yiyuan.factory.FactotyAllMeasureActivity"
+            android:screenOrientation="landscape" />
+
     </application>
 
 </manifest>

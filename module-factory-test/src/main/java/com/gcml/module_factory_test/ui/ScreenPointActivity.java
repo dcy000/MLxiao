@@ -39,7 +39,7 @@ public class ScreenPointActivity extends AppCompatActivity {
                     contentScreenPoint.setBackgroundColor(getResources().getColor(R.color.colorRed));
                     break;
                 case 2:
-                    contentScreenPoint.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    contentScreenPoint.setBackgroundColor(getResources().getColor(R.color.colorFactory));
                     break;
                 case 3:
                     contentScreenPoint.setBackgroundColor(getResources().getColor(R.color.colorYellow));

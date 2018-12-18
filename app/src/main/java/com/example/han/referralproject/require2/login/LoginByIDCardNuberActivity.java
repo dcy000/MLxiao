@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.han.referralproject.MeasureChooseDeviceActivity;
+import com.example.han.referralproject.yiyuan.factory.FactoryMeasureChooseDeviceActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -80,7 +80,7 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
         switch (view.getId()) {
             case R.id.tv_next:
                 String IdCardNumber = ccetIdNumber.getPhone();
-                if ("888888".equals(IdCardNumber)) {
+                if ("170621".equals(IdCardNumber)) {
                     FactoryTestActivity.factoryTestListener = this;
                     startActivity(new Intent(this, FactoryTestActivity.class));
                     return;
@@ -149,13 +149,13 @@ public class LoginByIDCardNuberActivity extends BaseActivity implements SomeComm
 
     @Override
     public void clickConnectWifi() {
-        startActivity(new Intent(this, WifiConnectActivity.class).putExtra("factoryMode",true));
+        startActivity(new Intent(this, WifiConnectActivity.class).putExtra("factoryMode", true));
     }
 
     @Override
     public void clickMeasureOxygen() {
 //        startActivity(new Intent(this, HealthDetecteActivity.class));
-        MeasureChooseDeviceActivity.startActivity(this, false);
+        FactoryMeasureChooseDeviceActivity.startActivity(this, false);
     }
 
     @Override
