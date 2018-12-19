@@ -82,14 +82,13 @@ public class NormalVideoPlayActivity extends AppCompatActivity implements Batter
 
     int recordTotalTime = 0;
     private Handler mainHandler = new Handler();
-    String timeText = "00:00:00";
 
     private void startTimer() {
-        time.setText(timeText);
+        updateTimerUI(recordTotalTime);
         mainHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                recordTotalTime += 1000;
+                recordTotalTime += 1;
                 updateTimerUI(recordTotalTime);
                 mainHandler.postDelayed(this, 1000);
             }
@@ -98,7 +97,7 @@ public class NormalVideoPlayActivity extends AppCompatActivity implements Batter
 
     private void updateTimerUI(int recordTotalTime) {
         String string = String.format("%s", formatTime(recordTotalTime));
-        time.setText("累积播放时间： " + string);
+        time.setText("累计播放时间" + string);
     }
 
     private void endTimer() {
@@ -107,9 +106,9 @@ public class NormalVideoPlayActivity extends AppCompatActivity implements Batter
 
 
     public String formatTime(int recTime) {
-        int hour = (recTime / 1000) / 60 / 60;
-        int minute = recTime / 1000 / 60;
-        int second = (recTime / 1000) % 60;
+        int hour = (recTime / 60 / 60) % 60;
+        int minute = (recTime / 60) % 60;
+        int second = recTime % 60;
         return String.format(" %02d:%02d:%02d ", hour, minute, second);
     }
 
@@ -145,6 +144,7 @@ public class NormalVideoPlayActivity extends AppCompatActivity implements Batter
                     initPlay();
                     break;
                 case OnPlayerEventListener.PLAYER_EVENT_ON_RESUME:
+                    startTimer();
                     userPause = false;
                     break;
                 default:
