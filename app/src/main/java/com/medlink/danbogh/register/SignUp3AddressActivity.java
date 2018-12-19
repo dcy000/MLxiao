@@ -242,12 +242,30 @@ public class SignUp3AddressActivity extends BaseActivity {
     }
 
     private String getAddress() {
-        StringBuilder builder = new StringBuilder();
+
+        String address = "";
+        address = address + spProvince.getText().toString().trim();
+        if (!address.contains("省")) {
+            address = address + "省";
+        }
+
+        address = address + spCity.getText().toString().trim();
+        if (!address.contains("市")) {
+            address = address + "市";
+        }
+
+        address = address + spCounty.getText().toString().trim();
+        if (!address.contains("区")) {
+            address = address + "区";
+        }
+        return address + etAddress.getText().toString().trim();
+
+      /*  StringBuilder builder = new StringBuilder();
         builder.append(spProvince.getText().toString().trim())
                 .append(spCity.getText().toString().trim())
                 .append(spCounty.getText().toString().trim())
                 .append(etAddress.getText().toString().trim());
-        return builder.toString();
+        return builder.toString();*/
     }
 
     @OnClick({R.id.sp_province, R.id.sp_city, R.id.sp_county})

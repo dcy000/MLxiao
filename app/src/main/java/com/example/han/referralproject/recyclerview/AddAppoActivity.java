@@ -165,26 +165,29 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     private String doctorId;
 
     public void ShowNormals(String str) {
-        dialog1.setMessageCenter(true)
-                .setMessage(str)
-                .setMessageSize(40)
-                .setCancleable(false)
-                .setButtonCenter(true)
-                .setPositiveTextColor(Color.parseColor("#FFA200"))
-                .setButtonSize(40)
-                .setOnConfirmListener(new NDialog2.OnConfirmListener() {
-                    @Override
-                    public void onClick(int which) {
-                        if (which == 1) {
+        try {
+            dialog1.setMessageCenter(true)
+                    .setMessage(str)
+                    .setMessageSize(40)
+                    .setCancleable(false)
+                    .setButtonCenter(true)
+                    .setPositiveTextColor(Color.parseColor("#FFA200"))
+                    .setButtonSize(40)
+                    .setOnConfirmListener(new NDialog2.OnConfirmListener() {
+                        @Override
+                        public void onClick(int which) {
+                            if (which == 1) {
 
-                            Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class);
-                            startActivity(intent);
-                            finish();
+                                Intent intent = new Intent(getApplicationContext(), DoctorappoActivity.class);
+                                startActivity(intent);
+                                finish();
+
+                            }
 
                         }
-
-                    }
-                }).create(NDialog.CONFIRM).show();
+                    }).create(NDialog.CONFIRM).show();
+        } catch (Exception e) {
+        }
 
     }
 
@@ -253,7 +256,7 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appo);
-        doctorId=getIntent().getStringExtra("doctorId");
+        doctorId = getIntent().getStringExtra("doctorId");
 
 
         mToolbar.setVisibility(View.VISIBLE);
