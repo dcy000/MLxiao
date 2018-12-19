@@ -161,16 +161,19 @@ public class AddressActivity extends BaseActivity {
                 }
 
 
-            String detailAddress = canClearEditText.getPhone();
-            if (TextUtils.isEmpty(detailAddress)) {
-                mlSpeak("请输入详细地址");
-                return;
-            }
-            String address = tvProvinceInfo.getText().toString() + tvCityInfo.getText().toString() + tvBlockInfo.getText().toString() + detailAddress;
-            startActivity(new Intent(this, InputFaceActivity.class)
-                    .putExtras(getIntent())
-                    .putExtra(REGISTER_ADDRESS, address));
-            break;
+                String detailAddress = canClearEditText.getPhone();
+                if (TextUtils.isEmpty(detailAddress)) {
+                    mlSpeak("请输入详细地址");
+                    return;
+                }
+                String address = tvProvinceInfo.getText().toString() + "省"
+                        + tvCityInfo.getText().toString() + "市"
+                        + tvBlockInfo.getText().toString()
+                        + detailAddress;
+                startActivity(new Intent(this, InputFaceActivity.class)
+                        .putExtras(getIntent())
+                        .putExtra(REGISTER_ADDRESS, address));
+                break;
         }
     }
 }

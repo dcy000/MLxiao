@@ -17,7 +17,7 @@ public class ScreenPointActivity extends AppCompatActivity {
 
     @BindView(R2.id.content_screen_point)
     RelativeLayout contentScreenPoint;
-    private int colorType;
+    private int colorType = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class ScreenPointActivity extends AppCompatActivity {
                     break;
                 case 7:
                     finish();
-                    colorType = 0;
+                    colorType = -1;
                     break;
                 default:
                     break;
