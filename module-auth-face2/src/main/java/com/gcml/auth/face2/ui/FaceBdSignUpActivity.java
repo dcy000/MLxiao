@@ -244,6 +244,7 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
                     public void run() throws Exception {
                         binding.ivAnimation.clearAnimation();
                         imageData = "";
+
                     }
                 })
                 .doOnError(new Consumer<Throwable>() {
@@ -290,7 +291,7 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
                 images = new ArrayList<>();
                 for (Bitmap bitmap : bitmaps) {
                     image = PreviewHelper.bitmapToBytes(bitmaps.get(0));
-                    images.add(PreviewHelper.bitmapToBase64(bitmap));
+                    images.add(PreviewHelper.bitmapToBase64(bitmap, false));
                 }
                 return images;
             }
