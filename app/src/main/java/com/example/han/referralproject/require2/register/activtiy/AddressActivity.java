@@ -16,7 +16,6 @@ import com.lljjcoder.bean.CityBean;
 import com.lljjcoder.bean.DistrictBean;
 import com.lljjcoder.bean.ProvinceBean;
 import com.lljjcoder.citywheel.CityConfig;
-import com.lljjcoder.style.citylist.Toast.ToastUtils;
 import com.lljjcoder.style.citypickerview.CityPickerView;
 
 import butterknife.BindView;
@@ -167,7 +166,7 @@ public class AddressActivity extends BaseActivity {
                 mlSpeak("请输入详细地址");
                 return;
             }
-            String address = tvProvinceInfo.getText().toString() + tvCity.getText().toString() + tvBlockInfo.getText().toString() + detailAddress;
+            String address = tvProvinceInfo.getText().toString() + tvCityInfo.getText().toString() + tvBlockInfo.getText().toString() + detailAddress;
             startActivity(new Intent(this, InputFaceActivity.class)
                     .putExtras(getIntent())
                     .putExtra(REGISTER_ADDRESS, address));
