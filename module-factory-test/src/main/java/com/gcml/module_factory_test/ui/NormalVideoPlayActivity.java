@@ -7,7 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
@@ -46,6 +46,7 @@ public class NormalVideoPlayActivity extends AppCompatActivity implements Batter
     private String url;
     private String title;
     private DataSource dataSource;
+    private TextView time;
 
     //播放本地资源的时候传resId,url传null;比方网络资源的时候resId传null
     public static void startActivity(Context context, Uri uri, String url, String title) {
@@ -75,7 +76,41 @@ public class NormalVideoPlayActivity extends AppCompatActivity implements Batter
         uri = intent.getParcelableExtra("uri");
         url = intent.getStringExtra("url");
         title = intent.getStringExtra("title");
+        time = findViewById(R.id.tv_time);
         initPlay();
+    }
+
+    int recordTotalTime = 0;
+    private Handler mainHandler = new Handler();
+    String timeText = "00:00:00";
+
+    private void startTimer() {
+        time.setText(timeText);
+        mainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                recordTotalTime += 1000;
+                updateTimerUI(recordTotalTime);
+                mainHandler.postDelayed(this, 1000);
+            }
+        }, 1000);
+    }
+
+    private void updateTimerUI(int recordTotalTime) {
+        String string = String.format("%s", formatTime(recordTotalTime));
+        time.setText("累积播放时间： " + string);
+    }
+
+    private void endTimer() {
+        mainHandler.removeCallbacksAndMessages(null);
+    }
+
+
+    public String formatTime(int recTime) {
+        int hour = (recTime / 1000) / 60 / 60;
+        int minute = recTime / 1000 / 60;
+        int second = (recTime / 1000) % 60;
+        return String.format(" %02d:%02d:%02d ", hour, minute, second);
     }
 
 
@@ -121,6 +156,7 @@ public class NormalVideoPlayActivity extends AppCompatActivity implements Batter
     @Override
     protected void onStart() {
         super.onStart();
+        startTimer();
         initBattery(this);
     }
 
@@ -186,6 +222,7 @@ public class NormalVideoPlayActivity extends AppCompatActivity implements Batter
         super.onDestroy();
         mVideoView.stopPlayback();
         playerEventListener = null;
+        mainHandler.removeCallbacksAndMessages(null);
     }
 
     @Override
@@ -217,6 +254,7 @@ public class NormalVideoPlayActivity extends AppCompatActivity implements Batter
             switch (eventCode) {
                 case DataInter.Event.CODE_REQUEST_PAUSE:
                     userPause = true;
+                    endTimer();
                     break;
                 case DataInter.Event.EVENT_CODE_REQUEST_BACK:
                     finish();
@@ -262,6 +300,5 @@ public class NormalVideoPlayActivity extends AppCompatActivity implements Batter
 
     @Override
     public void onPowerConnectionChanged(boolean connected) {
-
     }
 }
