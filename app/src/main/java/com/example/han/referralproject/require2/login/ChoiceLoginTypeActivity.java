@@ -19,6 +19,8 @@ import com.example.han.referralproject.util.Utils;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.T;
+import com.permission.PermissionsManager;
+import com.permission.PermissionsResultAction;
 
 import org.json.JSONObject;
 
@@ -45,14 +47,26 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
         setContentView(R.layout.activity_choice_idcard_login_type);
         ButterKnife.bind(this);
         initTitle();
+        requestPermission();
         if (BuildConfig.DEBUG) {
             Log.e("设备Id", "onCreate: " + Utils.getDeviceId());
         }
     }
 
-    /**
-     *
-     */
+    private void requestPermission() {
+        PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onDenied(String permission) {
+
+            }
+        });
+    }
+
     private void get3BindInfo() {
         NetworkApi.getBindAccountInfo(Utils.getDeviceId(), new StringCallback() {
             @Override
