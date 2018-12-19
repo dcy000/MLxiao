@@ -5,11 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.DataInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.T;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -58,7 +55,7 @@ public class FactorySingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragmen
                         }
                     });
 */
-            DataInfoBean info = new DataInfoBean();
+           /* 工程模式 去掉数据上传DataInfoBean info = new DataInfoBean();
             info.blood_oxygen = results[0];
             info.pulse = Integer.parseInt(results[1]);
 
@@ -66,7 +63,7 @@ public class FactorySingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragmen
                 T.show("数据上传成功");
             }, message -> {
                 T.show("数据上传失败");
-            });
+            });*/
 
         }
     }

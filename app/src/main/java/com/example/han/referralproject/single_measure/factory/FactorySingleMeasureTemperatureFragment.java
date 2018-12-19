@@ -4,14 +4,9 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.han.referralproject.bean.DataInfoBean;
-import com.example.han.referralproject.bean.MeasureResult;
-import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
 import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.T;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -53,7 +48,7 @@ public class FactorySingleMeasureTemperatureFragment extends Temperature_Fragmen
 //
 //                        }
 //                    });
-            DataInfoBean info = new DataInfoBean();
+         /*  工厂模式数据不上传 DataInfoBean info = new DataInfoBean();
             info.temper_ature = results[0];
             NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                 @Override
@@ -65,7 +60,7 @@ public class FactorySingleMeasureTemperatureFragment extends Temperature_Fragmen
                 public void onFailed(String message) {
                     T.show("数据上传失败");
                 }
-            });
+            });*/
 
         }
     }

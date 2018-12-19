@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.han.referralproject.bean.DataInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.single_measure.bean.DetectionData;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 
@@ -122,12 +120,12 @@ public class FactorySingleMeasureThreeInOneFragment extends ThreeInOne_Fragment 
                 info.uric_acid = results[1];
                 MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + results[1]);
             }
-
+/*工厂模式数据不上传
             NetworkApi.postData(info, response -> {
                 T.show("数据上传成功");
             }, message -> {
                 T.show("数据上传失败");
-            });
+            });*/
 
 
         }

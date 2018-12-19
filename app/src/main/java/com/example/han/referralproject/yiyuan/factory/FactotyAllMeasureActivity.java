@@ -16,7 +16,6 @@ import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.DataInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.require2.dialog.AlertDialog;
 import com.example.han.referralproject.single_measure.ChooseECGDeviceFragment;
 import com.example.han.referralproject.single_measure.SelfECGDetectionFragment;
@@ -55,7 +54,6 @@ import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
-import com.medlink.danbogh.utils.T;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -568,11 +566,11 @@ public class FactotyAllMeasureActivity extends BaseActivity implements FragmentC
                     ecgInfo.ecg = resultBean.getStop_light();
                     ecgInfo.heart_rate = resultBean.getAvgbeats().get(0).getHR();
 
-                    NetworkApi.postData(ecgInfo, response -> {
-                        T.show("数据上传成功");
-                    }, message -> {
-                        T.show("数据上传失败");
-                    });
+//                    NetworkApi.postData(ecgInfo, response -> {
+//                        T.show("数据上传成功");
+//                    }, message -> {
+//                        T.show("数据上传失败");
+//                    });
 
                     ECG_PDF_Fragment pdf_fragment = new ECG_PDF_Fragment();
                     Bundle pdfBundle = new Bundle();

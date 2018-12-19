@@ -58,7 +58,7 @@ public class FactorySingleMeasureBloodpressureFragment extends Bloodpressure_Fra
             int lowPressure = Integer.parseInt(results[1]);
             int pulse = Integer.parseInt(results[2]);
             LocalShared.getInstance(getActivity()).setXueYa(highPressure + "," + lowPressure);
-            uploadXueyaResult(highPressure, lowPressure, pulse, true, null);
+//            uploadXueyaResult(highPressure, lowPressure, pulse, true, null);
           /* 新的提交接口 HealthMeasureRepository.checkIsNormalData(LocalShared.getInstance(getActivity()).getUserId(), datas)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

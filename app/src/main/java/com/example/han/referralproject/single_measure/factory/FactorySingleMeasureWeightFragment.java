@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.bean.PersonInfoResultBean;
@@ -128,13 +127,13 @@ public class FactorySingleMeasureWeightFragment extends Weight_Fragment {
 
 
 */
-            DataInfoBean info = new DataInfoBean();
+           /* 工厂模式数据不上传DataInfoBean info = new DataInfoBean();
             info.weight = Float.parseFloat(results[0]);
             NetworkApi.postData(info, response -> {
                 T.show("数据上传成功");
             }, message -> {
                 T.show("数据上传失败");
-            });
+            });*/
 
         }
     }

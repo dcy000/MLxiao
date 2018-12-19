@@ -4,14 +4,11 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.han.referralproject.bean.DataInfoBean;
-import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.single_measure.bean.DetectionData;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.gcml.module_blutooth_devices.utils.DataUtils;
 import com.gcml.module_blutooth_devices.utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.utils.T;
 
 import java.util.ArrayList;
 
@@ -60,7 +57,8 @@ public class FactorySingleMeasureBloodsugarFragment extends Bloodsugar_Fragment 
 //            data.setBloodSugar(Float.parseFloat(roundUp));
 //            datas.add(data);
 //            uploadData();
-            DataInfoBean info = new DataInfoBean();
+
+           /*工程模式去掉上 DataInfoBean info = new DataInfoBean();
             info.blood_sugar = roundUp;
             info.upload_state = true;
             if (bundle != null) {
@@ -71,7 +69,7 @@ public class FactorySingleMeasureBloodsugarFragment extends Bloodsugar_Fragment 
             NetworkApi.postData(info,
                     response -> T.show("数据上传成功"),
                     message -> T.show("数据上传失败"));
-
+*/
 
         }
     }
