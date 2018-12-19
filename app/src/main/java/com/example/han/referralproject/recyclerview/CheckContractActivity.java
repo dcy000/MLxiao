@@ -18,7 +18,7 @@ import com.example.han.referralproject.qianyue.QianYueRepository;
 import com.example.han.referralproject.qianyue.bean.DoctorInfoBean;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.squareup.picasso.Picasso;
@@ -133,8 +133,8 @@ public class CheckContractActivity extends BaseActivity {
                                    if (!TextUtils.isEmpty(response.docter_photo)) {
                                        Picasso.with(CheckContractActivity.this)
                                                .load(response.docter_photo)
-                                               .placeholder(R.drawable.avatar_placeholder)
-                                               .error(R.drawable.avatar_placeholder)
+                                               .placeholder(R.drawable.common_ic_avatar_placeholder)
+                                               .error(R.drawable.common_ic_avatar_placeholder)
                                                .tag(this)
                                                .fit()
                                                .into(ivDoctorAvatar);

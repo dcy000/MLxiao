@@ -1,7 +1,7 @@
 package com.example.han.referralproject.qianyue;
 
 import com.example.han.referralproject.qianyue.bean.DoctorInfoBean;
-import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.http.ApiResult;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

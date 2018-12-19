@@ -2,7 +2,7 @@ package com.gcml.common.recommend.network;
 
 import com.gcml.common.recommend.bean.get.GoodBean;
 import com.gcml.common.recommend.bean.post.DetectionData;
-import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.http.ApiResult;
 
 import java.util.List;
 

@@ -54,12 +54,12 @@ public class DoctorAdapter extends RecyclerView.Adapter<PatientVH> {
         holder.mPosition = position;
         Picasso.with(context)
                 .load(mListPat.get(position).getDocter_photo())
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
+                .placeholder(R.drawable.common_ic_avatar_placeholder)
+                .error(R.drawable.common_ic_avatar_placeholder)
                 .tag(context)
                 .fit()
                 .into(holder.mImagine);
-        //    holder.mImagine.setImageResource(R.drawable.avatar_placeholder);
+        //    holder.mImagine.setImageResource(R.drawable.common_ic_avatar_placeholder);
         holder.mNameview.setText(mListPat.get(position).getDoctername());
         holder.mRoomId.setText(mListPat.get(position).getDepartment());
 

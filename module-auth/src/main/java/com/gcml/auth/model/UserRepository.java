@@ -3,10 +3,11 @@ package com.gcml.auth.model;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.gcml.common.AppDelegate;
+import com.gcml.common.RetrofitHelper;
+import com.gcml.common.RoomHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.IRepositoryHelper;
-import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.user.UserToken;
 import com.gcml.common.utils.RxUtils;
 
@@ -18,18 +19,15 @@ import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 public class UserRepository {
 
-    private Context mContext = RepositoryApp.INSTANCE.app();
+    private Context mContext = AppDelegate.INSTANCE.app();
 
-    private IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
+    private UserService mUserService = RetrofitHelper.service(UserService.class);
 
-    private UserService mUserService = mRepositoryHelper.retrofitService(UserService.class);
-
-    private UserDao mUserDao = mRepositoryHelper.roomDb(UserDb.class, UserDb.class.getName()).userDao();
+    private UserDao mUserDao = RoomHelper.db(UserDb.class, UserDb.class.getName()).userDao();
 
     public Observable<UserEntity> signUp(String deviceId, String account, String pwd) {
         return mUserService.signUp(deviceId, account, pwd)
@@ -179,7 +177,7 @@ public class UserRepository {
                                 continue;
                             }
                             userIdsBuilder.append(user.id);
-                            if (i != size -1) {
+                            if (i != size - 1) {
                                 userIdsBuilder.append(",");
                             }
                         }
@@ -209,6 +207,11 @@ public class UserRepository {
 
     public Observable<Object> isIdCardNotExit(String idCard) {
         return mUserService.isIdCardNotExit(idCard)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<ServerBean> getServiceProvider(String serverName, String serverPwd) {
+        return mUserService.getServiceProvider(serverName, serverPwd)
                 .compose(RxUtils.apiResultTransformer());
     }
 }

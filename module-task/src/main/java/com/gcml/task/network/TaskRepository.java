@@ -1,7 +1,6 @@
 package com.gcml.task.network;
 
-import com.gcml.common.repository.IRepositoryHelper;
-import com.gcml.common.repository.RepositoryApp;
+import com.gcml.common.RetrofitHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.task.bean.Post.TaskSchemaResultBean;
 import com.gcml.task.bean.Post.TaskWheelBean;
@@ -13,9 +12,8 @@ import com.gcml.task.bean.get.TaskReportBean;
 import io.reactivex.Observable;
 
 public class TaskRepository {
-    private IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
 
-    private TaskService mTaskService = mRepositoryHelper.retrofitService(TaskService.class);
+    private TaskService mTaskService = RetrofitHelper.service(TaskService.class);
 
     public Observable<TaskBean> taskListFromApi(
             String userId) {

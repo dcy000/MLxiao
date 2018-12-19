@@ -7,12 +7,16 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.Toast;
 
 import com.gcml.call.utils.T;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
+import com.netease.nimlib.sdk.StatusCode;
+import com.netease.nimlib.sdk.auth.AuthServiceObserver;
 import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.constant.AVChatControlCommand;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
@@ -63,8 +67,9 @@ public class CallInitHelper {
 //            br_12345678913
 //            br_12345678914
 //            NimCallActivity.launch(this, "br_12345678912");
-            String nimUserId = "";
-            CallAuthHelper.getInstance().login(nimUserId, "123456", null);
+//            String nimUserId = "";
+//            CallAuthHelper.getInstance().login(nimUserId, "123456", null);
+
         }
     }
 

@@ -1198,8 +1198,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
 //        if (!TextUtils.isEmpty(sharedPreferences1.getString("docter_photo", ""))) {
 //            Picasso.with(this)
 //                    .start(sharedPreferences1.getString("docter_photo", ""))
-//                    .placeholder(R.drawable.avatar_placeholder)
-//                    .error(R.drawable.avatar_placeholder)
+//                    .placeholder(R.drawable.common_ic_avatar_placeholder)
+//                    .error(R.drawable.common_ic_avatar_placeholder)
 //                    .tag(this)
 //                    .fit()
 //                    .into(ivAvatar);
@@ -1336,8 +1336,8 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                 if (!TextUtils.isEmpty(response.getDocter_photo())) {
                     Picasso.with(DoctorappoActivity.this)
                             .load(response.getDocter_photo())
-                            .placeholder(R.drawable.avatar_placeholder)
-                            .error(R.drawable.avatar_placeholder)
+                            .placeholder(R.drawable.common_ic_avatar_placeholder)
+                            .error(R.drawable.common_ic_avatar_placeholder)
                             .tag(this)
                             .fit()
                             .into(ivAvatar);

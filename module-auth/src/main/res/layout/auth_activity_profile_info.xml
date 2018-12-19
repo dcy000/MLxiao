@@ -68,14 +68,12 @@
                             android:id="@+id/tv_title_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="44pt"
                             android:gravity="center"
                             android:text="姓名"
                             android:textColor="@color/config_color_base_9"
                             android:textSize="56pt"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            tools:layout_editor_absoluteX="59dp"
+                            tools:layout_editor_absoluteY="17dp" />
 
 
                         <TextView

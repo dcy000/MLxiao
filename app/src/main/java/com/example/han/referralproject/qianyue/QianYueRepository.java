@@ -1,8 +1,7 @@
 package com.example.han.referralproject.qianyue;
 
 import com.example.han.referralproject.qianyue.bean.DoctorInfoBean;
-import com.gcml.common.repository.IRepositoryHelper;
-import com.gcml.common.repository.RepositoryApp;
+import com.gcml.common.RetrofitHelper;
 import com.gcml.common.utils.RxUtils;
 
 import io.reactivex.Observable;
@@ -12,8 +11,7 @@ import io.reactivex.Observable;
  */
 
 public class QianYueRepository {
-    private IRepositoryHelper repositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
-    QianYueService qianYueService = repositoryHelper.retrofitService(QianYueService.class);
+    QianYueService qianYueService = RetrofitHelper.service(QianYueService.class);
 
     public Observable<DoctorInfoBean> getDoctorInfo(String doctorId) {
         return qianYueService.getDoctInfo(doctorId).compose(RxUtils.apiResultTransformer());

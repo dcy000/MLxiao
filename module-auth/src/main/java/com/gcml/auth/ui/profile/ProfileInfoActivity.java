@@ -28,8 +28,8 @@ import com.gcml.auth.ui.profile.update.AlertNameActivity;
 import com.gcml.common.data.HealthInfo;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.mvvm.BaseActivity;
-import com.gcml.common.repository.imageloader.ImageLoader;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.imageloader.ImageLoader;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -254,6 +254,11 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     }
 
     private void selectHeight() {
+        String height = binding.tvHeight.getText().toString();
+        int index = 0;
+        if (!"暂未填写".equals(height)) {
+            index = getIndex(height, getHeights());
+        }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
@@ -265,10 +270,27 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
             }
 
         };
-        selectItems(getHeights(), listener);
+        selectItems(getHeights(), index, listener);
+    }
+
+    private int getIndex(String item, List<String> items) {
+        int index = 0;
+        if (!item.equals("暂未填写")) {
+            for (int i = 0; i < items.size(); i++) {
+                if (item.equals(items.get(i))) {
+                    index = i;
+                }
+            }
+        }
+        return index;
     }
 
     private void selectWeight() {
+        String weight = binding.tvWeight.getText().toString();
+        int index = 0;
+        if (!"暂未填写".equals(weight)) {
+            index = getIndex(weight, getWeights());
+        }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
@@ -280,10 +302,16 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
             }
 
         };
-        selectItems(getWeights(), listener);
+        selectItems(getWeights(), index, listener);
     }
 
     private void selectBloodType() {
+        String blood = binding.tvBlood.getText().toString();
+        int index = 0;
+        if (!"暂未填写".equals(blood)) {
+            blood = blood.replace("型", "");
+            index = getIndex(blood, getBloodTypes());
+        }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
@@ -294,12 +322,34 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
             }
 
         };
-        selectItems(getBloodTypes(), listener);
+        selectItems(getBloodTypes(), index, listener);
     }
 
     private OptionsPickerView<String> mWaistPickerView;
 
     private void selectWaist() {
+        String selected = binding.tvWc.getText().toString();
+        if ("暂未填写".equals(selected)) {
+            selected = "0.1尺";
+        }
+        try {
+            String cm = selected.replace("cm", "");
+            float v = Float.valueOf(cm) / 33.33f;
+            selected = String.format(Locale.getDefault(), "%.1f尺", v);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            selected = "0.1尺";
+        }
+
+        int index = 0;
+
+        List<String> waists = getWaists();
+        for (int i = 0; i < waists.size(); i++) {
+            if (selected.equals(waists.get(i))) {
+                index = i;
+            }
+        }
+
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
@@ -327,6 +377,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 }
             }
         };
+
         mWaistPickerView = new OptionsPickerBuilder(this, listener)
                 .setOptionsSelectChangeListener(onSelectChangelistener)
                 .setCancelText("取消")
@@ -334,6 +385,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 .setLineSpacingMultiplier(1.5f)
                 .setSubCalSize(30)
                 .setContentTextSize(40)
+                .setSelectOptions(index)
                 .setSubmitColor(Color.parseColor("#FF108EE9"))
                 .setCancelColor(Color.parseColor("#FF999999"))
                 .setTextColorOut(Color.parseColor("#FF999999"))
@@ -352,6 +404,11 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     }
 
     private void selectSport() {
+        String sport = binding.tvSports.getText().toString();
+        int index = 0;
+        if (!"暂未填写".equals(sport)) {
+            index = getIndex(sport, getSports());
+        }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
@@ -360,12 +417,16 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 user.sportsHabits = String.valueOf(options1 + 1);
                 updateUser(user);
             }
-
         };
-        selectItems(getSports(), listener);
+        selectItems(getSports(), index, listener);
     }
 
     private void selectSmoke() {
+        String smoke = binding.tvSmoke.getText().toString();
+        int index = 0;
+        if (!"暂未填写".equals(smoke)) {
+            index = getIndex(smoke, getSmokes());
+        }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
@@ -376,11 +437,16 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
             }
 
         };
-        selectItems(getSmokes(), listener);
+        selectItems(getSmokes(),index,  listener);
     }
 
 
     private void selectEat() {
+        String eat = binding.tvEat.getText().toString();
+        int index = 0;
+        if (!"暂未填写".equals(eat)) {
+            index = getIndex(eat, getEats());
+        }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
@@ -391,10 +457,15 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
             }
 
         };
-        selectItems(getEats(), listener);
+        selectItems(getEats(),index, listener);
     }
 
     private void selectDrink() {
+        String drink = binding.tvDrink.getText().toString();
+        int index = 0;
+        if (!"暂未填写".equals(drink)) {
+            index = getIndex(drink, getDrinks());
+        }
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
@@ -405,7 +476,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
             }
 
         };
-        selectItems(getDrinks(), listener);
+        selectItems(getDrinks(), index, listener);
     }
 
     private List<String> mSexes;
@@ -497,6 +568,9 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     }
 
     private void selectSex() {
+        String sex = binding.tvSex.getText().toString();
+        int index = "暂未填写".equals(sex) || "男".equals(sex) ? 0 : 1;
+
         OnOptionsSelectListener listener = new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
@@ -505,9 +579,8 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 user.sex = getSexes().get(options1);
                 updateUser(user);
             }
-
         };
-        selectItems(getSexes(), listener);
+        selectItems(getSexes(), index, listener);
     }
 
     private void updateUser(UserEntity user) {
@@ -544,7 +617,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 });
     }
 
-    private void selectItems(List<String> items, OnOptionsSelectListener listener) {
+    private void selectItems(List<String> items, int index, OnOptionsSelectListener listener) {
         OptionsPickerView<String> pickerView = new OptionsPickerBuilder(this, listener)
                 .setCancelText("取消")
                 .setSubmitText("确认")
@@ -556,6 +629,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 .setTextColorOut(Color.parseColor("#FF999999"))
                 .setTextColorCenter(Color.parseColor("#FF333333"))
                 .setBgColor(Color.WHITE)
+                .setSelectOptions(index)
                 .setTitleBgColor(Color.parseColor("#F5F5F5"))
                 .setDividerColor(Color.TRANSPARENT)
                 .isCenterLabel(false)
@@ -566,7 +640,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
     }
 
     private void modifyHead() {
-        CC.obtainBuilder("com.gcml.auth.face.signup")
+        CC.obtainBuilder("com.gcml.auth.face2.signup")
                 .build()
                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
                     @Override
@@ -617,8 +691,8 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
         ImageLoader.with(this)
                 .load(mUser.avatar)
                 .circle()
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
+                .placeholder(R.drawable.common_ic_avatar_placeholder)
+                .error(R.drawable.common_ic_avatar_placeholder)
                 .into(binding.ivAvatar);
         binding.tvName.setText(TextUtils.isEmpty(user.name) ? "暂未填写" : user.name);
         binding.tvAge.setText(TextUtils.isEmpty(user.age) ? "暂未填写" : user.age + "岁");

@@ -15,7 +15,7 @@ import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignInBinding;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.mvvm.BaseActivity;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.app.AppUtils;
@@ -181,7 +181,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
 
     private void checkFace(UserEntity user) {
         if (TextUtils.isEmpty(user.xfid)) {
-            CC.obtainBuilder("com.gcml.auth.face.signup")
+            CC.obtainBuilder("com.gcml.auth.face2.signup")
                     .build()
                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                         @Override
@@ -241,7 +241,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     }
 
     public void goSignInByFace() {
-        CC.obtainBuilder("com.gcml.auth.face.signin")
+        CC.obtainBuilder("com.gcml.auth.face2.signin")
                 .addParam("currentUser", false)
                 .build()
                 .callAsync(new IComponentCallback() {

@@ -1,3 +1,4 @@
+// old module
 apply from: "config.gradle"
 def canRunAlone = false
 

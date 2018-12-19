@@ -114,7 +114,7 @@ public class InputDialog {
     public InputDialog setMsgColor(int color) {
         showMsg = true;
         if (color != 0) {
-            txt_msg.setTextColor(color);
+            txt_msg.setTextColor(context.getResources().getColor(color));
         } else {
             txt_msg.setTextColor(context.getResources().getColor(R.color.config_color_appthema));
         }

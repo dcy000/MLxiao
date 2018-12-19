@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gcml.common.repository.imageloader.ImageLoader;
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.lib_widget.MixtureTextView;
 import com.iflytek.recognition.MLVoiceRecognize;
 import com.iflytek.synthetize.MLVoiceSynthetize;

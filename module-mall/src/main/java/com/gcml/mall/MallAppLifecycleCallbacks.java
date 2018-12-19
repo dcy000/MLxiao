@@ -3,8 +3,10 @@ package com.gcml.mall;
 import android.app.Application;
 import android.content.Context;
 
-import com.gcml.common.app.lifecycle.AppLifecycleCallbacks;
+import com.gcml.common.api.AppLifecycleCallbacks;
+import com.google.auto.service.AutoService;
 
+@AutoService(AppLifecycleCallbacks.class)
 public class MallAppLifecycleCallbacks implements AppLifecycleCallbacks {
     @Override
     public void attachBaseContext(Application app, Context base) {

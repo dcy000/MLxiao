@@ -1,60 +1,20 @@
-apply from: rootProject.file('cc-settings.gradle')
-//apply from: 'https://raw.githubusercontent.com/luckybilly/CC/master/cc-settings.gradle'
-//apply plugin: 'com.android.library'
-
+ext.alwaysLib=true
+apply from: rootProject.file("build-base.gradle")
 
 android {
-    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
-    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
-    useLibrary 'org.apache.http.legacy'
-
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
-    }
-
-    dataBinding {
-        enabled = true
-    }
 
     defaultConfig {
         if (project.ext.runAsApp) {
-            applicationId "com.gcml.common.debug"
+            applicationId "com.gcml.common.core"
+            versionCode = rootProject.ext.android["versionCode"]
+            versionName rootProject.ext.android["versionName"]
         }
-        minSdkVersion rootProject.ext.android["minSdkVersion"]
-        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner rootProject.ext.android["AndroidJUnitRunner"]
-
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                arguments = [moduleName: project.getName()]
-//            }
-//        }
     }
 
     buildTypes {
-        debug {
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-            buildConfigField "boolean", "USE_CANARY", "true"
-            buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
-            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
-            buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
 
         release {
-            buildConfigField "boolean", "LOG_DEBUG", "false"
-            buildConfigField "boolean", "USE_CANARY", "false"
-            buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
-            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
-            buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
             minifyEnabled false
-            shrinkResources false
-            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.RobotAmount;
@@ -182,8 +181,8 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
 
             Picasso.with(this)
                     .load(doctor.getDocter_photo())
-                    .placeholder(R.drawable.avatar_placeholder)
-                    .error(R.drawable.avatar_placeholder)
+                    .placeholder(R.drawable.common_ic_avatar_placeholder)
+                    .error(R.drawable.common_ic_avatar_placeholder)
                     .tag(this)
                     .fit()
                     .into(mImageView1);

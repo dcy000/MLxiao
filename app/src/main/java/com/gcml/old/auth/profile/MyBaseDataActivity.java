@@ -17,8 +17,8 @@ import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.repository.imageloader.ImageLoader;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.imageloader.ImageLoader;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.SMSVerificationDialog;
@@ -145,8 +145,8 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
         MyBaseDataActivity.this.mUser = user;
         ImageLoader.with(MyBaseDataActivity.this)
                 .load(mUser.avatar)
-                .placeholder(R.drawable.avatar_placeholder)
-                .error(R.drawable.avatar_placeholder)
+                .placeholder(R.drawable.common_ic_avatar_placeholder)
+                .error(R.drawable.common_ic_avatar_placeholder)
                 .into(mHead);
         mName.setText(TextUtils.isEmpty(user.name) ? "暂未填写" : user.name);
         idCardCode = user.idCard;
@@ -327,7 +327,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     }
 
     private void modifyHead() {
-        CC.obtainBuilder("com.gcml.auth.face.signup")
+        CC.obtainBuilder("com.gcml.auth.face2.signup")
                 .build()
                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
                     @Override
