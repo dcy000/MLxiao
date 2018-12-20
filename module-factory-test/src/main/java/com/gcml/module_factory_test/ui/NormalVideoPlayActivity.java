@@ -84,6 +84,7 @@ public class NormalVideoPlayActivity extends AppCompatActivity implements Batter
     private Handler mainHandler = new Handler();
 
     private void startTimer() {
+        mainHandler.removeCallbacksAndMessages(null);
         updateTimerUI(recordTotalTime);
         mainHandler.postDelayed(new Runnable() {
             @Override
