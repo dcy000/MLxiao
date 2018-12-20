@@ -1814,7 +1814,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                        Log.i("mylog", "start >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                         if (TextUtils.isEmpty(mDeviceAddress)) {
                             if (!mBluetoothAdapter.isDiscovering()) {
-                                boolean flag = mBluetoothAdapter.startDiscovery();
+//                                boolean flag = mBluetoothAdapter.startDiscovery();
+                                if (leScanCall == null) {
+                                    leScanCall = new LeScanCall();
+                                }
+                                mBluetoothAdapter.startLeScan(leScanCall);
 //                                Log.i("mylog", "flag : " + flag);
                             }
                         } else {
@@ -1836,10 +1840,23 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    private LeScanCall leScanCall = null;
+
+    private class LeScanCall implements BluetoothAdapter.LeScanCallback {
+
+        @Override
+        public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+            searchedDevice(device);
+        }
+    }
+
     private void stopSearch() {
         workSearchThread = false;
         if (mBluetoothAdapter != null && mBluetoothAdapter.isDiscovering()) {
             mBluetoothAdapter.cancelDiscovery();
+            if (leScanCall != null) {
+                mBluetoothAdapter.stopLeScan(leScanCall);
+            }
         }
     }
 
@@ -1861,6 +1878,82 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         registerReceiver(searchDevices, intent);
     }
 
+    private void searchedDevice(BluetoothDevice device) {
+        String deviceName = "FSRKB-EWQ01";
+        switch (detectType) {
+            case Type_Wendu:
+                deviceName = "FSRKB-EWQ01";
+                break;
+            case Type_Xueya:
+                deviceName = "eBlood-Pressure";
+//                        deviceName = "Dual-SPP";
+                break;
+            case Type_XueTang:
+                deviceName = "Bioland-BGM";
+                break;
+            case Type_XueYang:
+                deviceName = "POD";
+                break;
+            case Type_XinDian:
+                deviceName = "PC80B";
+                break;
+            case Type_TiZhong:
+                deviceName = "000FatScale01";
+                break;
+            case Type_SanHeYi:
+                deviceName = "BeneCheck";
+//                        deviceName = "BeneCheck-1544";
+//                        deviceName = "BeneCheck GL-0F8B73";
+//                        deviceName = "BeneCheck TC-B DONGLE";
+                break;
+        }
+
+        if (detectType == Type_Xueya && "Dual-SPP".equals(device.getName())) {
+            try {
+                stopSearch();
+                XueyaUtils.connect(device, xueyaHandler);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
+//                if (detectType == Type_Xueya && "Yuwell BP-YE680A".equals(device.getName())) {
+        if (detectType == Type_Xueya
+                && device != null
+                && device.getName() != null
+                && device.getName().startsWith("Yuwell")) {
+            mDeviceAddress = device.getAddress();
+            if (mBluetoothLeService == null) {
+                Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
+                bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+            } else {
+                if (mBluetoothLeService.connect(mDeviceAddress)) {
+                    mBluetoothGatt = mBluetoothLeService.getGatt();
+                }
+            }
+            stopSearch();
+            return;
+        }
+
+//                if (deviceName.equals(device.getName())) {
+        if (!TextUtils.isEmpty(device.getName()) && device.getName().startsWith(deviceName)) {
+            if (dialog != null) {
+                dialog.create(NDialog.CONFIRM).dismiss();
+            }
+            mDeviceAddress = device.getAddress();
+            if (mBluetoothLeService == null) {
+                Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
+                bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+            } else {
+                if (mBluetoothLeService.connect(mDeviceAddress)) {
+                    mBluetoothGatt = mBluetoothLeService.getGatt();
+                }
+            }
+            stopSearch();
+        }
+    }
+
     private BroadcastReceiver searchDevices = new BroadcastReceiver() {
         //接收
         public void onReceive(Context context, Intent intent) {
@@ -1876,79 +1969,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             // 搜索发现设备时，取得设备的信息；注意，这里有可能重复搜索同一设备
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                String deviceName = "FSRKB-EWQ01";
-                switch (detectType) {
-                    case Type_Wendu:
-                        deviceName = "FSRKB-EWQ01";
-                        break;
-                    case Type_Xueya:
-                        deviceName = "eBlood-Pressure";
-//                        deviceName = "Dual-SPP";
-                        break;
-                    case Type_XueTang:
-                        deviceName = "Bioland-BGM";
-                        break;
-                    case Type_XueYang:
-                        deviceName = "POD";
-                        break;
-                    case Type_XinDian:
-                        deviceName = "PC80B";
-                        break;
-                    case Type_TiZhong:
-                        deviceName = "000FatScale01";
-                        break;
-                    case Type_SanHeYi:
-                        deviceName = "BeneCheck";
-//                        deviceName = "BeneCheck-1544";
-//                        deviceName = "BeneCheck GL-0F8B73";
-//                        deviceName = "BeneCheck TC-B DONGLE";
-                        break;
-                }
-
-                if (detectType == Type_Xueya && "Dual-SPP".equals(device.getName())) {
-                    try {
-                        stopSearch();
-                        XueyaUtils.connect(device, xueyaHandler);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return;
-                }
-
-//                if (detectType == Type_Xueya && "Yuwell BP-YE680A".equals(device.getName())) {
-                if (detectType == Type_Xueya
-                        && device != null
-                        && device.getName() != null
-                        && device.getName().startsWith("Yuwell")) {
-                    mDeviceAddress = device.getAddress();
-                    if (mBluetoothLeService == null) {
-                        Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
-                        bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
-                    } else {
-                        if (mBluetoothLeService.connect(mDeviceAddress)) {
-                            mBluetoothGatt = mBluetoothLeService.getGatt();
-                        }
-                    }
-                    stopSearch();
-                    return;
-                }
-
-//                if (deviceName.equals(device.getName())) {
-                if (!TextUtils.isEmpty(device.getName()) && device.getName().startsWith(deviceName)) {
-                    if (dialog != null) {
-                        dialog.create(NDialog.CONFIRM).dismiss();
-                    }
-                    mDeviceAddress = device.getAddress();
-                    if (mBluetoothLeService == null) {
-                        Intent gattServiceIntent = new Intent(mContext, BluetoothLeService.class);
-                        bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
-                    } else {
-                        if (mBluetoothLeService.connect(mDeviceAddress)) {
-                            mBluetoothGatt = mBluetoothLeService.getGatt();
-                        }
-                    }
-                    stopSearch();
-                }
+                searchedDevice(device);
             }
             //状态改变时
             else if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)) {
@@ -2078,6 +2099,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     protected void onDestroy() {
         super.onDestroy();
         blueThreadDisable = false;
+        if (mBluetoothAdapter != null) {
+            mBluetoothAdapter.cancelDiscovery();
+            if (leScanCall != null) {
+                mBluetoothAdapter.stopLeScan(leScanCall);
+            }
+        }
     }
 
     // Device scan callback.
