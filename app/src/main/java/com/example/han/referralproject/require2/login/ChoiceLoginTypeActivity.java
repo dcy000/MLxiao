@@ -113,6 +113,7 @@ public class ChoiceLoginTypeActivity extends BaseActivity {
                 startActivity(new Intent(this, RegisterByIdCardActivity.class)
                         .putExtra("login", true));
                 break;
+
             case R.id.im_login_by_finger:
                 T.show("敬请期待");
 
