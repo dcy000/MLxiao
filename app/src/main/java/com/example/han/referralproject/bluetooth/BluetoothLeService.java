@@ -33,6 +33,8 @@ import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.han.referralproject.util.TimeCountDownUtils;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +42,7 @@ import java.util.UUID;
  * Service for managing connection and data communication with a GATT server hosted on a
  * given Bluetooth LE device.
  */
-public class BluetoothLeService extends Service {
+public class BluetoothLeService extends Service implements TimeCountDownUtils.TimeCountListener {
     private final static String TAG = BluetoothLeService.class.getSimpleName();
 
     private BluetoothManager mBluetoothManager;
@@ -95,7 +97,7 @@ public class BluetoothLeService extends Service {
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
             } else {
-                Log.w(TAG, "onServicesDiscovered received: " + status);
+                Log.w(TAG, "onServicesDiscovered received:>>>>>>>> " + status);
             }
         }
 
@@ -108,6 +110,7 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+            Log.e(TAG, "onCharacteristicChanged: >>>>>>>>>");
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
         }
 
@@ -129,19 +132,32 @@ public class BluetoothLeService extends Service {
 
         final byte[] data = characteristic.getValue();
         StringBuilder mBuilder = new StringBuilder();
-        for (byte item : data){
+        for (byte item : data) {
             mBuilder.append(item).append("    ");
         }
         if (data != null && data.length > 0) {
 //            final StringBuilder stringBuilder = new StringBuilder();
 //            for (byte byteChar : data)
 //                stringBuilder.append(String.format("%02X ", byteChar));
-         //   Log.e(TAG, String.format("%s", new String(data)));
+            //   Log.e(TAG, String.format("%s", new String(data)));
             // getting cut off when longer, need to push on new line, 0A
 //            intent.putExtra(EXTRA_DATA, String.format("%s", new String(data)));
             intent.putExtra(EXTRA_DATA, data);
         }
         sendBroadcast(intent);
+    }
+
+    @Override
+    public void onTick(long millisUntilFinished, String tag) {
+
+    }
+
+    @Override
+    public void onFinish(String tag) {
+        Log.e(TAG, "onFinish: >>>>>>>>>>>>>>>>>>>" );
+        if (mConnectionState == STATE_CONNECTED) {
+            broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
+        }
     }
 
 
@@ -264,7 +280,10 @@ public class BluetoothLeService extends Service {
             return;
         }
 
-        mBluetoothGatt.writeCharacteristic(characteristic);
+        boolean b = mBluetoothGatt.writeCharacteristic(characteristic);
+        Log.e(TAG, "writeCharacteristic: >>>>>>" + b);
+        TimeCountDownUtils.getInstance().create(5000, 1000, this);
+        TimeCountDownUtils.getInstance().start();
     }
 
 
@@ -273,8 +292,11 @@ public class BluetoothLeService extends Service {
             Log.w(TAG, "BluetoothAdapter not initialized");
             return;
         }
-        mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
-
+        boolean b = mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
+        Log.e(TAG, "setCharacteristicNotification: >>>>>>>>>>>" + b);
+        if (!b) {
+            setCharacteristicNotification(characteristic, enabled);
+        }
         // This is specific to Heart Rate Measurement.
         if (UUID_HM_RX_TX.equals(characteristic.getUuid())) {
             BluetoothGattDescriptor descriptor = characteristic.getDescriptor(UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
@@ -283,6 +305,11 @@ public class BluetoothLeService extends Service {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        TimeCountDownUtils.getInstance().cancelAll();
+    }
 
     public List<BluetoothGattService> getSupportedGattServices() {
         if (mBluetoothGatt == null) return null;

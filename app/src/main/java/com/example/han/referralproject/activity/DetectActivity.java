@@ -109,7 +109,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private String[] mWenduResults;
     private String[] mXueYangResults;
     private String[] mEcgResults;
-    private BluetoothGattCharacteristic mWriteCharacteristic;
+//    private BluetoothGattCharacteristic mWriteCharacteristic;
     private View mOverView;
     private LocalShared mShared;
     private Thread mSearchThread;
@@ -498,8 +498,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 byte[] notifyData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
-                //Log.i("mylog", "receive>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + notifyData.length);
-                Log.i("mylog", "receive   " + bytesToHexString(notifyData));
+                Log.e(TAG, "onReceive: >>>>>>>>>>>>>" + bytesToHexString(notifyData));
                 byte[] extraData = intent.getByteArrayExtra(BluetoothLeService.EXTRA_NOTIFY_DATA);
                 switch (detectType) {
                     case Type_Wendu:
@@ -860,24 +859,25 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 break;
         }
         if (characteristic == null) {
+            Log.e(TAG, "displayGattServices: >>>>>>服务为空");
             return;
         }
         if (detectType == Type_TiZhong) {
             setCharacterValue(characteristic, characteristic, 0);
             return;
         }
-        mWriteCharacteristic = characteristic;
+//        mWriteCharacteristic = characteristic;
         switch (detectType) {
             case Type_XueYang:
-                mWriteCharacteristic.setValue(Commands.xueyangDatas);
-                mWriteCharacteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+                Log.e(TAG, "displayGattServices: >>>>>>>>>");
+                characteristic.setValue(Commands.xueyangDatas);
+                characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
                 break;
         }
 
         mBluetoothLeService.writeCharacteristic(characteristic);
         mBluetoothLeService.readCharacteristic(characteristic);
         mBluetoothLeService.setCharacteristicNotification(characteristic, true);
-
         //第一个坑，数据没传输过来
         List<BluetoothGattDescriptor> descriptorList = characteristic.getDescriptors();
         if (descriptorList != null && descriptorList.size() > 0) {
@@ -889,7 +889,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mBluetoothGatt.writeDescriptor(descriptor);
             }
         }
-        Log.i("mylog", "chara uuid : " + characteristic.getUuid() + "\n" + "service uuid : " + gattServices.get(0).getUuid());
     }
 
     private void setCharacterValue(BluetoothGattCharacteristic characteristic,
