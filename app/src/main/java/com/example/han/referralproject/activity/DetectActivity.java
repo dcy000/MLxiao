@@ -109,7 +109,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private String[] mWenduResults;
     private String[] mXueYangResults;
     private String[] mEcgResults;
-//    private BluetoothGattCharacteristic mWriteCharacteristic;
+    //    private BluetoothGattCharacteristic mWriteCharacteristic;
     private View mOverView;
     private LocalShared mShared;
     private Thread mSearchThread;
@@ -449,6 +449,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             //Log.i("mylog", "action : " + intent.getAction());
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
+                speak(R.string.tips_blue_connect);
                 mConnected = true;
                 switch (detectType) {
                     case Type_XueTang:
@@ -485,7 +486,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.i("mylog", "gata servicesConnect 3333333333333333");
-                speak(R.string.tips_blue_connect);
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
                 switch (detectType) {
                     case Type_XueTang:
