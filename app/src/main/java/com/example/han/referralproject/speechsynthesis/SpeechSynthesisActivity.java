@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DiseaseDetailsActivity;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.activity.MessageActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
@@ -49,7 +48,7 @@ import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
-import com.example.han.referralproject.recyclerview.DoctorappoActivity;
+import com.example.han.referralproject.recyclerview.DoctorappoActivity2;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
@@ -79,9 +78,7 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.wakeup.MlRecognizerDialog;
@@ -102,10 +99,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
 import static com.example.lenovo.rto.Constans.SCENE_Id;
@@ -961,7 +955,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     T.show("请先查看是否与签约医生签约成功");
                 } else {
                     Intent intent = new Intent();
-                    intent.setClass(getApplicationContext(), DoctorappoActivity.class);
+                    intent.setClass(getApplicationContext(), DoctorappoActivity2.class);
                     startActivity(intent);
                 }
 
@@ -1050,7 +1044,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 if ("1".equals(response.getState())) {
                     //已签约
                     startActivity(new Intent(SpeechSynthesisActivity.this,
-                            DoctorappoActivity.class));
+                            DoctorappoActivity2.class));
                 } else if ("0".equals(response.getState())
                         && (TextUtils.isEmpty(response.getDoctername()))) {
                     //未签约
