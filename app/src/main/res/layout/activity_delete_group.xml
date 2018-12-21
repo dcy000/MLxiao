@@ -25,6 +25,18 @@
         android:layout_height="wrap_content"
         android:text="删除组-47"
         android:layout_marginTop="10dp"/>
+    <EditText
+        android:id="@+id/et_ip"
+        android:layout_gravity="center_horizontal"
+        android:text="47.96.98.60:8080"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_delete_ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="删除组"
+        android:layout_marginTop="10dp"/>
     <Button
         android:id="@+id/btn_stop"
         android:layout_width="match_parent"

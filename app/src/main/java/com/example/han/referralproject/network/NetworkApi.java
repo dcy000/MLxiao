@@ -1137,25 +1137,30 @@ public class NetworkApi {
     public static void getXfGroupInfo(String ip, String gid, String xfid, NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>> successCallback
     ) {
         HashMap<String, String> params = new HashMap<>();
-        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-            return;
-        }
         params.put("userid", "0");
 //        params.put("gid", gid);
 //        params.put("xfid", xfid);
         params.put("state", "0");
-        if ("47".equals(ip))
+        if ("47".equals(ip)){
             NetworkManager.getInstance().getResultClass(Query_Group_47, params, new TypeToken<ArrayList<XfGroupInfo>>() {
                     }.getType(),
                     successCallback);
-        if ("116".equals(ip))
+        } else if ("116".equals(ip)){
+
             NetworkManager.getInstance().getResultClass(Query_Group_116, params, new TypeToken<ArrayList<XfGroupInfo>>() {
                     }.getType(),
                     successCallback);
-        if ("118".equals(ip))
+        } else if ("118".equals(ip)) {
             NetworkManager.getInstance().getResultClass(Query_Group_118, params, new TypeToken<ArrayList<XfGroupInfo>>() {
                     }.getType(),
                     successCallback);
+        } else {
+            String url = "http://"+ ip + "/ZZB/xf/select_group_record";
+            NetworkManager.getInstance().getResultClass(url, params, new TypeToken<ArrayList<XfGroupInfo>>() {
+                    }.getType(),
+                    successCallback);
+        }
+
     }
 
     /**
