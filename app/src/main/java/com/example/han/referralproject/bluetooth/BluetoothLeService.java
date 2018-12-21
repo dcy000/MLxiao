@@ -282,7 +282,7 @@ public class BluetoothLeService extends Service implements TimeCountDownUtils.Ti
 
         boolean b = mBluetoothGatt.writeCharacteristic(characteristic);
         Log.e(TAG, "writeCharacteristic: >>>>>>" + b);
-        TimeCountDownUtils.getInstance().create(5000, 1000, this);
+        TimeCountDownUtils.getInstance().create(2000, 1000, this);
         TimeCountDownUtils.getInstance().start();
     }
 
