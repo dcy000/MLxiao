@@ -33,6 +33,8 @@ import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.han.referralproject.util.TimeCountDownUtils;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +42,7 @@ import java.util.UUID;
  * Service for managing connection and data communication with a GATT server hosted on a
  * given Bluetooth LE device.
  */
-public class BluetoothLeService extends Service {
+public class BluetoothLeService extends Service implements TimeCountDownUtils.TimeCountListener {
     private final static String TAG = BluetoothLeService.class.getSimpleName();
 
     private BluetoothManager mBluetoothManager;
@@ -142,6 +144,18 @@ public class BluetoothLeService extends Service {
             intent.putExtra(EXTRA_DATA, data);
         }
         sendBroadcast(intent);
+    }
+
+    @Override
+    public void onTick(long millisUntilFinished, String tag) {
+
+    }
+
+    @Override
+    public void onFinish(String tag) {
+        if (mConnectionState == STATE_CONNECTED) {
+            broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
+        }
     }
 
 
@@ -265,6 +279,8 @@ public class BluetoothLeService extends Service {
         }
 
         mBluetoothGatt.writeCharacteristic(characteristic);
+        TimeCountDownUtils.getInstance().create(5000,1000,this);
+        TimeCountDownUtils.getInstance().start();
     }
 
 
@@ -288,5 +304,11 @@ public class BluetoothLeService extends Service {
         if (mBluetoothGatt == null) return null;
 
         return mBluetoothGatt.getServices();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        TimeCountDownUtils.getInstance().cancelAll();
     }
 }
