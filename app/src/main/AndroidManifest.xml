@@ -286,6 +286,9 @@
             android:name=".recyclerview.DoctorappoActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".recyclerview.DoctorappoActivity2"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".recyclerview.AddAppoActivity"
             android:screenOrientation="landscape" />
         <activity

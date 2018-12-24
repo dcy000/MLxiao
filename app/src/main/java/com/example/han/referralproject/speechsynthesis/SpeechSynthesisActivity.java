@@ -48,7 +48,7 @@ import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
-import com.example.han.referralproject.recyclerview.DoctorappoActivity;
+import com.example.han.referralproject.recyclerview.DoctorappoActivity2;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
@@ -955,7 +955,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     T.show("请先查看是否与签约医生签约成功");
                 } else {
                     Intent intent = new Intent();
-                    intent.setClass(getApplicationContext(), DoctorappoActivity.class);
+                    intent.setClass(getApplicationContext(), DoctorappoActivity2.class);
                     startActivity(intent);
                 }
 
@@ -1044,7 +1044,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 if ("1".equals(response.getState())) {
                     //已签约
                     startActivity(new Intent(SpeechSynthesisActivity.this,
-                            DoctorappoActivity.class));
+                            DoctorappoActivity2.class));
                 } else if ("0".equals(response.getState())
                         && (TextUtils.isEmpty(response.getDoctername()))) {
                     //未签约
