@@ -63,13 +63,14 @@ public class NetworkApi {
     /**
      * 医疗版生产
      */
-    public static final String BasicUrl = "http://118.31.73.176:8080";
+//    public static final String BasicUrl = "http://118.31.73.176:8080";
     /**
      * 林本地
      */
 //    public static final String BasicUrl = "http://192.168.200.117:8080";
 //    public static final String BasicUrl = "http://192.168.200.120:8080";
 //    public static final String BasicUrl = "http://192.168.200.157:8080";
+    public static final String BasicUrl = "http://192.168.0.115:8080";
     /**
      * 测试
      */
@@ -1496,6 +1497,33 @@ public class NetworkApi {
         OkGo.<String>get(Inquiry)
                 .headers("equipmentId", Utils.getDeviceId())
                 .params("userId", userId)
+                .execute(callback);
+    }
+
+
+    /**
+     * 获取用户云信账号
+     */
+
+    public static final String GET_USER_YX_ACOUNT_ID = BasicUrl + "/ZZB/br/getUserYunXinId";
+
+    public static void getUserYxAcountId(String userId, StringCallback callback) {
+        OkGo.<String>get(GET_USER_YX_ACOUNT_ID)
+                .headers("equipmentId", Utils.getDeviceId())
+                .params("userId", userId)
+                .execute(callback);
+    }
+
+
+    /**
+     * 获取医生的云信账号
+     */
+    public static final String GET_DOC_YX_ACOUNT_ID = BasicUrl + "/ZZB/docter/getDocterYunXinId";
+
+    public static void getDoctorYxAcountId(String docotorId, StringCallback callback) {
+        OkGo.<String>get(GET_DOC_YX_ACOUNT_ID)
+                .headers("equipmentId", Utils.getDeviceId())
+                .params("doctorId", docotorId)
                 .execute(callback);
     }
 

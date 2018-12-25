@@ -27,8 +27,13 @@ import com.example.han.referralproject.qianming.SignatureActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DoctorMesActivity extends BaseActivity implements View.OnClickListener {
 
@@ -307,7 +312,8 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             case R.id.qianyue:
 
                 if ("1".equals(sign)) {
-                    NimCallActivity.launch(mContext, "docter_" + doctor.docterid);
+//                    NimCallActivity.launch(mContext, "gcmlylb_docter_" + doctor.docterid);
+                    getDoctorYxAcountId(doctor.docterid);
 //                    NetworkApi.postTelMessage(doctor.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
 //                        @Override
 //                        public void onSuccess(Object response) {
@@ -362,6 +368,39 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                 break;
 
         }
+    }
+
+    private void getDoctorYxAcountId(String doctorId) {
+        NetworkApi.getDoctorYxAcountId(doctorId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject result = new JSONObject(body);
+                    boolean tag = result.optBoolean("tag");
+                    if (tag) {
+                        String account = result.getString("data");
+//                        NimAccountHelper.getInstance().login(account, "123456", null);
+                        NimCallActivity.launch(DoctorMesActivity.this, account);
+                    } else {
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+            }
+        });
+
     }
 
     private void onLackOfAmount() {

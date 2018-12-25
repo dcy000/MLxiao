@@ -30,8 +30,13 @@ import com.example.han.referralproject.recyclerview.OnlineTime;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickListener {
 //
@@ -319,7 +324,8 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
             case R.id.qianyue:
 
                 if ("1".equals(sign)) {
-                    NimCallActivity.launch(mContext, "docter_" + doctor.docterid);
+//                    NimCallActivity.launch(mContext, "gcmlylb_docter_" + doctor.docterid);
+                    getDoctorYxAcountId(doctor.docterid);
                 } else {
                    /* NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
                             new NetworkManager.SuccessCallback<RobotAmount>() {
@@ -359,6 +365,39 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
                 break;
 
         }
+    }
+
+    private void getDoctorYxAcountId(String doctorId) {
+        NetworkApi.getDoctorYxAcountId(doctorId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject result = new JSONObject(body);
+                    boolean tag = result.optBoolean("tag");
+                    if (tag) {
+                        String account = result.getString("data");
+//                        NimAccountHelper.getInstance().login(account, "123456", null);
+                        NimCallActivity.launch(DoctorMesInfoActivity.this, account);
+                    } else {
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+            }
+        });
+
     }
 
     private void onLackOfAmount() {

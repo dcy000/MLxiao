@@ -14,9 +14,14 @@ import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DoctorappoActivity2 extends BaseActivity implements View.OnClickListener {
     private CircleImageView mCircleImageView1;
@@ -112,9 +117,43 @@ public class DoctorappoActivity2 extends BaseActivity implements View.OnClickLis
                 if (TextUtils.isEmpty(doctorId)) {
                     T.show("呼叫医生失败");
                     return;
-          }
-                NimCallActivity.launch(this, "docter_" + doctorId);
+                }
+//                NimCallActivity.launch(this, "gcmlylb_docter_" + doctorId);
+                getDoctorYxAcountId(doctorId);
                 break;
         }
+    }
+
+    private void getDoctorYxAcountId(String doctorId) {
+        NetworkApi.getDoctorYxAcountId(doctorId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject result = new JSONObject(body);
+                    boolean tag = result.optBoolean("tag");
+                    if (tag) {
+                        String account = result.getString("data");
+//                        NimAccountHelper.getInstance().login(account, "123456", null);
+                        NimCallActivity.launch(DoctorappoActivity2.this, account);
+                    } else {
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+            }
+        });
+
     }
 }
