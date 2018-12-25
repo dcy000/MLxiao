@@ -28,11 +28,10 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -49,15 +48,11 @@ import com.example.han.referralproject.bluetooth.Commands;
 import com.example.han.referralproject.bluetooth.XueTangGattAttributes;
 import com.example.han.referralproject.health.DetectHealthSymptomsActivity;
 import com.example.han.referralproject.health.DetectResultActivity;
-import com.example.han.referralproject.measure.MeasureChooseReason;
-import com.example.han.referralproject.measure.MeasureXuetangResultActivity;
-import com.example.han.referralproject.measure.MeasureXueyaResultActivity;
 import com.example.han.referralproject.measure.fragment.MeasureXuetangFragment;
 import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragment;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.ToastTool;
 import com.example.han.referralproject.util.XueyaUtils;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileEndActivity;
@@ -74,8 +69,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
 import java.util.UUID;
-
-import android.support.v4.content.ContextCompat;
 
 public class SingleDetectActivity extends BaseActivity implements View.OnClickListener {
 
@@ -446,6 +439,7 @@ public class SingleDetectActivity extends BaseActivity implements View.OnClickLi
             //Log.i("mylog", "action : " + intent.getAction());
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
+                speak(R.string.tips_blue_connect);
                 mConnected = true;
                 switch (detectType) {
                     case Type_XueTang:
@@ -482,7 +476,6 @@ public class SingleDetectActivity extends BaseActivity implements View.OnClickLi
                 }
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.i("mylog", "gata servicesConnect 3333333333333333");
-                speak(R.string.tips_blue_connect);
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
                 switch (detectType) {
                     case Type_XueTang:
