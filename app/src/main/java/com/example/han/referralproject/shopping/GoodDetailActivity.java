@@ -144,20 +144,21 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 break;
 
             case R.id.shopping:
-
-                NetworkApi.preparingPay(UserSpHelper.getUserId(), Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Float.parseFloat(mTextView2.getText().toString()) * Float.parseFloat(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<String>() {
-
-                    @Override
-                    public void onSuccess(String data) {
-                        ShowNormals(data);
-                    }
-
-                }, new NetworkManager.FailedCallback() {
-                    @Override
-                    public void onFailed(String message) {
-                        ShowNormal(message);
-                    }
-                });
+                ToastUtils.showShort("该功能暂未开放");
+                speak("该功能暂未开放");
+//                NetworkApi.preparingPay(UserSpHelper.getUserId(), Utils.getDeviceId(), goods.getGoodsname(), mTextView2.getText().toString(), (Float.parseFloat(mTextView2.getText().toString()) * Float.parseFloat(goods.getGoodsprice())) + "", goods.getGoodsimage(), System.currentTimeMillis() + "", new NetworkManager.SuccessCallback<String>() {
+//
+//                    @Override
+//                    public void onSuccess(String data) {
+//                        ShowNormals(data);
+//                    }
+//
+//                }, new NetworkManager.FailedCallback() {
+//                    @Override
+//                    public void onFailed(String message) {
+//                        ShowNormal(message);
+//                    }
+//                });
 
 
         }
