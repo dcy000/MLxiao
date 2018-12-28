@@ -43,6 +43,7 @@ public class FaceRepository {
     public static final int ERROR_ON_JOIN_GROUP_UNKNOWN = -4;
     public static final int ERROR_ON_CREATE_GROUP = -5;
     public static final int ERROR_ON_FACE_SIGN_IN = -6;
+    public static final int ERROR_ON_JOIN_GROUP_FACE_EXIST = -7;
 
     public static class FaceError extends RuntimeException {
         private int code;
@@ -229,8 +230,13 @@ public class FaceRepository {
                 .onErrorResumeNext(new Function<Throwable, ObservableSource<? extends String>>() {
                     @Override
                     public ObservableSource<? extends String> apply(Throwable error) throws Exception {
-                        if (error instanceof FaceError
-                                && ((FaceError) error).getCode() == ERROR_ON_JOIN_GROUP_NOT_EXIST) {
+                        if (error instanceof FaceError) {
+                            if (((FaceError) error).getCode() == ERROR_ON_JOIN_GROUP_FACE_EXIST) {
+                                return createAndJoinGroup(faceId);
+                            }
+                            if (((FaceError) error).getCode() == ERROR_ON_JOIN_GROUP_NOT_EXIST) {
+                                return createAndJoinGroup(faceId);
+                            }
                             return createAndJoinGroup(faceId);
                         }
                         return Observable.error(error);

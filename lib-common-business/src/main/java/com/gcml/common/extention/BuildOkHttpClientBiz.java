@@ -9,13 +9,10 @@ import com.gcml.common.business.BuildConfig;
 import com.gcml.common.http.header.CommonHeaderInterceptor;
 import com.google.auto.service.AutoService;
 import com.ihsanbal.logging.Level;
-import com.ihsanbal.logging.Logger;
 import com.ihsanbal.logging.LoggingInterceptor;
 
 import okhttp3.OkHttpClient;
 import okhttp3.internal.platform.Platform;
-import okhttp3.logging.HttpLoggingInterceptor;
-import timber.log.Timber;
 
 @AutoService(BuildOkHttpClient.class)
 public class BuildOkHttpClientBiz implements BuildOkHttpClient {

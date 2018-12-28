@@ -28,7 +28,7 @@ import timber.log.Timber;
 
 import static timber.log.Timber.w;
 
-@Deprecated
+
 @Singleton
 public class HttpLogInterceptor implements Interceptor {
 //    private ClientModule.HttpInterceptor mHttpInterceptor;
