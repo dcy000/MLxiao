@@ -9,12 +9,12 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.module_blutooth_devices.utils.ToastUtils;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.squareup.picasso.Picasso;
 
@@ -70,8 +70,9 @@ public class DoctorappoActivity2 extends BaseActivity implements View.OnClickLis
         mLlPhoneFamily = (LinearLayout) findViewById(R.id.ll_phone_family);
         mLlPhoneFamily.setOnClickListener(this);
     }
+
     public void getDoctorInfo() {
-        NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
+        NetworkApi.DoctorInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<Doctor>() {
             @Override
             public void onSuccess(Doctor response) {
                 if (!TextUtils.isEmpty(response.getDocter_photo())) {
@@ -99,6 +100,7 @@ public class DoctorappoActivity2 extends BaseActivity implements View.OnClickLis
             }
         });
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -107,7 +109,7 @@ public class DoctorappoActivity2 extends BaseActivity implements View.OnClickLis
             case R.id.circleImageView1:
                 break;
             case R.id.ll_phone_family:
-                if (TextUtils.isEmpty(doctorId)){
+                if (TextUtils.isEmpty(doctorId)) {
                     ToastUtils.showShort("呼叫医生失败");
                     return;
                 }
