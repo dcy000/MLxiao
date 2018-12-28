@@ -22,6 +22,8 @@ import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.permission.PermissionsManager;
+import com.gcml.common.utils.permission.PermissionsResultAction;
 import com.gcml.old.auth.register.SignUp1NameActivity;
 import com.gcml.old.auth.register.simple.SignUp01NameActivity;
 
@@ -82,6 +84,18 @@ public class ChooseLoginTypeActivity extends BaseActivity implements View.OnClic
         agreeBuilder.setSpan(agreeClickableSpan, 3, 7, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         tvSignInAgree.setMovementMethod(LinkMovementMethod.getInstance());
         tvSignInAgree.setText(agreeBuilder);
+
+        PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onDenied(String permission) {
+
+            }
+        });
     }
 
 

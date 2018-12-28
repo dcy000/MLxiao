@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/call_float_window">
+
+    <FrameLayout
+        android:id="@+id/fl_large_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/call_call_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/iv_large_cover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="#333333"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/fl_large_container"
+        app:layout_constraintLeft_toLeftOf="@+id/fl_large_container"
+        app:layout_constraintRight_toRightOf="@+id/fl_large_container"
+        app:layout_constraintTop_toTopOf="@+id/fl_large_container" />
+
+    <!--<FrameLayout-->
+    <!--android:id="@+id/fl_small_container"-->
+    <!--android:layout_width="230dp"-->
+    <!--android:layout_height="128dp"-->
+    <!--android:layout_marginRight="4dp"-->
+    <!--android:layout_marginTop="4dp"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent">-->
+    <!--</FrameLayout>-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_small_cover"-->
+        <!--android:layout_width="0pt"-->
+        <!--android:layout_height="0pt"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:src="@drawable/call_close_video_send"-->
+        <!--android:visibility="gone"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/fl_small_container"-->
+        <!--app:layout_constraintLeft_toLeftOf="@+id/fl_small_container"-->
+        <!--app:layout_constraintRight_toRightOf="@+id/fl_small_container"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/fl_small_container"-->
+        <!--tools:visibility="visible" />-->
+</merge>

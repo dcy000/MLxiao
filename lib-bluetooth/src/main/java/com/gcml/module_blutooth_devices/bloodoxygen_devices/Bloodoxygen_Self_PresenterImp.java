@@ -1,6 +1,10 @@
 package com.gcml.module_blutooth_devices.bloodoxygen_devices;
 
+import android.util.Log;
+
 import com.gcml.common.utils.data.SPUtil;
+import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BaseBluetoothPresenter;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
@@ -34,35 +38,49 @@ public class Bloodoxygen_Self_PresenterImp extends BaseBluetoothPresenter {
         super(fragment, discoverSetting);
     }
 
+    private static final String TAG = "Bloodoxygen_Self_Presen";
+
     @Override
     protected void connectSuccessed(String address, List<BluetoothServiceDetail> serviceDetails,
                                     boolean isReturnServiceAndCharacteristic) {
         super.connectSuccessed(address, serviceDetails, isReturnServiceAndCharacteristic);
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-        baseView.updateData("initialization","0", "0");
+        baseView.updateData("initialization", "0", "0");
         SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, targetName + "," + address);
+        openNotify(address);
+        BluetoothClientManager.getClient().write(address, UUID.fromString(targetServiceUUid),
+                UUID.fromString(targetWriteCharacteristicUUid), DATA_OXYGEN_TO_WRITE, new BleWriteResponse() {
+                    @Override
+                    public void onResponse(int code) {
+                        Log.e(TAG, "onResponse: write" + code);
+                    }
+                });
 
+    }
+
+    private void openNotify(final String address) {
         BluetoothClientManager.getClient().notify(address, UUID.fromString(targetServiceUUid),
                 UUID.fromString(targetCharacteristicUUid), new BleNotifyResponse() {
                     @Override
                     public void onNotify(UUID service, UUID character, byte[] value) {
-                        if (value.length==12){
-                            baseView.updateData(value[5]+"",value[6]+"");
+                        Log.e(TAG, "onNotify: " + value.length);
+                        if (value.length == 12) {
+                            baseView.updateData(value[5] + "", value[6] + "");
                         }
                     }
 
                     @Override
                     public void onResponse(int code) {
-
+                        Log.e(TAG, "onResponse:notify " + code);
+                        if (code == -1) {
+                            new WeakHandler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    openNotify(address);
+                                }
+                            }, 50);
+                        }
                     }
                 });
-
-        BluetoothClientManager.getClient().write(address, UUID.fromString(targetServiceUUid),
-                UUID.fromString(targetWriteCharacteristicUUid), DATA_OXYGEN_TO_WRITE, new BleWriteResponse() {
-                    @Override
-                    public void onResponse(int code) {
-                    }
-                });
-
     }
 }

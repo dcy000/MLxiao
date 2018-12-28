@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:57
+-keep class com.gcml.common.app.lifecycle.App { <init>(...); }
+

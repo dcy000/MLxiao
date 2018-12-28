@@ -1,0 +1,71 @@
+-- Merging decision tree log ---
+manifest
+ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:2:1-21:12
+INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:2:1-21:12
+INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:2:1-21:12
+INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:2:1-21:12
+INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:2:1-21:12
+INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:2:1-21:12
+INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:2:1-21:12
+	package
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:3:5-34
+		INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+		INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:2:1-21:12
+		INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:2:1-21:12
+		INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.CAMERA
+ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:5:5-65
+	android:name
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:5:22-62
+uses-feature#android.hardware.camera
+ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:7:5-9:36
+	android:required
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:9:9-33
+	android:name
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:8:9-47
+uses-feature#android.hardware.camera.autofocus
+ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:10:5-12:36
+	android:required
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:12:9-33
+	android:name
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:11:9-57
+application
+ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:14:5-19:19
+activity#com.gcml.auth.face2.ui.FaceSignUpActivity
+ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:15:9-59
+	android:name
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:15:19-56
+activity#com.gcml.auth.face2.ui.FaceSignInActivity
+ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:16:9-59
+	android:name
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:16:19-56
+activity#com.gcml.auth.face2.ui.FaceBdSignUpActivity
+ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:17:9-61
+	android:name
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:17:19-58
+activity#com.gcml.auth.face2.ui.FaceBdSignInActivity
+ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:18:9-61
+	android:name
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml:18:19-58
+uses-sdk
+INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+		INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+		ADDED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml
+		INJECTED from F:\AP\channel-hegui-new\MLxiao\module-auth-face2\src\main\AndroidManifest.xml

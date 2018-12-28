@@ -16,7 +16,7 @@ include ':lib-auth-face',
         ':lib-voice',
         ':lib-widget',
         ':lib-bluetooth',
-        ':lib-bluetooth',
+        ':lib-sub-bluetooth',
         ':lib-video'
 
 // 业务模块

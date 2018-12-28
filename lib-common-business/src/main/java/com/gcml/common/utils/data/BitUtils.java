@@ -82,34 +82,4 @@ public final class BitUtils {
         return (source & 1) == 1;
 
     }
-
-    /**
-     * 入口函数做测试<br>
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        // 取十进制 11 (二级制 0000 1011) 为例子
-        byte source = 11;
-        // 取第2位值并输出, 结果应为 0000 1011
-        for (byte i = 7; i >= 0; i--) {
-            Log.d("BitUtils", getBitValue(source, i) + "");
-
-        }
-        // 将第6位置为1并输出 , 结果为 75 (0100 1011)
-        Log.d("BitUtils", setBitValue(source, 6, (byte) 1) + "");
-
-        // 将第6位取反并输出, 结果应为75(0100 1011)
-        Log.d("BitUtils", reverseBitValue(source, 6) + "");
-
-        // 检查第6位是否为1，结果应为false
-        Log.d("BitUtils", checkBitValue(source, 6) + "");
-
-        // 输出为1的位, 结果应为 0 1 3
-        for (byte i = 0; i < 8; i++) {
-            if (checkBitValue(source, i)) {
-                Log.d("BitUtils", i + "");
-            }
-        }
-    }
 }

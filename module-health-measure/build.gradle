@@ -68,4 +68,5 @@ dependencies {
     implementation project(':lib-progress-orb')
     //万能适配器
     implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    implementation (project(':lib-sub-bluetooth')) { exclude group: "com.inuker.bluetooth" }
 }

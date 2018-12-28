@@ -22,6 +22,7 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.ecg.XinDianDetectActivity;
+import com.gcml.health.measure.test.TestWuhuaqiActivity;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -116,7 +117,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
 //            measureType=IPresenter.MEASURE_HAND_RING;
 //            AllMeasureActivity.startActivity(this,measureType);
             ToastUtils.showLong("敬请期待");
-
+//            startActivity(new Intent(this, TestWuhuaqiActivity.class));
         } else {
         }
     }

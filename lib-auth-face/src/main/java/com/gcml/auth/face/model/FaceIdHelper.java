@@ -33,6 +33,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static com.gcml.auth.face.model.FaceRepository.ERROR_JOIN_GROUP_FACE_EXIST;
 import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_CREATE_GROUP;
 import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_ENGINE_INIT;
 import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_FACE_SIGN_IN;
@@ -219,6 +220,8 @@ public class FaceIdHelper {
                         if (!emitter.isDisposed()) {
                             if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {
                                 emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_NOT_EXIST, errorMsg, error));
+                            } else if(error.getErrorCode() == 10121) {
+                                emitter.onError(new FaceRepository.FaceError(ERROR_JOIN_GROUP_FACE_EXIST, errorMsg, error));
                             } else {
                                 emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_UNKNOWN, errorMsg, error));
                             }
