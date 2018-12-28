@@ -301,7 +301,7 @@ public class HealthRecordActivity2 extends AppCompatActivity implements View.OnC
     }
 
     private void showQRDialog() {
-        String text = HealthRecordNetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + UserSpHelper.getUserId() + "&bname=" + UserSpHelper.getUserName();
+        String text =BuildConfig.SERVER_ADDRESS + "ZZB/br/whole_informations?bid=" + UserSpHelper.getUserId() + "&bname=" + UserSpHelper.getUserName();
         DialogImage dialogImage = new DialogImage(this);
         dialogImage.setImage(QRCodeUtils.creatQRCode(text, 600, 600));
         dialogImage.setDescription("扫一扫，下载详细报告");

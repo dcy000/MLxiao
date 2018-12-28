@@ -9,10 +9,7 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.network.NetworkApi;
-import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.medlink.danbogh.utils.FastClickUtil;
@@ -64,7 +61,7 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
                                     }
 
                                 } else if ("1".equals(state)) {
-                                    startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity.class));
+                                    startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity2.class));
                                 }
                             }, message -> ToastUtils.showShort(message));
                 }

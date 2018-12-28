@@ -238,7 +238,7 @@
             android:screenOrientation="landscape"
             android:taskAffinity="com.medlink.fastsignup" />
         <activity
-            android:name=".recyclerview.DoctorappoActivity"
+            android:name=".recyclerview.DoctorappoActivity2"
             android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.AddAppoActivity"
@@ -425,9 +425,6 @@
             android:launchMode="singleTask"/>
         <activity
             android:name=".activity.SelectXuetangTimeActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".recyclerview.HistoryActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".recyclerview.CheckContractActivity"

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MessageActivity;
+import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
 
@@ -242,7 +243,9 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), OrderListActivity.class));
                 break;
             case R.id.iv_pay:
-                startActivity(new Intent(getActivity(), PayActivity.class));
+                ToastUtils.showShort("该功能暂未开放");
+                MLVoiceSynthetize.startSynthesize(MyApplication.getInstance(),"该功能暂未开放",false);
+//                startActivity(new Intent(getActivity(), PayActivity.class));
 //                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
                 break;
             case R.id.iv_message:
