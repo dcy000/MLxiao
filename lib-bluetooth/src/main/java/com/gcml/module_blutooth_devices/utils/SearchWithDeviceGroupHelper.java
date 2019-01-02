@@ -58,7 +58,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
     private static final String[] WEIGHT_BRANDS = {"IF_B2A", "dr01", "VScale", "SHHC-60F1", "iChoice", "SENSSUN", "000FatScale01"};
     private static final String[] ECG_BRANDS = {"WeCardio STD", "A12-B"};
     private static final String[] FINGERPRINT_BRANDS = {"zjwellcom"};
-    private static final String[] OTHERS_BRANDS = {"BeneCheck GL"};
+    private static final String[] OTHERS_BRANDS = {"BeneCheck"};
     private static final String[] HAND_RING = {"RB09_Heart"};
     private List<SearchResult> devices;
     private int measureType;
@@ -84,7 +84,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
         this.view = view;
         this.measureType = measureType;
         devices = new ArrayList<>();
-        this.userBean=userBean;
+        this.userBean = userBean;
 
     }
 
@@ -353,7 +353,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 switch (brand) {
                     case "WeCardio STD":
                         baseBluetoothPresenter = new ECG_BoSheng_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "WeCardio STD"),userBean);
+                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "WeCardio STD"), userBean);
                         break;
                     case "A12-B":
                         baseBluetoothPresenter = new ECG_Chaosi_PresenterImp(view,
@@ -374,13 +374,9 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 }
                 break;
             case IPresenter.MEASURE_OTHERS:
-                switch (brand) {
-                    case "BeneCheck GL-0F8B0C":
-                        baseBluetoothPresenter = new ThreeInOne_Self_PresenterImp(view,
-                                new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BeneCheck GL-0F8B0C"));
-                        break;
-                    default:
-                        break;
+                if (brand.startsWith("BeneCheck")) {
+                    baseBluetoothPresenter = new ThreeInOne_Self_PresenterImp(view,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BeneCheck"));
                 }
                 break;
             case IPresenter.MEASURE_HAND_RING:
