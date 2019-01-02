@@ -1,9 +1,11 @@
 package com.example.han.referralproject.intelligent_diagnosis;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
@@ -17,6 +19,13 @@ import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.medlink.danbogh.utils.Handlers;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +61,7 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
         btnStop.setOnClickListener(this);
         btnDelete2.setOnClickListener(this);
         btnDelete47.setOnClickListener(this);
+        findViewById(R.id.btn_delete_ip).setOnClickListener(this);
         lists = new ArrayList<>();
     }
 
@@ -60,6 +70,20 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btn_delete_ip:
+                String ip = ((EditText) findViewById(R.id.et_ip)).getText().toString().trim();
+                NetworkApi.getXfGroupInfo(ip, "0", "0", new NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>>() {
+                    @Override
+                    public void onSuccess(ArrayList<XfGroupInfo> response) {
+                        lists.addAll(response);
+                        text.append("获取完成。总共需要检验数据：" + response.size());
+                        FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).deleteGroup(lists.get(i).gid, lists.get(i).xfid);
+                        FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).setOnDeleteGroupListener(DeleteGroupActivity.this);
+
+                    }
+                });
+                break;
+
             case R.id.btn_delete2:
                 NetworkApi.getXfGroupInfo("116", "0", "0", new NetworkManager.SuccessCallback<ArrayList<XfGroupInfo>>() {
                     @Override
@@ -97,7 +121,45 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
 
                 break;
             case R.id.btn_stop:
-                FaceAuthenticationUtils.getInstance(this).cancelIdentityVerifier();
+//                FaceAuthenticationUtils.getInstance(this).cancelIdentityVerifier();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        File file = new File(Environment.getExternalStorageDirectory(), "faces.txt");
+                        lists.clear();
+                        BufferedReader reader = null;
+                        try {
+                            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                String[] tmp = line.split(" : ");
+                                String groupId = tmp[1];
+                                XfGroupInfo groupInfo = new XfGroupInfo();
+                                groupInfo.gid = groupId;
+                                lists.add(groupInfo);
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    text.append("获取完成。总共需要检验数据：" + lists.size());
+                                }
+                            });
+                            FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).deleteGroup(lists.get(i).gid, lists.get(i).xfid);
+                            FaceAuthenticationUtils.getInstance(DeleteGroupActivity.this).setOnDeleteGroupListener(DeleteGroupActivity.this);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            try {
+                                if (reader != null) {
+                                    reader.close();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                }).start();
                 break;
         }
     }
