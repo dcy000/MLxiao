@@ -24,7 +24,7 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.olderhealthmanagement.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
-import com.example.han.referralproject.recyclerview.DoctorappoActivity;
+import com.example.han.referralproject.recyclerview.DoctorappoActivity2;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.require2.HealthDetecteActivity;
 import com.example.han.referralproject.require2.dialog.DialogTypeEnum;
@@ -334,7 +334,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 if ("1".equals(response.getState())) {
                     //已签约
                     startActivity(new Intent(getActivity(),
-                            DoctorappoActivity.class));
+                            DoctorappoActivity2.class));
                 } else if (TextUtils.isEmpty(response.getState()) || "0".equals(response.getState())
                         && (TextUtils.isEmpty(response.getDoctername()))) {
                     //未签约

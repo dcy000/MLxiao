@@ -60,7 +60,7 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
                                         Intent intent = new Intent(DoctorAskGuideActivity.this, CheckContractActivity.class);
                                         startActivity(intent);
                                     } else {
-                                        startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity.class));
+                                        startActivity(new Intent(DoctorAskGuideActivity.this, DoctorappoActivity2.class));
                                     }
                                 }
                             }, new NetworkManager.FailedCallback() {
