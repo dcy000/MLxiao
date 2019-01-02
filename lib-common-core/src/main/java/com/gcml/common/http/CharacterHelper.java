@@ -24,7 +24,6 @@ import javax.xml.transform.stream.StreamSource;
 /**
  * 处理字符串的工具类
  */
-@Deprecated
 public class CharacterHelper {
     private CharacterHelper() {
         throw new IllegalStateException("you can't instantiate me!");
