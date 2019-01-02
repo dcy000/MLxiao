@@ -127,9 +127,9 @@ public class ThreeInOne_Fragment extends BluetoothBaseFragment implements View.O
                 return;
             }
             switch (brand) {
-                case "BeneCheck GL-0F8B0C":
+                case "BeneCheck":
                     bluetoothPresenter = new ThreeInOne_Self_PresenterImp(this,
-                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BeneCheck GL-0F8B0C"));
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "BeneCheck"));
                     break;
             }
         }
