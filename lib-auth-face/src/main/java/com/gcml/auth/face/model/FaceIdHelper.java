@@ -219,6 +219,8 @@ public class FaceIdHelper {
                         if (!emitter.isDisposed()) {
                             if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {
                                 emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_NOT_EXIST, errorMsg, error));
+                            } else if (error.getErrorCode() == 10121) {
+                                emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_NOT_EXIST, errorMsg, error));
                             } else {
                                 emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_UNKNOWN, errorMsg, error));
                             }

@@ -196,7 +196,7 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
             public List<String> apply(List<Bitmap> bitmaps) throws Exception {
                 images = new ArrayList<>();
                 for (Bitmap bitmap : bitmaps) {
-                    images.add(PreviewHelper.bitmapToBase64(bitmap));
+                    images.add(PreviewHelper.bitmapToBase64(bitmap, true));
                 }
                 return images;
             }
