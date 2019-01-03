@@ -121,8 +121,8 @@ public class MonthlyReport3Fragment extends Fragment {
             float progress_percent = Float.parseFloat(data.zongw) * 100;
             rpbSum.setProgress(progress_percent);
             tvProgress2.setText((int) progress_percent + "%");
-            tips = "主人，您的高压距离目标"
-                    + pc_gaoya + "毫米汞柱" + ",低压距离目标" + pc_diya + "毫米汞柱。上月整体计划完成"
+            tips = "主人，您的收缩压距离目标"
+                    + pc_gaoya + "毫米汞柱" + ",舒张压距离目标" + pc_diya + "毫米汞柱。上月整体计划完成"
                     + (int) progress_percent + "%。请继续根据机器人的指导保持良好的生活习惯，积极锻炼。";
 
         }

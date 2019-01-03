@@ -38,8 +38,8 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
      * @param context
      * @param state       血压状态：五种的一种
      * @param score       健康分数
-     * @param currentHigh 当前高压
-     * @param currentLow  当前低压
+     * @param currentHigh 当前收缩压
+     * @param currentLow  当前舒张压
      * @param suggest     健康建议
      */
     public static void startActivity(Context context, String state, int score, int currentHigh,

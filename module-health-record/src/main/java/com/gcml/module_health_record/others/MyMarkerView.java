@@ -85,8 +85,8 @@ public class MyMarkerView extends MarkerView {
                     ll2.setVisibility(VISIBLE);
                     color_1.setBackground(getResources().getDrawable(R.drawable.xueya_gao));
                     color_2.setBackground(getResources().getDrawable(R.drawable.xueya_diya));
-                    title_1.setText("高压");
-                    title_2.setText("低压");
+                    title_1.setText("收缩压");
+                    title_2.setText("舒张压");
                     text_1.setText(xueya.get((int) e.getX()).high_pressure + "");
                     text_2.setText(xueya.get((int) e.getX()).low_pressure + "");
                     break;

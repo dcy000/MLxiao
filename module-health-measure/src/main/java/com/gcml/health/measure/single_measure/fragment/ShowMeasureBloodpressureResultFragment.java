@@ -188,7 +188,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         mTvSuggest.setText(currentSuggest);
 
         MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                "主人，您本次测量高压" + currentHighBloodpressure + ",低压"
+                "主人，您本次测量收缩压" + currentHighBloodpressure + ",舒张压"
                         + currentLowBloodpressure + ",健康分数" + healthScore + "分。" + currentSuggest);
         initViewColor();
         getData();
@@ -533,8 +533,8 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         }
 //        高血压 high>=140 或 low>=90
 //        正常高值 140>high>=120 或 90>low>=80
-//        正常 90<=高压<120且60<=低压<80
-//        偏低 高压<90 或 低压<60
+//        正常 90<=收缩压<120且60<=舒张压<80
+//        偏低 收缩压<90 或 舒张压<60
         if (high >= 140 || low >= 90) {
             onHigh();
         } else if ((high < 140 && high >= 120) || (low < 90 && low >= 80)) {

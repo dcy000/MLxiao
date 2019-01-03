@@ -3,7 +3,7 @@ include ':app', ':module-factory-test',
         ':lib-common-core',
         ':lib-common-business',
         ':lib-common-app',
-        ':component-cc'
+        ':component-cc', ':lib-common-xien'
 
 // 支持模块
 include ':lib-auth-face',

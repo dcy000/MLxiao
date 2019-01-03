@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.han.referralproject.WelcomeActivity"
-    android:background="@drawable/bg_welcome">
+    android:background="@drawable/xien_ic_splash">
 
     <Chronometer
         android:visibility="gone"

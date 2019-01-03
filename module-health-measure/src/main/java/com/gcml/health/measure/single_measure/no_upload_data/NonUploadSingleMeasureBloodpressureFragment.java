@@ -37,7 +37,7 @@ public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_F
     protected void onMeasureFinished(String... results) {
         if (results.length == 3&&!isOnPause) {
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                    "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
+                    "主人，您本次测量收缩压" + results[0] + ",舒张压" + results[1] + ",脉搏" + results[2], false);
         }
     }
 

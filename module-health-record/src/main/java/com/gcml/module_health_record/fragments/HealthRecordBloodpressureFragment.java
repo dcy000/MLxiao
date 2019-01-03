@@ -71,10 +71,10 @@ public class HealthRecordBloodpressureFragment extends RecycleBaseFragment imple
         //指示器的颜色
 //        mColor1.setBackgroundColor(getResources().getColor(R.color.health_record_node_color));
         mColor1.setBackgroundColor(ContextCompat.getColor(UtilsManager.getApplication(), R.color.health_record_node_color));
-        mIndicator1.setText("高压(mmHg)");
+        mIndicator1.setText("收缩压(mmHg)");
 //        mColor2.setBackgroundColor(getResources().getColor(R.color.health_record_node2_color));
         mColor2.setBackgroundColor(ContextCompat.getColor(UtilsManager.getApplication(), R.color.health_record_node2_color));
-        mIndicator2.setText("低压(mmHg)");
+        mIndicator2.setText("舒张压(mmHg)");
         mLlSecond.setVisibility(View.VISIBLE);
 
         mTvEmptyDataTips = (TextView) view.findViewById(R.id.tv_empty_data_tips);
