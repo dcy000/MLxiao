@@ -337,13 +337,15 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         //此处会因为在页面不可见后出现 （此时大多数时候是内存泄漏了）
         // java.lang.IllegalStateException
         // Can not perform this action after onSaveInstanceState
-        dialog.show(getSupportFragmentManager(), "less3");
+//        dialog.show(getSupportFragmentManager(), "less3");
+        getSupportFragmentManager().beginTransaction().add(dialog,"less3").commitAllowingStateLoss();
     }
 
     private void showOriginHypertensionDialog() {
         TwoChoiceDialog dialog = new TwoChoiceDialog("您是否诊断过原发性高血压，且正在进行高血压规范治疗？", "是", "否");
         dialog.setListener(this);
-        dialog.show(getFragmentManager(), "yuanfa");
+//        dialog.show(getFragmentManager(), "yuanfa");
+        getFragmentManager().beginTransaction().add(dialog,"yuanfa").commitAllowingStateLoss();
         mlSpeak("主人，您是否已确诊高血压且在治疗？");
     }
 
@@ -361,7 +363,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 getDiagnoseInfoNew();
             }
         });
-        dialog.show(getFragmentManager(), "yuanfa");
+//        dialog.show(getFragmentManager(), "yuanfa");
+        getFragmentManager().beginTransaction().add(dialog,"yuanfa").commitAllowingStateLoss();
         mlSpeak("您之前的流程还未完成，是否要继续？");
     }
 

@@ -177,9 +177,11 @@ public class HealthRecordBUAFragment extends RecycleBaseFragment implements View
         }
         if (times.size() != 0) {
             mChart.getXAxis().setValueFormatter(new TimeFormatter(times));
-            MyMarkerView mv = new MyMarkerView(getContext(), R.layout.custom_marker_view, temp, times);
-            mv.setChartView(mChart); // For bounds control
-            mChart.setMarker(mv); // Set the marker to the chart
+            if (isAdded()){
+                MyMarkerView mv = new MyMarkerView(getContext(), R.layout.custom_marker_view, temp, times);
+                mv.setChartView(mChart);
+                mChart.setMarker(mv);
+            }
 
 
             LineDataSet set1;

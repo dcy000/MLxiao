@@ -170,9 +170,11 @@ public class HealthRecordTemperatureFragment extends RecycleBaseFragment impleme
         }
         if (times.size() != 0) {
             mChart.getXAxis().setValueFormatter(new TimeFormatter(times));
-            MyMarkerView mv = new MyMarkerView(getActivity(), R.layout.custom_marker_view, temp, times);
-            mv.setChartView(mChart);
-            mChart.setMarker(mv);
+            if (isAdded()){
+                MyMarkerView mv = new MyMarkerView(getContext(), R.layout.custom_marker_view, temp, times);
+                mv.setChartView(mChart);
+                mChart.setMarker(mv);
+            }
 
             LineDataSet set1;
             if (mChart.getData() != null &&

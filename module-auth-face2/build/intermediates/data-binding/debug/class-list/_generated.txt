@@ -1,6 +1,0 @@
-com.gcml.auth.face2.databinding.FaceActivityBdSignInBinding
-com.gcml.auth.face2.databinding.FaceActivityBdMain2Binding
-com.gcml.auth.face2.databinding.FaceActivityBdSignUpBinding
-com.gcml.auth.face2.databinding.FaceActivitySignIn2Binding
-com.gcml.auth.face2.databinding.FaceActivitySignUp2Binding
-android.databinding.DataBindingComponent

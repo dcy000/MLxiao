@@ -11,7 +11,7 @@
     <!--</item>-->
 
     <item >
-        <bitmap android:src="@drawable/welcome1"
+        <bitmap android:src="@drawable/welcome"
             android:gravity="center"/>
     </item>
 

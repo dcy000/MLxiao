@@ -278,10 +278,11 @@ public class HealthRecordBloodsugarFragment extends RecycleBaseFragment implemen
 
         if (value.size() != 0) {
             mChart.getXAxis().setValueFormatter(new TimeFormatter(times));
-            MyMarkerView mv = new MyMarkerView(getContext(), R.layout.custom_marker_view, temp, times);
-            mv.setChartView(mChart);
-            mChart.setMarker(mv);
-
+            if (isAdded()){
+                MyMarkerView mv = new MyMarkerView(getContext(), R.layout.custom_marker_view, temp, times);
+                mv.setChartView(mChart);
+                mChart.setMarker(mv);
+            }
 
             LineDataSet set1;
             if (mChart.getData() != null &&
