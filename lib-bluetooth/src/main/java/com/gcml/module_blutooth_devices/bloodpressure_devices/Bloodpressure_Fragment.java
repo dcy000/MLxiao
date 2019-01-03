@@ -98,6 +98,10 @@ public class Bloodpressure_Fragment extends BluetoothBaseFragment implements IVi
                 return;
             }
             switch (brand) {
+                case "LD":
+                    baseBluetoothPresenter=new Bloodpressure_Xien4_PresenterImp(this,
+                            new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC,address,"LD"));
+                    break;
                 case "eBlood-Pressure":
                     baseBluetoothPresenter = new Bloodpressure_Self_PresenterImp(this,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "eBlood-Pressure"));
