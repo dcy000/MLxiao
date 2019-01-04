@@ -1447,4 +1447,31 @@ public class NetworkApi {
     }
 
 
+    /**
+     * 获取用户云信账号
+     */
+
+    public static final String GET_USER_YX_ACOUNT_ID = BasicUrl + "/ZZB/br/getUserYunXinId";
+
+    public static void getUserYxAcountId(String userId, StringCallback callback) {
+        OkGo.<String>get(GET_USER_YX_ACOUNT_ID)
+                .headers("equipmentId", Utils.getDeviceId())
+                .params("userId", userId)
+                .execute(callback);
+    }
+
+
+    /**
+     * 获取医生的云信账号
+     */
+    public static final String GET_DOC_YX_ACOUNT_ID = BasicUrl + "/ZZB/docter/getDocterYunXinId";
+
+    public static void getDoctorYxAcountId(String docotorId, StringCallback callback) {
+        OkGo.<String>get(GET_DOC_YX_ACOUNT_ID)
+                .headers("equipmentId", Utils.getDeviceId())
+                .params("doctorId", docotorId)
+                .execute(callback);
+    }
+
+
 }
