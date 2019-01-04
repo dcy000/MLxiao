@@ -142,12 +142,18 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
 
         getUser();
         BleManager.getInstance().init((Application) fragment.getThisContext().getApplicationContext());
-        BleScanRuleConfig scanRuleConfig = new BleScanRuleConfig.Builder()
-                .setScanTimeOut(20 * 1000)//设置扫描超时
-                .setDeviceName(true, BorsamConfig.deviceNames)
-                .build();
-        BleManager.getInstance().initScanRule(scanRuleConfig);
-        searchDevices();
+
+        String targetMac = discoverSetting.getTargetMac();
+        if (!TextUtils.isEmpty(targetMac)) {
+            connectDevice(targetAddress);
+        } else {
+            BleScanRuleConfig scanRuleConfig = new BleScanRuleConfig.Builder()
+                    .setScanTimeOut(20 * 1000)//设置扫描超时
+                    .setDeviceName(true, BorsamConfig.deviceNames)
+                    .build();
+            BleManager.getInstance().initScanRule(scanRuleConfig);
+            searchDevices();
+        }
     }
 
     private void getUser() {
@@ -443,7 +449,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
     protected void connectSuccessed(BleDevice address) {
         isMeasureEnd = false;
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
-        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_ECG, address.getName() + "," + address.getMac());
+        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_ECG, targetName + "," + address.getMac());
         lockedDevice = address;
         BleManager.getInstance().notify(address, BorsamConfig.COMMON_RECEIVE_ECG_SUUID.toString(),
                 BorsamConfig.COMMON_RECEIVE_ECG_CUUID.toString(), new BleNotifyCallback() {
