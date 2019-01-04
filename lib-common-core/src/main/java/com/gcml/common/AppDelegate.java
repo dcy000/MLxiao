@@ -178,7 +178,9 @@ public enum AppDelegate implements AppLifecycleCallbacks {
 
                 @Override
                 public void onActivityDestroyed(Activity activity) {
-                    AppDelegate.this.activity = null;
+                    if (activity == AppDelegate.INSTANCE.activity) {
+                        AppDelegate.this.activity = null;
+                    }
                     Timber.i("onActivityDestroyed: %s", activity);
                 }
             };
