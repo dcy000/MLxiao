@@ -61,7 +61,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
         isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
-        getHypertensionHand();
+//        getHypertensionHand();
     }
 
     /**

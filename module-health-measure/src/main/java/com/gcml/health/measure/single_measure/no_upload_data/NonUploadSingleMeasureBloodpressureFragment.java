@@ -28,7 +28,7 @@ public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_F
     @Override
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
-        getHypertensionHand();
+//        getHypertensionHand();
     }
 
 

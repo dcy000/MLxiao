@@ -77,8 +77,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private String userHypertensionHand;
     private Bundle bundle;
     private boolean isShowSelectBloodsugarMeasureTime = false;
-    private boolean isShowSelectECGDevice=false;
-    private int ecgDevice=1;//默认科瑞康
+    private boolean isShowSelectECGDevice = false;
+    private int ecgDevice = 1;//默认科瑞康
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, FirstDiagnosisActivity.class);
@@ -139,11 +139,12 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                     fragment = new HealthBloodDetectionUiFragment();
                 } else {
                     //如果本地缓存的有惯用手数据则只需测量一次，如果没有则需要惯用手判断
-                    if (TextUtils.isEmpty(userHypertensionHand)) {
-                        fragment = new HealthBloodDetectionUiFragment();
-                    } else {
-                        fragment = new HealthBloodDetectionOnlyOneFragment();
-                    }
+//                    if (TextUtils.isEmpty(userHypertensionHand)) {
+//                        fragment = new HealthBloodDetectionUiFragment();
+//                    } else {
+//                        fragment = new HealthBloodDetectionOnlyOneFragment();
+//                    }
+                    fragment = new HealthBloodDetectionOnlyOneFragment();
                 }
                 measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
                 break;
@@ -164,15 +165,15 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mTitleText.setText("心 电 设 备 选 择");
                 fragment = new ChooseECGDeviceFragment();
                 mRightView.setImageResource(R.drawable.common_icon_home);
-                isShowSelectECGDevice=true;
+                isShowSelectECGDevice = true;
                 break;
             case "ECG_Fragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("心 电 测 量");
-                if (ecgDevice==1){
+                if (ecgDevice == 1) {
                     fragment = new HealthECGDetectionFragment();
-                }else{
-                    fragment=new HealthECGBoShengFragment();
+                } else {
+                    fragment = new HealthECGBoShengFragment();
                 }
                 measureType = IPresenter.MEASURE_ECG;
                 break;
@@ -268,9 +269,9 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         this.bundle = bundle;
-        if (fragment instanceof ChooseECGDeviceFragment){
-            isShowSelectECGDevice=false;
-            if (bundle!=null){
+        if (fragment instanceof ChooseECGDeviceFragment) {
+            isShowSelectECGDevice = false;
+            if (bundle != null) {
                 ecgDevice = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 1);
             }
         }
@@ -420,7 +421,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             CCAppActions.jump2MainActivity();
             return;
         }
-        if (isShowSelectBloodsugarMeasureTime||isShowSelectECGDevice) {
+        if (isShowSelectBloodsugarMeasureTime || isShowSelectECGDevice) {
             CCAppActions.jump2MainActivity();
             return;
         }
