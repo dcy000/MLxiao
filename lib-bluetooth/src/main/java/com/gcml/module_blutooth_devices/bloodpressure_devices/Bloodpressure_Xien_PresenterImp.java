@@ -152,6 +152,9 @@ public class Bloodpressure_Xien_PresenterImp extends BaseBluetoothPresenter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void startMeasure() {
         if (startDeviceTask == null) {
             startDeviceTask = new StartDeviceTask();
         }

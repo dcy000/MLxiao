@@ -31,6 +31,8 @@ public class Bloodpressure_Xien4_PresenterImp extends BaseBluetoothPresenter {
     private static final String targetWriteCharacteristicUUid = "05000000-0000-0000-0000-000000000080";
     private static final String targetCharacteristicUUid = "02000000-0000-0000-0000-000000000080";
     private byte[] commands = {(byte) 0xff, (byte) 0xff, 0x05, 0x01, (byte) 0xfa};
+    private boolean isConnect = false;
+    private String connectAddress = null;
 
     public Bloodpressure_Xien4_PresenterImp(IView fragment, DiscoverDevicesSetting discoverSetting) {
         super(fragment, discoverSetting);
@@ -39,6 +41,8 @@ public class Bloodpressure_Xien4_PresenterImp extends BaseBluetoothPresenter {
     @Override
     protected void connectSuccessed(String address, List<BluetoothServiceDetail> serviceDetails, boolean isReturnServiceAndCharacteristic) {
         super.connectSuccessed(address, serviceDetails, isReturnServiceAndCharacteristic);
+        isConnect = true;
+        connectAddress = address;
         baseView.updateState(baseContext.getString(R.string.bluetooth_device_connected));
         baseView.updateData("0", "0", "0");
         SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, targetName + "," + address);
@@ -65,15 +69,28 @@ public class Bloodpressure_Xien4_PresenterImp extends BaseBluetoothPresenter {
                             Log.e(TAG, "onResponse:打开notify " + i);
                         }
                     });
-
-            BluetoothClientManager.getClient().write(address,
-                    UUID.fromString(targetServiceUUid),
-                    UUID.fromString(targetWriteCharacteristicUUid), commands, new BleWriteResponse() {
-                        @Override
-                        public void onResponse(int code) {
-                            Log.e(TAG, "onResponse:写入指令 " + code);
-                        }
-                    });
         }
+    }
+
+    @Override
+    protected void disConnected() {
+        super.disConnected();
+        isConnect = false;
+    }
+
+    public void startMeasure() {
+        if (!isConnect || connectAddress == null) {
+            baseView.updateState("设备未连接");
+            return;
+        }
+        BluetoothClientManager.getClient().write(connectAddress,
+                UUID.fromString(targetServiceUUid),
+                UUID.fromString(targetWriteCharacteristicUUid), commands, new BleWriteResponse() {
+                    @Override
+                    public void onResponse(int code) {
+                        Log.e(TAG, "onResponse:写入指令 " + code);
+                    }
+                });
+
     }
 }

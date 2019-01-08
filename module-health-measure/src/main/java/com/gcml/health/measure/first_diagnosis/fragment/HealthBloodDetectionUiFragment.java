@@ -38,8 +38,8 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mBtnVideoDemo.setVisibility(View.GONE);
-        mBtnHealthHistory.setText("下一步");
+        mXueyaVideo.setVisibility(View.GONE);
+        mHistory1.setText("下一步");
         setBtnClickableState(false);
         notifyDetectionStepChanged(detectionStep);
     }
@@ -375,13 +375,13 @@ public class HealthBloodDetectionUiFragment extends Bloodpressure_Fragment {
 
     private void setBtnClickableState(boolean enableClick) {
         if (enableClick) {
-            mBtnHealthHistory.setVisibility(View.VISIBLE);
-            mBtnHealthHistory.setClickable(true);
-            mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
+            mHistory1.setVisibility(View.VISIBLE);
+            mHistory1.setClickable(true);
+            mHistory1.setBackgroundResource(R.drawable.bluetooth_btn_health_history_set);
         } else {
-            mBtnHealthHistory.setVisibility(View.GONE);
-            mBtnHealthHistory.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
-            mBtnHealthHistory.setClickable(false);
+            mHistory1.setVisibility(View.GONE);
+            mHistory1.setBackgroundResource(R.drawable.bluetooth_btn_unclick_set);
+            mHistory1.setClickable(false);
         }
     }
 

@@ -74,13 +74,19 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
      */
     private static final String DANGET_PERMISSION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private ThreadUtils.SimpleTask<Void> searchTask;
+    private DeviceType type;
 
     public SearchWithDeviceGroupHelper(IView view, int measureType) {
         this.view = view;
         this.measureType = measureType;
         devices = new ArrayList<>();
     }
-
+    public SearchWithDeviceGroupHelper(IView view, int measureType,DeviceType type) {
+        this.type=type;
+        this.view = view;
+        this.measureType = measureType;
+        devices = new ArrayList<>();
+    }
 
     public void start() {
         switch (measureType) {
@@ -272,6 +278,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
                 } else if ("Dual-SPP".equals(brand)) {
                     baseBluetoothPresenter = new Bloodpressure_Xien_PresenterImp(view,
                             new DiscoverDevicesSetting(IPresenter.DISCOVER_WITH_MAC, address, "Dual-SPP"));
+
                 } else {
 
                 }
@@ -393,6 +400,7 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
             default:
                 break;
         }
+        type.type(baseBluetoothPresenter);
     }
 
     /**
@@ -420,5 +428,8 @@ public class SearchWithDeviceGroupHelper implements Comparator<SearchResult> {
             baseBluetoothPresenter = null;
         }
         mySearchResponse = null;
+    }
+    public interface DeviceType{
+        void type(BaseBluetoothPresenter baseBluetoothPresenter);
     }
 }

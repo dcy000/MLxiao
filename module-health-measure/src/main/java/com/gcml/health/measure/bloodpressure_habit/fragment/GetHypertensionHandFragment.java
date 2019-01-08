@@ -14,7 +14,7 @@ public class GetHypertensionHandFragment extends HealthBloodDetectionUiFragment 
     @Override
     public void onStart() {
         super.onStart();
-        mBtnHealthHistory.setVisibility(View.GONE);
+        mHistory1.setVisibility(View.GONE);
     }
 
     @Override
