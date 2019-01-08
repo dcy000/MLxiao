@@ -36,15 +36,6 @@
         <activity android:name="com.gcml.common.gzq.TestFingerActivity">
 
         </activity>
-        <activity android:name="com.gcml.common.TestH5Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

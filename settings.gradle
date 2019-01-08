@@ -1,4 +1,4 @@
-include ':app', ':module-auth-face2',
+include ':app', ':module-auth-face2', ':module-auth-hospital',
         ':app-component',
         ':lib-common-core',
         ':lib-common-business',
