@@ -3,7 +3,7 @@
     package="com.gcml.module_auth_hospital">
 
     <application>
-        <activity android:name=".UserLoginsActivity"></activity>
+        <activity android:name=".ui.login.UserLoginsActivity"></activity>
     </application>
 
 </manifest>
