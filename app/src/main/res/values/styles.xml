@@ -11,7 +11,7 @@
     </style>
 
     <style name="WelcomeTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/bg_welcome</item>
+        <item name="android:windowBackground">@drawable/xien_ic_splash</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 

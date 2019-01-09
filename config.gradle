@@ -23,7 +23,7 @@ ext {
     developUrl = api.heguiTest
 
     //线上正式运行的IP地址
-    produceUrl = api.heguiProduce
+    produceUrl = api.heguiTest
 
 
     android = [
@@ -31,8 +31,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
-            versionCode      : 24,
-            versionName      : "Robot.SDHG.1.1.0"
+            versionCode      : 26,
+            versionName      : "Robot.xien.2.0.7.beta"
     ]
 
     version = [

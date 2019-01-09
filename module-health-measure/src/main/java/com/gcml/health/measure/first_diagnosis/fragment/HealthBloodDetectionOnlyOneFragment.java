@@ -52,7 +52,7 @@ public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment 
     @Override
     public void onStart() {
         super.onStart();
-        mXueyaVideo.setVisibility(View.GONE);
+//        mXueyaVideo.setVisibility(View.GONE);
         mHistory1.setText("下一步");
         setBtnClickableState(false);
     }
