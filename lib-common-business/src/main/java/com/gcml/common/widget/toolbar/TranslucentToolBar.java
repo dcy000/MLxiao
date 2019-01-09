@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -84,6 +85,7 @@ public final class TranslucentToolBar extends LinearLayout {
 
     /**
      * 设置right 图标
+     *
      * @param resIdRight
      */
     public void setResIdRight(int resIdRight) {
@@ -94,6 +96,14 @@ public final class TranslucentToolBar extends LinearLayout {
             iconRight.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    public void setImageLevel(Integer integer) {
+        try {
+            ((ImageView) iconRight).setImageLevel(integer);
+        } catch (Exception e) {
+
+        }
     }
 
     /**
@@ -156,5 +166,6 @@ public final class TranslucentToolBar extends LinearLayout {
             });
         }
     }
+
 
 }

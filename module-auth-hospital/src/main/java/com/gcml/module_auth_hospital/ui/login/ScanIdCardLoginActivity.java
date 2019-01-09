@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserEntity;
@@ -41,7 +40,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class ScanIdCardLonginActivity extends AppCompatActivity {
+public class ScanIdCardLoginActivity extends AppCompatActivity {
     //    请把身份证放在身份证阅读器上
     private static final String TAG = "MyBluetooth";
     private static final String FILTER = "KT8000";
@@ -504,8 +503,6 @@ public class ScanIdCardLonginActivity extends AppCompatActivity {
                         signIn(deviceId, idCardNumber);
                     }
                 });
-
-
     }
 
     private void signIn(String deviceId, String idCardNumber) {
@@ -599,7 +596,7 @@ public class ScanIdCardLonginActivity extends AppCompatActivity {
 
     private Handler btHandler() {
         if (btHandler == null) {
-            synchronized (ScanIdCardLonginActivity.class) {
+            synchronized (ScanIdCardLoginActivity.class) {
                 if (btHandler == null) {
                     HandlerThread thread = new HandlerThread("bt");
                     thread.start();
