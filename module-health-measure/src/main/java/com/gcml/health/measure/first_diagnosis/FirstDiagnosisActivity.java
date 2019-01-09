@@ -464,8 +464,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 } else {
                     //如果本地缓存的有惯用手数据则只需测量一次，如果没有则需要惯用手判断
                     if (TextUtils.isEmpty(userHypertensionHand)) {
-                        ((HealthBloodDetectionUiFragment) fragment).onStop();
-                        ((HealthBloodDetectionUiFragment) fragment).dealLogic();
+                        ((HealthBloodDetectionOnlyOneFragment) fragment).onStop();
+                        ((HealthBloodDetectionOnlyOneFragment) fragment).dealLogic();
                     } else {
                         ((HealthBloodDetectionOnlyOneFragment) fragment).onStop();
                         ((HealthBloodDetectionOnlyOneFragment) fragment).dealLogic();
