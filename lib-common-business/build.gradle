@@ -1,4 +1,4 @@
-ext.alwaysLib=true
+ext.alwaysLib = true
 apply from: rootProject.file("build-base.gradle")
 
 android {
@@ -23,6 +23,7 @@ android {
 dependencies {
     api project(':lib-voice')
     api project(':lib-widget')
+    api project(':lib-idcard-reader')
     api 'com.qiniu:qiniu-android-sdk:7.3.12'
     implementation 'com.google.zxing:core:3.3.0'
     implementation files('libs/pinyin4j-2.5.0.jar')

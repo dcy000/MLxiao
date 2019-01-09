@@ -1,5 +1,6 @@
 package com.gcml.module_auth_hospital.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -60,6 +61,7 @@ public class UserLoginsActivity extends AppCompatActivity implements View.OnClic
             default:
                 break;
             case R.id.im_login_by_idcard:
+                startActivity(new Intent(this, ScanIdCardLonginActivity.class));
                 break;
             case R.id.im_login_by_finger:
                 break;

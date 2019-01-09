@@ -3,7 +3,7 @@ include ':app', ':module-auth-face2', ':module-auth-hospital',
         ':lib-common-core',
         ':lib-common-business',
         ':lib-common-app',
-        ':component-cc'
+        ':component-cc', ':lib-idcard-reader'
 
 // 支持模块
 include ':lib-baidu-unit',

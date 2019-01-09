@@ -29,7 +29,7 @@ public final class TranslucentToolBar extends LinearLayout {
     }
 
     public TranslucentToolBar(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public TranslucentToolBar(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -80,6 +80,20 @@ public final class TranslucentToolBar extends LinearLayout {
         } else {
             tvTitle.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * 设置right 图标
+     * @param resIdRight
+     */
+    public void setResIdRight(int resIdRight) {
+        if (resIdRight == 0) {
+            iconRight.setVisibility(View.GONE);
+        } else {
+            iconRight.setBackgroundResource(resIdRight);
+            iconRight.setVisibility(View.VISIBLE);
+        }
+
     }
 
     /**
