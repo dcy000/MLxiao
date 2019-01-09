@@ -658,11 +658,11 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
     private void showAccountInfoDialog() {
         if (dialog == null) {
             dialog = new AcountInfoDialog();
-            dialog.setListener(this);
         }
         if (dialog.isAdded()) {
             dialog.dismiss();
         } else {
+            dialog.setListener(this);
             dialog.show(getSupportFragmentManager(), "ScanIdCardLoginActivity");
         }
     }
