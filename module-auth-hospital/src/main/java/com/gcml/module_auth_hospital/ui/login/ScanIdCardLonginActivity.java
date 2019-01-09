@@ -495,13 +495,13 @@ public class ScanIdCardLonginActivity extends AppCompatActivity {
                     @Override
                     public void onNext(Object o) {
                         super.onNext(o);
-                        signIn(deviceId, idCardNumber);
+                        ToastUtils.showShort("未注册,请先去注册");
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        ToastUtils.showShort(throwable.getMessage());
+                        signIn(deviceId, idCardNumber);
                     }
                 });
 
