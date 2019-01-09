@@ -26,6 +26,7 @@ import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
+import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.kaer.sdk.IDCardItem;
 import com.kaer.sdk.bt.BtReadClient;
@@ -40,7 +41,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class ScanIdCardLoginActivity extends AppCompatActivity {
+public class ScanIdCardLoginActivity extends AppCompatActivity implements AcountInfoDialog.OnFragmentInteractionListener {
     //    请把身份证放在身份证阅读器上
     private static final String TAG = "MyBluetooth";
     private static final String FILTER = "KT8000";
@@ -494,7 +495,8 @@ public class ScanIdCardLoginActivity extends AppCompatActivity {
                     @Override
                     public void onNext(Object o) {
                         super.onNext(o);
-                        ToastUtils.showShort("未注册,请先去注册");
+//                        ToastUtils.showShort("未注册,请先去注册");
+                        showAccountInfoDialog();
                     }
 
                     @Override
@@ -648,6 +650,31 @@ public class ScanIdCardLoginActivity extends AppCompatActivity {
             mLoadingDialog = null;
             loadingDialog.dismiss();
         }
+    }
+
+
+    private AcountInfoDialog dialog;
+
+    private void showAccountInfoDialog() {
+        if (dialog == null) {
+            dialog = new AcountInfoDialog();
+            dialog.setListener(this);
+        }
+        if (dialog.isAdded()) {
+            dialog.dismiss();
+        } else {
+            dialog.show(getSupportFragmentManager(), "ScanIdCardLoginActivity");
+        }
+    }
+
+    @Override
+    public void onCancle() {
+
+    }
+
+    @Override
+    public void onConfirm() {
+
     }
 
 }

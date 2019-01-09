@@ -89,6 +89,10 @@ public class CanClearEditText extends LinearLayout {
         return tvPhone.getText().toString().trim();
     }
 
+    public void setValue(String value) {
+        tvPhone.setText(value);
+    }
+
     public interface OnTextChangeListener {
         void onTextChange(Editable s);
     }

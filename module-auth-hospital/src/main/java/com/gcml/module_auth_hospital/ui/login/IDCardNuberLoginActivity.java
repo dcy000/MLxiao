@@ -19,6 +19,7 @@ import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
+import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
 import com.gcml.module_auth_hospital.wrap.CanClearEditText;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -28,7 +29,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class IDCardNuberLoginActivity extends AppCompatActivity implements View.OnClickListener, CanClearEditText.OnTextChangeListener {
+public class IDCardNuberLoginActivity extends AppCompatActivity implements View.OnClickListener, CanClearEditText.OnTextChangeListener, AcountInfoDialog.OnFragmentInteractionListener {
 
 
     private CanClearEditText ccetPhone;
@@ -49,6 +50,8 @@ public class IDCardNuberLoginActivity extends AppCompatActivity implements View.
         tvNext = (TextView) findViewById(R.id.tv_next);
         tvNext.setOnClickListener(this);
         ccetPhone.setListener(this);
+
+        ccetPhone.setValue("340321199112256552");
 
         translucentToolBar.setData("身 份 证 扫 描 登 录",
                 R.drawable.common_btn_back, "返回",
@@ -116,7 +119,8 @@ public class IDCardNuberLoginActivity extends AppCompatActivity implements View.
                     @Override
                     public void onNext(Object o) {
                         super.onNext(o);
-                        ToastUtils.showShort("未注册,请先去注册");
+//                        ToastUtils.showShort("未注册,请先去注册");
+                        showAccountInfoDialog();
                     }
 
                     @Override
@@ -195,4 +199,30 @@ public class IDCardNuberLoginActivity extends AppCompatActivity implements View.
             loadingDialog.dismiss();
         }
     }
+
+    private AcountInfoDialog dialog;
+
+    private void showAccountInfoDialog() {
+        if (dialog == null) {
+            dialog = new AcountInfoDialog();
+            dialog.setListener(this);
+        }
+
+        if (dialog.isAdded()) {
+            dialog.dismiss();
+        } else {
+            dialog.show(getSupportFragmentManager(), "IDCardNuberLoginActivity");
+        }
+    }
+
+    @Override
+    public void onCancle() {
+
+    }
+
+    @Override
+    public void onConfirm() {
+
+    }
+
 }
