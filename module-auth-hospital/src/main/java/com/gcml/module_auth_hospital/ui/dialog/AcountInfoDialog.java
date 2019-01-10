@@ -2,6 +2,7 @@ package com.gcml.module_auth_hospital.ui.dialog;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +10,18 @@ import android.widget.TextView;
 
 import com.gcml.module_auth_hospital.R;
 
+import org.w3c.dom.Text;
+
 
 public class AcountInfoDialog extends DialogFragment implements View.OnClickListener {
 
-    private static final String ARG_PARAM1 = "operator";
+    private static final String ARG_PARAM1 = "noticeInfo";
     private static final String ARG_PARAM2 = "organizationName";
     TextView tvCancle;
     TextView tvConfirm;
+    TextView tvNoticeInfo;
 
-    private String operator;
+    private String noticeInfo;
     private String organizationName;
 
     public void setListener(OnFragmentInteractionListener mListener) {
@@ -32,8 +36,12 @@ public class AcountInfoDialog extends DialogFragment implements View.OnClickList
     public static AcountInfoDialog newInstance(String operator, String organizationName) {
         AcountInfoDialog fragment = new AcountInfoDialog();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, operator);
-        args.putString(ARG_PARAM2, organizationName);
+        if (!TextUtils.isEmpty(operator)) {
+            args.putString(ARG_PARAM1, operator);
+        }
+        if (!TextUtils.isEmpty(organizationName)) {
+            args.putString(ARG_PARAM2, organizationName);
+        }
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,7 +51,7 @@ public class AcountInfoDialog extends DialogFragment implements View.OnClickList
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.XDialog);
         if (getArguments() != null) {
-            operator = getArguments().getString(ARG_PARAM1);
+            noticeInfo = getArguments().getString(ARG_PARAM1);
             organizationName = getArguments().getString(ARG_PARAM2);
         }
         setCancelable(false);
@@ -90,6 +98,12 @@ public class AcountInfoDialog extends DialogFragment implements View.OnClickList
         tvCancle.setOnClickListener(this);
         tvConfirm = (TextView) inflate.findViewById(R.id.tv_confirm);
         tvConfirm.setOnClickListener(this);
+
+        tvNoticeInfo = (TextView) inflate.findViewById(R.id.auth_dialog_notice_info);
+        if (!TextUtils.isEmpty(noticeInfo)) {
+            tvNoticeInfo.setText(noticeInfo);
+        }
+
     }
 
     @Override

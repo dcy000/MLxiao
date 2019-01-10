@@ -11,6 +11,7 @@ import com.billy.cc.core.component.CC;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
+import com.gcml.module_auth_hospital.ui.register.UserRegistersActivity;
 
 public class UserLoginsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -71,6 +72,7 @@ public class UserLoginsActivity extends AppCompatActivity implements View.OnClic
                 startActivity(new Intent(this, IDCardNuberLoginActivity.class));
                 break;
             case R.id.tv_to_register:
+                startActivity(new Intent(this, UserRegistersActivity.class));
                 break;
         }
     }

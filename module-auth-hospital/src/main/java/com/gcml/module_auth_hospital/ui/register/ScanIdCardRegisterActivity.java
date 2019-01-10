@@ -1,4 +1,4 @@
-package com.gcml.module_auth_hospital.ui.login;
+package com.gcml.module_auth_hospital.ui.register;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -27,7 +27,7 @@ import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
-import com.gcml.module_auth_hospital.ui.register.UserRegistersActivity;
+import com.gcml.module_auth_hospital.ui.login.ScanIdCardLoginActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.kaer.sdk.IDCardItem;
 import com.kaer.sdk.bt.BtReadClient;
@@ -42,7 +42,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class ScanIdCardLoginActivity extends AppCompatActivity implements AcountInfoDialog.OnFragmentInteractionListener {
+public class ScanIdCardRegisterActivity extends AppCompatActivity implements AcountInfoDialog.OnFragmentInteractionListener {
     //    请把身份证放在身份证阅读器上
     private static final String TAG = "MyBluetooth";
     private static final String FILTER = "KT8000";
@@ -71,7 +71,7 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
 
     private void initView() {
         authScanIdCardToobar = findViewById(R.id.auth_scan_idcard_tb);
-        authScanIdCardToobar.setData("身 份 证 扫 描 登 录",
+        authScanIdCardToobar.setData("身 份 证 扫 描 注 册",
                 R.drawable.common_btn_back, "返回",
                 R.drawable.common_icon_bluetooth_break, null, new ToolBarClickListener() {
                     @Override
@@ -496,51 +496,15 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
                     @Override
                     public void onNext(Object o) {
                         super.onNext(o);
-//                        ToastUtils.showShort("未注册,请先去注册");
+                        //身份证未被绑定后其他异常情况
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        //身份证已被绑定
                         showAccountInfoDialog();
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        super.onError(throwable);
-                        signIn(deviceId, idCardNumber);
-                    }
-                });
-    }
-
-    private void signIn(String deviceId, String idCardNumber) {
-
-        userRepository
-                .signInByIdCard(deviceId, idCardNumber)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        showLoading("正在登录...");
-                    }
-                })
-                .doOnTerminate(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        dismissLoading();
-                    }
-                })
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<UserEntity>() {
-                    @Override
-                    public void onNext(UserEntity user) {
-                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                                .addParam("userId", user.id)
-                                .build()
-                                .callAsync();
-                        ToastUtils.showLong("登录成功");
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        super.onError(throwable);
-                        ToastUtils.showShort(throwable.getMessage());
                     }
                 });
     }
@@ -599,7 +563,7 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
 
     private Handler btHandler() {
         if (btHandler == null) {
-            synchronized (ScanIdCardLoginActivity.class) {
+            synchronized (ScanIdCardRegisterActivity.class) {
                 if (btHandler == null) {
                     HandlerThread thread = new HandlerThread("bt");
                     thread.start();
@@ -658,13 +622,13 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
 
     private void showAccountInfoDialog() {
         if (dialog == null) {
-            dialog = new AcountInfoDialog();
+            dialog = AcountInfoDialog.newInstance("身份证已注册，是否直接登录？", null);
         }
         if (dialog.isAdded()) {
             dialog.dismiss();
         } else {
             dialog.setListener(this);
-            dialog.show(getSupportFragmentManager(), "ScanIdCardLoginActivity");
+            dialog.show(getSupportFragmentManager(), "ScanIDCardRegister");
         }
     }
 
@@ -675,7 +639,8 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
 
     @Override
     public void onConfirm() {
-        startActivity(new Intent(this, UserRegistersActivity.class));
+        startActivity(new Intent(this, ScanIdCardLoginActivity.class));
     }
+
 
 }

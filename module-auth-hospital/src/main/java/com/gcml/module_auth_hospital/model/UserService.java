@@ -67,6 +67,13 @@ public interface UserService {
             @Query("pwd") String pwd
     );
 
+    @POST("ZZB/br/appadd")
+    Observable<ApiResult<UserEntity>> signUpByIdCard(
+            @Query("eqid") String deviceId,
+            @Query("tel") String account,
+            @Query("pwd") String pwd
+    );
+
     @PUT("ZZB/api/user/info/{userId}/")
     Observable<ApiResult<Object>> putProfile(
             @Path("userId") String userId,
