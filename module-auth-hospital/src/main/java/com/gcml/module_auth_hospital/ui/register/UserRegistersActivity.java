@@ -74,6 +74,7 @@ public class UserRegistersActivity extends AppCompatActivity implements View.OnC
             case R.id.im_register_by_face:
                 break;
             case R.id.im_register_by_id_number:
+                startActivity(new Intent(this, IDCardNuberRegisterActivity.class));
                 break;
             case R.id.tv_to_register:
                 break;

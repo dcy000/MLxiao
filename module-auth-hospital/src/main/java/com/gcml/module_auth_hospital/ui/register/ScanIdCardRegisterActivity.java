@@ -14,13 +14,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.billy.cc.core.component.CC;
-import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
-import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -37,12 +34,17 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class ScanIdCardRegisterActivity extends AppCompatActivity implements AcountInfoDialog.OnFragmentInteractionListener {
+    public static final String REGISTER_IDCARD_NUMBER = "registerIdCardNumber";
+    public static final String REGISTER_IDCARD_MINZU = "registerIdCardMinZu";
+    public static final String REGISTER_REAL_NAME = "registeRrealName";
+    public static final String REGISTER_SEX = "registerSex";
+    public static final String REGISTER_ADDRESS = "registerAddress";
+    public static final String REGISTER_FORM_WHERE = "registerFormWhere";
+    public static final String REGISTER_FORM_IDCARD_NUMBER = "idNumber";
+
     //    请把身份证放在身份证阅读器上
     private static final String TAG = "MyBluetooth";
     private static final String FILTER = "KT8000";
@@ -497,8 +499,9 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
                     public void onNext(Object o) {
                         super.onNext(o);
                         //身份证未被绑定后其他异常情况
-
+                        toFilllRegisterInfo(item);
                     }
+
 
                     @Override
                     public void onError(Throwable throwable) {
@@ -509,6 +512,14 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
                 });
     }
 
+    private void toFilllRegisterInfo(IDCardItem item) {
+        startActivity(new Intent(this, IDCardRegisterInfoActivity.class)
+                .putExtra(REGISTER_IDCARD_NUMBER, item.certNumber)
+                .putExtra(REGISTER_IDCARD_MINZU, item.nation)
+                .putExtra(REGISTER_REAL_NAME, item.partyName)
+                .putExtra(REGISTER_SEX, item.gender)
+                .putExtra(REGISTER_ADDRESS, item.certAddress));
+    }
 
     @Override
     protected void onDestroy() {
