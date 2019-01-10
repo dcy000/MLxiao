@@ -1,14 +1,11 @@
 package com.gcml.module_blutooth_devices.bloodoxygen;
 
 import com.gcml.common.utils.data.SPUtil;
-import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
-import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Chaosi_PresenterImp;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
-import com.gcml.module_blutooth_devices.bluetooth.BluetoothStore;
-import com.gcml.module_blutooth_devices.bluetooth.DeviceBrand;
-import com.gcml.module_blutooth_devices.bluetooth.IBluetoothView;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
+import com.gcml.module_blutooth_devices.base.DeviceBrand;
+import com.gcml.module_blutooth_devices.base.IBluetoothView;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 
@@ -69,12 +66,12 @@ public class BloodOxygenPresenter extends BaseBluetooth {
 
     @Override
     protected void saveSP(String sp) {
-        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, sp);
+        SPUtil.put(BluetoothConstants.SP.SP_SAVE_BLOODOXYGEN, sp);
     }
 
     @Override
     protected String obtainSP() {
-        return (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, "");
+        return (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_BLOODOXYGEN, "");
     }
 
     @Override
@@ -86,59 +83,50 @@ public class BloodOxygenPresenter extends BaseBluetooth {
         CHAOSI_SERVICE = "ba11f08c-5f14-0b0d-1080-00" + address.toLowerCase().replace(":", "").substring(2);
 
         //第一通道监听
-        BluetoothClientManager.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHAOSI_NOTIFY1), new BleNotifyResponse() {
+        BluetoothStore.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHAOSI_NOTIFY1), new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Logg.d(Bloodoxygen_Chaosi_PresenterImp.class, "onNotify1: pass" + bytes);
             }
 
             @Override
             public void onResponse(int i) {
-                Logg.d(Bloodoxygen_Chaosi_PresenterImp.class, "onResponse: cd01" + (i == 0 ? "成功" : "失败"));
             }
         });
         //第二通道监听
-        BluetoothClientManager.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHAOSI_NOTIFY2), new BleNotifyResponse() {
+        BluetoothStore.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHAOSI_NOTIFY2), new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Logg.d(Bloodoxygen_Chaosi_PresenterImp.class, "onNotify2: pass" + bytes);
             }
 
             @Override
             public void onResponse(int i) {
-                Logg.d(Bloodoxygen_Chaosi_PresenterImp.class, "onResponse: cd02" + (i == 0 ? "成功" : "失败"));
             }
         });
         //第三通道
-        BluetoothClientManager.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHAOSI_NOTIFY3), new BleNotifyResponse() {
+        BluetoothStore.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHAOSI_NOTIFY3), new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Logg.d(Bloodoxygen_Chaosi_PresenterImp.class, "onNotify3: pass" + bytes);
             }
 
             @Override
             public void onResponse(int i) {
-                Logg.d(Bloodoxygen_Chaosi_PresenterImp.class, "onResponse: cd03" + (i == 0 ? "成功" : "失败"));
             }
         });
         //写入密码校验
-        BluetoothClientManager.getClient().write(address,
+        BluetoothStore.getClient().write(address,
                 UUID.fromString(CHAOSI_SERVICE),
                 UUID.fromString(CHAOSI_WRITE),
                 CHAOSI_PASSWORD, new BleWriteResponse() {
                     @Override
                     public void onResponse(int i) {
-                        Logg.d(Bloodoxygen_Chaosi_PresenterImp.class, "onResponseWrite: " + i);
                     }
                 });
 
-        BluetoothClientManager.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHASOSI_NOTIFY), new BleNotifyResponse() {
+        BluetoothStore.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHASOSI_NOTIFY), new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
                 if (bytes.length == 6) {
                     baseView.updateData(bytes[3] + "", bytes[4] + "");
-                    Logg.e(Bloodoxygen_Chaosi_PresenterImp.class, "onNotify: 血氧：" + bytes[3]);
-                    Logg.e(Bloodoxygen_Chaosi_PresenterImp.class, "onNotify: 脉搏" + bytes[4]);
                 }
             }
 

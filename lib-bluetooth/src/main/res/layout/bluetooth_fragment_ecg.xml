@@ -13,7 +13,7 @@
         <!--app:layout_constraintLeft_toLeftOf="parent"-->
         <!--app:layout_constraintRight_toRightOf="parent"-->
         <!--app:layout_constraintTop_toTopOf="parent" />-->
-    <com.gcml.module_blutooth_devices.ecg_devices.ECGSingleGuideView
+    <com.gcml.module_blutooth_devices.ecg.ECGSingleGuideView
         android:id="@+id/ecgView"
         android:layout_width="0dp"
         android:layout_height="0dp"

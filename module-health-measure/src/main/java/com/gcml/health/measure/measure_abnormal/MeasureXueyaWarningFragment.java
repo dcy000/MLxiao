@@ -1,14 +1,11 @@
 package com.gcml.health.measure.measure_abnormal;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,8 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
-import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
 import java.util.ArrayList;
 

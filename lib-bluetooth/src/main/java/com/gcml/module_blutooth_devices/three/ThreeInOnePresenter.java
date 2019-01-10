@@ -1,11 +1,11 @@
 package com.gcml.module_blutooth_devices.three;
 
 import com.gcml.common.utils.data.SPUtil;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
-import com.gcml.module_blutooth_devices.bluetooth.BluetoothStore;
-import com.gcml.module_blutooth_devices.bluetooth.DeviceBrand;
-import com.gcml.module_blutooth_devices.bluetooth.IBluetoothView;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
+import com.gcml.module_blutooth_devices.base.DeviceBrand;
+import com.gcml.module_blutooth_devices.base.IBluetoothView;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 
 import java.util.HashMap;
@@ -42,12 +42,12 @@ public class ThreeInOnePresenter extends BaseBluetooth {
 
     @Override
     protected void saveSP(String sp) {
-        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, sp);
+        SPUtil.put(BluetoothConstants.SP.SP_SAVE_THREE_IN_ONE, sp);
     }
 
     @Override
     protected String obtainSP() {
-        return (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, "");
+        return (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_THREE_IN_ONE, "");
     }
 
     @Override

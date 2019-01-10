@@ -7,8 +7,8 @@ import android.widget.LinearLayout;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -53,16 +53,16 @@ public class ChooseECGDeviceFragment extends BluetoothBaseFragment implements Vi
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.ll_keruikang) {
-            SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG,DEVICE_ECG_KERUIKANG);
+            SPUtil.put(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG,DEVICE_ECG_KERUIKANG);
             if (fragmentChanged!=null){
                 Bundle bundle=new Bundle();
-                bundle.putInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG,DEVICE_ECG_KERUIKANG);
+                bundle.putInt(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG,DEVICE_ECG_KERUIKANG);
                 fragmentChanged.onFragmentChanged(this,bundle);
             }
         } else if (i == R.id.ll_bosheng) {
-            SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG,DEVICE_ECG_BOSHENG);
+            SPUtil.put(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG,DEVICE_ECG_BOSHENG);
             Bundle bundle=new Bundle();
-            bundle.putInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG,DEVICE_ECG_BOSHENG);
+            bundle.putInt(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG,DEVICE_ECG_BOSHENG);
             fragmentChanged.onFragmentChanged(this,bundle);
         } else {
         }

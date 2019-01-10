@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.example.han.referralproject.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
 public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragment implements View.OnClickListener {
 

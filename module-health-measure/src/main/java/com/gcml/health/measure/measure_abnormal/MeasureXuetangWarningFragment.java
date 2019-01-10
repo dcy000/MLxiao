@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
 import java.util.ArrayList;
 

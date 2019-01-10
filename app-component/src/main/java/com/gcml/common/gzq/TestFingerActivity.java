@@ -15,7 +15,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
-import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerprint_WeiEr_PresenterImp;
+import com.gcml.module_blutooth_devices.fingerprint.Fingerprint_WeiEr_PresenterImp;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
 import java.util.ArrayList;

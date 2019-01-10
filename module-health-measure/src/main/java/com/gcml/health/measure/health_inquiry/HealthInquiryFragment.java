@@ -17,7 +17,7 @@ import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
 import com.gcml.health.measure.divider.LinearLayoutDividerItemDecoration;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.List;

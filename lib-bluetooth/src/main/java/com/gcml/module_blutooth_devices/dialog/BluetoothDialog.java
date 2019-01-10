@@ -24,15 +24,14 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.bluetooth.BindDeviceBean;
-import com.gcml.module_blutooth_devices.bluetooth.BluetoothStore;
-import com.gcml.module_blutooth_devices.bluetooth.DeviceBrand;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.base.BindDeviceBean;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
+import com.gcml.module_blutooth_devices.base.DeviceBrand;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.inuker.bluetooth.library.connect.response.BleReadRssiResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 public class BluetoothDialog extends AlertDialog implements LifecycleObserver, View.OnClickListener {
@@ -61,7 +60,7 @@ public class BluetoothDialog extends AlertDialog implements LifecycleObserver, V
     private ChooseBluetoothDevice chooseBluetoothDevice;
 
     {
-        String sp_bloodoxygen = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, "");
+        String sp_bloodoxygen = (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_BLOODOXYGEN, "");
         if (!TextUtils.isEmpty(sp_bloodoxygen)) {
             bloodoxygenSplit = sp_bloodoxygen.split(",");
             if (bloodoxygenSplit.length == 2) {
@@ -69,7 +68,7 @@ public class BluetoothDialog extends AlertDialog implements LifecycleObserver, V
             }
         }
 
-        String sp_bloodpressure = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
+        String sp_bloodpressure = (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_BLOODPRESSURE, "");
         if (!TextUtils.isEmpty(sp_bloodpressure)) {
             bloodpressureSplit = sp_bloodpressure.split(",");
             if (bloodpressureSplit.length == 2) {
@@ -77,28 +76,28 @@ public class BluetoothDialog extends AlertDialog implements LifecycleObserver, V
             }
         }
 
-        String sp_bloodsugar = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
+        String sp_bloodsugar = (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_BLOODSUGAR, "");
         if (!TextUtils.isEmpty(sp_bloodsugar)) {
             bloodsugarSplit = sp_bloodsugar.split(",");
             if (bloodsugarSplit.length == 2) {
                 bindNameAddress.put(bloodsugarSplit[0], bloodsugarSplit[1]);
             }
         }
-        String sp_ecg = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
+        String sp_ecg = (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_ECG, "");
         if (!TextUtils.isEmpty(sp_ecg)) {
             ecgSplit = sp_ecg.split(",");
             if (ecgSplit.length == 2) {
                 bindNameAddress.put(ecgSplit[0], ecgSplit[1]);
             }
         }
-        String sp_temperature = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE, "");
+        String sp_temperature = (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_TEMPERATURE, "");
         if (!TextUtils.isEmpty(sp_temperature)) {
             temperatureSplit = sp_temperature.split(",");
             if (temperatureSplit.length == 2) {
                 bindNameAddress.put(temperatureSplit[0], temperatureSplit[1]);
             }
         }
-        String sp_weight = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
+        String sp_weight = (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_WEIGHT, "");
         if (!TextUtils.isEmpty(sp_weight)) {
             weightSplit = sp_weight.split(",");
             if (weightSplit.length == 2) {
@@ -106,7 +105,7 @@ public class BluetoothDialog extends AlertDialog implements LifecycleObserver, V
             }
         }
 
-        String sp_three = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, "");
+        String sp_three = (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_THREE_IN_ONE, "");
         if (!TextUtils.isEmpty(sp_three)) {
             threeSplit = sp_three.split(",");
             if (threeSplit.length == 2) {

@@ -1,22 +1,16 @@
 package com.gcml.module_blutooth_devices.weight;
 
 import com.gcml.common.utils.data.SPUtil;
-import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
-import com.gcml.module_blutooth_devices.bluetooth.BluetoothStore;
-import com.gcml.module_blutooth_devices.bluetooth.DeviceBrand;
-import com.gcml.module_blutooth_devices.bluetooth.IBluetoothView;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
-import com.gcml.module_blutooth_devices.weight_devices.Weight_Bodivis_PresenterImp;
-import com.gcml.module_blutooth_devices.weight_devices.Weight_Chaosi_PresenterImp;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
+import com.gcml.module_blutooth_devices.base.DeviceBrand;
+import com.gcml.module_blutooth_devices.base.IBluetoothView;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
-import com.inuker.bluetooth.library.utils.ByteUtils;
 
 import java.util.HashMap;
 import java.util.UUID;
-
-import retrofit2.http.GET;
 
 public class WeightPresenter extends BaseBluetooth {
     private static final String TONGFANG_SERVICE = "f433bd80-75b8-11e2-97d9-0002a5d5c51b";//主服务
@@ -94,12 +88,12 @@ public class WeightPresenter extends BaseBluetooth {
 
     @Override
     protected void saveSP(String sp) {
-        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, sp);
+        SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, sp);
     }
 
     @Override
     protected String obtainSP() {
-        return (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
+        return (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_WEIGHT, "");
     }
 
     @Override
@@ -130,7 +124,6 @@ public class WeightPresenter extends BaseBluetooth {
         BluetoothStore.getClient().notify(address, UUID.fromString(TONGFANG_SERVICE), UUID.fromString(TONGFANG_NOTIFY), new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Logg.e(Weight_Bodivis_PresenterImp.class, "onNotify: " + ByteUtils.byteToString(bytes));
                 float weight;
                 if (bytes.length == 0)
                     return;
@@ -145,7 +138,6 @@ public class WeightPresenter extends BaseBluetooth {
                             weight = (float) ((h * 256 + l) / 10.0);
                             if (weight == 0)
                                 return;
-                            Logg.e(Weight_Bodivis_PresenterImp.class, "onNotify: " + weight + "Kg");
                             baseView.updateData(weight + "");
                             //TODO 可以向体重秤写入个人信息然后得到体脂，BIM等一系列更详细的信息
                         }
@@ -157,7 +149,6 @@ public class WeightPresenter extends BaseBluetooth {
 
             @Override
             public void onResponse(int i) {
-                Logg.e(Weight_Bodivis_PresenterImp.class, "onResponse: " + i);
             }
         });
     }
@@ -197,36 +188,30 @@ public class WeightPresenter extends BaseBluetooth {
         BluetoothStore.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHAOSI_NOTIFY1), new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Logg.e(Weight_Chaosi_PresenterImp.class, "onNotify1: pass" + ByteUtils.byteToString(bytes));
             }
 
             @Override
             public void onResponse(int i) {
-                Logg.e(Weight_Chaosi_PresenterImp.class, "onResponse: cd01" + (i == 0 ? "成功" : "失败"));
             }
         });
         //第二通道监听
         BluetoothStore.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHAOSI_NOTIFY2), new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Logg.e(Weight_Chaosi_PresenterImp.class, "onNotify2: pass" + bytes);
             }
 
             @Override
             public void onResponse(int i) {
-                Logg.e(Weight_Chaosi_PresenterImp.class, "onResponse: cd02" + (i == 0 ? "成功" : "失败"));
             }
         });
         //第三通道
         BluetoothStore.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHAOSI_NOTIFY3), new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Logg.e(Weight_Chaosi_PresenterImp.class, "onNotify3: pass" + bytes);
             }
 
             @Override
             public void onResponse(int i) {
-                Logg.e(Weight_Chaosi_PresenterImp.class, "onResponse: cd03" + (i == 0 ? "成功" : "失败"));
             }
         });
         //写入密码校验
@@ -236,19 +221,16 @@ public class WeightPresenter extends BaseBluetooth {
                 CHAOSI_PASSWORD, new BleWriteResponse() {
                     @Override
                     public void onResponse(int i) {
-                        Logg.e(Weight_Chaosi_PresenterImp.class, "onResponseWrite: " + i);
                     }
                 });
 
         BluetoothStore.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHAOSI_NOTIFY), new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Logg.e(Weight_Chaosi_PresenterImp.class, "onNotify: " + ByteUtils.byteToString(bytes));
                 if (bytes.length == 8) {
                     int h = bytes[6] & 0xff;
                     int l = bytes[5] & 0xff;
                     float weight = ((h << 8) + l) * 0.1f;
-                    Logg.e(Weight_Chaosi_PresenterImp.class, "onNotify: 体重:" + weight);
                     baseView.updateData(String.format("%.2f", weight));
                 }
             }

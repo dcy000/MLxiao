@@ -15,8 +15,8 @@ import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.common.utils.thread.ThreadUtils;
 import com.gcml.module_blutooth_devices.R;
-import com.gcml.module_blutooth_devices.bluetooth.IBluetoothView;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.base.IBluetoothView;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
 
 import java.io.IOException;
@@ -137,7 +137,7 @@ public class BloodpressureXien2Presenter implements LifecycleObserver {
                 isSuccess = true;
                 baseView.updateState(activity.getString(R.string.bluetooth_device_connected));
                 baseView.updateData("0", "0", "0");
-                SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, name + "," + address);
+                SPUtil.put(BluetoothConstants.SP.SP_SAVE_BLOODPRESSURE, name + "," + address);
             } else {
                 isSuccess = false;
                 socket.connect();

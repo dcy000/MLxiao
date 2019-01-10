@@ -11,7 +11,6 @@ import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.bloodpressure_habit.GetHypertensionHandActivity;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
-import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import static android.app.Activity.RESULT_OK;

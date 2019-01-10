@@ -12,9 +12,8 @@ import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.utils.handler.WeakHandler;
 import com.gcml.module_blutooth_devices.R;
-import com.gcml.module_blutooth_devices.bluetooth.IBluetoothView;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
-import com.gcml.module_blutooth_devices.weight_devices.SimaideBodyInfo;
+import com.gcml.module_blutooth_devices.base.IBluetoothView;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.google.gson.Gson;
 import com.vtrump.vtble.VTDevice;
 import com.vtrump.vtble.VTDeviceManager;
@@ -85,7 +84,7 @@ public class WeightSimaidePresenter implements LifecycleObserver {
             baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
             baseView.updateData("initialization", "0.00");
             BluetoothDevice btDevice = vtDevice.getBtDevice();
-            SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
+            SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
         }
 
         @Override
@@ -111,7 +110,7 @@ public class WeightSimaidePresenter implements LifecycleObserver {
             baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
             baseView.updateData("initialization", "0.00");
             BluetoothDevice btDevice = device.getBtDevice();
-            SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
+            SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, btDevice.getName() + "," + btDevice.getAddress());
             //连接成功 然后 给广播称设置数据监听
             WeightSimaidePresenter.this.device = (VTDeviceScale) device;
             WeightSimaidePresenter.this.device.setScaleDataListener(mDataListener);

@@ -1,11 +1,11 @@
 package com.gcml.module_blutooth_devices.bloodsugar;
 
 import com.gcml.common.utils.data.SPUtil;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
-import com.gcml.module_blutooth_devices.bluetooth.BluetoothStore;
-import com.gcml.module_blutooth_devices.bluetooth.DeviceBrand;
-import com.gcml.module_blutooth_devices.bluetooth.IBluetoothView;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
+import com.gcml.module_blutooth_devices.base.DeviceBrand;
+import com.gcml.module_blutooth_devices.base.IBluetoothView;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 
@@ -60,12 +60,12 @@ public class BloodSugarPresenter extends BaseBluetooth {
 
     @Override
     protected void saveSP(String sp) {
-        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, sp);
+        SPUtil.put(BluetoothConstants.SP.SP_SAVE_BLOODSUGAR, sp);
     }
 
     @Override
     protected String obtainSP() {
-        return (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
+        return (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_BLOODSUGAR, "");
     }
 
     @Override

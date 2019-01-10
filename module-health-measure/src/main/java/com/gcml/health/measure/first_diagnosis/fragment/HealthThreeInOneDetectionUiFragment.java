@@ -11,7 +11,6 @@ import com.gcml.health.measure.R;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
-import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.gcml.module_blutooth_devices.three.ThreeInOneFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 

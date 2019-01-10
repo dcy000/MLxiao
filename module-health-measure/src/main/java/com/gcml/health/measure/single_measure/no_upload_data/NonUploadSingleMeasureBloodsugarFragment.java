@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.data.DataUtils;
 import com.gcml.module_blutooth_devices.bloodsugar.BloodSugarFragment;
-import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 /**

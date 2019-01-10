@@ -132,13 +132,6 @@ public interface IPresenter {
      * 连接设备
      */
     void connectDevice(String macAddress);
-
-    /**
-     * 连接其他设备
-     *
-     * @param setting
-     */
-    void connectOtherDevice(DiscoverDevicesSetting setting);
     void onResume();
     void onDestroy();
 }

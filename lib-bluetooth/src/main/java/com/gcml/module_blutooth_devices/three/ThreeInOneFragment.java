@@ -8,8 +8,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
-import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
 public class ThreeInOneFragment extends BluetoothBaseFragment implements View.OnClickListener {
     /**
@@ -130,9 +129,9 @@ public class ThreeInOneFragment extends BluetoothBaseFragment implements View.On
         void onChanged(int position);
     }
 
-    protected ThreeInOne_Fragment.MeasureItemChanged measureItemChanged;
+    protected ThreeInOneFragment.MeasureItemChanged measureItemChanged;
 
-    public void setOnMeasureItemChanged(ThreeInOne_Fragment.MeasureItemChanged measureItemChanged) {
+    public void setOnMeasureItemChanged(ThreeInOneFragment.MeasureItemChanged measureItemChanged) {
         this.measureItemChanged = measureItemChanged;
     }
 }

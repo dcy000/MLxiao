@@ -9,7 +9,6 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.module_blutooth_devices.weight.WeightFragment;
-import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import io.reactivex.Observable;

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.gcml.common.utils.UtilsManager;
-import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.gcml.module_blutooth_devices.three.ThreeInOneFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 

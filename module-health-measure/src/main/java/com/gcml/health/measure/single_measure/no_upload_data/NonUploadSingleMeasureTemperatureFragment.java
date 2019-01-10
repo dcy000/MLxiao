@@ -2,7 +2,6 @@ package com.gcml.health.measure.single_measure.no_upload_data;
 
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.module_blutooth_devices.temperature.TemperatureFragment;
-import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 /**

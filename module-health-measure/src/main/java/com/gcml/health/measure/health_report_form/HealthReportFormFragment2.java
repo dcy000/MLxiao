@@ -18,7 +18,7 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportParseBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.littlejie.circleprogress.CircleProgress;
 
 import java.util.ArrayList;

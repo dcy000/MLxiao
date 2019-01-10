@@ -1,17 +1,15 @@
 package com.gcml.module_blutooth_devices.bloodpressure;
 
 import android.annotation.SuppressLint;
+
 import com.gcml.common.utils.data.SPUtil;
-import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Chaosi_PresenterImp;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
-import com.gcml.module_blutooth_devices.bluetooth.BluetoothStore;
-import com.gcml.module_blutooth_devices.bluetooth.DeviceBrand;
-import com.gcml.module_blutooth_devices.bluetooth.IBluetoothView;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
+import com.gcml.module_blutooth_devices.base.DeviceBrand;
+import com.gcml.module_blutooth_devices.base.IBluetoothView;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
-import com.inuker.bluetooth.library.utils.ByteUtils;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -114,12 +112,12 @@ public class BloodPressurePresenter extends BaseBluetooth {
 
     @Override
     protected void saveSP(String sp) {
-        SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, sp);
+        SPUtil.put(BluetoothConstants.SP.SP_SAVE_BLOODPRESSURE, sp);
     }
 
     @Override
     protected String obtainSP() {
-        return (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
+        return (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_BLOODPRESSURE, "");
     }
 
     @Override
@@ -218,13 +216,11 @@ public class BloodPressurePresenter extends BaseBluetooth {
         BluetoothStore.getClient().notify(address, UUID.fromString(CHAOSI_SERVICE), UUID.fromString(CHAOSI_NOTIFY1), new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify: " + ByteUtils.byteToString(bytes));
             }
 
             @SuppressLint("LongLogTag")
             @Override
             public void onResponse(int i) {
-                Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onResponse: cd01" + (i == 0 ? "成功" : "失败"));
             }
         });
 
@@ -233,13 +229,11 @@ public class BloodPressurePresenter extends BaseBluetooth {
             @SuppressLint("LongLogTag")
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify2: pass" + ByteUtils.byteToString(bytes));
             }
 
             @SuppressLint("LongLogTag")
             @Override
             public void onResponse(int i) {
-                Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onResponse: cd02" + (i == 0 ? "成功" : "失败"));
             }
         });
         //第三通道
@@ -247,13 +241,11 @@ public class BloodPressurePresenter extends BaseBluetooth {
             @SuppressLint("LongLogTag")
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify3: pass" + ByteUtils.byteToString(bytes));
             }
 
             @SuppressLint("LongLogTag")
             @Override
             public void onResponse(int i) {
-                Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onResponse: cd03" + (i == 0 ? "成功" : "失败"));
             }
         });
         //第四通道
@@ -261,18 +253,13 @@ public class BloodPressurePresenter extends BaseBluetooth {
             @SuppressLint("LongLogTag")
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify: " + bytes.length);
                 if (bytes.length == 12) {
-                    Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify: 高压：" + (bytes[4] + bytes[5]));
-                    Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify: 低压：" + (bytes[6] + bytes[7]));
-                    Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onNotify: 脉搏" + (bytes[8] + bytes[9]));
                     baseView.updateData((bytes[4] + bytes[5]) + "", (bytes[6] + bytes[7]) + "", (bytes[8] + bytes[9]) + "");
                 }
             }
 
             @Override
             public void onResponse(int i) {
-                Logg.e(Bloodpressure_Chaosi_PresenterImp.class, "onResponse: cd04" + (i == 0 ? "成功" : "失败"));
             }
         });
 
@@ -284,7 +271,6 @@ public class BloodPressurePresenter extends BaseBluetooth {
                     @SuppressLint("LongLogTag")
                     @Override
                     public void onResponse(int i) {
-                        Logg.d(Bloodpressure_Chaosi_PresenterImp.class, "onResponseWrite: " + i);
                     }
                 });
     }

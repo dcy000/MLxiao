@@ -1,7 +1,6 @@
 package com.gcml.health.measure.first_diagnosis;
 
 import android.app.Application;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.billy.cc.core.component.CC;
@@ -17,7 +15,6 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
-import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCVideoActions;
@@ -31,19 +28,13 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthSugarDetectionUiFr
 import com.gcml.health.measure.first_diagnosis.fragment.HealthThreeInOneDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.inuker.bluetooth.library.utils.BluetoothUtils;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump {
     private BluetoothBaseFragment baseFragment;
@@ -122,22 +113,12 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
      * 展示刷新
      */
     private void showRefreshBluetoothDialog() {
-//        DialogSureCancel sureCancel = new DialogSureCancel(this);
-//        sureCancel.setContent("您确定解绑之前的设备，重新连接新设备吗？");
-//        sureCancel.setOnClickCancelListener(null);
-//        sureCancel.setOnClickSureListener(new DialogClickSureListener() {
-//            @Override
-//            public void clickSure(BaseDialog dialog) {
-//                untieDevice();
-//            }
-//        });
         new AlertDialog(this)
                 .builder()
                 .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        untieDevice();
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {
@@ -146,68 +127,6 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
 
                     }
                 }).show();
-    }
-
-    private void untieDevice() {
-        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
-        unpairDevice();
-        String nameAddress = null;
-        switch (measureType) {
-            case IPresenter.MEASURE_BLOOD_PRESSURE:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
-                ((HealthBloodDetectionUiFragment) baseFragment).onStop();
-//                ((HealthBloodDetectionUiFragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_BLOOD_SUGAR:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR);
-                ((HealthSugarDetectionUiFragment) baseFragment).onStop();
-//                ((HealthSugarDetectionUiFragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_WEIGHT:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_WEIGHT);
-                ((HealthWeightDetectionUiFragment) baseFragment).onStop();
-//                ((HealthWeightDetectionUiFragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_OTHERS:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE);
-                ((HealthThreeInOneDetectionUiFragment) baseFragment).onStop();
-//                ((HealthThreeInOneDetectionUiFragment) baseFragment).dealLogic();
-                break;
-            default:
-                break;
-        }
-
-        clearBluetoothCache(nameAddress);
-    }
-
-    private void clearBluetoothCache(String nameAddress) {
-        if (!TextUtils.isEmpty(nameAddress)) {
-            String[] split = nameAddress.split(",");
-            if (split.length == 2 && !TextUtils.isEmpty(split[1])) {
-                BluetoothClientManager.getClient().refreshCache(split[1]);
-            }
-        }
-    }
-
-    /**
-     * 解除已配对设备
-     */
-    private void unpairDevice() {
-        List<BluetoothDevice> devices = BluetoothUtils.getBondedBluetoothClassicDevices();
-        for (BluetoothDevice device : devices) {
-            try {
-                Method m = device.getClass()
-                        .getMethod("removeBond", (Class[]) null);
-                m.invoke(device, (Object[]) null);
-            } catch (Exception e) {
-                Timber.e(e.getMessage());
-            }
-        }
-
     }
 
     @Override

@@ -12,10 +12,8 @@ import android.text.TextUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
-import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_GlucWell_PresenterImp;
-import com.gcml.module_blutooth_devices.bluetooth.IBluetoothView;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.base.IBluetoothView;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.vivachek.ble.sdk.outer.BleManager;
 import com.vivachek.ble.sdk.outer.constant.BleActionType;
 import com.vivachek.ble.sdk.outer.constant.BleConnectState;
@@ -81,7 +79,7 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
                 // 蓝牙连接设备成功
                 baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
                 baseView.updateData("initialization", "0.00");
-                SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, name + "," + address);
+                SPUtil.put(BluetoothConstants.SP.SP_SAVE_BLOODSUGAR, name + "," + address);
                 BleManager.getInstance().sendGetSnCommond();
                 break;
 
@@ -119,23 +117,18 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
     public void onBleRealTimeMeasureToastCallback(String s, int measureToastType) {
         switch (measureToastType) {
             case BleMeasureToastType.LAST_TIME_MEASURE:
-                Logg.e(Bloodsugar_GlucWell_PresenterImp.class, "上次测量的记录: ");
                 break;
 
             case BleMeasureToastType.INSERTED_TEST_STRIP:
-                Logg.e(Bloodsugar_GlucWell_PresenterImp.class, "已插入试纸: ");
                 break;
 
             case BleMeasureToastType.WAITING_COLLECTION_BLOOD:
-                Logg.e(Bloodsugar_GlucWell_PresenterImp.class, "等待加血: ");
                 break;
 
             case BleMeasureToastType.FINISH_COLLECTION_BLOOD:
-                Logg.e(Bloodsugar_GlucWell_PresenterImp.class, "完成加血: ");
                 break;
 
             case BleMeasureToastType.MEASURE_ERROR:
-                Logg.e(Bloodsugar_GlucWell_PresenterImp.class, "测量异常: ");
                 break;
             default:
                 break;
@@ -161,7 +154,6 @@ public class BloodsugarGlucWellPresenter implements LifecycleObserver, OnBleList
 
         BaseGlucoseEntity baseGlucoseEntity = list.get(0);
         float result = baseGlucoseEntity.getValue();//+ baseGlucoseEntity.getMeasureUnit();
-        Logg.e(Bloodsugar_GlucWell_PresenterImp.class, "onBleGlucoseDataCallback: 本次血糖：" + result);
         baseView.updateData(String.format("%.2f", result));
 
     }

@@ -10,10 +10,8 @@ import android.support.v4.app.SupportActivity;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.module_blutooth_devices.R;
-import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.bluetooth.IBluetoothView;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
-import com.gcml.module_blutooth_devices.weight_devices.Weight_Xiangshan_EF895i_PresenterImp;
+import com.gcml.module_blutooth_devices.base.IBluetoothView;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 
 import java.math.BigDecimal;
 
@@ -48,7 +46,7 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                 if (b) {
                     baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
                     baseView.updateData("initialization", "0.00");
-                    SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, name + "," + address);
+                    SPUtil.put(BluetoothConstants.SP.SP_SAVE_WEIGHT, name + "," + address);
                 } else {
                     if (((Fragment) baseView).isAdded()) {
                         baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_disconnected));
@@ -68,18 +66,15 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                             case "80":
                                 if (strdata[12].equals("A0")) {
                                     String tmpNum = strdata[7] + strdata[8];
-                                    Logg.e(Weight_Xiangshan_EF895i_PresenterImp.class, "OnDATA: 不稳定体重" + String.format("%.1f", Integer.valueOf(tmpNum, 16) / 10f) + "KG");
                                     baseView.updateData(String.format("%.2f", Integer.valueOf(tmpNum, 16) / 10f));
                                 } else {
                                     String tmpNum = strdata[7] + strdata[8];
-                                    Logg.e(Weight_Xiangshan_EF895i_PresenterImp.class, "OnDATA:稳定体重 " + String.format("%.1f", Integer.valueOf(tmpNum, 16) / 10f) + "KG");
                                     baseView.updateData("result", "result", String.format("%.2f", Integer.valueOf(tmpNum, 16) / 10f));
                                 }
                                 break;
                             case "82":
                                 switch (strdata[7]) {
                                     case "00": {
-                                        Logg.e(Weight_Xiangshan_EF895i_PresenterImp.class, "OnDATA: " + new BigDecimal(Integer.valueOf(strdata[10] + strdata[11], 16) / 10f).setScale(1, BigDecimal.ROUND_HALF_UP).toString());
                                         float eigenvalue = new BigDecimal(Integer.valueOf(strdata[14] + strdata[15], 16)).floatValue();
                                         float weight = new BigDecimal(Integer.valueOf(strdata[10] + strdata[11], 16) / 10f).setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
                                         //TODO:请求香山的接口 获取更加详细的健康分析数据

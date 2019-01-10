@@ -16,12 +16,11 @@ import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.bloodpressure_habit.fragment.GetHypertensionHandFragment;
-import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
-import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
 
@@ -136,8 +135,8 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
         mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         unpairDevice();
         String nameAddress = null;
-        nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
-        SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
+        nameAddress = (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_BLOODPRESSURE, "");
+        SPUtil.remove(BluetoothConstants.SP.SP_SAVE_BLOODPRESSURE);
         ((BloodpressureFragment) fragment).onStop();
 //        ((BloodpressureFragment) fragment).dealLogic();
 
@@ -165,7 +164,7 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
         if (!TextUtils.isEmpty(nameAddress)) {
             String[] split = nameAddress.split(",");
             if (split.length == 2 && !TextUtils.isEmpty(split[1])) {
-                BluetoothClientManager.getClient().refreshCache(split[1]);
+                BluetoothStore.getClient().refreshCache(split[1]);
             }
         }
     }

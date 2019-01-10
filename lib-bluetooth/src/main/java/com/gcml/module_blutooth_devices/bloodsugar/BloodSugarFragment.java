@@ -9,7 +9,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
 public class BloodSugarFragment extends BluetoothBaseFragment implements View.OnClickListener {
     protected TextView mBtnHealthHistory;

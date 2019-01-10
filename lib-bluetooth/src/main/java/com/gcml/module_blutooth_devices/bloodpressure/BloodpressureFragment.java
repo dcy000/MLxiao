@@ -9,9 +9,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.base.Logg;
-import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Self_PresenterImp;
-import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
 public class BloodpressureFragment extends BluetoothBaseFragment implements View.OnClickListener {
     private TextView mTitle3;
@@ -61,7 +59,6 @@ public class BloodpressureFragment extends BluetoothBaseFragment implements View
                 onMeasureFinished(datas[0], datas[1], datas[2]);
             }
         } else {
-            Logg.e(Bloodpressure_Self_PresenterImp.class, "updateData: ");
         }
     }
 
