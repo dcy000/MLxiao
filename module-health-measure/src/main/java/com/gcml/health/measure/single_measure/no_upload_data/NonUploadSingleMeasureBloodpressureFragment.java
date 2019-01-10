@@ -10,6 +10,7 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.bloodpressure_habit.GetHypertensionHandActivity;
+import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -22,7 +23,7 @@ import static android.app.Activity.RESULT_OK;
  * created by:gzq
  * description:不需要上传测量数据的单测
  */
-public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
+public class NonUploadSingleMeasureBloodpressureFragment extends BloodpressureFragment {
     private static final int CODE_REQUEST_GETHYPERTENSIONHAND = 10002;
     private boolean isOnPause=false;
     @Override
@@ -92,7 +93,7 @@ public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_F
                 mActivity.finish();
             } else {
                 getHypertensionHand();
-                dealLogic();
+//                dealLogic();
             }
         }
     }

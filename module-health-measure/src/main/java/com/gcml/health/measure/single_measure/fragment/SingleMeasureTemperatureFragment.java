@@ -9,6 +9,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
+import com.gcml.module_blutooth_devices.temperature.TemperatureFragment;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -26,7 +27,7 @@ import io.reactivex.schedulers.Schedulers;
  * created by:gzq
  * description:单次耳温测量
  */
-public class SingleMeasureTemperatureFragment extends Temperature_Fragment {
+public class SingleMeasureTemperatureFragment extends TemperatureFragment {
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {

@@ -7,6 +7,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.gcml.common.utils.data.TimeCountDownUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 /**
@@ -27,6 +28,11 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment {
     @Override
     protected void initView(View view, Bundle bundle) {
 
+    }
+
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
     }
 
 
@@ -58,5 +64,15 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment {
         super.onStop();
         MLVoiceSynthetize.stop();
         TimeCountDownUtils.getInstance().cancelAll();
+    }
+
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
     }
 }

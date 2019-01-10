@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.gcml.common.demo.R;
 import com.gcml.common.repository.entity.SheetEntity;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.utils.DefaultObserver;
@@ -22,7 +21,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
+import com.gcml.common.component.R;
 public class RepositoryActivity extends AppCompatActivity {
 
     private MusicRepository mMusicRepository;

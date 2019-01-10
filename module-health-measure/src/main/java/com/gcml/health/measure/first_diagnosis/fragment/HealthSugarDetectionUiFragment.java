@@ -11,6 +11,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
+import com.gcml.module_blutooth_devices.bloodsugar.BloodSugarFragment;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -21,7 +22,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
+public class HealthSugarDetectionUiFragment extends BloodSugarFragment {
 
 
     private int selectMeasureSugarTime;

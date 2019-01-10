@@ -17,6 +17,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 
@@ -58,6 +59,11 @@ public class Fingerpint_Fragment extends BluetoothBaseFragment implements IView,
         mFingerprintImage = view.findViewById(R.id.fingerprint_image);
         this.bundle=bundle;
 
+    }
+
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
     }
 
     @Override

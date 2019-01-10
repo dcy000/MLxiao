@@ -10,6 +10,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
+import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenFragment;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -27,7 +28,7 @@ import io.reactivex.schedulers.Schedulers;
  * created by:gzq
  * description:TODO
  */
-public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment {
+public class HealthBloodOxygenDetectionFragment extends BloodOxygenFragment {
     private boolean isJump2Next = false;
 
     @Override

@@ -9,6 +9,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -59,6 +60,11 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
 
     }
 
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
+    }
+
 
     @Override
     public void onResume() {
@@ -74,6 +80,16 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
                                 HealthFirstTipsFragment.this, null);
                     }
                 });
+    }
+
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
     }
 
     class OnSynthesizerListener implements SynthesizerListener {

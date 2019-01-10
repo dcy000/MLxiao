@@ -20,6 +20,7 @@ import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
 
@@ -124,6 +125,11 @@ public class HandRing_Fragment extends BluetoothBaseFragment implements IView, V
         dealLogic();
 
 
+    }
+
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
     }
 
     public void dealLogic() {

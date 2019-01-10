@@ -21,6 +21,7 @@ import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -63,6 +64,11 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         mRvDevices = (RecyclerView) view.findViewById(R.id.rv_devices);
         initData();
         initRecycleview();
+    }
+
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
     }
 
     @Override
@@ -265,4 +271,13 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         return deviceNum;
     }
 
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
+    }
 }

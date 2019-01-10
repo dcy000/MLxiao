@@ -22,6 +22,7 @@ import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportParseBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +119,11 @@ public class HealthReportFormFragment3 extends BluetoothBaseFragment implements 
         // 这一步必须要做，否则不会显示。// 设置图片宽高
         drawableWarning.setBounds(0, 0, drawableWarning.getMinimumWidth(), drawableWarning.getMinimumHeight());
         setData(bundle);
+    }
+
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
     }
 
     private void setData(Bundle bundle) {
@@ -231,5 +237,15 @@ public class HealthReportFormFragment3 extends BluetoothBaseFragment implements 
 
         } else {
         }
+    }
+
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
     }
 }

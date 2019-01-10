@@ -19,6 +19,7 @@ import com.gcml.health.measure.bloodpressure_habit.fragment.GetHypertensionHandF
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
+import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -137,8 +138,8 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
         String nameAddress = null;
         nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
         SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
-        ((Bloodpressure_Fragment) fragment).onStop();
-        ((Bloodpressure_Fragment) fragment).dealLogic();
+        ((BloodpressureFragment) fragment).onStop();
+//        ((BloodpressureFragment) fragment).dealLogic();
 
         clearBluetoothCache(nameAddress);
     }

@@ -26,6 +26,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
@@ -115,6 +116,11 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         rvReport.setAdapter(mAdapter);
     }
 
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
+    }
+
     private final ArrayList<DetectionResult> mResults = new ArrayList<>();
 
     private final SparseIntArray layoutIds = new SparseIntArray();
@@ -156,6 +162,16 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         constraintSet.connect(targetId, ConstraintSet.END, descId, ConstraintSet.END);
         constraintSet.connect(targetId, ConstraintSet.BOTTOM, descId, ConstraintSet.TOP, UiUtils.pt(20));
         constraintSet.applyTo(clContainer);
+    }
+
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
     }
 
     private class BloodPressureVH extends VH {

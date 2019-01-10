@@ -12,6 +12,7 @@ import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
+import com.gcml.module_blutooth_devices.three.ThreeInOneFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import io.reactivex.schedulers.Schedulers;
  * created by:gzq
  * description:单次三合一测量
  */
-public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
+public class SingleMeasureThreeInOneFragment extends ThreeInOneFragment {
     private ArrayList<DetectionData> datas = new ArrayList<>();
     DetectionData sugarData;
     DetectionData cholesterolData;

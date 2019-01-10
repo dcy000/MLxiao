@@ -17,6 +17,7 @@ import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
 import com.gcml.health.measure.divider.LinearLayoutDividerItemDecoration;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.List;
@@ -82,6 +83,11 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
         checkBtnBG();
         initRecycleview();
         changeTips();
+    }
+
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
     }
 
     private void changeTips() {
@@ -230,5 +236,15 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
     }
 }

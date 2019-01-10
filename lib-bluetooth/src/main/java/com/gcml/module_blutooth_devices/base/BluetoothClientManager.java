@@ -7,6 +7,7 @@ import com.inuker.bluetooth.library.BluetoothClient;
 /**
  * Created by dingjikerbo on 2016/8/27.
  */
+@Deprecated
 public class BluetoothClientManager {
 
     private static BluetoothClient mClient;

@@ -157,25 +157,25 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
                 ((HealthBloodDetectionUiFragment) baseFragment).onStop();
-                ((HealthBloodDetectionUiFragment) baseFragment).dealLogic();
+//                ((HealthBloodDetectionUiFragment) baseFragment).dealLogic();
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR);
                 ((HealthSugarDetectionUiFragment) baseFragment).onStop();
-                ((HealthSugarDetectionUiFragment) baseFragment).dealLogic();
+//                ((HealthSugarDetectionUiFragment) baseFragment).dealLogic();
                 break;
             case IPresenter.MEASURE_WEIGHT:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_WEIGHT);
                 ((HealthWeightDetectionUiFragment) baseFragment).onStop();
-                ((HealthWeightDetectionUiFragment) baseFragment).dealLogic();
+//                ((HealthWeightDetectionUiFragment) baseFragment).dealLogic();
                 break;
             case IPresenter.MEASURE_OTHERS:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE);
                 ((HealthThreeInOneDetectionUiFragment) baseFragment).onStop();
-                ((HealthThreeInOneDetectionUiFragment) baseFragment).dealLogic();
+//                ((HealthThreeInOneDetectionUiFragment) baseFragment).dealLogic();
                 break;
             default:
                 break;

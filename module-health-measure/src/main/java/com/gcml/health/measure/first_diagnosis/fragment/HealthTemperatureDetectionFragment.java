@@ -10,6 +10,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
+import com.gcml.module_blutooth_devices.temperature.TemperatureFragment;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -27,7 +28,7 @@ import io.reactivex.schedulers.Schedulers;
  * created by:gzq
  * description:TODO
  */
-public class HealthTemperatureDetectionFragment extends Temperature_Fragment {
+public class HealthTemperatureDetectionFragment extends TemperatureFragment {
     private boolean isJump2Next = false;
 
     @Override

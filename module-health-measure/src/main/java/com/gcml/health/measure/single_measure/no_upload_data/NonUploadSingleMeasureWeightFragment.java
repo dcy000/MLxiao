@@ -8,6 +8,7 @@ import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
+import com.gcml.module_blutooth_devices.weight.WeightFragment;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -24,7 +25,7 @@ import timber.log.Timber;
  * created by:gzq
  * description:TODO
  */
-public class NonUploadSingleMeasureWeightFragment extends Weight_Fragment {
+public class NonUploadSingleMeasureWeightFragment extends WeightFragment {
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {

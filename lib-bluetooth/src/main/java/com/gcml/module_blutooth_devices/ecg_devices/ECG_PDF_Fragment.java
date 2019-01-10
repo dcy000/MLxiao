@@ -13,6 +13,7 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.thread.ThreadUtils;
 import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.link.LinkHandler;
 import com.github.barteksc.pdfviewer.listener.OnDrawListener;
@@ -214,9 +215,24 @@ public class ECG_PDF_Fragment extends BluetoothBaseFragment {
     }
 
     @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
+    }
+
+    @Override
     public void onDestroyView() {
         isDestroy = true;
         ThreadUtils.cancel(pdfDownload);
         super.onDestroyView();
+    }
+
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
     }
 }

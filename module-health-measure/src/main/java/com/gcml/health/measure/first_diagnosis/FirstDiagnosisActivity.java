@@ -460,15 +460,15 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
                 if (TextUtils.isEmpty(userId)) {
                     ((HealthBloodDetectionUiFragment) fragment).onStop();
-                    ((HealthBloodDetectionUiFragment) fragment).dealLogic();
+//                    ((HealthBloodDetectionUiFragment) fragment).dealLogic();
                 } else {
                     //如果本地缓存的有惯用手数据则只需测量一次，如果没有则需要惯用手判断
                     if (TextUtils.isEmpty(userHypertensionHand)) {
                         ((HealthBloodDetectionUiFragment) fragment).onStop();
-                        ((HealthBloodDetectionUiFragment) fragment).dealLogic();
+//                        ((HealthBloodDetectionUiFragment) fragment).dealLogic();
                     } else {
                         ((HealthBloodDetectionOnlyOneFragment) fragment).onStop();
-                        ((HealthBloodDetectionOnlyOneFragment) fragment).dealLogic();
+//                        ((HealthBloodDetectionOnlyOneFragment) fragment).dealLogic();
                     }
                 }
                 break;
@@ -486,19 +486,19 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR);
                 ((HealthSugarDetectionUiFragment) fragment).onStop();
-                ((HealthSugarDetectionUiFragment) fragment).dealLogic();
+//                ((HealthSugarDetectionUiFragment) fragment).dealLogic();
                 break;
             case IPresenter.MEASURE_WEIGHT:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_WEIGHT);
                 ((HealthWeightDetectionUiFragment) fragment).onStop();
-                ((HealthWeightDetectionUiFragment) fragment).dealLogic();
+//                ((HealthWeightDetectionUiFragment) fragment).dealLogic();
                 break;
             case IPresenter.MEASURE_OTHERS:
                 nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, "");
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE);
                 ((HealthThreeInOneDetectionUiFragment) fragment).onStop();
-                ((HealthThreeInOneDetectionUiFragment) fragment).dealLogic();
+//                ((HealthThreeInOneDetectionUiFragment) fragment).dealLogic();
                 break;
             default:
                 break;

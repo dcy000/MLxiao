@@ -19,6 +19,7 @@ import com.gcml.health.measure.first_diagnosis.bean.FirstReportParseBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.health.measure.widget.ColorfulProgressBar;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,11 @@ public class HealthReportFormFragment1 extends BluetoothBaseFragment {
         drawableWarning.setBounds(0, 0, drawableWarning.getMinimumWidth(), drawableWarning.getMinimumHeight());
         setData(bundle);
 
+    }
+
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
     }
 
     private void setData(Bundle bundle) {
@@ -144,5 +150,15 @@ public class HealthReportFormFragment1 extends BluetoothBaseFragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
     }
 }

@@ -15,6 +15,7 @@ import com.gcml.health.measure.first_diagnosis.bean.DetailsModel;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
+import com.gcml.module_blutooth_devices.weight.WeightFragment;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class HealthWeightDetectionUiFragment extends Weight_Fragment
+public class HealthWeightDetectionUiFragment extends WeightFragment
         implements HealthDiaryDetailsFragment.OnActionListener {
 
     private DetailsModel mUiModel;
@@ -50,7 +51,7 @@ public class HealthWeightDetectionUiFragment extends Weight_Fragment
     protected void initView(View view, Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
         showUi();
-        dealLogic();
+//        dealLogic();
     }
 
     private HealthDiaryDetailsFragment mUiFragment;

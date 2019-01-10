@@ -18,6 +18,7 @@ import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
 import com.gcml.module_blutooth_devices.base.Logg;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 import com.gcml.module_blutooth_devices.utils.BloodPressureSurfaceView;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.gcml.module_blutooth_devices.utils.SearchWithDeviceGroupHelper;
@@ -78,6 +79,11 @@ public class Bloodpressure_Xien_Fragment extends BluetoothBaseFragment implement
         mBtnVideoDemo.setOnClickListener(this);
         clPressure = (ConstraintLayout) view.findViewById(R.id.device_cl_pressure);
         this.bundle = bundle;
+    }
+
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
     }
 
     @Override

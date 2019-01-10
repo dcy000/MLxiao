@@ -17,6 +17,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 
 import java.util.ArrayList;
 
@@ -60,6 +61,11 @@ public class MeasureXueyaWarningFragment extends HealthMeasureAbnormalBaseFragme
         mMeasureNormal.setOnClickListener(this);
         initData();
         initAdapter();
+    }
+
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
     }
 
     private void initAdapter() {
@@ -147,5 +153,15 @@ public class MeasureXueyaWarningFragment extends HealthMeasureAbnormalBaseFragme
         } else {
 
         }
+    }
+
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
     }
 }

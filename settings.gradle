@@ -1,9 +1,9 @@
-include ':app', ':module-auth-face2',
-        ':app-component',
+include ':app', ':module-auth-face2', ':test',
+//        ':app-component',
         ':lib-common-core',
         ':lib-common-business',
-        ':lib-common-app',
-        ':component-cc'
+        ':lib-common-app'
+//        ':component-cc'
 
 // 支持模块
 include ':lib-baidu-unit',

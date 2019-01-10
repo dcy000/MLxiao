@@ -16,6 +16,7 @@ import com.gcml.health.measure.measure_abnormal.HealthMeasureAbnormalActivity;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.bloodsugar.BloodSugarFragment;
 import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -36,7 +37,7 @@ import static android.app.Activity.RESULT_OK;
  * created by:gzq
  * description:单次血糖测量
  */
-public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
+public class SingleMeasureBloodsugarFragment extends BloodSugarFragment {
     private Bundle bundle;
     private ArrayList<DetectionData> datas;
     private static final int CODE_REQUEST_ABNORMAL = 10002;

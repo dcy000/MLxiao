@@ -20,6 +20,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
+import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
 import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -39,7 +40,7 @@ import static android.app.Activity.RESULT_OK;
  * created by:gzq
  * description:单独给流程化测试中使用的Fragment
  */
-public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment {
+public class HealthBloodDetectionOnlyOneFragment extends BloodpressureFragment {
     private boolean isJump2Next = false;
     private static final int CODE_REQUEST_GETHYPERTENSIONHAND = 10002;
 
@@ -161,7 +162,7 @@ public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment 
                 mActivity.finish();
             } else {
                 getHypertensionHand();
-                dealLogic();
+//                dealLogic();
             }
         }
     }

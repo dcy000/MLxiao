@@ -5,12 +5,11 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.gcml.common.demo.R;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.IconDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.dialog.SheetDialog;
-
+import com.gcml.common.component.R;
 import timber.log.Timber;
 
 public class DialogActivity extends AppCompatActivity {

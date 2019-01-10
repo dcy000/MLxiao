@@ -8,6 +8,7 @@ import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
+import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenFragment;
 import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -24,7 +25,7 @@ import io.reactivex.schedulers.Schedulers;
  * created by:gzq
  * description:单次血氧测量
  */
-public class SingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
+public class SingleMeasureBloodoxygenFragment extends BloodOxygenFragment {
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {

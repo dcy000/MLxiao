@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import com.gcml.common.utils.data.SPUtil;
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.bluetooth.BaseBluetooth;
 import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 
 /**
@@ -42,6 +43,11 @@ public class ChooseECGDeviceFragment extends BluetoothBaseFragment implements Vi
         mLlBosheng.setOnClickListener(this);
     }
 
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -60,5 +66,15 @@ public class ChooseECGDeviceFragment extends BluetoothBaseFragment implements Vi
             fragmentChanged.onFragmentChanged(this,bundle);
         } else {
         }
+    }
+
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
     }
 }

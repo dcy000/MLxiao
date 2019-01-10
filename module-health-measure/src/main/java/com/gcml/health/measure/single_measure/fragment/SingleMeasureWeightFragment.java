@@ -16,6 +16,7 @@ import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.weight.WeightFragment;
 import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -36,7 +37,7 @@ import timber.log.Timber;
  * created by:gzq
  * description:单次体重测量
  */
-public class SingleMeasureWeightFragment extends Weight_Fragment {
+public class SingleMeasureWeightFragment extends WeightFragment {
 
     private boolean isMeasureTask = false;
 
