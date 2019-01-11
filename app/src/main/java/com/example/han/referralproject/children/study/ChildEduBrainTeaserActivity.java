@@ -150,7 +150,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
         @Override
         public void onMLError(SpeechError error) {
             endOfSpeech();
-            speak("主人,我没听清,您能再说一遍吗");
+            speak("您好，我没听清,您能再说一遍吗");
         }
     };
 
@@ -164,7 +164,7 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
         }
 
         if (TextUtils.isEmpty(result)) {
-//            speak("主人,我没听清,您能再说一遍吗");
+//            speak("您好，我没听清,您能再说一遍吗");
             return;
         }
 
@@ -183,9 +183,9 @@ public class ChildEduBrainTeaserActivity extends BaseActivity implements DialogI
         if (answer.equals(result)
                 || answer.contains(result)
                 || result.contains(answer)) {
-            speak("恭喜主人答对了");
+            speak("恭喜您答对了");
         } else {
-            speak("主人,回答错误，您再猜一下!");
+            speak("您好，回答错误，您再猜一下!");
         }
     }
 

@@ -42,7 +42,7 @@ public class HealthTemperatureDetectionFragment extends Temperature_Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getContext(), "主人，请打开设备开关，开始测量", false);
+        MLVoiceSynthetize.startSynthesize(getContext(), "您好，请打开设备开关，开始测量", false);
     }
 
     @Override

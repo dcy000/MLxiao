@@ -63,7 +63,7 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baike);
         initView();
-        speak("主人,欢迎来到百科");
+        speak("您好，欢迎来到百科");
         initEvent();
     }
 
@@ -158,7 +158,7 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onMLError(SpeechError error) {
-                speak("主人,我没有听清,你能再说一遍吗?");
+                speak("您好，我没有听清,你能再说一遍吗?");
             }
         });
 
@@ -198,14 +198,14 @@ public class BaikeActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
                 if (!"baike".equals(service)) {
-                    speak("主人,没有找到" + result);
+                    speak("您好，没有找到" + result);
                     return;
                 }
                 try {
                     List<BaiKeBean> data = (List<BaiKeBean>) anwser;
                     BaikeResultActivity.startMe(BaikeActivity.this, data, result);
                 } catch (Exception e) {
-                    speak("主人,没有找到" + result);
+                    speak("您好，没有找到" + result);
                 }
             }
         });

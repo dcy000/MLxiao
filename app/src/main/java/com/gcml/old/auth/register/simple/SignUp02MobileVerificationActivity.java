@@ -128,7 +128,7 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
         speak(R.string.sign_up_fetch_code_tip);
         final String phone = etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
-            speak("主人，手机号码输入有误，请重新输入");
+            speak("您好，手机号码输入有误，请重新输入");
             inPhone = true;
             etPhone.setText("");
             etPhone.requestFocus();
@@ -160,7 +160,7 @@ public class SignUp02MobileVerificationActivity extends BaseActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                speak("主人，手机号码已注册");
+                speak("您好，手机号码已注册");
                 inPhone = true;
                 etPhone.setText("");
                 etPhone.requestFocus();

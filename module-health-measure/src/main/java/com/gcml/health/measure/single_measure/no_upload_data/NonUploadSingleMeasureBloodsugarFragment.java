@@ -20,7 +20,7 @@ public class NonUploadSingleMeasureBloodsugarFragment extends Bloodsugar_Fragmen
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
             String roundUp = DataUtils.getRoundUp(results[0], 1);
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + roundUp, false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，您本次测量血糖" + roundUp, false);
         }
     }
 

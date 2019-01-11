@@ -73,7 +73,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请将试纸插入仪器，开始测量", false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，请将试纸插入仪器，开始测量", false);
     }
 
 
@@ -87,7 +87,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
                 sugarData.setSugarTime(selectMeasureSugarTime);
                 sugarData.setBloodSugar(Float.parseFloat(results[1]));
                 datas.add(sugarData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + sugarData.getBloodSugar());
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，您本次测量血糖" + sugarData.getBloodSugar());
                 uploadData(datas);
             }
             if (results[0].equals("cholesterol")) {
@@ -95,7 +95,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
                 cholesterolData.setDetectionType("7");
                 cholesterolData.setCholesterol(Float.parseFloat(results[1]));
                 datas.add(cholesterolData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量胆固醇" + cholesterolData.getCholesterol());
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，您本次测量胆固醇" + cholesterolData.getCholesterol());
                 uploadData(datas);
             }
 
@@ -105,7 +105,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
                 lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
 
                 datas.add(lithicAcidData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + lithicAcidData.getUricAcid());
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，您本次测量尿酸" + lithicAcidData.getUricAcid());
                 uploadData(datas);
             }
         }

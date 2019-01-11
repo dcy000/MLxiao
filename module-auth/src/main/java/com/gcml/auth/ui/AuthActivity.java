@@ -92,7 +92,7 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     protected void onResume() {
         super.onResume();
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                "主人，欢迎使用健康管家，如果您已经有账号，请选择手机或人脸登录。如果还没有账号，请点击立即注册。");
+                "您好，欢迎使用健康管家，如果您已经有账号，请选择手机或人脸登录。如果还没有账号，请点击立即注册。");
     }
 
     @Override

@@ -40,7 +40,7 @@ public class ToolsActivity extends BaseActivity {
         setContentView(R.layout.activity_tools);
         ButterKnife.bind(this);
         initTitle();
-        speak("主人,欢迎来到工具页面,请选择您想使用的小工具");
+        speak("您好，欢迎来到工具页面,请选择您想使用的小工具");
     }
 
 

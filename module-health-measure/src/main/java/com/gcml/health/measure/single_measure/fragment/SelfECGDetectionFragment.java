@@ -103,7 +103,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         mTvNext.setOnClickListener(this);
         view.findViewById(R.id.tv_change_device).setOnClickListener(this);
         setBtnClickableState(false);
-        MLVoiceSynthetize.startSynthesize(context, "主人，请打开设备开关，准备测量", false);
+        MLVoiceSynthetize.startSynthesize(context, "您好，请打开设备开关，准备测量", false);
         initOther();
     }
 

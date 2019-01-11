@@ -204,7 +204,7 @@ public class DietPlanFragment extends Fragment implements View.OnClickListener {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser) {
 //            if (topData != null && cacheDatas != null) {
-//                ((TreatmentPlanActivity) getActivity()).speak("主人，您本周每日食盐量应少于" + topData.getNaSalt()
+//                ((TreatmentPlanActivity) getActivity()).speak("您好，您本周每日食盐量应少于" + topData.getNaSalt()
 //                        + "，油脂应少于" + topData.getGrease() + ",饮酒应少于" + topData.getDrink() + "，每日应" + topData.getSmoke()
 //                        + "。为了您的健康，我们还为您推荐了以下的食材，请每天至少食用其中的两种");
 //            }

@@ -16,7 +16,7 @@ public class NonUploadSingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragm
     protected void onMeasureFinished(String... results) {
         if (results.length == 2) {
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
-                    "主人，您本次测量血氧" + results[0] + "%", false);
+                    "您好，您本次测量血氧" + results[0] + "%", false);
         }
     }
 }

@@ -105,7 +105,7 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
      */
     private TextView mTvSuggestTitle;
     /**
-     * 主人，您血糖偏低，并有下降趋势，低血糖出现饥饿、头昏眼花、面色苍白、心慌手颤、出冷汗、虚弱无力等症状，
+     * 您好，您血糖偏低，并有下降趋势，低血糖出现饥饿、头昏眼花、面色苍白、心慌手颤、出冷汗、虚弱无力等症状，
      * 低血糖还容易诱发心律失常，心绞痛、心肌梗死以及脑血管意外并发症，请持续测量，必要时及时联系医生。
      */
     private TextView mTvSuggest;
@@ -350,6 +350,6 @@ public class NewMeasureBloodpressureResultActivity extends BaseActivity implemen
             }
         });
         dialog.show(getSupportFragmentManager(), "less3");
-        mlSpeak("主人，您尚未满足3天测量标准，请在健康监测中测量三日");
+        mlSpeak("您好，您尚未满足3天测量标准，请在健康监测中测量三日");
     }
 }

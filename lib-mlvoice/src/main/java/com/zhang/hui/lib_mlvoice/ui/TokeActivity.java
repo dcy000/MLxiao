@@ -141,7 +141,7 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        speak("主人,来和我聊天吧", isDefaultParam);
+        speak("您好，来和我聊天吧", isDefaultParam);
         addWaveView();
         mLottieView.resumeAnimation();
         if (yuyinFlag) {
@@ -361,7 +361,7 @@ public class TokeActivity extends AppCompatActivity implements View.OnClickListe
             if (yuyinFlag) {
                 findViewById(R.id.iat_recognizes).performClick();
             } else {
-                speak("主人,我没听清您能再说一遍吗", isDefaultParam);
+                speak("您好，我没听清您能再说一遍吗", isDefaultParam);
             }
 
         }

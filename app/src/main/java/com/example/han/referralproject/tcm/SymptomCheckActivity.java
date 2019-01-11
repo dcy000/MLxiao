@@ -66,7 +66,7 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,欢迎来到健康自查");
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好，欢迎来到健康自查");
     }
 
     @Override

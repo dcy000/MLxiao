@@ -44,7 +44,7 @@ public class HealthSugarDetectionUiFragment extends Bloodsugar_Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getContext(), "主人，请将试纸插入仪器，开始测量", false);
+        MLVoiceSynthetize.startSynthesize(getContext(), "您好，请将试纸插入仪器，开始测量", false);
     }
 
     @Override

@@ -55,7 +55,7 @@ import com.example.han.referralproject.radio.RadioActivity;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
-import com.example.han.referralproject.recyclerview.DoctorappoActivity;
+import com.example.han.referralproject.recyclerview.DoctorappoActivity2;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.activity.SettingActivity;
@@ -279,7 +279,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         mEngineType = SpeechConstant.TYPE_CLOUD;
 
 
-//        speak("主人,来和我聊天吧", isDefaultParam);
+//        speak("您好，来和我聊天吧", isDefaultParam);
         //默认是时时聊天
         yuyinFlag = (Boolean) SharedPreferencesUtils.getParam(this, "yuyin", true);
         if (yuyinFlag) {
@@ -361,7 +361,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onResume() {
         setDisableGlobalListen(true);
         super.onResume();
-        speak("主人,来和我聊天吧", isDefaultParam);
+        speak("您好，来和我聊天吧", isDefaultParam);
         setEnableListeningLoop(false);
         mLottieView.resumeAnimation();
     }
@@ -626,7 +626,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             if (yuyinFlag) {
                 findViewById(R.id.iat_recognizes).performClick();
             } else {
-                speak("主人,我没听清您能再说一遍吗", isDefaultParam);
+                speak("您好，我没听清您能再说一遍吗", isDefaultParam);
             }
         }
 
@@ -689,7 +689,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                         am.equals("shangwu") ? Integer.valueOf(hourOfDay) : Integer.valueOf(hourOfDay) + 12,
                         Integer.valueOf(minute));
                 String tip = String.format(Locale.CHINA,
-                        "主人，小易将在%s:%s提醒您吃药", hourOfDay, minute);
+                        "您好，小易将在%s:%s提醒您吃药", hourOfDay, minute);
                 speak(tip, isDefaultParam);
                 return;
             }
@@ -1421,7 +1421,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     ToastUtils.showShort("请先查看是否与签约医生签约成功");
                 } else {
                     Intent intent = new Intent();
-                    intent.setClass(getApplicationContext(), DoctorappoActivity.class);
+                    intent.setClass(getApplicationContext(), DoctorappoActivity2.class);
                     startActivity(intent);
                 }
 
@@ -1521,7 +1521,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 if ("1".equals(response.getState())) {
                     //已签约
                     startActivity(new Intent(SpeechSynthesisActivity.this,
-                            DoctorappoActivity.class));
+                            DoctorappoActivity2.class));
                 } else if ("0".equals(response.getState())
                         && (TextUtils.isEmpty(response.getDoctername()))) {
                     //未签约
@@ -2603,13 +2603,13 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case TO_MUSICPLAY:
-                speak("主人，想听更多歌曲，请告诉我！", isDefaultParam);
+                speak("您好，想听更多歌曲，请告诉我！", isDefaultParam);
                 break;
             case TO_STORY:
-                speak("主人，我讲的故事好听吗？", isDefaultParam);
+                speak("您好，我讲的故事好听吗？", isDefaultParam);
                 break;
             case TO_PING_SHU:
-                speak("主人，想听更多评书，请告诉我！", isDefaultParam);
+                speak("您好，想听更多评书，请告诉我！", isDefaultParam);
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);

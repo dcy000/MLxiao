@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Deprecated
 public class DoctorappoActivity extends BaseActivity implements View.OnClickListener {
 
     SharedPreferences sharedPreferences1;
@@ -1225,7 +1226,7 @@ public class DoctorappoActivity extends BaseActivity implements View.OnClickList
                 } else {
                     speak(getString(R.string.yuyue_limit));
 
-                    Toast.makeText(getApplicationContext(), "主人，您预约已达到最大次数", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "您好，您预约已达到最大次数", Toast.LENGTH_SHORT).show();
                 }
 
 

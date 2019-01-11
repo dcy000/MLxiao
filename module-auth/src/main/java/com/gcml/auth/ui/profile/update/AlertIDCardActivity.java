@@ -98,7 +98,7 @@ public class AlertIDCardActivity extends AppCompatActivity implements View.OnCli
             return;
         }
         if (!Utils.checkIdCard1(idCard)) {
-            speak("主人,请输入正确的身份证号码");
+            speak("您好，请输入正确的身份证号码");
             return;
         }
         checkIdCard(idCard);

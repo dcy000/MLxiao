@@ -238,8 +238,8 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                 || !TextUtils.isDigitsOnly(password)
                 || password.length() != 6) {
             binding.tvNext.setEnabled(true);
-            ToastUtils.showShort("主人,请输入6位数字密码");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,请输入6位数字密码", false);
+            ToastUtils.showShort("您好，请输入6位数字密码");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好，请输入6位数字密码", false);
             return;
         }
         doSignUp(phone, password);

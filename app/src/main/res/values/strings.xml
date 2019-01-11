@@ -92,28 +92,28 @@
 
 
     <string name="tips_splash">您好，我是您的健康机器人管家小易，接下来将由我为您开启健康之旅。</string>
-    <string name="tips_login">主人，如果您有账号，请直接登入；首次使用请点击注册。</string>
-    <string name="tips_register">主人，为了更好地为您服务，需要您填写您的个人信息，填写完毕后点击下一步</string>
-    <string name="tips_disease">主人，为了全部掌握您的健康信息，如果您有病史请选择对应标签，然后点击下一步</string>
-    <string name="tips_face">主人，让我给您拍个照，下次我就认识您啦</string>
-    <string name="tips_doctor">主人，请选择您最信任的医生完成签约，如果他没在里面可以点击右下角的线下签约按钮。</string>
-    <string name="tips_info">主人，如果需要签约就点击签约按钮。</string>
-    <string name="online_info">主人，您可以点击咨询按钮与在线医生进行视频通话。</string>
+    <string name="tips_login">您好，如果您有账号，请直接登入；首次使用请点击注册。</string>
+    <string name="tips_register">您好，为了更好地为您服务，需要您填写您的个人信息，填写完毕后点击下一步</string>
+    <string name="tips_disease">您好，为了全部掌握您的健康信息，如果您有病史请选择对应标签，然后点击下一步</string>
+    <string name="tips_face">您好，让我给您拍个照，下次我就认识您啦</string>
+    <string name="tips_doctor">您好，请选择您最信任的医生完成签约，如果他没在里面可以点击右下角的线下签约按钮。</string>
+    <string name="tips_info">您好，如果需要签约就点击签约按钮。</string>
+    <string name="online_info">您好，您可以点击咨询按钮与在线医生进行视频通话。</string>
 
-    <string name="tips_test">主人，请点击您需要测量的项目</string>
-    <string name="tips_open_device">主人，您可以打开设备开始测量了</string>
-    <string name="tips_result_wendu" formatted="false">主人，您的体温是%1$s度，%2$s</string>
-    <string name="tips_result_tizhong" formatted="false">主人，您的体重是%s公斤</string>
+    <string name="tips_test">您好，请点击您需要测量的项目</string>
+    <string name="tips_open_device">您好，您可以打开设备开始测量了</string>
+    <string name="tips_result_wendu" formatted="false">您好，您的体温是%1$s度，%2$s</string>
+    <string name="tips_result_tizhong" formatted="false">您好，您的体重是%s公斤</string>
     <string name="tips_xueya">请将血压计佩戴在绑在左臂或者右臂上，高度与心脏平齐，手臂放松，手掌张开，按开始按钮开始测量</string>
-    <string name="tips_result_xueya" formatted="false">主人，您的收缩压是%1$d, 舒张压是%2$d, 脉搏是%3$d, %4$s</string>
-    <string name="tips_result_xuetang">主人，您的血糖值为%1$s,%2$s</string>
-    <string name="tips_result_xueyang" formatted="false">主人，您的血氧饱和度为%1$s，%2$s</string>
-    <string name="tips_result_niaosuan" formatted="false">主人，您的尿酸为%1$s,%2$s</string>
-    <string name="tips_result_danguchun" formatted="false">主人，您的胆固醇为%1$s,%2$s</string>
-    <string name="tips_result_xindian" formatted="false">主人，您的心率为%1$d, %2$s</string>
-    <string name="tips_symptom">主人，请选择对应症状并提交</string>
-    <string name="tips_symptom_result">主人，你有可能是%s</string>
-    <string name="tips_error_temp">主人，温度测量不正常，请重新测试</string>
+    <string name="tips_result_xueya" formatted="false">您好，您的收缩压是%1$d, 舒张压是%2$d, 脉搏是%3$d, %4$s</string>
+    <string name="tips_result_xuetang">您好，您的血糖值为%1$s,%2$s</string>
+    <string name="tips_result_xueyang" formatted="false">您好，您的血氧饱和度为%1$s，%2$s</string>
+    <string name="tips_result_niaosuan" formatted="false">您好，您的尿酸为%1$s,%2$s</string>
+    <string name="tips_result_danguchun" formatted="false">您好，您的胆固醇为%1$s,%2$s</string>
+    <string name="tips_result_xindian" formatted="false">您好，您的心率为%1$d, %2$s</string>
+    <string name="tips_symptom">您好，请选择对应症状并提交</string>
+    <string name="tips_symptom_result">您好，你有可能是%s</string>
+    <string name="tips_error_temp">您好，温度测量不正常，请重新测试</string>
     <string name="tips_blue_connect">设备已连接</string>
     <string name="tips_blue_unConnect">设备已断开</string>
 
@@ -332,7 +332,7 @@
     <string name="timer_set">设置成功，将于%s分钟后关闭</string>
     <string name="timer_cancel">定时停止播放已取消</string>
     <string name="no_permission">没有%1$s权限，无法%2$s！</string>
-    <string name="user_help">主人，认真阅读用户须知，帮助您完成签约</string>
+    <string name="user_help">您好，认真阅读用户须知，帮助您完成签约</string>
     <string name="hello">你好</string>
 
     <string name="yuyue_time">9月23日</string>
@@ -342,21 +342,21 @@
     <string name="morning">上\n午</string>
 
     <string name="dialog" formatted="false">您确定要在%1$s年%2$s月%3$s日%4$s%5$s和%6$s医生进行预约吗？</string>
-    <string name="sign_up1_name_tip">主人,请输入您的姓名</string>
-    <string name="sign_up2_gender_tip">主人,请选择您的性别</string>
-    <string name="sign_up_id_card_tip">主人,请输入正确的身份证号码</string>
-    <string name="sign_up_phone_tip">主人,请输入您的手机号码</string>
-    <string name="sign_up_code_tip">主人,请输入验证码</string>
-    <string name="sign_up_fetch_code_tip">主人,已发送验证码，收到后请及时输入验证码</string>
-    <string name="sign_up_password_tip">主人,请输入您的6位数字密码</string>
+    <string name="sign_up1_name_tip">您好，请输入您的姓名</string>
+    <string name="sign_up2_gender_tip">您好，请选择您的性别</string>
+    <string name="sign_up_id_card_tip">您好，请输入正确的身份证号码</string>
+    <string name="sign_up_phone_tip">您好，请输入您的手机号码</string>
+    <string name="sign_up_code_tip">您好，请输入验证码</string>
+    <string name="sign_up_fetch_code_tip">您好，已发送验证码，收到后请及时输入验证码</string>
+    <string name="sign_up_password_tip">您好，请输入您的6位数字密码</string>
 
 
-    <string name="sign_up_blood_type_tip">主人,请输入您的血型</string>
-    <string name="sign_up_eat_tip">主人,您偏向于哪种食物</string>
-    <string name="sign_up_smoke_tip">主人,您吸烟吗</string>
-    <string name="sign_up_drink_tip">主人,您喝酒吗</string>
-    <string name="sign_up_sports_tip">主人,您运动吗</string>
-    <string name="sign_up_disease_history_tip">主人，如果您有病史，请选择对应标签</string>
+    <string name="sign_up_blood_type_tip">您好，请输入您的血型</string>
+    <string name="sign_up_eat_tip">您好，您偏向于哪种食物</string>
+    <string name="sign_up_smoke_tip">您好，您吸烟吗</string>
+    <string name="sign_up_drink_tip">您好，您喝酒吗</string>
+    <string name="sign_up_sports_tip">您好，您运动吗</string>
+    <string name="sign_up_disease_history_tip">您好，如果您有病史，请选择对应标签</string>
 
     <string name="appraise">评&#160;&#160;&#160;&#160;&#160;价</string>
 
@@ -372,11 +372,11 @@
     <string name="pay_introduce">请用支付宝APP扫描完成支付</string>
     <string name="pay_introduces">请用微信APP扫描完成支付</string>
 
-    <string name="head_icon">主人，请确认您的头像，完成请点击下一步</string>
-    <string name="head_verify">主人，请对准摄像头，让我帮您记录数据</string>
+    <string name="head_icon">您好，请确认您的头像，完成请点击下一步</string>
+    <string name="head_verify">您好，请对准摄像头，让我帮您记录数据</string>
 
-    <string name="yuyue">主人，请选择您要预约的时间</string>
-    <string name="yuyue_1">主人，请点击预约按钮和签约医生进行预约</string>
+    <string name="yuyue">您好，请选择您要预约的时间</string>
+    <string name="yuyue_1">您好，请点击预约按钮和签约医生进行预约</string>
 
     <string name="healthy_class">健&#160;&#160;康&#160;&#160;讲&#160;&#160;坛</string>
     <string name="doctor_yuyue">添&#160;&#160;加&#160;&#160;预&#160;&#160;约</string>
@@ -437,8 +437,8 @@
     <string name="medication_reminder">吃&#160;&#160;药&#160;&#160;提&#160;&#160;醒</string>
 
     <string name="robot_amount" formatted="false">¥%1$s</string>
-    <string name="pay_success">主人，您已充值成功，请查询个人账户余额</string>
-    <string name="doctor_alarm">主人，您和医生视频预约的时间到了</string>
+    <string name="pay_success">您好，您已充值成功，请查询个人账户余额</string>
+    <string name="doctor_alarm">您好，您和医生视频预约的时间到了</string>
 
     <string name="doctor_remind">您的预约时间到了</string>
     <string name="doctor_reminds">请及时与医生进行视频通话</string>
@@ -462,26 +462,26 @@
     <string name="two_hour_later">饭后\n两小时</string>
     <string name="kongfu">空腹</string>
     <string name="three_hour_later">饭后\n三小时</string>
-    <string name="symptoms">主人，您是否有以下症状</string>
+    <string name="symptoms">您好，您是否有以下症状</string>
     <string name="bingfa">并发症状</string>
-    <string name="now_eating_state">主人，请选择您当前的状态</string>
-    <string name="gaoxueya">主人，您有可能是高血压，请及时到医院就诊</string>
-    <string name="tangniaobing">主人，您有可能是糖尿病，请及时服药或到医院就诊</string>
-    <string name="dixuetang">主人，您有可能是低血糖，请及时补充糖分或到医院就诊</string>
+    <string name="now_eating_state">您好，请选择您当前的状态</string>
+    <string name="gaoxueya">您好，您有可能是高血压，请及时到医院就诊</string>
+    <string name="tangniaobing">您好，您有可能是糖尿病，请及时服药或到医院就诊</string>
+    <string name="dixuetang">您好，您有可能是低血糖，请及时补充糖分或到医院就诊</string>
 
     <string name="order_id" formatted="false">订单号：%1$s</string>
     <string name="facc_register">三\n\n二\n\n依\n茄子</string>
 
-    <string name="shop_good">主人，请选择您要购买的商品</string>
-    <string name="shop_mount">主人，请选择购买数量</string>
-    <string name="shop_yanzheng">主人，验证不通过，请重新验证</string>
-    <string name="shop_success">主人，恭喜您支付成功</string>
+    <string name="shop_good">您好，请选择您要购买的商品</string>
+    <string name="shop_mount">您好，请选择购买数量</string>
+    <string name="shop_yanzheng">您好，验证不通过，请重新验证</string>
+    <string name="shop_success">您好，恭喜您支付成功</string>
 
 
     <string name="bingzhengxiangqing">病症详情</string>
     <string name="disease_reason"></string>
     <string name="doctor_zixun">咨&#160;&#160;询&#160;&#160;医&#160;&#160;生</string>
-    <string name="bodyguide">主人，请选择病症对应部位</string>
+    <string name="bodyguide">您好，请选择病症对应部位</string>
 
     <string name="title_activity_set_password">SetPasswordActivity</string>
 
@@ -504,42 +504,42 @@
     <string name="doctor_shoufei" formatted="false">收费标准：%1$s元/分钟</string>
     <string name="title_health_class">健&#160;&#160;康&#160;&#160;课&#160;&#160;堂</string>
 
-    <string name="doctor_online">主人，您已发送与医生的视频请求，请耐心等待五分钟</string>
+    <string name="doctor_online">您好，您已发送与医生的视频请求，请耐心等待五分钟</string>
 
-    <string name="person_info">主人，欢迎来到个人中心</string>
+    <string name="person_info">您好，欢迎来到个人中心</string>
 
-    <string name="chongzhi">主人，请选择您要充值的金额</string>
+    <string name="chongzhi">您好，请选择您要充值的金额</string>
 
-    <string name="zhanghu_chongzhi">主人，请使用支付宝或微信扫码完成充值</string>
+    <string name="zhanghu_chongzhi">您好，请使用支付宝完成充值</string>
 
-    <string name="chongzhi_define">主人，请输入充值金额</string>
+    <string name="chongzhi_define">您好，请输入充值金额</string>
 
-    <string name="order">主人，请查看您的订单</string>
+    <string name="order">您好，请查看您的订单</string>
 
-    <string name="yuye_history">主人,请查看你的预约历史</string>
+    <string name="yuye_history">您好，请查看你的预约历史</string>
 
 
-    <string name="doctor_choice">主人，请点击选择签约医生或在线医生</string>
+    <string name="doctor_choice">您好，请点击选择签约医生或在线医生</string>
 
-    <string name="qianyue_doctor">主人，请咨询签约医生</string>
+    <string name="qianyue_doctor">您好，请咨询签约医生</string>
 
-    <string name="cancel_yuyue">主人，您确定要取消预约吗？</string>
+    <string name="cancel_yuyue">您好，您确定要取消预约吗？</string>
 
     <string name="cancel_success">取消成功</string>
 
-    <string name="yuyue_limit">主人，您预约已达到最大次数</string>
+    <string name="yuyue_limit">您好，您预约已达到最大次数</string>
 
-    <string name="yuyue_times">主人，请选择您要预约的时间</string>
+    <string name="yuyue_times">您好，请选择您要预约的时间</string>
 
     <string name="doctor_appraise">医&#160;&#160;生&#160;&#160;评&#160;&#160;价</string>
 
-    <string name="doctor_appraises">主人，请对医生做出评价</string>
+    <string name="doctor_appraises">您好，请对医生做出评价</string>
 
-    <string name="true_appraise">主人您确定要进行评价吗？</string>
+    <string name="true_appraise">您好，您确定要进行评价吗？</string>
 
     <string name="yuyue_video">预&#160;&#160;约&#160;&#160;视&#160;&#160;频</string>
 
-    <string name="yuyue_tim">主人您的预约时间到了，请及时和医生进行视频通话</string>
+    <string name="yuyue_tim">您好，您的预约时间到了，请及时和医生进行视频通话</string>
     <string name="body_guide">人&#160;&#160;体&#160;&#160;导&#160;&#160;图</string>
     <string name="history_celiang">历&#160;&#160;史&#160;&#160;测&#160;&#160;量</string>
 

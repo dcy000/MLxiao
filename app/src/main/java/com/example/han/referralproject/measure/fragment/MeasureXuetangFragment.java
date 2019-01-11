@@ -56,7 +56,7 @@ public class MeasureXuetangFragment extends Fragment {
     TextView measureNormal;
     Unbinder unbinder;
     private View view;
-    private String titleString = "主人，您最新的测量数据与历史数据存在较大差异，您是否存在以下情况：";
+    private String titleString = "您好，您最新的测量数据与历史数据存在较大差异，您是否存在以下情况：";
     private ArrayList<Integer> reasons;
     private MeasureExceptionAdapter adapter;
 

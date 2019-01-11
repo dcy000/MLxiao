@@ -82,7 +82,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
                 sugarData.setSugarTime(selectMeasureSugarTime);
                 sugarData.setBloodSugar(Float.parseFloat(results[1]));
                 datas.add(sugarData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + sugarData.getBloodSugar());
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，您本次测量血糖" + sugarData.getBloodSugar());
                 uploadData(datas);
 
                 if (measureItemChanged != null) {
@@ -94,7 +94,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
                 cholesterolData.setDetectionType("7");
                 cholesterolData.setCholesterol(Float.parseFloat(results[1]));
                 datas.add(cholesterolData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量胆固醇" + cholesterolData.getCholesterol());
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，您本次测量胆固醇" + cholesterolData.getCholesterol());
                 uploadData(datas);
                 if (measureItemChanged != null) {
                     measureItemChanged.onChanged(5);
@@ -107,7 +107,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOne_Fragment {
                 lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
 
                 datas.add(lithicAcidData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + lithicAcidData.getUricAcid());
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，您本次测量尿酸" + lithicAcidData.getUricAcid());
                 uploadData(datas);
                 if (measureItemChanged != null) {
                     measureItemChanged.onChanged(6);

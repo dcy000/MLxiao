@@ -58,7 +58,7 @@ public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
             String roundUp = DataUtils.getRoundUp(results[0], 1);
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + roundUp, false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，您本次测量血糖" + roundUp, false);
 
             datas = new ArrayList<>();
             DetectionData data = new DetectionData();
@@ -136,7 +136,7 @@ public class SingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
                     boolean booleanExtra = data.getBooleanExtra(HealthMeasureAbnormalActivity.KEY_HAS_ABNIRMAL_REASULT, false);
                     if (booleanExtra) {
                         //数据异常
-                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，因为你测量出现偏差，此次测量将不会作为历史数据");
                     } else {
                         uploadData();
                     }

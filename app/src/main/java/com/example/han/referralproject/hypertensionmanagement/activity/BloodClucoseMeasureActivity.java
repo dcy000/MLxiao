@@ -25,7 +25,7 @@ public class BloodClucoseMeasureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blood_clucose_measure);
         ButterKnife.bind(this);
         initView();
-        MLVoiceSynthetize.startSynthesize(this,"主人，拿出测量设备，我们做个测量",false);
+        MLVoiceSynthetize.startSynthesize(this,"您好，拿出测量设备，我们做个测量",false);
         AppManager.getAppManager().addActivity(this);
     }
 

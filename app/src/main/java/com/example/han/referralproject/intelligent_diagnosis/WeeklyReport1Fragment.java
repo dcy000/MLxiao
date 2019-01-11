@@ -127,16 +127,16 @@ public class WeeklyReport1Fragment extends Fragment {
             tvProgress1.setText((int) progress_percent + "%");
             String tips = "";
             if (sj_gaoya < mb_gaoya && sj_diya < mb_diya) {
-                tips = "主人，恭喜您本周血压降至目标值以下，请继续保持良好的生活习惯,积极锻炼。查看详细的报告，请向左滑动页面！";
+                tips = "您好，恭喜您本周血压降至目标值以下，请继续保持良好的生活习惯,积极锻炼。查看详细的报告，请向左滑动页面！";
 
             } else if (sj_diya < mb_diya) {
-                tips = "主人，恭喜您本周舒张压降至目标值以下，但收缩压仍然偏高。本周计划完成"
+                tips = "您好，恭喜您本周舒张压降至目标值以下，但收缩压仍然偏高。本周计划完成"
                         + (int) progress_percent + "%。请继续根据机器人的指导保持良好的生活习惯，积极锻炼。查看详细的报告，请向左滑动页面！";
             } else if (sj_gaoya < mb_gaoya) {
-                tips = "主人，恭喜您本周收缩压降至目标值以下，但舒张压仍然偏高。本周计划完成"
+                tips = "您好，恭喜您本周收缩压降至目标值以下，但舒张压仍然偏高。本周计划完成"
                         + (int) progress_percent + "%。请继续根据机器人的指导保持良好的生活习惯，积极锻炼。查看详细的报告，请向左滑动页面！";
             } else {
-                tips = "主人，您的血压仍偏高。本周计划完成"
+                tips = "您好，您的血压仍偏高。本周计划完成"
                         + (int) progress_percent + "%，未完成目标计划，请继续根据机器人的指导保持良好的生活习惯，积极锻炼。查看详细的报告，请向左滑动页面！";
             }
             ((WeeklyReportActivity) getActivity()).speak(tips);

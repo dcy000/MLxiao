@@ -61,7 +61,7 @@ public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment 
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量收缩压"
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，您本次测量收缩压"
                     + results[0] + ",舒张压" + results[1] + ",脉搏" + results[2], false);
 
             ArrayList<DetectionData> datas = new ArrayList<>();
@@ -140,7 +140,7 @@ public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment 
 
 
     private void showHypertensionHandDialog(String hand) {
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请使用" + hand + "测量");
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，请使用" + hand + "测量");
 
         new AlertDialog(mContext)
                 .builder()

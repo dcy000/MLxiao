@@ -54,7 +54,8 @@ public class DefineActivity extends BaseActivity {
                     } else if (value <= 0.0f) {
                         Toast.makeText(getApplicationContext(), "充值金额必须大于为0元", Toast.LENGTH_SHORT).show();
                     } else {
-                        Intent intent = new Intent(getApplicationContext(), PayInfoActivity.class);
+//                        Intent intent = new Intent(getApplicationContext(), PayInfoActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), QRCodeAliPayActivity.class);
                         intent.putExtra("number", (int) (value * 100) + "");
                         startActivity(intent);
                         finish();

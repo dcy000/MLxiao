@@ -10,9 +10,9 @@
         <!--各类规则会在发布后生效，亦成为本协议的一部分。登录或继续使用“服务”将表示用户接受经修订的协议。-->
         <!--除另行明确声明外，任何使“服务”范围扩大或功能增强的新内容均受本协议约束。</string>-->
 
-    <string name="common_sign_up_height_tip">主人,请输入您的身高</string>
-    <string name="common_sign_up_weight_tip">主人,请输入您的体重</string>
-    <string name="common_sign_up3_address_tip">主人,请输入您的住址</string>
+    <string name="common_sign_up_height_tip">您好，请输入您的身高</string>
+    <string name="common_sign_up_weight_tip">您好，请输入您的体重</string>
+    <string name="common_sign_up3_address_tip">您好，请输入您的住址</string>
 
     <string name="common_everyday_sports">每天一次</string>
     <string name="common_few_times_per_week_sports">每周几次</string>

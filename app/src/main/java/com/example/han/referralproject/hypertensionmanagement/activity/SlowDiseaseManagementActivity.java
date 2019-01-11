@@ -88,7 +88,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(SlowDiseaseManagementActivity.this, WifiConnectActivity.class)));
-        mlSpeak("主人，欢迎来到健康方案");
+        mlSpeak("您好，欢迎来到健康方案");
     }
 
     @OnClick({R.id.iv_Hypertension_manage, R.id.iv_blood_sugar_manage})
@@ -344,7 +344,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         TwoChoiceDialog dialog = new TwoChoiceDialog("您是否诊断过原发性高血压，且正在进行高血压规范治疗？", "是", "否");
         dialog.setListener(this);
         dialog.show(getFragmentManager(), "yuanfa");
-        mlSpeak("主人，您是否已确诊高血压且在治疗？");
+        mlSpeak("您好，您是否已确诊高血压且在治疗？");
     }
 
     // TODO: 2018/9/19

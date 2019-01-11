@@ -168,7 +168,7 @@ public class DateInquireActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onMLError(SpeechError error) {
-                MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,我不会算了", false);
+                MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好，我不会算了", false);
             }
         });
     }
@@ -181,7 +181,7 @@ public class DateInquireActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onSuccess(Object anwser, final String briefly, String service, String question) {
                 if (!"datetime".equals(service)) {
-                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,没有查到该日期", false);
+                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "您好，没有查到该日期", false);
                     return;
                 }
                 runOnUiThread(new Runnable() {

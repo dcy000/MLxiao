@@ -72,7 +72,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), PayInfoActivity.class);
+        Intent intent = new Intent(getApplicationContext(), QRCodeAliPayActivity.class);
         switch (view.getId()) {
             case R.id.pay_1:
                 intent.putExtra("number", "5000");

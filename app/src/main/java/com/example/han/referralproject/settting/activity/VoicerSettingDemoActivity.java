@@ -38,7 +38,7 @@ public class VoicerSettingDemoActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTitle();
         initView();
-        MLVoiceSynthetize.startSynthesize(this, "主人,请你选出一种声音", false);
+        MLVoiceSynthetize.startSynthesize(this, "您好，请你选出一种声音", false);
     }
 
     private void initView() {

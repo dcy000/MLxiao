@@ -84,7 +84,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     }
 
     private void showHypertensionHandDialog(String hand) {
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请使用" + hand + "测量");
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，请使用" + hand + "测量");
         new AlertDialog(mContext).builder()
                 .setMsg("请使用" + hand + "测量")
                 .setPositiveButton("确定", new View.OnClickListener() {
@@ -99,7 +99,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 3 && !isOnPause) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量收缩压" + results[0] + ",舒张压" + results[1] + ",脉搏" + results[2], false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，您本次测量收缩压" + results[0] + ",舒张压" + results[1] + ",脉搏" + results[2], false);
 
             datas = new ArrayList<>();
             DetectionData pressureData = new DetectionData();
@@ -220,7 +220,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
                     boolean booleanExtra = data.getBooleanExtra(HealthMeasureAbnormalActivity.KEY_HAS_ABNIRMAL_REASULT, false);
                     if (booleanExtra) {
                         //数据异常
-                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，因为你测量出现偏差，此次测量将不会作为历史数据");
                     } else {
                         uploadData();
                     }

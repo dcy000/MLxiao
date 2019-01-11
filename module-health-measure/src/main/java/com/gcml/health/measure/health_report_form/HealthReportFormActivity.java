@@ -63,7 +63,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_measure_activity_report_form);
         initView();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请查看您的疾病风险评估报告，向左滑动查看详情");
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您好，请查看您的疾病风险评估报告，向左滑动查看详情");
         getData();
 
     }
@@ -215,7 +215,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         checkViewpageState = fragments.size() - 1;
         new CustomDialog(this).builder()
                 .setImg(0)
-                .setMsg("主人，您已完成风险评估，为了更好的体验，您可以通过每日任务引导开启健康之旅。")
+                .setMsg("您好，您已完成风险评估，为了更好的体验，您可以通过每日任务引导开启健康之旅。")
                 .setPositiveButton("开始体验", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

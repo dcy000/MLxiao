@@ -188,7 +188,7 @@ public class SignUp13SportsActivity extends BaseActivity {
                 new NetworkManager.SuccessCallback<UserInfoBean>() {
                     @Override
                     public void onSuccess(UserInfoBean response) {
-                        speak("主人，您已注册成功。请点下一步完善相关内容，即可愉快使用！");
+                        speak("您好，您已注册成功。请点下一步完善相关内容，即可愉快使用！");
                         tvGoBack.setVisibility(View.INVISIBLE);
                         hideLoadingDialog();
                         shared.setUserInfo(response);
@@ -207,7 +207,7 @@ public class SignUp13SportsActivity extends BaseActivity {
                     public void onFailed(String message) {
                         hideLoadingDialog();
                         ToastUtils.showShort(message);
-                        speak("主人," + message);
+                        speak("您好，" + message);
                     }
                 }
         );

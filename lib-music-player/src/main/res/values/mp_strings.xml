@@ -33,7 +33,7 @@
     <string name="mp_timer_set">设置成功，将于%s分钟后关闭</string>
     <string name="mp_timer_cancel">定时停止播放已取消</string>
     <string name="mp_no_permission">没有%1$s权限，无法%2$s！</string>
-    <string name="mp_user_help">主人，认真阅读用户须知，帮助您完成签约</string>
+    <string name="mp_user_help">您好，认真阅读用户须知，帮助您完成签约</string>
     <string name="mp_hello">你好</string>
 
     <string name="mp_setting_key_mobile_network_play">mobile_network_play</string>

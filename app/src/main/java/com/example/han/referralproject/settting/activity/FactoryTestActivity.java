@@ -40,7 +40,7 @@ public class FactoryTestActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_factory_test);
         ButterKnife.bind(this);
-        speak("主人欢迎来到工厂检测页面");
+        speak("您好，欢迎来到工厂检测页面");
         initTitle();
     }
 

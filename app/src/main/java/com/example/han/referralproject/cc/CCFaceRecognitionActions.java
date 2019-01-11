@@ -268,7 +268,7 @@ public class CCFaceRecognitionActions {
     }
 
     public static void showPaySuccessDialog(Context activity) {
-        MLVoiceSynthetize.startSynthesize(activity, "主人，恭喜您支付成功", false);
+        MLVoiceSynthetize.startSynthesize(activity, "您好，恭喜您支付成功", false);
         NDialog2 dialog2 = new NDialog2(activity);
         dialog2.setMessageCenter(true)
                 .setMessage("支付成功")
