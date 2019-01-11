@@ -70,7 +70,11 @@ public interface UserService {
     @POST("ZZB/br/appadd")
     Observable<ApiResult<UserEntity>> signUpByIdCard(
             @Query("eqid") String deviceId,
-            @Query("tel") String account,
+            @Query("bname") String name,
+            @Query("sex") String sex,
+//            @Query("nation") String nation
+            @Query("sfz") String idrad,
+            @Query("dz") String address,
             @Query("pwd") String pwd
     );
 

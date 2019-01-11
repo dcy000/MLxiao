@@ -22,7 +22,6 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class UserRepository {
-
     private Context mContext = AppDelegate.INSTANCE.app();
 
     private UserService mUserService = RetrofitHelper.service(UserService.class);
@@ -39,6 +38,22 @@ public class UserRepository {
                                 .subscribeOn(Schedulers.io());
                     }
                 });
+    }
+
+    public Observable<UserEntity> signUpByIdCard(String deviceId,
+                                                 String name,
+                                                 String sex,
+                                                 String idCard,
+                                                 String address) {
+        return mUserService.signUpByIdCard(deviceId, name, sex, idCard, address,name)
+                .compose(RxUtils.apiResultTransformer())
+              /*  .flatMap(new Function<UserEntity, ObservableSource<UserEntity>>() {
+                    @Override
+                    public ObservableSource<UserEntity> apply(UserEntity user) throws Exception {
+                        return signInByIdCard(deviceId, idCard)
+                                .subscribeOn(Schedulers.io());
+                    }
+                })*/;
     }
 
 
