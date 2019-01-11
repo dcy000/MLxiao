@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.http.ApiException;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -112,25 +113,25 @@ public class IDCardNuberLoginActivity extends AppCompatActivity implements View.
 
     private void checkIdCardIsRegisterOrNot(String idCardNumber) {
         String deviceId = Utils.getDeviceId(getContentResolver());
-        userRepository
-                .isIdCardNotExit(ccetPhone.getPhone())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>() {
-                    @Override
-                    public void onNext(Object o) {
-                        super.onNext(o);
-//                        ToastUtils.showShort("未注册,请先去注册");
-                        showAccountInfoDialog();
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        super.onError(throwable);
-                        signIn(deviceId, idCardNumber);
-                    }
-                });
+//        userRepository
+//                .isIdCardNotExit(ccetPhone.getPhone())
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .as(RxUtils.autoDisposeConverter(this))
+//                .subscribe(new DefaultObserver<Object>() {
+//                    @Override
+//                    public void onNext(Object o) {
+//                        super.onNext(o);
+////                        ToastUtils.showShort("未注册,请先去注册");
+//                        showAccountInfoDialog();
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable throwable) {
+//                        super.onError(throwable);
+//                    }
+//                });
+        signIn(deviceId, idCardNumber);
     }
 
     private void signIn(String deviceId, String idCardNumber) {
@@ -165,6 +166,12 @@ public class IDCardNuberLoginActivity extends AppCompatActivity implements View.
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        if (throwable instanceof ApiException) {
+                            int code = ((ApiException) throwable).code();
+                            if (code == 1002) {
+                                showAccountInfoDialog();
+                            }
+                        }
                         ToastUtils.showShort(throwable.getMessage());
                     }
                 });

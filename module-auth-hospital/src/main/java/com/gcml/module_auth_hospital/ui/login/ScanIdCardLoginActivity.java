@@ -17,6 +17,7 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.http.ApiException;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -36,10 +37,12 @@ import com.kaer.sdk.bt.OnBluetoothListener;
 import java.lang.reflect.Method;
 import java.util.Set;
 
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class ScanIdCardLoginActivity extends AppCompatActivity implements AcountInfoDialog.OnFragmentInteractionListener {
@@ -487,7 +490,8 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
             return;
         }
         String idCardNumber = item.certNumber;
-        userRepository
+        signIn(deviceId, idCardNumber);
+       /* userRepository
                 .isIdCardNotExit(idCardNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -503,9 +507,9 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        signIn(deviceId, idCardNumber);
+
                     }
-                });
+                });*/
     }
 
     private void signIn(String deviceId, String idCardNumber) {
@@ -540,6 +544,12 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        if (throwable instanceof ApiException) {
+                            int code = ((ApiException) throwable).code();
+                            if (code == 1002) {
+                                showAccountInfoDialog();
+                            }
+                        }
                         ToastUtils.showShort(throwable.getMessage());
                     }
                 });
