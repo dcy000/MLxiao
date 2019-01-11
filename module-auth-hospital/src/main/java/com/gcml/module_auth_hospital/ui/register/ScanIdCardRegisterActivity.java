@@ -15,9 +15,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.http.ApiException;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -498,7 +500,6 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
                     @Override
                     public void onNext(Object o) {
                         super.onNext(o);
-                        //身份证未被绑定后其他异常情况
                         toFilllRegisterInfo(item);
                     }
 
@@ -506,8 +507,14 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        //身份证已被绑定
-                        showAccountInfoDialog();
+                        if (throwable instanceof ApiException) {
+                            int code = ((ApiException) throwable).code();
+                            if (code == 1034) {
+                                showAccountInfoDialog();
+                            }
+                        }
+                        ToastUtils.showShort(throwable.getMessage());
+
                     }
                 });
     }

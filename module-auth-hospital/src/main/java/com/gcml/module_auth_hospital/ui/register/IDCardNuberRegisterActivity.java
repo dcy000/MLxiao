@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -127,15 +128,14 @@ public class IDCardNuberRegisterActivity extends AppCompatActivity implements Vi
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
-                        //身份证已被绑定
-                        showAccountInfoDialog();
+                        ToastUtils.showShort(throwable.getMessage());
                     }
                 });
     }
 
 
     private void toFilllRegisterInfo(String idCardNumber) {
-        startActivity(new Intent(this, IDCardRegisterInfoActivity.class)
+        startActivity(new Intent(this, IDCardNumberRegisterInfoActivity.class)
                 .putExtra(REGISTER_FORM_WHERE, REGISTER_FORM_IDCARD_NUMBER)
                 .putExtra(REGISTER_IDCARD_NUMBER, idCardNumber)
         );
