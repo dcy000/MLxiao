@@ -56,10 +56,6 @@ public class MeasureXuetangWarningFragment extends HealthMeasureAbnormalBaseFrag
 
     }
 
-    @Override
-    protected BaseBluetooth obtainPresenter() {
-        return null;
-    }
 
     private void initAdapter() {
         mList.setLayoutManager(new GridLayoutManager(getActivity(), 3));
@@ -130,13 +126,4 @@ public class MeasureXuetangWarningFragment extends HealthMeasureAbnormalBaseFrag
         }
     }
 
-    @Override
-    public void updateData(String... datas) {
-
-    }
-
-    @Override
-    public void updateState(String state) {
-
-    }
 }

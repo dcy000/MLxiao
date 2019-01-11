@@ -113,8 +113,6 @@ public class MyApplication extends Application {
 //        LeakCanary.install(this);
         LibMusicPlayer.init(this);
         Preferences.init(this);
-        //初始化蓝牙连接库
-        BluetoothClientManager.init(this);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
                 this,

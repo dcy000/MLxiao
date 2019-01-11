@@ -20,6 +20,7 @@ public class ECGPresenter extends BaseBluetooth {
     @Override
     protected void connectSuccessed(String name, String address) {
         if (name.startsWith("A12-B")){
+            ecgBrand.postValue("A12-B");
             new ChaosiECGPresenter(getActivity(), baseView, name, address);
             return;
         }
@@ -29,6 +30,7 @@ public class ECGPresenter extends BaseBluetooth {
     @Override
     protected boolean isSelfConnect(String name, String address) {
         if (name.startsWith("WeCardio")) {
+            ecgBrand.postValue("WeCardio");
             new BoShengECGPresenter(getActivity(), baseView, name, address);
             return true;
         }

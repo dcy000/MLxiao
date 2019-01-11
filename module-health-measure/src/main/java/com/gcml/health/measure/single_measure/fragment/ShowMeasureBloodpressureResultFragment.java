@@ -196,10 +196,6 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         getDiagnoseInfo();
     }
 
-    @Override
-    protected BaseBluetooth obtainPresenter() {
-        return null;
-    }
 
     /**
      * 获取诊断的相关信息
@@ -688,13 +684,4 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
         }
     }
 
-    @Override
-    public void updateData(String... datas) {
-
-    }
-
-    @Override
-    public void updateState(String state) {
-
-    }
 }

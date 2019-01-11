@@ -119,6 +119,8 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+                        baseFragment.autoConnect();
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {

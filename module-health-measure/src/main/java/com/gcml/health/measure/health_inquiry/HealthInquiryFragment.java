@@ -85,10 +85,6 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
         changeTips();
     }
 
-    @Override
-    protected BaseBluetooth obtainPresenter() {
-        return null;
-    }
 
     private void changeTips() {
         for (HealthInquiryBean.QuestionListBean.AnswerListBean bean : mData) {
@@ -238,13 +234,4 @@ public class HealthInquiryFragment extends BluetoothBaseFragment implements View
         super.onDestroyView();
     }
 
-    @Override
-    public void updateData(String... datas) {
-
-    }
-
-    @Override
-    public void updateState(String state) {
-
-    }
 }

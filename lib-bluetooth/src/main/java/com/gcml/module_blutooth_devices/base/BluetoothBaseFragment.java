@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gcml.common.utils.click.ClickEventListener;
+import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.module_blutooth_devices.R;
+import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenPresenter;
 import com.gcml.module_blutooth_devices.dialog.BluetoothDialog;
 import com.gcml.module_blutooth_devices.dialog.ChooseBluetoothDevice;
 
@@ -98,11 +101,24 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
         }
     }
 
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
+    }
+
+    protected  BaseBluetooth obtainPresenter(){
+        return null;
+    }
+
     protected abstract int initLayout();
 
     protected abstract void initView(View view, Bundle bundle);
 
-    protected abstract BaseBluetooth obtainPresenter();
 
     @Override
     public void onDestroyView() {

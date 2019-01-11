@@ -61,12 +61,6 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
     }
 
     @Override
-    protected BaseBluetooth obtainPresenter() {
-        return null;
-    }
-
-
-    @Override
     public void onResume() {
         super.onResume();
         Observable
@@ -80,16 +74,6 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
                                 HealthFirstTipsFragment.this, null);
                     }
                 });
-    }
-
-    @Override
-    public void updateData(String... datas) {
-
-    }
-
-    @Override
-    public void updateState(String state) {
-
     }
 
     class OnSynthesizerListener implements SynthesizerListener {

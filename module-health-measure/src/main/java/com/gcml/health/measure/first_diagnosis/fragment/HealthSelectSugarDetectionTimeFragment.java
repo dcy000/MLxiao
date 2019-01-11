@@ -29,10 +29,6 @@ public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragmen
         mIvOtherTime.setOnClickListener(this);
     }
 
-    @Override
-    protected BaseBluetooth obtainPresenter() {
-        return null;
-    }
 
     public static final int ACTION_EMPTY_STOMACH = 0;
     public static final int ACTION_TWO_HOURS = 2;
@@ -71,13 +67,4 @@ public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragmen
         }
     }
 
-    @Override
-    public void updateData(String... datas) {
-
-    }
-
-    @Override
-    public void updateState(String state) {
-
-    }
 }

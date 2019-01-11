@@ -65,7 +65,8 @@ public class BaseManagementActivity extends ToolbarBaseActivity implements DealV
                 .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+                        baseFragment.autoConnect();
                     }
                 })
                 .setPositiveButton("确认", new View.OnClickListener() {
@@ -75,38 +76,12 @@ public class BaseManagementActivity extends ToolbarBaseActivity implements DealV
                     }
                 }).show();
     }
-
-    @CallSuper
     protected void untieDevice() {
-        //先清除已经绑定的设备
-        unpairDevice();
-    }
-
-    protected void clearBluetoothCache(String nameAddress) {
-        if (!TextUtils.isEmpty(nameAddress)) {
-            String[] split = nameAddress.split(",");
-            if (split.length == 2 && !TextUtils.isEmpty(split[1])) {
-                BluetoothStore.getClient().refreshCache(split[1]);
-            }
-        }
-    }
-
-    /**
-     * 解除已配对设备
-     */
-    private void unpairDevice() {
-        List<BluetoothDevice> devices = BluetoothUtils.getBondedBluetoothClassicDevices();
-        for (BluetoothDevice device : devices) {
-            try {
-                Method m = device.getClass()
-                        .getMethod("removeBond", (Class[]) null);
-                m.invoke(device, (Object[]) null);
-            } catch (Exception e) {
-                Timber.e(e.getMessage());
-            }
-        }
 
     }
+
+
+
 
     @CallSuper
     protected void dealLogic() {

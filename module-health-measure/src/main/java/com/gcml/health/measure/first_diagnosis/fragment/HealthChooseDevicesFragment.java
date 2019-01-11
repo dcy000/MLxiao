@@ -66,10 +66,6 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         initRecycleview();
     }
 
-    @Override
-    protected BaseBluetooth obtainPresenter() {
-        return null;
-    }
 
     @Override
     public void onResume() {
@@ -269,15 +265,5 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
             deviceNum.add(7);
         }
         return deviceNum;
-    }
-
-    @Override
-    public void updateData(String... datas) {
-
-    }
-
-    @Override
-    public void updateState(String state) {
-
     }
 }

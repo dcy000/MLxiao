@@ -214,25 +214,11 @@ public class ECG_PDF_Fragment extends BluetoothBaseFragment {
 
     }
 
-    @Override
-    protected BaseBluetooth obtainPresenter() {
-        return null;
-    }
 
     @Override
     public void onDestroyView() {
         isDestroy = true;
         ThreadUtils.cancel(pdfDownload);
         super.onDestroyView();
-    }
-
-    @Override
-    public void updateData(String... datas) {
-
-    }
-
-    @Override
-    public void updateState(String state) {
-
     }
 }

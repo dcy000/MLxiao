@@ -59,10 +59,6 @@ public class MeasureXueyaWarningFragment extends HealthMeasureAbnormalBaseFragme
         initAdapter();
     }
 
-    @Override
-    protected BaseBluetooth obtainPresenter() {
-        return null;
-    }
 
     private void initAdapter() {
         mList.setLayoutManager(new GridLayoutManager(getActivity(), 4));
@@ -151,13 +147,4 @@ public class MeasureXueyaWarningFragment extends HealthMeasureAbnormalBaseFragme
         }
     }
 
-    @Override
-    public void updateData(String... datas) {
-
-    }
-
-    @Override
-    public void updateState(String state) {
-
-    }
 }

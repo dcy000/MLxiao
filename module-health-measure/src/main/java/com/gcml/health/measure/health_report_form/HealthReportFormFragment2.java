@@ -107,10 +107,6 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
         setData(bundle);
     }
 
-    @Override
-    protected BaseBluetooth obtainPresenter() {
-        return null;
-    }
 
     private void setData(Bundle bundle) {
         if (bundle != null) {
@@ -240,13 +236,4 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
         }
     }
 
-    @Override
-    public void updateData(String... datas) {
-
-    }
-
-    @Override
-    public void updateState(String state) {
-
-    }
 }

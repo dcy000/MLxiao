@@ -15,7 +15,7 @@ import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
 import java.util.ArrayList;
 
-public class Fingerpint_Fragment extends BluetoothBaseFragment implements View.OnClickListener {
+public class FingerpintFragment extends BluetoothBaseFragment implements View.OnClickListener {
 
     /**
      * 指纹录入

@@ -120,7 +120,9 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        untieDevice();
+                        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+                        fragment.autoConnect();
+
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {
@@ -129,43 +131,5 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
 
                     }
                 }).show();
-    }
-
-    private void untieDevice() {
-        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
-        unpairDevice();
-        String nameAddress = null;
-        nameAddress = (String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_BLOODPRESSURE, "");
-        SPUtil.remove(BluetoothConstants.SP.SP_SAVE_BLOODPRESSURE);
-        ((BloodpressureFragment) fragment).onStop();
-//        ((BloodpressureFragment) fragment).dealLogic();
-
-        clearBluetoothCache(nameAddress);
-    }
-
-    /**
-     * 解除已配对设备
-     */
-    private void unpairDevice() {
-        List<BluetoothDevice> devices = BluetoothUtils.getBondedBluetoothClassicDevices();
-        for (BluetoothDevice device : devices) {
-            try {
-                Method m = device.getClass()
-                        .getMethod("removeBond", (Class[]) null);
-                m.invoke(device, (Object[]) null);
-            } catch (Exception e) {
-                Timber.e(e.getMessage());
-            }
-        }
-
-    }
-
-    private void clearBluetoothCache(String nameAddress) {
-        if (!TextUtils.isEmpty(nameAddress)) {
-            String[] split = nameAddress.split(",");
-            if (split.length == 2 && !TextUtils.isEmpty(split[1])) {
-                BluetoothStore.getClient().refreshCache(split[1]);
-            }
-        }
     }
 }

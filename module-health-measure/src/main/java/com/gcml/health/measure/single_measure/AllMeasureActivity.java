@@ -56,7 +56,7 @@ import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.ecg.ECGFragment;
 import com.gcml.module_blutooth_devices.ecg.ECG_PDF_Fragment;
-import com.gcml.module_blutooth_devices.fingerprint.Fingerpint_Fragment;
+import com.gcml.module_blutooth_devices.fingerprint.FingerpintFragment;
 import com.gcml.module_blutooth_devices.three.ThreeInOneFragment;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -202,7 +202,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 break;
             case IPresenter.CONTROL_FINGERPRINT:
                 if (baseFragment == null) {
-                    baseFragment = new Fingerpint_Fragment();
+                    baseFragment = new FingerpintFragment();
                 }
                 break;
             case IPresenter.MEASURE_HAND_RING:
@@ -385,7 +385,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+                        baseFragment.autoConnect();
                     }
                 })
                 .setPositiveButton("确认", new View.OnClickListener() {

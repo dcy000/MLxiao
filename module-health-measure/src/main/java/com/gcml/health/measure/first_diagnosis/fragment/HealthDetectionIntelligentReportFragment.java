@@ -116,10 +116,6 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         rvReport.setAdapter(mAdapter);
     }
 
-    @Override
-    protected BaseBluetooth obtainPresenter() {
-        return null;
-    }
 
     private final ArrayList<DetectionResult> mResults = new ArrayList<>();
 
@@ -162,16 +158,6 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         constraintSet.connect(targetId, ConstraintSet.END, descId, ConstraintSet.END);
         constraintSet.connect(targetId, ConstraintSet.BOTTOM, descId, ConstraintSet.TOP, UiUtils.pt(20));
         constraintSet.applyTo(clContainer);
-    }
-
-    @Override
-    public void updateData(String... datas) {
-
-    }
-
-    @Override
-    public void updateState(String state) {
-
     }
 
     private class BloodPressureVH extends VH {
