@@ -17,6 +17,7 @@ import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
+import com.gcml.module_auth_hospital.ui.login.ScanIdCardLoginActivity;
 import com.gcml.module_auth_hospital.wrap.CanClearEditText;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -85,7 +86,7 @@ public class IDCardNuberRegisterActivity extends AppCompatActivity implements Vi
             default:
                 break;
             case R.id.tv_next:
-                startActivity(new Intent(this, IDCardNumberRegisterInfoActivity.class));
+                checkIdCard();
                 break;
         }
     }
@@ -172,18 +173,18 @@ public class IDCardNuberRegisterActivity extends AppCompatActivity implements Vi
         }
     }
 
+
     private AcountInfoDialog dialog;
 
     private void showAccountInfoDialog() {
         if (dialog == null) {
-            dialog = new AcountInfoDialog();
+            dialog = AcountInfoDialog.newInstance("身份证已注册，是否直接登录？", null);
         }
-
         if (dialog.isAdded()) {
             dialog.dismiss();
         } else {
             dialog.setListener(this);
-            dialog.show(getSupportFragmentManager(), "IDCardNuberLoginActivity");
+            dialog.show(getSupportFragmentManager(), "ScanIDCardRegister");
         }
     }
 
@@ -194,7 +195,7 @@ public class IDCardNuberRegisterActivity extends AppCompatActivity implements Vi
 
     @Override
     public void onConfirm() {
-        startActivity(new Intent(this, UserRegistersActivity.class));
+        startActivity(new Intent(this, ScanIdCardLoginActivity.class));
     }
 
 }

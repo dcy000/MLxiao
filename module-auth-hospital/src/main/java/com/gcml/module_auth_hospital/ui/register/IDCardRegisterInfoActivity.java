@@ -2,6 +2,8 @@ package com.gcml.module_auth_hospital.ui.register;
 
 
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -71,20 +73,7 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
         etRegisterMinzu.setText(nation);
         etRegisterIdcrad.setText(number);
         etRegisterNowAddress.setText(address);
-
-        if (TextUtils.equals("男", gender)) {
-            tvMan.setCompoundDrawables(getResources().getDrawable(R.drawable.ic_select),
-                    null, null,null);
-            woman.setCompoundDrawables(getResources().getDrawable(R.drawable.ic_not_select),
-                    null, null,null);
-        } else if (TextUtils.equals("女", gender)) {
-            tvMan.setCompoundDrawables(getResources().getDrawable(R.drawable.ic_not_select),
-                    null, null,null);
-            woman.setCompoundDrawables(getResources().getDrawable(R.drawable.ic_select),
-                    null, null,null);
-        }
-
-
+        setGender();
         authRegisterInfoTb.setData("账 号 注 册",
                 R.drawable.common_btn_back, "返回",
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
@@ -112,10 +101,26 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
                 });
     }
 
+    private void setGender() {
+        Drawable drawable = getResources().getDrawable(R.drawable.ic_select);
+        drawable.setBounds(0, 0, 56, 56);
+        Drawable drawable1 = getResources().getDrawable(R.drawable.ic_not_select);
+        drawable1.setBounds(0, 0, 56, 56);
+        if (TextUtils.equals("男", gender)) {
+            tvMan.setCompoundDrawables(drawable, null, null, null);
+            woman.setCompoundDrawables(drawable1, null, null, null);
+
+        } else if (TextUtils.equals("女", gender)) {
+            tvMan.setCompoundDrawables(drawable1, null, null, null);
+            woman.setCompoundDrawables(drawable, null, null, null);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_auth_next:
+
                 break;
         }
     }
