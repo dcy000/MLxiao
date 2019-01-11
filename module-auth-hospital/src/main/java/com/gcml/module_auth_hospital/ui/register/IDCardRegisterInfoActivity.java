@@ -10,12 +10,24 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.Utils;
+import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
+import com.gcml.module_auth_hospital.model.UserRepository;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -120,8 +132,110 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_auth_next:
-
+                register();
                 break;
+        }
+    }
+
+    UserRepository repository = new UserRepository();
+
+    private void register() {
+        String deviceId = Utils.getDeviceId(getApplicationContext().getContentResolver());
+        repository.signUpByIdCard(deviceId, name, gender, number, address)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showLoading("正在注册...");
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissLoading();
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity userEntity) {
+                        ToastUtils.showLong("注册成功");
+                        login(deviceId);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        String message = throwable.getMessage();
+                        ToastUtils.showShort(message);
+                    }
+                });
+    }
+
+    private void login(String deviceId) {
+        repository
+                .signInByIdCard(deviceId, number)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showLoading("正在登录...");
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissLoading();
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                                .addParam("userId", user.id)
+                                .build()
+                                .callAsync();
+                        ToastUtils.showLong("登录成功");
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
+                        toLogin();
+                    }
+                });
+    }
+
+    private void toLogin() {
+        //关闭 注册时的 扫面sfz和信息录入页面
+        finish();
+        startActivity(new Intent(this, ScanIdCardRegisterActivity.class));
+    }
+
+    private LoadingDialog mLoadingDialog;
+
+    private void showLoading(String tips) {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+        mLoadingDialog = new LoadingDialog.Builder(this)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord(tips)
+                .create();
+        mLoadingDialog.show();
+    }
+
+    private void dismissLoading() {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
         }
     }
 }
