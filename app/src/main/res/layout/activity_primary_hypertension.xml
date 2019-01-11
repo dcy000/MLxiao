@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.han.referralproject.hypertensionmanagement.activity.PrimaryHypertensionActivity">
 
-    <com.example.han.referralproject.hypertensionmanagement.wrap.MLViewPager
+    <com.gcml.common.widget.MLViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.example.han.referralproject.hypertensionmanagement.wrap.MLViewPager>
+        android:layout_height="match_parent"></com.gcml.common.widget.MLViewPager>
 </android.support.constraint.ConstraintLayout>

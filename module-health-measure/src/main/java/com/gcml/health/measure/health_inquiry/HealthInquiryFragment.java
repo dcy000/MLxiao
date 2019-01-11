@@ -13,11 +13,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
-import com.gcml.health.measure.divider.LinearLayoutDividerItemDecoration;
+import com.gcml.common.divider.GridViewDividerItemDecoration;
+import com.gcml.common.divider.LinearLayoutDividerItemDecoration;
 import com.gcml.health.measure.health_inquiry.bean.HealthInquiryBean;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.List;

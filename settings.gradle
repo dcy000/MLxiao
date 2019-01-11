@@ -1,4 +1,4 @@
-include ':app', ':module-auth-face2', ':test',
+include ':app', ':module-auth-face2', ':test', ':module-health-profile',
 //        ':app-component',
         ':lib-common-core',
         ':lib-common-business',

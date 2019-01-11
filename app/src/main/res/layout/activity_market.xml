@@ -22,7 +22,7 @@
             </RadioGroup>
         </ScrollView>
 
-        <com.example.han.referralproject.hypertensionmanagement.wrap.MLViewPager
+        <com.gcml.common.widget.MLViewPager
             android:id="@+id/vp_goods"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

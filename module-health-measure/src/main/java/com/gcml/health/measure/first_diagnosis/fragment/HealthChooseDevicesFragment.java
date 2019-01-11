@@ -14,14 +14,13 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.device.DeviceUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
+import com.gcml.common.divider.GridViewDividerItemDecoration;
 import com.gcml.health.measure.first_diagnosis.bean.ChooseDeviceBean;
 import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;
 import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.google.gson.Gson;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 

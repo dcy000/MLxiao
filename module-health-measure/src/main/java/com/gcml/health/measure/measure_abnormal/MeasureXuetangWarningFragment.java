@@ -10,8 +10,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
-import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+import com.gcml.common.divider.GridViewDividerItemDecoration;
 
 import java.util.ArrayList;
 
