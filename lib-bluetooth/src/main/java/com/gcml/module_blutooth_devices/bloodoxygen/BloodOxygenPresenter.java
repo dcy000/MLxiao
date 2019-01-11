@@ -47,10 +47,6 @@ public class BloodOxygenPresenter extends BaseBluetooth {
             handleChaosi(address);
             return;
         }
-        if (name.startsWith("SpO2080971")) {
-            //康泰血氧仪
-            return;
-        }
         baseView.updateState("未兼容该设备:" + name + ":::" + address);
     }
 

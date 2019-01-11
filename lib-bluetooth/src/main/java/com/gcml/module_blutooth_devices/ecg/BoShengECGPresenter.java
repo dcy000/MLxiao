@@ -229,14 +229,13 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         if (userEntity != null) {
                             phone = userEntity.phone;
                             birth = userEntity.birthday;
-                            name = userEntity.name;
                             sex = userEntity.sex;
 
-                            if (TextUtils.isEmpty(birth) || TextUtils.isEmpty(name) || TextUtils.isEmpty(sex)) {
+                            if (TextUtils.isEmpty(birth) || TextUtils.isEmpty(userEntity.name) || TextUtils.isEmpty(sex)) {
                                 ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
                                 return;
                             }
-                            getNetConfig(phone, birth, name, sex);
+                            getNetConfig(phone, birth, userEntity.name, sex);
                         }
                     }
 

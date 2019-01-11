@@ -65,8 +65,7 @@ public class BaseManagementActivity extends ToolbarBaseActivity implements DealV
                 .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
-                        baseFragment.autoConnect();
+
                     }
                 })
                 .setPositiveButton("确认", new View.OnClickListener() {

@@ -429,13 +429,14 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        fragment.autoConnect();
-                        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+
                     }
                 })
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        fragment.autoConnect();
+                        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
                     }
 
                 }).show();

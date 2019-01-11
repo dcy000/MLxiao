@@ -3,7 +3,6 @@ package com.gcml.health.measure.single_measure.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -12,9 +11,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
-import com.gcml.health.measure.bloodpressure_habit.GetHypertensionHandActivity;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.measure_abnormal.HealthMeasureAbnormalActivity;
 import com.gcml.health.measure.network.HealthMeasureRepository;
@@ -61,38 +58,6 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
         isMeasureTask = bundle.getBoolean(IPresenter.IS_MEASURE_TASK);
-        getHypertensionHand();
-    }
-
-    /**
-     * 获取惯用手
-     */
-    private void getHypertensionHand() {
-        String userHypertensionHand = UserSpHelper.getUserHypertensionHand();
-        Timber.i("SingleMeasureBloodpressureFragment惯用手：" + userHypertensionHand);
-        if (TextUtils.isEmpty(userHypertensionHand)) {
-            //还没有录入惯用手，则跳转到惯用手录入activity
-            GetHypertensionHandActivity.startActivityForResult(this, CODE_REQUEST_GETHYPERTENSIONHAND);
-        } else {
-            hasHypertensionHand = true;
-            if ("0".equals(userHypertensionHand)) {
-                showHypertensionHandDialog("左手");
-            } else if ("1".equals(userHypertensionHand)) {
-                showHypertensionHandDialog("右手");
-            }
-        }
-    }
-
-    private void showHypertensionHandDialog(String hand) {
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请使用" + hand + "测量");
-        new AlertDialog(mContext).builder()
-                .setMsg("请使用" + hand + "测量")
-                .setPositiveButton("确定", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                }).show();
     }
 
     @SuppressLint("CheckResult")
@@ -227,15 +192,7 @@ public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
 
                 }
             }
-        } else if (requestCode == CODE_REQUEST_GETHYPERTENSIONHAND) {
-            if (resultCode == RESULT_OK) {
-                mActivity.finish();
-            } else {
-                getHypertensionHand();
-//                dealLogic();
-            }
         }
-
     }
 
     @Override

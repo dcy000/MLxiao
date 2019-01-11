@@ -385,13 +385,13 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
-                        baseFragment.autoConnect();
                     }
                 })
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+                        baseFragment.autoConnect();
                     }
                 }).show();
     }
