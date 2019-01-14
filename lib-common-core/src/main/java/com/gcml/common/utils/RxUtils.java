@@ -212,4 +212,9 @@ public class RxUtils {
                 })
                 .take(times + 1);
     }
+
+
+    public static Observable<Long> rxTimer(int times) {
+        return Observable.timer(times, TimeUnit.SECONDS);
+    }
 }

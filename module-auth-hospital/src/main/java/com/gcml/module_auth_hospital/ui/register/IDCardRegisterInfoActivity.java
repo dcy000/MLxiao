@@ -199,6 +199,7 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
                                 .build()
                                 .callAsync();
                         ToastUtils.showLong("登录成功");
+                        toHome();
                     }
 
                     @Override
@@ -208,6 +209,11 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
                         toLogin();
                     }
                 });
+    }
+
+    private void toHome() {
+        finish();
+        startActivity(new Intent(this, RegisterSuccessActivity.class));
     }
 
     private void toLogin() {
