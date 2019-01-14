@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.imageview.CircleImageView;
 import com.example.han.referralproject.network.NetworkApi;
@@ -77,7 +78,7 @@ public class HeadiconActivity extends BaseActivity {
         mImageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), HospitalMainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -162,7 +163,7 @@ public class HeadiconActivity extends BaseActivity {
                                         public void onSuccess(Object response) {
                                             //将账号在本地缓存
                                             LocalShared.getInstance(mContext).addAccount(userid, xfid);
-                                            Class<? extends BaseActivity> aClass = isFast ? MainActivity.class : RecoDocActivity.class;
+                                            Class aClass = isFast ? HospitalMainActivity.class : RecoDocActivity.class;
                                             Intent intent = new Intent(getApplicationContext(), aClass);
                                             startActivity(intent);
                                             finish();

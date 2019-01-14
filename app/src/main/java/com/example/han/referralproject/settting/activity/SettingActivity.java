@@ -12,6 +12,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.WelcomeActivity;
 import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -77,7 +78,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onRightClick() {
-                startActivity(new Intent(SettingActivity.this, MainActivity.class));
+                startActivity(new Intent(SettingActivity.this, HospitalMainActivity.class));
                 finish();
             }
         });

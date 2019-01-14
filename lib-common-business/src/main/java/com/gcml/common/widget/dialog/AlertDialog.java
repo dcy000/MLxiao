@@ -2,6 +2,8 @@ package com.gcml.common.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.annotation.ColorRes;
+import android.support.v4.content.ContextCompat;
 import android.text.Spanned;
 import android.view.Display;
 import android.view.Gravity;
@@ -77,7 +79,7 @@ public class AlertDialog {
             txt_msg.setGravity(Gravity.CENTER);
         } else {
             txt_msg.setText(msg);
-            if (msg.length() < 15 ) {
+            if (msg.length() < 15) {
                 txt_msg.setGravity(Gravity.CENTER);
             } else {
                 txt_msg.setGravity(Gravity.CENTER_VERTICAL);
@@ -86,11 +88,11 @@ public class AlertDialog {
         return this;
     }
 
-    public AlertDialog setMsg(Spanned spanned){
-        showMsg=true;
-        if (spanned==null){
+    public AlertDialog setMsg(Spanned spanned) {
+        showMsg = true;
+        if (spanned == null) {
             txt_msg.setText("内容");
-        }else{
+        } else {
             txt_msg.setText(spanned);
         }
         return this;
@@ -118,6 +120,11 @@ public class AlertDialog {
         return this;
     }
 
+    public AlertDialog setPositiveButtonColor(int color) {
+        btn_pos.setTextColor(ContextCompat.getColor(context, color));
+        return this;
+    }
+
     public AlertDialog setNegativeButton(String text,
                                          final View.OnClickListener listener) {
         showNegBtn = true;
@@ -133,6 +140,11 @@ public class AlertDialog {
                 dialog.dismiss();
             }
         });
+        return this;
+    }
+
+    public AlertDialog setNegativeButtonColor(@ColorRes int color) {
+        btn_neg.setTextColor(ContextCompat.getColor(context, color));
         return this;
     }
 

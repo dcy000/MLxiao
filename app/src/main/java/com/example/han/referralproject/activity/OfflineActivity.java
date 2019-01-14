@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 
@@ -25,7 +26,7 @@ public class OfflineActivity extends BaseActivity{
         mRightText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OfflineActivity.this, MainActivity.class);
+                Intent intent = new Intent(OfflineActivity.this, HospitalMainActivity.class);
                 startActivity(intent);
                 finish();
             }

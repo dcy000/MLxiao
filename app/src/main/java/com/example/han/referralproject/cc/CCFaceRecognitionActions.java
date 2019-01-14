@@ -12,6 +12,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog2;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.shopping.GoodDetailActivity;

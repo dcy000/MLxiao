@@ -41,6 +41,7 @@ import com.example.han.referralproject.children.entertainment.ChildEduJokesActiv
 import com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity;
 import com.example.han.referralproject.children.study.ChildEduPoemListActivity;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
@@ -1511,7 +1512,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     }
 
     private void gotoHomePage() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, HospitalMainActivity.class));
     }
 
     private void gotoQianyueYiSheng() {

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.measure.MeasureChooseReason;
 import com.example.han.referralproject.measure.MeasureExceptionAdapter;
@@ -86,7 +87,7 @@ public class MeasureXueyaWarningFragment extends Fragment {
         ivTopRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), HospitalMainActivity.class));
                 getActivity().finish();
             }
         });

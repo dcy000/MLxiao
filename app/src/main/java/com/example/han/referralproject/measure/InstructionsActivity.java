@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 
 import butterknife.BindView;
@@ -64,7 +65,7 @@ public class InstructionsActivity extends AppCompatActivity {
                 if (video.isPlaying()) {
                     video.stopPlayback();
                 }
-                startActivity(new Intent(InstructionsActivity.this, MainActivity.class));
+                startActivity(new Intent(InstructionsActivity.this, HospitalMainActivity.class));
                 finish();
             }
         });

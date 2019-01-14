@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 
 public class PayActivity extends BaseActivity implements View.OnClickListener {
@@ -66,7 +67,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
      * 返回到主页面
      */
     protected void backMainActivity() {
-        startActivity(new Intent(mContext, MainActivity.class));
+        startActivity(new Intent(mContext, HospitalMainActivity.class));
         finish();
     }
 

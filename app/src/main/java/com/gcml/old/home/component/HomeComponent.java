@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 
 public class HomeComponent implements IComponent {
@@ -19,7 +20,7 @@ public class HomeComponent implements IComponent {
     public boolean onCall(CC cc) {
         Context context = cc.getContext();
         Intent intent = new Intent();
-        intent.setClass(context, MainActivity.class);
+        intent.setClass(context, HospitalMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
         CC.sendCCResult(cc.getCallId(), CCResult.success());

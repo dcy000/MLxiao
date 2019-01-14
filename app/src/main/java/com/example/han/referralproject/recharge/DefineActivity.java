@@ -75,14 +75,6 @@ public class DefineActivity extends BaseActivity {
         finish();
     }
 
-    /**
-     * 返回到主页面
-     */
-    protected void backMainActivity() {
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
-    }
-
 
     public void init() {
         mEditText = findViewById(R.id.deifine_mount);

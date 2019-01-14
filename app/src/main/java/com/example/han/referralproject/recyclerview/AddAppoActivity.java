@@ -241,15 +241,6 @@ public class AddAppoActivity extends BaseActivity implements View.OnClickListene
         finish();
     }
 
-    /**
-     * 返回到主页面
-     */
-    protected void backMainActivity() {
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

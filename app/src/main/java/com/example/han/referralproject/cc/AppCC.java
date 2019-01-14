@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.IComponent;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.BasicInformationActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.HypertensionTipActivity;
@@ -82,7 +83,7 @@ public class AppCC implements IComponent {
                 context.startActivity(intent1);
                 break;
             case ReceiveActionNames.TO_MAINACTIVITY:
-                Intent intent2 = new Intent(context, MainActivity.class);
+                Intent intent2 = new Intent(context, HospitalMainActivity.class);
                 if (context instanceof Application) {
                     intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 }

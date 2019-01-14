@@ -11,6 +11,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.DiseaseUser;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.util.LocalShared;
@@ -60,7 +61,7 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onRightClick() {
-                startActivity(new Intent(SymptomCheckActivity.this, MainActivity.class));
+                startActivity(new Intent(SymptomCheckActivity.this, HospitalMainActivity.class));
             }
         });
 

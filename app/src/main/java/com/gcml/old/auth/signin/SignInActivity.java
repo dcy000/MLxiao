@@ -36,6 +36,7 @@ import com.example.han.referralproject.cc.CCFaceRecognitionActions;
 import com.example.han.referralproject.facerecognition.FaceAuthenticationUtils;
 import com.example.han.referralproject.facerecognition.ICreateGroupListener;
 import com.example.han.referralproject.facerecognition.IJoinGroupListener;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -282,7 +283,7 @@ public class SignInActivity extends BaseActivity {
                 if (goBackActivity!=null){
                     startActivity(new Intent(mContext,goBackActivity));
                 }else{
-                    startActivity(new Intent(mContext, MainActivity.class));
+                    startActivity(new Intent(mContext, HospitalMainActivity.class));
                 }
                 finish();
                 Timber.e("本次登录人的userid"+response.bid);

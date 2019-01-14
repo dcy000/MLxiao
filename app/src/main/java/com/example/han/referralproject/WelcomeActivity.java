@@ -15,6 +15,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.cc.CCVideoActions;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.gcml.common.data.UserSpHelper;
 
 import com.gcml.common.utils.network.WiFiUtil;
@@ -99,7 +100,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                     if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                                         CC.obtainBuilder("com.gcml.auth").build().callAsync();
                                     } else {
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        Intent intent = new Intent(getApplicationContext(), HospitalMainActivity.class);
                                         startActivity(intent);
                                     }
                                     finish();
@@ -129,7 +130,7 @@ public class WelcomeActivity extends AppCompatActivity {
                             if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                                 CC.obtainBuilder("com.gcml.auth").build().callAsync();
                             } else {
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), HospitalMainActivity.class);
                                 startActivity(intent);
                             }
                             finish();

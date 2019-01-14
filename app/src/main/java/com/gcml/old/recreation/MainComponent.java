@@ -8,6 +8,7 @@ import android.content.Intent;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 
 /**
@@ -25,7 +26,7 @@ public class MainComponent implements IComponent {
 
         Context context = cc.getContext();
 
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, HospitalMainActivity.class);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }

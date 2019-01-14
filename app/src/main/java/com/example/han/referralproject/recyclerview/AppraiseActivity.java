@@ -137,14 +137,6 @@ public class AppraiseActivity extends BaseActivity implements View.OnClickListen
         finish();
     }
 
-    /**
-     * 返回到主页面
-     */
-    protected void backMainActivity() {
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
-    }
-
 
     @Override
     public void onClick(View view) {

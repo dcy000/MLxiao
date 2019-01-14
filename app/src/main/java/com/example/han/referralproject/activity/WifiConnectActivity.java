@@ -29,6 +29,7 @@ import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.WifiConnectRecyclerAdapter;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.wifi.WifiUtils;
@@ -228,7 +229,7 @@ public class WifiConnectActivity extends BaseActivity implements View.OnClickLis
                                         .build()
                                         .callAsync();
                             } else {
-                                startActivity(new Intent(mContext, MainActivity.class));
+                                startActivity(new Intent(mContext, HospitalMainActivity.class));
                             }
                             finish();
                         }

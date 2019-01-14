@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.gcml.lib_widget.EclipseLinearLayout
+        android:id="@+id/ll_pernal"
+        android:layout_width="594pt"
+        android:layout_height="514pt"
+        android:background="@drawable/bg_personal"
+        android:clickable="true"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="45pt"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="43pt"
+        android:gravity="center">
+        <com.gcml.lib_widget.CircleImageView
+            android:id="@+id/cv_head"
+            android:layout_width="300pt"
+            android:layout_height="300pt"
+            android:src="@drawable/common_ic_avatar_placeholder"/>
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="64pt"
+            android:textStyle="bold"
+            android:textColor="#333"
+            android:text=""
+            android:layout_marginTop="20pt"/>
+    </com.gcml.lib_widget.EclipseLinearLayout>
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/ei_health_checkup"
+        android:layout_width="594pt"
+        android:layout_height="514pt"
+        android:background="@drawable/bg_health_checkup"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@id/ll_pernal"
+        app:layout_constraintLeft_toLeftOf="@id/ll_pernal"/>
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/ei_infomation_collection"
+        android:layout_width="642pt"
+        android:layout_height="1030pt"
+        android:background="@drawable/bg_infomation_collection"
+        android:clickable="true"
+        app:layout_constraintLeft_toRightOf="@id/ll_pernal"
+        app:layout_constraintTop_toTopOf="@id/ll_pernal" />
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/ei_doctor_service"
+        android:layout_width="594pt"
+        android:layout_height="690pt"
+        android:background="@drawable/bg_doctor_service"
+        android:clickable="true"
+        app:layout_constraintLeft_toRightOf="@id/ei_infomation_collection"
+        app:layout_constraintTop_toTopOf="@id/ei_infomation_collection" />
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/ei_quit"
+        android:layout_width="594pt"
+        android:layout_height="338pt"
+        android:background="@drawable/bg_quit"
+        android:clickable="true"
+        app:layout_constraintLeft_toRightOf="@id/ei_infomation_collection"
+        app:layout_constraintTop_toBottomOf="@id/ei_doctor_service" />
+</android.support.constraint.ConstraintLayout>

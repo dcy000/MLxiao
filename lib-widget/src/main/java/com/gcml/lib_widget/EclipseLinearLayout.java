@@ -2,10 +2,12 @@ package com.gcml.lib_widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -15,22 +17,22 @@ import android.widget.ImageView;
  * description:自定义有点击效果的ImageView
  */
 @SuppressLint("AppCompatCustomView")
-public class EclipseImageView extends ImageView {
+public class EclipseLinearLayout extends LinearLayout {
     private boolean touchEffect = true;
     public final float[] BG_PRESSED = new float[]{1, 0, 0, 0, -50, 0, 1,
             0, 0, -50, 0, 0, 1, 0, -50, 0, 0, 0, 1, 0};
     public final float[] BG_NOT_PRESSED = new float[]{1, 0, 0, 0, 0, 0,
             1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0};
 
-    public EclipseImageView(Context context) {
+    public EclipseLinearLayout(Context context) {
         super(context);
     }
 
-    public EclipseImageView(Context context, AttributeSet attrs) {
+    public EclipseLinearLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public EclipseImageView(Context context, AttributeSet attrs, int defStyle) {
+    public EclipseLinearLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -59,14 +61,11 @@ public class EclipseImageView extends ImageView {
              * 通过设置滤镜来改变图片亮度@minghao
              */
             this.setDrawingCacheEnabled(true);
-            this.setColorFilter(new ColorMatrixColorFilter(BG_PRESSED));
             background.setColorFilter(new ColorMatrixColorFilter(BG_PRESSED));
         } else {//未点击
-            this.clearColorFilter();
-            background.clearColorFilter();
-//            this.setColorFilter(new ColorMatrixColorFilter(BG_NOT_PRESSED));
 //            background.setColorFilter(
 //                    new ColorMatrixColorFilter(BG_NOT_PRESSED));
+            background.clearColorFilter();
         }
     }
 

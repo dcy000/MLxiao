@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.adapter.SymptomAdapter;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class SymptomsActivity extends BaseActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.icon_home:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), HospitalMainActivity.class);
                 startActivity(intent);
                 finish();
                 break;

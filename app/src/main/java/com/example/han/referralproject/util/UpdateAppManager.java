@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.example.han.referralproject.homepage.MainActivity;
 
@@ -102,7 +103,7 @@ public class UpdateAppManager {
                         if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                             CC.obtainBuilder("com.gcml.auth").build().callAsync();
                         } else {
-                            Intent intent = new Intent(context, MainActivity.class);
+                            Intent intent = new Intent(context, HospitalMainActivity.class);
                             context.startActivity(intent);
                         }
                     }
