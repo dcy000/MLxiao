@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80pt"
+        android:layout_marginTop="19pt"
+        android:gravity="center_vertical"
+        android:paddingLeft="60pt"
+        android:paddingRight="60pt">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="杭州国辰迈联机器人科技有限公司"
+            android:textSize="48pt" />
+
+        <ImageView
+            android:id="@+id/iv_auth_doctor_login_setting"
+            android:layout_width="80pt"
+            android:layout_height="80pt"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/img_doctor_login_setting" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="728pt"
+        android:layout_marginTop="172pt"
+        android:orientation="horizontal"
+        android:paddingLeft="120pt"
+        android:paddingRight="120pt">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/img_doctor_login_illustration" />
+
+        <View
+            android:layout_width="72pt"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/common_bg_menu_setting"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="40pt"
+            android:paddingRight="40pt">
+
+            <EditText
+                android:id="@+id/et_doctor_login_accunt"
+                android:layout_width="match_parent"
+                android:layout_height="120pt"
+                android:layout_marginTop="115pt"
+                android:background="@drawable/common_bg_input_gray"
+                android:gravity="center_vertical"
+                android:hint="请输入您的医生账号"
+                android:paddingLeft="36pt"
+                android:textColor="#ff333333"
+                android:textColorHint="#FFBBBBBB"
+                android:textSize="50pt" />
+
+            <EditText
+                android:id="@+id/et_doctor_login_password"
+                android:layout_width="match_parent"
+                android:layout_height="120pt"
+                android:layout_marginTop="40pt"
+                android:background="@drawable/common_bg_input_gray"
+                android:gravity="center_vertical"
+                android:hint="请输入你的密码"
+                android:inputType="textPassword"
+                android:paddingLeft="36pt"
+                android:textColor="#ff333333"
+                android:textColorHint="#FFBBBBBB"
+                android:textSize="50pt" />
+
+            <TextView
+                android:id="@+id/tv_doctor_login_login"
+                android:layout_width="match_parent"
+                android:layout_height="100pt"
+                android:layout_marginTop="56pt"
+                android:background="@drawable/bg_btn"
+                android:enabled="false"
+                android:gravity="center"
+                android:text="登陆"
+                android:textColor="#fff"
+                android:textSize="50pt" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100pt"
+                android:layout_marginTop="56pt"
+                android:gravity="center"
+                android:text=" @杭州国辰迈联机器人科技有限公司 "
+                android:textColor="#FFBBBBBB"
+                android:textSize="36pt" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

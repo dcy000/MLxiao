@@ -24,12 +24,15 @@
         <activity android:name=".ui.register.IDCardRegisterInfoActivity"></activity>
         <activity android:name=".ui.register.IDCardNuberRegisterActivity"></activity>
         <activity android:name=".ui.register.IDCardNumberRegisterInfoActivity"></activity>
-        <activity android:name=".ui.register.RegisterSuccessActivity">
+        <activity android:name=".doctor.DoctorLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.register.RegisterSuccessActivity">
+
         </activity>
     </application>
 
