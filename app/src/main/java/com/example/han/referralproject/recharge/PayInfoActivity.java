@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog1;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -202,7 +203,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onClick(int which) {
                         if (which == 1) {
-                            startActivity(new Intent(mContext, MainActivity.class));
+                            startActivity(new Intent(mContext, HospitalMainActivity.class));
                             finish();
                         }
                     }

@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -90,7 +91,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
      * 返回到主页面
      */
     protected void backMainActivity() {
-        startActivity(new Intent(mContext, MainActivity.class));
+        startActivity(new Intent(mContext, HospitalMainActivity.class));
         finish();
     }
 

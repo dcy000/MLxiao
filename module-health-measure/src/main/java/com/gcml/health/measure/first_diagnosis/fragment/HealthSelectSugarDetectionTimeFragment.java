@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragment implements View.OnClickListener {
@@ -27,6 +28,7 @@ public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragmen
         mIvTwoHours.setOnClickListener(this);
         mIvOtherTime.setOnClickListener(this);
     }
+
 
     public static final int ACTION_EMPTY_STOMACH = 0;
     public static final int ACTION_TWO_HOURS = 2;
@@ -64,4 +66,5 @@ public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragmen
 
         }
     }
+
 }

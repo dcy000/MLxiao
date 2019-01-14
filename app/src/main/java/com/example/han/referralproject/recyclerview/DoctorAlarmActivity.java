@@ -13,6 +13,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.AlreadyYuyue;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -173,7 +174,7 @@ public class DoctorAlarmActivity extends BaseActivity {
 
         if (rows >= 1) {
 
-            Intent intent = new Intent(DoctorAlarmActivity.this, MainActivity.class);
+            Intent intent = new Intent(DoctorAlarmActivity.this, HospitalMainActivity.class);
             startActivity(intent);
             finish();
         }

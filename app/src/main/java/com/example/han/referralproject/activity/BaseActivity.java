@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
@@ -181,7 +182,7 @@ public class BaseActivity extends AppCompatActivity {
      * 返回到主页面
      */
     protected void backMainActivity() {
-        startActivity(new Intent(mContext, MainActivity.class));
+        startActivity(new Intent(mContext, HospitalMainActivity.class));
         finish();
     }
 

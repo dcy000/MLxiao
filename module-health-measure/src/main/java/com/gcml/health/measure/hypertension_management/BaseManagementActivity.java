@@ -14,9 +14,9 @@ import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.inuker.bluetooth.library.utils.BluetoothUtils;
 
@@ -75,38 +75,12 @@ public class BaseManagementActivity extends ToolbarBaseActivity implements DealV
                     }
                 }).show();
     }
-
-    @CallSuper
     protected void untieDevice() {
-        //先清除已经绑定的设备
-        unpairDevice();
-    }
-
-    protected void clearBluetoothCache(String nameAddress) {
-        if (!TextUtils.isEmpty(nameAddress)) {
-            String[] split = nameAddress.split(",");
-            if (split.length == 2 && !TextUtils.isEmpty(split[1])) {
-                BluetoothClientManager.getClient().refreshCache(split[1]);
-            }
-        }
-    }
-
-    /**
-     * 解除已配对设备
-     */
-    private void unpairDevice() {
-        List<BluetoothDevice> devices = BluetoothUtils.getBondedBluetoothClassicDevices();
-        for (BluetoothDevice device : devices) {
-            try {
-                Method m = device.getClass()
-                        .getMethod("removeBond", (Class[]) null);
-                m.invoke(device, (Object[]) null);
-            } catch (Exception e) {
-                Timber.e(e.getMessage());
-            }
-        }
 
     }
+
+
+
 
     @CallSuper
     protected void dealLogic() {

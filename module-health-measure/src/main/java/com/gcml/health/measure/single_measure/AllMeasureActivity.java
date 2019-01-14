@@ -2,7 +2,6 @@ package com.gcml.health.measure.single_measure;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,8 +16,6 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
-import com.creative.ecg.ECG;
-import com.creative.filemanage.PC700FileOperation;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
@@ -40,7 +37,6 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetecti
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.single_measure.fragment.ChooseECGDeviceFragment;
 import com.gcml.health.measure.single_measure.fragment.SelfECGDetectionFragment;
-import com.gcml.health.measure.single_measure.fragment.SingleMeasureHandRingFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodoxygenFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureBloodpressureFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodoxygenFragment;
@@ -53,39 +49,26 @@ import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeas
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureTemperatureFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureThreeInOneFragment;
 import com.gcml.health.measure.single_measure.no_upload_data.NonUploadSingleMeasureWeightFragment;
-import com.gcml.health.measure.utils.ChannelUtils;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
-import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
-import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
-import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
-import com.gcml.module_blutooth_devices.ecg_devices.ECG_PDF_Fragment;
-import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerpint_Fragment;
-import com.gcml.module_blutooth_devices.others.HandRing_Fragment;
-import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
-import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
-import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
+import com.gcml.module_blutooth_devices.ecg.ECGFragment;
+import com.gcml.module_blutooth_devices.ecg.ECG_PDF_Fragment;
+import com.gcml.module_blutooth_devices.fingerprint.FingerpintFragment;
+import com.gcml.module_blutooth_devices.three.ThreeInOneFragment;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.inuker.bluetooth.library.utils.BluetoothUtils;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.microedition.khronos.egl.EGL;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
-public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentChanged, ThreeInOne_Fragment.MeasureItemChanged {
+public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentChanged, ThreeInOneFragment.MeasureItemChanged {
     private BluetoothBaseFragment baseFragment;
     private int measure_type;
     private boolean isMeasureTask;
@@ -196,12 +179,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 break;
             case IPresenter.MEASURE_ECG:
                 //心电
-                int device = (int) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 0);
+                int device = (int) SPUtil.get(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG, 0);
                 mTitleText.setText("心 电 测 量");
                 if (device == 1) {
                     baseFragment = new SelfECGDetectionFragment();
                 } else if (device == 2) {
-                    baseFragment = new ECG_Fragment();
+                    baseFragment = new ECGFragment();
                 } else {
                     mTitleText.setText("心 电 设 备 选 择");
                     baseFragment = new ChooseECGDeviceFragment();
@@ -219,14 +202,14 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 break;
             case IPresenter.CONTROL_FINGERPRINT:
                 if (baseFragment == null) {
-                    baseFragment = new Fingerpint_Fragment();
+                    baseFragment = new FingerpintFragment();
                 }
                 break;
             case IPresenter.MEASURE_HAND_RING:
                 //手环
                 if (baseFragment == null) {
                     mTitleText.setText("活 动 监 测");
-                    baseFragment = new SingleMeasureHandRingFragment();
+//                    baseFragment = new SingleMeasureHandRingFragment();
                 }
                 break;
             default:
@@ -402,117 +385,15 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                     }
                 })
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        untieDevice();
+                        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+                        baseFragment.autoConnect();
                     }
                 }).show();
-    }
-
-    private void untieDevice() {
-        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
-        //先清除已经绑定的设备
-        unpairDevice();
-        String nameAddress = null;
-        switch (measure_type) {
-            case IPresenter.MEASURE_TEMPERATURE:
-                //体温测量
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_TEMPERATURE);
-                ((Temperature_Fragment) baseFragment).onStop();
-                ((Temperature_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_BLOOD_PRESSURE:
-                //血压
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
-                ((Bloodpressure_Fragment) baseFragment).onStop();
-                ((Bloodpressure_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_BLOOD_SUGAR:
-                //血糖
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR);
-                ((Bloodsugar_Fragment) baseFragment).onStop();
-                ((Bloodsugar_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_BLOOD_OXYGEN:
-                //血氧
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODOXYGEN);
-                ((Bloodoxygen_Fragment) baseFragment).onStop();
-                ((Bloodoxygen_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_WEIGHT:
-                //体重
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_WEIGHT);
-                ((Weight_Fragment) baseFragment).onStop();
-                ((Weight_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_ECG:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
-                if (baseFragment instanceof SelfECGDetectionFragment) {
-                    ((SelfECGDetectionFragment) baseFragment).startDiscovery();
-                } else if (baseFragment instanceof ECG_Fragment) {
-                    ((ECG_Fragment) baseFragment).onStop();
-                    ((ECG_Fragment) baseFragment).dealLogic();
-                }
-                break;
-            case IPresenter.MEASURE_OTHERS:
-                //三合一
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE);
-                ((ThreeInOne_Fragment) baseFragment).onStop();
-                ((ThreeInOne_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.CONTROL_FINGERPRINT:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_FINGERPRINT);
-                ((Fingerpint_Fragment) baseFragment).onStop();
-                ((Fingerpint_Fragment) baseFragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_HAND_RING:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_HAND_RING, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_HAND_RING);
-                ((SingleMeasureHandRingFragment) baseFragment).onStop();
-                ((SingleMeasureHandRingFragment) baseFragment).dealLogic();
-                break;
-            default:
-                break;
-        }
-        clearBluetoothCache(nameAddress);
-    }
-
-    private void clearBluetoothCache(String nameAddress) {
-        if (!TextUtils.isEmpty(nameAddress)) {
-            String[] split = nameAddress.split(",");
-            if (split.length == 2 && !TextUtils.isEmpty(split[1])) {
-                BluetoothClientManager.getClient().refreshCache(split[1]);
-            }
-        }
-    }
-
-    /**
-     * 解除已配对设备
-     */
-    private void unpairDevice() {
-        List<BluetoothDevice> devices = BluetoothUtils.getBondedBluetoothClassicDevices();
-        for (BluetoothDevice device : devices) {
-            try {
-                Method m = device.getClass()
-                        .getMethod("removeBond", (Class[]) null);
-                m.invoke(device, (Object[]) null);
-            } catch (Exception e) {
-                Timber.e(e.getMessage());
-            }
-        }
-
     }
 
     @Override
@@ -541,7 +422,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                         baseFragment = new SingleMeasureThreeInOneFragment();
                     }
                     baseFragment.setArguments(bundle);
-                    ((ThreeInOne_Fragment) baseFragment).setOnMeasureItemChanged(this);
+                    ((ThreeInOneFragment) baseFragment).setOnMeasureItemChanged(this);
                 }
 
                 isShowBloodsugarSelectTime = false;
@@ -550,18 +431,18 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
 
         } else if (fragment instanceof ChooseECGDeviceFragment) {
             if (bundle != null) {
-                int bundleInt = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 1);
+                int bundleInt = bundle.getInt(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG, 1);
                 if (bundleInt == 1) {
                     baseFragment = new SelfECGDetectionFragment();
                 } else if (bundleInt == 2) {
-                    baseFragment = new ECG_Fragment();
+                    baseFragment = new ECGFragment();
                 }
                 mTitleText.setText("心 电 测 量");
                 mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
             }
-        } else if (fragment instanceof ECG_Fragment || fragment instanceof SelfECGDetectionFragment) {
+        } else if (fragment instanceof ECGFragment || fragment instanceof SelfECGDetectionFragment) {
             //先清除本地的缓存
-            SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG);
+            SPUtil.remove(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG);
             mTitleText.setText("心 电 设 备 选 择");
             baseFragment = new ChooseECGDeviceFragment();
             mRightView.setImageResource(R.drawable.common_icon_home);
@@ -575,8 +456,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     }
 
     private void setECGListener() {
-        if (baseFragment != null && measure_type == IPresenter.MEASURE_ECG && baseFragment instanceof ECG_Fragment) {
-            ((ECG_Fragment) baseFragment).setOnAnalysisDataListener(new ECG_Fragment.AnalysisData() {
+        if (baseFragment != null && measure_type == IPresenter.MEASURE_ECG && baseFragment instanceof ECGFragment) {
+            ((ECGFragment) baseFragment).setOnAnalysisDataListener(new ECGFragment.AnalysisData() {
                 @SuppressLint("CheckResult")
                 @Override
                 public void onSuccess(String fileNum, String fileAddress, String flag, String result, String heartRate) {

@@ -20,6 +20,7 @@ import com.example.han.referralproject.bean.NDialog;
 import com.example.han.referralproject.bean.NDialog1;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -249,18 +250,6 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
         finish();
 
     }
-
-    /**
-     * 返回到主页面
-     */
-    protected void backMainActivity() {
-
-        Intent intent = new Intent(DoctorMesActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-
-    }
-
 
     @Override
     protected void onResume() {

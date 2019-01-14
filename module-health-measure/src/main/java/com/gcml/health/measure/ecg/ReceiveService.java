@@ -14,7 +14,7 @@ import android.text.TextUtils;
 import com.creative.base.InputStreamReader;
 import com.creative.base.OutputStreamSender;
 import com.gcml.common.utils.data.SPUtil;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 
 import java.io.IOException;
 
@@ -80,7 +80,7 @@ public class ReceiveService extends Service {
 				String name = ECGBluetooth.bluSocket
 						.getRemoteDevice().getName();
 				String address = ECGBluetooth.bluSocket.getRemoteDevice().getAddress();
-				SPUtil.put(Bluetooth_Constants.SP.SP_SAVE_ECG,name+","+address);
+				SPUtil.put(BluetoothConstants.SP.SP_SAVE_ECG,name+","+address);
 				startRece(true);
 			}
 				break;
@@ -164,7 +164,7 @@ public class ReceiveService extends Service {
 				sendBroadcast(ACTION_MEDIA_EJECT);
 			} else if (action.equals(BLU_ACTION_STARTDISCOVERY)) {
 				int deviceName = intent.getExtras().getInt("device");
-				String nameAddress = ((String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, ""));
+				String nameAddress = ((String) SPUtil.get(BluetoothConstants.SP.SP_SAVE_ECG, ""));
 				if (TextUtils.isEmpty(nameAddress)){
 					myBluetooth.startDiscovery(deviceName);
 				}else{

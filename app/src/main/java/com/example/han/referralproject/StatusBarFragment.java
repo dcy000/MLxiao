@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
@@ -18,11 +19,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import timber.log.Timber;
 
 /**
  * Created by afirez on 18-1-26.
@@ -32,7 +37,7 @@ public class StatusBarFragment extends Fragment implements
         BatteryHelper.OnBatteryChangeListener,
         BatteryHelper.OnPowerConnectionChangeListener,
         ValueAnimator.AnimatorUpdateListener,
-        Runnable, MainActivity.ShowStateBar {
+        Runnable, MainActivity.ShowStateBar, HospitalMainActivity.ShowStateBar {
 
     private static final String TAG = "StatusBarFragment";
 
@@ -107,7 +112,13 @@ public class StatusBarFragment extends Fragment implements
         ivChargingIndicator.setVisibility(mPowerConnectedCache ? View.VISIBLE : View.GONE);
         mDrawableTint = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_battery).mutate());
         mDrawable = ivBatteryIndicator.getDrawable();
-        ((MainActivity) getActivity()).setShowStateBarListener(this);
+        FragmentActivity activity = getActivity();
+        if (activity instanceof MainActivity){
+            ((MainActivity) activity).setShowStateBarListener(this);
+        }else if (activity instanceof HospitalMainActivity){
+            Timber.e("设置监听");
+            ((HospitalMainActivity) activity).setShowStateBarListener(this);
+        }
     }
 
     @Override
@@ -252,6 +263,7 @@ public class StatusBarFragment extends Fragment implements
 
     @Override
     public void showStateBar(boolean show) {
+        Timber.e("接收监听："+show);
         if (show){
             tvTime.setVisibility(View.VISIBLE);
         }else{

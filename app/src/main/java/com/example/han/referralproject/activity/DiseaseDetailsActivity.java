@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.DiseaseResult;
 import com.example.han.referralproject.bean.SymptomResultBean;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
@@ -98,7 +99,7 @@ public class DiseaseDetailsActivity extends BaseActivity implements View.OnClick
                 finish();
                 break;
             case R.id.iv_home:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), HospitalMainActivity.class);
                 startActivity(intent);
                 finish();
                 break;

@@ -5,7 +5,7 @@ apply from: rootProject.file("build-base.gradle")
 android {
     defaultConfig {
         if (project.ext.runAsApp) {
-            applicationId "com.gcml.common.demo"
+            applicationId "com.gcml.common.component"
             versionCode = rootProject.ext.android["versionCode"]
             versionName rootProject.ext.android["versionName"]
         }

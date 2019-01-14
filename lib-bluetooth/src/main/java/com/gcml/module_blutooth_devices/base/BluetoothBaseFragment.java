@@ -1,8 +1,7 @@
 package com.gcml.module_blutooth_devices.base;
 
 import android.app.Activity;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,19 +12,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gcml.common.utils.click.ClickEventListener;
+import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.module_blutooth_devices.R;
+import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenPresenter;
+import com.gcml.module_blutooth_devices.dialog.BluetoothDialog;
+import com.gcml.module_blutooth_devices.dialog.ChooseBluetoothDevice;
 
-import java.util.List;
-
-public abstract class BluetoothBaseFragment extends Fragment {
+public abstract class BluetoothBaseFragment extends Fragment implements IBluetoothView, ChooseBluetoothDevice {
     protected View view = null;
     protected boolean isMeasureFinishedOfThisTime = false;
     protected Context mContext;
     protected Activity mActivity;
+    protected BaseBluetooth basePresenter;
+    protected BluetoothDialog bluetoothDialog;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        //全局控制上下文 子类统一使用该应用，避免异步任务结束后getActivity引起的空指针异常，但同时这种做法有内存泄漏的风险
+        //全局控制上下文 子类统一使用该引用，避免异步任务结束后getActivity引起的空指针异常，但同时这种做法有内存泄漏的风险
         this.mActivity = activity;
     }
 
@@ -45,13 +49,76 @@ public abstract class BluetoothBaseFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        basePresenter = obtainPresenter();
+    }
+
+    @Override
+    public void discoveryNewDevice(BluetoothDevice device) {
+        if (bluetoothDialog != null) {
+            bluetoothDialog.addDevice(device);
+        }
+    }
+
+    public void showBluetoothDialog() {
+        if (bluetoothDialog == null) {
+            bluetoothDialog = new BluetoothDialog(mContext, this, IPresenter.MEASURE_BLOOD_OXYGEN);
+            bluetoothDialog.setChooseBluetoothDeviceListener(this);
+        }
+        if (!bluetoothDialog.isShowing()) {
+            bluetoothDialog.show();
+            if (basePresenter != null && !basePresenter.isOnSearching()) {
+                basePresenter.startDiscovery(null);
+            }
+        } else {
+            if (bluetoothDialog != null) {
+                bluetoothDialog.dismiss();
+            }
+            bluetoothDialog = null;
+        }
+    }
+
+    @Override
+    public void choosed(BluetoothDevice device) {
+        if (basePresenter != null) {
+            basePresenter.startConnect(device);
+        }
+    }
+
+    @Override
+    public void autoConnect() {
+        if (basePresenter != null) {
+            basePresenter.startDiscovery(null);
+        }
+    }
+
+    @Override
+    public void cancelSearch() {
+        if (basePresenter != null) {
+            basePresenter.stopDiscovery();
+        }
+    }
+
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
+    }
+
+    protected  BaseBluetooth obtainPresenter(){
+        return null;
+    }
+
     protected abstract int initLayout();
 
     protected abstract void initView(View view, Bundle bundle);
 
-    protected List<LifecycleObserver> lifecycle(Lifecycle lifecycle) {
-        return null;
-    }
 
     @Override
     public void onDestroyView() {

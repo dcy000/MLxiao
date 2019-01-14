@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.gcml.common.demo">
+    package="com.gcml.common.component">
 
     <uses-sdk tools:overrideLibrary="
     com.gcml.lib_widget" />
@@ -26,16 +26,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.gcml.common.MainActivity">
-
-        </activity>
         <activity android:name="com.gcml.common.repository.RepositoryActivity" />
         <activity android:name="com.gcml.common.app.AppActivity" />
-        <activity android:name="com.gcml.common.mvvm.MvvmActivity" />
         <activity android:name="com.gcml.common.dialog.DialogActivity" />
         <activity android:name="com.gcml.common.gzq.TestFingerActivity">
 
         </activity>
+<<<<<<< HEAD
+        <activity android:name="com.gcml.common.TestNewBluetoothActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+=======
+>>>>>>> 4876c88f3e68c2f4829e59cd653835f13a5ec051
     </application>
 
 </manifest>

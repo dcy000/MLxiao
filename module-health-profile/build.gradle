@@ -1,0 +1,24 @@
+apply from: rootProject.file("build-base.gradle")
+
+android {
+
+    defaultConfig {
+        if (project.ext.runAsApp) {
+            applicationId "com.gcml.health.profile"
+            versionCode = rootProject.ext.android["versionCode"]
+            versionName rootProject.ext.android["versionName"]
+        }
+    }
+
+    buildTypes {
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}

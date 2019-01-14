@@ -14,7 +14,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.device.DeviceUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.divider.GridViewDividerItemDecoration;
+import com.gcml.common.divider.GridViewDividerItemDecoration;
 import com.gcml.health.measure.first_diagnosis.bean.ChooseDeviceBean;
 import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;
 import com.gcml.health.measure.first_diagnosis.bean.PostDeviceBean;
@@ -64,6 +64,7 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         initData();
         initRecycleview();
     }
+
 
     @Override
     public void onResume() {
@@ -264,5 +265,4 @@ public class HealthChooseDevicesFragment extends BluetoothBaseFragment implement
         }
         return deviceNum;
     }
-
 }

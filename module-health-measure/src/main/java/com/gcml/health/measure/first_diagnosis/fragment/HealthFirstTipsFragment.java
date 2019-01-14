@@ -9,6 +9,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.health.measure.R;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -58,7 +59,6 @@ public class HealthFirstTipsFragment extends BluetoothBaseFragment implements Vi
 
 
     }
-
 
     @Override
     public void onResume() {

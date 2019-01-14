@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.gcml.health.measure.R;
-import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
+import com.gcml.module_blutooth_devices.ecg.ECGFragment;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -13,7 +13,7 @@ import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
  * created by: gzq
  * description: 风险评估流程中心电测量
  */
-public class HealthECGBoShengFragment extends ECG_Fragment {
+public class HealthECGBoShengFragment extends ECGFragment {
     @Override
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);

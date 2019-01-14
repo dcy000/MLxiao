@@ -108,14 +108,6 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
         finish();
     }
 
-    /**
-     * 返回到主页面
-     */
-    protected void backMainActivity() {
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

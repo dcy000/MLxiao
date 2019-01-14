@@ -8,30 +8,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.creative.ecg.StatusMsg;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.cc.CCHealthRecordActions;
-import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.ecg.BackGround;
 import com.gcml.health.measure.ecg.DrawThreadPC80B;
 import com.gcml.health.measure.ecg.ECGBluetooth;
-import com.gcml.health.measure.ecg.ECGConnectActivity;
 import com.gcml.health.measure.ecg.ReceiveService;
 import com.gcml.health.measure.ecg.StaticReceive;
 import com.gcml.common.recommend.bean.post.DetectionData;
@@ -40,6 +32,7 @@ import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -105,6 +98,11 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         setBtnClickableState(false);
         MLVoiceSynthetize.startSynthesize(context, "主人，请打开设备开关，准备测量", false);
         initOther();
+    }
+
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        return null;
     }
 
 
@@ -432,4 +430,13 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         }
     }
 
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
+    }
 }

@@ -1,7 +1,7 @@
 package com.gcml.health.measure.single_measure.no_upload_data;
 
 import com.gcml.common.utils.UtilsManager;
-import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
+import com.gcml.module_blutooth_devices.temperature.TemperatureFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 /**
@@ -11,7 +11,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
  * created by:gzq
  * description:TODO
  */
-public class NonUploadSingleMeasureTemperatureFragment extends Temperature_Fragment {
+public class NonUploadSingleMeasureTemperatureFragment extends TemperatureFragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {

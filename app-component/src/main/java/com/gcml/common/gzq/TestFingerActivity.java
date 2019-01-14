@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.gcml.common.demo.R;
 import com.gcml.common.repository.MusicRepository;
 import com.gcml.common.repository.entity.FingerBean;
 import com.gcml.common.utils.display.ImageUtils;
@@ -16,7 +15,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DiscoverDevicesSetting;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.IView;
-import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerprint_WeiEr_PresenterImp;
+import com.gcml.module_blutooth_devices.fingerprint.Fingerprint_WeiEr_PresenterImp;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
-
+import com.gcml.common.component.R;
 public class TestFingerActivity extends AppCompatActivity implements IView {
     private Fingerprint_WeiEr_PresenterImp fingerprintWeiErPresenterImp;
     private byte[] finger;

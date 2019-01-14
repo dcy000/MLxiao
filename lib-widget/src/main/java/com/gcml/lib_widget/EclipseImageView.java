@@ -62,9 +62,11 @@ public class EclipseImageView extends ImageView {
             this.setColorFilter(new ColorMatrixColorFilter(BG_PRESSED));
             background.setColorFilter(new ColorMatrixColorFilter(BG_PRESSED));
         } else {//未点击
-            this.setColorFilter(new ColorMatrixColorFilter(BG_NOT_PRESSED));
-            background.setColorFilter(
-                    new ColorMatrixColorFilter(BG_NOT_PRESSED));
+            this.clearColorFilter();
+            background.clearColorFilter();
+//            this.setColorFilter(new ColorMatrixColorFilter(BG_NOT_PRESSED));
+//            background.setColorFilter(
+//                    new ColorMatrixColorFilter(BG_NOT_PRESSED));
         }
     }
 

@@ -10,7 +10,6 @@ import com.gcml.common.app.lifecycle.AppDelegate;
 import com.gcml.lib_utils.UtilsManager;
 import com.gcml.lib_utils.ui.UiUtils;
 import com.gcml.lib_video_ksyplayer.KSYPlayer;
-import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.kk.taurus.playerbase.config.PlayerConfig;

@@ -53,6 +53,7 @@ dependencies {
     addComponent 'module-mall'
     addComponent 'module-video'
     addComponent 'lib-bluetooth'
+    addComponent 'module-health-profile'
     addComponent 'module-auth-hospital'
 
     //lib

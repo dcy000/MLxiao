@@ -18,6 +18,7 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportParseBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.littlejie.circleprogress.CircleProgress;
 
 import java.util.ArrayList;
@@ -105,6 +106,7 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
         drawableWarning.setBounds(0, 0, drawableWarning.getMinimumWidth(), drawableWarning.getMinimumHeight());
         setData(bundle);
     }
+
 
     private void setData(Bundle bundle) {
         if (bundle != null) {
@@ -233,4 +235,5 @@ public class HealthReportFormFragment2 extends BluetoothBaseFragment implements 
         } else {
         }
     }
+
 }

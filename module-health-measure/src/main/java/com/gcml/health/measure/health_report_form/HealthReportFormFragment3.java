@@ -1,27 +1,23 @@
 package com.gcml.health.measure.health_report_form;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
-import com.gcml.health.measure.first_diagnosis.bean.FirstReportBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportParseBean;
 import com.gcml.health.measure.first_diagnosis.bean.FirstReportReceiveBean;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,6 +115,7 @@ public class HealthReportFormFragment3 extends BluetoothBaseFragment implements 
         drawableWarning.setBounds(0, 0, drawableWarning.getMinimumWidth(), drawableWarning.getMinimumHeight());
         setData(bundle);
     }
+
 
     private void setData(Bundle bundle) {
         if (bundle!=null){
@@ -232,4 +229,5 @@ public class HealthReportFormFragment3 extends BluetoothBaseFragment implements 
         } else {
         }
     }
+
 }

@@ -25,6 +25,7 @@ import com.example.han.referralproject.children.entertainment.ChildEduJokesActiv
 import com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity;
 import com.example.han.referralproject.children.study.ChildEduPoemListActivity;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.homepage.HospitalMainActivity;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
@@ -929,7 +930,7 @@ public class DataDealHelper {
     }
 
     private void gotoHomePage() {
-        startActivity(MainActivity.class);
+        startActivity(HospitalMainActivity.class);
     }
 
     class SpeechTask extends AsyncTask<Void, Void, Void> {
@@ -1495,7 +1496,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                startActivityWithOutCallback(MainActivity.class);
+                startActivityWithOutCallback(HospitalMainActivity.class);
                 return true;
             }
         }

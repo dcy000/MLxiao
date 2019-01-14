@@ -1,9 +1,9 @@
-include ':app', ':module-auth-face2', ':module-auth-hospital',
-        ':app-component',
+include ':app', ':module-auth-face2',
+//        ':app-component',
         ':lib-common-core',
         ':lib-common-business',
-        ':lib-common-app',
-        ':component-cc', ':lib-idcard-reader'
+        ':lib-common-app'
+//        ':component-cc'
 
 // 支持模块
 include ':lib-baidu-unit',
@@ -17,7 +17,8 @@ include ':lib-baidu-unit',
         ':lib-widget',
         ':lib-bluetooth',
         ':lib-bluetooth',
-        ':lib-video'
+        ':lib-video',
+        ':lib-idcard-reader'
 
 // 业务模块
 include ':module-video',
@@ -30,5 +31,8 @@ include ':module-video',
         ':module-control-volume',
         ':module-health-record',
         ':module-edu',
-        ':module-recreation'
+        ':module-recreation',
+        ':module-auth-hospital',
+        ':test',
+        ':module-health-profile'
 

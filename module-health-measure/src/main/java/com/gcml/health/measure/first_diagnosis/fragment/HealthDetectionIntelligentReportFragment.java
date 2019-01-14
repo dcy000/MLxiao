@@ -26,6 +26,7 @@ import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureApi;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
@@ -114,6 +115,7 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
         mAdapter = new Adapter();
         rvReport.setAdapter(mAdapter);
     }
+
 
     private final ArrayList<DetectionResult> mResults = new ArrayList<>();
 

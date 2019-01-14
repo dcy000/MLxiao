@@ -15,8 +15,7 @@ import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -53,14 +52,8 @@ public class BloodpressureManagerActivity extends BaseManagementActivity {
 
     @Override
     protected void untieDevice() {
-        super.untieDevice();
+        baseFragment.autoConnect();
         mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
-        //血压
-        String nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
-        SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
-        ((Bloodpressure_Fragment) baseFragment).onStop();
-        ((Bloodpressure_Fragment) baseFragment).dealLogic();
-        clearBluetoothCache(nameAddress);
     }
 
     @Override
