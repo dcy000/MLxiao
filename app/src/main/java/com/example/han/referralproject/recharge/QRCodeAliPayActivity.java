@@ -369,7 +369,7 @@ public class QRCodeAliPayActivity extends BaseActivity implements View.OnClickLi
         BCPay.PayParams payParams = new BCPay.PayParams();
         payParams.channelType = BCReqParams.BCChannelTypes.ALI_QRCODE;
         payParams.billTitle = billTitle;
-        payParams.billTotalFee = 1;
+        payParams.billTotalFee = Integer.parseInt(number);
         payParams.billNum = BillUtils.genBillNum();
         payParams.optional = optional;
         payParams.returnUrl = returnUrl;
