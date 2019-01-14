@@ -19,6 +19,10 @@ import java.util.Random;
  */
 public class UserSpHelper {
     /**
+     * 身份证阅读器
+     */
+    private static final String KEY_KT_ADDRESS = "KT8000";
+    /**
      * 老版存储本机登录账户信息的key
      */
     private static final String KEY_USER_ACCOUNT = "user_accounts";
@@ -122,6 +126,17 @@ public class UserSpHelper {
             faceId = "";
         }
         SPUtil.put(KEY_XUNFEI_ID, faceId);
+    }
+
+    public static void setKTAddress(String address) {
+        if (TextUtils.isEmpty(address)) {
+            address = "";
+        }
+        SPUtil.put(KEY_KT_ADDRESS, address);
+    }
+
+    public static String getKTAddress() {
+        return (String) SPUtil.get(KEY_KT_ADDRESS, "");
     }
 
     public static String produceFaceId() {
@@ -286,6 +301,7 @@ public class UserSpHelper {
 
     /**
      * 获取存在SP中的是否做过风险评估的标志
+     *
      * @return
      */
     public static boolean getRiskAssessmentState() {
@@ -309,7 +325,7 @@ public class UserSpHelper {
     /**
      * 只清除用户id和惯用手信息
      */
-    public static void clearPartData(){
+    public static void clearPartData() {
         SPUtil.remove(KEY_USER_ID);
         SPUtil.remove(KEY_USER_HYPERTENSIONHAND);
     }

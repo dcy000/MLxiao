@@ -24,7 +24,7 @@ public class BizApp implements AppLifecycleCallbacks {
     public void onCreate(Application app) {
         //初始化工具类
         UtilsManager.init(app);
-        UiUtils.init(app, 1920, 1080);
+        UiUtils.init(app, 1920, 1200);
         app.registerComponentCallbacks(new ComponentCallbacks2() {
             @Override
             public void onTrimMemory(int level) {

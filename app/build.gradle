@@ -54,6 +54,7 @@ dependencies {
     addComponent 'module-video'
     addComponent 'lib-bluetooth'
     addComponent 'module-health-profile'
+    addComponent 'module-auth-hospital'
 
     //lib
     implementation project(':lib-widget')

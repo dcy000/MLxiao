@@ -75,20 +75,20 @@ public class RxUtils {
         return new Function<Throwable, ObservableSource<? extends ApiResult<T>>>() {
             @Override
             public ObservableSource<? extends ApiResult<T>> apply(Throwable throwable) throws Exception {
-                if (throwable instanceof HttpException
-                        && ((HttpException) throwable).code() >= 500) {
-                    HttpException error = (HttpException) throwable;
-                    ResponseBody body = error.response().errorBody();
-                    String resultJson;
-                    if (body != null) {
-                        resultJson = body.string();
-                        Type type = new TypeToken<ApiResult<T>>() {
-                        }.getType();
-                        ApiResult<T> result = Serializer.getInstance().deserialize(resultJson, type);
-                        return Observable.just(result);
-                    }
-                }
-                return Observable.error(new ApiException("服务器繁忙"));
+//                if (throwable instanceof HttpException
+//                        && ((HttpException) throwable).code() >= 500) {
+//                    HttpException error = (HttpException) throwable;
+//                    ResponseBody body = error.response().errorBody();
+//                    String resultJson;
+//                    if (body != null) {
+//                        resultJson = body.string();
+//                        Type type = new TypeToken<ApiResult<T>>() {
+//                        }.getType();
+//                        ApiResult<T> result = Serializer.getInstance().deserialize(resultJson, type);
+//                        return Observable.just(result);
+//                    }
+//                }
+                return Observable.error(new ApiException("网络繁忙"));
             }
         };
     }
@@ -211,5 +211,10 @@ public class RxUtils {
                     }
                 })
                 .take(times + 1);
+    }
+
+
+    public static Observable<Long> rxTimer(int times) {
+        return Observable.timer(times, TimeUnit.SECONDS);
     }
 }

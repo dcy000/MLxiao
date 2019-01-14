@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.UserLoginsActivity">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/auth_logins_tb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="0pt" />
+
+    <ImageView
+        android:id="@+id/im_login_by_idcard"
+        android:layout_width="468pt"
+        android:layout_height="648pt"
+        android:layout_marginStart="30pt"
+        android:layout_marginTop="156pt"
+        android:background="@drawable/auth_hospital_ic_idcard_login"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auth_logins_tb" />
+
+    <ImageView
+        android:id="@+id/im_login_by_finger"
+        android:layout_width="468pt"
+        android:layout_height="648pt"
+        android:layout_marginStart="-8pt"
+        android:layout_marginTop="156pt"
+        android:background="@drawable/auth_hospital_ic_login_by_finger_print"
+        app:layout_constraintStart_toEndOf="@+id/im_login_by_face"
+        app:layout_constraintTop_toBottomOf="@+id/auth_logins_tb" />
+
+    <ImageView
+        android:id="@+id/im_login_by_face"
+        android:layout_width="468pt"
+        android:layout_height="648pt"
+        android:layout_marginStart="-8pt"
+        android:layout_marginTop="156pt"
+        android:background="@drawable/auth_hospital_ic_face_vip"
+        app:layout_constraintStart_toEndOf="@+id/im_login_by_id_number"
+        app:layout_constraintTop_toBottomOf="@+id/auth_logins_tb" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="158pt"
+        android:layout_marginEnd="8pt"
+        android:layout_marginStart="8pt"
+        android:text="市民卡扫描"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="@+id/im_login_by_idcard"
+        app:layout_constraintEnd_toEndOf="@+id/im_login_by_finger"
+        app:layout_constraintStart_toStartOf="@+id/im_login_by_finger" />
+
+    <TextView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="102pt"
+        android:layout_marginEnd="8pt"
+        android:layout_marginStart="8pt"
+        android:text="(敬请期待)"
+        android:textColor="#ff333333"
+        android:textSize="40pt"
+        app:layout_constraintBottom_toBottomOf="@+id/im_login_by_idcard"
+        app:layout_constraintEnd_toEndOf="@+id/im_login_by_finger"
+        app:layout_constraintStart_toStartOf="@+id/im_login_by_finger" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="158pt"
+        android:text="身份证扫描"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="@+id/im_login_by_idcard"
+        app:layout_constraintEnd_toEndOf="@+id/im_login_by_idcard"
+        app:layout_constraintStart_toStartOf="@+id/im_login_by_idcard" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="158pt"
+        android:layout_marginEnd="8pt"
+        android:layout_marginStart="8pt"
+        android:text="人脸识别登陆"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="@+id/im_login_by_idcard"
+        app:layout_constraintEnd_toEndOf="@+id/im_login_by_face"
+        app:layout_constraintStart_toStartOf="@+id/im_login_by_face" />
+
+    <ImageView
+        android:id="@+id/im_login_by_id_number"
+        android:layout_width="468pt"
+        android:layout_height="648pt"
+        android:layout_marginStart="-8pt"
+        android:layout_marginTop="156pt"
+        android:background="@drawable/auth_hospital_ic_login_by_id_number"
+        app:layout_constraintStart_toEndOf="@+id/im_login_by_idcard"
+        app:layout_constraintTop_toBottomOf="@+id/auth_logins_tb" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="158pt"
+        android:layout_marginEnd="8pt"
+        android:layout_marginStart="8pt"
+        android:text="身份证号登录"
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="@+id/im_login_by_idcard"
+        app:layout_constraintEnd_toEndOf="@+id/im_login_by_id_number"
+        app:layout_constraintStart_toStartOf="@+id/im_login_by_id_number" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="100pt"
+        android:layout_height="60pt"
+        android:layout_marginStart="25pt"
+        android:layout_marginTop="58pt"
+        android:src="@drawable/auth_hospital_ic_face_vip"
+        app:layout_constraintStart_toStartOf="@+id/im_login_by_face"
+        app:layout_constraintTop_toTopOf="@+id/im_login_by_face" />
+
+    <TextView
+        android:id="@+id/tv_to_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="立即注册"
+        android:textColor="@color/tv_to_register_bg"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_no_count"
+        app:layout_constraintStart_toEndOf="@+id/tv_no_count"
+        app:layout_constraintTop_toTopOf="@+id/tv_no_count" />
+
+    <TextView
+        android:id="@+id/tv_no_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1356pt"
+        android:layout_marginTop="110pt"
+        android:text="没有账号?  "
+        android:textColor="#ff333333"
+        android:textSize="56pt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/im_login_by_finger" />
+
+
+</android.support.constraint.ConstraintLayout>

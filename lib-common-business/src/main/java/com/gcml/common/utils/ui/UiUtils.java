@@ -44,7 +44,7 @@ public class UiUtils {
             return;
         }
         if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            compat(sContext, sDesignHeight);
+            compat(sContext, sDesignWidth);
         }
     }
 
