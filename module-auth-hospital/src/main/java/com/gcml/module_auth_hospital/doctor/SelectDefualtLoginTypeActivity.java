@@ -58,28 +58,25 @@ public class SelectDefualtLoginTypeActivity extends AppCompatActivity implements
             default:
                 break;
             case R.id.rl_face_login:
-                clickFaceLogin();
+                seletDefaultLogin(true);
                 break;
             case R.id.rl_account_login:
-                clickAccountLogin();
+                seletDefaultLogin(false);
                 break;
         }
     }
 
-   
 
-    private void clickFaceLogin() {
+    private void seletDefaultLogin(Boolean selectedFaceLogin) {
         int faceChildCount = rlFaceLogin.getChildCount();
         for (int i = 0; i < faceChildCount; i++) {
-            rlFaceLogin.getChildAt(i).setSelected(true);
+            rlFaceLogin.getChildAt(i).setSelected(selectedFaceLogin);
         }
 
         int accountLoginCount = rlAccountLogin.getChildCount();
         for (int i = 0; i < accountLoginCount; i++) {
-            rlAccountLogin.getChildAt(i).setSelected(false);
+            rlAccountLogin.getChildAt(i).setSelected(selectedFaceLogin);
         }
-
-
     }
 
     private void clickAccountLogin() {
