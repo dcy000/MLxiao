@@ -154,6 +154,7 @@
 
 
     <TextView
+        android:enabled="false"
         android:id="@+id/tv_select_user_login_confirm"
         android:layout_width="360pt"
         android:layout_height="120pt"

@@ -129,6 +129,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="56pt"
         android:background="@drawable/bg_btn"
+        android:enabled="false"
         android:gravity="center"
         android:text="确认"
         android:textColor="#ffffffff"

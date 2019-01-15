@@ -63,6 +63,8 @@ public class SelectUserDefualtLoginTypeActivity extends AppCompatActivity implem
                         CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
                     }
                 });
+
+        tvSelectUserLoginConfirm.setEnabled(true);
     }
 
     @Override
@@ -84,14 +86,14 @@ public class SelectUserDefualtLoginTypeActivity extends AppCompatActivity implem
     }
 
     private void updateButtonState() {
-        if (rlSelectUserLoginIdcrad.getChildAt(1).isSelected()
-                && rlSelectUserLoginIdcrad.getChildAt(1).isSelected()
-                && rlSelectUserLoginIdcrad.getChildAt(1).isSelected()
-                && rlSelectUserLoginIdcrad.getChildAt(1).isSelected()) {
-            tvSelectUserLoginConfirm.setEnabled(true);
+        if (!rlSelectUserLoginIdcrad.getChildAt(1).isSelected()
+                && !rlSelectUserLoginIdcrad.getChildAt(1).isSelected()
+                && !rlSelectUserLoginIdcrad.getChildAt(1).isSelected()
+                && !rlSelectUserLoginIdcrad.getChildAt(1).isSelected()) {
+            tvSelectUserLoginConfirm.setEnabled(false);
 
         } else {
-            tvSelectUserLoginConfirm.setEnabled(false);
+            tvSelectUserLoginConfirm.setEnabled(true);
         }
 
 

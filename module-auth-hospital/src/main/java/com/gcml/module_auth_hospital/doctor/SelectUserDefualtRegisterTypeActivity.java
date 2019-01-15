@@ -59,6 +59,8 @@ public class SelectUserDefualtRegisterTypeActivity extends AppCompatActivity imp
                     }
                 });
 
+        tvSelectUserRegisterConfirm.setEnabled(true);
+
     }
 
     @Override
@@ -84,13 +86,13 @@ public class SelectUserDefualtRegisterTypeActivity extends AppCompatActivity imp
     }
 
     private void updateButtonState() {
-        if (rlSelectUserRegisterIdcrad.getChildAt(1).isSelected()
-                && rlSelectUserRegisterCardNumber.getChildAt(1).isSelected()
-                && rlSelectUserRegisterCityCard.getChildAt(1).isSelected()) {
-            tvSelectUserRegisterConfirm.setEnabled(true);
+        if (!rlSelectUserRegisterIdcrad.getChildAt(1).isSelected()
+                && !rlSelectUserRegisterCardNumber.getChildAt(1).isSelected()
+                && !rlSelectUserRegisterCityCard.getChildAt(1).isSelected()) {
+            tvSelectUserRegisterConfirm.setEnabled(false);
 
         } else {
-            tvSelectUserRegisterConfirm.setEnabled(false);
+            tvSelectUserRegisterConfirm.setEnabled(true);
         }
     }
 }
