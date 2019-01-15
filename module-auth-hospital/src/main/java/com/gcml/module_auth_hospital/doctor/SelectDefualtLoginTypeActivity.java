@@ -48,6 +48,7 @@ public class SelectDefualtLoginTypeActivity extends AppCompatActivity implements
                         CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
                     }
                 });
+        seletDefaultLogin(true);
 
     }
 
@@ -70,7 +71,7 @@ public class SelectDefualtLoginTypeActivity extends AppCompatActivity implements
 
         int accountLoginCount = rlAccountLogin.getChildCount();
         for (int i = 0; i < accountLoginCount; i++) {
-            rlAccountLogin.getChildAt(i).setSelected(selectedFaceLogin);
+            rlAccountLogin.getChildAt(i).setSelected(!selectedFaceLogin);
         }
     }
 }
