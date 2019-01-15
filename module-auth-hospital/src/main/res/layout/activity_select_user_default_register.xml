@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <com.gcml.common.widget.toolbar.TranslucentToolBar
-        android:id="@+id/tb_select_user_login"
+        android:id="@+id/tb_select_user_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -18,7 +18,7 @@
         android:textColor="#ff333333"
         android:textSize="48pt" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="46pt"
@@ -27,9 +27,11 @@
         android:paddingRight="60pt">
 
         <RelativeLayout
-            android:id="@+id/rl_select_user_login_idcrad"
+            android:id="@+id/rl_select_user_register_idcrad"
             android:layout_width="420pt"
             android:layout_height="600pt"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="460pt"
             android:tag="哈哈">
 
             <ImageView
@@ -58,10 +60,10 @@
 
 
         <RelativeLayout
-            android:id="@+id/rl_select_user_login_card_number"
+            android:id="@+id/rl_select_user_register_card_number"
             android:layout_width="420pt"
             android:layout_height="600pt"
-            android:layout_marginLeft="40pt">
+            android:layout_gravity="center_horizontal">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -71,10 +73,8 @@
             <ImageView
                 android:layout_width="60pt"
                 android:layout_height="60pt"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="40pt"
-                android:layout_marginTop="24pt"
                 android:background="@drawable/bg_select_login_select" />
 
             <TextView
@@ -87,43 +87,12 @@
                 android:textSize="56pt" />
         </RelativeLayout>
 
-
         <RelativeLayout
-            android:id="@+id/rl_select_user_login_face"
+            android:id="@+id/rl_select_user_register_city_card"
             android:layout_width="420pt"
             android:layout_height="600pt"
-            android:layout_marginLeft="40pt">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/auth_hospital_ic_face_vip" />
-
-            <ImageView
-                android:layout_width="60pt"
-                android:layout_height="60pt"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="40pt"
-                android:layout_marginTop="24pt"
-                android:background="@drawable/bg_select_login_select" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="420pt"
-                android:gravity="center"
-                android:text="人脸识别登录"
-                android:textColor="#ff333333"
-                android:textSize="56pt" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/rl_select_user_login_city_card"
-            android:layout_width="420pt"
-            android:layout_height="600pt"
-            android:layout_marginLeft="40pt">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="460pt">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -144,17 +113,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="420pt"
                 android:gravity="center"
-                android:text="市民卡登录"
+                android:text="市民卡扫描"
                 android:textColor="#ff333333"
                 android:textSize="56pt" />
         </RelativeLayout>
 
 
-    </LinearLayout>
+    </FrameLayout>
 
 
     <TextView
-        android:id="@+id/tv_select_user_login_confirm"
+        android:id="@+id/tv_select_user_register_confirm"
         android:layout_width="360pt"
         android:layout_height="120pt"
         android:layout_gravity="center_horizontal"

@@ -12,6 +12,7 @@ import com.gcml.common.communication.InterFaceManagerment;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.update.IUpdateAgent;
 import com.gcml.common.widget.dialog.AlertDialog;
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 
@@ -67,6 +68,19 @@ public class DoctorSettingActivity extends AppCompatActivity implements View.OnC
         mTvSettingClearcache = (TextView) findViewById(R.id.tv_setting_clearcache);
         mTvSettingExit = (TextView) findViewById(R.id.tv_setting_exit);
         mTvSettingExit.setOnClickListener(this);
+
+        mTbDoctorSetting.setData("设置", R.drawable.common_btn_back, "返回",
+                R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+                        finish();
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
+                    }
+                });
     }
 
     @Override

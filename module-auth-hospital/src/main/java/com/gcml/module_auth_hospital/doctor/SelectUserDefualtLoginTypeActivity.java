@@ -50,7 +50,7 @@ public class SelectUserDefualtLoginTypeActivity extends AppCompatActivity implem
         tvSelectUserLoginConfirm = findViewById(R.id.tv_select_user_login_confirm);
         tvSelectUserLoginConfirm.setOnClickListener(this);
 
-        tbSelectUserLogin.setData("患 者 注 册 方 式 选 择",
+        tbSelectUserLogin.setData("患 者 登 录 方 式 选 择",
                 R.drawable.common_btn_back, "返回",
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
@@ -80,5 +80,21 @@ public class SelectUserDefualtLoginTypeActivity extends AppCompatActivity implem
             String tag = (String) tvSelectUserLoginConfirm.getTag();
             ToastUtils.showShort("点击确认" + tag);
         }
+        updateButtonState();
     }
+
+    private void updateButtonState() {
+        if (rlSelectUserLoginIdcrad.getChildAt(1).isSelected()
+                && rlSelectUserLoginIdcrad.getChildAt(1).isSelected()
+                && rlSelectUserLoginIdcrad.getChildAt(1).isSelected()
+                && rlSelectUserLoginIdcrad.getChildAt(1).isSelected()) {
+            tvSelectUserLoginConfirm.setEnabled(true);
+
+        } else {
+            tvSelectUserLoginConfirm.setEnabled(false);
+        }
+
+
+    }
+
 }
