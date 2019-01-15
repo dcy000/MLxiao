@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.divider.LinearLayoutDividerItemDecoration;
@@ -42,12 +43,17 @@ public class HealthCheckupFragment extends RecycleBaseFragment implements View.O
         mBtnNewRecord = (TextView) view.findViewById(R.id.btn_new_record);
         mBtnNewRecord.setOnClickListener(this);
         mRv = (RecyclerView) view.findViewById(R.id.rv);
-        initData();
+        mData = new ArrayList<>();
         initRV();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
+
     private void initData() {
-        mData = new ArrayList<>();
         mData.add("2018年12月3日");
         mData.add("2018年8月23日");
         mData.add("2017年10月2日");
@@ -78,6 +84,10 @@ public class HealthCheckupFragment extends RecycleBaseFragment implements View.O
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_new_record) {
+            CC.obtainBuilder("health_measure")
+                    .setActionName("health.profile.addhealthcheckup")
+                    .build()
+                    .call();
         } else {
         }
     }

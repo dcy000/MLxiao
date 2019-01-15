@@ -54,15 +54,14 @@ public class SelectDefualtLoginTypeActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.rl_face_login:
-                clickFaceLogin();
-                break;
-            case R.id.rl_account_login:
-                clickAccountLogin();
-                break;
+        int i = v.getId();
+        if (i == R.id.rl_face_login) {
+            clickFaceLogin();
+
+        } else if (i == R.id.rl_account_login) {
+            clickAccountLogin();
+
+        } else {
         }
     }
 

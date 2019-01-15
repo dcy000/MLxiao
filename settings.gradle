@@ -18,7 +18,8 @@ include ':lib-baidu-unit',
         ':lib-bluetooth',
         ':lib-bluetooth',
         ':lib-video',
-        ':lib-idcard-reader'
+        ':lib-idcard-reader',
+        ':lib-printer-8003dd'
 
 // 业务模块
 include ':module-video',

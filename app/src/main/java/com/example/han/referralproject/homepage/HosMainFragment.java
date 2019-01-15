@@ -124,6 +124,7 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
                 gotoHealthMeasure();
                 break;
             case R.id.ei_infomation_collection:
+                CCHealthMeasureActions.jump2FirstDiagnosisActivity();
                 break;
             case R.id.ei_doctor_service:
                 CC.obtainBuilder("health.profile").build().call();

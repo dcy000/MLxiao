@@ -63,21 +63,17 @@ public class UserRegistersActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.im_register_by_idcard:
-                startActivity(new Intent(this, ScanIdCardRegisterActivity.class));
-                break;
-            case R.id.im_register_by_finger:
-                break;
-            case R.id.im_register_by_face:
-                break;
-            case R.id.im_register_by_id_number:
-                startActivity(new Intent(this, IDCardNuberRegisterActivity.class));
-                break;
-            case R.id.tv_to_register:
-                break;
+        int i = v.getId();
+        if (i == R.id.im_register_by_idcard) {
+            startActivity(new Intent(this, ScanIdCardRegisterActivity.class));
+
+        } else if (i == R.id.im_register_by_finger) {
+        } else if (i == R.id.im_register_by_face) {
+        } else if (i == R.id.im_register_by_id_number) {
+            startActivity(new Intent(this, IDCardNuberRegisterActivity.class));
+
+        } else if (i == R.id.tv_to_register) {
+        } else {
         }
     }
 }

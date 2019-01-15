@@ -50,7 +50,6 @@ public class HealthWeightDetectionUiFragment extends WeightFragment
     protected void initView(View view, Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
         showUi();
-//        dealLogic();
     }
 
     private HealthDiaryDetailsFragment mUiFragment;

@@ -61,7 +61,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private int measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
     private int showPosition = 0;
     private Uri uri;
-    private static HealthBloodDetectionUiFragment.Data bloodpressureCacheData;
     private BluetoothBaseFragment fragment;
     private boolean isShowHealthChooseDevicesFragment = false;
     private String finalFragment;
@@ -80,13 +79,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         context.startActivity(intent);
     }
 
-    public void putBloodpressureCacheData(HealthBloodDetectionUiFragment.Data data) {
-        bloodpressureCacheData = data;
-    }
-
-    public HealthBloodDetectionUiFragment.Data getBloodpressureCacheData() {
-        return bloodpressureCacheData;
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,11 +120,11 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 userHypertensionHand = UserSpHelper.getUserHypertensionHand();
                 if (TextUtils.isEmpty(userId)) {
                     //首先判断userId,如果为空，则说明走的是注册流程到达这里的
-                    fragment = new HealthBloodDetectionUiFragment();
+                    fragment = new HealthBloodDetectionOnlyOneFragment();
                 } else {
                     //如果本地缓存的有惯用手数据则只需测量一次，如果没有则需要惯用手判断
                     if (TextUtils.isEmpty(userHypertensionHand)) {
-                        fragment = new HealthBloodDetectionUiFragment();
+                        fragment = new HealthBloodDetectionOnlyOneFragment();
                     } else {
                         fragment = new HealthBloodDetectionOnlyOneFragment();
                     }
@@ -158,7 +150,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mRightView.setImageResource(R.drawable.common_icon_home);
                 isShowSelectECGDevice=true;
                 break;
-            case "ECG_Fragment":
+            case "ECGFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("心 电 测 量");
                 if (ecgDevice==1){
@@ -448,10 +440,4 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         MLVoiceSynthetize.stop();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bloodpressureCacheData = null;
-
-    }
 }

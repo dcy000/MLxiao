@@ -13,14 +13,14 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.ecg.XinDianDetectActivity;
-import com.gcml.common.recommend.bean.post.DetectionData;
-import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionUiFragment;
+import com.gcml.health.measure.first_diagnosis.fragment.HealthBloodDetectionOnlyOneFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthDetectionIntelligentReportFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthFirstTipsFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
@@ -51,7 +51,6 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
     private boolean isFirst = true;
     private int measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
     private static List<DetectionData> cacheDatas = new ArrayList<>();
-    private static HealthBloodDetectionUiFragment.Data bloodpressureCacheData;
     private int requestPlayVideoCode;
 
     public static void startActivity(Context context) {
@@ -60,14 +59,6 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
-    }
-
-    public void putBloodpressureCacheData(HealthBloodDetectionUiFragment.Data data) {
-        bloodpressureCacheData = data;
-    }
-
-    public HealthBloodDetectionUiFragment.Data getBloodpressureCacheData() {
-        return bloodpressureCacheData;
     }
 
     /**
@@ -151,7 +142,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
             requestPlayVideoCode = BLOODPRESSURE_VIDEO;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
             jump2MeasureVideoPlayActivity(uri, "血压测量演示视频");
-        } else if (fragment instanceof HealthBloodDetectionUiFragment) {
+        } else if (fragment instanceof HealthBloodDetectionOnlyOneFragment) {
             move2Weight();
         } else if (fragment instanceof HealthWeightDetectionUiFragment) {
             requestPlayVideoCode = BLOODSUGAR_VIDEO;
@@ -333,7 +324,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
         FragmentManager fm = getSupportFragmentManager();
         if (fm != null) {
             FragmentTransaction transaction = fm.beginTransaction();
-            baseFragment = new HealthBloodDetectionUiFragment();
+            baseFragment = new HealthBloodDetectionOnlyOneFragment();
             baseFragment.setOnFragmentChangedListener(this);
             baseFragment.setOnDealVoiceAndJumpListener(this);
             transaction.replace(R.id.fl_container, baseFragment);
@@ -345,7 +336,6 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bloodpressureCacheData = null;
         cacheDatas = null;
         MLVoiceSynthetize.stop();
     }
