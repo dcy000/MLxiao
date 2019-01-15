@@ -100,15 +100,11 @@ public class DoctorLoginActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.iv_auth_doctor_login_setting:
-                toSetting();
-                break;
-            case R.id.tv_doctor_login_login:
-                toLogin();
-                break;
+        int id = v.getId();
+        if (id == R.id.iv_auth_doctor_login_setting) {
+            toSetting();
+        } else if (id == R.id.tv_doctor_login_login) {
+            toLogin();
         }
     }
 

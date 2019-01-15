@@ -130,10 +130,8 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_auth_next:
-                register();
-                break;
+        if (v.getId() == R.id.tv_auth_next) {
+            register();
         }
     }
 

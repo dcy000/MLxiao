@@ -33,6 +33,6 @@ include ':module-video',
         ':module-edu',
         ':module-recreation',
         ':module-auth-hospital',
-        ':test',
+//        ':test',
         ':module-health-profile'
 

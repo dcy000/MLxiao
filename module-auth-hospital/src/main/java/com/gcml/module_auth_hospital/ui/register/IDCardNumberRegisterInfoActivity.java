@@ -111,20 +111,13 @@ public class IDCardNumberRegisterInfoActivity extends AppCompatActivity implemen
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.et_register_minzu:
-                updateHeight();
-                break;
-            case R.id.auth_tv_man:
-                break;
-            case R.id.auth_tv_woman:
-                break;
-            case R.id.et_register_now_address:
-                break;
-            case R.id.tv_auth_next:
-                break;
+        int id = v.getId();
+        if (id == R.id.et_register_minzu) {
+            updateHeight();
+        } else if (id == R.id.auth_tv_man) {
+        } else if (id == R.id.auth_tv_woman) {
+        } else if (id == R.id.et_register_now_address) {
+        } else if (id == R.id.tv_auth_next) {
         }
     }
 

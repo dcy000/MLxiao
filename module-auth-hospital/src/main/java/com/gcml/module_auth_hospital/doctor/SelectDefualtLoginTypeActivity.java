@@ -46,7 +46,6 @@ public class SelectDefualtLoginTypeActivity extends AppCompatActivity implements
                     @Override
                     public void onRightClick() {
                         CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
-                        ;
                     }
                 });
 
@@ -54,15 +53,11 @@ public class SelectDefualtLoginTypeActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.rl_face_login:
-                seletDefaultLogin(true);
-                break;
-            case R.id.rl_account_login:
-                seletDefaultLogin(false);
-                break;
+        int id = v.getId();
+        if (id == R.id.rl_face_login) {
+            seletDefaultLogin(true);
+        } else if (id == R.id.rl_account_login) {
+            seletDefaultLogin(false);
         }
     }
 
@@ -77,9 +72,5 @@ public class SelectDefualtLoginTypeActivity extends AppCompatActivity implements
         for (int i = 0; i < accountLoginCount; i++) {
             rlAccountLogin.getChildAt(i).setSelected(selectedFaceLogin);
         }
-    }
-
-    private void clickAccountLogin() {
-
     }
 }

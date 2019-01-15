@@ -57,23 +57,16 @@ public class UserLoginsActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.im_login_by_idcard:
-                startActivity(new Intent(this, ScanIdCardLoginActivity.class));
-                break;
-            case R.id.im_login_by_finger:
-                break;
-            case R.id.im_login_by_face:
-                break;
-            case R.id.im_login_by_id_number:
-                startActivity(new Intent(this, IDCardNuberLoginActivity.class));
-                break;
-            case R.id.tv_to_register:
-                startActivity(new Intent(this, UserRegistersActivity.class));
-                break;
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.im_login_by_idcard) {
+            startActivity(new Intent(this, ScanIdCardLoginActivity.class));
+        } else if (id == R.id.im_login_by_finger) {
+        } else if (id == R.id.im_login_by_face) {
+        } else if (id == R.id.im_login_by_id_number) {
+            startActivity(new Intent(this, IDCardNuberLoginActivity.class));
+        } else if (id == R.id.tv_to_register) {
+            startActivity(new Intent(this, UserRegistersActivity.class));
         }
     }
 }
