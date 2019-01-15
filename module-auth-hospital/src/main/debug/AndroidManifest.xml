@@ -25,17 +25,18 @@
         <activity android:name=".ui.register.IDCardRegisterInfoActivity" />
         <activity android:name=".ui.register.IDCardNuberRegisterActivity" />
         <activity android:name=".ui.register.IDCardNumberRegisterInfoActivity" />
-        <activity android:name=".doctor.DoctorLoginActivity" />
-        <activity android:name=".doctor.SelectUserDefualtLoginTypeActivity">
+        <activity android:name=".doctor.DoctorLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".doctor.SelectDefualtLoginTypeActivity">
+        <activity android:name=".doctor.SelectDefualtLoginTypeActivity" />
+        <activity android:name=".doctor.DoctorSettingActivity">
 
         </activity>
+        <activity android:name=".doctor.SelectUserDefualtLoginTypeActivity"></activity>
 
     </application>
 
