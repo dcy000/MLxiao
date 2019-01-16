@@ -624,7 +624,7 @@
                     app:layout_constraintLeft_toRightOf="@+id/cl_basic_info"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cl_other_info"
-                    android:visibility="invisible">
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_health_info"
