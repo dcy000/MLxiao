@@ -689,6 +689,7 @@
                         android:id="@+id/cl_item_smoke"
                         android:layout_width="0dp"
                         android:layout_height="90pt"
+                        android:visibility="gone"
                         android:background="@drawable/common_bg_btn_transparent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
