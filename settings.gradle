@@ -32,7 +32,8 @@ include ':module-video',
         ':module-health-record',
         ':module-edu',
         ':module-recreation',
-        ':module-auth-hospital',
+//        ':module-inquiry',
+//        ':module-auth-hospital',
 //        ':test',
         ':module-health-profile'
 

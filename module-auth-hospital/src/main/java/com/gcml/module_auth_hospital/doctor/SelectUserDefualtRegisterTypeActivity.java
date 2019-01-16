@@ -65,7 +65,7 @@ public class SelectUserDefualtRegisterTypeActivity extends AppCompatActivity imp
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+       /* switch (v.getId()) {
             default:
                 break;
             case R.id.rl_select_user_register_idcrad:
@@ -81,7 +81,19 @@ public class SelectUserDefualtRegisterTypeActivity extends AppCompatActivity imp
                 String tag = (String) tvSelectUserRegisterConfirm.getTag();
                 ToastUtils.showShort("点击确认" + tag);
                 break;
+        }*/
+        int id = v.getId();
+        if (id == R.id.rl_select_user_register_idcrad) {
+            rlSelectUserRegisterIdcrad.getChildAt(1).setSelected(!rlSelectUserRegisterIdcrad.getChildAt(1).isSelected());
+        } else if (id == R.id.rl_select_user_register_card_number) {
+            rlSelectUserRegisterCardNumber.getChildAt(1).setSelected(!rlSelectUserRegisterCardNumber.getChildAt(1).isSelected());
+        } else if (id == R.id.rl_select_user_register_city_card) {
+            rlSelectUserRegisterCityCard.getChildAt(1).setSelected(!rlSelectUserRegisterCityCard.getChildAt(1).isSelected());
+        }else if (id == R.id.tv_select_user_register_confirm) {
+            String tag = (String) tvSelectUserRegisterConfirm.getTag();
+            ToastUtils.showShort("点击确认" + tag);
         }
+
         updateButtonState();
     }
 

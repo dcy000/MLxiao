@@ -83,12 +83,9 @@ public class IDCardNuberRegisterActivity extends AppCompatActivity implements Vi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.tv_next:
-                checkIdCard();
-                break;
+        int id = v.getId();
+        if (id == R.id.tv_next) {
+            checkIdCard();
         }
     }
 

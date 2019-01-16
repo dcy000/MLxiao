@@ -85,7 +85,7 @@ public class DoctorSettingActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+       /* switch (v.getId()) {
             default:
                 break;
             case R.id.tv_setting_wifi:
@@ -119,7 +119,42 @@ public class DoctorSettingActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.tv_setting_exit:
                 break;
+        }*/
+
+        int id = v.getId();
+        if (id == R.id.tv_setting_wifi) {
+            CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
+
+        } else if (id == R.id.tv_setting_voice) {
+            CC.obtainBuilder("com.gcml.old.setting.voice").build().callAsync();
+
+        } else if (id == R.id.tv_setting_doctor_login) {
+            startActivity(new Intent(this, SelectDefualtLoginTypeActivity.class));
+
         }
+        if (id == R.id.tv_setting_user_register) {
+            startActivity(new Intent(this, SelectUserDefualtLoginTypeActivity.class));
+
+        } else if (id == R.id.tv_setting_user_login) {
+            startActivity(new Intent(this, SelectUserDefualtLoginTypeActivity.class));
+
+        } else if (id == R.id.tv_setting_clear) {
+            startActivity(new Intent(this, SelectUserDefualtLoginTypeActivity.class));
+
+        }
+        if (id == R.id.tv_setting_update) {
+            if (InterFaceManagerment.update != null) {
+                InterFaceManagerment.update.update(this);
+            }
+
+        } else if (id == R.id.tv_setting_about) {
+            CC.obtainBuilder("com.gcml.old.setting.about").build().callAsync();
+
+        } else if (id == R.id.tv_setting_reset) {
+            showResetDialog();
+        }
+
+
     }
 
     private void showClearCacheDialog() {
