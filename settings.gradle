@@ -33,7 +33,8 @@ include ':module-video',
         ':module-health-record',
         ':module-edu',
         ':module-recreation',
+        ':module-inquiry',
         ':module-auth-hospital',
-        ':test',
+//        ':test',
         ':module-health-profile'
 

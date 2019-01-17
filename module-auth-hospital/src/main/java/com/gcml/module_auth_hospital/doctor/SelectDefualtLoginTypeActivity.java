@@ -12,6 +12,7 @@ import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 
 /**
+ * 选择医生优先登陆方式
  * Created by lenovo on 2019/1/14.
  */
 
@@ -46,42 +47,32 @@ public class SelectDefualtLoginTypeActivity extends AppCompatActivity implements
                     @Override
                     public void onRightClick() {
                         CC.obtainBuilder("com.gcml.old.wifi").build().callAsync();
-                        ;
                     }
                 });
+        seletDefaultLogin(true);
 
     }
 
     @Override
     public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.rl_face_login) {
-            clickFaceLogin();
-
-        } else if (i == R.id.rl_account_login) {
-            clickAccountLogin();
-
-        } else {
+        int id = v.getId();
+        if (id == R.id.rl_face_login) {
+            seletDefaultLogin(true);
+        } else if (id == R.id.rl_account_login) {
+            seletDefaultLogin(false);
         }
     }
 
-   
 
-    private void clickFaceLogin() {
+    private void seletDefaultLogin(Boolean selectedFaceLogin) {
         int faceChildCount = rlFaceLogin.getChildCount();
         for (int i = 0; i < faceChildCount; i++) {
-            rlFaceLogin.getChildAt(i).setSelected(true);
+            rlFaceLogin.getChildAt(i).setSelected(selectedFaceLogin);
         }
 
         int accountLoginCount = rlAccountLogin.getChildCount();
         for (int i = 0; i < accountLoginCount; i++) {
-            rlAccountLogin.getChildAt(i).setSelected(false);
+            rlAccountLogin.getChildAt(i).setSelected(!selectedFaceLogin);
         }
-
-
-    }
-
-    private void clickAccountLogin() {
-
     }
 }

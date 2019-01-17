@@ -21,39 +21,39 @@
             android:layout_height="648pt">
 
             <ImageView
-                android:layout_width="468pt"
-                android:layout_height="648pt"
-                android:background="#999" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_select_login_face" />
 
             <ImageView
                 android:layout_width="60pt"
                 android:layout_height="60pt"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="24pt"
+                android:layout_marginRight="40pt"
                 android:layout_marginTop="24pt"
-                android:src="#f00" />
+                android:background="@drawable/bg_select_login_select" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_account_login"
             android:layout_width="468pt"
             android:layout_height="648pt"
-            android:layout_marginLeft="-1pt">
+            android:layout_marginLeft="-10pt">
 
             <ImageView
                 android:layout_width="468pt"
                 android:layout_height="648pt"
-                android:background="#999" />
+                android:background="@drawable/bg_select_login_account" />
 
             <ImageView
                 android:layout_width="60pt"
                 android:layout_height="60pt"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="24pt"
+                android:layout_marginRight="40pt"
                 android:layout_marginTop="24pt"
-                android:src="#f00" />
+                android:background="@drawable/bg_select_login_select" />
         </RelativeLayout>
 
 

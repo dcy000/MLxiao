@@ -77,19 +77,17 @@ public class AcountInfoDialog extends DialogFragment implements View.OnClickList
     }
 
     public void onViewClicked(View view) {
-        int i = view.getId();
-        if (i == R.id.tv_cancle) {
+        int id = view.getId();
+        if (id == R.id.tv_cancle) {
             if (mListener != null) {
                 mListener.onCancle();
             }
             dismiss();
-
-        } else if (i == R.id.tv_confirm) {
+        } else if (id == R.id.tv_confirm) {
             if (mListener != null) {
                 mListener.onConfirm();
             }
             dismiss();
-
         }
     }
 

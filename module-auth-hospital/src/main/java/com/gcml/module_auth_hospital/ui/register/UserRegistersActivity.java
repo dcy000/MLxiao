@@ -11,8 +11,6 @@ import com.billy.cc.core.component.CC;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
-import com.gcml.module_auth_hospital.ui.login.IDCardNuberLoginActivity;
-import com.gcml.module_auth_hospital.ui.login.ScanIdCardLoginActivity;
 
 public class UserRegistersActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -57,23 +55,22 @@ public class UserRegistersActivity extends AppCompatActivity implements View.OnC
                         CC.obtainBuilder("com.gcml.old.setting").build().call();
                     }
                 });
-
-
     }
 
     @Override
     public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.im_register_by_idcard) {
+        int id = v.getId();
+        if (id == R.id.im_register_by_idcard) {
             startActivity(new Intent(this, ScanIdCardRegisterActivity.class));
+        } else if (id == R.id.im_register_by_finger) {
 
-        } else if (i == R.id.im_register_by_finger) {
-        } else if (i == R.id.im_register_by_face) {
-        } else if (i == R.id.im_register_by_id_number) {
+        } else if (id == R.id.im_register_by_face) {
+
+        } else if (id == R.id.im_register_by_id_number) {
             startActivity(new Intent(this, IDCardNuberRegisterActivity.class));
+        } else if (id == R.id.tv_to_register) {
 
-        } else if (i == R.id.tv_to_register) {
-        } else {
         }
     }
+
 }

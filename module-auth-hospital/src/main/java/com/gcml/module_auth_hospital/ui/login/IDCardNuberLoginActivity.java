@@ -83,12 +83,11 @@ public class IDCardNuberLoginActivity extends AppCompatActivity implements View.
     }
 
     @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.tv_next) {
-            checkIdCard();
+    public void onClick(View view) {
 
-        } else {
+        int id = view.getId();
+        if (id == R.id.tv_next) {
+            checkIdCard();
         }
     }
 

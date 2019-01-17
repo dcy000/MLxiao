@@ -106,9 +106,9 @@ dependencies {
     if ("lib-common-core" != project.name
             && "lib-voice" != project.name
             && "lib-widget" != project.name
-            && "lib-idcard-readert" != project.name
-    ) {
-        implementation project(":lib-common-core")
+            && "lib-idcard-reader" != project.name
+        ) {
+            implementation project(":lib-common-core")
     }
 
     if ("lib-common-business" != project.name

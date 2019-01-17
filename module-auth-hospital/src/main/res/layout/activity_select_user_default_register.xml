@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_select_user_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60pt"
+        android:layout_marginTop="72pt"
+        android:text="至少要选择一个登录方式"
+        android:textColor="#ff333333"
+        android:textSize="48pt" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46pt"
+        android:orientation="horizontal"
+        android:paddingLeft="60pt"
+        android:paddingRight="60pt">
+
+        <RelativeLayout
+            android:id="@+id/rl_select_user_register_idcrad"
+            android:layout_width="420pt"
+            android:layout_height="600pt"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="460pt"
+            android:tag="哈哈">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/auth_hospital_ic_idcard_login" />
+
+            <ImageView
+                android:layout_width="60pt"
+                android:layout_height="60pt"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="40pt"
+                android:layout_marginTop="24pt"
+                android:background="@drawable/bg_select_login_select" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="420pt"
+                android:gravity="center"
+                android:text="身份证扫描"
+                android:textColor="#ff333333"
+                android:textSize="56pt" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_select_user_register_card_number"
+            android:layout_width="420pt"
+            android:layout_height="600pt"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/auth_hospital_ic_login_by_id_number" />
+
+            <ImageView
+                android:layout_width="60pt"
+                android:layout_height="60pt"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/bg_select_login_select" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="420pt"
+                android:gravity="center"
+                android:text="身份证号登录"
+                android:textColor="#ff333333"
+                android:textSize="56pt" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_select_user_register_city_card"
+            android:layout_width="420pt"
+            android:layout_height="600pt"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="460pt">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/auth_hospital_ic_login_by_finger_print" />
+
+            <ImageView
+                android:layout_width="60pt"
+                android:layout_height="60pt"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="40pt"
+                android:layout_marginTop="24pt"
+                android:background="@drawable/bg_select_login_select" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="420pt"
+                android:gravity="center"
+                android:text="市民卡扫描"
+                android:textColor="#ff333333"
+                android:textSize="56pt" />
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/tv_select_user_register_confirm"
+        android:layout_width="360pt"
+        android:layout_height="120pt"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="56pt"
+        android:background="@drawable/bg_btn"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="确认"
+        android:textColor="#ffffffff"
+        android:textSize="56pt" />
+
+
+</LinearLayout>

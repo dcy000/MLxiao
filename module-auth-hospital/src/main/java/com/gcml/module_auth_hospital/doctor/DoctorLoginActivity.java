@@ -1,5 +1,6 @@
 package com.gcml.module_auth_hospital.doctor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -100,14 +101,11 @@ public class DoctorLoginActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.iv_auth_doctor_login_setting) {
+        int id = v.getId();
+        if (id == R.id.iv_auth_doctor_login_setting) {
             toSetting();
-
-        } else if (i == R.id.tv_doctor_login_login) {
+        } else if (id == R.id.tv_doctor_login_login) {
             toLogin();
-
-        } else {
         }
     }
 
@@ -126,6 +124,6 @@ public class DoctorLoginActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void toSetting() {
-        CC.obtainBuilder("com.gcml.old.setting").build().call();
+        startActivity(new Intent(this, DoctorSettingActivity.class));
     }
 }

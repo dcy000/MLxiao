@@ -82,9 +82,8 @@ public class RegisterSuccessActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.tv_auth_register_success_complete) {
-        } else {
+        if (v.getId() == R.id.tv_auth_register_success_complete) {
+
         }
     }
 }

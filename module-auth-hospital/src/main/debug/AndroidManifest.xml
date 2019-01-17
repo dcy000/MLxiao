@@ -19,21 +19,30 @@
         </activity>
         <activity android:name=".ui.login.ScanIdCardLoginActivity" />
         <activity android:name=".ui.login.IDCardNuberLoginActivity" />
-        <activity android:name=".ui.register.UserRegistersActivity"></activity>
-        <activity android:name=".ui.register.ScanIdCardRegisterActivity"></activity>
-        <activity android:name=".ui.register.IDCardRegisterInfoActivity"></activity>
-        <activity android:name=".ui.register.IDCardNuberRegisterActivity"></activity>
-        <activity android:name=".ui.register.IDCardNumberRegisterInfoActivity"></activity>
-        <activity android:name=".doctor.DoctorLoginActivity">
+        <activity android:name=".ui.register.RegisterSuccessActivity" />
+        <activity android:name=".ui.register.UserRegistersActivity" />
+        <activity android:name=".ui.register.ScanIdCardRegisterActivity" />
+        <activity android:name=".ui.register.IDCardRegisterInfoActivity" />
+        <activity android:name=".ui.register.IDCardNuberRegisterActivity" />
+        <activity android:name=".ui.register.IDCardNumberRegisterInfoActivity" />
+        <activity android:name=".doctor.DoctorLoginActivity"></activity>
+        <activity android:name=".doctor.SelectDefualtLoginTypeActivity" />
+        <activity android:name=".doctor.DoctorSettingActivity">
+
+        </activity>
+        <activity android:name=".doctor.SelectUserDefualtLoginTypeActivity">
+
+
+        </activity>
+        <activity android:name=".doctor.SelectUserDefualtRegisterTypeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.register.RegisterSuccessActivity">
 
         </activity>
+
     </application>
 
 </manifest>
