@@ -249,7 +249,7 @@ public class HealthIntelligentDetectionActivity extends ToolbarBaseActivity impl
     }
 
     private void move2ThreeInOne() {
-        measureType = IPresenter.MEASURE_OTHERS;
+        measureType = IPresenter.MEASURE_THREE;
         FragmentManager fm = getSupportFragmentManager();
         if (fm == null) {
             return;

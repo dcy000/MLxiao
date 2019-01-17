@@ -6,9 +6,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetailsModel;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.DetectionDataBean;
+import com.gcml.module_blutooth_devices.base.IPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HealthHeightDetectionUiFragment extends BluetoothBaseFragment implements HealthDiaryDetailsFragment.OnActionListener {
     private DetailsModel mUiModel;
@@ -61,6 +68,12 @@ public class HealthHeightDetectionUiFragment extends BluetoothBaseFragment imple
     @Override
     public void onAction(int what, float selectedValue, int unitPosition, String item) {
         if (what == WHAT_HEIGHT_DETECTION) {
+            List<DetectionData> datas=new ArrayList<>();
+            DetectionData data=new DetectionData();
+            data.setHeight(selectedValue);
+            if (fragmentDatas!=null){
+                fragmentDatas.data(new DetectionDataBean(IPresenter.MEASURE_HEIGHT,datas));
+            }
             //todo:上传身高数据
             if (fragmentChanged != null && !isJump2Next) {
                 isJump2Next = true;

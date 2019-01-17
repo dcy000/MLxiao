@@ -44,7 +44,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddHealthCheckupActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump, ThisFragmentDatas {
+public class InquiryHealthActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump, ThisFragmentDatas {
     private Uri uri;
     private List<FirstDiagnosisBean> firstDiagnosisBeans;
     private int showPosition = 0;
@@ -385,6 +385,7 @@ public class AddHealthCheckupActivity extends ToolbarBaseActivity implements Fra
 
                 }).show();
     }
+
 
     @Override
     public void data(DetectionDataBean detectionDataBean) {

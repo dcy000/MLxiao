@@ -96,7 +96,7 @@ public interface IPresenter {
     /**
      * 测量三合一
      */
-    int MEASURE_OTHERS = 26;
+    int MEASURE_THREE = 26;
     /**
      * 测量心电
      */

@@ -10,6 +10,8 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
+import com.gcml.module_blutooth_devices.base.DetectionDataBean;
+import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -63,7 +65,9 @@ public class HealthBloodOxygenDetectionFragment extends BloodOxygenFragment {
             data.setBloodOxygen(Float.parseFloat(results[0]));
             data.setPulse(Integer.parseInt(results[1]));
             datas.add(data);
-
+            if (fragmentDatas != null) {
+                fragmentDatas.data(new DetectionDataBean(IPresenter.MEASURE_BLOOD_OXYGEN,datas));
+            }
             HealthMeasureRepository.postMeasureData(datas)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

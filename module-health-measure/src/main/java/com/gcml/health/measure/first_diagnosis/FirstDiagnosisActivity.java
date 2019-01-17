@@ -38,8 +38,10 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.single_measure.fragment.ChooseECGDeviceFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
+import com.gcml.module_blutooth_devices.base.DetectionDataBean;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.base.ThisFragmentDatas;
 import com.gcml.module_blutooth_devices.ecg.ECGFragment;
 import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -55,7 +57,7 @@ import java.util.List;
  * created by:gzq
  * description:风险评估各Fragment调度Activity
  */
-public class FirstDiagnosisActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump {
+public class FirstDiagnosisActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump, ThisFragmentDatas {
     private List<FirstDiagnosisBean> firstDiagnosisBeans;
     private FrameLayout mFrame;
     private int measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
@@ -178,7 +180,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("三 合 一 测 量");
                 fragment = new HealthThreeInOneDetectionUiFragment();
-                measureType = IPresenter.MEASURE_OTHERS;
+                measureType = IPresenter.MEASURE_THREE;
                 fragment.setArguments(bundle);
                 break;
             case "HealthWeightDetectionUiFragment":
@@ -192,6 +194,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         }
         fragment.setOnFragmentChangedListener(this);
         fragment.setOnDealVoiceAndJumpListener(this);
+        fragment.setOnThisFragmentDataChangedListener(this);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frame_layout, fragment)
@@ -440,4 +443,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         MLVoiceSynthetize.stop();
     }
 
+    @Override
+    public void data(DetectionDataBean detectionDataBean) {
+
+    }
 }

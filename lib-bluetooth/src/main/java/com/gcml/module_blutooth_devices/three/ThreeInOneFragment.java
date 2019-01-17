@@ -114,12 +114,12 @@ public class ThreeInOneFragment extends BluetoothBaseFragment implements View.On
         int i = v.getId();
         if (i == R.id.btn_health_history) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_OTHERS);
+                dealVoiceAndJump.jump2HealthHistory(IPresenter.MEASURE_THREE);
             }
             clickHealthHistory(v);
         } else if (i == R.id.btn_video_demo) {
             if (dealVoiceAndJump != null) {
-                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_OTHERS);
+                dealVoiceAndJump.jump2DemoVideo(IPresenter.MEASURE_THREE);
             }
             clickVideoDemo(v);
         }

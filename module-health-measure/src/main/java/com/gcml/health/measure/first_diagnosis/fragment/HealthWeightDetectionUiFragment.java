@@ -15,6 +15,8 @@ import com.gcml.health.measure.first_diagnosis.bean.DetailsModel;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
+import com.gcml.module_blutooth_devices.base.DetectionDataBean;
+import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.weight.WeightFragment;
 
 import java.util.ArrayList;
@@ -84,7 +86,9 @@ public class HealthWeightDetectionUiFragment extends WeightFragment
         weightData.setDetectionType("3");
         weightData.setWeight(weight);
         datas.add(weightData);
-
+        if (fragmentDatas != null) {
+            fragmentDatas.data(new DetectionDataBean(IPresenter.MEASURE_WEIGHT, datas));
+        }
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
