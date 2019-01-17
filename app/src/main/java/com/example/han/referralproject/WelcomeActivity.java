@@ -16,6 +16,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.cc.CCVideoActions;
 import com.example.han.referralproject.homepage.HospitalMainActivity;
+import com.gcml.common.IConstant;
 import com.gcml.common.data.UserSpHelper;
 
 import com.gcml.common.utils.network.WiFiUtil;
@@ -97,11 +98,22 @@ public class WelcomeActivity extends AppCompatActivity {
                                 // 如果从开始计时到现在超过了60s
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
-                                    if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
+                                   /* if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                                         CC.obtainBuilder("com.gcml.auth").build().callAsync();
                                     } else {
                                         Intent intent = new Intent(getApplicationContext(), HospitalMainActivity.class);
                                         startActivity(intent);
+                                    }*/
+
+                                    if (TextUtils.isEmpty(UserSpHelper.getDoctorId())) {
+                                        CC.obtainBuilder(IConstant.KEY_HOSPITAL_DOCTOR_SIGN).build().callAsync();
+                                    } else {
+                                        if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
+                                            CC.obtainBuilder(IConstant.KEY_HOSPITAL_USER_SIGN).build().callAsync();
+                                        } else {
+                                            Intent intent = new Intent(getApplicationContext(), HospitalMainActivity.class);
+                                            startActivity(intent);
+                                        }
                                     }
                                     finish();
                                 }
@@ -160,7 +172,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private void playVideo() {
         boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
         if (false) {
-            jump2NormalVideoPlayActivity(VEDIO_URL,"迈联智慧");
+            jump2NormalVideoPlayActivity(VEDIO_URL, "迈联智慧");
         } else {
             checkVersion();
         }

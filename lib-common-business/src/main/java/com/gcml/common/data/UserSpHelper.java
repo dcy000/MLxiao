@@ -33,6 +33,7 @@ public class UserSpHelper {
     /**
      * 用户id的key
      */
+    private static final String KEY_DOCTOR_ID = "doctor_id";
     private static final String KEY_USER_ID = "user_id";
     private static final String KEY_EQ_ID = "eq_id";
     private static final String KEY_TOKEN = "token";
@@ -66,6 +67,21 @@ public class UserSpHelper {
      * 判断有没有做过风险评估
      */
     private static final String KEY_IS_FIRST_RISK_ASSESSMENT = "isFirstRisk";
+
+    /**
+     * followUpDoctor
+     * 获取 doctorId
+     */
+    public static String getDoctorId() {
+        return (String) SPUtil.get(KEY_DOCTOR_ID, "");
+    }
+
+    /**
+     * 设置 doctorId
+     */
+    public static void setDoctorId(String doctor) {
+        SPUtil.put(KEY_DOCTOR_ID, doctor);
+    }
 
     /**
      * 获取SP中存储的userid

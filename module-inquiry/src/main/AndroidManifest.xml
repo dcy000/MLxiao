@@ -3,7 +3,9 @@
     package="com.gcml.module_inquiry">
 
     <application>
-        <activity android:name=".ui.UserInfoListActivity"></activity>
+        <activity android:name=".ui.HealthFileActivity" />
+        <activity android:name=".ui.UserInfoListActivity" />
+        <activity android:name=".ui.BindDoctorActivity" />
+        <activity android:name=".ui.UserSignActivity" />
     </application>
-
 </manifest>

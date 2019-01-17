@@ -13,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_auth_hospital.R;
+import com.gcml.module_auth_hospital.ui.login.UserLoginsActivity;
 
 /**
  * Created by lenovo on 2019/1/14.
@@ -121,6 +123,10 @@ public class DoctorLoginActivity extends AppCompatActivity implements View.OnCli
             ToastUtils.showShort("请输入密码");
             return;
         }
+
+        UserSpHelper.setDoctorId("666");
+
+        startActivity(new Intent(this, UserLoginsActivity.class));
     }
 
     private void toSetting() {

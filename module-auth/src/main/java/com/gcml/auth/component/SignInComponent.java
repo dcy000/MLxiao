@@ -12,7 +12,8 @@ import com.gcml.auth.ui.signin.SignInActivity;
 public class SignInComponent implements IComponent {
     @Override
     public String getName() {
-        return "com.gcml.auth.signin";
+//        return "com.gcml.auth.signin";
+        return "";
     }
 
     @Override
