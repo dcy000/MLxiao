@@ -15,6 +15,10 @@ android {
                 JPUSH_APPKEY : "81695cca09ae6e2afffe15f4", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
+
+        packagingOptions {
+            pickFirst 'lib/armeabi-v7a/libserial_port.so'
+        }
     }
 
     buildTypes {

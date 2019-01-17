@@ -1,23 +1,19 @@
-package com.gcml.health.measure.first_diagnosis;
+package com.gcml.health.measure.health_profile;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
+import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.bean.FirstDiagnosisBean;
@@ -28,13 +24,12 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthChooseDevicesFragm
 import com.gcml.health.measure.first_diagnosis.fragment.HealthECGBoShengFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthECGDetectionFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthFirstTipsFragment;
+import com.gcml.health.measure.first_diagnosis.fragment.HealthHeightDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSugarDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthTemperatureDetectionFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthThreeInOneDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
-import com.gcml.health.measure.health_report_form.HealthReportFormActivity;
-import com.gcml.health.measure.R;
 import com.gcml.health.measure.single_measure.fragment.ChooseECGDeviceFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
@@ -47,46 +42,30 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * copyright：杭州国辰迈联机器人科技有限公司
- * version:V1.2.5
- * created on 2018/8/27 13:52
- * created by:gzq
- * description:风险评估各Fragment调度Activity
- */
-public class FirstDiagnosisActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump {
-    private List<FirstDiagnosisBean> firstDiagnosisBeans;
-    private FrameLayout mFrame;
-    private int measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
-    private int showPosition = 0;
+public class AddHealthCheckupActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump {
     private Uri uri;
+    private List<FirstDiagnosisBean> firstDiagnosisBeans;
+    private int showPosition = 0;
     private BluetoothBaseFragment fragment;
-    private boolean isShowHealthChooseDevicesFragment = false;
-    private String finalFragment;
-    private String userId;
-    private String userHypertensionHand;
-    private Bundle bundle;
+    private int measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
+    private boolean isShowSelectECGDevice = false;
+    private int ecgDevice = 2;//默认科瑞康
     private boolean isShowSelectBloodsugarMeasureTime = false;
-    private boolean isShowSelectECGDevice=false;
-    private int ecgDevice=1;//默认科瑞康
-
-    public static void startActivity(Context context) {
-        Intent intent = new Intent(context, FirstDiagnosisActivity.class);
-        if (context instanceof Application) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-        context.startActivity(intent);
-    }
-
+    private Bundle bundle;
+    private String finalFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first_diagnosis);
+        setContentView(R.layout.activity_add_health_checkup);
         initView();
-        initFirstDiagnosis();
+        initMeasureDevicesFragment();
         checkVideo(showPosition);
+    }
+
+    private void initView() {
+        firstDiagnosisBeans = new ArrayList<>();
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
     }
 
     private void checkVideo(int showPosition) {
@@ -115,20 +94,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             case "HealthBloodDetectionUiFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("血 压 测 量");
-
-                userId = UserSpHelper.getUserId();
-                userHypertensionHand = UserSpHelper.getUserHypertensionHand();
-                if (TextUtils.isEmpty(userId)) {
-                    //首先判断userId,如果为空，则说明走的是注册流程到达这里的
-                    fragment = new HealthBloodDetectionOnlyOneFragment();
-                } else {
-                    //如果本地缓存的有惯用手数据则只需测量一次，如果没有则需要惯用手判断
-                    if (TextUtils.isEmpty(userHypertensionHand)) {
-                        fragment = new HealthBloodDetectionOnlyOneFragment();
-                    } else {
-                        fragment = new HealthBloodDetectionOnlyOneFragment();
-                    }
-                }
+                fragment = new HealthBloodDetectionOnlyOneFragment();
                 measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
                 break;
             case "HealthBloodOxygenDetectionFragment":
@@ -148,15 +114,15 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mTitleText.setText("心 电 设 备 选 择");
                 fragment = new ChooseECGDeviceFragment();
                 mRightView.setImageResource(R.drawable.common_icon_home);
-                isShowSelectECGDevice=true;
+                isShowSelectECGDevice = true;
                 break;
             case "ECGFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("心 电 测 量");
-                if (ecgDevice==1){
+                if (ecgDevice == 1) {
                     fragment = new HealthECGDetectionFragment();
-                }else{
-                    fragment=new HealthECGBoShengFragment();
+                } else {
+                    fragment = new HealthECGBoShengFragment();
                 }
                 measureType = IPresenter.MEASURE_ECG;
                 break;
@@ -187,6 +153,13 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 fragment = new HealthWeightDetectionUiFragment();
                 measureType = IPresenter.MEASURE_WEIGHT;
                 break;
+            case "HealthHeightDetectionUiFragment":
+                mRightView.setImageResource(R.drawable.common_icon_home);
+                mToolbar.setVisibility(View.VISIBLE);
+                mTitleText.setText("身 高 测 量");
+                fragment = new HealthHeightDetectionUiFragment();
+                measureType = IPresenter.MEASURE_HEIGHT;
+                break;
             default:
                 break;
         }
@@ -196,19 +169,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 .beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .commitAllowingStateLoss();
-    }
-
-    /**
-     * 将需要测量的设备放在一个有序集合中，按照先后顺序来配置即可
-     */
-    private void initFirstDiagnosis() {
-        //引导页面
-        FirstDiagnosisBean firstTip = new FirstDiagnosisBean(HealthFirstTipsFragment.class.getSimpleName(), null, null);
-        firstDiagnosisBeans.add(firstTip);
-
-        FirstDiagnosisBean chooseDevice = new FirstDiagnosisBean(HealthChooseDevicesFragment.class.getSimpleName(), null, null);
-        firstDiagnosisBeans.add(chooseDevice);
-
     }
 
     /**
@@ -242,51 +202,14 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         });
     }
 
-
-    private void initView() {
-        mFrame = (FrameLayout) findViewById(R.id.frame);
-        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
-        firstDiagnosisBeans = new ArrayList<>();
-    }
-
-    @Override
-    public void onFragmentChanged(Fragment fragment, Bundle bundle) {
-        this.bundle = bundle;
-        if (fragment instanceof ChooseECGDeviceFragment){
-            isShowSelectECGDevice=false;
-            if (bundle!=null){
-                ecgDevice = bundle.getInt(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG, 1);
-            }
-        }
-        if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
-            isShowSelectBloodsugarMeasureTime = false;
-        }
-        //最后一个Fragment点击了下一步应该跳转到HealthReportFormActivity
-        if (fragment.getClass().getSimpleName().equals(finalFragment)) {
-            HealthReportFormActivity.startActivity(this);
-            finish();
-            return;
-        }
-        //因为在设备选择页面右上角的按钮是回到主界面，所以需要在此处做一个标记
-        if (fragment instanceof HealthFirstTipsFragment) {
-            isShowHealthChooseDevicesFragment = true;
-            mRightView.setImageResource(R.drawable.common_icon_home);
-        } else {
-            isShowHealthChooseDevicesFragment = false;
-            //每次跳转到下一个Fragment的时候都应该把右上角的蓝牙按钮初始化
-            mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
-        }
-        //设备选择界面点击下一步的时候，需要把选中的设备对应的Fragment进行初始化（动态加载fragment）
-        if (bundle != null && fragment instanceof HealthChooseDevicesFragment) {
-            ArrayList<Integer> integerArrayList = bundle.getIntegerArrayList(HealthChooseDevicesFragment.KEY_DEVICE_NUM);
-            initMeasureDevicesFragment(integerArrayList);
-        }
-        showPosition++;
-        //因为每一个Fragment中都有可能视频播放，所以应该先检查该Fragment中是否有视频播放
-        checkVideo(showPosition);
-    }
-
-    private void initMeasureDevicesFragment(ArrayList<Integer> integerArrayList) {
+    private void initMeasureDevicesFragment() {
+        ArrayList<Integer> integerArrayList = new ArrayList<>();
+        //体温、血压、血糖、体重、身高
+        integerArrayList.add(3);
+        integerArrayList.add(1);
+        integerArrayList.add(5);
+        integerArrayList.add(7);
+        integerArrayList.add(8);
         for (Integer bean : integerArrayList) {
             switch (bean) {
                 case 1:
@@ -351,6 +274,12 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                             HealthWeightDetectionUiFragment.class.getSimpleName(), null, null);
                     firstDiagnosisBeans.add(weight);
                     break;
+                case 8:
+                    //身高
+                    FirstDiagnosisBean height = new FirstDiagnosisBean(
+                            HealthHeightDetectionUiFragment.class.getSimpleName(), null, null);
+                    firstDiagnosisBeans.add(height);
+                    break;
                 default:
                     break;
             }
@@ -358,6 +287,31 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         //报告做成了Activity,所以在初始化结束后应该记录一下最后一个Fragment是哪一个，
         //这样点击最后一个Fragment的下一步才能跳转到HealthReportFormActivity
         finalFragment = firstDiagnosisBeans.get(firstDiagnosisBeans.size() - 1).getFragmentTag();
+    }
+
+    @Override
+    public void onFragmentChanged(Fragment fragment, Bundle bundle) {
+        this.bundle = bundle;
+        if (fragment instanceof ChooseECGDeviceFragment) {
+            isShowSelectECGDevice = false;
+            if (bundle != null) {
+                ecgDevice = bundle.getInt(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG, 2);
+            }
+        }
+        if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
+            isShowSelectBloodsugarMeasureTime = false;
+        }
+        //最后一个Fragment点击了下一步应该跳转到HealthReportFormActivity
+        if (fragment.getClass().getSimpleName().equals(finalFragment)) {
+            //TODO：把所有数据上传，并跳转到打印页面
+            CC.obtainBuilder("health.profile.outputresult").build().call();
+            return;
+        }
+        //每次跳转到下一个Fragment的时候都应该把右上角的蓝牙按钮初始化
+        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+        showPosition++;
+        //因为每一个Fragment中都有可能视频播放，所以应该先检查该Fragment中是否有视频播放
+        checkVideo(showPosition);
     }
 
     @Override
@@ -386,12 +340,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     protected void backLastActivity() {
         showPosition--;
         if (showPosition > 0) {
-            if (showPosition == 1) {
-                isShowHealthChooseDevicesFragment = true;
-                //如果是重新回到仪器选择界面，则把前数据初始化
-                firstDiagnosisBeans.clear();
-                initFirstDiagnosis();
-            }
             showFragment(showPosition);
         } else {
             finish();
@@ -400,11 +348,11 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
 
     @Override
     protected void backMainActivity() {
-        if (isShowHealthChooseDevicesFragment) {
-            CCAppActions.jump2MainActivity();
+        if (fragment instanceof HealthHeightDetectionUiFragment) {
+            ToastUtils.showShort("请选择您的身高");
             return;
         }
-        if (isShowSelectBloodsugarMeasureTime||isShowSelectECGDevice) {
+        if (isShowSelectBloodsugarMeasureTime || isShowSelectECGDevice) {
             CCAppActions.jump2MainActivity();
             return;
         }
@@ -433,11 +381,4 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
 
                 }).show();
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MLVoiceSynthetize.stop();
-    }
-
 }

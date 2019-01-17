@@ -195,7 +195,9 @@ public class HealthDetectionIntelligentReportFragment extends BluetoothBaseFragm
 
         @Override
         public void onBind(int position) {
-            HealthBloodDetectionUiFragment.Data pressure = ((HealthIntelligentDetectionActivity) mActivity).getBloodpressureCacheData();
+            //TODO:假数据
+            HealthBloodDetectionUiFragment.Data pressure = new HealthBloodDetectionUiFragment.Data();
+
             String leftPressure = pressure.leftHighPressure + "/" + pressure.leftLowPressure;
             String rightPressure = pressure.rightHighPressure + "/" + pressure.rightLowPressure;
             String leftPulse = String.valueOf(pressure.leftPulse);

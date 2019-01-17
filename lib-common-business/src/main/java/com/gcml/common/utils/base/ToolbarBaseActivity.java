@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.gcml.common.business.R;
 import com.gcml.common.utils.click.ClickEventListener;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 /**
  * Created by gzq on 2018/4/12.
@@ -89,5 +90,11 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
     }
 
     protected void backMainActivity() {
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MLVoiceSynthetize.stop();
     }
 }

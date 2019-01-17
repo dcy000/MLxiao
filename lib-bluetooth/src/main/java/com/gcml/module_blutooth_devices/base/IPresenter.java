@@ -117,6 +117,10 @@ public interface IPresenter {
      * 手环数据同步
      */
     int MEASURE_HAND_RING=32;
+    /**
+     * 测量身高
+     */
+    int MEASURE_HEIGHT=33;
 
     /**
      * 检查蓝牙是否已开

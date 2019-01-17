@@ -1,17 +1,22 @@
 package com.gcml.health.measure.cc;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
 import com.gcml.health.measure.ecg.XinDianDetectActivity;
 import com.gcml.health.measure.first_diagnosis.FirstDiagnosisActivity;
 import com.gcml.health.measure.health_inquiry.HealthInquiryActivity;
+import com.gcml.health.measure.health_profile.AddHealthCheckupActivity;
 import com.gcml.health.measure.hypertension_management.BloodpressureManagerActivity;
 import com.gcml.health.measure.hypertension_management.BloodsugarManagerActivity;
 import com.gcml.health.measure.hypertension_management.WeightManagerActivity;
 import com.gcml.health.measure.single_measure.AllMeasureActivity;
 import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
+
 import timber.log.Timber;
 
 /**
@@ -129,6 +134,13 @@ public class HealthMeasureCC implements IComponent {
 //                CCResultActions.onCCResultActionWithFragmentBean(healthWeightDetectionUiFragment);
                 WeightManagerActivity.startActivity(context);
                 return true;
+            case "health.profile.addhealthcheckup":
+                Intent addhealthcheckup = new Intent(context, AddHealthCheckupActivity.class);
+                if (!(context instanceof Activity)) {
+                    addhealthcheckup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
+                context.startActivity(addhealthcheckup);
+                break;
             default:
                 Timber.e("未匹配到任何操作Action");
                 break;

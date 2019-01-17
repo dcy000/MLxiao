@@ -1,6 +1,7 @@
 package com.gcml.common.utils.base;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,7 +22,7 @@ public abstract class RecycleBaseFragment extends Fragment {
         return view;
     }
 
-    protected abstract int initLayout();
+    protected abstract @LayoutRes int initLayout();
 
     protected abstract void initView(View view, Bundle bundle);
 
