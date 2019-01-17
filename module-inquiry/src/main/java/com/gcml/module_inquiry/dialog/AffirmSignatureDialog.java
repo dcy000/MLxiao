@@ -61,19 +61,17 @@ public class AffirmSignatureDialog extends DialogFragment implements View.OnClic
 
 
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.confirm:
-                if (listener != null) {
-                    listener.onConfirm();
-                }
-                dismiss();
-                break;
-            case R.id.cancel:
-                if (listener != null) {
-                    listener.onCancel();
-                }
-                dismiss();
-                break;
+        int id = view.getId();
+        if (id == R.id.confirm) {
+            if (listener != null) {
+                listener.onConfirm();
+            }
+            dismiss();
+        } else if (id == R.id.cancel) {
+            if (listener != null) {
+                listener.onCancel();
+            }
+            dismiss();
         }
     }
 
