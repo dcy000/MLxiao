@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-anydpi-v26\\ic_launcher_round.xml",
+        "source": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-anydpi-v26\\ic_launcher.xml",
+        "source": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\mipmap-anydpi-v26\\ic_launcher.xml"
+    }
+]

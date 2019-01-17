@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-hdpi-v4\\ic_launcher_round.png",
+        "source": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\mipmap-hdpi-v4\\ic_launcher_round.png"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-hdpi-v4\\ic_launcher.png",
+        "source": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\mipmap-hdpi-v4\\ic_launcher.png"
+    }
+]

@@ -1,0 +1,110 @@
+[
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\common_wifi_refresh.xml",
+        "source": "E:\\working\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\anim\\common_wifi_refresh.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\978d72c4aaa9318befb9604be2253e50\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\978d72c4aaa9318befb9604be2253e50\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\common_pophidden_anim.xml",
+        "source": "E:\\working\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\anim\\common_pophidden_anim.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\popup_health_fade_out.xml",
+        "source": "E:\\working\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\anim\\popup_health_fade_out.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\978d72c4aaa9318befb9604be2253e50\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\978d72c4aaa9318befb9604be2253e50\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_tooltip_exit.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\978d72c4aaa9318befb9604be2253e50\\res\\anim\\abc_tooltip_exit.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\pickerview_slide_out_bottom.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\Android-PickerView-4.1.6.aar\\576d4fcea00b07664393a6805f1fa55b\\res\\anim\\pickerview_slide_out_bottom.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_snackbar_in.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\379b2a33a374419e179bb4440fce0502\\res\\anim\\design_snackbar_in.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\pickerview_dialog_scale_in.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\Android-PickerView-4.1.6.aar\\576d4fcea00b07664393a6805f1fa55b\\res\\anim\\pickerview_dialog_scale_in.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_tooltip_enter.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\978d72c4aaa9318befb9604be2253e50\\res\\anim\\abc_tooltip_enter.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\978d72c4aaa9318befb9604be2253e50\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\379b2a33a374419e179bb4440fce0502\\res\\anim\\design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\common_popshow_anim.xml",
+        "source": "E:\\working\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\anim\\common_popshow_anim.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\pickerview_slide_in_bottom.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\Android-PickerView-4.1.6.aar\\576d4fcea00b07664393a6805f1fa55b\\res\\anim\\pickerview_slide_in_bottom.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\basepopup_fade_out.xml",
+        "source": "E:\\working\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\anim\\basepopup_fade_out.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\basepopup_fade_in.xml",
+        "source": "E:\\working\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\anim\\basepopup_fade_in.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\popup_health_fade_in.xml",
+        "source": "E:\\working\\MLxiao\\lib-common-business\\build\\intermediates\\packaged_res\\debug\\anim\\popup_health_fade_in.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\379b2a33a374419e179bb4440fce0502\\res\\anim\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\pickerview_dialog_scale_out.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\Android-PickerView-4.1.6.aar\\576d4fcea00b07664393a6805f1fa55b\\res\\anim\\pickerview_dialog_scale_out.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\978d72c4aaa9318befb9604be2253e50\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_snackbar_out.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\379b2a33a374419e179bb4440fce0502\\res\\anim\\design_snackbar_out.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\978d72c4aaa9318befb9604be2253e50\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\978d72c4aaa9318befb9604be2253e50\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\978d72c4aaa9318befb9604be2253e50\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\978d72c4aaa9318befb9604be2253e50\\res\\anim\\abc_slide_in_bottom.xml"
+    }
+]

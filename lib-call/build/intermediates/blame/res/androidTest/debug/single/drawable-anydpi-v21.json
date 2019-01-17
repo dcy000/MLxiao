@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-anydpi-v21\\ic_launcher_background.xml",
+        "source": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\packaged_res\\debug\\drawable-anydpi-v21\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-anydpi-v21\\design_ic_visibility.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\379b2a33a374419e179bb4440fce0502\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
+    },
+    {
+        "merged": "E:\\working\\MLxiao\\lib-call\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-anydpi-v21\\design_ic_visibility_off.xml",
+        "source": "C:\\Users\\lenovo\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\379b2a33a374419e179bb4440fce0502\\res\\drawable-anydpi-v21\\design_ic_visibility_off.xml"
+    }
+]
