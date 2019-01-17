@@ -3,7 +3,7 @@
     package="com.gcml.module_inquiry">
 
     <application>
-        <activity android:name=".ui.InquiryEntranceActivity"></activity>
+        <activity android:name=".ui.UserInfoListActivity"></activity>
     </application>
 
 </manifest>

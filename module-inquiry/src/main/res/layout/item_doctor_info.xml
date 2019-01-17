@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="880pt"
+        android:layout_height="360pt"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.gcml.lib_widget.CircleImageView
+            android:id="@+id/doctor_head_url"
+            android:layout_width="278pt"
+            android:layout_height="278pt"
+            android:background="#f00" />
+
+
+        <LinearLayout
+            android:layout_width="338pt"
+            android:layout_height="360pt"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="32pt"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/doctor_name"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="主任医生"
+                android:textColor="#00f" />
+
+
+            <TextView
+                android:id="@+id/doctor_class"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="主任医生"
+                android:textColor="#00f" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="184pt"
+            android:layout_height="100pt"
+            android:gravity="center"
+            android:text="签约"
+            android:textColor="#00f" />
+
+
+    </LinearLayout>
+
+</FrameLayout>

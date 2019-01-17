@@ -5,17 +5,16 @@
     android:orientation="vertical">
 
     <com.gcml.common.widget.toolbar.TranslucentToolBar
-        android:id="@+id/tb_inquiry_detection_item"
+        android:id="@+id/tb_bind_doctor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <FrameLayout
-        android:id="@+id/fl_inquiry_dection_item"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_doctor_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </FrameLayout>
-
+        android:layout_height="match_parent"
+        android:paddingLeft="120pt"
+        android:paddingRight="120pt"
+        android:paddingTop="120pt" />
 
 </LinearLayout>
