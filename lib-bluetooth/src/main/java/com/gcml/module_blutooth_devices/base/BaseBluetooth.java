@@ -289,6 +289,15 @@ public abstract class BaseBluetooth implements LifecycleObserver {
                 baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_disconnected));
             }
             disConnected(address);
+            //3秒之后尝试重连
+            new WeakHandler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (!isOnDestroy && targetAddress != null) {
+                        connect(targetAddress);
+                    }
+                }
+            }, 3000);
         }
 
     }
@@ -353,9 +362,11 @@ public abstract class BaseBluetooth implements LifecycleObserver {
     public boolean isConnected() {
         return isConnected;
     }
-    public SupportActivity getActivity(){
+
+    public SupportActivity getActivity() {
         return activity;
     }
+
     @CallSuper
     protected synchronized void newDeviceFinded(BluetoothDevice device) {
         boolean isOurDevices = false;
