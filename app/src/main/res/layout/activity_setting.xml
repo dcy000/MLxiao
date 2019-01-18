@@ -144,8 +144,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD"
-                android:visibility="gone" />
+                android:background="#DDDDDD" />
 
             <TextView
                 android:id="@+id/tv_setting_update"

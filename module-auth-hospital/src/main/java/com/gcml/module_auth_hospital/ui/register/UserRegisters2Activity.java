@@ -64,7 +64,7 @@ public class UserRegisters2Activity extends AppCompatActivity {
                 .subscribe(new DefaultObserver<ServerBean>() {
                     @Override
                     public void onNext(ServerBean serverBean) {
-                        findViewById(R.id.ll_to_register).setVisibility(View.VISIBLE);
+                        findViewById(R.id.ll_registers).setVisibility(View.VISIBLE);
 
                         tb.setStrLeft("   " + serverBean.serverName);
                         String userLogin = serverBean.userLogin;
@@ -73,24 +73,26 @@ public class UserRegisters2Activity extends AppCompatActivity {
                             registers.getChildAt(0).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    startActivity(new Intent(UserRegisters2Activity.this, ScanIdCardLoginActivity.class));
+                                    startActivity(new Intent(UserRegisters2Activity.this, ScanIdCardRegisterActivity.class));
                                 }
                             });
-                        } else if (userLogin.contains("2")) {
+                        }
+                        if (userLogin.contains("2")) {
                             registers.getChildAt(1).setVisibility(View.VISIBLE);
                             registers.getChildAt(1).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    startActivity(new Intent(UserRegisters2Activity.this, IDCardNuberLoginActivity.class));
+                                    startActivity(new Intent(UserRegisters2Activity.this, IDCardNuberRegisterActivity.class));
                                 }
                             });
 
-                        } else if (userLogin.contains("3")) {
+                        }
+                        if (userLogin.contains("3")) {
                             registers.getChildAt(2).setVisibility(View.VISIBLE);
                             registers.getChildAt(2).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    ToastUtils.showShort("敬请期待");
                                 }
                             });
 

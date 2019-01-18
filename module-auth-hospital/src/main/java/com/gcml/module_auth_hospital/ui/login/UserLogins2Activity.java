@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.server.ServerBean;
 import com.gcml.common.utils.DefaultObserver;
@@ -88,7 +90,8 @@ public class UserLogins2Activity extends AppCompatActivity {
                                     startActivity(new Intent(UserLogins2Activity.this, ScanIdCardLoginActivity.class));
                                 }
                             });
-                        } else if (userLogin.contains("2")) {
+                        }
+                        if (userLogin.contains("2")) {
                             lllogins.getChildAt(1).setVisibility(View.VISIBLE);
                             lllogins.getChildAt(1).setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -97,21 +100,36 @@ public class UserLogins2Activity extends AppCompatActivity {
                                 }
                             });
 
-                        } else if (userLogin.contains("3")) {
+                        }
+                        if (userLogin.contains("3")) {
                             lllogins.getChildAt(2).setVisibility(View.VISIBLE);
                             lllogins.getChildAt(2).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
+                                            .addParam("currentUser", false)
+                                            .build()
+                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                                @Override
+                                                public void onResult(CC cc, CCResult result) {
+                                                    boolean skip = "skip".equals(result.getErrorMessage());
+                                                    if (result.isSuccess() || skip) {
+                                                        ToastUtils.showShort("成功");
+                                                    } else {
+                                                        ToastUtils.showShort(result.getErrorMessage());
+                                                    }
+                                                }
+                                            });
                                 }
                             });
 
-                        } else if (userLogin.contains("4")) {
+                        }
+                        if (userLogin.contains("4")) {
                             lllogins.getChildAt(3).setVisibility(View.VISIBLE);
                             lllogins.getChildAt(3).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    ToastUtils.showShort("敬请期待");
                                 }
                             });
 

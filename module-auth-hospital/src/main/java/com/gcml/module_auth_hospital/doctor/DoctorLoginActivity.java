@@ -148,6 +148,7 @@ public class DoctorLoginActivity extends AppCompatActivity implements View.OnCli
                         super.onNext(serverBean);
                         UserSpHelper.setDoctorId(serverBean.serverId + "");
                         startActivity(new Intent(DoctorLoginActivity.this, UserLogins2Activity.class));
+                        finish();
                     }
 
                     @Override

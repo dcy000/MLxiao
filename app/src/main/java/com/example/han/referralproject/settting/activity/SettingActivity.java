@@ -131,7 +131,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-
     private void showTalkTypeDialog() {
         TalkTypeDialog dialog = new TalkTypeDialog();
         dialog.show(getFragmentManager(), "talkType");

@@ -51,7 +51,6 @@
         android:paddingLeft="60pt">
 
         <EditText
-            android:paddingLeft="15pt"
             android:id="@+id/et_register_name"
             android:layout_width="860pt"
             android:layout_height="120pt"
@@ -61,12 +60,12 @@
             android:gravity="center_vertical"
             android:hint="请输入您的姓名"
             android:inputType="text"
+            android:paddingLeft="15pt"
             android:textColor="#ff333333"
             android:textColorHint="#ffbbbbbb"
             android:textSize="48pt" />
 
         <EditText
-            android:paddingLeft="15pt"
             android:id="@+id/et_register_minzu"
             android:layout_width="860pt"
             android:layout_height="120pt"
@@ -76,6 +75,7 @@
             android:background="@drawable/common_bg_input_gray"
             android:gravity="center_vertical"
             android:hint="请输入您的民族"
+            android:paddingLeft="15pt"
             android:textColor="#ff333333"
             android:textColorHint="#ffbbbbbb"
             android:textSize="48pt" />
@@ -133,7 +133,7 @@
                 android:id="@+id/auth_tv_man"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_not_select"
+                android:drawableLeft="@drawable/selector_sex"
                 android:drawablePadding="24pt"
                 android:gravity="center"
                 android:text="男"
@@ -145,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="180pt"
-                android:drawableLeft="@drawable/ic_select"
+                android:drawableLeft="@drawable/selector_sex"
                 android:drawablePadding="24pt"
                 android:gravity="center"
                 android:text="女"
@@ -156,7 +156,6 @@
         </LinearLayout>
 
         <TextView
-            android:paddingLeft="15pt"
             android:id="@+id/et_register_idcrad"
             android:layout_width="860pt"
             android:layout_height="120pt"
@@ -167,6 +166,7 @@
             android:gravity="center_vertical"
             android:hint="请输入您的身份证号码"
             android:inputType="number"
+            android:paddingLeft="15pt"
             android:textColor="#ff333333"
             android:textColorHint="#ffbbbbbb"
             android:textSize="48pt" />
@@ -214,7 +214,6 @@
         android:paddingLeft="60pt">
 
         <EditText
-            android:paddingLeft="15pt"
             android:id="@+id/et_register_now_address"
             android:layout_width="860pt"
             android:layout_height="120pt"
@@ -224,12 +223,12 @@
             android:gravity="center_vertical"
             android:hint="请输入您的现住址"
             android:inputType="text"
+            android:paddingLeft="15pt"
             android:textColor="#ff333333"
             android:textColorHint="#ffbbbbbb"
             android:textSize="48pt" />
 
         <EditText
-            android:paddingLeft="15pt"
             android:id="@+id/et_register_detail_address"
             android:layout_width="860pt"
             android:layout_height="120pt"
@@ -238,6 +237,7 @@
             android:background="@drawable/common_bg_input_gray"
             android:hint="请输入您的详细地址"
             android:inputType="text"
+            android:paddingLeft="15pt"
             android:textColor="#ff333333"
             android:textColorHint="#ffbbbbbb"
             android:textSize="48pt" />
@@ -250,7 +250,7 @@
         android:layout_height="100pt"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50pt"
-        android:background="@drawable/bg_btn"
+        android:background="@drawable/shape_rectangle_next_btn"
         android:gravity="center"
         android:text="下一步"
         android:textColor="#ffffffff"

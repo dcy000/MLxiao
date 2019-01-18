@@ -3,8 +3,10 @@ package com.gcml.module_auth_hospital.ui.register;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,15 +14,24 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.billy.cc.core.component.CC;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.Utils;
+import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
+import com.gcml.module_auth_hospital.model.UserRepository;
 
 import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -82,6 +93,8 @@ public class IDCardNumberRegisterInfoActivity extends AppCompatActivity implemen
 
         etRegisterIdcrad.setText(number);
 
+        authTvMan.setSelected(true);
+        authTvWoman.setSelected(false);
 
         translucentToolBar.setData("账 号 注 册",
                 R.drawable.common_btn_back, "返回",
@@ -96,6 +109,8 @@ public class IDCardNumberRegisterInfoActivity extends AppCompatActivity implemen
 
                     }
                 });
+
+
 
         RxUtils.rxWifiLevel(getApplication(), 4)
                 .subscribeOn(Schedulers.io())
@@ -115,9 +130,14 @@ public class IDCardNumberRegisterInfoActivity extends AppCompatActivity implemen
         if (id == R.id.et_register_minzu) {
             updateHeight();
         } else if (id == R.id.auth_tv_man) {
+            authTvMan.setSelected(true);
+            authTvWoman.setSelected(false);
         } else if (id == R.id.auth_tv_woman) {
+            authTvMan.setSelected(false);
+            authTvWoman.setSelected(true);
         } else if (id == R.id.et_register_now_address) {
         } else if (id == R.id.tv_auth_next) {
+            register();
         }
     }
 
@@ -161,5 +181,116 @@ public class IDCardNumberRegisterInfoActivity extends AppCompatActivity implemen
         );
     }
 
+    UserRepository repository = new UserRepository();
 
+    private void register() {
+        String deviceId = Utils.getDeviceId(getApplicationContext().getContentResolver());
+        String name = etRegisterName.getText().toString().trim();
+        String sex = authTvMan.isSelected() ? "男" : "女";
+
+        String address = etRegisterNowAddress.getText().toString().trim();
+        String detailName = etRegisterDetailAddress.getText().toString().trim();
+        repository.signUpByIdCard(deviceId, name, sex, number, address + detailName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showLoading("正在注册...");
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissLoading();
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity userEntity) {
+                        ToastUtils.showLong("注册成功");
+                        login(deviceId);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        String message = throwable.getMessage();
+                        ToastUtils.showShort(message);
+                    }
+                });
+    }
+
+    private void login(String deviceId) {
+        repository
+                .signInByIdCard(deviceId, number)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showLoading("正在登录...");
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissLoading();
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+                                .addParam("userId", user.id)
+                                .build()
+                                .callAsync();
+                        ToastUtils.showLong("登录成功");
+                        toHome();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
+                        toLogin();
+                    }
+                });
+    }
+
+    private void toHome() {
+        finish();
+        startActivity(new Intent(this, RegisterSuccessActivity.class));
+    }
+
+    private void toLogin() {
+        //关闭 注册时的 扫面sfz和信息录入页面
+        finish();
+        startActivity(new Intent(this, ScanIdCardRegisterActivity.class));
+    }
+
+    private LoadingDialog mLoadingDialog;
+
+    private void showLoading(String tips) {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+        mLoadingDialog = new LoadingDialog.Builder(this)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord(tips)
+                .create();
+        mLoadingDialog.show();
+    }
+
+    private void dismissLoading() {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+    }
 }

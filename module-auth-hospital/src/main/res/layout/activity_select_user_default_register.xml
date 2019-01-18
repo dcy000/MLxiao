@@ -128,7 +128,7 @@
         android:layout_height="120pt"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="56pt"
-        android:background="@drawable/bg_btn"
+        android:background="@drawable/shape_rectangle_next_btn"
         android:enabled="false"
         android:gravity="center"
         android:text="确认"
