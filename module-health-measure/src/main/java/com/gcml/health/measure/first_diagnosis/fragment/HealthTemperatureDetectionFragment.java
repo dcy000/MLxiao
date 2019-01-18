@@ -10,6 +10,8 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
+import com.gcml.module_blutooth_devices.base.DetectionDataBean;
+import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.temperature.TemperatureFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -63,6 +65,10 @@ public class HealthTemperatureDetectionFragment extends TemperatureFragment {
             data.setDetectionType("4");
             data.setTemperAture(Float.parseFloat(results[0]));
             datas.add(data);
+            //将数据传到Activity中
+            if (fragmentDatas!=null){
+                fragmentDatas.data(new DetectionDataBean(IPresenter.MEASURE_TEMPERATURE,datas));
+            }
 
             HealthMeasureRepository.postMeasureData(datas)
                     .subscribeOn(Schedulers.io())

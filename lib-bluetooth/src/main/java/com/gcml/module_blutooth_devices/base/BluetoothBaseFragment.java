@@ -111,7 +111,7 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
 
     }
 
-    protected  BaseBluetooth obtainPresenter(){
+    protected BaseBluetooth obtainPresenter() {
         return null;
     }
 
@@ -152,6 +152,12 @@ public abstract class BluetoothBaseFragment extends Fragment implements IBluetoo
 
     public void setOnFragmentChangedListener(FragmentChanged fragmentChanged) {
         this.fragmentChanged = fragmentChanged;
+    }
+
+    protected ThisFragmentDatas fragmentDatas;
+
+    public void setOnThisFragmentDataChangedListener(ThisFragmentDatas fragmentDatas) {
+        this.fragmentDatas = fragmentDatas;
     }
 
     protected void clickHealthHistory(View view) {

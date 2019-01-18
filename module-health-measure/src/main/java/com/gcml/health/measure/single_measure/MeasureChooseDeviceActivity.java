@@ -3,12 +3,8 @@ package com.gcml.health.measure.single_measure;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -17,11 +13,9 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
-import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
-import com.gcml.health.measure.ecg.XinDianDetectActivity;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -103,7 +97,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
             jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
         } else if (i == R.id.ll_san) {
-            measureType = IPresenter.MEASURE_OTHERS;
+            measureType = IPresenter.MEASURE_THREE;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
             jump2MeasureVideoPlayActivity(uri, "三合一测量演示视频");
         } else if (i == R.id.ll_tizhong) {

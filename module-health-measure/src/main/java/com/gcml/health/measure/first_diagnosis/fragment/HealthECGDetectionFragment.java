@@ -31,6 +31,7 @@ import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
+import com.gcml.module_blutooth_devices.base.DetectionDataBean;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -381,7 +382,9 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         ecgData.setHeartRate(heartRate);
         datas.add(ecgData);
 
-
+        if (fragmentDatas != null) {
+            fragmentDatas.data(new DetectionDataBean(IPresenter.MEASURE_ECG, datas));
+        }
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -420,6 +423,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             }
         }
     }
+
     private void setBattery(int battery) {
         if (battery == 0) {
             if (!mHandler.hasMessages(BATTERY_ZERO)) {

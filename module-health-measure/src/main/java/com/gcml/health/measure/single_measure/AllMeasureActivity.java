@@ -191,7 +191,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     mRightView.setImageResource(R.drawable.common_icon_home);
                 }
                 break;
-            case IPresenter.MEASURE_OTHERS:
+            case IPresenter.MEASURE_THREE:
                 //三合一
                 if (baseFragment == null) {
                     mTitleText.setText("三 合 一 测 量");
@@ -268,7 +268,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 case IPresenter.MEASURE_ECG:
                     CCHealthRecordActions.jump2HealthRecordActivity(7);
                     break;
-                case IPresenter.MEASURE_OTHERS:
+                case IPresenter.MEASURE_THREE:
                     //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
                     if (threeInOnePosition.size() == 0) {
                         CCHealthRecordActions.jump2HealthRecordActivity(6);
@@ -310,7 +310,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
                     jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
                     break;
-                case IPresenter.MEASURE_OTHERS:
+                case IPresenter.MEASURE_THREE:
                     //三合一
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
                     jump2MeasureVideoPlayActivity(uri, "三合一测量演示视频");
@@ -415,7 +415,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                         baseFragment = new SingleMeasureBloodsugarFragment();
                         baseFragment.setArguments(bundle);
                     }
-                } else if (measure_type == IPresenter.MEASURE_OTHERS) {
+                } else if (measure_type == IPresenter.MEASURE_THREE) {
                     if (isFaceSkip) {
                         baseFragment = new NonUploadSingleMeasureThreeInOneFragment();
                     } else {
