@@ -18,8 +18,8 @@ public class CommonHeaderInterceptor implements Interceptor {
                 .addHeader("version", "1.0")
                 .addHeader("Authorization", UserSpHelper.getToken())
                 .addHeader("equipmentId", Utils.getDeviceId(UtilsManager.getApplication().getContentResolver()))
-//                .addHeader("serverId",1)
-//                .addHeader("followUpDoctor",1)
+                .addHeader("serverId","1")
+                .addHeader("followUpDoctor",UserSpHelper.getDoctorId())
                 .build();
         return chain.proceed(newRequest);
     }

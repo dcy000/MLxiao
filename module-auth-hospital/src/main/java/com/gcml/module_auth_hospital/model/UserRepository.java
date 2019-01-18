@@ -8,6 +8,8 @@ import com.gcml.common.RetrofitHelper;
 import com.gcml.common.RoomHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.http.ApiResult;
+import com.gcml.common.server.ServerBean;
 import com.gcml.common.user.UserToken;
 import com.gcml.common.utils.RxUtils;
 
@@ -20,6 +22,8 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.http.Field;
+import retrofit2.http.Header;
 
 public class UserRepository {
     private Context mContext = AppDelegate.INSTANCE.app();
@@ -45,7 +49,7 @@ public class UserRepository {
                                                  String sex,
                                                  String idCard,
                                                  String address) {
-        return mUserService.signUpByIdCard(deviceId, name, sex, idCard, address,name)
+        return mUserService.signUpByIdCard(deviceId, name, sex, idCard, address, name)
                 .compose(RxUtils.apiResultTransformer())
               /*  .flatMap(new Function<UserEntity, ObservableSource<UserEntity>>() {
                     @Override
@@ -232,5 +236,18 @@ public class UserRepository {
                 .compose(RxUtils.apiResultTransformer());
     }
 
+    public Observable<ServerBean> getServer(String serverId) {
+        Observable<ApiResult<ServerBean>> server = mUserService.getServer(serverId);
+        return server.compose(RxUtils.apiResultTransformer());
+    }
 
+    public Observable<ServerBean> serverSignIn(String equipmentId,
+                                           String account,
+                                           String password) {
+        Observable<ApiResult<ServerBean>> server = mUserService.serverSignIn(
+                equipmentId,
+                account,
+                password);
+        return server.compose(RxUtils.apiResultTransformer());
+    }
 }

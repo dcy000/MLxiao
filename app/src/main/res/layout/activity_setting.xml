@@ -20,24 +20,6 @@
             android:background="#F5F5F5"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_setting_voice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:background="@drawable/common_bg_menu_setting"
-                android:drawableRight="@drawable/common_ic_more"
-                android:padding="24dp"
-                android:text="音量设置"
-                android:textColor="#333333"
-                android:textSize="28sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
 
             <TextView
                 android:id="@+id/tv_setting_wifi"
@@ -59,14 +41,14 @@
                 android:background="#DDDDDD" />
 
             <TextView
-                android:id="@+id/tv_setting_keyword"
+                android:id="@+id/tv_setting_voice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="@drawable/common_bg_menu_setting"
                 android:drawableRight="@drawable/common_ic_more"
                 android:padding="24dp"
-                android:text="关键词设置"
+                android:text="音量设置"
                 android:textColor="#333333"
                 android:textSize="28sp" />
 
@@ -76,6 +58,32 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:background="#DDDDDD" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="32pt"
+                android:background="#FFF5F5F5" />
+
+            <TextView
+                android:id="@+id/tv_setting_keyword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/common_bg_menu_setting"
+                android:drawableRight="@drawable/common_ic_more"
+                android:padding="24dp"
+                android:text="关键词设置"
+                android:textColor="#333333"
+                android:textSize="28sp"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:background="#DDDDDD"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_setting_informant"
@@ -87,14 +95,16 @@
                 android:padding="24dp"
                 android:text="发音人设置"
                 android:textColor="#333333"
-                android:textSize="28sp" />
+                android:textSize="28sp"
+                android:visibility="gone" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_setting_talktype"
@@ -106,6 +116,27 @@
                 android:padding="24dp"
                 android:text="聊天模式设置"
                 android:textColor="#333333"
+                android:textSize="28sp"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:background="#DDDDDD"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_setting_clearcache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/common_bg_menu_setting"
+                android:drawableRight="@drawable/common_ic_more"
+                android:padding="24dp"
+                android:text="清除缓存"
+                android:textColor="#333333"
                 android:textSize="28sp" />
 
             <View
@@ -113,7 +144,8 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD" />
+                android:background="#DDDDDD"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_setting_update"
@@ -140,7 +172,7 @@
                 android:background="@drawable/common_bg_menu_setting"
                 android:drawableRight="@drawable/common_ic_more"
                 android:padding="24dp"
-                android:text="关于我们"
+                android:text="关于"
                 android:textColor="#333333"
                 android:textSize="28sp" />
 
@@ -150,6 +182,11 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:background="#DDDDDD" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="32pt"
+                android:background="#FFF5F5F5" />
 
             <TextView
                 android:id="@+id/tv_setting_reset"
@@ -172,19 +209,22 @@
                 android:background="#DDDDDD"
                 android:visibility="gone" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="32pt"
+                android:background="#FFF5F5F5" />
+
             <TextView
-                android:id="@+id/tv_setting_clearcache"
+                android:id="@+id/tv_exit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="@drawable/common_bg_menu_setting"
-                android:drawableRight="@drawable/common_ic_more"
+                android:gravity="center"
                 android:padding="24dp"
-                android:text="清除缓存"
-                android:textColor="#333333"
-                android:textSize="28sp"
-                android:visibility="gone" />
-
+                android:text="退出当前医生账号"
+                android:textColor="#fff43e37"
+                android:textSize="28sp" />
         </LinearLayout>
 
     </ScrollView>

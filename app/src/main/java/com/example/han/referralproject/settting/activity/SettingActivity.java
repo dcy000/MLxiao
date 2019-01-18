@@ -28,10 +28,10 @@ import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
-public class SettingActivity extends AppCompatActivity implements View.OnClickListener{
+public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
     TranslucentToolBar mToolBar;
-    TextView mVoice, mWifi, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache;
+    TextView mVoice, mWifi, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache, exit;
     // 外存sdcard存放路径
     private static final String FILE_PATH = Environment.getExternalStorageDirectory() + "/autoupdate/";
     // 下载应用存放全路径
@@ -56,6 +56,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         mAbout = findViewById(R.id.tv_setting_about);
         mReset = findViewById(R.id.tv_setting_reset);
         mClearcache = findViewById(R.id.tv_setting_clearcache);
+        exit = findViewById(R.id.tv_exit);
 
         mVoice.setOnClickListener(this);
         mWifi.setOnClickListener(this);
@@ -66,6 +67,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         mAbout.setOnClickListener(this);
         mReset.setOnClickListener(this);
         mClearcache.setOnClickListener(this);
+        exit.setOnClickListener(this);
     }
 
     private void bindData() {
@@ -97,7 +99,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.tv_setting_clearcache:
                 //清理缓存
-                showClearCacheDialog();
+                showClearCacheDialog("确认清除本地缓存吗？");
                 break;
             case R.id.tv_setting_update:
                 //检测更新
@@ -109,7 +111,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.tv_setting_reset:
                 //恢复出厂设置
-                showResetDialog();
+                showResetDialog("确认恢复出厂设置吗？");
                 break;
             case R.id.tv_setting_keyword:
                 //设置关键词
@@ -122,9 +124,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.tv_setting_talktype:
                 //设置聊天模式
                 showTalkTypeDialog();
+            case R.id.tv_exit:
+                exitDoctorAccount("退出当前医生账号");
                 break;
         }
     }
+
+
 
     private void showTalkTypeDialog() {
         TalkTypeDialog dialog = new TalkTypeDialog();
@@ -212,13 +218,16 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 //        }).check();
     }
 
-    private void showClearCacheDialog() {
+    private void exitDoctorAccount(String msg) {
         new AlertDialog(SettingActivity.this).builder()
-                .setMsg("确认清除本地缓存吗？")
+                .setMsg(msg)
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        UserSpHelper.setDoctorId("");
+                        Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {
@@ -229,9 +238,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 }).show();
     }
 
-    private void showResetDialog() {
+    private void showClearCacheDialog(String msg) {
+        showResetDialog(msg);
+    }
+
+    private void showResetDialog(String msg) {
         new AlertDialog(SettingActivity.this).builder()
-                .setMsg("确认恢复出厂设置吗？")
+                .setMsg(msg)
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

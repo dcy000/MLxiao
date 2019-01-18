@@ -10,7 +10,7 @@ import com.google.auto.service.AutoService;
 /**
  * Created by lenovo on 2019/1/15.
  */
-@AutoService(AppLifecycleCallbacks.class)
+//@AutoService(AppLifecycleCallbacks.class)
 public class AppUpdateLifeCallBacks implements AppLifecycleCallbacks {
 
     @Override

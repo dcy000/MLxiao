@@ -28,7 +28,7 @@ import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
-import com.gcml.module_auth_hospital.ui.register.UserRegistersActivity;
+import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.kaer.sdk.IDCardItem;
 import com.kaer.sdk.bt.BtReadClient;
@@ -37,12 +37,10 @@ import com.kaer.sdk.bt.OnBluetoothListener;
 import java.lang.reflect.Method;
 import java.util.Set;
 
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class ScanIdCardLoginActivity extends AppCompatActivity implements AcountInfoDialog.OnFragmentInteractionListener {
@@ -685,7 +683,7 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
 
     @Override
     public void onConfirm() {
-        startActivity(new Intent(this, UserRegistersActivity.class));
+        startActivity(new Intent(this, UserRegisters2Activity.class));
     }
 
 }

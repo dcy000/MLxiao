@@ -98,6 +98,18 @@ public final class TranslucentToolBar extends LinearLayout {
 
     }
 
+    /**
+     * strLeft
+     */
+    public void setStrLeft(String strLeft) {
+        if (!TextUtils.isEmpty(strLeft)) {
+            tvLeft.setText(strLeft);
+            tvLeft.setVisibility(View.VISIBLE);
+        } else {
+            tvLeft.setVisibility(View.GONE);
+        }
+    }
+
     public void setImageLevel(Integer integer) {
         try {
             ((ImageView) iconRight).setImageLevel(integer);

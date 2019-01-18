@@ -14,9 +14,18 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.server.ServerBean;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_auth_hospital.R;
-import com.gcml.module_auth_hospital.ui.login.UserLoginsActivity;
+import com.gcml.module_auth_hospital.model.UserRepository;
+import com.gcml.module_auth_hospital.ui.login.UserLogins2Activity;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lenovo on 2019/1/14.
@@ -35,13 +44,14 @@ public class DoctorLoginActivity extends AppCompatActivity implements View.OnCli
     /**
      * 登陆
      */
-    private TextView tvDoctorLoginLogin;
+    private TextView tvDoctorLoginLogin, serverName;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_login);
         initView();
+        serverInfo();
     }
 
     private void initView() {
@@ -50,6 +60,7 @@ public class DoctorLoginActivity extends AppCompatActivity implements View.OnCli
         etDoctorLoginAccunt = (EditText) findViewById(R.id.et_doctor_login_accunt);
         etDoctorLoginPassword = (EditText) findViewById(R.id.et_doctor_login_password);
         tvDoctorLoginLogin = (TextView) findViewById(R.id.tv_doctor_login_login);
+        serverName = findViewById(R.id.tv_server_name);
         tvDoctorLoginLogin.setOnClickListener(this);
 
         etDoctorLoginAccunt.addTextChangedListener(new TextWatcher() {
@@ -111,6 +122,8 @@ public class DoctorLoginActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    UserRepository repository = new UserRepository();
+
     private void toLogin() {
         String account = etDoctorLoginAccunt.getText().toString().trim();
         String passWord = etDoctorLoginPassword.getText().toString().trim();
@@ -124,12 +137,50 @@ public class DoctorLoginActivity extends AppCompatActivity implements View.OnCli
             return;
         }
 
-        UserSpHelper.setDoctorId("666");
+        String deviceId = Utils.getDeviceId(getContentResolver());
+        repository.serverSignIn(deviceId, account, passWord)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<ServerBean>() {
+                    @Override
+                    public void onNext(ServerBean serverBean) {
+                        super.onNext(serverBean);
+                        UserSpHelper.setDoctorId(serverBean.serverId + "");
+                        startActivity(new Intent(DoctorLoginActivity.this, UserLogins2Activity.class));
+                    }
 
-        startActivity(new Intent(this, UserLoginsActivity.class));
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
+                    }
+                });
+
+    }
+
+
+    private void serverInfo() {
+        repository.getServer("1")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<ServerBean>() {
+                    @Override
+                    public void onNext(ServerBean serverBean) {
+                        super.onNext(serverBean);
+                        serverName.setText(serverBean.serverName);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
+                    }
+                });
     }
 
     private void toSetting() {
-        startActivity(new Intent(this, DoctorSettingActivity.class));
+        CC.obtainBuilder("com.gcml.old.setting").build().call();
     }
 }

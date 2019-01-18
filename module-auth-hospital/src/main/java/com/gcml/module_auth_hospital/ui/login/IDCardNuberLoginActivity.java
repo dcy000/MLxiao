@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
@@ -22,7 +21,7 @@ import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.dialog.AcountInfoDialog;
-import com.gcml.module_auth_hospital.ui.register.UserRegistersActivity;
+import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
 import com.gcml.module_auth_hospital.wrap.CanClearEditText;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -229,7 +228,7 @@ public class IDCardNuberLoginActivity extends AppCompatActivity implements View.
 
     @Override
     public void onConfirm() {
-        startActivity(new Intent(this, UserRegistersActivity.class));
+        startActivity(new Intent(this, UserRegisters2Activity.class));
     }
 
 }

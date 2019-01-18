@@ -2,8 +2,10 @@ package com.gcml.module_auth_hospital.model;
 
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiResult;
+import com.gcml.common.server.ServerBean;
 import com.gcml.common.user.UserToken;
 
+import java.io.FileDescriptor;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -103,4 +105,17 @@ public interface UserService {
     Observable<ApiResult<UserToken>> getServiceProvider(
             @Query("account") String server_account,
             @Query("password") String server_password);
+
+    @GET("ZZB/api/server/")
+    Observable<ApiResult<ServerBean>> getServer(
+            @Header("serverId") String serverId);
+
+    @FormUrlEncoded()
+    @POST("ZZB/api/server/login/")
+    Observable<ApiResult<ServerBean>> serverSignIn(
+            @Header("equipmentId") String equipmentId,
+            @Field("account") String account,
+            @Field("password") String password);
+
+
 }
