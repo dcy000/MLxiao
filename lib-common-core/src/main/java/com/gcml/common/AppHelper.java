@@ -38,7 +38,7 @@ public final class AppHelper {
 
     private Application mApplication;
 
-    public List<Activity> mActivityList;
+    public  List<Activity> mActivityList;
 
     private Activity mCurrentActivity;
     /**

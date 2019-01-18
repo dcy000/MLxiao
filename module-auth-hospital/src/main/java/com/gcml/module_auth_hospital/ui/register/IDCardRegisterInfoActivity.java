@@ -18,6 +18,7 @@ import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
+import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -56,6 +57,7 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.activity_register_info);
         initExtra();
         initView();
+        ActivityHelper.addActivity(this);
     }
 
     private void initExtra() {

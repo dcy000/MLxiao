@@ -538,8 +538,8 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
                                 .build()
                                 .callAsync();
                         ToastUtils.showLong("登录成功");
-
                         CC.obtainBuilder(IConstant.KEY_INUIRY_ENTRY).build().callAsync();
+                        finish();
                     }
 
                     @Override

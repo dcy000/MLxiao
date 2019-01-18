@@ -11,6 +11,7 @@ import com.billy.cc.core.component.CC;
 import com.gcml.common.server.ServerBean;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -54,6 +55,7 @@ public class UserRegisters2Activity extends AppCompatActivity {
 
         registers = findViewById(R.id.ll_registers);
         updatePage();
+        ActivityHelper.addActivity(this);
     }
 
     private void updatePage() {

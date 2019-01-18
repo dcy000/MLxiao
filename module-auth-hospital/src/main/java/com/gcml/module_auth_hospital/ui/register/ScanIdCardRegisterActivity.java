@@ -19,6 +19,7 @@ import com.gcml.common.http.ApiException;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
+import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -71,6 +72,7 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
         if (bluetoothAdapter != null)
             bluetoothAdapter.enable();
         onTurnOn();
+        ActivityHelper.addActivity(this);
     }
 
     private void initView() {
