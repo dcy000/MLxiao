@@ -3,6 +3,7 @@ package com.gcml.common;
 import android.app.Application;
 import android.content.ComponentCallbacks2;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 
 import com.gcml.common.api.AppLifecycleCallbacks;
@@ -51,6 +52,10 @@ public class BizApp implements AppLifecycleCallbacks {
         SpeechUtility.createUtility(app, builder.toString());
 
         JPushMessageHelper.init();
+
+        //预加载x5内核
+        Intent intent = new Intent(app, X5CorePreLoadService.class);
+        app.startService(intent);
     }
 
     @Override

@@ -90,7 +90,8 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="icon,label">
+        tools:replace="icon,label"
+        android:hardwareAccelerated="true">
         <service android:name=".new_music.MusicService" />
 
         <provider
