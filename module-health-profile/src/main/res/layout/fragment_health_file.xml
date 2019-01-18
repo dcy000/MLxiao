@@ -172,6 +172,7 @@
             android:textStyle="bold"/>
     </LinearLayout>
     <TextView
+        android:id="@+id/tv_edit_health_file"
         android:layout_width="360pt"
         android:layout_height="120pt"
         android:clickable="true"

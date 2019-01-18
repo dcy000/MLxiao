@@ -34,5 +34,10 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+        <service
+            android:name="com.gcml.common.X5CorePreLoadService"
+            android:enabled="true"
+            android:label="x5webview"
+            android:process=":x5webview"/>
     </application>
 </manifest>
