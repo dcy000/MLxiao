@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.IConstant;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.http.ApiException;
@@ -537,6 +538,8 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
                                 .build()
                                 .callAsync();
                         ToastUtils.showLong("登录成功");
+
+                        CC.obtainBuilder(IConstant.KEY_INUIRY_ENTRY).build().callAsync();
                     }
 
                     @Override

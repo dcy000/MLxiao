@@ -15,6 +15,7 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.billy.cc.core.component.CC;
+import com.gcml.common.IConstant;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -262,7 +263,8 @@ public class IDCardNumberRegisterInfoActivity extends AppCompatActivity implemen
 
     private void toHome() {
         finish();
-        startActivity(new Intent(this, RegisterSuccessActivity.class));
+//        startActivity(new Intent(this, RegisterSuccessActivity.class));
+        CC.obtainBuilder(IConstant.KEY_INUIRY_ENTRY).build().callAsync();
     }
 
     private void toLogin() {

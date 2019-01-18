@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.gcml.module_inquiry.ui.InquiryEntranceActivity">
+    android:orientation="vertical">
 
     <com.gcml.common.widget.toolbar.TranslucentToolBar
         android:id="@+id/tb_inquiry_home"
@@ -21,13 +20,13 @@
 
         <RelativeLayout
             android:id="@+id/rl_inquiry_home_manage"
-            android:layout_width="380pt"
+            android:layout_width="400pt"
             android:layout_height="476pt">
 
             <ImageView
                 android:layout_width="380pt"
                 android:layout_height="380pt"
-                android:background="#999" />
+                android:background="@drawable/selector_selector_health_manager" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -42,14 +41,14 @@
 
         <RelativeLayout
             android:id="@+id/rl_inquiry_home_file"
-            android:layout_width="380pt"
+            android:layout_width="400pt"
             android:layout_height="476pt"
             android:layout_marginLeft="160pt">
 
             <ImageView
                 android:layout_width="380pt"
                 android:layout_height="380pt"
-                android:background="#999" />
+                android:background="@drawable/selector_health_manager_file" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -64,14 +63,14 @@
 
         <RelativeLayout
             android:id="@+id/rl_inquiry_home_home"
-            android:layout_width="380pt"
+            android:layout_width="400pt"
             android:layout_height="476pt"
             android:layout_marginLeft="160pt">
 
             <ImageView
                 android:layout_width="380pt"
                 android:layout_height="380pt"
-                android:background="#999" />
+                android:background="@drawable/selector_health_manager_home"/>
 
             <TextView
                 android:layout_width="match_parent"

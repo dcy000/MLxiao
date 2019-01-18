@@ -13,4 +13,10 @@ public interface IConstant {
     String KEY_HOSPITAL_USER_SIGN = "com.gcml.auth";
     String KEY_HOSPITAL_USER_LOGIN = "com.gcml.auth.signin";
     String KEY_HOSPITAL_USER_REGISTER = "com.gcml.auth.signup";
+
+    /**
+     * 问诊建档首页
+     */
+    String KEY_INUIRY_ENTRY = "com.gcml.inquiry.entry";
+    String KEY_INUIRY_DETECTION = "com.gcml.inquiry.detection";
 }

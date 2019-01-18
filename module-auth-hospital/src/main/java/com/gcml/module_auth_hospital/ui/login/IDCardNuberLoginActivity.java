@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.IConstant;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiException;
 import com.gcml.common.utils.DefaultObserver;
@@ -158,6 +159,7 @@ public class IDCardNuberLoginActivity extends AppCompatActivity implements View.
                                 .build()
                                 .callAsync();
                         ToastUtils.showLong("登录成功");
+                        CC.obtainBuilder(IConstant.KEY_INUIRY_ENTRY).build().callAsync();
                     }
 
                     @Override

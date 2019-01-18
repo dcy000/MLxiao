@@ -209,7 +209,6 @@ public class InquiryHealthActivity extends ToolbarBaseActivity implements Fragme
     private void initMeasureDevicesFragment() {
         ArrayList<Integer> integerArrayList = new ArrayList<>();
         //体温、血压、血糖、体重、身高
-        integerArrayList.add(3);
         integerArrayList.add(1);
         integerArrayList.add(5);
         integerArrayList.add(7);

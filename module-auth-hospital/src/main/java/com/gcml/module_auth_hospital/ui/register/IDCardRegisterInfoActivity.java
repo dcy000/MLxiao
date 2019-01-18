@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.IConstant;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -211,7 +212,8 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
 
     private void toHome() {
         finish();
-        startActivity(new Intent(this, RegisterSuccessActivity.class));
+//        startActivity(new Intent(this, RegisterSuccessActivity.class));
+        CC.obtainBuilder(IConstant.KEY_INUIRY_ENTRY).build().callAsync();
     }
 
     private void toLogin() {

@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.PersonSplitterActivity;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
+import com.example.han.referralproject.inquiry.activity.InquiryActivity;
 import com.example.han.referralproject.inquiry.activity.InquiryEntranceActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
@@ -125,7 +126,7 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
                 gotoHealthMeasure();
                 break;
             case R.id.ei_infomation_collection:
-                startActivity(new Intent(getActivity(), InquiryEntranceActivity.class));
+                startActivity(new Intent(getActivity(), InquiryActivity.class));
                 break;
             case R.id.ei_doctor_service:
                 CC.obtainBuilder("health.profile").build().call();
