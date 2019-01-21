@@ -133,6 +133,10 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
             public void onPageFinished(WebView view, String url) {
                 Timber.i("X5WebView loading end:::::cost time>>" + (System.currentTimeMillis() - time) + ">>>" + url);
                 time = System.currentTimeMillis();
+                if(!isPageFinished){
+                    isPageFinished = true;
+                    onWebViewPageFinished(view);
+                }
                 super.onPageFinished(view, url);
             }
 
@@ -156,8 +160,6 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
                 if (newProgress == 100 && !isPageFinished) {
                     Timber.i("X5WebView loading end:::::cost time>>" + (System.currentTimeMillis() - time) + ">>>" + newProgress);
                     time = System.currentTimeMillis();
-                    isPageFinished = true;
-                    onWebViewPageFinished(view);
                 }
                 onPageLoadingProgress(view, newProgress);
                 super.onProgressChanged(view, newProgress);
