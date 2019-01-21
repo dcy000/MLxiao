@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:layout_marginLeft="40pt"
         android:layout_width="880pt"
         android:layout_height="360pt"
         android:gravity="center_vertical"
@@ -13,7 +14,7 @@
             android:id="@+id/doctor_head_url"
             android:layout_width="278pt"
             android:layout_height="278pt"
-            android:background="#f00" />
+          />
 
 
         <LinearLayout
@@ -30,28 +31,39 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="主任医生"
-                android:textColor="#00f" />
+                android:text="张辉"
+                android:textColor="#ff333333"
+                android:textSize="64pt" />
 
-
-            <TextView
-                android:id="@+id/doctor_class"
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="主任医生"
-                android:textColor="#00f" />
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/doctor_class"
+                    android:layout_width="200pt"
+                    android:layout_height="72pt"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_item_qianyue_tv"
+                    android:gravity="center"
+                    android:text="主任医生"
+                    android:textColor="#ff3f86fc"
+                    android:textSize="40pt" />
+            </FrameLayout>
 
 
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_qianyue"
             android:layout_width="184pt"
             android:layout_height="100pt"
+            android:background="@drawable/shape_rectangle_next_btn"
             android:gravity="center"
             android:text="签约"
-            android:textColor="#00f" />
+            android:textColor="#fff"
+            android:textSize="56pt" />
 
 
     </LinearLayout>
