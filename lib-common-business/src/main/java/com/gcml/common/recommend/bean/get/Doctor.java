@@ -1,4 +1,4 @@
-package com.example.han.referralproject.bean;
+package com.gcml.common.recommend.bean.get;
 
 import java.io.Serializable;
 

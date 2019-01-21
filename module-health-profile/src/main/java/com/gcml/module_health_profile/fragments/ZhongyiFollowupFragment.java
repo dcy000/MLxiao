@@ -14,7 +14,6 @@ import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.module_health_profile.R;
 
 public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View.OnClickListener {
-    private View view;
     private ImageView mIvCircle;
     /**
      * 中医体质辨识
@@ -34,9 +33,14 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
      */
     private TextView mTvTitle;
     private RecyclerView mRv;
+    private String recordId;
 
-    public static ZhongyiFollowupFragment instance() {
-        return new ZhongyiFollowupFragment();
+    public static ZhongyiFollowupFragment instance(String recordId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("recordId", recordId);
+        ZhongyiFollowupFragment zhongyiFollowupFragment = new ZhongyiFollowupFragment();
+        zhongyiFollowupFragment.setArguments(bundle);
+        return zhongyiFollowupFragment;
     }
 
     @Override
@@ -46,7 +50,7 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
 
     @Override
     protected void initView(View view, Bundle bundle) {
-
+        recordId=bundle.getString("recordId");
         mIvCircle = (ImageView) view.findViewById(R.id.iv_circle);
         mTvCTitle = (TextView) view.findViewById(R.id.tv_c_title);
         mTvCContent = (TextView) view.findViewById(R.id.tv_c_content);

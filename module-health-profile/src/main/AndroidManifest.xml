@@ -5,7 +5,11 @@
         <activity
             android:name=".HealthProfileActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".OutputResultActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".OutputResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".webview.EditHealthFileActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

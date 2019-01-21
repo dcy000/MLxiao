@@ -9,26 +9,34 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.module_health_profile.bean.HealthProfileMenuBean;
+import com.gcml.module_health_profile.data.HealthProfileRepository;
 import com.gcml.module_health_profile.fragments.BloodSugarFollowupFragment;
 import com.gcml.module_health_profile.fragments.BloodpressureFollowupFragment;
 import com.gcml.module_health_profile.fragments.HealthCheckupFragment;
 import com.gcml.module_health_profile.fragments.HealthFileFragment;
+import com.gcml.module_health_profile.fragments.PersonalnforFragment;
 import com.gcml.module_health_profile.fragments.ZhongyiFollowupFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class HealthProfileActivity extends ToolbarBaseActivity implements RadioGroup.OnCheckedChangeListener {
     private List<Fragment> fragments;
@@ -61,45 +69,51 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
                 .setTipWord("正在加载")
                 .create();
 
-//        HealthProfileRepository repository = new HealthProfileRepository();
-//        repository.getMenu()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnSubscribe(disposable -> dialog.show())
-//                .doOnTerminate(() -> dialog.dismiss())
-//                .as(RxUtils.autoDisposeConverter(this))
-//                .subscribe(listApiResult -> {
-//                    initRadioGroup(listApiResult);
-//                    //初始化fragment
-//                    initFragments(listApiResult);
-//                }, Timber::e);
-        List<HealthProfileMenuBean> menuBeans = new ArrayList<>();
-        HealthProfileMenuBean menu1 = new HealthProfileMenuBean();
-        HealthProfileMenuBean menu2 = new HealthProfileMenuBean();
-        HealthProfileMenuBean menu3 = new HealthProfileMenuBean();
-        HealthProfileMenuBean menu4 = new HealthProfileMenuBean();
-        HealthProfileMenuBean menu5 = new HealthProfileMenuBean();
-        menu1.setName("健康档案");
-        menu2.setName("健康体检");
-        menu3.setName("高血压随访");
-        menu4.setName("糖尿病随访");
-        menu5.setName("中医体质辨识");
-        menuBeans.add(menu1);
-        menuBeans.add(menu2);
-        menuBeans.add(menu3);
-        menuBeans.add(menu4);
-        menuBeans.add(menu5);
-        initFragments(menuBeans);
-        initRadioGroup(menuBeans);
+        HealthProfileRepository repository = new HealthProfileRepository();
+        repository.getMenu()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disposable -> dialog.show())
+                .doOnTerminate(() -> dialog.dismiss())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(listApiResult -> {
+                    initRadioGroup(listApiResult);
+                    initFragments(listApiResult);
+                }, Timber::e);
     }
 
     private void initFragments(List<HealthProfileMenuBean> data) {
         fragments = new ArrayList<>();
-        fragments.add(HealthFileFragment.instance());
-        fragments.add(HealthCheckupFragment.instance());
-        fragments.add(BloodpressureFollowupFragment.instance());
-        fragments.add(BloodSugarFollowupFragment.instance());
-        fragments.add(ZhongyiFollowupFragment.instance());
+        for (HealthProfileMenuBean menuBean : data) {
+            switch (menuBean.getRdRecordId()) {
+                case "22d594369d8246ad9542f462d6f0f4ce":
+                    //居民健康档案
+                    fragments.add(HealthFileFragment.instance("76e9139bf448430bbcb98d5998db05c4"));
+                    break;
+                case "5a12df74c57f4d9aa78265e3f8f92b76":
+                    //2型糖尿病患者随访服务记录表
+                    fragments.add(BloodSugarFollowupFragment.instance(menuBean.getRdRecordId()));
+                    break;
+                case "69f94324cc544de693e8615d0ae4242b":
+                    //高血压患者随访服务记录表
+                    fragments.add(BloodpressureFollowupFragment.instance(menuBean.getRdRecordId()));
+                    break;
+                case "76e9139bf448430bbcb98d5998db05c4":
+                    //个人基本信息表
+                    fragments.add(PersonalnforFragment.instance(menuBean.getRdRecordId()));
+                    break;
+                case "bff445ce1280473391df8eee45d0999b":
+                    //健康体检表
+                    fragments.add(HealthCheckupFragment.instance(menuBean.getRdRecordId()));
+                    break;
+                case "xxxx":
+                    //中医体质
+                    fragments.add(ZhongyiFollowupFragment.instance(menuBean.getRdRecordId()));
+                    break;
+            }
+        }
+
+
         mVpGoods.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public int getCount() {
@@ -121,8 +135,10 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
     private void initRadioGroup(List<HealthProfileMenuBean> data) {
         for (int i = 0; i < data.size(); i++) {
             RadioButton button = new RadioButton(this);
+            button.setSingleLine(true);
+            button.setEllipsize(TextUtils.TruncateAt.END);
             button.setTextSize(28);
-            button.setText(data.get(i).getName());
+            button.setText(data.get(i).getRecordName());
             button.setButtonDrawable(android.R.color.transparent);
             ViewCompat.setBackground(button, ResourcesCompat.getDrawable(getResources(), R.drawable.bg_rb_health_profile_menu, getTheme()));
             button.setTextColor(getResources().getColorStateList(R.color.health_profile_gray));

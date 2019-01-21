@@ -17,7 +17,7 @@ import com.example.han.referralproject.bean.ClueInfoBean;
 import com.example.han.referralproject.bean.ContractInfo;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.DiseaseResult;
-import com.example.han.referralproject.bean.Doctor;
+import com.gcml.common.recommend.bean.get.Doctor;
 import com.example.han.referralproject.bean.ECGHistory;
 import com.example.han.referralproject.bean.HeartRateHistory;
 import com.example.han.referralproject.bean.MeasureResult;

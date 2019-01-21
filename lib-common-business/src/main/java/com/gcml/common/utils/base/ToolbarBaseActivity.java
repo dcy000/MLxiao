@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.gcml.common.business.R;
 import com.gcml.common.utils.click.ClickEventListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -90,6 +91,7 @@ public abstract class ToolbarBaseActivity extends AppCompatActivity implements V
     }
 
     protected void backMainActivity() {
+        CC.obtainBuilder("app").setActionName("ToMainActivity").build().call();
     }
 
     @Override

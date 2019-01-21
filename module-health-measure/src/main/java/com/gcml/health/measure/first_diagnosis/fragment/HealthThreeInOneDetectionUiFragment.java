@@ -81,7 +81,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
 
     @Override
     protected void onMeasureFinished(String... results) {
-
+        //0血压 01左侧血压 02右侧血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 10腰围 11呼吸频率 12身高 13心率
         if (results.length == 2) {
             if (results[0].equals("bloodsugar")) {
                 sugarData = new DetectionData();

@@ -44,7 +44,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InquiryHealthActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump, ThisFragmentDatas {
+public class AddBloodsugarFollowupActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump, ThisFragmentDatas {
     private Uri uri;
     private List<FirstDiagnosisBean> firstDiagnosisBeans;
     private int showPosition = 0;
@@ -205,13 +205,13 @@ public class InquiryHealthActivity extends ToolbarBaseActivity implements Fragme
             }
         });
     }
+
     private void initMeasureDevicesFragment() {
         ArrayList<Integer> integerArrayList = new ArrayList<>();
-        //体温、血压、血糖、体重、身高
+        //血压、血糖、体重
         integerArrayList.add(1);
         integerArrayList.add(5);
         integerArrayList.add(7);
-        integerArrayList.add(8);
         for (Integer bean : integerArrayList) {
             switch (bean) {
                 case 1:

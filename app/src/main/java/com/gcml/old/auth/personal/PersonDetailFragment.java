@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MessageActivity;
-import com.example.han.referralproject.bean.Doctor;
+import com.gcml.common.recommend.bean.get.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
 
 import com.example.han.referralproject.bean.VersionInfoBean;
