@@ -38,7 +38,7 @@
         android:layout_height="100pt"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="200pt"
-        android:background="@drawable/bg_btn"
+        android:background="@drawable/shape_rectangle_next_btn"
         android:gravity="center"
         android:text="完成"
         android:textColor="#ffffffff"
