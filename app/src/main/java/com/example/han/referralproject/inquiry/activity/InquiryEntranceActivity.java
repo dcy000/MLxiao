@@ -11,6 +11,9 @@ import com.example.han.referralproject.R;
 import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 
+import static com.gcml.common.IConstant.KEY_HEALTH_FILE_ENTRY;
+import static com.gcml.common.IConstant.KEY_INUIRY_DETECTION;
+
 public class InquiryEntranceActivity extends AppCompatActivity implements View.OnClickListener {
 
     private com.gcml.common.widget.toolbar.TranslucentToolBar tb_inquiry_home;
@@ -59,7 +62,7 @@ public class InquiryEntranceActivity extends AppCompatActivity implements View.O
             startActivity(new Intent(this, InquiryActivity.class));
 
         } else if (id == R.id.rl_inquiry_home_file) {
-
+            CC.obtainBuilder(KEY_HEALTH_FILE_ENTRY).build().callAsync();
 
         } else if (id == R.id.rl_inquiry_home_home) {
             CC.obtainBuilder("com.gcml.old.home").build().callAsync();

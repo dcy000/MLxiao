@@ -3,6 +3,7 @@ package com.gcml.module_auth_hospital.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -19,6 +20,7 @@ import com.gcml.module_auth_hospital.R;
 public abstract class BaseActivity extends AppCompatActivity {
     protected TranslucentToolBar toolBar;
     private FrameLayout childView;
+    private PermissionDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +65,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     protected void onRightClickWithPermission() {
-        ToastUtils.showShort("需要权限");
+        if (dialog == null) {
+            dialog = new PermissionDialog();
+        }
+        dialog.setOnClickListener(passWord -> {
+            if (TextUtils.equals("123456", passWord)) {
+                onRightClickWithNoPermission();
+            } else {
+                ToastUtils.showShort("密码不正确");
+            }
+        });
+        if (dialog.isAdded()) {
+//            dialog.dismiss();
+        } else {
+            dialog.show(getFragmentManager(), "permission");
+        }
     }
 
     protected void onRightClickWithNoPermission() {

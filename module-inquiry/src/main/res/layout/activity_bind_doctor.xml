@@ -13,8 +13,8 @@
         android:id="@+id/rv_doctor_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="120pt"
-        android:paddingRight="120pt"
-        android:paddingTop="120pt" />
+        android:paddingLeft="20pt"
+        android:paddingRight="60pt"
+        android:paddingTop="60pt" />
 
 </LinearLayout>

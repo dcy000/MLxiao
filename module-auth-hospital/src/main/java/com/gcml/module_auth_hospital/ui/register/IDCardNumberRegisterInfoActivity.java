@@ -15,6 +15,8 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.IConstant;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.DefaultObserver;
@@ -114,7 +116,6 @@ public class IDCardNumberRegisterInfoActivity extends AppCompatActivity implemen
                 });
 
 
-
         RxUtils.rxWifiLevel(getApplication(), 4)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -212,8 +213,21 @@ public class IDCardNumberRegisterInfoActivity extends AppCompatActivity implemen
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
-                        ToastUtils.showLong("注册成功");
-                        login(deviceId);
+                        ToastUtils.showLong("身份证注册成功");
+                        CC.obtainBuilder("com.gcml.auth.face2.signup")
+                                .build()
+                                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                    @Override
+                                    public void onResult(CC cc, CCResult result) {
+                                        if (result.isSuccess()) {
+//                                            login(deviceId);
+                                            startActivity(new Intent(IDCardNumberRegisterInfoActivity.this, RegisterSuccessActivity.class)
+                                                    .putExtra("idcard", number));
+                                        } else {
+                                            toLogin();
+                                        }
+                                    }
+                                });
                     }
 
                     @Override
@@ -225,43 +239,6 @@ public class IDCardNumberRegisterInfoActivity extends AppCompatActivity implemen
                 });
     }
 
-    private void login(String deviceId) {
-        repository
-                .signInByIdCard(deviceId, number)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        showLoading("正在登录...");
-                    }
-                })
-                .doOnTerminate(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        dismissLoading();
-                    }
-                })
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<UserEntity>() {
-                    @Override
-                    public void onNext(UserEntity user) {
-                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                                .addParam("userId", user.id)
-                                .build()
-                                .callAsync();
-                        ToastUtils.showLong("登录成功");
-                        toHome();
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        super.onError(throwable);
-                        ToastUtils.showShort(throwable.getMessage());
-                        toLogin();
-                    }
-                });
-    }
 
     private void toHome() {
         finish();
