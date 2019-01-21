@@ -1,4 +1,4 @@
-package com.example.han.referralproject.inquiry.other;
+package com.gcml.common.utils.app;
 
 import android.app.Activity;
 

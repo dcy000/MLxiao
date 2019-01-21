@@ -1,5 +1,6 @@
 package com.gcml.module_auth_hospital.ui.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,10 +12,12 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.AppHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.server.ServerBean;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -66,8 +69,7 @@ public class UserLogins2Activity extends AppCompatActivity {
         });
 
         updatePage();
-
-
+        ActivityHelper.addActivity(this);
     }
 
     private void updatePage() {

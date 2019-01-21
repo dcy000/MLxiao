@@ -160,6 +160,7 @@ public class IDCardNuberLoginActivity extends AppCompatActivity implements View.
                                 .callAsync();
                         ToastUtils.showLong("登录成功");
                         CC.obtainBuilder(IConstant.KEY_INUIRY_ENTRY).build().callAsync();
+                        finish();
                     }
 
                     @Override

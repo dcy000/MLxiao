@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
+import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 
 public class InquiryEntranceActivity extends AppCompatActivity implements View.OnClickListener {
@@ -22,6 +23,7 @@ public class InquiryEntranceActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inquiry_entrance);
         bindViews();
+        ActivityHelper.addActivity(this);
     }
 
     private void bindViews() {
@@ -57,6 +59,7 @@ public class InquiryEntranceActivity extends AppCompatActivity implements View.O
             startActivity(new Intent(this, InquiryActivity.class));
 
         } else if (id == R.id.rl_inquiry_home_file) {
+
 
         } else if (id == R.id.rl_inquiry_home_home) {
             CC.obtainBuilder("com.gcml.old.home").build().callAsync();

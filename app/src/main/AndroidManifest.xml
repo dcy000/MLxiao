@@ -711,26 +711,18 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".homepage.HospitalMainActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".activity.PersonSplitterActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".inquiry.activity.InquiryActivity" />
+        <activity android:name=".inquiry.activity.InquiryEntranceActivity">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
 
             <!--<category android:name="android.intent.category.HOME" />-->
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity
-            android:name=".activity.PersonSplitterActivity"
-            android:screenOrientation="landscape" />
-        <activity android:name=".inquiry.activity.InquiryActivity" />
-        <activity android:name=".inquiry.activity.InquiryEntranceActivity" >
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.HOME" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
             <!--</intent-filter>-->
         </activity>
         <activity android:name=".inquiry.activity.DetectionItemActivity" />
