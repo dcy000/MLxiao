@@ -1,11 +1,19 @@
 package com.gcml.module_health_profile.webview;
 
+import android.os.Build;
 import android.webkit.JavascriptInterface;
 
 import com.gcml.common.widget.BaseX5WebViewActivity;
 import com.tencent.smtt.sdk.WebView;
 
 public class EditHealthFileActivity extends BaseX5WebViewActivity {
+//    String userAgent = "shixinzhang";
+//    String js = "window.localStorage.setItem('userAgent','" + userAgent + "');";
+//    String jsUrl = "javascript:(function({
+//            + "var localStorage = window.localStorage;" +
+//            +"localStorage.setItem('userAgent','" + userAgent + "')" +
+//            "})()";
+
     @Override
     protected void loadUrl(WebView webView) {
 //        webView.loadUrl("http://47.96.98.60:8630/#/");
@@ -25,9 +33,14 @@ public class EditHealthFileActivity extends BaseX5WebViewActivity {
 
     @Override
     protected void onWebViewPageFinished(WebView webView) {
-        webView.evaluateJavascript("javascript:receiveMsgFromParent('76e9139bf448430bbcb98d5998db05c4')",null);
-//        webView.evaluateJavascript("javascript:receiveMsgFromParent()",null);
-//        webView.loadUrl();
+        webView.evaluateJavascript("javascript:receiveMsgFromParent('76e9139bf448430bbcb98d5998db05c4')", null);
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            webView.evaluateJavascript(js, null);
+//        } else {
+//            webView.loadUrl(jsUrl);
+//            webView.reload();
+//        }
     }
 
     @Override

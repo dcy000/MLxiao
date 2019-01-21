@@ -7,7 +7,8 @@
     <!-- 蓝牙 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <application>
-        <service android:name=".ecg.ReceiveService"/>
+        <service android:name=".ecg.ReceiveService" />
+
         <activity
             android:name="com.gcml.health.measure.single_measure.AllMeasureActivity"
             android:label="测量页面的容器Activity"
@@ -28,37 +29,54 @@
             android:name=".ecg.ECGConnectActivity"
             android:label="新店蓝牙连接动画界面"
             android:screenOrientation="landscape" />
-        <activity android:name=".single_measure.ShowMeasureBloodpressureResultActivity"
-            android:screenOrientation="landscape"
-            android:label="展示单测血压结果分析界面"/>
-        <activity android:name=".first_diagnosis.FirstDiagnosisActivity"
-            android:screenOrientation="landscape"
-            android:label="新的首诊容器Activity"/>
-        <activity android:name=".health_report_form.HealthReportFormActivity"
-            android:screenOrientation="landscape"
-            android:label="首诊结果报表"/>
-        <activity android:name=".health_inquiry.HealthInquiryActivity"
-            android:screenOrientation="landscape"
-            android:label="健康调查"/>
-        <activity android:name=".health_report_form.HealthReportFormDetailActivity"
-            android:screenOrientation="landscape"
-            android:label="结果分析详情页"/>
-        <activity android:name=".hypertension_management.BloodpressureManagerActivity"
-            android:screenOrientation="landscape"
-            android:label="慢病管理中的血压测量"/>
-        <activity android:name=".hypertension_management.BloodsugarManagerActivity"
-            android:screenOrientation="landscape"
-            android:label="慢病管理中的血糖测量"/>
-        <activity android:name=".hypertension_management.WeightManagerActivity"
-            android:screenOrientation="landscape"
-            android:label="慢病管理中的体重测量"/>
-        <activity android:name=".demo.DemoGoodDetailActivity"
-            android:screenOrientation="landscape"
-            android:label="演示推荐商品的页面"/>
-        <activity android:name=".measure_abnormal.HealthMeasureAbnormalActivity"
-            android:screenOrientation="landscape"
-            android:label="测量异常后确定原因的界面"/>
-        <activity android:name=".health_profile.AddHealthCheckupActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".single_measure.ShowMeasureBloodpressureResultActivity"
+            android:label="展示单测血压结果分析界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".first_diagnosis.FirstDiagnosisActivity"
+            android:label="新的首诊容器Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".health_report_form.HealthReportFormActivity"
+            android:label="首诊结果报表"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".health_inquiry.HealthInquiryActivity"
+            android:label="健康调查"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".health_report_form.HealthReportFormDetailActivity"
+            android:label="结果分析详情页"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertension_management.BloodpressureManagerActivity"
+            android:label="慢病管理中的血压测量"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertension_management.BloodsugarManagerActivity"
+            android:label="慢病管理中的血糖测量"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".hypertension_management.WeightManagerActivity"
+            android:label="慢病管理中的体重测量"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".demo.DemoGoodDetailActivity"
+            android:label="演示推荐商品的页面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".measure_abnormal.HealthMeasureAbnormalActivity"
+            android:label="测量异常后确定原因的界面"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".health_profile.AddHealthCheckupActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".health_profile.AddBloodpressureFollowupActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".health_profile.AddBloodsugarFollowupActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

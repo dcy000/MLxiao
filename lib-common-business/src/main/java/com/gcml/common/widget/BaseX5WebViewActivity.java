@@ -91,17 +91,22 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
         webSettings.setAllowFileAccessFromFileURLs(false);
 
         //缓存
-        webSettings.setAppCacheEnabled(true);
-        webSettings.setAppCacheMaxSize(20 * 1024 * 1024);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setDatabaseEnabled(true);
+        String cacheDirPath = getFilesDir().getAbsolutePath()+"/xwebview";
+        webSettings.setDatabasePath(cacheDirPath);
+        webSettings.setAppCachePath(cacheDirPath);
+        webSettings.setAppCacheMaxSize(20 * 1024 * 1024);
+        webSettings.setAppCacheEnabled(true);
+
         webSettings.setAllowFileAccess(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setDefaultTextEncodingName("utf-8");
-        //设置自适应h5  不设置页面显示空白
-        webSettings.setDomStorageEnabled(true);
-        addJavascriptInterface(mX5Webview);
 
+
+        addJavascriptInterface(mX5Webview);
         mX5Webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -179,6 +184,7 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
     protected void onDestroy() {
         super.onDestroy();
         if (mX5Webview != null) {
+            mX5Webview.clearCache(true);
             mX5Webview.clearHistory();
             mX5Webview.destroy();
         }
