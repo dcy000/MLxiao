@@ -11,6 +11,7 @@ import android.view.View;
 import com.gcml.common.utils.AutoLoadMoreHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -43,10 +44,10 @@ public class BindDoctorActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bind_doctor);
+        ActivityHelper.addActivity(this);
         initTitle();
         initRV();
         getData();
-
     }
 
     private void initRV() {

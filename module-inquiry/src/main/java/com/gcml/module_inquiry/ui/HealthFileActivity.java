@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_inquiry.R;
@@ -25,6 +26,7 @@ public class HealthFileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_file);
         initView();
+        ActivityHelper.addActivity(this);
     }
 
     private void initView() {

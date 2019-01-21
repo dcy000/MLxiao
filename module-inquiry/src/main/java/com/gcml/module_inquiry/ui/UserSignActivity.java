@@ -9,9 +9,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -48,6 +52,7 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_sign);
+        ActivityHelper.addActivity(this);
         initTitle();
         initView();
     }
@@ -174,7 +179,25 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
                     @Override
                     public void onNext(String url) {
                         super.onNext(url);
-                        bindDoctor(doid, url);
+                        verifyFace(doid, url);
+                    }
+                });
+    }
+
+    private void verifyFace(String doid, String url) {
+        CC.obtainBuilder("com.gcml.auth.face2.signin")
+                .addParam("currentUser", false)
+                .build()
+                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+                        boolean skip = "skip".equals(result.getErrorMessage());
+                        if (result.isSuccess() || skip) {
+                            bindDoctor(doid, url);
+                            ActivityHelper.finishAll();
+                        } else {
+                            ToastUtils.showShort(result.getErrorMessage());
+                        }
                     }
                 });
     }

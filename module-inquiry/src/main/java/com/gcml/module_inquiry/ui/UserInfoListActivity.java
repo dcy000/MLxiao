@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.module_inquiry.R;
 
@@ -18,6 +19,7 @@ public class UserInfoListActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+        ActivityHelper.addActivity(this);
         bindViews();
     }
 
