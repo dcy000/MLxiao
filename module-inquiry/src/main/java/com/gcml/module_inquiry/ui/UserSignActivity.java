@@ -42,6 +42,7 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
     private byte[] bytes;
     private TextView cancel;
     TranslucentToolBar tb;
+    private LoadingDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -133,13 +134,12 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
             return;
         }
 
-        LoadingDialog dialog = new LoadingDialog.Builder(this)
+        dialog = new LoadingDialog.Builder(this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("")
                 .create();
 
         fileRepostory.uploadHeadData(faceData, UserSpHelper.getUserId())
-                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
@@ -148,34 +148,58 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
                         }
                     }
                 })
-
                 .doOnTerminate(new Action() {
                     @Override
                     public void run() throws Exception {
                         dialog.dismiss();
                     }
                 })
-                .flatMap(new Function<String, ObservableSource<?>>() {
-                    @Override
-                    public ObservableSource<?> apply(String headUrl) throws Exception {
-                        return fileRepostory.
-                                bindDoctor(doid, UserSpHelper.getUserId(), headUrl);
-                    }
-                })
+//                .flatMap(new Function<String, ObservableSource<Object>>() {
+//                    @Override
+//                    public ObservableSource<Object> apply(String headUrl) throws Exception {
+//                        return fileRepostory.
+//                                bindDoctor(doid, UserSpHelper.getUserId(), headUrl);
+//                    }
+//                })
+                .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<Object>() {
+                .subscribe(new DefaultObserver<String>() {
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                         ToastUtils.showShort(throwable.getMessage());
+                        dialog.dismiss();
                     }
 
                     @Override
-                    public void onNext(Object url) {
+                    public void onNext(String url) {
                         super.onNext(url);
-                        ToastUtils.showShort("申请成功");
+                        bindDoctor(doid, url);
                     }
                 });
+    }
+
+    public void bindDoctor(String doid, String headUrl) {
+        fileRepostory.bindDoctor(doid, UserSpHelper.getUserId(), headUrl)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        super.onNext(o);
+                        ToastUtils.showShort("签约成功");
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        dialog.dismiss();
+                        ToastUtils.showShort(throwable.getMessage());
+                    }
+                });
+
     }
 
 
