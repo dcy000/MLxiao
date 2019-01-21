@@ -79,6 +79,17 @@
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/cl_head" />
 
+        <include
+            android:id="@+id/empty_view"
+            layout="@layout/layout_health_profile_empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48pt"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"

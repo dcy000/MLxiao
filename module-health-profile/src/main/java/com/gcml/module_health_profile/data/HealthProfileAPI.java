@@ -7,8 +7,12 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface HealthProfileAPI {
-    @GET("dd")
-    Observable<ApiResult<List<HealthProfileMenuBean>>> getHealthProfileMenu();
+    @GET("ZZB/api/health/record/records/")
+    Observable<ApiResult<List<HealthProfileMenuBean>>> getHealthProfileMenu(
+//            @Query("serverId") String serverId,
+//            @Query("followUpDoctor") String followUpDoctor
+    );
 }

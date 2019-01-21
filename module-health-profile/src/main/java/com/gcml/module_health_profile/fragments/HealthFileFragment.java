@@ -13,7 +13,6 @@ import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.webview.EditHealthFileActivity;
 
 public class HealthFileFragment extends RecycleBaseFragment implements View.OnClickListener {
-    private View view;
     /**
      * 最新建档时间：2018年1月21日
      */
