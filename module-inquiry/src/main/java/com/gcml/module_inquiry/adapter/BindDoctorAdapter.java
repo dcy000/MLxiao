@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.common.FilterClickListener;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.module_inquiry.R;
 import com.gcml.module_inquiry.model.Docter;
@@ -32,11 +33,17 @@ public class BindDoctorAdapter extends BaseQuickAdapter<Docter, BaseViewHolder> 
                 .build();
         ImageLoader.instance().load(options);
 
-        helper.getView(R.id.tv_qianyue).setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onClick(item.doctername);
+        FilterClickListener filterClickListener = new FilterClickListener();
+        filterClickListener.setClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onClick(item.doctername);
+                }
+
             }
         });
+        helper.getView(R.id.tv_qianyue).setOnClickListener(filterClickListener);
 
     }
 

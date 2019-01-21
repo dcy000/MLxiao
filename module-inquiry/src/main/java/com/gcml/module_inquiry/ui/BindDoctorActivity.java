@@ -71,18 +71,18 @@ public class BindDoctorActivity extends AppCompatActivity {
         new AlertDialog(this).builder()
                 .setMsg(doctorName)
                 .setPositiveButton("确认", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        qianyue();
-                    }
-                })
-                .setNegativeButton("取消", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ToastUtils.showShort("取消");
-                    }
-                }).show();
-    }
+        @Override
+        public void onClick(View v) {
+            qianyue();
+        }
+    })
+            .setNegativeButton("取消", new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ToastUtils.showShort("取消");
+        }
+    }).show();
+}
 
     private void qianyue() {
         startActivity(new Intent(BindDoctorActivity.this, UserSignActivity.class));
