@@ -2,15 +2,16 @@ package com.gcml.module_inquiry.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.common.utils.AutoLoadMoreHelper;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -18,10 +19,14 @@ import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_inquiry.R;
 import com.gcml.module_inquiry.adapter.BindDoctorAdapter;
 import com.gcml.module_inquiry.model.Docter;
+import com.gcml.module_inquiry.model.HealthFileRepostory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lenovo on 2019/1/16.
@@ -34,46 +39,42 @@ public class BindDoctorActivity extends AppCompatActivity {
     ArrayList<Docter> doctors = new ArrayList();
     private BindDoctorAdapter adapter;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bind_doctor);
+        ActivityHelper.addActivity(this);
         initTitle();
         initRV();
         getData();
-
     }
 
     private void initRV() {
         rvDoctors = findViewById(R.id.rv_doctor_list);
         rvDoctors.setLayoutManager(new GridLayoutManager(this, 2));
-        adapter = new BindDoctorAdapter(R.layout.item_doctor_info, doctors);
-        rvDoctors.setAdapter(adapter);
-//        rvDoctors.setAdapter(new BaseQuickAdapter<Docter,BaseViewHolder>(R.layout.item_doctor_info, doctors) {
-//            @Override
-//            protected void convert(BaseViewHolder helper, Docter item) {
-//
-//            }
-//        });
 
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        AutoLoadMoreHelper loadMoreHelper = new AutoLoadMoreHelper();
+        loadMoreHelper.attachToRecyclerView(rvDoctors);
+        loadMoreHelper.setOnAutoLoadMoreListener(onAutoLoadMoreListener);
+
+        adapter = new BindDoctorAdapter(R.layout.item_doctor_info, doctors);
+        adapter.setListener(new BindDoctorAdapter.OnClickQianyueListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                showBindDialog(doctors.get(position).doctername);
+            public void onClick(Docter docter) {
+                showBindDialog(docter);
             }
         });
-
+        rvDoctors.setAdapter(adapter);
     }
 
-    private void showBindDialog(String doctorName) {
+    private void showBindDialog(Docter docter) {
         new AlertDialog(this).builder()
-                .setMsg(doctorName)
+                .setMsg("确认与" + docter.doctername + "医生签约吗?")
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ToastUtils.showShort("签约");
-                        startActivity(new Intent(BindDoctorActivity.this, UserSignActivity.class));
-
+                        startActivity(new Intent(BindDoctorActivity.this, UserSignActivity.class).putExtra("doid", docter.docterid));
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {
@@ -101,13 +102,40 @@ public class BindDoctorActivity extends AppCompatActivity {
                 });
     }
 
-    public ArrayList<Docter> getData() {
-        for (int i = 0; i < 21; i++) {
-            Docter e = new Docter();
-            e.doctername = "医生" + i;
-            doctors.add(e);
-        }
-        adapter.addData(doctors);
-        return doctors;
+    int index = 0;
+    int limit = 18;
+    int count = -1;
+    HealthFileRepostory fileRepostory = new HealthFileRepostory();
+
+    public void getData() {
+        count++;
+        this.index = index + count * limit;
+
+        fileRepostory.getDoctors(index, limit)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<List<Docter>>() {
+                    @Override
+                    public void onNext(List<Docter> docters) {
+                        super.onNext(docters);
+                        adapter.addData(docters);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
+                    }
+                });
+
+
     }
+
+    private AutoLoadMoreHelper.OnAutoLoadMoreListener onAutoLoadMoreListener = new AutoLoadMoreHelper.OnAutoLoadMoreListener() {
+        @Override
+        public void onAutoLoadMore(AutoLoadMoreHelper autoLoadMoreHelper) {
+            getData();
+        }
+    };
 }

@@ -138,7 +138,6 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
         }
     }
 
-    UserRepository repository = new UserRepository();
 
     private void register() {
         String deviceId = Utils.getDeviceId(getApplicationContext().getContentResolver());
@@ -161,8 +160,21 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
-                        ToastUtils.showLong("注册成功");
-                        login(deviceId);
+                        ToastUtils.showLong("身份证注册成功");
+                        CC.obtainBuilder("com.gcml.auth.face2.signup")
+                                .build()
+                                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                    @Override
+                                    public void onResult(CC cc, CCResult result) {
+                                        if (result.isSuccess()) {
+                                            startActivity(new Intent(IDCardRegisterInfoActivity.this,RegisterSuccessActivity.class)
+                                                    .putExtra("idcard",number));
+                                        } else {
+                                            toLogin();
+                                        }
+                                    }
+                                });
+
                     }
 
                     @Override
@@ -174,43 +186,7 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
                 });
     }
 
-    private void login(String deviceId) {
-        repository
-                .signInByIdCard(deviceId, number)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        showLoading("正在登录...");
-                    }
-                })
-                .doOnTerminate(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        dismissLoading();
-                    }
-                })
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<UserEntity>() {
-                    @Override
-                    public void onNext(UserEntity user) {
-                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                                .addParam("userId", user.id)
-                                .build()
-                                .callAsync();
-                        ToastUtils.showLong("登录成功");
-                        toHome();
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        super.onError(throwable);
-                        ToastUtils.showShort(throwable.getMessage());
-                        toLogin();
-                    }
-                });
-    }
+    UserRepository repository = new UserRepository();
 
     private void toHome() {
         finish();

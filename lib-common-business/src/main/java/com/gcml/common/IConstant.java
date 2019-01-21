@@ -19,4 +19,9 @@ public interface IConstant {
      */
     String KEY_INUIRY_ENTRY = "com.gcml.inquiry.entry";
     String KEY_INUIRY_DETECTION = "com.gcml.inquiry.detection";
+
+    /**
+     * 建档模块 首页 入口
+     */
+    String KEY_HEALTH_FILE_ENTRY = "com.gcml.health.file";
 }

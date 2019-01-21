@@ -1,0 +1,56 @@
+package com.gcml.module_inquiry.model;
+
+import com.gcml.common.RetrofitHelper;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UploadHelper;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+
+/**
+ * Created by lenovo on 2019/1/21.
+ */
+
+public class HealthFileRepostory {
+    HealthFileService service = RetrofitHelper.service(HealthFileService.class);
+    UploadHelper uploadHelper = new UploadHelper();
+
+    public Observable<List<Docter>> getDoctors(Integer index, Integer limit) {
+        return service.getDoctors(index, limit)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+
+    public Observable<String> uploadHeadData(byte[] head, String userId) {
+        return service.getQiniuToken()
+                .compose(RxUtils.apiResultTransformer())
+                .flatMap(new Function<String, ObservableSource<String>>() {
+                    @Override
+                    public ObservableSource<String> apply(String token) throws Exception {
+                        String time = new SimpleDateFormat("yyyyMMddHHmmss",
+                                Locale.getDefault()).format(new Date());
+                        String key = String.format("%s_%s.jpg", time, userId);
+                        return uploadHelper.upload(head, key, token)
+                                .subscribeOn(Schedulers.io());
+                    }
+                })
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Observable<Object> bindDoctor(
+            String doid,
+            String doctorId,
+            String headUrl ){
+        return service.bindDoctor(doid,doctorId,headUrl)
+                .compose(RxUtils.apiResultTransformer());
+    }
+
+}
