@@ -374,14 +374,17 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
     private void uploadEcg(final int ecg, final int heartRate) {
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData ecgData = new DetectionData();
-        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        //0血压 01左侧血压 02右侧血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 10腰围 11呼吸频率 12身高 13心率
         ecgData.setDetectionType("2");
         ecgData.setEcg(String.valueOf(ecg));
-        ecgData.setHeartRate(heartRate);
         String s = UtilsManager.getApplication().getResources().getStringArray(R.array.ecg_measureres)[ecg];
         ecgData.setResult(s);
         datas.add(ecgData);
 
+        DetectionData ecgHeartRate = new DetectionData();
+        ecgHeartRate.setDetectionType("13");
+        ecgHeartRate.setHeartRate(heartRate);
+        datas.add(ecgHeartRate);
 
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())

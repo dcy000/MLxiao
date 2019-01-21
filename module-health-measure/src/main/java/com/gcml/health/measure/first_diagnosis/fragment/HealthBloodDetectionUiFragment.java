@@ -239,7 +239,7 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
         ArrayList<DetectionData> datas = new ArrayList<>();
         final DetectionData pressureData = new DetectionData();
         final DetectionData pulseData = new DetectionData();
-        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
+        //0血压 01左侧血压 02右侧血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 10腰围 11呼吸频率 12身高 13心率
         pressureData.setDetectionType(data.type);
         int highPressure = data.right == 1 ? data.rightHighPressure : data.leftHighPressure;
         pressureData.setHighPressure(highPressure);

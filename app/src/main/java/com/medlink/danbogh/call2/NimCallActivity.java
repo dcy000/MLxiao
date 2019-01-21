@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.bean.Doctor;
+import com.gcml.common.recommend.bean.get.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;

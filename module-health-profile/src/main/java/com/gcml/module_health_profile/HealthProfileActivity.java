@@ -88,27 +88,27 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
             switch (menuBean.getRdRecordId()) {
                 case "22d594369d8246ad9542f462d6f0f4ce":
                     //居民健康档案
-                    fragments.add(HealthFileFragment.instance());
+                    fragments.add(HealthFileFragment.instance("76e9139bf448430bbcb98d5998db05c4"));
                     break;
                 case "5a12df74c57f4d9aa78265e3f8f92b76":
                     //2型糖尿病患者随访服务记录表
-                    fragments.add(BloodSugarFollowupFragment.instance());
+                    fragments.add(BloodSugarFollowupFragment.instance(menuBean.getRdRecordId()));
                     break;
                 case "69f94324cc544de693e8615d0ae4242b":
                     //高血压患者随访服务记录表
-                    fragments.add(BloodpressureFollowupFragment.instance());
+                    fragments.add(BloodpressureFollowupFragment.instance(menuBean.getRdRecordId()));
                     break;
                 case "76e9139bf448430bbcb98d5998db05c4":
                     //个人基本信息表
-                    fragments.add(PersonalnforFragment.instance());
+                    fragments.add(PersonalnforFragment.instance(menuBean.getRdRecordId()));
                     break;
                 case "bff445ce1280473391df8eee45d0999b":
                     //健康体检表
-                    fragments.add(HealthCheckupFragment.instance());
+                    fragments.add(HealthCheckupFragment.instance(menuBean.getRdRecordId()));
                     break;
                 case "xxxx":
                     //中医体质
-                    fragments.add(ZhongyiFollowupFragment.instance());
+                    fragments.add(ZhongyiFollowupFragment.instance(menuBean.getRdRecordId()));
                     break;
             }
         }

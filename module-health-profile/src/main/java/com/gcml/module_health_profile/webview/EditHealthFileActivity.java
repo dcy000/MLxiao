@@ -17,8 +17,9 @@ public class EditHealthFileActivity extends BaseX5WebViewActivity {
     @Override
     protected void loadUrl(WebView webView) {
 //        webView.loadUrl("http://47.96.98.60:8630/#/");
-        webView.loadUrl("http://192.168.0.116:8080/#/index");
+//        webView.loadUrl("http://192.168.0.116:8080/#/index");
 //        webView.loadUrl("http://192.168.0.116:8081/gerenxinxi");
+        webView.loadUrl("http://192.168.0.116:8080/?#/index");
     }
 
     @Override

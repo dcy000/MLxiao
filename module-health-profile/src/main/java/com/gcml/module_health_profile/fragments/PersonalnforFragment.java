@@ -7,8 +7,14 @@ import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.module_health_profile.R;
 
 public class PersonalnforFragment extends RecycleBaseFragment {
-    public static PersonalnforFragment instance() {
-        return new PersonalnforFragment();
+    private String recordId;
+
+    public static PersonalnforFragment instance(String recordId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("recordId", recordId);
+        PersonalnforFragment personalnforFragment = new PersonalnforFragment();
+        personalnforFragment.setArguments(bundle);
+        return personalnforFragment;
     }
 
     @Override
@@ -18,6 +24,6 @@ public class PersonalnforFragment extends RecycleBaseFragment {
 
     @Override
     protected void initView(View view, Bundle bundle) {
-
+        recordId=bundle.getString("recordId");
     }
 }
