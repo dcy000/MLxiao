@@ -9,23 +9,27 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_inquiry.R;
 import com.gcml.module_inquiry.dialog.AffirmSignatureDialog;
+import com.gcml.module_inquiry.model.HealthFileRepostory;
 import com.gcml.module_inquiry.wrap.PainterView;
-import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.storage.UpCompletionHandler;
-import com.qiniu.android.storage.UploadManager;
-
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
+
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lenovo on 2019/1/17.
@@ -83,7 +87,7 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
             public void onClick(View v) {
                 Bitmap bitmap = signature.creatBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
                 bytes = stream.toByteArray();
 
                 if (signatureDialog == null) {
@@ -112,73 +116,67 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
         uploadHeadToSelf(bytes);
     }
 
-    private UploadManager uploadManager = new UploadManager();
+    HealthFileRepostory fileRepostory = new HealthFileRepostory();
 
     private void uploadHeadToSelf(final byte[] faceData) {
-//        if (faceData == null) {
-//            return;
-//        }
+        if (faceData == null) {
+            return;
+        }
 
-
-        LoadingDialog dialog = new LoadingDialog.Builder(this)
-                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord("正在加载")
-                .create();
-
-      /*  NetworkApi.get_token(new NetworkManager.SuccessCallback<String>() {
-            @Override
-            public void onSuccess(String response) {
-                Date date = new Date();
-                SimpleDateFormat simple = new SimpleDateFormat("yyyyMMddhhmmss");
-                StringBuilder str = new StringBuilder();//定义变长字符串
-                Random random = new Random();
-                for (int i = 0; i < 8; i++) {
-                    str.append(random.nextInt(10));
-                }
-                //将字符串转换为数字并输出
-                String key = simple.format(date) + str + ".jpg";
-                uploadManager.put(faceData, key, response, new UpCompletionHandler() {
-                    @Override
-                    public void complete(String key, ResponseInfo info, JSONObject res) {
-                        if (info.isOK()) {
-                            String imageUrl = "http://oyptcv2pb.bkt.clouddn.com/" + key;
-                            qianyue(imageUrl);
-                        }
-                    }
-                }, null);
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                hideLoadingDialog();
-
-            }
-        });*/
-
-        ToastUtils.showShort("签约成功");
-        finish();
-
-    }
-
-    private void qianyue(String imageUrl) {
-        final Intent intent = getIntent();
+        Intent intent = getIntent();
         if (intent == null) {
             return;
         }
-        String docId = intent.getStringExtra("docId");
-//        NetworkApi.bindDoctor(MyApplication.getInstance().userId, Integer.valueOf(docId.replace("null", "")), imageUrl, new NetworkManager.SuccessCallback<String>() {
-//            @Override
-//            public void onSuccess(String response) {
-//                if (TextUtils.equals(intent.getStringExtra("fromBuildFile"), "is")) {
-//                    setResult(RESULT_OK);
-//                    finish();
-////                    ActivityHelper.finishAll();
-//                } else {
-//                    startActivity(new Intent(SignatureActivity.this, CheckContractActivity.class));
-//                    ActivityHelper.finishAll();
-//                }
-//            }
-//        });
+
+        String doid = getIntent().getStringExtra("doid");
+        if (TextUtils.isEmpty(doid)) {
+            return;
+        }
+
+        LoadingDialog dialog = new LoadingDialog.Builder(this)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord("")
+                .create();
+
+        fileRepostory.uploadHeadData(faceData, UserSpHelper.getUserId())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        if (!disposable.isDisposed()) {
+                            dialog.show();
+                        }
+                    }
+                })
+
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dialog.dismiss();
+                    }
+                })
+                .flatMap(new Function<String, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(String headUrl) throws Exception {
+                        return fileRepostory.
+                                bindDoctor(doid, UserSpHelper.getUserId(), headUrl);
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(Object url) {
+                        super.onNext(url);
+                        ToastUtils.showShort("申请成功");
+                    }
+                });
     }
+
+
 }

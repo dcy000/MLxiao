@@ -60,32 +60,28 @@ public class BindDoctorActivity extends AppCompatActivity {
         adapter = new BindDoctorAdapter(R.layout.item_doctor_info, doctors);
         adapter.setListener(new BindDoctorAdapter.OnClickQianyueListener() {
             @Override
-            public void onClick(String name) {
-                showBindDialog("确认与" + name + "医生签约吗?");
+            public void onClick(Docter docter) {
+                showBindDialog(docter);
             }
         });
         rvDoctors.setAdapter(adapter);
     }
 
-    private void showBindDialog(String doctorName) {
+    private void showBindDialog(Docter docter) {
         new AlertDialog(this).builder()
-                .setMsg(doctorName)
+                .setMsg("确认与" + docter.doctername + "医生签约吗?")
                 .setPositiveButton("确认", new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            qianyue();
-        }
-    })
-            .setNegativeButton("取消", new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            ToastUtils.showShort("取消");
-        }
-    }).show();
-}
-
-    private void qianyue() {
-        startActivity(new Intent(BindDoctorActivity.this, UserSignActivity.class));
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(BindDoctorActivity.this, UserSignActivity.class).putExtra("doid", docter.docterid));
+                    }
+                })
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtils.showShort("取消");
+                    }
+                }).show();
     }
 
     private void initTitle() {

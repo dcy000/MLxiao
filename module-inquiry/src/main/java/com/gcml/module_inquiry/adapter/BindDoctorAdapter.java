@@ -38,7 +38,7 @@ public class BindDoctorAdapter extends BaseQuickAdapter<Docter, BaseViewHolder> 
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onClick(item.doctername);
+                    listener.onClick(item);
                 }
 
             }
@@ -49,7 +49,7 @@ public class BindDoctorAdapter extends BaseQuickAdapter<Docter, BaseViewHolder> 
 
 
     public interface OnClickQianyueListener {
-        void onClick(String name);
+        void onClick(Docter doctor);
     }
 
     OnClickQianyueListener listener;
