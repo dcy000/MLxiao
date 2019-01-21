@@ -180,6 +180,7 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
                     public void onNext(String url) {
                         super.onNext(url);
                         verifyFace(doid, url);
+                        dialog.dismiss();
                     }
                 });
     }
