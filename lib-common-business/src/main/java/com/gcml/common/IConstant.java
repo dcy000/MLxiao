@@ -15,6 +15,11 @@ public interface IConstant {
     String KEY_HOSPITAL_USER_REGISTER = "com.gcml.auth.signup";
 
     /**
+     * 获取用户信息
+     */
+    String KEY_GET_USER_INFO = "com.gcml.auth.getUser";
+
+    /**
      * 问诊建档首页
      */
     String KEY_INUIRY_ENTRY = "com.gcml.inquiry.entry";
@@ -24,4 +29,8 @@ public interface IConstant {
      * 建档模块 首页 入口
      */
     String KEY_HEALTH_FILE_ENTRY = "com.gcml.health.file";
+    /**
+     * qianyue
+     */
+    String KEY_BIND_DOCTOR = "com.gcml.bind.doctor";
 }

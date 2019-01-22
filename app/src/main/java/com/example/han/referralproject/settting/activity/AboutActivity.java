@@ -28,6 +28,8 @@ public class AboutActivity extends BaseActivity {
     private void initView() {
         mTitleText.setText("关于");
         mToolbar.setVisibility(View.VISIBLE);
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
         tvVersion.setText("版本:" + Utils.getLocalVersionName(this));
 
     }

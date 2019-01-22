@@ -25,7 +25,7 @@
             android:layout_height="120pt"
             android:layout_marginTop="236pt"
             android:background="@drawable/common_bg_input_gray"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:hint="请输入管理员密码"
             android:paddingLeft="36pt"
             android:textColor="#ff333333"

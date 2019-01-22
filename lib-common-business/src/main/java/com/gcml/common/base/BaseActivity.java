@@ -1,7 +1,6 @@
 package com.gcml.common.base;
 
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 
 import com.gcml.common.business.R;
 import com.gcml.common.utils.DefaultObserver;

@@ -36,6 +36,8 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.gcml.common.IConstant.KEY_HEALTH_FILE_ENTRY;
+
 /**
  * Created by lenovo on 2019/1/17.
  */
@@ -221,6 +223,7 @@ public class UserSignActivity extends BaseActivity implements AffirmSignatureDia
                         super.onNext(o);
                         ToastUtils.showShort("签约成功");
                         dialog.dismiss();
+                        CC.obtainBuilder(KEY_HEALTH_FILE_ENTRY).build().callAsync();
                     }
 
                     @Override

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.server.ServerBean;
 import com.gcml.common.utils.DefaultObserver;
@@ -24,6 +25,7 @@ import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.login.UserLogins2Activity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -31,7 +33,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by lenovo on 2019/1/14.
  */
 
-public class DoctorLoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class DoctorLoginActivity extends BaseActivity implements View.OnClickListener {
     private ImageView ivAuthDoctorLoginSetting;
     /**
      * 请输入您的医生账号
@@ -116,7 +118,13 @@ public class DoctorLoginActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.iv_auth_doctor_login_setting) {
-            toSetting();
+            onRightClickWithPermission(new IAction() {
+                @Override
+                public void action() {
+                    toSetting();
+                }
+            });
+
         } else if (id == R.id.tv_doctor_login_login) {
             toLogin();
         }
@@ -141,11 +149,18 @@ public class DoctorLoginActivity extends AppCompatActivity implements View.OnCli
         repository.serverSignIn(deviceId, account, passWord)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showLoading("登陆中");
+                    }
+                })
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<ServerBean>() {
                     @Override
                     public void onNext(ServerBean serverBean) {
                         super.onNext(serverBean);
+                        dismissLoading();
                         UserSpHelper.setDoctorId(serverBean.serverId + "");
                         startActivity(new Intent(DoctorLoginActivity.this, UserLogins2Activity.class));
                         finish();
@@ -154,6 +169,7 @@ public class DoctorLoginActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
+                        dismissLoading();
                         ToastUtils.showShort(throwable.getMessage());
                     }
                 });

@@ -64,6 +64,13 @@
                 android:layout_height="32pt"
                 android:background="#FFF5F5F5" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:background="#DDDDDD" />
+
             <TextView
                 android:id="@+id/tv_setting_keyword"
                 android:layout_width="match_parent"
@@ -160,8 +167,22 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="16dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:background="#DDDDDD" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="32pt"
                 android:background="#f5f5f5" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:background="#DDDDDD" />
 
             <TextView
                 android:id="@+id/tv_setting_about"
@@ -182,11 +203,6 @@
                 android:layout_marginRight="24dp"
                 android:background="#DDDDDD" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="32pt"
-                android:background="#FFF5F5F5" />
-
             <TextView
                 android:id="@+id/tv_setting_reset"
                 android:layout_width="match_parent"
@@ -205,13 +221,20 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:background="#DDDDDD"
-                android:visibility="gone" />
+                android:background="#DDDDDD" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="32pt"
                 android:background="#FFF5F5F5" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:background="#DDDDDD" />
+
 
             <TextView
                 android:id="@+id/tv_exit"

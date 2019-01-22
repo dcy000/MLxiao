@@ -13,10 +13,12 @@
         android:paddingRight="60pt">
 
         <TextView
+            android:drawablePadding="24pt"
+            android:drawableLeft="@drawable/img_hospital_logo"
             android:id="@+id/tv_server_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:text="杭州国辰迈联机器人科技有限公司"
             android:textSize="48pt" />
 

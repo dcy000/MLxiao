@@ -18,6 +18,7 @@ import com.example.han.referralproject.inquiry.fragment.HypertensionFollowUpFrag
 import com.example.han.referralproject.inquiry.fragment.SugarFollowUpFragment;
 import com.example.han.referralproject.inquiry.fragment.WeightFollowUpFragment;
 import com.example.han.referralproject.inquiry.model.SurveyBean;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -33,7 +34,7 @@ import java.util.List;
  * Created by lenovo on 2019/1/16.
  */
 
-public class DetectionItemActivity extends AppCompatActivity implements FragmentChanged, DealVoiceAndJump {
+public class DetectionItemActivity extends BaseActivity implements FragmentChanged, DealVoiceAndJump {
     private int position = 0;
     private List<SurveyBean> followInfo = new ArrayList<>();
     private BluetoothBaseFragment posiontFragment;
