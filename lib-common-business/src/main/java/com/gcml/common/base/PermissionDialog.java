@@ -1,7 +1,6 @@
-package com.gcml.module_auth_hospital.ui;
+package com.gcml.common.base;
 
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,7 +10,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gcml.module_auth_hospital.R;
+import com.gcml.common.business.R;
+
 
 /**
  * Created by lenovo on 2019/1/21.
@@ -43,7 +43,7 @@ public class PermissionDialog extends DialogFragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.fragment_permission_dialog, container, false);
         initView(inflate);
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflate;
     }
 
     private void initView(View inflate) {
@@ -59,7 +59,7 @@ public class PermissionDialog extends DialogFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.et_password) {
+        if (id == R.id.tv_complete) {
             if (onClickListener != null) {
                 String passWord = this.passWord.getText().toString().trim();
                 onClickListener.onClick(passWord);

@@ -1,11 +1,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="1200pt"
+    android:layout_height="658pt">
 
     <RelativeLayout
         android:layout_width="1200pt"
         android:layout_height="658pt"
-        android:background="@drawable/shape_bg_account_info">
+        android:background="@drawable/shape_bg_account_info"
+        android:gravity="center_horizontal"
+        android:paddingLeft="200pt"
+        android:paddingRight="200pt">
 
         <ImageView
             android:id="@+id/iv_close"
@@ -27,12 +30,12 @@
             android:textSize="64pt" />
 
         <EditText
-            android:background="@drawable/common_bg_input_gray"
             android:id="@+id/et_password"
-            android:layout_width="800pt"
+            android:layout_width="match_parent"
             android:layout_height="120pt"
-            android:layout_marginTop="336pt"
-            android:gravity="center"
+            android:layout_marginTop="236pt"
+            android:background="@drawable/common_bg_input_gray"
+            android:gravity="center_vertical"
             android:hint="请输入管理员密码"
             android:paddingLeft="36pt"
             android:textColor="#ff333333"
@@ -41,12 +44,12 @@
 
         <TextView
             android:id="@+id/tv_complete"
-            android:layout_width="800pt"
+            android:layout_width="match_parent"
             android:layout_height="120pt"
             android:layout_marginTop="428pt"
+            android:background="@drawable/shape_rectangle_next_btn"
             android:gravity="center"
             android:text="完成"
-            android:background="@drawable/shape_rectangle_next_btn"
             android:textColor="#fff"
             android:textSize="50pt" />
 

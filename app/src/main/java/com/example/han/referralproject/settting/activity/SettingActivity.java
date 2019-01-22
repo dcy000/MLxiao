@@ -18,8 +18,8 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.VersionHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
@@ -28,7 +28,8 @@ import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
-public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
     TranslucentToolBar mToolBar;
     TextView mVoice, mWifi, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache, exit;
@@ -80,11 +81,17 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onRightClick() {
-                startActivity(new Intent(SettingActivity.this, HospitalMainActivity.class));
-                finish();
+                onRightClickWithPermission(new IAction() {
+                    @Override
+                    public void action() {
+                        startActivity(new Intent(SettingActivity.this, HospitalMainActivity.class));
+                        finish();
+                    }
+                });
             }
         });
     }
+
 
     @Override
     public void onClick(View v) {
