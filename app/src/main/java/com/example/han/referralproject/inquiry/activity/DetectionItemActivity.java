@@ -66,6 +66,7 @@ public class DetectionItemActivity extends BaseActivity implements FragmentChang
 
                     }
                 });
+        setWifiLevel(tb);
     }
 
     private void initFollowDeviceInfo() {

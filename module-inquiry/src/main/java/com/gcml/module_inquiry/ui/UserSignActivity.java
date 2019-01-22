@@ -81,6 +81,7 @@ public class UserSignActivity extends BaseActivity implements AffirmSignatureDia
                     }
 
                 });
+        setWifiLevel(tb);
     }
 
     private void toUserInfo() {

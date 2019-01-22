@@ -79,16 +79,7 @@ public class IDCardNuberRegisterActivity extends BaseActivity implements View.On
                     }
                 });
 
-        RxUtils.rxWifiLevel(getApplication(), 4)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer integer) throws Exception {
-                        translucentToolBar.setImageLevel(integer);
-                    }
-                });
+        setWifiLevel(translucentToolBar);
     }
 
     @Override

@@ -93,7 +93,7 @@ public final class TranslucentToolBar extends LinearLayout {
         if (resIdRight == 0) {
             iconRight.setVisibility(View.GONE);
         } else {
-            iconRight.setBackgroundResource(resIdRight);
+            ((ImageView) iconRight).setImageResource(resIdRight);
             iconRight.setVisibility(View.VISIBLE);
         }
 
@@ -158,7 +158,7 @@ public final class TranslucentToolBar extends LinearLayout {
         if (resIdRight == 0) {
             iconRight.setVisibility(View.GONE);
         } else {
-            iconRight.setBackgroundResource(resIdRight);
+            ((ImageView) iconRight).setImageResource(resIdRight);
             iconRight.setVisibility(View.VISIBLE);
         }
 

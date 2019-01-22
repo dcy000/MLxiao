@@ -64,6 +64,8 @@ public class InquiryActivity extends BaseActivity {
 
 
         });
+
+        setWifiLevel(tb);
     }
 
     private void toDetection() {

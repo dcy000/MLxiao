@@ -91,6 +91,7 @@ public class RegisterSuccessActivity extends BaseActivity implements View.OnClic
                         });
                     }
                 });
+        setWifiLevel(tbAuthRegisterSuccess);
     }
 
     @Override

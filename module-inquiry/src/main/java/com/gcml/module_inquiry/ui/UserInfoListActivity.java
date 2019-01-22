@@ -45,6 +45,7 @@ public class UserInfoListActivity extends BaseActivity implements View.OnClickLi
 //                        startActivity(new Intent(UserInfoListActivity.this, BindDoctorActivity.class));
                     }
                 });
+        setWifiLevel(tb_inquiry_home);
 
     }
 

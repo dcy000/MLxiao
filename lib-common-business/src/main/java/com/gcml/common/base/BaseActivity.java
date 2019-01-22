@@ -1,12 +1,14 @@
 package com.gcml.common.base;
 
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 
 import com.gcml.common.business.R;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.gcml.common.widget.toolbar.TranslucentToolBar;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -108,4 +110,19 @@ public class BaseActivity extends AppCompatActivity {
             loadingDialog.dismiss();
         }
     }
+
+    protected void setWifiLevel(TranslucentToolBar view) {
+        RxUtils.rxWifiLevel(getApplication(), 4)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer level) throws Exception {
+                        view.setImageLevel(level);
+                    }
+                });
+    }
+
+
 }

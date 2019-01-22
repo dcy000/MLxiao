@@ -57,7 +57,7 @@ public class HealthFileActivity extends BaseActivity {
                     }
 
                 });
-
+        setWifiLevel(tb);
     }
 
     private void toUserInfo() {

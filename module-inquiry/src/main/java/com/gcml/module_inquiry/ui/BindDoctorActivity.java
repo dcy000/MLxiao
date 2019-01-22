@@ -105,6 +105,7 @@ public class BindDoctorActivity extends BaseActivity {
                         });
                     }
                 });
+        setWifiLevel(tb);
     }
 
     int index = 0;
