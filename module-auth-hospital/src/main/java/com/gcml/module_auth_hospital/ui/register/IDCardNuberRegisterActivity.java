@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -31,7 +33,7 @@ import static com.gcml.module_auth_hospital.ui.register.ScanIdCardRegisterActivi
 import static com.gcml.module_auth_hospital.ui.register.ScanIdCardRegisterActivity.REGISTER_FORM_WHERE;
 import static com.gcml.module_auth_hospital.ui.register.ScanIdCardRegisterActivity.REGISTER_IDCARD_NUMBER;
 
-public class IDCardNuberRegisterActivity extends AppCompatActivity implements View.OnClickListener, CanClearEditText.OnTextChangeListener, AcountInfoDialog.OnFragmentInteractionListener {
+public class IDCardNuberRegisterActivity extends BaseActivity implements View.OnClickListener, CanClearEditText.OnTextChangeListener, AcountInfoDialog.OnFragmentInteractionListener {
 
 
     private CanClearEditText ccetPhone;
@@ -67,6 +69,12 @@ public class IDCardNuberRegisterActivity extends AppCompatActivity implements Vi
 
                     @Override
                     public void onRightClick() {
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
 
                     }
                 });
@@ -148,30 +156,6 @@ public class IDCardNuberRegisterActivity extends AppCompatActivity implements Vi
             tvNext.setEnabled(true);
         }
     }
-
-    private LoadingDialog mLoadingDialog;
-
-    private void showLoading(String tips) {
-        if (mLoadingDialog != null) {
-            LoadingDialog loadingDialog = mLoadingDialog;
-            mLoadingDialog = null;
-            loadingDialog.dismiss();
-        }
-        mLoadingDialog = new LoadingDialog.Builder(this)
-                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord(tips)
-                .create();
-        mLoadingDialog.show();
-    }
-
-    private void dismissLoading() {
-        if (mLoadingDialog != null) {
-            LoadingDialog loadingDialog = mLoadingDialog;
-            mLoadingDialog = null;
-            loadingDialog.dismiss();
-        }
-    }
-
 
     private AcountInfoDialog dialog;
 

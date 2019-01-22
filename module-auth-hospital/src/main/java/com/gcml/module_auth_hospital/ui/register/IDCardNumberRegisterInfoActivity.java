@@ -18,6 +18,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.IConstant;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -40,7 +41,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class IDCardNumberRegisterInfoActivity extends AppCompatActivity implements View.OnClickListener {
+public class IDCardNumberRegisterInfoActivity extends BaseActivity implements View.OnClickListener {
     private TranslucentToolBar translucentToolBar;
     private String number;
     private EditText etRegisterName;
@@ -111,6 +112,12 @@ public class IDCardNumberRegisterInfoActivity extends AppCompatActivity implemen
 
                     @Override
                     public void onRightClick() {
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
 
                     }
                 });
@@ -253,25 +260,4 @@ public class IDCardNumberRegisterInfoActivity extends AppCompatActivity implemen
     }
 
     private LoadingDialog mLoadingDialog;
-
-    private void showLoading(String tips) {
-        if (mLoadingDialog != null) {
-            LoadingDialog loadingDialog = mLoadingDialog;
-            mLoadingDialog = null;
-            loadingDialog.dismiss();
-        }
-        mLoadingDialog = new LoadingDialog.Builder(this)
-                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord(tips)
-                .create();
-        mLoadingDialog.show();
-    }
-
-    private void dismissLoading() {
-        if (mLoadingDialog != null) {
-            LoadingDialog loadingDialog = mLoadingDialog;
-            mLoadingDialog = null;
-            loadingDialog.dismiss();
-        }
-    }
 }

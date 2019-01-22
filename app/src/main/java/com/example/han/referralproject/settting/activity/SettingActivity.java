@@ -73,7 +73,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     private void bindData() {
         MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，欢迎来到设置页面。", false);
-        mToolBar.setData("设 置", R.drawable.common_icon_back, "返回", R.drawable.common_icon_home, null, new ToolBarClickListener() {
+        mToolBar.setData("设 置", R.drawable.common_icon_back, "返回", 0, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();

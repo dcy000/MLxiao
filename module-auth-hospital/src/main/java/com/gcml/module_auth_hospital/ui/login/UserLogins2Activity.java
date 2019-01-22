@@ -13,6 +13,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.AppHelper;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.server.ServerBean;
 import com.gcml.common.utils.DefaultObserver;
@@ -32,7 +33,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by lenovo on 2019/1/17.
  */
 
-public class UserLogins2Activity extends AppCompatActivity {
+public class UserLogins2Activity extends BaseActivity {
 
     private TranslucentToolBar tb;
     private LinearLayout lllogins;
@@ -64,7 +65,12 @@ public class UserLogins2Activity extends AppCompatActivity {
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                onRightClickWithPermission(new BaseActivity.IAction() {
+                    @Override
+                    public void action() {
+                        CC.obtainBuilder("com.gcml.old.setting").build().call();
+                    }
+                });
             }
         });
 

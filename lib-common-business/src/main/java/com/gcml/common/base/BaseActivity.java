@@ -4,7 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import com.gcml.common.business.R;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lenovo on 2019/1/18.
@@ -13,26 +21,50 @@ import com.gcml.common.widget.dialog.LoadingDialog;
 public class BaseActivity extends AppCompatActivity {
     private PermissionDialog dialog;
 
-    protected interface IAction {
+    public interface IAction {
         void action();
     }
 
     public void onRightClickWithPermission(IAction action) {
-        if (dialog == null) {
-            dialog = new PermissionDialog();
-        }
+        dialog = new PermissionDialog();
         dialog.setOnClickListener(passWord -> {
-            if (TextUtils.equals("123456", passWord)) {
-                if (action != null) {
-                    action.action();
-                }
-            }
+            validata(passWord, action);
         });
         if (dialog.isAdded()) {
 //            dialog.dismiss();
         } else {
             dialog.show(getFragmentManager(), "permission");
         }
+    }
+
+    ValidateAdminRepository adminRepository = new ValidateAdminRepository();
+
+    private void validata(String passWord, IAction action) {
+        adminRepository.validateAdmin(passWord)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showLoading("");
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        dismissLoading();
+                        if (action != null) {
+                            action.action();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(e.getMessage());
+                        dismissLoading();
+                    }
+                });
     }
 
     public void onLeftClick() {
@@ -70,7 +102,7 @@ public class BaseActivity extends AppCompatActivity {
         mLoadingDialog.show();
     }
 
-    private void dismissLoading() {
+    protected void dismissLoading() {
         if (mLoadingDialog != null) {
             LoadingDialog loadingDialog = mLoadingDialog;
             mLoadingDialog = null;

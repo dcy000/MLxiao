@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.server.ServerBean;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -27,7 +28,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by lenovo on 2019/1/17.
  */
 
-public class UserRegisters2Activity extends AppCompatActivity {
+public class UserRegisters2Activity extends BaseActivity {
     private TranslucentToolBar tb;
     private LinearLayout registers;
     private UserRepository repository = new UserRepository();
@@ -49,7 +50,13 @@ public class UserRegisters2Activity extends AppCompatActivity {
 
                     @Override
                     public void onRightClick() {
-                        CC.obtainBuilder("com.gcml.old.setting").build().call();
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
+
                     }
                 });
 

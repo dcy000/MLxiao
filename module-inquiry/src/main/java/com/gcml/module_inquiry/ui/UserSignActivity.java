@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -39,7 +40,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by lenovo on 2019/1/17.
  */
 
-public class UserSignActivity extends AppCompatActivity implements AffirmSignatureDialog.ClickListener {
+public class UserSignActivity extends BaseActivity implements AffirmSignatureDialog.ClickListener {
     private TextView tvSignatrueConfirm;
     private PainterView signature;
     private AffirmSignatureDialog signatureDialog;
@@ -69,13 +70,19 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
 
                     @Override
                     public void onRightClick() {
-                        toUserInfo();
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
                     }
 
-                    private void toUserInfo() {
-                        startActivity(new Intent(UserSignActivity.this, UserInfoListActivity.class));
-                    }
                 });
+    }
+
+    private void toUserInfo() {
+        startActivity(new Intent(UserSignActivity.this, UserInfoListActivity.class));
     }
 
     private void initView() {

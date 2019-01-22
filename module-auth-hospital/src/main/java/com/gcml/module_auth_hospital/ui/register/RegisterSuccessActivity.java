@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.IConstant;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -32,7 +33,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by lenovo on 2019/1/14.
  */
 
-public class RegisterSuccessActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterSuccessActivity extends BaseActivity implements View.OnClickListener {
     private TranslucentToolBar tbAuthRegisterSuccess;
     private TextView tvAuthRegisterSuccessComplete;
 
@@ -56,7 +57,7 @@ public class RegisterSuccessActivity extends AppCompatActivity implements View.O
                 .doOnTerminate(new Action() {
                     @Override
                     public void run() throws Exception {
-
+                        dismissLoading();
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
@@ -74,7 +75,7 @@ public class RegisterSuccessActivity extends AppCompatActivity implements View.O
 
         tbAuthRegisterSuccess.setData("账 户 注 册",
                 R.drawable.common_btn_back, "返回",
-                R.drawable.common_btn_home, null, new ToolBarClickListener() {
+                R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
                         finish();
@@ -82,7 +83,12 @@ public class RegisterSuccessActivity extends AppCompatActivity implements View.O
 
                     @Override
                     public void onRightClick() {
-                        CC.obtainBuilder("com.gcml.old.home");
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
                     }
                 });
     }
@@ -101,7 +107,7 @@ public class RegisterSuccessActivity extends AppCompatActivity implements View.O
         }
 
         String idcard = intent.getStringExtra("idcard");
-        if ( TextUtils.isEmpty(idcard)){
+        if (TextUtils.isEmpty(idcard)) {
             return;
         }
 
@@ -125,6 +131,7 @@ public class RegisterSuccessActivity extends AppCompatActivity implements View.O
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity user) {
+                        dismissLoading();
                         CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
                                 .addParam("userId", user.id)
                                 .build()
@@ -135,6 +142,7 @@ public class RegisterSuccessActivity extends AppCompatActivity implements View.O
 
                     @Override
                     public void onError(Throwable throwable) {
+                        dismissLoading();
                         super.onError(throwable);
                         ToastUtils.showShort(throwable.getMessage());
                         toLogin();
@@ -156,26 +164,5 @@ public class RegisterSuccessActivity extends AppCompatActivity implements View.O
         startActivity(new Intent(this, ScanIdCardRegisterActivity.class));
     }
 
-    private LoadingDialog mLoadingDialog;
 
-    private void showLoading(String tips) {
-        if (mLoadingDialog != null) {
-            LoadingDialog loadingDialog = mLoadingDialog;
-            mLoadingDialog = null;
-            loadingDialog.dismiss();
-        }
-        mLoadingDialog = new LoadingDialog.Builder(this)
-                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord(tips)
-                .create();
-        mLoadingDialog.show();
-    }
-
-    private void dismissLoading() {
-        if (mLoadingDialog != null) {
-            LoadingDialog loadingDialog = mLoadingDialog;
-            mLoadingDialog = null;
-            loadingDialog.dismiss();
-        }
-    }
 }

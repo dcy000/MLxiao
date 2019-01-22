@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gcml.common.FilterClickListener;
 import com.gcml.common.business.R;
 
 /**
@@ -170,12 +171,12 @@ public final class TranslucentToolBar extends LinearLayout {
                     listener.onLeftClick();
                 }
             });
-            layRight.setOnClickListener(new OnClickListener() {
+            layRight.setOnClickListener(new FilterClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.onRightClick();
                 }
-            });
+            }));
         }
     }
 

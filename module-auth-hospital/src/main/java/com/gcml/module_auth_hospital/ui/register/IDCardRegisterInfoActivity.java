@@ -14,6 +14,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.IConstant;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -34,7 +35,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class IDCardRegisterInfoActivity extends AppCompatActivity implements View.OnClickListener {
+public class IDCardRegisterInfoActivity extends BaseActivity implements View.OnClickListener {
     private TranslucentToolBar authRegisterInfoTb;
     private TextView etRegisterName;
     private TextView etRegisterMinzu;
@@ -99,6 +100,13 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
 
                     @Override
                     public void onRightClick() {
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
+
 
                     }
                 });
@@ -167,8 +175,8 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
                                     @Override
                                     public void onResult(CC cc, CCResult result) {
                                         if (result.isSuccess()) {
-                                            startActivity(new Intent(IDCardRegisterInfoActivity.this,RegisterSuccessActivity.class)
-                                                    .putExtra("idcard",number));
+                                            startActivity(new Intent(IDCardRegisterInfoActivity.this, RegisterSuccessActivity.class)
+                                                    .putExtra("idcard", number));
                                         } else {
                                             toLogin();
                                         }
@@ -198,28 +206,5 @@ public class IDCardRegisterInfoActivity extends AppCompatActivity implements Vie
         //关闭 注册时的 扫面sfz和信息录入页面
         finish();
         startActivity(new Intent(this, ScanIdCardRegisterActivity.class));
-    }
-
-    private LoadingDialog mLoadingDialog;
-
-    private void showLoading(String tips) {
-        if (mLoadingDialog != null) {
-            LoadingDialog loadingDialog = mLoadingDialog;
-            mLoadingDialog = null;
-            loadingDialog.dismiss();
-        }
-        mLoadingDialog = new LoadingDialog.Builder(this)
-                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord(tips)
-                .create();
-        mLoadingDialog.show();
-    }
-
-    private void dismissLoading() {
-        if (mLoadingDialog != null) {
-            LoadingDialog loadingDialog = mLoadingDialog;
-            mLoadingDialog = null;
-            loadingDialog.dismiss();
-        }
     }
 }

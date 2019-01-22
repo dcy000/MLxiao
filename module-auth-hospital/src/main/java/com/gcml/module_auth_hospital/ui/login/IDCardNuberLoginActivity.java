@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.IConstant;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiException;
 import com.gcml.common.utils.DefaultObserver;
@@ -32,7 +33,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class IDCardNuberLoginActivity extends AppCompatActivity implements View.OnClickListener, CanClearEditText.OnTextChangeListener, AcountInfoDialog.OnFragmentInteractionListener {
+public class IDCardNuberLoginActivity extends BaseActivity implements View.OnClickListener, CanClearEditText.OnTextChangeListener, AcountInfoDialog.OnFragmentInteractionListener {
 
 
     private CanClearEditText ccetPhone;
@@ -66,7 +67,12 @@ public class IDCardNuberLoginActivity extends AppCompatActivity implements View.
 
                     @Override
                     public void onRightClick() {
-
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
                     }
                 });
 
@@ -183,29 +189,6 @@ public class IDCardNuberLoginActivity extends AppCompatActivity implements View.
             tvNext.setEnabled(false);
         } else {
             tvNext.setEnabled(true);
-        }
-    }
-
-    private LoadingDialog mLoadingDialog;
-
-    private void showLoading(String tips) {
-        if (mLoadingDialog != null) {
-            LoadingDialog loadingDialog = mLoadingDialog;
-            mLoadingDialog = null;
-            loadingDialog.dismiss();
-        }
-        mLoadingDialog = new LoadingDialog.Builder(this)
-                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                .setTipWord(tips)
-                .create();
-        mLoadingDialog.show();
-    }
-
-    private void dismissLoading() {
-        if (mLoadingDialog != null) {
-            LoadingDialog loadingDialog = mLoadingDialog;
-            mLoadingDialog = null;
-            loadingDialog.dismiss();
         }
     }
 

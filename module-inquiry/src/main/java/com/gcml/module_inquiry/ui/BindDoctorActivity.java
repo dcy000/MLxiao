@@ -3,11 +3,12 @@ package com.gcml.module_inquiry.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.billy.cc.core.component.CC;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.utils.AutoLoadMoreHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -25,14 +26,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lenovo on 2019/1/16.
  */
 
-public class BindDoctorActivity extends AppCompatActivity {
+public class BindDoctorActivity extends BaseActivity {
 
     private TranslucentToolBar tb;
     private RecyclerView rvDoctors;
@@ -97,7 +97,12 @@ public class BindDoctorActivity extends AppCompatActivity {
 
                     @Override
                     public void onRightClick() {
-
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
                     }
                 });
     }
