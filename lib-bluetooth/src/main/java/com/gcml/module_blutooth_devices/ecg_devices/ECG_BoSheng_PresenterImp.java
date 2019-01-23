@@ -54,7 +54,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * 博声心电仪
  * mac:50:65:83:8C:2C:A1
@@ -70,7 +69,7 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
     private List<byte[]> bytesResult;
     private WeakHandler weakHandler;
     private static final int MESSAGE_DEAL_BYTERESULT = 1;
-//    private LoadingDialog mLoadingDialog;
+    //    private LoadingDialog mLoadingDialog;
     private boolean isLoginBoShengSuccess = false;
     private String phone, birth, name, sex;
     private BoShengUserBean userBean;
@@ -79,13 +78,6 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case MESSAGE_DEAL_BYTERESULT:
-//                    mLoadingDialog = new LoadingDialog.Builder(baseContext)
-//                            .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-//                            .setTipWord("正在分析数据...")
-//                            .create();
-//                    if (mLoadingDialog != null) {
-//                        mLoadingDialog.show();
-//                    }
                     ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<byte[]>() {
                         @Nullable
                         @Override
@@ -124,24 +116,28 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
         points = new ArrayList<>();
         weakHandler = new WeakHandler(weakRunnable);
         timeCount = new TimeCount(30000, 1000, fragment, weakHandler);
-        this.userBean=userBean;
+        this.userBean = userBean;
         initNet();
 
         getUser();
         BleManager.getInstance().init((Application) fragment.getThisContext().getApplicationContext());
-        BleScanRuleConfig scanRuleConfig = new BleScanRuleConfig.Builder()
-                .setScanTimeOut(20 * 1000)//设置扫描超时
-                .setDeviceName(true, BorsamConfig.deviceNames)
-                .build();
-        BleManager.getInstance().initScanRule(scanRuleConfig);
-        searchDevices();
+        if (!TextUtils.isEmpty(targetAddress)) {
+            connectDevice(targetAddress);
+        } else {
+            BleScanRuleConfig scanRuleConfig = new BleScanRuleConfig.Builder()
+                    .setScanTimeOut(20 * 1000)//设置扫描超时
+                    .setDeviceName(true, BorsamConfig.deviceNames)
+                    .build();
+            BleManager.getInstance().initScanRule(scanRuleConfig);
+            searchDevices();
+        }
     }
 
     private void getUser() {
-        phone=userBean.getPhone();
-        birth=userBean.getBirthday();
-        name=userBean.getName();
-        sex=userBean.getSex();
+        phone = userBean.getPhone();
+        birth = userBean.getBirthday();
+        name = userBean.getName();
+        sex = userBean.getSex();
 
         if (TextUtils.isEmpty(birth) || TextUtils.isEmpty(name) || TextUtils.isEmpty(sex)) {
             ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
