@@ -1,4 +1,4 @@
-package com.gcml.auth.face2.component;
+package com.gcml.auth.face2.doctor;
 
 import android.app.Activity;
 import android.content.Context;

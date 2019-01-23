@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="1200pt"
     android:layout_height="658pt">
+
     <RelativeLayout
         android:layout_width="1200pt"
         android:layout_height="658pt"
@@ -27,6 +28,7 @@
             android:background="@drawable/common_bg_input_gray"
             android:gravity="center_vertical"
             android:hint="请输入管理员密码"
+            android:inputType="textPassword"
             android:paddingLeft="36pt"
             android:textColor="#ff333333"
             android:textColorHint="#ffbbbbbb"
@@ -48,10 +50,10 @@
 
 
     <ImageView
-        android:layout_gravity="right|top"
         android:id="@+id/iv_close"
         android:layout_width="80pt"
         android:layout_height="80pt"
+        android:layout_gravity="right|top"
         android:layout_marginRight="32pt"
         android:layout_marginTop="32pt"
         android:background="@drawable/img_common_delete" />

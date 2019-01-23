@@ -48,7 +48,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
     /**
      * 请输入您的民族
      */
-    private EditText etRegisterMinzu;
+    private TextView etRegisterMinzu;
     /**
      * 身份证号码
      */
@@ -84,7 +84,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
     private void initView() {
         translucentToolBar = (TranslucentToolBar) findViewById(R.id.auth_idcard_numer_register_info_tb);
         etRegisterName = findViewById(R.id.et_register_name);
-        etRegisterMinzu = (EditText) findViewById(R.id.et_register_minzu);
+        etRegisterMinzu = findViewById(R.id.et_register_minzu);
         etRegisterMinzu.setOnClickListener(this);
         authTvMan = (TextView) findViewById(R.id.auth_tv_man);
         authTvMan.setOnClickListener(this);
@@ -98,6 +98,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
         tvAuthNext.setOnClickListener(this);
 
         etRegisterIdcrad.setText(number);
+        etRegisterMinzu.setText("汉族");
 
         authTvMan.setSelected(true);
         authTvWoman.setSelected(false);
@@ -130,7 +131,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.et_register_minzu) {
-            updateHeight();
+            minzu();
         } else if (id == R.id.auth_tv_man) {
             authTvMan.setSelected(true);
             authTvWoman.setSelected(false);
@@ -143,7 +144,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
         }
     }
 
-    private void updateHeight() {
+    private void minzu() {
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
@@ -192,6 +193,19 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
 
         String address = etRegisterNowAddress.getText().toString().trim();
         String detailName = etRegisterDetailAddress.getText().toString().trim();
+
+        if (TextUtils.isEmpty(name)) {
+            ToastUtils.showShort("请输入姓名");
+            return;
+        }
+        if (TextUtils.isEmpty(address)) {
+            ToastUtils.showShort("请输入地址");
+            return;
+        }
+        if (TextUtils.isEmpty(detailName)) {
+            ToastUtils.showShort("请输入详细地址");
+            return;
+        }
         repository.signUpByIdCard(deviceId, name, sex, number, address + detailName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
