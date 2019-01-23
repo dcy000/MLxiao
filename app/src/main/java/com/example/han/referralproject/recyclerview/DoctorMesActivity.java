@@ -26,8 +26,9 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
@@ -310,23 +311,8 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             case R.id.qianyue:
 
                 if ("1".equals(sign)) {
-                    NimCallActivity.launch(mContext, "docter_" + doctor.docterid);
-//                    NetworkApi.postTelMessage(doctor.tel, MyApplication.getInstance().userName, new NetworkManager.SuccessCallback<Object>() {
-//                        @Override
-//                        public void onSuccess(Object response) {
-//
-//                        }
-//                    }, new NetworkManager.FailedCallback() {
-//                        @Override
-//                        public void onFailed(String message) {
-//
-//                        }
-//                    });
-                    //countdown();
-                    //mButton.setEnabled(false);
-                    //OnlineTime();
-
-
+//                    NimCallActivity.launch(mContext, "docter_" + doctor.docterid);
+                    getDoctorYxAcountId(doctor.docterid);
                 } else {
                     NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
                             new NetworkManager.SuccessCallback<RobotAmount>() {
@@ -432,6 +418,39 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
                 }
             }
         });
+    }
+
+    private void getDoctorYxAcountId(String doctorId) {
+        NetworkApi.getDoctorYxAcountId(doctorId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject result = new JSONObject(body);
+                    boolean tag = result.optBoolean("tag");
+                    if (tag) {
+                        String account = result.getString("data");
+//                        NimAccountHelper.getInstance().login(account, "123456", null);
+                        NimCallActivity.launch(DoctorMesActivity.this, account);
+                    } else {
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+            }
+        });
+
     }
 
 }

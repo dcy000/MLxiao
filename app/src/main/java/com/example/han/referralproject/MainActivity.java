@@ -27,12 +27,16 @@ import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.module_control_volume.VolumeControlFloatwindow;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmModel;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.utils.T;
 import com.umeng.analytics.MobclickAgent;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
@@ -122,7 +126,8 @@ public class MainActivity extends BaseActivity implements CountdownDialog.Ontouc
 
     @Override
     protected void onResume() {
-        NimAccountHelper.getInstance().login("user_" + MyApplication.getInstance().userId, "123456", null);
+//        NimAccountHelper.getInstance().login("user_" + MyApplication.getInstance().userId, "123456", null);
+        getUserYxAcountId();
         setEnableListeningLoop(false);
         super.onResume();
         NetworkApi.clueNotify(new NetworkManager.SuccessCallback<ArrayList<ClueInfoBean>>() {
@@ -150,6 +155,39 @@ public class MainActivity extends BaseActivity implements CountdownDialog.Ontouc
                 }
             }
         });
+    }
+
+    private void getUserYxAcountId() {
+        NetworkApi.getUserYxAcountId(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject result = new JSONObject(body);
+                    boolean tag = result.optBoolean("tag");
+                    if (tag) {
+                        String account = result.getString("data");
+                        NimAccountHelper.getInstance().login(account, "123456", null);
+                    } else {
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+            }
+        });
+
     }
 
     @Override

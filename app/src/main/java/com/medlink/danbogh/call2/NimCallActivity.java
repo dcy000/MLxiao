@@ -86,7 +86,7 @@ public class NimCallActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(RobotAmount response) {
                         final String amount = response.getAmount();
-                        if (Float.parseFloat(amount) > 0) {
+                        if (Float.parseFloat(amount) >= 0) {
                             //有余额
                             launch(context, account, AVChatType.VIDEO.getValue(), SOURCE_INTERNAL);
                         } else {
@@ -756,10 +756,10 @@ public class NimCallActivity extends AppCompatActivity {
                 final String bid = MyApplication.getInstance().userId;
 
                 if ((!TextUtils.isEmpty(mPeerAccount)
-                        && !mPeerAccount.startsWith("docter_"))
+                        && !mPeerAccount.startsWith("gcmlylb_docter_"))
                         || (mCallData != null
                         && !TextUtils.isEmpty(mCallData.getAccount())
-                        && !mCallData.getAccount().startsWith("docter_"))) {
+                        && !mCallData.getAccount().startsWith("gcmlylb_docter_"))) {
                     return;
                 }
 

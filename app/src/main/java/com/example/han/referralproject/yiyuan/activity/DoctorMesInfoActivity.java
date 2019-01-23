@@ -1,14 +1,12 @@
 package com.example.han.referralproject.yiyuan.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -28,13 +26,12 @@ import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.Docter;
-import com.example.han.referralproject.recyclerview.DoctorMesActivity;
 import com.example.han.referralproject.recyclerview.OnlineTime;
 import com.example.han.referralproject.recyclerview.RecoDocActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
-import com.medlink.danbogh.XDialogFragment;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimCallActivity;
-import com.medlink.danbogh.register.ConfirmContractActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 
@@ -326,7 +323,8 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
             case R.id.qianyue:
 
                 if ("1".equals(sign)) {
-                    NimCallActivity.launch(mContext, "docter_" + doctor.docterid);
+//                    NimCallActivity.launch(mContext, "docter_" + doctor.docterid);
+                    getDoctorYxAcountId(doctor.docterid);
                 } else {
                     NetworkApi.Person_Amount(com.example.han.referralproject.util.Utils.getDeviceId(),
                             new NetworkManager.SuccessCallback<RobotAmount>() {
@@ -436,5 +434,40 @@ public class DoctorMesInfoActivity extends BaseActivity implements View.OnClickL
             }
         });
     }
+    private void getDoctorYxAcountId(String doctorId) {
+        NetworkApi.getDoctorYxAcountId(doctorId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                try {
+                    JSONObject result = new JSONObject(body);
+                    boolean tag = result.optBoolean("tag");
+                    if (tag) {
+                        String account = result.getString("data");
+//                        NimAccountHelper.getInstance().login(account, "123456", null);
+                        NimCallActivity.launch(DoctorMesInfoActivity.this, account);
+                    } else {
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+            }
+        });
+
+    }
+
+
+
 
 }
