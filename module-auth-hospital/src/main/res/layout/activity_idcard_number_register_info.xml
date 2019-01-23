@@ -213,7 +213,7 @@
         android:orientation="horizontal"
         android:paddingLeft="60pt">
 
-        <EditText
+        <TextView
             android:id="@+id/et_register_now_address"
             android:layout_width="860pt"
             android:layout_height="120pt"

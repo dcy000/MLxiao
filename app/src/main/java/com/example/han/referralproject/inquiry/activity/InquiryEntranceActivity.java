@@ -89,6 +89,7 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
                 0, null,
                 R.drawable.common_ic_wifi_state, null, null);
 
+        setWifiLevel(tb_inquiry_home);
     }
 
 

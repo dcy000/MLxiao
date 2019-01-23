@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
@@ -19,6 +20,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.IConstant;
 import com.gcml.common.base.BaseActivity;
+import com.gcml.common.data.Province;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -30,14 +32,21 @@ import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -53,7 +62,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
      * 身份证号码
      */
     private TextView etRegisterIdcrad;
-    private EditText etRegisterNowAddress;
+    private TextView etRegisterNowAddress;
     /**
      * 请输入您的详细地址
      */
@@ -64,6 +73,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
     private TextView tvAuthNext;
     private TextView authTvMan;
     private TextView authTvWoman;
+    private boolean faild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +135,8 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
 
 
         setWifiLevel(translucentToolBar);
+
+        initJsonData();
     }
 
     @Override
@@ -139,6 +151,10 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
             authTvMan.setSelected(false);
             authTvWoman.setSelected(true);
         } else if (id == R.id.et_register_now_address) {
+            if (faild) {
+                return;
+            }
+            showPickerView();
         } else if (id == R.id.tv_auth_next) {
             register();
         }
@@ -264,5 +280,125 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
         startActivity(new Intent(this, ScanIdCardRegisterActivity.class));
     }
 
-    private LoadingDialog mLoadingDialog;
+
+    private List<Province> options1Items = new ArrayList<>();
+    private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
+    private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
+
+    private void showPickerView() {// 弹出选择器
+
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                //返回的分别是三个级别的选中位置
+                String opt1tx = options1Items.size() > 0 ?
+                        options1Items.get(options1).getPickerViewText() : "";
+
+                String opt2tx = options2Items.size() > 0
+                        && options2Items.get(options1).size() > 0 ?
+                        options2Items.get(options1).get(options2) : "";
+
+                String opt3tx = options2Items.size() > 0
+                        && options3Items.get(options1).size() > 0
+                        && options3Items.get(options1).get(options2).size() > 0 ?
+                        options3Items.get(options1).get(options2).get(options3) : "";
+
+                String tx = opt1tx + opt2tx + opt3tx;
+                etRegisterNowAddress.setText(tx);
+
+            }
+        })
+
+                .setCancelText("取消")
+                .setSubmitText("确认")
+                .setLineSpacingMultiplier(1.5f)
+                .setSubCalSize(30)
+                .setContentTextSize(40)
+                .setSubmitColor(Color.parseColor("#FF108EE9"))
+                .setCancelColor(Color.parseColor("#FF999999"))
+                .setTextColorOut(Color.parseColor("#FF999999"))
+                .setTextColorCenter(Color.parseColor("#FF333333"))
+                .setBgColor(Color.WHITE)
+                .setTitleBgColor(Color.parseColor("#F5F5F5"))
+                .setDividerColor(Color.TRANSPARENT)
+                .isCenterLabel(false)
+                .setOutSideCancelable(true)
+                .build();
+
+        /*pvOptions.setPicker(options1Items);//一级选择器
+        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
+        pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+        pvOptions.show();
+    }
+
+    private Observable<String> jsonData() {
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                String provincesArr = Utils.readTextFromAssetFile(IDCardNumberRegisterInfoActivity.this.getApplicationContext(), "cities.json");
+                emitter.onNext(provincesArr);
+                emitter.onComplete();
+            }
+        }).subscribeOn(Schedulers.io());
+    }
+
+    private void initJsonData() {//解析数据
+        jsonData().observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showLoading("");
+                    }
+                })
+                .map(new Function<String, List<Province>>() {
+                    @Override
+                    public List<Province> apply(String provincesArr) throws Exception {
+                        Gson gson = new Gson();
+                        return gson.fromJson(provincesArr, new TypeToken<List<Province>>() {
+                        }.getType());
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<List<Province>>() {
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        faild = true;
+                        dismissLoading();
+                    }
+
+                    @Override
+                    public void onNext(List<Province> provinces) {
+                        super.onNext(provinces);
+                        options1Items = provinces;
+                        for (int i = 0; i < options1Items.size(); i++) {//遍历省份
+                            ArrayList<String> cityList = new ArrayList<>();//该省的城市列表（第二级）
+                            ArrayList<ArrayList<String>> province_AreaList = new ArrayList<>();//该省的所有地区列表（第三极）
+
+                            for (int c = 0; c < options1Items.get(i).getCities().size(); c++) {//遍历该省份的所有城市
+                                String cityName = options1Items.get(i).getCities().get(c).getName();
+                                cityList.add(cityName);//添加城市
+                                ArrayList<String> city_AreaList = new ArrayList<>();//该城市的所有地区列表
+
+                                //如果无地区数据，建议添加空字符串，防止数据为null 导致三个选项长度不匹配造成崩溃
+                /*if (jsonBean.get(i).getCityList().get(c).getArea() == null
+                        || jsonBean.get(i).getCityList().get(c).getArea().size() == 0) {
+                    city_AreaList.add("");
+                } else {
+                    city_AreaList.addAll(jsonBean.get(i).getCityList().get(c).getArea());
+                }*/
+                                city_AreaList.addAll(options1Items.get(i).getCities().get(c).getCounties());
+                                province_AreaList.add(city_AreaList);//添加该省所有地区数据
+                            }
+
+                            options2Items.add(cityList);
+                            options3Items.add(province_AreaList);
+                        }
+                        dismissLoading();
+                    }
+                });
+
+
+    }
 }
