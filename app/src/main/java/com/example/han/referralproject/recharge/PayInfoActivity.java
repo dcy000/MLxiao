@@ -122,7 +122,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
     //  public ImageView mImageView1;
     //  public ImageView mImageView2;
 
-    public Boolean sign = true;
+    public volatile Boolean sign = true;
     public Boolean sign1 = true;
     Date date;
 
@@ -254,9 +254,9 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                                     //表示支付成功
                                     if (billStatus.getResultCode() == 0 &&
                                             billStatus.getPayResult()) {
+                                        sign = false;
                                         msg.what = 2;
                                         mHandler.sendMessage(msg);
-                                        sign = true;
 //                                        notify = "支付成功";
                                     }
                                 }

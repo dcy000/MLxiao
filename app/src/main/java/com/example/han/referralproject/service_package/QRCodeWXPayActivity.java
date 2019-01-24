@@ -139,7 +139,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
     //  public ImageView mImageView1;
     //  public ImageView mImageView2;
 
-    public Boolean sign = true;
+    public volatile Boolean sign = true;
     public Boolean sign1 = true;
     Date date;
 
@@ -286,7 +286,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
                                     //表示支付成功
                                     if (billStatus.getResultCode() == 0 &&
                                             billStatus.getPayResult()) {
-                                        sign = true;
+                                        sign = false;
                                         msg.what = 2;
                                         mHandler.sendMessage(msg);
 //                                        notify = "支付成功";
