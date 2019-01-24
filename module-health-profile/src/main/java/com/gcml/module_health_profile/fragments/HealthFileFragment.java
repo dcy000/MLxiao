@@ -3,9 +3,7 @@ package com.gcml.module_health_profile.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,7 +16,8 @@ import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
-import com.gcml.module_health_profile.webview.EditHealthFileActivity;
+import com.gcml.module_health_profile.webview.AddHealthFileActivity;
+import com.gcml.module_health_profile.webview.EditAndLookHealthProfileActivity;
 
 import java.util.List;
 
@@ -65,10 +64,17 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
     private TextView mTvDoctor;
     private String doctorId;
     private String signState;
+    /**
+     * 去建档
+     */
+    private TextView mTvBuild;
+    private String selfRecordId;
+    private String historyRecordId;
 
-    public static HealthFileFragment instance(String recordId) {
+    public static HealthFileFragment instance(String recordId, String selfRecordId) {
         Bundle bundle = new Bundle();
         bundle.putString("recordId", recordId);
+        bundle.putString("selfRecordId", selfRecordId);
         HealthFileFragment healthFileFragment = new HealthFileFragment();
         healthFileFragment.setArguments(bundle);
         return healthFileFragment;
@@ -82,6 +88,7 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
     @Override
     protected void initView(View view, Bundle bundle) {
         recordId = bundle.getString("recordId");
+        selfRecordId = bundle.getString("selfRecordId");
         mTvLastBuildTime = (TextView) view.findViewById(R.id.tv_last_build_time);
         mTvLine = (TextView) view.findViewById(R.id.tv_line);
         mLlName = (LinearLayout) view.findViewById(R.id.ll_name);
@@ -96,7 +103,10 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
         mTvIdcard = (TextView) view.findViewById(R.id.tv_idcard);
         mTvDisease = (TextView) view.findViewById(R.id.tv_disease);
         mTvDoctor = (TextView) view.findViewById(R.id.tv_doctor);
+        mTvBuild = (TextView) view.findViewById(R.id.tvBuild);
+        mTvBuild.setOnClickListener(this);
         getData();
+
     }
 
     private void getData() {
@@ -109,9 +119,13 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
                     @Override
                     public void onNext(List<HealthRecordBean> healthRecordBeans) {
                         if (healthRecordBeans == null || healthRecordBeans.size() == 0) {
-                            mTvLastBuildTime.setText("您还未建立档案");
+                            view.findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+                            view.findViewById(R.id.cl_contain).setVisibility(View.GONE);
                         } else {
+                            view.findViewById(R.id.empty_view).setVisibility(View.GONE);
+                            view.findViewById(R.id.cl_contain).setVisibility(View.VISIBLE);
                             String createdTime = healthRecordBeans.get(0).getCreatedTime();
+                            historyRecordId = healthRecordBeans.get(0).getRdUserRecordId();
                             if (!TextUtils.isEmpty(createdTime)) {
                                 String[] s = createdTime.split(" ");
                                 if (s.length == 2) {
@@ -193,8 +207,12 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.tv_edit_health_file) {
-            getActivity().startActivity(new Intent(getActivity(), EditHealthFileActivity.class));
-        } else {
+            getActivity().startActivity(new Intent(getActivity(), EditAndLookHealthProfileActivity.class)
+                    .putExtra("RdCordId", selfRecordId)
+                    .putExtra("HealthRecordId", historyRecordId));
+        } else if (i == R.id.tvBuild) {
+            getActivity().startActivity(new Intent(getActivity(), AddHealthFileActivity.class)
+                    .putExtra("RdCordId", selfRecordId));
         }
     }
 

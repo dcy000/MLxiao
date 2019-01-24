@@ -88,7 +88,7 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
             switch (menuBean.getRdRecordId()) {
                 case "22d594369d8246ad9542f462d6f0f4ce":
                     //居民健康档案
-                    fragments.add(HealthFileFragment.instance("76e9139bf448430bbcb98d5998db05c4"));
+                    fragments.add(HealthFileFragment.instance("76e9139bf448430bbcb98d5998db05c4",menuBean.getRdRecordId()));
                     break;
                 case "5a12df74c57f4d9aa78265e3f8f92b76":
                     //2型糖尿病患者随访服务记录表

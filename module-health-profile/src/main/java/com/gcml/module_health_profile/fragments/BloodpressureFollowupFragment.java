@@ -1,13 +1,12 @@
 package com.gcml.module_health_profile.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +19,8 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
+import com.gcml.module_health_profile.webview.AddBloodpressureWebActivity;
+import com.gcml.module_health_profile.webview.EditAndLookHealthProfileActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,7 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
     private RecyclerView mRv;
     private BaseQuickAdapter<HealthRecordBean, BaseViewHolder> adapter;
     private List<HealthRecordBean> mData;
+
     public static BloodpressureFollowupFragment instance(String recordId) {
         Bundle bundle = new Bundle();
         bundle.putString("recordId", recordId);
@@ -77,7 +79,7 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
         mClHead = (ConstraintLayout) view.findViewById(R.id.cl_head);
         mTvTitle = (TextView) view.findViewById(R.id.tv_title);
         mRv = (RecyclerView) view.findViewById(R.id.rv);
-        mData=new ArrayList<>();
+        mData = new ArrayList<>();
         initRV();
     }
 
@@ -106,14 +108,14 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
                 } else {
                     helper.setText(R.id.tv_time, "未知");
                 }
-
-                helper.getView(R.id.btn_see_detail).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //跳转到详情页面
-                        ToastUtils.showShort("点我干啥");
-                    }
-                });
+            }
+        });
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                getActivity().startActivity(new Intent(getActivity(), EditAndLookHealthProfileActivity.class)
+                        .putExtra("RdCordId", recordId)
+                        .putExtra("HealthRecordId", mData.get(position).getRdUserRecordId()));
             }
         });
     }
@@ -157,6 +159,8 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_new_record) {
+            getActivity().startActivity(new Intent(getActivity(), AddBloodpressureWebActivity.class)
+                    .putExtra("RdCordId", recordId));
         } else {
         }
     }

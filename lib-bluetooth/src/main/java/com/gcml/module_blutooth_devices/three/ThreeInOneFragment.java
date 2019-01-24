@@ -69,7 +69,7 @@ public class ThreeInOneFragment extends BluetoothBaseFragment implements View.On
 
     @Override
     protected BaseBluetooth obtainPresenter() {
-        return null;
+        return new ThreeInOnePresenter(this);
     }
 
     @Override

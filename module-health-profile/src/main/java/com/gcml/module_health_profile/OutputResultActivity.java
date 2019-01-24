@@ -94,6 +94,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
         Date date = new Date();
         String sDate = format.format(date);
         String sDate1 = format1.format(date);
+        printerHelper.initPrinter();
         printerHelper.printTitle("健康智能管家检测数据单\n\n\n\n");
         printerHelper.printContent("患者：郭志强\n" +
                 "检测日期:" + sDate + "\n" +
@@ -112,5 +113,6 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
     @Override
     public void updateState(String state) {
         ToastUtils.showShort(state);
+        MLVoiceSynthetize.startSynthesize(this, state);
     }
 }

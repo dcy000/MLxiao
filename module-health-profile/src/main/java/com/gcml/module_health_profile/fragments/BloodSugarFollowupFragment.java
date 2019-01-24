@@ -1,13 +1,12 @@
 package com.gcml.module_health_profile.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +19,8 @@ import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
+import com.gcml.module_health_profile.webview.AddBloodsugarWebActivity;
+import com.gcml.module_health_profile.webview.EditAndLookHealthProfileActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,14 +101,15 @@ public class BloodSugarFollowupFragment extends RecycleBaseFragment implements V
                 } else {
                     helper.setText(R.id.tv_time, "未知");
                 }
+            }
+        });
 
-                helper.getView(R.id.btn_see_detail).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //跳转到详情页面
-                        ToastUtils.showShort("点我干啥");
-                    }
-                });
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                getActivity().startActivity(new Intent(getActivity(), EditAndLookHealthProfileActivity.class)
+                        .putExtra("RdCordId", recordId)
+                        .putExtra("HealthRecordId", mData.get(position).getRdUserRecordId()));
             }
         });
     }
@@ -152,7 +154,8 @@ public class BloodSugarFollowupFragment extends RecycleBaseFragment implements V
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_new_record) {
-
+            getActivity().startActivity(new Intent(getActivity(), AddBloodsugarWebActivity.class)
+                    .putExtra("RdCordId", recordId));
         } else {
 
         }

@@ -1,5 +1,6 @@
 package com.gcml.common.widget;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,10 +43,11 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_x5_webview);
+        getIntentParam(getIntent());
         initView();
         initWebView();
     }
-
+    protected void getIntentParam(Intent intent){}
 
     private void initView() {
         mIvTopLeft = (ImageView) findViewById(R.id.iv_top_left);
@@ -110,6 +112,7 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
         mX5Webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Timber.i("X5WebView shouldOverrideUrlLoading>>>" + url);
                 view.loadUrl(url);
                 return true;
             }

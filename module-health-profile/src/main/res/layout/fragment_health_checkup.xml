@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24pt"
                 android:layout_marginTop="32pt"
-                android:text="距离上次体检已过去10天"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="56pt"
                 app:layout_constraintBottom_toBottomOf="@id/iv_circle"
