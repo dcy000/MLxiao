@@ -1,8 +1,14 @@
 package com.example.han.referralproject.network;
 
+import com.example.han.referralproject.bean.ServicePackageBean;
+import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.IRepositoryHelper;
 import com.gcml.common.repository.RepositoryApp;
+import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.utils.RxUtils;
+
 import io.reactivex.Observable;
 import timber.log.Timber;
 
@@ -23,9 +29,39 @@ public class AppRepository {
 
     private static IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
     private static AppServer healthMeasureServer = mRepositoryHelper.retrofitService(AppServer.class);
-    public static Observable<HomepageWeatherBean>  getWeather(String city){
+
+    public static Observable<HomepageWeatherBean> getWeather(String city) {
         Timber.i("天气接口被调用");
         return healthMeasureServer
-                .getWeather(TIANQI_API_SECRET_KEY,city,"zh-Hans","c");
+                .getWeather(TIANQI_API_SECRET_KEY, city, "zh-Hans", "c");
+    }
+
+    /**
+     * 查询套餐是否生效
+     *
+     * @return
+     */
+    public static Observable<ServicePackageBean> queryServicePackage() {
+        return healthMeasureServer.queryServicePackage(UserSpHelper.getUserId()).compose(RxUtils.apiResultTransformer());
+    }
+
+    /**
+     * 使购买的套餐生效
+     * @param type
+     * @param orderId
+     * @return
+     */
+    public static Observable<String> servicePackageEffective(String type, String orderId) {
+        return healthMeasureServer.servicePackageEffective(type, orderId, UserSpHelper.getUserId()).compose(RxUtils.apiResultTransformer());
+    }
+
+    /**
+     * 购买套餐预支付
+     * @param price
+     * @param des
+     * @return
+     */
+    public static Observable<Object> bugServicePackage(String price, String des){
+        return healthMeasureServer.bugServicePackage(UserSpHelper.getUserId(),price,des).compose(RxUtils.apiResultTransformer());
     }
 }

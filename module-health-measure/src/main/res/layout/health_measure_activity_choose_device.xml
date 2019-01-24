@@ -131,6 +131,7 @@
                 android:scaleType="fitXY"/>
 
             <TextView
+                android:id="@+id/tvxuetang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -235,6 +236,7 @@
                 android:scaleType="fitXY"/>
 
             <TextView
+                android:id="@+id/tvsanheyi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

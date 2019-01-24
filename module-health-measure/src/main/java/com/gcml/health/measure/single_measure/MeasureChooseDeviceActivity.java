@@ -3,14 +3,11 @@ package com.gcml.health.measure.single_measure;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -18,13 +15,17 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
-import com.gcml.health.measure.ecg.XinDianDetectActivity;
-import com.gcml.health.measure.test.TestWuhuaqiActivity;
+import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements View.OnClickListener {
     private boolean isTest;
@@ -38,10 +39,31 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     private LinearLayout llSan;
     private LinearLayout llMore;
     public static final String IS_FACE_SKIP = "isFaceSkip";
+    /**
+     * 血糖检测
+     */
+    private TextView mTvxuetang;
+    /**
+     * 三合一
+     */
+    private TextView mTvsanheyi;
+    private String servicePackage;
+    private String serviceUUID;
 
     public static void startActivity(Context context, boolean isFaceSkip) {
         Intent intent = new Intent(context, MeasureChooseDeviceActivity.class);
         intent.putExtra(IS_FACE_SKIP, isFaceSkip);
+        if (context instanceof Application) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        context.startActivity(intent);
+    }
+
+    public static void startActivity(Context context, boolean isFaceSkip, String type, String serviceUUid) {
+        Intent intent = new Intent(context, MeasureChooseDeviceActivity.class);
+        intent.putExtra(IS_FACE_SKIP, isFaceSkip);
+        intent.putExtra("ServicePackage", type);
+        intent.putExtra("ServicePackageUUID", serviceUUid);
         if (context instanceof Application) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -55,8 +77,14 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     protected void backLastActivity() {
         if (isTest) {
             backMainActivity();
+            finish();
+        } else {
+            if (servicePackage.equals("1") || servicePackage.equals("2")) {
+                showQuitDialog(false);
+            } else {
+                finish();
+            }
         }
-        finish();
     }
 
     /**
@@ -64,9 +92,53 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
      */
     @Override
     protected void backMainActivity() {
-        CCAppActions.jump2MainActivity();
+        if (servicePackage.equals("1") || servicePackage.equals("2")) {
+            showQuitDialog(true);
+        } else {
+            CCAppActions.jump2MainActivity();
+        }
+
     }
 
+    private void showQuitDialog(boolean isMain) {
+        new AlertDialog(MeasureChooseDeviceActivity.this)
+                .builder()
+                .setMsg("退出则消费本次购买的套餐，是否继续退出？")
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                })
+                .setPositiveButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        HealthMeasureRepository.cancelServicePackage(serviceUUID)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new DefaultObserver<Object>() {
+                                    @Override
+                                    public void onNext(Object o) {
+                                        if (isMain) {
+                                            CCAppActions.jump2MainActivity();
+                                        } else {
+                                            finish();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+
+                                    }
+                                });
+                    }
+                }).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,6 +242,18 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         llTizhong = (LinearLayout) findClickView(R.id.ll_tizhong);
         llSan = (LinearLayout) findClickView(R.id.ll_san);
         llMore = (LinearLayout) findClickView(R.id.ll_more);
+        mTvxuetang = (TextView) findViewById(R.id.tvxuetang);
+        mTvsanheyi = (TextView) findViewById(R.id.tvsanheyi);
+        servicePackage = getIntent().getStringExtra("ServicePackage");
+        serviceUUID = getIntent().getStringExtra("ServicePackageUUID");
+        if (servicePackage.equals("1")) {
+            //套餐1
+            mTvxuetang.setBackgroundResource(R.drawable.health_measure_text_bg_gengduo);
+            mTvsanheyi.setBackgroundResource(R.drawable.health_measure_text_bg_gengduo);
+            llSan.setClickable(false);
+            llXuetang.setClickable(false);
+        }
+
     }
 
     @Override

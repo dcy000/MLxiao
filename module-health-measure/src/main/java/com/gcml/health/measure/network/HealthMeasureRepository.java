@@ -115,4 +115,13 @@ public class HealthMeasureRepository {
     public static Observable<NewWeeklyOrMonthlyBean> getWeeklyOrMonthlyReport(long endTimeStamp,String page ){
         return healthMeasureServer.getWeeklyOrMonthlyReport(UserSpHelper.getUserId(),endTimeStamp,page).compose(RxUtils.apiResultTransformer());
     }
+
+    /**
+     * 取消套餐
+     * @param setmealId
+     * @return
+     */
+    public static Observable<Object> cancelServicePackage(String setmealId){
+        return healthMeasureServer.cancelServicePackage(setmealId);
+    }
 }

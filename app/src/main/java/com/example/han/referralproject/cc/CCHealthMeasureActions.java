@@ -34,7 +34,7 @@ public class CCHealthMeasureActions {
         /**
          * 心电
          */
-        String TO_ECG="ToECG";
+        String TO_ECG = "ToECG";
         /**
          * 跳转到AllMeasureActivity
          */
@@ -44,7 +44,7 @@ public class CCHealthMeasureActions {
     /**
      * 发送的数据的key
      */
-    interface SendKeys{
+    interface SendKeys {
         /**
          * 表示这个跳转是哪一个页面发起的
          */
@@ -56,21 +56,23 @@ public class CCHealthMeasureActions {
         /**
          * 人脸识别点击了跳过按钮
          */
-        String KEY_EXTRA_CLICK_FACE_SKIP="isFaceSkip";
+        String KEY_EXTRA_CLICK_FACE_SKIP = "isFaceSkip";
     }
 
     /**
      * 在人脸识别的时候点击了跳过按钮
+     *
      * @param isFaceSkip
      */
     public static void jump2MeasureChooseDeviceActivity(boolean isFaceSkip) {
         CCResult call = CC.obtainBuilder(MODULE_NAME)
                 .setActionName(SendActionNames.SINGLE_MEASURE)
-                .addParam(SendKeys.KEY_EXTRA_CLICK_FACE_SKIP,isFaceSkip)
+                .addParam(SendKeys.KEY_EXTRA_CLICK_FACE_SKIP, isFaceSkip)
                 .build()
                 .call();
-        Timber.d("CCHealthMeasureActions>>>>>>>>>"+call.toString());
+        Timber.d("CCHealthMeasureActions>>>>>>>>>" + call.toString());
     }
+
     /**
      * 跳转到选择所有测量设备的界面
      */
@@ -79,7 +81,18 @@ public class CCHealthMeasureActions {
                 .setActionName(SendActionNames.SINGLE_MEASURE)
                 .build()
                 .call();
-        Timber.d("CCHealthMeasureActions>>>>>>>>>"+call.toString());
+        Timber.d("CCHealthMeasureActions>>>>>>>>>" + call.toString());
+    }
+
+    public static void jump2MeasureChooseDeviceActivity(boolean isFaceSkip, String servicePackageType,String serviceUUID) {
+        CCResult call = CC.obtainBuilder(MODULE_NAME)
+                .setActionName(SendActionNames.SINGLE_MEASURE)
+                .addParam(SendKeys.KEY_EXTRA_CLICK_FACE_SKIP, isFaceSkip)
+                .addParam("ServicePackageType", servicePackageType)
+                .addParam("ServicePackageUUID",serviceUUID)
+                .build()
+                .call();
+        Timber.d("CCHealthMeasureActions>>>>>>>>>" + call.toString());
     }
 //    /**
 //     * 跳转到首诊界面
@@ -94,18 +107,20 @@ public class CCHealthMeasureActions {
     /**
      * 跳转到新的首诊页面
      */
-    public static void jump2FirstDiagnosisActivity(){
+    public static void jump2FirstDiagnosisActivity() {
         CCResult call = CC.obtainBuilder(MODULE_NAME)
                 .setActionName(SendActionNames.FIRST_DIAGNOSIS)
                 .build().call();
-        Timber.d("CCHealthMeasureActions>>>>>>>>>"+call.toString());
+        Timber.d("CCHealthMeasureActions>>>>>>>>>" + call.toString());
     }
-    public static void jump2XinDianDetectActivity(){
+
+    public static void jump2XinDianDetectActivity() {
         CCResult call = CC.obtainBuilder(MODULE_NAME)
                 .setActionName(SendActionNames.TO_ECG)
                 .build().call();
-        Timber.d("CCHealthMeasureActions>>>>>>>>>"+call.toString());
+        Timber.d("CCHealthMeasureActions>>>>>>>>>" + call.toString());
     }
+
     /**
      * 跳转到测量界面
      *

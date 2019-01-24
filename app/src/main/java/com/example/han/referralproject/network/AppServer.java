@@ -1,6 +1,8 @@
 package com.example.han.referralproject.network;
 
+import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
+import com.gcml.common.repository.http.ApiResult;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -18,9 +20,48 @@ public interface AppServer {
     @Headers({"Domain-Name:seniverse"})
     @GET("weather/now.json")
     Observable<HomepageWeatherBean> getWeather(
-                                               @Query("key") String key,
-                                               @Query("location") String address,
-                                               @Query("language") String lang,
-                                               @Query("unit") String unit);
+            @Query("key") String key,
+            @Query("location") String address,
+            @Query("language") String lang,
+            @Query("unit") String unit);
 
+    /**
+     * 查询该用户的检测套餐是否生效
+     *
+     * @param userId
+     * @return
+     */
+    @GET("ZZB/order/judge")
+    Observable<ApiResult<ServicePackageBean>> queryServicePackage(
+            @Query("userid") String userId
+    );
+
+    /**
+     * 套餐生效
+     *
+     * @param type
+     * @param orderid
+     * @param userId
+     * @return
+     */
+    @GET("ZZB/order/pay_set_meal")
+    Observable<ApiResult<String>> servicePackageEffective(
+            @Query("type") String type,
+            @Query("orderid") String orderid,
+            @Query("userid") String userId
+    );
+
+    /**
+     * 购买套餐预支付
+     * @param userId
+     * @param price
+     * @param description
+     * @return
+     */
+    @GET("ZZB/order/set_meal_buy")
+    Observable<ApiResult<Object>> bugServicePackage(
+            @Query("userid") String userId,
+            @Query("price") String price,
+            @Query("articles") String description
+    );
 }

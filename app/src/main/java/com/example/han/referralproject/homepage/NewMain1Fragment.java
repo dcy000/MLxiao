@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
+import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
@@ -292,11 +294,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                                 public void onResult(CC cc, CCResult result) {
                                                     boolean skip = "skip".equals(result.getErrorMessage());
                                                     if (result.isSuccess() || skip) {
-                                                        if (skip) {
-                                                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                                            return;
-                                                        }
-                                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                                                        startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip",skip));
                                                     } else {
                                                         ToastUtils.showShort(result.getErrorMessage());
                                                     }

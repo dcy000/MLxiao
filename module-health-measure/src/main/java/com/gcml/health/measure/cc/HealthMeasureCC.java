@@ -90,11 +90,20 @@ public class HealthMeasureCC implements IComponent {
         switch (actionName) {
             case ReceiveActionNames.SINGLE_MEASURE:
                 Object paramItem = cc.getParamItem(ReceiveKeys.KEY_EXTRA_CLICK_FACE_SKIP);
+                Object servicePackageType = cc.getParamItem("ServicePackageType");
+                Object servicePackageUUID = cc.getParamItem("ServicePackageUUID");
                 if (paramItem != null) {
-                    MeasureChooseDeviceActivity.startActivity(context, (Boolean) paramItem);
+                    if (servicePackageType != null) {
+                        MeasureChooseDeviceActivity.startActivity(context, (Boolean) paramItem, servicePackageType.toString(),servicePackageUUID.toString());
+                    } else {
+                        MeasureChooseDeviceActivity.startActivity(context, (Boolean) paramItem);
+                    }
                 } else {
-
-                    MeasureChooseDeviceActivity.startActivity(context, false);
+                    if (servicePackageType != null) {
+                        MeasureChooseDeviceActivity.startActivity(context, false, servicePackageType.toString(),servicePackageUUID.toString());
+                    } else {
+                        MeasureChooseDeviceActivity.startActivity(context, false);
+                    }
                 }
                 break;
             case ReceiveActionNames.FIRST_DIAGNOSIS:

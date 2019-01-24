@@ -59,4 +59,13 @@ public interface HealthMeasureServer {
             @Query("endTimeStamp") long endTimeStamp,
             @Query("num") String page);
 
+    /**
+     * 取消套餐
+     * @param setmealId
+     * @return
+     */
+    @GET("ZZB/order/end_set_meal")
+    Observable<Object> cancelServicePackage(
+            @Query("setmealId") String setmealId
+    );
 }

@@ -3,8 +3,11 @@ package com.example.han.referralproject.settting.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
@@ -18,6 +21,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.UpdateAppManager;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.VersionHelper;
 import com.gcml.common.widget.dialog.AlertDialog;
@@ -134,43 +138,25 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         dialog.show(getFragmentManager(), "voicedialog");
     }
 
-//    private void showSetVoiceNameDialog() {
-//        final String[] voicers = voicers();
-//        int index = mIatPreferences.getInt("language_index", 0);
-//        new AlertDialog.Builder(this)
-//                .setTitle("设置发音人")
-//                .setSingleChoiceItems(
-//                        voicers,
-//                        index,
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                mIatPreferences.edit()
-//                                        .putString("iat_language_preference", voicers[which])
-//                                        .putInt("language_index", which)
-//                                        .commit();
-//                                dialog.dismiss();
-//                            }
-//                        }
-//                )
-//                .create()
-//                .showShort();
-//    }
-
     private void checkAppInfo() {
         LoadingDialog tipDialog = new LoadingDialog.Builder(SettingActivity.this)
                 .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("检查更新中")
                 .create();
         tipDialog.show();
+
         NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
             @Override
             public void onSuccess(VersionInfoBean response) {
                 tipDialog.dismiss();
-                if (response != null && response.vid > VersionHelper.getAppVersionCode(getApplicationContext())) {
-                    checkUpdate(FILE_NAME, response.v_log, response.vid, response.vnumber, response.url, response.v_md5);
-                } else {
-                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
+                try {
+                    if (response != null && response.vid > getPackageManager().getPackageInfo(SettingActivity.this.getPackageName(), 0).versionCode) {
+                        new UpdateAppManager(SettingActivity.this).showNoticeDialog(response.url);
+                    } else {
+                        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }, new NetworkManager.FailedCallback() {
@@ -180,34 +166,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 MLVoiceSynthetize.startSynthesize(getApplicationContext(), "当前已经是最新版本了", false);
             }
         });
-
     }
 
-    private void checkUpdate(final String checkUrl, final String updateLog, final int versionCode, final String versionName, final String updateUrl, final String updateMD5) {
-//        UpdateManager.create(this).setChecker(new IUpdateChecker() {
-//            @Override
-//            public void check(ICheckAgent agent, String url) {
-//                Log.e("ezy.update", "checking");
-//                agent.setInfo("");
-//            }
-//        }).setUrl(checkUrl).setManual(true).setNotifyId(998).setParser(new IUpdateParser() {
-//            @Override
-//            public UpdateInfo parse(String source) throws Exception {
-//                UpdateInfo info = new UpdateInfo();
-//                info.hasUpdate = true;
-//                info.updateContent = updateLog;
-//                info.versionCode = versionCode;
-//                info.versionName = versionName;
-//                info.url = updateUrl;
-//                info.md5 = updateMD5;
-//                info.size = 10149314;
-//                info.isForce = false;
-//                info.isIgnorable = true;
-//                info.isSilent = false;
-//                return info;
-//            }
-//        }).check();
-    }
 
     private void showClearCacheDialog() {
         new AlertDialog(SettingActivity.this).builder()
