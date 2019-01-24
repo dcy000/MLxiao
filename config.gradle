@@ -20,7 +20,7 @@ ext {
     developUrl = api.hosTestUrl
 
     //线上正式运行的IP地址
-    produceUrl = api.hosProduce
+    produceUrl = api.hosTestUrl
 
     baseUrls = [
             "debug"  : "\"http://118.31.238.207:8080/\"",
@@ -33,7 +33,7 @@ ext {
             minSdkVersion    : 19,
             targetSdkVersion : 27,
             versionCode      : 26,
-            versionName      : "Robot-HOS-ML.1.2.3"
+            versionName      : "Robot-HOS-SDHG.1.0.0"
     ]
 
     version = [

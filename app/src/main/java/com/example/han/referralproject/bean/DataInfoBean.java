@@ -21,44 +21,45 @@ public class DataInfoBean {
     public String cholesterol;//胆固醇
     public String uric_acid;//尿酸
     public String sugar_time;//测量血糖的时间：空腹，饭后一小时，饭后两小时
-    public boolean upload_state;//是否强制插入异常数据表示
-    public Map<String, String> getParamsMap(){
+    public boolean upload_state = true;//是否强制插入异常数据表示
+
+    public Map<String, String> getParamsMap() {
         Map<String, String> paramsMap = new HashMap<>();
         paramsMap.put("time", String.valueOf(System.currentTimeMillis()));
         paramsMap.put("userid", MyApplication.getInstance().userId);
         paramsMap.put("eqid", Utils.getDeviceId());
-        if (!TextUtils.isEmpty(temper_ature)){
+        if (!TextUtils.isEmpty(temper_ature)) {
             paramsMap.put("temper_ature", temper_ature);
         }
-        if (high_pressure != 0){
+        if (high_pressure != 0) {
             paramsMap.put("high_pressure", String.valueOf(high_pressure));
             paramsMap.put("low_pressure", String.valueOf(low_pressure));
             paramsMap.put("pulse", String.valueOf(pulse));
         }
-        if (!TextUtils.isEmpty(blood_sugar)){
+        if (!TextUtils.isEmpty(blood_sugar)) {
             paramsMap.put("blood_sugar", blood_sugar);
         }
-        if (!TextUtils.isEmpty(blood_oxygen)){
+        if (!TextUtils.isEmpty(blood_oxygen)) {
             paramsMap.put("blood_oxygen", blood_oxygen);
         }
-        if (heart_rate != 0){
+        if (heart_rate != 0) {
             paramsMap.put("heart_rate", String.valueOf(heart_rate));
             paramsMap.put("ecg", String.valueOf(ecg));
         }
-        if (!TextUtils.isEmpty(cholesterol)){
+        if (!TextUtils.isEmpty(cholesterol)) {
             paramsMap.put("cholesterol", cholesterol);
         }
-        if (!TextUtils.isEmpty(uric_acid)){
+        if (!TextUtils.isEmpty(uric_acid)) {
             paramsMap.put("uric_acid", uric_acid);
         }
-        if(!TextUtils.isEmpty(sugar_time)){
-            paramsMap.put("sugar_time",sugar_time);
+        if (!TextUtils.isEmpty(sugar_time)) {
+            paramsMap.put("sugar_time", sugar_time);
         }
-        if (weight != 0){
+        if (weight != 0) {
             paramsMap.put("weight", String.format("%.2f", weight));
         }
-        if (upload_state){
-            paramsMap.put("upload_state","true");
+        if (upload_state) {
+            paramsMap.put("upload_state", "true");
         }
         return paramsMap;
     }
