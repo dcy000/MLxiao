@@ -47,7 +47,7 @@ public class ECGFollowUpFragment extends ECG_Fragment {
             ecgInfo.heart_rate = resultBean.getAvgbeats().get(0).getHR();
 
             data.putString("ecg", ecgInfo.ecg + "");
-            data.putString("heartRate", ecgInfo.heart_rate + "");
+            data.putString("heartRate", ecgInfo.heart_rate +"");
             NetworkApi.postData(ecgInfo, response -> {
                 T.show("数据上传成功");
             }, message -> {

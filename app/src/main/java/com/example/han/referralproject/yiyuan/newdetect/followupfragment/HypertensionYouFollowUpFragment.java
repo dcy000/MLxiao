@@ -71,7 +71,7 @@ public class HypertensionYouFollowUpFragment extends Bloodpressure_Fragment {
             info.upload_state = true;
         }
         NetworkApi.postData(info, response -> {
-            T.show("数据上传失败");
+            T.show("数据上传成功");
         }, message -> {
             T.show("数据上传失败");
         });

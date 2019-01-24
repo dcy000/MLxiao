@@ -246,7 +246,7 @@ public class DetectResultActivity extends BaseActivity {
         detectResult.setEcg(ecg);
 
         //健康体检
-        detectResult.heartRate = getIntent().getIntExtra("heartRate", 0);
+        detectResult.heartRate = Integer.parseInt(getIntent().getStringExtra("heartRate"));
 
         String cholesterol = getIntent().getStringExtra("cholesterol");
         if (!TextUtils.isEmpty(cholesterol)) {
