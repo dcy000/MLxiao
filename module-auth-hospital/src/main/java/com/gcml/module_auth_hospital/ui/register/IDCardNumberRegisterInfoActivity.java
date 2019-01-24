@@ -32,6 +32,7 @@ import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
+import com.gcml.module_auth_hospital.ui.login.UserLogins2Activity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -185,7 +186,6 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
                 .build();
 
         pvOptions.setPicker(getNationItems());
-        pvOptions.setSelectOptions(125);
         pvOptions.show();
     }
 
@@ -242,6 +242,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
                     @Override
                     public void onNext(UserEntity userEntity) {
                         ToastUtils.showLong("身份证注册成功");
+                        ActivityHelper.finishAll();
                         CC.obtainBuilder("com.gcml.auth.face2.signup")
                                 .build()
                                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
@@ -252,6 +253,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
                                             startActivity(new Intent(IDCardNumberRegisterInfoActivity.this, RegisterSuccessActivity.class)
                                                     .putExtra("idcard", number));
                                         } else {
+                                            ToastUtils.showShort("人脸注册失败");
                                             toLogin();
                                         }
                                     }
@@ -277,7 +279,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
     private void toLogin() {
         //关闭 注册时的 扫面sfz和信息录入页面
         finish();
-        startActivity(new Intent(this, ScanIdCardRegisterActivity.class));
+        startActivity(new Intent(this, UserLogins2Activity.class));
     }
 
 

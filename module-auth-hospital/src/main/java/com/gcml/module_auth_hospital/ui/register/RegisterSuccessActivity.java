@@ -14,6 +14,8 @@ import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.Utils;
+import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -74,8 +76,8 @@ public class RegisterSuccessActivity extends BaseActivity implements View.OnClic
         tvAuthRegisterSuccessComplete.setOnClickListener(this);
 
         tbAuthRegisterSuccess.setData("账 户 注 册",
-                R.drawable.common_btn_back, "返回",
-                R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
+               0, null,
+               0, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
                         finish();
@@ -97,11 +99,12 @@ public class RegisterSuccessActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_auth_register_success_complete) {
-
+            login();
         }
     }
 
-    private void login(String deviceId) {
+    private void login() {
+
         Intent intent = getIntent();
         if (intent != null) {
             return;
@@ -113,7 +116,7 @@ public class RegisterSuccessActivity extends BaseActivity implements View.OnClic
         }
 
         repository
-                .signInByIdCard(deviceId, idcard)
+                .signInByIdCard(Utils.getDeviceId(UtilsManager.getApplication().getContentResolver()), idcard)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
