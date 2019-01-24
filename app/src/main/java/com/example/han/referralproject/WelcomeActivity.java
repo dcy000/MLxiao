@@ -38,8 +38,8 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            initContentView();
+        super.onCreate(savedInstanceState);
+        initContentView();
     }
 
     private void initContentView() {
@@ -81,8 +81,8 @@ public class WelcomeActivity extends BaseActivity {
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
 //                                    if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                        Intent intent = new Intent(getApplicationContext(), ChoiceLoginTypeActivity.class);
-                                        startActivity(intent);
+                                    Intent intent = new Intent(getApplicationContext(), ChoiceLoginTypeActivity.class);
+                                    startActivity(intent);
 //                                    } else {
 //                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 //                                        startActivity(intent);
@@ -112,8 +112,8 @@ public class WelcomeActivity extends BaseActivity {
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
 //                            if (TextUtils.isEmpty(MyApplication.getInstance().userId)) {
-                                Intent intent = new Intent(getApplicationContext(), ChoiceLoginTypeActivity.class);
-                                startActivity(intent);
+                            Intent intent = new Intent(getApplicationContext(), ChoiceLoginTypeActivity.class);
+                            startActivity(intent);
 ////                            } else {
 //                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 //                                startActivity(intent);
