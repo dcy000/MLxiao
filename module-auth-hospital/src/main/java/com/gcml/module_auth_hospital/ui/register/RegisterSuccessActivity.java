@@ -64,7 +64,7 @@ public class RegisterSuccessActivity extends BaseActivity implements View.OnClic
                 })
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(aLong -> {
-                    ToastUtils.showShort("时间到,跳转到主页面");
+                    login();
                 });
 
 
@@ -106,7 +106,7 @@ public class RegisterSuccessActivity extends BaseActivity implements View.OnClic
     private void login() {
 
         Intent intent = getIntent();
-        if (intent != null) {
+        if (intent == null) {
             return;
         }
 

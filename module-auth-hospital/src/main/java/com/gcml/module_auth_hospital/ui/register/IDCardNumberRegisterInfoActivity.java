@@ -22,6 +22,7 @@ import com.gcml.common.IConstant;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.Province;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
@@ -241,6 +242,7 @@ public class IDCardNumberRegisterInfoActivity extends BaseActivity implements Vi
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
+                        UserSpHelper.setUserId(userEntity.id);
                         ToastUtils.showLong("身份证注册成功");
                         ActivityHelper.finishAll();
                         CC.obtainBuilder("com.gcml.auth.face2.signup")

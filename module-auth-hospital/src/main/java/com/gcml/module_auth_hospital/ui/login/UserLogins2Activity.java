@@ -24,6 +24,7 @@ import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
+import com.gcml.module_auth_hospital.ui.register.RegisterSuccessActivity;
 import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -122,7 +123,8 @@ public class UserLogins2Activity extends BaseActivity {
                                                 public void onResult(CC cc, CCResult result) {
                                                     boolean skip = "skip".equals(result.getErrorMessage());
                                                     if (result.isSuccess() || skip) {
-                                                        ToastUtils.showShort("成功");
+//                                                        CC.obtainBuilder("com.gcml.old.main").build().callAsync();
+                                                        startActivity(new Intent(UserLogins2Activity.this, RegisterSuccessActivity.class));
                                                     } else {
                                                         ToastUtils.showShort(result.getErrorMessage());
                                                     }
