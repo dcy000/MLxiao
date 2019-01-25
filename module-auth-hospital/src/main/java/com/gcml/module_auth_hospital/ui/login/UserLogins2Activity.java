@@ -1,10 +1,8 @@
 package com.gcml.module_auth_hospital.ui.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,9 +10,8 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
-import com.gcml.common.AppHelper;
+import com.gcml.common.IConstant;
 import com.gcml.common.base.BaseActivity;
-import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.server.ServerBean;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -123,8 +120,8 @@ public class UserLogins2Activity extends BaseActivity {
                                                 public void onResult(CC cc, CCResult result) {
                                                     boolean skip = "skip".equals(result.getErrorMessage());
                                                     if (result.isSuccess() || skip) {
-//                                                        CC.obtainBuilder("com.gcml.old.main").build().callAsync();
-                                                        startActivity(new Intent(UserLogins2Activity.this, RegisterSuccessActivity.class));
+//                                                        startActivity(new Intent(UserLogins2Activity.this, RegisterSuccessActivity.class));
+                                                        CC.obtainBuilder(IConstant.KEY_INUIRY_ENTRY).build().callAsync();
                                                     } else {
                                                         ToastUtils.showShort(result.getErrorMessage());
                                                     }

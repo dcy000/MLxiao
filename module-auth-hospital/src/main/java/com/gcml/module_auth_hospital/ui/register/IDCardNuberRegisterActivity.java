@@ -57,7 +57,7 @@ public class IDCardNuberRegisterActivity extends BaseActivity implements View.On
         tvNext.setOnClickListener(this);
         ccetPhone.setListener(this);
 
-        ccetPhone.setValue("340321199112256551");
+//        ccetPhone.setValue("340321199112256551");
 
         translucentToolBar.setData("身 份 证 扫 描 注 册",
                 R.drawable.common_btn_back, "返回",
