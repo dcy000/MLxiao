@@ -104,12 +104,13 @@ repositories {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //cc
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     addComponent 'module-recreation'
     addComponent 'module-health-measure'
     addComponent 'module-auth'
     addComponent 'lib-auth-face'
     addComponent 'module-task'
-    addComponent 'module-mall'
+//    addComponent 'module-mall'
     addComponent 'module-video'
     addComponent 'lib-bluetooth'
     implementation project(':lib-common-business')

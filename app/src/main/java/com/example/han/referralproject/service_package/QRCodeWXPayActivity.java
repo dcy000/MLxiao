@@ -1,4 +1,4 @@
-package com.example.han.referralproject.recharge;
+package com.example.han.referralproject.service_package;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -15,9 +14,12 @@ import android.widget.Toast;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.NDialog1;
+import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recharge.BillUtils;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.common.data.UserSpHelper;
 
@@ -27,7 +29,6 @@ import java.util.Map;
 
 import cn.beecloud.BCCache;
 import cn.beecloud.BCOfflinePay;
-import cn.beecloud.BCPay;
 import cn.beecloud.BCQuery;
 import cn.beecloud.async.BCCallback;
 import cn.beecloud.async.BCResult;
@@ -35,8 +36,12 @@ import cn.beecloud.entity.BCBillStatus;
 import cn.beecloud.entity.BCQRCodeResult;
 import cn.beecloud.entity.BCQueryBillResult;
 import cn.beecloud.entity.BCReqParams;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
-public class PayInfoActivity extends BaseActivity implements View.OnClickListener {
+public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickListener {
 
     private static final int REQ_QRCODE_CODE = 1;
     private static final int NOTIFY_RESULT = 10;
@@ -48,7 +53,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
     String billId;
     String billId1;
 
-    String type = "BC_ALI_QRCODE";
+    String type = "WX_NATIVE";
     BCReqParams.BCChannelTypes channelType;
     String billTitle;
 
@@ -60,6 +65,10 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
     ImageView qrcodeImg;
     ImageView qrcodeImg1;
+
+    private String orderId;
+    private boolean isSkip;
+    private String servicePackageType;
 
     private Handler mHandler = new Handler(new Handler.Callback() {
 
@@ -73,27 +82,35 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                     qrcodeImg1.setImageBitmap(qrCodeBitMap1);
                     break;
                 case NOTIFY_RESULT:
-                    Toast.makeText(PayInfoActivity.this, notify, Toast.LENGTH_LONG).show();
+                    Toast.makeText(QRCodeWXPayActivity.this, notify, Toast.LENGTH_LONG).show();
                     break;
                 case ERR_CODE:
-                    Toast.makeText(PayInfoActivity.this, errMsg, Toast.LENGTH_LONG).show();
+                    Toast.makeText(QRCodeWXPayActivity.this, errMsg, Toast.LENGTH_LONG).show();
                     break;
                 case 2:
-                    Double numbers = Double.parseDouble(number) / 100;
+                    AppRepository.servicePackageEffective(servicePackageType, orderId)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new DefaultObserver<String>() {
+                                @Override
+                                public void onNext(String data) {
+                                    if (isSkip) {
+                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true, servicePackageType, data);
+                                        return;
+                                    }
+                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false, servicePackageType, data);
+                                }
 
-                    NetworkApi.PayInfo(Utils.getDeviceId(), numbers + "", date.getTime() + "", UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<String>() {
-                        @Override
-                        public void onSuccess(String response) {
-                            Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-                            speak(getString(R.string.pay_success));
-                        }
-                    }, new NetworkManager.FailedCallback() {
-                        @Override
-                        public void onFailed(String message) {
-                            sign = false;
-                            Log.e("支付成功同步到我们的后台", "onFailed: "+message);
-                        }
-                    });
+                                @Override
+                                public void onError(Throwable e) {
+                                    Timber.e("套餐失效失败"+e.getMessage());
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
 
                     break;
 
@@ -102,7 +119,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                     NetworkApi.PayInfo(Utils.getDeviceId(), number1 + "", date.getTime() + "", UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<String>() {
                         @Override
                         public void onSuccess(String response) {
-                            Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(QRCodeWXPayActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                             speak(getString(R.string.pay_success));
                         }
                     }, new NetworkManager.FailedCallback() {
@@ -129,25 +146,40 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pay_info);
-
+        setContentView(R.layout.activity_qrcode_wx_pay);
         mToolbar.setVisibility(View.VISIBLE);
-
-        mTitleText.setText(getString(R.string.pay));
-
-        speak(getString(R.string.zhanghu_chongzhi));
-
-    /*    mImageView1 = (ImageView) findViewById(R.id.health_record_icon_back);
-        mImageView2 = (ImageView) findViewById(R.id.health_record_icon_home);
-*/
+        mTitleText.setText("套 餐 购 买");
+        speak("请使用微信扫码进行购买");
         Intent intent = getIntent();
         number = intent.getStringExtra("number");//5000
+        isSkip = intent.getBooleanExtra("isSkip", false);
+        servicePackageType = intent.getStringExtra("ServicePackage");
+        String des = intent.getStringExtra("description");
+        AppRepository.bugServicePackage(number, des)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        orderId = o + "";
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
         //对于二维码，微信使用 WX_NATIVE 作为channel参数
         //支付宝使用ALI_OFFLINE_QRCODE
 
         channelType = BCReqParams.BCChannelTypes.valueOf(type);
-        billTitle = "请使用微信扫码进行购买";
+        billTitle = "山东合贵网络科技有限公司";
 
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setMessage("处理中，请稍候...");
@@ -313,8 +345,8 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
     void reqQrCode() {
         loadingDialog.show();
         Map<String, String> optional = new HashMap<String, String>();
-        optional.put("用途", "用户充值");
-        optional.put("testEN", "山东合贵");
+        optional.put("用途", "套餐购买");
+        optional.put("testEN", "合贵");
 
         //初始化回调入口
         BCCallback callback = new BCCallback() {
@@ -443,5 +475,6 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
         super.onStop();
         sign = false;
         sign1 = false;
+        finish();
     }
 }

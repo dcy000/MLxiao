@@ -142,9 +142,9 @@
         <activity
             android:name=".activity.WifiConnectActivity"
             android:screenOrientation="landscape" />
-        <!--<activity-->
-        <!--android:name="com.gcml.auth.ui.signup.UserProtocolActivity"-->
-        <!--android:screenOrientation="landscape" />-->
+        <!-- <activity -->
+        <!-- android:name="com.gcml.auth.ui.signup.UserProtocolActivity" -->
+        <!-- android:screenOrientation="landscape" /> -->
         <activity
             android:name=".activity.PreviousHistoryActivity"
             android:screenOrientation="landscape" />
@@ -364,7 +364,6 @@
             android:name="com.medlink.danbogh.call2.NimCallActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
-
         <activity
             android:name="com.medlink.danbogh.alarm.ReminderActivity"
             android:screenOrientation="landscape" />
@@ -418,8 +417,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name="com.gcml.old.auth.personal.PersonDetailActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SelectXuetangTimeActivity"
             android:screenOrientation="landscape" />
@@ -482,11 +481,12 @@
         <activity
             android:name=".intelligent_diagnosis.DeleteGroupActivity"
             android:screenOrientation="landscape">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".tool.JieMengActivity"
@@ -699,18 +699,27 @@
         <activity
             android:name=".hypertensionmanagement.activity.DetecteTipActivity"
             android:screenOrientation="landscape" />
-        <!--<activity android:name=".recommend.RecommendActivity" />-->
+        <!-- <activity android:name=".recommend.RecommendActivity" /> -->
         <activity
             android:name=".searchmaket.activity.SearchGoodsActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".recyclerview.DoctorappoActivity2"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".service_package.ServicePackageActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".service_package.QRCodeAliPayActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".service_package.ServicePackageDetailActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".recyclerview.DoctorappoActivity2"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".service_package.ServicePackageActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".service_package.QRCodeAliPayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".service_package.ServicePackageDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".service_package.QRCodeWXPayActivity"
+            android:screenOrientation="landscape">
+
+        </activity>
     </application>
 
 </manifest>

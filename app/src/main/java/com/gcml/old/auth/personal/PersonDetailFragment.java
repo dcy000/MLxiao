@@ -243,9 +243,9 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), OrderListActivity.class));
                 break;
             case R.id.iv_pay:
-                ToastUtils.showShort("该功能暂未开放");
-                MLVoiceSynthetize.startSynthesize(MyApplication.getInstance(),"该功能暂未开放",false);
-//                startActivity(new Intent(getActivity(), PayActivity.class));
+//                ToastUtils.showShort("该功能暂未开放");
+//                MLVoiceSynthetize.startSynthesize(MyApplication.getInstance(),"该功能暂未开放",false);
+                startActivity(new Intent(getActivity(), PayActivity.class));
 //                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
                 break;
             case R.id.iv_message:
