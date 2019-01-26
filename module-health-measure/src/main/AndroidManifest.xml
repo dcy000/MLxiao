@@ -73,7 +73,7 @@
             android:name=".health_profile.AddHealthCheckupActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".health_profile.AddBloodpressureFollowupActivity"
+            android:name=".health_profile.AddFollowupActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".health_profile.AddBloodsugarFollowupActivity"

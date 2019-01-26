@@ -5,6 +5,7 @@ import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.module_health_profile.bean.HealthProfileMenuBean;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
+import com.gcml.module_health_profile.bean.OutputMeasureBean;
 
 import java.util.List;
 
@@ -41,5 +42,15 @@ public class HealthProfileRepository {
      */
     public Observable<Doctor> getDoctorInfo(String doctorId) {
         return healthProfile.queryDoctorInfo(doctorId).compose(RxUtils.apiResultTransformer());
+    }
+
+    /**
+     * 查询需要打印的健康数据
+     * @param rdRecordId
+     * @param userHealthRecordId
+     * @return
+     */
+    public Observable<List<OutputMeasureBean>> getHealthRecordMeasureResult(String rdRecordId, String userHealthRecordId) {
+        return healthProfile.getHealthRecordMeasureResult(rdRecordId, userHealthRecordId).compose(RxUtils.apiResultTransformer());
     }
 }

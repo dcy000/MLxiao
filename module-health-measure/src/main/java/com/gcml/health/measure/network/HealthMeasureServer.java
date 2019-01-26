@@ -58,4 +58,13 @@ public interface HealthMeasureServer {
             @Query("endTimeStamp") long endTimeStamp,
             @Query("num") String page);
 
+    @GET("ZZB/api/health/record/{rdRecordId}/detection/")
+    Observable<ApiResult<List<String>>> getDevices(
+            @Path("rdRecordId") String rdRecordId
+    );
+
+    @GET("ZZB/api/health/record/healthRecord/{userRecordId}/")
+    Observable<ApiResult<List<DetectionResult>>> postHealthRecordMeasureData(
+            @Path("userRecordId") String userRecordId
+    );
 }

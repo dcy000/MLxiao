@@ -115,4 +115,22 @@ public class HealthMeasureRepository {
     public static Observable<NewWeeklyOrMonthlyBean> getWeeklyOrMonthlyReport(long endTimeStamp, String page) {
         return healthMeasureServer.getWeeklyOrMonthlyReport(UserSpHelper.getUserId(), endTimeStamp, page).compose(RxUtils.apiResultTransformer());
     }
+
+    /**
+     * 获取健康档案中应该测量的设备
+     * @param rdRecordId
+     * @return
+     */
+    public static Observable<List<String>> getDevices(String rdRecordId){
+        return healthMeasureServer.getDevices(rdRecordId).compose(RxUtils.apiResultTransformer());
+    }
+
+    /**
+     * 健康档案测量的数据上传
+     * @param userRecordId
+     * @return
+     */
+    public static Observable<List<DetectionResult>> postHealthRecordMeasureData(String userRecordId){
+        return healthMeasureServer.postHealthRecordMeasureData(userRecordId).compose(RxUtils.apiResultTransformer());
+    }
 }

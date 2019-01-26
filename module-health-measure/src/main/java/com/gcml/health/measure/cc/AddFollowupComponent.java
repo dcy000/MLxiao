@@ -1,4 +1,4 @@
-package com.gcml.module_health_profile.cc;
+package com.gcml.health.measure.cc;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,24 +6,24 @@ import android.content.Intent;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.IComponent;
-import com.gcml.module_health_profile.OutputResultActivity;
+import com.gcml.health.measure.health_profile.AddFollowupActivity;
 
-public class OutputComponent implements IComponent {
+public class AddFollowupComponent implements IComponent {
     @Override
     public String getName() {
-        return "health.profile.outputresult";
+        return "health.profile.add.followup";
     }
 
     @Override
     public boolean onCall(CC cc) {
         Context context = cc.getContext();
+        String healthRecordId = cc.getParamItem("healthRecordId");
         String rdRecordId = cc.getParamItem("rdRecordId");
-        String userRecordId = cc.getParamItem("userRecordId");
-        Intent intent = new Intent(context, OutputResultActivity.class);
+        Intent intent = new Intent(context, AddFollowupActivity.class);
+        intent.putExtra("healthRecordId", healthRecordId);
         intent.putExtra("rdRecordId", rdRecordId);
-        intent.putExtra("userRecordId", userRecordId);
         if (!(context instanceof Activity)) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
         return false;

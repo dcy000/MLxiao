@@ -1,22 +1,34 @@
 package com.gcml.module_health_profile;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_printer_8003dd.ConnectPrinterHelper;
 import com.gcml.lib_printer_8003dd.IPrinterView;
 import com.gcml.lib_widget.EclipseLinearLayout;
+import com.gcml.module_health_profile.bean.OutputMeasureBean;
+import com.gcml.module_health_profile.data.HealthProfileRepository;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class OutputResultActivity extends ToolbarBaseActivity implements View.OnClickListener, IPrinterView {
     private ImageView mIvQr;
@@ -35,18 +47,75 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
      */
     private TextView mTvGohome;
     private ConnectPrinterHelper printerHelper;
+    private String rdRecordId;
+    private String userRecordId;
+    private WebView mX5Webview;
+    private String typeString;
+    private String rdRecordIdString;
+    private String userIdString;
+    private String healthRecordIdString;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_output_result);
         initView();
-        initPrinter();
+        initWebView();
     }
 
-    private void initPrinter() {
-        printerHelper = new ConnectPrinterHelper(this);
-        printerHelper.start();
+    private void initWebView() {
+        WebSettings webSettings = mX5Webview.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        //设置自适应屏幕，两者合用
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // chromium, enable hardware acceleration
+            mX5Webview.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        } else {
+            // older android version, disable hardware acceleration
+            mX5Webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
+        //提高渲染的优先级
+        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+        //图片放最后渲染
+        webSettings.setBlockNetworkImage(true);
+        //缩放操作
+        webSettings.setSupportZoom(false);
+        webSettings.setBuiltInZoomControls(false);
+        webSettings.setDisplayZoomControls(false);
+
+        //不显示滚动条
+        mX5Webview.setVerticalScrollBarEnabled(false);
+
+        //安全漏洞问题
+        webSettings.setAllowFileAccessFromFileURLs(false);
+
+        //缓存
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        webSettings.setDomStorageEnabled(false);
+        webSettings.setDatabaseEnabled(false);
+        String cacheDirPath = getFilesDir().getAbsolutePath() + "/xwebview";
+        webSettings.setDatabasePath(cacheDirPath);
+        webSettings.setAppCachePath(cacheDirPath);
+        webSettings.setAppCacheMaxSize(20 * 1024 * 1024);
+        webSettings.setAppCacheEnabled(false);
+
+        webSettings.setAllowFileAccess(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setLoadsImagesAutomatically(true);
+        webSettings.setDefaultTextEncodingName("utf-8");
+
+        mX5Webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView webView, String s) {
+                super.onPageFinished(webView, s);
+                webView.loadUrl("javascript:uniqueMark(" + typeString + "," + rdRecordIdString + "," + userIdString + "," + healthRecordIdString + ")");
+            }
+        });
+        mX5Webview.loadUrl("http://192.168.0.116:8080/#/");
     }
 
     private void initView() {
@@ -59,7 +128,51 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
         mLl2.setOnClickListener(this);
         mTvGohome = (TextView) findViewById(R.id.tv_gohome);
         mTvGohome.setOnClickListener(this);
+        mX5Webview = (WebView) findViewById(R.id.x5_webview);
+        rdRecordId = getIntent().getStringExtra("rdRecordId");
+        userRecordId = getIntent().getStringExtra("userRecordId");
+        typeString = "'高血压二维码扫描'";
+        rdRecordIdString = "'" + rdRecordId + "'";
+        userIdString = "'" + UserSpHelper.getUserId() + "'";
+        healthRecordIdString = "'" + userRecordId + "'";
+
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
+        initPrinter();
+    }
+
+    private void getData() {
+        HealthProfileRepository repository = new HealthProfileRepository();
+        repository.getHealthRecordMeasureResult(rdRecordId, userRecordId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<List<OutputMeasureBean>>() {
+                    @Override
+                    public void onNext(List<OutputMeasureBean> outputMeasureBeans) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void initPrinter() {
+        printerHelper = new ConnectPrinterHelper(this);
+        printerHelper.start();
+    }
+
 
     @Override
     public void onClick(View v) {

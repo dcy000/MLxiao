@@ -29,6 +29,11 @@ public class PersionallWebActivity extends BaseX5WebViewActivity {
     }
 
     @Override
+    protected void removeJavascriptInterface(WebView webView) {
+
+    }
+
+    @Override
     protected void onWebViewPageStart(WebView webView) {
 
     }

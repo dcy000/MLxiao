@@ -8,7 +8,7 @@ ext {
             spareUrl      : "\"http://116.62.36.12:8080/\"",//备用服务器
             produceUrl    : "\"http://118.31.238.207:8080/\"",//正式服务器
             sungaofengUrl : "\"http://192.168.200.106:8080/\"",//孙高峰
-            lintiancongUrl: "\"http://192.168.200.244:8080/\"",//林天聪
+            lintiancongUrl: "\"http://192.168.200.230:8080/\"",//林天聪
             caowenbo      : "\"http://192.168.200.157:8080/\"",//曹文博
 
             seniverse     : "\"https://api.seniverse.com/v3/\"", // 心知天气 baseUrl

@@ -1,7 +1,9 @@
 package com.gcml.module_health_profile.fragments;
 
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,24 +12,32 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.divider.LinearLayoutDividerItemDecoration;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.module_health_profile.HealthProfileActivity;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
-import com.gcml.module_health_profile.webview.AddBloodpressureWebActivity;
-import com.gcml.module_health_profile.webview.EditAndLookHealthProfileActivity;
+import com.gcml.module_health_profile.webview.AddHealthProfileActivity;
+import com.gcml.module_health_profile.webview.SeeBloodpressureWebActivity;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class BloodpressureFollowupFragment extends RecycleBaseFragment implements View.OnClickListener {
     private String recordId;
@@ -52,6 +62,7 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
     private RecyclerView mRv;
     private BaseQuickAdapter<HealthRecordBean, BaseViewHolder> adapter;
     private List<HealthRecordBean> mData;
+    private boolean isBuildHealthRecord = false;
 
     public static BloodpressureFollowupFragment instance(String recordId) {
         Bundle bundle = new Bundle();
@@ -81,6 +92,12 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
         mRv = (RecyclerView) view.findViewById(R.id.rv);
         mData = new ArrayList<>();
         initRV();
+        ((HealthProfileActivity) getActivity()).isBuildHealthRecord.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                isBuildHealthRecord = aBoolean;
+            }
+        });
     }
 
     @Override
@@ -98,7 +115,7 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
             protected void convert(BaseViewHolder helper, HealthRecordBean item) {
                 String createdTime = item.getCreatedTime();
                 if (!TextUtils.isEmpty(createdTime)) {
-                    String[] split = createdTime.split(" ");
+                    String[] split = createdTime.split("\\s+");
                     if (split.length == 2) {
                         helper.setText(R.id.tv_time, split[0]);
                     } else {
@@ -113,7 +130,7 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                getActivity().startActivity(new Intent(getActivity(), EditAndLookHealthProfileActivity.class)
+                getActivity().startActivity(new Intent(getActivity(), SeeBloodpressureWebActivity.class)
                         .putExtra("RdCordId", recordId)
                         .putExtra("HealthRecordId", mData.get(position).getRdUserRecordId()));
             }
@@ -138,6 +155,7 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
                             long time = System.currentTimeMillis() - healthRecordBeans.get(0).getCreatedOn();
                             int days = (int) (time / (24 * 3600 * 1000));
                             mTvCContent.setText("距离上次随访已过去" + days + "天");
+                            mData.clear();
                             mData.addAll(healthRecordBeans);
                             adapter.notifyDataSetChanged();
                         }
@@ -159,9 +177,35 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_new_record) {
-            getActivity().startActivity(new Intent(getActivity(), AddBloodpressureWebActivity.class)
-                    .putExtra("RdCordId", recordId));
+            checkIsSignDoctor();
         } else {
         }
+    }
+
+    private void checkIsSignDoctor() {
+        Observable<UserEntity> rxUsers = CC.obtainBuilder("com.gcml.auth.getUser")
+                .build()
+                .call()
+                .getDataItem("data");
+        rxUsers.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new com.gcml.common.utils.DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        if (TextUtils.isEmpty(user.doctorId)) {
+                            ToastUtils.showShort("请先签约医生");
+                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先签约医生");
+                            return;
+                        }
+                        if (!isBuildHealthRecord) {
+                            ToastUtils.showShort("请先建立个人档案");
+                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先建立个人档案");
+                            return;
+                        }
+                        getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
+                                .putExtra("RdCordId", recordId));
+                    }
+                });
     }
 }

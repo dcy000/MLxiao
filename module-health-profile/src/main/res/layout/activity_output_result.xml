@@ -3,6 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.tencent.smtt.sdk.WebView
+        android:id="@+id/x5_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
     <com.gcml.lib_widget.EclipseLinearLayout
         android:id="@+id/ll_1"
         android:layout_width="600pt"

@@ -13,11 +13,12 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
+import com.gcml.module_health_profile.HealthProfileActivity;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
-import com.gcml.module_health_profile.webview.AddHealthFileActivity;
-import com.gcml.module_health_profile.webview.EditAndLookHealthProfileActivity;
+import com.gcml.module_health_profile.webview.AddHealthProfileActivity;
+import com.gcml.module_health_profile.webview.EditHealthProfileActivity;
 
 import java.util.List;
 
@@ -105,13 +106,19 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
         mTvDoctor = (TextView) view.findViewById(R.id.tv_doctor);
         mTvBuild = (TextView) view.findViewById(R.id.tvBuild);
         mTvBuild.setOnClickListener(this);
-        getData();
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
     }
 
     private void getData() {
         HealthProfileRepository repository = new HealthProfileRepository();
-        repository.getHealthRecordList(recordId, UserSpHelper.getUserId())
+        repository.getHealthRecordList(selfRecordId, UserSpHelper.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
@@ -121,13 +128,15 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
                         if (healthRecordBeans == null || healthRecordBeans.size() == 0) {
                             view.findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
                             view.findViewById(R.id.cl_contain).setVisibility(View.GONE);
+                            ((HealthProfileActivity) getActivity()).isBuildHealthRecord.postValue(false);
                         } else {
+                            ((HealthProfileActivity) getActivity()).isBuildHealthRecord.postValue(true);
                             view.findViewById(R.id.empty_view).setVisibility(View.GONE);
                             view.findViewById(R.id.cl_contain).setVisibility(View.VISIBLE);
                             String createdTime = healthRecordBeans.get(0).getCreatedTime();
                             historyRecordId = healthRecordBeans.get(0).getRdUserRecordId();
                             if (!TextUtils.isEmpty(createdTime)) {
-                                String[] s = createdTime.split(" ");
+                                String[] s = createdTime.split("\\s+");
                                 if (s.length == 2) {
                                     mTvLastBuildTime.setText("最新建档时间:" + s[0]);
                                 } else {
@@ -167,39 +176,40 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
                         mTvSex.setText(user.sex);
                         mTvIdcard.setText(user.idCard);
                         mTvDisease.setText("暂无");
+
+
+                        if ("1".equals(signState)) {
+                        } else if ("0".equals(signState) && !TextUtils.isEmpty(signState)) {
+                            mTvDoctor.setText("待审核");
+                        } else {
+                            mTvDoctor.setText("未签约");
+                        }
+                        if (TextUtils.isEmpty(doctorId)) {
+                            mTvDoctor.setText("未签约");
+                        } else {
+                            repository.getDoctorInfo(doctorId)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .as(RxUtils.autoDisposeConverter(HealthFileFragment.this))
+                                    .subscribe(new DefaultObserver<Doctor>() {
+                                        @Override
+                                        public void onNext(Doctor doctor) {
+                                            mTvDoctor.setText(doctor.doctername);
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
+                                        }
+                                    });
+                        }
                     }
                 });
-        if ("1".equals(signState)) {
-//            mTvDoctor.setText("已签约");
-        } else if ("0".equals(signState) && !TextUtils.isEmpty(signState)) {
-            mTvDoctor.setText("待审核");
-        } else {
-            mTvDoctor.setText("未签约");
-        }
-        if (TextUtils.isEmpty(doctorId)) {
-            mTvDoctor.setText("未签约");
-        } else {
-            repository.getDoctorInfo(doctorId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .as(RxUtils.autoDisposeConverter(this))
-                    .subscribe(new DefaultObserver<Doctor>() {
-                        @Override
-                        public void onNext(Doctor doctor) {
-                            mTvDoctor.setText(doctor.doctername);
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-        }
 
     }
 
@@ -207,11 +217,11 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.tv_edit_health_file) {
-            getActivity().startActivity(new Intent(getActivity(), EditAndLookHealthProfileActivity.class)
+            getActivity().startActivity(new Intent(getActivity(), EditHealthProfileActivity.class)
                     .putExtra("RdCordId", selfRecordId)
                     .putExtra("HealthRecordId", historyRecordId));
         } else if (i == R.id.tvBuild) {
-            getActivity().startActivity(new Intent(getActivity(), AddHealthFileActivity.class)
+            getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
                     .putExtra("RdCordId", selfRecordId));
         }
     }

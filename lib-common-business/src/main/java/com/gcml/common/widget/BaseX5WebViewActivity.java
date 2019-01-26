@@ -47,7 +47,9 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
         initView();
         initWebView();
     }
-    protected void getIntentParam(Intent intent){}
+
+    protected void getIntentParam(Intent intent) {
+    }
 
     private void initView() {
         mIvTopLeft = (ImageView) findViewById(R.id.iv_top_left);
@@ -55,6 +57,7 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
         mLlBack = (LinearLayout) findViewById(R.id.ll_back);
         mLlBack.setOnClickListener(this);
         mTvTopTitle = (TextView) findViewById(R.id.tv_top_title);
+        mTvTopTitle.setText(setTitle());
         mTvTopRight = (TextView) findViewById(R.id.tv_top_right);
         mIvTopRight = (ImageView) findViewById(R.id.iv_top_right);
         mIvTopRight.setOnClickListener(this);
@@ -94,13 +97,13 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
 
         //缓存
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setDatabaseEnabled(true);
-        String cacheDirPath = getFilesDir().getAbsolutePath()+"/xwebview";
+        webSettings.setDomStorageEnabled(false);
+        webSettings.setDatabaseEnabled(false);
+        String cacheDirPath = getFilesDir().getAbsolutePath() + "/xwebview";
         webSettings.setDatabasePath(cacheDirPath);
         webSettings.setAppCachePath(cacheDirPath);
         webSettings.setAppCacheMaxSize(20 * 1024 * 1024);
-        webSettings.setAppCacheEnabled(true);
+        webSettings.setAppCacheEnabled(false);
 
         webSettings.setAllowFileAccess(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
@@ -110,13 +113,6 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
 
         addJavascriptInterface(mX5Webview);
         mX5Webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                Timber.i("X5WebView shouldOverrideUrlLoading>>>" + url);
-                view.loadUrl(url);
-                return true;
-            }
-
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 time = System.currentTimeMillis();
@@ -136,7 +132,7 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
             public void onPageFinished(WebView view, String url) {
                 Timber.i("X5WebView loading end:::::cost time>>" + (System.currentTimeMillis() - time) + ">>>" + url);
                 time = System.currentTimeMillis();
-                if(!isPageFinished){
+                if (!isPageFinished) {
                     isPageFinished = true;
                     onWebViewPageFinished(view);
                 }
@@ -186,11 +182,20 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        removeJavascriptInterface(mX5Webview);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (mX5Webview != null) {
             mX5Webview.clearCache(true);
             mX5Webview.clearHistory();
+            mX5Webview.clearFormData();
+            mX5Webview.clearMatches();
+            mX5Webview.clearSslPreferences();
             mX5Webview.destroy();
         }
     }
@@ -222,6 +227,8 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
     protected abstract void loadUrl(WebView webView);
 
     protected abstract void addJavascriptInterface(WebView webView);
+
+    protected abstract void removeJavascriptInterface(WebView webView);
 
     protected abstract void onWebViewPageStart(WebView webView);
 

@@ -4,6 +4,7 @@ import com.gcml.common.http.ApiResult;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.module_health_profile.bean.HealthProfileMenuBean;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
+import com.gcml.module_health_profile.bean.OutputMeasureBean;
 
 import java.util.List;
 
@@ -42,4 +43,10 @@ public interface HealthProfileAPI {
      */
     @GET("ZZB/docter/sel_one_doctor_con")
     Observable<ApiResult<Doctor>> queryDoctorInfo(@Query("docterid") String doctorId);
+
+    @GET("ZZB/api/health/record/{rdRecordId}/detection/{userRecordId}/")
+    Observable<ApiResult<List<OutputMeasureBean>>> getHealthRecordMeasureResult(
+            @Path("rdRecordId") String rdRecordId,
+            @Path("userRecordId") String userRecordId
+    );
 }

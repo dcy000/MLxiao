@@ -105,8 +105,8 @@ public class TemperaturePresenter extends BaseBluetooth {
         BluetoothStore.getClient().notify(address, UUID.fromString(MEIDILIAN_SERVICE), UUID.fromString(MEIDILIAN_NOTIFY), new BleNotifyResponse() {
             @Override
             public void onNotify(UUID uuid, UUID uuid1, byte[] bytes) {
-                if (bytes[5]==0x65) {
-                    float result = ((float) (bytes[3] << 8) + (float) (bytes[2] & 0xff)) / 10;
+                if (bytes[2]==0x06) {
+                    float result = ((float) (bytes[7] << 8) + (float) (bytes[6] & 0xff)) / 10;
                     if (result < 50) {
                         baseView.updateData(result + "");
                     }

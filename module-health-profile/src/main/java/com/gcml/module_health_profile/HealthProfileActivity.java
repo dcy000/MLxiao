@@ -1,5 +1,6 @@
 package com.gcml.module_health_profile;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -43,7 +44,7 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
     private RadioGroup mRgMenu;
     private ViewPager mVpGoods;
     private LoadingDialog dialog;
-
+    public MutableLiveData<Boolean> isBuildHealthRecord=new MutableLiveData<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
