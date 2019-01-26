@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:56
+-keep class com.gcml.common.App { <init>(...); }
+

@@ -1,0 +1,68 @@
+{
+    "logs": [
+        {
+            "outputFile": "F:\\AP\\dev-hos\\MLxiao\\test\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-zh\\values-zh.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\gcml_gzq\\.gradle\\caches\\transforms-1\\files-1.1\\WheelPicker-1.1.2.aar\\6a323a2328fd5230296f4868d0d422f1\\res\\values-zh\\values-zh.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,89,125",
+                        "endColumns": "33,35,34",
+                        "endOffsets": "84,120,155"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\gcml_gzq\\.gradle\\caches\\transforms-1\\files-1.1\\ultra-ptr-1.0.11.aar\\bbbe2dcf6058036772001f424a0228e3\\res\\values-zh\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "187,240,296,351,401,464,524,579,640",
+                        "endColumns": "52,55,54,49,62,59,54,60,53",
+                        "endOffsets": "235,291,346,396,459,519,574,635,689"
+                    },
+                    "to": {
+                        "startLines": "5,6,7,8,9,10,11,12,13",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "160,213,269,324,374,437,497,552,613",
+                        "endColumns": "52,55,54,49,62,59,54,60,53",
+                        "endOffsets": "208,264,319,369,432,492,547,608,662"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "F:\\AP\\dev-hos\\MLxiao\\test\\build\\intermediates\\res\\merged\\debug\\values-zh\\values-zh.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\gcml_gzq\\.gradle\\caches\\transforms-1\\files-1.1\\WheelPicker-1.1.2.aar\\6a323a2328fd5230296f4868d0d422f1\\res\\values-zh\\values-zh.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,89,125",
+                        "endColumns": "33,35,34",
+                        "endOffsets": "84,120,155"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\gcml_gzq\\.gradle\\caches\\transforms-1\\files-1.1\\ultra-ptr-1.0.11.aar\\bbbe2dcf6058036772001f424a0228e3\\res\\values-zh\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "187,240,296,351,401,464,524,579,640",
+                        "endColumns": "52,55,54,49,62,59,54,60,53",
+                        "endOffsets": "235,291,346,396,459,519,574,635,689"
+                    },
+                    "to": {
+                        "startLines": "5,6,7,8,9,10,11,12,13",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "160,213,269,324,374,437,497,552,613",
+                        "endColumns": "52,55,54,49,62,59,54,60,53",
+                        "endOffsets": "208,264,319,369,432,492,547,608,662"
+                    }
+                }
+            ]
+        }
+    ]
+}

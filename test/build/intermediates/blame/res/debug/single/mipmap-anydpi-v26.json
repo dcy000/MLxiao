@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "F:\\AP\\dev-hos\\MLxiao\\test\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26\\ic_launcher.xml",
+        "source": "F:\\AP\\dev-hos\\MLxiao\\test\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "F:\\AP\\dev-hos\\MLxiao\\test\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26\\ic_launcher_round.xml",
+        "source": "F:\\AP\\dev-hos\\MLxiao\\test\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    }
+]
