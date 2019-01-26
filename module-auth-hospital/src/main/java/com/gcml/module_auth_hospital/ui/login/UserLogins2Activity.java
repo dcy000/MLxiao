@@ -1,10 +1,8 @@
 package com.gcml.module_auth_hospital.ui.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,8 +10,8 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
-import com.gcml.common.AppHelper;
-import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.IConstant;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.server.ServerBean;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -23,6 +21,7 @@ import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
+import com.gcml.module_auth_hospital.ui.register.RegisterSuccessActivity;
 import com.gcml.module_auth_hospital.ui.register.UserRegisters2Activity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -32,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by lenovo on 2019/1/17.
  */
 
-public class UserLogins2Activity extends AppCompatActivity {
+public class UserLogins2Activity extends BaseActivity {
 
     private TranslucentToolBar tb;
     private LinearLayout lllogins;
@@ -64,7 +63,12 @@ public class UserLogins2Activity extends AppCompatActivity {
 
             @Override
             public void onRightClick() {
-                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                onRightClickWithPermission(new BaseActivity.IAction() {
+                    @Override
+                    public void action() {
+                        CC.obtainBuilder("com.gcml.old.setting").build().call();
+                    }
+                });
             }
         });
 
@@ -116,7 +120,8 @@ public class UserLogins2Activity extends AppCompatActivity {
                                                 public void onResult(CC cc, CCResult result) {
                                                     boolean skip = "skip".equals(result.getErrorMessage());
                                                     if (result.isSuccess() || skip) {
-                                                        ToastUtils.showShort("成功");
+//                                                        startActivity(new Intent(UserLogins2Activity.this, RegisterSuccessActivity.class));
+                                                        CC.obtainBuilder(IConstant.KEY_INUIRY_ENTRY).build().callAsync();
                                                     } else {
                                                         ToastUtils.showShort(result.getErrorMessage());
                                                     }

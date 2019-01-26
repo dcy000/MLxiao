@@ -9,15 +9,15 @@
 
         <EditText
             android:id="@+id/tv_phone"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:background="@null"
+            android:digits="1234567890xX"
             android:gravity="center_vertical"
             android:hint="请输入您的身份证号"
             android:inputType="number"
-            android:digits="1234567890xX"
             android:maxLength="18"
             android:paddingLeft="10pt"
             android:textColor="#ff333333"

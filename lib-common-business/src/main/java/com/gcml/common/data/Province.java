@@ -1,5 +1,6 @@
 package com.gcml.common.data;
 
+import com.contrarywind.interfaces.IPickerViewData;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
  * Created by lenovo on 2017/11/2.
  */
 
-public class Province {
+public class Province  implements IPickerViewData {
 
     @SerializedName("name")
     private String name;
@@ -30,5 +31,10 @@ public class Province {
 
     public void setCities(List<City> cities) {
         this.cities = cities;
+    }
+
+    @Override
+    public String getPickerViewText() {
+        return this.name;
     }
 }

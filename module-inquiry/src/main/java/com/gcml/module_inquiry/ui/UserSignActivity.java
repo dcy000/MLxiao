@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -27,19 +27,19 @@ import com.gcml.module_inquiry.wrap.PainterView;
 
 import java.io.ByteArrayOutputStream;
 
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.gcml.common.IConstant.KEY_HEALTH_FILE_ENTRY;
 
 /**
  * Created by lenovo on 2019/1/17.
  */
 
-public class UserSignActivity extends AppCompatActivity implements AffirmSignatureDialog.ClickListener {
+public class UserSignActivity extends BaseActivity implements AffirmSignatureDialog.ClickListener {
     private TextView tvSignatrueConfirm;
     private PainterView signature;
     private AffirmSignatureDialog signatureDialog;
@@ -52,7 +52,6 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_sign);
-        ActivityHelper.addActivity(this);
         initTitle();
         initView();
     }
@@ -69,13 +68,20 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
 
                     @Override
                     public void onRightClick() {
-                        toUserInfo();
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
                     }
 
-                    private void toUserInfo() {
-                        startActivity(new Intent(UserSignActivity.this, UserInfoListActivity.class));
-                    }
                 });
+        setWifiLevel(tb);
+    }
+
+    private void toUserInfo() {
+        startActivity(new Intent(UserSignActivity.this, UserInfoListActivity.class));
     }
 
     private void initView() {
@@ -180,6 +186,7 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
                     public void onNext(String url) {
                         super.onNext(url);
                         verifyFace(doid, url);
+                        dialog.dismiss();
                     }
                 });
     }
@@ -194,7 +201,6 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
                         boolean skip = "skip".equals(result.getErrorMessage());
                         if (result.isSuccess() || skip) {
                             bindDoctor(doid, url);
-                            ActivityHelper.finishAll();
                         } else {
                             ToastUtils.showShort(result.getErrorMessage());
                         }
@@ -211,8 +217,10 @@ public class UserSignActivity extends AppCompatActivity implements AffirmSignatu
                     @Override
                     public void onNext(Object o) {
                         super.onNext(o);
+                        ActivityHelper.finishAll();
                         ToastUtils.showShort("签约成功");
                         dialog.dismiss();
+                        CC.obtainBuilder(KEY_HEALTH_FILE_ENTRY).build().callAsync();
                     }
 
                     @Override

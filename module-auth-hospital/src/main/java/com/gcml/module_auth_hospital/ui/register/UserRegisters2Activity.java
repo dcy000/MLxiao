@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.server.ServerBean;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
@@ -19,6 +22,7 @@ import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
 import com.gcml.module_auth_hospital.ui.login.IDCardNuberLoginActivity;
 import com.gcml.module_auth_hospital.ui.login.ScanIdCardLoginActivity;
+import com.gcml.module_auth_hospital.ui.login.UserLogins2Activity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -27,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by lenovo on 2019/1/17.
  */
 
-public class UserRegisters2Activity extends AppCompatActivity {
+public class UserRegisters2Activity extends BaseActivity {
     private TranslucentToolBar tb;
     private LinearLayout registers;
     private UserRepository repository = new UserRepository();
@@ -49,7 +53,13 @@ public class UserRegisters2Activity extends AppCompatActivity {
 
                     @Override
                     public void onRightClick() {
-                        CC.obtainBuilder("com.gcml.old.setting").build().call();
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
+
                     }
                 });
 
@@ -94,7 +104,21 @@ public class UserRegisters2Activity extends AppCompatActivity {
                             registers.getChildAt(2).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    ToastUtils.showShort("敬请期待");
+//                                    ToastUtils.showShort("敬请期待");
+//                                    CC.obtainBuilder("com.gcml.auth.face2.signup")
+//                                            .build()
+//                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                                                @Override
+//                                                public void onResult(CC cc, CCResult result) {
+//                                                    if (result.isSuccess()) {
+////                                            login(deviceId);
+//                                                        startActivity(new Intent(UserRegisters2Activity.this, RegisterSuccessActivity.class)
+//                                                                .putExtra("idcard", "340321199112256551"));
+//                                                    } else {
+//                                                        ToastUtils.showShort("人脸注册失败");
+//                                                    }
+//                                                }
+//                                            });
                                 }
                             });
 

@@ -14,7 +14,7 @@
         android:layout_width="320pt"
         android:layout_height="320pt"
         android:layout_marginTop="100pt"
-        android:background="#999" />
+        android:background="@drawable/img_register_success" />
 
     <TextView
         android:layout_width="wrap_content"

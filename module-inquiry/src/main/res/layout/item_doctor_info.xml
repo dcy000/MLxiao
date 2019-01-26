@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:background="@drawable/bg_shadow"
         android:layout_marginLeft="40pt"
         android:layout_width="880pt"
         android:layout_height="360pt"

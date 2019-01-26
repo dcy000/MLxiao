@@ -11,6 +11,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
@@ -21,7 +22,7 @@ import static com.gcml.common.IConstant.KEY_INUIRY_DETECTION;
  * Created by lenovo on 2019/1/16.
  */
 
-public class InquiryActivity extends AppCompatActivity {
+public class InquiryActivity extends BaseActivity {
 
     private TranslucentToolBar tb;
     private TextView confirm;
@@ -45,6 +46,12 @@ public class InquiryActivity extends AppCompatActivity {
 
                     @Override
                     public void onRightClick() {
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
                     }
                 });
 
@@ -57,6 +64,8 @@ public class InquiryActivity extends AppCompatActivity {
 
 
         });
+
+        setWifiLevel(tb);
     }
 
     private void toDetection() {
