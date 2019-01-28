@@ -8,10 +8,8 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponent;
 import com.gcml.module_inquiry.ui.BindDoctorActivity;
-import com.gcml.module_inquiry.ui.HealthFileActivity;
 
 import static com.gcml.common.IConstant.KEY_BIND_DOCTOR;
-import static com.gcml.common.IConstant.KEY_HEALTH_FILE_ENTRY;
 
 /**
  * Created by lenovo on 2019/1/21.

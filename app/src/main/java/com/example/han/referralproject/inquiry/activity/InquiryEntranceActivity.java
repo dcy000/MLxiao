@@ -22,7 +22,6 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.gcml.common.IConstant.KEY_BIND_DOCTOR;
-import static com.gcml.common.IConstant.KEY_HEALTH_FILE_ENTRY;
 
 public class InquiryEntranceActivity extends BaseActivity implements View.OnClickListener {
 
@@ -61,7 +60,7 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
                     @Override
                     public void onNext(UserEntity user) {
                         if (user != null && user.doctorId != null) {
-                            bindDoctor = false;
+                            bindDoctor = true;
                         }
                         dismissLoading();
                     }
@@ -100,7 +99,8 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
             startActivity(new Intent(this, InquiryActivity.class));
         } else if (id == R.id.rl_inquiry_home_file) {
             if (bindDoctor) {
-                CC.obtainBuilder(KEY_HEALTH_FILE_ENTRY).build().callAsync();
+                CC.obtainBuilder("health.profile.file").build().callAsync();
+
             } else {
                 CC.obtainBuilder(KEY_BIND_DOCTOR).build().callAsync();
             }
