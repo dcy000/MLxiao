@@ -3,20 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.han.referralproject.WelcomeActivity"
-    android:background="@drawable/img_welcome_logo">
-
+    android:background="@drawable/welcome"
+    tools:context="com.example.han.referralproject.WelcomeActivity">
 
 
     <Chronometer
-        android:visibility="gone"
+        android:id="@+id/chronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/chronometer"
+        android:layout_gravity="center_horizontal"
+        android:focusable="true"
         android:textColor="#ff0303"
         android:textSize="12pt"
-        android:layout_gravity="center_horizontal"
-        android:focusable="true" />
+        android:visibility="gone" />
 
 
 </RelativeLayout>

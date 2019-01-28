@@ -98,7 +98,7 @@
 
         <meta-data
             android:name="com.gcml.version"
-            android:value="Robot-HOS-SDHG" />
+            android:value="Robot-HOS-ML" />
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
@@ -831,6 +831,7 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
