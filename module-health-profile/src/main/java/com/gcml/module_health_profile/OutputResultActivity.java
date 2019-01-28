@@ -1,9 +1,12 @@
 package com.gcml.module_health_profile;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +14,8 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.utils.qrcode.QRCodeUtils;
+import com.gcml.common.widget.base.dialog.DialogImage;
 import com.gcml.lib_printer_8003dd.ConnectPrinterHelper;
 import com.gcml.lib_printer_8003dd.IPrinterView;
 import com.gcml.lib_widget.EclipseLinearLayout;
@@ -29,6 +34,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class OutputResultActivity extends ToolbarBaseActivity implements View.OnClickListener, IPrinterView {
     private ImageView mIvQr;
@@ -54,6 +60,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
     private String rdRecordIdString;
     private String userIdString;
     private String healthRecordIdString;
+    private MutableLiveData<String> imgLivedata = new MutableLiveData<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,6 +114,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setDefaultTextEncodingName("utf-8");
+        mX5Webview.addJavascriptInterface(this, "addSubmit");
 
         mX5Webview.setWebViewClient(new WebViewClient() {
             @Override
@@ -116,6 +124,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
             }
         });
         mX5Webview.loadUrl("http://192.168.0.116:8080/#/");
+
     }
 
     private void initView() {
@@ -131,11 +140,24 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
         mX5Webview = (WebView) findViewById(R.id.x5_webview);
         rdRecordId = getIntent().getStringExtra("rdRecordId");
         userRecordId = getIntent().getStringExtra("userRecordId");
-        typeString = "'高血压二维码扫描'";
+        typeString = "'" + getIntent().getStringExtra("typeString") + "'";
         rdRecordIdString = "'" + rdRecordId + "'";
         userIdString = "'" + UserSpHelper.getUserId() + "'";
         healthRecordIdString = "'" + userRecordId + "'";
 
+        imgLivedata.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String img) {
+                Timber.e("二维码地址："+img);
+                mIvQr.setImageBitmap(QRCodeUtils.creatQRCode(img, 600, 600));
+            }
+        });
+
+    }
+
+    @JavascriptInterface
+    public void qrImage(String img) {
+        imgLivedata.postValue(img);
     }
 
     @Override
@@ -227,5 +249,11 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
     public void updateState(String state) {
         ToastUtils.showShort(state);
         MLVoiceSynthetize.startSynthesize(this, state);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mX5Webview.removeJavascriptInterface("addSubmit");
     }
 }

@@ -6,7 +6,9 @@
     <com.tencent.smtt.sdk.WebView
         android:id="@+id/x5_webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:visibility="invisible"/>
+
     <com.gcml.lib_widget.EclipseLinearLayout
         android:id="@+id/ll_1"
         android:layout_width="600pt"
@@ -24,7 +26,7 @@
             android:id="@+id/iv_qr"
             android:layout_width="346pt"
             android:layout_height="346pt"
-            android:src="@drawable/ic_arrow_down_light_round"
+            android:src="@drawable/placeholder"
             />
         <TextView
             android:id="@+id/tv_qr"

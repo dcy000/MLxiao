@@ -23,6 +23,7 @@ import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_profile.HealthProfileActivity;
+import com.gcml.module_health_profile.OutputResultActivity;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
@@ -130,9 +131,13 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                getActivity().startActivity(new Intent(getActivity(), SeeBloodpressureWebActivity.class)
-                        .putExtra("RdCordId", recordId)
-                        .putExtra("HealthRecordId", mData.get(position).getRdUserRecordId()));
+//                getActivity().startActivity(new Intent(getActivity(), SeeBloodpressureWebActivity.class)
+//                        .putExtra("RdCordId", recordId)
+//                        .putExtra("HealthRecordId", mData.get(position).getRdUserRecordId()));
+                getActivity().startActivity(new Intent(getActivity(), OutputResultActivity.class)
+                        .putExtra("rdRecordId", recordId)
+                        .putExtra("userRecordId", mData.get(position).getRdUserRecordId())
+                        .putExtra("typeString", "高血压二维码扫描"));
             }
         });
     }
