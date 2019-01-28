@@ -135,7 +135,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
 
         mTitleText.setText(getString(R.string.pay));
 
-        speak(getString(R.string.zhanghu_chongzhi));
+        speak("主人，请使用微信扫码完成充值");
 
     /*    mImageView1 = (ImageView) findViewById(R.id.health_record_icon_back);
         mImageView2 = (ImageView) findViewById(R.id.health_record_icon_home);
@@ -147,7 +147,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
         //支付宝使用ALI_OFFLINE_QRCODE
 
         channelType = BCReqParams.BCChannelTypes.valueOf(type);
-        billTitle = "请使用微信扫码进行购买";
+        billTitle = "充值";
 
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setMessage("处理中，请稍候...");
