@@ -34,14 +34,7 @@ public class BluetoothSearchHelper {
             search = new MySearch(names);
         }
         isOnSearching = true;
-        Observable.create(new ObservableOnSubscribe<Object>() {
-            @Override
-            public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
-                BluetoothC.getClient().search(request, search);
-            }
-        }).subscribeOn(Schedulers.single());
-
-
+        BluetoothC.getClient().search(request, search);
     }
 
     public void searchBle(int periodMill, int times, SearchListener listener, String... names) {

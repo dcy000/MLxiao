@@ -131,13 +131,9 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                getActivity().startActivity(new Intent(getActivity(), SeeBloodpressureWebActivity.class)
-//                        .putExtra("RdCordId", recordId)
-//                        .putExtra("HealthRecordId", mData.get(position).getRdUserRecordId()));
-                getActivity().startActivity(new Intent(getActivity(), OutputResultActivity.class)
-                        .putExtra("rdRecordId", recordId)
-                        .putExtra("userRecordId", mData.get(position).getRdUserRecordId())
-                        .putExtra("typeString", "高血压二维码扫描"));
+                getActivity().startActivity(new Intent(getActivity(), SeeBloodpressureWebActivity.class)
+                        .putExtra("RdCordId", recordId)
+                        .putExtra("HealthRecordId", mData.get(position).getRdUserRecordId()));
             }
         });
     }
@@ -209,7 +205,9 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
                             return;
                         }
                         getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
-                                .putExtra("RdCordId", recordId));
+                                .putExtra("RdCordId", recordId)
+                                .putExtra("type", "高血压")
+                                .putExtra("title", "高 血 压 随 访"));
                     }
                 });
     }

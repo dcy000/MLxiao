@@ -205,7 +205,9 @@ public class BloodSugarFollowupFragment extends RecycleBaseFragment implements V
                             return;
                         }
                         getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
-                                .putExtra("RdCordId", recordId));
+                                .putExtra("RdCordId", recordId)
+                                .putExtra("type", "糖尿病")
+                                .putExtra("title", "糖 尿 病 随 访"));
                     }
                 });
     }

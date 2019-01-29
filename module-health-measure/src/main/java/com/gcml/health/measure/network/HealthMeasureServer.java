@@ -63,8 +63,9 @@ public interface HealthMeasureServer {
             @Path("rdRecordId") String rdRecordId
     );
 
-    @GET("ZZB/api/health/record/healthRecord/{userRecordId}/")
-    Observable<ApiResult<List<DetectionResult>>> postHealthRecordMeasureData(
-            @Path("userRecordId") String userRecordId
+    @POST("ZZB/api/health/record/healthRecord/{userRecordId}/")
+    Observable<Object> postHealthRecordMeasureData(
+            @Path("userRecordId") String userRecordId,
+            @Body ArrayList<DetectionData> datas
     );
 }

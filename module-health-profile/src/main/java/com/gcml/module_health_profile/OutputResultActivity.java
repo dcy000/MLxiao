@@ -5,22 +5,28 @@ import android.arch.lifecycle.Observer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.get.Doctor;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.qrcode.QRCodeUtils;
-import com.gcml.common.widget.base.dialog.DialogImage;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.lib_printer_8003dd.ConnectPrinterHelper;
 import com.gcml.lib_printer_8003dd.IPrinterView;
 import com.gcml.lib_widget.EclipseLinearLayout;
 import com.gcml.module_health_profile.bean.OutputMeasureBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
+import com.gcml.module_health_profile.fragments.HealthFileFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
@@ -31,6 +37,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -61,6 +68,10 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
     private String userIdString;
     private String healthRecordIdString;
     private MutableLiveData<String> imgLivedata = new MutableLiveData<>();
+    private String highPressure, lowPressure, weight, height, bloodoxygen, bloodsugar, temperature, uac, cholesterol;
+    private String userName;
+    private String userSex;
+    private String userAge;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -122,12 +133,20 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
                 super.onPageFinished(webView, s);
                 webView.loadUrl("javascript:uniqueMark(" + typeString + "," + rdRecordIdString + "," + userIdString + "," + healthRecordIdString + ")");
             }
+
+            @Override
+            public void onLoadResource(WebView webView, String s) {
+                super.onLoadResource(webView, s);
+                Timber.i("X5WebView loading resource:::::cost time>>" + ">>>" + s);
+            }
         });
         mX5Webview.loadUrl("http://192.168.0.116:8080/#/");
 
     }
 
     private void initView() {
+        mTitleText.setText("报 告 打 印");
+        mRightView.setImageResource(R.drawable.health_profile_ic_bluetooth_disconnected);
         mIvQr = (ImageView) findViewById(R.id.iv_qr);
         mTvQr = (TextView) findViewById(R.id.tv_qr);
         mLl1 = (EclipseLinearLayout) findViewById(R.id.ll_1);
@@ -148,7 +167,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
         imgLivedata.observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String img) {
-                Timber.e("二维码地址："+img);
+                Timber.e("二维码地址：" + img);
                 mIvQr.setImageBitmap(QRCodeUtils.creatQRCode(img, 600, 600));
             }
         });
@@ -168,6 +187,23 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
     }
 
     private void getData() {
+
+        Observable<UserEntity> rxUsers = CC.obtainBuilder("com.gcml.auth.getUser")
+                .build()
+                .call()
+                .getDataItem("data");
+        rxUsers.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new com.gcml.common.utils.DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        userName = user.name;
+                        userAge = user.age;
+                        userSex = user.sex;
+                    }
+                });
+
         HealthProfileRepository repository = new HealthProfileRepository();
         repository.getHealthRecordMeasureResult(rdRecordId, userRecordId)
                 .subscribeOn(Schedulers.io())
@@ -175,7 +211,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
                 .subscribe(new DefaultObserver<List<OutputMeasureBean>>() {
                     @Override
                     public void onNext(List<OutputMeasureBean> outputMeasureBeans) {
-
+                        dealResult(outputMeasureBeans);
                     }
 
                     @Override
@@ -188,6 +224,38 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
 
                     }
                 });
+    }
+
+    private void dealResult(List<OutputMeasureBean> outputMeasureBeans) {
+        for (OutputMeasureBean bean : outputMeasureBeans) {
+            if (bean.getName().contains("高压")) {
+                highPressure = bean.getValue();
+            }
+            if (bean.getName().contains("低压")) {
+                lowPressure = bean.getValue();
+            }
+            if (bean.getName().contains("体重")) {
+                weight = bean.getValue();
+            }
+            if (bean.getName().contains("身高")) {
+                height = bean.getValue();
+            }
+            if (bean.getName().contains("温")) {
+                temperature = bean.getValue();
+            }
+            if (bean.getName().contains("氧")) {
+                bloodoxygen = bean.getValue();
+            }
+            if (bean.getName().contains("糖")) {
+                bloodsugar = bean.getValue();
+            }
+            if (bean.getName().contains("尿酸")) {
+                uac = bean.getValue();
+            }
+            if (bean.getName().contains("胆固醇")) {
+                cholesterol = bean.getValue();
+            }
+        }
     }
 
     private void initPrinter() {
@@ -218,7 +286,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
                 e.printStackTrace();
             }
         } else if (i == R.id.tv_gohome) {
-
+            finish();
         } else {
         }
     }
@@ -230,18 +298,21 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
         String sDate = format.format(date);
         String sDate1 = format1.format(date);
         printerHelper.initPrinter();
-        printerHelper.printTitle("健康智能管家检测数据单\n\n\n\n");
-        printerHelper.printContent("患者：郭志强\n" +
-                "检测日期:" + sDate + "\n" +
-                "打印时间：" + sDate1 + "\n" +
-                "检测项目      检测结果      检测单位    参考标准\n" +
-                "血压          134/85        mmHg      90~140\n" +
-                "血氧          98            %         >94%\n" +
-                "体温          35.8          ℃        36.1~37.1\n" +
-                "血糖          5.6           mmol/L    3.61~7.0\n" +
-                "体重          67            Kg        --\n" +
-                "尿酸          0.36          mmol/L    0.21~0.44\n" +
-                "胆固醇        4.6           mmol/L    2.9~6.0\n");
+        printerHelper.printTitle("健康智能管家检测数据单\n\n\n");
+        printerHelper.printContent(
+                "姓名：" + userName + "\n" +
+                        "年龄：" + userAge + "\n" +
+                        "性别：" + userSex + "\n" +
+                        "打印时间：" + sDate1 + "\n" +
+                        String.format("%-8s", "检测项目") + String.format("%-8s", "检测结果") + String.format("%-8s", "检测单位") + String.format("%-8s", "参考标准") + "\n" +
+                        String.format("%1$-" + 13 + "s", "血压") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(highPressure) ? "-/-" : lowPressure + "/" + highPressure)) + String.format("%1$-" + 10 + "s", "mmHg") + String.format("%1$-" + 6 + "s", "90~140") + "\n" +
+                        String.format("%1$-" + 13 + "s", "血氧") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(bloodoxygen) ? "--" : bloodoxygen)) + String.format("%1$-" + 10 + "s", "%") + String.format("%1$-" + 6 + "s", ">94%") + "\n" +
+                        String.format("%1$-" + 13 + "s", "体温") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(temperature) ? "--" : temperature)) + String.format("%1$-" + 10 + "s", "℃") + String.format("%1$-" + 6 + "s", "36.1~37.1") + "\n" +
+                        String.format("%1$-" + 13 + "s", "血糖") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(bloodsugar) ? "--" : bloodsugar)) + String.format("%1$-" + 10 + "s", "mmol/L") + String.format("%1$-" + 6 + "s", "3.61~7.0") + "\n" +
+                        String.format("%1$-" + 13 + "s", "体重") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(weight) ? "--" : weight)) + String.format("%1$-" + 10 + "s", "Kg") + String.format("%1$-" + 6 + "s", "--") + "\n" +
+                        String.format("%1$-" + 13 + "s", "身高") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(height) ? "--" : height)) + String.format("%1$-" + 10 + "s", "cm") + String.format("%1$-" + 6 + "s", "--") + "\n" +
+                        String.format("%1$-" + 13 + "s", "尿酸") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(uac) ? "--" : uac)) + String.format("%1$-" + 10 + "s", "mmol/L") + String.format("%1$-" + 6 + "s", "0.21~0.44") + "\n" +
+                        String.format("%1$-" + 12 + "s", "胆固醇") + String.format("%1$-" + 12 + "s", (TextUtils.isEmpty(cholesterol) ? "--" : cholesterol)) + String.format("%1$-" + 10 + "s", "mmol/L") + String.format("%1$-" + 6 + "s", "2.9~6.0") + "\n");
         printerHelper.printBottom();
     }
 
@@ -249,11 +320,42 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
     public void updateState(String state) {
         ToastUtils.showShort(state);
         MLVoiceSynthetize.startSynthesize(this, state);
+        if ("连接打印机成功".equals(state)) {
+            mRightView.setImageResource(R.drawable.health_profile_ic_bluetooth_connected);
+        } else if ("打印机蓝牙已断开".equals(state)) {
+            mRightView.setImageResource(R.drawable.health_profile_ic_bluetooth_disconnected);
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         mX5Webview.removeJavascriptInterface("addSubmit");
+    }
+
+    @Override
+    protected void backMainActivity() {
+        showRefreshBluetoothDialog();
+    }
+
+    /**
+     * 展示刷新
+     */
+    private void showRefreshBluetoothDialog() {
+        new AlertDialog(OutputResultActivity.this)
+                .builder()
+                .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                })
+                .setPositiveButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mRightView.setImageResource(R.drawable.health_profile_ic_bluetooth_disconnected);
+                        initPrinter();
+                    }
+                }).show();
     }
 }

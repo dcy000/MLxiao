@@ -220,9 +220,11 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
             getActivity().startActivity(new Intent(getActivity(), EditHealthProfileActivity.class)
                     .putExtra("RdCordId", selfRecordId)
                     .putExtra("HealthRecordId", historyRecordId));
+
         } else if (i == R.id.tvBuild) {
             getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
-                    .putExtra("RdCordId", selfRecordId));
+                    .putExtra("RdCordId", selfRecordId)
+                    .putExtra("title", "添 加 健 康 档 案"));
         }
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.widget.BaseX5WebViewActivity;
+import com.gcml.module_health_profile.R;
 import com.tencent.smtt.sdk.ValueCallback;
 import com.tencent.smtt.sdk.WebView;
 
@@ -17,7 +18,7 @@ public class SeeHealthCheckupWebActivity extends BaseX5WebViewActivity {
 
     @Override
     protected String setTitle() {
-        return "测试H5页面";
+        return "健 康 体 检 表";
     }
 
     @Override
@@ -32,7 +33,7 @@ public class SeeHealthCheckupWebActivity extends BaseX5WebViewActivity {
 
     @Override
     protected void loadUrl(WebView webView) {
-        webView.loadUrl("http://192.168.0.116:8080/#/");
+        webView.loadUrl(getString(R.string.web_path));
     }
 
     @Override

@@ -130,7 +130,7 @@ public class HealthMeasureRepository {
      * @param userRecordId
      * @return
      */
-    public static Observable<List<DetectionResult>> postHealthRecordMeasureData(String userRecordId){
-        return healthMeasureServer.postHealthRecordMeasureData(userRecordId).compose(RxUtils.apiResultTransformer());
+    public static Observable<Object> postHealthRecordMeasureData(String userRecordId,ArrayList<DetectionData> detectionDatas){
+        return healthMeasureServer.postHealthRecordMeasureData(userRecordId,detectionDatas);
     }
 }

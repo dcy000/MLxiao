@@ -133,11 +133,12 @@ public class ConnectPrinterHelper implements LifecycleObserver {
 
         @Override
         public void onNewDeviceFinded(BluetoothDevice newDevice) {
-
+            Log.i(TAG, "onNewDeviceFinded: "+newDevice.getName()+">>>"+newDevice.getAddress());
         }
 
         @Override
         public void obtainDevice(BluetoothDevice device) {
+            Log.i(TAG, "obtainDevice: "+device.getName()+">>>"+device.getAddress());
             if (searchHelper != null) {
                 searchHelper.clear();
             }

@@ -19,9 +19,11 @@ public class AddFollowupComponent implements IComponent {
         Context context = cc.getContext();
         String healthRecordId = cc.getParamItem("healthRecordId");
         String rdRecordId = cc.getParamItem("rdRecordId");
+        String typeString=cc.getParamItem("typeString");
         Intent intent = new Intent(context, AddFollowupActivity.class);
         intent.putExtra("healthRecordId", healthRecordId);
         intent.putExtra("rdRecordId", rdRecordId);
+        intent.putExtra("typeString",typeString);
         if (!(context instanceof Activity)) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }

@@ -194,18 +194,20 @@ public class HealthCheckupFragment extends RecycleBaseFragment implements View.O
                 .subscribe(new com.gcml.common.utils.DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity user) {
-                        if (TextUtils.isEmpty(user.doctorId)){
+                        if (TextUtils.isEmpty(user.doctorId)) {
                             ToastUtils.showShort("请先签约医生");
                             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先签约医生");
                             return;
                         }
-                        if (!isBuildHealthRecord){
+                        if (!isBuildHealthRecord) {
                             ToastUtils.showShort("请先建立个人档案");
                             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先建立个人档案");
                             return;
                         }
                         getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
-                                .putExtra("RdCordId", recordId));
+                                .putExtra("RdCordId", recordId)
+                                .putExtra("type", "健康体检")
+                                .putExtra("title", "健 康 体 检 "));
                     }
                 });
     }

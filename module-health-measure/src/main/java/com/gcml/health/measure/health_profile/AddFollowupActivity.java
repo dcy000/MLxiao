@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
@@ -53,6 +54,7 @@ import java.util.Set;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class AddFollowupActivity extends ToolbarBaseActivity implements FragmentChanged, DealVoiceAndJump, ThisFragmentDatas {
     private Uri uri;
@@ -68,6 +70,7 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
     private List<DetectionDataBean> datas = new ArrayList<>();
     private String healthRecordId;
     private String rdRecordId;
+    private String typeString;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,6 +106,7 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
     private void initView() {
         healthRecordId = getIntent().getStringExtra("healthRecordId");
         rdRecordId = getIntent().getStringExtra("rdRecordId");
+        typeString = getIntent().getStringExtra("typeString");
         firstDiagnosisBeans = new ArrayList<>();
         mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
     }
@@ -130,7 +134,7 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
                 mRightView.setImageResource(R.drawable.common_icon_home);
                 mTitleText.setText("仪 器 选 择");
                 break;
-            case "HealthBloodDetectionUiFragment":
+            case "HealthBloodDetectionOnlyOneFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("血 压 测 量");
                 fragment = new HealthBloodDetectionOnlyOneFragment();
@@ -300,7 +304,7 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
                     //血压
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
                     FirstDiagnosisBean bloodpressure = new FirstDiagnosisBean(
-                            HealthBloodDetectionUiFragment.class.getSimpleName(), uri, "测量血压演示视频");
+                            HealthBloodDetectionOnlyOneFragment.class.getSimpleName(), uri, "测量血压演示视频");
                     firstDiagnosisBeans.add(bloodpressure);
                     break;
                 case 5:
@@ -394,20 +398,26 @@ public class AddFollowupActivity extends ToolbarBaseActivity implements Fragment
         mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
         showPosition++;
         //因为每一个Fragment中都有可能视频播放，所以应该先检查该Fragment中是否有视频播放
-        checkVideo(showPosition);
+        if (firstDiagnosisBeans != null && showPosition < firstDiagnosisBeans.size()) {
+            checkVideo(showPosition);
+        }
     }
 
     private void uploadData() {
-        HealthMeasureRepository.postHealthRecordMeasureData(healthRecordId)
+        ArrayList<DetectionData> resultDatas = new ArrayList<>();
+        for (DetectionDataBean bean : datas) {
+            resultDatas.addAll(bean.getDetectionDataList());
+        }
+        HealthMeasureRepository.postHealthRecordMeasureData(healthRecordId, resultDatas)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<List<DetectionResult>>() {
+                .subscribe(new DefaultObserver<Object>() {
                     @Override
-                    public void onNext(List<DetectionResult> detectionResults) {
-                        //TODO：把所有数据上传，并跳转到打印页面
+                    public void onNext(Object o) {
                         CC.obtainBuilder("health.profile.outputresult").
                                 addParam("rdRecordId", rdRecordId)
                                 .addParam("userRecordId", healthRecordId)
+                                .addParam("typeString", typeString)
                                 .build()
                                 .call();
                     }

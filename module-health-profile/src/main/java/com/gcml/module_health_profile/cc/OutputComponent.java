@@ -19,9 +19,11 @@ public class OutputComponent implements IComponent {
         Context context = cc.getContext();
         String rdRecordId = cc.getParamItem("rdRecordId");
         String userRecordId = cc.getParamItem("userRecordId");
+        String typeString =cc.getParamItem("typeString");
         Intent intent = new Intent(context, OutputResultActivity.class);
         intent.putExtra("rdRecordId", rdRecordId);
         intent.putExtra("userRecordId", userRecordId);
+        intent.putExtra("typeString",typeString);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }

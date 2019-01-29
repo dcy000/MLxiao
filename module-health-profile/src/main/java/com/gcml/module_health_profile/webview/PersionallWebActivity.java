@@ -1,6 +1,7 @@
 package com.gcml.module_health_profile.webview;
 
 import com.gcml.common.widget.BaseX5WebViewActivity;
+import com.gcml.module_health_profile.R;
 import com.tencent.smtt.sdk.WebView;
 
 public class PersionallWebActivity extends BaseX5WebViewActivity {
@@ -17,10 +18,7 @@ public class PersionallWebActivity extends BaseX5WebViewActivity {
 
     @Override
     protected void loadUrl(WebView webView) {
-//        webView.loadUrl("http://47.96.98.60:8630/#/");
-//        webView.loadUrl("http://192.168.0.116:8080/#/index");
-//        webView.loadUrl("http://192.168.0.116:8081/gerenxinxi");
-        webView.loadUrl("http://192.168.0.116:8080/#/");
+        webView.loadUrl(getString(R.string.web_path));
     }
 
     @Override

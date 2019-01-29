@@ -35,6 +35,7 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthThreeInOneDetectio
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
 import com.gcml.health.measure.health_report_form.HealthReportFormActivity;
 import com.gcml.health.measure.R;
+import com.gcml.health.measure.single_measure.AllMeasureActivity;
 import com.gcml.health.measure.single_measure.fragment.ChooseECGDeviceFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
@@ -70,8 +71,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private String userHypertensionHand;
     private Bundle bundle;
     private boolean isShowSelectBloodsugarMeasureTime = false;
-    private boolean isShowSelectECGDevice=false;
-    private int ecgDevice=1;//默认科瑞康
+    private boolean isShowSelectECGDevice = false;
+    private int ecgDevice = 2;//默认博声
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, FirstDiagnosisActivity.class);
@@ -114,7 +115,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mRightView.setImageResource(R.drawable.common_icon_home);
                 mTitleText.setText("仪 器 选 择");
                 break;
-            case "HealthBloodDetectionUiFragment":
+            case "HealthBloodDetectionOnlyOneFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("血 压 测 量");
 
@@ -150,15 +151,15 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mTitleText.setText("心 电 设 备 选 择");
                 fragment = new ChooseECGDeviceFragment();
                 mRightView.setImageResource(R.drawable.common_icon_home);
-                isShowSelectECGDevice=true;
+                isShowSelectECGDevice = true;
                 break;
             case "ECGFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("心 电 测 量");
-                if (ecgDevice==1){
+                if (ecgDevice == 1) {
                     fragment = new HealthECGDetectionFragment();
-                }else{
-                    fragment=new HealthECGBoShengFragment();
+                } else {
+                    fragment = new HealthECGBoShengFragment();
                 }
                 measureType = IPresenter.MEASURE_ECG;
                 break;
@@ -255,9 +256,9 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
         this.bundle = bundle;
-        if (fragment instanceof ChooseECGDeviceFragment){
-            isShowSelectECGDevice=false;
-            if (bundle!=null){
+        if (fragment instanceof ChooseECGDeviceFragment) {
+            isShowSelectECGDevice = false;
+            if (bundle != null) {
                 ecgDevice = bundle.getInt(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG, 1);
             }
         }
@@ -266,8 +267,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         }
         //最后一个Fragment点击了下一步应该跳转到HealthReportFormActivity
         if (fragment.getClass().getSimpleName().equals(finalFragment)) {
-            HealthReportFormActivity.startActivity(this);
-            finish();
+//            HealthReportFormActivity.startActivity(this);
+            showFinishDialog();
             return;
         }
         //因为在设备选择页面右上角的按钮是回到主界面，所以需要在此处做一个标记
@@ -289,6 +290,23 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         checkVideo(showPosition);
     }
 
+    private void showFinishDialog() {
+        new AlertDialog(FirstDiagnosisActivity.this)
+                .builder()
+                .setMsg("感谢您完成本次问诊，是否退回到主页面？")
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                })
+                .setPositiveButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                }).show();
+    }
+
     private void initMeasureDevicesFragment(ArrayList<Integer> integerArrayList) {
         for (Integer bean : integerArrayList) {
             switch (bean) {
@@ -296,7 +314,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                     //血压
                     uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
                     FirstDiagnosisBean bloodpressure = new FirstDiagnosisBean(
-                            HealthBloodDetectionUiFragment.class.getSimpleName(), uri, "测量血压演示视频");
+                            HealthBloodDetectionOnlyOneFragment.class.getSimpleName(), uri, "测量血压演示视频");
                     firstDiagnosisBeans.add(bloodpressure);
                     break;
                 case 5:
@@ -407,7 +425,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
             CCAppActions.jump2MainActivity();
             return;
         }
-        if (isShowSelectBloodsugarMeasureTime||isShowSelectECGDevice) {
+        if (isShowSelectBloodsugarMeasureTime || isShowSelectECGDevice) {
             CCAppActions.jump2MainActivity();
             return;
         }
