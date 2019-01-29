@@ -2,6 +2,7 @@ package com.example.han.referralproject.facerecognition;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.han.referralproject.network.NetworkApi;
@@ -33,7 +34,9 @@ public class FaceAuthenticationUtils {
     private String[] xfids;
     private Context context;
 
-    private FaceAuthenticationUtils(){}
+    private FaceAuthenticationUtils() {
+    }
+
     private FaceAuthenticationUtils(Context context) {
         WeakReference<Context> contextWeakReference = new WeakReference<Context>(context);
         this.context = contextWeakReference.get();
@@ -136,57 +139,58 @@ public class FaceAuthenticationUtils {
     /**
      * 注册人脸
      */
-    public void registerFace(byte[] mImageData,String xfid){
-        if (mImageData!=null){
+    public void registerFace(byte[] mImageData, String xfid) {
+        if (mImageData != null) {
             //清空参数
-            mIdVerifier.setParameter(SpeechConstant.PARAMS,null);
+            mIdVerifier.setParameter(SpeechConstant.PARAMS, null);
             // 设置业务场景：人脸（ifr）或声纹（ivp）
-            mIdVerifier.setParameter( SpeechConstant.MFV_SCENES, "ifr" );
+            mIdVerifier.setParameter(SpeechConstant.MFV_SCENES, "ifr");
 
             // 设置业务类型：注册（enroll）
-            mIdVerifier.setParameter( SpeechConstant.MFV_SST, "enroll" );
+            mIdVerifier.setParameter(SpeechConstant.MFV_SST, "enroll");
 
             // 设置用户id
-            mIdVerifier.setParameter( SpeechConstant.AUTH_ID, xfid );
+            mIdVerifier.setParameter(SpeechConstant.AUTH_ID, xfid);
 
             // 设置监听器，开始会话
             mIdVerifier.startWorking(new IdentityListener() {
                 @Override
                 public void onResult(IdentityResult identityResult, boolean b) {
-                    if (registerFaceListener!=null){
-                        registerFaceListener.onResult(identityResult,b);
+                    if (registerFaceListener != null) {
+                        registerFaceListener.onResult(identityResult, b);
                     }
                 }
 
                 @Override
                 public void onError(SpeechError speechError) {
-                    if (registerFaceListener!=null){
+                    if (registerFaceListener != null) {
                         registerFaceListener.onError(speechError);
                     }
                 }
 
                 @Override
                 public void onEvent(int i, int i1, int i2, Bundle bundle) {
-                    if (registerFaceListener!=null){
-                        registerFaceListener.onEvent(i,i1,i2,bundle);
+                    if (registerFaceListener != null) {
+                        registerFaceListener.onEvent(i, i1, i2, bundle);
                     }
                 }
             });
             //上传头像该信息
-            mIdVerifier.writeData( "ifr", "", mImageData, 0, mImageData.length );
+            mIdVerifier.writeData("ifr", "", mImageData, 0, mImageData.length);
             // 写入完成后，需要调用stopWrite停止写入，在停止的时候同样需要指定子业务类型。只有
             // stopWrite之后，才会触发 listener 中的回调接口，返回结果或者错误信息。
-            mIdVerifier.stopWrite( "ifr" );
+            mIdVerifier.stopWrite("ifr");
         }
     }
 
     /**
      * 单个头像验证
+     *
      * @param mImageData
      * @param xfid
      */
-    public void verificationSingleFace(byte[] mImageData,String xfid){
-        if (mImageData!=null) {
+    public void verificationSingleFace(byte[] mImageData, String xfid) {
+        if (mImageData != null) {
             //清空参数
             mIdVerifier.setParameter(SpeechConstant.PARAMS, null);
             // 设置会话场景
@@ -201,22 +205,22 @@ public class FaceAuthenticationUtils {
             mIdVerifier.startWorking(new IdentityListener() {
                 @Override
                 public void onResult(IdentityResult identityResult, boolean b) {
-                    if (singleFaceVertifyListener!=null){
-                        singleFaceVertifyListener.onResult(identityResult,b);
+                    if (singleFaceVertifyListener != null) {
+                        singleFaceVertifyListener.onResult(identityResult, b);
                     }
                 }
 
                 @Override
                 public void onError(SpeechError speechError) {
-                    if (singleFaceVertifyListener!=null){
+                    if (singleFaceVertifyListener != null) {
                         singleFaceVertifyListener.onError(speechError);
                     }
                 }
 
                 @Override
                 public void onEvent(int i, int i1, int i2, Bundle bundle) {
-                    if (singleFaceVertifyListener!=null){
-                        singleFaceVertifyListener.onEvent(i,i1,i1,bundle);
+                    if (singleFaceVertifyListener != null) {
+                        singleFaceVertifyListener.onEvent(i, i1, i1, bundle);
                     }
                 }
             });
@@ -224,6 +228,7 @@ public class FaceAuthenticationUtils {
             mIdVerifier.stopWrite("ifr");
         }
     }
+
     /**
      * 验证
      */
@@ -313,6 +318,7 @@ public class FaceAuthenticationUtils {
 
     /**
      * 创建组
+     *
      * @param xfid 注册成功的一个讯飞id
      */
     public void createGroup(String xfid) {
@@ -359,7 +365,7 @@ public class FaceAuthenticationUtils {
      * 加入组
      *
      * @param groupId 组id
-     * @param authId 需要加入组的讯飞id
+     * @param authId  需要加入组的讯飞id
      */
     public void joinGroup(String groupId, String authId) {
         // sst=add，auth_id=eqhe，group_id=123456，scope=person
@@ -397,11 +403,14 @@ public class FaceAuthenticationUtils {
 
     /**
      * 删除组
+     *
      * @param groupId 组id
-     * @param xfid 需要删除的讯飞id
+     * @param xfid    需要删除的讯飞id
      */
     public void deleteGroup(String groupId, String xfid) {
-
+        if (TextUtils.isEmpty(xfid)) {
+            xfid = "";
+        }
         // sst=add，auth_id=eqhe，group_id=123456，scope=person
         mIdVerifier.setParameter(SpeechConstant.PARAMS, null);
         // 设置会话场景
@@ -451,6 +460,7 @@ public class FaceAuthenticationUtils {
 
     /**
      * 查询指定组中的所有成员
+     *
      * @param groupId 组id
      */
     public void queryGroup(String groupId) {
@@ -488,14 +498,14 @@ public class FaceAuthenticationUtils {
         if (mIdVerifier != null) {
             mIdVerifier.cancel();
             mIdVerifier.destroy();
-            createListener=null;
-            joinGroupListener=null;
-            deleteGroupListener=null;
-            vertifyFaceListener=null;
-            registerFaceListener=null;
-            singleFaceVertifyListener=null;
-            context=null;
-            singleton=null;
+            createListener = null;
+            joinGroupListener = null;
+            deleteGroupListener = null;
+            vertifyFaceListener = null;
+            registerFaceListener = null;
+            singleFaceVertifyListener = null;
+            context = null;
+            singleton = null;
         }
     }
 
@@ -505,12 +515,15 @@ public class FaceAuthenticationUtils {
     private IVertifyFaceListener vertifyFaceListener;
     private IRegisterFaceListener registerFaceListener;
     private ISingleFaceVertifyListener singleFaceVertifyListener;
-    public void setOnSingleFaceVertifyListener(ISingleFaceVertifyListener singleFaceVertifyListener){
-        this.singleFaceVertifyListener=singleFaceVertifyListener;
+
+    public void setOnSingleFaceVertifyListener(ISingleFaceVertifyListener singleFaceVertifyListener) {
+        this.singleFaceVertifyListener = singleFaceVertifyListener;
     }
-    public void setOnRegisterListener(IRegisterFaceListener registerFaceListener){
-        this.registerFaceListener=registerFaceListener;
+
+    public void setOnRegisterListener(IRegisterFaceListener registerFaceListener) {
+        this.registerFaceListener = registerFaceListener;
     }
+
     public void setOnCreateGroupListener(ICreateGroupListener createListener) {
         this.createListener = createListener;
     }

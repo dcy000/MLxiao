@@ -38,6 +38,7 @@ import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_ENGINE_INIT;
 import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_FACE_SIGN_IN;
 import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_FACE_SIGN_UP;
 import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_JOIN_GROUP_NOT_EXIST;
+import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_JOIN_GROUP_FACE_EXIST;
 import static com.gcml.auth.face.model.FaceRepository.ERROR_ON_JOIN_GROUP_UNKNOWN;
 
 
@@ -217,11 +218,17 @@ public class FaceIdHelper {
                         String errorMsg = error.getPlainDescription(true);
                         Timber.e(error, "Face joinGroup Error, %s", errorMsg);
                         if (!emitter.isDisposed()) {
-                            if (error.getErrorCode() == 10143 || error.getErrorCode() == 10106) {
+                            if (error.getErrorCode() == 10143) {
                                 emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_NOT_EXIST, errorMsg, error));
                             } else if (error.getErrorCode() == 10121) {
-                                emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_NOT_EXIST, errorMsg, error));
+                                emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_FACE_EXIST, errorMsg, error));
                             } else {
+                                // 加组:  未注册过的 faceId 也会出现操作成功
+                                // 加组： 有时正常的 groupId 和 faceId 操作多次才成功
+                                // 10143: 指定的组不存在
+                                // 11005: 无效的用户名 （ faceId 为空， groupId 正确时， 也能出现 ）
+                                // 10106: 无效的参数   （ groupId 为空时会出现）
+                                // 10121: 模型或记录已存在 （ faceId 为空， groupId 正确时， 也能出现 ）
                                 emitter.onError(new FaceRepository.FaceError(ERROR_ON_JOIN_GROUP_UNKNOWN, errorMsg, error));
                             }
                         }

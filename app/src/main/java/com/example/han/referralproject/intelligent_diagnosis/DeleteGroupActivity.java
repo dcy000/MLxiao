@@ -19,6 +19,10 @@ import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
 import com.medlink.danbogh.utils.Handlers;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -125,19 +129,38 @@ public class DeleteGroupActivity extends BaseActivity implements View.OnClickLis
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        File file = new File(Environment.getExternalStorageDirectory(), "faces.txt");
+                        File file = new File(Environment.getExternalStorageDirectory(), "faces.json");
                         lists.clear();
                         BufferedReader reader = null;
                         try {
                             reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+                            StringBuilder builder = new StringBuilder();
                             String line;
                             while ((line = reader.readLine()) != null) {
-                                String[] tmp = line.split(" : ");
-                                String groupId = tmp[1];
-                                XfGroupInfo groupInfo = new XfGroupInfo();
-                                groupInfo.gid = groupId;
-                                lists.add(groupInfo);
+                                builder.append(line);
+
+//                                String[] tmp = line.split(" : ");
+//                                String groupId = tmp[1];
+//                                XfGroupInfo groupInfo = new XfGroupInfo();
+//                                groupInfo.gid = groupId;
+//                                lists.add(groupInfo);
                             }
+
+                            String faces = builder.toString();
+                            JSONArray jsonArray = new JSONArray(faces);
+                            int length = jsonArray.length();
+                            for (int j = 0; j < length; j++) {
+                                try {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(j);
+                                    String groupId = jsonObject.optInt("groupid") + "";
+                                    XfGroupInfo groupInfo = new XfGroupInfo();
+                                    groupInfo.gid = groupId;
+                                    lists.add(groupInfo);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

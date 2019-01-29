@@ -43,9 +43,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="文件删除组"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/text"
             android:layout_width="match_parent"

@@ -232,12 +232,11 @@ public class FaceRepository {
                     public ObservableSource<? extends String> apply(Throwable error) throws Exception {
                         if (error instanceof FaceError) {
                             if (((FaceError) error).getCode() == ERROR_ON_JOIN_GROUP_FACE_EXIST) {
-                                return createAndJoinGroup(faceId);
+                                return Observable.just(groupId);
                             }
                             if (((FaceError) error).getCode() == ERROR_ON_JOIN_GROUP_NOT_EXIST) {
                                 return createAndJoinGroup(faceId);
                             }
-                            return createAndJoinGroup(faceId);
                         }
                         return Observable.error(error);
                     }
