@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +15,7 @@ import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
 import com.gcml.common.business.R;
+import com.gcml.common.widget.dialog.LoadingDialog;
 import com.tencent.smtt.export.external.interfaces.WebResourceError;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
@@ -115,6 +114,7 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
         mX5Webview.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                showLoading("正在加载页面");
                 time = System.currentTimeMillis();
                 Timber.i("X5WebView loading start>>>" + url);
                 onWebViewPageStart(view);
@@ -130,6 +130,7 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                dismissLoading();
                 Timber.i("X5WebView loading end:::::cost time>>" + (System.currentTimeMillis() - time) + ">>>" + url);
                 time = System.currentTimeMillis();
                 if (!isPageFinished) {
@@ -237,4 +238,27 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
     protected abstract void onWebViewPageReceivedError(WebView webView);
 
     protected abstract void onPageLoadingProgress(WebView webView, int progress);
+
+    private LoadingDialog mLoadingDialog;
+
+    private void showLoading(String tips) {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+        mLoadingDialog = new LoadingDialog.Builder(this)
+                .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord(tips)
+                .create();
+        mLoadingDialog.show();
+    }
+
+    private void dismissLoading() {
+        if (mLoadingDialog != null) {
+            LoadingDialog loadingDialog = mLoadingDialog;
+            mLoadingDialog = null;
+            loadingDialog.dismiss();
+        }
+    }
 }
