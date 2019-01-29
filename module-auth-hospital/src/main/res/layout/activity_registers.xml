@@ -27,8 +27,8 @@
             android:visibility="gone">
 
             <ImageView
-                android:layout_width="420pt"
-                android:layout_height="600pt"
+                android:layout_width="468pt"
+                android:layout_height="648pt"
                 android:layout_centerInParent="true"
                 android:background="@drawable/auth_hospital_ic_idcard_login" />
 
@@ -53,8 +53,8 @@
             android:visibility="gone">
 
             <ImageView
-                android:layout_width="420pt"
-                android:layout_height="600pt"
+                android:layout_width="468pt"
+                android:layout_height="648pt"
                 android:layout_centerInParent="true"
                 android:background="@drawable/auth_hospital_ic_login_by_id_number" />
 
@@ -80,8 +80,8 @@
 
             <ImageView
 
-                android:layout_width="420pt"
-                android:layout_height="600pt"
+                android:layout_width="468pt"
+                android:layout_height="648pt"
                 android:layout_centerInParent="true"
                 android:background="@drawable/auth_hospital_ic_login_by_finger_print" />
 
