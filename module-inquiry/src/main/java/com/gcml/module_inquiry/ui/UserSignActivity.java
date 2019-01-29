@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.AppHelper;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
@@ -54,6 +55,7 @@ public class UserSignActivity extends BaseActivity implements AffirmSignatureDia
         setContentView(R.layout.activity_user_sign);
         initTitle();
         initView();
+        ActivityHelper.addActivity(this);
     }
 
     private void initTitle() {
