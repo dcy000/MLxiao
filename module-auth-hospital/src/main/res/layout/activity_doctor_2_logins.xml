@@ -20,15 +20,15 @@
         android:padding="10pt">
 
         <RelativeLayout
-            android:visibility="gone"
-            android:layout_marginTop="156pt"
             android:layout_width="468pt"
             android:layout_height="648pt"
-            android:layout_marginLeft="-8pt">
+            android:layout_marginLeft="-8pt"
+            android:layout_marginTop="156pt"
+            android:visibility="gone">
 
             <ImageView
-                android:layout_width="420pt"
-                android:layout_height="600pt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:background="@drawable/auth_hospital_ic_idcard_login" />
 
@@ -46,15 +46,15 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginTop="156pt"
-            android:visibility="gone"
             android:layout_width="468pt"
             android:layout_height="648pt"
-            android:layout_marginLeft="-8pt">
+            android:layout_marginLeft="-8pt"
+            android:layout_marginTop="156pt"
+            android:visibility="gone">
 
             <ImageView
-                android:layout_width="420pt"
-                android:layout_height="600pt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:background="@drawable/auth_hospital_ic_login_by_id_number" />
 
@@ -72,15 +72,15 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginTop="156pt"
-            android:visibility="gone"
             android:layout_width="468pt"
             android:layout_height="648pt"
-            android:layout_marginLeft="-8pt">
+            android:layout_marginLeft="-8pt"
+            android:layout_marginTop="156pt"
+            android:visibility="gone">
 
             <ImageView
-                android:layout_width="420pt"
-                android:layout_height="600pt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:background="@drawable/auth_hospital_ic_face_vip" />
 
@@ -98,16 +98,16 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginTop="156pt"
-            android:visibility="gone"
             android:layout_width="468pt"
             android:layout_height="648pt"
-            android:layout_marginLeft="-8pt">
+            android:layout_marginLeft="-8pt"
+            android:layout_marginTop="156pt"
+            android:visibility="gone">
 
             <ImageView
 
-                android:layout_width="420pt"
-                android:layout_height="600pt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:background="@drawable/auth_hospital_ic_login_by_finger_print" />
 
@@ -126,13 +126,13 @@
 
     <LinearLayout
         android:id="@+id/ll_to_register"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="78pt"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="80pt"
-        android:layout_marginRight="60pt">
+        android:layout_marginRight="60pt"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_no_count"
