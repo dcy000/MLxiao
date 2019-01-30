@@ -77,7 +77,7 @@ public class PerInfoActivity extends AppCompatActivity implements View.OnClickLi
             switch (v.getId()) {
                 case R.id.person_info1:
                     if (sharedPreferences1.getString("mAuthid", "").equals(sharedPreference.getString("mAuthid", ""))) {
-                        Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
                     } else {
                         showNormal("确定切换账户？", sharedPreferences1);
                     }
@@ -85,14 +85,14 @@ public class PerInfoActivity extends AppCompatActivity implements View.OnClickLi
                     break;
                 case R.id.person_info2:
                     if (sharedPreferences2.getString("mAuthid", "").equals(sharedPreference.getString("mAuthid", ""))) {
-                        Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
                     } else {
                         showNormal("确定切换账户？", sharedPreferences2);
                     }
                     break;
                 case R.id.person_info3:
                     if (sharedPreferences3.getString("mAuthid", "").equals(sharedPreference.getString("mAuthid", ""))) {
-                        Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
                     } else {
                         showNormal("确定切换账户？", sharedPreferences3);
                     }
@@ -154,7 +154,7 @@ public class PerInfoActivity extends AppCompatActivity implements View.OnClickLi
                         if (which == 1) {
                             update(sharedPreferences);
                             dialog.create(NDialog.CONFIRM).dismiss();
-                            Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
                         }
 
                     }

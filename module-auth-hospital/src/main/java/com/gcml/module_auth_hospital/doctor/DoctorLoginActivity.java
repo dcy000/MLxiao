@@ -44,7 +44,7 @@ public class DoctorLoginActivity extends BaseActivity implements View.OnClickLis
      */
     private EditText etDoctorLoginPassword;
     /**
-     * 登陆
+     * 登录
      */
     private TextView tvDoctorLoginLogin, serverName, tvDoctorChangeLogin;
 
@@ -155,7 +155,7 @@ public class DoctorLoginActivity extends BaseActivity implements View.OnClickLis
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("登陆中");
+                        showLoading("登录中");
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))

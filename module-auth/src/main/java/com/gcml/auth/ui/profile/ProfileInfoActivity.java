@@ -91,7 +91,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                         || TextUtils.isEmpty(user.phone)
                         || !TextUtils.isDigitsOnly(user.phone)
                         || user.phone.length() != 11) {
-                    ToastUtils.showShort("请重新登陆");
+                    ToastUtils.showShort("请重新登录");
                     return;
                 }
                 SMSVerificationDialog dialog = new SMSVerificationDialog();

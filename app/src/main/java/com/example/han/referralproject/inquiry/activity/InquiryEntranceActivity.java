@@ -97,10 +97,10 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
         int id = v.getId();
         if (id == R.id.rl_inquiry_home_manage) {
 //            startActivity(new Intent(this, InquiryActivity.class));
-            CC.obtainBuilder("health_measure")
-                    .setActionName("To_HealthInquiryActivity")
-                    .build()
-                    .call();
+//            CC.obtainBuilder("health_measure")
+//                    .setActionName("To_HealthInquiryActivity")
+//                    .build()
+//                    .call();
         } else if (id == R.id.rl_inquiry_home_file) {
             if (bindDoctor) {
                 CC.obtainBuilder("health.profile.file").build().callAsync();

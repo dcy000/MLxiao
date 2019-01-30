@@ -12,7 +12,7 @@ import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 
 /**
- * 选择医生优先登陆方式
+ * 选择医生优先登录方式
  * Created by lenovo on 2019/1/14.
  */
 
