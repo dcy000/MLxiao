@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
@@ -32,6 +34,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
     TranslucentToolBar mToolBar;
+    LinearLayout llExitDoctorAccount;/*ll_exit_doctor_account*/
     TextView mVoice, mWifi, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache, exit;
     // 外存sdcard存放路径
     private static final String FILE_PATH = Environment.getExternalStorageDirectory() + "/autoupdate/";
@@ -58,6 +61,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         mReset = findViewById(R.id.tv_setting_reset);
         mClearcache = findViewById(R.id.tv_setting_clearcache);
         exit = findViewById(R.id.tv_exit);
+        llExitDoctorAccount = findViewById(R.id.ll_exit_doctor_account);
 
         mVoice.setOnClickListener(this);
         mWifi.setOnClickListener(this);
@@ -90,6 +94,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 });
             }
         });
+
+        if (TextUtils.isEmpty(UserSpHelper.getDoctorId())) {
+            llExitDoctorAccount.setVisibility(View.GONE);
+        }
     }
 
 

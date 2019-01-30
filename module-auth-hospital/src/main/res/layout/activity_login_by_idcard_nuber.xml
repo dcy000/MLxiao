@@ -25,6 +25,7 @@
         app:layout_constraintTop_toBottomOf="@+id/auth_idcard_numer_tb" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

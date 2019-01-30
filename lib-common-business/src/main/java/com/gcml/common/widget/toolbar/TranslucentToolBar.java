@@ -18,7 +18,7 @@ import com.gcml.common.business.R;
 public final class TranslucentToolBar extends LinearLayout {
 
     private View layRoot;
-    private View layLeft;
+    public View layLeft;
     private View layRight;
     private TextView tvTitle;
     private TextView tvLeft;
