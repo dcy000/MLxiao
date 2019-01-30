@@ -21,6 +21,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.gcml.common.IConstant;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.VersionHelper;
@@ -239,9 +240,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onClick(View v) {
                         UserSpHelper.setDoctorId("");
-                        Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                        CC.obtainBuilder(IConstant.KEY_HOSPITAL_DOCTOR_SIGN).build().callAsync();
+                        finish();
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {
