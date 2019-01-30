@@ -77,6 +77,7 @@ public class UserRepository {
                             public void accept(UserEntity user) throws Exception {
                                 UserSpHelper.setFaceId(user.xfid);
                                 UserSpHelper.setEqId(user.deviceId);
+                                UserSpHelper.setUserName(user.name);
                             }
                         });
             }
