@@ -220,7 +220,7 @@ public class UserSignActivity extends BaseActivity implements AffirmSignatureDia
                     public void onNext(Object o) {
                         super.onNext(o);
                         ActivityHelper.finishAll();
-                        ToastUtils.showShort("签约成功");
+                        ToastUtils.showShort("申请成功");
                         dialog.dismiss();
                         CC.obtainBuilder(KEY_HEALTH_FILE_ENTRY).build().callAsync();
                     }
