@@ -1,5 +1,6 @@
 package com.gcml.old.auth.personal;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +45,8 @@ import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.medlink.danbogh.call2.NimAccountHelper;
+import com.umeng.analytics.MobclickAgent;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -262,8 +265,17 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 //                OldRouter.routeToOldHomeActivity(getActivity());
                 break;
             case R.id.iv_change_account:
-                mChangeAccountDialog = new ChangeAccountDialog(getActivity());
-                mChangeAccountDialog.show();
+                MobclickAgent.onProfileSignOff();
+                NimAccountHelper.getInstance().logout();//退出网易IM
+                UserSpHelper.setToken("");
+                UserSpHelper.setEqId("");
+                CC.obtainBuilder("com.gcml.auth").build().callAsync();
+                FragmentActivity activity = getActivity();
+                if (activity != null) {
+                    activity.finish();
+                }
+//                mChangeAccountDialog = new ChangeAccountDialog(getActivity());
+//                mChangeAccountDialog.show();
                 break;
             case R.id.per_image:
                 CC.obtainBuilder("com.gcml.auth.profileInfo").build().callAsync();
