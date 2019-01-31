@@ -510,7 +510,7 @@
 
     <string name="chongzhi">主人，请选择您要充值的金额</string>
 
-    <string name="zhanghu_chongzhi">主人，请使用支付宝或微信扫码完成充值</string>
+    <string name="zhanghu_chongzhi">主人，请使用微信扫码完成充值</string>
 
     <string name="chongzhi_define">主人，请输入充值金额</string>
 

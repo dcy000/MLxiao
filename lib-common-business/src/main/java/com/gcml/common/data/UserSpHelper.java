@@ -244,6 +244,10 @@ public class UserSpHelper {
         return (String) SPUtil.get(KEY_USER_HEIGHT, "");
     }
 
+    public static void setUserName(String name) {
+        SPUtil.put(KEY_USER_NAME, name);
+    }
+
     /**
      * 获取SP中存储的username
      *
@@ -286,6 +290,7 @@ public class UserSpHelper {
 
     /**
      * 获取存在SP中的是否做过风险评估的标志
+     *
      * @return
      */
     public static boolean getRiskAssessmentState() {
@@ -309,8 +314,9 @@ public class UserSpHelper {
     /**
      * 只清除用户id和惯用手信息
      */
-    public static void clearPartData(){
+    public static void clearPartData() {
         SPUtil.remove(KEY_USER_ID);
         SPUtil.remove(KEY_USER_HYPERTENSIONHAND);
     }
+
 }

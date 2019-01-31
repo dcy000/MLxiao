@@ -89,21 +89,21 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
                 startActivity(new Intent(this, QRCodeWXPayActivity.class)
                         .putExtra("isSkip", isSkip)
                         .putExtra("ServicePackage", "1")
-                        .putExtra("number", "1")
+                        .putExtra("number", "500")
                         .putExtra("description", "套餐一"));
                 break;
             case R.id.cl2:
                 startActivity(new Intent(this, QRCodeWXPayActivity.class)
                         .putExtra("isSkip", isSkip)
                         .putExtra("ServicePackage", "2")
-                        .putExtra("number", "1")
+                        .putExtra("number", "1000")
                         .putExtra("description", "套餐二"));
                 break;
             case R.id.cl3:
                 startActivity(new Intent(this, QRCodeWXPayActivity.class)
                         .putExtra("isSkip", isSkip)
                         .putExtra("ServicePackage", "3")
-                        .putExtra("number", "1")
+                        .putExtra("number", "10000")
                         .putExtra("description", "套餐三"));
                 break;
             case R.id.tv_top_right:

@@ -103,7 +103,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
 
                                 @Override
                                 public void onError(Throwable e) {
-                                    Timber.e("套餐失效失败"+e.getMessage());
+                                    Timber.e("套餐失效失败" + e.getMessage());
                                 }
 
                                 @Override
@@ -155,7 +155,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
         isSkip = intent.getBooleanExtra("isSkip", false);
         servicePackageType = intent.getStringExtra("ServicePackage");
         String des = intent.getStringExtra("description");
-        AppRepository.bugServicePackage(number, des)
+        AppRepository.bugServicePackage(Integer.parseInt(number) / 100 + "", des)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<Object>() {
