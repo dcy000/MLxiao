@@ -409,7 +409,7 @@ public class FaceAuthenticationUtils {
      */
     public void deleteGroup(String groupId, String xfid) {
         if (TextUtils.isEmpty(xfid)) {
-            xfid = "";
+            xfid = "2018093011145020342229";
         }
         // sst=add，auth_id=eqhe，group_id=123456，scope=person
         mIdVerifier.setParameter(SpeechConstant.PARAMS, null);
