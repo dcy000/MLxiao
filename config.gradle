@@ -32,8 +32,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
-            versionCode      : 26,
-            versionName      : "Robot.SDHG.1.1.2"
+            versionCode      : 27,
+            versionName      : "Robot.SDHG.1.1.3"
     ]
 
     version = [
