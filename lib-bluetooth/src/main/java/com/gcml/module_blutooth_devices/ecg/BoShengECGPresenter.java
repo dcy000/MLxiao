@@ -378,7 +378,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                     @Override
                     public void onSuccess(BorsamResponse<UploadFileResult> uploadFileResultBorsamResponse) {
                         String file_no = uploadFileResultBorsamResponse.getEntity().getFile_no();
-                        addRecord(file_no, (int) (System.currentTimeMillis() / 1000), 1, "测试");
+                        addRecord(file_no, (int) (System.currentTimeMillis() / 1000), 1, "");
                     }
 
                     @Override

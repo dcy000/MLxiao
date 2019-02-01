@@ -96,7 +96,6 @@ public class SelectUserDefualtLoginTypeActivity extends AppCompatActivity implem
             tvSelectUserLoginConfirm.setEnabled(true);
         }
 
-
     }
 
 }
