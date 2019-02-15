@@ -99,28 +99,28 @@ public class DrinkInfoActivity extends BaseActivity {
     }
 
     private void getResult() {
-        String drink=tvDrinkYes.isSelected()?"1":"0";
+        String drink = tvDrinkYes.isSelected() ? "1" : "0";
         LocalShared.getInstance(this).setIsDrinkOrNot(drink);
 
         String drinkWhat = "";
 
         if (tvBaijiu.isSelected()) {
-            drinkWhat+="0"+",";
+            drinkWhat += "0" + ",";
         }
 
         if (tvLiaojiu.isSelected()) {
-            drinkWhat+="1"+",";
+            drinkWhat += "1" + ",";
         }
 
         if (tvPijiu.isSelected()) {
-            drinkWhat+="2"+",";
+            drinkWhat += "2" + ",";
         }
 
         if (tvMijiu.isSelected()) {
-            drinkWhat+="3"+",";
+            drinkWhat += "3" + ",";
         }
 
-        if ((!tvDrinkNot.isSelected())&&(!tvDrinkYes.isSelected())){
+        if ((!tvDrinkNot.isSelected()) && (!tvDrinkYes.isSelected())) {
             speak("主人,您本周内是否有饮酒");
             return;
         }

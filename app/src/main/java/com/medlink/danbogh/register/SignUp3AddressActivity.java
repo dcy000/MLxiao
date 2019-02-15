@@ -6,10 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -18,23 +15,24 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.speechsynthesis.PinYinUtils;
+import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.require4.bean.InquiryInfoResponseBean;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.DrinkInfoActivity;
 import com.example.han.referralproject.yiyuan.activity.PregnancyWenActivity;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.medlink.danbogh.register.entity.City;
-import com.medlink.danbogh.register.entity.Province;
-import com.medlink.danbogh.utils.Handlers;
+import com.lljjcoder.Interface.OnCityItemClickListener;
+import com.lljjcoder.bean.CityBean;
+import com.lljjcoder.bean.DistrictBean;
+import com.lljjcoder.bean.ProvinceBean;
+import com.lljjcoder.citywheel.CityConfig;
+import com.lljjcoder.style.citypickerview.CityPickerView;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.T;
 import com.medlink.danbogh.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,20 +40,21 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class SignUp3AddressActivity extends BaseActivity {
-
     @BindView(R.id.tv_sign_up_go_back)
     TextView tvGoBack;
     @BindView(R.id.tv_sign_up_go_forward)
     TextView tvGoForward;
     @BindView(R.id.sp_province)
-    Spinner spProvince;
+    TextView spProvince;
     @BindView(R.id.sp_city)
-    Spinner spCity;
+    TextView spCity;
     @BindView(R.id.sp_county)
-    Spinner spCounty;
+    TextView spCounty;
     @BindView(R.id.et_sign_up_address)
     EditText etAddress;
+
     private Unbinder mUnbinder;
+    CityPickerView cityPicker = new CityPickerView();
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, SignUp3AddressActivity.class);
@@ -72,10 +71,57 @@ public class SignUp3AddressActivity extends BaseActivity {
         setContentView(R.layout.activity_sign_up3_address);
         mToolbar.setVisibility(View.GONE);
         mUnbinder = ButterKnife.bind(this);
-        initData();
         initLocation();
         initTitle();
+        initCityPicker();
         ActivityHelper.addActivity(this);
+        getAddressInfo();
+    }
+
+    private void getAddressInfo() {
+        showLoadingDialog("");
+        NetworkApi.getInquiryInfo(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    String body = response.body();
+                    InquiryInfoResponseBean inquiryInfoResponseBean = new Gson().fromJson(body, InquiryInfoResponseBean.class);
+                    if (inquiryInfoResponseBean.tag) {
+                        InquiryInfoResponseBean.DataBean data = inquiryInfoResponseBean.data;
+                        if (data != null && data.address != null) {
+                            if (data.address.contains("省") && data.address.contains("市") && data.address.contains("区")) {
+                                String[] province = data.address.split("省");
+                                spProvince.setText(province[0]);
+                                spCity.setText(province[1].split("市")[0]);
+                                spCounty.setText(province[1].split("市")[1].split("区")[0]);
+                                etAddress.setText(data.address.split("区")[1]);
+                                Integer addressModifyDays = data.addressModifyDays;
+                                if (addressModifyDays != null && addressModifyDays >= 90) {
+                                    findViewById(R.id.tv_address_tip).setVisibility(View.VISIBLE);
+                                }
+                            } else {
+                                startLocation();
+                            }
+                        } else {
+                            startLocation();
+                        }
+                    }
+                } catch (Exception e) {
+                    startLocation();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoadingDialog();
+            }
+        });
     }
 
     private void initTitle() {
@@ -83,6 +129,62 @@ public class SignUp3AddressActivity extends BaseActivity {
         mToolbar.setVisibility(View.VISIBLE);
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.GONE);
+    }
+
+    private void initCityPicker() {
+        cityPicker.init(this);
+        //添加默认的配置，不需要自己定义
+        CityConfig cityConfig = new CityConfig.Builder()
+                .title("选择城市").title("选择城市")//标题
+                .titleTextSize(26)//标题文字大小
+                .titleTextColor("#585858")//标题文字颜  色
+                .titleBackgroundColor("#E9E9E9")//标题栏背景色
+
+                .confirTextColor("#585858")//确认按钮文字颜色
+                .confirmText("确定")//确认按钮文字
+                .confirmTextSize(20)//确认按钮文字大小
+
+                .cancelTextColor("#585858")//取消按钮文字颜色
+                .cancelText("取消")//取消按钮文字
+                .cancelTextSize(20)//取消按钮文字大小
+
+                .setCityWheelType(CityConfig.WheelType.PRO_CITY_DIS)//显示类，只显示省份一级，显示省市两级还是显示省市区三级
+                .showBackground(true)//是否显示半透明背景
+                .visibleItemsCount(5)//显示item的数量
+                .province("浙江省")//默认显示的省份
+                .city("杭州市")//默认显示省份下面的城市
+                .district("滨江区")//默认显示省市下面的区县数据
+                .setLineColor("#03a9f4")//中间横线的颜色
+                .setLineHeigh(2)//中间横线的高度
+                .setShowGAT(true)//是否显示港澳台数据，默认不显示
+                .build();
+        cityPicker.setConfig(cityConfig);
+        cityPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
+            @Override
+            public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
+
+                //省份
+                if (province != null) {
+                    spProvince.setText(province.getName());
+                }
+
+                //城市
+                if (city != null) {
+                    spCity.setText(city.getName());
+                }
+
+                //地区
+                if (district != null) {
+                    spCounty.setText(district.getName());
+                }
+
+            }
+
+            @Override
+            public void onCancel() {
+            }
+        });
+
     }
 
     private void initLocation() {
@@ -98,79 +200,25 @@ public class SignUp3AddressActivity extends BaseActivity {
 
     private LocationClient mLocationClient;
 
-    private int finalI = -1;
-    private int finalJ = -1;
-    private int finalK = -1;
     private String finalDetailAddress = "";
 
     private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
-            try {
-                stopLocation();
-                if (bdLocation == null) {
-                    return;
-                }
-                String province = bdLocation.getProvince();
-                String city = bdLocation.getCity();
-                String county = bdLocation.getDistrict();
-                String street = bdLocation.getStreet();
-                String streetNumber = bdLocation.getStreetNumber();
-                finalDetailAddress = street + streetNumber;
-                if (mProvinceNames != null) {
-                    int size = mProvinceNames.size();
-                    for (int i = 0; i < size; i++) {
-                        String provinceName = mProvinceNames.get(i);
-                        if (province.contains(provinceName)
-                                || provinceName.contains(province)) {
-                            finalI = i;
-                            List<String> cityNames = mCityNameMap.get(provinceName);
-                            if (cityNames != null) {
-                                mCityNames = cityNames;
-                                int size1 = mCityNames.size();
-                                for (int j = 0; j < size1; j++) {
-                                    String cityName = mCityNames.get(j);
-                                    if (cityName.contains(city)
-                                            || city.contains(cityName)) {
-                                        finalJ = j;
-                                        List<String> countyNames = mCountyNameMap.get(cityName);
-                                        if (countyNames != null) {
-                                            mCountyNames = countyNames;
-                                            int size2 = mCountyNames.size();
-                                            for (int k = 0; k < size2; k++) {
-                                                String countyName = mCountyNames.get(k);
-                                                if (countyName.contains(county)
-                                                        || county.contains(countyName)) {
-                                                    finalK = k;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        break;
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                    }
+            stopLocation();
 
-                    if (finalI >= 0 && finalI < mProvinceNames.size() &&
-                            finalJ >= 0 && finalJ < mCityNames.size() &&
-                            finalK >= 0 && finalK < mCountyNames.size()) {
-                        spProvince.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                spProvince.setSelection(finalI);
-                                spCounty.setSelection(finalJ);
-                                spCounty.setSelection(finalK);
-                                etAddress.setText(finalDetailAddress);
-                                etAddress.setSelection(finalDetailAddress.length());
-                            }
-                        });
-                    }
-                }
-            } catch (Exception e) {
-            }
+            String province = bdLocation.getProvince();
+            String city = bdLocation.getCity();
+            String county = bdLocation.getDistrict();
+            String street = bdLocation.getStreet();
+            String streetNumber = bdLocation.getStreetNumber();
+
+            finalDetailAddress = street + streetNumber;
+            spProvince.setText(province);
+            spCity.setText(city);
+            spCounty.setText(county);
+            etAddress.setText(finalDetailAddress);
+            etAddress.setSelection(finalDetailAddress.length());
         }
     };
 
@@ -187,7 +235,6 @@ public class SignUp3AddressActivity extends BaseActivity {
         super.onResume();
         setDisableGlobalListen(true);
         speak(R.string.sign_up3_address_tip);
-//        startLocation();
     }
 
     private void startLocation() {
@@ -247,206 +294,41 @@ public class SignUp3AddressActivity extends BaseActivity {
         }
     }
 
-    private List<String> mProvinceNames = new ArrayList<>();
-    private Map<String, List<String>> mCityNameMap = new HashMap<>();
-    private Map<String, List<String>> mCountyNameMap = new HashMap<>();
-    private List<String> mCityNames;
-    private List<String> mCountyNames;
-
-    int provinceIndex = 0;
-    int cityIndex = 0;
-    int countyIndex = 0;
-
-    private ArrayAdapter<String> provinceAdapter;
-    private ArrayAdapter<String> mCityAdapter;
-    private ArrayAdapter<String> mCountyAdapter;
-
-    private void showCities() {
-        provinceAdapter = new ArrayAdapter<>(this, R.layout.item_spinner_layout);
-        spProvince.setAdapter(provinceAdapter);
-        provinceAdapter.clear();
-        provinceAdapter.addAll(mProvinceNames);
-        mCityAdapter = new ArrayAdapter<>(this, R.layout.item_spinner_layout);
-        spCity.setAdapter(mCityAdapter);
-        mCityNames = mCityNameMap.get(mProvinceNames.get(0));
-        mCityAdapter.clear();
-        mCityAdapter.addAll(mCityNames);
-        mCountyAdapter = new ArrayAdapter<>(this, R.layout.item_spinner_layout);
-        spCounty.setAdapter(mCountyAdapter);
-        mCountyNames = mCountyNameMap.get(mCityNames.get(0));
-        mCountyAdapter.clear();
-        mCountyAdapter.addAll(mCityNames);
-
-    }
-
-    private List<Province> mProvinces;
-
-    private void initData() {
-        spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //update relative city | county
-                provinceIndex = position;
-                mCityNames = mCityNameMap.get(mProvinceNames.get(position));
-                mCityAdapter.clear();
-                mCityAdapter.addAll(mCityNames);
-                mCountyNames = mCountyNameMap.get(mCityNames.get(0));
-                mCountyAdapter.clear();
-                mCountyAdapter.addAll(mCountyNames);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //update relative county
-                cityIndex = position;
-                mCountyNames = mCountyNameMap.get(mCityNames.get(position));
-                mCountyAdapter.clear();
-                mCountyAdapter.addAll(mCountyNames);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spCounty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                countyIndex = position;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        Handlers.bg().post(new Runnable() {
-
-            @Override
-            public void run() {
-                mProvinces = loadCities();
-                Handlers.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showCities();
-                    }
-                });
-            }
-        });
-    }
-
-    private List<Province> loadCities() {
-        String provincesArr = Utils.readTextFromAssetFile(this.getApplicationContext(), "cities.json");
-        Gson gson = new Gson();
-        List<Province> provinces = gson.fromJson(provincesArr, new TypeToken<List<Province>>() {
-        }.getType());
-        if (provinces != null && provinces.size() != 0) {
-            for (Province province : provinces) {
-                mProvinceNames.add(province.getName());
-                List<String> cityNames = new ArrayList<>();
-                List<City> cities = province.getCities();
-                for (City city : cities) {
-                    cityNames.add(city.getName());
-                    mCountyNameMap.put(city.getName(), city.getCounties());
-                }
-                mCityNameMap.put(province.getName(), cityNames);
-            }
-        }
-        return provinces;
-    }
-
     private String getAddress() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(mProvinceNames.get(provinceIndex))
-                .append(mCityNames.get(cityIndex))
-                .append(mCountyNames.get(countyIndex))
+
+        String address = "";
+        address = address + spProvince.getText().toString().trim();
+        if (!address.contains("省")) {
+            address = address + "省";
+        }
+
+        address = address + spCity.getText().toString().trim();
+        if (!address.contains("市")) {
+            address = address + "市";
+        }
+
+        address = address + spCounty.getText().toString().trim();
+        if (!address.contains("区")) {
+            address = address + "区";
+        }
+        return address + etAddress.getText().toString().trim();
+
+      /*  StringBuilder builder = new StringBuilder();
+        builder.append(spProvince.getText().toString().trim())
+                .append(spCity.getText().toString().trim())
+                .append(spCounty.getText().toString().trim())
                 .append(etAddress.getText().toString().trim());
-        return builder.toString();
+        return builder.toString();*/
     }
 
-    public static final String REGEX_IN_DEL = ".*(quxiao|qingchu|sandiao|shandiao|sancu|shancu|sanchu|shanchu|budui|cuole|cuole).*";
-    public static final String REGEX_IN_DEL_ALL = ".*(chongxin|quanbu|suoyou|shuoyou).*";
-    public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
-    public static final String REGEX_IN_GO_FORWARD = ".*(下一步|下一部|确定|完成).*";
-
-    @Override
-    protected void onSpeakListenerResult(String result) {
-        T.show(result);
-
-        if (result.matches(REGEX_IN_GO_BACK)) {
-            onTvGoBackClicked();
-            return;
-        }
-
-        if (result.matches(REGEX_IN_GO_FORWARD)) {
-            onTvGoForwardClicked();
-            return;
-        }
-
-        String inSpell = PinYinUtils.converterToSpell(result);
-        if (inSpell.matches(REGEX_IN_DEL_ALL)) {
-            etAddress.setText("");
-            return;
-        }
-
-        String target = etAddress.getText().toString().trim();
-        if (inSpell.matches(REGEX_IN_DEL)) {
-            if (!TextUtils.isEmpty(target)) {
-                etAddress.setText(target.substring(0, target.length() - 1));
-                etAddress.setSelection(target.length() - 1);
-            }
-            return;
-        }
-
-        if (mProvinceNames != null) {
-            int size = mProvinceNames.size();
-            for (int i = 0; i < size; i++) {
-                String provinceName = mProvinceNames.get(i);
-                String provinceSpell = PinYinUtils.converterToSpell(provinceName);
-                if (inSpell.equals(provinceSpell)) {
-                    spProvince.setSelection(i);
-                    return;
-                }
-            }
-        }
-
-        if (mCityNames != null) {
-            int size = mCityNames.size();
-            for (int i = 0; i < size; i++) {
-                String cityName = mCityNames.get(i);
-                String citySpell = PinYinUtils.converterToSpell(cityName);
-                if (inSpell.equals(citySpell)) {
-                    spCity.setSelection(i);
-                    return;
-                }
-            }
-        }
-
-        if (mCountyNames != null) {
-            int size = mCountyNames.size();
-            for (int i = 0; i < size; i++) {
-                String countyName = mCountyNames.get(i);
-                String countySpell = PinYinUtils.converterToSpell(countyName);
-                if (inSpell.equals(countySpell)) {
-                    spCounty.setSelection(i);
-                    return;
-                }
-            }
-        }
-
-        String text = target + result;
-        if (text.length() < 30) {
-            etAddress.setText(text);
-            etAddress.setSelection(text.length());
+    @OnClick({R.id.sp_province, R.id.sp_city, R.id.sp_county})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.sp_province:
+            case R.id.sp_city:
+            case R.id.sp_county:
+                cityPicker.showCityPicker();
+                break;
         }
     }
 }

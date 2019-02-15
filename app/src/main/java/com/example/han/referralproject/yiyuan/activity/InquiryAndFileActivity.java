@@ -23,6 +23,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.bean.PutXFInfoBean;
 import com.example.han.referralproject.require2.bean.UserEqIDXFInfoBean;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
+import com.example.han.referralproject.require4.bean.InquiryInfoResponseBean;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
@@ -35,6 +36,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.register.SignUp7HeightActivity;
+import com.medlink.danbogh.register.SignUp8WeightActivity;
 import com.medlink.danbogh.utils.T;
 import com.orhanobut.logger.Logger;
 import com.umeng.analytics.MobclickAgent;
@@ -271,6 +273,60 @@ public class InquiryAndFileActivity extends BaseActivity {
                         hideLoadingDialog();
                     }
                 });
+
+
+    }
+
+    Integer age;
+    Integer height;
+    Integer weight;
+    Integer weightModify;
+
+    private void getAddressInfo() {
+        showLoadingDialog("");
+        NetworkApi.getInquiryInfo(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    String body = response.body();
+                    InquiryInfoResponseBean inquiryInfoResponseBean = new Gson().fromJson(body, InquiryInfoResponseBean.class);
+                    if (inquiryInfoResponseBean.tag) {
+                        InquiryInfoResponseBean.DataBean data = inquiryInfoResponseBean.data;
+                        if (data != null) {
+                            if (data.age != null) {
+                                age = data.age;
+                            }
+
+                            if (data.height != null) {
+                                height = data.height;
+                            }
+
+                            if (data.weightModifyDays != null) {
+                                weightModify = data.weightModifyDays;
+                            }
+                            if (data.weight != null) {
+                                weight = data.weight;
+                            }
+
+
+                        }
+
+                    }
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoadingDialog();
+            }
+        });
     }
 
     private void initTitle() {
@@ -293,11 +349,7 @@ public class InquiryAndFileActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_wenzhen:
-//                InquiryAndFileEndActivity.startMe(this,"问诊");
-                Intent intent = new Intent(this, SignUp7HeightActivity.class);
-              /*  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);*/
-                startActivity(intent);
+                wenzen();
                 break;
             case R.id.iv_jiandang:
                 //请求接口 判断时候建档
@@ -327,6 +379,19 @@ public class InquiryAndFileActivity extends BaseActivity {
             case R.id.iv_inquire_file_exit:
                 tuiChu();
                 break;
+        }
+    }
+
+    private void wenzen() {
+        if (height != null && height >= 25) {
+            LocalShared.getInstance(this.getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
+            Intent intent = new Intent(this, SignUp8WeightActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, SignUp7HeightActivity.class)
+                    .putExtra("weightModify", weightModify)
+                    .putExtra("weight", weight);
+            startActivity(intent);
         }
     }
 

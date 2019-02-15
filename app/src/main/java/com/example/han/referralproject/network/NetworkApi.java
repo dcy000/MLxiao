@@ -1523,4 +1523,12 @@ public class NetworkApi {
                 .params("doctorId", docotorId)
                 .execute(callback);
     }
+
+//    /api/health/inquiry/{userId}/userinfo/
+
+    public static void getInquiryInfo(String userId, StringCallback callback) {
+        OkGo.<String>get(Inquiry + userId + "/")
+                .headers("equipmentId", Utils.getDeviceId())
+                .execute(callback);
+    }
 }

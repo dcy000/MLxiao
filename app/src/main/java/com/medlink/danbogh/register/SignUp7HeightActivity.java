@@ -128,8 +128,19 @@ public class SignUp7HeightActivity extends BaseActivity {
     public void onTvGoForwardClicked() {
         String height = mStrings.get(selectedPosition);
         LocalShared.getInstance(this.getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
-        Intent intent = new Intent(this, SignUp8WeightActivity.class);
-        startActivity(intent);
+
+        if (getIntent() != null) {
+            int weightModify = getIntent().getIntExtra("weightModify", 0);
+            int weight = getIntent().getIntExtra("weight", 0);
+            if (weightModify >= 90) {
+                Intent intent = new Intent(this, SignUp8WeightActivity.class);
+                startActivity(intent);
+            } else {
+                LocalShared.getInstance(this.getApplicationContext()).setSignUpWeight(weight);
+                Intent intent = new Intent(this, SignUp3AddressActivity.class);
+                startActivity(intent);
+            }
+        }
     }
 
     public void select(String text) {

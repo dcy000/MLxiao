@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_sign_up_root_address"
@@ -19,9 +18,10 @@
         android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
+    <TextView
+        android:textSize="32sp"
         android:id="@+id/sp_province"
         android:layout_width="130dp"
         android:layout_height="50dp"
@@ -32,7 +32,9 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/tv_sign_up_province"
-        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_address"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_address" />
+
+
 
     <TextView
         android:id="@+id/tv_sign_up_province"
@@ -44,9 +46,10 @@
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@+id/sp_province"
         app:layout_constraintLeft_toRightOf="@+id/sp_province"
-        app:layout_constraintRight_toLeftOf="@+id/sp_city"/>
+        app:layout_constraintRight_toLeftOf="@+id/sp_city" />
 
-    <Spinner
+    <TextView
+        android:textSize="32sp"
         android:id="@+id/sp_city"
         android:layout_width="130dp"
         android:layout_height="50dp"
@@ -55,7 +58,8 @@
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/sp_province"
         app:layout_constraintLeft_toRightOf="@+id/tv_sign_up_province"
-        app:layout_constraintRight_toLeftOf="@+id/tv_sign_up_city"/>
+        app:layout_constraintRight_toLeftOf="@+id/tv_sign_up_city" />
+
 
     <TextView
         android:id="@+id/tv_sign_up_city"
@@ -67,9 +71,10 @@
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@+id/sp_province"
         app:layout_constraintLeft_toRightOf="@+id/sp_city"
-        app:layout_constraintRight_toLeftOf="@+id/sp_county"/>
+        app:layout_constraintRight_toLeftOf="@+id/sp_county" />
 
-    <Spinner
+    <TextView
+        android:textSize="32sp"
         android:id="@+id/sp_county"
         android:layout_width="130dp"
         android:layout_height="50dp"
@@ -78,7 +83,9 @@
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/sp_province"
         app:layout_constraintLeft_toRightOf="@+id/tv_sign_up_city"
-        app:layout_constraintRight_toLeftOf="@+id/tv_sign_up_county"/>
+        app:layout_constraintRight_toLeftOf="@+id/tv_sign_up_county" />
+
+
 
     <TextView
         android:id="@+id/tv_sign_up_county"
@@ -90,7 +97,7 @@
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@id/sp_province"
         app:layout_constraintLeft_toRightOf="@+id/sp_county"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <EditText
         android:id="@+id/et_sign_up_address"
@@ -109,9 +116,27 @@
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="@+id/sp_province"
         app:layout_constraintRight_toRightOf="@+id/tv_sign_up_county"
-        app:layout_constraintTop_toBottomOf="@+id/sp_province"/>
+        app:layout_constraintTop_toBottomOf="@+id/sp_province" />
+    <TextView
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        android:id="@+id/tv_address_tip"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="90dp"
+        android:text="*您已经有90天没有更新地址啦，是否要修改地址"
+        android:maxLength="50"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:textColor="#f5f53030"
+        android:textSize="22sp"
+        app:layout_constraintLeft_toLeftOf="@+id/sp_province"
+        app:layout_constraintRight_toRightOf="@+id/tv_sign_up_county"
+        app:layout_constraintTop_toBottomOf="@+id/sp_province" />
 
-    <include layout="@layout/include_sign_up_tab"/>
+    <include layout="@layout/include_sign_up_tab" />
 
-    <include layout="@layout/include_sign_up_nav"/>
+    <include layout="@layout/include_sign_up_nav" />
 </android.support.constraint.ConstraintLayout>
