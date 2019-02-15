@@ -67,10 +67,7 @@ public class NetworkApi {
     /**
      * 林本地
      */
-//    public static final String BasicUrl = "http://192.168.200.117:8080";
-//    public static final String BasicUrl = "http://192.168.200.120:8080";
-//    public static final String BasicUrl = "http://192.168.200.157:8080";
-    public static final String BasicUrl = "http://192.168.0.115:8080";
+    public static final String BasicUrl = "http://192.168.200.230:8080";
     /**
      * 测试
      */
@@ -1526,6 +1523,4 @@ public class NetworkApi {
                 .params("doctorId", docotorId)
                 .execute(callback);
     }
-
-
 }

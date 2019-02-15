@@ -247,7 +247,9 @@ public class InquiryAndFileActivity extends BaseActivity {
                             if (reultBean.tag) {
                                 ivJiandang.setEnabled(false);
                                 tvFileDone.setVisibility(View.VISIBLE);
-
+                                if (reultBean.data != null) {
+                                    tvFileDone.setText("(建档单位: " + reultBean.data.orgName + ")");
+                                }
                             } else {
                                 ivJiandang.setEnabled(true);
                                 tvFileDone.setVisibility(View.GONE);

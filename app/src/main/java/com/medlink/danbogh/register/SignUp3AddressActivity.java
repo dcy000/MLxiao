@@ -187,7 +187,7 @@ public class SignUp3AddressActivity extends BaseActivity {
         super.onResume();
         setDisableGlobalListen(true);
         speak(R.string.sign_up3_address_tip);
-        startLocation();
+//        startLocation();
     }
 
     private void startLocation() {
