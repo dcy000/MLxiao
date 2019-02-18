@@ -63,11 +63,11 @@ public class NetworkApi {
     /**
      * 医疗版生产
      */
-//    public static final String BasicUrl = "http://118.31.73.176:8080";
+    public static final String BasicUrl = "http://118.31.73.176:8080";
     /**
      * 林本地
      */
-    public static final String BasicUrl = "http://192.168.200.230:8080";
+//    public static final String BasicUrl = "http://192.168.200.230:8080";
     /**
      * 测试
      */

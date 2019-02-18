@@ -35,6 +35,8 @@ public class SelectXuetangTimeActivity extends BaseActivity implements View.OnCl
         ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("选择测量时间");
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
         kongfu.setOnClickListener(this);
         oneHour.setOnClickListener(this);
         twoHour.setOnClickListener(this);
@@ -50,12 +52,25 @@ public class SelectXuetangTimeActivity extends BaseActivity implements View.OnCl
                 break;
             case R.id.two_hour:
                 startActivity(new Intent(this, DetectActivity.class)
-                        .putExtra("time", 2).putExtra("type", detectType));
+                        .putExtras(getIntent())
+                        .putExtra("time", 2)
+                        .putExtra("type", detectType));
+                finish();
                 break;
             case R.id.kongfu:
                 startActivity(new Intent(this, DetectActivity.class)
-                        .putExtra("time", 0).putExtra("type", detectType));
+                        .putExtras(getIntent())
+                        .putExtra("time", 0)
+                        .putExtra("type", detectType));
+                finish();
                 break;
         }
+    }
+
+    private void toXueTang() {
+        Intent intent1 = new Intent(SelectXuetangTimeActivity.this, DetectActivity.class);
+        intent1.putExtras(getIntent());
+        intent1.putExtra("type", "xuetang");
+        startActivity(intent1);
     }
 }

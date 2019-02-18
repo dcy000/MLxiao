@@ -1066,14 +1066,37 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         });
 
         if (getIntent().getBooleanExtra("inquiry", false)) {
+            mButton.setText("跳过");
             mButton1.setText("跳过");
+
             mButton1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (Type_Wendu.equals(type)) {
+                        return;
+                    }
                     showLoadingDialog("正在提交问诊信息");
                     postWenZhenData(false);
                 }
             });
+
+            mButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Type_Wendu.equals(type)) {
+                        Intent intentXueYa = new Intent();
+                        intentXueYa.setClass(DetectActivity.this, DetectActivity.class);
+                        intentXueYa.putExtras(getIntent());
+                        intentXueYa.putExtra("from", "Test");
+                        intentXueYa.putExtra("inquiry", true);
+                        intentXueYa.putExtra("type", "xueya");
+                        intentXueYa.putExtra("fromType", "xueya");
+                        intentXueYa.putExtra("temperature", mResultTv.getText().toString());
+                        startActivity(intentXueYa);
+                    }
+                }
+            });
+
 
         }
 
@@ -1578,7 +1601,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         startActivity(intent4);
                         break;
                     case "xuetang":
-                        Intent intent2 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+                        Intent intent2 = new Intent(DetectActivity.this, SelectXuetangTimeActivity.class);
                         intent2.putExtras(getIntent());
                         intent2.putExtra("sugar", "0");
                         startActivity(intent2);
@@ -1650,7 +1673,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 //                        }
                         break;
                     case "xuetang":
-                        Intent intent5 = new Intent(DetectActivity.this, XinDianDetectActivity.class);
+                        Intent intent5 = new Intent(DetectActivity.this, SelectXuetangTimeActivity.class);
                         intent5.putExtras(getIntent());
                         intent5.putExtra("sugar", "0");
                         startActivity(intent5);
@@ -2224,8 +2247,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         bean.userId = LocalShared.getInstance(this).getUserId();
         bean.weekDrinkState = LocalShared.getInstance(this).getIsDrinkOrNot();
         bean.wineType = LocalShared.getInstance(this).getDringInto();
-
-
+        //
+        if (getIntent() != null) {
+            if (!TextUtils.isEmpty(getIntent().getStringExtra("income"))) {
+                bean.income = getIntent().getStringExtra("income");
+            }
+        }
         final Gson gson = new Gson();
         OkGo.<String>post(NetworkApi.Inquiry)
                 .tag(this)
@@ -2279,9 +2306,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                                 @Override
                                 public void onCompleted(SpeechError speechError) {
-                                    InquiryAndFileEndActivity.startMe(DetectActivity.this, "问诊");
-                                    finish();
-                                    ActivityHelper.finishAll();
+                                    receivePatientNotice();
                                 }
 
                                 @Override
@@ -2290,9 +2315,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 }
                             }, false);
                         } else {
-                            InquiryAndFileEndActivity.startMe(DetectActivity.this, "问诊");
-                            finish();
-                            ActivityHelper.finishAll();
+                            receivePatientNotice();
                         }
 
                     }
@@ -2305,6 +2328,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 });
     }
 
+    private void afterWenzen() {
+        InquiryAndFileEndActivity.startMe(DetectActivity.this, "问诊");
+        finish();
+        ActivityHelper.finishAll();
+    }
+
 
     private void showNoticeDialog() {
         if (dialog1 == null) {
@@ -2312,5 +2341,26 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         }
         dialog1.show(getFragmentManager(), "notice");
     }
+
+    private void receivePatientNotice() {
+        new AlertDialog.Builder(mContext)
+                .setMessage("您的问诊已完成，是否需要医生接诊")
+                .setNegativeButton("取消",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                afterWenzen();
+                            }
+                        })
+                .setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                afterWenzen();
+                            }
+                        }).show();
+    }
+
+
 }
 

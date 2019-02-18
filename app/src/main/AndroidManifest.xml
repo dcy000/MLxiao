@@ -890,6 +890,7 @@
             android:name=".require2.register.activtiy.AddcontactPhoneActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".qianming.SignatureActivity"></activity>
+        <activity android:name=".yiyuan.activity.IncomeActivity"></activity>
     </application>
 
 </manifest>

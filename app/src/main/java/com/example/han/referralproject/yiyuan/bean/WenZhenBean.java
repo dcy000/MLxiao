@@ -40,4 +40,6 @@ public class WenZhenBean implements Serializable {
     public String weekDrinkState ;
     public String wineType  ;
 
+    public String income;
+
 }

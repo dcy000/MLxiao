@@ -33,12 +33,11 @@
             android:drawablePadding="24pt"
             android:gravity="center"
             android:tag="0"
-            android:text="<10万"
+            android:text="少于10万"
             android:textColor="#666"
             android:textSize="72pt" />
 
         <TextView
-            android:tag="1"
             android:id="@+id/tv_less_30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,12 +46,12 @@
             android:drawableLeft="@drawable/bg_huaiyun_set"
             android:drawablePadding="24pt"
             android:gravity="center"
+            android:tag="1"
             android:text="10万~30万"
             android:textColor="#666"
             android:textSize="72pt" />
 
         <TextView
-            android:tag="2"
             android:id="@+id/tv_more_30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,7 +60,8 @@
             android:drawableLeft="@drawable/bg_huaiyun_set"
             android:drawablePadding="24pt"
             android:gravity="center"
-            android:text=">30万"
+            android:tag="2"
+            android:text="大于30万"
             android:textColor="#666"
             android:textSize="72pt" />
 

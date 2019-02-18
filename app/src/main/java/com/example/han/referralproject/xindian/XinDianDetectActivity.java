@@ -20,6 +20,7 @@ import com.creative.ecg.StatusMsg;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DetectActivity;
+import com.example.han.referralproject.activity.SelectXuetangTimeActivity;
 import com.example.han.referralproject.bean.DataInfoBean;
 import com.example.han.referralproject.bean.MeasureResult;
 import com.example.han.referralproject.network.NetworkApi;
@@ -135,13 +136,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                 @Override
                 public void onClick(View v) {
                     if ("detectHealth".equals(detectCategory)) {
-                        Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
-                        intent1.putExtras(getIntent());
-                        intent1.putExtra("type", "xuetang");
-//                        String ecg = tv_MSG == null ? "0" : tv_MSG.getText().toString();
-                        intent1.putExtra("ecg", ecg);
-                        intent1.putExtra("heartRate", heartRate);
-                        startActivity(intent1);
+                        toXueTang();
                         finish();
                         return;
                     }
@@ -157,13 +152,7 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                         return;
                     }
                     if ("detectSugar".equals(detectCategory)) {
-                        Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
-                        intent1.putExtras(getIntent());
-                        intent1.putExtra("type", "xuetang");
-//                        String ecg = tv_MSG == null ? "0" : tv_MSG.getText().toString();
-                        intent1.putExtra("ecg", ecg);
-                        intent1.putExtra("heartRate", heartRate);
-                        startActivity(intent1);
+                        toXueTang();
                         finish();
                         return;
                     }
@@ -179,6 +168,23 @@ public class XinDianDetectActivity extends BaseActivity implements View.OnClickL
                 }
             });
         }
+    }
+
+    private void toXueTang() {
+      /*  Intent intent1 = new Intent(XinDianDetectActivity.this, DetectActivity.class);
+        intent1.putExtras(getIntent());
+        intent1.putExtra("type", "xuetang");
+//                        String ecg = tv_MSG == null ? "0" : tv_MSG.getText().toString();
+        intent1.putExtra("ecg", ecg);
+        intent1.putExtra("heartRate", heartRate);
+        startActivity(intent1);*/
+
+        Intent intent = new Intent(this, SelectXuetangTimeActivity.class);
+        intent.putExtras(getIntent());
+        intent.putExtra("type", "xuetang");
+        intent.putExtra("ecg", ecg);
+        intent.putExtra("heartRate", heartRate);
+        startActivity(intent);
     }
 
     @Override

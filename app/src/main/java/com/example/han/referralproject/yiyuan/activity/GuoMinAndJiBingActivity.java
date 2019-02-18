@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
-import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 
@@ -145,24 +144,18 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
 
     private void nextStep() {
 
-        if (TextUtils.isEmpty(getGuoMin())){
+        if (TextUtils.isEmpty(getGuoMin())) {
             speak("主人,您是否有过敏史");
             return;
         }
 
-        if (TextUtils.isEmpty(getJiBing())){
+        if (TextUtils.isEmpty(getJiBing())) {
             speak("主人,您是否有疾病史");
             return;
         }
 
-        Intent intent = new Intent();
-        intent.putExtra("from", "Test");
-        intent.putExtra("fromType", "xueya");
-        intent.putExtra("inquiry", true);
-        intent.setClass(this, DetectActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, IncomeActivity.class));
     }
-
 
     public String getGuoMin() {
         String guomin = "";
@@ -192,7 +185,7 @@ public class GuoMinAndJiBingActivity extends BaseActivity {
         return guomin;
     }
 
-    private String  getJiBing() {
+    private String getJiBing() {
         String jibing = "";
         if (wu2.isSelected()) {
             jibing = "0";

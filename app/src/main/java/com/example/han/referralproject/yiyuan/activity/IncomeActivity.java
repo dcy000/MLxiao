@@ -1,5 +1,6 @@
 package com.example.han.referralproject.yiyuan.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -9,8 +10,8 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
+import com.example.han.referralproject.activity.DetectActivity;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
-import com.medlink.danbogh.utils.T;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,8 +82,7 @@ public class IncomeActivity extends BaseActivity {
         if (!checkSelect()) {
             speak("主人,请至择一项");
         }
-
-        T.show(getSelectItem());
+        toWendu();
     }
 
     private boolean checkSelect() {
@@ -114,5 +114,15 @@ public class IncomeActivity extends BaseActivity {
         }
     }
 
+
+    private void toWendu() {
+        Intent intent = new Intent();
+        intent.putExtra("from", "Test");
+        intent.putExtra("type", "wendu");
+        intent.putExtra("inquiry", true);
+        intent.putExtra("income", getSelectItem());
+        intent.setClass(this, DetectActivity.class);
+        startActivity(intent);
+    }
 
 }
