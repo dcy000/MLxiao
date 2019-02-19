@@ -12,6 +12,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.Utils;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.umeng.analytics.MobclickAgent;
 
@@ -51,6 +52,15 @@ public class InquiryAndFileEndActivity extends BaseActivity {
         mRightText.setVisibility(View.GONE);
         mRightView.setVisibility(View.GONE);
 
+        if (getIntent() != null) {
+            String inquiryTime = getIntent().getStringExtra("inquiryTime");
+            try {
+                long l = Long.parseLong(inquiryTime);
+                String date = Utils.stampTodate(l);
+                textView9.setText("您的接诊时间为: " + date);
+            } catch (Exception e) {
+            }
+        }
     }
 
     /**

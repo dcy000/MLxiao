@@ -390,11 +390,13 @@ public class InquiryAndFileActivity extends BaseActivity {
         if (height != null && height >= 25) {
             LocalShared.getInstance(this.getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
             Intent intent = new Intent(this, SignUp8WeightActivity.class);
+            intent.putExtra("weight", weight);
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, SignUp7HeightActivity.class)
                     .putExtra("weightModify", weightModify)
-                    .putExtra("weight", weight);
+                    .putExtra("weight", weight)
+                    .putExtra("wheight", height);
             startActivity(intent);
         }
     }

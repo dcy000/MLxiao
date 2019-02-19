@@ -85,6 +85,17 @@ public class Utils {
         String d = format.format(time);
         return d;
     }
+
+    /**
+     * 时间格式转换
+     * @return
+     */
+    public static String stampTodate(long l){
+        SimpleDateFormat format =  new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        Long time=new Long(l);
+        String d = format.format(time);
+        return d;
+    }
     /**
      * 调节屏幕透明度
      * @param context

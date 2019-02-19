@@ -99,4 +99,21 @@ public class SignUp8WeightActivity extends SignUp7HeightActivity {
     }
 
     private int i70 = 25;
+
+    @Override
+    protected void selectedPosition() {
+        if (getIntent() != null && getIntent().getIntExtra("weight", 0) != 0) {
+            selectedPosition = findIndex(getIntent().getIntExtra("weight", 0));
+        }
+    }
+
+    private int findIndex(int value) {
+        int size = mStrings.size();
+        for (int i = 0; i < size; i++) {
+            if (Integer.parseInt(mStrings.get(i)) == value) {
+                return i;
+            }
+        }
+        return selectedPosition;
+    }
 }

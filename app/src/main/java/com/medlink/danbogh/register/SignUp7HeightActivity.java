@@ -91,6 +91,15 @@ public class SignUp7HeightActivity extends BaseActivity {
     protected void initView() {
         tvUnit.setText("cm");
         GalleryLayoutManager layoutManager = new GalleryLayoutManager(GalleryLayoutManager.VERTICAL);
+        adapter = new SelectAdapter();
+        adapter.setStrings(getStrings());
+        adapter.setOnItemClickListener(new SelectAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                rvContent.smoothScrollToPosition(position);
+            }
+        });
+        selectedPosition();
         layoutManager.attach(rvContent, selectedPosition);
         layoutManager.setCallbackInFling(true);
         layoutManager.setOnItemSelectedListener(new GalleryLayoutManager.OnItemSelectedListener() {
@@ -100,16 +109,26 @@ public class SignUp7HeightActivity extends BaseActivity {
                 select((String) (mStrings == null ? String.valueOf(position) : mStrings.get(position)));
             }
         });
-        adapter = new SelectAdapter();
-        adapter.setStrings(getStrings());
-        adapter.setOnItemClickListener(new SelectAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                rvContent.smoothScrollToPosition(position);
-            }
-        });
+
         rvContent.setAdapter(adapter);
     }
+
+    protected void selectedPosition() {
+        if (getIntent() != null && getIntent().getIntExtra("wheight", 0) != 0) {
+            selectedPosition = findIndex(getIntent().getIntExtra("wheight", 0));
+        }
+    }
+
+    private int findIndex(int value) {
+        int size = mStrings.size();
+        for (int i = 0; i < size; i++) {
+            if (Integer.parseInt(mStrings.get(i)) == value) {
+                return i;
+            }
+        }
+        return selectedPosition;
+    }
+
 
     protected List<String> getStrings() {
         mStrings = new ArrayList<>();
@@ -133,7 +152,8 @@ public class SignUp7HeightActivity extends BaseActivity {
             int weightModify = getIntent().getIntExtra("weightModify", 0);
             int weight = getIntent().getIntExtra("weight", 0);
             if (weightModify >= 90) {
-                Intent intent = new Intent(this, SignUp8WeightActivity.class);
+                Intent intent = new Intent(this, SignUp8WeightActivity.class)
+                        .putExtras(getIntent());
                 startActivity(intent);
             } else {
                 LocalShared.getInstance(this.getApplicationContext()).setSignUpWeight(weight);

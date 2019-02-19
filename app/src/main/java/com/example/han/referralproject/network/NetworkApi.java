@@ -1527,7 +1527,7 @@ public class NetworkApi {
 //    /api/health/inquiry/{userId}/userinfo/
 
     public static void getInquiryInfo(String userId, StringCallback callback) {
-        OkGo.<String>get(Inquiry + userId + "/")
+        OkGo.<String>get(Inquiry + userId + "/userinfo/")
                 .headers("equipmentId", Utils.getDeviceId())
                 .execute(callback);
     }

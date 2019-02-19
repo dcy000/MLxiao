@@ -59,6 +59,7 @@ public class HealthDetecteActivity extends BaseActivity {
     TextView healthDetectionTime;
     @BindView(R.id.pressure_deteion_time)
     TextView pressureDeteionTime;
+    private WenZhenReultBean reultBean = new WenZhenReultBean();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +67,36 @@ public class HealthDetecteActivity extends BaseActivity {
         setContentView(R.layout.activity_health_detecte);
         ButterKnife.bind(this);
         initTitle();
-        getFiledState();
+        gotoBindInfo();
     }
 
-    private void getFiledState() {
+    boolean bind = false;
 
+    private void gotoBindInfo() {
+        showLoadingDialog("");
+        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo response) {
+                if (response == null) {
+                    return;
+                }
+                String state = response.getState();
+                if ("1".equals(state) || ("0".equals(state) && !TextUtils.isEmpty(response.getDoctername()))) {
+                    //请求接口 判断时候建档
+                    bind = true;
+                } else {
+                    bind = false;
+                }
+                getFileInfo();
+                hideLoadingDialog();
+            }
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show(message);
+                hideLoadingDialog();
+            }
+        });
     }
 
     private void initTitle() {
@@ -94,12 +120,10 @@ public class HealthDetecteActivity extends BaseActivity {
                 gotoDanXianTiJian();
                 break;
             default:
-                gotoFiled(view.getId());
+                jump(view.getId());
                 break;
 
         }
-
-
     }
 
     private void gotoDanXianTiJian() {
@@ -116,9 +140,11 @@ public class HealthDetecteActivity extends BaseActivity {
                 String state = response.getState();
                 if ("1".equals(state) || ("0".equals(state) && !TextUtils.isEmpty(response.getDoctername()))) {
                     //请求接口 判断时候建档
-                    isNotFile(true, id);
+//                    isNotFile(true, id);
+                    getFileInfo();
                 } else {
-                    isNotFile(false, id);
+//                    isNotFile(false, id);
+                    getFileInfo();
                 }
 
             }
@@ -131,59 +157,67 @@ public class HealthDetecteActivity extends BaseActivity {
         });
     }
 
-    private void isNotFile(final boolean isBindDoctor, final int id) {
+    private void jump(final int id) {
+        if (reultBean.tag) {
+            switch (id) {
+                case R.id.im_health_detecte:
+                    //健康体检
+//                                    JianKangJianCe("0");
+                    Intent intent3 = new Intent(HealthDetecteActivity.this, DetectActivity.class);
+                    intent3.putExtra("type", "wendu");
+                    intent3.putExtra("isDetect", true);
+                    intent3.putExtra("detectCategory", "detectHealth");
+                    startActivity(intent3);
+                    break;
+                case R.id.im_pressure_fllow_up:
+                    //血压随访
+//                                    JianKangJianCe("1");
+                    Intent intent = new Intent(HealthDetecteActivity.this, DetectActivity.class);
+                    intent.putExtra("type", "xueya");
+                    intent.putExtra("isDetect", true);
+                    intent.putExtra("detectCategory", "detectPressure");
+                    startActivity(intent);
+                    break;
+                //血糖随访
+                case R.id.im_sugar_fllow_up:
+//                                    JianKangJianCe("2");
+                    Intent intent1 = new Intent(HealthDetecteActivity.this, DetectActivity.class);
+                    intent1.putExtra("type", "xueya");
+                    intent1.putExtra("isDetect", true);
+                    intent1.putExtra("detectCategory", "detectSugar");
+                    startActivity(intent1);
+                    break;
+
+            }
+        } else {
+            ShowToFiledDialog(bind, id);
+        }
+
+    }
+
+    private void getFileInfo() {
+        showLoadingDialog("");
         NetworkApi.getFiledIsOrNot(this
                 , NetworkApi.FILE_URL
                 , LocalShared.getInstance(this).getUserId()
                 , new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        hideLoadingDialog();
                         if (response == null) {
                             return;
                         }
-                        WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
-                        if (reultBean.tag) {
-                            switch (id) {
-                                case R.id.im_health_detecte:
-                                    //健康体检
-//                                    JianKangJianCe("0");
-                                    Intent intent3 = new Intent(HealthDetecteActivity.this, DetectActivity.class);
-                                    intent3.putExtra("type", "wendu");
-                                    intent3.putExtra("isDetect", true);
-                                    intent3.putExtra("detectCategory", "detectHealth");
-                                    startActivity(intent3);
-                                    break;
-                                case R.id.im_pressure_fllow_up:
-                                    //血压随访
-//                                    JianKangJianCe("1");
-                                    Intent intent = new Intent(HealthDetecteActivity.this, DetectActivity.class);
-                                    intent.putExtra("type", "xueya");
-                                    intent.putExtra("isDetect", true);
-                                    intent.putExtra("detectCategory", "detectPressure");
-                                    startActivity(intent);
-                                    break;
-                                //血糖随访
-                                case R.id.im_sugar_fllow_up:
-//                                    JianKangJianCe("2");
-                                    Intent intent1 = new Intent(HealthDetecteActivity.this, DetectActivity.class);
-                                    intent1.putExtra("type", "xueya");
-                                    intent1.putExtra("isDetect", true);
-                                    intent1.putExtra("detectCategory", "detectSugar");
-                                    startActivity(intent1);
-                                    break;
-
-                            }
-                        } else {
-                            ShowToFiledDialog(isBindDoctor, id);
-                        }
+                        reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
+                        hideLoadingDialog();
                         T.show("网络繁忙");
                     }
                 });
+
     }
 
     private void ShowToFiledDialog(final boolean isBindDoctor, final int id) {
