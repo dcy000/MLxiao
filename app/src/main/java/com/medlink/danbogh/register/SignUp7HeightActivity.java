@@ -151,7 +151,7 @@ public class SignUp7HeightActivity extends BaseActivity {
         if (getIntent() != null) {
             int weightModify = getIntent().getIntExtra("weightModify", 0);
             int weight = getIntent().getIntExtra("weight", 0);
-            if (weightModify >= 90) {
+            if (weightModify >= 90 ||weight<=0) {
                 Intent intent = new Intent(this, SignUp8WeightActivity.class)
                         .putExtras(getIntent());
                 startActivity(intent);

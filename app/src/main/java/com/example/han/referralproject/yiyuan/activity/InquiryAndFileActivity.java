@@ -389,7 +389,7 @@ public class InquiryAndFileActivity extends BaseActivity {
 
     private void wenzen() {
         if (height != null && age >= 25) {
-            if (weightModify >= 90) {
+            if (weightModify >= 90||weight==null||weight<=0) {
                 LocalShared.getInstance(this.getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
                 Intent intent = new Intent(this, SignUp8WeightActivity.class);
                 intent.putExtra("weight", weight);

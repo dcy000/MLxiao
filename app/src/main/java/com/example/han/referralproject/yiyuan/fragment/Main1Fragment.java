@@ -391,7 +391,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 
     private void wenzen() {
         if (height != null && age >= 25) {
-            if (weightModify >= 90) {
+            if (weightModify >= 90||weight==null||weight<=0) {
                 LocalShared.getInstance(getActivity().getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
                 Intent intent = new Intent(getActivity(), SignUp8WeightActivity.class);
                 intent.putExtra("weight", weight);
