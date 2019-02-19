@@ -22,6 +22,7 @@ import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.require2.register.activtiy.InputFaceActivity;
 import com.example.han.referralproject.require4.bean.FllowUpResponseBean;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.bean.HealthDetectQualificationBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
 import com.google.gson.Gson;
@@ -73,10 +74,11 @@ public class HealthDetecteActivity extends BaseActivity {
     boolean bind = false;
 
     private void gotoBindInfo() {
-        showLoadingDialog("");
+//        showLoadingDialog("");
         NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
+//                hideLoadingDialog();
                 if (response == null) {
                     return;
                 }
@@ -88,13 +90,12 @@ public class HealthDetecteActivity extends BaseActivity {
                     bind = false;
                 }
                 getFileInfo();
-                hideLoadingDialog();
             }
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
                 T.show(message);
-                hideLoadingDialog();
+//                hideLoadingDialog();
             }
         });
     }
@@ -107,6 +108,7 @@ public class HealthDetecteActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getFllowUpInfo();
         //关闭唤醒
         setDisableGlobalListen(true);
         //关闭语音实时识别
@@ -323,16 +325,9 @@ public class HealthDetecteActivity extends BaseActivity {
         FllowUpTimesDialog dialog = new FllowUpTimesDialog(timeDecription);
         dialog.show(getSupportFragmentManager(), "floowUpTimes");
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        getFllowUpInfo();
-    }
-
     public void getFllowUpInfo() {
 //        showFllowUpTimesDialog("");
-        showLoadingDialog("");
+//        showLoadingDialog("");
         NetworkApi.getFllowUpInfo(MyApplication.getInstance().userId, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -348,16 +343,16 @@ public class HealthDetecteActivity extends BaseActivity {
                             return;
                         }
 //
-                        if (fllowUpResponseBean.data.examinationDate == null) {
-                            healthDetectionTime.setText(fllowUpResponseBean.data.examinationDate);
+                        if (fllowUpResponseBean.data.examinationDate != null) {
+                            healthDetectionTime.setText(Utils.stampTodate(fllowUpResponseBean.data.examinationDate));
                         }
 
-                        if (fllowUpResponseBean.data.hypertensionDate == null) {
-                            pressureDeteionTime.setText(fllowUpResponseBean.data.hypertensionDate);
+                        if (fllowUpResponseBean.data.hypertensionDate != null) {
+                            pressureDeteionTime.setText(Utils.stampTodate(fllowUpResponseBean.data.hypertensionDate));
                         }
 
                         if (fllowUpResponseBean.data.diabetesDate == null) {
-                            sugarDetectionTime.setText(fllowUpResponseBean.data.diabetesDate);
+                            sugarDetectionTime.setText(Utils.stampTodate(fllowUpResponseBean.data.diabetesDate));
                         }
 
                         if (fllowUpResponseBean.data.examinationNum == null) {
@@ -392,7 +387,7 @@ public class HealthDetecteActivity extends BaseActivity {
             @Override
             public void onFinish() {
                 super.onFinish();
-                hideLoadingDialog();
+//                hideLoadingDialog();
             }
         });
     }

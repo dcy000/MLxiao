@@ -2376,7 +2376,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                bean.receptionStatus = "1";
+                                bean.receptionStatus = "0";
                                 postWenZhenData(testXueYa);
                             }
                         })
@@ -2384,7 +2384,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                bean.receptionStatus = "O";
+                                bean.receptionStatus = "1";
                                 postWenZhenData(testXueYa);
                             }
                         }).show();

@@ -56,7 +56,7 @@ public class WenZhenBean implements Serializable {
     public String modifiedOn;
     public String pregnantState;
     public String receptionDate;
-    public String receptionStatus;//0是,1否
+    public String receptionStatus;//0否,1是
     public int seq;
     public Float temperAture;//温度
     public String userId;

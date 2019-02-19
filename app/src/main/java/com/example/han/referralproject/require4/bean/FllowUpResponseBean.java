@@ -18,8 +18,8 @@ public class FllowUpResponseBean implements Serializable {
         public Integer examinationNum;
         public Integer hypertensionNum;
         public Integer diabetesNum;
-        public String examinationDate;
-        public String hypertensionDate;
-        public String diabetesDate;
+        public Long examinationDate;
+        public Long hypertensionDate;
+        public Long diabetesDate;
     }
 }

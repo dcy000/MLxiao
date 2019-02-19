@@ -46,6 +46,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
+import com.medlink.danbogh.register.SignUp3AddressActivity;
 import com.medlink.danbogh.register.SignUp7HeightActivity;
 import com.medlink.danbogh.register.SignUp8WeightActivity;
 import com.medlink.danbogh.utils.T;
@@ -389,11 +390,17 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     }
 
     private void wenzen() {
-        if (height != null && height >= 25) {
-            LocalShared.getInstance(getActivity().getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
-            Intent intent = new Intent(getActivity(), SignUp8WeightActivity.class);
-            intent.putExtra("weight", weight);
-            startActivity(intent);
+        if (height != null && age >= 25) {
+            if (weightModify >= 90) {
+                LocalShared.getInstance(getActivity().getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
+                Intent intent = new Intent(getActivity(), SignUp8WeightActivity.class);
+                intent.putExtra("weight", weight);
+                startActivity(intent);
+            } else {
+                LocalShared.getInstance(getActivity().getApplicationContext()).setSignUpWeight(Integer.valueOf(weight));
+                Intent intent = new Intent(getActivity(), SignUp3AddressActivity.class);
+                startActivity(intent);
+            }
         } else {
             Intent intent = new Intent(getActivity(), SignUp7HeightActivity.class)
                     .putExtra("weightModify", weightModify)
@@ -605,8 +612,8 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     private void getAddressInfo() {
         ((BaseActivity) getActivity()).showLoadingDialog("");
         NetworkApi.getInquiryInfo(MyApplication.getInstance().userId, new StringCallback() {
-                @Override
-                public void onSuccess(Response<String> response) {
+            @Override
+            public void onSuccess(Response<String> response) {
                 try {
                     String body = response.body();
                     InquiryInfoResponseBean inquiryInfoResponseBean = new Gson().fromJson(body, InquiryInfoResponseBean.class);

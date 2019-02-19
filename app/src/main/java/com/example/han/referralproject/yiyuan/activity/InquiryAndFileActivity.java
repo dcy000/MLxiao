@@ -35,6 +35,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
+import com.medlink.danbogh.register.SignUp3AddressActivity;
 import com.medlink.danbogh.register.SignUp7HeightActivity;
 import com.medlink.danbogh.register.SignUp8WeightActivity;
 import com.medlink.danbogh.utils.T;
@@ -387,11 +388,17 @@ public class InquiryAndFileActivity extends BaseActivity {
     }
 
     private void wenzen() {
-        if (height != null && height >= 25) {
-            LocalShared.getInstance(this.getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
-            Intent intent = new Intent(this, SignUp8WeightActivity.class);
-            intent.putExtra("weight", weight);
-            startActivity(intent);
+        if (height != null && age >= 25) {
+            if (weightModify >= 90) {
+                LocalShared.getInstance(this.getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
+                Intent intent = new Intent(this, SignUp8WeightActivity.class);
+                intent.putExtra("weight", weight);
+                startActivity(intent);
+            } else {
+                LocalShared.getInstance(getApplicationContext()).setSignUpWeight(Integer.valueOf(weight));
+                Intent intent = new Intent(this, SignUp3AddressActivity.class);
+                startActivity(intent);
+            }
         } else {
             Intent intent = new Intent(this, SignUp7HeightActivity.class)
                     .putExtra("weightModify", weightModify)

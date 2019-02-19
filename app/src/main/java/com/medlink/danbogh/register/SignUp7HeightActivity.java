@@ -164,7 +164,7 @@ public class SignUp7HeightActivity extends BaseActivity {
     }
 
     public void select(String text) {
-        T.show(text);
+//        T.show(text);
     }
 
     public static final String REGEX_IN_GO_BACK = ".*(上一步|上一部|后退|返回).*";
