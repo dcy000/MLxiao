@@ -277,6 +277,12 @@ public class InquiryAndFileActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getAddressInfo();
+    }
+
     Integer age;
     Integer height;
     Integer weight;
@@ -307,8 +313,6 @@ public class InquiryAndFileActivity extends BaseActivity {
                             if (data.weight != null) {
                                 weight = data.weight;
                             }
-
-
                         }
 
                     }

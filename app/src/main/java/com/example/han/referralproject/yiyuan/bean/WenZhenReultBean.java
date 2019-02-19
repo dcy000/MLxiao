@@ -57,5 +57,8 @@ public class WenZhenReultBean implements Serializable {
         public int userId;
         public String waterEnvironment;
         public String weight;
+
+        public String receptionDate;
+        public String receptionStatus;
     }
 }

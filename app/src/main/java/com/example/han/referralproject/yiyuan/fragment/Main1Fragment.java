@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
+import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.MyBaseDataActivity;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.DiseaseUser;
@@ -32,6 +33,7 @@ import com.example.han.referralproject.require2.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.require2.register.activtiy.InputFaceActivity;
+import com.example.han.referralproject.require4.bean.InquiryInfoResponseBean;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
@@ -45,6 +47,7 @@ import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.healthdetection.HealthRecordActivity;
 import com.medlink.danbogh.register.SignUp7HeightActivity;
+import com.medlink.danbogh.register.SignUp8WeightActivity;
 import com.medlink.danbogh.utils.T;
 import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
@@ -378,14 +381,24 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             gotoPersonInfo();
         } else if ("问诊".equals(name)) {
             blankSomeWZInfo();
-            Intent intent = new Intent(getActivity(), SignUp7HeightActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            wenzen();
         } else if ("建档".equals(name)) {
             gotoFiled(name);
         }
 
+    }
+
+    private void wenzen() {
+        if (height != null && height >= 25) {
+            LocalShared.getInstance(getActivity().getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
+            Intent intent = new Intent(getActivity(), SignUp8WeightActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getActivity(), SignUp7HeightActivity.class)
+                    .putExtra("weightModify", weightModify)
+                    .putExtra("weight", weight);
+            startActivity(intent);
+        }
     }
 
     private void gotoFiled(final String name) {
@@ -569,6 +582,62 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
         LocalShared.getInstance(activity).loginOut();
         activity.startActivity(new Intent(activity, ChoiceLoginTypeActivity.class));
         activity.finish();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getAddressInfo();
+    }
+
+    Integer age;
+    Integer height;
+    Integer weight;
+    Integer weightModify;
+
+    private void getAddressInfo() {
+        ((BaseActivity) getActivity()).showLoadingDialog("");
+        NetworkApi.getInquiryInfo(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    String body = response.body();
+                    InquiryInfoResponseBean inquiryInfoResponseBean = new Gson().fromJson(body, InquiryInfoResponseBean.class);
+                    if (inquiryInfoResponseBean.tag) {
+                        InquiryInfoResponseBean.DataBean data = inquiryInfoResponseBean.data;
+                        if (data != null) {
+                            if (data.age != null) {
+                                age = data.age;
+                            }
+
+                            if (data.height != null) {
+                                height = data.height;
+                            }
+
+                            if (data.weightModifyDays != null) {
+                                weightModify = data.weightModifyDays;
+                            }
+                            if (data.weight != null) {
+                                weight = data.weight;
+                            }
+                        }
+
+                    }
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                ((BaseActivity) getActivity()).hideLoadingDialog();
+            }
+        });
     }
 
 

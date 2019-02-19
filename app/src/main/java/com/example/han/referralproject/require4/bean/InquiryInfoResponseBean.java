@@ -32,7 +32,6 @@ public class InquiryInfoResponseBean implements Serializable {
         public Integer heightModifyDays;
         public Integer weightModifyDays;
         public Integer addressModifyDays;
-
-        public Integer age = 36;
+        public Integer age;
     }
 }

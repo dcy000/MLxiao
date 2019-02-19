@@ -63,11 +63,11 @@ public class NetworkApi {
     /**
      * 医疗版生产
      */
-    public static final String BasicUrl = "http://118.31.73.176:8080";
+//    public static final String BasicUrl = "http://118.31.73.176:8080";
     /**
      * 林本地
      */
-//    public static final String BasicUrl = "http://192.168.200.230:8080";
+    public static final String BasicUrl = "http://192.168.200.230:8080";
     /**
      * 测试
      */
@@ -1528,6 +1528,15 @@ public class NetworkApi {
 
     public static void getInquiryInfo(String userId, StringCallback callback) {
         OkGo.<String>get(Inquiry + userId + "/")
+                .headers("equipmentId", Utils.getDeviceId())
+                .execute(callback);
+    }
+
+    public static final String GET_FLLOW_UP_TIMES = BasicUrl + "/ZZB/api/health/inquiry/examination/record/history/";
+
+    //    api/health/inquiry/examination/record/history/
+    public static void getFllowUpInfo(String userId, StringCallback callback) {
+        OkGo.<String>get(GET_FLLOW_UP_TIMES + userId + "/")
                 .headers("equipmentId", Utils.getDeviceId())
                 .execute(callback);
     }

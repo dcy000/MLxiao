@@ -20,6 +20,7 @@ import com.example.han.referralproject.require2.dialog.DialogTypeEnum;
 import com.example.han.referralproject.require2.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
 import com.example.han.referralproject.require2.register.activtiy.InputFaceActivity;
+import com.example.han.referralproject.require4.bean.FllowUpResponseBean;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.bean.HealthDetectQualificationBean;
 import com.example.han.referralproject.yiyuan.bean.WenZhenReultBean;
@@ -46,6 +47,18 @@ public class HealthDetecteActivity extends BaseActivity {
     TextView textView21;
     @BindView(R.id.textView22)
     TextView textView22;
+    @BindView(R.id.health_times)
+    TextView healthTimes;
+    @BindView(R.id.pressrue_times)
+    TextView pressrueTimes;
+    @BindView(R.id.sugar_times)
+    TextView sugarTimes;
+    @BindView(R.id.sugar_detection_time)
+    TextView sugarDetectionTime;
+    @BindView(R.id.health_detection_time)
+    TextView healthDetectionTime;
+    @BindView(R.id.pressure_deteion_time)
+    TextView pressureDeteionTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -277,5 +290,76 @@ public class HealthDetecteActivity extends BaseActivity {
         dialog.show(getSupportFragmentManager(), "floowUpTimes");
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getFllowUpInfo();
+    }
 
+    public void getFllowUpInfo() {
+//        showFllowUpTimesDialog("");
+        showLoadingDialog("");
+        NetworkApi.getFllowUpInfo(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    String body = response.body();
+                    FllowUpResponseBean fllowUpResponseBean = new Gson().fromJson(body, FllowUpResponseBean.class);
+                    if (fllowUpResponseBean == null) {
+                        return;
+                    }
+
+                    if (fllowUpResponseBean.tag) {
+                        if (fllowUpResponseBean.data == null) {
+                            return;
+                        }
+//
+                        if (fllowUpResponseBean.data.examinationDate == null) {
+                            healthDetectionTime.setText(fllowUpResponseBean.data.examinationDate);
+                        }
+
+                        if (fllowUpResponseBean.data.hypertensionDate == null) {
+                            pressureDeteionTime.setText(fllowUpResponseBean.data.hypertensionDate);
+                        }
+
+                        if (fllowUpResponseBean.data.diabetesDate == null) {
+                            sugarDetectionTime.setText(fllowUpResponseBean.data.diabetesDate);
+                        }
+
+                        if (fllowUpResponseBean.data.examinationNum == null) {
+                            healthTimes.setText("已使用0次");
+                        } else {
+                            healthTimes.setText(String.format("已使用%d次", fllowUpResponseBean.data.examinationNum));
+                        }
+
+                        if (fllowUpResponseBean.data.hypertensionNum == null) {
+                            pressrueTimes.setText("已使用0次");
+                        } else {
+                            pressrueTimes.setText(String.format("已使用%d次", fllowUpResponseBean.data.hypertensionNum));
+                        }
+
+                        if (fllowUpResponseBean.data.diabetesNum == null) {
+                            sugarTimes.setText("已使用0次");
+                        } else {
+                            sugarTimes.setText(String.format("已使用%d次", fllowUpResponseBean.data.diabetesNum));
+                        }
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoadingDialog();
+            }
+        });
+    }
 }
