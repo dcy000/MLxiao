@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24pt"
-                android:text="关联号码"
+                android:text="设备信息"
                 android:textColor="#ff3f88fc"
                 android:textSize="64pt" />
 

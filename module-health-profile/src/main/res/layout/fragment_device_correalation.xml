@@ -57,7 +57,7 @@
         android:orientation="vertical"
         android:paddingLeft="88pt"
         android:paddingRight="88pt"
-        android:paddingTop="64pt">
+        android:paddingTop="-14pt">
 
 
     </LinearLayout>

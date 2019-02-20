@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginBottom="40pt"
+        android:layout_marginTop="88pt"
         android:text="关联医生"
         android:textColor="#ff666666"
         android:textSize="48pt" />

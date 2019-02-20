@@ -78,6 +78,7 @@ public class CorrelationNumberFragment extends Fragment {
         e.itemName = "张辉";
         e.itemPhone = "18655212892";
         item.items.add(e);
+        data.add(item);
 
         FalseCorrelationDataBean item2 = new FalseCorrelationDataBean();
         item2.name = "关联社工";
@@ -89,6 +90,8 @@ public class CorrelationNumberFragment extends Fragment {
         e2.itemPhone = "18655219999";
         item2.items.add(e1);
         item2.items.add(e2);
+        data.add(item2);
+
 
         bindView(data);
 
