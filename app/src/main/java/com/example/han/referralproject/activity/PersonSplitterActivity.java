@@ -14,6 +14,7 @@ import com.gcml.module_health_record.HealthRecordActivity;
 public class PersonSplitterActivity extends ToolbarBaseActivity implements View.OnClickListener {
     private EclipseImageView mIvPersonCenter;
     private EclipseImageView mIvHealthRecord;
+    private EclipseImageView mIvHealthBracelet;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,6 +30,8 @@ public class PersonSplitterActivity extends ToolbarBaseActivity implements View.
         mIvPersonCenter.setOnClickListener(this);
         mIvHealthRecord = (EclipseImageView) findViewById(R.id.iv_health_record);
         mIvHealthRecord.setOnClickListener(this);
+        mIvHealthBracelet = (EclipseImageView) findViewById(R.id.iv_health_bracelet);
+        mIvHealthBracelet.setOnClickListener(this);
     }
 
     @Override
@@ -43,6 +46,10 @@ public class PersonSplitterActivity extends ToolbarBaseActivity implements View.
             case R.id.iv_health_record:
                 startActivity(new Intent(this, HealthRecordActivity.class));
                 break;
+            case R.id.iv_health_bracelet:
+                CC.obtainBuilder("com.gcml.bracelet").build().callAsync();
+                break;
+
         }
     }
 }

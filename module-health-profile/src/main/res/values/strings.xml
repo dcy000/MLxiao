@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">module-health-profile</string>
     <string name="web_path">http://47.96.98.60:8630/#/</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
