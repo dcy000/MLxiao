@@ -561,13 +561,13 @@ public class BCPay {
                         result = BCPayResult.RESULT_FAIL;
                         errCode = BCPayResult.APP_INTERNAL_THIRD_CHANNEL_ERR_CODE;
                         errMsg = BCPayResult.FAIL_ERR_FROM_CHANNEL;
-                        errDetail = "无效的登陆状态";
+                        errDetail = "无效的登录状态";
                         break;
                     case PayCallBackManager.PayStateModle.PAY_STATUS_LOGIN_ERROR:
                         result = BCPayResult.RESULT_FAIL;
                         errCode = BCPayResult.APP_INTERNAL_THIRD_CHANNEL_ERR_CODE;
                         errMsg = BCPayResult.FAIL_ERR_FROM_CHANNEL;
-                        errDetail = "登陆失败";
+                        errDetail = "登录失败";
                         break;
                     case PayCallBackManager.PayStateModle.PAY_STATUS_ERROR:
                         result = BCPayResult.RESULT_FAIL;

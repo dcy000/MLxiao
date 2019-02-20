@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
@@ -19,6 +21,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.settting.dialog.TalkTypeDialog;
 import com.example.han.referralproject.settting.dialog.VoicerSetDialog;
 import com.example.han.referralproject.util.UpdateAppManager;
+import com.gcml.common.IConstant;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.VersionHelper;
@@ -32,6 +35,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
     TranslucentToolBar mToolBar;
+    LinearLayout llExitDoctorAccount;/*ll_exit_doctor_account*/
     TextView mVoice, mWifi, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache, exit;
     // 外存sdcard存放路径
     private static final String FILE_PATH = Environment.getExternalStorageDirectory() + "/autoupdate/";
@@ -58,6 +62,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         mReset = findViewById(R.id.tv_setting_reset);
         mClearcache = findViewById(R.id.tv_setting_clearcache);
         exit = findViewById(R.id.tv_exit);
+        llExitDoctorAccount = findViewById(R.id.ll_exit_doctor_account);
 
         mVoice.setOnClickListener(this);
         mWifi.setOnClickListener(this);
@@ -90,6 +95,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 });
             }
         });
+
+        if (TextUtils.isEmpty(UserSpHelper.getDoctorId())) {
+            llExitDoctorAccount.setVisibility(View.GONE);
+        }
     }
 
 
@@ -231,9 +240,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onClick(View v) {
                         UserSpHelper.setDoctorId("");
-                        Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                        CC.obtainBuilder(IConstant.KEY_HOSPITAL_DOCTOR_SIGN).build().callAsync();
+                        finish();
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {

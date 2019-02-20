@@ -44,9 +44,9 @@ public class DoctorLoginActivity extends BaseActivity implements View.OnClickLis
      */
     private EditText etDoctorLoginPassword;
     /**
-     * 登陆
+     * 登录
      */
-    private TextView tvDoctorLoginLogin, serverName;
+    private TextView tvDoctorLoginLogin, serverName, tvDoctorChangeLogin;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,9 +62,10 @@ public class DoctorLoginActivity extends BaseActivity implements View.OnClickLis
         etDoctorLoginAccunt = (EditText) findViewById(R.id.et_doctor_login_accunt);
         etDoctorLoginPassword = (EditText) findViewById(R.id.et_doctor_login_password);
         tvDoctorLoginLogin = (TextView) findViewById(R.id.tv_doctor_login_login);
+        tvDoctorChangeLogin = (TextView) findViewById(R.id.tv_change_doctor_login_type);
         serverName = findViewById(R.id.tv_server_name);
         tvDoctorLoginLogin.setOnClickListener(this);
-
+        tvDoctorChangeLogin.setOnClickListener(this);
         etDoctorLoginAccunt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -127,6 +128,8 @@ public class DoctorLoginActivity extends BaseActivity implements View.OnClickLis
 
         } else if (id == R.id.tv_doctor_login_login) {
             toLogin();
+        } else if (id == R.id.tv_change_doctor_login_type) {
+            
         }
     }
 
@@ -152,7 +155,7 @@ public class DoctorLoginActivity extends BaseActivity implements View.OnClickLis
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("登陆中");
+                        showLoading("登录中");
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))

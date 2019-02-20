@@ -243,7 +243,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (mUser == null) {
-            ToastUtils.showShort("请重新登陆");
+            ToastUtils.showShort("请重新登录");
             return;
         }
         switch (v.getId()) {
@@ -286,7 +286,7 @@ public class MyBaseDataActivity extends BaseActivity implements View.OnClickList
                 if (TextUtils.isEmpty(phone)
                         || !TextUtils.isDigitsOnly(phone)
                         || phone.length() != 11) {
-                    ToastUtils.showShort("请重新登陆");
+                    ToastUtils.showShort("请重新登录");
                     return;
                 }
                 SMSVerificationDialog dialog = new SMSVerificationDialog();

@@ -127,10 +127,10 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
                 break;
             case R.id.ei_infomation_collection:
 //                startActivity(new Intent(getActivity(), InquiryActivity.class));
-                CC.obtainBuilder("health_measure")
-                        .setActionName("To_HealthInquiryActivity")
-                        .build()
-                        .call();
+//                CC.obtainBuilder("health_measure")
+//                        .setActionName("To_HealthInquiryActivity")
+//                        .build()
+//                        .call();
                 break;
             case R.id.ei_doctor_service:
                 CC.obtainBuilder("health.profile").build().call();

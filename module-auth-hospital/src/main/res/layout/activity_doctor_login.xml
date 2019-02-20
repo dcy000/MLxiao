@@ -77,8 +77,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="120pt"
                 android:layout_marginTop="40pt"
-                android:gravity="center_vertical"
                 android:background="@drawable/common_bg_popup_edit"
+                android:gravity="center_vertical"
                 android:hint="请输入你的密码"
                 android:inputType="textPassword"
                 android:paddingLeft="36pt"
@@ -94,23 +94,32 @@
                 android:background="@drawable/shape_rectangle_next_btn"
                 android:enabled="false"
                 android:gravity="center"
-                android:text="登陆"
+                android:text="登录"
                 android:textColor="#fff"
                 android:textSize="50pt" />
 
             <TextView
+                android:id="@+id/tv_change_doctor_login_type"
                 android:layout_width="match_parent"
                 android:layout_height="100pt"
-                android:layout_marginTop="56pt"
-                android:gravity="center"
-                android:text=" @杭州国辰迈联机器人科技有限公司 "
-                android:textColor="#FFBBBBBB"
-                android:textSize="36pt" />
+                android:layout_marginTop="36pt"
+                android:gravity="center_vertical"
+                android:text="切换登录方式"
+                android:textColor="@color/bg_blue_text_press"
+                android:textSize="48pt" />
 
         </LinearLayout>
 
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100pt"
+        android:layout_marginTop="56pt"
+        android:gravity="center"
+        android:text=" @杭州国辰迈联机器人科技有限公司 "
+        android:textColor="#FFBBBBBB"
+        android:textSize="36pt" />
 
 </LinearLayout>
