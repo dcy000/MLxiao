@@ -36,6 +36,7 @@ import com.example.han.referralproject.require2.register.activtiy.InputFaceActiv
 import com.example.han.referralproject.require4.bean.InquiryInfoResponseBean;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.yiyuan.activity.InquiryAndFile2Activity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.example.han.referralproject.yiyuan.bean.HealthDetectQualificationBean;
 import com.example.han.referralproject.yiyuan.bean.MainTiZHiDialogBean;
@@ -157,13 +158,18 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                 break;
             case R.id.yishengjianyi:
                 //问诊及建档
-                showWenZhenJianDangDialog();
+//                showWenZhenJianDangDialog();
+                wenAndFile();
                 break;
             case R.id.jiankangketang:
                 //医生建议
                 tuiChu();
                 break;
         }
+    }
+
+    private void wenAndFile() {
+        startActivity(new Intent(getActivity(), InquiryAndFile2Activity.class));
     }
 
     /**
@@ -391,7 +397,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
 
     private void wenzen() {
         if (height != null && age >= 25) {
-            if (weightModify >= 90||weight==null||weight<=0) {
+            if (weightModify >= 90 || weight == null || weight <= 0) {
                 LocalShared.getInstance(getActivity().getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
                 Intent intent = new Intent(getActivity(), SignUp8WeightActivity.class);
                 intent.putExtra("weight", weight);

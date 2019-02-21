@@ -1,5 +1,6 @@
 package com.example.han.referralproject.yiyuan.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -31,7 +32,6 @@ import com.example.han.referralproject.yiyuan.util.ActivityHelper;
 import com.google.gson.Gson;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.call2.NimAccountHelper;
@@ -78,7 +78,40 @@ public class InquiryAndFileActivity extends BaseActivity {
         initView();
         ActivityHelper.finishAll();
         initXFInfo();
+        getInquiryInfo();
+        getBindInfo();
         HasInquiryOrNot();
+    }
+
+    private void HasInquiryOrNot() {
+        NetworkApi.getHasInquiryOrNot(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    if (response != null) {
+                        String body = response.body();
+                        JSONObject object = new JSONObject(body);
+                        boolean tag = object.optBoolean("tag");
+                        if (tag) {
+                            tvWenJianSkip.setVisibility(View.VISIBLE);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+            }
+        });
     }
 
     private void initXFInfo() {
@@ -130,6 +163,147 @@ public class InquiryAndFileActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    private void getInquiryInfo() {
+        showLoading("");
+        NetworkApi.getInquiryInfo(MyApplication.getInstance().userId, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    String body = response.body();
+                    InquiryInfoResponseBean inquiryInfoResponseBean = new Gson().fromJson(body, InquiryInfoResponseBean.class);
+                    if (inquiryInfoResponseBean.tag) {
+                        InquiryInfoResponseBean.DataBean data = inquiryInfoResponseBean.data;
+                        if (data != null) {
+                            if (data.age != null) {
+                                age = data.age;
+                            }
+
+                            if (data.height != null) {
+                                height = data.height;
+                            }
+
+                            if (data.weightModifyDays != null) {
+                                weightModify = data.weightModifyDays;
+                            }
+                            if (data.weight != null) {
+                                weight = data.weight;
+                            }
+                        }
+
+                    }
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoading();
+            }
+        });
+    }
+
+    private void getBindInfo() {
+        showLoadingDialog("");
+        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo response) {
+                if (response == null) {
+                    return;
+                }
+                String state = response.getState();
+                if ("1".equals(state) || ("0".equals(state) && !TextUtils.isEmpty(response.getDoctername()))) {
+                    //请求接口 判断时候建档
+                    isBindDoctor = true;
+                    getFiledInfo();
+                } else {
+                    isBindDoctor = false;
+                }
+
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                T.show(message);
+                hideLoadingDialog();
+            }
+        });
+    }
+
+    private void getFiledInfo() {
+        NetworkApi.getFiledIsOrNot(this
+                , NetworkApi.FILE_URL
+                , LocalShared.getInstance(this).getUserId()
+                , new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        if (response == null) {
+                            onGetFileStateFailed();
+                            return;
+                        }
+                        WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
+                        try {
+                            if (reultBean.tag) {
+                                ivJiandang.setEnabled(false);
+                                tvFileDone.setVisibility(View.VISIBLE);
+                                if (reultBean.data != null) {
+                                    tvFileDone.setText("(建档单位: " + reultBean.data.orgName + ")");
+                                }
+                            } else {
+                                ivJiandang.setEnabled(true);
+                                tvFileDone.setVisibility(View.GONE);
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        T.show("网络繁忙");
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        hideLoadingDialog();
+                    }
+                });
+
+    }
+
+    private ProgressDialog dialog;
+
+    public void showLoading(String message) {
+        try {
+            dialog = new ProgressDialog(mContext);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.setIndeterminate(true);
+            dialog.setMessage(message);
+            dialog.show();
+        } catch (Exception e) {
+        }
+
+    }
+
+
+    public void hideLoading() {
+        try {
+            if (dialog == null) {
+                return;
+            }
+            dialog.dismiss();
+        } catch (Exception e) {
+        }
     }
 
     private void deleteXFGroupId(String groupId, String xunfeiId) {
@@ -232,107 +406,12 @@ public class InquiryAndFileActivity extends BaseActivity {
             T.showLong("验证通过，欢迎回来");
             tvRegisterDone.setVisibility(View.INVISIBLE);
         }
-
-        showLoadingDialog("");
-        NetworkApi.getFiledIsOrNot(this
-                , NetworkApi.FILE_URL
-                , LocalShared.getInstance(this).getUserId()
-                , new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        hideLoadingDialog();
-                        if (response == null) {
-                            onGetFileStateFailed();
-                            return;
-                        }
-                        WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
-                        try {
-                            if (reultBean.tag) {
-                                ivJiandang.setEnabled(false);
-                                tvFileDone.setVisibility(View.VISIBLE);
-                                if (reultBean.data != null) {
-                                    tvFileDone.setText("(建档单位: " + reultBean.data.orgName + ")");
-                                }
-                            } else {
-                                ivJiandang.setEnabled(true);
-                                tvFileDone.setVisibility(View.GONE);
-                            }
-                        } catch (Exception e) {
-                        }
-                    }
-
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        hideLoadingDialog();
-                        T.show("网络繁忙");
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        hideLoadingDialog();
-                    }
-                });
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        getAddressInfo();
     }
 
     Integer age;
     Integer height;
     Integer weight;
     Integer weightModify;
-
-    private void getAddressInfo() {
-        showLoadingDialog("");
-        NetworkApi.getInquiryInfo(MyApplication.getInstance().userId, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                try {
-                    String body = response.body();
-                    InquiryInfoResponseBean inquiryInfoResponseBean = new Gson().fromJson(body, InquiryInfoResponseBean.class);
-                    if (inquiryInfoResponseBean.tag) {
-                        InquiryInfoResponseBean.DataBean data = inquiryInfoResponseBean.data;
-                        if (data != null) {
-                            if (data.age != null) {
-                                age = data.age;
-                            }
-
-                            if (data.height != null) {
-                                height = data.height;
-                            }
-
-                            if (data.weightModifyDays != null) {
-                                weightModify = data.weightModifyDays;
-                            }
-                            if (data.weight != null) {
-                                weight = data.weight;
-                            }
-                        }
-
-                    }
-                } catch (Exception e) {
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                hideLoadingDialog();
-            }
-        });
-    }
 
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
@@ -357,29 +436,7 @@ public class InquiryAndFileActivity extends BaseActivity {
                 wenzen();
                 break;
             case R.id.iv_jiandang:
-                //请求接口 判断时候建档
-//                NetworkApi.getFiledIsOrNot(this
-//                        , NetworkApi.FILE_URL
-//                        , LocalShared.getInstance(this).getUserId()
-//                        , new StringCallback() {
-//                            @Override
-//                            public void onSuccess(Response<String> response) {
-//                                if (response == null) {
-//                                    T.show("网络繁忙,请稍后重试~");
-//                                    return;
-//                                }
-//                                WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
-//                                if (reultBean.tag) {
-//                                    T.show("您已建档完毕");
-//                                    MLVoiceSynthetize.startSynthesize(InquiryAndFileActivity.this, "您已建档完毕", false);
-//                                } else {
-//                                    startActivity(new Intent(InquiryAndFileActivity.this, BuildingRecordActivity.class));
-//                                }
-//                            }
-//                        });
-
                 gotoFiled();
-
                 break;
             case R.id.iv_inquire_file_exit:
                 tuiChu();
@@ -389,7 +446,7 @@ public class InquiryAndFileActivity extends BaseActivity {
 
     private void wenzen() {
         if (height != null && age >= 25) {
-            if (weightModify >= 90||weight==null||weight<=0) {
+            if (weightModify >= 90 || weight == null || weight <= 0) {
                 LocalShared.getInstance(this.getApplicationContext()).setSignUpHeight(Integer.valueOf(height));
                 Intent intent = new Intent(this, SignUp8WeightActivity.class);
                 intent.putExtra("weight", weight);
@@ -408,92 +465,18 @@ public class InquiryAndFileActivity extends BaseActivity {
         }
     }
 
+    private boolean isBindDoctor;
+
     private void gotoFiled() {
-        NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
-            @Override
-            public void onSuccess(UserInfo response) {
-                if (response == null) {
-                    return;
-                }
-                String state = response.getState();
-                if ("1".equals(state) || ("0".equals(state) && !TextUtils.isEmpty(response.getDoctername()))) {
-                    //请求接口 判断时候建档
-                    isNotFile(true);
-                } else {
-                    isNotFile(false);
-                }
-
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                T.show(message);
-            }
-        });
-    }
-
-    private void HasInquiryOrNot() {
-        showLoadingDialog("");
-        NetworkApi.getHasInquiryOrNot(MyApplication.getInstance().userId, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                hideLoadingDialog();
-                try {
-                    if (response != null) {
-                        String body = response.body();
-                        JSONObject object = new JSONObject(body);
-                        boolean tag = object.optBoolean("tag");
-                        if (tag) {
-                            tvWenJianSkip.setVisibility(View.VISIBLE);
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                hideLoadingDialog();
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                hideLoadingDialog();
-            }
-        });
+        if (isBindDoctor) {
+            isNotFile(true);
+        } else {
+            isNotFile(false);
+        }
     }
 
     private void isNotFile(final boolean isBindDoctor) {
-        NetworkApi.getFiledIsOrNot(this
-                , NetworkApi.FILE_URL
-                , LocalShared.getInstance(this).getUserId()
-                , new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        if (response == null) {
-                            onGetFileStateFailed();
-                            return;
-                        }
-                        WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
-                        if (reultBean.tag) {
-                            T.show("您已建档完毕");
-                            MLVoiceSynthetize.startSynthesize(InquiryAndFileActivity.this, "您已建档完毕", false);
-                        } else {
-                            startActivity(new Intent(InquiryAndFileActivity.this, BuildingRecordActivity.class).putExtra("bind", isBindDoctor));
-                        }
-                    }
-
-                    @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        T.show("网络繁忙");
-                    }
-                });
+        startActivity(new Intent(InquiryAndFileActivity.this, BuildingRecordActivity.class).putExtra("bind", isBindDoctor));
     }
 
     private void onGetFileStateFailed() {
@@ -502,7 +485,6 @@ public class InquiryAndFileActivity extends BaseActivity {
 
 
     public void tuiChu() {
-
         MobclickAgent.onProfileSignOff();
         NimAccountHelper.getInstance().logout();
         LocalShared.getInstance(this).loginOut();

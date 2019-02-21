@@ -757,6 +757,9 @@
             android:name=".yiyuan.activity.InquiryAndFileActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".yiyuan.activity.InquiryAndFile2Activity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".yiyuan.activity.DrinkWenActivity"
             android:screenOrientation="landscape" />
         <activity

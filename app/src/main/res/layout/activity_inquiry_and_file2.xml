@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity">
+
+
+    <ImageView
+        android:id="@+id/iv_wenzhen"
+        android:layout_width="380pt"
+        android:layout_height="380pt"
+        android:layout_marginStart="462pt"
+        android:layout_marginTop="258pt"
+        android:background="@drawable/main_dialog_wenzhen_set"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_jiandang"
+        android:layout_width="380pt"
+        android:layout_height="380pt"
+        android:layout_marginStart="240pt"
+        android:background="@drawable/main_dialog_jiandang_set"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_wenzhen"
+        app:layout_constraintStart_toEndOf="@+id/iv_wenzhen"
+        app:layout_constraintTop_toTopOf="@+id/iv_wenzhen" />
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8pt"
+        android:layout_marginStart="8pt"
+        android:layout_marginTop="30pt"
+        android:text="问诊"
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_wenzhen"
+        app:layout_constraintStart_toStartOf="@+id/iv_wenzhen"
+        app:layout_constraintTop_toBottomOf="@+id/iv_wenzhen" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8pt"
+        android:layout_marginStart="8pt"
+        android:layout_marginTop="30pt"
+        android:text="建档"
+        android:textColor="#ff333333"
+        android:textSize="64pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_jiandang"
+        app:layout_constraintStart_toStartOf="@+id/iv_jiandang"
+        app:layout_constraintTop_toBottomOf="@+id/iv_jiandang" />
+
+    <TextView
+        android:id="@+id/tv_register_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100pt"
+        android:layout_marginTop="48pt"
+        android:text="恭喜您已完成注册!"
+        android:textSize="56pt"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/iv_jiandang"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_inquire_file_exit"
+        android:layout_width="320pt"
+        android:layout_height="168pt"
+        android:layout_marginBottom="62pt"
+        android:layout_marginEnd="45pt"
+        android:background="@drawable/ic_inquire_file_exit"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_wen_jian_skip"
+        android:layout_width="272pt"
+        android:layout_height="120pt"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="60pt"
+        android:background="@drawable/bg_wen_jian_tv_skip"
+        android:gravity="center"
+        android:text="跳过"
+        android:textColor="#fff"
+        android:textSize="56pt"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_inquire_file_exit"
+        app:layout_constraintEnd_toStartOf="@+id/iv_inquire_file_exit"
+        app:layout_constraintTop_toTopOf="@+id/iv_inquire_file_exit"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_file_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24pt"
+        android:textColor="#ff888888"
+        android:textSize="56pt"
+        app:layout_constraintEnd_toEndOf="@+id/iv_jiandang"
+        app:layout_constraintStart_toStartOf="@+id/iv_jiandang"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+</android.support.constraint.ConstraintLayout>
