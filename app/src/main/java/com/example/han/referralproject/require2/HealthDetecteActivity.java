@@ -325,6 +325,7 @@ public class HealthDetecteActivity extends BaseActivity {
         FllowUpTimesDialog dialog = new FllowUpTimesDialog(timeDecription);
         dialog.show(getSupportFragmentManager(), "floowUpTimes");
     }
+
     public void getFllowUpInfo() {
 //        showFllowUpTimesDialog("");
 //        showLoadingDialog("");
@@ -344,15 +345,15 @@ public class HealthDetecteActivity extends BaseActivity {
                         }
 //
                         if (fllowUpResponseBean.data.examinationDate != null) {
-                            healthDetectionTime.setText(Utils.stampTodate(fllowUpResponseBean.data.examinationDate));
+                            healthDetectionTime.setText(Utils.stampTodate(fllowUpResponseBean.data.examinationDate) + "(最近)");
                         }
 
                         if (fllowUpResponseBean.data.hypertensionDate != null) {
-                            pressureDeteionTime.setText(Utils.stampTodate(fllowUpResponseBean.data.hypertensionDate));
+                            pressureDeteionTime.setText(Utils.stampTodate(fllowUpResponseBean.data.hypertensionDate) + "(最近)");
                         }
 
-                        if (fllowUpResponseBean.data.diabetesDate == null) {
-                            sugarDetectionTime.setText(Utils.stampTodate(fllowUpResponseBean.data.diabetesDate));
+                        if (fllowUpResponseBean.data.diabetesDate != null) {
+                            sugarDetectionTime.setText(Utils.stampTodate(fllowUpResponseBean.data.diabetesDate) + "(最近)");
                         }
 
                         if (fllowUpResponseBean.data.examinationNum == null) {

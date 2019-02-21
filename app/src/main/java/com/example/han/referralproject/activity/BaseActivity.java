@@ -620,8 +620,7 @@ public class BaseActivity extends AppCompatActivity {
         try {
             if (mDialog == null) {
                 mDialog = new ProgressDialog(mContext);
-//            mDialog.setCanceledOnTouchOutside(false);
-                mDialog.setCanceledOnTouchOutside(true);
+                mDialog.setCanceledOnTouchOutside(false);
                 mDialog.setIndeterminate(true);
                 mDialog.setMessage(message);
             }

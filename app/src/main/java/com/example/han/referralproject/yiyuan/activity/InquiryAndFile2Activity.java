@@ -259,7 +259,6 @@ public class InquiryAndFile2Activity extends BaseActivity {
         try {
             dialog = new ProgressDialog(mContext);
             dialog.setCanceledOnTouchOutside(false);
-            dialog.setCanceledOnTouchOutside(true);
             dialog.setIndeterminate(true);
             dialog.setMessage(message);
             dialog.show();
