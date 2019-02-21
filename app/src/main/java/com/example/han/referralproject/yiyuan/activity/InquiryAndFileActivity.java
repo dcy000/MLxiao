@@ -225,6 +225,7 @@ public class InquiryAndFileActivity extends BaseActivity {
                     getFiledInfo();
                 } else {
                     isBindDoctor = false;
+                    hideLoadingDialog();
                 }
 
             }
