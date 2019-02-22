@@ -613,6 +613,7 @@ public class SingleDetectActivity extends BaseActivity implements View.OnClickLi
                             isGetResustFirst = false;
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
+                            speak(String.format("主人，您的血糖为%.1f", xuetangResut));
                             uploadXuetangResult(xuetangResut, false, null);
                         }
                         break;
