@@ -34,6 +34,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.han.referralproject.util.TimeCountDownUtils;
+import com.medlink.danbogh.utils.T;
 
 import java.util.List;
 import java.util.UUID;
@@ -78,7 +79,7 @@ public class BluetoothLeService extends Service implements TimeCountDownUtils.Ti
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 intentAction = ACTION_GATT_CONNECTED;
                 mConnectionState = STATE_CONNECTED;
-
+                T.show("设备已连接");
                 broadcastUpdate(intentAction);
 
                 Log.i(TAG, "Connected to GATT server.");
