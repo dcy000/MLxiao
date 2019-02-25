@@ -208,6 +208,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
             }
         });
 
+        binding.tvItemContentDeviceId.setText(Utils.getDeviceId(getContentResolver()));
     }
 
 
@@ -591,8 +592,8 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
                 .build()
                 .call()
                 .getDataItem("data");
-        if (data==null){
-            Intent intent=new Intent(this,AuthActivity.class);
+        if (data == null) {
+            Intent intent = new Intent(this, AuthActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
