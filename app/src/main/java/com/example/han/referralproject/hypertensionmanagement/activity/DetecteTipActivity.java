@@ -9,7 +9,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.health_manager_program.TreatmentPlanActivity;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 

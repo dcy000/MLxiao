@@ -15,8 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gcml.common.business.R;
-import com.gcml.common.repository.imageloader.ImageLoader;
-import com.gcml.common.repository.imageloader.glide.GlideImageLoader;
+import com.gcml.common.imageloader.ImageLoader;
 
 import timber.log.Timber;
 

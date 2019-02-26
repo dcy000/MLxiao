@@ -1,28 +1,24 @@
-apply plugin: 'com.android.library'
+ext.alwaysLib=true
+apply from: rootProject.file("build-base.gradle")
 
 android {
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
-
     defaultConfig {
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        if (project.ext.runAsApp) {
+            applicationId "com.gcml.voice"
+            versionCode = rootProject.ext.android["versionCode"]
+            versionName rootProject.ext.android["versionName"]
+        }
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
-    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
-    testImplementation rootProject.ext.dependencies["junit"]
-    implementation rootProject.ext.dependencies["appcompat-v7"]
+
 }

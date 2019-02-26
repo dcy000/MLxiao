@@ -5,15 +5,15 @@ import android.content.ContentResolver;
 import android.content.Context;
 
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
-import com.gcml.common.app.lifecycle.App;
-import com.gcml.common.app.lifecycle.AppLifecycleCallbacks;
+import com.gcml.common.api.AppLifecycleCallbacks;
+import com.google.auto.service.AutoService;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 
 /**
  * Created by lenovo on 2018/8/13.
  */
-
+@AutoService(AppLifecycleCallbacks.class)
 public class VoiceApp implements AppLifecycleCallbacks {
     public static ContentResolver context;
     public static Application app;

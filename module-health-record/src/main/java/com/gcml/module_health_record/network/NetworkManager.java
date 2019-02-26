@@ -4,9 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.Toast;
 
-import com.gcml.common.repository.http.HttpLogInterceptor;
 import com.gcml.common.utils.UtilsManager;
-import com.gcml.common.utils.service.ProcessUtils;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;

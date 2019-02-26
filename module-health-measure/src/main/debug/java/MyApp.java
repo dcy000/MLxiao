@@ -6,9 +6,10 @@ import android.content.res.Configuration;
 import android.nfc.tech.NfcA;
 import android.support.multidex.MultiDex;
 
-import com.gcml.common.app.lifecycle.AppDelegate;
-import com.gcml.lib_utils.UtilsManager;
-import com.gcml.lib_utils.ui.UiUtils;
+import com.gcml.common.AppDelegate;
+
+import com.gcml.common.utils.UtilsManager;
+import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.lib_video_ksyplayer.KSYPlayer;
 import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.iflytek.cloud.SpeechConstant;

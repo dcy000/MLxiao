@@ -11,7 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.hypertensionmanagement.activity.DetecteTipActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorMesActivity;
-import com.gcml.common.app.lifecycle.TopActivityHelper;
+import com.gcml.common.AppDelegate;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.old.auth.register.ConfirmContractActivity;
 import com.iflytek.cloud.InitListener;
@@ -155,10 +155,10 @@ public class WakeupHelper {
                                 return;
                             }
 
-                            if (TopActivityHelper.topActivity != null) {
-                                if (TopActivityHelper.topActivity.getClass().getName().contains("TaskComplyActivity")
-                                        || TopActivityHelper.topActivity.getClass().getName().contains("TaskComplyChoiceActivity")
-                                        || TopActivityHelper.topActivity instanceof NimCallActivity
+                            if (AppDelegate.INSTANCE.activity() != null) {
+                                if (AppDelegate.INSTANCE.activity().getClass().getName().contains("TaskComplyActivity")
+                                        || AppDelegate.INSTANCE.activity().getClass().getName().contains("TaskComplyChoiceActivity")
+                                        || AppDelegate.INSTANCE.activity() instanceof NimCallActivity
                                         )
 
                                     return;

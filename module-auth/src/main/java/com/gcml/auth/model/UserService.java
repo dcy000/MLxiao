@@ -1,7 +1,7 @@
 package com.gcml.auth.model;
 
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.http.ApiResult;
 import com.gcml.common.user.UserToken;
 
 import java.util.List;

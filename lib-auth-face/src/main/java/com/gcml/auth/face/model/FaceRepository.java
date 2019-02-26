@@ -4,10 +4,11 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.gcml.common.AppDelegate;
+import com.gcml.common.RetrofitHelper;
+import com.gcml.common.RoomHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.IRepositoryHelper;
-import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UploadHelper;
 
@@ -29,17 +30,15 @@ import timber.log.Timber;
 
 public class FaceRepository {
 
-    private Context mContext = RepositoryApp.INSTANCE.app();
+    private Context mContext = AppDelegate.INSTANCE.app();
 
-    private IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
-
-    private FaceService mFaceService = mRepositoryHelper.retrofitService(FaceService.class);
+    private FaceService mFaceService = RetrofitHelper.service(FaceService.class);
 
     private FaceIdHelper mFaceIdHelper = new FaceIdHelper();
 
     private UploadHelper mUploadHelper = new UploadHelper();
 
-    private FaceGroupDao mFaceGroupDao = mRepositoryHelper.roomDb(FaceGroupDb.class, FaceGroupDb.class.getName()).faceGroupDao();
+    private FaceGroupDao mFaceGroupDao = RoomHelper.db(FaceGroupDb.class, FaceGroupDb.class.getName()).faceGroupDao();
 
     public static final int ERROR_ON_ENGINE_INIT = -1;
     public static final int ERROR_ON_FACE_SIGN_UP = -2;

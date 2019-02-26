@@ -1,8 +1,8 @@
 package com.gcml.module_health_record.network;
 
+import com.gcml.common.RetrofitHelper;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.IRepositoryHelper;
-import com.gcml.common.repository.RepositoryApp;
+
 import com.gcml.common.utils.RxUtils;
 import com.gcml.module_health_record.bean.BUA;
 import com.gcml.module_health_record.bean.BloodOxygenHistory;
@@ -27,8 +27,8 @@ import io.reactivex.Observable;
  * description:TODO
  */
 public class HealthRecordRepository {
-    private static IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
-    private static HealthRecordServer healthRecordServer = mRepositoryHelper.retrofitService(HealthRecordServer.class);
+
+    private static HealthRecordServer healthRecordServer = RetrofitHelper.service(HealthRecordServer.class);
 
     public static Observable<List<TemperatureHistory>> getTemperatureHistory(String start, String end, String temp) {
         return healthRecordServer.getTemperatureHistory(UserSpHelper.getUserId(), start, end, temp).compose(RxUtils.apiResultTransformer());

@@ -60,7 +60,7 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
     }
 
     public void goSignInByFace() {
-        CC.obtainBuilder("com.gcml.auth.face.signin")
+        CC.obtainBuilder("com.gcml.auth.face2.signin")
                 .build()
                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
                     @Override

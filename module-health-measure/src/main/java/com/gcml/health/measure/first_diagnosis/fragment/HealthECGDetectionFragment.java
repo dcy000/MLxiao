@@ -22,7 +22,6 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.creative.ecg.StatusMsg;
-import com.gcml.common.app.lifecycle.App;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;

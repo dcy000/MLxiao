@@ -3,7 +3,6 @@ package com.gcml.common.mvp;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 
-import com.gcml.common.repository.utils.Preconditions;
 import com.gcml.common.utils.RxUtils;
 import com.uber.autodispose.AutoDisposeConverter;
 
@@ -62,7 +61,9 @@ public abstract class BasePresenter<V extends IView>
     }
 
     public <T> AutoDisposeConverter<T> autoDisposeConverter() {
-        Preconditions.checkNotNull(lifecycleOwner, "lifecycleOwner == null");
+        if (lifecycleOwner == null) {
+            throw new NullPointerException(String.valueOf("lifecycleOwner == null"));
+        }
         return RxUtils.autoDisposeConverter(lifecycleOwner);
     }
 }

@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.gcml.common.app.lifecycle.TopActivityHelper;
+import com.gcml.common.AppDelegate;
 import com.gcml.common.bus.RxBus;
 import com.gcml.common.business.R;
 import com.gcml.common.data.MessageBean;
@@ -53,7 +53,7 @@ public class JPushMessageHelper {
     private static void showJipushMessagePopwindow(String title, String message) {
         Activity activity = null;
         while (activity == null) {
-            activity = TopActivityHelper.topActivity;
+            activity = AppDelegate.INSTANCE.activity();
         }
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.common_jpush_popwin, null);

@@ -7,8 +7,9 @@ import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.business.R;
+import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.recommend.bean.get.GoodBean;
-import com.gcml.common.repository.imageloader.ImageLoader;
+
 
 import java.util.List;
 
@@ -27,10 +28,9 @@ public class RecommendRorMarketAdapter extends BaseQuickAdapter<GoodBean, BaseVi
         holder.setText(R.id.tv_good_name, bean.goodsname);
         holder.setText(R.id.tv_good_price, bean.goodsprice + "");
 
-        ImageLoader.Options options = ImageLoader.newOptionsBuilder(
-                holder.getView(R.id.iv_good_image), bean.goodsimage).build();
-        ImageLoader.instance().load(options);
-
+        ImageLoader.with(holder.getView(R.id.iv_good_image).getContext())
+                .load(bean.goodsimage)
+                .into(holder.getView(R.id.iv_good_image));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
