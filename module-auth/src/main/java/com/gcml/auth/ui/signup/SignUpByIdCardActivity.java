@@ -1,6 +1,5 @@
 package com.gcml.auth.ui.signup;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +10,7 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivitySignUpBinding;
+import com.gcml.auth.databinding.AuthActivitySignUpByIdCardBinding;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
@@ -30,11 +30,11 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, SignUpViewModel> {
+public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdCardBinding, SignUpByIdCardViewModel> {
 
     @Override
     protected int layoutId() {
-        return R.layout.auth_activity_sign_up;
+        return R.layout.auth_activity_sign_up_by_id_card;
     }
 
     @Override
@@ -127,7 +127,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                 .subscribe(new DefaultObserver<String>() {
                     @Override
                     public void onNext(String code) {
-                        SignUpActivity.this.code = code;
+                        SignUpByIdCardActivity.this.code = code;
                         ToastUtils.showShort("获取验证码成功");
                         MLVoiceSynthetize.startSynthesize(getApplicationContext(), "获取验证码成功", false);
                     }
@@ -182,10 +182,10 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     public void goNext() {
         String phone = binding.etPhone.getText().toString().trim();
         binding.tvNext.setEnabled(false);
-        if (TextUtils.isEmpty(phone) || phone.length() != 11) {
+        if (TextUtils.isEmpty(phone) || phone.length() != 18) {
             binding.tvNext.setEnabled(true);
-            ToastUtils.showShort("请输入正确的手机号");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入正确的手机号");
+            ToastUtils.showShort("请输入正确的身份证号码");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入正确的身份证号码");
             return;
         }
 
@@ -227,11 +227,11 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     }
 
     private void trySignUp(String phone) {
-        String code = binding.etCode.getText().toString().trim();
-        if (TextUtils.isEmpty(code) || !code.equals(this.code)) {
+        String name = binding.etCode.getText().toString().trim();
+        if (TextUtils.isEmpty(name)) {
             binding.tvNext.setEnabled(true);
-            ToastUtils.showShort("验证码错误");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "验证码错误", false);
+            ToastUtils.showShort("请输入真实姓名");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入真实姓名", false);
             return;
         }
         String password = binding.etPassword.getText().toString().trim();
@@ -243,12 +243,12 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
             MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,请输入6位数字密码", false);
             return;
         }
-        doSignUp(phone, password);
+        doSignUp(phone, password, name);
     }
 
-    private void doSignUp(String phone, String password) {
+    private void doSignUp(String phone, String password, String name) {
         String deviceId = Utils.getDeviceId(getApplicationContext().getContentResolver());
-        viewModel.signUp(deviceId, phone, password)
+        viewModel.signUp(deviceId, phone, password, name)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -324,7 +324,6 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     }
 
     public void goIdCardRegister() {
-        startActivity(new Intent(this,SignUpByIdCardActivity.class));
     }
 
     @Override
@@ -337,7 +336,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     protected void onResume() {
         super.onResume();
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                "请输入手机号密码验证码进行注册。");
+                "请输入身份证号进行注册。");
     }
 
     @Override

@@ -43,6 +43,18 @@ public class UserRepository {
                 });
     }
 
+    public Observable<UserEntity> signUpByIdCard(String deviceId, String account, String pwd, String name) {
+        return mUserService.signUpByIdCard(deviceId, account, pwd, name)
+                .compose(RxUtils.apiResultTransformer())
+                .flatMap(new Function<UserEntity, ObservableSource<UserEntity>>() {
+                    @Override
+                    public ObservableSource<UserEntity> apply(UserEntity user) throws Exception {
+                        return signIn(deviceId, account, pwd)
+                                .subscribeOn(Schedulers.io());
+                    }
+                });
+    }
+
 
     public Observable<UserEntity> signIn(
             String deviceId,
@@ -115,6 +127,26 @@ public class UserRepository {
                     }
                 });
     }
+    public Observable<Boolean> hasAccount2(String account,String name) {
+        return mUserService.hasAccount("3", account)
+                .compose(RxUtils.apiResultTransformer())
+                .map(new Function<Object, Boolean>() {
+                    @Override
+                    public Boolean apply(Object o) throws Exception {
+                        return true;
+                    }
+                })
+                .onErrorResumeNext(new Function<Throwable, ObservableSource<? extends Boolean>>() {
+                    @Override
+                    public ObservableSource<? extends Boolean> apply(Throwable throwable) throws Exception {
+                        if (throwable instanceof NullPointerException) {
+                            return Observable.just(true);
+                        }
+                        return Observable.just(false);
+                    }
+                });
+    }
+
 
     public Observable<String> fetchCode(String phone) {
         return mUserService.fetchCode(phone)
@@ -180,7 +212,7 @@ public class UserRepository {
                                 continue;
                             }
                             userIdsBuilder.append(user.id);
-                            if (i != size -1) {
+                            if (i != size - 1) {
                                 userIdsBuilder.append(",");
                             }
                         }

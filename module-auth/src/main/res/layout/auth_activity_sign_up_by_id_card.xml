@@ -7,11 +7,11 @@
 
         <variable
             name="presenter"
-            type="com.gcml.auth.ui.signup.SignUpActivity" />
+            type="com.gcml.auth.ui.signup.SignUpByIdCardActivity" />
 
         <variable
             name="viewModel"
-            type="com.gcml.auth.ui.signup.SignUpViewModel" />
+            type="com.gcml.auth.ui.signup.SignUpByIdCardViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -49,10 +49,11 @@
                 android:layout_height="120pt"
                 android:layout_marginTop="70pt"
                 android:background="@drawable/auth_sign_in_bg_et"
+                android:digits="0123456789Xx"
                 android:gravity="center_vertical"
-                android:hint="请输入手机号码"
+                android:hint="请输入身份证号码"
                 android:inputType="phone"
-                android:maxLength="11"
+                android:maxLength="18"
                 android:paddingLeft="36pt"
                 android:paddingRight="36pt"
                 android:textColor="#FF333333"
@@ -69,8 +70,8 @@
                 android:layout_marginTop="44pt"
                 android:background="@drawable/auth_sign_in_bg_et"
                 android:gravity="center_vertical"
-                android:hint="请输入验证码"
-                android:inputType="number"
+                android:hint="请输入真实姓名"
+                android:inputType="text"
                 android:paddingLeft="36pt"
                 android:paddingRight="296pt"
                 android:textColor="#FF333333"
@@ -91,6 +92,7 @@
                 android:text="获取验证码"
                 android:textColor="#FFFFFF"
                 android:textSize="40pt"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/et_code"
                 app:layout_constraintRight_toRightOf="@+id/et_code"
                 app:layout_constraintTop_toTopOf="@+id/et_code"
@@ -170,13 +172,15 @@
             android:id="@+id/tv_no_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="188dp"
             android:background="@drawable/common_bg_btn_transparent"
             android:onClick="@{() -> presenter.goIdCardRegister()}"
-            android:text="忘记手机号?"
+            android:text="没有手机号?"
             android:textColor="#999999"
             android:textSize="36pt"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/cb_agree_protocol"
-            app:layout_constraintEnd_toEndOf="@+id/cl_auth_items"
+            app:layout_constraintLeft_toRightOf="@+id/tv_agree"
             app:layout_constraintTop_toTopOf="@+id/cb_agree_protocol"
             app:layout_constraintVertical_bias="1.0" />
 

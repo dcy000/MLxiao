@@ -355,6 +355,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
         optional.put("eqid", Utils.getDeviceId());
         optional.put("bid", UserSpHelper.getUserId());
         optional.put("orderid", orderId);
+        optional.put("meal_type", servicePackageType);
 
         //初始化回调入口
         BCCallback callback = new BCCallback() {
