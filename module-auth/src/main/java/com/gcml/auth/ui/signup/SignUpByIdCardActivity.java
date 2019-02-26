@@ -246,6 +246,8 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
         doSignUp(phone, password, name);
     }
 
+    public static final String IDCARD = "idcard";
+
     private void doSignUp(String phone, String password, String name) {
         String deviceId = Utils.getDeviceId(getApplicationContext().getContentResolver());
         viewModel.signUp(deviceId, phone, password, name)
@@ -275,11 +277,13 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
                                     public void onResult(CC cc, CCResult result) {
                                         if (result.isSuccess()) {
                                             CC.obtainBuilder("com.gcml.auth.updateProfile1")
+                                                    .addParam("signUpType", IDCARD)
                                                     .build()
                                                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                                                         @Override
                                                         public void onResult(CC cc, CCResult result) {
                                                             if (result.isSuccess()) {
+
                                                                 CC.obtainBuilder("com.gcml.auth.updateProfile2")
                                                                         .build()
                                                                         .callAsyncCallbackOnMainThread(new IComponentCallback() {

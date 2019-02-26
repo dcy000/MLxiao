@@ -3,6 +3,7 @@ package com.gcml.auth.component;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -19,6 +20,10 @@ public class UpdateProfile1Component implements IComponent {
     public boolean onCall(CC cc) {
         Context context = cc.getContext();
         Intent intent = new Intent();
+        String signUpType = cc.<String>getParamItem("signUpType");
+        if (!TextUtils.isEmpty(signUpType)) {
+            intent.putExtra("signUpType", signUpType);
+        }
         intent.setClass(context, SimpleProfileActivity.class);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

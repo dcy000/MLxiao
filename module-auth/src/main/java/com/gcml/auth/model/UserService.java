@@ -41,6 +41,14 @@ public interface UserService {
             @Field("account") String account
     );
 
+    @FormUrlEncoded()
+    @POST("ZZB/acc/sel_account")
+    Observable<ApiResult<Object>> hasAccount2(
+            @Field("cate") String cate,
+            @Field("account") String account,
+            @Field("name") String name
+    );
+
     @GET("ZZB/br/GainCode")
     Observable<ApiResult<Code>> fetchCode(
             @Query("mobile") String phone

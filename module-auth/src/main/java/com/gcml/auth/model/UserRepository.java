@@ -128,7 +128,7 @@ public class UserRepository {
                 });
     }
     public Observable<Boolean> hasAccount2(String account,String name) {
-        return mUserService.hasAccount("3", account)
+        return mUserService.hasAccount2("3", account,name)
                 .compose(RxUtils.apiResultTransformer())
                 .map(new Function<Object, Boolean>() {
                     @Override

@@ -32,6 +32,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfileBinding, SimpleProfileViewModel> {
 
+    private String signUpType;
+    private String name;
+    private String idCard;
+
     @Override
     protected int layoutId() {
         return R.layout.auth_activity_simple_profile;
@@ -44,6 +48,15 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        if (getIntent() != null) {
+            signUpType = getIntent().getStringExtra("signUpType");
+            if (TextUtils.equals("idcard", signUpType)) {
+                binding.tvName.setVisibility(View.GONE);
+                binding.etName.setVisibility(View.GONE);
+                binding.tvIdCard.setVisibility(View.GONE);
+                binding.etIdCard.setVisibility(View.GONE);
+            }
+        }
         callId = getIntent().getStringExtra("callId");
         binding.setPresenter(this);
         binding.tbSimpleProfile.setData(
@@ -127,26 +140,27 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
     }
 
     public void goNext() {
-        String name = binding.etName.getText().toString().trim();
-        if (TextUtils.isEmpty(name)) {
-            MLVoiceSynthetize.startSynthesize(
-                    getApplicationContext(),
-                    getString(R.string.auth_empty_name),
-                    false);
-            ToastUtils.showShort(R.string.auth_empty_name);
-            return;
-        }
+        if (!TextUtils.equals("idcard", signUpType)) {
+            name = binding.etName.getText().toString().trim();
+            if (TextUtils.isEmpty(name)) {
+                MLVoiceSynthetize.startSynthesize(
+                        getApplicationContext(),
+                        getString(R.string.auth_empty_name),
+                        false);
+                ToastUtils.showShort(R.string.auth_empty_name);
+                return;
+            }
 
-        String idCard = binding.etIdCard.getText().toString().trim();
-        if (!Utils.checkIdCard1(idCard)) {
-            MLVoiceSynthetize.startSynthesize(
-                    getApplicationContext(),
-                    getString(R.string.auth_id_card_tip),
-                    false);
-            ToastUtils.showShort(R.string.auth_id_card_tip);
-            return;
+            idCard = binding.etIdCard.getText().toString().trim();
+            if (!Utils.checkIdCard1(idCard)) {
+                MLVoiceSynthetize.startSynthesize(
+                        getApplicationContext(),
+                        getString(R.string.auth_id_card_tip),
+                        false);
+                ToastUtils.showShort(R.string.auth_id_card_tip);
+                return;
+            }
         }
-
         String sex = manSelected ? "男" : "女";
 
 //        int index = binding.spHeight.getSelectedItemPosition();

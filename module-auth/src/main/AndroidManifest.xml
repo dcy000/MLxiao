@@ -6,13 +6,15 @@
         <activity android:name=".ui.AuthActivity" />
         <activity android:name=".ui.signin.SignInActivity" />
         <activity android:name=".ui.signup.SignUpActivity" />
+        <activity android:name=".ui.signup.SignUpByIdCardActivity" />
         <activity android:name=".ui.signup.UserProtocolActivity" />
         <activity android:name=".ui.findpassword.FindPasswordActivity" />
+        <activity android:name=".ui.findpassword.FindPasswordByIdCardActivity" />
         <activity android:name=".ui.findpassword.SetPasswordActivity" />
         <activity android:name=".ui.profile.SimpleProfileActivity" />
         <activity android:name=".ui.profile.Profile2Activity" />
 
-        <activity android:name=".ui.profile.ProfileInfoActivity"/>
+        <activity android:name=".ui.profile.ProfileInfoActivity" />
         <activity android:name="com.gcml.auth.ui.profile.update.AlertNameActivity" />
         <activity android:name="com.gcml.auth.ui.profile.update.AlertAgeActivity" />
         <activity android:name="com.gcml.auth.ui.profile.update.AlertSexActivity" />

@@ -169,8 +169,9 @@
         <TextView
             android:id="@+id/tv_no_phone"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="80pt"
             android:background="@drawable/common_bg_btn_transparent"
+            android:gravity="center"
             android:onClick="@{() -> presenter.goIdCardRegister()}"
             android:text="忘记手机号?"
             android:textColor="#999999"

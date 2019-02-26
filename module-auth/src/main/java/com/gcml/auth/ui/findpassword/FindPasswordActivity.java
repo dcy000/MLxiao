@@ -1,5 +1,6 @@
 package com.gcml.auth.ui.findpassword;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -177,6 +178,11 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
                     }
                 });
     }
+
+    public void findPassWordByIdCard() {
+        startActivity(new Intent(this, FindPasswordByIdCardActivity.class));
+    }
+
 
     private void checkCode(String phone) {
         String code = binding.etCode.getText().toString().trim();
