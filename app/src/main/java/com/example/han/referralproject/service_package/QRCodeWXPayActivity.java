@@ -353,7 +353,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
         optional.put("用途", "套餐购买");
         optional.put("testEN", "合贵");
         optional.put("eqid", Utils.getDeviceId());
-        optional.put("userid", UserSpHelper.getUserId());
+        optional.put("bid", UserSpHelper.getUserId());
         optional.put("orderid", orderId);
 
         //初始化回调入口

@@ -132,7 +132,11 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
         String phone = binding.etPhone.getText().toString().trim();
         String pwd = binding.etPassword.getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
-            ToastUtils.showShort("手机号不能为空");
+            ToastUtils.showShort("手机号或身份证号码不能为空");
+            return;
+        }
+        if (phone.length() != 11 && phone.length() != 18) {
+            ToastUtils.showShort("请输入正确的手机号或身份证号码");
             return;
         }
         if (TextUtils.isEmpty(pwd)) {
@@ -143,6 +147,10 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
 //            ToastUtils.showShort("登录需要勾选同意用户协议");
 //            return;
 //        }
+        LoginByPhone(phone, pwd);
+    }
+
+    private void LoginByPhone(String phone, String pwd) {
         String deviceId = Utils.getDeviceId(getContentResolver());
         viewModel.signIn(deviceId, phone, pwd)
                 .subscribeOn(Schedulers.io())
@@ -176,7 +184,6 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                         ToastUtils.showShort(throwable.getMessage());
                     }
                 });
-
     }
 
     private void checkFace(UserEntity user) {
