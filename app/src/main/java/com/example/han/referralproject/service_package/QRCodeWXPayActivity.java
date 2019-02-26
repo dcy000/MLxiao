@@ -23,6 +23,7 @@ import com.example.han.referralproject.recharge.BillUtils;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.display.ToastUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -76,7 +77,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
         @Override
         public boolean handleMessage(final Message msg) {
             switch (msg.what) {
-                case REQ_QRCODE_CODE:
+                case REQ_QRCODE_CODE://1 请求二维码 成功回调
                     qrcodeImg1.setImageBitmap(qrCodeBitMap);
                     break;
                 case 3:
@@ -144,6 +145,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
     public volatile Boolean sign = true;
     public Boolean sign1 = true;
     Date date;
+    private String des;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +158,23 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
         number = intent.getStringExtra("number");//5000
         isSkip = intent.getBooleanExtra("isSkip", false);
         servicePackageType = intent.getStringExtra("ServicePackage");
-        String des = intent.getStringExtra("description");
+        des = intent.getStringExtra("description");
+        //对于二维码，微信使用 WX_NATIVE 作为channel参数
+        //支付宝使用ALI_OFFLINE_QRCODE
+
+        channelType = BCReqParams.BCChannelTypes.valueOf(type);
+        billTitle = "山东合贵网络科技有限公司";
+        qrcodeImg = this.findViewById(R.id.qrcodeImg);
+        qrcodeImg1 = this.findViewById(R.id.qrcodeImg1);
+        date = new Date();
+    }
+
+    private void prepairedOrder(String des) {
+        loadingDialog = new ProgressDialog(this);
+        loadingDialog.setMessage("处理中，请稍候...");
+        loadingDialog.setIndeterminate(true);
+        loadingDialog.setCancelable(true);
+
         AppRepository.bugServicePackage(Integer.parseInt(number) / 100 + "", des)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -164,11 +182,12 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void onNext(Object o) {
                         orderId = o + "";
+                        reqQrCode();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        ToastUtils.showShort(e.getMessage());
                     }
 
                     @Override
@@ -176,26 +195,12 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
 
                     }
                 });
+    }
 
-        //对于二维码，微信使用 WX_NATIVE 作为channel参数
-        //支付宝使用ALI_OFFLINE_QRCODE
-
-        channelType = BCReqParams.BCChannelTypes.valueOf(type);
-        billTitle = "山东合贵网络科技有限公司";
-
-        loadingDialog = new ProgressDialog(this);
-        loadingDialog.setMessage("处理中，请稍候...");
-        loadingDialog.setIndeterminate(true);
-        loadingDialog.setCancelable(true);
-
-        qrcodeImg = this.findViewById(R.id.qrcodeImg);
-        qrcodeImg1 = this.findViewById(R.id.qrcodeImg1);
-
-        reqQrCode();
-
-      /*  mImageView1.setOnClickListener(this);
-        mImageView2.setOnClickListener(this);*/
-        date = new Date();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        prepairedOrder(des);
     }
 
     /**
@@ -349,6 +354,9 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
         Map<String, String> optional = new HashMap<String, String>();
         optional.put("用途", "套餐购买");
         optional.put("testEN", "合贵");
+        optional.put("eqid", Utils.getDeviceId());
+        optional.put("bid", UserSpHelper.getUserId());
+        optional.put("orderid", orderId);
 
         //初始化回调入口
         BCCallback callback = new BCCallback() {
@@ -365,17 +373,11 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
                 //resultCode为0表示请求成功
                 if (bcqrCodeResult.getResultCode() == 0) {
                     billId = bcqrCodeResult.getId();
-
-
                     //如果你设置了生成二维码参数为true那么此处可以获取二维码
                     qrCodeBitMap = bcqrCodeResult.getQrCodeBitmap();
-
-                    QueryOrder();
-
-
                     //否则通过 bcqrCodeResult.getQrCodeRawContent() 获取二维码的内容，自己去生成对应的二维码
-
                     msg.what = REQ_QRCODE_CODE;
+//                    QueryOrder();
                 } else {
                     errMsg = "err code:" + bcqrCodeResult.getResultCode() + "; err msg: " + bcqrCodeResult.getResultMsg() + "; err detail: " + bcqrCodeResult.getErrDetail();
 

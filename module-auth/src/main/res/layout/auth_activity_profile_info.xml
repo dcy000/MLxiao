@@ -396,7 +396,7 @@
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/cl_other_info"
                     android:layout_width="0dp"
-                    android:layout_height="644pt"
+                    android:layout_height="700pt"
                     android:layout_marginLeft="32pt"
                     android:background="@color/config_color_white"
                     app:layout_constraintLeft_toRightOf="@+id/cl_basic_info"
@@ -452,12 +452,12 @@
                             tools:text="qs" />
 
                         <ImageView
-                            android:visibility="gone"
                             android:id="@+id/iv_indicator_phone"
                             android:layout_width="28pt"
                             android:layout_height="56pt"
                             android:layout_marginRight="44pt"
                             android:src="@drawable/common_ic_nav_right"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -552,9 +552,9 @@
                             android:id="@+id/iv_indicator_device_id"
                             android:layout_width="28pt"
                             android:layout_height="56pt"
-                            android:visibility="gone"
                             android:layout_marginRight="44pt"
                             android:src="@drawable/common_ic_nav_right"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -608,6 +608,43 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="100pt"
+                        android:background="@drawable/common_bg_btn_transparent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_item_address">
+
+                        <TextView
+                            android:id="@+id/tv_item_title_device_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="44pt"
+                            android:gravity="center"
+                            android:text="设备编号"
+                            android:textColor="@color/config_color_base_9"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_item_content_device_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="60pt"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/config_color_base_3"
+                            android:textSize="56pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:text="id" />
 
                     </android.support.constraint.ConstraintLayout>
 
