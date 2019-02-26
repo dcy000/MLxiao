@@ -22,6 +22,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.BillUtils;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.RxUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -91,6 +92,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
                     AppRepository.servicePackageEffective(servicePackageType, orderId)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
+                            .as(RxUtils.autoDisposeConverter(QRCodeWXPayActivity.this))
                             .subscribe(new DefaultObserver<String>() {
                                 @Override
                                 public void onNext(String data) {

@@ -11,6 +11,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.network.AppRepository;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -31,6 +32,7 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
         AppRepository.queryServicePackage()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(ServicePackageActivity.this))
                 .subscribe(new DefaultObserver<ServicePackageBean>() {
                     @Override
                     public void onNext(ServicePackageBean servicePackageBean) {
@@ -47,6 +49,8 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
                     @Override
                     public void onError(Throwable e) {
                         //没有套餐生效
+                        setContentView(R.layout.activity_service_package);
+                        initView();
                     }
 
                     @Override
@@ -54,9 +58,6 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
 
                     }
                 });
-
-        setContentView(R.layout.activity_service_package);
-        initView();
     }
 
     private void initView() {
