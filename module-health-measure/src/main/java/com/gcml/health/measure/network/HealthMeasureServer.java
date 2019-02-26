@@ -1,6 +1,6 @@
 package com.gcml.health.measure.network;
 
-import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.http.ApiResult;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.first_diagnosis.bean.DeviceBean;

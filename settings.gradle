@@ -3,11 +3,11 @@ include ':app', ':module-factory-test',
         ':lib-common-core',
         ':lib-common-business',
         ':lib-common-app',
-        ':component-cc'
+        ':component-cc', ':lib-common-core', ':module-auth-face2'
 
 // 支持模块
-include ':lib-auth-face',
-        ':lib-baidu-unit',
+include ':lib-baidu-unit',
+//        ':lib-auth-face',
         ':lib-mlvoice',
         ':lib-call',
         ':lib-pay-beecloud',

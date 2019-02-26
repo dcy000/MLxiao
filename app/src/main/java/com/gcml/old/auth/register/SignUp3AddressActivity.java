@@ -20,7 +20,7 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.util.LocalShared;
 import com.gcml.common.location.BdLocationHelper;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.data.City;
 import com.gcml.common.data.Province;

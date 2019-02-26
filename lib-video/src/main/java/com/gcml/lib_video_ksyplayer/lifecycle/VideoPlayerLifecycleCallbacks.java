@@ -3,8 +3,10 @@ package com.gcml.lib_video_ksyplayer.lifecycle;
 import android.app.Application;
 import android.content.Context;
 
-import com.gcml.common.app.lifecycle.AppLifecycleCallbacks;
+
+import com.gcml.common.api.AppLifecycleCallbacks;
 import com.gcml.lib_video_ksyplayer.KSYPlayer;
+import com.google.auto.service.AutoService;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;
@@ -16,7 +18,8 @@ import com.kk.taurus.playerbase.entity.DecoderPlan;
  * created by:gzq
  * description:初始化视频库
  */
-public class VideoPlayerLifecycleCallbacks implements AppLifecycleCallbacks{
+@AutoService(AppLifecycleCallbacks.class)
+public class VideoPlayerLifecycleCallbacks implements AppLifecycleCallbacks {
     /**
      * 内核金山云
      */

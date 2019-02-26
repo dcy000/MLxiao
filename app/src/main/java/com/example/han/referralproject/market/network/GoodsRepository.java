@@ -1,9 +1,9 @@
 package com.example.han.referralproject.market.network;
 
 import com.example.han.referralproject.market.network.bean.GoodsTypeBean;
-import com.gcml.common.repository.IRepositoryHelper;
-import com.gcml.common.repository.RepositoryApp;
+import com.gcml.common.RetrofitHelper;
 import com.gcml.common.utils.RxUtils;
+
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import io.reactivex.Observable;
  */
 
 public class GoodsRepository {
-    IRepositoryHelper repositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
-    GoodsService goodsService = repositoryHelper.retrofitService(GoodsService.class);
+
+    GoodsService goodsService = RetrofitHelper.service(GoodsService.class);
 
     public Observable<List<GoodsTypeBean>> getGoodsTypes() {
         return goodsService.getGoodsTypes().compose(RxUtils.apiResultTransformer());

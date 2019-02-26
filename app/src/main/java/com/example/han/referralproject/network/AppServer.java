@@ -2,7 +2,7 @@ package com.example.han.referralproject.network;
 
 import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
-import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.http.ApiResult;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

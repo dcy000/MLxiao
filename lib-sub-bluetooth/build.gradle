@@ -1,18 +1,13 @@
-apply plugin: 'com.android.library'
+ext.alwaysLib=true
+apply from: rootProject.file("build-base.gradle")
 
 android {
-    compileSdkVersion 28
-
-
-
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        if (project.ext.runAsApp) {
+            applicationId "com.gcml.subblutooth"
+            versionCode = rootProject.ext.android["versionCode"]
+            versionName rootProject.ext.android["versionName"]
+        }
     }
 
     buildTypes {
@@ -25,14 +20,5 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["rxpermissions2"]
     api 'com.inuker.bluetooth:library:1.4.0'
-    implementation rootProject.ext.dependencies["rxjava2"]
-    implementation rootProject.ext.dependencies["rxandroid2"]
-
-    implementation rootProject.ext.dependencies["autodispose"]
-    implementation rootProject.ext.dependencies["autodispose-arch"]
 }

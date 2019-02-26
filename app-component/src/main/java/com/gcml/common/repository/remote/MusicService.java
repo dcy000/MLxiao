@@ -4,7 +4,7 @@ package com.gcml.common.repository.remote;
 import com.gcml.common.repository.entity.FingerBean;
 import com.gcml.common.repository.entity.SheetEntity;
 import com.gcml.common.repository.entity.SongEntity;
-import com.gcml.common.repository.http.ApiResult;
+import com.gcml.common.http.ApiResult;
 
 import java.util.List;
 

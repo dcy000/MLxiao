@@ -3,12 +3,14 @@ package com.gcml.auth.model;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.gcml.common.AppDelegate;
+import com.gcml.common.RetrofitHelper;
+import com.gcml.common.RoomHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
-import com.gcml.common.repository.IRepositoryHelper;
-import com.gcml.common.repository.RepositoryApp;
 import com.gcml.common.user.UserToken;
 import com.gcml.common.utils.RxUtils;
+
 
 import java.util.Iterator;
 import java.util.List;
@@ -23,13 +25,13 @@ import io.reactivex.schedulers.Schedulers;
 
 public class UserRepository {
 
-    private Context mContext = RepositoryApp.INSTANCE.app();
+    private Context mContext = AppDelegate.INSTANCE.app();
 
-    private IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
 
-    private UserService mUserService = mRepositoryHelper.retrofitService(UserService.class);
 
-    private UserDao mUserDao = mRepositoryHelper.roomDb(UserDb.class, UserDb.class.getName()).userDao();
+    private UserService mUserService = RetrofitHelper.service(UserService.class);
+
+    private UserDao mUserDao = RoomHelper.db(UserDb.class, UserDb.class.getName()).userDao();
 
     public Observable<UserEntity> signUp(String deviceId, String account, String pwd) {
         return mUserService.signUp(deviceId, account, pwd)

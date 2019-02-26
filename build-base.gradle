@@ -1,0 +1,190 @@
+//注： 从CC 1.x升级到CC 2.x的用户，用此文件替换原来的cc-settings.gradle的同时，需要在根目录build.gradle中将插件地址按照如下方式更换一下：
+// classpath 'com.billy.android:autoregister:x.x.x' -> classpath 'com.billy.android:cc-register:x.x.x'
+//cc-register extension:
+// 功能介绍：
+//  完成组件、拦截器及跨进程json解释器等CC库自身需要的自动注册功能
+//  支持新增自定义的其它自动注册功能，参考AutoRegister，用法参考cc-settings-demo.gradle
+project.apply plugin: 'cc-register'
+def dependencyMode = (project.gradle.gradleVersion as float) >= 4.1F ? 'api' : 'compile'
+//project.dependencies.add(dependencyMode, project(":cc"))
+project.dependencies.add(dependencyMode, "com.billy.android:cc:2.1.1")
+
+//此文件是作为组件化配置的公共gradle脚本文件，在每个组件中都apply此文件，下载到工程根目录后，可以在下方添加一些自己工程中通用的配置
+// 可参考cc-settings-demo.gradle
+// 例如：
+//      1. 添加全局拦截器、下沉的公共类库等一些公共基础库的依赖；
+//      2. 添加自定义的通过cc-register实现的自动注册配置
+//      3. 开启app内部多进程支持
+//      4. 其它公共配置信息
+
+//apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-annotationProcessor'
+//apply plugin: 'android-aspectjx'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        if (project.ext.runAsApp) {
+            multiDexEnabled true
+            renderscriptTargetApi 19
+            renderscriptSupportModeEnabled true
+        }
+
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.developUrl)
+            buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
+            buildConfigField("String", "API_BAIDUBCE", rootProject.ext.api.baidubce)
+            minifyEnabled false
+        }
+
+        release {
+            buildConfigField "boolean", "RUN_AS_APP", "${project.ext.runAsApp}"
+            buildConfigField("String", "SERVER_ADDRESS", rootProject.ext.produceUrl)
+            buildConfigField("String", "API_SENIVERSE", rootProject.ext.api.seniverse)
+            buildConfigField("String", "API_BAIDUBCE", rootProject.ext.api.baidubce)
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    if (project.ext.runAsApp) {
+        dexOptions {
+            javaMaxHeapSize '4g'
+        }
+
+        lintOptions {
+            checkReleaseBuilds false
+            abortOnError false
+        }
+
+        aaptOptions {
+            cruncherEnabled false
+            useNewCruncher false
+        }
+    }
+
+}
+
+//aspectjx {
+////排除所有package路径中包含`android.support`的class文件及库（jar文件）
+//    exclude 'android'
+//}
+
+repositories {
+    flatDir {
+        dirs rootProject.file('aar')
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    if ("lib-common-core" != project.name
+            && "lib-voice" != project.name
+            && "lib-widget" != project.name
+    ) {
+        implementation project(":lib-common-core")
+    }
+
+    if ("lib-common-business" != project.name
+            && "lib-common-core" != project.name
+            && "lib-voice" != project.name
+            && "lib-widget" != project.name
+    ) {
+        implementation project(":lib-common-business")
+    }
+
+    implementation rootProject.ext.dependencies["multidex"]
+
+    compileOnly rootProject.ext.dependencies["auto-service"]
+    annotationProcessor rootProject.ext.dependencies["auto-service"]
+
+//    implementation rootProject.ext.dependencies["kotlin-stdlib-jdk7"]
+//    implementation rootProject.ext.dependencies["kodein-di-generic-jvm"]
+//    implementation rootProject.ext.dependencies["kodein-di-framework-android-support"]
+//    implementation rootProject.ext.dependencies["aspectjrt"]
+
+    implementation rootProject.ext.dependencies["lifecycle-extensions"]
+    implementation rootProject.ext.dependencies["lifecycle-runtime"]
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
+    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["gallery-layout-manager"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
+    implementation rootProject.ext.dependencies["MPAndroidChart"]
+    implementation rootProject.ext.dependencies["pickerView"]
+
+
+    implementation rootProject.ext.dependencies["gson"]
+    implementation rootProject.ext.dependencies["okhttp3"]
+    implementation rootProject.ext.dependencies["okhttp3-logging-interceptor"]
+
+    implementation rootProject.ext.dependencies["picasso"]
+    implementation rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
+
+//    implementation rootProject.ext.dependencies["dagger2"]
+//    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+
+    implementation rootProject.ext.dependencies["rxjava2"]
+    implementation rootProject.ext.dependencies["rxandroid2"]
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["retrofit-url-manager"]
+    implementation rootProject.ext.dependencies["retrofit-converter-gson"]
+    implementation rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+    implementation rootProject.ext.dependencies["rxcache2"]
+    implementation rootProject.ext.dependencies["rxcache-jolyglot-gson"]
+    implementation rootProject.ext.dependencies["autodispose"]
+    implementation rootProject.ext.dependencies["autodispose-arch"]
+    implementation rootProject.ext.dependencies["rxpermissions2"]
+    implementation rootProject.ext.dependencies["rxandroidble2"]
+
+    implementation rootProject.ext.dependencies["litepal"]
+    // room database
+    implementation rootProject.ext.dependencies["room-rxjava2"]
+    implementation rootProject.ext.dependencies["room-runtime"]
+    annotationProcessor rootProject.ext.dependencies["room-compiler"]
+
+    implementation rootProject.ext.dependencies["umeng-analytics"]
+    implementation rootProject.ext.dependencies["timber"]
+    implementation rootProject.ext.dependencies["ultra-ptr"]
+    implementation rootProject.ext.dependencies["stetho"]
+    implementation rootProject.ext.dependencies["stetho-okhttp3"]
+    implementation rootProject.ext.dependencies["bugly-crashreport"]
+    implementation rootProject.ext.dependencies["bugly-nativecrashreport"]
+    debugImplementation rootProject.ext.dependencies["leakCanary-debug"]
+    releaseImplementation rootProject.ext.dependencies["leakCanary-release"]
+    debugImplementation rootProject.ext.dependencies["blockCanary-debug"]
+    releaseImplementation rootProject.ext.dependencies["blockCanary-release"]
+    testImplementation rootProject.ext.dependencies["junit"]
+    androidTestImplementation rootProject.ext.dependencies["runner"]
+    androidTestImplementation rootProject.ext.dependencies["espresso-core"]
+}
+

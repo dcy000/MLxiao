@@ -1,18 +1,18 @@
-//apply plugin: 'com.android.application'
-apply plugin: 'com.android.library'
+ext.alwaysLib=true
+apply from: rootProject.file("build-base.gradle")
 
 android {
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        if (project.ext.runAsApp) {
+            applicationId "com.gcml.baidu.unit"
+            versionCode = rootProject.ext.android["versionCode"]
+            versionName rootProject.ext.android["versionName"]
+        }
     }
+
     buildTypes {
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -21,19 +21,6 @@ android {
 }
 
 dependencies {
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["constraint-layout"]
-    testImplementation rootProject.ext.dependencies["junit"]
-    implementation rootProject.ext.dependencies["glide"]
-    implementation rootProject.ext.dependencies["rxandroid2"]
-    implementation rootProject.ext.dependencies["retrofit"]
-    implementation rootProject.ext.dependencies["retrofit-converter-gson"]
-    implementation rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
-    implementation rootProject.ext.dependencies["okhttp3"]
-    implementation rootProject.ext.dependencies["okhttp-logging-interceptor"]
-}
-//解决 依赖冲突
-configurations.all {
-    resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
+
 }
 

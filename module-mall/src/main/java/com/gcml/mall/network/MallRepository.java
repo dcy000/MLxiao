@@ -1,8 +1,8 @@
 package com.gcml.mall.network;
 
+import com.gcml.common.RetrofitHelper;
 import com.gcml.common.recommend.bean.get.GoodBean;
-import com.gcml.common.repository.IRepositoryHelper;
-import com.gcml.common.repository.RepositoryApp;
+
 import com.gcml.common.utils.RxUtils;
 import com.gcml.mall.bean.CategoryBean;
 import com.gcml.mall.bean.GoodsBean;
@@ -15,9 +15,8 @@ import io.reactivex.Observable;
 import retrofit2.http.Query;
 
 public class MallRepository {
-    private IRepositoryHelper mRepositoryHelper = RepositoryApp.INSTANCE.repositoryComponent().repositoryHelper();
 
-    private MallService mTaskService = mRepositoryHelper.retrofitService(MallService.class);
+    private MallService mTaskService = RetrofitHelper.service(MallService.class);
 
     public Observable<List<CategoryBean>> categoryFromApi() {
         return mTaskService.category().compose(RxUtils.apiResultTransformer());
