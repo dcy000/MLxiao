@@ -66,6 +66,6 @@ public interface HealthMeasureServer {
      */
     @GET("ZZB/order/end_set_meal")
     Observable<Object> cancelServicePackage(
-            @Query("setmealId") String setmealId
+            @Query("orderId") String setmealId
     );
 }

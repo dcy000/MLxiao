@@ -63,4 +63,8 @@ public class AppRepository {
     public static Observable<Object> bugServicePackage(String price, String des){
         return healthMeasureServer.bugServicePackage(UserSpHelper.getUserId(),price,des).compose(RxUtils.apiResultTransformer());
     }
+
+    public static Observable<Object> getOrderStarte(String orderId){
+        return healthMeasureServer.getOrderStarte(orderId).compose(RxUtils.apiResultTransformer());
+    }
 }

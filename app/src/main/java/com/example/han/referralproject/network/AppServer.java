@@ -64,4 +64,13 @@ public interface AppServer {
             @Query("price") String price,
             @Query("articles") String description
     );
+
+    /**
+     *
+     * 获取指定订单号的订单状态
+     */
+    @GET("ZZB/order/set_meal_buy")
+    Observable<ApiResult<Object>> getOrderStarte(
+            @Query("orderid") String userId
+    );
 }

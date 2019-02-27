@@ -38,6 +38,7 @@ import cn.beecloud.entity.BCBillStatus;
 import cn.beecloud.entity.BCQRCodeResult;
 import cn.beecloud.entity.BCQueryBillResult;
 import cn.beecloud.entity.BCReqParams;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -90,31 +91,11 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
                     Toast.makeText(QRCodeWXPayActivity.this, errMsg, Toast.LENGTH_LONG).show();
                     break;
                 case 2:
-                    AppRepository.servicePackageEffective(servicePackageType, orderId)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .as(RxUtils.autoDisposeConverter(QRCodeWXPayActivity.this))
-                            .subscribe(new DefaultObserver<String>() {
-                                @Override
-                                public void onNext(String data) {
-                                    if (isSkip) {
-                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true, servicePackageType, data);
-                                        return;
-                                    }
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false, servicePackageType, data);
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-                                    Timber.e("套餐失效失败" + e.getMessage());
-                                }
-
-                                @Override
-                                public void onComplete() {
-
-                                }
-                            });
-
+                    if (isSkip) {
+                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true, servicePackageType, orderId);
+                    } else {
+                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false, servicePackageType, orderId);
+                    }
                     break;
 
                 case 0:
@@ -256,55 +237,30 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void run() {
                 while (sign) {
-
-//                    if (type.startsWith("BC")) {
-//                        // BC的渠道通过id查询结果
-//                        BCQuery.getInstance().queryBillByIDAsync(billId, new BCCallback() {
-//                            @Override
-//                            public void done(BCResult result) {
-//                                BCQueryBillResult billStatus = (BCQueryBillResult) result;
-//                                //Logg.e("支付信息",billStatus.getResultMsg() +"错误详情："+billStatus.getErrDetail()+"返回码"+billStatus.getResultCode()+"");
-////                                Logg.e("支付信息",billStatus.getBill().getTradeNum() + "\npayresult："+billStatus.getBill().getPayResult()+
-////                                        "\nRevertResult"+billStatus.getBill().getRevertResult()+"\nRefundResult"+billStatus.getBill().getRefundResult());
-//                                //表示支付成功
-//                                if (billStatus.getResultCode() == 0 && billStatus.getBill().getPayResult()) {
-//
-//                                    mHandler.sendEmptyMessage(2);
-//                                    sign = false;
-//
-//                                }
-//
-//                            }
-//                        });
-//                    }
-
-                    BCQuery.getInstance().queryOfflineBillStatusAsync(
-                            BCReqParams.BCChannelTypes.WX_NATIVE,
-                            billNum,
-                            new BCCallback() {
+                    AppRepository.getOrderStarte(orderId)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new DefaultObserver<Object>() {
                                 @Override
-                                public void done(BCResult result) {
-                                    loadingDialog.dismiss();
-
-                                    BCBillStatus billStatus = (BCBillStatus) result;
-
+                                public void onNext(Object o) {
                                     Message msg = mHandler.obtainMessage();
-
-                                    //表示支付成功
-                                    if (billStatus.getResultCode() == 0 &&
-                                            billStatus.getPayResult()) {
-                                        sign = false;
-                                        msg.what = 2;
-                                        mHandler.sendMessage(msg);
-//                                        notify = "支付成功";
-                                    }
+                                    sign = true;
+                                    msg.what = 2;
+                                    mHandler.sendMessage(msg);
                                 }
-                            }
-                    );
 
+                                @Override
+                                public void onError(Throwable e) {
+                                    ToastUtils.showShort(e.getMessage());
+                                }
 
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(1500);
                     } catch (InterruptedException e) {
 
                     }
@@ -312,7 +268,6 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
             }
 
         }).start();
-
     }
 
     public void QueryOrders() {
@@ -378,7 +333,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
                     qrCodeBitMap = bcqrCodeResult.getQrCodeBitmap();
                     //否则通过 bcqrCodeResult.getQrCodeRawContent() 获取二维码的内容，自己去生成对应的二维码
                     msg.what = REQ_QRCODE_CODE;
-//                    QueryOrder();
+                    QueryOrder();
                 } else {
                     errMsg = "err code:" + bcqrCodeResult.getResultCode() + "; err msg: " + bcqrCodeResult.getResultMsg() + "; err detail: " + bcqrCodeResult.getErrDetail();
 
