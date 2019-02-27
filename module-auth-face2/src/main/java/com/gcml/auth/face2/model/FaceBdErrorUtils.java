@@ -113,9 +113,15 @@ public class FaceBdErrorUtils {
         if (angle == null) {
             return false;
         }
-        return angle.getPitch() < THRESHOLDS_FACE_ANGLE
-                && angle.getRoll() < THRESHOLDS_FACE_ANGLE
-                && angle.getYaw() < THRESHOLDS_FACE_ANGLE;
+        return (angle.getPitch() < THRESHOLDS_FACE_ANGLE
+                || angle.getPitch() > -THRESHOLDS_FACE_ANGLE
+                || angle.getPitch() < THRESHOLDS_FACE_ANGLE - 180)
+                && (angle.getRoll() < THRESHOLDS_FACE_ANGLE
+                || angle.getRoll() > -THRESHOLDS_FACE_ANGLE
+                || angle.getPitch() < THRESHOLDS_FACE_ANGLE - 180)
+                && (angle.getYaw() < THRESHOLDS_FACE_ANGLE
+                || angle.getYaw() > -THRESHOLDS_FACE_ANGLE
+                || angle.getPitch() < THRESHOLDS_FACE_ANGLE - 180);
 
     }
 
