@@ -352,7 +352,7 @@ public class PreviewHelper
             Timber.i("Face RotateImage");
             int rotation = CameraUtils.calculateRotation(mActivity, mCameraId);
             if (rotation == 90 || rotation == 270) {
-                croppedBitmap = rotate(croppedBitmap, rotation);
+                croppedBitmap = rotate(croppedBitmap, rotation, mCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT);
             }
             rxStatus.onNext(Status.of(Status.EVENT_CROPPED, croppedBitmap));
         }
@@ -441,9 +441,10 @@ public class PreviewHelper
         return src;
     }
 
-    public static Bitmap rotate(Bitmap src, int angle) {
+    public static Bitmap rotate(Bitmap src, int angle, boolean front) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
+        matrix.postScale(1, front ? -1 : 1);
         Bitmap rotated = Bitmap.createBitmap(
                 src,
                 0,
@@ -468,7 +469,7 @@ public class PreviewHelper
     public static String bitmapToBase64(Bitmap bitmap, boolean recycle) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        if (recycle &&!bitmap.isRecycled()) {
+        if (recycle && !bitmap.isRecycled()) {
             bitmap.recycle();
         }
 

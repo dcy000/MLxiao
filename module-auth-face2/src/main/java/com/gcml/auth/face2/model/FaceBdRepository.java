@@ -135,18 +135,12 @@ public class FaceBdRepository {
         return new ObservableTransformer<List<String>, String>() {
             @Override
             public ObservableSource<String> apply(Observable<List<String>> upstream) {
-                PublishSubject<Object> subject = PublishSubject.create();
-                Observable<String> token = accessToken()
-                        .doOnDispose(new Action() {
+                return upstream.flatMap(new Function<List<String>, ObservableSource<String>>() {
+                    @Override
+                    public ObservableSource<String> apply(List<String> images) throws Exception {
+                        return accessToken().flatMap(new Function<String, ObservableSource<String>>() {
                             @Override
-                            public void run() throws Exception {
-                                subject.onNext(new Object());
-                            }
-                        });
-                return upstream
-                        .zipWith(token, new BiFunction<List<String>, String, String>() {
-                            @Override
-                            public String apply(List<String> images, String token) throws Exception {
+                            public ObservableSource<String> apply(String token) throws Exception {
                                 ArrayList<FaceBdVerifyParam> imgs = new ArrayList<>();
                                 for (String image : images) {
                                     FaceBdVerifyParam img = new FaceBdVerifyParam();
@@ -155,29 +149,23 @@ public class FaceBdRepository {
                                     img.setFaceField("age,beauty,expression");
                                     imgs.add(img);
                                 }
-                                String img = "";
-                                try {
-                                    img = mFaceBdService.verify(token, imgs)
-                                            .compose(FaceBdResultUtils.faceBdResultTransformer())
-                                            .flatMap(new Function<FaceBdVerify, ObservableSource<String>>() {
-                                                @Override
-                                                public ObservableSource<String> apply(FaceBdVerify result) throws Exception {
-                                                    String image = FaceBdErrorUtils.liveFace(result);
-                                                    if (!TextUtils.isEmpty(image)) {
-                                                        return Observable.just(image);
-                                                    }
-                                                    return Observable.error(new FaceBdError(FaceBdErrorUtils.ERROR_FACE_LIVELESS, ""));
+                                return mFaceBdService.verify(token, imgs)
+                                        .compose(FaceBdResultUtils.faceBdResultTransformer())
+                                        .flatMap(new Function<FaceBdVerify, ObservableSource<String>>() {
+                                            @Override
+                                            public ObservableSource<String> apply(FaceBdVerify result) throws Exception {
+                                                String image = FaceBdErrorUtils.liveFace(result);
+                                                if (!TextUtils.isEmpty(image)) {
+                                                    return Observable.just(image);
                                                 }
-                                            })
-                                            .takeUntil(subject)
-                                            .subscribeOn(Schedulers.io())
-                                            .blockingFirst();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                return img;
+                                                return Observable.error(new FaceBdError(FaceBdErrorUtils.ERROR_FACE_LIVELESS, ""));
+                                            }
+                                        })
+                                        .subscribeOn(Schedulers.io());
                             }
-                        });
+                        }).subscribeOn(Schedulers.io());
+                    }
+                }).subscribeOn(Schedulers.io());
             }
         };
     }

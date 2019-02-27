@@ -18,14 +18,14 @@ import io.reactivex.Observable;
 public class FaceBdErrorUtils {
     /**
      * 通过率   faceLiveness
-     *
-     *  99.9%   0.022403
-     * 	99.5%   0.393241（推荐）
-     * 	99%	    0.649192
-     * 	98%	    0.933801
-     * 	97%	    0.973637
-     *  96%	    0.988479
-     * 	95%	    0.994058
+     * <p>
+     * 99.9%   0.022403
+     * 99.5%   0.393241（推荐）
+     * 99%	    0.649192
+     * 98%	    0.933801
+     * 97%	    0.973637
+     * 96%	    0.988479
+     * 95%	    0.994058
      */
     public static final double THRESHOLDS_FACE_LIVENESS = 0.40;
     public static final double THRESHOLDS_FACE_ANGLE = 20;
@@ -83,7 +83,7 @@ public class FaceBdErrorUtils {
     }
 
     /**
-     *  活体检测控制
+     * 活体检测控制
      *
      * @param verify 接口返回的活体检测信息
      * @return "${imageType},${image}"
@@ -113,9 +113,15 @@ public class FaceBdErrorUtils {
         if (angle == null) {
             return false;
         }
-        return angle.getPitch() < THRESHOLDS_FACE_ANGLE
-                && angle.getRoll() < THRESHOLDS_FACE_ANGLE
-                && angle.getYaw() < THRESHOLDS_FACE_ANGLE;
+        return (angle.getPitch() < THRESHOLDS_FACE_ANGLE
+                || angle.getPitch() > -THRESHOLDS_FACE_ANGLE
+                || angle.getPitch() < THRESHOLDS_FACE_ANGLE - 180)
+                && (angle.getRoll() < THRESHOLDS_FACE_ANGLE
+                || angle.getRoll() > -THRESHOLDS_FACE_ANGLE
+                || angle.getPitch() < THRESHOLDS_FACE_ANGLE - 180)
+                && (angle.getYaw() < THRESHOLDS_FACE_ANGLE
+                || angle.getYaw() > -THRESHOLDS_FACE_ANGLE
+                || angle.getPitch() < THRESHOLDS_FACE_ANGLE - 180);
 
     }
 

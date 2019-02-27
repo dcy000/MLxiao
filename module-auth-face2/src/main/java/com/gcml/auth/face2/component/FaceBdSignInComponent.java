@@ -29,6 +29,7 @@ public class FaceBdSignInComponent implements IComponent {
 
         // 人脸认证登录
         Boolean verify = cc.getParamItem("verify");
+        boolean skip = cc.getParamItem("skip");
 
         String faceId = "";
         if (verify != null && verify) {
@@ -59,6 +60,7 @@ public class FaceBdSignInComponent implements IComponent {
         intent.putExtra("callId", cc.getCallId());
         intent.putExtra("verify", verify);
         intent.putExtra("faceId", faceId);
+        intent.putExtra("skip", skip);
         context.startActivity(intent);
         return true;
     }
