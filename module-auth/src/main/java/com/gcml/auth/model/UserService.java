@@ -42,7 +42,7 @@ public interface UserService {
     );
 
     @FormUrlEncoded()
-    @POST("ZZB/acc/sel_account")
+    @POST("ZZB/acc/selAccountIsExist")
     Observable<ApiResult<Object>> hasAccount2(
             @Field("cate") String cate,
             @Field("account") String account,
