@@ -9,7 +9,7 @@ import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityFindPasswordByIdCardBinding;
 import com.gcml.common.mvvm.BaseActivity;
-import com.gcml.common.repository.utils.DefaultObserver;
+import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.display.KeyboardUtils;
