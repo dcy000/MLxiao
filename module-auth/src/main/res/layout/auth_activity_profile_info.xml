@@ -591,13 +591,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="800pt"
                             android:layout_marginRight="20pt"
+                            android:ellipsize="end"
                             android:gravity="center_vertical|right"
+                            android:maxWidth="800pt"
+                            android:maxLines="1"
                             android:textColor="@color/config_color_base_3"
                             android:textSize="56pt"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toLeftOf="@+id/iv_indicator_address"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:text="qs" />
+                            tools:text="qssssssssssssssssssssssssssssssss" />
 
                         <ImageView
                             android:id="@+id/iv_indicator_address"
