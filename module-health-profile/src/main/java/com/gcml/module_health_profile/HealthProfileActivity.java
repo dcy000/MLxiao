@@ -85,6 +85,10 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
     }
 
     private void initFragments(List<HealthProfileMenuBean> data) {
+        HealthProfileMenuBean tizhi = new HealthProfileMenuBean();
+        tizhi.setRecordName("中医体质辨识");
+        tizhi.setRdRecordId("123456");
+        data.add(tizhi);
         fragments = new ArrayList<>();
         for (HealthProfileMenuBean menuBean : data) {
             switch (menuBean.getRdRecordId()) {
@@ -108,7 +112,7 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
                     //健康体检表
                     fragments.add(HealthCheckupFragment.instance(menuBean.getRdRecordId()));
                     break;
-                case "xxxx":
+                case "123456":
                     //中医体质
                     fragments.add(ZhongyiFollowupFragment.instance(menuBean.getRdRecordId()));
                     break;

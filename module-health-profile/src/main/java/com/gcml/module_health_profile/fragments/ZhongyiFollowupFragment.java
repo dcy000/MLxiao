@@ -1,7 +1,10 @@
 package com.gcml.module_health_profile.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +13,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.common.FilterClickListener;
+import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_profile.R;
+import com.gcml.module_health_profile.bean.TiZhiBean;
+import com.gcml.module_health_profile.data.HealthProfileRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View.OnClickListener {
     private ImageView mIvCircle;
@@ -34,6 +52,9 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
     private TextView mTvTitle;
     private RecyclerView mRv;
     private String recordId;
+    private ArrayList<TiZhiBean> tiZhiBeans = new ArrayList<>();
+    private BaseQuickAdapter<TiZhiBean, BaseViewHolder> adapter;
+    ;
 
     public static ZhongyiFollowupFragment instance(String recordId) {
         Bundle bundle = new Bundle();
@@ -50,7 +71,7 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
 
     @Override
     protected void initView(View view, Bundle bundle) {
-        recordId=bundle.getString("recordId");
+        recordId = bundle.getString("recordId");
         mIvCircle = (ImageView) view.findViewById(R.id.iv_circle);
         mTvCTitle = (TextView) view.findViewById(R.id.tv_c_title);
         mTvCContent = (TextView) view.findViewById(R.id.tv_c_content);
@@ -59,6 +80,62 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
         mClHead = (ConstraintLayout) view.findViewById(R.id.cl_head);
         mTvTitle = (TextView) view.findViewById(R.id.tv_title);
         mRv = (RecyclerView) view.findViewById(R.id.rv);
+
+        mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        adapter = new BaseQuickAdapter<TiZhiBean, BaseViewHolder>(R.layout.item_tizhi_history, tiZhiBeans) {
+            @Override
+            protected void convert(BaseViewHolder helper, TiZhiBean item) {
+                TextView time = helper.getView(R.id.tv_time);
+                TextView see = helper.getView(R.id.tv_see);
+                time.setText(item.modifiedOn);
+
+                see.setOnClickListener(new FilterClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtils.showShort("查看");
+                    }
+                }));
+            }
+        };
+        mRv.setAdapter(adapter);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getData();
+    }
+
+    HealthProfileRepository repository = new HealthProfileRepository();
+
+    private void getData() {
+        repository.getConstitution(UserSpHelper.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<List<TiZhiBean>>() {
+                    @Override
+                    public void onNext(List<TiZhiBean> data) {
+                        tiZhiBeans.clear();
+                        tiZhiBeans.addAll(data);
+                        adapter.notifyDataSetChanged();
+                    }
+
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
+        ;
     }
 
     @Override
