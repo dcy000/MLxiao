@@ -111,6 +111,7 @@ public class CorrelationNumber2Fragment extends Fragment {
                     @Override
                     public void onNext(List<GuardianInfo> guardianInfos) {
                         super.onNext(guardianInfos);
+                        data.clear();
                         data.addAll(guardianInfos);
                         adapter.notifyDataSetChanged();
                     }

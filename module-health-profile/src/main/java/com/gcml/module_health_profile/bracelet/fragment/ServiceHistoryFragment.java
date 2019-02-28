@@ -13,12 +13,23 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.Utils;
+import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.module_health_profile.R;
+import com.gcml.module_health_profile.bean.WarnBean;
 import com.gcml.module_health_profile.bracelet.bean.FalseServiceItemBean;
+import com.gcml.module_health_profile.data.HealthProfileRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 import static android.support.v7.widget.LinearLayoutManager.*;
 
@@ -29,6 +40,8 @@ public class ServiceHistoryFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private RecyclerView recyclerView;
+    private List<WarnBean> data = new ArrayList<>();
+    private BaseQuickAdapter<WarnBean, BaseViewHolder> adapter;
 
     public ServiceHistoryFragment() {
     }
@@ -59,6 +72,19 @@ public class ServiceHistoryFragment extends Fragment {
         LinearLayoutManager layout = new LinearLayoutManager(getContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layout);
+        adapter = new BaseQuickAdapter<WarnBean, BaseViewHolder>(R.layout.layout_item_service_item, data) {
+            @Override
+            protected void convert(BaseViewHolder helper, WarnBean item) {
+                TextView people = helper.getView(R.id.tv_service_people);
+                TextView type = helper.getView(R.id.tv_warn_type);
+                TextView time = helper.getView(R.id.tv_warn_time);
+
+                people.setText(item.serviceName);
+                type.setText(item.warningType);
+                time.setText(TimeUtils.milliseconds2String(item.dealTime));
+            }
+        };
+        recyclerView.setAdapter(adapter);
         return inflate;
     }
 
@@ -68,30 +94,27 @@ public class ServiceHistoryFragment extends Fragment {
         getData();
     }
 
-    private List<FalseServiceItemBean> getData() {
-        ArrayList<FalseServiceItemBean> data = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            FalseServiceItemBean e = new FalseServiceItemBean();
-            e.servicePeople = "服务人员" + i;
-            e.warnType = "预警方式" + i;
-            e.warnTime = "报警时间" + i;
-            data.add(e);
-        }
+    HealthProfileRepository repository = new HealthProfileRepository();
 
-        recyclerView.setAdapter(new BaseQuickAdapter<FalseServiceItemBean, BaseViewHolder>(R.layout.layout_item_service_item, data) {
-            @Override
-            protected void convert(BaseViewHolder helper, FalseServiceItemBean item) {
-                TextView people = helper.getView(R.id.tv_service_people);
-                TextView type = helper.getView(R.id.tv_warn_type);
-                TextView time = helper.getView(R.id.tv_warn_time);
+    private void getData() {
+        repository.getWannings(UserSpHelper.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<List<WarnBean>>() {
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
 
-                people.setText(item.servicePeople);
-                type.setText(item.warnType);
-                time.setText(item.warnTime);
-            }
-        });
-
-        return data;
+                    @Override
+                    public void onNext(List<WarnBean> warnBeans) {
+                        super.onNext(warnBeans);
+                        data.clear();
+                        data.addAll(warnBeans);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
     }
 
 

@@ -6,6 +6,7 @@ import com.gcml.module_health_profile.bean.GuardianInfo;
 import com.gcml.module_health_profile.bean.HealthProfileMenuBean;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.bean.OutputMeasureBean;
+import com.gcml.module_health_profile.bean.WarnBean;
 
 import java.util.List;
 
@@ -53,5 +54,9 @@ public interface HealthProfileAPI {
 
     @GET("ZZB/api/guardian/user/{userId}/guardians/")
     Observable<ApiResult<List<GuardianInfo>>> getGuardians(@Path("userId") String userId);
+
+    @GET("ZZB/api/user/warning/warnings/")
+    Observable<ApiResult<List<WarnBean>>> getWanings(@Query("userId") String userId);
+
 
 }

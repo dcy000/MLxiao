@@ -7,6 +7,7 @@ import com.gcml.module_health_profile.bean.GuardianInfo;
 import com.gcml.module_health_profile.bean.HealthProfileMenuBean;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.bean.OutputMeasureBean;
+import com.gcml.module_health_profile.bean.WarnBean;
 
 import java.util.List;
 
@@ -58,6 +59,10 @@ public class HealthProfileRepository {
 
     public Observable<List<GuardianInfo>> getGuardians(String userId) {
         return healthProfile.getGuardians(userId).compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<List<WarnBean>> getWannings(String userId) {
+        return healthProfile.getWanings(userId).compose(RxUtils.apiResultTransformer());
     }
 
 
