@@ -1,5 +1,6 @@
 package com.gcml.auth.face2.model;
 
+import com.gcml.auth.face2.doctor.DoctorEntity;
 import com.gcml.auth.face2.model.entity.FaceBdAccessToken;
 import com.gcml.auth.face2.model.entity.FaceBdAddFace;
 import com.gcml.auth.face2.model.entity.FaceBdAddFaceParam;
@@ -65,6 +66,13 @@ public interface FaceBdService {
     @FormUrlEncoded
     @POST("ZZB/login/face")
     Observable<ApiResult<UserToken>> signInByFace(
+            @Field("faceId") String faceId,
+            @Field("groupId") String groupId
+    );
+
+    @FormUrlEncoded
+    @POST("ZZB/api/doctor/login/face/")
+    Observable<ApiResult<DoctorEntity>> signInDoctorByFace(
             @Field("faceId") String faceId,
             @Field("groupId") String groupId
     );

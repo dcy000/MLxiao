@@ -3,6 +3,7 @@ package com.gcml.auth.face2.model;
 import android.text.TextUtils;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.auth.face2.doctor.DoctorEntity;
 import com.gcml.auth.face2.model.entity.FaceBdAccessToken;
 import com.gcml.auth.face2.model.entity.FaceBdAddFace;
 import com.gcml.auth.face2.model.entity.FaceBdAddFaceParam;
@@ -281,6 +282,25 @@ public class FaceBdRepository {
             }
         };
     }
+
+    public ObservableTransformer<String, DoctorEntity> ensureDoctorSignInByFace(String faceId) {
+        return new ObservableTransformer<String, DoctorEntity>() {
+
+            @Override
+            public ObservableSource<DoctorEntity> apply(Observable<String> upstream) {
+                return upstream.compose(ensureFaceAdded(faceId))
+                        .flatMap(new Function<FaceBdUser, ObservableSource<DoctorEntity>>() {
+                            @Override
+                            public ObservableSource<DoctorEntity> apply(FaceBdUser bdUser) throws Exception {
+                                return mFaceBdService.signInDoctorByFace(bdUser.getUserId(), bdUser.getGroupId())
+                                        .compose(RxUtils.apiResultTransformer())
+                                        .subscribeOn(Schedulers.io());
+                            }
+                        });
+            }
+        };
+    }
+
 
     private ObservableTransformer<UserToken, UserEntity> userTokenTransformer() {
         return new ObservableTransformer<UserToken, UserEntity>() {

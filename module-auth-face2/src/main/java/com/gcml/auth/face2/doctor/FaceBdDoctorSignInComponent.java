@@ -15,6 +15,7 @@ import com.gcml.common.data.UserSpHelper;
 import io.reactivex.schedulers.Schedulers;
 
 /**
+ * 医生人脸登陆
  * 1. 人脸识别登录 （verify = false）
  * 2. 人脸认证登录 （verify = true）
  */
@@ -29,28 +30,10 @@ public class FaceBdDoctorSignInComponent implements IComponent {
 
         // 人脸认证登录
         Boolean verify = cc.getParamItem("verify");
-
         String faceId = "";
-        if (verify != null && verify) {
-            String userId = UserSpHelper.getUserId();
-            if (TextUtils.isEmpty(userId)) {
-                CC.sendCCResult(cc.getCallId(), CCResult.error("请先登录!"));
-                return false;
-            }
-            FaceBdRepository repository = new FaceBdRepository();
-            faceId = repository.getFaceId(userId)
-                    .subscribeOn(Schedulers.io())
-                    .blockingFirst();
-
-            if (TextUtils.isEmpty(faceId)) {
-                CC.sendCCResult(cc.getCallId(), CCResult.error("请先注册人脸!"));
-                return false;
-            }
-        }
-
         Context context = cc.getContext();
         Intent intent = new Intent();
-        intent.setClass(context, FaceBdSignInActivity.class);
+        intent.setClass(context, FaceBdDoctorSignInActivity.class);
 
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
