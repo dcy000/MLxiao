@@ -1,7 +1,5 @@
 package com.gcml.module_health_profile.bracelet.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,10 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.gcml.common.data.UserEntity;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.module_health_profile.R;
 
 import java.util.Arrays;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class DeviceInfoFragment extends Fragment {
@@ -67,11 +73,20 @@ public class DeviceInfoFragment extends Fragment {
     }
 
     private void getData() {
-        List<String> infos = falseData();
-        deviceName.setText(infos.get(0));
-        deviceImei.setText(infos.get(1));
-        deviceOwner.setText(infos.get(2));
-        bindPhone.setText(infos.get(3));
+        CCResult result;
+        Observable<UserEntity> rxUser;
+        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+        rxUser = result.getDataItem("data");
+        rxUser.subscribeOn(Schedulers.io())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        deviceImei.setText(user.watchCode);
+                        deviceOwner.setText(user.name);
+                        bindPhone.setText(user.phone);
+                    }
+                });
     }
 
     private List<String> falseData() {

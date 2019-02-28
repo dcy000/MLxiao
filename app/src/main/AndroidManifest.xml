@@ -85,13 +85,13 @@
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="健康管家"
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="icon,label"
-        android:hardwareAccelerated="true">
+        tools:replace="icon,label">
         <service android:name=".new_music.MusicService" />
 
         <provider
@@ -727,6 +727,8 @@
         </activity>
         <activity android:name=".inquiry.activity.DetectionItemActivity" />
         <activity android:name=".inquiry.activity.InquiryHeightActivity" />
+        <activity android:name=".healthmanage.HealthManageActivity" />
+        <activity android:name=".healthmanage.HealthManageTipActivity" />
     </application>
 
 </manifest>

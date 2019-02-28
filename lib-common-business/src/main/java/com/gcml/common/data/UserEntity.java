@@ -83,6 +83,9 @@ public class UserEntity implements Parcelable {
     @SerializedName("vipState")
     public String vipState;
 
+    //手环信息
+    public String watchCode;
+
     @Override
     public int describeContents() {
         return 0;

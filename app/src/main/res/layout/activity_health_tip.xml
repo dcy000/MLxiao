@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.gcml.common.widget.toolbar.TranslucentToolBar
+        android:id="@+id/tb_health_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.gcml.common.widget.toolbar.TranslucentToolBar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="160pt"
+        android:drawablePadding="60pt"
+        android:drawableTop="@drawable/img_health_manage_tip"
+        android:gravity="center"
+        android:text="健康管理为个性化签约服务项目，需通过手环对您
+
+的健康进行管理。如需购买，请联系现场工作人员。" />
+
+    <TextView
+        android:id="@+id/tv_health_tip_confirm"
+        android:layout_width="320pt"
+        android:layout_height="120pt"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="186pt"
+        android:background="@drawable/shape_rectangle_next_btn"
+        android:gravity="center"
+        android:text="确定" />
+
+</LinearLayout>

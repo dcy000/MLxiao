@@ -3,9 +3,7 @@ package com.example.han.referralproject.homepage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,8 +14,9 @@ import com.bumptech.glide.Glide;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.PersonSplitterActivity;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
-import com.example.han.referralproject.inquiry.activity.InquiryActivity;
-import com.example.han.referralproject.inquiry.activity.InquiryEntranceActivity;
+import com.example.han.referralproject.healthmanage.HealthManageActivity;
+import com.example.han.referralproject.video.VideoListActivity;
+import com.gcml.common.FilterClickListener;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
@@ -67,6 +66,12 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
         mEiQuit.setOnClickListener(this);
         mCvHead = (CircleImageView) view.findViewById(R.id.cv_head);
         mTvUserName = (TextView) view.findViewById(R.id.tv_user_name);
+        view.findViewById(R.id.ei_health_edu).setOnClickListener(new FilterClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), VideoListActivity.class));
+            }
+        }));
         getPersonInfo();
     }
 
@@ -123,7 +128,7 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
                 startActivity(new Intent(getActivity(), PersonSplitterActivity.class));
                 break;
             case R.id.ei_health_checkup:
-                gotoHealthMeasure();
+                CC.obtainBuilder("health.profile").build().call();
                 break;
             case R.id.ei_infomation_collection:
 //                startActivity(new Intent(getActivity(), InquiryActivity.class));
@@ -131,9 +136,10 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
 //                        .setActionName("To_HealthInquiryActivity")
 //                        .build()
 //                        .call();
+                startActivity(new Intent(getActivity(), HealthManageActivity.class));
                 break;
             case R.id.ei_doctor_service:
-                CC.obtainBuilder("health.profile").build().call();
+                gotoHealthMeasure();
                 break;
             case R.id.ei_quit:
                 quitApp();

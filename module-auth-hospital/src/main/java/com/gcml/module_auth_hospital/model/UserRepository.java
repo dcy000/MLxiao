@@ -178,7 +178,7 @@ public class UserRepository {
                 .doOnNext(new Consumer<UserEntity>() {
                     @Override
                     public void accept(UserEntity userEntity) throws Exception {
-                        mUserDao.addAll(userEntity);
+//                        mUserDao.addAll(userEntity);
                     }
                 });
     }

@@ -21,6 +21,7 @@ import com.gcml.common.widget.MLViewPager;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_health_profile.R;
+import com.gcml.module_health_profile.bracelet.fragment.CorrelationNumber2Fragment;
 import com.gcml.module_health_profile.bracelet.fragment.CorrelationNumberFragment;
 import com.gcml.module_health_profile.bracelet.fragment.DeviceInfoFragment;
 import com.gcml.module_health_profile.bracelet.fragment.ServiceHistoryFragment;
@@ -82,7 +83,7 @@ public class BraceletActivtity extends AppCompatActivity implements RadioGroup.O
             if (i == 0)
                 fragments.add(DeviceInfoFragment.newInstance(null, null));
             if (i == 1)
-                fragments.add(CorrelationNumberFragment.newInstance(null, null));
+                fragments.add(CorrelationNumber2Fragment.newInstance(null, null));
             if (i == 2)
                 fragments.add(ServiceHistoryFragment.newInstance(null, null));
 

@@ -1,7 +1,14 @@
 package com.example.han.referralproject.network;
 
+import com.example.han.referralproject.bean.GuardianInfo;
+import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
+import com.example.lenovo.rto.http.API;
 import com.gcml.common.RetrofitHelper;
+import com.gcml.common.http.ApiResult;
+import com.gcml.common.utils.RxUtils;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import timber.log.Timber;
@@ -22,9 +29,15 @@ public class AppRepository {
     private static String TIANQI_API_SECRET_KEY = "rodu3msnpwbpzosf";
 
     private static AppServer healthMeasureServer = RetrofitHelper.service(AppServer.class);
-    public static Observable<HomepageWeatherBean>  getWeather(String city){
+
+    public static Observable<HomepageWeatherBean> getWeather(String city) {
         Timber.i("天气接口被调用");
         return healthMeasureServer
-                .getWeather(TIANQI_API_SECRET_KEY,city,"zh-Hans","c");
+                .getWeather(TIANQI_API_SECRET_KEY, city, "zh-Hans", "c");
     }
+
+    public static Observable<List<GuardianInfo>> getGuardians(String userId) {
+        return healthMeasureServer.getGuardians(userId).compose(RxUtils.apiResultTransformer());
+    }
+
 }

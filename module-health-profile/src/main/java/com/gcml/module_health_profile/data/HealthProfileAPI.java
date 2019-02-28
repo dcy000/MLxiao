@@ -2,6 +2,7 @@ package com.gcml.module_health_profile.data;
 
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.recommend.bean.get.Doctor;
+import com.gcml.module_health_profile.bean.GuardianInfo;
 import com.gcml.module_health_profile.bean.HealthProfileMenuBean;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.bean.OutputMeasureBean;
@@ -49,4 +50,8 @@ public interface HealthProfileAPI {
             @Path("rdRecordId") String rdRecordId,
             @Path("userRecordId") String userRecordId
     );
+
+    @GET("ZZB/api/guardian/user/{userId}/guardians/")
+    Observable<ApiResult<List<GuardianInfo>>> getGuardians(@Path("userId") String userId);
+
 }

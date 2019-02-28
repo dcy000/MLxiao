@@ -3,6 +3,7 @@ package com.gcml.module_health_profile.data;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.module_health_profile.bean.GuardianInfo;
 import com.gcml.module_health_profile.bean.HealthProfileMenuBean;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
 import com.gcml.module_health_profile.bean.OutputMeasureBean;
@@ -46,6 +47,7 @@ public class HealthProfileRepository {
 
     /**
      * 查询需要打印的健康数据
+     *
      * @param rdRecordId
      * @param userHealthRecordId
      * @return
@@ -53,4 +55,10 @@ public class HealthProfileRepository {
     public Observable<List<OutputMeasureBean>> getHealthRecordMeasureResult(String rdRecordId, String userHealthRecordId) {
         return healthProfile.getHealthRecordMeasureResult(rdRecordId, userHealthRecordId).compose(RxUtils.apiResultTransformer());
     }
+
+    public Observable<List<GuardianInfo>> getGuardians(String userId) {
+        return healthProfile.getGuardians(userId).compose(RxUtils.apiResultTransformer());
+    }
+
+
 }
