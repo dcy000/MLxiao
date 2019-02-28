@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.gcml.common.AppDelegate;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.RoomHelper;
+import com.gcml.common.data.DoctorEntity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.http.ApiResult;
@@ -242,9 +243,19 @@ public class UserRepository {
     }
 
     public Observable<ServerBean> serverSignIn(String equipmentId,
-                                           String account,
-                                           String password) {
+                                               String account,
+                                               String password) {
         Observable<ApiResult<ServerBean>> server = mUserService.serverSignIn(
+                equipmentId,
+                account,
+                password);
+        return server.compose(RxUtils.apiResultTransformer());
+    }
+
+    public Observable<DoctorEntity> doctorSignIn(String equipmentId,
+                                               String account,
+                                               String password) {
+        Observable<ApiResult<DoctorEntity>> server = mUserService.doctorSignIn(
                 equipmentId,
                 account,
                 password);

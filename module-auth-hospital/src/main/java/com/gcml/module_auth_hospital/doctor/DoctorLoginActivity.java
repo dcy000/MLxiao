@@ -13,7 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.IConstant;
 import com.gcml.common.base.BaseActivity;
+import com.gcml.common.data.DoctorEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.server.ServerBean;
 import com.gcml.common.utils.DefaultObserver;
@@ -125,12 +129,27 @@ public class DoctorLoginActivity extends BaseActivity implements View.OnClickLis
                     toSetting();
                 }
             });
-
         } else if (id == R.id.tv_doctor_login_login) {
             toLogin();
         } else if (id == R.id.tv_change_doctor_login_type) {
-            
+            CC.obtainBuilder("com.gcml.auth.face2.doctor.signin")
+                    .addParam("currentUser", false)
+                    .build()
+                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                        @Override
+                        public void onResult(CC cc, CCResult result) {
+//                            boolean skip = "skip".equals(result.getErrorMessage());
+                            if (result.isSuccess()) {
+                                startActivity(new Intent(DoctorLoginActivity.this, UserLogins2Activity.class));
+                                finish();
+                            } else {
+                                ToastUtils.showShort(result.getErrorMessage());
+                            }
+                        }
+                    });
         }
+
+
     }
 
     UserRepository repository = new UserRepository();
@@ -149,7 +168,7 @@ public class DoctorLoginActivity extends BaseActivity implements View.OnClickLis
         }
 
         String deviceId = Utils.getDeviceId(getContentResolver());
-        repository.serverSignIn(deviceId, account, passWord)
+        repository.doctorSignIn(deviceId, account, passWord)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -159,12 +178,12 @@ public class DoctorLoginActivity extends BaseActivity implements View.OnClickLis
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<ServerBean>() {
+                .subscribe(new DefaultObserver<DoctorEntity>() {
                     @Override
-                    public void onNext(ServerBean serverBean) {
+                    public void onNext(DoctorEntity serverBean) {
                         super.onNext(serverBean);
                         dismissLoading();
-                        UserSpHelper.setDoctorId(serverBean.serverId + "");
+                        UserSpHelper.setDoctorId(serverBean.docterid + "");
                         startActivity(new Intent(DoctorLoginActivity.this, UserLogins2Activity.class));
                         finish();
                     }

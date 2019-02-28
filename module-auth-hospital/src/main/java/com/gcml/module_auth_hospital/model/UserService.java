@@ -1,5 +1,6 @@
 package com.gcml.module_auth_hospital.model;
 
+import com.gcml.common.data.DoctorEntity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.server.ServerBean;
@@ -113,6 +114,13 @@ public interface UserService {
     @FormUrlEncoded()
     @POST("ZZB/api/server/login/")
     Observable<ApiResult<ServerBean>> serverSignIn(
+            @Header("equipmentId") String equipmentId,
+            @Field("account") String account,
+            @Field("password") String password);
+
+    @FormUrlEncoded()
+    @POST("ZZB/login/docter_login/")
+    Observable<ApiResult<DoctorEntity>> doctorSignIn(
             @Header("equipmentId") String equipmentId,
             @Field("account") String account,
             @Field("password") String password);
