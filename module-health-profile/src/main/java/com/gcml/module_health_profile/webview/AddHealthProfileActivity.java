@@ -33,8 +33,8 @@ public class AddHealthProfileActivity extends BaseX5WebViewActivity {
     @Override
     protected void getIntentParam(Intent intent) {
         rdRecordId = intent.getStringExtra("RdCordId");
-        type=intent.getStringExtra("type");
-        title=intent.getStringExtra("title");
+        type = intent.getStringExtra("type");
+        title = intent.getStringExtra("title");
         rdRecordIdString = "'" + rdRecordId + "'";
         userIdString = "'" + UserSpHelper.getUserId() + "'";
         typeString = "'公卫表格添加'";
@@ -89,7 +89,7 @@ public class AddHealthProfileActivity extends BaseX5WebViewActivity {
             CC.obtainBuilder("health.profile.add.followup")
                     .addParam("rdRecordId", rdRecordId)
                     .addParam("healthRecordId", healthRecordId)
-                    .addParam("typeString",type+"二维码扫描")
+                    .addParam("typeString", type + "二维码扫描")
                     .build().call();
             finish();
         }

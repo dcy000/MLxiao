@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.healthmanage.HealthManageActivity;
 import com.gcml.common.IConstant;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserEntity;
@@ -39,7 +40,6 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
         bindViews();
         bindData();
         ActivityHelper.finishAll();
-        ActivityHelper.addActivity(this);
     }
 
     private void bindData() {
@@ -84,7 +84,7 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
         rl_inquiry_home_file.setOnClickListener(this);
         rl_inquiry_home_home.setOnClickListener(this);
 
-        tb_inquiry_home.setData("智 能 健 康 管 理",
+        tb_inquiry_home.setData("健 康 管 理",
                 0, null,
                 R.drawable.common_ic_wifi_state, null, null);
 
@@ -96,15 +96,12 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.rl_inquiry_home_manage) {
-//            startActivity(new Intent(this, InquiryActivity.class));
-//            CC.obtainBuilder("health_measure")
-//                    .setActionName("To_HealthInquiryActivity")
-//                    .build()
-//                    .call();
+            CC.obtainBuilder("com.gcml.old.health.manage")
+                    .build()
+                    .call();
         } else if (id == R.id.rl_inquiry_home_file) {
             if (bindDoctor) {
-                CC.obtainBuilder("health.profile.file").build().callAsync();
-
+                CC.obtainBuilder("health.profile.file").addParam("fromPage","qianyue").build().callAsync();
             } else {
                 CC.obtainBuilder(KEY_BIND_DOCTOR).build().callAsync();
             }

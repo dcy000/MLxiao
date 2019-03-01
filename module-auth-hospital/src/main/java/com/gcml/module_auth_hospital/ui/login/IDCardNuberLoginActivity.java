@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.AppHelper;
 import com.gcml.common.IConstant;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserEntity;
@@ -16,6 +17,7 @@ import com.gcml.common.http.ApiException;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
+import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
@@ -46,6 +48,7 @@ public class IDCardNuberLoginActivity extends BaseActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_by_idcard_nuber);
         initView();
+        ActivityHelper.addActivity(this);
     }
 
     private void initView() {

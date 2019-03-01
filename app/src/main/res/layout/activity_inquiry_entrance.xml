@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="智能健康管理"
+                android:text="健康管理"
                 android:textColor="#ff333333"
                 android:textSize="64pt" />
 

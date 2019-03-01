@@ -60,7 +60,4 @@ public class HealthFileActivity extends BaseActivity {
         setWifiLevel(tb);
     }
 
-    private void toUserInfo() {
-        startActivity(new Intent(HealthFileActivity.this, UserInfoListActivity.class));
-    }
 }

@@ -28,8 +28,8 @@ import timber.log.Timber;
 
 public abstract class BaseX5WebViewActivity extends AppCompatActivity implements View.OnClickListener {
     private WebView mX5Webview;
-    private ImageView mIvTopLeft;
-    private TextView mTvTopLeft;
+    protected ImageView mIvTopLeft;
+    protected TextView mTvTopLeft;
     private LinearLayout mLlBack;
     private TextView mTvTopTitle;
     private TextView mTvTopRight;
@@ -50,7 +50,7 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
     protected void getIntentParam(Intent intent) {
     }
 
-    private void initView() {
+    protected void initView() {
         mIvTopLeft = (ImageView) findViewById(R.id.iv_top_left);
         mTvTopLeft = (TextView) findViewById(R.id.tv_top_left);
         mLlBack = (LinearLayout) findViewById(R.id.ll_back);

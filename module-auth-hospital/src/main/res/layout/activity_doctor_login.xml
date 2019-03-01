@@ -68,6 +68,7 @@
                 android:gravity="center_vertical"
                 android:hint="请输入您的医生账号"
                 android:paddingLeft="36pt"
+                android:maxLines="1"
                 android:textColor="#ff333333"
                 android:textColorHint="#FFBBBBBB"
                 android:textSize="50pt" />

@@ -59,7 +59,7 @@ public class IDCardNuberRegisterActivity extends BaseActivity implements View.On
 
 //        ccetPhone.setValue("340321199112256551");
 
-        translucentToolBar.setData("身 份 证 扫 描 注 册",
+        translucentToolBar.setData("身 份 证 号 码 注 册",
                 R.drawable.common_btn_back, "返回",
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
