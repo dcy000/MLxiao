@@ -47,6 +47,9 @@ public interface FaceBdService {
     @GET("ZZB/api/user/face/groups/")
     Observable<ApiResult<List<String>>> getGroups();
 
+    @GET("ZZB/api/doctor/face/groups/")
+    Observable<ApiResult<List<String>>> getDoctorGroups();
+
     @FormUrlEncoded
     @POST("ZZB/api/user/face/user/{userId}/")
     Observable<ApiResult<FaceUser>> addFace(

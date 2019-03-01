@@ -288,7 +288,7 @@ public class FaceBdRepository {
 
             @Override
             public ObservableSource<DoctorEntity> apply(Observable<String> upstream) {
-                return upstream.compose(ensureFaceAdded(faceId))
+                return upstream.compose(ensureDoctorFaceAdded(faceId))
                         .flatMap(new Function<FaceBdUser, ObservableSource<DoctorEntity>>() {
                             @Override
                             public ObservableSource<DoctorEntity> apply(FaceBdUser bdUser) throws Exception {
@@ -302,6 +302,40 @@ public class FaceBdRepository {
     }
 
 
+    private ObservableTransformer<UserToken, UserEntity> doctorTokenTransformer() {
+        return new ObservableTransformer<UserToken, UserEntity>() {
+            @Override
+            public ObservableSource<UserEntity> apply(Observable<UserToken> upstream) {
+                return upstream
+                        .doOnNext(new Consumer<UserToken>() {
+                            @Override
+                            public void accept(UserToken userToken) throws Exception {
+                                UserSpHelper.setUserId(userToken.getUserId());
+                                UserSpHelper.setToken(userToken.getToken());
+                                UserSpHelper.setRefreshToken(userToken.getRefreshToken());
+                            }
+                        })
+                        .flatMap(new Function<UserToken, ObservableSource<UserEntity>>() {
+                            @Override
+                            public ObservableSource<UserEntity> apply(UserToken userToken) throws Exception {
+                                Observable<UserEntity> rxUser =
+                                        CC.obtainBuilder("com.gcml.auth.fetchUser")
+                                                .build()
+                                                .call()
+                                                .getDataItem("data");
+                                return rxUser;
+                            }
+                        })
+                        .doOnNext(new Consumer<UserEntity>() {
+                            @Override
+                            public void accept(UserEntity user) throws Exception {
+                                UserSpHelper.setFaceId(user.xfid);
+                                UserSpHelper.setEqId(user.deviceId);
+                            }
+                        });
+            }
+        };
+    }
     private ObservableTransformer<UserToken, UserEntity> userTokenTransformer() {
         return new ObservableTransformer<UserToken, UserEntity>() {
             @Override
@@ -455,8 +489,62 @@ public class FaceBdRepository {
         };
     }
 
+    public ObservableTransformer<String, FaceBdUser> ensureDoctorFaceAdded(String faceId) {
+        return new ObservableTransformer<String, FaceBdUser>() {
+            @Override
+            public ObservableSource<FaceBdUser> apply(Observable<String> upstream) {
+                return Observable.zip(upstream, accessToken(), getDoctorGroups(), new Function3<String, String, String, FaceBdUser>() {
+                    @Override
+                    public FaceBdUser apply(String image, String token, String groups) throws Exception {
+                        FaceBdSearchParam param = new FaceBdSearchParam();
+                        String[] imgData = image.split(",");
+                        param.setImageType(imgData[0]);
+                        param.setImage(imgData[1]);
+                        param.setGroupIdList(groups);
+                        if (!TextUtils.isEmpty(faceId)) {
+                            param.setUserId(faceId);
+                        }
+                        return mFaceBdService.search(token, param)
+                                .compose(FaceBdResultUtils.faceBdResultTransformer())
+                                .flatMap(new Function<FaceBdSearch, ObservableSource<FaceBdUser>>() {
+                                    @Override
+                                    public ObservableSource<FaceBdUser> apply(FaceBdSearch search) throws Exception {
+                                        try {
+                                            FaceBdUser bdUser = FaceBdErrorUtils.checkSearch(search);
+                                            return Observable.just(bdUser);
+                                        } catch (Exception e) {
+                                            return Observable.error(e);
+                                        }
+                                    }
+                                })
+                                .subscribeOn(Schedulers.io())
+                                .blockingFirst();
+                    }
+                });
+            }
+        };
+    }
+
     private Observable<String> getGroups() {
         return mFaceBdService.getGroups()
+                .compose(RxUtils.apiResultTransformer())
+                .map(new Function<List<String>, String>() {
+                    @Override
+                    public String apply(List<String> strings) throws Exception {
+                        StringBuilder builder = new StringBuilder();
+                        for (String g : strings) {
+                            if (!TextUtils.isEmpty(g)) {
+                                builder.append(g).append(",");
+                            }
+                        }
+                        return builder.toString();
+                    }
+                })
+                .subscribeOn(Schedulers.io());
+    }
+
+    private Observable<String> getDoctorGroups() {
+        return mFaceBdService.getDoctorGroups()
                 .compose(RxUtils.apiResultTransformer())
                 .map(new Function<List<String>, String>() {
                     @Override

@@ -39,5 +39,5 @@ public class WarnBean implements Serializable {
     public long dealTime;
     public String dealContent;
     public String feedback;
-    public String serviceName;
+    public String handlerName;
 }

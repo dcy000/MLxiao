@@ -54,6 +54,7 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
     private String recordId;
     private ArrayList<TiZhiBean> tiZhiBeans = new ArrayList<>();
     private BaseQuickAdapter<TiZhiBean, BaseViewHolder> adapter;
+    private View noDataView;
     ;
 
     public static ZhongyiFollowupFragment instance(String recordId) {
@@ -80,6 +81,7 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
         mClHead = (ConstraintLayout) view.findViewById(R.id.cl_head);
         mTvTitle = (TextView) view.findViewById(R.id.tv_title);
         mRv = (RecyclerView) view.findViewById(R.id.rv);
+        noDataView = view.findViewById(R.id.empty_view);
 
         mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -120,12 +122,16 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
                         tiZhiBeans.clear();
                         tiZhiBeans.addAll(data);
                         adapter.notifyDataSetChanged();
+
+                        if (data==null||data.size()==0){
+                            noDataView.setVisibility(View.VISIBLE);
+                        }
                     }
 
 
                     @Override
                     public void onError(Throwable e) {
-
+                        noDataView.setVisibility(View.VISIBLE);
                     }
 
                     @Override

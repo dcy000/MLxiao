@@ -79,7 +79,7 @@ public class ServiceHistoryFragment extends Fragment {
                 TextView type = helper.getView(R.id.tv_warn_type);
                 TextView time = helper.getView(R.id.tv_warn_time);
 
-                people.setText(item.serviceName);
+                people.setText(item.handlerName);
                 type.setText(item.warningType);
                 time.setText(TimeUtils.milliseconds2String(item.dealTime));
             }

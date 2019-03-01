@@ -79,7 +79,6 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
                 .doOnTerminate(() -> dialog.dismiss())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(listApiResult -> {
-                    initRadioGroup(listApiResult);
                     initFragments(listApiResult);
                 }, Timber::e);
     }
@@ -89,6 +88,7 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
         tizhi.setRecordName("中医体质辨识");
         tizhi.setRdRecordId("123456");
         data.add(tizhi);
+        initRadioGroup(data);
         fragments = new ArrayList<>();
         for (HealthProfileMenuBean menuBean : data) {
             switch (menuBean.getRdRecordId()) {
