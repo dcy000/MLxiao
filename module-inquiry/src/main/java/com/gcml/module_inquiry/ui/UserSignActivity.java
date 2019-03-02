@@ -222,7 +222,7 @@ public class UserSignActivity extends BaseActivity implements AffirmSignatureDia
                         ActivityHelper.finishAll();
                         ToastUtils.showShort("签约成功");
                         dialog.dismiss();
-                        CC.obtainBuilder(KEY_HEALTH_FILE_ENTRY).build().callAsync();
+                        CC.obtainBuilder("health.profile.file").build().callAsync();
                     }
 
                     @Override

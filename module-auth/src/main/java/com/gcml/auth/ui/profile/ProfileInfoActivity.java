@@ -86,22 +86,24 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
         binding.ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserEntity user = mUser;
-                if (user == null
-                        || TextUtils.isEmpty(user.phone)
-                        || !TextUtils.isDigitsOnly(user.phone)
-                        || user.phone.length() != 11) {
-                    ToastUtils.showShort("请重新登录");
-                    return;
-                }
-                SMSVerificationDialog dialog = new SMSVerificationDialog();
-                Bundle bundle = new Bundle();
-                bundle.putString("phone", user.phone);
-                dialog.setArguments(bundle);
-                dialog.setListener(() -> {
-                    modifyHead();
-                });
-                dialog.show(getFragmentManager(), "phoneCode");
+//                UserEntity user = mUser;
+//                if (user == null
+//                        || TextUtils.isEmpty(user.phone)
+//                        || !TextUtils.isDigitsOnly(user.phone)
+//                        || user.phone.length() != 11) {
+//                    ToastUtils.showShort("请重新登录");
+//                    return;
+//                }
+//                SMSVerificationDialog dialog = new SMSVerificationDialog();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("phone", user.phone);
+//                dialog.setArguments(bundle);
+//                dialog.setListener(() -> {
+//                    modifyHead();
+//                });
+//                dialog.show(getFragmentManager(), "phoneCode");
+
+                modifyHead();
             }
         });
         binding.clItemName.setOnClickListener(new View.OnClickListener() {

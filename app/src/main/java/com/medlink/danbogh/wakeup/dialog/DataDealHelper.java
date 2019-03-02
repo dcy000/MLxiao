@@ -378,10 +378,10 @@ public class DataDealHelper {
         }
 
 
-        if (inSpell.matches(".*(youjiao|youjiaowenyu|ertongyoujiao|jiaoxiaohai|ertongyule).*")) {
-            startActivity(ChildEduHomeActivity.class);
-            return;
-        }
+//        if (inSpell.matches(".*(youjiao|youjiaowenyu|ertongyoujiao|jiaoxiaohai|ertongyule).*")) {
+//            startActivity(ChildEduHomeActivity.class);
+//            return;
+//        }
 
         if (inSpell.matches(".*(xiaogongju).*")) {
             CC.obtainBuilder("app.component.recreation.tools").build().call();
