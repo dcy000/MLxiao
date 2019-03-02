@@ -1,11 +1,14 @@
 package com.gcml.module_health_profile.fragments;
 
+import android.arch.lifecycle.Observer;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +19,23 @@ import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.FilterClickListener;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.module_health_profile.HealthProfileActivity;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bean.TiZhiBean;
 import com.gcml.module_health_profile.data.HealthProfileRepository;
+import com.gcml.module_health_profile.webview.AddHealthProfileActivity;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -55,6 +64,7 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
     private ArrayList<TiZhiBean> tiZhiBeans = new ArrayList<>();
     private BaseQuickAdapter<TiZhiBean, BaseViewHolder> adapter;
     private View noDataView;
+    private Boolean isBuildHealthRecord;
     ;
 
     public static ZhongyiFollowupFragment instance(String recordId) {
@@ -101,6 +111,12 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
             }
         };
         mRv.setAdapter(adapter);
+        ((HealthProfileActivity) getActivity()).isBuildHealthRecord.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                isBuildHealthRecord = aBoolean;
+            }
+        });
     }
 
     @Override
@@ -123,7 +139,7 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
                         tiZhiBeans.addAll(data);
                         adapter.notifyDataSetChanged();
 
-                        if (data==null||data.size()==0){
+                        if (data == null || data.size() == 0) {
                             noDataView.setVisibility(View.VISIBLE);
                         }
                     }
@@ -148,7 +164,30 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.btn_new_record) {
-            CC.obtainBuilder("app.chinese.consititution").build().call();
+
+            Observable<UserEntity> rxUsers = CC.obtainBuilder("com.gcml.auth.getUser")
+                    .build()
+                    .call()
+                    .getDataItem("data");
+            rxUsers.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(RxUtils.autoDisposeConverter(this))
+                    .subscribe(new com.gcml.common.utils.DefaultObserver<UserEntity>() {
+                        @Override
+                        public void onNext(UserEntity user) {
+//                            if (TextUtils.isEmpty(user.doctorId)) {
+//                                ToastUtils.showShort("请先签约医生");
+//                                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先签约医生");
+//                                return;
+//                            }
+                            if (!isBuildHealthRecord) {
+                                ToastUtils.showShort("请先在居民健康档案中进行建档");
+                                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先建立个人档案");
+                                return;
+                            }
+                            CC.obtainBuilder("app.chinese.consititution").build().call();
+                        }
+                    });
         } else {
         }
     }

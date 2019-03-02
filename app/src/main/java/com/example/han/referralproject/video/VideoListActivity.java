@@ -49,7 +49,7 @@ public class VideoListActivity extends BaseActivity {
         setContentView(R.layout.activity_video_list);
         mToolbar.setVisibility(View.VISIBLE);
 //        mTitleText.setText(R.string.title_health_class);
-        mTitleText.setText(R.string.title_health_class);
+        mTitleText.setText("健 康 宣 教");
 //        mRightView.setImageResource(R.drawable.icon_wifi);
         mUnbinder = ButterKnife.bind(this);
         position = getIntent().getIntExtra("position", 0);
@@ -78,7 +78,7 @@ public class VideoListActivity extends BaseActivity {
         });
         vpVideo.setOffscreenPageLimit(3);
         mFragments = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 1; i++) {
             mFragments.add(VideoListFragment.newInstance(i));
         }
         vpVideo.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -107,7 +107,6 @@ public class VideoListActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，欢迎观看健康课堂");
     }
 
     private List<VideoListFragment> mFragments;

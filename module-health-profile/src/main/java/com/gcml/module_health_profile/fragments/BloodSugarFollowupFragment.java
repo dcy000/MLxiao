@@ -194,13 +194,13 @@ public class BloodSugarFollowupFragment extends RecycleBaseFragment implements V
                 .subscribe(new com.gcml.common.utils.DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity user) {
-                        if (TextUtils.isEmpty(user.doctorId)) {
-                            ToastUtils.showShort("请先签约医生");
-                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先签约医生");
-                            return;
-                        }
+//                        if (TextUtils.isEmpty(user.doctorId)) {
+//                            ToastUtils.showShort("请先签约医生");
+//                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先签约医生");
+//                            return;
+//                        }
                         if (!isBuildHealthRecord) {
-                            ToastUtils.showShort("请先建立个人档案");
+                            ToastUtils.showShort("请先在居民健康档案中进行建档");
                             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请先建立个人档案");
                             return;
                         }

@@ -2,12 +2,14 @@ package com.example.han.referralproject.inquiry.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.healthmanage.HealthManageActivity;
+import com.example.han.referralproject.healthmanage.HealthManageTipActivity;
 import com.gcml.common.IConstant;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserEntity;
@@ -32,6 +34,7 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
     private RelativeLayout rl_inquiry_home_home;
 
     private boolean bindDoctor;
+    private boolean bindWacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,11 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
         setContentView(R.layout.activity_inquiry_entrance);
         bindViews();
         bindData();
+        getFileInfo();
         ActivityHelper.finishAll();
+    }
+
+    private void getFileInfo() {
     }
 
     private void bindData() {
@@ -61,6 +68,11 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
                     public void onNext(UserEntity user) {
                         if (user != null && user.doctorId != null) {
                             bindDoctor = true;
+                        }
+                        if (!TextUtils.isEmpty(user.watchCode)) {
+                            bindWacher = true;
+                        } else {
+                            bindWacher = false;
                         }
                         dismissLoading();
                     }
@@ -96,12 +108,14 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.rl_inquiry_home_manage) {
-            CC.obtainBuilder("com.gcml.old.health.manage")
-                    .build()
-                    .call();
+            if (bindWacher) {
+                startActivity(new Intent(this, HealthManageActivity.class));
+            } else {
+                startActivity(new Intent(this, HealthManageTipActivity.class));
+            }
         } else if (id == R.id.rl_inquiry_home_file) {
             if (bindDoctor) {
-                CC.obtainBuilder("health.profile.file").addParam("fromPage","qianyue").build().callAsync();
+                CC.obtainBuilder("health.profile.file").addParam("fromPage", "qianyue").build().callAsync();
             } else {
                 CC.obtainBuilder(KEY_BIND_DOCTOR).build().callAsync();
             }

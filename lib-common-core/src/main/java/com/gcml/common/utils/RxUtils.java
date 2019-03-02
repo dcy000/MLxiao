@@ -16,12 +16,15 @@ import android.support.annotation.NonNull;
 
 import com.gcml.common.http.ApiException;
 import com.gcml.common.http.ApiResult;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.AutoDisposeConverter;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -58,9 +61,14 @@ public class RxUtils {
             public Observable<T> apply(ApiResult<T> result) {
                 if (result.isSuccessful()) {
                     if (result.getData() == null) {
-                        Type type = new TypeToken<T>() {
-                        }.getType();
-                        T t = Serializer.getInstance().deserialize("{}", type);
+                        TypeToken<T> typeToken = new TypeToken<T>() {};
+                        Type type = typeToken.getType();
+                        T t;
+                        try {
+                            t = (T) new ArrayList<>();
+                        } catch (Throwable e) {
+                            t = Serializer.getInstance().deserialize("{}", type);
+                        }
                         return Observable.just(t);
                     }
                     return Observable.just(result.getData());

@@ -140,6 +140,9 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
      */
     private void initRadioGroup(List<HealthProfileMenuBean> data) {
         for (int i = 0; i < data.size(); i++) {
+//            if (data.get(i).getRdRecordId().equals("76e9139bf448430bbcb98d5998db05c4")){
+//                continue;
+//            }
             RadioButton button = new RadioButton(this);
             button.setSingleLine(true);
             button.setEllipsize(TextUtils.TruncateAt.END);

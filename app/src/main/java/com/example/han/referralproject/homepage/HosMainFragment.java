@@ -15,6 +15,7 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.PersonSplitterActivity;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.healthmanage.HealthManageActivity;
+import com.example.han.referralproject.healthmanage.HealthManageTipActivity;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.common.FilterClickListener;
 import com.gcml.common.data.UserEntity;
@@ -75,6 +76,8 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
         getPersonInfo();
     }
 
+    private Boolean bindWacher;
+
     //获取个人信息，得到网易账号登录所需的账号和密码
     private void getPersonInfo() {
         if ("123456".equals(UserSpHelper.getUserId())) {
@@ -96,6 +99,13 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
                         UserSpHelper.setEqId(user.deviceId);
                         String wyyxId = user.wyyxId;
                         String wyyxPwd = user.wyyxPwd;
+
+                        if (!TextUtils.isEmpty(user.watchCode)) {
+                            bindWacher = true;
+                        } else {
+                            bindWacher = false;
+                        }
+
                         if (TextUtils.isEmpty(wyyxId) || TextUtils.isEmpty(wyyxPwd)) {
                             Timber.e("获取网易账号信息出错");
                             return;
@@ -136,7 +146,11 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
 //                        .setActionName("To_HealthInquiryActivity")
 //                        .build()
 //                        .call();
-                startActivity(new Intent(getActivity(), HealthManageActivity.class));
+                if (bindWacher) {
+                    startActivity(new Intent(getActivity(), HealthManageActivity.class));
+                } else {
+                    startActivity(new Intent(getActivity(), HealthManageTipActivity.class));
+                }
                 break;
             case R.id.ei_doctor_service:
                 gotoHealthMeasure();

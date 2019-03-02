@@ -107,7 +107,6 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
         mTvBuild = (TextView) view.findViewById(R.id.tvBuild);
         mTvBuild.setOnClickListener(this);
 
-
     }
 
     @Override
@@ -151,7 +150,9 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-
+                        view.findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+                        view.findViewById(R.id.cl_contain).setVisibility(View.GONE);
+                        ((HealthProfileActivity) getActivity()).isBuildHealthRecord.postValue(false);
                     }
 
                     @Override
