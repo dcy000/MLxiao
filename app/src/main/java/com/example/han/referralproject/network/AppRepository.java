@@ -1,6 +1,7 @@
 package com.example.han.referralproject.network;
 
 import com.example.han.referralproject.bean.GuardianInfo;
+import com.example.han.referralproject.bean.HealthRecordBean;
 import com.example.han.referralproject.health.intelligentdetection.entity.ApiResponse;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
 import com.example.lenovo.rto.http.API;
@@ -39,5 +40,17 @@ public class AppRepository {
     public static Observable<List<GuardianInfo>> getGuardians(String userId) {
         return healthMeasureServer.getGuardians(userId).compose(RxUtils.apiResultTransformer());
     }
+
+    /**
+     * 获取记录列表
+     *
+     * @param recordId
+     * @param userId
+     * @return
+     */
+    public Observable<List<HealthRecordBean>> getHealthRecordList(String recordId, String userId) {
+        return healthMeasureServer.getHealthRecordList(recordId, userId).compose(RxUtils.apiResultTransformer());
+    }
+
 
 }

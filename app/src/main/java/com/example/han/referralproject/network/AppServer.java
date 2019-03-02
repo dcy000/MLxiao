@@ -1,6 +1,7 @@
 package com.example.han.referralproject.network;
 
 import com.example.han.referralproject.bean.GuardianInfo;
+import com.example.han.referralproject.bean.HealthRecordBean;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
 import com.example.han.referralproject.recyclerview.Docter;
 import com.gcml.common.http.ApiResult;
@@ -31,5 +32,19 @@ public interface AppServer {
 
     @GET("ZZB/api/guardian/user/{userId}/guardians/")
     Observable<ApiResult<List<GuardianInfo>>> getGuardians(@Path("userId") String userId);
+
+    /**
+     * 获取记录列表
+     *
+     * @param rdRecordId
+     * @param userId
+     * @return
+     */
+    @GET("ZZB/api/health/record/{rdRecordId}/user/{userId}/")
+    Observable<ApiResult<List<HealthRecordBean>>> getHealthRecordList(
+            @Path("rdRecordId") String rdRecordId,
+            @Path("userId") String userId
+    );
+
 
 }
