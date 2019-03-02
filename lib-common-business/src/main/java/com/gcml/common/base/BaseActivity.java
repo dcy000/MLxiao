@@ -124,5 +124,18 @@ public class BaseActivity extends AppCompatActivity {
                 });
     }
 
+    protected void setWifiLevel(ImageView view) {
+        RxUtils.rxWifiLevel(getApplication(), 4)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer level) throws Exception {
+                        view.setImageLevel(level);
+                    }
+                });
+    }
+
 
 }

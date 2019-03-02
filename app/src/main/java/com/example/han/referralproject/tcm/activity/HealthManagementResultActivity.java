@@ -37,7 +37,7 @@ public class HealthManagementResultActivity extends BaseActivity {
                 if (!"否".equals(itemBean.result)) {
                     TextView item = new TextView(this);
                     initTextViewParams(item);
-                    item.setText("体质类型:" + itemBean.constitutionName + "       得分:" + itemBean.score+"       "+itemBean.result);
+                    item.setText("体质类型:" + itemBean.constitutionName + "       得分:" + itemBean.score + "       " + itemBean.result);
                     container.addView(item);
                 }
             }
@@ -53,6 +53,8 @@ public class HealthManagementResultActivity extends BaseActivity {
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("中医体质检测报告");
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.GONE);
     }
 
 

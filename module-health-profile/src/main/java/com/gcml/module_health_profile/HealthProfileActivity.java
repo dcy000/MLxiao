@@ -63,6 +63,12 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
         mVpGoods = (ViewPager) findViewById(R.id.vp_goods);
         mRgMenu.setOnCheckedChangeListener(this);
         mVpGoods.setOffscreenPageLimit(1);
+
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.VISIBLE);
+        mRightView.setImageResource(R.drawable.common_ic_wifi_state);
+        setWifiLevel(mRightView);
+
     }
 
     private void initData() {

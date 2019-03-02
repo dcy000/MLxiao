@@ -13,18 +13,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginLeft="400pt"
+        android:layout_marginRight="400pt"
         android:layout_marginTop="160pt"
         android:drawablePadding="60pt"
         android:drawableTop="@drawable/img_health_manage_tip"
         android:gravity="center"
         android:text="健康管理为个性化签约服务项目，需通过手环对您
 
-的健康进行管理。如需购买，请联系现场工作人员。" />
+的健康进行管理。如需购买，请联系现场工作人员。"
+        android:textSize="48pt" />
 
     <TextView
         android:id="@+id/tv_health_tip_confirm"
         android:layout_width="320pt"
         android:layout_height="120pt"
+        android:textSize="46pt"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="186pt"
         android:background="@drawable/shape_rectangle_next_btn"

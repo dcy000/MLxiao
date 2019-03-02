@@ -237,7 +237,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
 
     private LoadingDialog mLoadingDialog;
 
-    private void showLoading(String tips) {
+    public void showLoading(String tips) {
         if (mLoadingDialog != null) {
             LoadingDialog loadingDialog = mLoadingDialog;
             mLoadingDialog = null;
@@ -250,7 +250,7 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
         mLoadingDialog.show();
     }
 
-    private void dismissLoading() {
+    public void dismissLoading() {
         if (mLoadingDialog != null) {
             LoadingDialog loadingDialog = mLoadingDialog;
             mLoadingDialog = null;

@@ -24,6 +24,6 @@ public class PersonalnforFragment extends RecycleBaseFragment {
 
     @Override
     protected void initView(View view, Bundle bundle) {
-        recordId=bundle.getString("recordId");
+        recordId = bundle.getString("recordId");
     }
 }
