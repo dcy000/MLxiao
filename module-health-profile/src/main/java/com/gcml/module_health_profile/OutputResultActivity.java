@@ -286,7 +286,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
                 e.printStackTrace();
             }
         } else if (i == R.id.tv_gohome) {
-            finish();
+            CC.obtainBuilder("health.profile").build().call();
         } else {
         }
     }
