@@ -69,7 +69,7 @@ public class TiZhiBean implements Serializable {
         }
     }
 
-    public static class ConstitutionListBean {
+    public static class ConstitutionListBean implements Serializable {
         /**
          * constitutionName : string
          * oppositeList : [0]

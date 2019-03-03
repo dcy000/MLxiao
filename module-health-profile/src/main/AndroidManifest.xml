@@ -9,6 +9,9 @@
             android:name=".OutputResultActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".HealthManagementResultActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".webview.EditHealthProfileActivity"
             android:screenOrientation="landscape" />
         <activity
