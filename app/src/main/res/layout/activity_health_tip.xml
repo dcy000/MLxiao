@@ -33,6 +33,7 @@
         android:layout_marginTop="186pt"
         android:background="@drawable/shape_rectangle_next_btn"
         android:gravity="center"
+        android:textColor="#fff"
         android:text="确定" />
 
 </LinearLayout>
