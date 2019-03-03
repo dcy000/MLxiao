@@ -167,6 +167,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
         imgLivedata.observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String img) {
+                dismissLoading();
                 Timber.e("二维码地址：" + img);
                 mIvQr.setImageBitmap(QRCodeUtils.creatQRCode(img, 600, 600));
             }
@@ -184,6 +185,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
         super.onResume();
         getData();
         initPrinter();
+        showLoading("");
     }
 
     private void getData() {

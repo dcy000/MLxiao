@@ -377,7 +377,14 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 .enqueue(new HttpCallback<BorsamResponse<UploadFileResult>>() {
                     @Override
                     public void onSuccess(BorsamResponse<UploadFileResult> uploadFileResultBorsamResponse) {
-                        String file_no = uploadFileResultBorsamResponse.getEntity().getFile_no();
+                        if (uploadFileResultBorsamResponse == null) {
+                            return;
+                        }
+                        UploadFileResult entity = uploadFileResultBorsamResponse.getEntity();
+                        if (entity == null) {
+                            return;
+                        }
+                        String file_no = entity.getFile_no();
                         addRecord(file_no, (int) (System.currentTimeMillis() / 1000), 1, "");
                     }
 
