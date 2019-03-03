@@ -50,6 +50,7 @@ public class DeviceBrand {
             put("dr01", "体重秤·思麦德");
             put("SHHC-60F1", "体重秤·怡可");
             put("SENSSUN", "体重秤·香山");
+            put("IF_B2A", "体重秤·香山");
         }
     };
     public static final HashMap<String, String> THREE_IN_ONE = new HashMap<String, String>() {
