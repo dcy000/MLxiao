@@ -122,4 +122,7 @@ public class HealthWeightDetectionUiFragment extends WeightFragment
         }
     }
 
+    public void setJump2Next(boolean jump2Next) {
+        isJump2Next = jump2Next;
+    }
 }

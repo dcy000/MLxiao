@@ -110,6 +110,12 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
                 }));
             }
         };
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
         mRv.setAdapter(adapter);
         ((HealthProfileActivity) getActivity()).isBuildHealthRecord.observe(this, new Observer<Boolean>() {
             @Override

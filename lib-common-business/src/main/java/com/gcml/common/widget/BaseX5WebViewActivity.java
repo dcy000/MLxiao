@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.business.R;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.tencent.smtt.export.external.interfaces.WebResourceError;
@@ -26,7 +27,7 @@ import com.tencent.smtt.sdk.WebViewClient;
 
 import timber.log.Timber;
 
-public abstract class BaseX5WebViewActivity extends AppCompatActivity implements View.OnClickListener {
+public abstract class BaseX5WebViewActivity extends BaseActivity implements View.OnClickListener {
     private WebView mX5Webview;
     protected ImageView mIvTopLeft;
     protected TextView mTvTopLeft;
@@ -62,6 +63,11 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
         mIvTopRight.setOnClickListener(this);
         mToolbar = (RelativeLayout) findViewById(R.id.toolbar);
         mX5Webview = (WebView) findViewById(R.id.x5_webview);
+
+        mTvTopRight.setVisibility(View.GONE);
+        mTvTopRight.setVisibility(View.VISIBLE);
+        mIvTopRight.setImageResource(R.drawable.common_ic_wifi_state);
+        setWifiLevel(mIvTopRight);
     }
 
     protected void initWebView() {
@@ -222,7 +228,13 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
     }
 
     protected void backMainActivity() {
-        CC.obtainBuilder("app").setActionName("ToMainActivity").build().call();
+//        CC.obtainBuilder("app").setActionName("ToMainActivity").build().call();
+        onRightClickWithPermission(new IAction() {
+            @Override
+            public void action() {
+                CC.obtainBuilder("com.gcml.old.setting").build().call();
+            }
+        });
     }
 
     protected abstract void loadUrl(WebView webView);
@@ -241,7 +253,7 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
 
     private LoadingDialog mLoadingDialog;
 
-    private void showLoading(String tips) {
+    public void showLoading(String tips) {
         if (mLoadingDialog != null) {
             LoadingDialog loadingDialog = mLoadingDialog;
             mLoadingDialog = null;
@@ -254,7 +266,7 @@ public abstract class BaseX5WebViewActivity extends AppCompatActivity implements
         mLoadingDialog.show();
     }
 
-    private void dismissLoading() {
+    public void dismissLoading() {
         if (mLoadingDialog != null) {
             LoadingDialog loadingDialog = mLoadingDialog;
             mLoadingDialog = null;

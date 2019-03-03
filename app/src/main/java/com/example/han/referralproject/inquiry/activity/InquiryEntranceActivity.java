@@ -17,6 +17,7 @@ import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.toolbar.ToolBarClickListener;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -98,7 +99,22 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
 
         tb_inquiry_home.setData("健 康 管 理",
                 0, null,
-                R.drawable.common_ic_wifi_state, null, null);
+                R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
+                    }
+                });
 
         setWifiLevel(tb_inquiry_home);
     }

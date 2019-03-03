@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.divider.LinearLayoutDividerItemDecoration;
+import com.gcml.common.http.ApiException;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.RecycleBaseFragment;
@@ -164,7 +165,14 @@ public class BloodpressureFollowupFragment extends RecycleBaseFragment implement
 
                     @Override
                     public void onError(Throwable e) {
-
+                        if (e instanceof ApiException) {
+                            ApiException exception = (ApiException) e;
+                            if (exception.code() == 9002) {
+                                view.findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+                                mRv.setVisibility(View.GONE);
+                                mTvCContent.setText("您还未进行过高血压随访");
+                            }
+                        }
                     }
 
                     @Override

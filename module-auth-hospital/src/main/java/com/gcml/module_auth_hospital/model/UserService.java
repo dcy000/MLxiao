@@ -122,7 +122,7 @@ public interface UserService {
     @POST("ZZB/login/docter_login/")
     Observable<ApiResult<DoctorEntity>> doctorSignIn(
             @Header("equipmentId") String equipmentId,
-            @Field("account") String account,
+            @Field("username") String account,
             @Field("password") String password);
 
 

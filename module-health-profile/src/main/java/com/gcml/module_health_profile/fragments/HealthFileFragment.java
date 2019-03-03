@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.http.ApiException;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
@@ -150,9 +151,14 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-                        view.findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
-                        view.findViewById(R.id.cl_contain).setVisibility(View.GONE);
-                        ((HealthProfileActivity) getActivity()).isBuildHealthRecord.postValue(false);
+                        if (e instanceof ApiException) {
+                            ApiException exception = (ApiException) e;
+                            if (exception.code() == 9002) {
+                                view.findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+                                view.findViewById(R.id.cl_contain).setVisibility(View.GONE);
+                                ((HealthProfileActivity) getActivity()).isBuildHealthRecord.postValue(false);
+                            }
+                        }
                     }
 
                     @Override

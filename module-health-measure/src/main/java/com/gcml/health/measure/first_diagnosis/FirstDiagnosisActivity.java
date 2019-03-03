@@ -297,6 +297,9 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (fragment instanceof HealthWeightDetectionUiFragment) {
+                            ((HealthWeightDetectionUiFragment) fragment).setJump2Next(false);
+                        }
                     }
                 })
                 .setPositiveButton("确认", new View.OnClickListener() {

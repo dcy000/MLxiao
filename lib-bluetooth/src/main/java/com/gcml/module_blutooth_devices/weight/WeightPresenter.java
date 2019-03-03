@@ -69,7 +69,7 @@ public class WeightPresenter extends BaseBluetooth {
             new WeightYikePresenter(getActivity(), baseView, name, address);
             return true;
         }
-        if (name.startsWith("SENSSUN")) {
+        if (name.startsWith("SENSSUN") || name.startsWith("IF_B2A")) {
             new WeightXiangshanPresenter(getActivity(), baseView, name, address);
             return true;
         }

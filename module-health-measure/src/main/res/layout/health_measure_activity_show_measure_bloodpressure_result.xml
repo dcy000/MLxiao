@@ -447,6 +447,7 @@
                           android:clickable="true"
                           android:visibility="gone"/>
                       <TextView
+                          android:visibility="gone"
                           android:id="@+id/health_knowledge"
                           android:layout_width="340pt"
                           android:layout_height="100pt"

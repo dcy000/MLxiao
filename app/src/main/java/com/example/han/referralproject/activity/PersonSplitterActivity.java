@@ -32,6 +32,12 @@ public class PersonSplitterActivity extends ToolbarBaseActivity implements View.
         mIvHealthRecord.setOnClickListener(this);
         mIvHealthBracelet = (EclipseImageView) findViewById(R.id.iv_health_bracelet);
         mIvHealthBracelet.setOnClickListener(this);
+
+        mRightText.setVisibility(View.GONE);
+        mRightView.setVisibility(View.VISIBLE);
+        mRightView.setImageResource(R.drawable.common_ic_wifi_state);
+        setWifiLevel(mRightView);
+
     }
 
     @Override
@@ -51,5 +57,15 @@ public class PersonSplitterActivity extends ToolbarBaseActivity implements View.
                 break;
 
         }
+    }
+
+    @Override
+    protected void backMainActivity() {
+        onRightClickWithPermission(new IAction() {
+            @Override
+            public void action() {
+                CC.obtainBuilder("com.gcml.old.setting").build().call();
+            }
+        });
     }
 }

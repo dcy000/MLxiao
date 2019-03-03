@@ -74,7 +74,6 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
 
     @Override
     protected void backMainActivity() {
-        super.backMainActivity();
         onRightClickWithPermission(new IAction() {
             @Override
             public void action() {
