@@ -138,7 +138,7 @@ public class WakeupHelper {
             listener = new AbsWakeuperListener() {
                 @Override
                 public void onResult(WakeuperResult result) {
-                    String json = result.getResultString();
+                   /* String json = result.getResultString();
                     try {
                         JSONObject jsonObj = new JSONObject(json);
                         int score = jsonObj.optInt("score");
@@ -171,7 +171,7 @@ public class WakeupHelper {
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                 }
             };
         }

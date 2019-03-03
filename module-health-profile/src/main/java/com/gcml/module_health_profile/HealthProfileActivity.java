@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.billy.cc.core.component.CC;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
@@ -69,6 +70,17 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
         mRightView.setImageResource(R.drawable.common_ic_wifi_state);
         setWifiLevel(mRightView);
 
+    }
+
+    @Override
+    protected void backMainActivity() {
+        super.backMainActivity();
+        onRightClickWithPermission(new IAction() {
+            @Override
+            public void action() {
+                CC.obtainBuilder("com.gcml.old.setting").build().call();
+            }
+        });
     }
 
     private void initData() {

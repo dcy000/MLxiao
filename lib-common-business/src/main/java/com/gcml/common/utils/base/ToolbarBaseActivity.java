@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.business.R;
 import com.gcml.common.utils.click.ClickEventListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -21,7 +22,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
  * decription:自带toolbar的Activity
  */
 
-public abstract class ToolbarBaseActivity extends AppCompatActivity implements View.OnClickListener {
+public abstract class ToolbarBaseActivity extends BaseActivity implements View.OnClickListener {
     protected boolean isShowToolbar = true;
     protected View mToolbar = null;
     protected TextView mTitleText;

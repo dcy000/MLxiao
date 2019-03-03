@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -78,6 +79,7 @@ public class DeviceInfoFragment extends Fragment {
         result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
         rxUser = result.getDataItem("data");
         rxUser.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
