@@ -42,12 +42,18 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inquiry_entrance);
         bindViews();
-        bindData();
         getFileInfo();
         ActivityHelper.finishAll();
     }
 
     private void getFileInfo() {
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bindData();
     }
 
     private void bindData() {

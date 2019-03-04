@@ -293,7 +293,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private void showFinishDialog() {
         new AlertDialog(FirstDiagnosisActivity.this)
                 .builder()
-                .setMsg("感谢您完成本次问诊，是否退回到主页面？")
+                .setMsg("提交成功,等待医生处理")
                 .setNegativeButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
