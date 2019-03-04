@@ -76,7 +76,7 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
         getPersonInfo();
     }
 
-    private Boolean bindWacher;
+    private Boolean bindWacher=false;
 
     //获取个人信息，得到网易账号登录所需的账号和密码
     private void getPersonInfo() {

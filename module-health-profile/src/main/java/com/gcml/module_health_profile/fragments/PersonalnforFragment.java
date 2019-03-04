@@ -149,7 +149,7 @@ public class PersonalnforFragment extends RecycleBaseFragment {
 
 
     protected void loadUrl(com.tencent.smtt.sdk.WebView webView) {
-        webView.loadUrl("http://192.168.0.116:8080/#/");
+        webView.loadUrl("http://47.96.98.60:8630/#/");
     }
 
     protected void addJavascriptInterface(com.tencent.smtt.sdk.WebView webView) {
