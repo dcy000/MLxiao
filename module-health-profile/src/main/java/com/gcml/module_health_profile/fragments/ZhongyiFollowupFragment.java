@@ -105,12 +105,12 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
                 TextView see = helper.getView(R.id.tv_see);
                 time.setText(item.modifiedOn);
 
-                see.setOnClickListener(new FilterClickListener(new View.OnClickListener() {
+              /*  see.setOnClickListener(new FilterClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         ToastUtils.showShort("查看");
                     }
-                }));
+                }));*/
             }
         };
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
