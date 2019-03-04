@@ -161,9 +161,13 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
                         tiZhiBeans.addAll(data);
                         adapter.notifyDataSetChanged();
 
-                        if (data == null || data.size() == 0) {
+                        if (tiZhiBeans == null || tiZhiBeans.size() == 0) {
                             noDataView.setVisibility(View.VISIBLE);
+                        } else {
+                            noDataView.setVisibility(View.GONE);
                         }
+
+
                     }
 
 

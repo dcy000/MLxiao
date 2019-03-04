@@ -20,6 +20,13 @@ public class EditHealthProfileActivity extends BaseX5WebViewActivity {
 
     @Override
     protected String setTitle() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            boolean isUserInfoList = intent.getBooleanExtra("isUserInfoList", false);
+            if (isUserInfoList) {
+                return "个 人 信 息 列 表 编 辑";
+            }
+        }
         return "健 康 档 案 编 辑";
     }
 
@@ -30,6 +37,7 @@ public class EditHealthProfileActivity extends BaseX5WebViewActivity {
         healthRecordIdString = "'" + healthRecordId + "'";
         rdRecordIdString = "'" + rdRecordId + "'";
         userIdString = "'" + UserSpHelper.getUserId() + "'";
+
         typeString = "'公卫表格编辑'";
     }
 
@@ -75,7 +83,7 @@ public class EditHealthProfileActivity extends BaseX5WebViewActivity {
 
     @JavascriptInterface
     public void move2Next(String healthRecordId) {
-        if ("22d594369d8246ad9542f462d6f0f4ce".equals(rdRecordId)) {
+        if ("22d594369d8246ad9542f462d6f0f4ce".equals(rdRecordId)|| "76e9139bf448430bbcb98d5998db05c4".equals(rdRecordId)) {
             finish();
         } else {
             CC.obtainBuilder("health.profile.add.followup")

@@ -83,7 +83,7 @@ public class AddHealthProfileActivity extends BaseX5WebViewActivity {
     @JavascriptInterface
     public void move2Next(String healthRecordId) {
         //个人健康档案、个人基本信息
-        if ("22d594369d8246ad9542f462d6f0f4ce".equals(rdRecordId) || "76e9139bf448430bbcb98d5998db05c4".equals(healthRecordId)) {
+        if ("22d594369d8246ad9542f462d6f0f4ce".equals(rdRecordId) || "76e9139bf448430bbcb98d5998db05c4".equals(rdRecordId)) {
             finish();
         } else {
             CC.obtainBuilder("health.profile.add.followup")

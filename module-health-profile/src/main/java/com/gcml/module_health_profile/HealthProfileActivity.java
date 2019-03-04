@@ -30,6 +30,7 @@ import com.gcml.module_health_profile.fragments.BloodpressureFollowupFragment;
 import com.gcml.module_health_profile.fragments.HealthCheckupFragment;
 import com.gcml.module_health_profile.fragments.HealthFileFragment;
 import com.gcml.module_health_profile.fragments.PersonalnforFragment;
+import com.gcml.module_health_profile.fragments.UerInfoListFragment;
 import com.gcml.module_health_profile.fragments.ZhongyiFollowupFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -123,7 +124,7 @@ public class HealthProfileActivity extends ToolbarBaseActivity implements RadioG
                     break;
                 case "76e9139bf448430bbcb98d5998db05c4":
                     //个人基本信息表
-                    fragments.add(PersonalnforFragment.instance(menuBean.getRdRecordId()));
+                    fragments.add(UerInfoListFragment.instance("76e9139bf448430bbcb98d5998db05c4", menuBean.getRdRecordId()));
                     break;
                 case "bff445ce1280473391df8eee45d0999b":
                     //健康体检表
