@@ -201,20 +201,23 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
     @Override
     public void onStop() {
         super.onStop();
-        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
-        if (!mMainPc80BViewDraw.isStop()) {
-            mMainPc80BViewDraw.Stop();
+        try {
+            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
+            if (!mMainPc80BViewDraw.isStop()) {
+                mMainPc80BViewDraw.Stop();
+            }
+            drawThread = null;
+            context.stopService(new Intent(context, ReceiveService.class));
+            if (serviceConnect != null && isServiceBind) {
+                context.unbindService(serviceConnect);
+            }
+            if (isRegistReceiver) {
+                isRegistReceiver = false;
+                context.unregisterReceiver(connectReceiver);
+            }
+            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STOPDISCOVERY));
+        } catch (Exception e) {
         }
-        drawThread = null;
-        context.stopService(new Intent(context, ReceiveService.class));
-        if (serviceConnect != null && isServiceBind) {
-            context.unbindService(serviceConnect);
-        }
-        if (isRegistReceiver) {
-            isRegistReceiver = false;
-            context.unregisterReceiver(connectReceiver);
-        }
-        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STOPDISCOVERY));
 
     }
 
@@ -424,6 +427,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
             }
         }
     }
+
     private void setBattery(int battery) {
         if (battery == 0) {
             if (!mHandler.hasMessages(BATTERY_ZERO)) {
