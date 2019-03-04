@@ -81,7 +81,7 @@ public class ServiceHistoryFragment extends Fragment {
 
                 people.setText(item.handlerName);
                 type.setText(item.warningType);
-                time.setText(TimeUtils.milliseconds2String(item.warningTime));
+                time.setText(TimeUtils.long2StringDate(item.warningTime));
             }
         };
         recyclerView.setAdapter(adapter);

@@ -22,9 +22,11 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.gcml.common.FilterClickListener;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.http.ApiException;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.RecycleBaseFragment;
+import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_profile.HealthManagementResultActivity;
 import com.gcml.module_health_profile.HealthProfileActivity;
@@ -103,7 +105,10 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
             protected void convert(BaseViewHolder helper, TiZhiBean item) {
                 TextView time = helper.getView(R.id.tv_time);
                 TextView see = helper.getView(R.id.tv_see);
-                time.setText(item.modifiedOn);
+                try {
+                    time.setText(TimeUtils.long2StringDate(Long.parseLong(item.modifiedOn)));
+                } catch (Exception e) {
+                }
 
               /*  see.setOnClickListener(new FilterClickListener(new View.OnClickListener() {
                     @Override
@@ -164,7 +169,12 @@ public class ZhongyiFollowupFragment extends RecycleBaseFragment implements View
 
                     @Override
                     public void onError(Throwable e) {
-                        noDataView.setVisibility(View.VISIBLE);
+                        if (e instanceof ApiException) {
+                            ApiException exception = (ApiException) e;
+                            if (exception.code() == 9002) {
+                                noDataView.setVisibility(View.VISIBLE);
+                            }
+                        }
                     }
 
                     @Override
