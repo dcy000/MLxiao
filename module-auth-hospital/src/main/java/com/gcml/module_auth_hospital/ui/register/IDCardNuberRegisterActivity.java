@@ -2,7 +2,6 @@ package com.gcml.module_auth_hospital.ui.register;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,7 +14,6 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
@@ -26,7 +24,6 @@ import com.gcml.module_auth_hospital.wrap.CanClearEditText;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.gcml.module_auth_hospital.ui.register.ScanIdCardRegisterActivity.REGISTER_FORM_IDCARD_NUMBER;
@@ -44,13 +41,13 @@ public class IDCardNuberRegisterActivity extends BaseActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_by_idcard_nuber);
+        setContentView(R.layout.activity_register_by_idcard_nuber);
         initView();
         ActivityHelper.addActivity(this);
     }
 
     private void initView() {
-        translucentToolBar = findViewById(R.id.auth_idcard_numer_tb);
+        translucentToolBar = findViewById(R.id.auth_idcard_numer_register__tb);
         ccetPhone = (CanClearEditText) findViewById(R.id.ccet_phone);
         tvNext = (TextView) findViewById(R.id.tv_next);
         tvNext.setText("下一步");

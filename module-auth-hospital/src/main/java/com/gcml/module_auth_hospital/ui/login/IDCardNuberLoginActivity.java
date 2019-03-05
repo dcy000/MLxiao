@@ -2,14 +2,12 @@ package com.gcml.module_auth_hospital.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
-import com.gcml.common.AppHelper;
 import com.gcml.common.IConstant;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserEntity;
@@ -19,7 +17,6 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.app.ActivityHelper;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;

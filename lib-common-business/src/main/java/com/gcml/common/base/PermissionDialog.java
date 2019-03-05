@@ -3,6 +3,7 @@ package com.gcml.common.base;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gcml.common.business.R;
+import com.gcml.common.utils.display.ToastUtils;
 
 
 /**
@@ -62,8 +64,13 @@ public class PermissionDialog extends DialogFragment implements View.OnClickList
         if (id == R.id.tv_complete) {
             if (onClickListener != null) {
                 String passWord = this.passWord.getText().toString().trim();
-                onClickListener.onClick(passWord);
-                dismiss();
+                if (TextUtils.isEmpty(passWord)){
+                    ToastUtils.showShort("请输入管理员密码");
+                    return;
+                }else{
+                    onClickListener.onClick(passWord);
+//                    dismiss();
+                }
             }
 
         } else if (id == R.id.iv_close) {
