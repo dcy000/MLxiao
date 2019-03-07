@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -274,6 +275,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private String formatString;
     private WenZhenBean bean = new WenZhenBean();
     private WenZhenReultBean reultBean;
+    private ProgressDialog mDialog;
 
 
     /**
@@ -973,6 +975,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     if (mVideoView.isPlaying()) {
                         mVideoView.pause();
                     }
+                    if (isDetect)
+                    findViewById(R.id.detect_tv_result_next).setVisibility(View.VISIBLE);
                     setFirstUse();
                 }
                 break;
@@ -1314,9 +1318,13 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mVideoView.setVisibility(View.GONE);
                 mOverView.setVisibility(View.GONE);
             }
+            if (isDetect)
+            findViewById(R.id.detect_tv_result_next).setVisibility(View.GONE);
         } else {
             mVideoView.setVisibility(View.GONE);
             mOverView.setVisibility(View.GONE);
+            if (isDetect)
+            findViewById(R.id.detect_tv_result_next).setVisibility(View.VISIBLE);
         }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
@@ -1370,7 +1378,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         setXuetangSelectTime();
 
         if (isDetect) {
-            findViewById(R.id.detect_tv_result_next).setVisibility(View.VISIBLE);
+//            findViewById(R.id.detect_tv_result_next).setVisibility(View.VISIBLE);
             findViewById(R.id.detect_tv_result_next).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1892,6 +1900,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         public void onCompletion(MediaPlayer mp) {
             mVideoView.setVisibility(View.GONE);
             mOverView.setVisibility(View.GONE);
+            if (isDetect)
+            findViewById(R.id.detect_tv_result_next).setVisibility(View.VISIBLE);
             setFirstUse();
         }
     };
@@ -2345,6 +2355,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
+                        hideLoadingDialog();
                         T.show("网络繁忙");
                     }
                 });
@@ -2391,6 +2402,32 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         }).show();
     }
 
+    public void showLoadingDialog(String message) {
+        try {
+            if (mDialog == null) {
+                mDialog = new ProgressDialog(mContext);
+//                mDialog.setCanceledOnTouchOutside(true);
+                mDialog.setCanceledOnTouchOutside(false);
+                mDialog.setIndeterminate(true);
+                mDialog.setMessage(message);
+            }
+            mDialog.show();
+        } catch (Exception e) {
+
+        }
+    }
+
+
+    public void hideLoadingDialog() {
+        try {
+            if (mDialog == null) {
+                return;
+            }
+            mDialog.dismiss();
+        } catch (Exception e) {
+
+        }
+    }
 
 }
 

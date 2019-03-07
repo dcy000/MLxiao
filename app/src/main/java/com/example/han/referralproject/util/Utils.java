@@ -13,10 +13,11 @@ import android.view.WindowManager;
 import com.example.han.referralproject.application.MyApplication;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Utils {
     @SuppressLint("MissingPermission")
-    public static String getDeviceId(){
+    public static String getDeviceId() {
 //        WifiManager wm = (WifiManager)getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 //        String WLANMAC = wm.getConnectionInfo().getMacAddress();
 
@@ -27,8 +28,8 @@ public class Utils {
     }
 
     @SuppressLint("MissingPermission")
-    public static String getMacAddress(){
-        WifiManager wm = (WifiManager)MyApplication.getInstance().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+    public static String getMacAddress() {
+        WifiManager wm = (WifiManager) MyApplication.getInstance().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         return wm.getConnectionInfo().getMacAddress();
     }
 
@@ -48,56 +49,62 @@ public class Utils {
     /*
     * 将时间戳转换为时间
     */
-    public static String stampToDate(long s){
-        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Long time=new Long(s);
+    public static String stampToDate(long s) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Long time = new Long(s);
         String d = format.format(time);
         return d;
     }
 
 
-    public static String stampToYMD(long s){
-        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd");
-        Long time=new Long(s);
+    public static String stampToYMD(long s) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Long time = new Long(s);
         String d = format.format(time);
         return d;
     }
 
     /**
      * 时间格式转换
+     *
      * @param s
      * @return
      */
-    public static String stampToDate2(long s){
-        SimpleDateFormat format =  new SimpleDateFormat("yyyy.MM.dd HH:mm");
-        Long time=new Long(s);
-        String d = format.format(time);
-        return d;
-    }
-    /**
-     * 时间格式转换
-     * @param s
-     * @return
-     */
-    public static String stampToDate3(long s){
-        SimpleDateFormat format =  new SimpleDateFormat("MMddHH");
-        Long time=new Long(s);
+    public static String stampToDate2(long s) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        Long time = new Long(s);
         String d = format.format(time);
         return d;
     }
 
     /**
      * 时间格式转换
+     *
+     * @param s
      * @return
      */
-    public static String stampTodate(long l){
-        SimpleDateFormat format =  new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        Long time=new Long(l);
+    public static String stampToDate3(long s) {
+        SimpleDateFormat format = new SimpleDateFormat("MMddHH");
+        Long time = new Long(s);
         String d = format.format(time);
         return d;
     }
+
+    /**
+     * 时间格式转换
+     *
+     * @return
+     */
+    public static String stampTodate(long l) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        Date time = new Date(l);
+        String d = format.format(time);
+        return d;
+    }
+
     /**
      * 调节屏幕透明度
+     *
      * @param context
      * @param bgAlpha
      */
