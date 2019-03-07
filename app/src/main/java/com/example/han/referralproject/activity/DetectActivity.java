@@ -54,6 +54,7 @@ import com.example.han.referralproject.measure.fragment.MeasureXueyaWarningFragm
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
+import com.example.han.referralproject.util.WeightXiangshanPresenter;
 import com.example.han.referralproject.util.XueyaUtils;
 import com.example.han.referralproject.xindian.XinDianDetectActivity;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileEndActivity;
@@ -976,7 +977,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                         mVideoView.pause();
                     }
                     if (isDetect)
-                    findViewById(R.id.detect_tv_result_next).setVisibility(View.VISIBLE);
+                        findViewById(R.id.detect_tv_result_next).setVisibility(View.VISIBLE);
                     setFirstUse();
                 }
                 break;
@@ -1319,12 +1320,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 mOverView.setVisibility(View.GONE);
             }
             if (isDetect)
-            findViewById(R.id.detect_tv_result_next).setVisibility(View.GONE);
+                findViewById(R.id.detect_tv_result_next).setVisibility(View.GONE);
         } else {
             mVideoView.setVisibility(View.GONE);
             mOverView.setVisibility(View.GONE);
             if (isDetect)
-            findViewById(R.id.detect_tv_result_next).setVisibility(View.VISIBLE);
+                findViewById(R.id.detect_tv_result_next).setVisibility(View.VISIBLE);
         }
         mHighPressTv = (TextView) findViewById(R.id.high_pressure);
         mLowPressTv = (TextView) findViewById(R.id.low_pressure);
@@ -1881,7 +1882,54 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
         @Override
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+            Log.e(TAG, "onLeScan: 搜索到的蓝牙设备" + device.getName() + ">>>><<<<" + device.getAddress());
+            compatXiangShanTizhong(device);
             searchedDevice(device);
+        }
+    }
+
+    private void compatXiangShanTizhong(BluetoothDevice device) {
+        if (!TextUtils.isEmpty(device.getName()) && device.getName().startsWith("IF")) {
+            new WeightXiangshanPresenter(DetectActivity.this, new WeightXiangshanPresenter.MeasureResult() {
+                @Override
+                public void state(String state) {
+                    T.show("设备已连接");
+                    speak("设备已连接");
+                }
+
+                @Override
+                public void weight(float weight) {
+                    mResultTv.setText(String.valueOf(weight));
+                    String height_s = LocalShared.getInstance(DetectActivity.this).getUserHeight();
+                    float height = TextUtils.isEmpty(height_s) ? 0 : Float.parseFloat(height_s) / 100;
+                    float tizhi = weight / (height * height);
+                    if (height != 0) {
+                        ((TextView) findViewById(R.id.tv_tizhi)).setText(String.format("%1$.2f", tizhi));
+                    }
+                    if (tizhi < 18.5) {
+                        speak("主人，您的体重是" + String.format("%.2f", weight) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。偏瘦");
+                    } else if (tizhi > 23.9) {
+                        speak("主人，您的体重是" + String.format("%.2f", weight) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。偏胖");
+                    } else {
+                        speak("主人，您的体重是" + String.format("%.2f", weight) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。正常");
+                    }
+
+                    DataInfoBean info = new DataInfoBean();
+                    info.weight = weight;
+                    NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+                        @Override
+                        public void onSuccess(MeasureResult response) {
+                            //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                        }
+                    }, new NetworkManager.FailedCallback() {
+                        @Override
+                        public void onFailed(String message) {
+
+                        }
+                    });
+                }
+            }, device.getName(), device.getAddress());
+            return;
         }
     }
 
@@ -1901,7 +1949,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             mVideoView.setVisibility(View.GONE);
             mOverView.setVisibility(View.GONE);
             if (isDetect)
-            findViewById(R.id.detect_tv_result_next).setVisibility(View.VISIBLE);
+                findViewById(R.id.detect_tv_result_next).setVisibility(View.VISIBLE);
             setFirstUse();
         }
     };
@@ -1995,17 +2043,32 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         //接收
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            Bundle b = intent.getExtras();
-            Object[] lstName = b.keySet().toArray();
-            // 显示所有收到的消息及其细节
-            for (int i = 0; i < lstName.length; i++) {
-                String keyName = lstName[i].toString();
-                Log.i("mylog", keyName + ">>>" + String.valueOf(b.get(keyName)));
-            }
+//            Bundle b = intent.getExtras();
+//            Object[] lstName = b.keySet().toArray();
+//            // 显示所有收到的消息及其细节
+//            for (int i = 0; i < lstName.length; i++) {
+//                String keyName = lstName[i].toString();
+//                Log.i("mylog", keyName + ">>>" + String.valueOf(b.get(keyName)));
+//            }
             BluetoothDevice device;
             // 搜索发现设备时，取得设备的信息；注意，这里有可能重复搜索同一设备
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                Log.e(TAG, "onReceive: 搜索到蓝牙设备:" + device.getName() + ">>>><<<<" + device.getAddress());
+                if (!TextUtils.isEmpty(device.getName()) && device.getName().startsWith("IF")) {
+                    new WeightXiangshanPresenter(DetectActivity.this, new WeightXiangshanPresenter.MeasureResult() {
+                        @Override
+                        public void state(String state) {
+                            T.show("设备已连接");
+                        }
+
+                        @Override
+                        public void weight(float weight) {
+                            mResultTv.setText(weight + "");
+                        }
+                    }, device.getName(), device.getAddress());
+                    return;
+                }
                 searchedDevice(device);
             }
             //状态改变时
@@ -2368,6 +2431,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         Intent intent = new Intent(this, InquiryAndFileEndActivity.class)
                 .putExtra(FROM_TAG, "问诊")
                 .putExtra("inquiryTime", date);
+
         startActivity(intent);
         finish();
         ActivityHelper.finishAll();
@@ -2401,33 +2465,5 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             }
                         }).show();
     }
-
-    public void showLoadingDialog(String message) {
-        try {
-            if (mDialog == null) {
-                mDialog = new ProgressDialog(mContext);
-//                mDialog.setCanceledOnTouchOutside(true);
-                mDialog.setCanceledOnTouchOutside(false);
-                mDialog.setIndeterminate(true);
-                mDialog.setMessage(message);
-            }
-            mDialog.show();
-        } catch (Exception e) {
-
-        }
-    }
-
-
-    public void hideLoadingDialog() {
-        try {
-            if (mDialog == null) {
-                return;
-            }
-            mDialog.dismiss();
-        } catch (Exception e) {
-
-        }
-    }
-
 }
 
