@@ -247,8 +247,9 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
                             .subscribe(new DefaultObserver<Object>() {
                                 @Override
                                 public void onNext(Object bean) {
-                                    if (bean instanceof OrderBean) {
-                                        if (!TextUtils.isEmpty(((OrderBean) bean).effectiveSign)) {
+
+                                    if (bean instanceof LinkedTreeMap) {
+                                        if (((LinkedTreeMap) bean).size() != 0) {
                                             Message msg = mHandler.obtainMessage();
                                             sign = false;
                                             msg.what = 2;
@@ -259,7 +260,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
 
                                 @Override
                                 public void onError(Throwable e) {
-                                    ToastUtils.showShort(e.getMessage());
+//                                    ToastUtils.showShort(e.getMessage());
                                 }
 
                                 @Override
