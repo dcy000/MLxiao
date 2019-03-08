@@ -17,6 +17,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
@@ -61,11 +62,12 @@ public interface HealthMeasureServer {
 
     /**
      * 取消套餐
+     *
      * @param setmealId
      * @return
      */
-    @GET("ZZB/order/end_set_meal")
+    @PUT("ZZB/order/end_set_meal")
     Observable<Object> cancelServicePackage(
-            @Query("orderId") String setmealId
+         @Query("orderId") String setmealId
     );
 }

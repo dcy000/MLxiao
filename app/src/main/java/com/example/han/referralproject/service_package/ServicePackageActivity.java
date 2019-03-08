@@ -39,11 +39,11 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
                         //有套餐生效，跳转到测试界面
                         if (isSkip) {
                             CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true,
-                                    servicePackageBean.getType(), servicePackageBean.getSetmealId());
+                                    servicePackageBean.getType(), servicePackageBean.orderid + "");
                             return;
                         }
                         CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false,
-                                servicePackageBean.getType(), servicePackageBean.getSetmealId());
+                                servicePackageBean.getType(), servicePackageBean.orderid + "");
                     }
 
                     @Override
