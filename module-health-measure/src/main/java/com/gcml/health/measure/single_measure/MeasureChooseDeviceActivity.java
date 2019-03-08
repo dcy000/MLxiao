@@ -207,6 +207,9 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             @Override
             public void onResult(CC cc, CCResult result) {
                 String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
+                if (resultAction == null) {
+                    aferVideo();
+                }
                 switch (resultAction) {
                     case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
                         //点击了返回按钮
@@ -246,7 +249,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         mTvsanheyi = (TextView) findViewById(R.id.tvsanheyi);
         servicePackage = getIntent().getStringExtra("ServicePackage");
         serviceUUID = getIntent().getStringExtra("ServicePackageUUID");
-        if (servicePackage.equals("1")) {
+        if (servicePackage != null && servicePackage.equals("1")) {
             //套餐1
             mTvxuetang.setBackgroundResource(R.drawable.health_measure_text_bg_gengduo);
             mTvsanheyi.setBackgroundResource(R.drawable.health_measure_text_bg_gengduo);
