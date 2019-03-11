@@ -1885,7 +1885,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
             Log.e(TAG, "onLeScan: 搜索到的蓝牙设备" + device.getName() + ">>>><<<<" + device.getAddress());
             searchedDevice(device);
-            compatXiangShanTizhong(device);
+            if (TextUtils.equals(detectType, Type_TiZhong))
+                compatXiangShanTizhong(device);
         }
     }
 
@@ -1896,8 +1897,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             new WeightXiangshanPresenter(DetectActivity.this, new WeightXiangshanPresenter.MeasureResult() {
                 @Override
                 public void state(String state) {
-                    T.show("设备已连接");
-                    speak("设备已连接");
+                    if (TextUtils.equals("设备已连接",state)){
+                        T.show("设备已连接");
+                        speak("设备已连接");
+                    }
                 }
 
                 @Override
@@ -1905,7 +1908,8 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mResultTv.setText(String.valueOf(weight));
+                            if (mResultTv != null)
+                                mResultTv.setText(String.valueOf(weight));
                             String height_s = LocalShared.getInstance(DetectActivity.this).getUserHeight();
                             float height = TextUtils.isEmpty(height_s) ? 0 : Float.parseFloat(height_s) / 100;
                             tizhi = weight / (height * height);
