@@ -655,7 +655,10 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             @Override
             public void onFinish() {
                 super.onFinish();
-                ((BaseActivity) getActivity()).hideLoadingDialog();
+                try {
+                    ((BaseActivity) getActivity()).hideLoadingDialog();
+                } catch (Exception e) {
+                }
             }
         });
     }

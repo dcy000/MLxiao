@@ -27,6 +27,7 @@ import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.lzy.okgo.OkGo;
 import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.utils.JPushMessageHelper;
 import com.medlink.danbogh.utils.T;
@@ -171,7 +172,8 @@ public class MyApplication extends Application {
         registerActivityLifecycleCallbacks(callback);
         EHSharedPreferences.initUNITContext(this);
 
-
+        OkGo.getInstance().init(this)
+                .setRetryCount(1);
     }
 
     private void initBugly() {

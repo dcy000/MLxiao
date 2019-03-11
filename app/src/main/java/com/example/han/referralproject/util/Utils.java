@@ -14,6 +14,7 @@ import com.example.han.referralproject.application.MyApplication;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Utils {
     @SuppressLint("MissingPermission")
@@ -96,6 +97,8 @@ public class Utils {
      * @return
      */
     public static String stampTodate(long l) {
+        TimeZone tz = TimeZone.getTimeZone("ETC/GMT-8");
+        TimeZone.setDefault(tz);
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         Date time = new Date(l);
         String d = format.format(time);

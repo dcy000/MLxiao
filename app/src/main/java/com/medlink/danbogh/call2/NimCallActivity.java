@@ -289,7 +289,10 @@ public class NimCallActivity extends AppCompatActivity {
         if (mIsIncomingCall) {
             incomingCalling();
         } else {
-            outgoingCalling();
+            try {
+                outgoingCalling();
+            } catch (Exception e) {
+            }
         }
         isCallEstablished = false;
         NimCallHelper.getInstance().setOnCloseSessionListener(new NimCallHelper.OnCloseSessionListener() {
