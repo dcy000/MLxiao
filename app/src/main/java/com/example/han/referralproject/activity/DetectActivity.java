@@ -1885,8 +1885,10 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
             Log.e(TAG, "onLeScan: 搜索到的蓝牙设备" + device.getName() + ">>>><<<<" + device.getAddress());
             searchedDevice(device);
-            if (TextUtils.equals(detectType, Type_TiZhong))
+            if (TextUtils.equals(detectType, Type_TiZhong)) {
+                mBluetoothAdapter.cancelDiscovery();
                 compatXiangShanTizhong(device);
+            }
         }
     }
 
@@ -1897,7 +1899,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
             new WeightXiangshanPresenter(DetectActivity.this, new WeightXiangshanPresenter.MeasureResult() {
                 @Override
                 public void state(String state) {
-                    if (TextUtils.equals("设备已连接",state)){
+                    if (TextUtils.equals("设备已连接", state)) {
                         T.show("设备已连接");
                         speak("设备已连接");
                     }
@@ -1928,20 +1930,21 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     }
                     final DataInfoBean info = new DataInfoBean();
                     info.weight = weight;
-                    NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
-                        @Override
-                        public void onSuccess(MeasureResult response) {
-                            //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
-                            if (!postWeightSuccessWithXiangshan && info.weight != 0) {
+
+                    if (!postWeightSuccessWithXiangshan && (info.weight != 0)) {
+                        NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
+                            @Override
+                            public void onSuccess(MeasureResult response) {
+                                //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
                                 postWeightSuccessWithXiangshan = true;
                             }
-                        }
-                    }, new NetworkManager.FailedCallback() {
-                        @Override
-                        public void onFailed(String message) {
+                        }, new NetworkManager.FailedCallback() {
+                            @Override
+                            public void onFailed(String message) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
             }, device.getName(), device.getAddress());
             return;
