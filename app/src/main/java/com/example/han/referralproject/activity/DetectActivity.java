@@ -277,6 +277,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     private WenZhenBean bean = new WenZhenBean();
     private WenZhenReultBean reultBean;
     private ProgressDialog mDialog;
+    private float tizhi;
 
 
     /**
@@ -1883,10 +1884,12 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         @Override
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
             Log.e(TAG, "onLeScan: 搜索到的蓝牙设备" + device.getName() + ">>>><<<<" + device.getAddress());
-            compatXiangShanTizhong(device);
             searchedDevice(device);
+            compatXiangShanTizhong(device);
         }
     }
+
+    private boolean postWeightSuccessWithXiangshan = false;
 
     private void compatXiangShanTizhong(BluetoothDevice device) {
         if (!TextUtils.isEmpty(device.getName()) && device.getName().startsWith("IF")) {
@@ -1898,14 +1901,20 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 }
 
                 @Override
-                public void weight(float weight) {
-                    mResultTv.setText(String.valueOf(weight));
-                    String height_s = LocalShared.getInstance(DetectActivity.this).getUserHeight();
-                    float height = TextUtils.isEmpty(height_s) ? 0 : Float.parseFloat(height_s) / 100;
-                    float tizhi = weight / (height * height);
-                    if (height != 0) {
-                        ((TextView) findViewById(R.id.tv_tizhi)).setText(String.format("%1$.2f", tizhi));
-                    }
+                public void weight(final float weight) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mResultTv.setText(String.valueOf(weight));
+                            String height_s = LocalShared.getInstance(DetectActivity.this).getUserHeight();
+                            float height = TextUtils.isEmpty(height_s) ? 0 : Float.parseFloat(height_s) / 100;
+                            tizhi = weight / (height * height);
+                            if (height != 0) {
+                                ((TextView) findViewById(R.id.tv_tizhi)).setText(String.format("%1$.2f", tizhi));
+                            }
+
+                        }
+                    });
                     if (tizhi < 18.5) {
                         speak("主人，您的体重是" + String.format("%.2f", weight) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。偏瘦");
                     } else if (tizhi > 23.9) {
@@ -1913,13 +1922,15 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                     } else {
                         speak("主人，您的体重是" + String.format("%.2f", weight) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。正常");
                     }
-
-                    DataInfoBean info = new DataInfoBean();
+                    final DataInfoBean info = new DataInfoBean();
                     info.weight = weight;
                     NetworkApi.postData(info, new NetworkManager.SuccessCallback<MeasureResult>() {
                         @Override
                         public void onSuccess(MeasureResult response) {
                             //Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                            if (!postWeightSuccessWithXiangshan && info.weight != 0) {
+                                postWeightSuccessWithXiangshan = true;
+                            }
                         }
                     }, new NetworkManager.FailedCallback() {
                         @Override
@@ -2199,6 +2210,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
     protected void onDestroy() {
         super.onDestroy();
         blueThreadDisable = false;
+
         if (mBluetoothAdapter != null) {
             mBluetoothAdapter.cancelDiscovery();
             if (leScanCall != null) {

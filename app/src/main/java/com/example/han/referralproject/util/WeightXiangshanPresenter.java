@@ -18,6 +18,7 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
     private final BleScan bleScan;
     private final BleCloudProtocolUtils bleCloudProtocolUtils;
     private MeasureResult measureResult;
+
     @SuppressLint("RestrictedApi")
     public WeightXiangshanPresenter(SupportActivity activity, MeasureResult measureResult, String name, String address) {
         this.activity = activity;
@@ -36,12 +37,12 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
             @Override
             public void OnState(boolean b) {
                 if (b) {
-                    if (measureResult!=null){
+                    if (measureResult != null) {
                         measureResult.state("设备已连接");
                     }
                     LocalShared.getInstance(activity).setTizhongMac(address);
                 } else {
-                    if (measureResult!=null){
+                    if (measureResult != null) {
                         measureResult.state("设备已断开");
                     }
                 }
@@ -59,12 +60,12 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                             case "80":
                                 if (strdata[12].equals("A0")) {
                                     String tmpNum = strdata[7] + strdata[8];
-                                    if (measureResult!=null) {
+                                    if (measureResult != null) {
                                         measureResult.weight(Integer.valueOf(tmpNum, 16) / 10f);
                                     }
                                 } else {
                                     String tmpNum = strdata[7] + strdata[8];
-                                    if (measureResult!=null) {
+                                    if (measureResult != null) {
                                         measureResult.weight(Integer.valueOf(tmpNum, 16) / 10f);
                                     }
                                 }
@@ -90,13 +91,19 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
     @SuppressLint("RestrictedApi")
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop() {
+        if (bleCloudProtocolUtils != null) {
+            bleCloudProtocolUtils.Disconnect();
+            bleCloudProtocolUtils.Close();
+        }
         if (activity != null) {
             activity.getLifecycle().removeObserver(this);
         }
         activity = null;
     }
-    public interface MeasureResult{
+
+    public interface MeasureResult {
         void state(String state);
+
         void weight(float weight);
     }
 }
