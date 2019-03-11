@@ -21,7 +21,12 @@ import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.AutoDisposeConverter;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -30,7 +35,9 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Cancellable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.plugins.RxJavaPlugins;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
@@ -39,6 +46,16 @@ import retrofit2.HttpException;
  */
 
 public class RxUtils {
+
+    static {
+        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                throwable.printStackTrace();
+                // 拦截 RxJava 未捕获异常
+            }
+        });
+    }
 
     public static <T> ObservableTransformer<ApiResult<T>, T> apiResultTransformer() {
         return new ObservableTransformer<ApiResult<T>, T>() {
@@ -58,9 +75,15 @@ public class RxUtils {
             public Observable<T> apply(ApiResult<T> result) {
                 if (result.isSuccessful()) {
                     if (result.getData() == null) {
-                        Type type = new TypeToken<T>() {
-                        }.getType();
-                        T t = Serializer.getInstance().deserialize("{}", type);
+                        TypeToken<T> typeToken = new TypeToken<T>() {
+                        };
+                        Type type = typeToken.getType();
+                        T t;
+                        try {
+                            t = (T) new ArrayList<>();
+                        } catch (Throwable e) {
+                            t = Serializer.getInstance().deserialize("{}", type);
+                        }
                         return Observable.just(t);
                     }
                     return Observable.just(result.getData());

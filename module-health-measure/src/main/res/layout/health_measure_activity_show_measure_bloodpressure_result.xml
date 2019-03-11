@@ -455,6 +455,7 @@
                           android:textColor="@color/white"
                           android:textSize="48pt"
                           android:gravity="center"
+                          android:visibility="gone"
                           app:layout_constraintBottom_toBottomOf="@id/tv_something_advice"
                           app:layout_constraintLeft_toRightOf="@id/tv_something_advice"
                           app:layout_constraintRight_toRightOf="parent"

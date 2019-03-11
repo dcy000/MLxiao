@@ -931,10 +931,10 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(youjiao|youjiaowenyu|ertongyoujiao|jiaoxiaohai|ertongyule).*")) {
-                startActivity(ChildEduHomeActivity.class);
-                return;
-            }
+//            if (inSpell.matches(".*(youjiao|youjiaowenyu|ertongyoujiao|jiaoxiaohai|ertongyule).*")) {
+//                startActivity(ChildEduHomeActivity.class);
+//                return;
+//            }
 
             if (inSpell.matches(".*(gushi|tangshisongci|songci|tangshi).*") || result.matches(".*古诗.*")) {
                 startActivity(ChildEduPoemListActivity.class);

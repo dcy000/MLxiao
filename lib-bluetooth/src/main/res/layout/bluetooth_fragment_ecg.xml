@@ -70,7 +70,7 @@
         android:layout_marginRight="100pt"
         android:background="@drawable/bluetooth_btn_health_history_set"
         android:gravity="center"
-        android:visibility="visible"
+        android:visibility="gone"
         android:text="下一步"
         android:textColor="#FFFFFF"
         android:textSize="56pt"
