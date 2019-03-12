@@ -1,5 +1,6 @@
 package com.example.han.referralproject.recyclerview;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -70,6 +71,7 @@ public class DoctorappoActivity2 extends BaseActivity implements View.OnClickLis
         mLlPhoneFamily = (LinearLayout) findViewById(R.id.ll_phone_family);
         mLlPhoneFamily.setOnClickListener(this);
     }
+
     public void getDoctorInfo() {
         NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
             @Override
@@ -99,6 +101,7 @@ public class DoctorappoActivity2 extends BaseActivity implements View.OnClickLis
             }
         });
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -107,11 +110,11 @@ public class DoctorappoActivity2 extends BaseActivity implements View.OnClickLis
             case R.id.circleImageView1:
                 break;
             case R.id.ll_phone_family:
-                if (TextUtils.isEmpty(doctorId)){
+                if (TextUtils.isEmpty(doctorId)) {
                     ToastUtils.showShort("呼叫医生失败");
                     return;
                 }
-                NimCallActivity.launch(this, "docter_" + doctorId);
+                NimCallActivity.launchNoCheck(this, "docter_" + doctorId);
                 break;
         }
     }
