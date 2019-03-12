@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -79,7 +80,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             backMainActivity();
             finish();
         } else {
-            if (servicePackage.equals("1") || servicePackage.equals("2")) {
+            if (!TextUtils.isEmpty(servicePackage)&&servicePackage.equals("1") || servicePackage.equals("2")) {
                 showQuitDialog(false);
             } else {
                 finish();
@@ -177,7 +178,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
             jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
         } else if (i == R.id.ll_san) {
-            measureType = IPresenter.MEASURE_OTHERS;
+            measureType = IPresenter.MEASURE_THREE;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
             jump2MeasureVideoPlayActivity(uri, "三合一测量演示视频");
         } else if (i == R.id.ll_tizhong) {

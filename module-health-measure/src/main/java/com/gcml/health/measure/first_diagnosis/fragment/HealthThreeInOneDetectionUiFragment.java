@@ -4,14 +4,14 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
-import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
-import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
+import com.gcml.module_blutooth_devices.three.ThreeInOneFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class HealthThreeInOneDetectionUiFragment extends ThreeInOne_Fragment {
+public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
     private ArrayList<DetectionData> datas = new ArrayList<>();
     private boolean isJump2Next = false;
     private DetectionData sugarData;

@@ -6,14 +6,15 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.lib_sub_bluetooth.BaseBluetooth;
-import com.gcml.lib_sub_bluetooth.BluetoothStore;
-import com.gcml.lib_sub_bluetooth.BluetoothType;
-import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+import com.gcml.module_blutooth_devices.base.BluetoothStore;
+import com.gcml.module_blutooth_devices.base.BluetoothType;
+import com.gcml.module_blutooth_devices.base.IBluetoothView;
 import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
 import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 
@@ -27,17 +28,13 @@ public class SocketPresenter extends BaseBluetooth {
     private boolean isOpen;
     private ITestView view;
     private boolean isConnected=false;
-    public SocketPresenter(LifecycleOwner owner) {
+
+    public SocketPresenter(IBluetoothView owner) {
         super(owner);
         if (owner instanceof ITestView) {
             view = (ITestView) owner;
         }
         start(BluetoothType.BLUETOOTH_TYPE_BLE, null,"AxaSmartSocket");
-    }
-
-    @Override
-    protected void noneFind() {
-
     }
 
     private static final String TAG = "SocketPresenter";
@@ -81,6 +78,21 @@ public class SocketPresenter extends BaseBluetooth {
     protected void disConnected(String address) {
         isConnected=false;
         ToastUtils.showShort("设备已断开");
+    }
+
+    @Override
+    protected void saveSP(String sp) {
+
+    }
+
+    @Override
+    protected String obtainSP() {
+        return null;
+    }
+
+    @Override
+    protected HashMap<String, String> obtainBrands() {
+        return null;
     }
 
     private byte[] verification() {

@@ -96,7 +96,7 @@ public interface IPresenter {
     /**
      * 测量三合一
      */
-    int MEASURE_OTHERS = 26;
+    int MEASURE_THREE = 26;
     /**
      * 测量心电
      */
@@ -117,6 +117,10 @@ public interface IPresenter {
      * 手环数据同步
      */
     int MEASURE_HAND_RING=32;
+    /**
+     * 测量身高
+     */
+    int MEASURE_HEIGHT=33;
 
     /**
      * 检查蓝牙是否已开
@@ -132,13 +136,6 @@ public interface IPresenter {
      * 连接设备
      */
     void connectDevice(String macAddress);
-
-    /**
-     * 连接其他设备
-     *
-     * @param setting
-     */
-    void connectOtherDevice(DiscoverDevicesSetting setting);
     void onResume();
     void onDestroy();
 }

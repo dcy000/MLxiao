@@ -1,33 +1,21 @@
 package com.gcml.health.measure.bloodpressure_habit;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
-import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.bloodpressure_habit.fragment.GetHypertensionHandFragment;
-import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
-import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.inuker.bluetooth.library.utils.BluetoothUtils;
-
-import java.lang.reflect.Method;
-import java.util.List;
-
-import timber.log.Timber;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -120,7 +108,8 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        untieDevice();
+                        fragment.autoConnect();
+                        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {
@@ -129,43 +118,5 @@ public class GetHypertensionHandActivity extends ToolbarBaseActivity implements 
 
                     }
                 }).show();
-    }
-
-    private void untieDevice() {
-        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
-        unpairDevice();
-        String nameAddress = null;
-        nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
-        SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
-        ((Bloodpressure_Fragment) fragment).onStop();
-        ((Bloodpressure_Fragment) fragment).dealLogic();
-
-        clearBluetoothCache(nameAddress);
-    }
-
-    /**
-     * 解除已配对设备
-     */
-    private void unpairDevice() {
-        List<BluetoothDevice> devices = BluetoothUtils.getBondedBluetoothClassicDevices();
-        for (BluetoothDevice device : devices) {
-            try {
-                Method m = device.getClass()
-                        .getMethod("removeBond", (Class[]) null);
-                m.invoke(device, (Object[]) null);
-            } catch (Exception e) {
-                Timber.e(e.getMessage());
-            }
-        }
-
-    }
-
-    private void clearBluetoothCache(String nameAddress) {
-        if (!TextUtils.isEmpty(nameAddress)) {
-            String[] split = nameAddress.split(",");
-            if (split.length == 2 && !TextUtils.isEmpty(split[1])) {
-                BluetoothClientManager.getClient().refreshCache(split[1]);
-            }
-        }
     }
 }

@@ -14,7 +14,7 @@ import com.gcml.health.measure.hypertension_management.BloodsugarManagerActivity
 import com.gcml.health.measure.hypertension_management.WeightManagerActivity;
 import com.gcml.health.measure.single_measure.AllMeasureActivity;
 import com.gcml.health.measure.single_measure.MeasureChooseDeviceActivity;
-import com.gcml.module_blutooth_devices.ecg_devices.ECG_PDF_Fragment;
+import com.gcml.module_blutooth_devices.ecg.ECG_PDF_Fragment;
 
 import timber.log.Timber;
 
@@ -94,13 +94,13 @@ public class HealthMeasureCC implements IComponent {
                 Object servicePackageUUID = cc.getParamItem("ServicePackageUUID");
                 if (paramItem != null) {
                     if (servicePackageType != null) {
-                        MeasureChooseDeviceActivity.startActivity(context, (Boolean) paramItem, servicePackageType.toString(),servicePackageUUID.toString());
+                        MeasureChooseDeviceActivity.startActivity(context, (Boolean) paramItem, servicePackageType.toString(), servicePackageUUID.toString());
                     } else {
                         MeasureChooseDeviceActivity.startActivity(context, (Boolean) paramItem);
                     }
                 } else {
                     if (servicePackageType != null) {
-                        MeasureChooseDeviceActivity.startActivity(context, false, servicePackageType.toString(),servicePackageUUID.toString());
+                        MeasureChooseDeviceActivity.startActivity(context, false, servicePackageType.toString(), servicePackageUUID.toString());
                     } else {
                         MeasureChooseDeviceActivity.startActivity(context, false);
                     }
