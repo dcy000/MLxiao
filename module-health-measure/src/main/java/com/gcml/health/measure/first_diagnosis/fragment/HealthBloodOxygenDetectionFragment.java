@@ -3,14 +3,14 @@ package com.gcml.health.measure.first_diagnosis.fragment;
 import android.annotation.SuppressLint;
 import android.view.View;
 
+import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.R;
-import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
-import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
+import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import io.reactivex.schedulers.Schedulers;
  * created by:gzq
  * description:TODO
  */
-public class HealthBloodOxygenDetectionFragment extends Bloodoxygen_Fragment {
+public class HealthBloodOxygenDetectionFragment extends BloodOxygenFragment {
     private boolean isJump2Next = false;
 
     @Override

@@ -6,8 +6,10 @@ import android.content.res.Configuration;
 import android.nfc.tech.NfcA;
 import android.support.multidex.MultiDex;
 
+import com.billy.cc.core.component.CC;
 import com.gcml.common.AppDelegate;
 
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.lib_video_ksyplayer.KSYPlayer;
@@ -48,7 +50,11 @@ public class MyApp extends Application {
         SpeechUtility.createUtility(this, builder.toString());
         BluetoothClientManager.init(this);
         initVideoPlay();
-        UiUtils.init(this,1920,1200);
+        UiUtils.init(this, 1920, 1200);
+        //支持多进程
+        CC.enableRemoteCC(true);
+        //测试使用的ID:15181438908
+        UserSpHelper.setUserId("100130");
     }
 
     @Override
@@ -58,6 +64,7 @@ public class MyApp extends Application {
     }
 
     public static final int PLAN_ID_KSY = 1;
+
     private void initVideoPlay() {
         PlayerConfig.addDecoderPlan(new DecoderPlan(PLAN_ID_KSY, KSYPlayer.class.getName(), "Ksyplayer"));
         PlayerConfig.setDefaultPlanId(PLAN_ID_KSY);

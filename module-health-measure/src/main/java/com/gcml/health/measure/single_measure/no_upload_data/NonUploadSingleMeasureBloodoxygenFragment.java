@@ -1,7 +1,7 @@
 package com.gcml.health.measure.single_measure.no_upload_data;
 
 import com.gcml.common.utils.UtilsManager;
-import com.gcml.module_blutooth_devices.bloodoxygen_devices.Bloodoxygen_Fragment;
+import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 /**
@@ -11,7 +11,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
  * created by:gzq
  * description:TODO
  */
-public class NonUploadSingleMeasureBloodoxygenFragment extends Bloodoxygen_Fragment {
+public class NonUploadSingleMeasureBloodoxygenFragment extends BloodOxygenFragment {
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 2) {

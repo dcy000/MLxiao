@@ -295,6 +295,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                                     boolean skip = "skip".equals(result.getErrorMessage());
                                                     if (result.isSuccess() || skip) {
                                                         startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip",skip));
+//                                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
                                                     } else {
                                                         ToastUtils.showShort(result.getErrorMessage());
                                                     }

@@ -1,7 +1,6 @@
 package com.gcml.health.measure.first_diagnosis;
 
 import android.app.Application;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,8 +17,8 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
-import com.gcml.common.utils.data.SPUtil;
 import com.gcml.common.widget.dialog.AlertDialog;
+import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.bean.FirstDiagnosisBean;
@@ -36,24 +35,17 @@ import com.gcml.health.measure.first_diagnosis.fragment.HealthTemperatureDetecti
 import com.gcml.health.measure.first_diagnosis.fragment.HealthThreeInOneDetectionUiFragment;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
 import com.gcml.health.measure.health_report_form.HealthReportFormActivity;
-import com.gcml.health.measure.R;
 import com.gcml.health.measure.single_measure.fragment.ChooseECGDeviceFragment;
-import com.gcml.health.measure.single_measure.fragment.SelfECGDetectionFragment;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
-import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
+import com.gcml.module_blutooth_devices.ecg.ECGFragment;
+import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.inuker.bluetooth.library.utils.BluetoothUtils;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import timber.log.Timber;
 
 
 /**
@@ -194,7 +186,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("三 合 一 测 量");
                 fragment = new HealthThreeInOneDetectionUiFragment();
-                measureType = IPresenter.MEASURE_OTHERS;
+                measureType = IPresenter.MEASURE_THREE;
                 fragment.setArguments(bundle);
                 break;
             case "HealthWeightDetectionUiFragment":
@@ -271,7 +263,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         if (fragment instanceof ChooseECGDeviceFragment){
             isShowSelectECGDevice=false;
             if (bundle!=null){
-                ecgDevice = bundle.getInt(Bluetooth_Constants.SP.SP_SAVE_DEVICE_ECG, 1);
+                ecgDevice = bundle.getInt(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG, 1);
             }
         }
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
@@ -346,7 +338,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                             ChooseECGDeviceFragment.class.getSimpleName(), uri, "测量心电演示视频");
                     firstDiagnosisBeans.add(ecgSelectDevice);
                     FirstDiagnosisBean ecg = new FirstDiagnosisBean(
-                            ECG_Fragment.class.getSimpleName(), null, null);
+                            ECGFragment.class.getSimpleName(), null, null);
                     firstDiagnosisBeans.add(ecg);
                     break;
                 case 6:
@@ -443,93 +435,12 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        untieDevice();
+                        fragment.autoConnect();
+                        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
+
                     }
 
                 }).show();
-    }
-
-    private void untieDevice() {
-        mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
-        unpairDevice();
-        String nameAddress = null;
-        switch (measureType) {
-            case IPresenter.MEASURE_BLOOD_PRESSURE:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODPRESSURE);
-                if (TextUtils.isEmpty(userId)) {
-                    ((HealthBloodDetectionUiFragment) fragment).onStop();
-                    ((HealthBloodDetectionUiFragment) fragment).dealLogic();
-                } else {
-                    //如果本地缓存的有惯用手数据则只需测量一次，如果没有则需要惯用手判断
-                    if (TextUtils.isEmpty(userHypertensionHand)) {
-                        ((HealthBloodDetectionUiFragment) fragment).onStop();
-                        ((HealthBloodDetectionUiFragment) fragment).dealLogic();
-                    } else {
-                        ((HealthBloodDetectionOnlyOneFragment) fragment).onStop();
-                        ((HealthBloodDetectionOnlyOneFragment) fragment).dealLogic();
-                    }
-                }
-                break;
-            case IPresenter.MEASURE_ECG:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_ECG, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_ECG);
-                if (fragment instanceof HealthECGDetectionFragment) {
-                    ((HealthECGDetectionFragment) fragment).startDiscovery();
-                } else if (fragment instanceof ECG_Fragment) {
-                    ((HealthECGBoShengFragment) fragment).onStop();
-                    ((ECG_Fragment) fragment).dealLogic();
-                }
-                break;
-            case IPresenter.MEASURE_BLOOD_SUGAR:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BLOODSUGAR);
-                ((HealthSugarDetectionUiFragment) fragment).onStop();
-                ((HealthSugarDetectionUiFragment) fragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_WEIGHT:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_WEIGHT);
-                ((HealthWeightDetectionUiFragment) fragment).onStop();
-                ((HealthWeightDetectionUiFragment) fragment).dealLogic();
-                break;
-            case IPresenter.MEASURE_OTHERS:
-                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE, "");
-                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_THREE_IN_ONE);
-                ((HealthThreeInOneDetectionUiFragment) fragment).onStop();
-                ((HealthThreeInOneDetectionUiFragment) fragment).dealLogic();
-                break;
-            default:
-                break;
-        }
-
-        clearBluetoothCache(nameAddress);
-    }
-
-    /**
-     * 解除已配对设备
-     */
-    private void unpairDevice() {
-        List<BluetoothDevice> devices = BluetoothUtils.getBondedBluetoothClassicDevices();
-        for (BluetoothDevice device : devices) {
-            try {
-                Method m = device.getClass()
-                        .getMethod("removeBond", (Class[]) null);
-                m.invoke(device, (Object[]) null);
-            } catch (Exception e) {
-                Timber.e(e.getMessage());
-            }
-        }
-
-    }
-
-    private void clearBluetoothCache(String nameAddress) {
-        if (!TextUtils.isEmpty(nameAddress)) {
-            String[] split = nameAddress.split(",");
-            if (split.length == 2 && !TextUtils.isEmpty(split[1])) {
-                BluetoothClientManager.getClient().refreshCache(split[1]);
-            }
-        }
     }
 
     @Override

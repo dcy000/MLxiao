@@ -1,7 +1,7 @@
 package com.gcml.health.measure.test;
 
+import android.bluetooth.BluetoothDevice;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -10,19 +10,15 @@ import android.widget.VideoView;
 
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
-import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.health.measure.R;
-import com.gcml.lib_sub_bluetooth.BluetoothStore;
 import com.gcml.lib_widget.CircleImageView;
 
-import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 import static android.media.MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING;
 
@@ -50,7 +46,6 @@ public class TestWuhuaqiActivity extends ToolbarBaseActivity implements ITestVie
     }
 
     private void initBluetooth() {
-        BluetoothStore.init(this.getApplication());
         socketPresenter = new SocketPresenter(this);
     }
 
@@ -178,5 +173,20 @@ public class TestWuhuaqiActivity extends ToolbarBaseActivity implements ITestVie
     protected void onDestroy() {
         super.onDestroy();
         mVideo.stopPlayback();
+    }
+
+    @Override
+    public void updateData(String... datas) {
+
+    }
+
+    @Override
+    public void updateState(String state) {
+
+    }
+
+    @Override
+    public void discoveryNewDevice(BluetoothDevice device) {
+
     }
 }

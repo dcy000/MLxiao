@@ -15,7 +15,6 @@ ext {
             baidubce      : "\"https://aip.baidubce.com/\"",
 
             localtest     : "\"http://192.168.191.1:8080/\"",//成都演示本地服务器
-            hegui         : "\"http://47.110.60.249:8080/\"",//合规版
             heguiXunfei   : "\"http://47.96.98.60:8030/\"",//合规版讯飞人脸识别
             heguiProduce  : "\"http://47.110.60.249:8090/\""//合规版正式服务器
     ]

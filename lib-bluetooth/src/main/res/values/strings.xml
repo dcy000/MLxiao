@@ -2,4 +2,6 @@
     <string name="app_name">module_blutooth_devices</string>、
     <string name="bluetooth_device_connected">设备已连接</string>
     <string name="bluetooth_device_disconnected">设备已断开</string>
+    <string name="bluetooth_device_connect_fail">蓝牙连接失败</string>
+    <string name="unfind_devices">未搜索到设备</string>
 </resources>
