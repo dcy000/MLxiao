@@ -36,14 +36,7 @@ public class BluetoothSearchHelper {
             search = new MySearch(names);
         }
         isOnSearching = true;
-        Observable.create(new ObservableOnSubscribe<Object>() {
-            @Override
-            public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
-                BluetoothStore.getClient().search(request, search);
-            }
-        }).subscribeOn(Schedulers.single());
-
-
+        BluetoothStore.getClient().search(request, search);
     }
 
     public void searchBle(int periodMill, int times, SearchListener listener, String... names) {
@@ -107,7 +100,7 @@ public class BluetoothSearchHelper {
 
         @Override
         public void onSearchStopped() {
-            Timber.i(">>>>>=======>>>>bluetooth stopped>>>Thread:"+Thread.currentThread().getName());
+            Timber.i(">>>>>=======>>>>bluetooth stopped>>>Thread:" + Thread.currentThread().getName());
             Timber.i("bluetooth searched " + (System.currentTimeMillis() - searchTime) + " millisecond");
             searchTime = 0L;
             isOnSearching = false;
@@ -130,12 +123,14 @@ public class BluetoothSearchHelper {
             }
         }
     }
-    public synchronized void stop(){
+
+    public synchronized void stop() {
         Timber.i("BluetoothSearchHelper>>>>===>>>stop");
-        isOnSearching=false;
+        isOnSearching = false;
         BluetoothStore.getClient().stopSearch();
-        isFindOne=false;
+        isFindOne = false;
     }
+
     public synchronized void clear() {
         Timber.i("BluetoothSearchHelper>>>>===>>>clear");
         isClear = true;
