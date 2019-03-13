@@ -40,6 +40,7 @@ public class WeightPresenter extends BaseBluetooth {
             return;
         }
         if (name.startsWith("iChoice")) {
+            CHAOSI_SERVICE = "ba11f08c-5f14-0b0d-1070-00" + address.toLowerCase().replace(":", "").substring(2);
             handleChaosi(address);
             return;
         }
