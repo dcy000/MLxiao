@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -28,13 +29,14 @@ public class ReceiveService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        init();
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-        init();
+//        init();
     }
 
     @Override
@@ -46,7 +48,7 @@ public class ReceiveService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return new Binder();
     }
 
     private void init() {

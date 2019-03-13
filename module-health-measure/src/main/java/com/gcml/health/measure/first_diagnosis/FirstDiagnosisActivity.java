@@ -158,7 +158,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 mRightView.setImageResource(R.drawable.common_icon_home);
                 isShowSelectECGDevice=true;
                 break;
-            case "ECG_Fragment":
+            case "ECGFragment":
                 mToolbar.setVisibility(View.VISIBLE);
                 mTitleText.setText("心 电 测 量");
                 if (ecgDevice==1){
@@ -204,7 +204,7 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 .beginTransaction()
                 .replace(R.id.frame_layout, fragment)
                 .commitAllowingStateLoss();
-    }
+}
 
     /**
      * 将需要测量的设备放在一个有序集合中，按照先后顺序来配置即可
