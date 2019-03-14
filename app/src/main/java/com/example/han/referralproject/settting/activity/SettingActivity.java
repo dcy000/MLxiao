@@ -30,7 +30,7 @@ import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
-public class SettingActivity extends AppCompatActivity implements View.OnClickListener{
+public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
     TranslucentToolBar mToolBar;
     TextView mVoice, mWifi, mKeyword, mInformant, mTalktype, mUpdate, mAbout, mReset, mClearcache;
@@ -195,9 +195,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                         //恢复出厂设置
                         UserSpHelper.clear(getApplicationContext());
                         CC.obtainBuilder("com.gcml.auth.face.deleteGroup")
-                                .build()
-                                .callAsync();
-                        CC.obtainBuilder("com.gcml.auth.deleteUsers")
                                 .build()
                                 .callAsync();
                         Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);

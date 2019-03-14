@@ -28,7 +28,6 @@ public class UserRepository {
     private Context mContext = AppDelegate.INSTANCE.app();
 
 
-
     private UserService mUserService = RetrofitHelper.service(UserService.class);
 
     private UserDao mUserDao = RoomHelper.db(UserDb.class, UserDb.class.getName()).userDao();
@@ -185,13 +184,7 @@ public class UserRepository {
 
     public Observable<UserEntity> fetchUser(String userId) {
         return mUserService.getProfile(userId)
-                .compose(RxUtils.apiResultTransformer())
-                .doOnNext(new Consumer<UserEntity>() {
-                    @Override
-                    public void accept(UserEntity userEntity) throws Exception {
-                        mUserDao.addAll(userEntity);
-                    }
-                });
+                .compose(RxUtils.apiResultTransformer());
     }
 
     /**
