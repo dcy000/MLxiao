@@ -87,7 +87,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
                 sugarData.setSugarTime(selectMeasureSugarTime);
                 sugarData.setBloodSugar(Float.parseFloat(results[1]));
                 datas.add(sugarData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + sugarData.getBloodSugar());
+//                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + sugarData.getBloodSugar());
                 uploadData(datas);
             }
             if (results[0].equals("cholesterol")) {
@@ -95,7 +95,8 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
                 cholesterolData.setDetectionType("7");
                 cholesterolData.setCholesterol(Float.parseFloat(results[1]));
                 datas.add(cholesterolData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量胆固醇" + cholesterolData.getCholesterol());
+
+//                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量胆固醇" + cholesterolData.getCholesterol());
                 uploadData(datas);
             }
 
@@ -105,7 +106,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
                 lithicAcidData.setUricAcid(Float.parseFloat(results[1]));
 
                 datas.add(lithicAcidData);
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + lithicAcidData.getUricAcid());
+//                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + lithicAcidData.getUricAcid());
                 uploadData(datas);
             }
         }
