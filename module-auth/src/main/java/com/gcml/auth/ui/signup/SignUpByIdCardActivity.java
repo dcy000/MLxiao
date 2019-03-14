@@ -269,7 +269,7 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity userEntity) {
-                        CC.obtainBuilder("com.gcml.auth.face.signup")
+                        CC.obtainBuilder("com.gcml.auth.face2.signup")
                                 .build()
                                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
                                     @Override
