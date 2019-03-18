@@ -53,6 +53,7 @@ public interface AppServer {
 
     /**
      * 购买套餐预支付
+     *
      * @param userId
      * @param price
      * @param description
@@ -66,10 +67,9 @@ public interface AppServer {
     );
 
     /**
-     *
      * 获取指定订单号的订单状态
      */
-    @GET("ZZB/order/set_meal_buy")
+    @GET("ZZB/order/selSetmealByOrderid")
     Observable<ApiResult<Object>> getOrderStarte(
             @Query("orderid") String userId
     );

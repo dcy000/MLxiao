@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.data.DataUtils;
-import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
+import com.gcml.module_blutooth_devices.bloodsugar.BloodSugarFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 /**
@@ -14,7 +14,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
  * created by:gzq
  * description:TODO
  */
-public class NonUploadSingleMeasureBloodsugarFragment extends Bloodsugar_Fragment {
+public class NonUploadSingleMeasureBloodsugarFragment extends BloodSugarFragment {
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {

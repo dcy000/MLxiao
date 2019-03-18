@@ -21,7 +21,7 @@ import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.single_measure.ShowMeasureBloodpressureResultActivity;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
+import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ import static android.app.Activity.RESULT_OK;
  * created by:gzq
  * description:单次血压测量
  */
-public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
+public class SingleMeasureBloodpressureFragment extends BloodpressureFragment {
     private static final int CODE_REQUEST_ABNORMAL = 10001;
     private static final int CODE_REQUEST_GETHYPERTENSIONHAND = 10002;
     private ArrayList<DetectionData> datas;
@@ -232,7 +232,7 @@ public class SingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
                 mActivity.finish();
             } else {
                 getHypertensionHand();
-                dealLogic();
+                autoConnect();
             }
         }
 

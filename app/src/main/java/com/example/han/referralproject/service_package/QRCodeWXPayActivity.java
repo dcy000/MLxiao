@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -24,6 +25,9 @@ import com.example.han.referralproject.util.Utils;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.google.gson.internal.LinkedTreeMap;
+
+import org.w3c.dom.Text;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -242,16 +246,21 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new DefaultObserver<Object>() {
                                 @Override
-                                public void onNext(Object o) {
-                                    Message msg = mHandler.obtainMessage();
-                                    sign = true;
-                                    msg.what = 2;
-                                    mHandler.sendMessage(msg);
+                                public void onNext(Object bean) {
+
+                                    if (bean instanceof LinkedTreeMap) {
+                                        if (((LinkedTreeMap) bean).size() != 0) {
+                                            Message msg = mHandler.obtainMessage();
+                                            sign = false;
+                                            msg.what = 2;
+                                            mHandler.sendMessage(msg);
+                                        }
+                                    }
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
-                                    ToastUtils.showShort(e.getMessage());
+//                                    ToastUtils.showShort(e.getMessage());
                                 }
 
                                 @Override

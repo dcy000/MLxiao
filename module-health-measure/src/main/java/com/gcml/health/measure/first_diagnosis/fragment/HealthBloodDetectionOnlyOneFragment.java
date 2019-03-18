@@ -1,26 +1,23 @@
 package com.gcml.health.measure.first_diagnosis.fragment;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.Lifecycle;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
-import com.gcml.common.utils.RxUtils;
-
-import android.content.Intent;
-import android.text.TextUtils;
-
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.bloodpressure_habit.GetHypertensionHandActivity;
-import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
-import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
+import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -39,7 +36,7 @@ import static android.app.Activity.RESULT_OK;
  * created by:gzq
  * description:单独给流程化测试中使用的Fragment
  */
-public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment {
+public class HealthBloodDetectionOnlyOneFragment extends BloodpressureFragment {
     private boolean isJump2Next = false;
     private static final int CODE_REQUEST_GETHYPERTENSIONHAND = 10002;
 
@@ -161,7 +158,7 @@ public class HealthBloodDetectionOnlyOneFragment extends Bloodpressure_Fragment 
                 mActivity.finish();
             } else {
                 getHypertensionHand();
-                dealLogic();
+                autoConnect();
             }
         }
     }

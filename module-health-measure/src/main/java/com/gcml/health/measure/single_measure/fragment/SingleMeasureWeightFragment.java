@@ -8,15 +8,15 @@ import android.view.View;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
-import com.gcml.common.utils.RxUtils;
 import com.gcml.common.recommend.bean.post.DetectionData;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
+import com.gcml.module_blutooth_devices.weight.WeightFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ import timber.log.Timber;
  * created by:gzq
  * description:单次体重测量
  */
-public class SingleMeasureWeightFragment extends Weight_Fragment {
+public class SingleMeasureWeightFragment extends WeightFragment {
 
     private boolean isMeasureTask = false;
 

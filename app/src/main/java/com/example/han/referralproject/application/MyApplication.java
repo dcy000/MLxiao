@@ -2,8 +2,6 @@
 package com.example.han.referralproject.application;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -21,20 +19,16 @@ import com.example.han.referralproject.homepage.HomepageWeatherBean;
 import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.new_music.LibMusicPlayer;
 import com.example.han.referralproject.new_music.Preferences;
-import com.example.han.referralproject.util.LocalShared;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
-
 import com.gcml.common.AppDelegate;
 import com.gcml.common.OkHttpClientHelper;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.location.BdLocationHelper;
-
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.data.LunarUtils;
 import com.gcml.common.utils.data.TimeUtils;
 import com.gcml.common.utils.ui.UiUtils;
 import com.gcml.lib_video_ksyplayer.KSYPlayer;
-import com.gcml.module_blutooth_devices.base.BluetoothClientManager;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;
@@ -119,8 +113,6 @@ public class MyApplication extends Application {
 //        LeakCanary.install(this);
         LibMusicPlayer.init(this);
         Preferences.init(this);
-        //初始化蓝牙连接库
-        BluetoothClientManager.init(this);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.UMAnalyticsConfig umConfig = new MobclickAgent.UMAnalyticsConfig(
                 this,
@@ -134,7 +126,7 @@ public class MyApplication extends Application {
         mInstance = this;
         WakeupHelper.init(this);
 
-//        BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");
+//        BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");//自己
         BeeCloud.setAppIdAndSecret("91ee2a0a-661d-4d81-8979-547124be340d", "b8b53d06-5571-404a-bda2-a1d0b8bca0e8");
 
         //初始化极光

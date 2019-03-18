@@ -10,7 +10,7 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.health.measure.bloodpressure_habit.GetHypertensionHandActivity;
-import com.gcml.module_blutooth_devices.bloodpressure_devices.Bloodpressure_Fragment;
+import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import static android.app.Activity.RESULT_OK;
@@ -22,9 +22,10 @@ import static android.app.Activity.RESULT_OK;
  * created by:gzq
  * description:不需要上传测量数据的单测
  */
-public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_Fragment {
+public class NonUploadSingleMeasureBloodpressureFragment extends BloodpressureFragment {
     private static final int CODE_REQUEST_GETHYPERTENSIONHAND = 10002;
-    private boolean isOnPause=false;
+    private boolean isOnPause = false;
+
     @Override
     protected void initView(View view, Bundle bundle) {
         super.initView(view, bundle);
@@ -35,7 +36,7 @@ public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_F
     @SuppressLint("CheckResult")
     @Override
     protected void onMeasureFinished(String... results) {
-        if (results.length == 3&&!isOnPause) {
+        if (results.length == 3 && !isOnPause) {
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
                     "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
         }
@@ -75,13 +76,13 @@ public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_F
     @Override
     public void onResume() {
         super.onResume();
-        isOnPause=false;
+        isOnPause = false;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        isOnPause=true;
+        isOnPause = true;
     }
 
     @Override
@@ -92,7 +93,7 @@ public class NonUploadSingleMeasureBloodpressureFragment extends Bloodpressure_F
                 mActivity.finish();
             } else {
                 getHypertensionHand();
-                dealLogic();
+                autoConnect();
             }
         }
     }

@@ -65,12 +65,16 @@ public class CCHealthMeasureActions {
      * @param isFaceSkip
      */
     public static void jump2MeasureChooseDeviceActivity(boolean isFaceSkip) {
-        CCResult call = CC.obtainBuilder(MODULE_NAME)
-                .setActionName(SendActionNames.SINGLE_MEASURE)
-                .addParam(SendKeys.KEY_EXTRA_CLICK_FACE_SKIP, isFaceSkip)
+//        CCResult call = CC.obtainBuilder(MODULE_NAME)
+//                .setActionName(SendActionNames.SINGLE_MEASURE)
+//                .addParam(SendKeys.KEY_EXTRA_CLICK_FACE_SKIP, isFaceSkip)
+//                .build()
+//                .call();
+        CC.obtainBuilder("com.gcml.health.measure")
+                .setActionName("SingleMeasure")
+                .addParam("isFaceSkip",isFaceSkip)
                 .build()
                 .call();
-        Timber.d("CCHealthMeasureActions>>>>>>>>>" + call.toString());
     }
 
     /**

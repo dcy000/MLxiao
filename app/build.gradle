@@ -58,7 +58,7 @@ dependencies {
     implementation project(':lib-widget')
     implementation project(':module-edu')
     implementation project(':lib-baidu-unit')
-    implementation(project(':lib-bluetooth')) { exclude group: "com.android.support" }
+//    implementation(project(':lib-bluetooth')) { exclude group: "com.android.support" }
     implementation project(':lib-pay-beecloud')
     implementation project(':lib-progress-orb')
     implementation project(':module-control-volume')

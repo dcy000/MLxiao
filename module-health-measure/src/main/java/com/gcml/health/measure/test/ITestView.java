@@ -1,6 +1,8 @@
 package com.gcml.health.measure.test;
 
-public interface ITestView {
+import com.gcml.module_blutooth_devices.base.IBluetoothView;
+
+public interface ITestView extends IBluetoothView {
     void openedState();
     void closeedState();
 }

@@ -5,14 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
 import com.gcml.common.data.AppManager;
-import com.gcml.common.utils.data.SPUtil;
 import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCResultActions;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthWeightDetectionUiFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.utils.Bluetooth_Constants;
-import com.gcml.module_blutooth_devices.weight_devices.Weight_Fragment;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -43,14 +41,8 @@ public class WeightManagerActivity extends BaseManagementActivity {
 
     @Override
     protected void untieDevice() {
-        super.untieDevice();
+        baseFragment.autoConnect();
         mRightView.setImageResource(R.drawable.health_measure_ic_bluetooth_disconnected);
-        //体重
-        String nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_WEIGHT, "");
-        SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_WEIGHT);
-        ((Weight_Fragment) baseFragment).onStop();
-        ((Weight_Fragment) baseFragment).dealLogic();
-        clearBluetoothCache(nameAddress);
     }
 
     @Override

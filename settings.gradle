@@ -3,7 +3,7 @@ include ':app', ':module-factory-test',
         ':lib-common-core',
         ':lib-common-business',
         ':lib-common-app',
-        ':component-cc', ':lib-common-core', ':module-auth-face2'
+        ':component-cc', ':lib-common-core', ':module-auth-face2', ':lib-bluetooth'
 
 // 支持模块
 include ':lib-baidu-unit',
@@ -15,8 +15,8 @@ include ':lib-baidu-unit',
         ':lib-progress-orb',
         ':lib-voice',
         ':lib-widget',
-        ':lib-bluetooth',
-        ':lib-sub-bluetooth',
+//        ':lib-bluetooth',
+//        ':lib-sub-bluetooth',
         ':lib-video'
 
 // 业务模块

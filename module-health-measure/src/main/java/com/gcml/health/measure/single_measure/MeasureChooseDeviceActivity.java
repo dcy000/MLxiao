@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -79,7 +80,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             backMainActivity();
             finish();
         } else {
-            if (servicePackage.equals("1") || servicePackage.equals("2")) {
+            if (!TextUtils.isEmpty(servicePackage)&&servicePackage.equals("1") || servicePackage.equals("2")) {
                 showQuitDialog(false);
             } else {
                 finish();
@@ -177,7 +178,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
             jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
         } else if (i == R.id.ll_san) {
-            measureType = IPresenter.MEASURE_OTHERS;
+            measureType = IPresenter.MEASURE_THREE;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
             jump2MeasureVideoPlayActivity(uri, "三合一测量演示视频");
         } else if (i == R.id.ll_tizhong) {
@@ -207,6 +208,9 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             @Override
             public void onResult(CC cc, CCResult result) {
                 String resultAction = result.getDataItem(CCVideoActions.ReceiveResultKeys.KEY_EXTRA_CC_CALLBACK);
+                if (resultAction == null) {
+                    aferVideo();
+                }
                 switch (resultAction) {
                     case CCVideoActions.ReceiveResultActionNames.PRESSED_BUTTON_BACK:
                         //点击了返回按钮
@@ -246,7 +250,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         mTvsanheyi = (TextView) findViewById(R.id.tvsanheyi);
         servicePackage = getIntent().getStringExtra("ServicePackage");
         serviceUUID = getIntent().getStringExtra("ServicePackageUUID");
-        if (servicePackage.equals("1")) {
+        if (servicePackage != null && servicePackage.equals("1")) {
             //套餐1
             mTvxuetang.setBackgroundResource(R.drawable.health_measure_text_bg_gengduo);
             mTvsanheyi.setBackgroundResource(R.drawable.health_measure_text_bg_gengduo);

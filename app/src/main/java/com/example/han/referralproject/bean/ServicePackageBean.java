@@ -24,6 +24,7 @@ public class ServicePackageBean {
     private String deletionState;
     private String setmealId;
     private int userid;
+    public int orderid;
     private String type;
     private String effectiveTime;
     private String effectiveSign;
