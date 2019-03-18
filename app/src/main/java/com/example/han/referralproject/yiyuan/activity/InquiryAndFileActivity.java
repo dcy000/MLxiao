@@ -45,6 +45,7 @@ import com.umeng.analytics.MobclickAgent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.ConnectException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -269,7 +270,11 @@ public class InquiryAndFileActivity extends BaseActivity {
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-                        T.show("网络繁忙");
+                        Throwable exception = response.getException();
+                        if (exception instanceof ConnectException) {
+                            return;
+                        }
+                        showConfirmDialog(ChoiceLoginTypeActivity.class);
                     }
 
                     @Override

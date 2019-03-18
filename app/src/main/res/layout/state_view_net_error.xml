@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.han.referralproject.settting.activity.AboutActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="624pt"
+            android:layout_height="550pt"
+            android:indeterminateTint="#3F86FC"
+            android:src="@drawable/img_state_view_network_error" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26pt"
+            android:text="你的网络不给力，请稍后再试"
+            android:textColor="#ff666666"
+            android:textSize="44pt" />
+
+        <TextView
+            android:id="@+id/tv_net_work_error_retry"
+            android:layout_width="320pt"
+            android:layout_height="120pt"
+            android:layout_marginTop="144pt"
+            android:background="@drawable/bg_network_error_bt"
+            android:gravity="center"
+            android:text="重新加载"
+            android:textColor="#ffffffff"
+            android:textSize="54pt" />
+    </LinearLayout>
+
+</FrameLayout>

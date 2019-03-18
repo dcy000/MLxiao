@@ -172,8 +172,7 @@ public class MyApplication extends Application {
         registerActivityLifecycleCallbacks(callback);
         EHSharedPreferences.initUNITContext(this);
 
-        OkGo.getInstance().init(this)
-                .setRetryCount(1);
+        OkGo.getInstance().init(this).setRetryCount(0);
     }
 
     private void initBugly() {

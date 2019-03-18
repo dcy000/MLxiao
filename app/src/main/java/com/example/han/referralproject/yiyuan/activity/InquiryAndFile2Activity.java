@@ -29,6 +29,8 @@ import com.medlink.danbogh.register.SignUp8WeightActivity;
 import com.medlink.danbogh.utils.T;
 import com.umeng.analytics.MobclickAgent;
 
+import java.net.ConnectException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -64,7 +66,7 @@ public class InquiryAndFile2Activity extends BaseActivity {
     }
 
     private void getBindInfo() {
-        showLoadingDialog("");
+        showLoading("数据加载中,请稍后~");
         NetworkApi.PersonInfo(MyApplication.getInstance().userId, new NetworkManager.SuccessCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo response) {
@@ -78,7 +80,7 @@ public class InquiryAndFile2Activity extends BaseActivity {
                     getFiledInfo();
                 } else {
                     isBindDoctor = false;
-                    hideLoadingDialog();
+                    hideLoading();
                 }
 
             }
@@ -87,7 +89,7 @@ public class InquiryAndFile2Activity extends BaseActivity {
             @Override
             public void onFailed(String message) {
                 T.show(message);
-                hideLoadingDialog();
+                hideLoading();
             }
         });
     }
@@ -102,6 +104,7 @@ public class InquiryAndFile2Activity extends BaseActivity {
                 , new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        hideLoading();
                         if (response == null) {
                             onGetFileStateFailed();
                             return;
@@ -125,13 +128,18 @@ public class InquiryAndFile2Activity extends BaseActivity {
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-                        T.show("网络繁忙");
+                        hideLoading();
+                        Throwable exception = response.getException();
+                        if (exception instanceof ConnectException) {
+                            return;
+                        }
+                        showConfirmDialog(ChoiceLoginTypeActivity.class);
                     }
 
                     @Override
                     public void onFinish() {
                         super.onFinish();
-                        hideLoadingDialog();
+                        hideLoading();
                     }
                 });
 
@@ -143,7 +151,6 @@ public class InquiryAndFile2Activity extends BaseActivity {
     Integer weightModify;
 
     private void getInquiryInfo() {
-        showLoading("");
         NetworkApi.getInquiryInfo(MyApplication.getInstance().userId, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -182,7 +189,6 @@ public class InquiryAndFile2Activity extends BaseActivity {
             @Override
             public void onFinish() {
                 super.onFinish();
-                hideLoading();
             }
         });
     }

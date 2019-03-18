@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.Test_mainActivity;
 import com.example.han.referralproject.activity.BaseActivity;
@@ -55,6 +56,7 @@ import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 import com.witspring.unitbody.ChooseMemberActivity;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -442,6 +444,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     }
 
     private void isNotFile(final boolean isBindDoctor, final String name) {
+        ((BaseActivity) getActivity()).showLoadingDialog("数据加载中,请稍后~");
         NetworkApi.getFiledIsOrNot(getActivity()
                 , NetworkApi.FILE_URL
                 , LocalShared.getInstance(getActivity()).getUserId()
@@ -452,6 +455,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                             onGetFileStateFailed();
                             return;
                         }
+                        hideLoadingView();
                         WenZhenReultBean reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
                         if (reultBean.tag) {
 //                            if (JIANKANG_TIJIAN.equals(name)) {
@@ -476,9 +480,21 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-                        T.show("网络繁忙");
+                        hideLoadingView();
+                        Throwable exception = response.getException();
+                        if (exception instanceof ConnectException) {
+                            return;
+                        }
+                        MainActivity activity = (MainActivity) getActivity();
+                        if (activity != null) {
+                            activity.showConfirmDialog(ChoiceLoginTypeActivity.class);
+                        }
                     }
                 });
+    }
+
+    private void hideLoadingView() {
+        ((BaseActivity) getActivity()).hideLoadingDialog();
     }
 
     private void JianKangJianCe(final String examinationType) {
@@ -616,7 +632,6 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
     Integer weightModify;
 
     private void getAddressInfo() {
-        ((BaseActivity) getActivity()).showLoadingDialog("");
         NetworkApi.getInquiryInfo(MyApplication.getInstance().userId, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -656,7 +671,7 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
             public void onFinish() {
                 super.onFinish();
                 try {
-                    ((BaseActivity) getActivity()).hideLoadingDialog();
+                    hideLoadingView();
                 } catch (Exception e) {
                 }
             }

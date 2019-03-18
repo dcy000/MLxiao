@@ -30,10 +30,12 @@ import com.carlos.voiceline.mylibrary.VoiceLineView;
 import com.example.han.referralproject.MainActivity;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.dialog.ConfirmDialogFramgment;
 import com.example.han.referralproject.new_music.ScreenUtils;
 import com.example.han.referralproject.speech.setting.IatSettings;
 import com.example.han.referralproject.speech.setting.TtsSettings;
 import com.example.han.referralproject.speech.util.JsonParser;
+import com.example.han.referralproject.util.LocalShared;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -44,6 +46,7 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
+import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
@@ -642,4 +645,28 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+
+    private ConfirmDialogFramgment framgment;
+
+    public void showConfirmDialog(final Class<? extends BaseActivity> toClass) {
+        framgment = new ConfirmDialogFramgment();
+        framgment.setListener(new ConfirmDialogFramgment.onClickConfirmListener() {
+            @Override
+            public void onclickConfirm() {
+                tuiChu(toClass);
+            }
+        });
+
+        if (!framgment.isAdded()) {
+            framgment.show(getFragmentManager(), "confirmDialog");
+        }
+    }
+
+    public void tuiChu(Class<? extends BaseActivity> toClass) {
+        MobclickAgent.onProfileSignOff();
+        NimAccountHelper.getInstance().logout();
+        LocalShared.getInstance(this).loginOut();
+        startActivity(new Intent(this, toClass));
+        finish();
+    }
 }

@@ -19,6 +19,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.require2.dialog.DialogTypeEnum;
 import com.example.han.referralproject.require2.dialog.FllowUpTimesDialog;
 import com.example.han.referralproject.require2.dialog.SomeCommonDialog;
+import com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity;
 import com.example.han.referralproject.require2.register.activtiy.InputFaceActivity;
 import com.example.han.referralproject.require4.bean.FllowUpResponseBean;
 import com.example.han.referralproject.util.LocalShared;
@@ -29,6 +30,8 @@ import com.google.gson.Gson;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.medlink.danbogh.utils.T;
+
+import java.net.ConnectException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +63,10 @@ public class HealthDetecteActivity extends BaseActivity {
     TextView healthDetectionTime;
     @BindView(R.id.pressure_deteion_time)
     TextView pressureDeteionTime;
+
+    @BindView(R.id.tv_net_work_error_retry)
+    TextView netErrorRetry;
+
     private WenZhenReultBean reultBean = new WenZhenReultBean();
 
     @Override
@@ -68,6 +75,7 @@ public class HealthDetecteActivity extends BaseActivity {
         setContentView(R.layout.activity_health_detecte);
         ButterKnife.bind(this);
         initTitle();
+        showLoadView();
         gotoBindInfo();
     }
 
@@ -94,8 +102,10 @@ public class HealthDetecteActivity extends BaseActivity {
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                T.show(message);
 //                hideLoadingDialog();
+                if (TextUtils.equals("请检查网络连接", message)) {
+                    showNetError();
+                }
             }
         });
     }
@@ -115,11 +125,18 @@ public class HealthDetecteActivity extends BaseActivity {
         setEnableListeningLoop(false);
     }
 
-    @OnClick({R.id.im_pay_item, R.id.im_pressure_fllow_up, R.id.im_health_detecte, R.id.im_sugar_fllow_up})
+    @OnClick({R.id.im_pay_item, R.id.im_pressure_fllow_up, R.id.im_health_detecte, R.id.im_sugar_fllow_up, R.id.tv_net_work_error_retry})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.im_pay_item:
                 gotoDanXianTiJian();
+                break;
+
+            case R.id.tv_net_work_error_retry:
+                showLoadView();
+                getFileInfo();
+                getFllowUpInfo();
+                gotoBindInfo();
                 break;
             default:
                 jump(view.getId());
@@ -198,29 +215,54 @@ public class HealthDetecteActivity extends BaseActivity {
     }
 
     private void getFileInfo() {
-        showLoadingDialog("");
         NetworkApi.getFiledIsOrNot(this
                 , NetworkApi.FILE_URL
                 , LocalShared.getInstance(this).getUserId()
                 , new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        hideLoadingDialog();
-                        if (response == null) {
-                            return;
+                        try {
+                            if (response == null) {
+                                return;
+                            }
+                            reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
+                            showContent();
+                        } catch (Exception e) {
                         }
-                        reultBean = new Gson().fromJson(response.body(), WenZhenReultBean.class);
                     }
 
                     @Override
-                    public void onError(Response<String> response) {
-                        super.onError(response);
-                        hideLoadingDialog();
-                        T.show("网络繁忙");
+                    public void onError(Response<String> showNetError) {
+                        super.onError(showNetError);
+                        Throwable exception = showNetError.getException();
+                        if (exception instanceof ConnectException) {
+                            showNetError();
+                            return;
+                        }
+                        showConfirmDialog(ChoiceLoginTypeActivity.class);
                     }
                 });
 
     }
+
+    private void showContent() {
+        findViewById(R.id.state_view_content).setVisibility(View.VISIBLE);
+        findViewById(R.id.state_view_net_error).setVisibility(View.GONE);
+        hideLoadingDialog();
+    }
+
+    private void showNetError() {
+        findViewById(R.id.state_view_net_error).setVisibility(View.VISIBLE);
+        findViewById(R.id.state_view_content).setVisibility(View.GONE);
+        hideLoadingDialog();
+    }
+
+    private void showLoadView() {
+        findViewById(R.id.state_view_net_error).setVisibility(View.GONE);
+        findViewById(R.id.state_view_content).setVisibility(View.GONE);
+        showLoadingDialog("数据加载中,请稍后~");
+    }
+
 
     private void ShowToFiledDialog(final boolean isBindDoctor, final int id) {
         try {

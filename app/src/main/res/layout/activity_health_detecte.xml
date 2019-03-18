@@ -5,218 +5,230 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity">
+    <include
+        android:id="@+id/state_view_net_error"
+        layout="@layout/state_view_net_error"
+        android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/im_pay_item"
-        android:layout_width="468pt"
-        android:layout_height="648pt"
-        android:layout_marginStart="30pt"
-        android:layout_marginTop="156pt"
-        android:background="@drawable/ic_pay_item"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/state_view_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:context="com.example.han.referralproject.require2.login.ChoiceLoginTypeActivity">
 
-    <ImageView
-        android:id="@+id/im_pressure_fllow_up"
-        android:layout_width="468pt"
-        android:layout_height="648pt"
-        android:layout_marginStart="-8pt"
-        android:layout_marginTop="156pt"
-        android:background="@drawable/ic_pressure_fllow_up"
-        app:layout_constraintStart_toEndOf="@+id/im_health_detecte"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/im_pay_item"
+            android:layout_width="468pt"
+            android:layout_height="648pt"
+            android:layout_marginStart="30pt"
+            android:layout_marginTop="156pt"
+            android:background="@drawable/ic_pay_item"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/im_health_detecte"
-        android:layout_width="468pt"
-        android:layout_height="648pt"
-        android:layout_marginStart="-8pt"
-        android:layout_marginTop="156pt"
-        android:background="@drawable/ic_health_detecte"
-        app:layout_constraintStart_toEndOf="@+id/im_pay_item"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/im_pressure_fllow_up"
+            android:layout_width="468pt"
+            android:layout_height="648pt"
+            android:layout_marginStart="-8pt"
+            android:layout_marginTop="156pt"
+            android:background="@drawable/ic_pressure_fllow_up"
+            app:layout_constraintStart_toEndOf="@+id/im_health_detecte"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/health_times"
-        android:layout_width="228pt"
-        android:layout_height="86pt"
-        android:layout_marginStart="20pt"
-        android:layout_marginTop="10pt"
-        android:background="@drawable/bg_healdetect_text_shape"
-        android:gravity="center"
-        android:text="已使用0次"
-        android:textColor="#ff3f86fc"
-        android:textSize="40pt"
-        app:layout_constraintStart_toStartOf="@+id/im_health_detecte"
-        app:layout_constraintTop_toTopOf="@+id/im_health_detecte" />
+        <ImageView
+            android:id="@+id/im_health_detecte"
+            android:layout_width="468pt"
+            android:layout_height="648pt"
+            android:layout_marginStart="-8pt"
+            android:layout_marginTop="156pt"
+            android:background="@drawable/ic_health_detecte"
+            app:layout_constraintStart_toEndOf="@+id/im_pay_item"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/pressrue_times"
-        android:layout_width="228pt"
-        android:layout_height="86pt"
-        android:layout_marginStart="20pt"
-        android:layout_marginTop="10pt"
-        android:background="@drawable/bg_healdetect_text_shape"
-        android:gravity="center"
-        android:text="已使用0次"
-        android:textColor="#ff3f86fc"
-        android:textSize="40pt"
-        app:layout_constraintStart_toEndOf="@+id/im_health_detecte"
-        app:layout_constraintTop_toTopOf="@+id/im_pressure_fllow_up" />
+        <TextView
+            android:id="@+id/health_times"
+            android:layout_width="228pt"
+            android:layout_height="86pt"
+            android:layout_marginStart="20pt"
+            android:layout_marginTop="10pt"
+            android:background="@drawable/bg_healdetect_text_shape"
+            android:gravity="center"
+            android:text="已使用0次"
+            android:textColor="#ff3f86fc"
+            android:textSize="40pt"
+            app:layout_constraintStart_toStartOf="@+id/im_health_detecte"
+            app:layout_constraintTop_toTopOf="@+id/im_health_detecte" />
 
-    <ImageView
-        android:id="@+id/im_sugar_fllow_up"
-        android:layout_width="468pt"
-        android:layout_height="648pt"
-        android:layout_marginStart="-8pt"
-        android:layout_marginTop="156pt"
-        android:background="@drawable/ic_sugar_fllow_up"
-        app:layout_constraintStart_toEndOf="@+id/im_pressure_fllow_up"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/pressrue_times"
+            android:layout_width="228pt"
+            android:layout_height="86pt"
+            android:layout_marginStart="20pt"
+            android:layout_marginTop="10pt"
+            android:background="@drawable/bg_healdetect_text_shape"
+            android:gravity="center"
+            android:text="已使用0次"
+            android:textColor="#ff3f86fc"
+            android:textSize="40pt"
+            app:layout_constraintStart_toEndOf="@+id/im_health_detecte"
+            app:layout_constraintTop_toTopOf="@+id/im_pressure_fllow_up" />
 
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="158pt"
-        android:layout_marginEnd="8pt"
-        android:layout_marginStart="8pt"
-        android:text="单项检测"
-        android:textColor="#ff333333"
-        android:textSize="56pt"
-        app:layout_constraintBottom_toBottomOf="@+id/im_health_detecte"
+        <ImageView
+            android:id="@+id/im_sugar_fllow_up"
+            android:layout_width="468pt"
+            android:layout_height="648pt"
+            android:layout_marginStart="-8pt"
+            android:layout_marginTop="156pt"
+            android:background="@drawable/ic_sugar_fllow_up"
+            app:layout_constraintStart_toEndOf="@+id/im_pressure_fllow_up"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        app:layout_constraintEnd_toEndOf="@+id/im_pay_item"
-        app:layout_constraintStart_toStartOf="@+id/im_pay_item"
-        tools:layout_editor_absoluteY="273pt" />
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="158pt"
+            android:layout_marginEnd="8pt"
+            android:layout_marginStart="8pt"
+            android:text="单项检测"
+            android:textColor="#ff333333"
+            android:textSize="56pt"
+            app:layout_constraintBottom_toBottomOf="@+id/im_health_detecte"
 
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="158pt"
-        android:text="高血压随访"
-        android:textColor="#ff333333"
-        android:textSize="56pt"
-        app:layout_constraintBottom_toBottomOf="@+id/im_health_detecte"
-        app:layout_constraintEnd_toEndOf="@+id/im_pressure_fllow_up"
-        app:layout_constraintStart_toStartOf="@+id/im_pressure_fllow_up"
-        tools:layout_editor_absoluteY="273pt" />
+            app:layout_constraintEnd_toEndOf="@+id/im_pay_item"
+            app:layout_constraintStart_toStartOf="@+id/im_pay_item"
+            tools:layout_editor_absoluteY="273pt" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="102pt"
-        android:text="(4次/年)"
-        android:textColor="#ff5897fc"
-        android:textSize="48pt"
-        app:layout_constraintBottom_toBottomOf="@+id/im_sugar_fllow_up"
-        app:layout_constraintEnd_toEndOf="@+id/im_sugar_fllow_up"
-        app:layout_constraintStart_toStartOf="@+id/im_sugar_fllow_up"
-        tools:layout_editor_absoluteX="555pt"
-        tools:layout_editor_absoluteY="303pt" />
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="158pt"
+            android:text="高血压随访"
+            android:textColor="#ff333333"
+            android:textSize="56pt"
+            app:layout_constraintBottom_toBottomOf="@+id/im_health_detecte"
+            app:layout_constraintEnd_toEndOf="@+id/im_pressure_fllow_up"
+            app:layout_constraintStart_toStartOf="@+id/im_pressure_fllow_up"
+            tools:layout_editor_absoluteY="273pt" />
 
-    <TextView
-        android:id="@+id/sugar_detection_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="55pt"
-        android:textColor="#ff999999"
-        android:textSize="40pt"
-        app:layout_constraintBottom_toBottomOf="@+id/im_sugar_fllow_up"
-        app:layout_constraintEnd_toEndOf="@+id/im_sugar_fllow_up"
-        app:layout_constraintStart_toStartOf="@+id/im_sugar_fllow_up"
-        tools:layout_editor_absoluteX="555pt"
-        tools:layout_editor_absoluteY="303pt" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="102pt"
+            android:text="(4次/年)"
+            android:textColor="#ff5897fc"
+            android:textSize="48pt"
+            app:layout_constraintBottom_toBottomOf="@+id/im_sugar_fllow_up"
+            app:layout_constraintEnd_toEndOf="@+id/im_sugar_fllow_up"
+            app:layout_constraintStart_toStartOf="@+id/im_sugar_fllow_up"
+            tools:layout_editor_absoluteX="555pt"
+            tools:layout_editor_absoluteY="303pt" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="102pt"
-        android:text="(1次/年)"
-        android:textColor="#ff5897fc"
-        android:textSize="48pt"
-        app:layout_constraintBottom_toBottomOf="@+id/im_health_detecte"
-        app:layout_constraintEnd_toEndOf="@+id/im_health_detecte"
-        app:layout_constraintStart_toStartOf="@+id/im_health_detecte"
-        tools:layout_editor_absoluteX="241pt"
-        tools:layout_editor_absoluteY="303pt" />
+        <TextView
+            android:id="@+id/sugar_detection_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="55pt"
+            android:textColor="#ff999999"
+            android:textSize="40pt"
+            app:layout_constraintBottom_toBottomOf="@+id/im_sugar_fllow_up"
+            app:layout_constraintEnd_toEndOf="@+id/im_sugar_fllow_up"
+            app:layout_constraintStart_toStartOf="@+id/im_sugar_fllow_up"
+            tools:layout_editor_absoluteX="555pt"
+            tools:layout_editor_absoluteY="303pt" />
 
-
-    <TextView
-        android:id="@+id/health_detection_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="55pt"
-        android:textColor="#ff999999"
-        android:textSize="40pt"
-        app:layout_constraintBottom_toBottomOf="@+id/im_health_detecte"
-        app:layout_constraintEnd_toEndOf="@+id/im_health_detecte"
-        app:layout_constraintStart_toStartOf="@+id/im_health_detecte"
-        tools:layout_editor_absoluteX="241pt"
-        tools:layout_editor_absoluteY="303pt" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="102pt"
-        android:text="(4次/年)"
-        android:textColor="#ff5897fc"
-        android:textSize="48pt"
-        app:layout_constraintBottom_toBottomOf="@+id/im_pressure_fllow_up"
-        app:layout_constraintEnd_toEndOf="@+id/im_pressure_fllow_up"
-        app:layout_constraintStart_toStartOf="@+id/im_pressure_fllow_up"
-        tools:layout_editor_absoluteY="303pt" />
-
-    <TextView
-        android:id="@+id/pressure_deteion_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="55pt"
-        android:textColor="#ff999999"
-        android:textSize="40pt"
-        app:layout_constraintBottom_toBottomOf="@+id/im_pressure_fllow_up"
-        app:layout_constraintEnd_toEndOf="@+id/im_pressure_fllow_up"
-        app:layout_constraintStart_toStartOf="@+id/im_pressure_fllow_up"
-        tools:layout_editor_absoluteY="303pt" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="158pt"
-        android:text="糖尿病随访"
-        android:textColor="#ff333333"
-        android:textSize="56pt"
-        app:layout_constraintBottom_toBottomOf="@+id/im_sugar_fllow_up"
-        app:layout_constraintEnd_toEndOf="@+id/im_sugar_fllow_up"
-        app:layout_constraintStart_toStartOf="@+id/im_sugar_fllow_up"
-        tools:layout_editor_absoluteY="273pt" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="158pt"
-        android:text="健康体检"
-        android:textColor="#ff333333"
-        android:textSize="56pt"
-        app:layout_constraintBottom_toBottomOf="@+id/im_health_detecte"
-        app:layout_constraintEnd_toEndOf="@+id/im_health_detecte"
-        app:layout_constraintStart_toStartOf="@+id/im_health_detecte"
-        tools:layout_editor_absoluteY="273pt" />
-
-    <TextView
-        android:id="@+id/sugar_times"
-        android:layout_width="228pt"
-        android:layout_height="86pt"
-        android:layout_marginStart="20pt"
-        android:layout_marginTop="10pt"
-        android:background="@drawable/bg_healdetect_text_shape"
-        android:gravity="center"
-        android:text="已使用0次"
-        android:textColor="#ff3f86fc"
-        android:textSize="40pt"
-        app:layout_constraintStart_toStartOf="@+id/im_sugar_fllow_up"
-        app:layout_constraintTop_toTopOf="@+id/im_sugar_fllow_up" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="102pt"
+            android:text="(1次/年)"
+            android:textColor="#ff5897fc"
+            android:textSize="48pt"
+            app:layout_constraintBottom_toBottomOf="@+id/im_health_detecte"
+            app:layout_constraintEnd_toEndOf="@+id/im_health_detecte"
+            app:layout_constraintStart_toStartOf="@+id/im_health_detecte"
+            tools:layout_editor_absoluteX="241pt"
+            tools:layout_editor_absoluteY="303pt" />
 
 
+        <TextView
+            android:id="@+id/health_detection_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="55pt"
+            android:textColor="#ff999999"
+            android:textSize="40pt"
+            app:layout_constraintBottom_toBottomOf="@+id/im_health_detecte"
+            app:layout_constraintEnd_toEndOf="@+id/im_health_detecte"
+            app:layout_constraintStart_toStartOf="@+id/im_health_detecte"
+            tools:layout_editor_absoluteX="241pt"
+            tools:layout_editor_absoluteY="303pt" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="102pt"
+            android:text="(4次/年)"
+            android:textColor="#ff5897fc"
+            android:textSize="48pt"
+            app:layout_constraintBottom_toBottomOf="@+id/im_pressure_fllow_up"
+            app:layout_constraintEnd_toEndOf="@+id/im_pressure_fllow_up"
+            app:layout_constraintStart_toStartOf="@+id/im_pressure_fllow_up"
+            tools:layout_editor_absoluteY="303pt" />
+
+        <TextView
+            android:id="@+id/pressure_deteion_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="55pt"
+            android:textColor="#ff999999"
+            android:textSize="40pt"
+            app:layout_constraintBottom_toBottomOf="@+id/im_pressure_fllow_up"
+            app:layout_constraintEnd_toEndOf="@+id/im_pressure_fllow_up"
+            app:layout_constraintStart_toStartOf="@+id/im_pressure_fllow_up"
+            tools:layout_editor_absoluteY="303pt" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="158pt"
+            android:text="糖尿病随访"
+            android:textColor="#ff333333"
+            android:textSize="56pt"
+            app:layout_constraintBottom_toBottomOf="@+id/im_sugar_fllow_up"
+            app:layout_constraintEnd_toEndOf="@+id/im_sugar_fllow_up"
+            app:layout_constraintStart_toStartOf="@+id/im_sugar_fllow_up"
+            tools:layout_editor_absoluteY="273pt" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="158pt"
+            android:text="健康体检"
+            android:textColor="#ff333333"
+            android:textSize="56pt"
+            app:layout_constraintBottom_toBottomOf="@+id/im_health_detecte"
+            app:layout_constraintEnd_toEndOf="@+id/im_health_detecte"
+            app:layout_constraintStart_toStartOf="@+id/im_health_detecte"
+            tools:layout_editor_absoluteY="273pt" />
+
+        <TextView
+            android:id="@+id/sugar_times"
+            android:layout_width="228pt"
+            android:layout_height="86pt"
+            android:layout_marginStart="20pt"
+            android:layout_marginTop="10pt"
+            android:background="@drawable/bg_healdetect_text_shape"
+            android:gravity="center"
+            android:text="已使用0次"
+            android:textColor="#ff3f86fc"
+            android:textSize="40pt"
+            app:layout_constraintStart_toStartOf="@+id/im_sugar_fllow_up"
+            app:layout_constraintTop_toTopOf="@+id/im_sugar_fllow_up" />
+
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
