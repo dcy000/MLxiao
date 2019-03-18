@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -67,7 +68,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private BleDevice lockedDevice;
     private List<Integer> points;
     private TimeCount timeCount;
-    private static boolean isMeasureEnd = false;
+    private boolean isMeasureEnd = false;
     private List<byte[]> bytesResult;
     private WeakHandler weakHandler;
     private static final int MESSAGE_DEAL_BYTERESULT = 1;
@@ -76,6 +77,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private String phone;
     private String birth;
     private String sex;
+    private static final String TAG = "BoShengECGPresenter";
     private final Handler.Callback weakRunnable = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -88,6 +90,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                     if (mLoadingDialog != null) {
                         mLoadingDialog.show();
                     }
+                    Log.e(TAG, "handleMessage: " + bytesResult.size());
                     ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<byte[]>() {
                         @Nullable
                         @Override
@@ -110,6 +113,13 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         @Override
                         public void onSuccess(@Nullable byte[] result) {
                             if (result != null) {
+                                if (result.length == 0) {
+                                    baseView.updateState("采集数据失败，请先清洁仪器，再次测量。");
+                                    if (mLoadingDialog != null) {
+                                        mLoadingDialog.dismiss();
+                                    }
+                                    return;
+                                }
                                 uploadDatas(result);
                             }
                         }
@@ -164,6 +174,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
                         @Override
                         public void onNotifyFailure(BleException exception) {
+                            Log.e(TAG, "onNotifyFailure: " + exception.getDescription());
                         }
 
                         @Override
@@ -456,7 +467,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
         activity = null;
     }
 
-    static class TimeCount extends CountDownTimer {
+    class TimeCount extends CountDownTimer {
         private IBluetoothView fragment;
         private WeakHandler weakHandler;
 
