@@ -83,13 +83,6 @@ public class BoShengECGPresenter implements LifecycleObserver {
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case MESSAGE_DEAL_BYTERESULT:
-                    mLoadingDialog = new LoadingDialog.Builder(activity)
-                            .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                            .setTipWord("正在分析数据...")
-                            .create();
-                    if (mLoadingDialog != null) {
-                        mLoadingDialog.show();
-                    }
                     Log.e(TAG, "handleMessage: " + bytesResult.size());
                     ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<byte[]>() {
                         @Nullable
@@ -481,7 +474,16 @@ public class BoShengECGPresenter implements LifecycleObserver {
         public void onFinish() {// 计时完毕时触发
             isMeasureEnd = true;
             fragment.updateData("tip", "测量结束");
-            weakHandler.sendEmptyMessage(MESSAGE_DEAL_BYTERESULT);
+            if (activity != null) {
+                mLoadingDialog = new LoadingDialog.Builder(activity)
+                        .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                        .setTipWord("正在分析数据...")
+                        .create();
+                if (mLoadingDialog != null) {
+                    mLoadingDialog.show();
+                }
+                weakHandler.sendEmptyMessage(MESSAGE_DEAL_BYTERESULT);
+            }
         }
 
 
