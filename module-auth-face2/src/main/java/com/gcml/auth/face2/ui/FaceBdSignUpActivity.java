@@ -23,6 +23,7 @@ import com.gcml.common.utils.PreviewHelper;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.utils.network.NetUitls;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.dialog.IconDialog;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -252,9 +253,16 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
                     public void accept(Throwable throwable) throws Exception {
                         Timber.w(throwable);
                         FaceBdError wrapped = FaceBdErrorUtils.wrap(throwable);
-                        String msg = FaceBdErrorUtils.getMsg(wrapped.getCode());
-                        binding.ivTips.setText(msg);
+                        int code = wrapped.getCode();
+                        String msg = FaceBdErrorUtils.getMsg(code, wrapped.getMessage());
                         error = true;
+
+                        if (code >= 500 && code <= 3005) {
+                            onFaceError(msg);
+                            return;
+                        }
+
+                        binding.ivTips.setText(msg);
                         start();
                         takeFrames(msg);
                     }
@@ -273,6 +281,33 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
                         finish();
                     }
                 });
+    }
+
+    private AlertDialog alertDialog;
+
+    private void onFaceError(String msg) {
+        if (alertDialog != null) {
+            alertDialog.dismiss();
+        }
+        alertDialog = new AlertDialog(this)
+                .builder()
+                .setMsg(msg)
+                .setNegativeButton("退出", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                })
+                .setPositiveButton("继续", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        binding.ivTips.setText(msg);
+                        start();
+                        takeFrames(msg);
+                    }
+                });
+        alertDialog.show();
     }
 
     // "${imageType},${image}"
@@ -408,6 +443,9 @@ public class FaceBdSignUpActivity extends BaseActivity<FaceActivityBdSignUpBindi
             loadingDialog.dismiss();
         }
 
+        if (alertDialog != null) {
+            alertDialog.dismiss();
+        }
     }
 
     @Override

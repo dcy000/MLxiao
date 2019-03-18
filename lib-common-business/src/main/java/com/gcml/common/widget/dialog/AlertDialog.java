@@ -176,4 +176,8 @@ public class AlertDialog {
         setLayout();
         dialog.show();
     }
+
+    public void dismiss() {
+        dialog.dismiss();
+    }
 }
