@@ -391,32 +391,41 @@ public class FaceBdRepository {
         return new ObservableTransformer<String, FaceBdUser>() {
             @Override
             public ObservableSource<FaceBdUser> apply(Observable<String> upstream) {
-                return Observable.zip(upstream, accessToken(), getGroups(), new Function3<String, String, String, FaceBdUser>() {
+                return upstream.flatMap(new Function<String, ObservableSource<FaceBdUser>>() {
                     @Override
-                    public FaceBdUser apply(String image, String token, String groups) throws Exception {
-                        FaceBdSearchParam param = new FaceBdSearchParam();
-                        String[] imgData = image.split(",");
-                        param.setImageType(imgData[0]);
-                        param.setImage(imgData[1]);
-                        param.setGroupIdList(groups);
-                        if (!TextUtils.isEmpty(faceId)) {
-                            param.setUserId(faceId);
-                        }
-                        return mFaceBdService.search(token, param)
-                                .compose(FaceBdResultUtils.faceBdResultTransformer())
-                                .flatMap(new Function<FaceBdSearch, ObservableSource<FaceBdUser>>() {
+                    public ObservableSource<FaceBdUser> apply(String image) throws Exception {
+                        return getGroups().flatMap(new Function<String, ObservableSource<FaceBdUser>>() {
+                            @Override
+                            public ObservableSource<FaceBdUser> apply(String groups) throws Exception {
+                                return accessToken().flatMap(new Function<String, ObservableSource<FaceBdUser>>() {
                                     @Override
-                                    public ObservableSource<FaceBdUser> apply(FaceBdSearch search) throws Exception {
-                                        try {
-                                            FaceBdUser bdUser = FaceBdErrorUtils.checkSearch(search);
-                                            return Observable.just(bdUser);
-                                        } catch (Exception e) {
-                                            return Observable.error(e);
+                                    public ObservableSource<FaceBdUser> apply(String token) throws Exception {
+                                        FaceBdSearchParam param = new FaceBdSearchParam();
+                                        String[] imgData = image.split(",");
+                                        param.setImageType(imgData[0]);
+                                        param.setImage(imgData[1]);
+                                        param.setGroupIdList(groups);
+                                        if (!TextUtils.isEmpty(faceId)) {
+                                            param.setUserId(faceId);
                                         }
+                                        return mFaceBdService.search(token, param)
+                                                .compose(FaceBdResultUtils.faceBdResultTransformer())
+                                                .flatMap(new Function<FaceBdSearch, ObservableSource<FaceBdUser>>() {
+                                                    @Override
+                                                    public ObservableSource<FaceBdUser> apply(FaceBdSearch search) throws Exception {
+                                                        try {
+                                                            FaceBdUser bdUser = FaceBdErrorUtils.checkSearch(search);
+                                                            return Observable.just(bdUser);
+                                                        } catch (Exception e) {
+                                                            return Observable.error(e);
+                                                        }
+                                                    }
+                                                })
+                                                .subscribeOn(Schedulers.io());
                                     }
-                                })
-                                .subscribeOn(Schedulers.io())
-                                .blockingFirst();
+                                }).subscribeOn(Schedulers.io());
+                            }
+                        }).subscribeOn(Schedulers.io());
                     }
                 });
             }
