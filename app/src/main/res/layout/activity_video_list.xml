@@ -57,7 +57,8 @@
             android:gravity="center"
             android:text="曲艺天地"
             android:textColor="@color/common_tab_txt_color"
-            android:textSize="28sp"/>
+            android:textSize="28sp"
+            android:visibility="gone"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -71,7 +72,8 @@
             android:gravity="center"
             android:text="生活助手"
             android:textColor="@color/common_tab_txt_color"
-            android:textSize="28sp"/>
+            android:textSize="28sp"
+            android:visibility="gone"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -85,7 +87,8 @@
             android:gravity="center"
             android:text="动画片"
             android:textColor="@color/common_tab_txt_color"
-            android:textSize="28sp"/>
+            android:textSize="28sp"
+            android:visibility="gone"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -99,6 +102,7 @@
             android:gravity="center"
             android:text="设备简介"
             android:textColor="@color/common_tab_txt_color"
-            android:textSize="28sp"/>
+            android:textSize="28sp"
+            android:visibility="gone"/>
     </RadioGroup>
 </android.support.constraint.ConstraintLayout>

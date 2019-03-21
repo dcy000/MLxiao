@@ -19,8 +19,12 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
+import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
+import com.example.han.referralproject.network.NetworkApi;
+import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.service_package.ServicePackageActivity;
+import com.example.han.referralproject.tcm.SymptomCheckActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
@@ -307,38 +311,61 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
                 break;
             case R.id.iv_health_dialy_task:
-                rxUser.subscribeOn(Schedulers.io())
-                        .as(RxUtils.autoDisposeConverter(this))
-                        .subscribe(new DefaultObserver<UserEntity>() {
-                            @Override
-                            public void onNext(UserEntity user) {
-                                if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
-                                    ToastUtils.showShort("请先去个人中心完善体重和身高信息");
-                                    MLVoiceSynthetize.startSynthesize(
-                                            getActivity().getApplicationContext(),
-                                            "请先去个人中心完善体重和身高信息");
-                                } else {
-                                    CC.obtainBuilder("com.gcml.task.isTask")
-                                            .build()
-                                            .callAsync(new IComponentCallback() {
-                                                @Override
-                                                public void onResult(CC cc, CCResult result) {
-                                                    if (result.isSuccess()) {
-                                                        CC.obtainBuilder("app.component.task").addParam("startType", "MLMain").build().callAsync();
-                                                    } else {
-                                                        CC.obtainBuilder("app.component.task.comply").build().callAsync();
-                                                    }
-                                                }
-                                            });
-                                }
-                            }
-                        });
-
+//                rxUser.subscribeOn(Schedulers.io())
+//                        .as(RxUtils.autoDisposeConverter(this))
+//                        .subscribe(new DefaultObserver<UserEntity>() {
+//                            @Override
+//                            public void onNext(UserEntity user) {
+//                                if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
+//                                    ToastUtils.showShort("请先去个人中心完善体重和身高信息");
+//                                    MLVoiceSynthetize.startSynthesize(
+//                                            getActivity().getApplicationContext(),
+//                                            "请先去个人中心完善体重和身高信息");
+//                                } else {
+//                                    CC.obtainBuilder("com.gcml.task.isTask")
+//                                            .build()
+//                                            .callAsync(new IComponentCallback() {
+//                                                @Override
+//                                                public void onResult(CC cc, CCResult result) {
+//                                                    if (result.isSuccess()) {
+//                                                        CC.obtainBuilder("app.component.task").addParam("startType", "MLMain").build().callAsync();
+//                                                    } else {
+//                                                        CC.obtainBuilder("app.component.task.comply").build().callAsync();
+//                                                    }
+//                                                }
+//                                            });
+//                                }
+//                            }
+//                        });
+                Intent intent = new Intent(getActivity(), SymptomCheckActivity.class);
+                startActivity(intent);
 
                 break;
             case R.id.iv_health_call_family:
-                NimCallActivity.launchNoCheck(getContext(), UserSpHelper.getEqId());
+//                NimCallActivity.launchNoCheck(getContext(), UserSpHelper.getEqId());
+                getDoctorInfo();
                 break;
         }
+    }
+
+    public void getDoctorInfo() {
+        NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
+            @Override
+            public void onSuccess(Doctor response) {
+                String doctorId = response.docterid + "";
+
+                if (TextUtils.isEmpty(doctorId)) {
+                    ToastUtils.showShort("呼叫医生失败");
+                    return;
+                }
+                NimCallActivity.launchNoCheck(getActivity(), "docter_" + doctorId);
+            }
+
+        }, new NetworkManager.FailedCallback() {
+            @Override
+            public void onFailed(String message) {
+                ToastUtils.showShort(message);
+            }
+        });
     }
 }

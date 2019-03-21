@@ -13,6 +13,7 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.DiseaseUser;
 import com.example.han.referralproject.homepage.MainActivity;
+import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.physicalexamination.activity.ChineseMedicineMonitorActivity;
 import com.example.han.referralproject.tcm.activity.OlderHealthManagementSerciveActivity;
 import com.example.han.referralproject.util.LocalShared;
@@ -54,7 +55,7 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
         mIvRisk = (ImageView) findViewById(R.id.iv_risk_assessment);
         mIvRisk.setOnClickListener(this);
 
-        mTbTitle.setData("健 康 自 查", R.drawable.common_icon_back, "返回", R.drawable.icon_home, null, new ToolBarClickListener() {
+        mTbTitle.setData("健 康 管 理", R.drawable.common_icon_back, "返回", R.drawable.icon_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
                 finish();
@@ -66,7 +67,7 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,欢迎来到健康自查");
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,欢迎来到健康管理");
     }
 
     @Override
@@ -109,20 +110,69 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void toChineseConsititution() {
-        startActivity(new Intent(this, OlderHealthManagementSerciveActivity.class));
+//        startActivity(new Intent(this, OlderHealthManagementSerciveActivity.class));
+
+        CCResult result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+        Observable<UserEntity> rxUser = result.getDataItem("data");
+        rxUser.subscribeOn(Schedulers.io())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)
+                                || TextUtils.isEmpty(user.sex)|| TextUtils.isEmpty(user.birthday)) {
+                            ToastUtils.showShort("请先去个人中心完善体重,身高,性别,年龄信息");
+                            MLVoiceSynthetize.startSynthesize(
+                                    SymptomCheckActivity.this.getApplicationContext(),
+                                    "请先去个人中心完善体重,身高,性别,年龄信息");
+                        } else {
+                            Intent intent = new Intent( SymptomCheckActivity.this, SlowDiseaseManagementActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                });
     }
 
     private void toSymptom() {
-        DiseaseUser diseaseUser = new DiseaseUser(
-                LocalShared.getInstance(this).getUserName(),
-                LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
-                Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
-                LocalShared.getInstance(this).getUserPhoto()
-        );
-        String currentUser = new Gson().toJson(diseaseUser);
-        Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
-        intent.putExtra("currentUser", currentUser);
-        startActivity(intent);
+//        DiseaseUser diseaseUser = new DiseaseUser(
+//                LocalShared.getInstance(this).getUserName(),
+//                LocalShared.getInstance(this).getSex().equals("男") ? 1 : 2,
+//                Integer.parseInt(LocalShared.getInstance(this).getUserAge()) * 12,
+//                LocalShared.getInstance(this).getUserPhoto()
+//        );
+//        String currentUser = new Gson().toJson(diseaseUser);
+//        Intent intent = new Intent(this, com.witspring.unitbody.ChooseMemberActivity.class);
+//        intent.putExtra("currentUser", currentUser);
+//        startActivity(intent);
+
+
+        CCResult result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+        Observable<UserEntity> rxUser = result.getDataItem("data");
+        rxUser.subscribeOn(Schedulers.io())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
+                            ToastUtils.showShort("请先去个人中心完善体重和身高信息");
+                            MLVoiceSynthetize.startSynthesize(SymptomCheckActivity.this.getApplicationContext(),
+                                    "请先去个人中心完善体重和身高信息");
+                        } else {
+                            CC.obtainBuilder("com.gcml.task.isTask")
+                                    .build()
+                                    .callAsync(new IComponentCallback() {
+                                        @Override
+                                        public void onResult(CC cc, CCResult result) {
+                                            if (result.isSuccess()) {
+                                                CC.obtainBuilder("app.component.task").addParam("startType", "MLMain").build().callAsync();
+                                            } else {
+                                                CC.obtainBuilder("app.component.task.comply").build().callAsync();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
     }
 
 

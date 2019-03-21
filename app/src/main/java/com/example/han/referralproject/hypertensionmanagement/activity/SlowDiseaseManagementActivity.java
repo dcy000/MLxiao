@@ -63,6 +63,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                         DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
                         if (bean != null && bean.tag && bean.data != null) {
                             diagnoseInfo = bean.data;
+                            onclickHypertensionManage();
                         }
                     }
 
@@ -80,6 +81,11 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 }
         );
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void initTitle() {
@@ -471,7 +477,13 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 });
     }
 
-//
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
+    //
 //    @Override
 //    public void onClickCancel() {
 //

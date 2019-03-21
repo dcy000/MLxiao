@@ -46,12 +46,12 @@
             android:layout_weight="1"
             android:background="@drawable/shape_newmain_gradient"
             android:visibility="invisible"/>
-        <View
-            android:id="@+id/indicator_right"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/shape_newmain_gradient"
-            android:visibility="invisible"/>
+        <!--<View-->
+            <!--android:id="@+id/indicator_right"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/shape_newmain_gradient"-->
+            <!--android:visibility="invisible" />-->
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

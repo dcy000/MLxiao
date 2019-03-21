@@ -20,6 +20,7 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
+import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -111,31 +112,34 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 startActivity(new Intent(getContext(), SpeechSynthesisActivity.class));
                 break;
             case R.id.iv_check_self:
-                result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-                rxUser = result.getDataItem("data");
-                rxUser.subscribeOn(Schedulers.io())
-                        .as(RxUtils.autoDisposeConverter(this))
-                        .subscribe(new DefaultObserver<UserEntity>() {
-                            @Override
-                            public void onNext(UserEntity user) {
-                                if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
-                                    ToastUtils.showShort("请先去个人中心完善体重和身高信息");
-                                    MLVoiceSynthetize.startSynthesize(
-                                            getActivity().getApplicationContext(),
-                                            "请先去个人中心完善体重和身高信息");
-                                } else {
-                                    Intent intent = new Intent(getActivity(), SymptomCheckActivity.class);
-                                    startActivity(intent);
-                                }
-                            }
-                        });
+//                result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+//                rxUser = result.getDataItem("data");
+//                rxUser.subscribeOn(Schedulers.io())
+//                        .as(RxUtils.autoDisposeConverter(this))
+//                        .subscribe(new DefaultObserver<UserEntity>() {
+//                            @Override
+//                            public void onNext(UserEntity user) {
+//                                if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)) {
+//                                    ToastUtils.showShort("请先去个人中心完善体重和身高信息");
+//                                    MLVoiceSynthetize.startSynthesize(
+//                                            getActivity().getApplicationContext(),
+//                                            "请先去个人中心完善体重和身高信息");
+//                                } else {
+//                                    Intent intent = new Intent(getActivity(), SymptomCheckActivity.class);
+//                                    startActivity(intent);
+//                                }
+//                            }
+//                        });
+
+                CC.obtainBuilder("app.component.recreation").build().callAsync();
                 break;
             case R.id.iv_shopping_mall:
                 startActivity(new Intent(getContext(), MarketActivity.class));
 //                CC.obtainBuilder("com.gcml.mall.mall").build().callAsync();
                 break;
             case R.id.iv_ask_doctor:
-                startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));
+//                startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));
+                startActivity(new Intent(getActivity(), HealthRecordActivity.class));
                 break;
         }
     }

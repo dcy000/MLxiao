@@ -150,7 +150,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="每日任务"
+                android:text="健康管理"
                 android:textColor="#333"
                 android:textSize="64pt"
                 android:layout_marginTop="40pt"/>
@@ -178,7 +178,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="呼叫家人"
+                android:text="视频咨询"
                 android:textColor="#333"
                 android:textSize="64pt"
                 android:layout_marginTop="40pt"/>

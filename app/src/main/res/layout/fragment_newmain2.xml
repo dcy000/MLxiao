@@ -23,7 +23,8 @@
         app:layout_constraintTop_toBottomOf="@id/iv_person_center"
         android:layout_marginTop="24pt"
         android:layout_marginLeft="45pt"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:visibility="gone"/>
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/entertainment_center"
         android:layout_width="594pt"
@@ -47,7 +48,7 @@
         android:id="@+id/iv_check_self"
         android:layout_width="594pt"
         android:layout_height="504pt"
-        android:background="@drawable/newmain_check_self"
+        android:background="@drawable/newmain_entertainment_center"
         app:layout_constraintLeft_toLeftOf="@id/iv_communicate"
         app:layout_constraintTop_toBottomOf="@id/iv_communicate"
         android:layout_marginTop="24pt"

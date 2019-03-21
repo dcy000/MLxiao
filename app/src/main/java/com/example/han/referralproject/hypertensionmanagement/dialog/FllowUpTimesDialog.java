@@ -105,6 +105,7 @@ public class FllowUpTimesDialog extends DialogFragment {
 //        listener.onClickCancel();
 
         dismiss();
+        getActivity().finish();
     }
 
     public interface OnDialogClickListener {
