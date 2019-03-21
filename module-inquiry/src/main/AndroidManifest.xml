@@ -7,5 +7,6 @@
         <activity android:name=".ui.UserInfoListActivity" />
         <activity android:name=".ui.BindDoctorActivity" />
         <activity android:name=".ui.UserSignActivity" />
+        <activity android:name=".inquiry.ui.WenZenEntryAcitivity"/>
     </application>
 </manifest>

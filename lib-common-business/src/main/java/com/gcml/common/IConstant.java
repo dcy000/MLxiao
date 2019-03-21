@@ -33,4 +33,5 @@ public interface IConstant {
      * qianyue
      */
     String KEY_BIND_DOCTOR = "com.gcml.bind.doctor";
+    String KEY_INQUIRY = "com.gcml.inquiry";
 }
