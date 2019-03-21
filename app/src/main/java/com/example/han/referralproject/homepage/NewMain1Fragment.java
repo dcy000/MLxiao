@@ -289,22 +289,23 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                             getActivity().getApplicationContext(),
                                             "请先去个人中心完善性别和年龄信息");
                                 } else {
-                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
-                                            .addParam("skip", true)
-                                            .addParam("currentUser", false)
-                                            .build()
-                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                                                @Override
-                                                public void onResult(CC cc, CCResult result) {
-                                                    boolean skip = "skip".equals(result.getErrorMessage());
-                                                    if (result.isSuccess() || skip) {
-                                                        startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip",skip));
-//                                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                                    } else {
-                                                        ToastUtils.showShort(result.getErrorMessage());
-                                                    }
-                                                }
-                                            });
+                                    startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip",false));
+//                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
+//                                            .addParam("skip", true)
+//                                            .addParam("currentUser", false)
+//                                            .build()
+//                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+//                                                @Override
+//                                                public void onResult(CC cc, CCResult result) {
+//                                                    boolean skip = "skip".equals(result.getErrorMessage());
+//                                                    if (result.isSuccess() || skip) {
+//                                                        startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip",skip));
+////                                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+//                                                    } else {
+//                                                        ToastUtils.showShort(result.getErrorMessage());
+//                                                    }
+//                                                }
+//                                            });
                                 }
                             }
                         });

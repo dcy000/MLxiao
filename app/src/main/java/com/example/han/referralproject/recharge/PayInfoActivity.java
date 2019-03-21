@@ -314,7 +314,7 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
         loadingDialog.show();
         Map<String, String> optional = new HashMap<String, String>();
         optional.put("用途", "用户充值");
-        optional.put("testEN", "山东合贵");
+        optional.put("testEN", "国辰迈联");
         optional.put("eqid", Utils.getDeviceId());
         optional.put("bid", UserSpHelper.getUserId());
         optional.put("meal_type", "0");

@@ -148,7 +148,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
         //支付宝使用ALI_OFFLINE_QRCODE
 
         channelType = BCReqParams.BCChannelTypes.valueOf(type);
-        billTitle = "山东合贵网络科技有限公司";
+        billTitle = "杭州国辰迈联机器人科技有限公司";
         qrcodeImg = this.findViewById(R.id.qrcodeImg);
         qrcodeImg1 = this.findViewById(R.id.qrcodeImg1);
         date = new Date();
@@ -317,7 +317,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
         loadingDialog.show();
         Map<String, String> optional = new HashMap<String, String>();
         optional.put("用途", "套餐购买");
-        optional.put("testEN", "合贵");
+        optional.put("testEN", "国辰迈联");
         optional.put("eqid", Utils.getDeviceId());
         optional.put("bid", UserSpHelper.getUserId());
         optional.put("orderid", orderId);
