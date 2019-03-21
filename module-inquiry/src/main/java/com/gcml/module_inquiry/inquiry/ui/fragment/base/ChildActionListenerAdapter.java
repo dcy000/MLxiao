@@ -6,6 +6,9 @@ package com.gcml.module_inquiry.inquiry.ui.fragment.base;
 
 public class ChildActionListenerAdapter implements ChildActionListener {
 
+    /**
+     * 中间部分的framgent返回
+     */
     @Override
     public void onBack() {
 
@@ -16,11 +19,18 @@ public class ChildActionListenerAdapter implements ChildActionListener {
 
     }
 
+    /**
+     * 添加的第一个fragment 返回
+     */
     @Override
     public void onStartBack() {
 
     }
 
+    /**
+     * 最后一个fragment 的next
+     * @param data
+     */
     @Override
     public void onFinalNext(Object... data) {
 

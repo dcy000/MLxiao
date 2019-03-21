@@ -17,7 +17,7 @@ import java.util.List;
 
 import github.hellocsl.layoutmanager.gallery.GalleryLayoutManager;
 
-public class HeightFragment extends InquiryBaseFrament implements View.OnClickListener {
+public class WeightFragment extends InquiryBaseFrament implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -32,11 +32,11 @@ public class HeightFragment extends InquiryBaseFrament implements View.OnClickLi
     private ArrayList<String> mStrings;
     protected int selectedPosition = 20;
 
-    public HeightFragment() {
+    public WeightFragment() {
     }
 
-    public static HeightFragment newInstance(String param1, String param2) {
-        HeightFragment fragment = new HeightFragment();
+    public static WeightFragment newInstance(String param1, String param2) {
+        WeightFragment fragment = new WeightFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -46,7 +46,7 @@ public class HeightFragment extends InquiryBaseFrament implements View.OnClickLi
 
     @Override
     protected int layoutId() {
-        return R.layout.fragment_height;
+        return R.layout.fragment_weight;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class HeightFragment extends InquiryBaseFrament implements View.OnClickLi
 
     protected List<String> getStrings() {
         mStrings = new ArrayList<>();
-        for (int i = 150; i < 200; i++) {
+        for (int i = 35; i < 150; i++) {
             mStrings.add(String.valueOf(i));
         }
         return mStrings;
@@ -99,7 +99,7 @@ public class HeightFragment extends InquiryBaseFrament implements View.OnClickLi
     public void onClick(View v) {
         if (listenerAdapter != null) {
             if (v.getId() == R.id.tv_sign_up_go_back) {
-                listenerAdapter.onStartBack();
+                listenerAdapter.onBack();
             } else if (v.getId() == R.id.tv_sign_up_go_forward) {
                 String height = mStrings.get(selectedPosition);
                 listenerAdapter.onNext(height);
