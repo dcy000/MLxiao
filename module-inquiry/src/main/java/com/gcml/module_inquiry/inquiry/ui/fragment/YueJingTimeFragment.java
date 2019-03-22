@@ -64,7 +64,7 @@ public class YueJingTimeFragment extends InquiryBaseFrament implements View.OnCl
         if (listenerAdapter != null) {
             int id = v.getId();
             if (id == R.id.tv_sign_up_go_back) {
-                listenerAdapter.onBack();
+                listenerAdapter.onBack("6",null);
             } else if (id == R.id.tv_sign_up_go_forward) {
                 goForward();
             }
@@ -77,7 +77,7 @@ public class YueJingTimeFragment extends InquiryBaseFrament implements View.OnCl
             ToastUtils.showShort("主人,日期不能为空");
             return;
         }
-        listenerAdapter.onNext(time);
+        listenerAdapter.onNext("6",time);
     }
 
     private void selectBirthday() {

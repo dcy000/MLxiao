@@ -5,11 +5,11 @@ package com.gcml.module_inquiry.inquiry.ui.fragment.base;
  */
 
 interface ChildActionListener {
-    void onBack();
+    void onBack(String ...data);
 
-    void onNext(Object... data);
+    void onNext(String... data);
 
-    void onStartBack();
+    void onStartBack(String ... data);
 
-    void onFinalNext(Object... data);
+    void onFinalNext(String... data);
 }

@@ -99,10 +99,10 @@ public class HeightFragment extends InquiryBaseFrament implements View.OnClickLi
     public void onClick(View v) {
         if (listenerAdapter != null) {
             if (v.getId() == R.id.tv_sign_up_go_back) {
-                listenerAdapter.onStartBack();
+                listenerAdapter.onStartBack("1", null);
             } else if (v.getId() == R.id.tv_sign_up_go_forward) {
                 String height = mStrings.get(selectedPosition);
-                listenerAdapter.onNext(height);
+                listenerAdapter.onNext("1", height);
             }
         }
 

@@ -66,16 +66,16 @@ public class PregnancyFragment extends InquiryBaseFrament implements View.OnClic
         int id = v.getId();
         if (listenerAdapter != null) {
             if (id == R.id.tv_sign_up_go_back) {
-                listenerAdapter.onBack();
-
+                listenerAdapter.onBack("", null);
             } else if (id == R.id.tv_sign_up_go_forward) {
-                listenerAdapter.onNext();
+                listenerAdapter.onNext("5", mIvRbMan.isSelected() ? "0" : "1");
             }
         }
     }
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
     public static PregnancyFragment newInstance(String param1, String param2) {
         PregnancyFragment fragment = new PregnancyFragment();
         Bundle args = new Bundle();

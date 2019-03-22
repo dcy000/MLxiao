@@ -36,6 +36,7 @@ public class BloodPressureFragment extends BloodpressureFragment {
     private int lowPressure;
 
     protected void onMeasureFinished(String... results) {
+
         if (results.length == 3) {
             MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
             datas = new ArrayList<>();
@@ -65,14 +66,14 @@ public class BloodPressureFragment extends BloodpressureFragment {
     @Override
     protected void clickVideoDemo(View view) {
         if (listenerAdapter != null) {
-            listenerAdapter.onFinalNext();
+            listenerAdapter.onFinalNext("8", highPressure + "", lowPressure + "");
         }
     }
 
     @Override
     protected void clickHealthHistory(View view) {
         if (listenerAdapter != null) {
-            listenerAdapter.onBack();
+            listenerAdapter.onBack("8", null, null);
         }
     }
 

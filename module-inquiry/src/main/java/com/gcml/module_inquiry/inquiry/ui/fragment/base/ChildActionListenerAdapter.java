@@ -10,12 +10,12 @@ public class ChildActionListenerAdapter implements ChildActionListener {
      * 中间部分的framgent返回
      */
     @Override
-    public void onBack() {
+    public void onBack(String ...data) {
 
     }
 
     @Override
-    public void onNext(Object... data) {
+    public void onNext(String... data) {
 
     }
 
@@ -23,7 +23,7 @@ public class ChildActionListenerAdapter implements ChildActionListener {
      * 添加的第一个fragment 返回
      */
     @Override
-    public void onStartBack() {
+    public void onStartBack(String ...data) {
 
     }
 
@@ -32,7 +32,7 @@ public class ChildActionListenerAdapter implements ChildActionListener {
      * @param data
      */
     @Override
-    public void onFinalNext(Object... data) {
+    public void onFinalNext(String... data) {
 
     }
 }

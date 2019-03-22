@@ -59,7 +59,6 @@ public class DrinkFramgment extends InquiryBaseFrament implements View.OnClickLi
         tvSignUpGoForward.setOnClickListener(this);
 
 
-
     }
 
 
@@ -95,7 +94,7 @@ public class DrinkFramgment extends InquiryBaseFrament implements View.OnClickLi
         }
 
         if (listenerAdapter != null) {
-            listenerAdapter.onNext(drink, drinkWhat);
+            listenerAdapter.onNext("4", drink, drinkWhat);
         }
 
     }
@@ -124,7 +123,7 @@ public class DrinkFramgment extends InquiryBaseFrament implements View.OnClickLi
             reverse(tvMijiu);
         } else if (id == R.id.tv_sign_up_go_back) {
             if (listenerAdapter != null) {
-                listenerAdapter.onBack();
+                listenerAdapter.onBack("4", null, null);
             }
         } else if (id == R.id.tv_sign_up_go_forward) {
             getResult();

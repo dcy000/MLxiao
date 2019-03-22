@@ -99,10 +99,10 @@ public class WeightFragment extends InquiryBaseFrament implements View.OnClickLi
     public void onClick(View v) {
         if (listenerAdapter != null) {
             if (v.getId() == R.id.tv_sign_up_go_back) {
-                listenerAdapter.onBack();
+                listenerAdapter.onBack("2",null);
             } else if (v.getId() == R.id.tv_sign_up_go_forward) {
                 String height = mStrings.get(selectedPosition);
-                listenerAdapter.onNext(height);
+                listenerAdapter.onNext("2",height);
             }
         }
 

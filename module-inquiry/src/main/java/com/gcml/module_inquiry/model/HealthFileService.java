@@ -45,8 +45,7 @@ public interface HealthFileService {
             @Body ArrayList<DetectionData> datas);
 
     @POST("ZZB/api/health/inquiry/")
-    Observable<ApiResult<WenZhenReultBean>> postWenZen(
-            @Field("userId") String userId,
+    Observable<ApiResult<Object>> postWenZen(
             @Body WenZhenBean bean);
 
 

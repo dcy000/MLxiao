@@ -2,6 +2,7 @@ package com.gcml.module_inquiry.inquiry.ui.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.gcml.common.data.Province;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_inquiry.R;
 import com.gcml.module_inquiry.inquiry.ui.fragment.base.InquiryBaseFrament;
 import com.google.gson.Gson;
@@ -260,11 +262,20 @@ public class AddressFragment extends InquiryBaseFrament implements View.OnClickL
         int id = v.getId();
         if (id == R.id.tv_sign_up_go_back) {
             if (listenerAdapter != null) {
-                listenerAdapter.onBack();
+                listenerAdapter.onBack("3", null);
             }
         } else if (id == R.id.tv_sign_up_go_forward) {
+            if (TextUtils.isEmpty(getAddress().replaceAll(" ", ""))) {
+                ToastUtils.showShort("请完善地址信息");
+                return;
+            }
+
+            if (TextUtils.isEmpty(etAddress.getText().toString().trim())) {
+                ToastUtils.showShort("请完善地址信息");
+                return;
+            }
             if (listenerAdapter != null) {
-                listenerAdapter.onNext(getAddress());
+                listenerAdapter.onNext("3", getAddress());
             }
         } else if (id == R.id.sp_province) {
             showCityPikcker();

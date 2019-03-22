@@ -3,6 +3,7 @@ package com.gcml.module_inquiry.model;
 import com.gcml.common.RetrofitHelper;
 import com.gcml.common.data.DetectionResult;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.http.ApiResult;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UploadHelper;
@@ -13,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import afu.org.checkerframework.checker.oigj.qual.O;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
@@ -71,9 +73,10 @@ public class HealthFileRepostory {
     /**
      * 问诊
      */
-    public Observable<WenZhenReultBean> postWenZen(WenZhenBean datas) {
+    public Observable<ApiResult<Object>> postWenZen(WenZhenBean data) {
         String userId = UserSpHelper.getUserId();
-        return service.postWenZen(userId, datas).compose(RxUtils.apiResultTransformer());
+        data.userId = userId;
+        return service.postWenZen(data);
     }
 
 

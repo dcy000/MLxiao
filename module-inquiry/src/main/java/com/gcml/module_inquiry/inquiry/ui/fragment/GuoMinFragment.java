@@ -87,7 +87,7 @@ public class GuoMinFragment extends InquiryBaseFrament implements View.OnClickLi
             return;
         }
 
-        listenerAdapter.onNext(getGuoMin(), getJiBing());
+        listenerAdapter.onNext("7", getGuoMin(), getJiBing());
     }
 
     public String getGuoMin() {
@@ -178,7 +178,7 @@ public class GuoMinFragment extends InquiryBaseFrament implements View.OnClickLi
             wu2.setSelected(false);
         } else if (id == R.id.tv_sign_up_go_back) {
             if (listenerAdapter != null) {
-                listenerAdapter.onBack();
+                listenerAdapter.onBack("7", null, null);
             }
         } else if (id == R.id.tv_sign_up_go_forward) {
             if (listenerAdapter != null) {

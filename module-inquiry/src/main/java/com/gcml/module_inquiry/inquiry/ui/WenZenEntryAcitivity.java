@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.http.ApiResult;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -27,7 +28,6 @@ import com.gcml.module_inquiry.inquiry.ui.fragment.YueJingTimeFragment;
 import com.gcml.module_inquiry.inquiry.ui.fragment.base.ChildActionListenerAdapter;
 import com.gcml.module_inquiry.model.HealthFileRepostory;
 import com.gcml.module_inquiry.model.WenZhenBean;
-import com.gcml.module_inquiry.model.WenZhenReultBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,10 +68,10 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                 .doOnSubscribe(disposable -> showLoading("页面加载中"))
                 .doOnTerminate(() -> dismissLoading())
                 .subscribe(userEntity -> {
-                    HeightFragment heightFragment = HeightFragment.newInstance(null, null);
-                    WeightFragment weightFragment = WeightFragment.newInstance(null, null);
-                    AddressFragment addressFragment = AddressFragment.newInstance(null, null);
-                    DrinkFramgment drinkFramgment = DrinkFramgment.newInstance(null, null);
+                    HeightFragment heightFragment = HeightFragment.newInstance(null, null);//1
+                    WeightFragment weightFragment = WeightFragment.newInstance(null, null);//2
+                    AddressFragment addressFragment = AddressFragment.newInstance(null, null);//3
+                    DrinkFramgment drinkFramgment = DrinkFramgment.newInstance(null, null);//4
 
                     fragments.add(heightFragment);
                     fragments.add(weightFragment);
@@ -83,18 +83,18 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                     drinkFramgment.setListenerAdapter(listenerAdapter);
 
                     if (!TextUtils.equals(userEntity.sex, "男")) {
-                        PregnancyFragment pregnancyFragment = PregnancyFragment.newInstance(null, null);
-                        YueJingTimeFragment yueJingTimeFragment = YueJingTimeFragment.newInstance(null, null);
+                        PregnancyFragment pregnancyFragment = PregnancyFragment.newInstance(null, null);//5
+                        YueJingTimeFragment yueJingTimeFragment = YueJingTimeFragment.newInstance(null, null);//6
 
                         pregnancyFragment.setListenerAdapter(listenerAdapter);
                         yueJingTimeFragment.setListenerAdapter(listenerAdapter);
                     }
 
-                    GuoMinFragment guoMinFragment = GuoMinFragment.newInstance(null, null);
+                    GuoMinFragment guoMinFragment = GuoMinFragment.newInstance(null, null);//7
                     fragments.add(guoMinFragment);
                     guoMinFragment.setListenerAdapter(listenerAdapter);
 
-                    BloodPressureFragment bloodpressureFragment = BloodPressureFragment.newInstance(null, null);
+                    BloodPressureFragment bloodpressureFragment = BloodPressureFragment.newInstance(null, null);//8
                     fragments.add(bloodpressureFragment);
                     bloodpressureFragment.setListenerAdapter(listenerAdapter);
                     initBody();
@@ -110,27 +110,54 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
     private int currentPosition = 0;
     private ChildActionListenerAdapter listenerAdapter = new ChildActionListenerAdapter() {
         @Override
-        public void onStartBack() {
+        public void onStartBack(String... data) {
             finish();
         }
 
         @Override
-        public void onBack() {
+        public void onBack(String... data) {
+            updateData(data[0], data);
             currentPosition--;
             replaceFragment(fragments.get(currentPosition));
         }
 
         @Override
-        public void onNext(Object... data) {
+        public void onNext(String... data) {
+            updateData(data[0], data);
             currentPosition++;
             replaceFragment(fragments.get(currentPosition));
         }
 
-        public void onFinalNext(Object... data) {
+        public void onFinalNext(String... data) {
+            updateData(data[0], data);
             ToastUtils.showShort("最后一个页面了");
             postWenZhenData();
         }
     };
+
+    private void updateData(String tag, String... data) {
+        if (TextUtils.equals("1", tag)) {
+            bean.height = data[1];
+        } else if (TextUtils.equals("2", tag)) {
+            bean.weight = data[1];
+        } else if (TextUtils.equals("3", tag)) {
+            bean.address = data[1];
+        } else if (TextUtils.equals("4", tag)) {
+            bean.weekDrinkState = data[1];
+            bean.wineType = data[2];
+        } else if (TextUtils.equals("5", tag)) {
+            bean.pregnantState = data[1];
+        } else if (TextUtils.equals("6", tag)) {
+            bean.lastMensesTime = data[1];
+        } else if (TextUtils.equals("7", tag)) {
+            bean.allergicHistory = data[1];
+            bean.diseasesHistory = data[2];
+        } else if (TextUtils.equals("8", tag)) {
+            bean.highPressure = data[1];
+            bean.lowPressure = data[2];
+        }
+    }
+
 
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -164,6 +191,7 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
     }
 
     WenZhenBean bean = new WenZhenBean();
+
     private void postWenZhenData() {
         fileRepostory.postWenZen(bean)
                 .subscribeOn(Schedulers.io())
@@ -178,20 +206,20 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<WenZhenReultBean>() {
+                .subscribe(new DefaultObserver<ApiResult<Object>>(){
+                    @Override
+                    public void onNext(ApiResult<Object> objectApiResult) {
+                        super.onNext(objectApiResult);
+                        ToastUtils.showShort("提交成功");
+                        finish();
+                    }
+
                     @Override
                     public void onError(Throwable throwable) {
                         super.onError(throwable);
                     }
-
-                    @Override
-                    public void onNext(WenZhenReultBean wenZhenReultBean) {
-                        super.onNext(wenZhenReultBean);
-                    }
                 });
 
     }
-
     HealthFileRepostory fileRepostory = new HealthFileRepostory();
-
 }

@@ -61,13 +61,14 @@ public class RxUtils {
             public Observable<T> apply(ApiResult<T> result) {
                 if (result.isSuccessful()) {
                     if (result.getData() == null) {
-                        TypeToken<T> typeToken = new TypeToken<T>() {};
+                        TypeToken<T> typeToken = new TypeToken<T>() {
+                        };
                         Type type = typeToken.getType();
                         T t;
                         try {
-                            t = (T) new ArrayList<>();
-                        } catch (Throwable e) {
                             t = Serializer.getInstance().deserialize("{}", type);
+                        } catch (Throwable e) {
+                            t = (T) new ArrayList<>();
                         }
                         return Observable.just(t);
                     }
