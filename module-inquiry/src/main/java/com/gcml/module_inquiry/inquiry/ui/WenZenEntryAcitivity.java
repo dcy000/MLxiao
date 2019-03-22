@@ -9,25 +9,32 @@ import android.text.TextUtils;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_inquiry.R;
 import com.gcml.module_inquiry.inquiry.ui.base.InquiryBaseActivity;
 import com.gcml.module_inquiry.inquiry.ui.fragment.AddressFragment;
+import com.gcml.module_inquiry.inquiry.ui.fragment.BloodPressureFragment;
 import com.gcml.module_inquiry.inquiry.ui.fragment.DrinkFramgment;
+import com.gcml.module_inquiry.inquiry.ui.fragment.GuoMinFragment;
 import com.gcml.module_inquiry.inquiry.ui.fragment.HeightFragment;
 import com.gcml.module_inquiry.inquiry.ui.fragment.PregnancyFragment;
 import com.gcml.module_inquiry.inquiry.ui.fragment.WeightFragment;
 import com.gcml.module_inquiry.inquiry.ui.fragment.YueJingTimeFragment;
 import com.gcml.module_inquiry.inquiry.ui.fragment.base.ChildActionListenerAdapter;
-import com.gcml.module_inquiry.inquiry.ui.fragment.base.InquiryBaseFrament;
+import com.gcml.module_inquiry.model.HealthFileRepostory;
+import com.gcml.module_inquiry.model.WenZhenBean;
+import com.gcml.module_inquiry.model.WenZhenReultBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -39,7 +46,7 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
     private TranslucentToolBar tb;
     private FragmentManager fragmentManager;
 
-    private List<InquiryBaseFrament> fragments = new ArrayList<>();
+    private List<Fragment> fragments = new ArrayList<>();
 
     @Override
 
@@ -61,29 +68,35 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                 .doOnSubscribe(disposable -> showLoading("页面加载中"))
                 .doOnTerminate(() -> dismissLoading())
                 .subscribe(userEntity -> {
-                    if (TextUtils.equals(userEntity.sex, "男")) {
-                        HeightFragment heightFragment = HeightFragment.newInstance(null, null);
-                        WeightFragment weightFragment = WeightFragment.newInstance(null, null);
-                        AddressFragment addressFragment = AddressFragment.newInstance(null, null);
-                        DrinkFramgment drinkFramgment = DrinkFramgment.newInstance(null, null);
+                    HeightFragment heightFragment = HeightFragment.newInstance(null, null);
+                    WeightFragment weightFragment = WeightFragment.newInstance(null, null);
+                    AddressFragment addressFragment = AddressFragment.newInstance(null, null);
+                    DrinkFramgment drinkFramgment = DrinkFramgment.newInstance(null, null);
 
-                        fragments.add(heightFragment);
-                        fragments.add(weightFragment);
-                        fragments.add(addressFragment);
-                        fragments.add(drinkFramgment);
+                    fragments.add(heightFragment);
+                    fragments.add(weightFragment);
+                    fragments.add(addressFragment);
+                    fragments.add(drinkFramgment);
+                    heightFragment.setListenerAdapter(listenerAdapter);
+                    weightFragment.setListenerAdapter(listenerAdapter);
+                    addressFragment.setListenerAdapter(listenerAdapter);
+                    drinkFramgment.setListenerAdapter(listenerAdapter);
 
-                        heightFragment.setListenerAdapter(listenerAdapter);
-                        weightFragment.setListenerAdapter(listenerAdapter);
-                        addressFragment.setListenerAdapter(listenerAdapter);
-                        drinkFramgment.setListenerAdapter(listenerAdapter);
-
-                    } else {
+                    if (!TextUtils.equals(userEntity.sex, "男")) {
                         PregnancyFragment pregnancyFragment = PregnancyFragment.newInstance(null, null);
                         YueJingTimeFragment yueJingTimeFragment = YueJingTimeFragment.newInstance(null, null);
 
                         pregnancyFragment.setListenerAdapter(listenerAdapter);
                         yueJingTimeFragment.setListenerAdapter(listenerAdapter);
                     }
+
+                    GuoMinFragment guoMinFragment = GuoMinFragment.newInstance(null, null);
+                    fragments.add(guoMinFragment);
+                    guoMinFragment.setListenerAdapter(listenerAdapter);
+
+                    BloodPressureFragment bloodpressureFragment = BloodPressureFragment.newInstance(null, null);
+                    fragments.add(bloodpressureFragment);
+                    bloodpressureFragment.setListenerAdapter(listenerAdapter);
                     initBody();
                 });
 
@@ -107,7 +120,6 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
             replaceFragment(fragments.get(currentPosition));
         }
 
-
         @Override
         public void onNext(Object... data) {
             currentPosition++;
@@ -116,6 +128,7 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
 
         public void onFinalNext(Object... data) {
             ToastUtils.showShort("最后一个页面了");
+            postWenZhenData();
         }
     };
 
@@ -150,5 +163,35 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
         setWifiLevel(tb);
     }
 
+    WenZhenBean bean = new WenZhenBean();
+    private void postWenZhenData() {
+        fileRepostory.postWenZen(bean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disposable -> {
+                    showLoading("");
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissLoading();
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<WenZhenReultBean>() {
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
+
+                    @Override
+                    public void onNext(WenZhenReultBean wenZhenReultBean) {
+                        super.onNext(wenZhenReultBean);
+                    }
+                });
+
+    }
+
+    HealthFileRepostory fileRepostory = new HealthFileRepostory();
 
 }

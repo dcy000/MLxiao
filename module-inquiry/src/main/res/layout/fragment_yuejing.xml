@@ -18,13 +18,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:paddingLeft="10pt"
-        android:padding="10pt"
         android:id="@+id/tv_yuejing_date"
         android:layout_width="1339pt"
         android:layout_height="wrap_content"
         android:layout_marginTop="64pt"
         android:background="@drawable/yuejing_date_bg"
+        android:padding="10pt"
+        android:paddingLeft="10pt"
         android:text="2018-5-26"
         android:textColor="#FF666666"
         android:textSize="80pt"
@@ -33,5 +33,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-    <include layout="@layout/include_sign_up_nav" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="0pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_sign_up_go_back"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="160pt"
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/bg_selector_btn_go_back"
+            android:gravity="center"
+            android:text="上一步"
+            android:textColor="#3F85FC"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/tv_sign_up_go_forward"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="160pt"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/bg_selector_btn_go_forward"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="@android:color/white"
+            android:textSize="35sp" />
+
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
