@@ -21,10 +21,10 @@ ext {
     //TODO:各自开发的模块中还未统一IP的请尽早统一，避免不必要的风险。
     //TODO:开发时只更改开发引用即可，下方的生产引用不要轻易更改。
     //开发使用的IP地址
-    developUrl = api.heguiProduce
+    developUrl = api.heguiXunfei
 
     //线上正式运行的IP地址
-    produceUrl = api.heguiProduce
+    produceUrl = api.heguiXunfei
 
 
     android = [
@@ -32,8 +32,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
-            versionCode      : 29,
-            versionName      : "Robot-SDHG.1.1.4"
+            versionCode      : 30,
+            versionName      : "Robot-SDHG.1.1.5.4.beta"
     ]
 
     version = [

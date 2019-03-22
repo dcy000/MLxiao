@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.gcml.common.utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.io.Serializable;
@@ -114,7 +115,7 @@ public class MultipleChoiceStringFragment extends Fragment {
             }
         }
         if (checked.length == 0) {
-            MLVoiceSynthetize.startSynthesize(getActivity(), "您未选择任何选项", false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您未选择任何选项", false);
             return;
         }
         listener.onNextStep(checked);

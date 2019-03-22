@@ -417,7 +417,7 @@ public class ShowMeasureBloodpressureResultFragment extends BluetoothBaseFragmen
     }
 
     public void mlSpeak(String text) {
-        MLVoiceSynthetize.startSynthesize(getContext().getApplicationContext(), text, false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), text, false);
     }
 
     private void clickWithoutContinueJudge() {

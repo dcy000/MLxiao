@@ -172,7 +172,7 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
 
     private void showDialog(String message) {
         //同时语音播报
-        MLVoiceSynthetize.startSynthesize(getContext(), message, false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), message, false);
         new AlertDialog(mContext)
                 .builder()
                 .setMsg(message)
@@ -186,7 +186,7 @@ public class HealthBloodDetectionUiFragment extends BloodpressureFragment {
 
     private void showFirstDialog(String message, String speak) {
         //同时语音播报
-        MLVoiceSynthetize.startSynthesize(getContext(), speak, false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), speak, false);
         new AlertDialog(mContext)
                 .builder()
                 .setMsg(Html.fromHtml(message))

@@ -89,7 +89,6 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
 
     @Override
     protected void initView(View view, Bundle bundle) {
-
         mMainPc80BViewBg = (BackGround) view.findViewById(R.id.main_pc80B_view_bg);
         mMainPc80BMSG = (TextView) view.findViewById(R.id.main_pc80B_MSG);
         mMainPc80BViewDraw = (DrawThreadPC80B) view.findViewById(R.id.main_pc80B_view_draw);
@@ -216,6 +215,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         drawThread = null;
 //        context.stopService(new Intent(context, ReceiveService.class));
         if (serviceConnect != null && isServiceBind) {
+            isServiceBind = false;
             context.unbindService(serviceConnect);
         }
         if (isRegistReceiver) {

@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.han.referralproject.R;
+import com.gcml.common.App;
+import com.gcml.common.AppDelegate;
+import com.gcml.common.AppHelper;
+import com.gcml.common.utils.UtilsManager;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import butterknife.BindView;
@@ -48,7 +52,7 @@ public class CalculationDialog extends DialogFragment {
             tvAnwser.setText(bundle.getString("answer").substring(2));
         }
         MLVoiceSynthetize.stop();
-        MLVoiceSynthetize.startSynthesize(getContext(), bundle.getString("answer"),false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), bundle.getString("answer"),false);
         return view;
     }
 

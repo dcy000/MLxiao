@@ -207,6 +207,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         drawThread = null;
 //        context.stopService(new Intent(context, ReceiveService.class));
         if (serviceConnect != null && isServiceBind) {
+            isServiceBind = false;
             context.unbindService(serviceConnect);
         }
         if (isRegistReceiver) {
