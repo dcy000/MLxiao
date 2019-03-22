@@ -137,15 +137,11 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
                 startActivity(new Intent(this, HealthManageTipActivity.class));
             }
         } else if (id == R.id.rl_inquiry_home_file) {
-//            if (bindDoctor) {
-//                CC.obtainBuilder("health.profile.file").addParam("fromPage", "qianyue").build().callAsync();
-//            } else {
-//                CC.obtainBuilder(KEY_BIND_DOCTOR).build().callAsync();
-//            }
-
-            CC.obtainBuilder(KEY_INQUIRY).build().callAsync();
-
-
+            if (bindDoctor) {
+                CC.obtainBuilder("health.profile.file").addParam("fromPage", "qianyue").build().callAsync();
+            } else {
+                CC.obtainBuilder(KEY_BIND_DOCTOR).build().callAsync();
+            }
         } else if (id == R.id.rl_inquiry_home_home) {
             CC.obtainBuilder("com.gcml.old.home").build().callAsync();
         }

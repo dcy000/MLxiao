@@ -37,12 +37,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static com.gcml.common.IConstant.KEY_INQUIRY;
+
 public class HosMainFragment extends RecycleBaseFragment implements View.OnClickListener {
     private LinearLayout mLlPernal;
     private EclipseImageView mEiHealthCheckup;
     private EclipseImageView mEiInfomationCollection;
     private EclipseImageView mEiDoctorService;
     private EclipseImageView mEiQuit;
+    private EclipseImageView mWenZen;
     private View view;
     private CircleImageView mCvHead;
     private TextView mTvUserName;
@@ -66,6 +69,8 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
         mEiQuit = (EclipseImageView) view.findViewById(R.id.ei_quit);
         mEiQuit.setOnClickListener(this);
         mCvHead = (CircleImageView) view.findViewById(R.id.cv_head);
+        mWenZen = view.findViewById(R.id.ei_doctor_wenzen);
+        mWenZen.setOnClickListener(this);
         mTvUserName = (TextView) view.findViewById(R.id.tv_user_name);
         view.findViewById(R.id.ei_health_edu).setOnClickListener(new FilterClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +81,7 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
         getPersonInfo();
     }
 
-    private Boolean bindWacher=false;
+    private Boolean bindWacher = false;
 
     //获取个人信息，得到网易账号登录所需的账号和密码
     private void getPersonInfo() {
@@ -138,7 +143,7 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
                 startActivity(new Intent(getActivity(), PersonSplitterActivity.class));
                 break;
             case R.id.ei_health_checkup:
-                CC.obtainBuilder("health.profile").build().call();
+                gotoHealthMeasure();
                 break;
             case R.id.ei_infomation_collection:
 //                startActivity(new Intent(getActivity(), InquiryActivity.class));
@@ -153,11 +158,15 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
                 }
                 break;
             case R.id.ei_doctor_service:
-                gotoHealthMeasure();
+                CC.obtainBuilder("health.profile").build().call();
                 break;
             case R.id.ei_quit:
                 quitApp();
                 break;
+            case R.id.ei_doctor_wenzen:
+                CC.obtainBuilder(KEY_INQUIRY).build().callAsync();
+                break;
+
         }
     }
 
