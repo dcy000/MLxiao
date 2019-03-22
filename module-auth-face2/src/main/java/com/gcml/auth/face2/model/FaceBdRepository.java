@@ -168,52 +168,6 @@ public class FaceBdRepository {
                 }).subscribeOn(Schedulers.io());
             }
         };
-//                PublishSubject<Object> subject = PublishSubject.create();
-//                Observable<String> token = accessToken()
-//                        .doOnDispose(new Action() {
-//                            @Override
-//                            public void run() throws Exception {
-//                                subject.onNext(new Object());
-//                            }
-//                        });
-//                return upstream
-//                        .zipWith(token, new BiFunction<List<String>, String, String>() {
-//                            @Override
-//                            public String apply(List<String> images, String token) throws Exception {
-//                                ArrayList<FaceBdVerifyParam> imgs = new ArrayList<>();
-//                                for (String image : images) {
-//                                    FaceBdVerifyParam img = new FaceBdVerifyParam();
-//                                    img.setImage(image);
-//                                    img.setImageType("BASE64");
-//                                    img.setFaceField("age,beauty,expression");
-//                                    imgs.add(img);
-//                                }
-//                                String img = "";
-//                                try {
-//                                    img = mFaceBdService.verify(token, imgs)
-//                                            .compose(FaceBdResultUtils.faceBdResultTransformer())
-//                                            .flatMap(new Function<FaceBdVerify, ObservableSource<String>>() {
-//                                                @Override
-//                                                public ObservableSource<String> apply(FaceBdVerify result) throws Exception {
-//                                                    String image = FaceBdErrorUtils.liveFace(result);
-//                                                    if (!TextUtils.isEmpty(image)) {
-//                                                        return Observable.just(image);
-//                                                    }
-//                                                    return Observable.error(new FaceBdError(FaceBdErrorUtils.ERROR_FACE_LIVELESS, ""));
-//                                                }
-//                                            })
-//                                            .takeUntil(subject)
-//                                            .subscribeOn(Schedulers.io())
-//                                            .blockingFirst();
-//                                } catch (Exception e) {
-//                                    e.printStackTrace();
-//                                }
-//                                return img;
-//                            }
-//                        });
-//            }
-//            };
-
     }
 
     public Observable<String> addFaceByApi(
@@ -437,32 +391,41 @@ public class FaceBdRepository {
         return new ObservableTransformer<String, FaceBdUser>() {
             @Override
             public ObservableSource<FaceBdUser> apply(Observable<String> upstream) {
-                return Observable.zip(upstream, accessToken(), getGroups(), new Function3<String, String, String, FaceBdUser>() {
+               return upstream.flatMap(new Function<String, ObservableSource<FaceBdUser>>() {
                     @Override
-                    public FaceBdUser apply(String image, String token, String groups) throws Exception {
-                        FaceBdSearchParam param = new FaceBdSearchParam();
-                        String[] imgData = image.split(",");
-                        param.setImageType(imgData[0]);
-                        param.setImage(imgData[1]);
-                        param.setGroupIdList(groups);
-                        if (!TextUtils.isEmpty(faceId)) {
-                            param.setUserId(faceId);
-                        }
-                        return mFaceBdService.search(token, param)
-                                .compose(FaceBdResultUtils.faceBdResultTransformer())
-                                .flatMap(new Function<FaceBdSearch, ObservableSource<FaceBdUser>>() {
+                    public ObservableSource<FaceBdUser> apply(String image) throws Exception {
+                        return getGroups().flatMap(new Function<String, ObservableSource<FaceBdUser>>() {
+                            @Override
+                            public ObservableSource<FaceBdUser> apply(String groups) throws Exception {
+                                return accessToken().flatMap(new Function<String, ObservableSource<FaceBdUser>>() {
                                     @Override
-                                    public ObservableSource<FaceBdUser> apply(FaceBdSearch search) throws Exception {
-                                        try {
-                                            FaceBdUser bdUser = FaceBdErrorUtils.checkSearch(search);
-                                            return Observable.just(bdUser);
-                                        } catch (Exception e) {
-                                            return Observable.error(e);
+                                    public ObservableSource<FaceBdUser> apply(String token) throws Exception {
+                                        FaceBdSearchParam param = new FaceBdSearchParam();
+                                        String[] imgData = image.split(",");
+                                        param.setImageType(imgData[0]);
+                                        param.setImage(imgData[1]);
+                                        param.setGroupIdList(groups);
+                                        if (!TextUtils.isEmpty(faceId)) {
+                                            param.setUserId(faceId);
                                         }
+                                        return mFaceBdService.search(token, param)
+                                                .compose(FaceBdResultUtils.faceBdResultTransformer())
+                                                .flatMap(new Function<FaceBdSearch, ObservableSource<FaceBdUser>>() {
+                                                    @Override
+                                                    public ObservableSource<FaceBdUser> apply(FaceBdSearch search) throws Exception {
+                                                        try {
+                                                            FaceBdUser bdUser = FaceBdErrorUtils.checkSearch(search);
+                                                            return Observable.just(bdUser);
+                                                        } catch (Exception e) {
+                                                            return Observable.error(e);
+                                                        }
+                                                    }
+                                                })
+                                                .subscribeOn(Schedulers.io());
                                     }
-                                })
-                                .subscribeOn(Schedulers.io())
-                                .blockingFirst();
+                                }).subscribeOn(Schedulers.io());
+                            }
+                        }).subscribeOn(Schedulers.io());
                     }
                 });
             }

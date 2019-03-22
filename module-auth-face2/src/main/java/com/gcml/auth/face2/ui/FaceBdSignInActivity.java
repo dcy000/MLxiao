@@ -162,7 +162,7 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
                     public void accept(Throwable throwable) throws Exception {
                         Timber.w(throwable);
                         FaceBdError wrapped = FaceBdErrorUtils.wrap(throwable);
-                        String msg = FaceBdErrorUtils.getMsg(wrapped.getCode());
+                        String msg = FaceBdErrorUtils.getMsg(wrapped.getCode(), wrapped.getMessage());
                         binding.ivTips.setText(msg);
                         error = true;
                         start();

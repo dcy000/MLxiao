@@ -9,6 +9,7 @@ import com.gcml.auth.face2.model.entity.FaceBdSearch;
 import com.gcml.auth.face2.model.entity.FaceBdUser;
 import com.gcml.auth.face2.model.entity.FaceBdVerify;
 import com.gcml.auth.face2.model.exception.FaceBdError;
+import com.gcml.common.http.ApiException;
 
 import java.util.List;
 import java.util.Locale;
@@ -42,8 +43,8 @@ public class FaceBdErrorUtils {
     public static final int ERROR_USER_NOT_EXIST = 223103;
     public static final int ERROR_USER_NOT_FOUND = 222207;
 
-    public static String getMsg(int code) {
-        String msg = "把人脸放在框内";
+    public static String getMsg(int code, String otherMsg) {
+        String msg = TextUtils.isEmpty(otherMsg) ? "把人脸放在框内": otherMsg;
         switch (code) {
             case ERROR_UNKNOWN:
                 msg = "把人脸放在框内";
@@ -69,6 +70,10 @@ public class FaceBdErrorUtils {
     public static FaceBdError wrap(Throwable throwable) {
         if (throwable instanceof FaceBdError) {
             return (FaceBdError) throwable;
+        }
+        if (throwable instanceof ApiException) {
+            ApiException e = ((ApiException) throwable);
+            return new FaceBdError(e.code(), e.getMessage());
         }
         return new FaceBdError(throwable);
     }
