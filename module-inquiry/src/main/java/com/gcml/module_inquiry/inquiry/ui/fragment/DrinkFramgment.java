@@ -1,5 +1,6 @@
 package com.gcml.module_inquiry.inquiry.ui.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -62,10 +63,16 @@ public class DrinkFramgment extends InquiryBaseFrament implements View.OnClickLi
     }
 
 
-    private void reverse(View view) {
+    private void reverse(TextView view) {
         view.setSelected(!view.isSelected());
+
         tvDrinkYes.setSelected(true);
         tvDrinkNot.setSelected(false);
+
+        setSelect(tvDrinkYes, true);
+        setSelect(tvDrinkNot, false);
+        setSelect(view, view.isSelected());
+
     }
 
     private void getResult() {
@@ -106,12 +113,18 @@ public class DrinkFramgment extends InquiryBaseFrament implements View.OnClickLi
             tvDrinkYes.setSelected(!tvDrinkYes.isSelected());
             tvDrinkNot.setSelected(false);
 
+            setSelect(tvDrinkYes, tvDrinkYes.isSelected());
+            setSelect(tvDrinkNot, false);
         } else if (id == R.id.tv_drink_not) {
             tvDrinkNot.setSelected(!tvDrinkNot.isSelected());
             tvDrinkYes.setSelected(false);
 
+            setSelect(tvDrinkNot, tvDrinkNot.isSelected());
+            setSelect(tvDrinkYes, false);
+
             for (int i = 0; i < llDrinkWhat.getChildCount(); i++) {
                 llDrinkWhat.getChildAt(i).setSelected(false);
+                setSelect((TextView) llDrinkWhat.getChildAt(i), false);
             }
         } else if (id == R.id.tv_baijiu) {
             reverse(tvBaijiu);
@@ -129,6 +142,16 @@ public class DrinkFramgment extends InquiryBaseFrament implements View.OnClickLi
             getResult();
         }
 
+    }
+
+    private void setSelect(TextView view, boolean select) {
+        Drawable drawable = getResources().getDrawable(R.drawable.icon_huaiyun);
+        if (select) {
+        } else {
+            drawable = getResources().getDrawable(R.drawable.icon_huaiyun_not);
+        }
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        view.setCompoundDrawables(drawable, null, null, null);
     }
 
     public static DrinkFramgment newInstance(String param1, String param2) {

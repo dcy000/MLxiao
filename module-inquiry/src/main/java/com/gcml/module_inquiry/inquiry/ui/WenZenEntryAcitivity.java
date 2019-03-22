@@ -130,7 +130,6 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
 
         public void onFinalNext(String... data) {
             updateData(data[0], data);
-            ToastUtils.showShort("最后一个页面了");
             postWenZhenData();
         }
     };
