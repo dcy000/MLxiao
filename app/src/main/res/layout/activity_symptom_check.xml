@@ -22,7 +22,7 @@
         android:layout_marginTop="156pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tb_title"
-        android:background="@drawable/ic_symptom_check_set"/>
+        android:background="@drawable/ic_risk_set"/>
 
     <ImageView
         android:id="@+id/iv_chine_constitution"
@@ -43,7 +43,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/iv_symptom_check"
         app:layout_constraintStart_toEndOf="@+id/iv_chine_constitution"
         app:layout_constraintTop_toTopOf="@+id/iv_chine_constitution"
-        android:background="@drawable/ic_risk_set" />
+        android:background="@drawable/ic_symptom_check_set" />
 
 
 

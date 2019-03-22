@@ -7,7 +7,7 @@
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_person_center"
         android:layout_width="594pt"
-        android:layout_height="328pt"
+        android:layout_height="504pt"
         android:background="@drawable/newmain_person_center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +28,7 @@
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/entertainment_center"
         android:layout_width="594pt"
-        android:layout_height="328pt"
+        android:layout_height="504pt"
         android:background="@drawable/newmain_health_course"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_health_course"
@@ -38,26 +38,16 @@
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_communicate"
         android:layout_width="594pt"
-        android:layout_height="504pt"
+        android:layout_height="1032pt"
         android:background="@drawable/newmain_communicate"
         app:layout_constraintLeft_toRightOf="@id/iv_person_center"
         app:layout_constraintTop_toTopOf="@id/iv_person_center"
         android:layout_marginLeft="24pt"
         android:clickable="true"/>
     <com.gcml.lib_widget.EclipseImageView
-        android:id="@+id/iv_check_self"
-        android:layout_width="594pt"
-        android:layout_height="504pt"
-        android:background="@drawable/newmain_entertainment_center"
-        app:layout_constraintLeft_toLeftOf="@id/iv_communicate"
-        app:layout_constraintTop_toBottomOf="@id/iv_communicate"
-        android:layout_marginTop="24pt"
-        android:clickable="true"
-        />
-    <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_shopping_mall"
         android:layout_width="594pt"
-        android:layout_height="504pt"
+        android:layout_height="328pt"
         android:background="@drawable/newmain_shopping_mall"
         app:layout_constraintTop_toTopOf="@id/iv_person_center"
         app:layout_constraintLeft_toRightOf="@id/iv_communicate"
@@ -67,10 +57,21 @@
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/iv_ask_doctor"
         android:layout_width="594pt"
-        android:layout_height="504pt"
+        android:layout_height="328pt"
         android:background="@drawable/newmain_ask_doctor"
         app:layout_constraintLeft_toLeftOf="@id/iv_shopping_mall"
         app:layout_constraintTop_toBottomOf="@id/iv_shopping_mall"
         android:layout_marginTop="24pt"
         android:clickable="true"/>
+
+    <com.gcml.lib_widget.EclipseImageView
+        android:id="@+id/iv_check_self"
+        android:layout_width="594pt"
+        android:layout_height="328pt"
+        android:background="@drawable/newmain_entertainment_center"
+        app:layout_constraintLeft_toLeftOf="@id/iv_ask_doctor"
+        app:layout_constraintTop_toBottomOf="@id/iv_ask_doctor"
+        android:layout_marginTop="24pt"
+        android:clickable="true"
+        />
 </android.support.constraint.ConstraintLayout>

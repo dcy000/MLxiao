@@ -75,12 +75,6 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_symptom_check:
-                toSymptom();
-                break;
-            case R.id.iv_chine_constitution:
-                toChineseConsititution();
-                break;
-            case R.id.iv_risk_assessment:
                 CCResult result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
                 Observable<UserEntity> rxUser = result.getDataItem("data");
                 rxUser.subscribeOn(Schedulers.io())
@@ -98,6 +92,12 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
                                 }
                             }
                         });
+                break;
+            case R.id.iv_chine_constitution:
+                toChineseConsititution();
+                break;
+            case R.id.iv_risk_assessment:
+                toSymptom();
                 break;
         }
     }
@@ -120,13 +120,13 @@ public class SymptomCheckActivity extends AppCompatActivity implements View.OnCl
                     @Override
                     public void onNext(UserEntity user) {
                         if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)
-                                || TextUtils.isEmpty(user.sex)|| TextUtils.isEmpty(user.birthday)) {
+                                || TextUtils.isEmpty(user.sex) || TextUtils.isEmpty(user.birthday)) {
                             ToastUtils.showShort("请先去个人中心完善体重,身高,性别,年龄信息");
                             MLVoiceSynthetize.startSynthesize(
                                     SymptomCheckActivity.this.getApplicationContext(),
                                     "请先去个人中心完善体重,身高,性别,年龄信息");
                         } else {
-                            Intent intent = new Intent( SymptomCheckActivity.this, SlowDiseaseManagementActivity.class);
+                            Intent intent = new Intent(SymptomCheckActivity.this, SlowDiseaseManagementActivity.class);
                             startActivity(intent);
                         }
                     }

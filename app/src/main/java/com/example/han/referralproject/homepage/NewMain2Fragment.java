@@ -103,8 +103,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 break;
             case R.id.entertainment_center:
 //                OldRouter.routeToOldHomeActivity(getActivity());
-                //健康课堂
-                startActivity(new Intent(getActivity(), VideoListActivity.class));
+                startActivity(new Intent(getActivity(), HealthRecordActivity.class));
                 //娱乐中心
 //                CC.obtainBuilder("app.component.recreation").build().callAsync();
                 break;
@@ -139,7 +138,8 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 break;
             case R.id.iv_ask_doctor:
 //                startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));
-                startActivity(new Intent(getActivity(), HealthRecordActivity.class));
+                //健康课堂
+                startActivity(new Intent(getActivity(), VideoListActivity.class));
                 break;
         }
     }
