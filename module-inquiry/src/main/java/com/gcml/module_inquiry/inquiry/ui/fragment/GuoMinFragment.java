@@ -1,5 +1,6 @@
 package com.gcml.module_inquiry.inquiry.ui.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -149,33 +150,65 @@ public class GuoMinFragment extends InquiryBaseFrament implements View.OnClickLi
         if (id == R.id.qingmeisu) {
             qingmeisu.setSelected(!qingmeisu.isSelected());
             wu1.setSelected(false);
+
+            setSelect(qingmeisu, qingmeisu.isSelected());
+            setSelect(wu1, false);
+
         } else if (id == R.id.toubao) {
             toubao.setSelected(!toubao.isSelected());
             wu1.setSelected(false);
+
+            setSelect(toubao, toubao.isSelected());
+            setSelect(wu1, false);
         } else if (id == R.id.huanganlei) {
             huanganlei.setSelected(!huanganlei.isSelected());
             wu1.setSelected(false);
+
+
+            setSelect(huanganlei, huanganlei.isSelected());
+            setSelect(wu1, false);
         } else if (id == R.id.qita) {
             qita.setSelected(!qita.isSelected());
             wu1.setSelected(false);
+
+            setSelect(qita, qita.isSelected());
+            setSelect(wu1, false);
         } else if (id == R.id.wu11) {
             wu1.setSelected(!wu1.isSelected());
             qingmeisu.setSelected(false);
             toubao.setSelected(false);
             huanganlei.setSelected(false);
             qita.setSelected(false);
+
+            setSelect(wu1, wu1.isSelected());
+            setSelect(qingmeisu, false);
+            setSelect(toubao, false);
+            setSelect(huanganlei, false);
+            setSelect(qita, false);
         } else if (id == R.id.gaouxeya) {
             gaouxeya.setSelected(!gaouxeya.isSelected());
             wu2.setSelected(false);
+
+            setSelect(gaouxeya, gaouxeya.isSelected());
+            setSelect(wu2, false);
         } else if (id == R.id.tangniaobing) {
             tangniaobing.setSelected(!tangniaobing.isSelected());
             wu2.setSelected(false);
+
+            setSelect(tangniaobing, tangniaobing.isSelected());
+            setSelect(wu2, false);
         } else if (id == R.id.shexian) {
             shexian.setSelected(!shexian.isSelected());
             wu2.setSelected(false);
+
+            setSelect(shexian, shexian.isSelected());
+            setSelect(wu2, false);
         } else if (id == R.id.xiaochuan) {
             xiaochuan.setSelected(!xiaochuan.isSelected());
             wu2.setSelected(false);
+
+            setSelect(xiaochuan, xiaochuan.isSelected());
+            setSelect(wu2, false);
         } else if (id == R.id.tv_sign_up_go_back) {
             if (listenerAdapter != null) {
                 listenerAdapter.onBack("7", null, null);
@@ -187,6 +220,9 @@ public class GuoMinFragment extends InquiryBaseFrament implements View.OnClickLi
         } else if (id == R.id.qita2) {
             qita2.setSelected(!qita2.isSelected());
             wu2.setSelected(false);
+
+            setSelect(qita2, qita2.isSelected());
+            setSelect(wu2, false);
         } else if (id == R.id.wu2) {
             wu2.setSelected(!wu2.isSelected());
 
@@ -195,6 +231,15 @@ public class GuoMinFragment extends InquiryBaseFrament implements View.OnClickLi
             shexian.setSelected(false);
             xiaochuan.setSelected(false);
             qita2.setSelected(false);
+
+
+            setSelect(wu2, wu2.isSelected());
+
+            setSelect(gaouxeya, false);
+            setSelect(tangniaobing, false);
+            setSelect(shexian, false);
+            setSelect(xiaochuan, false);
+            setSelect(qita2, false);
         }
     }
 
@@ -208,6 +253,17 @@ public class GuoMinFragment extends InquiryBaseFrament implements View.OnClickLi
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void setSelect(TextView view, boolean select) {
+        Drawable drawable = null;
+        if (select) {
+            drawable = getResources().getDrawable(R.drawable.icon_huaiyun);
+        } else {
+            drawable = getResources().getDrawable(R.drawable.icon_huaiyun_not);
+        }
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        view.setCompoundDrawables(drawable, null, null, null);
     }
 
 }
