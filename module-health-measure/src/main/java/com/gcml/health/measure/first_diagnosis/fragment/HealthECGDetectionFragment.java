@@ -107,8 +107,13 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         initOther();
     }
 
+    @Override
+    public void autoConnect() {
+        startDiscovery();
+    }
 
     public void startDiscovery() {
+        Timber.i("可瑞康心电开始搜索");
         context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
                 .putExtra("device", 3));
     }
@@ -123,7 +128,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             isRegistReceiver = true;
             context.registerReceiver(connectReceiver, filter);
         }
-        context.startService(new Intent(context, ReceiveService.class));
+//        context.startService(new Intent(context, ReceiveService.class));
         context.bindService(new Intent(context, ReceiveService.class), serviceConnect, Service.BIND_AUTO_CREATE);
     }
 
@@ -209,7 +214,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             mMainPc80BViewDraw.Stop();
         }
         drawThread = null;
-        context.stopService(new Intent(context, ReceiveService.class));
+//        context.stopService(new Intent(context, ReceiveService.class));
         if (serviceConnect != null && isServiceBind) {
             context.unbindService(serviceConnect);
         }
@@ -422,6 +427,7 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
             }
         }
     }
+
     private void setBattery(int battery) {
         if (battery == 0) {
             if (!mHandler.hasMessages(BATTERY_ZERO)) {

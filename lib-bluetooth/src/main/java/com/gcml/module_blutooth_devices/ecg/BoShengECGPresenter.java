@@ -58,6 +58,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class BoShengECGPresenter implements LifecycleObserver {
     private SupportActivity activity;
@@ -154,6 +155,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
         @Override
         public void onConnectSuccess(BleDevice bleDevice, BluetoothGatt gatt, int status) {
+            isMeasureEnd = false;
             lockedDevice = bleDevice;
             baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_ECG, name + "," + address);
@@ -167,11 +169,12 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
                         @Override
                         public void onNotifyFailure(BleException exception) {
-                            Log.e(TAG, "onNotifyFailure: " + exception.getDescription());
+                            timeCount.cancel();
                         }
 
                         @Override
                         public void onCharacteristicChanged(byte[] data) {
+//                            Timber.tag("BOSHENG").i(ByteUtils.byteToString(data));
                             if (!isMeasureEnd) {
                                 bytesResult.add(data);
                                 baseView.updateData(ByteUtils.byteToString(data));
@@ -191,6 +194,13 @@ public class BoShengECGPresenter implements LifecycleObserver {
             }
             isMeasureEnd = true;
             timeCount.cancel();
+
+            new WeakHandler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    connect();
+                }
+            }, 3000);
         }
     };
 

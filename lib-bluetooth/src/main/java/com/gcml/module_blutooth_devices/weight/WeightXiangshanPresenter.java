@@ -34,6 +34,10 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
         this.address = address;
         this.activity.getLifecycle().addObserver(this);
         bleCloudProtocolUtils = BleCloudProtocolUtils.getInstance(activity);
+
+        if (bleCloudProtocolUtils != null && bleCloudProtocolUtils.isConnect() == 2) {
+            baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
+        }
         bleScan = new BleScan();
         bleScan.Create(activity);
         connect();
@@ -90,9 +94,11 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
         bleCloudProtocolUtils.Connect(address);
     }
 
+
     @SuppressLint("RestrictedApi")
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop() {
+        bleCloudProtocolUtils.Disconnect();
         if (activity != null) {
             activity.getLifecycle().removeObserver(this);
         }
