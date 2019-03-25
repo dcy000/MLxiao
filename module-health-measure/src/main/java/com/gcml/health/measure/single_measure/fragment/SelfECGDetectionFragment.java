@@ -105,14 +105,15 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
     }
 
     private static final String TAG = "SelfECGDetectionFragmen";
+
     public void startDiscovery() {
         Timber.i("可瑞康心电开始搜索");
-        Log.e(TAG, "可瑞康心电开始搜索 " );
-        if (ECGBluetooth.bluStatus==ECGBluetooth.BLU_STATUS_CONNECTED||ECGBluetooth.bluStatus==ECGBluetooth.BLU_STATUS_DISCOVERING){
-            return;
+        Log.e(TAG, "可瑞康心电开始搜索 ");
+        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
+            ToastUtils.showShort("正在搜索设备...");
+            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
+                    .putExtra("device", 3));
         }
-        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
-                .putExtra("device", 3));
     }
 
     public void initOther() {
@@ -175,7 +176,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                         ReceiveService.BLU_ACTION_STOPDISCOVERY));
                 context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
             } else if (action.equals(ReceiveService.ACTION_BLU_DISCONNECT)) {
-                Toast.makeText(context, "设备已断开", Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort("设备已断开");
                 if (dealVoiceAndJump != null) {
                     dealVoiceAndJump.updateVoice("设备已断开");
                 }

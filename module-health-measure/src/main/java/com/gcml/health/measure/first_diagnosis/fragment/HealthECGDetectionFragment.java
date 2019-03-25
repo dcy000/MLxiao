@@ -117,11 +117,11 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
     public void startDiscovery() {
         Timber.i("可瑞康心电开始搜索");
         Log.e(TAG, "可瑞康心电开始搜索 ");
-        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_CONNECTED || ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_DISCOVERING) {
-            return;
+        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
+            ToastUtils.showShort("正在搜索设备...");
+            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
+                    .putExtra("device", 3));
         }
-        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
-                .putExtra("device", 3));
     }
 
     public void initOther() {
