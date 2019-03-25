@@ -2,6 +2,8 @@ package com.gcml.module_inquiry.inquiry.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.billy.cc.core.component.CC;
@@ -11,7 +13,11 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.dialog.LoadingDialog;
+import com.gcml.module_blutooth_devices.base.BaseBluetooth;
+import com.gcml.module_blutooth_devices.bloodpressure.BloodPressurePresenter;
 import com.gcml.module_blutooth_devices.bloodpressure.BloodpressureFragment;
+import com.gcml.module_inquiry.R;
+import com.gcml.module_inquiry.inquiry.ui.WenZenEntryAcitivity;
 import com.gcml.module_inquiry.inquiry.ui.fragment.base.ChildActionListenerAdapter;
 import com.gcml.module_inquiry.model.HealthFileRepostory;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -35,6 +41,13 @@ public class BloodPressureFragment extends BloodpressureFragment {
     private ArrayList<DetectionData> datas;
     private int highPressure;
     private int lowPressure;
+    private BloodPressurePresenter bloodPressurePresenter;
+
+    @Override
+    protected BaseBluetooth obtainPresenter() {
+        bloodPressurePresenter = new BloodPressurePresenter(this);
+        return bloodPressurePresenter;
+    }
 
     protected void onMeasureFinished(String... results) {
 
@@ -63,6 +76,9 @@ public class BloodPressureFragment extends BloodpressureFragment {
         mBtnHealthHistory.setText("上一步");
         mBtnVideoDemo.setText("下一步");
         mBtnVideoDemo.setVisibility(View.GONE);
+
+        WenZenEntryAcitivity activity = (WenZenEntryAcitivity) getActivity();
+        activity. setBlueTitle(R.drawable.common_icon_bluetooth_break, bloodPressurePresenter);
     }
 
     @Override
@@ -77,6 +93,9 @@ public class BloodPressureFragment extends BloodpressureFragment {
         if (listenerAdapter != null) {
             listenerAdapter.onBack("8", null, null);
         }
+
+        WenZenEntryAcitivity activity = (WenZenEntryAcitivity) getActivity();
+        activity.setNormalTitle();
     }
 
     HealthFileRepostory fileRepostory = new HealthFileRepostory();
@@ -143,5 +162,17 @@ public class BloodPressureFragment extends BloodpressureFragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void updateData(String... datas) {
+        super.updateData(datas);
+        if (listenerAdapter != null) {
+            if (!TextUtils.isEmpty(datas[0]) && TextUtils.equals(datas[0], "设备已连接")) {
+                listenerAdapter.onBluetoothConnect(bloodPressurePresenter);
+            } else if (!TextUtils.isEmpty(datas[0]) && TextUtils.equals(datas[0], "设备已断开")) {
+                listenerAdapter.onBluetoothBreak(bloodPressurePresenter);
+            }
+        }
     }
 }

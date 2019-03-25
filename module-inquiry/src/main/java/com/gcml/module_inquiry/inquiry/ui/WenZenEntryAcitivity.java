@@ -1,20 +1,25 @@
 package com.gcml.module_inquiry.inquiry.ui;
 
 
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
+import com.gcml.common.base.BaseActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.http.ApiResult;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.dialog.AlertDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
+import com.gcml.module_blutooth_devices.bloodpressure.BloodPressurePresenter;
 import com.gcml.module_inquiry.R;
 import com.gcml.module_inquiry.inquiry.ui.base.InquiryBaseActivity;
 import com.gcml.module_inquiry.inquiry.ui.fragment.AddressFragment;
@@ -132,7 +137,79 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
             updateData(data[0], data);
             postWenZhenData();
         }
+
+        @Override
+        public void onBluetoothConnect(BloodPressurePresenter presenter) {
+            setBlueTitle(R.drawable.common_icon_bluetooth_connect, presenter);
+        }
+
+        @Override
+        public void onBluetoothBreak(BloodPressurePresenter presenter) {
+            setBlueTitle(R.drawable.common_icon_bluetooth_break, presenter);
+        }
+
+        @Override
+        public void onNormalICon() {
+            setNormalTitle();
+        }
     };
+
+    public void setBlueTitle(int rightIconResourse, BloodPressurePresenter presenter) {
+        tb.setData("问 诊",
+                R.drawable.common_btn_back, "返回",
+                rightIconResourse, null, new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+                        finish();
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        reconnection(presenter);
+                    }
+                });
+    }
+
+    private void reconnection(BloodPressurePresenter presenter) {
+        new AlertDialog(WenZenEntryAcitivity.this)
+                .builder()
+                .setMsg("您确定解绑之前的设备，重新连接新设备吗？")
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                })
+                .setPositiveButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        presenter.startDiscovery(null);
+                    }
+                }).show();
+    }
+
+    public void setNormalTitle() {
+        tb.setData("问 诊",
+                R.drawable.common_btn_back, "返回",
+                R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
+                    @Override
+                    public void onLeftClick() {
+                        finish();
+                    }
+
+                    @Override
+                    public void onRightClick() {
+                        onRightClickWithPermission(new IAction() {
+                            @Override
+                            public void action() {
+                                CC.obtainBuilder("com.gcml.old.setting").build().call();
+                            }
+                        });
+
+                    }
+                });
+
+        setWifiLevel(tb);
+    }
 
     private void updateData(String tag, String... data) {
         if (TextUtils.equals("1", tag)) {
@@ -166,27 +243,7 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
 
     private void initTitle() {
         tb = findViewById(R.id.tb_wenzen_entry);
-        tb.setData("问 诊",
-                R.drawable.common_btn_back, "返回",
-                R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
-                    @Override
-                    public void onLeftClick() {
-                        finish();
-                    }
-
-                    @Override
-                    public void onRightClick() {
-                        onRightClickWithPermission(new IAction() {
-                            @Override
-                            public void action() {
-                                CC.obtainBuilder("com.gcml.old.setting").build().call();
-                            }
-                        });
-
-                    }
-                });
-
-        setWifiLevel(tb);
+        setNormalTitle();
     }
 
     WenZhenBean bean = new WenZhenBean();
