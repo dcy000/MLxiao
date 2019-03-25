@@ -16,6 +16,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.util.LocalShared;
 import com.example.han.referralproject.yiyuan.activity.InquiryAndFileActivity;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
+import com.medlink.danbogh.utils.FastClickUtil;
 import com.medlink.danbogh.utils.Handlers;
 import com.medlink.danbogh.utils.JpushAliasUtils;
 import com.medlink.danbogh.utils.T;
@@ -50,7 +51,7 @@ public class CodeActivity extends BaseActivity {
         ButterKnife.bind(this);
         intTitle();
         initView();
-        sendCode();
+//        sendCode();
         ActivityHelper.addActivity(this);
     }
 
@@ -94,7 +95,9 @@ public class CodeActivity extends BaseActivity {
                 next();
                 break;
             case R.id.tv_send_code:
-                sendCode();
+                if (FastClickUtil.isFastClick()) {
+                    sendCode();
+                }
                 break;
         }
     }
@@ -138,7 +141,7 @@ public class CodeActivity extends BaseActivity {
 //        });
 
 
-       showLoadingDialog("");
+        showLoadingDialog("");
         NetworkApi.isRegisteredByIdCard(idCardNumber, new NetworkManager.SuccessCallback<UserInfoBean>() {
             @Override
             public void onSuccess(UserInfoBean response) {
