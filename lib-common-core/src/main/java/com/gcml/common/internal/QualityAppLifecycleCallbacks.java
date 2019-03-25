@@ -35,7 +35,7 @@ public class QualityAppLifecycleCallbacks implements AppLifecycleCallbacks {
     public void onCreate(Application application) {
         CrashReport.initCrashReport(application, application.getString(R.string.app_id_bugly), isDebug());
         LeakCanaryHelper.INSTANCE.install(application);
-        BlockCanary.install(application, new AppBlockCanaryContext()).start();
+//        BlockCanary.install(application, new AppBlockCanaryContext()).start();
     }
 
     @Override

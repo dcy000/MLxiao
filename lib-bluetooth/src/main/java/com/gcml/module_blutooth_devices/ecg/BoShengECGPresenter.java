@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -169,12 +170,12 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
                         @Override
                         public void onNotifyFailure(BleException exception) {
+                            ToastUtils.showShort("数据传输出现异常");
                             timeCount.cancel();
                         }
 
                         @Override
                         public void onCharacteristicChanged(byte[] data) {
-//                            Timber.tag("BOSHENG").i(ByteUtils.byteToString(data));
                             if (!isMeasureEnd) {
                                 bytesResult.add(data);
                                 baseView.updateData(ByteUtils.byteToString(data));

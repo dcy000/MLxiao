@@ -34,6 +34,7 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOneFragment {
     DetectionData cholesterolData;
     DetectionData lithicAcidData;
     private int selectMeasureSugarTime;
+    private boolean isPause;
 
     @Override
     protected void initView(View view, Bundle bundle) {
@@ -116,9 +117,23 @@ public class SingleMeasureThreeInOneFragment extends ThreeInOneFragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        isPause = false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isPause = true;
+    }
+
     @SuppressLint("CheckResult")
     private void uploadData(ArrayList<DetectionData> datas) {
-
+        if (isPause) {
+            return;
+        }
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

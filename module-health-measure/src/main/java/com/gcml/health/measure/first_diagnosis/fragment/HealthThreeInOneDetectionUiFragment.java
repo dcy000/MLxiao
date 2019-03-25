@@ -27,6 +27,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
     private DetectionData cholesterolData;
     private DetectionData lithicAcidData;
     private int selectMeasureSugarTime;
+    private boolean isPause = false;
 
     @Override
     public void onStart() {
@@ -73,6 +74,7 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
     @Override
     public void onResume() {
         super.onResume();
+        isPause = false;
         MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请将试纸插入仪器，开始测量", false);
     }
 
@@ -114,7 +116,9 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
 
     @SuppressLint("CheckResult")
     private void uploadData(ArrayList<DetectionData> datas) {
-
+        if (isPause) {
+            return;
+        }
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -139,6 +143,12 @@ public class HealthThreeInOneDetectionUiFragment extends ThreeInOneFragment {
                     }
                 });
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isPause = true;
     }
 
     @Override
