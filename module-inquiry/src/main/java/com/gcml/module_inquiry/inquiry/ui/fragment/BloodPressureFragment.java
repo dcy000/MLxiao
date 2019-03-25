@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
+import com.billy.cc.core.component.CC;
 import com.gcml.common.data.DetectionResult;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.utils.RxUtils;
@@ -61,6 +62,7 @@ public class BloodPressureFragment extends BloodpressureFragment {
         super.initView(view, bundle);
         mBtnHealthHistory.setText("上一步");
         mBtnVideoDemo.setText("下一步");
+        mBtnVideoDemo.setVisibility(View.GONE);
     }
 
     @Override
@@ -109,6 +111,7 @@ public class BloodPressureFragment extends BloodpressureFragment {
                     @Override
                     public void onNext(List<DetectionResult> detectionResults) {
                         ToastUtils.showLong("上传数据成功");
+                        listenerAdapter.onFinalNext("8", highPressure + "", lowPressure + "");
                     }
 
                     @Override

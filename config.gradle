@@ -30,8 +30,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
-            versionCode      : 27,
-            versionName      : "Robot-HOS-CMYW.1.0.0.12.beta"
+            versionCode      : 28,
+            versionName      : "Robot-HOS-CMYJ.1.0.0.1.beta"
     ]
 
     version = [

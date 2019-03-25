@@ -7,23 +7,22 @@ import android.content.Intent;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.IComponent;
 import com.gcml.module_health_profile.OutputResultActivity;
+import com.gcml.module_health_profile.webview.WenZenOutputActivity;
 
-public class OutputComponent implements IComponent {
+public class WenZenOutputComponent implements IComponent {
     @Override
     public String getName() {
-        return "health.profile.outputresult";
+        return "health.profile.wenzen.output";
     }
 
     @Override
     public boolean onCall(CC cc) {
         Context context = cc.getContext();
-        String rdRecordId = cc.getParamItem("rdRecordId");
-        String userRecordId = cc.getParamItem("userRecordId");
-        String typeString = cc.getParamItem("typeString");
-        Intent intent = new Intent(context, OutputResultActivity.class);
-        intent.putExtra("rdRecordId", rdRecordId);
-        intent.putExtra("userRecordId", userRecordId);
-        intent.putExtra("typeString", typeString);
+        String highPrssure = cc.getParamItem("highPrssure");
+        String lowPressure = cc.getParamItem("lowPressure");
+        Intent intent = new Intent(context, WenZenOutputActivity.class);
+        intent.putExtra("highPrssure", highPrssure);
+        intent.putExtra("lowPressure", lowPressure);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }

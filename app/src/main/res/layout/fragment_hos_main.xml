@@ -7,10 +7,10 @@
 
     <com.gcml.lib_widget.EclipseLinearLayout
         android:id="@+id/ll_pernal"
-        android:layout_width="642pt"
+        android:layout_width="636pt"
         android:layout_height="552pt"
-        android:layout_marginStart="24pt"
-        android:layout_marginTop="24pt"
+        android:layout_marginStart="14pt"
+        android:layout_marginTop="4pt"
         android:background="@drawable/bg_personal"
         android:clickable="true"
         android:gravity="center"
@@ -37,7 +37,7 @@
 
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/ei_health_checkup"
-        android:layout_width="642pt"
+        android:layout_width="636pt"
         android:layout_height="552pt"
         android:background="@drawable/img_health_detect"
         android:clickable="true"
@@ -47,10 +47,10 @@
 
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/ei_infomation_collection"
-        android:layout_width="642pt"
+        android:layout_width="636pt"
         android:layout_height="376pt"
         android:layout_marginStart="-24pt"
-        android:layout_marginTop="24pt"
+        android:layout_marginTop="4pt"
         android:background="@drawable/img_home_health_home_info_get"
         android:clickable="true"
         android:tag="健康管理"
@@ -59,7 +59,7 @@
 
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/ei_doctor_service"
-        android:layout_width="642pt"
+        android:layout_width="636pt"
         android:layout_height="552pt"
         android:background="@drawable/img_home_health_home_service"
         android:clickable="true"
@@ -71,9 +71,9 @@
 
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/ei_doctor_wenzen"
-        android:layout_width="642pt"
+        android:layout_width="636pt"
         android:layout_height="552pt"
-        android:layout_marginTop="24pt"
+        android:layout_marginTop="4pt"
         android:background="@drawable/img_wenzen"
         android:clickable="true"
         android:tag="健康检测"
@@ -83,7 +83,7 @@
 
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/ei_health_edu"
-        android:layout_width="642pt"
+        android:layout_width="636pt"
         android:layout_height="342pt"
         android:background="@drawable/img_home_health_edu"
         android:clickable="true"
@@ -95,7 +95,7 @@
 
     <com.gcml.lib_widget.EclipseImageView
         android:id="@+id/ei_quit"
-        android:layout_width="642pt"
+        android:layout_width="636pt"
         android:layout_height="342pt"
         android:background="@drawable/bg_quit"
         android:clickable="true"

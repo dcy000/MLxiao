@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.tencent.smtt.sdk.WebView
+        android:id="@+id/x5_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
+
+    <com.gcml.lib_widget.EclipseLinearLayout
+        android:id="@+id/ll_1"
+        android:layout_width="600pt"
+        android:layout_height="600pt"
+        android:layout_marginTop="166pt"
+        android:background="@drawable/bg_shadow"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/ll_2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_qr"
+            android:layout_width="346pt"
+            android:layout_height="346pt"
+            android:src="@drawable/placeholder" />
+
+        <TextView
+            android:id="@+id/tv_qr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40pt"
+            android:text="体检报告(敬请期待)"
+            android:textColor="#999"
+            android:textSize="56pt"
+            android:textStyle="bold" />
+    </com.gcml.lib_widget.EclipseLinearLayout>
+
+    <com.gcml.lib_widget.EclipseLinearLayout
+        android:id="@+id/ll_2"
+        android:layout_width="600pt"
+        android:layout_height="600pt"
+        android:layout_marginLeft="160pt"
+        android:background="@drawable/bg_shadow"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toRightOf="@id/ll_1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ll_1">
+
+        <ImageView
+            android:layout_width="384pt"
+            android:layout_height="380pt"
+            android:src="@drawable/ic_health_profile_printer" />
+
+        <TextView
+            android:id="@+id/tv_printer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18pt"
+            android:text="体检报告打印"
+            android:textColor="#333"
+            android:textSize="56pt"
+            android:textStyle="bold" />
+    </com.gcml.lib_widget.EclipseLinearLayout>
+
+    <TextView
+        android:id="@+id/tv_gohome"
+        android:layout_width="400pt"
+        android:layout_height="120pt"
+        android:layout_marginBottom="80pt"
+        android:background="@drawable/health_profile_selector_blue_button"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="回到首页"
+        android:textColor="@color/white"
+        android:textSize="56pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>

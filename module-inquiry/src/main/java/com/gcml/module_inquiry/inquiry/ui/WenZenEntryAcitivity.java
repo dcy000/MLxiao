@@ -205,11 +205,16 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new DefaultObserver<ApiResult<Object>>(){
+                .subscribe(new DefaultObserver<ApiResult<Object>>() {
                     @Override
                     public void onNext(ApiResult<Object> objectApiResult) {
                         super.onNext(objectApiResult);
                         ToastUtils.showShort("提交成功");
+                        CC.obtainBuilder("health.profile.wenzen.output").
+                                addParam("highPrssure", bean.highPressure)
+                                .addParam("lowPressure", bean.lowPressure)
+                                .build()
+                                .call();
                         finish();
                     }
 
@@ -220,5 +225,6 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                 });
 
     }
+
     HealthFileRepostory fileRepostory = new HealthFileRepostory();
 }
