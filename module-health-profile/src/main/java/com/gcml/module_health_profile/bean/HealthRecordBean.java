@@ -16,6 +16,8 @@ public class HealthRecordBean {
     private int seq;
     private long createdOn;
     private String createdTime;
+    private long modifiedOn;
+    private String modifiedTime;
     private String rdUserRecordId;
     private String rdRecordId;
     private int userId;
@@ -84,5 +86,21 @@ public class HealthRecordBean {
 
     public void setResponsibleDoctor(int responsibleDoctor) {
         this.responsibleDoctor = responsibleDoctor;
+    }
+
+    public long getModifiedOn() {
+        return modifiedOn;
+    }
+
+    public void setModifiedOn(long modifiedOn) {
+        this.modifiedOn = modifiedOn;
+    }
+
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
     }
 }

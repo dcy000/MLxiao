@@ -325,7 +325,9 @@ public class BluetoothService {
         public void cancel() {
             if (DEBUG) Log.d(TAG, "cancel " + this);
             try {
-                mmServerSocket.close();
+                if (mmServerSocket != null) {
+                    mmServerSocket.close();
+                }
             } catch (IOException e) {
                 Log.e(TAG, "close() of server failed", e);
             }

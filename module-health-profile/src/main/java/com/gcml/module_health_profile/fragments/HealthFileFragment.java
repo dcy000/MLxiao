@@ -133,10 +133,10 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
                             ((HealthProfileActivity) getActivity()).isBuildHealthRecord.postValue(true);
                             view.findViewById(R.id.empty_view).setVisibility(View.GONE);
                             view.findViewById(R.id.cl_contain).setVisibility(View.VISIBLE);
-                            String createdTime = healthRecordBeans.get(0).getCreatedTime();
+                            String modifiedTime = healthRecordBeans.get(0).getModifiedTime();
                             historyRecordId = healthRecordBeans.get(0).getRdUserRecordId();
-                            if (!TextUtils.isEmpty(createdTime)) {
-                                String[] s = createdTime.split("\\s+");
+                            if (!TextUtils.isEmpty(modifiedTime)) {
+                                String[] s = modifiedTime.split("\\s+");
                                 if (s.length == 2) {
                                     mTvLastBuildTime.setText("最新建档时间:" + s[0]);
                                 } else {
