@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,6 @@ import com.gcml.health.measure.network.HealthMeasureRepository;
 import com.gcml.health.measure.utils.LifecycleUtils;
 import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.IPresenter;
-import com.gcml.module_blutooth_devices.base.BaseBluetooth;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -100,14 +100,20 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
     }
 
     @Override
-    protected BaseBluetooth obtainPresenter() {
-        return null;
+    public void autoConnect() {
+        startDiscovery();
     }
 
+    private static final String TAG = "SelfECGDetectionFragmen";
 
     public void startDiscovery() {
-        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
-                .putExtra("device", 3));
+        Timber.i("可瑞康心电开始搜索");
+        Log.e(TAG, "可瑞康心电开始搜索 ");
+        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
+            ToastUtils.showShort("正在搜索设备...");
+            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
+                    .putExtra("device", 3));
+        }
     }
 
     public void initOther() {
@@ -120,7 +126,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
             isRegistReceiver = true;
             context.registerReceiver(connectReceiver, filter);
         }
-        context.startService(new Intent(context, ReceiveService.class));
+//        context.startService(new Intent(context, ReceiveService.class));
         context.bindService(new Intent(context, ReceiveService.class), serviceConnect, Service.BIND_AUTO_CREATE);
     }
 
@@ -170,7 +176,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                         ReceiveService.BLU_ACTION_STOPDISCOVERY));
                 context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
             } else if (action.equals(ReceiveService.ACTION_BLU_DISCONNECT)) {
-                Toast.makeText(context, "设备已断开", Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort("设备已断开");
                 if (dealVoiceAndJump != null) {
                     dealVoiceAndJump.updateVoice("设备已断开");
                 }
@@ -201,23 +207,21 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
     @Override
     public void onStop() {
         super.onStop();
-        try {
-            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
-            if (!mMainPc80BViewDraw.isStop()) {
-                mMainPc80BViewDraw.Stop();
-            }
-            drawThread = null;
-            context.stopService(new Intent(context, ReceiveService.class));
-            if (serviceConnect != null && isServiceBind) {
-                context.unbindService(serviceConnect);
-            }
-            if (isRegistReceiver) {
-                isRegistReceiver = false;
-                context.unregisterReceiver(connectReceiver);
-            }
-            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STOPDISCOVERY));
-        } catch (Exception e) {
+        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
+        if (!mMainPc80BViewDraw.isStop()) {
+            mMainPc80BViewDraw.Stop();
         }
+        drawThread = null;
+//        context.stopService(new Intent(context, ReceiveService.class));
+        if (serviceConnect != null && isServiceBind) {
+            isServiceBind = false;
+            context.unbindService(serviceConnect);
+        }
+        if (isRegistReceiver) {
+            isRegistReceiver = false;
+            context.unregisterReceiver(connectReceiver);
+        }
+        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STOPDISCOVERY));
 
     }
 
@@ -276,19 +280,20 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                     switch (msg.arg1) {
                         case StatusMsg.FILE_TRANSMIT_START: {
                             // 接收文件 receive file
-                            setMSG(getResources().getString(R.string.measure_ecg_file_ing));
+                            setMSG(context.getApplicationContext().getString(R.string.measure_ecg_file_ing));
+
                         }
                         break;
                         case StatusMsg.FILE_TRANSMIT_SUCCESS: {
-                            setMSG(getResources().getString(R.string.measure_ecg_file_end));
+                            setMSG(context.getApplicationContext().getString(R.string.measure_ecg_file_end));
                         }
                         break;
                         case StatusMsg.FILE_TRANSMIT_ERROR: {
-                            setMSG(getResources().getString(R.string.measure_ecg_time_err));
+                            setMSG(context.getApplicationContext().getString(R.string.measure_ecg_time_err));
                         }
                         break;
                         case StaticReceive.MSG_DATA_TIMEOUT: {
-                            setMSG(getResources().getString(R.string.measure_ecg_time_out));
+                            setMSG(context.getApplicationContext().getString(R.string.measure_ecg_time_out));
                         }
                         break;
                         case 4: {
@@ -298,7 +303,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             }
                             Bundle data = msg.getData();
                             if (data.getBoolean("bLeadoff")) {
-                                setMSG(getResources().getString(R.string.measure_lead_off));
+                                setMSG(context.getApplicationContext().getString(R.string.measure_lead_off));
                             } else {
                                 setMSG(" ");
                             }
@@ -311,7 +316,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             }
                             Bundle data = msg.getData();
                             if (data.getBoolean("bLeadoff")) {
-                                setMSG(getResources().getString(R.string.measure_lead_off));
+                                setMSG(context.getApplicationContext().getString(R.string.measure_lead_off));
                             } else {
                                 setMSG(" ");
                             }
@@ -343,7 +348,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                             // 传输模式   transmission mode
                             nTransMode = (Integer) msg.obj;
                             if (nTransMode == StatusMsg.TRANSMIT_MODE_FILE) {
-                                setMSG(getResources().getString(R.string.measure_ecg_file_ing));
+                                setMSG(context.getApplicationContext().getString(R.string.measure_ecg_file_ing));
                             } else if (nTransMode == StatusMsg.TRANSMIT_MODE_CONTINUOUS) {
                                 setMSG("");
                             }
@@ -377,17 +382,14 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
     private void uploadEcg(final int ecg, final int heartRate) {
         ArrayList<DetectionData> datas = new ArrayList<>();
         DetectionData ecgData = new DetectionData();
-        //0血压 01左侧血压 02右侧血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 10腰围 11呼吸频率 12身高 13心率
+        //detectionType (string, optional): 检测数据类型 0血压 1血糖 2心电 3体重 4体温 6血氧 7胆固醇 8血尿酸 9脉搏 ,
         ecgData.setDetectionType("2");
         ecgData.setEcg(String.valueOf(ecg));
+        ecgData.setHeartRate(heartRate);
         String s = UtilsManager.getApplication().getResources().getStringArray(R.array.ecg_measureres)[ecg];
         ecgData.setResult(s);
         datas.add(ecgData);
 
-        DetectionData ecgHeartRate = new DetectionData();
-        ecgHeartRate.setDetectionType("13");
-        ecgHeartRate.setHeartRate(heartRate);
-        datas.add(ecgHeartRate);
 
         HealthMeasureRepository.postMeasureData(datas)
                 .subscribeOn(Schedulers.io())
@@ -438,13 +440,4 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         }
     }
 
-    @Override
-    public void updateData(String... datas) {
-
-    }
-
-    @Override
-    public void updateState(String state) {
-
-    }
 }
