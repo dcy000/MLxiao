@@ -91,7 +91,7 @@ public class AlarmList2Activity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        speak("主人，请设置吃药提醒");
+        speak("请设置吃药提醒");
     }
 
     private void refresh() {

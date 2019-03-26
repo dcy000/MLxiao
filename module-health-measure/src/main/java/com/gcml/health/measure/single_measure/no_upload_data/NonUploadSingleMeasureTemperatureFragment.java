@@ -15,7 +15,7 @@ public class NonUploadSingleMeasureTemperatureFragment extends TemperatureFragme
     @Override
     protected void onMeasureFinished(String... results) {
         if (results.length == 1) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量耳温" + results[0] + "摄氏度", false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量耳温" + results[0] + "摄氏度", false);
         }
     }
 }

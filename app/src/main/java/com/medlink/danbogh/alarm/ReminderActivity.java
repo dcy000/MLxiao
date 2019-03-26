@@ -49,10 +49,10 @@ public class ReminderActivity extends BaseActivity {
         int minute = getIntent().getIntExtra(AlarmHelper.MINUTE, 0);
 
         if (TextUtils.isEmpty(mContent)) {
-            mContent = "主人,该吃药了！";
+            mContent = "该吃药了！";
         } else {
             if (!mContent.startsWith("主人")) {
-                mContent = "主人," + mContent;
+                mContent = "" + mContent;
             }
         }
 

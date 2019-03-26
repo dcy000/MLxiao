@@ -57,7 +57,7 @@ public class OrderListActivity extends AppCompatActivity {
     }
 
     private void bindData() {
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，欢迎来到订单列表", false);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "欢迎来到订单列表", false);
         mToolBar.setData("订 单 列 表", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {

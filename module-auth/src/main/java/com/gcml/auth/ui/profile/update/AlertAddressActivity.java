@@ -299,7 +299,7 @@ public class AlertAddressActivity extends AppCompatActivity {
         String address = etAddress.getText().toString().trim();
         if (TextUtils.isEmpty(address)) {
             ToastUtils.showShort(R.string.common_sign_up3_address_tip);
-            speak("主人,请输入您的住址");
+            speak("请输入您的住址");
             return;
         }
 

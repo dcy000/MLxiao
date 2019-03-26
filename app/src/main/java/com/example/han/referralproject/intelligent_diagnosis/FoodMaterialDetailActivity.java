@@ -88,7 +88,7 @@ public class FoodMaterialDetailActivity extends BaseActivity {
         String introduce = data.getNutrition().trim();
         String edibleEffect = data.getEdibleEffect().trim();
         nutritiveValue.setText(introduce+"\n"+edibleEffect);
-        speak("主人，"+data.getNutrition()+"适用人群"+suitableHuman+"禁忌人群"+tabooHuman+"食量建议"+foodIntake);
+        speak(""+data.getNutrition()+"适用人群"+suitableHuman+"禁忌人群"+tabooHuman+"食量建议"+foodIntake);
     }
 
     private void initView() {

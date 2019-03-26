@@ -105,7 +105,7 @@ public class JPushMessageHelper {
                 jpushRbv.setLayoutParams(lp);
             }
         });
-        MLVoiceSynthetize.startSynthesize(activity.getApplication(), "主人，新消息。" + message);
+        MLVoiceSynthetize.startSynthesize(activity.getApplication(), "新消息。" + message);
     }
 
     /**

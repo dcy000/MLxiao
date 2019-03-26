@@ -60,7 +60,7 @@ public class BasicInformationActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTitle();
         initView();
-        mlSpeak("主人，请确认您的基本信息");
+        mlSpeak("请确认您的基本信息");
         AppManager.getAppManager().addActivity(this);
     }
 

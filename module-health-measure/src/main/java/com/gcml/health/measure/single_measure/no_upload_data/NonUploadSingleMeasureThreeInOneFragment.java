@@ -59,20 +59,20 @@ public class NonUploadSingleMeasureThreeInOneFragment extends ThreeInOneFragment
         //三合一 血糖的位置2，血尿酸位置：6；胆固醇位置：5
         if (results.length == 2) {
             if (results[0].equals("bloodsugar")) {
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量血糖" + results[1]);
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量血糖" + results[1]);
                 if (measureItemChanged!=null){
                     measureItemChanged.onChanged(2);
                 }
             }
             if (results[0].equals("cholesterol")) {
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量胆固醇" + results[1]);
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量胆固醇" + results[1]);
                 if (measureItemChanged!=null){
                     measureItemChanged.onChanged(5);
                 }
             }
 
             if (results[0].equals("bua")) {
-                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量尿酸" + results[1]);
+                MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量尿酸" + results[1]);
                 if (measureItemChanged!=null){
                     measureItemChanged.onChanged(6);
                 }

@@ -123,13 +123,15 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
                                         if (isMain) {
                                             CCAppActions.jump2MainActivity();
                                         } else {
-                                            finish();
+
                                         }
+
+                                        finish();
                                     }
 
                                     @Override
                                     public void onError(Throwable e) {
-
+                                        ToastUtils.showShort("取消服务包失败");
                                     }
 
                                     @Override
@@ -149,7 +151,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         initView();
         mToolbar.setVisibility(View.VISIBLE);
         isTest = getIntent().getBooleanExtra("isTest", false);
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请选择你需要测量的项目", false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请选择你需要测量的项目", false);
     }
 
     @Override

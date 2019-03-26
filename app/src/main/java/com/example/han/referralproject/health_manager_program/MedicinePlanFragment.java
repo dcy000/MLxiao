@@ -74,7 +74,7 @@ public class MedicinePlanFragment extends Fragment {
                                         .toString(), MedicineBean.class);
                                 dealData(data);
                             } else if (object.optInt("code") == 500) {
-                                mTvTitle.setText("主人，您的各项指标均在正常范围内，暂无药物方案推荐。");
+                                mTvTitle.setText("您的各项指标均在正常范围内，暂无药物方案推荐。");
                                 view.findViewById(R.id.layout_empty_data).setVisibility(View.VISIBLE);
                                 view.findViewById(R.id.layout_empty_data)
                                         .findViewById(R.id.btn_go).setVisibility(View.GONE);
@@ -117,7 +117,7 @@ public class MedicinePlanFragment extends Fragment {
                 iChangToolbar.onChange(this);
             }
 
-//            ((TreatmentPlanActivity) getActivity()).speak("主人，根据您的情况，" +
+//            ((TreatmentPlanActivity) getActivity()).speak("根据您的情况，" +
 //                    "我们给你推荐了以下相关药物。具体用药请以专业医生为准。我们建议您健康饮食，" +
 //                    "合理运动，根据康复疗程进行生活干预。");
         }

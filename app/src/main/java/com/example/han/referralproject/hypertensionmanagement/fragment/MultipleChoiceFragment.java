@@ -100,7 +100,7 @@ public class MultipleChoiceFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        MLVoiceSynthetize.startSynthesize(getContext(),"主人,您"+getArguments().getString(TIP_CONTENT),false);
+//        MLVoiceSynthetize.startSynthesize(getContext(),"您"+getArguments().getString(TIP_CONTENT),false);
     }
 
     public static MultipleChoiceFragment getInstance(String tipContent, String warmTip, PrimaryHypertensionQuestionnaireBean.DataBean.QuestionListBean questionBean, boolean isMultiple) {

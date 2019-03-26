@@ -239,7 +239,7 @@ public class OnlineDoctorListActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if ("contract".equals(mFlag)) {
-            speak("主人，请选择您最信任的医生签约");
+            speak("请选择您最信任的医生签约");
         }
     }
 

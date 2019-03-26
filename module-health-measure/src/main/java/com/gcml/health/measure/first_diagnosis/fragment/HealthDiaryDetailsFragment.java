@@ -112,7 +112,7 @@ public class HealthDiaryDetailsFragment extends Fragment {
         svUnits = findViewById(R.id.health_diary_sv_selecter);
         tvAction = findViewById(R.id.health_diary_tv_action);
         FragmentActivity activity = getActivity();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请" + mModel.getTitle(), false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "请" + mModel.getTitle(), false);
         tvTitle.setText(mModel.getTitle());
         tvCount.setText(getCount(
                 mModel.getSelectedValues()[mModel.getUnitPosition()],

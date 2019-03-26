@@ -85,8 +85,9 @@ public class WelcomeActivity extends AppCompatActivity {
                                     if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                                         CC.obtainBuilder("com.gcml.auth").build().callAsync();
                                     } else {
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(intent);
+//                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                        startActivity(intent);
+                                        CC.obtainBuilder("com.gcml.auth").build().callAsync();
                                     }
                                     finish();
                                 }
@@ -115,8 +116,9 @@ public class WelcomeActivity extends AppCompatActivity {
                             if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                                 CC.obtainBuilder("com.gcml.auth").build().callAsync();
                             } else {
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
+//                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                startActivity(intent);
+                                CC.obtainBuilder("com.gcml.auth").build().callAsync();
                             }
                             finish();
                         }

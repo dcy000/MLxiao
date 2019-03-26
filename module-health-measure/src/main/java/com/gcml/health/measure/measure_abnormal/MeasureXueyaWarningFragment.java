@@ -27,9 +27,9 @@ import java.util.ArrayList;
 public class MeasureXueyaWarningFragment extends HealthMeasureAbnormalBaseFragment implements View.OnClickListener {
 
     private ArrayList<Integer> reasons;
-    private String titleString = "主人，您最新的测量数据与历史数据存在较大差异，您是否存在以下情况：";
+    private String titleString = "您最新的测量数据与历史数据存在较大差异，您是否存在以下情况：";
     /**
-     * 主人，您最新的测量数据与历史数据存在较大偏差，您是否在测量时存在以下情况
+     * 您最新的测量数据与历史数据存在较大偏差，您是否在测量时存在以下情况
      */
     private TextView mTitle;
     private RecyclerView mList;

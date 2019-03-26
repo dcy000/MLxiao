@@ -70,7 +70,7 @@ public class MallActivity extends AppCompatActivity implements MallMenuAdapter.O
     }
 
     private void bindData() {
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，欢迎来到健康商城", false);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "欢迎来到健康商城", false);
         mToolBar.setData("健 康 商 城", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {

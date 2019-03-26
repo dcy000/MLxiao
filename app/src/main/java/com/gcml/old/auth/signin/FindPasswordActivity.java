@@ -79,8 +79,8 @@ public class FindPasswordActivity extends BaseActivity {
     public void onTvNextClicked() {
         final String phone = etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
-            speak("主人，请输入正确的手机号码");
-            ToastUtils.showShort("主人，请输入正确的手机号码");
+            speak("请输入正确的手机号码");
+            ToastUtils.showShort("请输入正确的手机号码");
             return;
         }
         showLoadingDialog("加载中...");
@@ -107,7 +107,7 @@ public class FindPasswordActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setDisableGlobalListen(true);
-        speak("主人，请输入您的手机号码");
+        speak("请输入您的手机号码");
     }
 
 }

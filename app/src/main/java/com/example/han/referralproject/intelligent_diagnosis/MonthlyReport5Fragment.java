@@ -151,7 +151,7 @@ public class MonthlyReport5Fragment extends Fragment {
             yinjiu3.setText(response.drinks);
             yinjiu4.setText(response.drinks);
         }
-        tips="主人，您下月的健康目标如下：吃盐应少于"+String.format("%.0f",nam)+
+        tips="您下月的健康目标如下：吃盐应少于"+String.format("%.0f",nam)+
                 "克，运动应大于"+String.format("%.0f",yundongm)+"分钟，体重减少至"+
                 String.format("%.0f",tizhongm)+"千克以下,饮酒应少于"+String.format("%.0f",yinjium)+"毫升";
     }

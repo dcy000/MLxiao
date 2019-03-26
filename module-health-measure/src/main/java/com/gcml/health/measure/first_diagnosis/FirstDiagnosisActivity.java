@@ -61,7 +61,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     private int measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
     private int showPosition = 0;
     private Uri uri;
-    private static HealthBloodDetectionUiFragment.Data bloodpressureCacheData;
     private BluetoothBaseFragment fragment;
     private boolean isShowHealthChooseDevicesFragment = false;
     private String finalFragment;
@@ -80,13 +79,6 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         context.startActivity(intent);
     }
 
-    public void putBloodpressureCacheData(HealthBloodDetectionUiFragment.Data data) {
-        bloodpressureCacheData = data;
-    }
-
-    public HealthBloodDetectionUiFragment.Data getBloodpressureCacheData() {
-        return bloodpressureCacheData;
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,7 +124,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
                 } else {
                     //如果本地缓存的有惯用手数据则只需测量一次，如果没有则需要惯用手判断
                     if (TextUtils.isEmpty(userHypertensionHand)) {
-                        fragment = new HealthBloodDetectionUiFragment();
+//                        fragment = new HealthBloodDetectionUiFragment();
+                        fragment = new HealthBloodDetectionOnlyOneFragment();
                     } else {
                         fragment = new HealthBloodDetectionOnlyOneFragment();
                     }
@@ -447,12 +440,5 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     protected void onPause() {
         super.onPause();
         MLVoiceSynthetize.stop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bloodpressureCacheData = null;
-
     }
 }

@@ -58,7 +58,7 @@ public class BloodsugarRiskAssessmentResultActivity extends BaseActivity {
             tvResult.setText(data.getAssessSuggest());
 
         }
-        speak("主人，您三年内患糖尿病的概率为"+data.getDiseaseProbability()+"%,"+data.getAssessSuggest()+"本次评估分数为"+data.getScore()+"分");
+        speak("您三年内患糖尿病的概率为"+data.getDiseaseProbability()+"%,"+data.getAssessSuggest()+"本次评估分数为"+data.getScore()+"分");
     }
 
     private void initView() {

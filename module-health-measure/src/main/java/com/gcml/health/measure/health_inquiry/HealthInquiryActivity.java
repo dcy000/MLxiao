@@ -101,7 +101,8 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                         if (healthInquiryBeans != null) {
                             HealthInquiryActivity.this.healthInquiryBean = healthInquiryBeans;
                             //如果已经做过风险评估则不需要引导页
-                            if (UserSpHelper.getRiskAssessmentState()) {
+//                            if (UserSpHelper.getRiskAssessmentState()) {
+                            if (true) {
                                 List<HealthInquiryBean.QuestionListBean> questionList = healthInquiryBean.getQuestionList();
                                 if (questionList != null && questionList.size() > pageIndex) {
                                     replaceFragment(questionList.get(pageIndex), pageIndex++);
@@ -153,7 +154,7 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
         mToolbar.setVisibility(View.VISIBLE);
         //播报语音
         Timber.d(questionListBean.getQuestionName());
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，" + questionListBean.getQuestionName(), false);
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "" + questionListBean.getQuestionName(), false);
     }
 
     private void initView() {

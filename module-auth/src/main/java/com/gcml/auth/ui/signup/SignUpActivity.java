@@ -239,8 +239,8 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                 || !TextUtils.isDigitsOnly(password)
                 || password.length() != 6) {
             binding.tvNext.setEnabled(true);
-            ToastUtils.showShort("主人,请输入6位数字密码");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,请输入6位数字密码", false);
+            ToastUtils.showShort("请输入6位数字密码");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入6位数字密码", false);
             return;
         }
         doSignUp(phone, password);
@@ -287,11 +287,14 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
                                                                             public void onResult(CC cc, CCResult result) {
                                                                                 if (result.isSuccess()) {
                                                                                     ToastUtils.showShort(result.getErrorMessage());
-                                                                                    CC.obtainBuilder("health_measure")
-                                                                                            .build()
-                                                                                            .callAsync();
-                                                                                    CC.obtainBuilder("health_measure")
-                                                                                            .setActionName("To_HealthInquiryActivity")
+//                                                                                    CC.obtainBuilder("health_measure")
+//                                                                                            .build()
+//                                                                                            .callAsync();
+//                                                                                    CC.obtainBuilder("health_measure")
+//                                                                                            .setActionName("To_HealthInquiryActivity")
+//                                                                                            .build()
+//                                                                                            .call();
+                                                                                    CC.obtainBuilder("com.online.doctor.list")
                                                                                             .build()
                                                                                             .call();
                                                                                 }
@@ -324,7 +327,7 @@ public class SignUpActivity extends BaseActivity<AuthActivitySignUpBinding, Sign
     }
 
     public void goIdCardRegister() {
-        startActivity(new Intent(this,SignUpByIdCardActivity.class));
+        startActivity(new Intent(this, SignUpByIdCardActivity.class));
     }
 
     @Override

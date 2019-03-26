@@ -36,7 +36,7 @@ public class IsEmptyStomachOrNotActivity extends BaseActivity implements Multipl
         ButterKnife.bind(this);
         initTitle();
         initView();
-        mlSpeak("主人，您当前是否空腹");
+        mlSpeak("您当前是否空腹");
         AppManager.getAppManager().addActivity(this);
     }
 

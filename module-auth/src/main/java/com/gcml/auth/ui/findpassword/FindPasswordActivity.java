@@ -70,8 +70,8 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
     public void fetchCode() {
         final String phone = binding.etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入正确的手机号码", false);
-            ToastUtils.showShort("主人，请输入正确的手机号码");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入正确的手机号码", false);
+            ToastUtils.showShort("请输入正确的手机号码");
             return;
         }
         viewModel.hasAccount(phone)
@@ -159,8 +159,8 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
     public void goNext() {
         final String phone = binding.etPhone.getText().toString().trim();
         if (!Utils.isValidPhone(phone)) {
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入正确的手机号码", false);
-            ToastUtils.showShort("主人，请输入正确的手机号码");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入正确的手机号码", false);
+            ToastUtils.showShort("请输入正确的手机号码");
             return;
         }
         viewModel.hasAccount(phone)
@@ -187,8 +187,8 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
     private void checkCode(String phone) {
         String code = binding.etCode.getText().toString().trim();
         if (TextUtils.isEmpty(code)) {
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,请输入验证码", false);
-            ToastUtils.showShort("主人,请输入验证码");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入验证码", false);
+            ToastUtils.showShort("请输入验证码");
             return;
         }
 
@@ -229,7 +229,7 @@ public class FindPasswordActivity extends BaseActivity<AuthActivityFindPasswordB
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入您的手机号码");
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入您的手机号码");
     }
 
     @Override

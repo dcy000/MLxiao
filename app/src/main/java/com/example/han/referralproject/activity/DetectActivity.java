@@ -319,7 +319,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     case 7://饭后一小时
                                         break;
                                 }
-                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+                                speak("因为您测量出现偏差，此次测量将不会作为历史数据");
                             }
 
                             @Override
@@ -404,7 +404,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     case 5://血糖仪未清洁
                                         break;
                                 }
-                                speak("主人，因为你测量出现偏差，此次测量将不会作为历史数据");
+                                speak("因为您测量出现偏差，此次测量将不会作为历史数据");
                             }
 
                             @Override
@@ -604,7 +604,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             float xuetangResut = ((float) (notifyData[10] << 8) + (float) (notifyData[9] & 0xff)) / 18;
                             mResultTv.setText(String.format("%.1f", xuetangResut));
                             if (getIntent().getBooleanExtra("isSkip", false)) {
-                                speak("主人,您本次测量的血糖值是"+xuetangResut);
+                                speak("您本次测量的血糖值是"+xuetangResut);
                                 return;
                             }
                             uploadXuetangResult(xuetangResut, false, null);
@@ -655,11 +655,11 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                     ((TextView) findViewById(R.id.tv_tizhi)).setText(String.format("%1$.2f", tizhi));
                                 }
                                 if (tizhi < 18.5) {
-                                    speak("主人，您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。偏瘦");
+                                    speak("您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。偏瘦");
                                 } else if (tizhi > 23.9) {
-                                    speak("主人，您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。偏胖");
+                                    speak("您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。偏胖");
                                 } else {
-                                    speak("主人，您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。正常");
+                                    speak("您的体重是" + String.format("%.2f", result) + "公斤。体脂指数" + String.format("%1$.2f", tizhi) + "。正常");
                                 }
 
                                 DataInfoBean info = new DataInfoBean();

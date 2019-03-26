@@ -74,15 +74,15 @@ public class FindPasswordByIdCardActivity extends BaseActivity<AuthActivityFindP
     public void goNext() {
         final String phone = binding.etPhone.getText().toString().trim();
         if (TextUtils.isEmpty(phone) || phone.length() != 18) {
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入正确的身份证号码", false);
-            ToastUtils.showShort("主人，请输入正确的身份证号码");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入正确的身份证号码", false);
+            ToastUtils.showShort("请输入正确的身份证号码");
             return;
         }
 
         final String name = binding.etCode.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入姓名", false);
-            ToastUtils.showShort("主人，请输入姓名");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入姓名", false);
+            ToastUtils.showShort("请输入姓名");
             return;
         }
         viewModel.hasAccount2(phone, name)
@@ -108,8 +108,8 @@ public class FindPasswordByIdCardActivity extends BaseActivity<AuthActivityFindP
     private void checkCode(String phone) {
         String code = binding.etCode.getText().toString().trim();
         if (TextUtils.isEmpty(code)) {
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,请输入验证码", false);
-            ToastUtils.showShort("主人,请输入验证码");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入验证码", false);
+            ToastUtils.showShort("请输入验证码");
             return;
         }
 
@@ -150,7 +150,7 @@ public class FindPasswordByIdCardActivity extends BaseActivity<AuthActivityFindP
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请输入您的身份证号码");
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入您的身份证号码");
     }
 
     @Override

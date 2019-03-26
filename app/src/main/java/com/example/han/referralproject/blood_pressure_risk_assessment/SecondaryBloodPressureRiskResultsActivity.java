@@ -50,9 +50,9 @@ public class SecondaryBloodPressureRiskResultsActivity extends BaseActivity {
                 }
             }
             if (!TextUtils.isEmpty(target)&&target.length()>1){
-                stringSpeak="主人，根据您的评估结果，您有可能是继发性高血压。并且存在对"+target.substring(0,target.length()-1)+"等靶器官的损害。";
+                stringSpeak="根据您的评估结果，您有可能是继发性高血压。并且存在对"+target.substring(0,target.length()-1)+"等靶器官的损害。";
             }else{
-                stringSpeak="主人，根据您的评估结果，您有可能是继发性高血压。";
+                stringSpeak="根据您的评估结果，您有可能是继发性高血压。";
             }
             List<SecondaryHypertension.SecondaryBean.IllnessFactorBean> illnessFactor = data.getSecondary().getIllnessFactor();
             if (illnessFactor!=null&&illnessFactor.size()>0){

@@ -41,7 +41,7 @@ public class HealthBloodOxygenDetectionFragment extends BloodOxygenFragment {
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getContext(), "主人，请打开设备开关,开始测量", false);
+        MLVoiceSynthetize.startSynthesize(getContext(), "请打开设备开关,开始测量", false);
     }
 
     @Override

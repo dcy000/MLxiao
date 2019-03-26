@@ -43,7 +43,7 @@ public class RecreationEntranceActivity extends AppCompatActivity implements Vie
             }
         });
 
-        MLVoiceSynthetize.startSynthesize(this,"主人,欢迎来到娱乐中心");
+        MLVoiceSynthetize.startSynthesize(this,"欢迎来到娱乐中心");
     }
 
     private void initView() {

@@ -41,7 +41,7 @@ public class HasDiseaseOrNotActivity extends BaseActivity implements MultipleCho
         ButterKnife.bind(this);
         initTitle();
         initView();
-        mlSpeak("主人，您是否存在以下疾病：肾脏疾病，内分泌疾病，心血管疾病，颅脑病变？");
+        mlSpeak("您是否存在以下疾病：肾脏疾病，内分泌疾病，心血管疾病，颅脑病变？");
         AppManager.getAppManager().addActivity(this);
     }
 

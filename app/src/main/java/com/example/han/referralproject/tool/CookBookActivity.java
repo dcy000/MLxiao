@@ -56,7 +56,7 @@ public class CookBookActivity extends ToolBaseActivity {
     protected void initView() {
         setContentView(R.layout.activity_cook_book);
         ButterKnife.bind(this);
-        speak("主人,欢迎来到菜谱");
+        speak("欢迎来到菜谱");
         initEvent();
     }
 
@@ -96,13 +96,13 @@ public class CookBookActivity extends ToolBaseActivity {
             @Override
             public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
                 if (!"cookbook".equals(service)) {
-                    speak("主人,没有找到该菜谱");
+                    speak("没有找到该菜谱");
                     return;
                 }
                 try {
                     CookBookResultActivity.StartMe(CookBookActivity.this, (List<CookbookBean>) anwser, result);
                 } catch (Exception e) {
-                    speak("主人,没有找到该菜谱");
+                    speak("没有找到该菜谱");
                 }
             }
         });
@@ -163,7 +163,7 @@ public class CookBookActivity extends ToolBaseActivity {
 
             @Override
             public void onError(SpeechError speechError) {
-                speak("主人,我没有听清,你能再说一遍吗?");
+                speak("我没有听清,你能再说一遍吗?");
             }
 
             @Override

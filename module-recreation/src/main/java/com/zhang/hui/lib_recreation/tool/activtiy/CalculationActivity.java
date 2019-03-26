@@ -125,7 +125,7 @@ public class CalculationActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,欢迎来到计算", false);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "欢迎来到计算", false);
     }
 
     private void initView() {
@@ -201,7 +201,7 @@ public class CalculationActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onMLError(SpeechError error) {
-                MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,我不会算了", false);
+                MLVoiceSynthetize.startSynthesize(getApplicationContext(), "我不会算了", false);
             }
         });
     }
@@ -213,8 +213,8 @@ public class CalculationActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onSuccess(final Object anwser, final String anwserText, String service, String question) {
                 if (!"calc".equals(service)) {
-//                    ToastUtil.showShort(CalculationActivity.this, "主人,我不会算" + question);
-                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,我不会算了", false);
+//                    ToastUtil.showShort(CalculationActivity.this, "我不会算" + question);
+                    MLVoiceSynthetize.startSynthesize(getApplicationContext(), "我不会算了", false);
                     return;
                 }
                 runOnUiThread(new Runnable() {

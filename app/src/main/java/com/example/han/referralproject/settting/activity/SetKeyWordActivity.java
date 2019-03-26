@@ -65,7 +65,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         initTitle();
         initData();
         initRV();
-        speak("主人,你可以自定义" + title + "关键词");
+        speak("你可以自定义" + title + "关键词");
     }
 
     private void initTitle() {
@@ -76,7 +76,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
         mRightText.setText("编辑");
         mRightView.setVisibility(View.GONE);
         mRightText.setOnClickListener(this);
-        speak("主人,请录入您的关键词");
+        speak("请录入您的关键词");
     }
 
     private List<KeyWordDefinevBean> initData() {
@@ -169,7 +169,7 @@ public class SetKeyWordActivity extends ToolBaseActivity implements KeyWordDifin
 
             @Override
             public void onError(SpeechError speechError) {
-                speak("主人,我没听清,你能再说一遍吗");
+                speak("我没听清,你能再说一遍吗");
             }
 
             @Override

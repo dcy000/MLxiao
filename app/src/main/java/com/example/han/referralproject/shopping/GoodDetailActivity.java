@@ -244,7 +244,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
 
     public static void showPaySuccessDialog(Activity activity) {
         ToastUtils.showShort("支付成功");
-        MLVoiceSynthetize.startSynthesize(activity.getApplicationContext(), "主人，恭喜您支付成功", false);
+        MLVoiceSynthetize.startSynthesize(activity.getApplicationContext(), "恭喜您支付成功", false);
         NDialog2 dialog2 = new NDialog2(activity);
         dialog2.setMessageCenter(true)
                 .setMessage("支付成功")

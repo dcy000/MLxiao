@@ -34,7 +34,7 @@ public class PressureFlatTipActivity extends BaseActivity implements WarmNoticeF
         setContentView(R.layout.activity_normal_high_tip);
         ButterKnife.bind(this);
         initTitle();
-        mlSpeak("主人，您在三日测量有血压异常偏低现象，为避免血压再度异常,小E为您进一步判断且给您方案。");
+        mlSpeak("您在三日测量有血压异常偏低现象，为避免血压再度异常,小E为您进一步判断且给您方案。");
         initView();
         AppManager.getAppManager().addActivity(this);
     }

@@ -51,7 +51,7 @@ public class FamilyActivity extends AppCompatActivity {
     }
 
     private void bindData() {
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，欢迎来到拨号中心。", false);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "欢迎来到拨号中心。", false);
         mToolBar.setData("拨 号", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {

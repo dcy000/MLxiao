@@ -60,7 +60,7 @@ public class NonUploadSingleMeasureWeightFragment extends WeightFragment {
                         });
 
             }
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量体重" + results[0] + "公斤", false);
+            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "您本次测量体重" + results[0] + "公斤", false);
         }
     }
 }

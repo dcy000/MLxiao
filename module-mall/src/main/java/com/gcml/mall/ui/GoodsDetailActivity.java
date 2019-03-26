@@ -68,7 +68,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void bindData() {
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，请选择选购数量", false);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请选择选购数量", false);
         mToolBar.setData("商 品 详 情", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
@@ -269,7 +269,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
 
 
     public void showPaySuccessDialog(Activity activity) {
-        MLVoiceSynthetize.startSynthesize(activity.getApplicationContext(), "主人，恭喜您支付成功", false);
+        MLVoiceSynthetize.startSynthesize(activity.getApplicationContext(), "恭喜您支付成功", false);
         new AlertDialog(GoodsDetailActivity.this).builder()
                 .setMsg("支付成功")
                 .setPositiveButton("确认", new View.OnClickListener() {

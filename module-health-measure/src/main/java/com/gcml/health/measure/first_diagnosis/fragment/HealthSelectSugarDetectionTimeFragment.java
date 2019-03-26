@@ -35,7 +35,7 @@ public class HealthSelectSugarDetectionTimeFragment extends BluetoothBaseFragmen
     @Override
     public void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(getContext(),"主人，请选择您当前的状态",false);
+        MLVoiceSynthetize.startSynthesize(getContext(),"请选择您当前的状态",false);
     }
 
     @Override

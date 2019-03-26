@@ -31,7 +31,7 @@ public class SlowDiseaseManagementTipActivity extends BaseActivity {
         setContentView(R.layout.activity_slow_disease_management_tip);
         ButterKnife.bind(this);
         initTitle();
-        mlSpeak("主人，小E来帮您控制血压吧。");
+        mlSpeak("小E来帮您控制血压吧。");
         AppManager.getAppManager().addActivity(this);
     }
 

@@ -117,10 +117,10 @@ public class SportPlanDetailActivity extends BaseActivity {
         mData.add(diabetesEffect);
         adapter.notifyDataSetChanged();
         if (!TextUtils.isEmpty(data.getHypertensionEffect())){
-            speak("主人，"+name+sportEffect+"对血压的好处"+data.getHypertensionEffect());
+            speak(""+name+sportEffect+"对血压的好处"+data.getHypertensionEffect());
         }
         if (!TextUtils.isEmpty(data.getDiabetesEffect())){
-            speak("主人，"+name+sportEffect+"对血糖的好处"+data.getDiabetesEffect());
+            speak(""+name+sportEffect+"对血糖的好处"+data.getDiabetesEffect());
         }
     }
 

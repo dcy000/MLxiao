@@ -56,7 +56,7 @@ public class TaskActivity extends FragmentActivity {
     }
 
     private void bindData() {
-        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人，欢迎来到每日任务。", false);
+        MLVoiceSynthetize.startSynthesize(getApplicationContext(), "欢迎来到每日任务。", false);
         mToolBar.setData("每 日 任 务", R.drawable.common_btn_back, "返回", R.drawable.common_btn_home, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {

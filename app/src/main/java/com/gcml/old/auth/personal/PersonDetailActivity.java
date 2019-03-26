@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.homepage.MainActivity;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -74,7 +75,7 @@ public class PersonDetailActivity extends AppCompatActivity {
                 R.drawable.icon_wifi, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
-                        finish();
+                        startActivity(new Intent(PersonDetailActivity.this, MainActivity.class));
                     }
 
                     @Override

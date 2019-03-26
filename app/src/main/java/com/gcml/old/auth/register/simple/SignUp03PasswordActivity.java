@@ -175,7 +175,7 @@ public class SignUp03PasswordActivity extends BaseActivity {
                         }
                         hideLoadingDialog();
                         ToastUtils.showShort(message);
-                        speak("主人," + message);
+                        speak("" + message);
                     }
                 }
         );

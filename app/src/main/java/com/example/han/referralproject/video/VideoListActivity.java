@@ -107,7 +107,7 @@ public class VideoListActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"主人，欢迎观看健康课堂");
+        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),"欢迎观看健康课堂");
     }
 
     private List<VideoListFragment> mFragments;

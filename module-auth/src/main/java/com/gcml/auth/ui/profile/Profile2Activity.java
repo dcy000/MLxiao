@@ -76,21 +76,21 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
 //        ));
 //        binding.spWeight.setSelection(50);
 
-        binding.spHeight.setText(getHeights().get(0));
+        binding.spHeight.setText("160cm");
         binding.spHeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectHeight();
             }
         });
-        binding.spWc.setText(getWaists().get(0));
+        binding.spWc.setText("2尺");
         binding.spWc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectWaist();
             }
         });
-        binding.spWeight.setText(getWeights().get(0));
+        binding.spWeight.setText("50Kg");
         binding.spWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +138,7 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
             }
 
         };
-        selectItems(getHeights(), listener);
+        selectItems(getHeights(), listener, true);
     }
 
     private void selectWeight() {
@@ -151,10 +151,10 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
             }
 
         };
-        selectItems(getWeights(), listener);
+        selectItems(getWeights(), listener, false);
     }
 
-    private void selectItems(List<String> items, OnOptionsSelectListener listener) {
+    private void selectItems(List<String> items, OnOptionsSelectListener listener, boolean isHeight) {
         OptionsPickerView<String> pickerView = new OptionsPickerBuilder(this, listener)
                 .setCancelText("取消")
                 .setSubmitText("确认")
@@ -172,6 +172,11 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
                 .setOutSideCancelable(false)
                 .build();
         pickerView.setPicker(items);
+        if (isHeight) {
+            pickerView.setSelectOptions(100);
+        } else {
+            pickerView.setSelectOptions(20);
+        }
         pickerView.show();
     }
 
@@ -222,6 +227,7 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
                 .setOutSideCancelable(false)
                 .build();
         mWaistPickerView.setPicker(getWaists());
+        mWaistPickerView.setSelectOptions(19);
         mWaistPickerView.setOnDismissListener(onDismissListener);
         mWaistPickerView.show();
     }

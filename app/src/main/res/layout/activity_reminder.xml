@@ -20,7 +20,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_alarm_medical"
-        tools:text="主人，该吃药啦，一次一 粒，用 温 水 冲 服"/>
+        tools:text="该吃药啦，一次一 粒，用 温 水 冲 服"/>
 
     <ImageView
         android:id="@+id/iv_alarm_medical"

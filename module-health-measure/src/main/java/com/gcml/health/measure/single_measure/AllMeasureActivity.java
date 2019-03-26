@@ -316,7 +316,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     break;
                 case IPresenter.MEASURE_WEIGHT:
                     //体重
-                    ToastUtils.showShort("主人，该设备暂无演示视频");
+                    ToastUtils.showShort("该设备暂无演示视频");
                     break;
                 default:
                     break;

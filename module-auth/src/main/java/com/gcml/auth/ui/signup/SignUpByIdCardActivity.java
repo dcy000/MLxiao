@@ -22,6 +22,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.Locale;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
@@ -207,6 +208,7 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
                 .doOnTerminate(new Action() {
                     @Override
                     public void run() throws Exception {
+                        binding.tvNext.setEnabled(true);
                         dismissLoading();
                     }
                 })
@@ -215,7 +217,6 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
                     @Override
                     public void onNext(Boolean hasAccount) {
                         if (hasAccount) {
-                            binding.tvNext.setEnabled(true);
                             ToastUtils.showShort("账号已注册");
                             MLVoiceSynthetize.startSynthesize(getApplicationContext(), "账号已注册", false);
                         } else {
@@ -238,11 +239,36 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
                 || !TextUtils.isDigitsOnly(password)
                 || password.length() != 6) {
             binding.tvNext.setEnabled(true);
-            ToastUtils.showShort("主人,请输入6位数字密码");
-            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "主人,请输入6位数字密码", false);
+            ToastUtils.showShort("请输入6位数字密码");
+            MLVoiceSynthetize.startSynthesize(getApplicationContext(), "请输入6位数字密码", false);
             return;
         }
-        doSignUp(phone, password, name);
+
+
+        checkIdCard(phone, password, name);
+    }
+
+    private void checkIdCard(String phone, String password, String name) {
+        Observable<Object> data = CC.obtainBuilder("com.gcml.auth.isIdCardNotExit")
+                .addParam("idCard", phone)
+                .build()
+                .call()
+                .getDataItem("data");
+        data.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        doSignUp(phone, password, name);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
+                    }
+                });
     }
 
     public static final String IDCARD = "idcard";
@@ -277,6 +303,7 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
                                         if (result.isSuccess()) {
                                             CC.obtainBuilder("com.gcml.auth.updateProfile1")
                                                     .addParam("signUpType", IDCARD)
+                                                    .addParam("signUpIdCard", binding.etPhone.getText().toString().trim())
                                                     .build()
                                                     .callAsyncCallbackOnMainThread(new IComponentCallback() {
                                                         @Override
@@ -290,11 +317,14 @@ public class SignUpByIdCardActivity extends BaseActivity<AuthActivitySignUpByIdC
                                                                             public void onResult(CC cc, CCResult result) {
                                                                                 if (result.isSuccess()) {
                                                                                     ToastUtils.showShort(result.getErrorMessage());
-                                                                                    CC.obtainBuilder("health_measure")
-                                                                                            .build()
-                                                                                            .callAsync();
-                                                                                    CC.obtainBuilder("health_measure")
-                                                                                            .setActionName("To_HealthInquiryActivity")
+//                                                                                    CC.obtainBuilder("health_measure")
+//                                                                                            .build()
+//                                                                                            .callAsync();
+//                                                                                    CC.obtainBuilder("health_measure")
+//                                                                                            .setActionName("To_HealthInquiryActivity")
+//                                                                                            .build()
+//                                                                                            .call();
+                                                                                    CC.obtainBuilder("com.online.doctor.list")
                                                                                             .build()
                                                                                             .call();
                                                                                 }

@@ -166,7 +166,7 @@ public class WeeklyReport3Fragment extends Fragment {
         rpbSum.setProgress(progress_percent);
         tvProgress3.setText((int) progress_percent + "%");
 
-        tips = "主人，您的生活目标总体完成"
+        tips = "您的生活目标总体完成"
                 + progress_percent + "%。食盐距离目标" + pc_yan + "克，运动距离目标" + pc_yundong +
                 "分钟，体重距离目标" + pc_tizhong + "千克，饮酒距离目标" + pc_yinjiu + "毫升。";
     }

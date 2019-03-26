@@ -131,7 +131,7 @@ public class LastWeekTrendFragment extends RecycleBaseFragment {
                 iChangToolbar.onChange(this);
             }
 //            if (isAdded()) {
-//                ((TreatmentPlanActivity) getActivity()).speak("主人，请查看您一周的血压趋势");
+//                ((TreatmentPlanActivity) getActivity()).speak("请查看您一周的血压趋势");
 //            }
 
         }

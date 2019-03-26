@@ -38,7 +38,7 @@ public class DialogActivity extends AppCompatActivity {
 //                    }
 //                }).show();
         new AlertDialog(this).builder()
-                .setMsg("主人，您已完成风险评估，为了更好的体验，您可以通过每日任务引导开启健康之旅。")
+                .setMsg("您已完成风险评估，为了更好的体验，您可以通过每日任务引导开启健康之旅。")
                 .setPositiveButton("开始体验", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
