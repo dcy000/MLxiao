@@ -59,7 +59,7 @@ public class WeightFragment extends InquiryBaseFrament implements View.OnClickLi
         tvGoBack.setOnClickListener(new FilterClickListener(this));
         tvGoForward.setOnClickListener(new FilterClickListener(this));
 
-        tvUnit.setText("cm");
+        tvUnit.setText("kg");
         GalleryLayoutManager layoutManager = new GalleryLayoutManager(GalleryLayoutManager.VERTICAL);
         adapter = new SelectAdapter();
         adapter.setStrings(getStrings());
@@ -91,7 +91,7 @@ public class WeightFragment extends InquiryBaseFrament implements View.OnClickLi
     }
 
     public void select(String text) {
-        ToastUtils.showShort(text);
+//        ToastUtils.showShort(text);
     }
 
 

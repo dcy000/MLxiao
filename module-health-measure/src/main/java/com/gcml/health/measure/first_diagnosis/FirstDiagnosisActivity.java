@@ -267,8 +267,8 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
         }
         //最后一个Fragment点击了下一步应该跳转到HealthReportFormActivity
         if (fragment.getClass().getSimpleName().equals(finalFragment)) {
-//            HealthReportFormActivity.startActivity(this);
-            showFinishDialog();
+            HealthReportFormActivity.startActivity(this);
+//            showFinishDialog();
             return;
         }
         //因为在设备选择页面右上角的按钮是回到主界面，所以需要在此处做一个标记

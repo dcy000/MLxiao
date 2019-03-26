@@ -17,6 +17,7 @@ import com.gcml.module_blutooth_devices.R;
 import com.gcml.module_blutooth_devices.bloodoxygen.BloodOxygenPresenter;
 import com.gcml.module_blutooth_devices.dialog.BluetoothDialog;
 import com.gcml.module_blutooth_devices.dialog.ChooseBluetoothDevice;
+import com.iflytek.synthetize.MLVoiceSynthetize;
 
 public abstract class BluetoothBaseFragment extends Fragment implements IBluetoothView, ChooseBluetoothDevice {
     protected View view = null;

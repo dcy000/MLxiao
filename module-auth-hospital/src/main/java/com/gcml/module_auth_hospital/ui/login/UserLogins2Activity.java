@@ -55,7 +55,7 @@ public class UserLogins2Activity extends BaseActivity {
         });
 
         tb = findViewById(R.id.tb_logins);
-        tb.setData("居 民 登 录", 0, "  杭州", R.drawable.auth_hospital_ic_setting, null, new ToolBarClickListener() {
+        tb.setData("用 户 登 录", 0, "  杭州", R.drawable.auth_hospital_ic_setting, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
 

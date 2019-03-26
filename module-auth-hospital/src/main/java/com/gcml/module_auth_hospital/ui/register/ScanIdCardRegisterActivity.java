@@ -219,7 +219,9 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
         boolean success = false;
         if (client != null && targetDevice != null) {
             if (client.getBtState() == 0) {//0是断开状态，2是连接状态
-                success = client.connectBt(targetDevice.getAddress());
+                if (!TextUtils.isEmpty(targetDevice.getAddress())) {
+                    success = client.connectBt(targetDevice.getAddress());
+                }
             } else if (client.getBtState() == 2) {
                 success = true;
             }

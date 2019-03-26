@@ -42,7 +42,7 @@ public class UserLoginsActivity extends AppCompatActivity implements View.OnClic
         tvToRegister = (TextView) findViewById(R.id.tv_to_register);
         tvToRegister.setOnClickListener(this);
 
-        authLoginsToobar.setData("居 民 登 录", 0, "  医生:白求恩", R.drawable.auth_hospital_ic_setting, null, new ToolBarClickListener() {
+        authLoginsToobar.setData("用 户 登 录", 0, "  医生:白求恩", R.drawable.auth_hospital_ic_setting, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
             }
