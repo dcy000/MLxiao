@@ -20,6 +20,8 @@ import com.gcml.module_inquiry.R;
 import com.gcml.module_inquiry.inquiry.ui.WenZenEntryAcitivity;
 import com.gcml.module_inquiry.inquiry.ui.fragment.base.ChildActionListenerAdapter;
 import com.gcml.module_inquiry.model.HealthFileRepostory;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.synthetize.MLSynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class BloodPressureFragment extends BloodpressureFragment {
     private int highPressure;
     private int lowPressure;
     private BloodPressurePresenter bloodPressurePresenter;
+    private int pulse;
 
     @Override
     protected BaseBluetooth obtainPresenter() {
@@ -53,9 +56,7 @@ public class BloodPressureFragment extends BloodpressureFragment {
     }
 
     protected void onMeasureFinished(String... results) {
-
         if (results.length == 3) {
-            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压" + results[0] + ",低压" + results[1] + ",脉搏" + results[2], false);
             datas = new ArrayList<>();
             DetectionData pressureData = new DetectionData();
             DetectionData dataPulse = new DetectionData();
@@ -66,7 +67,8 @@ public class BloodPressureFragment extends BloodpressureFragment {
             lowPressure = Integer.parseInt(results[1]);
             pressureData.setLowPressure(lowPressure);
             dataPulse.setDetectionType("9");
-            dataPulse.setPulse(Integer.parseInt(results[2]));
+            pulse = Integer.parseInt(results[2]);
+            dataPulse.setPulse(pulse);
             datas.add(pressureData);
             datas.add(dataPulse);
             uploadData();
@@ -133,7 +135,13 @@ public class BloodPressureFragment extends BloodpressureFragment {
                     @Override
                     public void onNext(List<DetectionResult> detectionResults) {
                         ToastUtils.showLong("上传数据成功");
-                        listenerAdapter.onFinalNext("8", highPressure + "", lowPressure + "");
+                        MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，您本次测量高压" + highPressure + ",低压" + lowPressure + ",脉搏" + pulse, new MLSynthesizerListener() {
+                            @Override
+                            public void onCompleted(SpeechError speechError) {
+                                super.onCompleted(speechError);
+                                listenerAdapter.onFinalNext("8", highPressure + "", lowPressure + "");
+                            }
+                        }, false);
                     }
 
                     @Override
@@ -169,7 +177,6 @@ public class BloodPressureFragment extends BloodpressureFragment {
 
     @Override
     public void updateState(String datas) {
-        super.updateData(datas);
         if (listenerAdapter != null) {
             if (!TextUtils.isEmpty(datas) && TextUtils.equals(datas, "设备已连接")) {
                 listenerAdapter.onBluetoothConnect(bloodPressurePresenter);
