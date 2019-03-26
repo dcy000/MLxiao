@@ -90,7 +90,7 @@ public class Profile2Activity extends BaseActivity<AuthActivityProfile2Binding, 
                 selectWaist();
             }
         });
-        binding.spWeight.setText("50Kg");
+        binding.spWeight.setText("50kg");
         binding.spWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
