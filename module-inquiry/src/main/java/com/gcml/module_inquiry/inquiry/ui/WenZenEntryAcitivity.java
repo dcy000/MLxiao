@@ -155,7 +155,7 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
     };
 
     public void setBlueTitle(int rightIconResourse, BloodPressurePresenter presenter) {
-        tb.setData("问 诊",
+        tb.setData("预 诊",
                 R.drawable.common_btn_back, "返回",
                 rightIconResourse, null, new ToolBarClickListener() {
                     @Override
@@ -190,7 +190,7 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
     }
 
     public void setNormalTitle() {
-        tb.setData("问 诊",
+        tb.setData("预 诊",
                 R.drawable.common_btn_back, "返回",
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
