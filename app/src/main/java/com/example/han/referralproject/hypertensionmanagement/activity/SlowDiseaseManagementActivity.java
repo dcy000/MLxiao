@@ -119,8 +119,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 return;
             }
 
-            if (!(diagnoseInfo.risk == null
-                    && diagnoseInfo.primary == null
+            if (diagnoseInfo.primary != null
+                    && !(diagnoseInfo.risk == null
                     && diagnoseInfo.lowPressure == null
                     && diagnoseInfo.hypertensionLevel == null
                     && (diagnoseInfo.hypertensionPrimaryState == null || diagnoseInfo.hypertensionPrimaryState.equals("0"))
@@ -129,7 +129,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             )) {
 
                 ContinueOrNotDialog();
-            }else{
+            } else {
                 clickWithoutContinueJudge();
             }
         }
@@ -344,14 +344,14 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         // java.lang.IllegalStateException
         // Can not perform this action after onSaveInstanceState
 //        dialog.show(getSupportFragmentManager(), "less3");
-        getSupportFragmentManager().beginTransaction().add(dialog,"less3").commitAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().add(dialog, "less3").commitAllowingStateLoss();
     }
 
     private void showOriginHypertensionDialog() {
         TwoChoiceDialog dialog = new TwoChoiceDialog("您是否诊断过原发性高血压，且正在进行高血压规范治疗？", "是", "否");
         dialog.setListener(this);
 //        dialog.show(getFragmentManager(), "yuanfa");
-        getFragmentManager().beginTransaction().add(dialog,"yuanfa").commitAllowingStateLoss();
+        getFragmentManager().beginTransaction().add(dialog, "yuanfa").commitAllowingStateLoss();
         mlSpeak("您是否已确诊高血压且在治疗？");
     }
 
@@ -370,7 +370,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             }
         });
 //        dialog.show(getFragmentManager(), "yuanfa");
-        getFragmentManager().beginTransaction().add(dialog,"yuanfa").commitAllowingStateLoss();
+        getFragmentManager().beginTransaction().add(dialog, "yuanfa").commitAllowingStateLoss();
         mlSpeak("您之前的流程还未完成，是否要继续？");
     }
 
