@@ -67,7 +67,7 @@ public class ProfileInfoActivity extends BaseActivity<AuthActivityProfileInfoBin
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        binding.tbProfileInfo.setData("健 康 档 案", R.drawable.common_icon_back, "返回",
+        binding.tbProfileInfo.setData("个 人 信 息", R.drawable.common_icon_back, "返回",
                 R.drawable.common_icon_home, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
