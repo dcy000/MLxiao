@@ -182,7 +182,9 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        presenter.startDiscovery(null);
+                        if (presenter != null) {
+                            presenter.startDiscovery(null);
+                        }
                     }
                 }).show();
     }
@@ -267,8 +269,8 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                     public void onNext(ApiResult<Object> objectApiResult) {
                         super.onNext(objectApiResult);
                         ToastUtils.showShort("提交成功");
-                        CC.obtainBuilder("health.profile.wenzen.output").
-                                addParam("highPrssure", bean.highPressure)
+                        CC.obtainBuilder("health.profile.wenzen.output")
+                                .addParam("highPrssure", bean.highPressure)
                                 .addParam("lowPressure", bean.lowPressure)
                                 .build()
                                 .call();

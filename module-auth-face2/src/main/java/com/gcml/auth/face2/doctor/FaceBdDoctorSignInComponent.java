@@ -15,7 +15,7 @@ import com.gcml.common.data.UserSpHelper;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * 医生人脸登陆
+ * 医生人脸登录
  * 1. 人脸识别登录 （verify = false）
  * 2. 人脸认证登录 （verify = true）
  */

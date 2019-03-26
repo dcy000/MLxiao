@@ -148,8 +148,8 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
             }
 
         }
-        RencommendForUserFragment tipsFragment = new RencommendForUserFragment();
-        fragments.add(tipsFragment);
+//        RencommendForUserFragment tipsFragment = new RencommendForUserFragment();
+//        fragments.add(tipsFragment);
         initViewPage();
     }
 

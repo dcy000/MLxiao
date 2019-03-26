@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="59pt"
         android:layout_marginTop="100pt"
-        android:text="身份证号码登陆"
+        android:text="身份证号码登录"
         android:textColor="#ff333333"
         android:textSize="64pt"
         app:layout_constraintStart_toStartOf="parent"

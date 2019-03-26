@@ -91,7 +91,7 @@ public class HeightFragment extends InquiryBaseFrament implements View.OnClickLi
     }
 
     public void select(String text) {
-        ToastUtils.showShort(text);
+//        ToastUtils.showShort(text);
     }
 
 

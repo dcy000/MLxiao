@@ -34,7 +34,7 @@
         android:id="@+id/tv_sign_up_unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="cm"
+        tools:text="kg"
         android:textColor="#FFC107"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="@+id/rv_sign_up_content"

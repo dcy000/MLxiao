@@ -41,7 +41,7 @@ public class UserRegistersActivity extends AppCompatActivity implements View.OnC
         tvToRegister = (TextView) findViewById(R.id.tv_to_register);
         tvToRegister.setOnClickListener(this);
 
-        authLoginsToobar.setData("居 民 注 册",
+        authLoginsToobar.setData("用 户 注 册",
                 R.drawable.common_btn_back, "返回",
                 R.drawable.auth_hospital_ic_setting, null,
                 new ToolBarClickListener() {
