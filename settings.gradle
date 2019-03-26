@@ -16,7 +16,6 @@ include ':lib-baidu-unit',
         ':lib-voice',
         ':lib-widget',
         ':lib-bluetooth',
-        ':lib-bluetooth',
         ':lib-video',
         ':lib-idcard-reader',
         ':lib-printer-8003dd'

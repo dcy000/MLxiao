@@ -66,9 +66,9 @@ public class RxUtils {
                         Type type = typeToken.getType();
                         T t;
                         try {
-                            t = Serializer.getInstance().deserialize("{}", type);
-                        } catch (Throwable e) {
                             t = (T) new ArrayList<>();
+                        } catch (Throwable e) {
+                            t = Serializer.getInstance().deserialize("{}", type);
                         }
                         return Observable.just(t);
                     }

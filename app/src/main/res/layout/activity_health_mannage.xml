@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:paddingLeft="502pt"
-        android:paddingRight="502pt">
+        android:paddingLeft="200pt"
+        android:paddingRight="200pt">
 
         <LinearLayout
             android:layout_width="380pt"
@@ -42,6 +42,31 @@
                 android:textColor="#f333"
                 android:textSize="64pt" />
 
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_health_blood_manager"
+            android:layout_width="380pt"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="258pt"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.gcml.lib_widget.EclipseImageView
+                android:layout_width="380pt"
+                android:layout_height="380pt"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ic_bloodpressure_manager" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30pt"
+                android:gravity="center"
+                android:text="高血压方案"
+                android:textColor="#f333"
+                android:textSize="64pt" />
 
         </LinearLayout>
 

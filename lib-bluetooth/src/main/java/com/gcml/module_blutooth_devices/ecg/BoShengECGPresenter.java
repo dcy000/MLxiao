@@ -13,6 +13,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -48,6 +50,7 @@ import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.google.gson.Gson;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +60,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class BoShengECGPresenter implements LifecycleObserver {
     private SupportActivity activity;
@@ -67,7 +71,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private BleDevice lockedDevice;
     private List<Integer> points;
     private TimeCount timeCount;
-    private static boolean isMeasureEnd = false;
+    private boolean isMeasureEnd = false;
     private List<byte[]> bytesResult;
     private WeakHandler weakHandler;
     private static final int MESSAGE_DEAL_BYTERESULT = 1;
@@ -76,18 +80,13 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private String phone;
     private String birth;
     private String sex;
+    private static final String TAG = "BoShengECGPresenter";
     private final Handler.Callback weakRunnable = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case MESSAGE_DEAL_BYTERESULT:
-                    mLoadingDialog = new LoadingDialog.Builder(activity)
-                            .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
-                            .setTipWord("正在分析数据...")
-                            .create();
-                    if (mLoadingDialog != null) {
-                        mLoadingDialog.show();
-                    }
+                    Log.e(TAG, "handleMessage: " + bytesResult.size());
                     ThreadUtils.executeByIo(new ThreadUtils.SimpleTask<byte[]>() {
                         @Nullable
                         @Override
@@ -110,6 +109,13 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         @Override
                         public void onSuccess(@Nullable byte[] result) {
                             if (result != null) {
+                                if (result.length == 0) {
+                                    baseView.updateState("采集数据失败，请先清洁仪器，再次测量。");
+                                    if (mLoadingDialog != null) {
+                                        mLoadingDialog.dismiss();
+                                    }
+                                    return;
+                                }
                                 uploadDatas(result);
                             }
                         }
@@ -151,6 +157,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
         @Override
         public void onConnectSuccess(BleDevice bleDevice, BluetoothGatt gatt, int status) {
+            isMeasureEnd = false;
             lockedDevice = bleDevice;
             baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_ECG, name + "," + address);
@@ -159,11 +166,17 @@ public class BoShengECGPresenter implements LifecycleObserver {
                     BorsamConfig.COMMON_RECEIVE_ECG_CUUID.toString(), new BleNotifyCallback() {
                         @Override
                         public void onNotifySuccess() {
-                            timeCount.start();
+                            if (timeCount!=null){
+                                timeCount.start();
+                            }
                         }
 
                         @Override
                         public void onNotifyFailure(BleException exception) {
+                            Timber.e("数据传输出现异常");
+                            if (timeCount != null) {
+                                timeCount.cancel();
+                            }
                         }
 
                         @Override
@@ -186,7 +199,15 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 }
             }
             isMeasureEnd = true;
-            timeCount.cancel();
+            if (timeCount!=null){
+                timeCount.cancel();
+            }
+            new WeakHandler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    connect();
+                }
+            }, 3000);
         }
     };
 
@@ -377,15 +398,11 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 .enqueue(new HttpCallback<BorsamResponse<UploadFileResult>>() {
                     @Override
                     public void onSuccess(BorsamResponse<UploadFileResult> uploadFileResultBorsamResponse) {
-                        if (uploadFileResultBorsamResponse == null) {
-                            return;
+                        try {
+                            String file_no = uploadFileResultBorsamResponse.getEntity().getFile_no();
+                            addRecord(file_no, (int) (System.currentTimeMillis() / 1000), 1, "");
+                        } catch (Exception e) {
                         }
-                        UploadFileResult entity = uploadFileResultBorsamResponse.getEntity();
-                        if (entity == null) {
-                            return;
-                        }
-                        String file_no = entity.getFile_no();
-                        addRecord(file_no, (int) (System.currentTimeMillis() / 1000), 1, "");
                     }
 
                     @Override
@@ -413,8 +430,10 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
                         }
-                        BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
-                        baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), boShengResultBean.getAvgbeats().get(0).getHR() + "");
+                        if (entity!=null) {
+                            BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
+                            baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), boShengResultBean.getAvgbeats().get(0).getHR() + "");
+                        }
                     }
 
                     @Override
@@ -434,6 +453,10 @@ public class BoShengECGPresenter implements LifecycleObserver {
     @SuppressLint("RestrictedApi")
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop() {
+        if (timeCount != null) {
+            timeCount.cancel();
+        }
+        timeCount = null;
         if (lockedDevice != null) {
             BleManager.getInstance().stopNotify(lockedDevice, BorsamConfig.COMMON_RECEIVE_ECG_SUUID.toString(),
                     BorsamConfig.COMMON_RECEIVE_ECG_CUUID.toString());
@@ -460,27 +483,43 @@ public class BoShengECGPresenter implements LifecycleObserver {
         activity = null;
     }
 
-    static class TimeCount extends CountDownTimer {
-        private IBluetoothView fragment;
-        private WeakHandler weakHandler;
+    class TimeCount extends CountDownTimer {
+        private WeakReference<IBluetoothView> fragment;
+        private WeakReference<WeakHandler> weakHandler;
 
         TimeCount(long millisInFuture, long countDownInterval, IBluetoothView fragment, WeakHandler weakHandler) {
             super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
-            this.fragment = fragment;
-            this.weakHandler = weakHandler;
+            this.fragment = new WeakReference<>(fragment);
+            this.weakHandler = new WeakReference<>(weakHandler);
         }
 
         @Override
         public void onFinish() {// 计时完毕时触发
             isMeasureEnd = true;
-            fragment.updateData("tip", "测量结束");
-            weakHandler.sendEmptyMessage(MESSAGE_DEAL_BYTERESULT);
+            if (fragment.get() != null) {
+                fragment.get().updateData("tip", "测量结束");
+            }
+
+            if (activity != null) {
+                mLoadingDialog = new LoadingDialog.Builder(activity)
+                        .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
+                        .setTipWord("正在分析数据...")
+                        .create();
+                if (mLoadingDialog != null) {
+                    mLoadingDialog.show();
+                }
+                if (weakHandler.get() != null) {
+                    weakHandler.get().sendEmptyMessage(MESSAGE_DEAL_BYTERESULT);
+                }
+            }
         }
 
 
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程显示
-            fragment.updateData("tip", "距离测量结束还有" + millisUntilFinished / 1000 + "s");
+            if (fragment.get() != null) {
+                fragment.get().updateData("tip", "距离测量结束还有" + millisUntilFinished / 1000 + "s");
+            }
         }
     }
 }
