@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          android:id="@+id/tv_sign_up_item_disease"
+          android:layout_width="250dp"
+          android:layout_height="wrap_content"
+          android:layout_margin="10dp"
+          android:gravity="center"
+          android:paddingBottom="20dp"
+          android:paddingTop="20dp"
+          android:textSize="40sp"
+          tools:background="@drawable/common_bg_tv_disease_selected"
+          tools:text="糖尿病"/>

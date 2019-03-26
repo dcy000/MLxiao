@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="600pt"
+        android:layout_height="600pt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="116pt"
+        android:background="@drawable/img_recommend_no_data" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="724pt"
+        android:text="暂无推荐商品"
+        android:textColor="#ff666666"
+        android:textSize="44pt" />
+
+</RelativeLayout>

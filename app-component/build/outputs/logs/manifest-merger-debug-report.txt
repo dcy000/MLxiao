@@ -1,0 +1,602 @@
+-- Merging decision tree log ---
+manifest
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:2:1-47:12
+MERGED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-51:12
+MERGED from [:lib-common-core] G:\AP\cm_out_yj01\MLxiao\lib-common-core\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-18:12
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-32:12
+MERGED from [:lib-widget] G:\AP\cm_out_yj01\MLxiao\lib-widget\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-11:12
+MERGED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:2:1-29:12
+MERGED from [com.android.databinding:adapters:3.1.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\adapters-3.1.4.aar\d24fd504b05d4fdb55f76a3bff6e3b1d\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.databinding:library:3.1.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\library-3.1.4.aar\79b0299fe07d8b872a116c8374fdd486\AndroidManifest.xml:17:1-24:12
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:17:1-61:12
+MERGED from [com.github.markzhai:blockcanary-android:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-android-1.5.0.aar\eff1707e96854c39a977527997e2e253\AndroidManifest.xml:2:1-27:12
+MERGED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:2:1-33:12
+MERGED from [com.android.support:multidex:1.0.2] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\multidex-1.0.2.aar\23b41d1d0c52daabaee979a8c96a7306\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\3af2d78f79f431747f38f5e17e256fef\AndroidManifest.xml:17:1-30:12
+MERGED from [com.uber.autodispose:autodispose-android-archcomponents:1.0.0-RC1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\autodispose-android-archcomponents-1.0.0-RC1.aar\00f47e6b27a44561fb79fc499b452207\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:design:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\4929c31cbbcc6b1903734d95cd58a951\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\16f69c5dd757fb030353655d1968e110\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\2c3e9f5fe619f36c57c1649055b14ebe\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\27a9650937f6958716afea47c03bf8af\AndroidManifest.xml:17:1-22:12
+MERGED from [github.hellocsl:GalleryLayoutManager:1.0.6] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\GalleryLayoutManager-1.0.6.aar\d6b02a4fe7ad9644b0b6c5f5262b1d34\AndroidManifest.xml:2:1-17:12
+MERGED from [com.android.support:recyclerview-v7:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.1.aar\dbca126505c644fd73543b9767732089\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.1.aar\36d939271d4bde4d78756464c7201beb\AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.bumptech.glide:glide:4.6.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\glide-4.6.1.aar\6f6967050d509b6c7289e9a305ba72d4\AndroidManifest.xml:2:1-13:12
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\93db97d832c83d404943f2072afb969d\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\8032e092c0d9c9f3e329c0a4dbdb88d0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\transition-27.1.1.aar\02a54ae6cc7bd3a1e89e20a370b3f22a\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\b94c88962de3b415300be0ec648a2e4d\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.persistence.room:rxjava2:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxjava2-1.1.1.aar\4a3ae37e19ce0d4e573de677b85e000c\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.persistence.room:runtime:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\38fc286397d92b27e8248938c1b3b8a7\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\9c39609a4b9dde3290d425b7012531b6\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\965d022de2ff54a9f1ddf338b28856f3\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\563e823328bf326c8ee849667e78accd\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\0f823443752a6238b46d14a41061b6f4\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:cardview-v7:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.1.1.aar\50d081eead54e6cb2797334ca32d5a63\AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\BaseRecyclerViewAdapterHelper-2.9.30.aar\949e8ecfb4ee81aa12e4442703bc5620\AndroidManifest.xml:2:1-11:12
+MERGED from [cn.aigestudio.wheelpicker:WheelPicker:1.1.2] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\WheelPicker-1.1.2.aar\8ae6396475c1bacd9db8b87af343b3a3\AndroidManifest.xml:2:1-12:12
+MERGED from [com.contrarywind:Android-PickerView:4.1.6] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\Android-PickerView-4.1.6.aar\9c7e541325d2a2716ab3eec6a54fcd47\AndroidManifest.xml:2:1-11:12
+MERGED from [com.facebook.stetho:stetho-okhttp3:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\stetho-okhttp3-1.5.0.aar\3d71dc7d7146bd018a53ab849c602cab\AndroidManifest.xml:2:1-13:12
+MERGED from [com.uber.autodispose:autodispose-android:1.0.0-RC1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\autodispose-android-1.0.0-RC1.aar\fb417d4f778e255d39b7518950bbfaef\AndroidManifest.xml:17:1-24:12
+MERGED from [io.reactivex.rxjava2:rxandroid:2.0.2] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroid-2.0.2.aar\2fdbf1a35cde75fc9726e30c6349cc60\AndroidManifest.xml:15:1-21:12
+MERGED from [com.polidea.rxandroidble2:rxandroidble:1.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroidble-1.6.0.aar\a20d2d9a63b453867042950fafec3484\AndroidManifest.xml:2:1-18:12
+MERGED from [me.jessyan:retrofit-url-manager:1.4.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\retrofit-url-manager-1.4.0.aar\6639e2b60354426736cff698291d9ca3\AndroidManifest.xml:2:1-11:12
+MERGED from [com.tbruyelle.rxpermissions2:rxpermissions:0.9.5] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxpermissions-0.9.5.aar\08619ec7d97fd4230c0bef1a5b692a40\AndroidManifest.xml:2:1-13:12
+MERGED from [org.litepal.android:core:1.5.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\core-1.5.1.aar\6e8aaf8da815f01197068801ee2b9be4\AndroidManifest.xml:2:1-16:12
+MERGED from [com.jakewharton.timber:timber:4.7.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\timber-4.7.0.aar\528da587a9d500b4eba8b53ab1af6948\AndroidManifest.xml:2:1-9:12
+MERGED from [in.srain.cube:ultra-ptr:1.0.11] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\ultra-ptr-1.0.11.aar\3246b98f8452c9ebb927fedc3d00369a\AndroidManifest.xml:2:1-13:12
+MERGED from [com.facebook.stetho:stetho:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\stetho-1.5.0.aar\a326f5db0bbeb6ceb0b32eff28a1a1e3\AndroidManifest.xml:2:1-13:12
+MERGED from [com.tencent.bugly:crashreport:2.8.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\crashreport-2.8.6.0.aar\d449bf7f9e14af200bff134cdc518092\AndroidManifest.xml:2:1-9:12
+MERGED from [com.tencent.bugly:nativecrashreport:3.6.0.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\nativecrashreport-3.6.0.1.aar\bd535814e3c826664ea4bbc8add07e66\AndroidManifest.xml:2:1-9:12
+MERGED from [com.billy.android:pools:0.0.5] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pools-0.0.5.aar\42bae8972ed090c3e268e094f39ffdf8\AndroidManifest.xml:2:1-12:12
+MERGED from [com.squareup.leakcanary:leakcanary-analyzer:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-analyzer-1.5.4.aar\7f96343bbee87e07cf209a4ec01cffd2\AndroidManifest.xml:17:1-25:12
+MERGED from [com.github.markzhai:blockcanary-analyzer:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-analyzer-1.5.0.aar\ec3da656002d65ea6ded583b3c83c371\AndroidManifest.xml:2:1-17:12
+MERGED from [com.github.mmin18:realtimeblurview:1.1.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\realtimeblurview-1.1.0.aar\c4a6242c8285aa441ffbfcab6f15b9ec\AndroidManifest.xml:2:1-11:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\c609d0faa67fec817c8141208284aaf1\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\0d6310032f830eca6fbf4458afb23b8b\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\076110f12819c8ee55628e7f92c9a5ca\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\d14471736c5500c6ab413bdd7f20318a\AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.bumptech.glide:gifdecoder:4.6.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\gifdecoder-4.6.1.aar\841af7815f665fab16ed0ba2b5bc01f4\AndroidManifest.xml:2:1-11:12
+MERGED from [android.arch.persistence:db-framework:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\db-framework-1.1.1.aar\80908074979e0f427eba6574f19c6447\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.persistence:db:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\db-1.1.1.aar\e56f30042bbbb5969a573c7ae656d807\AndroidManifest.xml:17:1-22:12
+MERGED from [com.contrarywind:wheelview:4.0.8] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\wheelview-4.0.8.aar\cd6b876ecb771175800cdf05a296f386\AndroidManifest.xml:2:1-17:12
+INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:2:1-47:12
+	package
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:4:5-35
+		INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml
+		INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:2:1-47:12
+		INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:2:1-47:12
+		INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:2:11-69
+uses-sdk
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:6:5-7:28
+INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:6:5-7:28
+INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:6:5-7:28
+MERGED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:8:5-10:41
+MERGED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:8:5-10:41
+MERGED from [:lib-common-core] G:\AP\cm_out_yj01\MLxiao\lib-common-core\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:lib-common-core] G:\AP\cm_out_yj01\MLxiao\lib-common-core\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:lib-widget] G:\AP\cm_out_yj01\MLxiao\lib-widget\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:lib-widget] G:\AP\cm_out_yj01\MLxiao\lib-widget\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:7:5-9:41
+MERGED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.databinding:adapters:3.1.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\adapters-3.1.4.aar\d24fd504b05d4fdb55f76a3bff6e3b1d\AndroidManifest.xml:22:5-44
+MERGED from [com.android.databinding:adapters:3.1.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\adapters-3.1.4.aar\d24fd504b05d4fdb55f76a3bff6e3b1d\AndroidManifest.xml:22:5-44
+MERGED from [com.android.databinding:library:3.1.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\library-3.1.4.aar\79b0299fe07d8b872a116c8374fdd486\AndroidManifest.xml:22:5-44
+MERGED from [com.android.databinding:library:3.1.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\library-3.1.4.aar\79b0299fe07d8b872a116c8374fdd486\AndroidManifest.xml:22:5-44
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:20:5-44
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:20:5-44
+MERGED from [com.github.markzhai:blockcanary-android:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-android-1.5.0.aar\eff1707e96854c39a977527997e2e253\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.markzhai:blockcanary-android:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-android-1.5.0.aar\eff1707e96854c39a977527997e2e253\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:multidex:1.0.2] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\multidex-1.0.2.aar\23b41d1d0c52daabaee979a8c96a7306\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:multidex:1.0.2] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\multidex-1.0.2.aar\23b41d1d0c52daabaee979a8c96a7306\AndroidManifest.xml:20:5-43
+MERGED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\3af2d78f79f431747f38f5e17e256fef\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\3af2d78f79f431747f38f5e17e256fef\AndroidManifest.xml:20:5-44
+MERGED from [com.uber.autodispose:autodispose-android-archcomponents:1.0.0-RC1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\autodispose-android-archcomponents-1.0.0-RC1.aar\00f47e6b27a44561fb79fc499b452207\AndroidManifest.xml:20:5-22:41
+MERGED from [com.uber.autodispose:autodispose-android-archcomponents:1.0.0-RC1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\autodispose-android-archcomponents-1.0.0-RC1.aar\00f47e6b27a44561fb79fc499b452207\AndroidManifest.xml:20:5-22:41
+MERGED from [com.android.support:design:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\4929c31cbbcc6b1903734d95cd58a951\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\4929c31cbbcc6b1903734d95cd58a951\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\16f69c5dd757fb030353655d1968e110\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\16f69c5dd757fb030353655d1968e110\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\2c3e9f5fe619f36c57c1649055b14ebe\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\2c3e9f5fe619f36c57c1649055b14ebe\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\27a9650937f6958716afea47c03bf8af\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\27a9650937f6958716afea47c03bf8af\AndroidManifest.xml:20:5-44
+MERGED from [github.hellocsl:GalleryLayoutManager:1.0.6] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\GalleryLayoutManager-1.0.6.aar\d6b02a4fe7ad9644b0b6c5f5262b1d34\AndroidManifest.xml:7:5-9:41
+MERGED from [github.hellocsl:GalleryLayoutManager:1.0.6] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\GalleryLayoutManager-1.0.6.aar\d6b02a4fe7ad9644b0b6c5f5262b1d34\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:recyclerview-v7:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.1.aar\dbca126505c644fd73543b9767732089\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.1.aar\dbca126505c644fd73543b9767732089\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.1.aar\36d939271d4bde4d78756464c7201beb\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.1.aar\36d939271d4bde4d78756464c7201beb\AndroidManifest.xml:20:5-44
+MERGED from [com.github.bumptech.glide:glide:4.6.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\glide-4.6.1.aar\6f6967050d509b6c7289e9a305ba72d4\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.bumptech.glide:glide:4.6.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\glide-4.6.1.aar\6f6967050d509b6c7289e9a305ba72d4\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\93db97d832c83d404943f2072afb969d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\93db97d832c83d404943f2072afb969d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\8032e092c0d9c9f3e329c0a4dbdb88d0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\8032e092c0d9c9f3e329c0a4dbdb88d0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\transition-27.1.1.aar\02a54ae6cc7bd3a1e89e20a370b3f22a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\transition-27.1.1.aar\02a54ae6cc7bd3a1e89e20a370b3f22a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\b94c88962de3b415300be0ec648a2e4d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\b94c88962de3b415300be0ec648a2e4d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence.room:rxjava2:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxjava2-1.1.1.aar\4a3ae37e19ce0d4e573de677b85e000c\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence.room:rxjava2:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxjava2-1.1.1.aar\4a3ae37e19ce0d4e573de677b85e000c\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence.room:runtime:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\38fc286397d92b27e8248938c1b3b8a7\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence.room:runtime:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\38fc286397d92b27e8248938c1b3b8a7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\9c39609a4b9dde3290d425b7012531b6\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\9c39609a4b9dde3290d425b7012531b6\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\965d022de2ff54a9f1ddf338b28856f3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\965d022de2ff54a9f1ddf338b28856f3\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\563e823328bf326c8ee849667e78accd\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\563e823328bf326c8ee849667e78accd\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\0f823443752a6238b46d14a41061b6f4\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\0f823443752a6238b46d14a41061b6f4\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:cardview-v7:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.1.1.aar\50d081eead54e6cb2797334ca32d5a63\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:27.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.1.1.aar\50d081eead54e6cb2797334ca32d5a63\AndroidManifest.xml:20:5-44
+MERGED from [com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\BaseRecyclerViewAdapterHelper-2.9.30.aar\949e8ecfb4ee81aa12e4442703bc5620\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\BaseRecyclerViewAdapterHelper-2.9.30.aar\949e8ecfb4ee81aa12e4442703bc5620\AndroidManifest.xml:7:5-9:41
+MERGED from [cn.aigestudio.wheelpicker:WheelPicker:1.1.2] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\WheelPicker-1.1.2.aar\8ae6396475c1bacd9db8b87af343b3a3\AndroidManifest.xml:8:5-10:41
+MERGED from [cn.aigestudio.wheelpicker:WheelPicker:1.1.2] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\WheelPicker-1.1.2.aar\8ae6396475c1bacd9db8b87af343b3a3\AndroidManifest.xml:8:5-10:41
+MERGED from [com.contrarywind:Android-PickerView:4.1.6] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\Android-PickerView-4.1.6.aar\9c7e541325d2a2716ab3eec6a54fcd47\AndroidManifest.xml:7:5-9:41
+MERGED from [com.contrarywind:Android-PickerView:4.1.6] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\Android-PickerView-4.1.6.aar\9c7e541325d2a2716ab3eec6a54fcd47\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.stetho:stetho-okhttp3:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\stetho-okhttp3-1.5.0.aar\3d71dc7d7146bd018a53ab849c602cab\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.stetho:stetho-okhttp3:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\stetho-okhttp3-1.5.0.aar\3d71dc7d7146bd018a53ab849c602cab\AndroidManifest.xml:7:5-9:41
+MERGED from [com.uber.autodispose:autodispose-android:1.0.0-RC1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\autodispose-android-1.0.0-RC1.aar\fb417d4f778e255d39b7518950bbfaef\AndroidManifest.xml:20:5-22:41
+MERGED from [com.uber.autodispose:autodispose-android:1.0.0-RC1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\autodispose-android-1.0.0-RC1.aar\fb417d4f778e255d39b7518950bbfaef\AndroidManifest.xml:20:5-22:41
+MERGED from [io.reactivex.rxjava2:rxandroid:2.0.2] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroid-2.0.2.aar\2fdbf1a35cde75fc9726e30c6349cc60\AndroidManifest.xml:19:5-43
+MERGED from [io.reactivex.rxjava2:rxandroid:2.0.2] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroid-2.0.2.aar\2fdbf1a35cde75fc9726e30c6349cc60\AndroidManifest.xml:19:5-43
+MERGED from [com.polidea.rxandroidble2:rxandroidble:1.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroidble-1.6.0.aar\a20d2d9a63b453867042950fafec3484\AndroidManifest.xml:7:5-9:41
+MERGED from [com.polidea.rxandroidble2:rxandroidble:1.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroidble-1.6.0.aar\a20d2d9a63b453867042950fafec3484\AndroidManifest.xml:7:5-9:41
+MERGED from [me.jessyan:retrofit-url-manager:1.4.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\retrofit-url-manager-1.4.0.aar\6639e2b60354426736cff698291d9ca3\AndroidManifest.xml:7:5-9:41
+MERGED from [me.jessyan:retrofit-url-manager:1.4.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\retrofit-url-manager-1.4.0.aar\6639e2b60354426736cff698291d9ca3\AndroidManifest.xml:7:5-9:41
+MERGED from [com.tbruyelle.rxpermissions2:rxpermissions:0.9.5] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxpermissions-0.9.5.aar\08619ec7d97fd4230c0bef1a5b692a40\AndroidManifest.xml:7:5-9:41
+MERGED from [com.tbruyelle.rxpermissions2:rxpermissions:0.9.5] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxpermissions-0.9.5.aar\08619ec7d97fd4230c0bef1a5b692a40\AndroidManifest.xml:7:5-9:41
+MERGED from [org.litepal.android:core:1.5.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\core-1.5.1.aar\6e8aaf8da815f01197068801ee2b9be4\AndroidManifest.xml:7:5-9:41
+MERGED from [org.litepal.android:core:1.5.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\core-1.5.1.aar\6e8aaf8da815f01197068801ee2b9be4\AndroidManifest.xml:7:5-9:41
+MERGED from [com.jakewharton.timber:timber:4.7.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\timber-4.7.0.aar\528da587a9d500b4eba8b53ab1af6948\AndroidManifest.xml:5:5-43
+MERGED from [com.jakewharton.timber:timber:4.7.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\timber-4.7.0.aar\528da587a9d500b4eba8b53ab1af6948\AndroidManifest.xml:5:5-43
+MERGED from [in.srain.cube:ultra-ptr:1.0.11] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\ultra-ptr-1.0.11.aar\3246b98f8452c9ebb927fedc3d00369a\AndroidManifest.xml:7:5-9:41
+MERGED from [in.srain.cube:ultra-ptr:1.0.11] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\ultra-ptr-1.0.11.aar\3246b98f8452c9ebb927fedc3d00369a\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.stetho:stetho:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\stetho-1.5.0.aar\a326f5db0bbeb6ceb0b32eff28a1a1e3\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.stetho:stetho:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\stetho-1.5.0.aar\a326f5db0bbeb6ceb0b32eff28a1a1e3\AndroidManifest.xml:7:5-9:41
+MERGED from [com.tencent.bugly:crashreport:2.8.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\crashreport-2.8.6.0.aar\d449bf7f9e14af200bff134cdc518092\AndroidManifest.xml:5:5-7:41
+MERGED from [com.tencent.bugly:crashreport:2.8.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\crashreport-2.8.6.0.aar\d449bf7f9e14af200bff134cdc518092\AndroidManifest.xml:5:5-7:41
+MERGED from [com.tencent.bugly:nativecrashreport:3.6.0.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\nativecrashreport-3.6.0.1.aar\bd535814e3c826664ea4bbc8add07e66\AndroidManifest.xml:5:5-7:41
+MERGED from [com.tencent.bugly:nativecrashreport:3.6.0.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\nativecrashreport-3.6.0.1.aar\bd535814e3c826664ea4bbc8add07e66\AndroidManifest.xml:5:5-7:41
+MERGED from [com.billy.android:pools:0.0.5] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pools-0.0.5.aar\42bae8972ed090c3e268e094f39ffdf8\AndroidManifest.xml:6:5-8:41
+MERGED from [com.billy.android:pools:0.0.5] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pools-0.0.5.aar\42bae8972ed090c3e268e094f39ffdf8\AndroidManifest.xml:6:5-8:41
+MERGED from [com.squareup.leakcanary:leakcanary-analyzer:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-analyzer-1.5.4.aar\7f96343bbee87e07cf209a4ec01cffd2\AndroidManifest.xml:21:5-44
+MERGED from [com.squareup.leakcanary:leakcanary-analyzer:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-analyzer-1.5.4.aar\7f96343bbee87e07cf209a4ec01cffd2\AndroidManifest.xml:21:5-44
+MERGED from [com.github.markzhai:blockcanary-analyzer:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-analyzer-1.5.0.aar\ec3da656002d65ea6ded583b3c83c371\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.markzhai:blockcanary-analyzer:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-analyzer-1.5.0.aar\ec3da656002d65ea6ded583b3c83c371\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.mmin18:realtimeblurview:1.1.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\realtimeblurview-1.1.0.aar\c4a6242c8285aa441ffbfcab6f15b9ec\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.mmin18:realtimeblurview:1.1.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\realtimeblurview-1.1.0.aar\c4a6242c8285aa441ffbfcab6f15b9ec\AndroidManifest.xml:7:5-9:41
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\c609d0faa67fec817c8141208284aaf1\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\c609d0faa67fec817c8141208284aaf1\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\0d6310032f830eca6fbf4458afb23b8b\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\0d6310032f830eca6fbf4458afb23b8b\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\076110f12819c8ee55628e7f92c9a5ca\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\076110f12819c8ee55628e7f92c9a5ca\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\d14471736c5500c6ab413bdd7f20318a\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\d14471736c5500c6ab413bdd7f20318a\AndroidManifest.xml:20:5-44
+MERGED from [com.github.bumptech.glide:gifdecoder:4.6.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\gifdecoder-4.6.1.aar\841af7815f665fab16ed0ba2b5bc01f4\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.bumptech.glide:gifdecoder:4.6.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\gifdecoder-4.6.1.aar\841af7815f665fab16ed0ba2b5bc01f4\AndroidManifest.xml:5:5-7:41
+MERGED from [android.arch.persistence:db-framework:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\db-framework-1.1.1.aar\80908074979e0f427eba6574f19c6447\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence:db-framework:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\db-framework-1.1.1.aar\80908074979e0f427eba6574f19c6447\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence:db:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\db-1.1.1.aar\e56f30042bbbb5969a573c7ae656d807\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence:db:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\db-1.1.1.aar\e56f30042bbbb5969a573c7ae656d807\AndroidManifest.xml:20:5-44
+MERGED from [com.contrarywind:wheelview:4.0.8] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\wheelview-4.0.8.aar\cd6b876ecb771175800cdf05a296f386\AndroidManifest.xml:7:5-9:41
+MERGED from [com.contrarywind:wheelview:4.0.8] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\wheelview-4.0.8.aar\cd6b876ecb771175800cdf05a296f386\AndroidManifest.xml:7:5-9:41
+INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:6:5-7:28
+INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:6:5-7:28
+	tools:overrideLibrary
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:6:5-7:28
+	android:targetSdkVersion
+		INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:6:5-7:28
+		INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:6:5-7:28
+		INJECTED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:9:5-80
+MERGED from [:lib-common-core] G:\AP\cm_out_yj01\MLxiao\lib-common-core\build\intermediates\manifests\full\debug\AndroidManifest.xml:12:5-80
+MERGED from [:lib-common-core] G:\AP\cm_out_yj01\MLxiao\lib-common-core\build\intermediates\manifests\full\debug\AndroidManifest.xml:12:5-80
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:21:5-80
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:21:5-80
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:23:5-80
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:23:5-80
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:9:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:10:5-81
+MERGED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:26:5-81
+MERGED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:26:5-81
+MERGED from [:lib-common-core] G:\AP\cm_out_yj01\MLxiao\lib-common-core\build\intermediates\manifests\full\debug\AndroidManifest.xml:13:5-81
+MERGED from [:lib-common-core] G:\AP\cm_out_yj01\MLxiao\lib-common-core\build\intermediates\manifests\full\debug\AndroidManifest.xml:13:5-81
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:19:5-81
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:19:5-81
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:24:5-81
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:24:5-81
+MERGED from [com.github.markzhai:blockcanary-analyzer:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-analyzer-1.5.0.aar\ec3da656002d65ea6ded583b3c83c371\AndroidManifest.xml:12:5-81
+MERGED from [com.github.markzhai:blockcanary-analyzer:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-analyzer-1.5.0.aar\ec3da656002d65ea6ded583b3c83c371\AndroidManifest.xml:12:5-81
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:10:22-78
+uses-permission#android.permission.INTERNET
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:12:5-67
+MERGED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:28:5-67
+MERGED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:28:5-67
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:12:5-67
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:12:5-67
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:12:22-64
+uses-permission#android.permission.CAMERA
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:14:5-65
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:14:22-62
+uses-feature#android.hardware.camera
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:16:5-60
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:16:19-57
+uses-feature#android.hardware.camera.autofocus
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:17:5-70
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:17:19-67
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:19:5-75
+MERGED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:24:5-75
+MERGED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:24:5-75
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:16:5-75
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:16:5-75
+MERGED from [com.github.markzhai:blockcanary-analyzer:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-analyzer-1.5.0.aar\ec3da656002d65ea6ded583b3c83c371\AndroidManifest.xml:13:5-75
+MERGED from [com.github.markzhai:blockcanary-analyzer:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-analyzer-1.5.0.aar\ec3da656002d65ea6ded583b3c83c371\AndroidManifest.xml:13:5-75
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:19:22-72
+application
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:21:5-45:19
+MERGED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:34:5-49:19
+MERGED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:34:5-49:19
+MERGED from [:lib-common-core] G:\AP\cm_out_yj01\MLxiao\lib-common-core\build\intermediates\manifests\full\debug\AndroidManifest.xml:15:5-16:19
+MERGED from [:lib-common-core] G:\AP\cm_out_yj01\MLxiao\lib-common-core\build\intermediates\manifests\full\debug\AndroidManifest.xml:15:5-16:19
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:25:5-30:19
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:25:5-30:19
+MERGED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:11:5-27:19
+MERGED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:11:5-27:19
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:26:5-59:19
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:26:5-59:19
+MERGED from [com.github.markzhai:blockcanary-android:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-android-1.5.0.aar\eff1707e96854c39a977527997e2e253\AndroidManifest.xml:11:5-25:19
+MERGED from [com.github.markzhai:blockcanary-android:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-android-1.5.0.aar\eff1707e96854c39a977527997e2e253\AndroidManifest.xml:11:5-25:19
+MERGED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:13:5-31:19
+MERGED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:13:5-31:19
+MERGED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\3af2d78f79f431747f38f5e17e256fef\AndroidManifest.xml:22:5-28:19
+MERGED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\3af2d78f79f431747f38f5e17e256fef\AndroidManifest.xml:22:5-28:19
+MERGED from [github.hellocsl:GalleryLayoutManager:1.0.6] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\GalleryLayoutManager-1.0.6.aar\d6b02a4fe7ad9644b0b6c5f5262b1d34\AndroidManifest.xml:11:5-15:19
+MERGED from [github.hellocsl:GalleryLayoutManager:1.0.6] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\GalleryLayoutManager-1.0.6.aar\d6b02a4fe7ad9644b0b6c5f5262b1d34\AndroidManifest.xml:11:5-15:19
+MERGED from [com.github.bumptech.glide:glide:4.6.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\glide-4.6.1.aar\6f6967050d509b6c7289e9a305ba72d4\AndroidManifest.xml:11:5-20
+MERGED from [com.github.bumptech.glide:glide:4.6.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\glide-4.6.1.aar\6f6967050d509b6c7289e9a305ba72d4\AndroidManifest.xml:11:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\0f823443752a6238b46d14a41061b6f4\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\0f823443752a6238b46d14a41061b6f4\AndroidManifest.xml:9:5-20
+MERGED from [com.facebook.stetho:stetho-okhttp3:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\stetho-okhttp3-1.5.0.aar\3d71dc7d7146bd018a53ab849c602cab\AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.stetho:stetho-okhttp3:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\stetho-okhttp3-1.5.0.aar\3d71dc7d7146bd018a53ab849c602cab\AndroidManifest.xml:11:5-20
+MERGED from [com.polidea.rxandroidble2:rxandroidble:1.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroidble-1.6.0.aar\a20d2d9a63b453867042950fafec3484\AndroidManifest.xml:16:5-53
+MERGED from [com.polidea.rxandroidble2:rxandroidble:1.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroidble-1.6.0.aar\a20d2d9a63b453867042950fafec3484\AndroidManifest.xml:16:5-53
+MERGED from [com.tbruyelle.rxpermissions2:rxpermissions:0.9.5] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxpermissions-0.9.5.aar\08619ec7d97fd4230c0bef1a5b692a40\AndroidManifest.xml:11:5-20
+MERGED from [com.tbruyelle.rxpermissions2:rxpermissions:0.9.5] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxpermissions-0.9.5.aar\08619ec7d97fd4230c0bef1a5b692a40\AndroidManifest.xml:11:5-20
+MERGED from [org.litepal.android:core:1.5.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\core-1.5.1.aar\6e8aaf8da815f01197068801ee2b9be4\AndroidManifest.xml:11:5-14:19
+MERGED from [org.litepal.android:core:1.5.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\core-1.5.1.aar\6e8aaf8da815f01197068801ee2b9be4\AndroidManifest.xml:11:5-14:19
+MERGED from [com.jakewharton.timber:timber:4.7.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\timber-4.7.0.aar\528da587a9d500b4eba8b53ab1af6948\AndroidManifest.xml:7:5-20
+MERGED from [com.jakewharton.timber:timber:4.7.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\timber-4.7.0.aar\528da587a9d500b4eba8b53ab1af6948\AndroidManifest.xml:7:5-20
+MERGED from [in.srain.cube:ultra-ptr:1.0.11] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\ultra-ptr-1.0.11.aar\3246b98f8452c9ebb927fedc3d00369a\AndroidManifest.xml:11:5-20
+MERGED from [in.srain.cube:ultra-ptr:1.0.11] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\ultra-ptr-1.0.11.aar\3246b98f8452c9ebb927fedc3d00369a\AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.stetho:stetho:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\stetho-1.5.0.aar\a326f5db0bbeb6ceb0b32eff28a1a1e3\AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.stetho:stetho:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\stetho-1.5.0.aar\a326f5db0bbeb6ceb0b32eff28a1a1e3\AndroidManifest.xml:11:5-20
+MERGED from [com.billy.android:pools:0.0.5] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pools-0.0.5.aar\42bae8972ed090c3e268e094f39ffdf8\AndroidManifest.xml:10:5-20
+MERGED from [com.billy.android:pools:0.0.5] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pools-0.0.5.aar\42bae8972ed090c3e268e094f39ffdf8\AndroidManifest.xml:10:5-20
+MERGED from [com.squareup.leakcanary:leakcanary-analyzer:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-analyzer-1.5.4.aar\7f96343bbee87e07cf209a4ec01cffd2\AndroidManifest.xml:23:5-20
+MERGED from [com.squareup.leakcanary:leakcanary-analyzer:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-analyzer-1.5.4.aar\7f96343bbee87e07cf209a4ec01cffd2\AndroidManifest.xml:23:5-20
+MERGED from [com.github.markzhai:blockcanary-analyzer:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-analyzer-1.5.0.aar\ec3da656002d65ea6ded583b3c83c371\AndroidManifest.xml:15:5-20
+MERGED from [com.github.markzhai:blockcanary-analyzer:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-analyzer-1.5.0.aar\ec3da656002d65ea6ded583b3c83c371\AndroidManifest.xml:15:5-20
+MERGED from [com.github.bumptech.glide:gifdecoder:4.6.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\gifdecoder-4.6.1.aar\841af7815f665fab16ed0ba2b5bc01f4\AndroidManifest.xml:9:5-20
+MERGED from [com.github.bumptech.glide:gifdecoder:4.6.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\gifdecoder-4.6.1.aar\841af7815f665fab16ed0ba2b5bc01f4\AndroidManifest.xml:9:5-20
+MERGED from [com.contrarywind:wheelview:4.0.8] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\wheelview-4.0.8.aar\cd6b876ecb771175800cdf05a296f386\AndroidManifest.xml:11:5-15:19
+MERGED from [com.contrarywind:wheelview:4.0.8] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\wheelview-4.0.8.aar\cd6b876ecb771175800cdf05a296f386\AndroidManifest.xml:11:5-15:19
+	android:supportsRtl
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:27:9-35
+	android:label
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:25:9-41
+	android:roundIcon
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:26:9-54
+	android:icon
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:24:9-43
+	android:allowBackup
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:23:9-35
+	android:theme
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:28:9-40
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:22:9-57
+activity#com.gcml.common.MainActivity
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:29:9-31:20
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:29:19-62
+activity#com.gcml.common.repository.RepositoryActivity
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:32:9-82
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:32:19-79
+activity#com.gcml.common.app.AppActivity
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:33:9-68
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:33:19-65
+activity#com.gcml.common.mvvm.MvvmActivity
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:34:9-70
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:34:19-67
+activity#com.gcml.common.dialog.DialogActivity
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:35:9-74
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:35:19-71
+activity#com.gcml.common.gzq.TestFingerActivity
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:36:9-44:20
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:36:19-72
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.DEFAULT+category:name:android.intent.category.HOME+category:name:android.intent.category.LAUNCHER
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:37:13-43:29
+action#android.intent.action.MAIN
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:38:17-69
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:38:25-66
+category#android.intent.category.HOME
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:40:17-73
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:40:27-70
+category#android.intent.category.LAUNCHER
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:41:17-77
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:41:27-74
+category#android.intent.category.DEFAULT
+ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:42:17-76
+	android:name
+		ADDED from G:\AP\cm_out_yj01\MLxiao\app-component\src\main\AndroidManifest.xml:42:27-73
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:14:5-81
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:23:5-81
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:23:5-81
+	android:name
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:14:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:16:5-79
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:17:5-79
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:17:5-79
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:22:5-79
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:22:5-79
+	android:name
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:16:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:18:5-76
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:14:5-76
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:14:5-76
+	android:name
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:18:22-73
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:20:5-79
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:13:5-79
+MERGED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:13:5-79
+	android:name
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:20:22-76
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:22:5-76
+	android:name
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:22:22-73
+uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:30:5-32:47
+	tools:ignore
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:32:9-44
+	android:name
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:31:9-68
+meta-data#com.gcml.common.CommonApp
+ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:35:9-37:53
+	android:value
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:37:13-50
+	android:name
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:36:13-53
+meta-data#com.gcml.common.CommonRepositoryConfig
+ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:38:9-40:48
+	android:value
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:40:13-45
+	android:name
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:39:13-66
+meta-data#com.baidu.lbsapi.API_KEY
+ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:41:9-43:64
+	android:value
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:43:13-61
+	android:name
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:42:13-52
+service#com.baidu.location.f
+ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:45:9-48:41
+	android:process
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:48:13-38
+	android:enabled
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:47:13-35
+	android:name
+		ADDED from [:lib-common-business] G:\AP\cm_out_yj01\MLxiao\lib-common-business\build\intermediates\manifests\full\debug\AndroidManifest.xml:46:13-48
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:11:5-71
+	android:name
+		ADDED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:11:22-68
+uses-permission#android.permission.CHANGE_NETWORK_STATE
+ADDED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:15:5-79
+	android:name
+		ADDED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:15:22-76
+uses-permission#android.permission.READ_CONTACTS
+ADDED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:18:5-72
+	android:name
+		ADDED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:18:22-69
+uses-permission#android.permission.WRITE_SETTINGS
+ADDED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:20:5-73
+	android:name
+		ADDED from [:lib-voice] G:\AP\cm_out_yj01\MLxiao\lib-voice\build\intermediates\manifests\full\debug\AndroidManifest.xml:20:22-70
+provider#com.billy.cc.core.component.remote.RemoteProvider
+ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:12:9-15:39
+	android:authorities
+		ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:14:13-76
+	android:exported
+		ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:15:13-36
+	android:name
+		ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:13:13-77
+activity#com.billy.cc.core.component.remote.RemoteConnectionActivity
+ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:17:9-26:20
+	android:excludeFromRecents
+		ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:19:13-46
+	android:exported
+		ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:20:13-36
+	android:theme
+		ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:22:13-72
+	android:taskAffinity
+		ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:21:13-59
+	android:name
+		ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:18:13-87
+intent-filter#action:name:action.com.billy.cc.connection
+ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:23:13-25:29
+action#action.com.billy.cc.connection
+ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:24:17-73
+	android:name
+		ADDED from [com.billy.android:cc:2.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\cc-2.1.1.aar\d130b8db996e1e91100afa699f530b6c\AndroidManifest.xml:24:25-70
+service#com.squareup.leakcanary.internal.HeapAnalyzerService
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:27:9-30:45
+	android:process
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:30:13-42
+	android:enabled
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:29:13-36
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:28:13-80
+service#com.squareup.leakcanary.DisplayLeakService
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:31:9-34:45
+	android:process
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:34:13-42
+	android:enabled
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:33:13-36
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:32:13-70
+activity#com.squareup.leakcanary.internal.DisplayLeakActivity
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:36:9-49:20
+	android:process
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:41:13-42
+	android:enabled
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:38:13-36
+	android:label
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:40:13-71
+	android:icon
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:39:13-54
+	android:theme
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:43:13-63
+	android:taskAffinity
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:42:13-76
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:37:13-80
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:44:13-48:29
+activity#com.squareup.leakcanary.internal.RequestStoragePermissionActivity
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:50:9-58:68
+	android:process
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:56:13-42
+	android:enabled
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:52:13-36
+	android:label
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:55:13-82
+	android:excludeFromRecents
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:53:13-46
+	android:icon
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:54:13-54
+	android:theme
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:58:13-65
+	android:taskAffinity
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:57:13-76
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\753e1b0ee65f82505e2aa120e57a65e4\AndroidManifest.xml:51:13-93
+activity#com.github.moduth.blockcanary.ui.DisplayActivity
+ADDED from [com.github.markzhai:blockcanary-android:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-android-1.5.0.aar\eff1707e96854c39a977527997e2e253\AndroidManifest.xml:12:9-24:20
+	android:enabled
+		ADDED from [com.github.markzhai:blockcanary-android:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-android-1.5.0.aar\eff1707e96854c39a977527997e2e253\AndroidManifest.xml:14:13-36
+	android:label
+		ADDED from [com.github.markzhai:blockcanary-android:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-android-1.5.0.aar\eff1707e96854c39a977527997e2e253\AndroidManifest.xml:16:13-72
+	android:icon
+		ADDED from [com.github.markzhai:blockcanary-android:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-android-1.5.0.aar\eff1707e96854c39a977527997e2e253\AndroidManifest.xml:15:13-55
+	android:theme
+		ADDED from [com.github.markzhai:blockcanary-android:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-android-1.5.0.aar\eff1707e96854c39a977527997e2e253\AndroidManifest.xml:18:13-65
+	android:taskAffinity
+		ADDED from [com.github.markzhai:blockcanary-android:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-android-1.5.0.aar\eff1707e96854c39a977527997e2e253\AndroidManifest.xml:17:13-65
+	android:name
+		ADDED from [com.github.markzhai:blockcanary-android:1.5.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\blockcanary-android-1.5.0.aar\eff1707e96854c39a977527997e2e253\AndroidManifest.xml:13:13-76
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:11:5-78
+	android:name
+		ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:11:22-75
+activity#tech.linjiang.pandora.ui.Dispatcher
+ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:14:9-17:58
+	android:windowSoftInputMode
+		ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:17:13-55
+	android:theme
+		ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:16:13-43
+	android:name
+		ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:15:13-63
+activity#tech.linjiang.pandora.ui.TransActivity
+ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:18:9-20:52
+	android:theme
+		ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:20:13-49
+	android:name
+		ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:19:13-66
+provider#tech.linjiang.pandora.PdFileProvider
+ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:22:9-30:20
+	android:grantUriPermissions
+		ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:26:13-47
+	android:authorities
+		ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:24:13-66
+	android:exported
+		ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:25:13-37
+	android:name
+		ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:23:13-64
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:27:13-29:57
+	android:resource
+		ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:29:17-54
+	android:name
+		ADDED from [com.github.whataa:pandora:v1.2.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\pandora-v1.2.1.aar\0d46d3ef85f189d1206ed65cb2f4469c\AndroidManifest.xml:28:17-67
+provider#android.arch.lifecycle.ProcessLifecycleOwnerInitializer
+ADDED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\3af2d78f79f431747f38f5e17e256fef\AndroidManifest.xml:23:9-27:43
+	android:authorities
+		ADDED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\3af2d78f79f431747f38f5e17e256fef\AndroidManifest.xml:25:13-68
+	android:multiprocess
+		ADDED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\3af2d78f79f431747f38f5e17e256fef\AndroidManifest.xml:27:13-40
+	android:exported
+		ADDED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\3af2d78f79f431747f38f5e17e256fef\AndroidManifest.xml:26:13-37
+	android:name
+		ADDED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\3af2d78f79f431747f38f5e17e256fef\AndroidManifest.xml:24:13-83
+uses-permission#android.permission.BLUETOOTH
+ADDED from [com.polidea.rxandroidble2:rxandroidble:1.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroidble-1.6.0.aar\a20d2d9a63b453867042950fafec3484\AndroidManifest.xml:11:5-68
+	android:name
+		ADDED from [com.polidea.rxandroidble2:rxandroidble:1.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroidble-1.6.0.aar\a20d2d9a63b453867042950fafec3484\AndroidManifest.xml:11:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from [com.polidea.rxandroidble2:rxandroidble:1.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroidble-1.6.0.aar\a20d2d9a63b453867042950fafec3484\AndroidManifest.xml:12:5-74
+	android:name
+		ADDED from [com.polidea.rxandroidble2:rxandroidble:1.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroidble-1.6.0.aar\a20d2d9a63b453867042950fafec3484\AndroidManifest.xml:12:22-71
+uses-permission-sdk-23#android.permission.ACCESS_COARSE_LOCATION
+ADDED from [com.polidea.rxandroidble2:rxandroidble:1.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroidble-1.6.0.aar\a20d2d9a63b453867042950fafec3484\AndroidManifest.xml:14:5-88
+	android:name
+		ADDED from [com.polidea.rxandroidble2:rxandroidble:1.6.0] C:\Users\gcml-gzq\.gradle\caches\transforms-1\files-1.1\rxandroidble-1.6.0.aar\a20d2d9a63b453867042950fafec3484\AndroidManifest.xml:14:29-85
