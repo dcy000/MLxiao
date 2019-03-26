@@ -46,6 +46,9 @@ public class BloodPressureFragment extends BloodpressureFragment {
     @Override
     protected BaseBluetooth obtainPresenter() {
         bloodPressurePresenter = new BloodPressurePresenter(this);
+
+        WenZenEntryAcitivity activity = (WenZenEntryAcitivity) getActivity();
+        activity.setBlueTitle(R.drawable.common_icon_bluetooth_break, bloodPressurePresenter);
         return bloodPressurePresenter;
     }
 
@@ -77,8 +80,8 @@ public class BloodPressureFragment extends BloodpressureFragment {
         mBtnVideoDemo.setText("下一步");
         mBtnVideoDemo.setVisibility(View.GONE);
 
-        WenZenEntryAcitivity activity = (WenZenEntryAcitivity) getActivity();
-        activity. setBlueTitle(R.drawable.common_icon_bluetooth_break, bloodPressurePresenter);
+//        WenZenEntryAcitivity activity = (WenZenEntryAcitivity) getActivity();
+//        activity. setBlueTitle(R.drawable.common_icon_bluetooth_break, bloodPressurePresenter);
     }
 
     @Override
@@ -165,12 +168,12 @@ public class BloodPressureFragment extends BloodpressureFragment {
     }
 
     @Override
-    public void updateData(String... datas) {
+    public void updateState(String datas) {
         super.updateData(datas);
         if (listenerAdapter != null) {
-            if (!TextUtils.isEmpty(datas[0]) && TextUtils.equals(datas[0], "设备已连接")) {
+            if (!TextUtils.isEmpty(datas) && TextUtils.equals(datas, "设备已连接")) {
                 listenerAdapter.onBluetoothConnect(bloodPressurePresenter);
-            } else if (!TextUtils.isEmpty(datas[0]) && TextUtils.equals(datas[0], "设备已断开")) {
+            } else if (!TextUtils.isEmpty(datas) && TextUtils.equals(datas, "设备已断开")) {
                 listenerAdapter.onBluetoothBreak(bloodPressurePresenter);
             }
         }
