@@ -60,7 +60,7 @@
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="@+id/tv_id_card"
         app:layout_constraintTop_toBottomOf="@+id/tv_id_card"
-        tools:text="签约周期"/>
+        tools:text="绑定周期"/>
 
     <TextView
         android:id="@+id/tv_contract_doctor"
@@ -72,7 +72,7 @@
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="@+id/line_center_vertical"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="签约健康顾问"/>
+        tools:text="绑定健康顾问"/>
 
     <TextView
         android:id="@+id/tv_doctor_phone"
@@ -94,7 +94,7 @@
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="@+id/tv_doctor_phone"
         app:layout_constraintTop_toBottomOf="@+id/tv_doctor_phone"
-        tools:text="签约机构"/>
+        tools:text="绑定机构"/>
 
     <TextView
         android:id="@+id/tv_service_type"

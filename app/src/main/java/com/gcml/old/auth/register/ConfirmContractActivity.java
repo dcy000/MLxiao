@@ -101,9 +101,9 @@ public class ConfirmContractActivity extends AppCompatActivity {
                 tvName.setText("姓名： " + response.bname);
                 tvPhone.setText("联系方式: " + response.btel);
                 tvIdCard.setText("身份证： " + response.sfz);
-                //tvContractInterval.setText("签约周期： " +  response.sfz);
-                tvContractInterval.setText("签约周期： " + "两年");
-                tvContractDoctor.setText("签约健康顾问： " + response.doctername);
+                //tvContractInterval.setText("绑定周期： " +  response.sfz);
+                tvContractInterval.setText("绑定周期： " + "两年");
+                tvContractDoctor.setText("绑定健康顾问： " + response.doctername);
                 String dtel = response.dtel;
                 if (!TextUtils.isEmpty(dtel)) {
                     char[] chars = dtel.toCharArray();
@@ -115,7 +115,7 @@ public class ConfirmContractActivity extends AppCompatActivity {
                     dtel = new String(chars);
                 }
                 tvDoctorPhone.setText("健康顾问联系方式： " + dtel);
-                tvContractOrganization.setText("签约机构： " + response.hosname);
+                tvContractOrganization.setText("绑定机构： " + response.hosname);
                 tvServiceType.setText("健康档案管理费： " + response.amount);
             }
         }, new NetworkManager.FailedCallback() {

@@ -25,7 +25,7 @@ public class VideoCC implements IComponent {
         /**
          * 跳转到NormalVideoPlayActivity
          */
-        String TO_NORMALVIDEOPLAYACTIVITY="To_NormalVideoPlayActivity";
+        String TO_NORMALVIDEOPLAYACTIVITY = "To_NormalVideoPlayActivity";
     }
 
     interface ReceiveKeys {
@@ -59,10 +59,11 @@ public class VideoCC implements IComponent {
         switch (actionName) {
             case ReceiveActionNames.TO_MEASUREACTIVITY:
                 //要求异步启动
-                MeasureVideoPlayActivity.startActivity(context, uri, url, title);
+//                MeasureVideoPlayActivity.startActivity(context, uri, url, title);
+                CCResultActions.onCCResultAction(MeasureVideoPlayActivity.SendResultActionNames.PRESSED_BUTTON_SKIP);
                 return true;
             case ReceiveActionNames.TO_NORMALVIDEOPLAYACTIVITY:
-                NormalVideoPlayActivity.startActivity(context,uri,url,title);
+                NormalVideoPlayActivity.startActivity(context, uri, url, title);
                 return true;
             default:
                 break;

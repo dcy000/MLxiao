@@ -161,7 +161,7 @@
             android:background="@drawable/bg_cancel_contract"
             android:gravity="center"
             android:padding="10pt"
-            android:text="取消签约"
+            android:text="取消绑定"
             android:textColor="#FFFFFF"
             android:textSize="44pt"
             app:layout_constraintBottom_toBottomOf="parent"

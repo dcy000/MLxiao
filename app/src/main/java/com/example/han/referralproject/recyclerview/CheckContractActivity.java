@@ -60,7 +60,7 @@ public class CheckContractActivity extends BaseActivity {
         initView();
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("签  约  健  康  顾  问");
+        mTitleText.setText("绑  定  健  康  顾  问");
         qianYueRepository = new QianYueRepository();
     }
 
@@ -69,7 +69,7 @@ public class CheckContractActivity extends BaseActivity {
     public void onTvCancelContractClicked() {
         NDialog1 dialog = new NDialog1(this);
         dialog.setMessageCenter(true)
-                .setMessage("确定要取消签约吗？")
+                .setMessage("确定要取消绑定吗？")
                 .setMessageSize(35)
                 .setCancleable(false)
                 .setButtonCenter(true)

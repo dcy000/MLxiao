@@ -1418,7 +1418,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else if (inSpell.matches(".*yisheng.*zixun.*") || inSpell.matches("wenyisheng|yishengzixun|jiatingyisheng|yuyue")) {
 
                 if ("".equals(sharedPreferences.getString("name", ""))) {
-                    ToastUtils.showShort("请先查看是否与签约健康顾问签约成功");
+                    ToastUtils.showShort("请先查看是否与绑定健康顾问绑定成功");
                 } else {
                     Intent intent = new Intent();
                     intent.setClass(getApplicationContext(), DoctorappoActivity2.class);
@@ -1519,12 +1519,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             @Override
             public void onSuccess(UserInfo response) {
                 if ("1".equals(response.getState())) {
-                    //已签约
+                    //已绑定
                     startActivity(new Intent(SpeechSynthesisActivity.this,
                             DoctorappoActivity2.class));
                 } else if ("0".equals(response.getState())
                         && (TextUtils.isEmpty(response.getDoctername()))) {
-                    //未签约
+                    //未绑定
                     Intent intent = new Intent(SpeechSynthesisActivity.this,
                             OnlineDoctorListActivity.class);
                     intent.putExtra("flag", "contract");
@@ -1995,7 +1995,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             }
         }
 
-        //签约健康顾问
+        //绑定健康顾问
         List<KeyWordDefinevBean> qianyueyisheng = getDefineData("qianyueyisheng");
         for (int i = 0; i < qianyueyisheng.size(); i++) {
             if (yuyin.contains(qianyueyisheng.get(i).pinyin)) {

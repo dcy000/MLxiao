@@ -47,7 +47,7 @@
     <string name="xueyang">血氧</string>
     <string name="logout">退出登录</string>
     <string name="speak_no_result">我还没学习到</string>
-    <string name="offline_sign">线下签约</string>
+    <string name="offline_sign">线下绑定</string>
     <string name="submit">提交</string>
     <string name="connect_connect_off">与设备连接断开</string>
     <string name="measure_ecg_file_ing">正在接收文件</string>
@@ -96,8 +96,8 @@
     <string name="tips_register">为了更好地为您服务，需要您填写您的个人信息，填写完毕后点击下一步</string>
     <string name="tips_disease">为了全部掌握您的健康信息，如果您有病史请选择对应标签，然后点击下一步</string>
     <string name="tips_face">让我给您拍个照，下次我就认识您啦</string>
-    <string name="tips_doctor">请选择您最信任的健康顾问完成签约，如果他没在里面可以点击右下角的线下签约按钮。</string>
-    <string name="tips_info">如果需要签约就点击签约按钮。</string>
+    <string name="tips_doctor">请选择您最信任的健康顾问完成绑定，如果他没在里面可以点击右下角的线下绑定按钮。</string>
+    <string name="tips_info">如果需要绑定就点击绑定按钮。</string>
     <string name="online_info">您可以点击咨询按钮与在线健康顾问进行视频通话。</string>
 
     <string name="tips_test">请点击您需要测量的项目</string>
@@ -332,7 +332,7 @@
     <string name="timer_set">设置成功，将于%s分钟后关闭</string>
     <string name="timer_cancel">定时停止播放已取消</string>
     <string name="no_permission">没有%1$s权限，无法%2$s！</string>
-    <string name="user_help">认真阅读用户须知，帮助您完成签约</string>
+    <string name="user_help">认真阅读用户须知，帮助您完成绑定</string>
     <string name="hello">你好</string>
 
     <string name="yuyue_time">9月23日</string>
@@ -376,7 +376,7 @@
     <string name="head_verify">请对准摄像头，让我帮您记录数据</string>
 
     <string name="yuyue">请选择您要预约的时间</string>
-    <string name="yuyue_1">请点击预约按钮和签约健康顾问进行预约</string>
+    <string name="yuyue_1">请点击预约按钮和绑定健康顾问进行预约</string>
 
     <string name="healthy_class">健&#160;&#160;康&#160;&#160;讲&#160;&#160;坛</string>
     <string name="doctor_yuyue">添&#160;&#160;加&#160;&#160;预&#160;&#160;约</string>
@@ -519,9 +519,9 @@
     <string name="yuye_history">请查看你的预约历史</string>
 
 
-    <string name="doctor_choice">请点击选择签约健康顾问或在线健康顾问</string>
+    <string name="doctor_choice">请点击选择绑定健康顾问或在线健康顾问</string>
 
-    <string name="qianyue_doctor">请咨询签约健康顾问</string>
+    <string name="qianyue_doctor">请咨询绑定健康顾问</string>
 
     <string name="cancel_yuyue">您确定要取消预约吗？</string>
 
@@ -544,7 +544,7 @@
     <string name="history_celiang">历&#160;&#160;史&#160;&#160;测&#160;&#160;量</string>
 
     <string name="tiaoguo">跳&#160;&#160;过</string>
-    <string name="offline_doctor">一、联系您所在社区的社区健康顾问或您信任的健康顾问，将“致健康顾问的一封信”交给健康顾问，健康顾问可根据内容提示完成注册。\n二、注册完成后您可以在健康顾问库中搜索健康顾问信息，即可完成签约。\n三、如果您的社区还没有签约健康顾问，你可以拨打我们的客服热线400-007-0079。</string>
+    <string name="offline_doctor">一、联系您所在社区的社区健康顾问或您信任的健康顾问，将“致健康顾问的一封信”交给健康顾问，健康顾问可根据内容提示完成注册。\n二、注册完成后您可以在健康顾问库中搜索健康顾问信息，即可完成绑定。\n三、如果您的社区还没有绑定健康顾问，你可以拨打我们的客服热线400-007-0079。</string>
     <string name="space">&#12288;</string>
 
     <string name="bluetooth_device_connected">设备已连接</string>

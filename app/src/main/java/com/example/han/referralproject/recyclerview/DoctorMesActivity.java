@@ -195,7 +195,7 @@ public class DoctorMesActivity extends BaseActivity implements View.OnClickListe
             mTextView3.setText(doctor.getDepartment());
             mTextView4.setText(doctor.getPro());
             if (!TextUtils.isEmpty(doctor.department)) {
-                if ("尚未开放,请勿签约".equals(doctor.department)) {
+                if ("尚未开放,请勿绑定".equals(doctor.department)) {
                     goodat1.setText("暂未填写");
                     return;
                 }

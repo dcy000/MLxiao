@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +26,17 @@ import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.bean.RobotAmount;
 
+import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.bean.VersionInfoBean;
+import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.constant.ConstantData;
+import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.shopping.OrderListActivity;
 import com.example.han.referralproject.util.UpdateAppManager;
@@ -41,6 +46,7 @@ import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
+import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
@@ -129,6 +135,33 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
         getData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        AppRepository.queryServicePackage()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new io.reactivex.observers.DefaultObserver<ServicePackageBean>() {
+                    @Override
+                    public void onNext(ServicePackageBean servicePackageBean) {
+                        //有套餐生效，跳转到测试界面
+                        tvUserName.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(UtilsManager.getApplication(), R.drawable.ic_vip), null, null, null);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        //没有套餐生效
+                        tvUserName.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -191,10 +224,10 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                                 .error(R.drawable.avatar_placeholder)
                                 .into(headImg);
                         if ("1".equals(user.state)) {
-                            isSignDoctor.setText("已签约");
+                            isSignDoctor.setText("已绑定");
                         } else if ("0".equals(user.state)
                                 && (TextUtils.isEmpty(user.doctorId))) {
-                            isSignDoctor.setText("未签约");
+                            isSignDoctor.setText("未绑定");
                         } else {
                             isSignDoctor.setText("待审核");
                         }
@@ -243,16 +276,19 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_order:
+                //我的订单
                 startActivity(new Intent(getActivity(), OrderListActivity.class));
                 break;
             case R.id.iv_pay:
+                //账户充值
 //                ToastUtils.showShort("该功能暂未开放");
 //                MLVoiceSynthetize.startSynthesize(MyApplication.getInstance(),"该功能暂未开放",false);
                 startActivity(new Intent(getActivity(), PayActivity.class));
 //                CC.obtainBuilder("com.gcml.mall.recharge").build().callAsync();
                 break;
             case R.id.iv_message:
-                startActivity(new Intent(getActivity(), MessageActivity.class));
+//                startActivity(new Intent(getActivity(), MessageActivity.class));
+                startActivity(new Intent(getActivity(), OrderListActivity.class));
                 break;
             case R.id.iv_shezhi:
                 startActivity(new Intent(getActivity(), SettingActivity.class));
@@ -321,7 +357,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 });
                 break;
             case R.id.doctor_status:
-                if ("未签约".equals(isSignDoctor.getText().toString())) {
+                if ("未绑定".equals(isSignDoctor.getText().toString())) {
                     Intent intentStatus = new Intent(getActivity(), OnlineDoctorListActivity.class);
                     intentStatus.putExtra("flag", "contract");
                     startActivity(intentStatus);
@@ -331,6 +367,9 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                     Intent intentStatus = new Intent(getActivity(), CheckContractActivity.class);
                     startActivity(intentStatus);
                 }
+                break;
+            case R.id.iv_alarm:
+                startActivity(new Intent(getActivity(), PayActivity.class));
                 break;
         }
     }

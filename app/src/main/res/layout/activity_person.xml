@@ -32,7 +32,8 @@
             android:layout_marginTop="10dp"
             android:text="用户"
             android:textColor="#333333"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:drawablePadding="8dp"/>
 
 
         <RelativeLayout
@@ -71,7 +72,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="签约状态"
+                android:text="绑定状态"
                 android:textColor="#999999"
                 android:textSize="30sp" />
 
@@ -82,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="30dp"
-                android:text="未签约"
+                android:text="未绑定"
                 android:textColor="#FF5A5A"
                 android:textSize="30sp" />
 
@@ -100,7 +101,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="签约健康顾问"
+                android:text="绑定健康顾问"
                 android:textColor="#999999"
                 android:textSize="30sp" />
 
@@ -142,7 +143,7 @@
             android:layout_margin="20dp"
             android:drawableLeft="@drawable/shape_ic_blue"
             android:drawablePadding="8dp"
-            android:text="健康工具"
+            android:text="消费"
             android:textColor="#999999"
             android:textSize="22sp" />
 
@@ -211,13 +212,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <ImageView
                     android:id="@+id/iv_message"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:background="@drawable/jianyi_set"
+                    android:background="@drawable/dingdan_set"
                     android:clickable="true" />
 
 
@@ -226,7 +228,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="顾问建议"
+                    android:text="我的订单"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 
@@ -238,13 +240,13 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <ImageView
                     android:id="@+id/iv_alarm"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:background="@drawable/chiyao_set"
+                    android:background="@drawable/zhanghu_set"
                     android:clickable="true" />
 
 
@@ -253,7 +255,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="吃药提醒"
+                    android:text="账户充值"
                     android:textColor="#333333"
                     android:textSize="30sp" />
 
@@ -268,7 +270,7 @@
             android:layout_margin="20dp"
             android:drawableLeft="@drawable/shape_ic_blue"
             android:drawablePadding="8dp"
-            android:text="健康生活"
+            android:text="账号"
             android:textColor="#999999"
             android:textSize="22sp" />
 
@@ -339,7 +341,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_order"
@@ -394,7 +396,7 @@
                 android:layout_marginLeft="23dp"
                 android:layout_marginRight="23dp"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_pay"
