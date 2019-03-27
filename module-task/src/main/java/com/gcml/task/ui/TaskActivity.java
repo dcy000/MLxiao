@@ -61,7 +61,7 @@ public class TaskActivity extends FragmentActivity {
             @Override
             public void onLeftClick() {
                 if (startType.equals("MLMain")) {
-                    CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
+//                    CC.obtainBuilder("app").setActionName("ToMainActivity").build().callAsync();
                     finish();
                 } else if (startType.equals("MLSpeech")) {
                     finish();

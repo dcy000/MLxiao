@@ -85,13 +85,15 @@ public class PayInfoActivity extends BaseActivity implements View.OnClickListene
                         @Override
                         public void onSuccess(String response) {
                             Toast.makeText(PayInfoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-                            speak(getString(R.string.pay_success));
+//                            speak(getString(R.string.pay_success));
+                            finish();
+
                         }
                     }, new NetworkManager.FailedCallback() {
                         @Override
                         public void onFailed(String message) {
                             sign = false;
-                            Log.e("支付成功同步到我们的后台", "onFailed: "+message);
+                            Log.e("支付成功同步到我们的后台", "onFailed: " + message);
                         }
                     });
 
