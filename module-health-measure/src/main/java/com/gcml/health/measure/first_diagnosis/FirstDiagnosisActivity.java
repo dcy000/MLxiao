@@ -402,11 +402,13 @@ public class FirstDiagnosisActivity extends ToolbarBaseActivity implements Fragm
     @Override
     protected void backMainActivity() {
         if (isShowHealthChooseDevicesFragment) {
-            CCAppActions.jump2MainActivity();
+//            CCAppActions.jump2MainActivity();
+            super.backMainActivity();
             return;
         }
         if (isShowSelectBloodsugarMeasureTime||isShowSelectECGDevice) {
-            CCAppActions.jump2MainActivity();
+//            CCAppActions.jump2MainActivity();
+            super.backMainActivity();
             return;
         }
         showRefreshBluetoothDialog();

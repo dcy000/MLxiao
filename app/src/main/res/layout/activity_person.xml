@@ -101,7 +101,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="绑定健康顾问"
+                android:text="绑定顾问"
                 android:textColor="#999999"
                 android:textSize="30sp" />
 
@@ -143,7 +143,7 @@
             android:layout_margin="20dp"
             android:drawableLeft="@drawable/shape_ic_blue"
             android:drawablePadding="8dp"
-            android:text="消费"
+            android:text="订单与充值"
             android:textColor="#999999"
             android:textSize="22sp" />
 
@@ -270,7 +270,7 @@
             android:layout_margin="20dp"
             android:drawableLeft="@drawable/shape_ic_blue"
             android:drawablePadding="8dp"
-            android:text="账号"
+            android:text="设置与退出"
             android:textColor="#999999"
             android:textSize="22sp" />
 

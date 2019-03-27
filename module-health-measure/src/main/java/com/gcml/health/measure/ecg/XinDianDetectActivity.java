@@ -101,7 +101,8 @@ public class XinDianDetectActivity extends ToolbarBaseActivity implements View.O
 
     @Override
     protected void backMainActivity() {
-        CCAppActions.jump2MainActivity();
+//        CCAppActions.jump2MainActivity();
+        super.backMainActivity();
     }
 
     @Override

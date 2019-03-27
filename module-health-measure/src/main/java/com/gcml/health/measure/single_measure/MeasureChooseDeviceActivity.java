@@ -96,7 +96,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         if (servicePackage.equals("1") || servicePackage.equals("2")) {
             showQuitDialog(true);
         } else {
-            CCAppActions.jump2MainActivity();
+//            CCAppActions.jump2MainActivity();
+            super.backMainActivity();
         }
 
     }
@@ -121,7 +122,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
                                     @Override
                                     public void onNext(Object o) {
                                         if (isMain) {
-                                            CCAppActions.jump2MainActivity();
+//                                            CCAppActions.jump2MainActivity();
+                                            MeasureChooseDeviceActivity.super.backMainActivity();
                                         } else {
 
                                         }

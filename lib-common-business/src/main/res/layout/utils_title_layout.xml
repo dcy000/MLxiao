@@ -71,6 +71,6 @@
         android:paddingLeft="60dp"
         android:paddingRight="30dp"
         android:scaleType="centerInside"
-        android:src="@drawable/utils_icon_home"
+        android:src="@drawable/white_wifi_3"
         android:visibility="visible" />
 </RelativeLayout>

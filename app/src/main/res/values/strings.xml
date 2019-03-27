@@ -382,10 +382,10 @@
     <string name="doctor_yuyue">添&#160;&#160;加&#160;&#160;预&#160;&#160;约</string>
     <string name="touxiang_true">头&#160;&#160;像&#160;&#160;确&#160;&#160;认</string>
 
-    <string name="doctor_pinjia">医&#160;&#160;生&#160;&#160;评&#160;&#160;价</string>
-    <string name="doctor_qianyue">签&#160;&#160;约&#160;&#160;医&#160;&#160;生</string>
+    <string name="doctor_pinjia">顾&#160;&#160;问&#160;&#160;评&#160;&#160;价</string>
+    <string name="doctor_qianyue">签&#160;&#160;约&#160;&#160;顾&#160;&#160;问</string>
 
-    <string name="online_qianyue">在&#160;&#160;线&#160;&#160;医&#160;&#160;生</string>
+    <string name="online_qianyue">在&#160;&#160;线&#160;&#160;顾&#160;&#160;问</string>
 
 
     <string name="zixun">咨&#160;询</string>
@@ -480,7 +480,7 @@
 
     <string name="bingzhengxiangqing">病症详情</string>
     <string name="disease_reason"></string>
-    <string name="doctor_zixun">咨&#160;&#160;询&#160;&#160;医&#160;&#160;生</string>
+    <string name="doctor_zixun">咨&#160;&#160;询&#160;&#160;顾&#160;&#160;问</string>
     <string name="bodyguide">请选择病症对应部位</string>
 
     <string name="title_activity_set_password">SetPasswordActivity</string>
@@ -531,7 +531,7 @@
 
     <string name="yuyue_times">请选择您要预约的时间</string>
 
-    <string name="doctor_appraise">医&#160;&#160;生&#160;&#160;评&#160;&#160;价</string>
+    <string name="doctor_appraise">顾&#160;&#160;问&#160;&#160;评&#160;&#160;价</string>
 
     <string name="doctor_appraises">请对健康顾问做出评价</string>
 

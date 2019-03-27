@@ -357,7 +357,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     protected void backMainActivity() {
         if (baseFragment != null && (baseFragment instanceof ChooseECGDeviceFragment
                 || baseFragment instanceof HealthSelectSugarDetectionTimeFragment)) {
-            CCAppActions.jump2MainActivity();
+//            CCAppActions.jump2MainActivity();
+            super.backMainActivity();
             return;
         }
         if (isMeasure) {
