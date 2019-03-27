@@ -60,7 +60,7 @@ public class CheckContractActivity extends BaseActivity {
         initView();
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("签  约  健 康 顾 问");
+        mTitleText.setText("签  约  健  康  顾  问");
         qianYueRepository = new QianYueRepository();
     }
 
