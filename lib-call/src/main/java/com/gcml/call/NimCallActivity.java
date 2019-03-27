@@ -791,7 +791,7 @@ public class NimCallActivity extends AppCompatActivity {
 //                }, new NetworkManager.FailedCallback() {
 //                    @Override
 //                    public void onFailed(String message) {
-////                        T.show("请签约健康顾问");
+////                        T.show("请绑定健康顾问");
 //                    }
 //                });
 //            }

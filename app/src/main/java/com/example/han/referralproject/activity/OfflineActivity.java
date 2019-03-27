@@ -19,8 +19,8 @@ public class OfflineActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline);
         mToolbar.setVisibility(View.VISIBLE);
-        mLeftText.setText("线下签约");
-        mRightText.setText("暂不签约");
+        mLeftText.setText("线下绑定");
+        mRightText.setText("暂不绑定");
         mRightView.setVisibility(View.GONE);
         mRightText.setOnClickListener(new View.OnClickListener() {
             @Override

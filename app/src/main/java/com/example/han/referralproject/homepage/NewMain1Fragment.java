@@ -23,6 +23,7 @@ import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
 import com.gcml.common.data.UserEntity;
@@ -344,7 +345,8 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 break;
             case R.id.iv_health_call_family:
 //                NimCallActivity.launchNoCheck(getContext(), UserSpHelper.getEqId());
-                getDoctorInfo();
+//                getDoctorInfo();
+                startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));
                 break;
         }
     }
@@ -365,7 +367,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastUtils.showShort("该用户尚未签约任何健康顾问");
+                ToastUtils.showShort("“尚未绑定任何顾问，请前往个人中心绑定");
             }
         });
     }

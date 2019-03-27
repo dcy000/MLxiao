@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.MarketActivity;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
@@ -70,6 +71,8 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
     public void onClick(View v) {
         CCResult result;
         Observable<UserEntity> rxUser;
+        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+        rxUser = result.getDataItem("data");
         switch (v.getId()) {
             default:
                 break;
@@ -78,15 +81,13 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                 break;
             case R.id.iv_health_course:
                 //健康管理
-                result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
-                rxUser = result.getDataItem("data");
                 rxUser.subscribeOn(Schedulers.io())
                         .as(RxUtils.autoDisposeConverter(this))
                         .subscribe(new DefaultObserver<UserEntity>() {
                             @Override
                             public void onNext(UserEntity user) {
                                 if (TextUtils.isEmpty(user.height) || TextUtils.isEmpty(user.weight)
-                                        || TextUtils.isEmpty(user.sex)|| TextUtils.isEmpty(user.birthday)) {
+                                        || TextUtils.isEmpty(user.sex) || TextUtils.isEmpty(user.birthday)) {
                                     ToastUtils.showShort("请先去个人中心完善体重,身高,性别,年龄信息");
                                     MLVoiceSynthetize.startSynthesize(
                                             getActivity().getApplicationContext(),
@@ -97,13 +98,37 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                                 }
                             }
                         });
-//                startActivity(new Intent(getActivity(), VideoListActivity.class));
-//                CCHealthMeasureActions.jump2HealthIntelligentDetectionActivity();
-//                CCHealthMeasureActions.jump2FirstDiagnosisActivity();
                 break;
             case R.id.entertainment_center:
-//                OldRouter.routeToOldHomeActivity(getActivity());
-                startActivity(new Intent(getActivity(), HealthRecordActivity.class));
+                rxUser.subscribeOn(Schedulers.io())
+                        .as(RxUtils.autoDisposeConverter(this))
+                        .subscribe(new DefaultObserver<UserEntity>() {
+                            @Override
+                            public void onNext(UserEntity userEntity) {
+                                if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
+                                    ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+                                    MLVoiceSynthetize.startSynthesize(
+                                            getActivity().getApplicationContext(),
+                                            "请先去个人中心完善性别和年龄信息");
+                                } else {
+                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
+                                            .addParam("skip", true)
+                                            .addParam("currentUser", false)
+                                            .build()
+                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                                @Override
+                                                public void onResult(CC cc, CCResult result) {
+                                                    boolean skip = "skip".equals(result.getErrorMessage());
+                                                    if (result.isSuccess() || skip) {
+                                                        startActivity(new Intent(getActivity(), HealthRecordActivity.class));
+                                                    } else {
+                                                        ToastUtils.showShort(result.getErrorMessage());
+                                                    }
+                                                }
+                                            });
+                                }
+                            }
+                        });
                 //娱乐中心
 //                CC.obtainBuilder("app.component.recreation").build().callAsync();
                 break;

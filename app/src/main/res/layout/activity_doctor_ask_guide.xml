@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:textSize="36sp"
             android:textColor="#333333"
-            android:text="签约健康顾问"
+            android:text="绑定健康顾问"
             android:layout_marginTop="22dp"/>
     </LinearLayout>
 
