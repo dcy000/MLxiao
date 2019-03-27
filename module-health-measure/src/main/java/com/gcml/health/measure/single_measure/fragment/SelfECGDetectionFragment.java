@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,14 +95,25 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         mTvNext.setOnClickListener(this);
         view.findViewById(R.id.tv_change_device).setOnClickListener(this);
         setBtnClickableState(false);
-        MLVoiceSynthetize.startSynthesize(context, "请打开设备开关，准备测量", false);
+        MLVoiceSynthetize.startSynthesize(context, "主人，请打开设备开关，准备测量", false);
         initOther();
     }
 
+    @Override
+    public void autoConnect() {
+        startDiscovery();
+    }
+
+    private static final String TAG = "SelfECGDetectionFragmen";
 
     public void startDiscovery() {
-        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
-                .putExtra("device", 3));
+        Timber.i("可瑞康心电开始搜索");
+        Log.e(TAG, "可瑞康心电开始搜索 ");
+        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
+            ToastUtils.showShort("正在搜索设备...");
+            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
+                    .putExtra("device", 3));
+        }
     }
 
     public void initOther() {
@@ -114,7 +126,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
             isRegistReceiver = true;
             context.registerReceiver(connectReceiver, filter);
         }
-        context.startService(new Intent(context, ReceiveService.class));
+//        context.startService(new Intent(context, ReceiveService.class));
         context.bindService(new Intent(context, ReceiveService.class), serviceConnect, Service.BIND_AUTO_CREATE);
     }
 
@@ -164,7 +176,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                         ReceiveService.BLU_ACTION_STOPDISCOVERY));
                 context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
             } else if (action.equals(ReceiveService.ACTION_BLU_DISCONNECT)) {
-                Toast.makeText(context, "设备已断开", Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort("设备已断开");
                 if (dealVoiceAndJump != null) {
                     dealVoiceAndJump.updateVoice("设备已断开");
                 }
@@ -200,8 +212,9 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
             mMainPc80BViewDraw.Stop();
         }
         drawThread = null;
-        context.stopService(new Intent(context, ReceiveService.class));
+//        context.stopService(new Intent(context, ReceiveService.class));
         if (serviceConnect != null && isServiceBind) {
+            isServiceBind = false;
             context.unbindService(serviceConnect);
         }
         if (isRegistReceiver) {
