@@ -35,7 +35,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         setContentView(R.layout.activity_message);
         initView();
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("医  生  建  议");
+        mTitleText.setText("健 康 顾 问  建  议");
         RecyclerView mRecyclerView = findViewById(R.id.rv_message);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         messageShowAdapter = new MessageShowAdapter(mContext, mDataList);
@@ -51,7 +51,7 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
                 speak(R.string.no_yz);
                 findViewById(R.id.view_empty_data).setVisibility(View.VISIBLE);
                 mBtnGo.setVisibility(View.GONE);
-                mTvEmptyDataTips.setText("啊哦!你还没有医生建议");
+                mTvEmptyDataTips.setText("啊哦!你还没有健康顾问建议");
                 return;
             }
             mDataList.addAll(response);

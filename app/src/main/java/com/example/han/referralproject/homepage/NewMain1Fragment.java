@@ -289,7 +289,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                             getActivity().getApplicationContext(),
                                             "请先去个人中心完善性别和年龄信息");
                                 } else {
-                                    startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip",false));
+                                    startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip", false));
 //                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
 //                                            .addParam("skip", true)
 //                                            .addParam("currentUser", false)
@@ -356,7 +356,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 String doctorId = response.docterid + "";
 
                 if (TextUtils.isEmpty(doctorId)) {
-                    ToastUtils.showShort("呼叫医生失败");
+                    ToastUtils.showShort("呼叫健康顾问失败");
                     return;
                 }
                 NimCallActivity.launchNoCheck(getActivity(), "docter_" + doctorId);
@@ -365,7 +365,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
         }, new NetworkManager.FailedCallback() {
             @Override
             public void onFailed(String message) {
-                ToastUtils.showShort(message);
+                ToastUtils.showShort("该用户尚未签约任何健康顾问");
             }
         });
     }

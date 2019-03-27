@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:textSize="56pt"
         android:textColor="#666"
-        android:text="根据您的情况，可以选择一种药物治疗2-4周，如血压未明显降低可换 另外降压药。具体用药请咨询医生为准。"
+        android:text="根据您的情况，可以选择一种药物治疗2-4周，如血压未明显降低可换 另外降压药。具体用药请咨询健康顾问为准。"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

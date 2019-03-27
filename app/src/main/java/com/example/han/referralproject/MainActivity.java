@@ -120,7 +120,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 bundle.putString("from", "Test");
                 CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
                 break;
-            case R.id.doctor_ask://医生咨询
+            case R.id.doctor_ask://健康顾问咨询
                 intent.setClass(getApplicationContext(), DoctorAskGuideActivity.class);
                 startActivity(intent);
                 break;

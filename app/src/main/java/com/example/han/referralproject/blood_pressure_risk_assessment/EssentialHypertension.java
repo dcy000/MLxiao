@@ -13,7 +13,7 @@ public class EssentialHypertension implements Parcelable{
 
     /**
      * illnessType : 0
-     * primary : {"analysis":"根据您的检测结果，您有可能是原发性高血压，并且可能存在心、脑、肾脏、眼的靶器官损害，根据您的体质主要影响血压的因素是：","illnessFactor":["遗传"],"advice":"建议您及时联系医生，检查靶器官损害情况，同时保持健康饮食，合理运动，根据康复疗程进行生活干预。"}
+     * primary : {"analysis":"根据您的检测结果，您有可能是原发性高血压，并且可能存在心、脑、肾脏、眼的靶器官损害，根据您的体质主要影响血压的因素是：","illnessFactor":["遗传"],"advice":"建议您及时联系健康顾问，检查靶器官损害情况，同时保持健康饮食，合理运动，根据康复疗程进行生活干预。"}
      * secondary : null
      * targets : ["心","脑","肾脏","眼"]
      */
@@ -81,7 +81,7 @@ public class EssentialHypertension implements Parcelable{
         /**
          * analysis : 根据您的检测结果，您有可能是原发性高血压，并且可能存在心、脑、肾脏、眼的靶器官损害，根据您的体质主要影响血压的因素是：
          * illnessFactor : ["遗传"]
-         * advice : 建议您及时联系医生，检查靶器官损害情况，同时保持健康饮食，合理运动，根据康复疗程进行生活干预。
+         * advice : 建议您及时联系健康顾问，检查靶器官损害情况，同时保持健康饮食，合理运动，根据康复疗程进行生活干预。
          */
 
         private String analysis;

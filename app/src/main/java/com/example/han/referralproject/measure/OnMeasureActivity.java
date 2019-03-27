@@ -516,29 +516,29 @@ public class OnMeasureActivity extends BaseActivity implements View.OnClickListe
                     switch (time){
                         case 0://空腹
                             if(xuetangResut<3.61){
-                                speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
+                                speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系健康顾问"));
                             }else if(xuetangResut<=7.0){
                                 speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
                             }else{
-                                speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系医生"));
+                                speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系健康顾问"));
                             }
                             break;
                         case 1://饭后一小时
                             if(xuetangResut<3.61){
-                                speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
+                                speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系健康顾问"));
                             }else if(xuetangResut<=11.1){
                                 speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
                             }else{
-                                speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系医生"));
+                                speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系健康顾问"));
                             }
                             break;
                         case 2://饭后两小时
                             if(xuetangResut<3.61){
-                                speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系医生"));
+                                speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏低,请重新测量或联系健康顾问"));
                             }else if(xuetangResut<=7.8){
                                 speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值正常"));
                             }else{
-                                speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系医生"));
+                                speak(String.format(getString(R.string.tips_result_xuetang), String.format("%.1f", xuetangResut),"血糖值偏高,请重新测量或联系健康顾问"));
                             }
                             break;
                     }

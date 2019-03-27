@@ -157,7 +157,7 @@ public class NetworkApi {
 
     public static final String Get_HealthRecord = BasicUrl + "ZZB/br/cl_data";//正式服务器
     //    public static final String Get_HealthRecord=BasicUrl+"/ZZB/br/cl";
-    //全部医生
+    //全部健康顾问
     public static final String Get_AllDotor = BasicUrl + "ZZB/docter/seldoctors";
     public static final String FIND_ACCOUNT = BasicUrl + "ZZB/acc/sel_account";
     public static final String SET_PASSWORD = BasicUrl + "ZZB/acc/update_account_pwd";
@@ -1011,7 +1011,7 @@ public class NetworkApi {
     }
 
     /**
-     * 获取所有医生
+     * 获取所有健康顾问
      *
      * @param successCallback
      */

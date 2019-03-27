@@ -91,6 +91,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginBottom="56pt"
-            android:text="建议您健康饮食，合理运动，根据康复疗程进行生活干预，必要时请咨询医生"/>
+            android:text="建议您健康饮食，合理运动，根据康复疗程进行生活干预，必要时请咨询健康顾问"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

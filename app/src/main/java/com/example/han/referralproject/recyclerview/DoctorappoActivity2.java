@@ -111,7 +111,7 @@ public class DoctorappoActivity2 extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.ll_phone_family:
                 if (TextUtils.isEmpty(doctorId)) {
-                    ToastUtils.showShort("呼叫医生失败");
+                    ToastUtils.showShort("呼叫健康顾问失败");
                     return;
                 }
                 NimCallActivity.launchNoCheck(this, "docter_" + doctorId);

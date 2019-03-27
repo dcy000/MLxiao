@@ -814,7 +814,7 @@ public class DataDealHelper {
         } else if (inSpell.matches(".*yisheng.*zixun.*") || inSpell.matches("wenyisheng|yishengzixun|jiatingyisheng|yuyue")) {
 
             if ("".equals(context.getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE).getString("name", ""))) {
-                ToastUtils.showShort("请先查看是否与签约医生签约成功");
+                ToastUtils.showShort("请先查看是否与签约健康顾问签约成功");
             } else {
                 startActivity(DoctorappoActivity2.class);
             }
@@ -1539,7 +1539,7 @@ public class DataDealHelper {
             }
         }
 
-        //医生建议
+        //健康顾问建议
         List<KeyWordDefinevBean> doctorJianyi = getDefineData("yishengjianyi");
         for (int i = 0; i < doctorJianyi.size(); i++) {
             pinyin = doctorJianyi.get(i).pinyin;
@@ -1623,7 +1623,7 @@ public class DataDealHelper {
         }
 
 
-        //医生咨询
+        //健康顾问咨询
         List<KeyWordDefinevBean> zixunyisheng = getDefineData("yishengzixun");
         for (int i = 0; i < zixunyisheng.size(); i++) {
             if (yuyin.contains(zixunyisheng.get(i).pinyin)) {
@@ -1632,7 +1632,7 @@ public class DataDealHelper {
             }
         }
 
-        //在线医生
+        //在线健康顾问
         List<KeyWordDefinevBean> zaixianyisheng = getDefineData("zaixianyisheng");
         for (int i = 0; i < zaixianyisheng.size(); i++) {
             if (yuyin.contains(zaixianyisheng.get(i).pinyin)) {
@@ -1641,7 +1641,7 @@ public class DataDealHelper {
             }
         }
 
-        //签约医生
+        //签约健康顾问
         List<KeyWordDefinevBean> qianyueyisheng = getDefineData("qianyueyisheng");
         for (int i = 0; i < qianyueyisheng.size(); i++) {
             if (yuyin.contains(qianyueyisheng.get(i).pinyin)) {

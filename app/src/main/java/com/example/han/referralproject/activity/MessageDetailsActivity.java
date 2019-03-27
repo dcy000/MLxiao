@@ -35,7 +35,7 @@ public class MessageDetailsActivity extends BaseActivity {
         message = getIntent().getStringExtra("message");
 
         if (TextUtils.isEmpty(doctorName)){
-            doctor.setText("某医生");
+            doctor.setText("某健康顾问");
         }else{
             doctor.setText(doctorName);
         }
