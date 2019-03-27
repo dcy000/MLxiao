@@ -51,6 +51,6 @@ public class ShowPDFActivity extends ToolbarBaseActivity {
     @Override
     protected void backMainActivity() {
         super.backMainActivity();
-        CCAppActions.jump2MainActivity();
+//        CCAppActions.jump2MainActivity();
     }
 }

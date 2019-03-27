@@ -48,6 +48,7 @@
             android:layout_marginRight="36pt"
             />
         <TextView
+            android:id="@+id/tv_service_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥0.01"
@@ -99,6 +100,7 @@
             android:layout_marginRight="36pt"
             />
         <TextView
+            android:id="@+id/tv_service_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥0.01"
@@ -148,6 +150,7 @@
             android:layout_marginLeft="36pt"
             />
         <TextView
+            android:id="@+id/tv_service_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥0.01"

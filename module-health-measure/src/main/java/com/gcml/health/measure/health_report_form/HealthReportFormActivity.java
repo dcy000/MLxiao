@@ -70,7 +70,8 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
 
     @Override
     protected void backMainActivity() {
-        CCAppActions.jump2MainActivity();
+//        CCAppActions.jump2MainActivity();
+        super.backMainActivity();
     }
 
     @SuppressLint("CheckResult")

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.bean.ServicePackageBean;
@@ -24,6 +25,11 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
     private ConstraintLayout mCl3;
     private boolean isSkip;
     private boolean isClickDetail = false;
+    private boolean isServicePackageEffective = false;
+    private ServicePackageBean servicePackage;
+    private TextView mTvService1;
+    private TextView mTvService2;
+    private TextView mTvService3;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,14 +42,10 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
                 .subscribe(new DefaultObserver<ServicePackageBean>() {
                     @Override
                     public void onNext(ServicePackageBean servicePackageBean) {
-                        //有套餐生效，跳转到测试界面
-                        if (isSkip) {
-                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true,
-                                    servicePackageBean.getType(), servicePackageBean.orderid + "");
-                            return;
-                        }
-                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false,
-                                servicePackageBean.getType(), servicePackageBean.orderid + "");
+                        servicePackage = servicePackageBean;
+                        isServicePackageEffective = true;
+                        setContentView(R.layout.activity_service_package);
+                        initView();
                     }
 
                     @Override
@@ -72,6 +74,19 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
         mCl2.setOnClickListener(this);
         mCl3 = (ConstraintLayout) findViewById(R.id.cl3);
         mCl3.setOnClickListener(this);
+        mTvService1 = findClickView(R.id.tv_service_1);
+        mTvService2 = findClickView(R.id.tv_service_2);
+        mTvService3 = findClickView(R.id.tv_service_3);
+        if (servicePackage != null && isServicePackageEffective) {
+            String type = servicePackage.getType();
+            if (type.equals("1")) {
+                mTvService1.setText("已购买");
+            } else if (type.equals("2")) {
+                mTvService2.setText("已购买");
+            } else if (type.equals("3")) {
+                mTvService3.setText("已购买");
+            }
+        }
     }
 
     @Override
@@ -101,11 +116,22 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
                         .putExtra("description", "套餐二"));
                 break;
             case R.id.cl3:
-                startActivity(new Intent(this, QRCodeWXPayActivity.class)
-                        .putExtra("isSkip", isSkip)
-                        .putExtra("ServicePackage", "3")
-                        .putExtra("number", "1")
-                        .putExtra("description", "套餐三"));
+                if (isServicePackageEffective) {
+                    //有套餐生效，跳转到测试界面
+                    if (isSkip) {
+                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true,
+                                servicePackage.getType(), servicePackage.orderid + "");
+                        return;
+                    }
+                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false,
+                            servicePackage.getType(), servicePackage.orderid + "");
+                } else {
+                    startActivity(new Intent(this, QRCodeWXPayActivity.class)
+                            .putExtra("isSkip", isSkip)
+                            .putExtra("ServicePackage", "3")
+                            .putExtra("number", "1")
+                            .putExtra("description", "套餐三"));
+                }
                 break;
             case R.id.tv_top_right:
                 isClickDetail = true;

@@ -194,7 +194,8 @@ public class HealthInquiryActivity extends ToolbarBaseActivity implements Fragme
                 .setNegativeButton("确认离开", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        CCAppActions.jump2MainActivity();
+//                        CCAppActions.jump2MainActivity();
+                        HealthInquiryActivity.super.backMainActivity();
                     }
                 }).setPositiveButton("继续做题", new View.OnClickListener() {
             @Override

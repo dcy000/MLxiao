@@ -40,11 +40,6 @@ public class TestWuhuaqiActivity extends ToolbarBaseActivity implements ITestVie
         playVideo();
     }
 
-    @Override
-    protected void backMainActivity() {
-
-    }
-
     private void initBluetooth() {
         socketPresenter = new SocketPresenter(this);
     }
