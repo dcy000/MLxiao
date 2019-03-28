@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:textColor="#333"
             android:textSize="56pt"
-            android:text="套餐三"
+            android:text="会员套餐"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/iv_3"
             app:layout_constraintLeft_toLeftOf="parent"

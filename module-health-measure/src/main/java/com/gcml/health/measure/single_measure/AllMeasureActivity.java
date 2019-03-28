@@ -77,6 +77,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private boolean isFaceSkip;
     private boolean isShowBloodsugarSelectTime = false;
     private ArrayList<Integer> threeInOnePosition = new ArrayList<>();
+    private String servicePackageUUID;
+    private String servicePackage;
 
     public static void startActivity(Context context, int measure_type) {
         Intent intent = new Intent(context, AllMeasureActivity.class);
@@ -111,6 +113,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         measure_type = getIntent().getIntExtra(IPresenter.MEASURE_TYPE, -1);
         isMeasureTask = getIntent().getBooleanExtra(IPresenter.IS_MEASURE_TASK, false);
         isFaceSkip = getIntent().getBooleanExtra(MeasureChooseDeviceActivity.IS_FACE_SKIP, false);
+        servicePackageUUID = getIntent().getStringExtra("ServicePackageUUID");
+        servicePackage = getIntent().getStringExtra("ServicePackage");
         //TODO:测试代码
         if (BuildConfig.RUN_AS_APP) {
             measure_type = IPresenter.MEASURE_BLOOD_PRESSURE;
@@ -146,7 +150,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 //血糖
                 if (baseFragment == null) {
                     mTitleText.setText("血 糖 测 量");
-                    mRightView.setImageResource(R.drawable.common_icon_home);
+                    mRightView.setImageResource(R.drawable.white_wifi_3);
                     isShowBloodsugarSelectTime = true;
                     baseFragment = new HealthSelectSugarDetectionTimeFragment();
                 }
@@ -187,14 +191,14 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 } else {
                     mTitleText.setText("心 电 设 备 选 择");
                     baseFragment = new ChooseECGDeviceFragment();
-                    mRightView.setImageResource(R.drawable.common_icon_home);
+                    mRightView.setImageResource(R.drawable.white_wifi_3);
                 }
                 break;
             case IPresenter.MEASURE_THREE:
                 //三合一
                 if (baseFragment == null) {
                     mTitleText.setText("三 合 一 测 量");
-                    mRightView.setImageResource(R.drawable.common_icon_home);
+                    mRightView.setImageResource(R.drawable.white_wifi_3);
                     isShowBloodsugarSelectTime = true;
                     baseFragment = new HealthSelectSugarDetectionTimeFragment();
                 }
@@ -278,8 +282,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 default:
                     break;
             }
-
         }
+
 
         @Override
         public void jump2DemoVideo(int measureType) {
@@ -447,7 +451,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             SPUtil.remove(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG);
             mTitleText.setText("心 电 设 备 选 择");
             baseFragment = new ChooseECGDeviceFragment();
-            mRightView.setImageResource(R.drawable.common_icon_home);
+            mRightView.setImageResource(R.drawable.white_wifi_3);
         }
         baseFragment.setOnFragmentChangedListener(this);
         baseFragment.setOnDealVoiceAndJumpListener(dealVoiceAndJump);
@@ -519,5 +523,45 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         threeInOnePosition.add(position);
     }
 
+
+    private void showQuitDialog(int measureType) {
+        new AlertDialog(this)
+                .builder()
+                .setMsg("退出则消费本次购买的套餐，是否继续退出？")
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                })
+                .setPositiveButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        HealthMeasureRepository.cancelServicePackage(servicePackageUUID)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new DefaultObserver<Object>() {
+                                    @Override
+                                    public void onNext(Object o) {
+                                        gotoHistory(measureType);
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        ToastUtils.showShort("取消服务包失败");
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+
+                                    }
+                                });
+                    }
+                }).show();
+    }
+
+    private void gotoHistory(int measureType) {
+
+    }
 }
 

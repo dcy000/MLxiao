@@ -34,6 +34,8 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_service_package);
+        initView();
         isSkip = getIntent().getBooleanExtra("isSkip", false);
         AppRepository.queryServicePackage()
                 .subscribeOn(Schedulers.io())
@@ -44,15 +46,16 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
                     public void onNext(ServicePackageBean servicePackageBean) {
                         servicePackage = servicePackageBean;
                         isServicePackageEffective = true;
-                        setContentView(R.layout.activity_service_package);
-                        initView();
+                        if (servicePackage != null && isServicePackageEffective) {
+                            String type = servicePackage.getType();
+                            if (type.equals("3")) {
+                                mTvService3.setText("已购买");
+                            }
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        //没有套餐生效
-                        setContentView(R.layout.activity_service_package);
-                        initView();
                     }
 
                     @Override
@@ -77,16 +80,6 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
         mTvService1 = findClickView(R.id.tv_service_1);
         mTvService2 = findClickView(R.id.tv_service_2);
         mTvService3 = findClickView(R.id.tv_service_3);
-        if (servicePackage != null && isServicePackageEffective) {
-            String type = servicePackage.getType();
-            if (type.equals("1")) {
-                mTvService1.setText("已购买");
-            } else if (type.equals("2")) {
-                mTvService2.setText("已购买");
-            } else if (type.equals("3")) {
-                mTvService3.setText("已购买");
-            }
-        }
     }
 
     @Override
