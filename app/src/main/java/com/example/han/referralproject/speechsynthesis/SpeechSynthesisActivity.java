@@ -1256,6 +1256,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         NimAccountHelper.getInstance().logout();//退出网易IM
         UserSpHelper.setToken("");
         UserSpHelper.setEqId("");
+        UserSpHelper.setUserId("");
         CC.obtainBuilder("com.gcml.auth").build().callAsync();
         finish();
     }

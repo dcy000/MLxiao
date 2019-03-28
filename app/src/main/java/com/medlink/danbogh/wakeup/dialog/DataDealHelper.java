@@ -1446,6 +1446,7 @@ public class DataDealHelper {
         NimAccountHelper.getInstance().logout();//退出网易IM
         UserSpHelper.setToken("");
         UserSpHelper.setEqId("");
+        UserSpHelper.setUserId("");
         CC.obtainBuilder("com.gcml.auth").build().callAsync();
     }
 

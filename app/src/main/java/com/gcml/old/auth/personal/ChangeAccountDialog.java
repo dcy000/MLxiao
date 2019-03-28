@@ -82,6 +82,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
                 NimAccountHelper.getInstance().logout();//退出网易IM
                 UserSpHelper.setToken("");
                 UserSpHelper.setEqId("");
+                UserSpHelper.setUserId("");
                 CC.obtainBuilder("com.gcml.auth").build().callAsync();
                 ((Activity) mContext).finish();
                 break;

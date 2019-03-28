@@ -13,6 +13,7 @@ import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorMesActivity;
 import com.gcml.common.AppDelegate;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.old.auth.register.ConfirmContractActivity;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -151,7 +152,8 @@ public class WakeupHelper {
 //                            sContext.startActivity(intent);
                             String userId = UserSpHelper.getUserId();
                             if (TextUtils.isEmpty(userId)) {
-                                MLVoiceSynthetize.startSynthesize(sContext, "如需使用唤醒功能,请先登录");
+//                                MLVoiceSynthetize.startSynthesize(sContext, "如需使用唤醒功能,请先登录");
+                                ToastUtils.showShort("如需使用唤醒功能,请先登录");
                                 return;
                             }
 

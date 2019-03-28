@@ -313,6 +313,7 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 NimAccountHelper.getInstance().logout();//退出网易IM
                 UserSpHelper.setToken("");
                 UserSpHelper.setEqId("");
+                UserSpHelper.setUserId("");
                 CC.obtainBuilder("com.gcml.auth").build().callAsync();
                 FragmentActivity activity = getActivity();
                 if (activity != null) {
