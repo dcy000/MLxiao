@@ -41,6 +41,7 @@ import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity2;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
@@ -69,10 +70,12 @@ import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
+import com.medlink.danbogh.call2.NimAccountHelper;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.TheOldHomeActivity;
 import com.ml.edu.old.music.TheOldMusicActivity;
+import com.umeng.analytics.MobclickAgent;
 import com.witspring.unitbody.ChooseMemberActivity;
 
 import java.io.Serializable;
@@ -257,14 +260,14 @@ public class DataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
+       /* if (inSpell.matches(".*(hujiaojiaren|jiaren.*dianhua*)")) {
             NimCallActivity.launchNoCheck(context, UserSpHelper.getEqId());
 
             if (listener != null) {
                 listener.onEnd();
             }
             return;
-        }
+        }*/
 
         if (inSpell.matches(".*yinyue.*")) {
             OldRouter.routeToOldMusicActivity(context);
@@ -274,7 +277,10 @@ public class DataDealHelper {
             }
             return;
         }
-
+        if (inSpell.matches(".*(tuichu|tuicu|baibai|zaijian|zhaijian)")) {
+            exit();
+            return;
+        }
 
         if (inSpell.matches(".*(erge|ertonggequ).*")) {
             startActivity(ChildEduSheetDetailsActivity.class, "sheetCategory", "儿童歌曲");
@@ -291,25 +297,7 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(zuogejiancha|jianchashenti|zuotijian).*")) {
 
-            CC.obtainBuilder("com.gcml.auth.face2.signin")
-                    .addParam("skip", true)
-                    .addParam("currentUser", false)
-                    .build()
-                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                        @Override
-                        public void onResult(CC cc, CCResult result) {
-                            boolean skip = "skip".equals(result.getErrorMessage());
-                            if (result.isSuccess() || skip) {
-                                if (skip) {
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                    return;
-                                }
-                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                            } else {
-                                ToastUtils.showShort(result.getErrorMessage());
-                            }
-                        }
-                    });
+            jiance();
 
             if (listener != null) {
                 listener.onEnd();
@@ -401,7 +389,7 @@ public class DataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(zhougongjiemeng|jiemeng|jiegemeng).*")) {
+        if (inSpell.matches(".*(zhougongjiemeng|jiemeng|jiegemeng|zuolemeng).*")) {
             CC.obtainBuilder("app.component.recreation.tool").setActionName("oneiromancy").build().call();
             if (listener != null) {
                 listener.onEnd();
@@ -514,15 +502,15 @@ public class DataDealHelper {
             gotoHomePage();
             return;
         }
-        if (inSpell.matches("yishengjianyi|chakanxiaoxi")) {
+       /* if (inSpell.matches("yishengjianyi|chakanxiaoxi")) {
             startActivity(MessageActivity.class);
             return;
-        }
+        }*/
 
-        if (inSpell.matches(REGEX_SET_ALARM)) {
+        /*if (inSpell.matches(REGEX_SET_ALARM)) {
             startActivity(AlarmList2Activity.class);
             return;
-        }
+        }*/
         if (inSpell.matches(REGEX_SEE_DOCTOR)) {
             DiseaseUser diseaseUser = new DiseaseUser(
                     LocalShared.getInstance(context).getUserName(),
@@ -541,27 +529,28 @@ public class DataDealHelper {
             startActivity(VideoListActivity.class, "position", 0);
             return;
         }
-        if (inSpell.matches(".*(jinju|jingju|yueju|xiju).*")) {
+        /*if (inSpell.matches(".*(jinju|jingju|yueju|xiju).*")) {
             startActivity(VideoListActivity.class, "position", 1);
             return;
-        }
+        }*/
         if (inSpell.matches(".*(shenghuozhushou).*")) {
             startActivity(VideoListActivity.class, "position", 2);
             return;
         }
-        if (inSpell.matches(".*(donghuapian|dongman).*")) {
+       /* if (inSpell.matches(".*(donghuapian|dongman).*")) {
             startActivity(VideoListActivity.class, "position", 3);
             return;
-        }
-        if (inSpell.matches(".*(qianyueyisheng).*")) {
+        }*/
+        if (inSpell.matches(".*(qianyueguwen|zhuanshuguwen|sirenguwen).*")) {
             gotoQianyueYiSheng();
             return;
         }
-        if (inSpell.matches(".*(zaixianyi(shen|sheng|seng)).*")) {
+        if (inSpell.matches(".*(zaixiangu(wen|weng)).*")) {
             startActivity(OnlineDoctorListActivity.class);
             return;
         }
-        if (inSpell.matches(".*(yi(shen|sheng|seng)|dadianhua|(zi|zhi)xun).*")) {
+        if (inSpell.matches(".*(zi|zhi)xun.*")
+                || inSpell.matches(".*(gu(wen|weng)|shipin)((zi|zhi)xun).*")) {
             startActivity(DoctorAskGuideActivity.class);
             return;
         }
@@ -630,25 +619,7 @@ public class DataDealHelper {
             return;
         }
         if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
-            CC.obtainBuilder("com.gcml.auth.face2.signin")
-                    .addParam("skip", true)
-                    .addParam("currentUser", false)
-                    .build()
-                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                        @Override
-                        public void onResult(CC cc, CCResult result) {
-                            boolean skip = "skip".equals(result.getErrorMessage());
-                            if (result.isSuccess() || skip) {
-                                if (skip) {
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                    return;
-                                }
-                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                            } else {
-                                ToastUtils.showShort(result.getErrorMessage());
-                            }
-                        }
-                    });
+            jiance();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -657,25 +628,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*xueyang.*")
                 || inSpell.matches(".*liang.*xueyang.*")
                 || inSpell.matches(".*ce.*baohedu.*")) {
-            CC.obtainBuilder("com.gcml.auth.face2.signin")
-                    .addParam("skip", true)
-                    .addParam("currentUser", false)
-                    .build()
-                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                        @Override
-                        public void onResult(CC cc, CCResult result) {
-                            boolean skip = "skip".equals(result.getErrorMessage());
-                            if (result.isSuccess() || skip) {
-                                if (skip) {
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                    return;
-                                }
-                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                            } else {
-                                ToastUtils.showShort(result.getErrorMessage());
-                            }
-                        }
-                    });
+            jiance();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -685,124 +638,34 @@ public class DataDealHelper {
                 || inSpell.matches(".*liang.*xuetang.*")
                 || inSpell.matches(".*xuetangyi.*")
                 ) {
-            CC.obtainBuilder("com.gcml.auth.face2.signin")
-                    .addParam("skip", true)
-                    .addParam("currentUser", false)
-                    .build()
-                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                        @Override
-                        public void onResult(CC cc, CCResult result) {
-                            boolean skip = "skip".equals(result.getErrorMessage());
-                            if (result.isSuccess() || skip) {
-                                if (skip) {
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                    return;
-                                }
-                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                            } else {
-                                ToastUtils.showShort(result.getErrorMessage());
-                            }
-                        }
-                    });
+            jiance();
             if (listener != null) {
                 listener.onEnd();
             }
 
 
         } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
-            CC.obtainBuilder("com.gcml.auth.face2.signin")
-                    .addParam("skip", true)
-                    .addParam("currentUser", false)
-                    .build()
-                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                        @Override
-                        public void onResult(CC cc, CCResult result) {
-                            boolean skip = "skip".equals(result.getErrorMessage());
-                            if (result.isSuccess() || skip) {
-                                if (skip) {
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                    return;
-                                }
-                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                            } else {
-                                ToastUtils.showShort(result.getErrorMessage());
-                            }
-                        }
-                    });
+            jiance();
             if (listener != null) {
                 listener.onEnd();
             }
 
         } else if (inSpell.matches(".*ce.*xindian.*")
                 || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
-            CC.obtainBuilder("com.gcml.auth.face2.signin")
-                    .addParam("skip", true)
-                    .addParam("currentUser", false)
-                    .build()
-                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                        @Override
-                        public void onResult(CC cc, CCResult result) {
-                            boolean skip = "skip".equals(result.getErrorMessage());
-                            if (result.isSuccess() || skip) {
-                                if (skip) {
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                    return;
-                                }
-                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                            } else {
-                                ToastUtils.showShort(result.getErrorMessage());
-                            }
-                        }
-                    });
+            jiance();
             if (listener != null) {
                 listener.onEnd();
             }
 
 
         } else if (inSpell.matches(".*ce.*(niaosuan|xuezhi|danguchun).*")) {
-            CC.obtainBuilder("com.gcml.auth.face2.signin")
-                    .addParam("skip", true)
-                    .addParam("currentUser", false)
-                    .build()
-                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                        @Override
-                        public void onResult(CC cc, CCResult result) {
-                            boolean skip = "skip".equals(result.getErrorMessage());
-                            if (result.isSuccess() || skip) {
-                                if (skip) {
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                    return;
-                                }
-                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                            } else {
-                                ToastUtils.showShort(result.getErrorMessage());
-                            }
-                        }
-                    });
+            jiance();
             if (listener != null) {
                 listener.onEnd();
             }
 
         } else if (inSpell.matches(".*ce.*tizhong.*")) {
-            CC.obtainBuilder("com.gcml.auth.face2.signin")
-                    .addParam("skip", true)
-                    .addParam("currentUser", false)
-                    .build()
-                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                        @Override
-                        public void onResult(CC cc, CCResult result) {
-                            boolean skip = "skip".equals(result.getErrorMessage());
-                            if (result.isSuccess() || skip) {
-                                if (skip) {
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                    return;
-                                }
-                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                            } else {
-                                ToastUtils.showShort(result.getErrorMessage());
-                            }
-                        }
-                    });
+            jiance();
             if (listener != null) {
                 listener.onEnd();
             }
@@ -811,7 +674,7 @@ public class DataDealHelper {
             startActivity(VideoListActivity.class);
 
 
-        } else if (inSpell.matches(".*yisheng.*zixun.*") || inSpell.matches("wenyisheng|yishengzixun|jiatingyisheng|yuyue")) {
+        } else if (inSpell.matches(".*guwen.*zixun.*") || inSpell.matches("wenguwen|guwenzixun|jiatingguwen|yuyue")) {
 
             if ("".equals(context.getSharedPreferences(ConstantData.DOCTOR_MSG, Context.MODE_PRIVATE).getString("name", ""))) {
                 ToastUtils.showShort("请先查看是否与绑定健康顾问绑定成功");
@@ -875,7 +738,15 @@ public class DataDealHelper {
                 || inSpell.matches(".*mai.*xindianyi")
                 || inSpell.matches(".*shizhiyongwan.*")
                 || inSpell.matches(".*shizhi.*meiyou")
-                || inSpell.matches(".*shangcheng")) {
+                || inSpell.matches(".*shangcheng")
+
+                || inSpell.matches(".*maibaojianpin")
+                || inSpell.matches(".*xiaoyituijian")
+                || inSpell.matches(".*tuijian(shangpin|shanpin)")
+                )
+
+
+        {
             startActivity(MarketActivity.class);
 
 
@@ -898,6 +769,29 @@ public class DataDealHelper {
         } else {
             new SpeechTask().execute();
         }
+    }
+
+    private void jiance() {
+        startActivity(ServicePackageActivity.class);
+     /*   CC.obtainBuilder("com.gcml.auth.face2.signin")
+                .addParam("skip", true)
+                .addParam("currentUser", false)
+                .build()
+                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+                        boolean skip = "skip".equals(result.getErrorMessage());
+                        if (result.isSuccess() || skip) {
+                            if (skip) {
+                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
+                                return;
+                            }
+                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                        } else {
+                            ToastUtils.showShort(result.getErrorMessage());
+                        }
+                    }
+                });*/
     }
 
 
@@ -1248,25 +1142,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face2.signin")
-                        .addParam("skip", true)
-                        .addParam("currentUser", false)
-                        .build()
-                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                            @Override
-                            public void onResult(CC cc, CCResult result) {
-                                boolean skip = "skip".equals(result.getErrorMessage());
-                                if (result.isSuccess() || skip) {
-                                    if (skip) {
-                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                        return;
-                                    }
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                } else {
-                                    ToastUtils.showShort(result.getErrorMessage());
-                                }
-                            }
-                        });
+                jiance();
                 return true;
             }
         }
@@ -1279,25 +1155,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face2.signin")
-                        .addParam("skip", true)
-                        .addParam("currentUser", false)
-                        .build()
-                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                            @Override
-                            public void onResult(CC cc, CCResult result) {
-                                boolean skip = "skip".equals(result.getErrorMessage());
-                                if (result.isSuccess() || skip) {
-                                    if (skip) {
-                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                        return;
-                                    }
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                } else {
-                                    ToastUtils.showShort(result.getErrorMessage());
-                                }
-                            }
-                        });
+                jiance();
 
                 return true;
             }
@@ -1311,25 +1169,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face2.signin")
-                        .addParam("skip", true)
-                        .addParam("currentUser", false)
-                        .build()
-                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                            @Override
-                            public void onResult(CC cc, CCResult result) {
-                                boolean skip = "skip".equals(result.getErrorMessage());
-                                if (result.isSuccess() || skip) {
-                                    if (skip) {
-                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                        return;
-                                    }
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                } else {
-                                    ToastUtils.showShort(result.getErrorMessage());
-                                }
-                            }
-                        });
+                jiance();
                 return true;
             }
         }
@@ -1343,25 +1183,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face2.signin")
-                        .addParam("skip", true)
-                        .addParam("currentUser", false)
-                        .build()
-                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                            @Override
-                            public void onResult(CC cc, CCResult result) {
-                                boolean skip = "skip".equals(result.getErrorMessage());
-                                if (result.isSuccess() || skip) {
-                                    if (skip) {
-                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                        return;
-                                    }
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                } else {
-                                    ToastUtils.showShort(result.getErrorMessage());
-                                }
-                            }
-                        });
+                jiance();
                 return true;
             }
         }
@@ -1374,25 +1196,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face2.signin")
-                        .addParam("skip", true)
-                        .addParam("currentUser", false)
-                        .build()
-                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                            @Override
-                            public void onResult(CC cc, CCResult result) {
-                                boolean skip = "skip".equals(result.getErrorMessage());
-                                if (result.isSuccess() || skip) {
-                                    if (skip) {
-                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                        return;
-                                    }
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                } else {
-                                    ToastUtils.showShort(result.getErrorMessage());
-                                }
-                            }
-                        });
+                jiance();
                 return true;
             }
         }
@@ -1405,25 +1209,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face2.signin")
-                        .addParam("skip", true)
-                        .addParam("currentUser", false)
-                        .build()
-                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                            @Override
-                            public void onResult(CC cc, CCResult result) {
-                                boolean skip = "skip".equals(result.getErrorMessage());
-                                if (result.isSuccess() || skip) {
-                                    if (skip) {
-                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                        return;
-                                    }
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                } else {
-                                    ToastUtils.showShort(result.getErrorMessage());
-                                }
-                            }
-                        });
+                jiance();
                 return true;
             }
         }
@@ -1437,25 +1223,7 @@ public class DataDealHelper {
                 continue;
             }
             if (yuyin.contains(pinyin)) {
-                CC.obtainBuilder("com.gcml.auth.face2.signin")
-                        .addParam("skip", true)
-                        .addParam("currentUser", false)
-                        .build()
-                        .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                            @Override
-                            public void onResult(CC cc, CCResult result) {
-                                boolean skip = "skip".equals(result.getErrorMessage());
-                                if (result.isSuccess() || skip) {
-                                    if (skip) {
-                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                        return;
-                                    }
-                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                } else {
-                                    ToastUtils.showShort(result.getErrorMessage());
-                                }
-                            }
-                        });
+                jiance();
                 return true;
             }
         }
@@ -1540,7 +1308,7 @@ public class DataDealHelper {
         }
 
         //健康顾问建议
-        List<KeyWordDefinevBean> doctorJianyi = getDefineData("yishengjianyi");
+        List<KeyWordDefinevBean> doctorJianyi = getDefineData("guwenjianyi");
         for (int i = 0; i < doctorJianyi.size(); i++) {
             pinyin = doctorJianyi.get(i).pinyin;
             if (TextUtils.isEmpty(pinyin)) {
@@ -1624,7 +1392,7 @@ public class DataDealHelper {
 
 
         //健康顾问咨询
-        List<KeyWordDefinevBean> zixunyisheng = getDefineData("yishengzixun");
+        List<KeyWordDefinevBean> zixunyisheng = getDefineData("guwenzixun");
         for (int i = 0; i < zixunyisheng.size(); i++) {
             if (yuyin.contains(zixunyisheng.get(i).pinyin)) {
                 startActivityWithOutCallback(DoctorAskGuideActivity.class);
@@ -1633,7 +1401,7 @@ public class DataDealHelper {
         }
 
         //在线健康顾问
-        List<KeyWordDefinevBean> zaixianyisheng = getDefineData("zaixianyisheng");
+        List<KeyWordDefinevBean> zaixianyisheng = getDefineData("zaixianguwen");
         for (int i = 0; i < zaixianyisheng.size(); i++) {
             if (yuyin.contains(zaixianyisheng.get(i).pinyin)) {
                 startActivityWithOutCallback(OnlineDoctorListActivity.class);
@@ -1642,7 +1410,7 @@ public class DataDealHelper {
         }
 
         //绑定健康顾问
-        List<KeyWordDefinevBean> qianyueyisheng = getDefineData("qianyueyisheng");
+        List<KeyWordDefinevBean> qianyueyisheng = getDefineData("qianyueguwen");
         for (int i = 0; i < qianyueyisheng.size(); i++) {
             if (yuyin.contains(qianyueyisheng.get(i).pinyin)) {
                 gotoQianyueYiSheng();
@@ -1671,6 +1439,14 @@ public class DataDealHelper {
         }
 //        intent.putExtra(key, value);
         context.startActivity(intent);
+    }
+
+    private void exit() {
+        MobclickAgent.onProfileSignOff();
+        NimAccountHelper.getInstance().logout();//退出网易IM
+        UserSpHelper.setToken("");
+        UserSpHelper.setEqId("");
+        CC.obtainBuilder("com.gcml.auth").build().callAsync();
     }
 
 }
