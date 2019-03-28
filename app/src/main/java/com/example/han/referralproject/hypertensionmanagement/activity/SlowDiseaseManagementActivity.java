@@ -155,6 +155,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
                 new AlertDialog(this)
                         .builder()
+                        .setCancelable(false)
                         .setMsg("根据之前评估结果，您的方案已生成。")
                         .setNegativeButton("重新测量", new View.OnClickListener() {
                             @Override
