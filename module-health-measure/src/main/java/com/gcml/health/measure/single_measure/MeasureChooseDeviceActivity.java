@@ -80,7 +80,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             backMainActivity();
             finish();
         } else {
-            if (!TextUtils.isEmpty(servicePackage)&&servicePackage.equals("1") || servicePackage.equals("2")) {
+            if (!TextUtils.isEmpty(servicePackage) && servicePackage.equals("1") || servicePackage.equals("2")) {
                 showQuitDialog(false);
             } else {
                 finish();
@@ -238,6 +238,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         intent.setClass(this, AllMeasureActivity.class);
         intent.putExtra(IPresenter.MEASURE_TYPE, measureType);
         intent.putExtra(IS_FACE_SKIP, getIntent().getBooleanExtra(IS_FACE_SKIP, false));
+        intent.putExtra("ServicePackage",servicePackage);
+        intent.putExtra("ServicePackageUUID", serviceUUID);
         startActivity(intent);
     }
 

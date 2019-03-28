@@ -145,8 +145,16 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                 .subscribe(new io.reactivex.observers.DefaultObserver<ServicePackageBean>() {
                     @Override
                     public void onNext(ServicePackageBean servicePackageBean) {
-                        //有套餐生效，跳转到测试界面
-                        tvUserName.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(UtilsManager.getApplication(), R.drawable.ic_vip), null, null, null);
+                        if (servicePackageBean != null) {
+                            String type = servicePackageBean.getType();
+                            if (type.equals("3")) {
+                                //有套餐生效，跳转到测试界面
+                                tvUserName.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(UtilsManager.getApplication(), R.drawable.ic_vip), null, null, null);
+                                return;
+                            }
+                        }
+                        //没有套餐生效
+                        tvUserName.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                     }
 
                     @Override
