@@ -208,7 +208,7 @@
             android:paddingLeft="60pt"
             android:paddingRight="60pt"
             android:paddingTop="40pt"
-            android:src="@drawable/common_ic_wifi_state"
+            android:src="@drawable/common_ic_wifi_blue_state"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
