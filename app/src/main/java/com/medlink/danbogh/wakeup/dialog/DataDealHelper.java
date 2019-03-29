@@ -287,7 +287,7 @@ public class DataDealHelper {
             return;
         }
         /*******************************************************/
-        if (inSpell.matches(".*((meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
+        if (inSpell.matches(".*((jiankang|meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
             CC.obtainBuilder("app.component.task").addParam("startType", "MLSpeech").build().callAsync();
             if (listener != null) {
                 listener.onEnd();
@@ -295,10 +295,8 @@ public class DataDealHelper {
             return;
         }
 
-        if (inSpell.matches(".*(zuogejiancha|jianchashenti|zuotijian).*")) {
-
+        if (inSpell.matches(".*(jiankangjiance|jian|zuogejiancha|jianchashenti|zuotijian).*")) {
             jiance();
-
             if (listener != null) {
                 listener.onEnd();
             }
@@ -1446,6 +1444,7 @@ public class DataDealHelper {
         NimAccountHelper.getInstance().logout();//退出网易IM
         UserSpHelper.setToken("");
         UserSpHelper.setEqId("");
+        UserSpHelper.setUserId("");
         CC.obtainBuilder("com.gcml.auth").build().callAsync();
     }
 

@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,8 +23,6 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.billy.cc.core.component.CC;
-import com.billy.cc.core.component.CCResult;
-import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
@@ -36,7 +33,6 @@ import com.example.han.referralproject.bean.Receive1;
 import com.example.han.referralproject.bean.RobotContent;
 import com.example.han.referralproject.bean.UserInfo;
 import com.example.han.referralproject.bean.VersionInfoBean;
-import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.children.ChildEduHomeActivity;
 import com.example.han.referralproject.children.entertainment.ChildEduJokesActivity;
 import com.example.han.referralproject.children.entertainment.ChildEduSheetDetailsActivity;
@@ -92,13 +88,11 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
-import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.call2.NimAccountHelper;
-import com.medlink.danbogh.call2.NimCallActivity;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.TheOldHomeActivity;
 import com.ml.edu.old.music.TheOldMusicActivity;
@@ -134,7 +128,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
     // 语音听写对象
     private SpeechRecognizer mIat;
     // 语音听写UI
-    private RecognizerDialog mIatDialog;
+//    private RecognizerDialog mIatDialog;
     // 用HashMap存储听写结果
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
 
@@ -162,13 +156,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     findViewById(R.id.iat_recognizes).performClick();
                     break;
                 case 2:
-                    // 显示听写对话框
-                    if (mIatDialog == null) {
-                        return;
-                    }
-                    mIatDialog.setListener(mRecognizerDialogListener);
-                    mIatDialog.show();
-                    showTip(getString(R.string.text_begin));
                     break;
             }
             super.handleMessage(msg);
@@ -726,12 +713,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*((meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
+            if (inSpell.matches(".*((jiankang|meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
                 CC.obtainBuilder("app.component.task").addParam("startType", "MLSpeech").build().callAsync();
                 return;
             }
 
-            if (inSpell.matches(".*(zuogejiancha|jianchashenti|zuotijian).*")) {
+            if (inSpell.matches(".*(jiankangjiance|jian|zuogejiancha|jianchashenti|zuotijian).*")) {
                 jiance();
                 return;
             }
@@ -759,7 +746,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(celizhong|liangtizhong).*")) {
+            if (inSpell.matches(".*(ceizhong|liangtizhong).*")) {
                 jiance();
                 return;
             }
@@ -1132,8 +1119,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 //                return;
 //            }
             if (inSpell.matches(".*(liangxueya|cexueya|xueyajiance).*")) {
-                mIatDialog.dismiss();
-
 //                Bundle bundle = new Bundle();
 //                bundle.putString("from", "Test");
 //                bundle.putString("fromType", "xueya");
@@ -1144,7 +1129,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*xueyang.*")
                     || inSpell.matches(".*liang.*xueyang.*")
                     || inSpell.matches(".*ce.*baohedu.*")) {
-                mIatDialog.dismiss();
                 jiance();
             } else if (result.matches(".*测.*血糖.*")
                     || inSpell.matches(".*liang.*xuetang.*")
@@ -1152,22 +1136,17 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     ) {
                 jiance();
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
-                mIatDialog.dismiss();
                 jiance();
             } else if (inSpell.matches(".*ce.*xindian.*")
                     || inSpell.matches(".*xindian(celiang|ceshi|jiance).*")) {
-                mIatDialog.dismiss();
                 jiance();
             } else if (inSpell.matches(".*(ce|liang).*(niaosuan|xuezhi|danguchun).*")) {
-                mIatDialog.dismiss();
                 jiance();
             } else if (inSpell.matches(".*ce.*tizhong.*")) {
 
-                mIatDialog.dismiss();
                 jiance();
             } else if (result.matches(".*视频.*") || inSpell.matches(".*jiankang.*jiangtan.*")) {
 
-                mIatDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), VideoListActivity.class);
                 startActivity(intent);
 
@@ -1277,6 +1256,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         NimAccountHelper.getInstance().logout();//退出网易IM
         UserSpHelper.setToken("");
         UserSpHelper.setEqId("");
+        UserSpHelper.setUserId("");
         CC.obtainBuilder("com.gcml.auth").build().callAsync();
         finish();
     }
@@ -2252,7 +2232,6 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
         if (mLottieView != null) {
             mLottieView.cancelAnimation();
         }
-        mIatDialog = null;
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
         }
