@@ -383,7 +383,7 @@
     <string name="touxiang_true">头&#160;&#160;像&#160;&#160;确&#160;&#160;认</string>
 
     <string name="doctor_pinjia">顾&#160;&#160;问&#160;&#160;评&#160;&#160;价</string>
-    <string name="doctor_qianyue">绑&#160;&#160;定&#160;&#160;顾&#160;&#160;问</string>
+    <string name="doctor_qianyue">视&#160;&#160;频&#160;&#160;咨&#160;&#160;询</string>
 
     <string name="online_qianyue">在&#160;&#160;线&#160;&#160;顾&#160;&#160;问</string>
 
@@ -521,7 +521,7 @@
 
     <string name="doctor_choice">请点击选择绑定健康顾问或在线健康顾问</string>
 
-    <string name="qianyue_doctor">请咨询绑定健康顾问</string>
+    <string name="qianyue_doctor">请咨询健康顾问</string>
 
     <string name="cancel_yuyue">您确定要取消预约吗？</string>
 

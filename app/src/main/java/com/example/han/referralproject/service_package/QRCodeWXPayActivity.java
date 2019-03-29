@@ -160,7 +160,7 @@ public class QRCodeWXPayActivity extends BaseActivity implements View.OnClickLis
         loadingDialog.setIndeterminate(true);
         loadingDialog.setCancelable(true);
 
-        AppRepository.bugServicePackage(Integer.parseInt(number) / 100 + "", des)
+        AppRepository.bugServicePackage(String.format("%.2f", Double.parseDouble(number) / 100.0), des)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<Object>() {

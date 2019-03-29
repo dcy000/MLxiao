@@ -34,8 +34,8 @@ public class DoctorAskGuideActivity extends BaseActivity implements View.OnClick
 
         setEnableListeningLoop(false);
         mToolbar.setVisibility(View.VISIBLE);
-        mTitleText.setText("咨  询  健  康  顾  问");
-        speak("请点击选择绑定健康顾问或在线健康顾问");
+        mTitleText.setText("视  频  咨  询");
+        speak("请点击选择我的健康顾问或在线健康顾问");
         initView();
     }
 

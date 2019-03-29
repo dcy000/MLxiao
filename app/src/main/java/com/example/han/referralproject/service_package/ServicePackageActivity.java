@@ -123,7 +123,7 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
                             .putExtra("isSkip", isSkip)
                             .putExtra("ServicePackage", "3")
                             .putExtra("number", "1")
-                            .putExtra("description", "套餐三"));
+                            .putExtra("description", "会员套餐"));
                 }
                 break;
             case R.id.tv_top_right:
@@ -137,8 +137,8 @@ public class ServicePackageActivity extends ToolbarBaseActivity implements View.
     @Override
     protected void onStop() {
         super.onStop();
-        if (!isClickDetail) {
-            finish();
-        }
+//        if (!isClickDetail) {
+//            finish();
+//        }
     }
 }
