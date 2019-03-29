@@ -713,12 +713,12 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*((meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
+            if (inSpell.matches(".*((jiankang|meiri|zuo|zhuo|chakan|cakan|jintiande)renwu).*") || inSpell.matches(".*(jintianzhuoshenme|jintianzuoshenme).*")) {
                 CC.obtainBuilder("app.component.task").addParam("startType", "MLSpeech").build().callAsync();
                 return;
             }
 
-            if (inSpell.matches(".*(zuogejiancha|jianchashenti|zuotijian).*")) {
+            if (inSpell.matches(".*(jiankangjiance|jian|zuogejiancha|jianchashenti|zuotijian).*")) {
                 jiance();
                 return;
             }
