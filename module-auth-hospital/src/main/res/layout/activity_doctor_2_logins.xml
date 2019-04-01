@@ -106,7 +106,6 @@
             >
 
             <ImageView
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
@@ -119,7 +118,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="120pt"
                 android:text="市民卡(开发中)"
-                android:textColor="#ff333333"
+                android:textColor="#999"
                 android:textSize="56pt" />
 
         </RelativeLayout>
