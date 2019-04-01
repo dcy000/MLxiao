@@ -140,7 +140,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="所有功能无限次"
+            android:text="该套餐一天使用一次，单项的检测一天检测一次"
             android:textSize="48pt"
             android:textColor="#666"
             app:layout_constraintTop_toBottomOf="@id/tv_3"

@@ -35,6 +35,7 @@ import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.first_diagnosis.bean.DetectionResult;
 import com.gcml.health.measure.first_diagnosis.fragment.HealthSelectSugarDetectionTimeFragment;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.health.measure.single_measure.bean.DetectTimesInfoBean;
 import com.gcml.health.measure.single_measure.fragment.ChooseECGDeviceFragment;
 import com.gcml.health.measure.single_measure.fragment.SelfECGDetectionFragment;
 import com.gcml.health.measure.single_measure.fragment.SingleMeasureBloodoxygenFragment;
@@ -54,6 +55,7 @@ import com.gcml.module_blutooth_devices.base.BluetoothBaseFragment;
 import com.gcml.module_blutooth_devices.base.DealVoiceAndJump;
 import com.gcml.module_blutooth_devices.base.FragmentChanged;
 import com.gcml.module_blutooth_devices.base.IPresenter;
+import com.gcml.module_blutooth_devices.bloodsugar.BloodSugarFragment;
 import com.gcml.module_blutooth_devices.ecg.ECGFragment;
 import com.gcml.module_blutooth_devices.ecg.ECG_PDF_Fragment;
 import com.gcml.module_blutooth_devices.three.ThreeInOneFragment;
@@ -67,6 +69,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
+
 public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentChanged, ThreeInOneFragment.MeasureItemChanged {
     private BluetoothBaseFragment baseFragment;
     private int measure_type;
@@ -77,6 +80,8 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     private boolean isFaceSkip;
     private boolean isShowBloodsugarSelectTime = false;
     private ArrayList<Integer> threeInOnePosition = new ArrayList<>();
+    public static DedectInfoListener dedectInfoListener;
+    public DetectTimesInfoBean detectTimesInfoBean = new DetectTimesInfoBean();
 
     public static void startActivity(Context context, int measure_type) {
         Intent intent = new Intent(context, AllMeasureActivity.class);
@@ -95,6 +100,43 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
         intent.putExtra(IPresenter.MEASURE_TYPE, measure_type);
         intent.putExtra(IPresenter.IS_MEASURE_TASK, is_measure_task);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void backLastActivity() {
+        new AlertDialog(this)
+                .builder()
+                .setMsg("退出后即表示今天检测次数已用完，是否继续退出？")
+                .setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                })
+                .setPositiveButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (baseFragment instanceof SingleMeasureBloodpressureFragment) {
+                            detectTimesInfoBean.pressureDetectTimes++;
+                        } else if (baseFragment instanceof BloodSugarFragment) {
+                            detectTimesInfoBean.bloodugarDetectTimes++;
+                        } else if (baseFragment instanceof SingleMeasureBloodoxygenFragment) {
+                            detectTimesInfoBean.oxygeneDetectTimes++;
+                        } else if (baseFragment instanceof SingleMeasureTemperatureFragment) {
+                            detectTimesInfoBean.temperatureDetectTimes++;
+                        } else if (baseFragment instanceof SelfECGDetectionFragment || baseFragment instanceof ECGFragment) {
+                            detectTimesInfoBean.ecgDetectTimes++;
+                        } else if (baseFragment instanceof SingleMeasureWeightFragment) {
+                            detectTimesInfoBean.weightSDetectTimes++;
+                        } else if (baseFragment instanceof SingleMeasureThreeInOneFragment) {
+                            detectTimesInfoBean.thhreeInOneSugarDetectTimes++;
+                        }
+                        if (dedectInfoListener != null) {
+                            dedectInfoListener.onDetectInfoChange(detectTimesInfoBean);
+                        }
+                        finish();
+                    }
+                }).show();
     }
 
     @Override
@@ -517,6 +559,5 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     public void onChanged(int position) {
         threeInOnePosition.add(position);
     }
-
 }
 

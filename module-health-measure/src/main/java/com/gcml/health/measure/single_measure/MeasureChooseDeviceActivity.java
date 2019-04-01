@@ -1,10 +1,13 @@
 package com.gcml.health.measure.single_measure;
 
 import android.app.Application;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
 import com.gcml.common.utils.display.ToastUtils;
@@ -21,6 +25,7 @@ import com.gcml.health.measure.R;
 import com.gcml.health.measure.cc.CCAppActions;
 import com.gcml.health.measure.cc.CCVideoActions;
 import com.gcml.health.measure.network.HealthMeasureRepository;
+import com.gcml.health.measure.single_measure.bean.DetectTimesInfoBean;
 import com.gcml.module_blutooth_devices.base.IPresenter;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 
@@ -28,7 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements View.OnClickListener {
+public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements View.OnClickListener, DedectInfoListener {
     private boolean isTest;
     private int measureType;
     private LinearLayout llXueya;
@@ -80,10 +85,41 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             backMainActivity();
             finish();
         } else {
-            if (!TextUtils.isEmpty(servicePackage)&&servicePackage.equals("1") || servicePackage.equals("2")) {
+            if (!TextUtils.isEmpty(servicePackage) && servicePackage.equals("1") || servicePackage.equals("2")) {
                 showQuitDialog(false);
             } else {
-                finish();
+                new AlertDialog(MeasureChooseDeviceActivity.this)
+                        .builder()
+                        .setMsg("退出后即表示今天检测次数已用完，是否继续退出？")
+                        .setNegativeButton("取消", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        })
+                        .setPositiveButton("确认", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                RxUtils.io2Main(repository.putMeal())
+                                        .as(RxUtils.autoDisposeConverter(MeasureChooseDeviceActivity.this))
+                                        .subscribe(new DefaultObserver<Object>() {
+                                            @Override
+                                            public void onNext(Object o) {
+                                                finish();
+                                            }
+
+                                            @Override
+                                            public void onError(Throwable e) {
+
+                                            }
+
+                                            @Override
+                                            public void onComplete() {
+
+                                            }
+                                        });
+                            }
+                        }).show();
             }
         }
     }
@@ -96,7 +132,37 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         if (servicePackage.equals("1") || servicePackage.equals("2")) {
             showQuitDialog(true);
         } else {
-            CCAppActions.jump2MainActivity();
+            new AlertDialog(MeasureChooseDeviceActivity.this)
+                    .builder()
+                    .setMsg("退出后即表示今天检测次数已用完，是否继续退出？")
+                    .setNegativeButton("取消", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    })
+                    .setPositiveButton("确认", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            RxUtils.io2Main(repository.putMeal())
+                                    .as(RxUtils.autoDisposeConverter(MeasureChooseDeviceActivity.this))
+                                    .subscribe(new DefaultObserver<Object>() {
+                                        @Override
+                                        public void onNext(Object o) {
+                                            CCAppActions.jump2MainActivity();
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
+                                        }
+                                    });
+                        }
+                    }).show();
         }
 
     }
@@ -150,38 +216,98 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         mToolbar.setVisibility(View.VISIBLE);
         isTest = getIntent().getBooleanExtra("isTest", false);
         MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请选择你需要测量的项目", false);
+        AllMeasureActivity.dedectInfoListener = this;
+        liveData.setValue(new DetectTimesInfoBean());
+        /*liveData.observe(this, infoBean -> {
+            if (infoBean.bloodugarDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+            }
+            if (infoBean.ecgDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+            }
+            if (infoBean.oxygeneDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+            }
+            if (infoBean.pressureDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+            }
+            if (infoBean.thhreeInOneSugarDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+            }
+            if (infoBean.weightSDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+            }
+            if (infoBean.temperatureDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+            }
+        });*/
     }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
+        DetectTimesInfoBean infoBean = liveData.getValue();
         Uri uri;
         int i = v.getId();
         if (i == R.id.ll_xueya) {
+            if (infoBean.pressureDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                return;
+            }
+
             measureType = IPresenter.MEASURE_BLOOD_PRESSURE;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
             jump2MeasureVideoPlayActivity(uri, "血压测量演示视频");
         } else if (i == R.id.ll_xueyang) {
+            if (infoBean.oxygeneDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                return;
+            }
+
             measureType = IPresenter.MEASURE_BLOOD_OXYGEN;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
             jump2MeasureVideoPlayActivity(uri, "血氧测量演示视频");
         } else if (i == R.id.ll_tiwen) {
+            if (infoBean.temperatureDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                return;
+            }
+
             measureType = IPresenter.MEASURE_TEMPERATURE;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
             jump2MeasureVideoPlayActivity(uri, "耳温测量演示视频");
         } else if (i == R.id.ll_xuetang) {
+            if (infoBean.bloodugarDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                return;
+            }
+
             measureType = IPresenter.MEASURE_BLOOD_SUGAR;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
             jump2MeasureVideoPlayActivity(uri, "血糖测量演示视频");
         } else if (i == R.id.ll_xindian) {
+            if (infoBean.ecgDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                return;
+            }
+
             measureType = IPresenter.MEASURE_ECG;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
             jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
         } else if (i == R.id.ll_san) {
+            if (infoBean.thhreeInOneSugarDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                return;
+            }
+
             measureType = IPresenter.MEASURE_THREE;
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
             jump2MeasureVideoPlayActivity(uri, "三合一测量演示视频");
         } else if (i == R.id.ll_tizhong) {
+            if (infoBean.weightSDetectTimes > 0) {
+                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                return;
+            }
             //体重
             measureType = IPresenter.MEASURE_WEIGHT;
             AllMeasureActivity.startActivity(this, measureType);
@@ -264,5 +390,39 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
     protected void onDestroy() {
         super.onDestroy();
         MLVoiceSynthetize.stop();
+    }
+
+    HealthMeasureRepository repository = new HealthMeasureRepository();
+
+
+    /**
+     * 买套餐3的用提交 检测记录
+     */
+    private void putDetectInfo() {
+        RxUtils.io2Main(repository.putMeal())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    MutableLiveData<DetectTimesInfoBean> liveData = new MutableLiveData<>();
+
+    @Override
+    public void onDetectInfoChange(DetectTimesInfoBean newInfo) {
+        liveData.postValue(newInfo);
     }
 }

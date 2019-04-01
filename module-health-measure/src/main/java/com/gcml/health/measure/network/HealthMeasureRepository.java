@@ -93,12 +93,13 @@ public class HealthMeasureRepository {
      */
     public static Observable<List<DetectionResult>> postMeasureData(ArrayList<DetectionData> datas) {
         String userId = UserSpHelper.getUserId();
-        Timber.i("上传测量数据：userID="+userId);
+        Timber.i("上传测量数据：userID=" + userId);
         return healthMeasureServer.postMeasureData(userId, datas).compose(RxUtils.apiResultTransformer());
     }
 
     /**
      * 上传惯用手
+     *
      * @param hand
      * @return
      */
@@ -108,12 +109,13 @@ public class HealthMeasureRepository {
 
     /**
      * 获取周报告或者月报告
+     *
      * @param endTimeStamp
      * @param page
      * @return
      */
-    public static Observable<NewWeeklyOrMonthlyBean> getWeeklyOrMonthlyReport(long endTimeStamp,String page ){
-        return healthMeasureServer.getWeeklyOrMonthlyReport(UserSpHelper.getUserId(),endTimeStamp,page).compose(RxUtils.apiResultTransformer());
+    public static Observable<NewWeeklyOrMonthlyBean> getWeeklyOrMonthlyReport(long endTimeStamp, String page) {
+        return healthMeasureServer.getWeeklyOrMonthlyReport(UserSpHelper.getUserId(), endTimeStamp, page).compose(RxUtils.apiResultTransformer());
     }
 
     /**
@@ -121,7 +123,12 @@ public class HealthMeasureRepository {
      * @param setmealId
      * @return
      */
-    public static Observable<Object> cancelServicePackage(String setmealId){
+    public static Observable<Object> cancelServicePackage(String setmealId) {
         return healthMeasureServer.cancelServicePackage(setmealId);
+    }
+
+    public static Observable<Object> putMeal() {
+        String userId = UserSpHelper.getUserId();
+        return healthMeasureServer.putMeal(userId).compose(RxUtils.apiResultTransformer());
     }
 }

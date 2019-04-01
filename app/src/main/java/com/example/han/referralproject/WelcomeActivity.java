@@ -82,12 +82,13 @@ public class WelcomeActivity extends AppCompatActivity {
                                 // 如果从开始计时到现在超过了60s
                                 if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                                     ch.stop();
-                                    if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                                        CC.obtainBuilder("com.gcml.auth").build().callAsync();
+                                    //
+                                    CC.obtainBuilder("com.gcml.auth").build().callAsync();
+                                   /* if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                                     } else {
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
-                                    }
+                                    }*/
                                     finish();
                                 }
                             }
@@ -112,12 +113,12 @@ public class WelcomeActivity extends AppCompatActivity {
                         // 如果从开始计时到现在超过了60s
                         if (SystemClock.elapsedRealtime() - ch.getBase() > 2 * 1000) {
                             ch.stop();
-                            if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
-                                CC.obtainBuilder("com.gcml.auth").build().callAsync();
+                            CC.obtainBuilder("com.gcml.auth").build().callAsync();
+                          /*  if (TextUtils.isEmpty(UserSpHelper.getUserId())) {
                             } else {
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
-                            }
+                            }*/
                             finish();
                         }
                     }
@@ -145,7 +146,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private void playVideo() {
         boolean isFirstIn = LocalShared.getInstance(this).getIsFirstIn();
         if (false) {
-            jump2NormalVideoPlayActivity(VEDIO_URL,"迈联智慧");
+            jump2NormalVideoPlayActivity(VEDIO_URL, "迈联智慧");
         } else {
             checkVersion();
         }

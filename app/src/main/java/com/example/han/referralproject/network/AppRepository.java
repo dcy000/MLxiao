@@ -1,5 +1,6 @@
 package com.example.han.referralproject.network;
 
+import com.example.han.referralproject.bean.DetectTimesBean;
 import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.bean.User;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
@@ -46,6 +47,7 @@ public class AppRepository {
 
     /**
      * 使购买的套餐生效
+     *
      * @param type
      * @param orderId
      * @return
@@ -56,15 +58,22 @@ public class AppRepository {
 
     /**
      * 购买套餐预支付
+     *
      * @param price
      * @param des
      * @return
      */
-    public static Observable<Object> bugServicePackage(String price, String des){
-        return healthMeasureServer.bugServicePackage(UserSpHelper.getUserId(),price,des).compose(RxUtils.apiResultTransformer());
+    public static Observable<Object> bugServicePackage(String price, String des) {
+        return healthMeasureServer.bugServicePackage(UserSpHelper.getUserId(), price, des).compose(RxUtils.apiResultTransformer());
     }
 
-    public static Observable<Object> getOrderStarte(String orderId){
+    public static Observable<Object> getOrderStarte(String orderId) {
         return healthMeasureServer.getOrderStarte(orderId).compose(RxUtils.apiResultTransformer());
     }
+
+    public static Observable<DetectTimesBean> getTodayDetectTimes() {
+        String userId = UserSpHelper.getUserId();
+        return healthMeasureServer.getTodayDetectTimes(userId).compose(RxUtils.apiResultTransformer());
+    }
+
 }

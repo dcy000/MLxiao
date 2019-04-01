@@ -1,12 +1,17 @@
 package com.example.han.referralproject.network;
 
+import com.example.han.referralproject.R;
+import com.example.han.referralproject.bean.DetectTimesBean;
 import com.example.han.referralproject.bean.ServicePackageBean;
 import com.example.han.referralproject.homepage.HomepageWeatherBean;
 import com.gcml.common.http.ApiResult;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -73,4 +78,7 @@ public interface AppServer {
     Observable<ApiResult<Object>> getOrderStarte(
             @Query("orderid") String userId
     );
+
+    @GET("ZZB/order/selMeal/{userid}/")
+    Observable<ApiResult<DetectTimesBean>> getTodayDetectTimes(@Path("userid") String userId);
 }

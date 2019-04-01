@@ -1,8 +1,5 @@
 package com.example.han.referralproject.homepage;
 
-import android.annotation.SuppressLint;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -19,7 +16,8 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
-import com.example.han.referralproject.cc.CCHealthMeasureActions;
+import com.example.han.referralproject.bean.DetectTimesBean;
+import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
@@ -31,10 +29,14 @@ import com.gcml.lib_widget.EclipseImageView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.call2.NimCallActivity;
 
-
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -274,6 +276,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.ll_date_and_week:
                 break;
             case R.id.iv_health_measure:
+                if (todayDetecTimes >= 1) {
+                    ToastUtils.showShort("今天测过了,不能再测试了");
+                    return;
+                }
                 rxUser.subscribeOn(Schedulers.io())
                         .as(RxUtils.autoDisposeConverter(this))
                         .subscribe(new DefaultObserver<UserEntity>() {
@@ -285,22 +291,7 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                                             getActivity().getApplicationContext(),
                                             "请先去个人中心完善性别和年龄信息");
                                 } else {
-                                    CC.obtainBuilder("com.gcml.auth.face2.signin")
-                                            .addParam("skip", true)
-                                            .addParam("currentUser", false)
-                                            .build()
-                                            .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                                                @Override
-                                                public void onResult(CC cc, CCResult result) {
-                                                    boolean skip = "skip".equals(result.getErrorMessage());
-                                                    if (result.isSuccess() || skip) {
-                                                        startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip",skip));
-//                                                        CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                                    } else {
-                                                        ToastUtils.showShort(result.getErrorMessage());
-                                                    }
-                                                }
-                                            });
+                                    startActivity(new Intent(getActivity(), ServicePackageActivity.class).putExtra("isSkip", false));
                                 }
                             }
                         });
@@ -340,5 +331,43 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 NimCallActivity.launchNoCheck(getContext(), UserSpHelper.getEqId());
                 break;
         }
+    }
+
+    AppRepository appRepository = new AppRepository();
+    private int todayDetecTimes;
+
+    public void getTodayDetectTimes() {
+        RxUtils.io2Main(appRepository.getTodayDetectTimes())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+
+                    }
+                })
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<DetectTimesBean>() {
+                    @Override
+                    public void onNext(DetectTimesBean data) {
+                        if (data != null)
+                            todayDetecTimes = data.times;
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getTodayDetectTimes();
     }
 }
