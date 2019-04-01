@@ -8,12 +8,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.billy.cc.core.component.CC;
+import com.gcml.common.IConstant;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.http.ApiException;
 import com.gcml.common.recommend.bean.get.Doctor;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_profile.HealthProfileActivity;
 import com.gcml.module_health_profile.R;
 import com.gcml.module_health_profile.bean.HealthRecordBean;
@@ -25,8 +27,12 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.gcml.common.IConstant.KEY_BIND_DOCTOR;
 
 public class HealthFileFragment extends RecycleBaseFragment implements View.OnClickListener {
     /**
@@ -72,6 +78,8 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
     private TextView mTvBuild;
     private String selfRecordId;
     private String historyRecordId;
+    private boolean bindDoctor;
+    private boolean bindWacher;
 
     public static HealthFileFragment instance(String recordId, String selfRecordId) {
         Bundle bundle = new Bundle();
@@ -114,6 +122,7 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
     public void onResume() {
         super.onResume();
         getData();
+        bindData();
     }
 
     private void getData() {
@@ -229,10 +238,42 @@ public class HealthFileFragment extends RecycleBaseFragment implements View.OnCl
                     .putExtra("HealthRecordId", historyRecordId));
 
         } else if (i == R.id.tvBuild) {
-            getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
-                    .putExtra("RdCordId", selfRecordId)
-                    .putExtra("title", "添 加 健 康 档 案"));
+            if (bindDoctor) {
+                getActivity().startActivity(new Intent(getActivity(), AddHealthProfileActivity.class)
+                        .putExtra("RdCordId", selfRecordId)
+                        .putExtra("title", "添 加 健 康 档 案"));
+            } else {
+                CC.obtainBuilder(KEY_BIND_DOCTOR).build().callAsync();
+            }
         }
     }
 
+    private void bindData() {
+        Observable<UserEntity> data = CC.obtainBuilder(IConstant.KEY_GET_USER_INFO)
+                .build()
+                .call()
+                .getDataItem("data");
+        data.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new com.gcml.common.utils.DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity user) {
+                        if (user != null && user.doctorId != null) {
+                            bindDoctor = true;
+                        }
+                        if (!TextUtils.isEmpty(user.watchCode)) {
+                            bindWacher = true;
+                        } else {
+                            bindWacher = false;
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
+                    }
+                });
+    }
 }

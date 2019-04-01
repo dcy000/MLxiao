@@ -23,7 +23,7 @@ public class SeeHealthCheckupWebActivity extends BaseX5WebViewActivity {
 
     @Override
     protected void getIntentParam(Intent intent) {
-        rdRecordId=intent.getStringExtra("RdCordId");
+        rdRecordId = intent.getStringExtra("RdCordId");
         healthRecordId = intent.getStringExtra("HealthRecordId");
         rdRecordIdString = "'" + rdRecordId + "'";
         healthRecordIdString = "'" + healthRecordId + "'";
@@ -32,8 +32,10 @@ public class SeeHealthCheckupWebActivity extends BaseX5WebViewActivity {
     }
 
     @Override
-    protected void loadUrl(WebView webView) {
-        webView.loadUrl(getString(R.string.web_path));
+    protected String loadUrl(WebView webView) {
+        String url = getString(R.string.web_path);
+        webView.loadUrl(url);
+        return url;
     }
 
     @Override

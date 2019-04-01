@@ -21,7 +21,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/ll_2"
         app:layout_constraintHorizontal_chainStyle="packed"
-        android:clickable="true">
+        android:clickable="true"
+        android:visibility="gone">
         <ImageView
             android:id="@+id/iv_qr"
             android:layout_width="346pt"
@@ -38,6 +39,7 @@
             android:textSize="56pt"
             android:layout_marginTop="40pt"/>
     </com.gcml.lib_widget.EclipseLinearLayout>
+    <!--layout_marginLeft="160pt"-->
     <com.gcml.lib_widget.EclipseLinearLayout
         android:id="@+id/ll_2"
         android:layout_width="600pt"
@@ -45,9 +47,9 @@
         android:orientation="vertical"
         app:layout_constraintLeft_toRightOf="@id/ll_1"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ll_1"
+        app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/bg_shadow"
-        android:layout_marginLeft="160pt"
+        android:layout_marginTop="166pt"
         android:gravity="center"
         android:clickable="true">
         <ImageView

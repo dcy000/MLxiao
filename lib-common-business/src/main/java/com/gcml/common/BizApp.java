@@ -14,6 +14,9 @@ import com.google.auto.service.AutoService;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 
+import ren.yale.android.cachewebviewlib.WebViewCacheInterceptor;
+import ren.yale.android.cachewebviewlib.WebViewCacheInterceptorInst;
+
 @AutoService(AppLifecycleCallbacks.class)
 public class BizApp implements AppLifecycleCallbacks {
     @Override
@@ -56,6 +59,10 @@ public class BizApp implements AppLifecycleCallbacks {
         //预加载x5内核
         Intent intent = new Intent(app, X5CorePreLoadService.class);
         app.startService(intent);
+
+        //webview缓存框架
+        WebViewCacheInterceptorInst.getInstance().
+                init(new WebViewCacheInterceptor.Builder(app));
     }
 
     @Override
