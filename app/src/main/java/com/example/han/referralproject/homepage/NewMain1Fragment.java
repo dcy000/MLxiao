@@ -25,6 +25,7 @@ import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.common.widget.dialog.ConfirmDialog;
 import com.gcml.lib_widget.EclipseImageView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.call2.NimCallActivity;
@@ -277,7 +278,16 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 break;
             case R.id.iv_health_measure:
                 if (todayDetecTimes >= 1) {
-                    ToastUtils.showShort("今天测过了,不能再测试了");
+                    new ConfirmDialog(getActivity())
+                            .builder()
+                            .setMsg("今日使用次数已用完，请明日再来")
+                            .setNegativeButton("确定", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                }
+                            })
+                            .show();
                     return;
                 }
                 rxUser.subscribeOn(Schedulers.io())
