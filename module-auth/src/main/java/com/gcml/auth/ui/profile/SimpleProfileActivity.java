@@ -24,6 +24,7 @@ import com.iflytek.synthetize.MLVoiceSynthetize;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -33,6 +34,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfileBinding, SimpleProfileViewModel> {
 
     private String signUpType;
+    private String signUpIdCard;
     private String name;
     private String idCard;
 
@@ -171,10 +173,21 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
 
         UserEntity user = new UserEntity();
         user.name = name;
-        user.idCard = idCard;
         user.sex = sex;
-//        user.height = height;
+        if (getIntent() != null) {
+            signUpIdCard = getIntent().getStringExtra("signUpIdCard");
+            if (TextUtils.equals("idcard", signUpType)) {
+                user.idCard = signUpIdCard;
+                putUserInfo(user);
+            } else {
+                user.idCard = idCard;
+                checkIdCard(user);
+            }
+        }
 
+    }
+
+    private void putUserInfo(UserEntity user) {
         viewModel.updateProfile(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -197,6 +210,29 @@ public class SimpleProfileActivity extends BaseActivity<AuthActivitySimpleProfil
                         ToastUtils.showShort("更新资料成功");
                         error = false;
                         finish();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                        ToastUtils.showShort(throwable.getMessage());
+                    }
+                });
+    }
+
+    private void checkIdCard(final UserEntity user) {
+        Observable<Object> data = CC.obtainBuilder("com.gcml.auth.isIdCardNotExit")
+                .addParam("idCard", user.idCard)
+                .build()
+                .call()
+                .getDataItem("data");
+        data.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(RxUtils.autoDisposeConverter(this))
+                .subscribe(new DefaultObserver<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        putUserInfo(user);
                     }
 
                     @Override
