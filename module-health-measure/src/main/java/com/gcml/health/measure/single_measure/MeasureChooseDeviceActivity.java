@@ -2,12 +2,10 @@ package com.gcml.health.measure.single_measure;
 
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -100,7 +98,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
                         .setPositiveButton("确认", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                RxUtils.io2Main(repository.putMeal())
+                                repository.putMeal()
+                                        .compose(RxUtils.io2Main())
                                         .as(RxUtils.autoDisposeConverter(MeasureChooseDeviceActivity.this))
                                         .subscribe(new DefaultObserver<Object>() {
                                             @Override
@@ -143,7 +142,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
                     .setPositiveButton("确认", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            RxUtils.io2Main(repository.putMeal())
+                            repository.putMeal()
+                                    .compose(RxUtils.io2Main())
                                     .as(RxUtils.autoDisposeConverter(MeasureChooseDeviceActivity.this))
                                     .subscribe(new DefaultObserver<Object>() {
                                         @Override
@@ -218,39 +218,52 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(), "主人，请选择你需要测量的项目", false);
         AllMeasureActivity.dedectInfoListener = this;
         liveData.setValue(new DetectTimesInfoBean());
-        /*liveData.observe(this, infoBean -> {
+        liveData.observe(this, infoBean -> {
             if (infoBean.bloodugarDetectTimes > 0) {
-                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                for (int i = 0; i < llXuetang.getChildCount(); i++) {
+                    llXuetang.getChildAt(i).setSelected(true);
+                }
             }
             if (infoBean.ecgDetectTimes > 0) {
-                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                for (int i = 0; i < llXindian.getChildCount(); i++) {
+                    llXindian.getChildAt(i).setSelected(true);
+                }
             }
             if (infoBean.oxygeneDetectTimes > 0) {
-                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                for (int i = 0; i < llXueyang.getChildCount(); i++) {
+                    llXueyang.getChildAt(i).setSelected(true);
+                }
             }
             if (infoBean.pressureDetectTimes > 0) {
-                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                for (int i = 0; i < llXueya.getChildCount(); i++) {
+                    llXueya.getChildAt(i).setSelected(true);
+                }
             }
             if (infoBean.thhreeInOneSugarDetectTimes > 0) {
-                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                for (int i = 0; i < llSan.getChildCount(); i++) {
+                    llSan.getChildAt(i).setSelected(true);
+                }
             }
             if (infoBean.weightSDetectTimes > 0) {
-                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                for (int i = 0; i < llTizhong.getChildCount(); i++) {
+                    llTizhong.getChildAt(i).setSelected(true);
+                }
             }
             if (infoBean.temperatureDetectTimes > 0) {
-                ToastUtils.showShort("当天次数已用完，请进行其他的测量");
+                for (int i = 0; i < llTiwen.getChildCount(); i++) {
+                    llTiwen.getChildAt(i).setSelected(true);
+                }
             }
-        });*/
+        });
     }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        DetectTimesInfoBean infoBean = liveData.getValue();
         Uri uri;
         int i = v.getId();
         if (i == R.id.ll_xueya) {
-            if (infoBean.pressureDetectTimes > 0) {
+            if (llXueya.getChildAt(0).isSelected()) {
                 ToastUtils.showShort("当天次数已用完，请进行其他的测量");
                 return;
             }
@@ -259,7 +272,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueya);
             jump2MeasureVideoPlayActivity(uri, "血压测量演示视频");
         } else if (i == R.id.ll_xueyang) {
-            if (infoBean.oxygeneDetectTimes > 0) {
+            if (llXueyang.getChildAt(0).isSelected()) {
                 ToastUtils.showShort("当天次数已用完，请进行其他的测量");
                 return;
             }
@@ -268,7 +281,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xueyang);
             jump2MeasureVideoPlayActivity(uri, "血氧测量演示视频");
         } else if (i == R.id.ll_tiwen) {
-            if (infoBean.temperatureDetectTimes > 0) {
+            if (llTiwen.getChildAt(0).isSelected()) {
                 ToastUtils.showShort("当天次数已用完，请进行其他的测量");
                 return;
             }
@@ -277,7 +290,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_wendu);
             jump2MeasureVideoPlayActivity(uri, "耳温测量演示视频");
         } else if (i == R.id.ll_xuetang) {
-            if (infoBean.bloodugarDetectTimes > 0) {
+            if (llXuetang.getChildAt(0).isSelected()) {
                 ToastUtils.showShort("当天次数已用完，请进行其他的测量");
                 return;
             }
@@ -286,7 +299,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xuetang);
             jump2MeasureVideoPlayActivity(uri, "血糖测量演示视频");
         } else if (i == R.id.ll_xindian) {
-            if (infoBean.ecgDetectTimes > 0) {
+            if (llXindian.getChildAt(0).isSelected()) {
                 ToastUtils.showShort("当天次数已用完，请进行其他的测量");
                 return;
             }
@@ -295,7 +308,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_xindian);
             jump2MeasureVideoPlayActivity(uri, "心电测量演示视频");
         } else if (i == R.id.ll_san) {
-            if (infoBean.thhreeInOneSugarDetectTimes > 0) {
+            if (llSan.getChildAt(0).isSelected()) {
                 ToastUtils.showShort("当天次数已用完，请进行其他的测量");
                 return;
             }
@@ -304,7 +317,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.tips_sanheyi);
             jump2MeasureVideoPlayActivity(uri, "三合一测量演示视频");
         } else if (i == R.id.ll_tizhong) {
-            if (infoBean.weightSDetectTimes > 0) {
+            if (llTizhong.getChildAt(0).isSelected()) {
                 ToastUtils.showShort("当天次数已用完，请进行其他的测量");
                 return;
             }
@@ -317,7 +330,6 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
 //            AllMeasureActivity.startActivity(this,measureType);
             ToastUtils.showLong("敬请期待");
 //            startActivity(new Intent(this, TestWuhuaqiActivity.class));
-        } else {
         }
     }
 
@@ -399,7 +411,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
      * 买套餐3的用提交 检测记录
      */
     private void putDetectInfo() {
-        RxUtils.io2Main(repository.putMeal())
+        repository.putMeal()
+                .compose(RxUtils.io2Main())
                 .as(RxUtils.autoDisposeConverter(this))
                 .subscribe(new DefaultObserver<Object>() {
                     @Override

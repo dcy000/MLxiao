@@ -63,6 +63,14 @@ public class RxUtils {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+
+    @NonNull
+    public static <T> ObservableTransformer<T, T> io2Main() {
+        return upstream -> upstream
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     @NonNull
     private static <T> Function<ApiResult<T>, Observable<T>> apiResultMapper() {
         return new Function<ApiResult<T>, Observable<T>>() {

@@ -104,6 +104,33 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
 
     @Override
     protected void backLastActivity() {
+        if (baseFragment instanceof SingleMeasureBloodpressureFragment) {
+            detectTimesInfoBean.pressureDetectTimes++;
+            showTimesOutTip();
+        } else if (baseFragment instanceof BloodSugarFragment) {
+            detectTimesInfoBean.bloodugarDetectTimes++;
+            showTimesOutTip();
+        } else if (baseFragment instanceof SingleMeasureBloodoxygenFragment) {
+            detectTimesInfoBean.oxygeneDetectTimes++;
+            showTimesOutTip();
+        } else if (baseFragment instanceof SingleMeasureTemperatureFragment) {
+            detectTimesInfoBean.temperatureDetectTimes++;
+            showTimesOutTip();
+        } else if (baseFragment instanceof SelfECGDetectionFragment || baseFragment instanceof ECGFragment) {
+            detectTimesInfoBean.ecgDetectTimes++;
+            showTimesOutTip();
+        } else if (baseFragment instanceof SingleMeasureWeightFragment) {
+            detectTimesInfoBean.weightSDetectTimes++;
+            showTimesOutTip();
+        } else if (baseFragment instanceof SingleMeasureThreeInOneFragment) {
+            detectTimesInfoBean.thhreeInOneSugarDetectTimes++;
+            showTimesOutTip();
+        } else {
+            finish();
+        }
+    }
+
+    private void showTimesOutTip() {
         new AlertDialog(this)
                 .builder()
                 .setMsg("退出后即表示今天检测次数已用完，是否继续退出？")
@@ -116,21 +143,6 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (baseFragment instanceof SingleMeasureBloodpressureFragment) {
-                            detectTimesInfoBean.pressureDetectTimes++;
-                        } else if (baseFragment instanceof BloodSugarFragment) {
-                            detectTimesInfoBean.bloodugarDetectTimes++;
-                        } else if (baseFragment instanceof SingleMeasureBloodoxygenFragment) {
-                            detectTimesInfoBean.oxygeneDetectTimes++;
-                        } else if (baseFragment instanceof SingleMeasureTemperatureFragment) {
-                            detectTimesInfoBean.temperatureDetectTimes++;
-                        } else if (baseFragment instanceof SelfECGDetectionFragment || baseFragment instanceof ECGFragment) {
-                            detectTimesInfoBean.ecgDetectTimes++;
-                        } else if (baseFragment instanceof SingleMeasureWeightFragment) {
-                            detectTimesInfoBean.weightSDetectTimes++;
-                        } else if (baseFragment instanceof SingleMeasureThreeInOneFragment) {
-                            detectTimesInfoBean.thhreeInOneSugarDetectTimes++;
-                        }
                         if (dedectInfoListener != null) {
                             dedectInfoListener.onDetectInfoChange(detectTimesInfoBean);
                         }
@@ -186,9 +198,11 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 break;
             case IPresenter.MEASURE_BLOOD_SUGAR:
                 //血糖
+                mRightView.setVisibility(View.VISIBLE);
                 if (baseFragment == null) {
                     mTitleText.setText("血 糖 测 量");
                     mRightView.setImageResource(R.drawable.common_icon_home);
+                    mRightView.setVisibility(View.GONE);
                     isShowBloodsugarSelectTime = true;
                     baseFragment = new HealthSelectSugarDetectionTimeFragment();
                 }
@@ -205,6 +219,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 }
                 break;
             case IPresenter.MEASURE_WEIGHT:
+                mRightView.setVisibility(View.VISIBLE);
                 //体重
                 if (baseFragment == null) {
                     mTitleText.setText("体 重 测 量");
@@ -220,6 +235,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 break;
             case IPresenter.MEASURE_ECG:
                 //心电
+                mRightView.setVisibility(View.VISIBLE);
                 int device = (int) SPUtil.get(BluetoothConstants.SP.SP_SAVE_DEVICE_ECG, 0);
                 mTitleText.setText("心 电 测 量");
                 if (device == 1) {
@@ -230,13 +246,16 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     mTitleText.setText("心 电 设 备 选 择");
                     baseFragment = new ChooseECGDeviceFragment();
                     mRightView.setImageResource(R.drawable.common_icon_home);
+                    mRightView.setVisibility(View.GONE);
                 }
                 break;
             case IPresenter.MEASURE_THREE:
+                mRightView.setVisibility(View.VISIBLE);
                 //三合一
                 if (baseFragment == null) {
                     mTitleText.setText("三 合 一 测 量");
                     mRightView.setImageResource(R.drawable.common_icon_home);
+                    mRightView.setVisibility(View.GONE);
                     isShowBloodsugarSelectTime = true;
                     baseFragment = new HealthSelectSugarDetectionTimeFragment();
                 }
@@ -449,6 +468,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
 
     @Override
     public void onFragmentChanged(Fragment fragment, Bundle bundle) {
+        mRightView.setVisibility(View.VISIBLE);
         if (fragment instanceof HealthSelectSugarDetectionTimeFragment) {
             if (bundle != null) {
                 if (measure_type == IPresenter.MEASURE_BLOOD_SUGAR) {
@@ -489,6 +509,7 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             mTitleText.setText("心 电 设 备 选 择");
             baseFragment = new ChooseECGDeviceFragment();
             mRightView.setImageResource(R.drawable.common_icon_home);
+            mRightView.setVisibility(View.GONE);
         }
         baseFragment.setOnFragmentChangedListener(this);
         baseFragment.setOnDealVoiceAndJumpListener(dealVoiceAndJump);

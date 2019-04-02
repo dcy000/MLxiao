@@ -33,14 +33,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:scaleType="fitXY"
-                android:src="@drawable/health_measure_ic_pressure" />
+                android:background="@drawable/bg_iv_xueya_set"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/health_measure_text_bg_xueya"
+                android:background="@drawable/bg_sanheyi_set"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="血压检测"
@@ -64,6 +64,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
+                android:background="@drawable/bg_iv_xueyang_set"
                 android:scaleType="fitXY"
                 android:src="@drawable/health_measure_ic_oxygen" />
 
@@ -71,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/health_measure_text_bg_xueyang"
+                android:background="@drawable/bg_xueyang_set"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="血氧检测"
@@ -95,6 +96,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
+                android:background="@drawable/bg_iv_tiwen_set"
                 android:scaleType="fitXY"
                 android:src="@drawable/health_measure_ic_temperature" />
 
@@ -102,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/health_measure_text_bg_tiwen"
+                android:background="@drawable/bg_tiwen_set"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="体温检测"
@@ -126,6 +128,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
+                android:background="@drawable/bg_iv_xuetang_set"
                 android:scaleType="fitXY"
                 android:src="@drawable/health_measure_ic_sugar" />
 
@@ -134,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/health_measure_text_bg_xuetang"
+                android:background="@drawable/bg_xuetang_set"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="血糖检测"
@@ -169,14 +172,15 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:scaleType="fitXY"
-                android:src="@drawable/health_measure_ic_electrocardiogram" />
+                android:background="@drawable/bg_iv_xindain_set"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/health_measure_text_bg_xindian"
+
+                android:background="@drawable/bg_xindian_set"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="心电检测"
@@ -200,14 +204,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:scaleType="fitXY"
-                android:src="@drawable/health_measure_ic_weight" />
+                android:background="@drawable/bg_iv_tizhong_set"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/health_measure_text_bg_tizhong"
+                android:background="@drawable/bg_tizhong_set"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="体重检测"
@@ -231,15 +235,16 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:scaleType="fitXY"
-                android:src="@drawable/health_measure_ic_three_in_one" />
+                android:background="@drawable/bg_iv_sanheyi_set"
+                android:scaleType="fitXY" />
 
+            <!--android:background="@drawable/health_measure_text_bg_snahe"-->
             <TextView
                 android:id="@+id/tvsanheyi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/health_measure_text_bg_snahe"
+                android:background="@drawable/bg_sanheyi_set"
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="三合一"

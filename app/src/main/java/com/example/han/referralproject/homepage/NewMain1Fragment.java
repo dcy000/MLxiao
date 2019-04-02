@@ -337,7 +337,8 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
     private int todayDetecTimes;
 
     public void getTodayDetectTimes() {
-        RxUtils.io2Main(appRepository.getTodayDetectTimes())
+        appRepository.getTodayDetectTimes()
+                .compose(RxUtils.io2Main())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
