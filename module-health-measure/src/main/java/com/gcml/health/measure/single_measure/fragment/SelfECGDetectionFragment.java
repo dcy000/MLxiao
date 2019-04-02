@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -103,10 +104,16 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
         startDiscovery();
     }
 
+    private static final String TAG = "SelfECGDetectionFragmen";
+
     public void startDiscovery() {
         Timber.i("可瑞康心电开始搜索");
-        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
-                .putExtra("device", 3));
+        Log.e(TAG, "可瑞康心电开始搜索 ");
+        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
+            ToastUtils.showShort("正在搜索设备...");
+            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
+                    .putExtra("device", 3));
+        }
     }
 
     public void initOther() {
@@ -169,7 +176,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
                         ReceiveService.BLU_ACTION_STOPDISCOVERY));
                 context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_DISCONNECT));
             } else if (action.equals(ReceiveService.ACTION_BLU_DISCONNECT)) {
-                Toast.makeText(context, "设备已断开", Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort("设备已断开");
                 if (dealVoiceAndJump != null) {
                     dealVoiceAndJump.updateVoice("设备已断开");
                 }

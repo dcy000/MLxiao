@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -111,10 +112,16 @@ public class HealthECGDetectionFragment extends BluetoothBaseFragment implements
         startDiscovery();
     }
 
+    private static final String TAG = "HealthECGDetectionFragm";
+
     public void startDiscovery() {
         Timber.i("可瑞康心电开始搜索");
-        context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
-                .putExtra("device", 3));
+        Log.e(TAG, "可瑞康心电开始搜索 ");
+        if (ECGBluetooth.bluStatus == ECGBluetooth.BLU_STATUS_NORMAL) {
+            ToastUtils.showShort("正在搜索设备...");
+            context.sendBroadcast(new Intent(ReceiveService.BLU_ACTION_STARTDISCOVERY)
+                    .putExtra("device", 3));
+        }
     }
 
     public void initOther() {

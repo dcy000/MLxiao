@@ -50,6 +50,7 @@ import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.google.gson.Gson;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -165,13 +166,17 @@ public class BoShengECGPresenter implements LifecycleObserver {
                     BorsamConfig.COMMON_RECEIVE_ECG_CUUID.toString(), new BleNotifyCallback() {
                         @Override
                         public void onNotifySuccess() {
-                            timeCount.start();
+                            if (timeCount!=null){
+                                timeCount.start();
+                            }
                         }
 
                         @Override
                         public void onNotifyFailure(BleException exception) {
-                            ToastUtils.showShort("数据传输出现异常");
-                            timeCount.cancel();
+                            Timber.e("数据传输出现异常");
+                            if (timeCount != null) {
+                                timeCount.cancel();
+                            }
                         }
 
                         @Override
@@ -194,8 +199,9 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 }
             }
             isMeasureEnd = true;
-            timeCount.cancel();
-
+            if (timeCount!=null){
+                timeCount.cancel();
+            }
             new WeakHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -424,8 +430,10 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
                         }
-                        BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
-                        baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), boShengResultBean.getAvgbeats().get(0).getHR() + "");
+                        if (entity!=null) {
+                            BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
+                            baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), boShengResultBean.getAvgbeats().get(0).getHR() + "");
+                        }
                     }
 
                     @Override
@@ -445,6 +453,10 @@ public class BoShengECGPresenter implements LifecycleObserver {
     @SuppressLint("RestrictedApi")
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop() {
+        if (timeCount != null) {
+            timeCount.cancel();
+        }
+        timeCount = null;
         if (lockedDevice != null) {
             BleManager.getInstance().stopNotify(lockedDevice, BorsamConfig.COMMON_RECEIVE_ECG_SUUID.toString(),
                     BorsamConfig.COMMON_RECEIVE_ECG_CUUID.toString());
@@ -472,19 +484,22 @@ public class BoShengECGPresenter implements LifecycleObserver {
     }
 
     class TimeCount extends CountDownTimer {
-        private IBluetoothView fragment;
-        private WeakHandler weakHandler;
+        private WeakReference<IBluetoothView> fragment;
+        private WeakReference<WeakHandler> weakHandler;
 
         TimeCount(long millisInFuture, long countDownInterval, IBluetoothView fragment, WeakHandler weakHandler) {
             super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
-            this.fragment = fragment;
-            this.weakHandler = weakHandler;
+            this.fragment = new WeakReference<>(fragment);
+            this.weakHandler = new WeakReference<>(weakHandler);
         }
 
         @Override
         public void onFinish() {// 计时完毕时触发
             isMeasureEnd = true;
-            fragment.updateData("tip", "测量结束");
+            if (fragment.get() != null) {
+                fragment.get().updateData("tip", "测量结束");
+            }
+
             if (activity != null) {
                 mLoadingDialog = new LoadingDialog.Builder(activity)
                         .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
@@ -493,14 +508,18 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 if (mLoadingDialog != null) {
                     mLoadingDialog.show();
                 }
-                weakHandler.sendEmptyMessage(MESSAGE_DEAL_BYTERESULT);
+                if (weakHandler.get() != null) {
+                    weakHandler.get().sendEmptyMessage(MESSAGE_DEAL_BYTERESULT);
+                }
             }
         }
 
 
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程显示
-            fragment.updateData("tip", "距离测量结束还有" + millisUntilFinished / 1000 + "s");
+            if (fragment.get() != null) {
+                fragment.get().updateData("tip", "距离测量结束还有" + millisUntilFinished / 1000 + "s");
+            }
         }
     }
 }
