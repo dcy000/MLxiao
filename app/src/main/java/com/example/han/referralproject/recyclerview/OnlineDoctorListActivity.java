@@ -38,7 +38,7 @@ public class OnlineDoctorListActivity extends BaseActivity {
         setContentView(R.layout.activity_online_doctor_list);
         mToolbar.setVisibility(View.VISIBLE);
         if ("contract".equals(mFlag)) {
-            mTitleText.setText("绑定健康顾问");
+            mTitleText.setText("视  频  咨  询");
         } else {
             mTitleText.setText("在线健康顾问");
         }

@@ -299,6 +299,7 @@ public class FaceBdRepository {
                             public void accept(UserEntity user) throws Exception {
                                 UserSpHelper.setFaceId(user.xfid);
                                 UserSpHelper.setEqId(user.deviceId);
+                                UserSpHelper.setUserName(user.name);
                             }
                         });
             }
@@ -391,7 +392,7 @@ public class FaceBdRepository {
         return new ObservableTransformer<String, FaceBdUser>() {
             @Override
             public ObservableSource<FaceBdUser> apply(Observable<String> upstream) {
-               return upstream.flatMap(new Function<String, ObservableSource<FaceBdUser>>() {
+                return upstream.flatMap(new Function<String, ObservableSource<FaceBdUser>>() {
                     @Override
                     public ObservableSource<FaceBdUser> apply(String image) throws Exception {
                         return getGroups().flatMap(new Function<String, ObservableSource<FaceBdUser>>() {

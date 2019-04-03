@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
@@ -103,7 +104,7 @@ public class OrderListActivity extends AppCompatActivity {
 
     @SuppressLint("CheckResult")
     private void getOrderList(int page) {
-        mallRepository.orderFromApi("2", "0", "1", "fghnnny", String.valueOf(page), "1000")
+        mallRepository.orderFromApi("2", "0", "1", UserSpHelper.getUserName(), String.valueOf(page), "1000")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .as(RxUtils.autoDisposeConverter(this))
