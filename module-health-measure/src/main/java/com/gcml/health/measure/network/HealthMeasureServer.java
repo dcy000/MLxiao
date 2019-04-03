@@ -62,12 +62,11 @@ public interface HealthMeasureServer {
 
     /**
      * 取消套餐
-     *
      * @param setmealId
-     * @return
      */
     @PUT("ZZB/order/end_set_meal")
-    Observable<Object> cancelServicePackage(
-         @Query("orderId") String setmealId
-    );
+    Observable<Object> cancelServicePackage(@Query("orderId") String setmealId);
+
+    @PUT("ZZB//order/putMeal/{userid}/")
+    Observable<ApiResult<Object>> putMeal(@Path("userid") String userId);
 }

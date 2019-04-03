@@ -113,7 +113,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 return;
             }
 
-            if (diagnoseInfo.primary != null && !(diagnoseInfo.risk == null
+            if (diagnoseInfo.primary != null
+                    && !(diagnoseInfo.risk == null
                     && diagnoseInfo.lowPressure == null
                     && diagnoseInfo.hypertensionLevel == null
                     && (diagnoseInfo.hypertensionPrimaryState == null || diagnoseInfo.hypertensionPrimaryState.equals("0"))

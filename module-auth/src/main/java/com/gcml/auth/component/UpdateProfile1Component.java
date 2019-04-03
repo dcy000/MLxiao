@@ -24,6 +24,12 @@ public class UpdateProfile1Component implements IComponent {
         if (!TextUtils.isEmpty(signUpType)) {
             intent.putExtra("signUpType", signUpType);
         }
+
+        String signUpIdCard = cc.<String>getParamItem("signUpIdCard");
+        if (!TextUtils.isEmpty(signUpIdCard)) {
+            intent.putExtra("signUpIdCard", signUpIdCard);
+        }
+
         intent.setClass(context, SimpleProfileActivity.class);
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

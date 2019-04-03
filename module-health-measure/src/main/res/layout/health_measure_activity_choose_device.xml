@@ -11,13 +11,13 @@
         android:id="@+id/cl_1"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@+id/cl_2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/ll_xueya"
@@ -33,21 +33,20 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:src="@drawable/health_measure_ic_pressure"
-                android:scaleType="fitXY"/>
+                android:background="@drawable/bg_iv_xueya_set"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/bg_sanheyi_set"
+                android:gravity="center"
+                android:padding="8dp"
                 android:text="血压检测"
                 android:textColor="@color/white"
                 android:textSize="28sp"
-                android:textStyle="bold"
-                android:background="@drawable/health_measure_text_bg_xueya"
-                android:gravity="center"
-                android:padding="8dp"
-                />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -65,20 +64,21 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:src="@drawable/health_measure_ic_oxygen"
-                android:scaleType="fitXY"/>
+                android:background="@drawable/bg_iv_xueyang_set"
+                android:scaleType="fitXY"
+                android:src="@drawable/health_measure_ic_oxygen" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="血氧检测"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:textColor="@color/white"
+                android:background="@drawable/bg_xueyang_set"
                 android:gravity="center"
-                android:background="@drawable/health_measure_text_bg_xueyang"/>
+                android:padding="8dp"
+                android:text="血氧检测"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,20 +96,21 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:src="@drawable/health_measure_ic_temperature"
-                android:scaleType="fitXY"/>
+                android:background="@drawable/bg_iv_tiwen_set"
+                android:scaleType="fitXY"
+                android:src="@drawable/health_measure_ic_temperature" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="体温检测"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
+                android:background="@drawable/bg_tiwen_set"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/health_measure_text_bg_tiwen"/>
+                android:text="体温检测"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -127,21 +128,22 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:src="@drawable/health_measure_ic_sugar"
-                android:scaleType="fitXY"/>
+                android:background="@drawable/bg_iv_xuetang_set"
+                android:scaleType="fitXY"
+                android:src="@drawable/health_measure_ic_sugar" />
 
             <TextView
                 android:id="@+id/tvxuetang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="血糖检测"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
+                android:background="@drawable/bg_xuetang_set"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/health_measure_text_bg_xuetang"/>
+                android:text="血糖检测"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
@@ -149,12 +151,12 @@
         android:id="@+id/cl_2"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_1"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        app:layout_constraintTop_toBottomOf="@id/cl_1">
 
         <LinearLayout
             android:id="@+id/ll_xindian"
@@ -170,20 +172,21 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:src="@drawable/health_measure_ic_electrocardiogram"
-                android:scaleType="fitXY"/>
+                android:background="@drawable/bg_iv_xindain_set"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="心电检测"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
+
+                android:background="@drawable/bg_xindian_set"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/health_measure_text_bg_xindian"/>
+                android:text="心电检测"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -201,20 +204,20 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:src="@drawable/health_measure_ic_weight"
-                android:scaleType="fitXY"/>
+                android:background="@drawable/bg_iv_tizhong_set"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="体重检测"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
+                android:background="@drawable/bg_tizhong_set"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/health_measure_text_bg_tizhong"/>
+                android:text="体重检测"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -232,21 +235,22 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:src="@drawable/health_measure_ic_three_in_one"
-                android:scaleType="fitXY"/>
+                android:background="@drawable/bg_iv_sanheyi_set"
+                android:scaleType="fitXY" />
 
+            <!--android:background="@drawable/health_measure_text_bg_snahe"-->
             <TextView
                 android:id="@+id/tvsanheyi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="三合一"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
+                android:background="@drawable/bg_sanheyi_set"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/health_measure_text_bg_snahe"/>
+                android:text="三合一"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -264,20 +268,20 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:src="@drawable/health_measure_ic_more"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/health_measure_ic_more" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="敬请期待"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
+                android:background="@drawable/health_measure_text_bg_gengduo"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/health_measure_text_bg_gengduo"/>
+                android:text="敬请期待"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
