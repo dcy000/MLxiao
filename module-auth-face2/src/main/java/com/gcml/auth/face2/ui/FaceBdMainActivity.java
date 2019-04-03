@@ -152,7 +152,7 @@ public class FaceBdMainActivity extends BaseActivity<FaceActivityBdMain2Binding,
                     public void accept(Throwable throwable) throws Exception {
                         Timber.w(throwable);
                         FaceBdError wrapped = FaceBdErrorUtils.wrap(throwable);
-                        String msg = FaceBdErrorUtils.getMsg(wrapped.getCode());
+                        String msg = FaceBdErrorUtils.getMsg(wrapped.getCode(), "");
                         binding.ivTips.setText(msg);
                         start();
                         takeFrames(msg);
