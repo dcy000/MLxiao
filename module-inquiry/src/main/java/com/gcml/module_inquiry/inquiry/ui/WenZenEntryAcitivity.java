@@ -155,7 +155,7 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
     };
 
     public void setBlueTitle(int rightIconResourse, BloodPressurePresenter presenter) {
-        tb.setData("问 诊",
+        tb.setData("预 诊",
                 R.drawable.common_btn_back, "返回",
                 rightIconResourse, null, new ToolBarClickListener() {
                     @Override
@@ -182,13 +182,15 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        presenter.startDiscovery(null);
+                        if (presenter != null) {
+                            presenter.startDiscovery(null);
+                        }
                     }
                 }).show();
     }
 
     public void setNormalTitle() {
-        tb.setData("问 诊",
+        tb.setData("预 诊",
                 R.drawable.common_btn_back, "返回",
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
@@ -267,11 +269,11 @@ public class WenZenEntryAcitivity extends InquiryBaseActivity {
                     public void onNext(ApiResult<Object> objectApiResult) {
                         super.onNext(objectApiResult);
                         ToastUtils.showShort("提交成功");
-                        CC.obtainBuilder("health.profile.wenzen.output").
-                                addParam("highPrssure", bean.highPressure)
-                                .addParam("lowPressure", bean.lowPressure)
-                                .build()
-                                .call();
+//                        CC.obtainBuilder("health.profile.wenzen.output")
+//                                .addParam("highPrssure", bean.highPressure)
+//                                .addParam("lowPressure", bean.lowPressure)
+//                                .build()
+//                                .call();
                         finish();
                     }
 

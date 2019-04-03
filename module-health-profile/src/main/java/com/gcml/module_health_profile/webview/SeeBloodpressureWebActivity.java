@@ -33,8 +33,10 @@ public class SeeBloodpressureWebActivity extends BaseX5WebViewActivity {
     }
 
     @Override
-    protected void loadUrl(WebView webView) {
-        webView.loadUrl(getString(R.string.web_path));
+    protected String loadUrl(WebView webView) {
+        String url = getString(R.string.web_path);
+        webView.loadUrl(url);
+        return url;
     }
 
     @Override

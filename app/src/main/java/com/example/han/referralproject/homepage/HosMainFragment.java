@@ -83,6 +83,12 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
 
     private Boolean bindWacher = false;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPersonInfo();
+    }
+
     //获取个人信息，得到网易账号登录所需的账号和密码
     private void getPersonInfo() {
         if ("123456".equals(UserSpHelper.getUserId())) {
@@ -186,25 +192,7 @@ public class HosMainFragment extends RecycleBaseFragment implements View.OnClick
                                     getActivity().getApplicationContext(),
                                     "请先去个人中心完善性别和年龄信息");
                         } else {
-                            CC.obtainBuilder("com.gcml.auth.face2.signin")
-                                    .addParam("skip", true)
-                                    .addParam("currentUser", false)
-                                    .build()
-                                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
-                                        @Override
-                                        public void onResult(CC cc, CCResult result) {
-                                            boolean skip = "skip".equals(result.getErrorMessage());
-                                            if (result.isSuccess() || skip) {
-                                                if (skip) {
-                                                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(true);
-                                                    return;
-                                                }
-                                                CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
-                                            } else {
-                                                ToastUtils.showShort(result.getErrorMessage());
-                                            }
-                                        }
-                                    });
+                            CCHealthMeasureActions.jump2MeasureChooseDeviceActivity(false);
                         }
                     }
                 });

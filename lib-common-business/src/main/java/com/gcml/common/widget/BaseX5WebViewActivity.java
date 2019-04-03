@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.gcml.common.base.BaseActivity;
 import com.gcml.common.business.R;
+import com.gcml.common.utils.network.NetUitls;
 import com.gcml.common.widget.dialog.LoadingDialog;
 import com.tencent.smtt.export.external.interfaces.WebResourceError;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
@@ -25,6 +26,7 @@ import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
+import ren.yale.android.cachewebviewlib.WebViewCacheInterceptorInst;
 import timber.log.Timber;
 
 public abstract class BaseX5WebViewActivity extends BaseActivity implements View.OnClickListener {
@@ -101,15 +103,13 @@ public abstract class BaseX5WebViewActivity extends BaseActivity implements View
         webSettings.setAllowFileAccessFromFileURLs(false);
 
         //缓存
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        webSettings.setDomStorageEnabled(false);
-        webSettings.setDatabaseEnabled(false);
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setDatabaseEnabled(true);
         String cacheDirPath = getFilesDir().getAbsolutePath() + "/xwebview";
-        webSettings.setDatabasePath(cacheDirPath);
         webSettings.setAppCachePath(cacheDirPath);
         webSettings.setAppCacheMaxSize(20 * 1024 * 1024);
-        webSettings.setAppCacheEnabled(false);
-
+        webSettings.setAppCacheEnabled(true);
         webSettings.setAllowFileAccess(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setLoadsImagesAutomatically(true);
@@ -118,6 +118,21 @@ public abstract class BaseX5WebViewActivity extends BaseActivity implements View
 
         addJavascriptInterface(mX5Webview);
         mX5Webview.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView webView, String s) {
+                return WebResourceResponseAdapter.adapter(WebViewCacheInterceptorInst.getInstance().
+                        interceptRequest(s));
+            }
+
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest webResourceRequest) {
+
+                return WebResourceResponseAdapter.adapter(WebViewCacheInterceptorInst.getInstance().
+                        interceptRequest(WebResourceRequestAdapter.adapter(webResourceRequest)));
+            }
+
+
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 showLoading("正在加载页面");
@@ -158,7 +173,6 @@ public abstract class BaseX5WebViewActivity extends BaseActivity implements View
             }
         });
 
-
         mX5Webview.setWebChromeClient(new WebChromeClient() {
             //获取加载进度
             @Override
@@ -173,7 +187,8 @@ public abstract class BaseX5WebViewActivity extends BaseActivity implements View
 
 
         });
-        loadUrl(mX5Webview);
+        String url = loadUrl(mX5Webview);
+        WebViewCacheInterceptorInst.getInstance().loadUrl(url, mX5Webview.getSettings().getUserAgentString());
     }
 
 
@@ -198,11 +213,11 @@ public abstract class BaseX5WebViewActivity extends BaseActivity implements View
     protected void onDestroy() {
         super.onDestroy();
         if (mX5Webview != null) {
-            mX5Webview.clearCache(true);
-            mX5Webview.clearHistory();
-            mX5Webview.clearFormData();
-            mX5Webview.clearMatches();
-            mX5Webview.clearSslPreferences();
+//            mX5Webview.clearCache(true);
+//            mX5Webview.clearHistory();
+//            mX5Webview.clearFormData();
+//            mX5Webview.clearMatches();
+//            mX5Webview.clearSslPreferences();
             mX5Webview.destroy();
         }
     }
@@ -237,7 +252,7 @@ public abstract class BaseX5WebViewActivity extends BaseActivity implements View
         });
     }
 
-    protected abstract void loadUrl(WebView webView);
+    protected abstract String loadUrl(WebView webView);
 
     protected abstract void addJavascriptInterface(WebView webView);
 

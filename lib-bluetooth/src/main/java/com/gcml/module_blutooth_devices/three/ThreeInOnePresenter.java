@@ -17,6 +17,7 @@ public class ThreeInOnePresenter extends BaseBluetooth {
 
     public ThreeInOnePresenter(IBluetoothView owner) {
         super(owner);
+        startDiscovery(targetAddress);
     }
 
     @Override

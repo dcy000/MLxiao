@@ -40,6 +40,7 @@ public class WeightPresenter extends BaseBluetooth {
             return;
         }
         if (name.startsWith("iChoice")) {
+            CHAOSI_SERVICE = "ba11f08c-5f14-0b0d-1070-00" + address.toLowerCase().replace(":", "").substring(2);
             handleChaosi(address);
             return;
         }
@@ -69,7 +70,7 @@ public class WeightPresenter extends BaseBluetooth {
             new WeightYikePresenter(getActivity(), baseView, name, address);
             return true;
         }
-        if (name.startsWith("SENSSUN") || name.startsWith("IF_B2A")) {
+        if (name.startsWith("SENSSUN") || name.startsWith("IF")) {
             new WeightXiangshanPresenter(getActivity(), baseView, name, address);
             return true;
         }

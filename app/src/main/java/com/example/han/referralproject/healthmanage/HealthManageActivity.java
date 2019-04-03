@@ -12,6 +12,7 @@ import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
 import com.gcml.common.FilterClickListener;
 import com.gcml.common.base.BaseActivity;
@@ -37,6 +38,8 @@ public class HealthManageActivity extends BaseActivity implements View.OnClickLi
     TranslucentToolBar tbHealthManage;
     @BindView(R.id.ll_health_task)
     LinearLayout llHealthTask;
+    @BindView(R.id.ll_health_blood_manager)
+    LinearLayout llBloodManager;
     @BindView(R.id.ll_risk)
     LinearLayout llRisk;
 
@@ -51,6 +54,7 @@ public class HealthManageActivity extends BaseActivity implements View.OnClickLi
 
     private void initEvent() {
         llHealthTask.setOnClickListener(new FilterClickListener(this));
+        llBloodManager.setOnClickListener(new FilterClickListener(this));
         llRisk.setOnClickListener(new FilterClickListener(this));
     }
 
@@ -129,6 +133,9 @@ public class HealthManageActivity extends BaseActivity implements View.OnClickLi
                             }
                         }
                     });
+        }else if (v==llBloodManager){
+            Intent intent = new Intent(HealthManageActivity.this, SlowDiseaseManagementActivity.class);
+            startActivity(intent);
         }
 
     }

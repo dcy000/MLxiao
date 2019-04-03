@@ -140,7 +140,7 @@ public class OutputResultActivity extends ToolbarBaseActivity implements View.On
                 Timber.i("X5WebView loading resource:::::cost time>>" + ">>>" + s);
             }
         });
-        mX5Webview.loadUrl("http://192.168.0.116:8080/#/");
+        mX5Webview.loadUrl(getString(R.string.web_path));
 
     }
 

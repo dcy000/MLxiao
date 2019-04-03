@@ -63,6 +63,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                         DiagnoseInfoBean bean = new Gson().fromJson(response.body(), DiagnoseInfoBean.class);
                         if (bean != null && bean.tag && bean.data != null) {
                             diagnoseInfo = bean.data;
+                            onclickHypertensionManage();
                         }
                     }
 
@@ -82,13 +83,18 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void initTitle() {
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("健 康 方 案");
         mRightText.setVisibility(View.GONE);
 //        mRightView.setImageResource(R.drawable.white_wifi_3);
 //        mRightView.setOnClickListener(v -> startActivity(new Intent(SlowDiseaseManagementActivity.this, WifiConnectActivity.class)));
-        mlSpeak("主人，欢迎来到健康方案");
+        mlSpeak("欢迎来到健康方案");
     }
 
     @OnClick({R.id.iv_Hypertension_manage, R.id.iv_blood_sugar_manage})
@@ -113,8 +119,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 return;
             }
 
-            if (!(diagnoseInfo.risk == null
-                    && diagnoseInfo.primary == null
+            if (diagnoseInfo.primary != null
+                    && !(diagnoseInfo.risk == null
                     && diagnoseInfo.lowPressure == null
                     && diagnoseInfo.hypertensionLevel == null
                     && (diagnoseInfo.hypertensionPrimaryState == null || diagnoseInfo.hypertensionPrimaryState.equals("0"))
@@ -123,7 +129,7 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
             )) {
 
                 ContinueOrNotDialog();
-            }else{
+            } else {
                 clickWithoutContinueJudge();
             }
         }
@@ -337,14 +343,16 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         //此处会因为在页面不可见后出现 （此时大多数时候是内存泄漏了）
         // java.lang.IllegalStateException
         // Can not perform this action after onSaveInstanceState
-        dialog.show(getSupportFragmentManager(), "less3");
+//        dialog.show(getSupportFragmentManager(), "less3");
+        getSupportFragmentManager().beginTransaction().add(dialog, "less3").commitAllowingStateLoss();
     }
 
     private void showOriginHypertensionDialog() {
         TwoChoiceDialog dialog = new TwoChoiceDialog("您是否诊断过原发性高血压，且正在进行高血压规范治疗？", "是", "否");
         dialog.setListener(this);
-        dialog.show(getFragmentManager(), "yuanfa");
-        mlSpeak("主人，您是否已确诊高血压且在治疗？");
+//        dialog.show(getFragmentManager(), "yuanfa");
+        getFragmentManager().beginTransaction().add(dialog, "yuanfa").commitAllowingStateLoss();
+        mlSpeak("您是否已确诊高血压且在治疗？");
     }
 
     // TODO: 2018/9/19
@@ -361,7 +369,8 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 getDiagnoseInfoNew();
             }
         });
-        dialog.show(getFragmentManager(), "yuanfa");
+//        dialog.show(getFragmentManager(), "yuanfa");
+        getFragmentManager().beginTransaction().add(dialog, "yuanfa").commitAllowingStateLoss();
         mlSpeak("您之前的流程还未完成，是否要继续？");
     }
 
@@ -440,7 +449,6 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
         //-->人脸-->测量血压
         CC.obtainBuilder("com.gcml.auth.face2.signin")
                 .addParam("skip", true)
-                .addParam("currentUser", false)
                 .build()
                 .callAsyncCallbackOnMainThread(new IComponentCallback() {
                     @Override
@@ -469,7 +477,13 @@ public class SlowDiseaseManagementActivity extends BaseActivity implements TwoCh
                 });
     }
 
-//
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
+    //
 //    @Override
 //    public void onClickCancel() {
 //

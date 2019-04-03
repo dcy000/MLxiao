@@ -53,7 +53,7 @@ public class MeasureVideoPlayActivity extends AppCompatActivity implements IJump
         intent.putExtra("title", title);
         context.startActivity(intent);
     }
-    interface SendResultActionNames{
+    public interface SendResultActionNames{
         /**
          * 点击了返回按钮
          */

@@ -78,6 +78,20 @@ public class AddressFragment extends InquiryBaseFrament implements View.OnClickL
         initJsonData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        startLocation();
+    }
+
+    private void startLocation() {
+        if (mListener != null && mLocationClient != null) {
+            mLocationClient.registerLocationListener(mListener);
+        }
+        if (mLocationClient != null && !mLocationClient.isStarted()) {
+            mLocationClient.start();
+        }
+    }
 
     public static AddressFragment newInstance(String param1, String param2) {
         AddressFragment fragment = new AddressFragment();
