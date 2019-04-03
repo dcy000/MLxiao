@@ -292,22 +292,32 @@ public class BoShengECGPresenter implements LifecycleObserver {
                     public void onSuccess(BorsamResponse<RegisterResult> registerResultBorsamResponse) {
                         if (registerResultBorsamResponse == null) {
                         } else {
-                            RegisterResult entity = registerResultBorsamResponse.getEntity();
-                            if (entity == null) {
-                                //该账号已经注册过
-                                login(username, password);
-                            } else {
-                                //注册成功后进行两个操作：1.登录；2：修改个人信息
-                                login(username, password);
-                                int birthday = (int) (TimeUtils.string2Milliseconds(birth, new SimpleDateFormat("yyyyMMdd")) / 1000);
-                                int sexInt = 0;
-                                if (sex.equals("男")) {
-                                    sexInt = 2;
-                                } else if (sex.equals("女")) {
-                                    sexInt = 1;
-                                }
-                                alertPersonInfo(name, "", sexInt, birthday);
+//                            RegisterResult entity = registerResultBorsamResponse.getEntity();
+//                            if (entity == null) {
+//                                //该账号已经注册过
+//                                login(username, password);
+//                            } else {
+//                                //注册成功后进行两个操作：1.登录；2：修改个人信息
+//                                login(username, password);
+//                                int birthday = (int) (TimeUtils.string2Milliseconds(birth, new SimpleDateFormat("yyyyMMdd")) / 1000);
+//                                int sexInt = 0;
+//                                if (sex.equals("男")) {
+//                                    sexInt = 2;
+//                                } else if (sex.equals("女")) {
+//                                    sexInt = 1;
+//                                }
+//                                alertPersonInfo(name, "", sexInt, birthday);
+//                            }
+                            //注册成功后进行两个操作：1.登录；2：修改个人信息
+                            login(username, password);
+                            int birthday = (int) (TimeUtils.string2Milliseconds(birth, new SimpleDateFormat("yyyyMMdd")) / 1000);
+                            int sexInt = 0;
+                            if (sex.equals("男")) {
+                                sexInt = 2;
+                            } else if (sex.equals("女")) {
+                                sexInt = 1;
                             }
+                            alertPersonInfo(name, "", sexInt, birthday);
                         }
 
                     }
