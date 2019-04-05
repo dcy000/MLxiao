@@ -166,7 +166,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                     BorsamConfig.COMMON_RECEIVE_ECG_CUUID.toString(), new BleNotifyCallback() {
                         @Override
                         public void onNotifySuccess() {
-                            if (timeCount!=null){
+                            if (timeCount != null) {
                                 timeCount.start();
                             }
                         }
@@ -199,7 +199,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 }
             }
             isMeasureEnd = true;
-            if (timeCount!=null){
+            if (timeCount != null) {
                 timeCount.cancel();
             }
             new WeakHandler().postDelayed(new Runnable() {
@@ -430,9 +430,15 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
                         }
-                        if (entity!=null) {
+                        if (entity != null) {
                             BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
-                            baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), boShengResultBean.getAvgbeats().get(0).getHR() + "");
+                            if (boShengResultBean != null) {
+                                baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), boShengResultBean.getAvgbeats().get(0).getHR() + "");
+                            } else {
+                                ToastUtils.showShort("分析报告过程中出现错误");
+                            }
+                        } else {
+                            ToastUtils.showShort("分析报告过程中出现错误");
                         }
                     }
 
