@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
@@ -65,8 +66,13 @@ public class FaceBdSignInActivity extends BaseActivity<FaceActivityBdSignInBindi
         skip = getIntent().getBooleanExtra("skip", false);
         verify = getIntent().getBooleanExtra("verify", false);
         faceId = getIntent().getStringExtra("faceId");
+        boolean hidden = getIntent().getBooleanExtra("hidden", false);
         binding.setPresenter(this);
         binding.tvSkip.setVisibility(skip ? View.VISIBLE : View.GONE);
+        if (hidden) {
+            binding.tvSkip.setTextColor(ContextCompat.getColor(this, R.color.white));
+            binding.tvSkip.setBackground(null);
+        }
         mPreviewHelper = new PreviewHelper(this);
         mPreviewHelper.setSurfaceHolder(binding.svPreview.getHolder());
         mPreviewHelper.setPreviewView(binding.svPreview);

@@ -103,7 +103,8 @@
             android:text="跳过"
             android:textColor="@color/config_color_base_3"
             android:textSize="50pt"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            android:visibility="invisible"/>
     </android.support.constraint.ConstraintLayout>
 
 </layout>

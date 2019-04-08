@@ -30,7 +30,9 @@ public class FaceBdSignInComponent implements IComponent {
         // 人脸认证登录
         Boolean verify = cc.getParamItem("verify");
         Boolean skip = cc.getParamItem("skip");
-
+        Object hidden = cc.getParamItem("hidden");
+        Boolean bHidden = false;
+        if (hidden != null) bHidden = (Boolean) hidden;
         String faceId = "";
         if (verify != null && verify) {
             String userId = UserSpHelper.getUserId();
@@ -61,6 +63,7 @@ public class FaceBdSignInComponent implements IComponent {
         intent.putExtra("verify", verify);
         intent.putExtra("faceId", faceId);
         intent.putExtra("skip", skip);
+        intent.putExtra("hidden", bHidden);
         context.startActivity(intent);
         return true;
     }

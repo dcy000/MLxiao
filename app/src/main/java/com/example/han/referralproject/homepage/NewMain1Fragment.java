@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.example.han.referralproject.BuildConfig;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.application.MyApplication;
 import com.example.han.referralproject.bean.Doctor;
@@ -41,6 +42,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
+import tech.linjiang.pandora.Pandora;
 
 /**
  * copyright：杭州国辰迈联机器人科技有限公司
@@ -265,6 +267,9 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.clock:
                 break;
             case R.id.image_weather:
+                if (BuildConfig.DEBUG) {
+                    Pandora.get().open();
+                }
                 break;
             case R.id.temperature:
                 break;

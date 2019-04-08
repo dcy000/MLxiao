@@ -49,6 +49,7 @@ import com.gcml.module_blutooth_devices.utils.BluetoothConstants;
 import com.google.gson.Gson;
 import com.inuker.bluetooth.library.utils.ByteUtils;
 
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +78,9 @@ public class BoShengECGPresenter implements LifecycleObserver {
     private String phone;
     private String birth;
     private String sex;
+    private String userName;
     private static final String TAG = "BoShengECGPresenter";
+    private int lgoinTimes;
     private final Handler.Callback weakRunnable = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -154,6 +157,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
         @Override
         public void onConnectSuccess(BleDevice bleDevice, BluetoothGatt gatt, int status) {
+            isMeasureEnd = false;
             lockedDevice = bleDevice;
             baseView.updateState(UtilsManager.getApplication().getString(R.string.bluetooth_device_connected));
             SPUtil.put(BluetoothConstants.SP.SP_SAVE_ECG, name + "," + address);
@@ -162,12 +166,17 @@ public class BoShengECGPresenter implements LifecycleObserver {
                     BorsamConfig.COMMON_RECEIVE_ECG_CUUID.toString(), new BleNotifyCallback() {
                         @Override
                         public void onNotifySuccess() {
-                            timeCount.start();
+                            if (timeCount != null) {
+                                timeCount.start();
+                            }
                         }
 
                         @Override
                         public void onNotifyFailure(BleException exception) {
-                            Log.e(TAG, "onNotifyFailure: " + exception.getDescription());
+                            ToastUtils.showLong("检测不到您的心跳。请按如下操作：1.清洁仪器；2.按照仪器上的指示图操作；3.手指用力贴紧仪器");
+                            if (timeCount != null) {
+                                timeCount.cancel();
+                            }
                         }
 
                         @Override
@@ -190,7 +199,15 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 }
             }
             isMeasureEnd = true;
-            timeCount.cancel();
+            if (timeCount != null) {
+                timeCount.cancel();
+            }
+            new WeakHandler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    connect();
+                }
+            }, 3000);
         }
     };
 
@@ -234,6 +251,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             phone = userEntity.phone;
                             birth = userEntity.birthday;
                             sex = userEntity.sex;
+                            userName = userEntity.name;
 
                             if (TextUtils.isEmpty(birth) || TextUtils.isEmpty(userEntity.name) || TextUtils.isEmpty(sex)) {
                                 ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
@@ -263,8 +281,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             //这里必须设置
                             PatientApi.config = configBorsamResponse.getEntity();
                             //注册
-                            registAccount(DataUtils.hideMobilePhone4(phone),
-                                    BluetoothConstants.BoSheng.BoSheng_USER_PASSWORD, birth, name, sex);
+                            registAccount(DataUtils.hideMobilePhone4(phone), BluetoothConstants.BoSheng.BoSheng_USER_PASSWORD);
                         } else {
                             ToastUtils.showShort("get config error");
                         }
@@ -281,12 +298,12 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 });
     }
 
-    private void registAccount(final String username, final String password, final String birth, final String name, final String sex) {
-        if (DataUtils.isNullString(username) || DataUtils.isNullString(password)) {
+    private void registAccount(final String phone, final String password) {
+        if (DataUtils.isNullString(phone) || DataUtils.isNullString(password)) {
             return;
         }
 
-        BorsamHttpUtil.getInstance().add("BoShengECGPresenter", PatientApi.register(username, password))
+        BorsamHttpUtil.getInstance().add("BoShengECGPresenter", PatientApi.register(phone, password))
                 .enqueue(new HttpCallback<BorsamResponse<RegisterResult>>() {
                     @Override
                     public void onSuccess(BorsamResponse<RegisterResult> registerResultBorsamResponse) {
@@ -297,27 +314,12 @@ public class BoShengECGPresenter implements LifecycleObserver {
 //                                //该账号已经注册过
 //                                login(username, password);
 //                            } else {
-//                                //注册成功后进行两个操作：1.登录；2：修改个人信息
-//                                login(username, password);
-//                                int birthday = (int) (TimeUtils.string2Milliseconds(birth, new SimpleDateFormat("yyyyMMdd")) / 1000);
-//                                int sexInt = 0;
-//                                if (sex.equals("男")) {
-//                                    sexInt = 2;
-//                                } else if (sex.equals("女")) {
-//                                    sexInt = 1;
-//                                }
-//                                alertPersonInfo(name, "", sexInt, birthday);
+//
 //                            }
+                            //每次登陆后都调用修改个人基本信息的接口
                             //注册成功后进行两个操作：1.登录；2：修改个人信息
-                            login(username, password);
-                            int birthday = (int) (TimeUtils.string2Milliseconds(birth, new SimpleDateFormat("yyyyMMdd")) / 1000);
-                            int sexInt = 0;
-                            if (sex.equals("男")) {
-                                sexInt = 2;
-                            } else if (sex.equals("女")) {
-                                sexInt = 1;
-                            }
-                            alertPersonInfo(name, "", sexInt, birthday);
+                            login(phone, password);
+
                         }
 
                     }
@@ -333,12 +335,12 @@ public class BoShengECGPresenter implements LifecycleObserver {
     }
 
     //博声登录
-    private void login(String username, String password) {
-        if (DataUtils.isNullString(username) || DataUtils.isNullString(password)) {
+    private void login(String phone, String password) {
+        if (DataUtils.isNullString(phone) || DataUtils.isNullString(password)) {
             return;
         }
         BorsamHttpUtil.getInstance()
-                .add("BoShengECGPresenter", PatientApi.login(username, password)).enqueue(
+                .add("BoShengECGPresenter", PatientApi.login(phone, password)).enqueue(
                 new HttpCallback<BorsamResponse<LoginResult>>() {
                     @Override
                     public void onSuccess(BorsamResponse<LoginResult> loginResultBorsamResponse) {
@@ -348,23 +350,48 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             PatientApi.userId = loginResultBorsamResponse.getEntity().getUser().getId();
                             PatientApi.token = loginResultBorsamResponse.getEntity().getToken();
                             isLoginBoShengSuccess = true;
+
+                            alterPersonInfo();
                         }
                     }
 
                     @Override
                     public void onError(Exception e) {
+                        //尝试调用3次登录接口，如果还是不能登录则打印错误信息
+                        if (lgoinTimes < 3) {
+                            lgoinTimes++;
+                            login(phone, password);
+                        } else {
+                            ToastUtils.showShort(e.getMessage());
+                        }
                     }
 
                     @Override
                     public void onFailure(int responseCode, String responseMessage) {
+                        //尝试调用3次登录接口，如果还是不能登录则打印错误信息
+                        if (lgoinTimes < 3) {
+                            lgoinTimes++;
+                            login(phone, password);
+                        } else {
+                            ToastUtils.showShort(responseMessage);
+                        }
                     }
                 });
     }
 
     //修改个人信息 （性别 0:未设置 1:女 2:男 3:其他）
-    private void alertPersonInfo(String firstName, String sencondName, int sex, int birthday) {
+    private void alterPersonInfo() {
+        //我们系统中的年龄大于真实年龄1岁，所以应该减去1
+
+        int birthday = (int) (TimeUtils.string2Milliseconds(String.valueOf(Integer.parseInt(birth) + 10000), new SimpleDateFormat("yyyyMMdd")) / 1000);
+        int sexInt = 0;
+        if (sex.equals("男")) {
+            sexInt = 2;
+        } else if (sex.equals("女")) {
+            sexInt = 1;
+        }
         BorsamHttpUtil.getInstance()
-                .add("BoShengECGPresenter", PatientApi.modifyPatient(firstName, sencondName, sex, birthday))
+                .add("BoShengECGPresenter", PatientApi.modifyPatient(userName, "", sexInt, birthday))
                 .enqueue(new HttpCallback<BorsamResponse>() {
                     @Override
                     public void onSuccess(BorsamResponse borsamResponse) {
@@ -423,8 +450,26 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
                         }
+                        if (entity == null) {
+                            ToastUtils.showShort("分析异常，请重新测量");
+                            return;
+                        }
                         BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
-                        baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), boShengResultBean.getAvgbeats().get(0).getHR() + "");
+                        if (boShengResultBean == null) {
+                            ToastUtils.showShort("分析异常，请重新测量");
+                            return;
+                        }
+                        List<BoShengResultBean.AvgbeatsBean> avgbeats = boShengResultBean.getAvgbeats();
+                        if (avgbeats == null || avgbeats.size() == 0) {
+                            ToastUtils.showShort("分析异常，请重新测量");
+                            return;
+                        }
+                        BoShengResultBean.AvgbeatsBean avgbeatsBean = avgbeats.get(0);
+                        if (avgbeatsBean == null) {
+                            ToastUtils.showShort("分析异常，请重新测量");
+                            return;
+                        }
+                        baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), avgbeatsBean.getHR() + "");
                     }
 
                     @Override
@@ -444,6 +489,10 @@ public class BoShengECGPresenter implements LifecycleObserver {
     @SuppressLint("RestrictedApi")
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop() {
+        if (timeCount != null) {
+            timeCount.cancel();
+        }
+        timeCount = null;
         if (lockedDevice != null) {
             BleManager.getInstance().stopNotify(lockedDevice, BorsamConfig.COMMON_RECEIVE_ECG_SUUID.toString(),
                     BorsamConfig.COMMON_RECEIVE_ECG_CUUID.toString());
@@ -471,19 +520,22 @@ public class BoShengECGPresenter implements LifecycleObserver {
     }
 
     class TimeCount extends CountDownTimer {
-        private IBluetoothView fragment;
-        private WeakHandler weakHandler;
+        private WeakReference<IBluetoothView> fragment;
+        private WeakReference<WeakHandler> weakHandler;
 
         TimeCount(long millisInFuture, long countDownInterval, IBluetoothView fragment, WeakHandler weakHandler) {
             super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
-            this.fragment = fragment;
-            this.weakHandler = weakHandler;
+            this.fragment = new WeakReference<>(fragment);
+            this.weakHandler = new WeakReference<>(weakHandler);
         }
 
         @Override
         public void onFinish() {// 计时完毕时触发
             isMeasureEnd = true;
-            fragment.updateData("tip", "测量结束");
+            if (fragment.get() != null) {
+                fragment.get().updateData("tip", "测量结束");
+            }
+
             if (activity != null) {
                 mLoadingDialog = new LoadingDialog.Builder(activity)
                         .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
@@ -492,14 +544,18 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 if (mLoadingDialog != null) {
                     mLoadingDialog.show();
                 }
-                weakHandler.sendEmptyMessage(MESSAGE_DEAL_BYTERESULT);
+                if (weakHandler.get() != null) {
+                    weakHandler.get().sendEmptyMessage(MESSAGE_DEAL_BYTERESULT);
+                }
             }
         }
 
 
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程显示
-            fragment.updateData("tip", "距离测量结束还有" + millisUntilFinished / 1000 + "s");
+            if (fragment.get() != null) {
+                fragment.get().updateData("tip", "距离测量结束还有" + millisUntilFinished / 1000 + "s");
+            }
         }
     }
 }

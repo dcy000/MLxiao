@@ -114,6 +114,7 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
                                     CC.obtainBuilder("com.gcml.auth.face2.signin")
                                             .addParam("skip", true)
                                             .addParam("currentUser", false)
+                                            .addParam("hidden", true)
                                             .build()
                                             .callAsyncCallbackOnMainThread(new IComponentCallback() {
                                                 @Override
