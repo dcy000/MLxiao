@@ -352,7 +352,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
 
                             //我们系统中的年龄大于真实年龄1岁，所以应该减去1
 
-                            int birthday = (int) (TimeUtils.string2Milliseconds(String.valueOf(Integer.parseInt(birth) +10000), new SimpleDateFormat("yyyyMMdd")) / 1000);
+                            int birthday = (int) (TimeUtils.string2Milliseconds(String.valueOf(Integer.parseInt(birth) + 10000), new SimpleDateFormat("yyyyMMdd")) / 1000);
                             int sexInt = 0;
                             if (sex.equals("男")) {
                                 sexInt = 2;
@@ -435,16 +435,26 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
                         }
-                        if (entity != null) {
-                            BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
-                            if (boShengResultBean != null) {
-                                baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), boShengResultBean.getAvgbeats().get(0).getHR() + "");
-                            } else {
-                                ToastUtils.showShort("分析报告过程中出现错误");
-                            }
-                        } else {
-                            ToastUtils.showShort("分析报告过程中出现错误");
+                        if (entity == null) {
+                            ToastUtils.showShort("分析异常，请重新测量");
+                            return;
                         }
+                        BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
+                        if (boShengResultBean == null) {
+                            ToastUtils.showShort("分析异常，请重新测量");
+                            return;
+                        }
+                        List<BoShengResultBean.AvgbeatsBean> avgbeats = boShengResultBean.getAvgbeats();
+                        if (avgbeats == null || avgbeats.size() == 0) {
+                            ToastUtils.showShort("分析异常，请重新测量");
+                            return;
+                        }
+                        BoShengResultBean.AvgbeatsBean avgbeatsBean = avgbeats.get(0);
+                        if (avgbeatsBean == null) {
+                            ToastUtils.showShort("分析异常，请重新测量");
+                            return;
+                        }
+                        baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), avgbeatsBean.getHR() + "");
                     }
 
                     @Override
