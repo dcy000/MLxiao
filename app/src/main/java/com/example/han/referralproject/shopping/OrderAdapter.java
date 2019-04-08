@@ -55,7 +55,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderVH> {
         holder.mTextView3.setText(mList.get(position).getDelivery_state());
 
         holder.mTextView4.setText(mList.get(position).getArticles());
-
+        //修复buggly#28602
         float price = Float.parseFloat(mList.get(position).getPrice()) / Integer.parseInt(mList.get(position).getNumber());
 
         holder.mTextView5.setText(price + "");
