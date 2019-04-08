@@ -144,6 +144,7 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
     }
 
     private void initView() {
+        mRightView.setVisibility(View.GONE);
         mViewpage = (ViewPager) findViewById(R.id.viewpage);
         mToolbar.setVisibility(View.VISIBLE);
         mTitleText.setText("血 压 结 果 分 析");

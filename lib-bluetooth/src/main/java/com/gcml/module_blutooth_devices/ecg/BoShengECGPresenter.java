@@ -14,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
@@ -166,7 +165,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                     BorsamConfig.COMMON_RECEIVE_ECG_CUUID.toString(), new BleNotifyCallback() {
                         @Override
                         public void onNotifySuccess() {
-                            if (timeCount!=null){
+                            if (timeCount != null) {
                                 timeCount.start();
                             }
                         }
@@ -199,7 +198,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                 }
             }
             isMeasureEnd = true;
-            if (timeCount!=null){
+            if (timeCount != null) {
                 timeCount.cancel();
             }
             new WeakHandler().postDelayed(new Runnable() {
@@ -309,22 +308,17 @@ public class BoShengECGPresenter implements LifecycleObserver {
                     public void onSuccess(BorsamResponse<RegisterResult> registerResultBorsamResponse) {
                         if (registerResultBorsamResponse == null) {
                         } else {
-                            RegisterResult entity = registerResultBorsamResponse.getEntity();
-                            if (entity == null) {
-                                //该账号已经注册过
-                                login(username, password);
-                            } else {
-                                //注册成功后进行两个操作：1.登录；2：修改个人信息
-                                login(username, password);
-                                int birthday = (int) (TimeUtils.string2Milliseconds(birth, new SimpleDateFormat("yyyyMMdd")) / 1000);
-                                int sexInt = 0;
-                                if (sex.equals("男")) {
-                                    sexInt = 2;
-                                } else if (sex.equals("女")) {
-                                    sexInt = 1;
-                                }
-                                alertPersonInfo(name, "", sexInt, birthday);
-                            }
+//                            RegisterResult entity = registerResultBorsamResponse.getEntity();
+//                            if (entity == null) {
+//                                //该账号已经注册过
+//                                login(username, password);
+//                            } else {
+//
+//                            }
+                            //每次登陆后都调用修改个人基本信息的接口
+                            //注册成功后进行两个操作：1.登录；2：修改个人信息
+                            login(username, password);
+
                         }
 
                     }
@@ -355,6 +349,17 @@ public class BoShengECGPresenter implements LifecycleObserver {
                             PatientApi.userId = loginResultBorsamResponse.getEntity().getUser().getId();
                             PatientApi.token = loginResultBorsamResponse.getEntity().getToken();
                             isLoginBoShengSuccess = true;
+
+                            //我们系统中的年龄大于真实年龄1岁，所以应该减去1
+
+                            int birthday = (int) (TimeUtils.string2Milliseconds(String.valueOf(Integer.parseInt(birth) +10000), new SimpleDateFormat("yyyyMMdd")) / 1000);
+                            int sexInt = 0;
+                            if (sex.equals("男")) {
+                                sexInt = 2;
+                            } else if (sex.equals("女")) {
+                                sexInt = 1;
+                            }
+                            alterPersonInfo(name, "", sexInt, birthday);
                         }
                     }
 
@@ -369,7 +374,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
     }
 
     //修改个人信息 （性别 0:未设置 1:女 2:男 3:其他）
-    private void alertPersonInfo(String firstName, String sencondName, int sex, int birthday) {
+    private void alterPersonInfo(String firstName, String sencondName, int sex, int birthday) {
         BorsamHttpUtil.getInstance()
                 .add("BoShengECGPresenter", PatientApi.modifyPatient(firstName, sencondName, sex, birthday))
                 .enqueue(new HttpCallback<BorsamResponse>() {
@@ -430,7 +435,7 @@ public class BoShengECGPresenter implements LifecycleObserver {
                         if (mLoadingDialog != null) {
                             mLoadingDialog.dismiss();
                         }
-                        if (entity!=null) {
+                        if (entity != null) {
                             BoShengResultBean boShengResultBean = new Gson().fromJson(entity.getExt(), BoShengResultBean.class);
                             baseView.updateData(fileNo, entity.getFile_report(), boShengResultBean.getStop_light() + "", boShengResultBean.getFindings(), boShengResultBean.getAvgbeats().get(0).getHR() + "");
                         }

@@ -41,6 +41,7 @@ import com.example.han.referralproject.recyclerview.CheckContractActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.recyclerview.DoctorappoActivity2;
 import com.example.han.referralproject.recyclerview.OnlineDoctorListActivity;
+import com.example.han.referralproject.service_package.ServicePackageActivity;
 import com.example.han.referralproject.settting.SharedPreferencesUtils;
 import com.example.han.referralproject.settting.activity.SettingActivity;
 import com.example.han.referralproject.settting.bean.KeyWordDefinevBean;
@@ -231,6 +232,10 @@ public class DataDealHelper {
             return;
         }
 
+        if (inSpell.matches(".jiankangjiance.*") || inSpell.matches(".*jiance.*")) {
+            startActivity(ServicePackageActivity.class, "isSkip", false);
+            return;
+        }
         if (inSpell.matches(".*gengxin.*")) {
             NetworkApi.getVersionInfo(new NetworkManager.SuccessCallback<VersionInfoBean>() {
                 @Override
@@ -684,7 +689,7 @@ public class DataDealHelper {
         } else if (result.matches(".*测.*血糖.*")
                 || inSpell.matches(".*liang.*xuetang.*")
                 || inSpell.matches(".*xuetangyi.*")
-                ) {
+        ) {
             CC.obtainBuilder("com.gcml.auth.face2.signin")
                     .addParam("skip", true)
                     .addParam("currentUser", false)
@@ -833,7 +838,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*shengyin.*xiangyidian.*")
                 || inSpell.matches(".*shengyin.*zhongyidian.*")
 
-                ) {
+        ) {
             addVoice();
         } else if (inSpell.matches(".*xiaoshengyin.*")
                 || inSpell.matches(".*xiaoyinliang.*")
@@ -847,7 +852,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*shengyin.*jiangdi.*")
                 || inSpell.matches(".*shengyin.*qingyidian.*")
 
-                ) {
+        ) {
 
             deleteVoice();
 

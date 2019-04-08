@@ -33,8 +33,9 @@
         android:layout_marginBottom="100pt"
         android:background="@drawable/selector_empty_data_btn"
         android:clickable="true"
+        android:gravity="center"
         android:text="马上去测量"
         android:textColor="@color/white"
         android:textSize="54pt"
-        android:gravity="center"/>
+        android:visibility="gone" />
 </RelativeLayout>

@@ -56,7 +56,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderVH> {
 
         holder.mTextView4.setText(mList.get(position).getArticles());
 
-        int price = Integer.parseInt(mList.get(position).getPrice()) / Integer.parseInt(mList.get(position).getNumber());
+        float price = Float.parseFloat(mList.get(position).getPrice()) / Integer.parseInt(mList.get(position).getNumber());
 
         holder.mTextView5.setText(price + "");
         holder.mTextView6.setText("×" + mList.get(position).getNumber());
@@ -65,7 +65,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderVH> {
         holder.mTextView8.setText(mList.get(position).getPrice());
 
     }
-
 
 
     @Override

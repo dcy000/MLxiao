@@ -1,7 +1,9 @@
 package com.example.han.referralproject.homepage;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -25,12 +27,17 @@ import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.medlink.danbogh.call2.NimAccountHelper;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 

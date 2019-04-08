@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
+import com.gcml.common.BuildConfig;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.base.ToolbarBaseActivity;
@@ -109,7 +110,10 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
 
                                             @Override
                                             public void onError(Throwable e) {
-
+                                                //TODO:测试代码
+                                                if (BuildConfig.SERVER_ADDRESS.equals("http://47.96.98.60:8030/")) {
+                                                    finish();
+                                                }
                                             }
 
                                             @Override
@@ -153,7 +157,10 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
 
                                         @Override
                                         public void onError(Throwable e) {
-
+                                            //TODO:测试代码
+                                            if (BuildConfig.SERVER_ADDRESS.equals("http://47.96.98.60:8030/")) {
+                                                finish();
+                                            }
                                         }
 
                                         @Override
