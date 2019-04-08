@@ -58,8 +58,11 @@ public class CodeActivity extends BaseActivity {
     private void initView() {
         phoneNumber = getIntent().getStringExtra("phone");
         idCardNumber = getIntent().getStringExtra("idCardNumber");
-        String phoneStar = phoneNumber.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
-        textView17.setText("请输入手机" + phoneStar + "收到的验证码");
+        //修复buggly#24716
+        if (phoneNumber != null) {
+            String phoneStar = phoneNumber.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+            textView17.setText("请输入手机" + phoneStar + "收到的验证码");
+        }
         tvSendCode.setSelected(true);
     }
 

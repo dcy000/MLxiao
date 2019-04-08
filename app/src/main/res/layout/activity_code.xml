@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="59pt"
         android:layout_marginTop="100pt"
-        android:text="请输入手机158****1914收到的验证码"
+        android:text="请输入收到的验证码"
         android:textColor="#ff333333"
         android:textSize="64pt"
         app:layout_constraintStart_toStartOf="parent"
