@@ -1,27 +1,30 @@
 package com.example.han.referralproject.yiyuan.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.util.LocalShared;
-import com.example.han.referralproject.util.Utils;
 import com.example.han.referralproject.yiyuan.util.ActivityHelper;
-import com.jzxiang.pickerview.TimePickerDialog;
-import com.jzxiang.pickerview.data.Type;
-import com.jzxiang.pickerview.listener.OnDateSetListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class YueJingWenActivity extends BaseActivity implements OnDateSetListener {
+public class YueJingWenActivity extends BaseActivity {
 
     @BindView(R.id.textView8)
     TextView textView8;
@@ -34,7 +37,6 @@ public class YueJingWenActivity extends BaseActivity implements OnDateSetListene
     private String year;
     private String month;
     private String day;
-    private TimePickerDialog mDialogAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,59 +89,43 @@ public class YueJingWenActivity extends BaseActivity implements OnDateSetListene
 
 
     public void onYearMonthDayPicker() {
-//        final DatePicker picker = new DatePicker(this);
-//        picker.setCanceledOnTouchOutside(true);
-//        picker.setUseWeight(true);
-//        picker.setTopPadding(ConvertUtils.toPx(this, 10));
-//        picker.setRangeEnd(2888, 8, 8);
-//        picker.setRangeStart(2016, 6, 6);
-//
-//        picker.setSelectedItem(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-//        picker.setResetWhileWheel(false);
-//        picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
-//            @Override
-//            public void onDatePicked(String year, String month, String day) {
-//                tvYuejingDate.setText(year + "-" + month + "-" + day);
-//            }
-//        });
-//        picker.setOnWheelListener(new DatePicker.OnWheelListener() {
-//            @Override
-//            public void onYearWheeled(int index, String year) {
-//                picker.setTitleText(year + "-" + picker.getSelectedMonth() + "-" + picker.getSelectedDay());
-//            }
-//
-//            @Override
-//            public void onMonthWheeled(int index, String month) {
-//                picker.setTitleText(picker.getSelectedYear() + "-" + month + "-" + picker.getSelectedDay());
-//            }
-//
-//            @Override
-//            public void onDayWheeled(int index, String day) {
-//                picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
-//            }
-//        });
-//
-//
-//        picker.setTextColor(Color.parseColor("#ff333333"));
-//        picker.setTextSize(100);
-//        picker.show();
+        Calendar selectedDate = Calendar.getInstance();
+        Calendar startDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
+        startDate.set(2000, 0, 1);
+//        endDate.set(2099, 11, 31);
 
+        OnTimeSelectListener listener = new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                SimpleDateFormat birth = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                String birthString = birth.format(date);
+                tvYuejingDate.setText(birthString);
+            }
+        };
 
-        mDialogAll = new TimePickerDialog.Builder()
-                .setCallBack(this)
-                .setType(Type.YEAR_MONTH_DAY)
-                .setWheelItemTextSize(36)
-                .setTitleStringId("请选择日期")
-                .setThemeColor(getResources().getColor(R.color.timepicker_dialog_bg))
-                .setWheelItemTextNormalColor(getResources().getColor(R.color.timetimepicker_default_text_color))
-                .setWheelItemTextSelectorColor(R.color.toolbar_bg)
+        TimePickerView pvTime = new TimePickerBuilder(this, listener)
+                .setType(new boolean[]{true, true, true, false, false, false})// 默认全部显示
+                .setCancelText("取消")
+                .setSubmitText("确认")
+                .setLineSpacingMultiplier(1.5f)
+                .setSubCalSize(30)
+                .setContentTextSize(40)
+                .setTextColorOut(Color.parseColor("#FF999999"))
+                .setTextColorCenter(Color.parseColor("#FF333333"))
+                .setSubmitText("确认")
+                .setOutSideCancelable(false)
+                .setDividerColor(Color.WHITE)
+                .isCyclic(true)
+                .setSubmitColor(Color.parseColor("#FF108EE9"))
+                .setCancelColor(Color.parseColor("#FF999999"))
+                .setTitleBgColor(Color.parseColor("#F5F5F5"))
+                .setBgColor(Color.WHITE)
+                .setDate(selectedDate)
+                .setRangDate(startDate, endDate)
+                .setLabel("年", "月", "日", "时", "分", "秒")//默认设置为年月日时分秒
+                .isCenterLabel(false)
                 .build();
-        mDialogAll.show(getSupportFragmentManager(), "data");
+        pvTime.show();
     }
-
-    @Override
-    public void onDateSet(TimePickerDialog timePickerDialog, long time) {
-        tvYuejingDate.setText(Utils.stampToYMD(time));
-    }
-
 }

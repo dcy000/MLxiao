@@ -60,9 +60,9 @@ public class WeightXiangshanPresenter implements LifecycleObserver {
                             case "80":
                                 if (strdata[12].equals("A0")) {
                                     String tmpNum = strdata[7] + strdata[8];
-                                    if (measureResult != null) {
+                                   /* if (measureResult != null) {
                                         measureResult.weight(Integer.valueOf(tmpNum, 16) / 10f);
-                                    }
+                                    }*/
                                 } else {
                                     String tmpNum = strdata[7] + strdata[8];
                                     if (measureResult != null) {

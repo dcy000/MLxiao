@@ -25,8 +25,10 @@ public class XindianAdapter extends BaseQuickAdapter<ECGHistory, BaseViewHolder>
     protected void convert(BaseViewHolder helper, ECGHistory item) {
         if (TextUtils.isEmpty(item.ecg)) {
             helper.setText(R.id.item_tv_message, "心电正常");
-        } else
-            helper.setText(R.id.item_tv_message, item.ecg);
+        } else {
+            String[] stringArray = mContext.getResources().getStringArray(R.array.ecg_measureres);
+            helper.setText(R.id.item_tv_message, stringArray[Integer.parseInt(item.ecg)]);
+        }
         helper.setText(R.id.item_tv_time, Utils.stampToDate(Long.parseLong(item.time)));
     }
 }

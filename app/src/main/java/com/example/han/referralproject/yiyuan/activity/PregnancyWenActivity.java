@@ -119,7 +119,7 @@ public class PregnancyWenActivity extends BaseActivity {
     @OnClick(R.id.tv_sign_up_go_forward)
     public void onTvGoForwardClicked() {
         if (!mIvRbMan.isSelected() && !mIvRbWoman.isSelected()) {
-            T.show(R.string.sign_up2_gender_tip);
+//            T.show(R.string.sign_up2_gender_tip);
 //            speak(R.string.sign_up2_gender_tip);
             return;
         }

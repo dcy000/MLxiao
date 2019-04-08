@@ -142,7 +142,6 @@ public class BaseActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-
     private void initToolbar() {
         mllBack = (LinearLayout) mTitleView.findViewById(R.id.ll_back);
         mToolbar = (RelativeLayout) mTitleView.findViewById(R.id.toolbar);
@@ -616,6 +615,8 @@ public class BaseActivity extends AppCompatActivity {
         //释放通知消息的资源
         Handlers.ui().removeCallbacks(updateVolumeAction);
         MobclickAgent.onPause(this);
+
+        MLVoiceSynthetize.stop();
         super.onPause();
     }
 
@@ -660,6 +661,7 @@ public class BaseActivity extends AppCompatActivity {
         if (!framgment.isAdded()) {
             framgment.show(getFragmentManager(), "confirmDialog");
         }
+        hideLoadingDialog();
     }
 
     public void tuiChu(Class<? extends BaseActivity> toClass) {
