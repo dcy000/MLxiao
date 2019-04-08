@@ -2422,7 +2422,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                                 @Override
                                 public void onCompleted(SpeechError speechError) {
-                                    afterWenzen(reultBean.data.receptionDate);
+                                    if (reultBean != null && reultBean.data != null) {
+                                        afterWenzen(reultBean.data.receptionDate);
+                                    }
                                 }
 
                                 @Override
@@ -2431,7 +2433,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 }
                             }, false);
                         } else {
-                            afterWenzen(reultBean.data.receptionDate);
+                            if (reultBean != null && reultBean.data != null) {
+                                afterWenzen(reultBean.data.receptionDate);
+                            }
                         }
 
                     }
