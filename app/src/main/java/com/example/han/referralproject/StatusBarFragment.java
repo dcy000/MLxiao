@@ -26,6 +26,7 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import timber.log.Timber;
 
@@ -113,9 +114,9 @@ public class StatusBarFragment extends Fragment implements
         mDrawableTint = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_battery).mutate());
         mDrawable = ivBatteryIndicator.getDrawable();
         FragmentActivity activity = getActivity();
-        if (activity instanceof MainActivity){
+        if (activity instanceof MainActivity) {
             ((MainActivity) activity).setShowStateBarListener(this);
-        }else if (activity instanceof HospitalMainActivity){
+        } else if (activity instanceof HospitalMainActivity) {
             Timber.e("设置监听");
             ((HospitalMainActivity) activity).setShowStateBarListener(this);
         }
@@ -170,6 +171,7 @@ public class StatusBarFragment extends Fragment implements
         if (dateFormat == null) {
             //上午 12:32 1月26日 周五
             dateFormat = new SimpleDateFormat("a hh:mm yyyy年MM月dd日 E", Locale.CHINA);
+            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         }
         return dateFormat.format(date);
     }
@@ -263,10 +265,10 @@ public class StatusBarFragment extends Fragment implements
 
     @Override
     public void showStateBar(boolean show) {
-        Timber.e("接收监听："+show);
-        if (show){
+        Timber.e("接收监听：" + show);
+        if (show) {
             tvTime.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             tvTime.setVisibility(View.INVISIBLE);
         }
     }

@@ -129,11 +129,11 @@ public class ShowMeasureBloodpressureResultActivity extends ToolbarBaseActivity 
             resultFragment.setArguments(bundle);
         }
 
-        RencommendForSingleDetecteFragment rencommendFragment = RencommendForSingleDetecteFragment.newInstance(
-                (List<DetectionData>) getIntent().getSerializableExtra("detections"), "param2");
+//        RencommendForSingleDetecteFragment rencommendFragment = RencommendForSingleDetecteFragment.newInstance(
+//                (List<DetectionData>) getIntent().getSerializableExtra("detections"), "param2");
 
         fragments.add(resultFragment);
-        fragments.add(rencommendFragment);
+//        fragments.add(rencommendFragment);
     }
 
 
