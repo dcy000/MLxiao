@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.activity.DiseaseDetailsActivity;
@@ -74,7 +76,10 @@ import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
 import com.example.module_control_volume.VolumeControlFloatwindow;
+import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.DefaultObserver;
+import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.module_health_record.HealthRecordActivity;
 import com.gcml.old.auth.personal.PersonDetailActivity;
@@ -117,6 +122,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static com.example.lenovo.rto.Constans.ACCESSTOKEN_KEY;
@@ -718,7 +725,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            if (inSpell.matches(".*(jiankangjiance|jian|zuogejiancha|jianchashenti|zuotijian).*")) {
+            if (inSpell.matches(".*(jiankangjiance|zuogejiancha|jianchashenti|zuotijian).*")) {
                 jiance();
                 return;
             }
@@ -892,7 +899,8 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
 
             if (inSpell.matches(".*(danganxiazai|lishishuju|lishijilu|jiancejieguo|celiangshuju|jiankangshuju|jiankangdangan|jianchajieguo).*")) {
-                startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
+//                startActivity(new Intent(SpeechSynthesisActivity.this, HealthRecordActivity.class));
+                vertifyFaceThenHealthRecordActivity();
                 return;
             }
 
@@ -1133,7 +1141,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
             } else if (result.matches(".*测.*血糖.*")
                     || inSpell.matches(".*liang.*xuetang.*")
                     || inSpell.matches(".*xuetangyi.*")
-                    ) {
+            ) {
                 jiance();
             } else if (result.matches(".*测.*体温.*") || result.matches(".*测.*温度.*") || inSpell.matches(".*liang.*tiwen.*") || inSpell.matches(".*liang.*wendu.*")) {
                 jiance();
@@ -1175,7 +1183,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*shengyin.*xiangyidian.*")
                     || inSpell.matches(".*shengyin.*zhongyidian.*")
 
-                    ) {
+            ) {
                 addVoice();
             } else if (inSpell.matches(".*xiaoshengyin.*")
                     || inSpell.matches(".*xiaoyinliang.*")
@@ -1189,7 +1197,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*shengyin.*jiangdi.*")
                     || inSpell.matches(".*shengyin.*qingyidian.*")
 
-                    ) {
+            ) {
 
                 deleteVoice();
 
@@ -1227,7 +1235,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
                     || inSpell.matches(".*maibaojianpin")
                     || inSpell.matches(".*xiaoyituijian")
                     || inSpell.matches(".*tuijian(shangpin|shanpin)")
-                    ) {
+            ) {
                 Intent intent = new Intent(getApplicationContext(), MarketActivity.class);
                 startActivity(intent);
 
@@ -2281,4 +2289,40 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     }
 
+    private void vertifyFaceThenHealthRecordActivity() {
+        CCResult result;
+        Observable<UserEntity> rxUser;
+        result = CC.obtainBuilder("com.gcml.auth.getUser").build().call();
+        rxUser = result.getDataItem("data");
+        rxUser.subscribeOn(Schedulers.io())
+                .subscribe(new DefaultObserver<UserEntity>() {
+                    @Override
+                    public void onNext(UserEntity userEntity) {
+                        if (TextUtils.isEmpty(userEntity.sex) || TextUtils.isEmpty(userEntity.birthday)) {
+                            ToastUtils.showShort("请先去个人中心完善性别和年龄信息");
+                            MLVoiceSynthetize.startSynthesize(UtilsManager.getApplication(),
+                                    "请先去个人中心完善性别和年龄信息");
+                        } else {
+                            CC.obtainBuilder("com.gcml.auth.face2.signin")
+                                    .addParam("skip", true)
+                                    .addParam("verify", true)
+                                    .addParam("currentUser", false)
+                                    .addParam("hidden", true)
+                                    .build()
+                                    .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                                        @Override
+                                        public void onResult(CC cc, CCResult result) {
+                                            boolean skip = "skip".equals(result.getErrorMessage());
+                                            if (result.isSuccess() || skip) {
+//                                                startActivity(new Intent(getActivity(), HealthRecordActivity.class));
+                                                startActivity(HealthRecordActivity.class);
+                                            } else {
+                                                ToastUtils.showShort(result.getErrorMessage());
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
+    }
 }

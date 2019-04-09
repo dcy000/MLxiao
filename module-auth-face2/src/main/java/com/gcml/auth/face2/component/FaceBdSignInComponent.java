@@ -61,6 +61,7 @@ public class FaceBdSignInComponent implements IComponent {
 
         intent.putExtra("callId", cc.getCallId());
         intent.putExtra("verify", verify);
+        //如果有faceId则是认证登录，没有则是切换账号
         intent.putExtra("faceId", faceId);
         intent.putExtra("skip", skip);
         intent.putExtra("hidden", bHidden);
