@@ -41,6 +41,7 @@ import org.litepal.LitePal;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import cn.beecloud.BeeCloud;
@@ -82,7 +83,7 @@ public class MyApplication extends Application {
     public String eqid;
     public static final int PLAN_ID_KSY = 1;
     public MutableLiveData<String[]> timeData = new MutableLiveData<>();
-    public MutableLiveData<HomepageWeatherBean> weatherData=new MutableLiveData<>();
+    public MutableLiveData<HomepageWeatherBean> weatherData = new MutableLiveData<>();
     public BdLocationHelper bdLocation = new BdLocationHelper();
 
     @Override
@@ -144,7 +145,7 @@ public class MyApplication extends Application {
                     @Override
                     public String[] apply(Long aLong) throws Exception {
                         String[] results = new String[4];
-                        Calendar instance = Calendar.getInstance();
+                        Calendar instance = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
                         results[0] = TimeUtils.date2String(instance.getTime(), new SimpleDateFormat("HH:mm"));
                         int month = instance.get(Calendar.MONTH) + 1;
                         int day = instance.get(Calendar.DATE);

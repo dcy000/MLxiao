@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.billy.cc.core.component.CC;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.recommend.fragment.RencommendForUserFragment;
 import com.gcml.common.utils.RxUtils;
@@ -220,7 +221,10 @@ public class HealthReportFormActivity extends ToolbarBaseActivity {
                 .setPositiveButton("开始体验", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        CCAppActions.jump2MainActivity();
+//                        CCAppActions.jump2MainActivity();
+                        CC.obtainBuilder("com.app.symptom.check")
+                                .build()
+                                .call();
                     }
                 }).show();
     }

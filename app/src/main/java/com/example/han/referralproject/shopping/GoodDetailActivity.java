@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import com.example.han.referralproject.bean.NDialog2;
 import com.example.han.referralproject.homepage.MainActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
+import com.example.han.referralproject.recharge.PayActivity;
 import com.example.han.referralproject.util.Utils;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.display.ToastUtils;
@@ -156,7 +158,15 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 }, new NetworkManager.FailedCallback() {
                     @Override
                     public void onFailed(String message) {
-                        ShowNormal(message);
+                        if (!TextUtils.isEmpty(message) && message.contains("，")) {
+                            String[] split = message.split("，");
+                            if (split.length > 1) {
+                                ShowNormal(split[0]);
+                            }
+                        } else {
+                            ShowNormal(message);
+                        }
+
                     }
                 });
 
@@ -266,7 +276,7 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     public void ShowNormal(String message) {
-        if (dialog2 == null){
+        if (dialog2 == null) {
             return;
         }
         dialog2.setMessageCenter(true)
@@ -279,9 +289,9 @@ public class GoodDetailActivity extends BaseActivity implements View.OnClickList
                 .setOnConfirmListener(new NDialog2.OnConfirmListener() {
                     @Override
                     public void onClick(int which) {
-                        if (which == 1) {
+                        if (message.contains("余额不足")) {
+                            startActivity(new Intent(GoodDetailActivity.this, PayActivity.class));
                         }
-
                     }
                 }).create(NDialog.CONFIRM).show();
 
