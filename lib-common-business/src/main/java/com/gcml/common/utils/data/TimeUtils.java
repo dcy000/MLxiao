@@ -145,6 +145,7 @@ public class TimeUtils {
      * @return 时间字符串
      */
     public static String date2String(Date time, SimpleDateFormat format) {
+        format.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         return format.format(time);
     }
 

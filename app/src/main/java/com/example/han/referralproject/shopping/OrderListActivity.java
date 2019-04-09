@@ -18,6 +18,7 @@ import com.example.han.referralproject.network.NetworkManager;
 import com.example.han.referralproject.recyclerview.DensityUtils;
 import com.example.han.referralproject.recyclerview.SpaceItemDecoration;
 import com.example.han.referralproject.recyclerview.SpacesItemDecoration;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.display.ToastUtils;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class OrderListActivity extends BaseActivity implements View.OnClickListe
         mRecyclerView = findViewById(R.id.order_list);
         mSharedPreferences = getSharedPreferences(ConstantData.PERSON_MSG, Context.MODE_PRIVATE);
 
-        NetworkApi.order_list("2", "0", "1", mSharedPreferences.getString("userName", ""), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
+        NetworkApi.order_list("2", "0", "1", UserSpHelper.getUserName(), "1", "1000", new NetworkManager.SuccessCallback<ArrayList<Orders>>() {
             @Override
             public void onSuccess(ArrayList<Orders> response) {
 
