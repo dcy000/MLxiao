@@ -52,7 +52,8 @@ public class Utils {
     */
     public static String stampToDate(long s) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Long time = new Long(s);
+        format.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        Date time = new Date(s);
         String d = format.format(time);
         return d;
     }
@@ -97,9 +98,10 @@ public class Utils {
      * @return
      */
     public static String stampTodate(long l) {
-        TimeZone tz = TimeZone.getTimeZone("ETC/GMT-8");
-        TimeZone.setDefault(tz);
+        /*TimeZone tz = TimeZone.getTimeZone("ETC/GMT-8");
+        TimeZone.setDefault(tz);*/
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        format.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         Date time = new Date(l);
         String d = format.format(time);
         return d;
