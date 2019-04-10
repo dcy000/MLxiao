@@ -1,4 +1,4 @@
-package com.gcml.call.smallwindow;
+package com.gcml.call.floatwindow;
 
 import android.content.Context;
 import android.graphics.PixelFormat;

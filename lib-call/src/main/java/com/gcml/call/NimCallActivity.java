@@ -16,7 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gcml.call.utils.T;
+import com.gcml.common.utils.display.ToastUtils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.StatusCode;
@@ -702,7 +702,7 @@ public class NimCallActivity extends AppCompatActivity {
                 }
                 if (client != null) {
                     String option = ackInfo.getEvent() == AVChatEventType.CALLEE_ONLINE_CLIENT_ACK_AGREE ? "接听！" : "拒绝！";
-                    T.show("通话已在" + client + "端被" + option);
+                    ToastUtils.showShort("通话已在" + client + "端被" + option);
                 }
                 NimCallHelper.getInstance().closeSessions(-1);
             }
@@ -768,7 +768,7 @@ public class NimCallActivity extends AppCompatActivity {
 //                                new NetworkManager.SuccessCallback<String>() {
 //                                    @Override
 //                                    public void onSuccess(String response) {
-//                                        T.show(minutes + "分钟");
+//                                        ToastUtils.showShort(minutes + "分钟");
 //                                        if (TextUtils.isEmpty(response)) {
 //                                            return;
 //                                        }
@@ -784,14 +784,14 @@ public class NimCallActivity extends AppCompatActivity {
 //                                }, new NetworkManager.FailedCallback() {
 //                                    @Override
 //                                    public void onFailed(String message) {
-////                                        T.show(minutes + "分钟, 失败");
+////                                        ToastUtils.showShort(minutes + "分钟, 失败");
 //                                    }
 //                                });
 //                    }
 //                }, new NetworkManager.FailedCallback() {
 //                    @Override
 //                    public void onFailed(String message) {
-////                        T.show("请绑定健康顾问");
+////                        ToastUtils.showShort("请签约医生");
 //                    }
 //                });
 //            }

@@ -76,6 +76,7 @@ import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.lenovo.rto.unit.Unit;
 import com.example.lenovo.rto.unit.UnitModel;
 import com.example.module_control_volume.VolumeControlFloatwindow;
+import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
@@ -97,7 +98,6 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.iflytek.synthetize.MLVoiceSynthetize;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
-import com.medlink.danbogh.call2.NimAccountHelper;
 import com.ml.edu.OldRouter;
 import com.ml.edu.old.TheOldHomeActivity;
 import com.ml.edu.old.music.TheOldMusicActivity;
@@ -1261,7 +1261,7 @@ public class SpeechSynthesisActivity extends BaseActivity implements View.OnClic
 
     private void exit() {
         MobclickAgent.onProfileSignOff();
-        NimAccountHelper.getInstance().logout();//退出网易IM
+        CallAuthHelper.getInstance().logout();
         UserSpHelper.setToken("");
         UserSpHelper.setEqId("");
         UserSpHelper.setUserId("");

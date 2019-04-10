@@ -33,7 +33,6 @@ import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.entity.DecoderPlan;
 import com.lzy.okgo.OkGo;
-import com.medlink.danbogh.call2.NimInitHelper;
 import com.medlink.danbogh.wakeup.WakeupHelper;
 import com.umeng.analytics.MobclickAgent;
 
@@ -133,7 +132,7 @@ public class MyApplication extends Application {
         //初始化极光
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
         JPushInterface.init(this);
-        NimInitHelper.getInstance().init(this, true);
+//        NimInitHelper.getInstance().init(this, true);
         initVideoPlay();
         initOkGo();
         syncWeatherAndTime();

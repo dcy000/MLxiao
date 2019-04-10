@@ -1,4 +1,4 @@
-package run;
+package debug;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +11,6 @@ import com.gcml.call.CallHelper;
 import com.gcml.call.CallAuthHelper;
 
 import com.gcml.call.R;
-import com.gcml.call.utils.T;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 

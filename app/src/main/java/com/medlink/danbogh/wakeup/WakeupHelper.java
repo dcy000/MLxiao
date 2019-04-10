@@ -8,21 +8,16 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.example.han.referralproject.R;
-import com.example.han.referralproject.hypertensionmanagement.activity.DetecteTipActivity;
-import com.example.han.referralproject.recyclerview.CheckContractActivity;
-import com.example.han.referralproject.recyclerview.DoctorMesActivity;
+import com.gcml.call.NimCallActivity;
 import com.gcml.common.AppDelegate;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.old.auth.register.ConfirmContractActivity;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.VoiceWakeuper;
 import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
 import com.iflytek.cloud.util.ResourceUtil;
-import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.call2.NimCallActivity;
 import com.medlink.danbogh.wakeup.dialog.VoiceDialog;
 
 import org.json.JSONException;

@@ -10,10 +10,10 @@ import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
+import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
-import com.medlink.danbogh.call2.NimAccountHelper;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
                 break;
             case R.id.btn_logout:
                 MobclickAgent.onProfileSignOff();
-                NimAccountHelper.getInstance().logout();//退出网易IM
+                CallAuthHelper.getInstance().logout();
                 UserSpHelper.setToken("");
                 UserSpHelper.setEqId("");
                 UserSpHelper.setUserId("");

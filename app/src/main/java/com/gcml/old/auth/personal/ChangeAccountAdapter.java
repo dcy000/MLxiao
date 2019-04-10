@@ -11,10 +11,10 @@ import android.widget.TextView;
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
 import com.example.han.referralproject.imageview.CircleImageView;
+import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.imageloader.ImageLoader;
-import com.medlink.danbogh.call2.NimAccountHelper;
 
 import java.util.ArrayList;
 
@@ -71,7 +71,7 @@ public class ChangeAccountAdapter extends RecyclerView.Adapter<ChangeAccountAdap
             int position = getAdapterPosition();
             UserEntity user = mUserData.get(position);
             String userId = user.id;
-            NimAccountHelper.getInstance().logout();
+            CallAuthHelper.getInstance().logout();
 
             // Token 1.0
             UserSpHelper.setUserId(userId);

@@ -15,8 +15,6 @@ import com.example.han.referralproject.constant.ConstantData;
 import com.example.han.referralproject.hypertensionmanagement.activity.SlowDiseaseManagementActivity;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
-import com.gcml.common.data.UserSpHelper;
-import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.example.han.referralproject.recyclerview.DoctorAskGuideActivity;
 import com.example.han.referralproject.speechsynthesis.PinYinUtils;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
@@ -25,10 +23,10 @@ import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.gcml.common.utils.display.ToastUtils;
+import com.gcml.old.auth.personal.PersonDetailActivity;
 import com.medlink.danbogh.alarm.AlarmHelper;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 import com.medlink.danbogh.alarm.AlarmModel;
-import com.medlink.danbogh.call2.NimAccountHelper;
 
 import org.litepal.crud.DataSupport;
 

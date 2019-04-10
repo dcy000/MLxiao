@@ -35,8 +35,6 @@ import com.gcml.common.utils.base.RecycleBaseFragment;
 import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
 import com.iflytek.synthetize.MLVoiceSynthetize;
-import com.medlink.danbogh.call2.NimCallActivity;
-
 
 import java.util.List;
 
@@ -354,26 +352,5 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
                 startActivity(new Intent(getContext(), DoctorAskGuideActivity.class));
                 break;
         }
-    }
-
-    public void getDoctorInfo() {
-        NetworkApi.DoctorInfo(UserSpHelper.getUserId(), new NetworkManager.SuccessCallback<Doctor>() {
-            @Override
-            public void onSuccess(Doctor response) {
-                String doctorId = response.docterid + "";
-
-                if (TextUtils.isEmpty(doctorId)) {
-                    ToastUtils.showShort("呼叫健康顾问失败");
-                    return;
-                }
-                NimCallActivity.launchNoCheck(getActivity(), "docter_" + doctorId);
-            }
-
-        }, new NetworkManager.FailedCallback() {
-            @Override
-            public void onFailed(String message) {
-                ToastUtils.showShort("“尚未绑定任何顾问，请前往个人中心绑定");
-            }
-        });
     }
 }

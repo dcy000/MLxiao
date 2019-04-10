@@ -11,8 +11,9 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 
-import com.gcml.call.smallwindow.CallFloatViewHelper;
-import com.gcml.call.utils.T;
+import com.gcml.call.floatwindow.CallFloatViewHelper;
+import com.gcml.common.AppDelegate;
+import com.gcml.common.utils.display.ToastUtils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.ResponseCode;
@@ -105,7 +106,7 @@ public enum CallHelper {
 
 
     CallHelper() {
-        context = CallApp.INSTANCE.getApp();
+        context = AppDelegate.INSTANCE.app();
     }
 
 
@@ -466,7 +467,7 @@ public enum CallHelper {
                 }
                 if (client != null) {
                     String option = ackInfo.getEvent() == AVChatEventType.CALLEE_ONLINE_CLIENT_ACK_AGREE ? "接听！" : "拒绝！";
-                    T.show("通话已在" + client + "端被" + option);
+                    ToastUtils.showShort("通话已在" + client + "端被" + option);
                 }
                 closeSessions(-1);
             }
@@ -542,28 +543,28 @@ public enum CallHelper {
             case CallExitCode.NET_CHANGE: // 网络切换
             case CallExitCode.NET_ERROR: // 网络异常
             case CallExitCode.CONFIG_ERROR: // 服务器返回数据错误
-                T.show(R.string.call_net_error_then_quit);
+                ToastUtils.showShort(R.string.call_net_error_then_quit);
                 break;
             case CallExitCode.PEER_HANGUP:
             case CallExitCode.HANGUP:
                 if (mCallEstablished.get()) {
-                    T.show(R.string.call_call_finish);
+                    ToastUtils.showShort(R.string.call_call_finish);
                 }
                 break;
             case CallExitCode.PEER_BUSY:
-                T.show(R.string.call_peer_busy);
+                ToastUtils.showShort(R.string.call_peer_busy);
                 break;
             case CallExitCode.PROTOCOL_INCOMPATIBLE_PEER_LOWER:
-                T.show(R.string.call_peer_protocol_low_version);
+                ToastUtils.showShort(R.string.call_peer_protocol_low_version);
                 break;
             case CallExitCode.PROTOCOL_INCOMPATIBLE_SELF_LOWER:
-                T.show(R.string.call_local_protocol_low_version);
+                ToastUtils.showShort(R.string.call_local_protocol_low_version);
                 break;
             case CallExitCode.INVALIDE_CHANNELID:
-                T.show(R.string.call_invalid_channel_id);
+                ToastUtils.showShort(R.string.call_invalid_channel_id);
                 break;
             case CallExitCode.LOCAL_CALL_BUSY:
-                T.show(R.string.call_local_call_busy);
+                ToastUtils.showShort(R.string.call_local_call_busy);
                 break;
             default:
                 break;
@@ -693,9 +694,9 @@ public enum CallHelper {
             public void onFailed(int code) {
                 Timber.tag(TAG).d("call2 -> onFailed: code=%s", code);
                 if (code == ResponseCode.RES_FORBIDDEN) {
-                    T.show(R.string.call_no_permission);
+                    ToastUtils.showShort(R.string.call_no_permission);
                 } else {
-                    T.show(R.string.call_call_failed);
+                    ToastUtils.showShort(R.string.call_call_failed);
                 }
 //                notifyCallStateChanged(CallState.CONNECT_FAILED);
                 closeSessions(-1);
@@ -704,7 +705,7 @@ public enum CallHelper {
             @Override
             public void onException(Throwable exception) {
                 Timber.tag(TAG).d("call2 -> onException: exception=%s", exception);
-                T.show(R.string.call_call_failed);
+                ToastUtils.showShort(R.string.call_call_failed);
 //                notifyCallStateChanged(CallState.CONNECT_FAILED);
                 closeSessions(-1);
             }
@@ -822,9 +823,9 @@ public enum CallHelper {
             public void onFailed(int code) {
                 Timber.tag(TAG).d("accept2 -> onFailed: code=%s", code);
                 if (code == -1) {
-                    T.show("本地音视频启动失败");
+                    ToastUtils.showShort("本地音视频启动失败");
                 } else {
-                    T.show("建立连接失败");
+                    ToastUtils.showShort("建立连接失败");
                 }
                 closeSessions(-1);
             }
@@ -1064,7 +1065,7 @@ public enum CallHelper {
     private int videoQuality = 0;
     private boolean serverRecordAudio = false;
     private boolean serverRecordVideo = false;
-    private boolean defaultFrontCamera = false;
+    private boolean defaultFrontCamera = true;
     private boolean autoCallProximity = true;
     private int videoHwEncoderMode = 0;
     private int videoHwDecoderMode = 0;

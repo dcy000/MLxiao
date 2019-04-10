@@ -1,6 +1,5 @@
 package com.example.han.referralproject.homepage;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,12 +18,12 @@ import com.example.lenovo.rto.accesstoken.AccessTokenModel;
 import com.example.lenovo.rto.http.HttpListener;
 import com.example.lenovo.rto.sharedpreference.EHSharedPreferences;
 import com.example.module_control_volume.VolumeControlFloatwindow;
+import com.gcml.call.CallAuthHelper;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
-import com.medlink.danbogh.call2.NimAccountHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
     private ViewPager mViewpage;
     private LinearLayout mNewmainBottomIndicator;
     private View mIndicatorLeft;
-//    private View mIndicatorRight;
+    //    private View mIndicatorRight;
     private View mIndicatorMiddle;
     private List<Fragment> fragments;
     private NewMain1Fragment newMain1Fragment;
@@ -186,7 +185,7 @@ public class MainActivity extends BaseActivity implements HttpListener<AccessTok
                             Timber.e("获取网易账号信息出错");
                             return;
                         }
-                        NimAccountHelper.getInstance().login(wyyxId, wyyxPwd, null);
+                        CallAuthHelper.getInstance().login(wyyxId, wyyxPwd, null);
                         CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
                                 .addParam("userId", user.id)
                                 .build()

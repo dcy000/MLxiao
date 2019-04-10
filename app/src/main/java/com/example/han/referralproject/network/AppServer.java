@@ -7,6 +7,7 @@ import com.gcml.common.http.ApiResult;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -73,4 +74,16 @@ public interface AppServer {
     Observable<ApiResult<Object>> getOrderStarte(
             @Query("orderid") String userId
     );
+
+    /**
+     * 获取拨打医生的号码
+     *
+     * @param doctorId
+     * @return
+     */
+    @GET("ZZB/docter/getDocterYunXinId")
+    Observable<ApiResult<String>> getCallId(
+            @Query("doctorId") String doctorId
+    );
+
 }
