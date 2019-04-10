@@ -756,7 +756,6 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
         String speakFlag;
         if (notifyData[1] == 65) {//血糖
             info.blood_sugar = String.valueOf(afterResult);
-            info.sugar_time = xuetangTimeFlag + "";
             mSanHeYiOneTv.setText(String.valueOf(afterResult));
             if (afterResult < 3.61)
                 speakFlag = "偏低";
@@ -858,14 +857,16 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 characteristic = gattServices.get(0).getCharacteristics().get(0);
                 break;
             case Type_TiZhong:
-                try {
-                    BluetoothGattService service = mBluetoothLeService.getGatt().getService(UUID
-                            .fromString("0000fff0-0000-1000-8000-00805f9b34fb"));
-                    characteristic = service
-                            .getCharacteristic(UUID.fromString("0000fff1-0000-1000-8000-00805f9b34fb"));
-                    break;
-                } catch (Exception e) {
+try{
+                BluetoothGattService service = mBluetoothLeService.getGatt().getService(UUID
+                        .fromString("0000fff0-0000-1000-8000-00805f9b34fb"));
+                if (service == null) {
+                    return;
                 }
+                characteristic = service.getCharacteristic(UUID.fromString("0000fff1-0000-1000-8000-00805f9b34fb"));
+                break;}catch (Exception e){
+
+}
             case Type_SanHeYi:
                 characteristic = gattServices.get(4).getCharacteristics().get(0);
                 break;
@@ -1921,6 +1922,7 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                             if (height != 0) {
                                 ((TextView) findViewById(R.id.tv_tizhi)).setText(String.format("%1$.2f", tizhi));
                             }
+
                         }
                     });
                     if (tizhi < 18.5) {
@@ -2421,7 +2423,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
 
                                 @Override
                                 public void onCompleted(SpeechError speechError) {
-                                    afterWenzen(reultBean.data.receptionDate);
+                                    if (reultBean != null && reultBean.data != null) {
+                                        afterWenzen(reultBean.data.receptionDate);
+                                    }
                                 }
 
                                 @Override
@@ -2430,7 +2434,9 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                                 }
                             }, false);
                         } else {
-                            afterWenzen(reultBean.data.receptionDate);
+                            if (reultBean != null && reultBean.data != null) {
+                                afterWenzen(reultBean.data.receptionDate);
+                            }
                         }
 
                     }
