@@ -6,7 +6,9 @@ import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.utils.base.RecycleBaseFragment;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.lib_widget.EclipseImageView;
 import com.medlink.danbogh.alarm.AlarmList2Activity;
 
@@ -38,6 +40,10 @@ public class NewMain3Fragment extends RecycleBaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        if (UserSpHelper.isNoNetwork()) {
+            ToastUtils.showShort("请使用有网模式登陆");
+            return;
+        }
         switch (v.getId()) {
             default:
                 break;

@@ -77,6 +77,9 @@ dependencies {
     implementation rootProject.ext.dependencies["appcompat-v7"]
     annotationProcessor rootProject.ext.dependencies["room-compiler"]
     implementation rootProject.ext.dependencies["room-rxjava2"]
+    implementation rootProject.ext.dependencies["rxcache-jolyglot-gson"]
+    implementation rootProject.ext.dependencies["rxcache2"]
+
     //Zxing核心包
     implementation 'com.google.zxing:core:3.3.0'
     testImplementation rootProject.ext.dependencies["junit"]

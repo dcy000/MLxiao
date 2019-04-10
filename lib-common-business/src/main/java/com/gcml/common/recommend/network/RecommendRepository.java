@@ -1,7 +1,6 @@
 package com.gcml.common.recommend.network;
 
 import com.gcml.common.recommend.bean.get.GoodBean;
-import com.gcml.common.recommend.bean.post.DetectionBean;
 import com.gcml.common.recommend.bean.post.DetectionData;
 import com.gcml.common.repository.IRepositoryHelper;
 import com.gcml.common.repository.RepositoryApp;

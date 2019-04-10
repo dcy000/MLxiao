@@ -6,10 +6,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
+import com.example.han.referralproject.bean.User;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
@@ -24,6 +26,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -54,9 +57,23 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
                 .build()
                 .call()
                 .getDataItem("data");
-        mDisposable = rxUsers.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        mDisposable = rxUsers
                 .onErrorResumeNext(Observable.just(Collections.emptyList()))
+                .map(new Function<List<UserEntity>, List<UserEntity>>() {
+                    @Override
+                    public List<UserEntity> apply(List<UserEntity> userEntities) throws Exception {
+                        ArrayList<UserEntity> entities = new ArrayList<>();
+                        for (UserEntity entity : userEntities) {
+                            String userId = UserSpHelper.getUserId();
+                            if (!TextUtils.isEmpty(userId) && !userId.equals(entity.id)) {
+                                entities.add(entity);
+                            }
+                        }
+                        return entities;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DefaultObserver<List<UserEntity>>() {
                     @Override
                     public void onNext(List<UserEntity> users) {
@@ -82,6 +99,7 @@ public class ChangeAccountDialog extends Dialog implements View.OnClickListener 
                 NimAccountHelper.getInstance().logout();//退出网易IM
                 UserSpHelper.setToken("");
                 UserSpHelper.setEqId("");
+                UserSpHelper.setUserId("");
                 CC.obtainBuilder("com.gcml.auth").build().callAsync();
                 ((Activity) mContext).finish();
                 break;

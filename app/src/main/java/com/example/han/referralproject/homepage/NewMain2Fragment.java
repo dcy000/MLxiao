@@ -15,6 +15,7 @@ import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
 import com.example.han.referralproject.tcm.SymptomCheckActivity;
 import com.example.han.referralproject.video.VideoListActivity;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.base.RecycleBaseFragment;
@@ -67,6 +68,10 @@ public class NewMain2Fragment extends RecycleBaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        if (v.getId() != R.id.iv_person_center && UserSpHelper.isNoNetwork()) {
+            ToastUtils.showShort("请使用有网模式登陆");
+            return;
+        }
         CCResult result;
         Observable<UserEntity> rxUser;
         switch (v.getId()) {

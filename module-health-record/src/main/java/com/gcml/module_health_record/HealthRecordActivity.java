@@ -709,6 +709,10 @@ public class HealthRecordActivity extends AppCompatActivity implements View.OnCl
         } else if (i == R.id.iv_top_right) {
             CCAppActions.jump2MainActivity();
         } else if (i == R.id.tv_record_qrcode) {
+            if (UserSpHelper.isNoNetwork()) {
+                ToastUtils.showShort("请使用有网模式登陆");
+                return;
+            }
             String text = HealthRecordNetworkApi.BasicUrl + "/ZZB/br/whole_informations?bid=" + UserSpHelper.getUserId() + "&bname=" + UserSpHelper.getUserName();
             DialogImage dialogImage = new DialogImage(this);
             dialogImage.setImage(QRCodeUtils.creatQRCode(text, 600, 600));

@@ -272,6 +272,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
             case R.id.ll_date_and_week:
                 break;
             case R.id.iv_health_measure:
+                if (UserSpHelper.isNoNetwork()) {
+                    CCHealthMeasureActions.jump2MeasureChooseDeviceActivity();
+                    return;
+                }
                 rxUser.subscribeOn(Schedulers.io())
                         .as(RxUtils.autoDisposeConverter(this))
                         .subscribe(new DefaultObserver<UserEntity>() {
@@ -308,6 +312,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
                 break;
             case R.id.iv_health_dialy_task:
+                if (UserSpHelper.isNoNetwork()) {
+                    ToastUtils.showShort("请使用有网模式登陆");
+                    return;
+                }
                 rxUser.subscribeOn(Schedulers.io())
                         .as(RxUtils.autoDisposeConverter(this))
                         .subscribe(new DefaultObserver<UserEntity>() {
@@ -338,6 +346,10 @@ public class NewMain1Fragment extends RecycleBaseFragment implements View.OnClic
 
                 break;
             case R.id.iv_health_call_family:
+                if (UserSpHelper.isNoNetwork()) {
+                    ToastUtils.showShort("请使用有网模式登陆");
+                    return;
+                }
                 NimCallActivity.launchNoCheck(getContext(), UserSpHelper.getEqId());
                 break;
         }

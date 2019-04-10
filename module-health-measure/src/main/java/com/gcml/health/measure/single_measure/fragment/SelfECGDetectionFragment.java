@@ -123,9 +123,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
             isRegistReceiver = true;
             context.registerReceiver(connectReceiver, filter);
         }
-        context.startService(new Intent(context, ReceiveService.class));
         context.bindService(new Intent(context, ReceiveService.class), serviceConnect, Service.BIND_AUTO_CREATE);
-        context.stopService(new Intent(context, ReceiveService.class));
     }
 
     private ServiceConnection serviceConnect = new ServiceConnection() {
@@ -137,7 +135,7 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-
+            isServiceBind = false;
         }
     };
     private BroadcastReceiver connectReceiver = new BroadcastReceiver() {
@@ -210,7 +208,6 @@ public class SelfECGDetectionFragment extends BluetoothBaseFragment implements V
             mMainPc80BViewDraw.Stop();
         }
         drawThread = null;
-        context.stopService(new Intent(context, ReceiveService.class));
         if (serviceConnect != null && isServiceBind) {
             context.unbindService(serviceConnect);
         }

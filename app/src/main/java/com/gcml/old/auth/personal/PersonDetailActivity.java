@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.billy.cc.core.component.CC;
 import com.example.han.referralproject.R;
+import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.display.ToastUtils;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.iflytek.synthetize.MLVoiceSynthetize;
@@ -79,6 +81,10 @@ public class PersonDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onRightClick() {
+                        if (UserSpHelper.isNoNetwork()) {
+                            ToastUtils.showShort("请使用有网模式登陆");
+                            return;
+                        }
                         CC.obtainBuilder("com.gcml.old.wifi")
                                 .build()
                                 .callAsync();

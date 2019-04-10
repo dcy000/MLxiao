@@ -24,4 +24,8 @@ public class SignInViewModel extends BaseViewModel {
         return mUserRepository.signIn(deviceId, userName, pwd);
     }
 
+    public Observable<UserEntity> signInNoNetWork(String phone) {
+        return mUserRepository.signInNoNetWork(phone);
+    }
+
 }

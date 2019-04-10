@@ -1,4 +1,4 @@
-package com.gcml.auth.ui.signin;
+package com.gcml.auth.ui.signin.nonetwork;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,7 +12,8 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
-import com.gcml.auth.databinding.AuthActivitySignInBinding;
+import com.gcml.auth.databinding.AuthActivitySignInNonetworkBinding;
+import com.gcml.auth.ui.signin.SignInViewModel;
 import com.gcml.common.data.UserEntity;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.repository.utils.DefaultObserver;
@@ -30,11 +31,11 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, SignInViewModel> {
+public class SignInNoNetworkActivity extends BaseActivity<AuthActivitySignInNonetworkBinding, SignInViewModel> {
 
     @Override
     protected int layoutId() {
-        return R.layout.auth_activity_sign_in;
+        return R.layout.auth_activity_sign_in_nonetwork;
     }
 
     @Override
@@ -45,21 +46,21 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     @Override
     protected void init(Bundle savedInstanceState) {
         binding.setPresenter(this);
-        RxUtils.rxWifiLevel(getApplication(), 4)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(RxUtils.autoDisposeConverter(this))
-                .subscribe(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer integer) throws Exception {
-                        binding.ivWifiState.setImageLevel(integer);
-                    }
-                });
+//        RxUtils.rxWifiLevel(getApplication(), 4)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .as(RxUtils.autoDisposeConverter(this))
+//                .subscribe(new Consumer<Integer>() {
+//                    @Override
+//                    public void accept(Integer integer) throws Exception {
+//                        binding.ivWifiState.setImageLevel(integer);
+//                    }
+//                });
         AppUtils.AppInfo appInfo = AppUtils.getAppInfo();
         binding.tvAppVersion.setText(appInfo == null ? "" : appInfo.getVersionName());
-        binding.etPhone.addTextChangedListener(inputWatcher);
-        binding.etPassword.addTextChangedListener(inputWatcher);
-        binding.cbAgreeProtocol.setOnCheckedChangeListener(onCheckedChangeListener);
+//        binding.etPhone.addTextChangedListener(inputWatcher);
+//        binding.etPassword.addTextChangedListener(inputWatcher);
+//        binding.cbAgreeProtocol.setOnCheckedChangeListener(onCheckedChangeListener);
     }
 
     private CompoundButton.OnCheckedChangeListener onCheckedChangeListener =
@@ -121,30 +122,30 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     }
 
     public void signIn() {
-        if ("123456".equals(binding.etPhone.getText().toString())
-                && "654321".equals(binding.etPassword.getText().toString())) {
-            CC.obtainBuilder("com.gcml.old.system.factoryTest")
-                    .build()
-                    .callAsync();
-            return;
-        }
+//        if ("123456".equals(binding.etPhone.getText().toString())
+//                && "654321".equals(binding.etPassword.getText().toString())) {
+//            CC.obtainBuilder("com.gcml.old.system.factoryTest")
+//                    .build()
+//                    .callAsync();
+//            return;
+//        }
 
         String phone = binding.etPhone.getText().toString().trim();
-        String pwd = binding.etPassword.getText().toString().trim();
+//        String pwd = binding.etPassword.getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
-            ToastUtils.showShort("手机号不能为空");
+            ToastUtils.showShort("账号不能为空");
             return;
         }
-        if (TextUtils.isEmpty(pwd)) {
-            ToastUtils.showShort("密码不能为空");
-            return;
-        }
+//        if (TextUtils.isEmpty(pwd)) {
+//            ToastUtils.showShort("密码不能为空");
+//            return;
+//        }
 //        if (!binding.cbAgreeProtocol.isChecked()) {
 //            ToastUtils.showShort("登录需要勾选同意用户协议");
 //            return;
 //        }
-        String deviceId = Utils.getDeviceId(getContentResolver());
-        viewModel.signIn(deviceId, phone, pwd)
+//        String deviceId = Utils.getDeviceId(getContentResolver());
+        viewModel.signInNoNetWork(phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -163,11 +164,12 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
                 .subscribe(new DefaultObserver<UserEntity>() {
                     @Override
                     public void onNext(UserEntity user) {
-                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
-                                .addParam("userId", user.id)
-                                .build()
-                                .callAsync();
-                        checkFace(user);
+                        goHome();
+//                        CC.obtainBuilder("com.gcml.zzb.common.push.setTag")
+//                                .addParam("userId", user.id)
+//                                .build()
+//                                .callAsync();
+//                        checkFace(user);
                     }
 
                     @Override
@@ -278,7 +280,7 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
     protected void onResume() {
         super.onResume();
         MLVoiceSynthetize.startSynthesize(getApplicationContext(),
-                "请输入您的手机号和密码进行登录。");
+                "请输入您的手机号进行登录。");
     }
 
     @Override
@@ -316,3 +318,4 @@ public class SignInActivity extends BaseActivity<AuthActivitySignInBinding, Sign
         }
     }
 }
+

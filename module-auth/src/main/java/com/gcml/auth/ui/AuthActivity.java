@@ -1,5 +1,6 @@
 package com.gcml.auth.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.billy.cc.core.component.CC;
@@ -8,6 +9,7 @@ import com.billy.cc.core.component.IComponentCallback;
 import com.gcml.auth.BR;
 import com.gcml.auth.R;
 import com.gcml.auth.databinding.AuthActivityAuthBinding;
+import com.gcml.auth.ui.signin.nonetwork.SignInNoNetworkActivity;
 import com.gcml.common.mvvm.BaseActivity;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.app.AppUtils;
@@ -86,6 +88,11 @@ public class AuthActivity extends BaseActivity<AuthActivityAuthBinding, AuthView
         CC.obtainBuilder("com.gcml.auth.user.protocol")
                 .build()
                 .callAsync();
+    }
+
+    public void goNoNetwork() {
+        Intent intent = new Intent(this, SignInNoNetworkActivity.class);
+        startActivity(intent);
     }
 
     @Override

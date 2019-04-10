@@ -273,6 +273,12 @@ public class FaceRepository {
                     public void accept(Disposable disposable) throws Exception {
                         Timber.i("Face SignIn : groupId = %s ", groupId);
                     }
+                })
+                .doOnNext(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        UserSpHelper.setNoNetwork(false);
+                    }
                 });
     }
 

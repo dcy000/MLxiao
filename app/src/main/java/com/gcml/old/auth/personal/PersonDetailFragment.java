@@ -198,6 +198,10 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
                     }
                 });
 
+        if (UserSpHelper.isNoNetwork()) {
+            return;
+        }
+
         NetworkApi.Person_Amount(Utils.getDeviceId(), new NetworkManager.SuccessCallback<RobotAmount>() {
             @Override
             public void onSuccess(final RobotAmount response) {
@@ -238,6 +242,12 @@ public class PersonDetailFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        if (v.getId() != R.id.iv_record
+                && v.getId() != R.id.iv_change_account
+                && UserSpHelper.isNoNetwork()) {
+            ToastUtils.showShort("请使用有网模式登陆");
+            return;
+        }
         switch (v.getId()) {
             case R.id.iv_order:
                 startActivity(new Intent(getActivity(), OrderListActivity.class));

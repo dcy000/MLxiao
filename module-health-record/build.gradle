@@ -32,6 +32,10 @@ android {
 
 dependencies {
     implementation project(':lib-voice')
+
+    implementation rootProject.ext.dependencies["rxcache-jolyglot-gson"]
+    implementation rootProject.ext.dependencies["rxcache2"]
+
     //图表库
     implementation rootProject.ext.dependencies["MPAndroidChart"]
     implementation rootProject.ext.dependencies["recyclerview-v7"]

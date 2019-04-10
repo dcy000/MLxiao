@@ -7,18 +7,19 @@
 
         <variable
             name="presenter"
-            type="com.gcml.auth.ui.AuthActivity" />
+            type="com.gcml.auth.ui.signin.nonetwork.SignInNoNetworkActivity" />
 
         <variable
-            name="authViewModel"
-            type="com.gcml.auth.ui.AuthViewModel" />
+            name="signInViewModel"
+            type="com.gcml.auth.ui.signin.SignInViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F7FDFF"
-        tools:context=".ui.AuthActivity">
+        android:onClick="@{() -> presenter.rootOnClick()}"
+        tools:context=".ui.signin.SignInActivity">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cl_auth_items"
@@ -30,93 +31,106 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="800pt"
+                android:layout_height="120pt"
+                android:layout_marginTop="165pt"
+                android:background="@drawable/auth_sign_in_bg_et"
+                android:gravity="center_vertical"
+                android:hint="请输入你的手机号码"
+                android:inputType="phone"
+                android:paddingLeft="36pt"
+                android:paddingRight="36pt"
+                android:textColor="#FF333333"
+                android:textColorHint="#FFBBBBBB"
+                android:textSize="50pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="15867771914" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_password"
+                android:layout_width="800pt"
+                android:layout_height="120pt"
+                android:layout_marginTop="44pt"
+                android:background="@drawable/auth_sign_in_bg_et"
+                android:gravity="center_vertical"
+                android:hint="请输入你的密码"
+                android:inputType="textPassword"
+                android:maxLength="6"
+                android:paddingLeft="36pt"
+                android:paddingRight="36pt"
+                android:textColor="#FF333333"
+                android:textColorHint="#FFBBBBBB"
+                android:textSize="50pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+
             <TextView
-                android:id="@+id/tv_choose_sign_in"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/tv_sign_in"
+                android:layout_width="800pt"
+                android:layout_height="100pt"
                 android:layout_marginTop="64pt"
-                android:text="— 选择登录方式 —"
-                android:textColor="@color/config_color_base_8"
-                android:textSize="48pt"
+                android:background="@drawable/common_bg_btn_3f86fc"
+                android:gravity="center"
+                android:onClick="@{() -> presenter.signIn()}"
+                android:text="登录"
+                android:textColor="#FFFFFFFF"
+                android:textSize="50pt"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
             <TextView
-                android:id="@+id/tv_no_account"
+                android:id="@+id/tv_face_auth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40pt"
-                android:text="还没有账号？"
-                android:textColor="@color/config_color_base_3"
-                android:textSize="44pt"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/tv_sign_up" />
-
-            <TextView
-                android:id="@+id/tv_sign_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/common_bg_btn_transparent"
-                android:onClick="@{() -> presenter.goSignUp()}"
-                android:text="立即注册"
-                android:textColor="@color/config_color_appthema"
-                android:textSize="48pt"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_no_account"
-                app:layout_constraintLeft_toRightOf="@+id/tv_no_account"
-                app:layout_constraintRight_toRightOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="118pt"
-                android:background="@drawable/common_bg_btn_transparent"
-                android:drawableTop="@drawable/auth_ic_phone"
-                android:drawablePadding="40pt"
-                android:onClick="@{() -> presenter.goSignInByPhone()}"
-                android:padding="10pt"
-                android:text="手机登录"
-                android:textColor="@color/config_color_base_3"
-                android:textSize="56pt"
-                app:layout_constraintBottom_toTopOf="@+id/tv_no_account"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_choose_sign_in" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="118pt"
-                android:background="@drawable/common_bg_btn_transparent"
-                android:drawableTop="@drawable/auth_ic_face"
-                android:drawablePadding="40pt"
+                android:layout_marginTop="16pt"
                 android:onClick="@{() -> presenter.goSignInByFace()}"
-                android:padding="10pt"
+                android:paddingTop="20pt"
+                android:paddingRight="120pt"
+                android:paddingBottom="40pt"
                 android:text="人脸登录"
-                android:textColor="@color/config_color_base_3"
-                android:textSize="56pt"
-                app:layout_constraintBottom_toTopOf="@+id/tv_no_account"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_choose_sign_in" />
+                android:textColor="#FF3F86FC"
+                android:textSize="44pt"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_sign_in"
+                app:layout_constraintTop_toBottomOf="@+id/tv_sign_in" />
 
+            <TextView
+                android:id="@+id/tv_forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16pt"
+                android:onClick="@{() -> presenter.goForgetPassword()}"
+                android:paddingLeft="80pt"
+                android:paddingTop="20pt"
+                android:paddingBottom="40pt"
+                android:text="忘记密码"
+                android:textColor="#FF999999"
+                android:textSize="44pt"
+                android:visibility="gone"
+                app:layout_constraintRight_toRightOf="@+id/tv_sign_in"
+                app:layout_constraintTop_toBottomOf="@+id/tv_sign_in" />
         </android.support.constraint.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/tv_network_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="240pt"
+            android:layout_height="200pt"
             android:background="@drawable/common_bg_btn_transparent"
-            android:onClick="@{() -> presenter.goNoNetwork()}"
-            android:paddingLeft="45pt"
-            android:paddingTop="50pt"
-            android:paddingRight="45pt"
-            android:paddingBottom="50pt"
-            android:text="无网模式"
-            android:textSize="36pt"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_wifi_state"
-            app:layout_constraintRight_toLeftOf="@+id/iv_wifi_state"
-            app:layout_constraintTop_toTopOf="@+id/iv_wifi_state" />
+            android:onClick="@{() -> presenter.goBack()}"
+            android:paddingLeft="60pt"
+            android:paddingTop="40pt"
+            android:paddingRight="60pt"
+            android:paddingBottom="40pt"
+            android:src="@drawable/common_ic_back"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_wifi_state"
@@ -129,6 +143,7 @@
             android:paddingRight="60pt"
             android:paddingBottom="40pt"
             android:src="@drawable/common_ic_wifi_state"
+            android:visibility="gone"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

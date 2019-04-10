@@ -37,6 +37,7 @@ import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.clj.fastble.scan.BleScanRuleConfig;
 import com.gcml.common.data.UserEntity;
+import com.gcml.common.data.UserSpHelper;
 import com.gcml.common.repository.utils.DefaultObserver;
 import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.data.DataUtils;
@@ -120,8 +121,12 @@ public class ECG_BoSheng_PresenterImp extends BaseBluetoothPresenter {
 
                         @Override
                         public void onSuccess(@Nullable byte[] result) {
-                            if (result != null) {
+                            if (result != null && !UserSpHelper.isNoNetwork()) {
                                 uploadDatas(result);
+                            } else {
+                                if (mLoadingDialog != null) {
+                                    mLoadingDialog.dismiss();
+                                }
                             }
                         }
                     });

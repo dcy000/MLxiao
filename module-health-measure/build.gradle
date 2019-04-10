@@ -58,6 +58,10 @@ dependencies {
     if (project.ext.runAsApp) {
         implementation project(":lib-common-app")
     }
+
+    implementation rootProject.ext.dependencies["rxcache-jolyglot-gson"]
+    implementation rootProject.ext.dependencies["rxcache2"]
+
     implementation project(':lib-bluetooth')
     implementation 'com.lzy.net:okgo:3.0.4'
     //gson
