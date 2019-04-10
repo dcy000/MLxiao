@@ -113,10 +113,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             AllMeasureActivity.startActivity(this, measureType);
 
         } else if (i == R.id.ll_more) {
-//            measureType=IPresenter.MEASURE_HAND_RING;
-//            AllMeasureActivity.startActivity(this,measureType);
-            ToastUtils.showLong("敬请期待");
-
+            measureType=IPresenter.MEASURE_BREATH_HOME;
+            AllMeasureActivity.startActivity(this,measureType);
         } else {
         }
     }

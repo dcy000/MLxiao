@@ -262,20 +262,20 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/health_measure_choose_device_img_hight"
-                android:src="@drawable/health_measure_ic_more"
+                android:src="@drawable/health_measure_ic_breathhome"
                 android:scaleType="fitXY"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="敬请期待"
+                android:text="肺功能检测"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/health_measure_text_bg_gengduo"/>
+                android:background="@drawable/health_measure_text_bg_xueyang"/>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

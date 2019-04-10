@@ -34,6 +34,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 
 public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<SearchResult> {
     /**
@@ -191,6 +193,7 @@ public abstract class BaseBluetoothPresenter implements IPresenter, Comparator<S
             if (searchResult == null) {
                 return;
             }
+            Timber.i("Bluetooth devices searched" + searchResult.getName() + ">>>>" + searchResult.getAddress());
             String name = searchResult.getName();
             String address = searchResult.getAddress();
             switch (discoverType) {

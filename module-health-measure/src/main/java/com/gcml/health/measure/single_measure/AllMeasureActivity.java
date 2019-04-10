@@ -66,6 +66,7 @@ import com.gcml.module_blutooth_devices.bloodsugar_devices.Bloodsugar_Fragment;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_Fragment;
 import com.gcml.module_blutooth_devices.ecg_devices.ECG_PDF_Fragment;
 import com.gcml.module_blutooth_devices.fingerprint_devices.Fingerpint_Fragment;
+import com.gcml.module_blutooth_devices.others.BreathHome_Fragment;
 import com.gcml.module_blutooth_devices.others.HandRing_Fragment;
 import com.gcml.module_blutooth_devices.others.ThreeInOne_Fragment;
 import com.gcml.module_blutooth_devices.temperature_devices.Temperature_Fragment;
@@ -229,6 +230,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                     baseFragment = new SingleMeasureHandRingFragment();
                 }
                 break;
+            case IPresenter.MEASURE_BREATH_HOME:
+                if (baseFragment == null) {
+                    mTitleText.setText("肺 功 能 检 测");
+                    baseFragment = new BreathHome_Fragment();
+                }
+                break;
             default:
                 break;
         }
@@ -241,7 +248,6 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
             baseFragment.setOnDealVoiceAndJumpListener(dealVoiceAndJump);
             baseFragment.setOnFragmentChangedListener(this);
         }
-
         setECGListener();
     }
 
@@ -483,6 +489,12 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
                 SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_HAND_RING);
                 ((SingleMeasureHandRingFragment) baseFragment).onStop();
                 ((SingleMeasureHandRingFragment) baseFragment).dealLogic();
+                break;
+            case IPresenter.MEASURE_BREATH_HOME:
+                nameAddress = (String) SPUtil.get(Bluetooth_Constants.SP.SP_SAVE_BREATH_HOME, "");
+                SPUtil.remove(Bluetooth_Constants.SP.SP_SAVE_BREATH_HOME);
+                ((BreathHome_Fragment) baseFragment).onStop();
+                ((BreathHome_Fragment) baseFragment).dealLogic();
                 break;
             default:
                 break;
