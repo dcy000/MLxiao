@@ -327,6 +327,9 @@ public class DataDealHelper {
 
         if (inSpell.matches(".*(danganxiazai|lishishuju|lishijilu|jiancejieguo|celiangshuju|jiankangshuju|jiankangdangan|jianchajieguo).*")) {
 //            startActivity(HealthRecordActivity.class);
+            if (listener != null) {
+                listener.onEnd();
+            }
             vertifyFaceThenHealthRecordActivity();
             return;
         }
@@ -641,7 +644,7 @@ public class DataDealHelper {
         } else if (result.matches(".*测.*血糖.*")
                 || inSpell.matches(".*liang.*xuetang.*")
                 || inSpell.matches(".*xuetangyi.*")
-        ) {
+                ) {
             jiance();
             if (listener != null) {
                 listener.onEnd();
@@ -700,7 +703,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*shengyin.*xiangyidian.*")
                 || inSpell.matches(".*shengyin.*zhongyidian.*")
 
-        ) {
+                ) {
             addVoice();
         } else if (inSpell.matches(".*xiaoshengyin.*")
                 || inSpell.matches(".*xiaoyinliang.*")
@@ -714,7 +717,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*shengyin.*jiangdi.*")
                 || inSpell.matches(".*shengyin.*qingyidian.*")
 
-        ) {
+                ) {
 
             deleteVoice();
 
@@ -747,7 +750,7 @@ public class DataDealHelper {
                 || inSpell.matches(".*maibaojianpin")
                 || inSpell.matches(".*xiaoyituijian")
                 || inSpell.matches(".*tuijian(shangpin|shanpin)")
-        ) {
+                ) {
             startActivity(MarketActivity.class);
 
 
