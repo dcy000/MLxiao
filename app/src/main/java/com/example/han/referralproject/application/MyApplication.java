@@ -41,6 +41,7 @@ import org.litepal.LitePal;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import cn.beecloud.BeeCloud;
@@ -82,7 +83,7 @@ public class MyApplication extends Application {
     public String eqid;
     public static final int PLAN_ID_KSY = 1;
     public MutableLiveData<String[]> timeData = new MutableLiveData<>();
-    public MutableLiveData<HomepageWeatherBean> weatherData=new MutableLiveData<>();
+    public MutableLiveData<HomepageWeatherBean> weatherData = new MutableLiveData<>();
     public BdLocationHelper bdLocation = new BdLocationHelper();
 
     @Override
@@ -126,8 +127,8 @@ public class MyApplication extends Application {
         mInstance = this;
         WakeupHelper.init(this);
 
-//        BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");//自己
-        BeeCloud.setAppIdAndSecret("91ee2a0a-661d-4d81-8979-547124be340d", "b8b53d06-5571-404a-bda2-a1d0b8bca0e8");
+        BeeCloud.setAppIdAndSecret("51bc86ef-06da-4bc0-b34c-e221938b10c9", "4410cd33-2dc5-48ca-ab60-fb7dd5015f8d");//自己
+//        BeeCloud.setAppIdAndSecret("91ee2a0a-661d-4d81-8979-547124be340d", "b8b53d06-5571-404a-bda2-a1d0b8bca0e8");
 
         //初始化极光
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
@@ -144,7 +145,7 @@ public class MyApplication extends Application {
                     @Override
                     public String[] apply(Long aLong) throws Exception {
                         String[] results = new String[4];
-                        Calendar instance = Calendar.getInstance();
+                        Calendar instance = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
                         results[0] = TimeUtils.date2String(instance.getTime(), new SimpleDateFormat("HH:mm"));
                         int month = instance.get(Calendar.MONTH) + 1;
                         int day = instance.get(Calendar.DATE);

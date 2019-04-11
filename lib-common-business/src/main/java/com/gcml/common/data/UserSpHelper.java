@@ -33,6 +33,8 @@ public class UserSpHelper {
     private static final String KEY_EQ_ID = "eq_id";
     private static final String KEY_TOKEN = "token";
     private static final String KEY_REFRESH_TOKEN = "refreshToken";
+
+    private static final String KEY_TODAY_DETECT_TIMES = "todayDetectTimes";
     /**
      * 讯飞id的key
      */
@@ -88,6 +90,15 @@ public class UserSpHelper {
             userId = "";
         }
         SPUtil.put(KEY_USER_ID, userId);
+    }
+
+
+    public static void setTodayDetectTimes(int times) {
+        SPUtil.put(KEY_TODAY_DETECT_TIMES, times);
+    }
+
+    public static int getTodayDetectTimes() {
+        return (int) SPUtil.get(KEY_TODAY_DETECT_TIMES, 0);
     }
 
     public static String getToken() {

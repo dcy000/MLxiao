@@ -131,24 +131,28 @@ public class AllMeasureActivity extends ToolbarBaseActivity implements FragmentC
     }
 
     private void showTimesOutTip() {
-        new AlertDialog(this)
-                .builder()
-                .setMsg("退出后即表示今天检测次数已用完，是否继续退出？")
-                .setNegativeButton("取消", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        if (getIntent() != null && TextUtils.equals("servicePay", getIntent().getStringExtra("fromWhere"))) {
+            new AlertDialog(this)
+                    .builder()
+                    .setMsg("退出后即表示今天检测次数已用完，是否继续退出？")
+                    .setNegativeButton("取消", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                    }
-                })
-                .setPositiveButton("确认", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (dedectInfoListener != null) {
-                            dedectInfoListener.onDetectInfoChange(detectTimesInfoBean);
                         }
-                        finish();
-                    }
-                }).show();
+                    })
+                    .setPositiveButton("确认", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (dedectInfoListener != null) {
+                                dedectInfoListener.onDetectInfoChange(detectTimesInfoBean);
+                            }
+                            finish();
+                        }
+                    }).show();
+        } else {
+            finish();
+        }
     }
 
     @Override

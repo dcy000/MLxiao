@@ -84,7 +84,6 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             backMainActivity();
             finish();
         } else {
-
             if (!TextUtils.isEmpty(servicePackage) && (servicePackage.equals("1") || servicePackage.equals("2"))) {
                 showQuitDialog(false);
             } else {
@@ -133,7 +132,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
      */
     @Override
     protected void backMainActivity() {
-        if (servicePackage.equals("1") || servicePackage.equals("2")) {
+        if (!TextUtils.isEmpty("servicePackage") && (servicePackage.equals("1") || servicePackage.equals("2"))) {
             showQuitDialog(true);
         } else {
             new AlertDialog(MeasureChooseDeviceActivity.this)
@@ -331,7 +330,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             }
             //体重
             measureType = IPresenter.MEASURE_WEIGHT;
-            AllMeasureActivity.startActivity(this, measureType);
+            aferVideo();
 
         } else if (i == R.id.ll_more) {
 //            measureType=IPresenter.MEASURE_HAND_RING;
@@ -379,6 +378,7 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
         Intent intent = new Intent();
         intent.setClass(this, AllMeasureActivity.class);
         intent.putExtra(IPresenter.MEASURE_TYPE, measureType);
+        intent.putExtra("fromWhere", "servicePay");
         intent.putExtra(IS_FACE_SKIP, getIntent().getBooleanExtra(IS_FACE_SKIP, false));
         startActivity(intent);
     }
