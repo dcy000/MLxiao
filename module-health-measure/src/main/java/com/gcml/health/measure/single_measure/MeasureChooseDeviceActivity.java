@@ -84,7 +84,8 @@ public class MeasureChooseDeviceActivity extends ToolbarBaseActivity implements 
             backMainActivity();
             finish();
         } else {
-            if (!TextUtils.isEmpty(servicePackage) && servicePackage.equals("1") || servicePackage.equals("2")) {
+
+            if (!TextUtils.isEmpty(servicePackage) && (servicePackage.equals("1") || servicePackage.equals("2"))) {
                 showQuitDialog(false);
             } else {
                 new AlertDialog(MeasureChooseDeviceActivity.this)
