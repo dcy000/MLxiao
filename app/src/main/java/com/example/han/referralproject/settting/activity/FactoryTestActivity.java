@@ -12,7 +12,6 @@ import com.example.han.referralproject.activity.WifiConnectActivity;
 import com.example.han.referralproject.cc.CCHealthMeasureActions;
 import com.example.han.referralproject.cc.CCVideoActions;
 import com.example.han.referralproject.speechsynthesis.SpeechSynthesisActivity;
-import com.gcml.module_blutooth_devices.base.IPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,7 +62,7 @@ public class FactoryTestActivity extends BaseActivity {
                 break;
             case R.id.tv_bluetooth:
                 //蓝牙检测
-                CCHealthMeasureActions.jump2AllMeasureActivity(IPresenter.MEASURE_BLOOD_OXYGEN);
+                CCHealthMeasureActions.jump2AllMeasureActivity(24);
                 break;
             case R.id.tv_camera:
                 //摄像头检测

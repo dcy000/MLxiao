@@ -1,9 +1,8 @@
-include ':app', ':module-factory-test',
-        ':app-component',
+include ':app',
         ':lib-common-core',
         ':lib-common-business',
         ':lib-common-app',
-        ':component-cc', ':lib-common-core', ':module-auth-face2', ':lib-bluetooth'
+        ':component-cc', ':lib-common-core', ':module-auth-face2', ':lib-bluetooth', ':module-factory-test'
 
 // 支持模块
 include ':lib-baidu-unit',

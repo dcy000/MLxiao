@@ -1,21 +1,12 @@
-apply plugin: 'com.android.library'
+apply from: rootProject.file("build-base.gradle")
 
 android {
-    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
-    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
-
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
-    }
-
     defaultConfig {
-        minSdkVersion rootProject.ext.android["minSdkVersion"]
-        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        if (project.ext.runAsApp) {
+            applicationId "com.gcml.module_factory_test"
+            versionCode = rootProject.ext.android["versionCode"]
+            versionName rootProject.ext.android["versionName"]
+        }
 
     }
 
@@ -29,11 +20,56 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["recyclerview-v7"]
-    implementation rootProject.ext.dependencies["cardview-v7"]
-    implementation rootProject.ext.dependencies["constraint-layout"]
+    //    compileOnly fileTree(include: ['*.jar'], dir: 'libs')
 
+    //    implementation rootProject.ext.dependencies["appcompat-v7"]
+
+    //    implementation rootProject.ext.dependencies["recyclerview-v7"]
+
+    //    //rxjava2+rxandroid2
+
+    //    implementation rootProject.ext.dependencies["rxjava2"]
+
+    //    implementation rootProject.ext.dependencies["rxandroid2"]
+
+    //
+
+    //    //retrofit+他的适配器
+
+    //    implementation rootProject.ext.dependencies["retrofit"]
+
+    //    implementation rootProject.ext.dependencies["retrofit-converter-gson"]
+
+    //    implementation rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+
+    //
+
+    //    //Rxjava生命周期管理
+
+    //    implementation rootProject.ext.dependencies["autodispose"]
+
+    //    implementation rootProject.ext.dependencies["autodispose-arch"]
+
+    //    //Zxing核心包
+    compileOnly 'com.google.zxing:core:3.3.0'
+
+    //
+
+    //    //在和小E机器人对话界面有使用
+
+    //    implementation('com.airbnb.android:lottie:2.2.5', {
+
+    //        exclude group: 'com.android.support', module: 'appcompat-v7'
+
+    //    })
+
+    //    compileOnly ('com.kk.taurus.playerbase:playerbase:3.3.0') {
+
+    //        exclude group: 'com.android.support', module: 'appcompat-v7'
+
+    //    }
+
+    //    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+    implementation project(':lib-video')
 }

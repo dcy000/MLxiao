@@ -251,7 +251,7 @@ public class SignInActivity extends BaseActivity {
 //            bundle.putBoolean("isTest",true);
 //            MyApplication.getInstance().userId = "123456";
 //            CCFaceRecognitionActions.jump2FaceRecognitionActivity(this,bundle);
-            startActivity(new Intent(SignInActivity.this, FactoryTestActivity.class));
+//            startActivity(new Intent(SignInActivity.this, FactoryTestActivity.class));
             return;
         }
         showLoadingDialog(getString(R.string.do_login));
