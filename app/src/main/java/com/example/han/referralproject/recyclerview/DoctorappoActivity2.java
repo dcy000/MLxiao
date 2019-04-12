@@ -12,12 +12,18 @@ import com.example.han.referralproject.R;
 import com.example.han.referralproject.activity.BaseActivity;
 import com.example.han.referralproject.bean.Doctor;
 import com.example.han.referralproject.imageview.CircleImageView;
+import com.example.han.referralproject.network.AppRepository;
 import com.example.han.referralproject.network.NetworkApi;
 import com.example.han.referralproject.network.NetworkManager;
 import com.gcml.common.data.UserSpHelper;
+import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.display.ToastUtils;
 import com.medlink.danbogh.call2.NimCallActivity;
 import com.squareup.picasso.Picasso;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class DoctorappoActivity2 extends BaseActivity implements View.OnClickListener {
     private CircleImageView mCircleImageView1;
@@ -114,7 +120,28 @@ public class DoctorappoActivity2 extends BaseActivity implements View.OnClickLis
                     ToastUtils.showShort("呼叫医生失败");
                     return;
                 }
-                NimCallActivity.launchNoCheck(this, "docter_" + doctorId);
+
+                AppRepository.getCallId(doctorId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .as(RxUtils.autoDisposeConverter(this))
+                        .subscribe(new DefaultObserver<String>() {
+                            @Override
+                            public void onNext(String s) {
+                                NimCallActivity.launchNoCheck(DoctorappoActivity2.this, s);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                ToastUtils.showShort("呼叫失败");
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+
                 break;
         }
     }

@@ -81,4 +81,15 @@ public interface AppServer {
 
     @GET("ZZB/order/selMeal/{userid}/")
     Observable<ApiResult<DetectTimesBean>> getTodayDetectTimes(@Path("userid") String userId);
+
+    /**
+     * 获取拨打医生的号码
+     *
+     * @param doctorId
+     * @return
+     */
+    @GET("ZZB/docter/getDocterYunXinId")
+    Observable<ApiResult<String>> getCallId(
+            @Query("doctorId") String doctorId
+    );
 }
