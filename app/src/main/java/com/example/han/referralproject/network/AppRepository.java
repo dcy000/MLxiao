@@ -75,5 +75,7 @@ public class AppRepository {
         String userId = UserSpHelper.getUserId();
         return healthMeasureServer.getTodayDetectTimes(userId).compose(RxUtils.apiResultTransformer());
     }
-
+    public static Observable<String> getCallId(String doctorId){
+        return healthMeasureServer.getCallId(doctorId).compose(RxUtils.apiResultTransformer());
+    }
 }
