@@ -857,16 +857,17 @@ public class DetectActivity extends BaseActivity implements View.OnClickListener
                 characteristic = gattServices.get(0).getCharacteristics().get(0);
                 break;
             case Type_TiZhong:
-try{
-                BluetoothGattService service = mBluetoothLeService.getGatt().getService(UUID
-                        .fromString("0000fff0-0000-1000-8000-00805f9b34fb"));
-                if (service == null) {
-                    return;
-                }
-                characteristic = service.getCharacteristic(UUID.fromString("0000fff1-0000-1000-8000-00805f9b34fb"));
-                break;}catch (Exception e){
+                try {
+                    BluetoothGattService service = mBluetoothLeService.getGatt().getService(UUID
+                            .fromString("0000fff0-0000-1000-8000-00805f9b34fb"));
+                    if (service == null) {
+                        return;
+                    }
+                    characteristic = service.getCharacteristic(UUID.fromString("0000fff1-0000-1000-8000-00805f9b34fb"));
+                    break;
+                } catch (Exception e) {
 
-}
+                }
             case Type_SanHeYi:
                 characteristic = gattServices.get(4).getCharacteristics().get(0);
                 break;
