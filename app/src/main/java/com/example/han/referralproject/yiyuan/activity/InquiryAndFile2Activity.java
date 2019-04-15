@@ -133,6 +133,9 @@ public class InquiryAndFile2Activity extends BaseActivity {
                         if (exception instanceof ConnectException) {
                             return;
                         }
+                        if (isFinishing()||isDestroyed()){
+                            return;
+                        }
                         showConfirmDialog(ChoiceLoginTypeActivity.class);
                     }
 

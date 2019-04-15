@@ -239,6 +239,9 @@ public class HealthDetecteActivity extends BaseActivity {
                             showNetError();
                             return;
                         }
+                        if (isFinishing()||isDestroyed()){
+                            return;
+                        }
                         showConfirmDialog(ChoiceLoginTypeActivity.class);
                     }
                 });

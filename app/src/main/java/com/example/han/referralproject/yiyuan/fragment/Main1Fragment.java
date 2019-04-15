@@ -487,6 +487,9 @@ public class Main1Fragment extends Fragment implements TiZhiJianCeDialog.DialogI
                         }
                         MainActivity activity = (MainActivity) getActivity();
                         if (activity != null) {
+                            if (activity.isFinishing() || activity.isDestroyed()) {
+                                return;
+                            }
                             activity.showConfirmDialog(ChoiceLoginTypeActivity.class);
                         }
                     }
