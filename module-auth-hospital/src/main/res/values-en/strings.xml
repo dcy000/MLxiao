@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">module-auth-hospital</string>
+    <string name="company_name">Hangzhou Guochen med-link Robot Technology Co., Ltd.</string>
+    <string name="coming_soon_tips">coming soon</string>
+    <string name="has_no_account_tips">has no account?</string>
+    <string name="sign_up_tips">Sign Up</string>
+
+    <!--提示-->
+    <string name="loign_load_tips">loading</string>
+    <!--医生登陆-->
+    <string name="loign_doctor_account_tips">please input account</string>
+    <string name="loign_doctor_password_tips">please input password</string>
+    <string name="loign_doctor_login">login in</string>
+    <string name="loign_doctor_change_account">change login type</string>
+    <!--用户登录方式-->
+    <string name="loign_user_logins_title">Login in</string>
+    <string name="loign_user_login_scan_idcard">ID Card</string>
+    <string name="loign_user_login_idcard_numer">ID Number</string>
+    <string name="loign_user_login_face">Face</string>
+    <string name="loign_user_login_city_card">City Card</string>
+    <!---->
+
+</resources>

@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">module-auth-hospital</string>
+
+    <string name="company_name">杭州国辰迈联机器人科技有限公司</string>
+    <string name="coming_soon_tips">敬请期待</string>
+    <string name="has_no_account_tips">没有账号?</string>
+    <string name="sign_up_tips">立即注册</string>
+    <!--提示-->
+    <string name="loign_load_tips">登陆中</string>
+
+    <!--医生登陆-->
+    <string name="loign_doctor_account_tips">请输入您的医生账号</string>
+    <string name="loign_doctor_password_tips">请输入您的密码</string>
+    <string name="loign_doctor_login">登录</string>
+    <string name="loign_doctor_change_account">切换登录方式</string>
+
+    <!--用户登录-->
+    <string name="loign_user_logins_title">用 户 登 录</string>
+    <string name="loign_user_login_scan_idcard">身份证扫描</string>
+    <string name="loign_user_login_idcard_numer">身份证号</string>
+    <string name="loign_user_login_face">人脸识别</string>
+    <string name="loign_user_login_city_card">市民卡(开发中)</string>
+
 </resources>
