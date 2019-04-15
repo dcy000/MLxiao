@@ -1,23 +1,43 @@
 <resources>
     <string name="app_name">module-auth-hospital</string>
+    <!--全局-->
     <string name="company_name">Hangzhou Guochen med-link Robot Technology Co., Ltd.</string>
     <string name="coming_soon_tips">coming soon</string>
-    <string name="has_no_account_tips">has no account?</string>
-    <string name="sign_up_tips">Sign Up</string>
+    <string name="common_back_title">Back</string>
 
     <!--提示-->
     <string name="loign_load_tips">loading</string>
+
     <!--医生登陆-->
     <string name="loign_doctor_account_tips">please input account</string>
     <string name="loign_doctor_password_tips">please input password</string>
     <string name="loign_doctor_login">login in</string>
     <string name="loign_doctor_change_account">change login type</string>
+
+    <string name="has_no_account_tips">has no account?</string>
+    <string name="sign_up_tips">Sign Up</string>
+
     <!--用户登录方式-->
     <string name="loign_user_logins_title">Login in</string>
     <string name="loign_user_login_scan_idcard">ID Card</string>
     <string name="loign_user_login_idcard_numer">ID Number</string>
     <string name="loign_user_login_face">Face</string>
     <string name="loign_user_login_city_card">City Card</string>
-    <!---->
+
+    <!--身份证扫描登录-->
+    <string name="loign_login_scan_title">Login in</string>
+    <string name="loign_login_scan_tips">Please put your ID card on the ID card reader</string>
+    <string name="loign_login_success_tips">Login success</string>
+
+    <string name="loign_login_scan_tip01">Scan ID card</string>
+    <string name="loign_login_scan_tip02">No device found</string>
+    <string name="loign_login_scan_tip03">Read successs</string>
+    <string name="loign_login_logining_tips">Logining</string>
+
+    <!--身份证号登录-->
+    <string name="loign_login_id_number_title">Login ID Number</string>
+    <string name="loign_login_id_number_tips">Login ID Number</string>
+    <string name="loign_id_number_input_tips">Please enter your ID number</string>
+
 
 </resources>

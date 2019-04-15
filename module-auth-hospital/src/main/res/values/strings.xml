@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">module-auth-hospital</string>
-
+    <!--全局-->
     <string name="company_name">杭州国辰迈联机器人科技有限公司</string>
     <string name="coming_soon_tips">敬请期待</string>
-    <string name="has_no_account_tips">没有账号?</string>
-    <string name="sign_up_tips">立即注册</string>
+    <string name="common_back_title">返回</string>
+
     <!--提示-->
     <string name="loign_load_tips">登陆中</string>
 
@@ -13,6 +13,8 @@
     <string name="loign_doctor_password_tips">请输入您的密码</string>
     <string name="loign_doctor_login">登录</string>
     <string name="loign_doctor_change_account">切换登录方式</string>
+    <string name="has_no_account_tips">没有账号?</string>
+    <string name="sign_up_tips">立即注册</string>
 
     <!--用户登录-->
     <string name="loign_user_logins_title">用 户 登 录</string>
@@ -20,5 +22,25 @@
     <string name="loign_user_login_idcard_numer">身份证号</string>
     <string name="loign_user_login_face">人脸识别</string>
     <string name="loign_user_login_city_card">市民卡(开发中)</string>
+
+    <!--身份证扫描登录-->
+    <string name="loign_login_scan_titl">身 份 证 扫 描 登 录</string>
+    <string name="loign_login_scan_tips">请把身份证放在身份证阅读器上</string>
+
+    <string name="loign_login_scan_tip01">请刷身份证</string>
+    <string name="loign_login_scan_tip02">找不到设备</string>
+    <string name="loign_login_scan_tip03">读取成功</string>
+
+    <string name="loign_login_logining_tips">登陆中</string>
+    <string name="loign_login_sucess_tips">登录成功</string>
+
+
+    <!--身份证号登录-->
+    <string name="loign_login_id_number_title">身 份 证 扫 描 登 录</string>
+    <string name="loign_login_id_number_tips">身份证号码登录</string>
+    <string name="loign_id_number_input_tips">请输入您的身份证号</string>
+    <string name="loign_id_number_confirm_tips">请输入正确的身份证号</string>
+
+
 
 </resources>

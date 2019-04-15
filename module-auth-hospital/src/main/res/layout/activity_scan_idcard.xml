@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68pt"
-        android:text="请把身份证放在身份证阅读器上"
+        android:text="@string/loign_login_scan_tips"
         android:textColor="#333333"
         android:textSize="56pt"
         app:layout_constraintLeft_toLeftOf="parent"
