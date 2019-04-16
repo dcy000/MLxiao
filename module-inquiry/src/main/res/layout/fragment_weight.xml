@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="86dp"
         android:gravity="center"
-        android:text="您的体重"
+        android:text="@string/prediagnosis_weight_tips"
         android:textColor="#8C8C8C"
         android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -61,7 +61,7 @@
             android:layout_marginLeft="35dp"
             android:background="@drawable/bg_selector_btn_go_back"
             android:gravity="center"
-            android:text="上一步"
+            android:text="@string/prediagnosis_next_tips"
             android:textColor="#3F85FC"
             android:textSize="35sp" />
 
@@ -75,7 +75,7 @@
             android:layout_marginRight="35dp"
             android:background="@drawable/bg_selector_btn_go_forward"
             android:gravity="center"
-            android:text="下一步"
+            android:text="@string/prediagnosis_pre_tips"
             android:textColor="@android:color/white"
             android:textSize="35sp" />
 

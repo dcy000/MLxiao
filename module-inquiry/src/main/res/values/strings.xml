@@ -12,6 +12,7 @@
     <string name="prediagnosis_confirm_tips">确认</string>
     <string name="prediagnosis_cancel_tips">取消</string>
     <string name="prediagnosis_submit_success_tips">提交成功</string>
+    <string name="prediagnosis_data_submit_success_tips">数据上传成功</string>
 
     <string name="prediagnosis_height_tips">身高</string>
     <string name="prediagnosis_weight_tips">体重</string>
@@ -20,6 +21,35 @@
     <string name="prediagnosis_city_tips">市</string>
     <string name="prediagnosis_block_tips">县/区</string>
     <string name="prediagnosis_detail_address_tips">详细地址</string>
+    <string name="prediagnosis_complete_address_tips">请完善地址信息</string>
 
+    <!--drink-->
+    <string name="prediagnosis_drink_or_not_tips">三天内是否有饮酒</string>
+    <string name="prediagnosis_yes_tips">是</string>
+    <string name="prediagnosis_not_tips">否</string>
+    <string name="prediagnosis_drink_what_tips">三天内喝的酒</string>
+    <string name="prediagnosis_drink_baijiu_tips">白酒</string>
+    <string name="prediagnosis_drink_liaojiu_tips">料酒</string>
+    <string name="prediagnosis_drink_pijiu_tips">啤酒</string>
+    <string name="prediagnosis_drink_mijiu_tips">米酒</string>
+
+    <!--过敏疾病-->
+    <string name="prediagnosis_guomin_or_not_tips">是否有药物过敏史?</string>
+    <string name="prediagnosis_guomin_penicillin_tips">青霉素</string>
+    <string name="prediagnosis_guomin_cephalosporin_tips">头孢</string>
+    <string name="prediagnosis_guomin_sulfonamidetips">磺胺类</string>
+    <string name="prediagnosis_guomin_other_tips">其他</string>
+    <string name="prediagnosis_guomin_no_tips">无</string>
+
+    <string name="prediagnosis_disease_or_not_tips">是否有疾病史?</string>
+    <string name="prediagnosis_disease_hypertension_tips">高血压</string>
+    <string name="prediagnosis_disease_diabetes_tips">糖尿病</string>
+    <string name="prediagnosis_disease_heart_disease_tips">冠心病</string>
+    <string name="prediagnosis_disease_asthma_tips">哮喘</string>
+
+    <!---->
+    <string name="prediagnosis_height_pressure_tips">高压</string>
+    <string name="prediagnosis_height_low_tips">低压</string>
+    <string name="prediagnosis_pulse_tips">脉搏</string>
 
 </resources>

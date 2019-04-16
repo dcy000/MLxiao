@@ -4,10 +4,52 @@
 
     <!--预诊-->
     <string name="prediagnosis_title">Prediagnosis</string>
-    <string name="prediagnosis_next_tips">Next</string>
-    <string name="prediagnosis_pre_tips">Prediagnosis</string>
+    <string name="prediagnosis_next_tips">Previous</string>
+    <string name="prediagnosis_pre_tips">Next</string>
+    <string name="prediagnosis_back_tips">Back</string>
+    <string name="prediagnosis_loading_tips">Laoding</string>
+    <string name="prediagnosis_confirm_tips">Confirm</string>
+    <string name="prediagnosis_cancel_tips">Cancel</string>
+    <string name="prediagnosis_submit_success_tips">Submitted successfully</string>
+    <string name="prediagnosis_data_submit_success_tips">Successful data upload</string>
 
     <string name="prediagnosis_height_tips">Height</string>
     <string name="prediagnosis_weight_tips">Weight</string>
     <string name="prediagnosis_address_tips">Current address</string>
+
+
+    <string name="prediagnosis_province_tips">Province</string>
+    <string name="prediagnosis_city_tips">City</string>
+    <string name="prediagnosis_block_tips">County/district</string>
+    <string name="prediagnosis_detail_address_tips">Address</string>
+    <string name="prediagnosis_complete_address_tips">Please improve the address information</string>
+
+    <!--drink-->
+    <string name="prediagnosis_drink_or_not_tips">Is there any drinking within three days?</string>
+    <string name="prediagnosis_yes_tips">Yse</string>
+    <string name="prediagnosis_not_tips">No</string>
+    <string name="prediagnosis_drink_what_tips">Wine for three days</string>
+    <string name="prediagnosis_drink_baijiu_tips">Liquor</string>
+    <string name="prediagnosis_drink_liaojiu_tips">Cooking wine</string>
+    <string name="prediagnosis_drink_pijiu_tips">Beer</string>
+    <string name="prediagnosis_drink_mijiu_tips">Rice wine</string>
+
+    <!--过敏疾病-->
+    <string name="prediagnosis_guomin_or_not_tips">Is there a history of drug allergy?</string>
+    <string name="prediagnosis_guomin_penicillin_tips">Penicillin</string>
+    <string name="prediagnosis_guomin_cephalosporin_tips">Cephalosporin</string>
+    <string name="prediagnosis_guomin_sulfonamidetips">Sulfonamide</string>
+    <string name="prediagnosis_guomin_other_tips">Other</string>
+    <string name="prediagnosis_guomin_no_tips">No</string>
+
+    <string name="prediagnosis_disease_or_not_tips">Is there a history of disease?</string>
+    <string name="prediagnosis_disease_hypertension_tips">Hypertension</string>
+    <string name="prediagnosis_disease_diabetes_tips">Diabetes</string>
+    <string name="prediagnosis_disease_heart_disease_tips">Coronary heart disease</string>
+    <string name="prediagnosis_disease_asthma_tips">Asthma</string>
+
+    <!---->
+    <string name="prediagnosis_height_pressure_tips">high pressure</string>
+    <string name="prediagnosis_height_low_tips">Low pressure</string>
+    <string name="prediagnosis_pulse_tips">pulse</string>
 </resources>
