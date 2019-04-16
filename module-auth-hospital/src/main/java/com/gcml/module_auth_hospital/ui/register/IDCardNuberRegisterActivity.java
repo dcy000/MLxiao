@@ -50,14 +50,14 @@ public class IDCardNuberRegisterActivity extends BaseActivity implements View.On
         translucentToolBar = findViewById(R.id.auth_idcard_numer_register__tb);
         ccetPhone = (CanClearEditText) findViewById(R.id.ccet_phone);
         tvNext = (TextView) findViewById(R.id.tv_next);
-        tvNext.setText("下一步");
+        tvNext.setText(getString(R.string.common_next));
         tvNext.setOnClickListener(this);
         ccetPhone.setListener(this);
 
 //        ccetPhone.setValue("340321199112256551");
 
-        translucentToolBar.setData("身 份 证 号 码 注 册",
-                R.drawable.common_btn_back, "返回",
+        translucentToolBar.setData(getString(R.string.loign_register_scan_titl),
+                R.drawable.common_btn_back, getString(R.string.common_back_title),
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
@@ -90,11 +90,11 @@ public class IDCardNuberRegisterActivity extends BaseActivity implements View.On
     private void checkIdCard() {
         String idCardNumber = ccetPhone.getPhone();
         if (TextUtils.isEmpty(idCardNumber)) {
-            speak("请输入您的身份证号码");
+            speak(getString(R.string.loign_id_number_input_tips));
             return;
         }
         if (!Utils.checkIdCard1(idCardNumber)) {
-            speak("请输入正确的身份证号码");
+            speak(getString(R.string.loign_id_number_confirm_tips));
             return;
         }
         onCheckRegistered(idCardNumber);
@@ -149,7 +149,7 @@ public class IDCardNuberRegisterActivity extends BaseActivity implements View.On
 
     private void showAccountInfoDialog() {
         if (dialog == null) {
-            dialog = AcountInfoDialog.newInstance("身份证已注册，是否直接登录？", null);
+            dialog = AcountInfoDialog.newInstance(getString(R.string.loign_register_has_registed_tips), null);
         }
         if (dialog.isAdded()) {
             dialog.dismiss();

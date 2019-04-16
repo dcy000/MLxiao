@@ -35,10 +35,18 @@
     <string name="loign_login_logining_tips">Logining</string>
 
     <!--身份证号登录-->
-    <string name="loign_login_id_number_title">Login ID Number</string>
+    <string name="loign_login_id_number_title">Login ID card</string>
     <string name="loign_login_id_number_tips">Login ID Number</string>
     <string name="loign_id_number_input_tips">Please enter your ID number</string>
     <string name="loign_id_number_confirm_tips">Please enter sure ID number</string>
+
+
+    <!--用户注册-->
+    <string name="loign_register_registers_title">Sign up</string>
+
+    <!--身份证扫描登录-->
+    <string name="loign_register_scan_titl">Sign up ID card </string>
+    <string name="loign_register_has_registed_tips">ID card has been registered. log in directly?</string>
 
 
 </resources>

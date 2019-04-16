@@ -42,8 +42,8 @@ public class UserRegisters2Activity extends BaseActivity {
         setContentView(R.layout.activity_registers);
 
         tb = findViewById(R.id.tb_registers);
-        tb.setData("居 民 注 册",
-                R.drawable.common_btn_back, "返回",
+        tb.setData(getString(R.string.loign_register_registers_title),
+                R.drawable.common_btn_back, getString(R.string.common_back_title),
                 R.drawable.auth_hospital_ic_setting, null,
                 new ToolBarClickListener() {
                     @Override
