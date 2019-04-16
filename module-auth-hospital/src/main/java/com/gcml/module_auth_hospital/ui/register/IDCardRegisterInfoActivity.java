@@ -91,8 +91,8 @@ public class IDCardRegisterInfoActivity extends BaseActivity implements View.OnC
         etRegisterIdcrad.setText(number);
         etRegisterNowAddress.setText(address);
         setGender();
-        authRegisterInfoTb.setData("账 号 注 册",
-                R.drawable.common_btn_back, "返回",
+        authRegisterInfoTb.setData(getString(R.string.loign_register_registers_title),
+                R.drawable.common_btn_back, getString(R.string.common_back_title),
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
@@ -146,7 +146,7 @@ public class IDCardRegisterInfoActivity extends BaseActivity implements View.OnC
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("正在注册...");
+                        showLoading(getString(R.string.loign_register_tips));
                     }
                 })
                 .doOnTerminate(new Action() {
@@ -160,7 +160,7 @@ public class IDCardRegisterInfoActivity extends BaseActivity implements View.OnC
                     @Override
                     public void onNext(UserEntity userEntity) {
                         UserSpHelper.setUserId(userEntity.id);
-                        ToastUtils.showLong("身份证注册成功");
+                        ToastUtils.showLong(getString(R.string.loign_register_sucess_tips));
                         CC.obtainBuilder("com.gcml.auth.face2.signup")
                                 .build()
                                 .callAsyncCallbackOnMainThread(new IComponentCallback() {

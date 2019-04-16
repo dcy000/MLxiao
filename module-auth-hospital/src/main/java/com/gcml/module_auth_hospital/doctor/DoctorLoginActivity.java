@@ -158,12 +158,12 @@ public class DoctorLoginActivity extends BaseActivity implements View.OnClickLis
         String account = etDoctorLoginAccunt.getText().toString().trim();
         String passWord = etDoctorLoginPassword.getText().toString().trim();
         if (TextUtils.isEmpty(account)) {
-            ToastUtils.showShort("请输入用户名");
+            ToastUtils.showShort(getString(R.string.loign_doctor_account_tips));
             return;
         }
 
         if (TextUtils.isEmpty(passWord)) {
-            ToastUtils.showShort("请输入密码");
+            ToastUtils.showShort(getString(R.string.loign_doctor_password_tips));
             return;
         }
 
@@ -174,7 +174,7 @@ public class DoctorLoginActivity extends BaseActivity implements View.OnClickLis
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("登录中");
+                        showLoading(getString(R.string.loign_load_tips));
                     }
                 })
                 .as(RxUtils.autoDisposeConverter(this))

@@ -73,8 +73,8 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
 
     private void initView() {
         authScanIdCardToobar = findViewById(R.id.auth_scan_idcard_tb);
-        authScanIdCardToobar.setData("身 份 证 扫 描 登 录",
-                R.drawable.common_btn_back, "返回",
+        authScanIdCardToobar.setData(getString(R.string.loign_login_scan_title),
+                R.drawable.common_btn_back, getString(R.string.common_back_title),
                 R.drawable.common_icon_bluetooth_break, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
@@ -412,7 +412,7 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mlSpeak("请刷身份证");
+                    mlSpeak(getString(R.string.loign_login_scan_tip01));
                 }
             });
             if (connected && client != null && !isFinishing() && !isDestroyed()) {
@@ -464,13 +464,13 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
 
     private void onReadFailed() {
         item = null;
-        mlSpeak("请刷身份证");
+        mlSpeak(getString(R.string.loign_login_scan_tip01));
         btHandler().postDelayed(readRunnable, 2000);
     }
 
     private void onDeviceNotFound() {
         item = null;
-        mlSpeak("找不到设备");
+        mlSpeak(getString(R.string.loign_login_scan_tip01));
         btHandler().postDelayed(oneShutRunnable, 1000);
     }
 
@@ -479,7 +479,7 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
     private void onReadSuccess(IDCardItem item) {
         this.item = item;
         if (item != null) {
-            mlSpeak("读取成功");
+            mlSpeak(getString(R.string.loign_login_scan_tip01));
             onCheckRegistered(item);
         }
     }
@@ -522,7 +522,7 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("正在登录...");
+                        showLoading(getString(R.string.loign_login_logining_tips));
                     }
                 })
                 .doOnTerminate(new Action() {
@@ -539,7 +539,7 @@ public class ScanIdCardLoginActivity extends AppCompatActivity implements Acount
                                 .addParam("userId", user.id)
                                 .build()
                                 .callAsync();
-                        ToastUtils.showLong("登录成功");
+                        ToastUtils.showLong(getString(R.string.loign_login_sucess_tips));
                         CC.obtainBuilder(IConstant.KEY_INUIRY_ENTRY).build().callAsync();
                         finish();
                     }

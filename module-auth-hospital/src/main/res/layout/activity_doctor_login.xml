@@ -19,7 +19,7 @@
             android:drawableLeft="@drawable/img_hospital_logo"
             android:drawablePadding="24pt"
             android:gravity="center_vertical"
-            android:text="杭州国辰迈联机器人科技有限公司"
+            android:text="@string/company_name"
             android:textSize="48pt" />
 
         <ImageView
@@ -66,9 +66,10 @@
                 android:layout_marginTop="115pt"
                 android:background="@drawable/common_bg_popup_edit"
                 android:gravity="center_vertical"
-                android:hint="请输入您的医生账号"
-                android:paddingLeft="36pt"
+                android:hint="@string/loign_doctor_account_tips"
+                android:lines="1"
                 android:maxLines="1"
+                android:paddingLeft="36pt"
                 android:textColor="#ff333333"
                 android:textColorHint="#FFBBBBBB"
                 android:textSize="50pt" />
@@ -80,7 +81,7 @@
                 android:layout_marginTop="40pt"
                 android:background="@drawable/common_bg_popup_edit"
                 android:gravity="center_vertical"
-                android:hint="请输入你的密码"
+                android:hint="@string/loign_doctor_password_tips"
                 android:inputType="textPassword"
                 android:paddingLeft="36pt"
                 android:textColor="#ff333333"
@@ -95,7 +96,7 @@
                 android:background="@drawable/shape_rectangle_next_btn"
                 android:enabled="false"
                 android:gravity="center"
-                android:text="登录"
+                android:text="@string/loign_doctor_login"
                 android:textColor="#fff"
                 android:textSize="50pt" />
 
@@ -105,7 +106,7 @@
                 android:layout_height="100pt"
                 android:layout_marginTop="36pt"
                 android:gravity="center_vertical"
-                android:text="切换登录方式"
+                android:text="@string/loign_doctor_change_account"
                 android:textColor="@color/bg_blue_text_press"
                 android:textSize="48pt" />
 

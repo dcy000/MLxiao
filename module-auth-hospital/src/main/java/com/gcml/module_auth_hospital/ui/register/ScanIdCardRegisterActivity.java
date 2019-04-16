@@ -77,8 +77,8 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
 
     private void initView() {
         authScanIdCardToobar = findViewById(R.id.auth_scan_idcard_tb);
-        authScanIdCardToobar.setData("身 份 证 扫 描 注 册",
-                R.drawable.common_btn_back, "返回",
+        authScanIdCardToobar.setData(getString(R.string.loign_register_scan_titl),
+                R.drawable.common_btn_back, getString(R.string.common_back_title),
                 R.drawable.common_icon_bluetooth_break, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
@@ -416,7 +416,7 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mlSpeak("请刷身份证");
+                    mlSpeak(getString(R.string.loign_login_scan_tip01));
                 }
             });
             if (connected && client != null && !isFinishing() && !isDestroyed()) {
@@ -468,13 +468,13 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
 
     private void onReadFailed() {
         item = null;
-        mlSpeak("请刷身份证");
+        mlSpeak(getString(R.string.loign_login_scan_tip01));
         btHandler().postDelayed(readRunnable, 2000);
     }
 
     private void onDeviceNotFound() {
         item = null;
-        mlSpeak("找不到设备");
+        mlSpeak(getString(R.string.loign_login_scan_tip02));
         btHandler().postDelayed(oneShutRunnable, 1000);
     }
 
@@ -483,7 +483,7 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
     private void onReadSuccess(IDCardItem item) {
         this.item = item;
         if (item != null) {
-            mlSpeak("读取成功");
+            mlSpeak(getString(R.string.loign_login_scan_tip03));
             onCheckRegistered(item);
         }
     }
@@ -644,7 +644,7 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
 
     private void showAccountInfoDialog() {
         if (dialog == null) {
-            dialog = AcountInfoDialog.newInstance("身份证已注册，是否直接登录？", null);
+            dialog = AcountInfoDialog.newInstance(getString(R.string.loign_register_has_registed_tips), null);
         }
         if (dialog.isAdded()) {
             dialog.dismiss();
@@ -663,6 +663,5 @@ public class ScanIdCardRegisterActivity extends AppCompatActivity implements Aco
     public void onConfirm() {
         startActivity(new Intent(this, ScanIdCardLoginActivity.class));
     }
-
 
 }

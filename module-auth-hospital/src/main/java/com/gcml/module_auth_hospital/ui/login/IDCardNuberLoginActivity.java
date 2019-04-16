@@ -57,8 +57,8 @@ public class IDCardNuberLoginActivity extends BaseActivity implements View.OnCli
 
 //        ccetPhone.setValue("340321199112256552");
 
-        translucentToolBar.setData("身 份 证 号 码 登 录",
-                R.drawable.common_btn_back, "返回",
+        translucentToolBar.setData(getString(R.string.loign_login_id_number_title),
+                R.drawable.common_btn_back, getString(R.string.common_back_title),
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override
                     public void onLeftClick() {
@@ -90,11 +90,11 @@ public class IDCardNuberLoginActivity extends BaseActivity implements View.OnCli
     private void checkIdCard() {
         String idCardNumber = ccetPhone.getPhone();
         if (TextUtils.isEmpty(idCardNumber)) {
-            speak("请输入您的身份证号码");
+            speak(getString(R.string.loign_id_number_input_tips));
             return;
         }
         if (!Utils.checkIdCard1(idCardNumber)) {
-            speak("请输入正确的身份证号码");
+            speak(getString(R.string.loign_id_number_confirm_tips));
             return;
         }
         checkIdCardIsRegisterOrNot(idCardNumber);
@@ -137,7 +137,7 @@ public class IDCardNuberLoginActivity extends BaseActivity implements View.OnCli
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("正在登录...");
+                        showLoading(getString(R.string.loign_login_logining_tips));
                     }
                 })
                 .doOnTerminate(new Action() {
@@ -154,7 +154,7 @@ public class IDCardNuberLoginActivity extends BaseActivity implements View.OnCli
                                 .addParam("userId", user.id)
                                 .build()
                                 .callAsync();
-                        ToastUtils.showLong("登录成功");
+                        showLoading(getString(R.string.loign_login_sucess_tips));
                         CC.obtainBuilder(IConstant.KEY_INUIRY_ENTRY).build().callAsync();
                         finish();
                     }

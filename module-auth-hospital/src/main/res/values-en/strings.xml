@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">module-auth-hospital</string>
+    <!--全局-->
+    <string name="company_name">Hangzhou Guochen med-link Robot Technology Co., Ltd.</string>
+    <string name="coming_soon_tips">Coming soon</string>
+    <string name="common_back_title">Back</string>
+    <string name="common_next">Next</string>
+    <string name="common_confirm">Confirm</string>
+    <string name="common_cancel">Cancel</string>
+
+    <!--提示-->
+    <string name="loign_load_tips">Loading</string>
+    <string name="loign_register_tips">Registering</string>
+    <string name="loign_register_sucess_tips">Registered successfully</string>
+
+    <!--医生登陆-->
+    <string name="loign_doctor_account_tips">Please input account</string>
+    <string name="loign_doctor_password_tips">Please input password</string>
+    <string name="loign_doctor_login">Login in</string>
+    <string name="loign_doctor_change_account">Change login type</string>
+
+    <string name="has_no_account_tips">Has no account?</string>
+    <string name="sign_up_tips">Sign Up</string>
+
+    <!--用户登录方式-->
+    <string name="loign_user_logins_title">Login in</string>
+    <string name="loign_user_login_scan_idcard">ID Card</string>
+    <string name="loign_user_login_idcard_numer">ID Number</string>
+    <string name="loign_user_login_face">Face</string>
+    <string name="loign_user_login_city_card">City Card</string>
+
+    <!--身份证扫描登录-->
+    <string name="loign_login_scan_title">Login in</string>
+    <string name="loign_login_scan_tips">Please put your ID card on the ID card reader</string>
+    <string name="loign_login_success_tips">Login success</string>
+
+    <string name="loign_login_scan_tip01">Scan ID card</string>
+    <string name="loign_login_scan_tip02">No device found</string>
+    <string name="loign_login_scan_tip03">Read successs</string>
+    <string name="loign_login_logining_tips">Logging</string>
+
+    <!--身份证号登录-->
+    <string name="loign_login_id_number_title">Login ID card</string>
+    <string name="loign_login_id_number_tips">Login ID Number</string>
+    <string name="loign_id_number_input_tips">Please enter your ID number</string>
+    <string name="loign_id_number_confirm_tips">Please enter sure ID number</string>
+
+
+    <!--用户注册-->
+    <string name="loign_register_registers_title">Sign up</string>
+
+    <!--身份证扫描登录-->
+    <string name="loign_register_scan_titl">Sign up ID card </string>
+    <string name="loign_register_has_registed_tips">ID card has been registered. log in directly?</string>
+
+    <!--身份证号码注册-->
+    <string name="loign_register_id_number_titl">Sign up ID number</string>
+    <string name="loign_register_id_number_tips">Sign up ID number</string>
+
+    <!--人脸注册-->
+    <string name="loign_register_face_tips">Face registration failed</string>
+
+    <!--注册信息-->
+    <string name="loign_register_name_tips">Name</string>
+    <string name="loign_register_nation_tips">Nation</string>
+    <string name="loign_register_sex_tips">Gender</string>
+    <string name="loign_register_sex_man_tips">Man</string>
+    <string name="loign_register_sex_woman_tips">Woman</string>
+    <string name="loign_register_ID_number_tips">ID Number</string>
+    <string name="loign_register_address01_tips">Domicile address</string>
+    <string name="loign_register_address02_tips">Better address</string>
+
+    <string name="loign_register_enter_name_tips">Please enter your name</string>
+    <string name="loign_register_enter_nation_tips">Please enter your nation</string>
+    <string name="loign_register_enter_address_tips">Please enter your domicile address </string>
+    <string name="loign_register_enter_better_address_tips">Please enter your better address </string>
+
+</resources>

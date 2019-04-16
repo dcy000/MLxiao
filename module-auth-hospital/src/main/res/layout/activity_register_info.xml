@@ -21,7 +21,7 @@
             android:id="@+id/tv_register_name"
             android:layout_width="860pt"
             android:layout_height="wrap_content"
-            android:text="姓名"
+            android:text="@string/loign_register_name_tips"
             android:textColor="#ff333333"
             android:textSize="56pt"
             android:textStyle="bold" />
@@ -33,7 +33,7 @@
             android:layout_marginLeft="1000pt"
             android:layout_marginStart="40dp"
             android:layout_toEndOf="@+id/tv_register_name"
-            android:text="民族"
+            android:text="@string/loign_register_nation_tips"
             android:textColor="#ff333333"
             android:textSize="56pt"
             android:textStyle="bold" />
@@ -58,7 +58,7 @@
             android:layout_marginStart="8pt"
             android:background="@drawable/common_bg_input_gray"
             android:gravity="center_vertical"
-            android:hint="请输入您的姓名"
+            android:hint="@string/loign_register_enter_name_tips"
             android:inputType="text"
             android:textColor="#ff333333"
             android:textColorHint="#ffbbbbbb"
@@ -74,7 +74,7 @@
             android:layout_toEndOf="@+id/et_register_name"
             android:background="@drawable/common_bg_input_gray"
             android:gravity="center_vertical"
-            android:hint="请输入您的民族"
+            android:hint="@string/loign_register_enter_nation_tips"
             android:textColor="#ff333333"
             android:textColorHint="#ffbbbbbb"
             android:textSize="48pt" />
@@ -94,7 +94,7 @@
             android:id="@+id/textView6tv_register_sex"
             android:layout_width="860pt"
             android:layout_height="wrap_content"
-            android:text="性别"
+            android:text="@string/loign_register_sex_tips"
             android:textColor="#ff333333"
             android:textSize="56pt"
             android:textStyle="bold" />
@@ -107,7 +107,7 @@
             android:layout_marginLeft="1000pt"
             android:layout_marginStart="40dp"
             android:layout_toEndOf="@+id/textView6tv_register_sex"
-            android:text="身份证号码"
+            android:text="@string/loign_register_ID_number_tips"
             android:textColor="#ff333333"
             android:textSize="56pt"
             android:textStyle="bold" />
@@ -135,7 +135,7 @@
                 android:drawableLeft="@drawable/ic_not_select"
                 android:drawablePadding="24pt"
                 android:gravity="center"
-                android:text="男"
+                android:text="@string/loign_register_sex_man_tips"
                 android:textColor="#ff333333"
                 android:textSize="56pt" />
 
@@ -147,7 +147,7 @@
                 android:drawableLeft="@drawable/ic_select"
                 android:drawablePadding="24pt"
                 android:gravity="center"
-                android:text="女"
+                android:text="@string/loign_register_sex_woman_tips"
                 android:textColor="#ff333333"
                 android:textSize="56pt" />
 
@@ -165,7 +165,7 @@
             android:background="@drawable/common_bg_input_gray"
             android:digits="0123456789xyzXYZ"
             android:gravity="center_vertical"
-            android:hint="请输入您的身份证号码"
+            android:hint="@string/loign_id_number_input_tips"
             android:inputType="number"
             android:textColor="#ff333333"
             android:textColorHint="#ffbbbbbb"
@@ -187,7 +187,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8pt"
-            android:text="户籍地址"
+            android:text="@string/loign_register_address01_tips"
             android:textColor="#ff333333"
             android:textSize="56pt"
             android:textStyle="bold" />
@@ -197,7 +197,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1000pt"
-            android:text="详细地址"
+            android:text="@string/loign_register_address02_tips"
             android:textColor="#ff333333"
             android:textSize="56pt"
             android:visibility="gone" />
@@ -221,7 +221,7 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/common_bg_input_gray"
             android:gravity="center_vertical"
-            android:hint="请输入您的现住址"
+            android:hint="@string/loign_register_enter_address_tips"
             android:inputType="text"
             android:textColor="#ff333333"
             android:textColorHint="#ffbbbbbb"
@@ -233,7 +233,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="1000pt"
             android:background="@null"
-            android:hint="请输入您的详细地址"
+            android:hint="@string/loign_register_enter_better_address_tips"
             android:inputType="text"
             android:padding="32pt"
             android:textColor="#ff333333"
@@ -251,7 +251,7 @@
         android:layout_marginTop="50pt"
         android:background="@drawable/shape_rectangle_next_btn"
         android:gravity="center"
-        android:text="下一步"
+        android:text="@string/common_next"
         android:textColor="#ffffffff"
         android:textSize="56pt" />
 

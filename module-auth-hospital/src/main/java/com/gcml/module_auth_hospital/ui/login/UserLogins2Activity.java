@@ -55,7 +55,7 @@ public class UserLogins2Activity extends BaseActivity {
         });
 
         tb = findViewById(R.id.tb_logins);
-        tb.setData("用 户 登 录", 0, "  杭州", R.drawable.auth_hospital_ic_setting, null, new ToolBarClickListener() {
+        tb.setData(getString(R.string.loign_user_logins_title), 0, "  ", R.drawable.auth_hospital_ic_setting, null, new ToolBarClickListener() {
             @Override
             public void onLeftClick() {
 
@@ -73,8 +73,13 @@ public class UserLogins2Activity extends BaseActivity {
         });
 //        tb.layLeft.setOnClickListener(null);
         tb.layLeft.setClickable(false);
-        updatePage();
         ActivityHelper.addActivity(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updatePage();
     }
 
     private void updatePage() {
@@ -137,7 +142,7 @@ public class UserLogins2Activity extends BaseActivity {
                             lllogins.getChildAt(3).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    ToastUtils.showShort("敬请期待");
+                                    ToastUtils.showShort(getString(R.string.coming_soon_tips));
                                 }
                             });
 

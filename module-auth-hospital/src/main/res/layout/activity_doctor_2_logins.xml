@@ -38,7 +38,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="120pt"
-                android:text="身份证扫描"
+                android:text="@string/loign_user_login_scan_idcard"
                 android:textColor="#ff333333"
                 android:textSize="56pt" />
 
@@ -64,7 +64,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="120pt"
-                android:text="身份证号"
+                android:text="@string/loign_user_login_idcard_numer"
                 android:textColor="#ff333333"
                 android:textSize="56pt" />
 
@@ -90,7 +90,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="120pt"
-                android:text="人脸识别"
+                android:text="@string/loign_user_login_face"
                 android:textColor="#ff333333"
                 android:textSize="56pt" />
 
@@ -102,8 +102,7 @@
             android:layout_height="648pt"
             android:layout_marginLeft="-8pt"
             android:layout_marginTop="156pt"
-            android:visibility="gone"
-            >
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -117,7 +116,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="120pt"
-                android:text="市民卡(开发中)"
+                android:text="@string/loign_user_login_city_card"
                 android:textColor="#999"
                 android:textSize="56pt" />
 
@@ -138,7 +137,7 @@
             android:id="@+id/tv_no_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="没有账号?  "
+            android:text="@string/has_no_account_tips"
             android:textColor="#ff333333"
             android:textSize="56pt" />
 
@@ -147,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30pt"
-            android:text="立即注册"
+            android:text="@string/sign_up_tips"
             android:textColor="@color/tv_to_register_bg"
             android:textSize="56pt" />
 

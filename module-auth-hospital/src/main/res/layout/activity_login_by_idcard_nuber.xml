@@ -18,14 +18,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="59pt"
         android:layout_marginTop="100pt"
-        android:text="身份证号码登录"
+        android:text="@string/loign_login_id_number_tips"
         android:textColor="#ff333333"
         android:textSize="64pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/auth_idcard_numer_tb" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,6 +32,7 @@
         android:text="(身份证号将与您的居民健康档案绑定，请确认是否填写正确)"
         android:textColor="#ff999999"
         android:textSize="48pt"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -53,7 +53,7 @@
         android:background="@drawable/shape_rectangle_next_btn"
         android:enabled="false"
         android:gravity="center"
-        android:text="登录"
+        android:text="@string/loign_doctor_login"
         android:textColor="#fff"
         android:textSize="56pt"
         app:layout_constraintStart_toStartOf="@+id/textView18"
