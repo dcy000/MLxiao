@@ -71,7 +71,7 @@ public class RegisterSuccessActivity extends BaseActivity implements View.OnClic
         tvAuthRegisterSuccessComplete = (TextView) findViewById(R.id.tv_auth_register_success_complete);
         tvAuthRegisterSuccessComplete.setOnClickListener(this);
 
-        tbAuthRegisterSuccess.setData("账 户 注 册",
+        tbAuthRegisterSuccess.setData(getString(R.string.loign_register_registers_title),
                0, null,
                0, null, new ToolBarClickListener() {
                     @Override
@@ -118,7 +118,7 @@ public class RegisterSuccessActivity extends BaseActivity implements View.OnClic
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("正在登录...");
+                        showLoading(getString(R.string.loign_login_logining_tips));
                     }
                 })
                 .doOnTerminate(new Action() {
@@ -136,7 +136,7 @@ public class RegisterSuccessActivity extends BaseActivity implements View.OnClic
                                 .addParam("userId", user.id)
                                 .build()
                                 .callAsync();
-                        ToastUtils.showLong("登录成功");
+                        ToastUtils.showLong(getString(R.string.loign_login_sucess_tips));
                         toHome();
                     }
 

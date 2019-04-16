@@ -7,6 +7,7 @@
     <string name="common_next">下一步</string>
     <string name="common_confirm">确认</string>
     <string name="common_cancel">取消</string>
+    <string name="common_complete">完成</string>
 
     <!--提示-->
     <string name="loign_load_tips">加载中</string>
@@ -77,6 +78,10 @@
     <string name="loign_register_enter_nation_tips">请输入民族</string>
     <string name="loign_register_enter_address_tips">请输入地址</string>
     <string name="loign_register_enter_better_address_tips">请输入详细地址</string>
+
+    <!--注册成功-->
+    <string name="loign_register_successs_jumps_tips">3秒后自动跳转到预诊建档界面</string>
+
 
 
 </resources>

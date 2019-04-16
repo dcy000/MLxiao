@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40pt"
-        android:text="注册成功"
+        android:text="@string/loign_register_sucess_tips"
         android:textColor="#FF3F86FC"
         android:textSize="64pt" />
 
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30pt"
-        android:text="3秒后自动跳转到预诊建档界面"
+        android:text="@string/loign_register_successs_jumps_tips"
         android:textColor="#FFBBBBBB"
         android:textSize="48pt" />
 
@@ -40,7 +40,7 @@
         android:layout_marginTop="200pt"
         android:background="@drawable/shape_rectangle_next_btn"
         android:gravity="center"
-        android:text="完成"
+        android:text="@string/common_complete"
         android:textColor="#ffffffff"
         android:textSize="48pt" />
 

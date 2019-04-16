@@ -7,6 +7,7 @@
     <string name="common_next">Next</string>
     <string name="common_confirm">Confirm</string>
     <string name="common_cancel">Cancel</string>
+    <string name="common_complete">complete</string>
 
     <!--提示-->
     <string name="loign_load_tips">Loading</string>
@@ -74,5 +75,8 @@
     <string name="loign_register_enter_nation_tips">Please enter your nation</string>
     <string name="loign_register_enter_address_tips">Please enter your domicile address </string>
     <string name="loign_register_enter_better_address_tips">Please enter your better address </string>
+
+    <!--注册成功-->
+    <string name="loign_register_successs_jumps_tips">Page automatically jumps after 3 seconds</string>
 
 </resources>
