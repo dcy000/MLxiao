@@ -33,7 +33,9 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.functions.Cancellable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.plugins.RxJavaPlugins;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
@@ -42,6 +44,15 @@ import retrofit2.HttpException;
  */
 
 public class RxUtils {
+
+    static {
+        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                throwable.printStackTrace();
+            }
+        });
+    }
 
     public static <T> ObservableTransformer<ApiResult<T>, T> apiResultTransformer() {
         return new ObservableTransformer<ApiResult<T>, T>() {
