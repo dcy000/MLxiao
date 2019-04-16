@@ -3,7 +3,6 @@ package com.gcml.module_auth_hospital.ui.register;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -17,13 +16,10 @@ import com.gcml.common.utils.RxUtils;
 import com.gcml.common.utils.Utils;
 import com.gcml.common.utils.UtilsManager;
 import com.gcml.common.utils.display.ToastUtils;
-import com.gcml.common.widget.dialog.LoadingDialog;
 import com.gcml.common.widget.toolbar.ToolBarClickListener;
 import com.gcml.common.widget.toolbar.TranslucentToolBar;
 import com.gcml.module_auth_hospital.R;
 import com.gcml.module_auth_hospital.model.UserRepository;
-
-import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -75,7 +71,7 @@ public class RegisterSuccessActivity extends BaseActivity implements View.OnClic
         tvAuthRegisterSuccessComplete = (TextView) findViewById(R.id.tv_auth_register_success_complete);
         tvAuthRegisterSuccessComplete.setOnClickListener(this);
 
-        tbAuthRegisterSuccess.setData("账 户 注 册",
+        tbAuthRegisterSuccess.setData(getString(R.string.loign_register_registers_title),
                0, null,
                0, null, new ToolBarClickListener() {
                     @Override
@@ -122,7 +118,7 @@ public class RegisterSuccessActivity extends BaseActivity implements View.OnClic
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showLoading("正在登录...");
+                        showLoading(getString(R.string.loign_login_logining_tips));
                     }
                 })
                 .doOnTerminate(new Action() {
@@ -140,7 +136,7 @@ public class RegisterSuccessActivity extends BaseActivity implements View.OnClic
                                 .addParam("userId", user.id)
                                 .build()
                                 .callAsync();
-                        ToastUtils.showLong("登录成功");
+                        ToastUtils.showLong(getString(R.string.loign_login_sucess_tips));
                         toHome();
                     }
 
