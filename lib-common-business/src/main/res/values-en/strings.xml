@@ -2,4 +2,8 @@
 <resources>
     <string name="toolbar_back">Back</string>
     <string name="measure_right_now">Detect Now</string>
+
+    <!--管理员 权限dialog-->
+    <string name="business_perimission_dialog_title">Administrator password</string>
+    <string name="business_common_complete">Complete</string>
 </resources>

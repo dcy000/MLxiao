@@ -566,8 +566,10 @@
     <string name="tips_detection_right_again">请再测量右手血压</string>
 
     <!--健康管理(登陆时)-->
-    <string name="health_management_title">健 康 管 理</string>
-    <string name="health_management_tips">健康管理</string>
-    <string name="health_management_file_tips">建档</string>
-    <string name="health_management_home_tips">主页</string>
+    <string name="health_management_title">Health management</string>
+    <string name="health_management_tips">Health management</string>
+    <string name="health_management_file_tips">Create file</string>
+    <string name="health_management_home_tips">Homepage</string>
+
+
 </resources>

@@ -89,4 +89,8 @@
     </string-array>
     <string name="toolbar_back">返回</string>
     <string name="measure_right_now">马上去测量</string>
+
+    <!--管理员 权限dialog    -->
+    <string name="business_perimission_dialog_title">请输入管理员密码</string>
+    <string name="business_common_complete">完成</string>
 </resources>

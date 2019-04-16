@@ -104,7 +104,7 @@ public class InquiryEntranceActivity extends BaseActivity implements View.OnClic
         rl_inquiry_home_file.setOnClickListener(this);
         rl_inquiry_home_home.setOnClickListener(this);
 
-        tb_inquiry_home.setData("健 康 管 理",
+        tb_inquiry_home.setData(getString(R.string.health_management_title),
                 0, null,
                 R.drawable.common_ic_wifi_state, null, new ToolBarClickListener() {
                     @Override

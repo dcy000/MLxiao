@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="健康管理"
+                android:text="@string/health_management_title"
                 android:textColor="#ff333333"
                 android:textSize="64pt" />
 
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="建档"
+                android:text="@string/health_management_file_tips"
                 android:textColor="#ff333333"
                 android:textSize="64pt" />
 
@@ -70,14 +70,14 @@
             <ImageView
                 android:layout_width="380pt"
                 android:layout_height="380pt"
-                android:background="@drawable/selector_health_manager_home"/>
+                android:background="@drawable/selector_health_manager_home" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="主页"
+                android:text="@string/health_management_home_tips"
                 android:textColor="#ff333333"
                 android:textSize="64pt" />
 
